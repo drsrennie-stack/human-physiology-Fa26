@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- MCAS_BRAND_APPLIED -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Physiology . Course Map . Fall 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/plus-jakarta-sans/index.css');
+:root{
+  /* MCAS palette (matches the BIO 304 lab workbook) */
+  --mcas-navy:#0B1530;
+  --mcas-rust:#8B3A2E;
+  --mcas-gold:#C9A14A;
+  --mcas-gold-deep:#B08B3A;
+  --mcas-cream:#F5F1E8;
+  --mcas-dark:#060A18;
+  --white:#FFFFFF;
+  --gray-line:rgba(11,21,48,0.18);
+  --gray-soft:rgba(11,21,48,0.72);
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  background:#FFFFFF;
+  color:var(--mcas-navy);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+/* Force Plus Jakarta Sans across everything except code, matching the workbook rebrand. */
+body.mcas-page,
+body.mcas-page *:not(code):not(pre):not(kbd):not(samp):not(tt){
+  font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+}
+:focus-visible{outline:3px solid var(--mcas-rust);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* ---------- MCAS chrome ---------- */
+.mcas-skip{position:absolute;top:-100px;left:8px;background:var(--mcas-navy);color:var(--mcas-cream);padding:12px 20px;text-decoration:none;font-size:13px;font-weight:700;border-radius:4px;z-index:9999;letter-spacing:.04em}
+.mcas-skip:focus{top:8px}
+.mcas-header{background:#FFFFFF;padding:24px max(40px,5vw)}
+.mcas-header-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.mcas-brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:var(--mcas-navy)}
+.mcas-brand svg{height:44px;width:auto;display:block}
+.mcas-brand-title{font-size:18px;font-weight:800;line-height:1;letter-spacing:-.015em}
+.mcas-brand-title .accent{color:var(--mcas-rust)}
+.mcas-brand-sub{font-size:9.5px;font-weight:700;letter-spacing:.20em;text-transform:uppercase;color:var(--mcas-navy);opacity:.72;display:block;margin-top:3px}
+.mcas-back{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mcas-rust);text-decoration:none;padding:8px 14px;border:1px solid var(--mcas-rust);border-radius:4px}
+.mcas-back:hover,.mcas-back:focus-visible{background:var(--mcas-rust);color:#FFFFFF}
+
+/* ---------- Page header ---------- */
+main{max-width:900px;margin:0 auto;padding:8px max(20px,4vw) 24px}
+.page-head{padding:16px 0 4px}
+.eyebrow{font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mcas-rust);margin:0 0 6px}
+h1{font-weight:800;font-size:clamp(24px,4vw,38px);color:var(--mcas-navy);margin:0 0 6px;letter-spacing:-.015em;line-height:1.1}
+.subhead{font-weight:600;color:var(--mcas-rust);font-size:clamp(15px,2.2vw,19px);margin:0 0 12px}
+.usage{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--mcas-navy);opacity:.85;font-size:16px;margin:0;max-width:70ch}
+
+/* ---------- Term facts ---------- */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:24px 0 8px;padding:0;list-style:none}
+.facts li{background:#FFFFFF;border-radius:10px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:16px 18px}
+.facts .k{font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--mcas-rust);display:block;margin-bottom:5px}
+.facts .v{font-weight:700;color:var(--mcas-navy);font-size:17px}
+
+/* ---------- Unit bands (left accent only, no bookends) ---------- */
+.unit-band{margin:30px 0 14px;padding:14px 18px;border-radius:8px;background:#FFFFFF;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.unit-band.a{border-left:6px solid var(--mcas-rust)}
+.unit-band.b{border-left:6px solid var(--mcas-gold)}
+.unit-band .tag{font-family:'DM Sans',system-ui,sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 4px;color:var(--mcas-rust)}
+.unit-band.b .tag{color:var(--mcas-gold-deep)}
+.unit-band h2{font-weight:800;color:var(--mcas-navy);font-size:21px;margin:0;letter-spacing:-.01em}
+
+/* ---------- Week cards (read-only info, no hover lift) ---------- */
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:#FFFFFF;border-radius:10px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:20px 22px}
+.card .wk{font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--mcas-rust);margin:0 0 2px}
+.card .dates{font-family:'DM Sans',system-ui,sans-serif;font-size:11px;color:var(--gray-soft);margin:0 0 10px}
+h3{font-weight:700;color:var(--mcas-navy);font-size:17px;margin:0 0 12px;line-height:1.25}
+.card h4{font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--mcas-rust);margin:14px 0 6px}
+.card ul{margin:0;padding-left:18px}
+.card li{margin:4px 0;font-size:15px}
+.lab{font-family:'Lora',Georgia,serif;font-style:italic;font-size:15px;color:var(--mcas-navy);opacity:.85;margin:6px 0 0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px}
+.pill-lab{color:var(--mcas-rust);border:1px solid var(--mcas-rust)}
+.pill-exam{color:#FFFFFF;background:var(--mcas-navy)}
+.pill-break{color:var(--mcas-gold-deep);border:1px solid var(--mcas-gold)}
+
+.note{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--mcas-navy);opacity:.85;font-size:15px;margin:30px 0 0;max-width:72ch}
+
+/* ---------- MCAS footer ---------- */
+.mcas-footer{background:var(--mcas-dark);color:var(--mcas-cream);padding:40px max(40px,5vw) 28px;margin-top:56px}
+.mcas-footer-links{display:flex;gap:22px;flex-wrap:wrap}
+.mcas-footer-link{font-size:12.5px;font-weight:500;letter-spacing:.02em}
+.mcas-footer a{color:#FFFFFF;text-decoration:none;opacity:.92}
+.mcas-footer a:hover,.mcas-footer a:focus-visible{color:var(--mcas-gold);opacity:1;text-decoration:underline}
+.mcas-footer a:focus-visible{outline:3px solid var(--mcas-gold);outline-offset:3px;border-radius:4px}
+.mcas-footer-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:32px;margin-top:24px}
+.mcas-footer-copyright{font-size:11px;opacity:.72;letter-spacing:.03em}
+.mcas-footer-byline{font-size:11px;font-weight:700;color:var(--mcas-gold);letter-spacing:.16em;text-transform:uppercase}
+</style>
+</head>
+<body class="mcas-page">
+<a href="#main" class="mcas-skip">Skip to course map</a>
+
+<div class="mcas-chrome">
+<header class="mcas-header">
+  <div class="mcas-header-row">
+    <a class="mcas-brand" href="index.html" target="_top" aria-label="Human Physiology, course home">
+      <svg viewBox="40 10 125 148" role="img" aria-hidden="true" focusable="false">
+        <g transform="translate(0, 18)">
+          <g transform="translate(60, 0) rotate(8 0 130)">
+            <circle cx="0" cy="20" r="10" fill="#0B1530"/>
+            <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/>
+          </g>
+          <g transform="translate(100, 0)">
+            <circle cx="0" cy="10" r="11" fill="#8B3A2E"/>
+            <path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/>
+          </g>
+          <g transform="translate(140, 0) rotate(-8 0 130)">
+            <circle cx="0" cy="20" r="10" fill="#C9A14A"/>
+            <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/>
+          </g>
+        </g>
+      </svg>
+      <span>
+        <span class="mcas-brand-title">Human <span class="accent">Physiology</span></span>
+        <span class="mcas-brand-sub">BIO 005</span>
+      </span>
+    </a>
+    <a class="mcas-back" href="index.html" target="_top">&larr; Course home</a>
+  </div>
+</header>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="page-head">
+    <p class="eyebrow">Majors Physiology &middot; Course Map</p>
+    <h1>Human Physiology Course Map</h1>
+    <p class="subhead">Fall 2026 &middot; September 8 to December 11 &middot; Online, asynchronous with lab</p>
+    <p class="usage">A 14-week sequence built around high-yield, mechanism-level physiology. Topics build from cell and membrane foundations through excitable tissue, the organ systems, and integrative control. Each week pairs a lecture focus with an asynchronous lab. Depth sits between an introductory survey and a graduate or professional course: you reason through mechanisms, not just name structures.</p>
+
+    <ul class="facts">
+      <li><span class="k">Length</span><span class="v">14 weeks</span></li>
+      <li><span class="k">Units</span><span class="v">8 units, 14 labs</span></li>
+      <li><span class="k">Unit exams</span><span class="v">Weeks 4, 7, 11</span></li>
+      <li><span class="k">Final (cumulative)</span><span class="v">Finals week, Dec 7 to 11</span></li>
+    </ul>
+  </div>
+
+  <!-- UNIT 1 -->
+  <section aria-labelledby="u1">
+    <div class="unit-band a"><p class="tag">Unit 1</p><h2 id="u1">Foundations of Physiology</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 1</p><p class="dates">Sept 8 to 13</p>
+        <h3>Homeostasis and the logic of regulation</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Physiology as the study of mechanism; levels of organization</li>
+          <li>Homeostasis, setpoints, negative and positive feedback</li>
+          <li>Body fluid compartments, mass balance, flux</li>
+        </ul>
+        <p class="lab">Lab: Reading physiological data, control-system simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 1</span></div>
+      </article>
+      <article class="card">
+        <p class="wk">Week 2</p><p class="dates">Sept 14 to 20</p>
+        <h3>Membranes and transport</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Membrane structure; diffusion, osmosis, tonicity</li>
+          <li>Channels, carriers, primary and secondary active transport</li>
+          <li>Epithelial transport and bulk transport</li>
+        </ul>
+        <p class="lab">Lab: Diffusion and osmosis virtual experiment.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 2</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 2 -->
+  <section aria-labelledby="u2">
+    <div class="unit-band b"><p class="tag">Unit 2</p><h2 id="u2">Excitable Tissue and Neural Signaling</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 3</p><p class="dates">Sept 21 to 27</p>
+        <h3>Membrane potential and the action potential</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Resting membrane potential, Nernst and GHK reasoning</li>
+          <li>Graded potentials versus action potentials</li>
+          <li>Voltage-gated channels, propagation, conduction velocity</li>
+        </ul>
+        <p class="lab">Lab: Membrane potential and action potential simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 3</span></div>
+      </article>
+      <article class="card">
+        <p class="wk">Week 4</p><p class="dates">Sept 28 to Oct 4</p>
+        <h3>Synaptic transmission and neural integration</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Chemical synapses, neurotransmitters, receptors</li>
+          <li>Summation, EPSPs and IPSPs, neural coding</li>
+          <li>Autonomic nervous system overview</li>
+        </ul>
+        <p class="lab">Lab: Synaptic transmission simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 4</span><span class="pill pill-exam">Exam 1 &middot; Units 1 to 2</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 3 -->
+  <section aria-labelledby="u3">
+    <div class="unit-band a"><p class="tag">Unit 3</p><h2 id="u3">Muscle Physiology</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 5</p><p class="dates">Oct 5 to 11</p>
+        <h3>Muscle contraction and mechanics</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Excitation-contraction coupling, the cross-bridge cycle</li>
+          <li>Twitch, summation, tetanus, length-tension relationship</li>
+          <li>Smooth and cardiac muscle compared to skeletal</li>
+        </ul>
+        <p class="lab">Lab: Muscle force, summation, and fatigue simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 5</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 4 -->
+  <section aria-labelledby="u4">
+    <div class="unit-band b"><p class="tag">Unit 4</p><h2 id="u4">Cardiovascular Physiology</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 6</p><p class="dates">Oct 12 to 18</p>
+        <h3>The heart as a pump</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Cardiac action potentials, pacemaker activity, the ECG</li>
+          <li>Cardiac cycle, pressure-volume loops</li>
+          <li>Stroke volume, cardiac output, contractility</li>
+        </ul>
+        <p class="lab">Lab: ECG and cardiac cycle simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 6</span></div>
+      </article>
+      <article class="card">
+        <p class="wk">Week 7</p><p class="dates">Oct 19 to 25</p>
+        <h3>Vascular function and blood pressure</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Hemodynamics, resistance, capillary exchange</li>
+          <li>Baroreceptor reflex and blood pressure regulation</li>
+          <li>Blood composition and hemostasis overview</li>
+        </ul>
+        <p class="lab">Lab: Baroreceptor reflex and blood pressure regulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 7</span><span class="pill pill-exam">Exam 2 &middot; Units 3 to 4</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 5 -->
+  <section aria-labelledby="u5">
+    <div class="unit-band a"><p class="tag">Unit 5</p><h2 id="u5">Respiratory Physiology</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 8</p><p class="dates">Oct 26 to Nov 1</p>
+        <h3>Ventilation and mechanics</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Pressure-volume relationships, compliance, surface tension</li>
+          <li>Lung volumes and capacities, dead space</li>
+          <li>Work of breathing</li>
+        </ul>
+        <p class="lab">Lab: Spirometry and pulmonary function simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 8</span></div>
+      </article>
+      <article class="card">
+        <p class="wk">Week 9</p><p class="dates">Nov 2 to 8</p>
+        <h3>Gas exchange and transport</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Alveolar gas exchange, ventilation-perfusion matching</li>
+          <li>Oxygen-hemoglobin dissociation, CO2 transport</li>
+          <li>Central and peripheral control of breathing</li>
+        </ul>
+        <p class="lab">Lab: Gas transport and oxygen dissociation curve.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 9</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 6 -->
+  <section aria-labelledby="u6">
+    <div class="unit-band b"><p class="tag">Unit 6</p><h2 id="u6">Renal, Fluid, and Acid-Base</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 10</p><p class="dates">Nov 9 to 15</p>
+        <h3>Renal function</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Filtration, reabsorption, secretion, clearance</li>
+          <li>Tubular transport and the countercurrent mechanism</li>
+          <li>Regulation of GFR and urine concentration</li>
+        </ul>
+        <p class="lab">Lab: Renal clearance and GFR simulation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 10</span></div>
+      </article>
+      <article class="card">
+        <p class="wk">Week 11</p><p class="dates">Nov 16 to 22</p>
+        <h3>Fluid, electrolyte, and acid-base balance</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Body fluid regulation, sodium and water balance, RAAS and ADH</li>
+          <li>Potassium and calcium homeostasis</li>
+          <li>Acid-base physiology and compensation</li>
+        </ul>
+        <p class="lab">Lab: Acid-base and blood-gas interpretation.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 11</span><span class="pill pill-exam">Exam 3 &middot; Units 5 to 6</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 7 -->
+  <section aria-labelledby="u7">
+    <div class="unit-band a"><p class="tag">Unit 7</p><h2 id="u7">Digestive Physiology and Metabolism</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 12</p><p class="dates">Nov 23 to 29</p>
+        <h3>Digestion, absorption, and energy balance</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>GI motility, secretion, and their neural and hormonal control</li>
+          <li>Digestion and absorption of macronutrients</li>
+          <li>Metabolic states, energy balance, regulation of food intake</li>
+        </ul>
+        <p class="lab">Lab: Short module and catch-up around the holiday.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 12</span><span class="pill pill-break">Thanksgiving Nov 26 to 27</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- UNIT 8 -->
+  <section aria-labelledby="u8">
+    <div class="unit-band b"><p class="tag">Unit 8</p><h2 id="u8">Endocrine, Reproductive, and Integration</h2></div>
+    <div class="weeks">
+      <article class="card">
+        <p class="wk">Week 13</p><p class="dates">Nov 30 to Dec 6</p>
+        <h3>Endocrine control</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Hormone classes, receptors, and feedback axes</li>
+          <li>Hypothalamic-pituitary, thyroid, and adrenal systems</li>
+          <li>Pancreatic hormones and blood glucose regulation</li>
+        </ul>
+        <p class="lab">Lab: Glucose regulation and endocrine case analysis.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 13</span></div>
+      </article>
+      <article class="card">
+        <p class="wk">Week 14</p><p class="dates">Dec 7 to 11</p>
+        <h3>Reproduction and integrative physiology</h3>
+        <h4>Lecture focus</h4>
+        <ul>
+          <li>Reproductive endocrinology, gametogenesis, pregnancy overview</li>
+          <li>Integrated responses: exercise, thermoregulation, stress</li>
+          <li>Course synthesis across systems</li>
+        </ul>
+        <p class="lab">Lab: Integrated exercise physiology case.</p>
+        <div class="tags"><span class="pill pill-lab">Lab 14</span><span class="pill pill-exam">Final &middot; Cumulative</span></div>
+      </article>
+    </div>
+  </section>
+
+  <p class="note">Sequencing note: this map places the endocrine unit after the renal and digestive units so that glucose, fluid, and metabolic regulation reinforce one another. An alternative high-yield arrangement pairs the endocrine unit immediately after the nervous system, treating neural and hormonal signaling as the two control systems before the organ-system tour. Either order works; choose based on how your assessments are weighted.</p>
+</main>
+
+<div class="mcas-chrome">
+<footer class="mcas-footer">
+  <div class="mcas-footer-links">
+    <a class="mcas-footer-link" href="index.html" target="_top">Course home</a>
+    <a class="mcas-footer-link" href="biol304_syllabus.html" target="_top">Syllabus</a>
+    <a class="mcas-footer-link" href="course-orientation.html" target="_top">Orientation</a>
+    <a class="mcas-footer-link" href="concept_videos.html" target="_top">Concept videos</a>
+    <a class="mcas-footer-link" href="biol304_accessibility.html" target="_top">Accessibility</a>
+  </div>
+  <div class="mcas-footer-row">
+    <div class="mcas-footer-copyright">BIO 005 Human Physiology</div>
+    <div class="mcas-footer-byline">Dr. Sharilyn Rennie</div>
+  </div>
+</footer>
+</div>
+
+<!-- mcas-iframe-height-sender -->
+<script>
+(function(){
+  var FRAME_ID = "physiology-course-map";
+  function sendHeight(){
+    var h = Math.max(document.documentElement.scrollHeight,
+                     document.body ? document.body.scrollHeight : 0);
+    if (window.parent && window.parent !== window){
+      parent.postMessage({type:"resize", id:FRAME_ID, height:h}, "*");
+    }
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if (window.ResizeObserver) new ResizeObserver(sendHeight).observe(document.body);
+})();
+</script>
+<!-- mcas-iframe-height-sender-end -->
+</body>
+</html>
