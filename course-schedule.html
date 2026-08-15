@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Schedule &middot; BIO 005 Human Physiology</title>
+<!--
+  BIO 005 Human Physiology, Yuba College, Fall 2026.
+  Section BIOL-5-D9286, asynchronous online, lecture and lab.
+
+  Student-facing schedule. Reads bio005-schedule-fall2026.js and
+  bio005-competencies.js. Every date is derived from the data files,
+  never typed into the markup, so a date can not drift out of sync.
+
+  Dates marked PLACEHOLDER are proposals. Do not publish to students
+  until the exam windows are confirmed.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#08101F;
+  --navy-darkest:#060A18;
+  --navy-tint:#ECEFF4;
+  --terra:#8B1D1D;
+  --terra-dark:#6B1616;
+  --gold:#DCB45C;
+  --gold-text:#6E5018;
+  --teal-text:#2C5F66;
+  --ink-muted:#3D4860;
+  --rule:#B8BEC8;
+  --rule-soft:#DCE0E6;
+  --page:#FFFFFF;
+  --surface:#FAFAF9;
+  --shadow-card:0 1px 3px rgba(10,19,34,0.08), 0 1px 2px rgba(10,19,34,0.05);
+  --shadow-lift:0 6px 16px rgba(10,19,34,0.10), 0 3px 6px rgba(10,19,34,0.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  background:var(--page);color:var(--navy);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+em,i,cite,dfn,var,address{font-style:normal;}
+a{color:var(--terra);}
+a:hover{color:var(--terra-dark);}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px;}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--navy);color:#fff;padding:10px 16px;font-weight:700;text-decoration:none;border-radius:0 0 8px 0;}
+.skip:focus{left:0;}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+.site-header{background:#fff;padding:20px max(20px,4vw);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.mark{width:44px;height:44px;flex:none;}
+.site-header .t1{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold-text);}
+.site-header .t2{font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+.site-header .t3{font-size:13px;color:var(--ink-muted);}
+
+.hero{background:var(--navy);color:#fff;padding:44px max(20px,4vw) 40px;}
+.hero .wrap{max-width:1080px;margin:0 auto;}
+.hero .eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.hero h1{font-size:clamp(28px,4.2vw,42px);font-weight:800;letter-spacing:-0.025em;margin:0 0 12px;line-height:1.12;}
+.hero h1 .accent{color:var(--gold);}
+.hero p{margin:0 0 6px;max-width:70ch;color:#E6E9EF;font-size:15.5px;}
+.termfacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:26px;}
+.tf{background:#111C31;border-radius:8px;padding:13px 15px;}
+.tf .k{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);}
+.tf .v{font-size:15px;font-weight:700;color:#fff;margin-top:3px;}
+
+main{max-width:1080px;margin:0 auto;padding:0 max(20px,4vw) 72px;}
+.section{padding-top:44px;}
+.section h2{font-size:clamp(21px,2.6vw,27px);font-weight:800;letter-spacing:-0.015em;margin:0 0 6px;}
+.section .sub{color:var(--ink-muted);font-size:14.5px;margin:0 0 22px;max-width:75ch;}
+
+.draft{
+  background:#fff;border:1px solid var(--gold);border-radius:16px;
+  box-shadow:var(--shadow-card);padding:18px 20px;margin-top:26px;
+}
+.draft .lab{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-text);margin-bottom:6px;}
+.draft p{margin:0;font-size:14px;color:var(--ink-muted);}
+
+.beats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+.beat{background:#fff;border:1px solid var(--rule-soft);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-card);transition:transform 200ms ease,box-shadow 200ms ease;}
+.beat:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.beat .n{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-text);}
+.beat h3{font-size:17px;font-weight:800;margin:5px 0 3px;}
+.beat .when{font-size:12.5px;color:var(--teal-text);font-weight:700;margin-bottom:9px;}
+.beat p{margin:0 0 9px;font-size:13.8px;color:var(--ink-muted);}
+.beat .g{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);border:1px solid var(--rule);border-radius:99px;padding:4px 10px;display:inline-block;}
+
+.wk{background:#fff;border:1px solid var(--rule-soft);border-radius:16px;box-shadow:var(--shadow-card);padding:22px 24px;margin-bottom:14px;transition:transform 200ms ease,box-shadow 200ms ease;}
+.wk:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.wk-head{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap;margin-bottom:10px;}
+.pill{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:var(--navy);color:#fff;padding:5px 13px;border-radius:99px;}
+.pill.mod{background:#fff;color:var(--gold-text);border:1px solid var(--gold);}
+.pill.short{background:var(--gold);color:var(--navy);}
+.wk-head h3{font-size:18.5px;font-weight:800;margin:0;letter-spacing:-0.01em;}
+.wk-dates{font-size:13px;color:var(--ink-muted);margin-left:auto;font-weight:700;}
+
+.wk-note{background:var(--surface);border-radius:8px;padding:12px 15px;font-size:13.5px;color:var(--ink-muted);margin:12px 0;}
+.wk-note strong{color:var(--terra-dark);}
+
+.wk-exam{background:var(--navy);color:#fff;border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.8px;}
+.wk-exam .lab{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px;}
+
+.wk-extras{margin:12px 0 0;padding-left:20px;font-size:13.6px;color:var(--ink-muted);}
+.wk-extras li{margin-bottom:4px;}
+
+details.topics{margin-top:14px;}
+details.topics summary{
+  cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--teal-text);
+  padding:9px 0;
+}
+details.topics summary::-webkit-details-marker{color:var(--teal-text);}
+.topiclist{margin:6px 0 0;padding-left:20px;font-size:13.8px;color:var(--ink-muted);}
+.topiclist li{margin-bottom:7px;}
+.topiclist b{color:var(--navy);font-weight:700;}
+.meta-line{font-size:12.5px;color:var(--ink-muted);margin-top:10px;}
+
+table.grade{width:100%;border-collapse:collapse;font-size:14px;background:#fff;}
+table.grade th,table.grade td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--rule-soft);vertical-align:top;}
+table.grade th{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);}
+table.grade td.w{font-weight:800;color:var(--terra-dark);white-space:nowrap;}
+caption{text-align:left;font-size:13px;color:var(--ink-muted);padding-bottom:10px;}
+
+ol.decisions{padding-left:22px;font-size:14.2px;color:var(--ink-muted);}
+ol.decisions li{margin-bottom:12px;}
+ol.decisions b{color:var(--navy);}
+ol.decisions .aff{display:block;font-size:12.8px;color:var(--teal-text);margin-top:2px;}
+
+footer{background:var(--navy-darkest);color:#C7CEDA;padding:34px max(20px,4vw);margin-top:56px;}
+footer .wrap{max-width:1080px;margin:0 auto;}
+footer .who{color:#fff;font-weight:800;font-size:15px;margin-bottom:4px;}
+footer .sm{font-size:12.5px;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{transition:none!important;animation:none!important;}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the schedule</a>
+
+<header class="site-header">
+  <svg class="mark" viewBox="0 0 44 44" role="img" aria-label="BIO 005 Human Physiology">
+    <rect width="44" height="44" rx="8" fill="#08101F"></rect>
+    <path d="M6 24h6l3-8 4 15 4-20 3.5 13 2.5-5H38" fill="none" stroke="#DCB45C"
+          stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <div class="titles">
+    <div class="t1">Course schedule</div>
+    <div class="t2">Human Physiology</div>
+    <div class="t3">BIO 005 &middot; Yuba College &middot; Fall 2026</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Fall 2026 &middot; Asynchronous online</div>
+    <h1>Fifteen weeks, five units, <span class="accent">one shape every week</span></h1>
+    <p>This course has no meeting time. Every week opens Monday and closes Sunday night, and every week runs the same four beats, so you learn the container once and then spend your attention on physiology instead of on finding things.</p>
+    <div class="termfacts" id="termfacts"></div>
+  </div>
+</section>
+
+<main id="main">
+
+  <div class="draft">
+    <div class="lab">Draft, not yet published</div>
+    <p id="draftnote"></p>
+  </div>
+
+  <section class="section">
+    <h2>How every week works</h2>
+    <p class="sub">Four beats, in the same order, every week of the term.</p>
+    <div class="beats" id="beats"></div>
+  </section>
+
+  <section class="section">
+    <h2>Week by week</h2>
+    <p class="sub">Open each week to see the competencies it is responsible for. These are the statements the exams are written from, so if you can do all of them you are ready.</p>
+    <div id="weeks"></div>
+  </section>
+
+  <section class="section">
+    <h2>Grading</h2>
+    <p class="sub">Categories are set. Weights are still being finalized.</p>
+    <table class="grade">
+      <caption id="gradecaption"></caption>
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Weight</th>
+          <th scope="col">What it is</th>
+        </tr>
+      </thead>
+      <tbody id="gradebody"></tbody>
+    </table>
+  </section>
+
+  <section class="section" id="decisions-section">
+    <h2>Still being decided</h2>
+    <p class="sub">Instructor working list. These get resolved before the term opens, and this page updates itself when the data file changes.</p>
+    <ol class="decisions" id="decisions"></ol>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="who">Dr. Sharilyn Rennie</div>
+    <div class="sm">BIO 005 Human Physiology &middot; Yuba College</div>
+  </div>
+</footer>
+
+<script src="bio005-competencies.js"></script>
+<script src="bio005-schedule-fall2026.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var T = window.BIO005_TERM || {};
+  var SHAPE = window.BIO005_WEEK_SHAPE || [];
+  var WEEKS = window.BIO005_WEEKS || [];
+  var GRADING = window.BIO005_GRADING || { categories: [] };
+  var DECISIONS = window.BIO005_OPEN_DECISIONS || [];
+  var C = window.BIO005_COMPETENCIES || [];
+  var MODULES = window.BIO005_MODULES || [];
+
+  var byId = {};
+  C.forEach(function(c){ byId[c.id] = c; });
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function parse(iso){
+    var p = String(iso).split('-');
+    return new Date(Date.UTC(+p[0], +p[1]-1, +p[2], 12));
+  }
+  function shortDate(iso){
+    if (!iso) return 'TBD';
+    var d = parse(iso);
+    return DAYS[d.getUTCDay()].slice(0,3) + ' ' + MONS[d.getUTCMonth()] + ' ' + d.getUTCDate();
+  }
+  function longDate(iso){
+    if (!iso) return 'TBD';
+    var d = parse(iso);
+    return DAYS[d.getUTCDay()] + ', ' + MONS[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear();
+  }
+
+  /* ---------- term facts ---------- */
+  var facts = [
+    { k:'Term', v: shortDate(T.start) + ' to ' + shortDate(T.end) },
+    { k:'Delivery', v: 'Asynchronous online' },
+    { k:'Week opens', v: T.weeklyOpen || 'Monday' },
+    { k:'Week closes', v: T.weeklyClose || 'Sunday' },
+    { k:'Census', v: shortDate(T.census) },
+    { k:'Last day to drop', v: shortDate(T.lastDrop) }
+  ];
+  var tfWrap = document.getElementById('termfacts');
+  facts.forEach(function(f){
+    var d = el('div','tf');
+    d.appendChild(el('div','k', f.k));
+    d.appendChild(el('div','v', f.v));
+    tfWrap.appendChild(d);
+  });
+
+  document.getElementById('draftnote').textContent =
+    'Exam windows on this page are proposals, not settings. ' + DECISIONS.length +
+    ' items are still open, listed at the bottom. Do not send this link to students until the exam windows and grading weights are confirmed.';
+
+  /* ---------- beats ---------- */
+  var beatWrap = document.getElementById('beats');
+  SHAPE.forEach(function(b, i){
+    var d = el('div','beat');
+    d.appendChild(el('div','n','Beat ' + (i+1)));
+    d.appendChild(el('h3', null, b.beat));
+    d.appendChild(el('div','when', b.when));
+    d.appendChild(el('p', null, b.what));
+    d.appendChild(el('span','g', b.graded));
+    beatWrap.appendChild(d);
+  });
+
+  /* ---------- weeks ---------- */
+  var wkWrap = document.getElementById('weeks');
+  WEEKS.forEach(function(w){
+    var card = el('article','wk');
+
+    var head = el('div','wk-head');
+    head.appendChild(el('span','pill','Week ' + w.wk));
+    head.appendChild(el('span','pill mod','Unit ' + w.module));
+    if (w.short) head.appendChild(el('span','pill short','Short week'));
+    head.appendChild(el('h3', null, w.title));
+    head.appendChild(el('span','wk-dates', shortDate(w.opens) + ' to ' + shortDate(w.closes)));
+    card.appendChild(head);
+
+    if (w.note){
+      var n = el('div','wk-note');
+      n.appendChild(el('strong', null, 'Heads up. '));
+      n.appendChild(document.createTextNode(w.note));
+      card.appendChild(n);
+    }
+
+    if (w.exam){
+      var e = el('div','wk-exam');
+      e.appendChild(el('span','lab', w.exam.name));
+      e.appendChild(document.createTextNode(
+        'Opens ' + longDate(w.exam.opens) + '. Closes ' + longDate(w.exam.closes) +
+        '. Covers weeks ' + w.exam.covers.join(', ') + '.'
+      ));
+      card.appendChild(e);
+    }
+
+    if (w.extras && w.extras.length){
+      var ul = el('ul','wk-extras');
+      w.extras.forEach(function(x){ ul.appendChild(el('li', null, x)); });
+      card.appendChild(ul);
+    }
+
+    var comps = w.competencies.map(function(id){ return byId[id]; }).filter(Boolean);
+    var mins = comps.reduce(function(s,c){ return s + c.est; }, 0);
+
+    var det = el('details','topics');
+    var sum = document.createElement('summary');
+    sum.textContent = 'What you should be able to do by Sunday (' + comps.length + ' competencies)';
+    det.appendChild(sum);
+    var ol = el('ul','topiclist');
+    comps.forEach(function(c){
+      var li = document.createElement('li');
+      var b = document.createElement('b');
+      b.textContent = c.name + '. ';
+      li.appendChild(b);
+      li.appendChild(document.createTextNode(c.can));
+      ol.appendChild(li);
+    });
+    det.appendChild(ol);
+    card.appendChild(det);
+
+    card.appendChild(el('div','meta-line',
+      'Estimated focused study time this week, about ' + Math.round(mins/60*10)/10 + ' hours.'));
+
+    wkWrap.appendChild(card);
+  });
+
+  /* ---------- grading ---------- */
+  document.getElementById('gradecaption').textContent =
+    GRADING.status === 'PLACEHOLDER, weights not set'
+      ? 'Weights are not set yet. The categories below are final.'
+      : '';
+  var gb = document.getElementById('gradebody');
+  GRADING.categories.forEach(function(c){
+    var tr = document.createElement('tr');
+    var th = document.createElement('th');
+    th.scope = 'row';
+    th.textContent = c.name + (c.n ? ' (' + c.n + ')' : '');
+    tr.appendChild(th);
+    var td1 = el('td','w', c.weight == null ? 'TBD' : c.weight + '%');
+    tr.appendChild(td1);
+    tr.appendChild(el('td', null, c.note || ''));
+    gb.appendChild(tr);
+  });
+
+  /* ---------- decisions ---------- */
+  var dl = document.getElementById('decisions');
+  DECISIONS.forEach(function(d){
+    var li = document.createElement('li');
+    var b = document.createElement('b');
+    b.textContent = d.q;
+    li.appendChild(b);
+    li.appendChild(el('span','aff','Affects: ' + d.affects));
+    dl.appendChild(li);
+  });
+
+  /* ---------- links break out of the iframe ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function(a){
+    var href = a.getAttribute('href') || '';
+    if (/^https?:\/\//i.test(href) && a.hostname !== window.location.hostname){
+      a.setAttribute('target','_blank');
+      a.setAttribute('rel','noopener');
+    } else if (href.charAt(0) !== '#'){
+      a.setAttribute('target','_top');
+    }
+  });
+
+  /* ---------- iframe height sender ---------- */
+  var FRAME_ID = 'bio005-course-schedule';
+  function sendHeight(){
+    var h = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight
+    );
+    try {
+      window.parent.postMessage({ id: FRAME_ID, frame: FRAME_ID, height: h, type: 'resize' }, '*');
+    } catch (e) {}
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  document.addEventListener('toggle', sendHeight, true);
+  if (window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.body); }
+  setTimeout(sendHeight, 300);
+})();
+</script>
+</body>
+</html>
