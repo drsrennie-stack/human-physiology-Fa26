@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to BIO 005 Human Physiology</title>
+<meta name="description" content="Start here for BIO 005 Human Physiology at Yuba College. Set your device up, then enter the course.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BIO 005 Human Physiology, Yuba College, Fall 2026
+   course-entry.html, the Canvas front door.
+
+   Palette values are the repo palette in assets/brand.css.
+   Physiology reads maroon where anatomy reads navy.
+     navy        #08101F   19.02:1 on white
+     maroon      #7A2A22    9.63:1 on white, 9.63:1 carrying white
+     maroon-dark #5E201A   12.37:1 on white, 12.37:1 carrying white
+     gold        #B8924A   accents only, never text on white
+     gold-deep   #8A6D33   state borders, 4.87:1, above the 3:1 UI floor
+     gold-text   #6E5018   the gold that carries as text on white, 7.44:1
+     gold-light  #F0DCA8   the only gold that carries as text on the
+                           maroon band, 7.11:1, AAA at any size
+   No italics, no Lora, no sage, no cream, no bookend bars.
+   ============================================================ */
+:root{
+  --navy:#08101F; --navy-darkest:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#7A2A22; --maroon-dark:#5E201A;
+  --gold:#B8924A; --gold-deep:#8A6D33; --gold-text:#6E5018; --gold-light:#F0DCA8;
+  --white:#FFFFFF; --offwhite:#FAFAF9;
+  --ink-soft:#414B5C; --locked:#5A6273; --rule:#D5DAE2;
+  --radius:8px; --radius-card:16px;
+  --shadow-rest:0 1px 3px rgba(8,16,31,.08), 0 1px 2px rgba(8,16,31,.05);
+  --shadow-lift:0 6px 16px rgba(8,16,31,.10), 0 3px 6px rgba(8,16,31,.06);
+  --t:transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease;
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--offwhite);color:var(--navy);
+  font-family:var(--font);font-size:16px;line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+h1,h2,h3{font-family:var(--font);letter-spacing:-.02em;margin:0}
+p{margin:0}
+a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:3px}
+.hero :focus-visible,.enter :focus-visible,.site-footer :focus-visible{outline-color:var(--gold-light)}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--navy);color:#fff;
+      padding:12px 18px;font-weight:700;text-decoration:none;border-radius:0 0 var(--radius) 0}
+.skip:focus{left:0;top:0;color:#fff}
+
+/* ---------- SITE HEADER ---------- */
+.site-header{background:#fff;border-bottom:.5px solid rgba(8,16,31,.10);padding:18px max(20px,4vw)}
+.site-header-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.site-logo{display:inline-flex;align-items:center;gap:16px;text-decoration:none}
+.site-logo:hover{text-decoration:none}
+.site-logo svg{height:50px;width:auto;display:block}
+.logo-text{display:flex;flex-direction:column;gap:3px}
+.logo-title{font-size:1.58rem;font-weight:800;letter-spacing:-.02em;color:var(--navy);line-height:1}
+.logo-title .logo-accent{color:var(--maroon-dark)}
+.logo-sub{font-size:.71rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.hdr-term{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* ---------- HERO BAND ---------- */
+.hero{background:var(--maroon);color:#fff;padding:52px max(20px,4vw) 96px}
+.hero-inner{max-width:1160px;margin:0 auto}
+.hero .eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin:0 0 14px}
+.hero h1{font-size:clamp(2rem,5.2vw,3.25rem);font-weight:800;line-height:1.06;color:#fff;margin:0 0 16px;max-width:16ch}
+.hero .lede{font-size:clamp(1rem,1.5vw,1.14rem);color:#fff;max-width:58ch;margin:0}
+.hero .lede + .lede{margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px;padding:0;list-style:none}
+.chips li{background:#fff;color:var(--navy);font-size:.78rem;font-weight:700;letter-spacing:.03em;padding:7px 15px;border-radius:999px}
+.chips li.gold{background:var(--gold-light);color:var(--navy)}
+
+/* ---------- LAYOUT ---------- */
+.shell{max-width:1160px;margin:-62px auto 0;padding:0 max(20px,4vw) 64px;position:relative;z-index:2}
+.grid{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:920px){.grid{grid-template-columns:1fr}}
+
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--radius-card);
+      box-shadow:var(--shadow-rest);padding:28px max(20px,2vw)}
+.card h2{font-size:1.5rem;font-weight:800;color:var(--navy);margin:0 0 8px}
+.card h3{font-size:1.05rem;font-weight:700;color:var(--maroon-dark);margin:0 0 6px}
+.kicker{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--maroon-dark);margin:0 0 10px}
+.card p.sub{color:var(--ink-soft);margin:0 0 20px;max-width:62ch}
+
+/* ---------- STEPS ---------- */
+.step{border:1px solid var(--rule);border-radius:var(--radius);padding:18px 18px 20px;margin:0 0 14px;background:#fff}
+.step-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 6px}
+.step-n{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.step h3{margin:0}
+.step p{color:var(--ink-soft);font-size:.95rem;margin:0 0 14px;max-width:60ch}
+
+/* ---------- BUTTONS ---------- */
+.btn{font-family:var(--font);font-weight:700;font-size:.95rem;line-height:1.2;cursor:pointer;
+     border-radius:var(--radius);border:1.5px solid var(--navy);background:var(--navy);color:#fff;
+     padding:12px 20px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:var(--t)}
+.btn:hover{background:var(--navy-darkest);border-color:var(--navy-darkest);color:#fff;text-decoration:none}
+.btn.sec{background:#fff;color:var(--navy)}
+.btn.sec:hover{background:var(--navy-tint);color:var(--navy)}
+.btn.big{font-size:1.06rem;padding:16px 28px;border-radius:var(--radius)}
+.btn[aria-disabled="true"]{background:#fff;color:var(--locked);border:2px dashed var(--locked);cursor:not-allowed}
+.btn[aria-disabled="true"]:hover{background:#fff;color:var(--locked)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* ---------- CHECK LIST ---------- */
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.check{border:2px dashed var(--locked);border-radius:var(--radius);padding:14px 16px;background:#fff;transition:var(--t)}
+.check[data-state="ok"]{border:2px solid var(--navy);background:var(--navy-tint)}
+.check[data-state="attention"]{border:2px solid var(--gold-deep);background:#fff}
+.check-top{display:flex;align-items:center;gap:11px}
+.mark{flex:0 0 auto;width:24px;height:24px;display:grid;place-items:center}
+.mark svg{width:22px;height:22px;display:block}
+.check-name{font-weight:700;font-size:.98rem;color:var(--navy)}
+.tag{margin-left:auto;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+     padding:4px 11px;border-radius:999px;border:1px solid var(--locked);color:var(--ink-soft);white-space:nowrap}
+.check[data-state="ok"] .tag{border-color:var(--navy);color:var(--navy)}
+.check[data-state="attention"] .tag{border-color:var(--gold-deep);color:var(--gold-text)}
+.check-detail{font-size:.9rem;color:var(--ink-soft);margin:7px 0 0;padding-left:35px}
+.check-fix{font-size:.9rem;color:var(--maroon-dark);font-weight:600;margin:8px 0 0;padding-left:35px}
+.check-fix[hidden]{display:none}
+
+/* ---------- DRAW PAD ---------- */
+.pad-wrap{border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;background:#fff;max-width:420px}
+#pad{display:block;width:100%;height:150px;touch-action:none;cursor:crosshair;background:#fff}
+.pad-note{font-size:.86rem;color:var(--ink-soft);margin:8px 0 0}
+
+/* ---------- ENTER PANEL ----------
+   The one moment on the page that earns the maroon ground.
+   Nothing navy sits directly on the maroon: the button is a
+   gold-light fill carrying navy text, 14.04:1. ---------- */
+.enter{background:var(--maroon);border-radius:var(--radius-card);
+       box-shadow:var(--shadow-rest);padding:40px max(20px,2vw);margin-top:24px;text-align:center;color:#fff}
+.enter .kicker{color:var(--gold-light);margin:0 0 10px}
+.enter h2{font-size:clamp(1.5rem,3vw,1.9rem);font-weight:800;margin:0 0 10px;color:#fff}
+.enter p{color:#fff;margin:0 auto 24px;max-width:52ch}
+.enter .btn{background:var(--gold-light);color:var(--navy);border-color:var(--gold-light)}
+.enter .btn:hover{background:#fff;color:var(--navy);border-color:#fff}
+.enter .btn[aria-disabled="true"]{background:transparent;color:#fff;border:2px dashed #fff;cursor:not-allowed}
+.enter .btn[aria-disabled="true"]:hover{background:transparent;color:#fff}
+.enter .lockline{font-size:.92rem;color:#fff;margin:18px auto 0;max-width:52ch}
+.enter .skipline{font-size:.9rem;margin-top:14px}
+.enter .skipline a{color:var(--gold-light)}
+.enter .skipline a:hover{color:#fff}
+
+/* ---------- SIDE CARDS ---------- */
+.side{display:grid;gap:20px;position:sticky;top:20px}
+@media(max-width:920px){.side{position:static}}
+.side ul{margin:0;padding:0 0 0 20px;color:var(--ink-soft);font-size:.94rem}
+.side li{margin:0 0 8px}
+.side li strong{color:var(--navy)}
+
+/* ---------- DOOR CARDS ---------- */
+.doors{margin-top:34px}
+.doors h2{font-size:1.28rem;font-weight:800;margin:0 0 4px}
+.doors > p{color:var(--ink-soft);margin:0 0 18px}
+.doorgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:16px}
+a.door{display:block;background:#fff;border:1px solid var(--rule);border-radius:var(--radius-card);
+       padding:20px;text-decoration:none;box-shadow:var(--shadow-rest);transition:var(--t)}
+a.door:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);border-color:var(--gold-deep);text-decoration:none}
+a.door .dk{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon-dark);display:block;margin-bottom:7px}
+a.door .dt{font-size:1.05rem;font-weight:800;color:var(--navy);display:block}
+a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
+
+/* ---------- FOOTER ---------- */
+.site-footer{background:var(--navy-darkest);color:#fff;padding:34px max(20px,4vw)}
+.site-footer-inner{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline}
+.site-footer .name{font-weight:800;font-size:1.02rem;color:#fff}
+.site-footer .role{font-size:.86rem;color:#fff;opacity:.82}
+.site-footer .course{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  a.door:hover{transform:none}
+}
+@media print{
+  .hero{background:#fff;color:var(--navy)}
+  .hero h1,.hero .lede{color:var(--navy)}
+  .hero .eyebrow{color:var(--maroon-dark)}
+  .skip,.btnrow,.pad-wrap{display:none}
+  .shell{margin-top:20px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the setup steps</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html" target="_top" aria-label="BIO 005 Human Physiology, course home">
+      <svg viewBox="40 10 125 148" role="img" aria-hidden="true" focusable="false">
+        <g transform="translate(0, 18)">
+          <g transform="translate(60, 0) rotate(8 0 130)">
+            <circle cx="0" cy="20" r="10" fill="#08101F"/>
+            <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#08101F"/>
+          </g>
+          <g transform="translate(100, 0)">
+            <circle cx="0" cy="10" r="11" fill="#5E201A"/>
+            <path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#5E201A"/>
+          </g>
+          <g transform="translate(140, 0) rotate(-8 0 130)">
+            <circle cx="0" cy="20" r="10" fill="#B8924A"/>
+            <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#B8924A"/>
+          </g>
+        </g>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-title">Human <span class="logo-accent">Physiology</span></span>
+        <span class="logo-sub">BIO 005 &middot; Yuba College</span>
+      </span>
+    </a>
+    <p class="hdr-term">Fall 2026 &middot; Section BIOL-5-D9286</p>
+  </div>
+</header>
+
+<section class="hero" aria-labelledby="welcome-h1">
+  <div class="hero-inner">
+    <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Fall 2026</p>
+    <h1 id="welcome-h1">Welcome to Human Physiology</h1>
+    <p class="lede">This course is about how the body works. Not what the parts are called, but what they do, how they talk to each other, and what happens when one of them stops holding the line.</p>
+    <p class="lede">Everything runs online, lecture and lab both, on your own schedule inside each week. Before you start, take five minutes to get your device set up so the course tools work the first time you open them.</p>
+    <ul class="chips">
+      <li class="gold">Fully online</li>
+      <li>Lecture and lab</li>
+      <li>September 8 to December 16</li>
+      <li>Dr. Sharilyn Rennie</li>
+    </ul>
+  </div>
+</section>
+
+<div class="shell">
+  <div class="grid">
+
+    <main id="main">
+      <div class="card">
+        <p class="kicker">Five minutes, once</p>
+        <h2>Get your system set up</h2>
+        <p class="sub">This course runs on interactive pages you open in your browser: simulators, drawing canvases, recall cards, and lab tools. The check below tells you whether your device is ready for them, and what to fix if it is not. Nothing here is graded and nothing is submitted.</p>
+
+        <p class="vh" id="check-live" role="status" aria-live="polite" aria-atomic="true"></p>
+
+        <!-- STEP 1 -->
+        <section class="step" aria-labelledby="s1-h">
+          <div class="step-head">
+            <span class="step-n">Step 1</span>
+            <h3 id="s1-h">Run the automatic check</h3>
+          </div>
+          <p>One click. It looks at your browser, your screen, whether the course can remember your progress, and whether video and audio will play.</p>
+          <div class="btnrow">
+            <button type="button" class="btn" id="runBtn">Run the system check</button>
+          </div>
+
+          <ul class="checks" id="checkList" style="margin-top:18px">
+            <li class="check" data-state="waiting" data-key="browser">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Browser</span>
+                <span class="tag">Not checked</span>
+              </div>
+              <p class="check-detail">Chrome, Edge, Firefox, and Safari all work. Internet Explorer does not.</p>
+              <p class="check-fix" hidden></p>
+            </li>
+            <li class="check" data-state="waiting" data-key="screen">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Screen size</span>
+                <span class="tag">Not checked</span>
+              </div>
+              <p class="check-detail">Phones work for reading. The lab simulators and the drawing canvas want a laptop or a tablet.</p>
+              <p class="check-fix" hidden></p>
+            </li>
+            <li class="check" data-state="waiting" data-key="storage">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Saved progress</span>
+                <span class="tag">Not checked</span>
+              </div>
+              <p class="check-detail">The recall cards and the study tools remember where you left off. That only works if your browser lets this site store data on your own machine. Nothing leaves your device and nothing is sent to me.</p>
+              <p class="check-fix" hidden></p>
+            </li>
+            <li class="check" data-state="waiting" data-key="media">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Video and audio</span>
+                <span class="tag">Not checked</span>
+              </div>
+              <p class="check-detail">Every lecture is a recorded video with captions. Your browser needs to be able to play it.</p>
+              <p class="check-fix" hidden></p>
+            </li>
+            <li class="check" data-state="waiting" data-key="connection">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Connection</span>
+                <span class="tag">Not checked</span>
+              </div>
+              <p class="check-detail">Pages are small and load fast. Video is the only part that needs steady bandwidth.</p>
+              <p class="check-fix" hidden></p>
+            </li>
+            <li class="check" data-state="waiting" data-key="display">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Your display settings</span>
+                <span class="tag">Not checked</span>
+              </div>
+              <p class="check-detail">If you have reduced motion, high contrast, or a larger text size turned on, the course pages follow your setting instead of overriding it.</p>
+              <p class="check-fix" hidden></p>
+            </li>
+          </ul>
+        </section>
+
+        <!-- STEP 2 -->
+        <section class="step" aria-labelledby="s2-h">
+          <div class="step-head">
+            <span class="step-n">Step 2</span>
+            <h3 id="s2-h">Test the three things that need you</h3>
+          </div>
+          <p>These cannot be tested without a click from you, because a browser will only allow them when a person asks. Try each one now rather than in week 6 with an assignment due.</p>
+
+          <ul class="checks" id="manualList">
+            <li class="check" data-state="waiting" data-key="popup">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Course tools open in a new tab</span>
+                <span class="tag">Not tested</span>
+              </div>
+              <p class="check-detail">Labs and simulators open in their own tab so you can keep your notes open beside them. If your browser blocks pop-ups, they will not open at all.</p>
+              <div class="btnrow" style="margin:12px 0 0 35px">
+                <button type="button" class="btn sec" id="popBtn">Test opening a new tab</button>
+              </div>
+              <p class="check-fix" hidden></p>
+            </li>
+
+            <li class="check" data-state="waiting" data-key="draw">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Drawing works on your device</span>
+                <span class="tag">Not tested</span>
+              </div>
+              <p class="check-detail">A lot of what you turn in this term is drawn by hand: control loops, flow charts, pathways. You can draw with a mouse, a trackpad, a finger, or a stylus. Scribble in the box to check yours.</p>
+              <div style="margin:12px 0 0 35px">
+                <div class="pad-wrap">
+                  <canvas id="pad" width="820" height="300" aria-label="Practice drawing area. Draw here with your mouse, finger, or stylus to test that drawing works. Nothing is saved.">Your browser does not support the drawing canvas. Use the button below to mark this step as handled, and message me in Canvas so we can sort out a drawing setup that works for you.</canvas>
+                </div>
+                <p class="pad-note">Using a keyboard or a screen reader instead? <button type="button" class="btn sec" id="drawSkip" style="font-size:.85rem;padding:7px 14px;margin-left:4px">Mark drawing as handled</button></p>
+              </div>
+              <p class="check-fix" hidden></p>
+            </li>
+
+            <li class="check" data-state="waiting" data-key="print">
+              <div class="check-top">
+                <span class="mark" aria-hidden="true"></span>
+                <span class="check-name">Saving a page as a PDF</span>
+                <span class="tag">Not tested</span>
+              </div>
+              <p class="check-detail">Several lab reports are turned in as a PDF you make yourself. On most computers that is the print dialog with the destination set to Save as PDF.</p>
+              <div class="btnrow" style="margin:12px 0 0 35px">
+                <button type="button" class="btn sec" id="printBtn">Open the print dialog</button>
+              </div>
+              <p class="check-fix" hidden></p>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- ENTER -->
+      <section class="enter" aria-labelledby="enter-h">
+        <p class="kicker">Step 3</p>
+        <h2 id="enter-h">Enter the course</h2>
+        <p>The course home is your map for the whole term: the weeks, the labs, the study tools, and what is due when.</p>
+        <div class="btnrow" style="justify-content:center">
+          <a class="btn big" id="enterBtn" href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html"
+             target="_top" aria-disabled="true" aria-describedby="enter-lock">
+            Enter the course
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <p class="lockline" id="enter-lock">Run the automatic check in step 1 first, so you find out about a problem here instead of on an assignment.</p>
+        <p class="skipline"><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html" target="_top">Skip the setup and go straight to the course home</a></p>
+      </section>
+    </main>
+
+    <!-- SIDE -->
+    <aside class="side" aria-labelledby="side-h">
+      <div class="card" style="padding:24px 22px">
+        <p class="kicker">What this course asks of you</p>
+        <h2 id="side-h" style="font-size:1.18rem">The honest version</h2>
+        <ul>
+          <li><strong>About 12 to 15 hours a week.</strong> Six to eight of those are lab.</li>
+          <li><strong>You draw every week.</strong> Hand drawn control loops are how you show you understand a mechanism, and they are what an answer key cannot do for you.</li>
+          <li><strong>You get your own patient.</strong> Your term project is one patient file, seeded to you, that you build week by week and defend at the end.</li>
+          <li><strong>There is no online final exam.</strong> The final is a synthesis project and a case conference.</li>
+          <li><strong>No anatomy prerequisite panic.</strong> Some of you have had anatomy and some have not. The course is built to work either way.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="padding:24px 22px">
+        <p class="kicker">If something failed</p>
+        <h2 style="font-size:1.18rem">Come in anyway</h2>
+        <p style="color:var(--ink-soft);font-size:.94rem;margin:0 0 12px">A failed check is a setting to change, not a door that closes. Nothing on this page can keep you out of the course.</p>
+        <p style="color:var(--ink-soft);font-size:.94rem;margin:0">If you cannot get something working, message me in Canvas and tell me which line said it needed attention. That one detail usually solves it in a single reply.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- DOORS -->
+  <section class="doors" aria-labelledby="doors-h">
+    <h2 id="doors-h">While you are here</h2>
+    <p>Four pages worth opening before week 1.</p>
+    <nav class="doorgrid" aria-label="More BIO 005 pages">
+      <a class="door" href="https://drsrennie-stack.github.io/human-physiology-Fa26/before-you-start.html" target="_top">
+        <span class="dk">Take it before week 1</span>
+        <span class="dt">Before you start</span>
+        <span class="dd">What physiology assumes you already know in chemistry, anatomy, and math, plus three short checks that tell you whether you need a weekend on it.</span>
+      </a>
+      <a class="door" href="https://drsrennie-stack.github.io/human-physiology-Fa26/course-schedule.html" target="_top">
+        <span class="dk">Dates</span>
+        <span class="dt">Course schedule</span>
+        <span class="dd">Every week, what it covers, and when the exam windows open. Put the drop dates in your own calendar while you are here.</span>
+      </a>
+      <a class="door" href="https://drsrennie-stack.github.io/human-physiology-Fa26/what-you-do.html" target="_top">
+        <span class="dk">Grading</span>
+        <span class="dt">What you do and what it is worth</span>
+        <span class="dd">Every graded thing in the course, how the points work, and the AI policy in plain language.</span>
+      </a>
+      <a class="door" href="https://drsrennie-stack.github.io/human-physiology-Fa26/competency-study-guide.html" target="_top">
+        <span class="dk">Study tool</span>
+        <span class="dt">Competency study guide</span>
+        <span class="dd">The list of everything you are expected to be able to do by the end, written as tasks rather than topics. This is what the exams are built from.</span>
+      </a>
+    </nav>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <p class="name">Dr. Sharilyn Rennie</p>
+      <p class="role">Professor of Anatomy &amp; Physiology</p>
+    </div>
+    <p class="course">BIO 005 Human Physiology &middot; Yuba College &middot; Fall 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var live = document.getElementById('check-live');
+  var announce = function(msg){ if(live){ live.textContent = msg; } };
+
+  /* ---------- icons, drawn not colored, so state never rests on color alone ---------- */
+  var ICON = {
+    waiting: '<svg viewBox="0 0 24 24" fill="none" stroke="#5A6273" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2"/></svg>',
+    ok:      '<svg viewBox="0 0 24 24" fill="none" stroke="#08101F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.4l2.9 2.9 5.5-6"/></svg>',
+    attention:'<svg viewBox="0 0 24 24" fill="none" stroke="#5E201A" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2L21 19.6H3z"/><path d="M12 10v4.2"/><path d="M12 17.1v.1"/></svg>'
+  };
+  var LABEL = { waiting:'Not checked', ok:'Ready', attention:'Needs attention' };
+
+  function setState(key, state, detail, fix){
+    var li = document.querySelector('[data-key="'+key+'"]');
+    if(!li){ return; }
+    li.setAttribute('data-state', state);
+    li.querySelector('.mark').innerHTML = ICON[state] || ICON.waiting;
+    li.querySelector('.tag').textContent = LABEL[state] || LABEL.waiting;
+    if(detail){ li.querySelector('.check-detail').textContent = detail; }
+    var f = li.querySelector('.check-fix');
+    if(fix){ f.textContent = fix; f.hidden = false; } else { f.hidden = true; f.textContent = ''; }
+  }
+
+  /* ---------- step 1, the automatic checks ---------- */
+  function browserCheck(){
+    var ua = navigator.userAgent, name = 'your browser', version = 0, ok = true, m;
+    if(/Edg\//.test(ua)){ name='Microsoft Edge'; m=ua.match(/Edg\/(\d+)/); }
+    else if(/OPR\//.test(ua)){ name='Opera'; m=ua.match(/OPR\/(\d+)/); }
+    else if(/Chrome\//.test(ua) && !/Chromium/.test(ua)){ name='Chrome'; m=ua.match(/Chrome\/(\d+)/); }
+    else if(/Firefox\//.test(ua)){ name='Firefox'; m=ua.match(/Firefox\/(\d+)/); }
+    else if(/Safari\//.test(ua) && /Version\//.test(ua)){ name='Safari'; m=ua.match(/Version\/(\d+)/); }
+    else if(/MSIE|Trident/.test(ua)){ name='Internet Explorer'; ok=false; }
+    if(m){ version = parseInt(m[1],10); }
+    var floors = { 'Chrome':100, 'Microsoft Edge':100, 'Firefox':100, 'Safari':15, 'Opera':90 };
+    if(ok && floors[name] && version && version < floors[name]){ ok = false; }
+    if(!('IntersectionObserver' in window) || !window.CSS || !CSS.supports('display','grid')){ ok = false; }
+    if(ok){
+      setState('browser','ok', name + (version ? ' ' + version : '') + '. Everything in this course runs on it.');
+    } else {
+      setState('browser','attention',
+        'You are on ' + name + (version ? ' ' + version : '') + ', which is older than the course tools expect.',
+        'Fix: update this browser, or install Chrome or Firefox and open the course there. Both are free.');
+    }
+    return ok;
+  }
+
+  function screenCheck(){
+    var w = Math.max(window.innerWidth||0, document.documentElement.clientWidth||0);
+    var real = window.screen && window.screen.width ? window.screen.width : w;
+    var wide = Math.max(w, real);
+    if(wide >= 1000){
+      setState('screen','ok','Your screen is ' + real + ' pixels wide. Plenty of room for the lab tools.');
+      return true;
+    }
+    if(wide >= 700){
+      setState('screen','ok','Your screen is ' + real + ' pixels wide. That works. The drawing canvas is easier on something a little wider if you have one.');
+      return true;
+    }
+    setState('screen','attention','Your screen is ' + real + ' pixels wide, which is phone sized.',
+      'Fix: reading and video are fine on a phone. For the lab simulators and the drawing work, plan on a laptop, a tablet, or a campus computer.');
+    return false;
+  }
+
+  function storageCheck(){
+    try{
+      var k = '__bio005_probe__';
+      window.localStorage.setItem(k,'1');
+      var got = window.localStorage.getItem(k);
+      window.localStorage.removeItem(k);
+      if(got === '1'){
+        setState('storage','ok','Your browser will remember your progress in the study tools on this device.');
+        return true;
+      }
+      throw new Error('readback failed');
+    }catch(e){
+      var framed = (window.top !== window.self);
+      setState('storage','attention',
+        'This browser is not letting the course tools save anything on your device right now.',
+        framed
+          ? 'Fix: this page is sitting inside Canvas, and some browsers block storage for a page inside another page. Open the course in its own tab using the Enter the course button below, then run this check again. If it still fails, turn off private or incognito browsing.'
+          : 'Fix: turn off private or incognito browsing, then allow cookies and site data for this site. In Safari, uncheck Prevent cross-site tracking.');
+      return false;
+    }
+  }
+
+  function mediaCheck(){
+    var v = document.createElement('video');
+    var a = document.createElement('audio');
+    var mp4  = v.canPlayType && v.canPlayType('video/mp4; codecs="avc1.42E01E"');
+    var webm = v.canPlayType && v.canPlayType('video/webm; codecs="vp9"');
+    var snd  = a.canPlayType && a.canPlayType('audio/mpeg');
+    if(mp4 || webm){
+      setState('media','ok','Video plays here' + (snd ? ' and so does audio.' : '.') + ' Captions are on every lecture.');
+      return true;
+    }
+    setState('media','attention','Your browser is not reporting that it can play the lecture video format.',
+      'Fix: update your browser, or open the course in Chrome or Firefox. If you are on a work or school computer with video blocked, the campus library machines are a reliable fallback.');
+    return false;
+  }
+
+  function connectionCheck(){
+    if(navigator.onLine === false){
+      setState('connection','attention','Your device says it is offline right now.',
+        'Fix: reconnect and run the check again. If this is a spotty connection, download the weekly PDFs when you do have signal.');
+      return false;
+    }
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if(c && c.effectiveType && /^(slow-2g|2g)$/.test(c.effectiveType)){
+      setState('connection','attention','You are online, but on a slow connection.',
+        'Fix: pages and tools will still load. For lecture video, use wifi or drop the video quality.');
+      return false;
+    }
+    setState('connection','ok','You are online.' + (c && c.effectiveType ? ' Connection reads as ' + c.effectiveType + '.' : ''));
+    return true;
+  }
+
+  function displayCheck(){
+    var bits = [];
+    var mm = window.matchMedia ? window.matchMedia.bind(window) : null;
+    if(mm){
+      if(mm('(prefers-reduced-motion: reduce)').matches){ bits.push('reduced motion is on, so the course pages will not animate'); }
+      if(mm('(prefers-contrast: more)').matches){ bits.push('higher contrast is on'); }
+      if(mm('(forced-colors: active)').matches){ bits.push('your operating system is forcing its own colors, which the pages allow'); }
+      if(mm('(prefers-color-scheme: dark)').matches){ bits.push('your device is in dark mode, and these pages stay light on purpose so the diagrams read correctly'); }
+    }
+    var zoom = Math.round((window.devicePixelRatio || 1) * 100) / 100;
+    var msg = bits.length
+      ? 'Noted: ' + bits.join('. ') + '.'
+      : 'No special display settings detected. If you use larger text, higher contrast, or reduced motion, turn it on and these pages will follow it.';
+    setState('display','ok', msg);
+    return true;
+  }
+
+  var ran = false;
+  function unlockEntry(){
+    var btn = document.getElementById('enterBtn');
+    btn.setAttribute('aria-disabled','false');
+    btn.removeAttribute('aria-describedby');
+    document.getElementById('enter-lock').textContent = 'Setup check complete. The course home opens in this window.';
+  }
+
+  document.getElementById('runBtn').addEventListener('click', function(){
+    var results = [browserCheck(), screenCheck(), storageCheck(), mediaCheck(), connectionCheck(), displayCheck()];
+    var issues = results.filter(function(r){ return r === false; }).length;
+    ran = true;
+    unlockEntry();
+    this.textContent = 'Run the check again';
+    announce(issues === 0
+      ? 'System check complete. All six items are ready. The Enter the course button is now active.'
+      : 'System check complete. ' + issues + (issues === 1 ? ' item needs' : ' items need') + ' attention. Each one lists the fix. The Enter the course button is active either way.');
+  });
+
+  document.getElementById('enterBtn').addEventListener('click', function(e){
+    if(this.getAttribute('aria-disabled') === 'true'){
+      e.preventDefault();
+      announce('Run the system check in step 1 first, or use the link below it to go straight to the course home.');
+      document.getElementById('runBtn').focus();
+    }
+  });
+
+  /* ---------- step 2, the tests that need a click ---------- */
+  document.getElementById('popBtn').addEventListener('click', function(){
+    var w = null;
+    try{ w = window.open('', '_blank', 'width=520,height=380'); }catch(err){ w = null; }
+    if(w && !w.closed){
+      try{
+        w.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Pop-up test, BIO 005</title></head><body style="font-family:system-ui,sans-serif;background:#FAFAF9;color:#08101F;padding:28px;line-height:1.6"><h1 style="font-size:20px;margin:0 0 8px">This tab opened correctly.</h1><p style="margin:0;color:#414B5C">Your browser will let the BIO 005 lab tools open in their own tab. You can close this window.</p></body></html>');
+        w.document.close();
+      }catch(err){ /* opened but not writable, still a pass */ }
+      setState('popup','ok','A test tab opened. The lab tools will open the same way. Close that tab when you are done looking at it.');
+      announce('Pop-up test passed. A new tab opened.');
+      setTimeout(function(){ try{ w.close(); }catch(err){} }, 6000);
+    } else {
+      setState('popup','attention','Your browser blocked the new tab.',
+        'Fix: look for a small blocked pop-up icon in your address bar and choose Always allow for this site. In Safari, go to Settings, Websites, Pop-up Windows, and set this site to Allow.');
+      announce('Pop-up test blocked. A fix is listed on that item.');
+    }
+  });
+
+  /* drawing pad */
+  (function(){
+    var pad = document.getElementById('pad');
+    if(!pad){ return; }
+    var ctx = pad.getContext('2d');
+    var drawing = false, marks = 0, kind = 'mouse', done = false;
+    function scale(){
+      var r = pad.getBoundingClientRect();
+      return { x: pad.width / r.width, y: pad.height / r.height, r: r };
+    }
+    function pos(e){
+      var s = scale();
+      return { x: (e.clientX - s.r.left) * s.x, y: (e.clientY - s.r.top) * s.y };
+    }
+    ctx.strokeStyle = '#5E201A';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    function start(e){
+      drawing = true;
+      if(e.pointerType){ kind = e.pointerType; }
+      var p = pos(e);
+      ctx.beginPath(); ctx.moveTo(p.x, p.y);
+      if(pad.setPointerCapture && e.pointerId !== undefined){ try{ pad.setPointerCapture(e.pointerId); }catch(err){} }
+      e.preventDefault();
+    }
+    function move(e){
+      if(!drawing){ return; }
+      var p = pos(e);
+      ctx.lineTo(p.x, p.y); ctx.stroke();
+      marks++;
+      if(marks > 12 && !done){
+        done = true;
+        var word = kind === 'touch' ? 'your finger' : (kind === 'pen' ? 'your stylus' : 'your mouse or trackpad');
+        setState('draw','ok','Drawing works with ' + word + '. That is all the weekly control loops need.');
+        announce('Drawing test passed.');
+      }
+      e.preventDefault();
+    }
+    function end(){ drawing = false; }
+    if(window.PointerEvent){
+      pad.addEventListener('pointerdown', start);
+      pad.addEventListener('pointermove', move);
+      pad.addEventListener('pointerup', end);
+      pad.addEventListener('pointercancel', end);
+      pad.addEventListener('pointerleave', end);
+    } else {
+      pad.addEventListener('mousedown', start);
+      pad.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+    }
+    document.getElementById('drawSkip').addEventListener('click', function(){
+      setState('draw','ok','Marked as handled. If drawing by hand is not workable for you, message me in Canvas before week 2 and we will set up an equivalent that is.');
+      announce('Drawing marked as handled.');
+      this.disabled = true;
+    });
+  })();
+
+  document.getElementById('printBtn').addEventListener('click', function(){
+    setState('print','ok','Print dialog opened. If you saw a Destination or a PDF option in it, you can hand in the PDF lab reports. Cancel the dialog, nothing needs printing today.');
+    announce('Print dialog opened.');
+    setTimeout(function(){ try{ window.print(); }catch(err){} }, 60);
+  });
+
+  /* paint the waiting icons on load */
+  Array.prototype.forEach.call(document.querySelectorAll('.check'), function(li){
+    li.querySelector('.mark').innerHTML = ICON.waiting;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#manualList .tag'), function(t){
+    t.textContent = 'Not tested';
+  });
+})();
+</script>
+
+<!-- ============================================================
+     Iframe height sender. Canvas embeds this page in an iframe,
+     and the listener in the Canvas page reads these messages so
+     the frame grows to fit instead of scrolling inside itself.
+     ============================================================ -->
+<script>
+(function(){
+  "use strict";
+  var FRAME_ID = 'bio005-course-entry';
+  function height(){
+    var b = document.body, e = document.documentElement;
+    return Math.max(b.scrollHeight, b.offsetHeight, e.clientHeight, e.scrollHeight, e.offsetHeight);
+  }
+  var last = 0;
+  function send(){
+    var h = height();
+    if(Math.abs(h - last) < 2){ return; }
+    last = h;
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: 'resize', height: h, subject: 'lti.frameResize' }, '*'); }catch(e){}
+  }
+  window.addEventListener('load', send);
+  window.addEventListener('resize', send);
+  document.addEventListener('DOMContentLoaded', send);
+  if(window.ResizeObserver){ new ResizeObserver(send).observe(document.body); }
+  setInterval(send, 1000);
+  send();
+})();
+</script>
+
+<!-- ============================================================
+     Link targets. Internal and same-domain links break out of the
+     Canvas iframe with target="_top". Anything off this domain
+     opens in a new tab with rel="noopener".
+     ============================================================ -->
+<script>
+(function(){
+  "use strict";
+  var host = window.location.hostname;
+  Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function(a){
+    var href = a.getAttribute('href');
+    if(!href || href.charAt(0) === '#'){ return; }
+    var url;
+    try{ url = new URL(href, window.location.href); }catch(e){ return; }
+    if(url.protocol !== 'http:' && url.protocol !== 'https:'){ return; }
+    if(url.hostname === host){
+      a.setAttribute('target','_top');
+      a.removeAttribute('rel');
+    } else {
+      a.setAttribute('target','_blank');
+      a.setAttribute('rel','noopener');
+    }
+  });
+})();
+</script>
+</body>
+</html>
