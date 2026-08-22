@@ -72,26 +72,26 @@ window.BIO005_TERM = {
 
 /* ============================================================
    THE WEEKLY CONTAINER
-   Same four beats every week. Students learn the container once.
+   The same four steps every week, so the shape is learned once.
    ============================================================ */
 
 window.BIO005_WEEK_SHAPE = [
   { beat:'Prime',
-    when:'Open Monday',
-    what:'A short orientation page and a prediction task. Students commit to an answer before instruction, which is what makes the correction stick.',
-    graded:'ungraded, but completion-tracked' },
+    when:'Opens Monday',
+    what:'Read what you should be able to do by Sunday, then take a guess at one question before you have been taught anything. Guessing first, and being wrong, is what makes the right answer stick.',
+    graded:'Not graded. I can see that you did it.' },
   { beat:'Build',
     when:'Monday to Wednesday',
-    what:'Recorded lecture segments broken at competency boundaries, each under 12 minutes, with a guided notes page that has blanks the video fills.',
-    graded:'ungraded' },
+    what:'Short lecture videos, each one under 12 minutes and each one covering a single thing from the list. Work the notes page alongside them. It has blanks the video fills.',
+    graded:'Not graded.' },
   { beat:'Practice',
     when:'Wednesday to Saturday',
-    what:'The virtual lab task plus the drawing-based synthesis for the week. Students produce the mechanism from memory, then check it against the key.',
-    graded:'lab submission plus drawing check' },
+    what:'The lab for the week, plus draw the mechanism from memory with nothing in front of you. Then check what you drew against the key. If you cannot draw it, you do not have it yet.',
+    graded:'Your lab and your drawing check.' },
   { beat:'Prove',
     when:'Closes Sunday 11:59 pm',
-    what:'Weekly checkpoint quiz drawn from that week competency IDs, plus spaced-recall items pulled from earlier weeks.',
-    graded:'weekly checkpoint' }
+    what:'A short quiz on this week, mixed with a few questions from earlier weeks so the older material stays fresh.',
+    graded:'Your weekly checkpoint.' }
 ];
 
 /* ============================================================
@@ -104,78 +104,78 @@ window.BIO005_WEEK_SHAPE = [
 window.BIO005_WEEKS = [
 
   { wk:1, module:1, opens:'2026-09-08', closes:'2026-09-13', short:true,
-    title:'How physiology works and what keeps you steady',
+    title:'Homeostasis: how your body holds itself steady',
     note:'Short week, term opens on a Tuesday. Front-load orientation, not content.',
     extras:['Start Here module','Syllabus quiz','Introduction post','Tech check and Canvas tour'],
-    competencies:['m1-physiology-scope','m1-levels-function','m1-homeostasis','m1-feedback-negative','m1-feedback-positive','m1-fluid-compartments','m1-ion-distribution','m1-ph-buffers'] },
+    competencies:['w1-levels-function','w1-structure-function','w1-homeostasis','w1-feedback-components','w1-feedback-types','w1-feedforward','w1-control-pathways','w1-mass-balance','w1-fluid-compartments','w1-compartment-shifts','w1-units-conversion','w1-lab-graphing','w1-lab-experimental-design','w1-lab-measurement-error','w1-water-properties','w1-ph-buffers','w1-protein-function','w1-enzyme-function','w1-atp-energy','w1-lab-enzyme-assay'] },
 
   { wk:2, module:1, opens:'2026-09-14', closes:'2026-09-20',
-    title:'Getting across the membrane',
-    competencies:['m1-protein-shape-function','m1-enzyme-kinetics','m1-membrane-structure','m1-diffusion','m1-osmosis-tonicity','m1-facilitated-diffusion'] },
+    title:'How things get in and out of a cell',
+    competencies:['w2-membrane-structure','w2-permeability','w2-fick-diffusion','w2-osmolarity-tonicity','w2-osmosis-cell-volume','w2-lab-diffusion-osmosis','w2-lab-rbc-tonicity','w2-facilitated-diffusion','w2-primary-active-transport','w2-secondary-active-transport','w2-transport-maximum','w2-vesicular-transport','w2-transepithelial-transport','w2-lab-transport-sim','w2-electrochemical-gradient','w2-nernst','w2-resting-potential','w2-ion-channels','w2-potential-terms','w2-lab-membrane-potential'] },
 
   { wk:3, module:1, opens:'2026-09-21', closes:'2026-09-27',
-    title:'Pumps, potentials, and the language cells use',
+    title:'Membrane potential, and how cells send signals',
     note:'Census is Sun Sep 27, the same day this week closes. Exam 1 feedback should be posted before census so students choosing to drop can decide on evidence.',
     exam:{ n:1, name:'Exam 1', covers:[1,2,3], opens:'2026-09-25', closes:'2026-09-27', status:'PLACEHOLDER' },
-    competencies:['m1-active-transport','m1-sodium-potassium-pump','m1-vesicular-transport','m1-epithelial-transport','m1-resting-membrane-potential','m1-nernst-ghk','m1-driving-force','m1-signaling-overview','m1-receptor-types','m1-second-messengers','m1-dose-response','m1-receptor-regulation'] },
+    competencies:['w3-signal-types','w3-receptor-location','w3-gpcr-pathway','w3-second-messengers','w3-catalytic-intracellular-receptors','w3-signal-amplification','w3-receptor-modulation','w3-signal-termination','w3-lab-dose-response'] },
 
   { wk:4, module:2, opens:'2026-09-28', closes:'2026-10-04',
-    title:'The action potential',
-    competencies:['m2-neuron-function','m2-glia-function','m2-graded-potentials','m2-action-potential','m2-sodium-gates','m2-conduction-velocity','m2-demyelination'] },
+    title:'The action potential: how a nerve signal fires',
+    competencies:['w4-neuron-classes','w4-neuron-regions','w4-glia-functions','w4-myelin','w4-axonal-transport','w4-graded-potentials','w4-action-potential','w4-threshold','w4-intensity-coding','w4-refractory','w4-conduction-velocity','w4-ion-disturbance','w4-lab-ap-simulation','w4-lab-nerve-conduction'] },
 
   { wk:5, module:2, opens:'2026-10-05', closes:'2026-10-11',
-    title:'Synapses and the start of contraction',
-    competencies:['m2-synaptic-transmission','m2-epsp-ipsp','m2-neurotransmitters','m2-synapse-pharmacology','m2-neural-plasticity','m2-skeletal-ec-coupling','m2-nmj'] },
+    title:'How nerve cells talk to each other, and to muscle',
+    competencies:['w5-synaptic-sequence','w5-neurotransmitters','w5-neurotransmitter-removal','w5-postsynaptic-potentials','w5-summation-integration','w5-presynaptic-modulation','w5-synaptic-plasticity','w5-electrical-synapses','w5-lab-synapse-sim','w5-reflex-arc','w5-stretch-reflex','w5-golgi-tendon','w5-withdrawal-reflex','w5-spinal-pathways','w5-csf-bbb','w5-lab-reflex-testing'] },
 
   { wk:6, module:2, opens:'2026-10-12', closes:'2026-10-18',
-    title:'How muscle makes force',
+    title:'How muscle contracts and makes force',
     exam:{ n:2, name:'Exam 2', covers:[4,5,6], opens:'2026-10-16', closes:'2026-10-18', status:'PLACEHOLDER' },
-    competencies:['m2-crossbridge-cycle','m2-sliding-filament','m2-length-tension','m2-motor-units','m2-twitch-tetanus','m2-muscle-metabolism','m2-fiber-types','m2-smooth-muscle','m2-smooth-muscle-tone','m2-cardiac-muscle'] },
+    competencies:['w6-nmj','w6-ec-coupling','w6-crossbridge-cycle','w6-calcium-regulation','w6-relaxation','w6-twitch','w6-summation-tetanus','w6-motor-units','w6-length-tension','w6-contraction-types','w6-fiber-types','w6-muscle-energetics','w6-fatigue','w6-muscle-adaptation','w6-lab-emg-fatigue','w6-lab-muscle-sim','w6-smooth-muscle','w6-smooth-regulation','w6-cardiac-muscle','w6-muscle-comparison'] },
 
   { wk:7, module:3, opens:'2026-10-19', closes:'2026-10-25',
-    title:'Sensing the world',
-    competencies:['m3-sensory-transduction','m3-receptor-adaptation','m3-somatosensory','m3-pain','m3-vision','m3-vision-optics','m3-hearing','m3-equilibrium','m3-chemical-senses'] },
+    title:'How you see, hear, taste, smell and feel',
+    competencies:['w7-transduction','w7-receptor-classes','w7-stimulus-coding','w7-receptive-fields','w7-receptor-adaptation','w7-somatosensory-pathways','w7-pain-modulation','w7-lab-tactile-mapping','w7-vision-optics','w7-phototransduction','w7-visual-processing','w7-vision-clinical','w7-hearing-transduction','w7-hearing-clinical','w7-equilibrium','w7-chemical-senses','w7-lab-vision-tests','w7-lab-hearing-tests'] },
 
   { wk:8, module:3, opens:'2026-10-26', closes:'2026-11-01',
-    title:'Moving, and running the background',
-    competencies:['m3-reflex-arc','m3-muscle-spindle-gto','m3-motor-hierarchy','m3-upper-lower-motor','m3-cortex-eeg-sleep','m3-memory-language','m3-ans-organization','m3-ans-receptors','m3-ans-effects','m3-adrenal-medulla'] },
+    title:'How you move, and what your body runs automatically',
+    competencies:['w8-motor-hierarchy','w8-corticospinal','w8-cerebellum-basal-ganglia','w8-umn-lmn','w8-ans-organization','w8-ans-divisions','w8-ans-receptors','w8-ans-tone','w8-adrenal-medulla','w8-ans-pharmacology','w8-lab-autonomic-testing'] },
 
   { wk:9, module:3, opens:'2026-11-02', closes:'2026-11-08',
-    title:'Hormones, the slow control system',
+    title:"Hormones: your body's slower control system",
     note:'Exam 3 closes Nov 8. The last day to drop is Nov 21, so students have three graded exams in hand before that decision. Keep it that way.',
     exam:{ n:3, name:'Exam 3', covers:[7,8,9], opens:'2026-11-06', closes:'2026-11-08', status:'PLACEHOLDER' },
-    competencies:['m3-hormone-classes','m3-hormone-regulation','m3-hypothalamic-pituitary','m3-growth-hormone','m3-thyroid','m3-adrenal-cortex','m3-stress-response','m3-pancreatic-hormones','m3-diabetes','m3-calcium-homeostasis'] },
+    competencies:['w9-hormone-classes','w9-hormone-transport','w9-hormone-receptors','w9-hormone-interactions','w9-hormone-release','w9-hypothalamic-pituitary','w9-endocrine-pathology','w9-posterior-pituitary','w9-growth-hormone','w9-thyroid','w9-adrenal-cortex','w9-stress-response','w9-calcium-homeostasis','w9-islet-hormones','w9-diabetes','w9-lab-glucose-tolerance','w9-lab-hormone-assay'] },
 
   { wk:10, module:4, opens:'2026-11-09', closes:'2026-11-15',
-    title:'The heart as a pump',
+    title:'How the heart pumps blood',
     note:'Veterans Day falls Wed Nov 11 inside this week. Nothing graded should be due that day.',
-    competencies:['m4-cardiac-ap','m4-pacemaker','m4-conduction-timing','m4-ecg','m4-cardiac-cycle','m4-pressure-volume-loop','m4-cardiac-output','m4-frank-starling'] },
+    competencies:['w10-plasma','w10-hematocrit','w10-rbc-hemoglobin','w10-erythropoiesis','w10-rbc-destruction','w10-leukocytes','w10-hemostasis','w10-coagulation','w10-fibrinolysis','w10-blood-types','w10-lab-hematocrit','w10-lab-blood-typing','w10-pacemaker-potential','w10-cardiac-ap','w10-conduction-system','w10-cardiac-refractory','w10-ecg-basics','w10-ecg-interpretation','w10-lab-ecg'] },
 
   { wk:11, module:4, opens:'2026-11-16', closes:'2026-11-22',
-    title:'Pressure, flow, and holding blood pressure steady',
+    title:'Blood pressure and blood flow, and how they stay steady',
     note:'Last day to drop is Sat Nov 21, inside this week.',
-    competencies:['m4-hemodynamics','m4-vessel-function','m4-blood-pressure','m4-capillary-exchange','m4-lymphatic-function','m4-local-flow-control','m4-baroreceptor','m4-raas-adh-bp','m4-shock','m4-hemostasis','m4-erythropoiesis-control'] },
+    competencies:['w11-cardiac-cycle','w11-pv-loop','w11-heart-sounds','w11-stroke-volume','w11-cardiac-output','w11-frank-starling','w11-preload-afterload','w11-cardiac-regulation','w11-lab-heart-sounds','w11-flow-resistance','w11-vessel-function','w11-blood-pressure','w11-local-blood-flow','w11-capillary-exchange','w11-edema','w11-lymph-return','w11-venous-return','w11-lab-bp-measurement','w11-baroreflex','w11-cv-hormonal','w11-exercise-cv','w11-shock-compensation'] },
 
   { wk:12, module:4, opens:'2026-11-23', closes:'2026-11-29',
-    title:'Breathing and gas transport',
+    title:'Breathing, and how oxygen gets to your cells',
     note:'THANKSGIVING WEEK. Thu Nov 26 and Fri Nov 27 are holidays. The natural Exam 4 close (Sun Nov 29) sits on the holiday weekend. The proposed window below opens Wed Nov 25 and closes Tue Dec 1 so it straddles the break instead of landing in it. This is the one date in the term that needs a deliberate decision.',
     exam:{ n:4, name:'Exam 4', covers:[10,11,12], opens:'2026-11-25', closes:'2026-12-01', status:'PLACEHOLDER, spans the break on purpose' },
-    competencies:['m4-ventilation-mechanics','m4-compliance-surfactant','m4-airway-resistance','m4-lung-volumes','m4-gas-exchange','m4-vq-matching','m4-oxygen-transport','m4-co2-transport','m4-ventilation-control','m4-respiratory-adjustments'] },
+    competencies:['w12-respiratory-functions','w12-ventilation-mechanics','w12-intrapleural-pressure','w12-compliance','w12-surfactant','w12-airway-resistance','w12-lung-volumes','w12-spirometry-patterns','w12-dead-space','w12-lab-spirometry','w12-partial-pressures','w12-gas-diffusion','w12-va-q-matching','w12-oxygen-transport','w12-hb-curve-shifts','w12-co2-transport','w12-bohr-haldane','w12-oxygen-content','w12-respiratory-centers','w12-chemoreceptors','w12-ventilation-adaptation','w12-lab-ventilation-response'] },
 
   { wk:13, module:5, opens:'2026-11-30', closes:'2026-12-06',
-    title:'The kidney and body fluid balance',
-    competencies:['m5-renal-functions','m5-nephron-processes','m5-gfr','m5-gfr-regulation','m5-clearance','m5-tubular-transport','m5-countercurrent','m5-urine-concentration','m5-sodium-water-balance','m5-potassium-balance','m5-micturition'] },
+    title:'How your kidneys control water and salt',
+    competencies:['w13-kidney-functions','w13-nephron-function','w13-renal-processes','w13-filtration-membrane','w13-gfr-forces','w13-gfr-regulation','w13-renal-clearance','w13-clearance-inference','w13-proximal-reabsorption','w13-renal-threshold','w13-tubular-secretion','w13-countercurrent','w13-adh-water-balance','w13-raas','w13-natriuretic-peptides','w13-potassium-handling','w13-micturition','w13-lab-urinalysis','w13-lab-renal-calculation','w13-buffer-systems','w13-respiratory-ph-control','w13-renal-ph-control','w13-acid-base-disorders','w13-acid-base-compensation','w13-lab-abg-interpretation','w13-volume-osmolarity'] },
 
   { wk:14, module:5, opens:'2026-12-07', closes:'2026-12-13',
-    title:'Acid-base, digestion, and fuel',
+    title:'Blood pH, digestion, and how you use food for fuel',
     exam:{ n:5, name:'Exam 5', covers:[13,14], opens:'2026-12-11', closes:'2026-12-13', status:'PLACEHOLDER' },
-    competencies:['m5-acid-base-principles','m5-abg-interpretation','m5-renal-acid-handling','m5-gi-motility','m5-gi-regulation','m5-gastric-secretion','m5-digestion-absorption','m5-liver-bile','m5-metabolic-states','m5-energy-balance','m5-thermoregulation'] },
+    competencies:['w14-digestive-processes','w14-gi-motility','w14-gi-regulation','w14-digestive-phases','w14-gastric-secretion','w14-pancreatic-bile-secretion','w14-carb-protein-absorption','w14-lipid-absorption','w14-liver-function','w14-large-intestine','w14-lab-digestion-enzymes','w14-atp-pathways','w14-absorptive-state','w14-postabsorptive-state','w14-glucose-regulation','w14-metabolic-rate','w14-thermoregulation','w14-lab-metabolic-rate'] },
 
   { wk:15, module:5, opens:'2026-12-14', closes:'2026-12-16', short:true,
-    title:'Defense, reproduction, and putting it together',
+    title:'Immune defense, reproduction, and putting it all together',
     note:'Three days only. This week carries immune and reproductive physiology plus the integration capstone, and the cumulative final closes it. If the term runs tight, this is the trim: immune and reproductive are the lowest-yield block in the map, and the integration capstone can move to Week 14 as the drawing task.',
     exam:{ n:6, name:'Cumulative final', covers:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], opens:'2026-12-14', closes:'2026-12-16', status:'PLACEHOLDER' },
-    competencies:['m5-innate-immunity','m5-adaptive-immunity','m5-immune-dysfunction','m5-male-reproductive','m5-female-cycle','m5-pregnancy-lactation','m5-integration-case'] }
+    competencies:['w15-innate-immunity','w15-inflammation','w15-adaptive-immunity','w15-antibodies','w15-immune-memory','w15-immune-dysfunction','w15-hpg-axis','w15-male-reproductive','w15-ovarian-cycle','w15-uterine-cycle','w15-pregnancy-hormones','w15-parturition-lactation','w15-lab-cycle-graphs','w15-integration-case','w15-exercise-integration','w15-drawing-synthesis'] }
 ];
 
 /* ============================================================

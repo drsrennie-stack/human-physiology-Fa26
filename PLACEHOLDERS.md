@@ -86,3 +86,76 @@ The back half of the term runs consistently heavier than the front half. That is
 ## Not needed yet
 
 Nothing in this build assumes a section number beyond BIOL-5-D9286, a room, or a meeting time, because there are none. If a second section is added later, the data files are already structured to hold more than one.
+
+---
+
+## Added Aug 17 2026, blocks nothing but needs an answer
+
+**A. Term start date. Asked seven times, still open, and it is now also in `welcome.html` week math and on the week 1 cover.** Scrubs said the course starts **Sept 5**. Sept 5 2026 is a Saturday, and the section listing says the term runs **Tue Sep 8 to Wed Dec 16**. Sep 8 is what is coded everywhere: `bio005-schedule-fall2026.js`, `BIO005_META`, and `CONFIG.termStart` in `mastery-physio-os.html`. If Sept 5 is right, change `CONFIG.termStart` in `mastery-physio-os.html` and the term dates in the schedule file, and every derived date follows. Until then Sep 8 stands.
+
+**B. Which competency list is canonical.** Resolved in favour of the 268 list. `bio005-competencies.js` now holds 268 competencies, replacing the earlier 137. The old file is still in git history at the previous commit if any of it needs recovering. Everything downstream reads the new file and has been verified against it.
+
+**C. DOK distribution.** The 268 list runs 160 at DOK 3, 101 at DOK 2, 7 at DOK 1. Physiology skews to predict and trace so this is expected, but it does not match the BIO 004 shape, which is mostly DOK 2. Accept, or re-level some DOK 3 items down.
+
+**D. Which course home to keep.** There are now two: the new `index.html` and the older `physiology-course-home.html`. Both are branded correctly. Pick one and delete the other, or make one redirect to the other the way the BIO 004 repo does.
+
+**E. Navy hex. RESOLVED Aug 21 2026.** Scrubs chose the dark navy. Every page in the repo is now on `#08101F`, so the document pages and the app surface finally agree and there is one navy. `palettes.md` still says `#1E3D4C` and is now behind the repo. See item W.
+
+**F. Estimated study minutes.** The `est` field on each competency is derived from DOK and yield, not measured. It totals 111 hours across the term, which drives the "est. hours left" number on the Mastery Physio OS dashboard and the week-load chart on the competency map. Sanity check it against what you know real students spend.
+
+**G. Lab facet coverage.** 132 competencies are tagged lab, written as physiology labs: spirometry, ECG, blood pressure and orthostatic testing, EMG and grip fatigue, urinalysis, ABG interpretation, enzyme assay, glucose tolerance, blood typing, nerve conduction, and simulations. Group 1 item 1 above, the lab delivery decision, has to be able to deliver these or the tags need rewriting.
+
+**H. The card bank.** The single biggest remaining build item for the OS. 268 competencies need cards written against them, and every card must carry a competency id or answering it moves no mastery bar. Until then Recall points students at `competency-recall.html`.
+
+**I. What replaces Loops.** Loops is short lab identification walkthroughs shot over cadaver and slide material. That format does not carry to an online physiology course. Scrubs is choosing the replacement. Whatever it is, keep the shape in `os/loops-index.js` and the Today view and the per-competency resource buttons pick it up automatically.
+
+**J. Accessibility audit of the OS.** The fork has not been audited. See section 8 of `compliance-notes.md`.
+
+**K. Does palettes.md govern the app surface.** The OS keeps the BIO 004 dark surface. If `palettes.md` is meant to cover applications as well as documents, the OS needs repainting and so does the BIO 004 one. If it covers documents only, say so in `palettes.md`.
+
+**L. `index.css` 404.** `physiology-course-home.html`, `physiology-course-map.html` and all three workbooks request an `index.css` that is not in the repo. Pre-existing, not introduced here. Either commit the file or remove the reference.
+
+**M. `competency-recall.html` is not your design.** It is the one page in this repo that was invented rather than forked. It works, and it is the only retrieval practice available while the card bank is empty. Re-fork or retire it once the bank exists.
+
+**N. Two course homes still.** `welcome.html` (forked, live) and `physiology-course-home.html` (earlier build). Pick one.
+
+**O. Week titles rewritten Aug 17.** The fifteen week titles were vague ("Pumps, potentials, and the language cells use", "Moving, and running the background"). They now say what the student will be able to do. Source of truth is `bio005-schedule-fall2026.js`; `schedule-fall2026.js` and the copy inside the OS are generated from it. Read them and change any you disagree with, then regenerate.
+
+**P. Student language.** `LANGUAGE.md` now holds the rule and `tools/language-audit.py` enforces it. The audit is clean as of Aug 17. It catches banned words, it does not catch vague-but-plain writing, which is the harder failure.
+
+**Q. Grade weights on the course home.** The Hootie answer for "how do grades work" now says the weights are not set yet, because they are not. Fix that answer in `welcome.html` once the weights exist.
+
+**R. Readiness check resource links.** `readiness-check.js` names where to review each concept. Nine of the eighteen say "Link to add" because I will not invent a URL. Fill those in, or record short videos and point at those instead, which is what you said you wanted. The anatomy ones already point at the review deck in this repo and need nothing.
+
+**S. Readiness questions.** 21 questions across the two checks, mixed difficulty, every concept covered. They are written and working. Change any wording you disagree with in `readiness-check.js`, but they do not need a review pass before the term.
+
+---
+
+## Added August 21, 2026
+
+**T. Google Fonts on six pages.** `welcome.html`, `os/mastery-physio-os.html`, the standalone build, `competency-recall.html`, `physiology-course-home.html` and `physiology-course-map.html` still fetch DM Sans and Plus Jakarta Sans from `fonts.googleapis.com` on load. Everything else in the repo embeds them. A third-party font request is render-blocking, fails behind a strict content security policy, and leaves the page in a fallback face. `course-schedule.html` was moved to embedded fonts on Aug 21 and is the pattern. The reason the others were left is size: the eight faces are about 136 KB, and the standalone build is already 705 KB. Your call whether every page pays that to be genuinely self-contained. My recommendation is yes for the student pages and yes for the standalone in particular, since a single file that still needs the internet to look right is only half standalone.
+
+**U. What replaces the two course homes.** `welcome.html` and `physiology-course-home.html` both still exist and both claim to be the front door. Still unresolved, still item from Aug 17, and now `welcome.html` is the one the schedule, the week page and the dock all link to. Retiring `physiology-course-home.html` is the low-risk move.
+
+**V. Weeks 2 to 15 course material.** Week 1 is written and is the pattern. The other fourteen are not. Roughly, at week 1's depth, each week is a substantial piece of writing, and the lab delivery decision (item 1) constrains what the Practice part of each week can even say. Approve or redirect the shape of week 1 before the rest get built to match it.
+
+**W. `palettes.md` is behind the repo.** On Aug 21 Scrubs replaced terra cotta with maroon and navy with dark navy, and removed the teal from the neutral grays. `palettes.md` at the workspace root still specifies the old PRIMARY palette, and every project CLAUDE.md points at it as the single source of truth. Until it is updated, a new session reading `palettes.md` will repaint this repo backwards. The current values are in `assets/brand.css` with the reasoning and the measured ratios.
+
+| Token | Was | Now |
+|---|---|---|
+| navy | `#1E3D4C` | `#08101F` |
+| navy hover | `#142a36` | `#060A18` |
+| navy tint | `#EDF1F3` | `#ECEFF4` |
+| terra cotta | `#C2734D` | maroon `#7A2A22` |
+| terra dark | `#A0522D` | maroon dark `#5E201A` |
+| ink soft | `#3C5563` | `#414B5C` |
+| muted gray | `#5C6970`, `#5B7480` | `#5A6273` |
+| border gray | `#CFD6DA` | `#D1D5DB` |
+
+Gold is unchanged: `#B8924A` on light, `#8A6D33` where white text sits on it, `#DCB45C` on the dark app surface.
+
+**X. The three lab workbooks are still on the old MedMasters tokens.** `workbook_week01`, `02` and `03` define `--mcas-rust` and friends and were not part of the Aug 17 repaint or the Aug 21 one. They are the only files left carrying that vocabulary. They should be moved onto `assets/brand.css` the next time they are edited.
+
+**Y. Resource links for the math box.** The nine math concepts point at the week 1 material, which exists, so unlike the chemistry box there are no dead "Link to add" fields. If you want outside practice for unit conversion or reading a graph, name it and I will add it. The chemistry box still has nine "Link to add" fields waiting on you.
+
+**Z. The `units` arrays are my reading of your `usedIn` text, not your call.** `readiness-check.js` now tags every concept with which of the five units uses it, and `tools/build-unit-prereqs.py` builds each week page's prerequisite block from that. I derived the tags from the `usedIn` sentence already on each concept. Unit 1 currently comes out at 8 chemistry, 2 anatomy, 8 math. Worth a look: if a concept is tagged into a unit it does not really serve, that unit's block gets noisy, and if one is missing a unit a student arrives short. Fix the array, rerun the tool, and every week page updates.

@@ -1,0 +1,298 @@
+/* ============================================================
+   BIO 005 Human Physiology, Yuba College, Fall 2026
+   Teaching palette. Single source of truth for this repo.
+
+   AUG 21 2026, PALETTE CHANGE, ON SCRUBS' INSTRUCTION
+   Terra cotta is out and maroon is in. Navy is out and dark navy is
+   in. These are the values her own course home, welcome.html, was
+   already using, carried over from the BIO 004 template, so this
+   change makes the document pages match the front door rather than
+   introducing anything new.
+
+     terra      #C2734D  ->  maroon       #7A2A22
+     terra-dark #A0522D  ->  maroon-dark  #5E201A
+     navy       #1E3D4C  ->  navy         #08101F
+     navy-deep  #142a36  ->  navy-deep    #060A18
+
+   The token names changed with the values. A token called --terra
+   holding a maroon is how a palette quietly drifts.
+
+   Contrast went up everywhere, and one documented AA-only limitation
+   is now gone: terra-dark headings were 5.62:1, AA but not AAA, and
+   maroon-dark is 12.37:1. See section 3 of compliance-notes.md.
+
+   Authority: palettes.md at the workspace root names terra cotta and
+   #1E3D4C. It is now behind this file and needs updating. Scrubs'
+   direct instruction outranks the doc; the doc still has to catch up.
+
+   Sage and cream are NOT in this palette. Ever. Do not reintroduce
+   them from an older BIO 004, BIO 304, or MCAS file.
+
+   Every page in this repo links this file. Page-specific rules go in
+   the page, never a second copy of these tokens.
+   ============================================================ */
+
+:root {
+  /* ---- Core palette. See the change note at the top of this file. ---- */
+  --navy:#08101F;          /* primary text, headers, borders. 19.02:1 on white */
+  --navy-deep:#060A18;     /* hover on navy. Has to stay DARKER than --navy.
+                              The old hover #142a36 is lighter than #08101F,
+                              so carrying it over would have made hover lift
+                              instead of deepen. */
+  --navy-tint:#ECEFF4;     /* completed-state fill only, never a page background */
+  --gold:#B8924A;          /* accents, unlocked-state borders, key CTAs. Never text. */
+  --gold-deep:#8A6D33;     /* the only gold that may CARRY white text: 4.87:1.
+                              Bright gold with white on it is 2.90:1 and fails.
+                              Also the frame edge when a gold panel sits on the page,
+                              because bright gold on off-white is 2.77:1, under the 3:1 floor. */
+  --maroon:#7A2A22;        /* eyebrow text, secondary accents. 9.63:1 on
+                              white, so unlike terra cotta before it, this
+                              one may carry text. */
+  --maroon-dark:#5E201A;   /* maroon hover, emphasis, heading color. 12.37:1 */
+  --white:#FFFFFF;         /* cards only */
+  --offwhite:#FAFAF9;      /* page background only */
+
+  /* ---- Derived, all verified against the core palette ---- */
+  --ink:var(--navy);
+  --ink-soft:#414B5C;      /* 7.02:1 on white, AAA, for secondary body text */
+  --line:rgba(8,16,31,0.16);
+  --line-soft:rgba(8,16,31,0.08);
+  --line-control:#08101F;  /* form control borders, 19.02:1 on white */
+
+  /* State colors for teaching tools. Never green for completed. */
+  --state-locked:#5A6273;        /* gray, dashed border */
+  --state-unlocked:var(--gold);  /* solid gold border */
+  --state-complete:var(--navy);  /* solid navy border on navy-tint fill */
+
+  /* Status text, used sparingly, all AA or better on white */
+  --ok:#1E4C33; --warn:#7A5310; --bad:#7A2E2E;
+
+  /* ---- Type ---- */
+  --disp:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --eyebrow-font:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+
+  /* ---- Elevation and motion, palettes.md aesthetic principles ---- */
+  --shadow:0 1px 3px rgba(0,0,0,0.08);
+  --lift:0 8px 16px rgba(0,0,0,0.10);
+  --motion:transform 200ms ease, box-shadow 200ms ease;
+
+  --r-sm:4px; --r:6px; --r-lg:10px;
+  --maxw:1120px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:var(--offwhite); color:var(--navy);
+  font-family:var(--eyebrow-font); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 20px 80px; }
+
+a { color:var(--navy); text-decoration:underline; text-underline-offset:2px; }
+a:hover { color:var(--navy-deep); }
+:focus-visible { outline:3px solid var(--navy); outline-offset:2px; border-radius:2px; }
+
+.skip {
+  position:absolute; left:-9999px; top:0; background:var(--navy); color:var(--white);
+  padding:12px 18px; z-index:200; text-decoration:none; font-weight:700;
+}
+.skip:focus { left:8px; top:8px; color:var(--white); }
+
+.visually-hidden {
+  position:absolute!important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ============================================================
+   TYPE SCALE
+   Eyebrow: DM Sans 12px uppercase maroon-dark
+   h1: Plus Jakarta 800 navy
+   h2, h3: Plus Jakarta 600 maroon-dark
+   Usage instructions and body emphasis: Lora italic
+   ============================================================ */
+.eyebrow {
+  font-family:var(--eyebrow-font); font-size:12px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--maroon-dark); font-weight:700; margin:0 0 10px;
+}
+h1 {
+  font-family:var(--disp); font-weight:800; color:var(--navy);
+  font-size:clamp(28px,4.2vw,42px); line-height:1.15; margin:0 0 8px; letter-spacing:-0.01em;
+}
+h2 {
+  font-family:var(--disp); font-weight:600; color:var(--maroon-dark);
+  font-size:clamp(20px,2.6vw,26px); line-height:1.2; margin:0 0 8px;
+}
+h3 {
+  font-family:var(--disp); font-weight:600; color:var(--maroon-dark);
+  font-size:17px; line-height:1.25; margin:0 0 6px;
+}
+.subhead {
+  font-family:var(--disp); font-weight:600; color:var(--maroon-dark);
+  font-size:clamp(17px,2.1vw,22px); margin:0 0 18px;
+}
+.usage, .lede { font-family:var(--serif); font-style:italic; font-size:17px; max-width:66ch; margin:0 0 8px; }
+.topic-rule {
+  font-family:var(--eyebrow-font); font-weight:700; font-size:12px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--maroon-dark); margin:26px 0 10px;
+  padding-bottom:6px; border-bottom:1px solid var(--navy-tint);
+}
+.small { font-size:14px; }
+.muted { color:var(--ink-soft); }
+
+/* ============================================================
+   CARDS
+   White cards on off-white. Lift on hover: up 2px, softer shadow.
+   No bookend bars. No pastel tints. No shaded card backgrounds.
+   ============================================================ */
+.card {
+  background:var(--white); border:1px solid var(--navy-tint); border-radius:var(--r);
+  padding:22px 24px; margin:0 0 20px; box-shadow:var(--shadow); transition:var(--motion);
+}
+.card:hover { transform:translateY(-2px); box-shadow:var(--lift); }
+.card-static:hover { transform:none; box-shadow:var(--shadow); }
+.grid { display:grid; gap:16px; }
+.grid-2 { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+.grid-3 { grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+.grid-4 { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+
+/* ============================================================
+   INTERACTIVE STATES, teaching tools
+   Locked gray dashed, unlocked gold solid, completed navy on tint.
+   Never green for completed.
+   ============================================================ */
+.state-locked   { border:1px dashed var(--state-locked); background:var(--white); color:var(--ink-soft); }
+.state-unlocked { border:1px solid var(--state-unlocked); background:var(--white); }
+.state-complete { border:1px solid var(--state-complete); background:var(--navy-tint); }
+
+/* ============================================================
+   CONTROLS
+   Minimum target 24 by 24 CSS px, WCAG 2.2 AA 2.5.8.
+   ============================================================ */
+input[type="search"], input[type="text"], input[type="number"], select, textarea {
+  font-family:inherit; font-size:15px; color:var(--navy); background:var(--white);
+  border:1px solid var(--line-control); border-radius:var(--r-sm);
+  padding:9px 11px; min-height:44px;
+}
+textarea { min-height:96px; line-height:1.5; }
+.field { display:flex; flex-direction:column; gap:5px; }
+.field > label {
+  font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  font-weight:700; color:var(--maroon-dark);
+}
+.btn {
+  font-family:inherit; font-size:14px; font-weight:700; color:var(--navy);
+  background:var(--white); border:1px solid var(--gold); border-radius:var(--r-sm);
+  padding:11px 16px; min-height:44px; cursor:pointer; transition:var(--motion);
+}
+.btn:hover { transform:translateY(-2px); box-shadow:var(--lift); }
+.btn-primary { background:var(--navy); color:var(--white); border-color:var(--navy); }
+.btn-primary:hover { background:var(--navy-deep); border-color:var(--navy-deep); }
+.btn[aria-pressed="true"], .btn.is-active { background:var(--navy-tint); border-color:var(--navy); }
+.btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.toggle {
+  display:inline-flex; align-items:center; gap:7px; background:var(--white);
+  border:1px solid var(--navy-tint); border-radius:999px; padding:9px 14px;
+  min-height:44px; cursor:pointer; font-size:14px;
+}
+.toggle input { width:24px; height:24px; accent-color:var(--navy); margin:0; }
+.toggle:has(input:checked) { border-color:var(--navy); background:var(--navy-tint); font-weight:700; }
+
+/* ============================================================
+   TAGS
+   Lecture navy on tint. Lab maroon-dark on white with maroon border.
+   Text label always present, never color alone.
+   ============================================================ */
+.tag {
+  font-family:var(--eyebrow-font); font-size:10px; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; padding:3px 8px; border-radius:3px; white-space:nowrap;
+  display:inline-block;
+}
+.tag-lecture { color:var(--navy); background:var(--navy-tint); border:1px solid var(--navy); }
+.tag-lab     { color:var(--maroon-dark); background:var(--white); border:1px solid var(--maroon); }
+.tag-core    { color:var(--navy); background:var(--white); border:1px solid var(--gold); }
+.tag-dok     { color:var(--navy); background:var(--white); border:1px solid var(--navy-tint); }
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+table { border-collapse:collapse; width:100%; font-size:15px; }
+caption {
+  text-align:left; font-family:var(--eyebrow-font); font-size:12px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--maroon-dark); font-weight:700; padding-bottom:10px;
+}
+th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--navy-tint); }
+thead th {
+  font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--navy); border-bottom:1px solid var(--navy);
+}
+td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+tr.total-row th, tr.total-row td { font-weight:700; border-top:1px solid var(--navy); border-bottom:none; }
+
+/* ============================================================
+   METERS
+   ============================================================ */
+.meter {
+  width:100%; height:8px; background:var(--navy-tint); border-radius:999px;
+  overflow:hidden;
+}
+.meter-fill { height:100%; width:0%; background:var(--navy); transition:width 200ms ease; }
+.meter-fill.is-gold { background:var(--gold); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.tabs { display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--navy-tint); padding-bottom:0; }
+.tab {
+  font-family:inherit; font-size:14px; font-weight:700; color:var(--navy);
+  background:transparent; border:none; border-bottom:3px solid transparent;
+  padding:12px 14px; min-height:44px; cursor:pointer;
+}
+.tab[aria-selected="true"] { border-bottom-color:var(--maroon); color:var(--maroon-dark); }
+.tab:hover { background:var(--navy-tint); }
+
+/* ============================================================
+   RESPONSIVE, MOTION, PRINT
+   ============================================================ */
+@media (max-width:640px) {
+  .field { width:100%; }
+  input[type="search"] { width:100%; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { transition:none!important; animation:none!important; }
+  .card:hover, .btn:hover { transform:none; }
+}
+@media print {
+  .no-print, .tabs, .btn { display:none!important; }
+  body { background:#fff; font-size:11pt; }
+  .card { box-shadow:none; border:1px solid #999; }
+  a { text-decoration:none; }
+}
+
+/* ============================================================
+   APP SURFACE, Mastery Physio OS only
+   ------------------------------------------------------------
+   The OS is a dark, full-bleed application surface. It is NOT a
+   document page, and the white-cards-on-off-white rule above does
+   not apply to it.
+
+     --navy   #08101F   app canvas and panels, same as the document
+                        pages now use for text
+     --card   #0B1530   raised panel inside the canvas
+     --gold   #DCB45C   accent on dark, higher luminance than
+                        #B8924A because it sits on a dark ground
+
+   RESOLVED Aug 21 2026. This block used to carry an open question:
+   palettes.md specified #1E3D4C and the OS used #08101F, and nobody
+   had said which governed. Scrubs answered it by moving the document
+   pages to the dark navy, so there is now one navy in the repo and
+   the app surface and the document pages agree on it. The only
+   remaining difference is gold, which is brighter on the dark ground
+   because it has to be.
+   ============================================================ */

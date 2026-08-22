@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Competency recall &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="Track your mastery of the 268 BIO 005 competencies, run spaced recall, find your weak systems, and get your highest-value work for today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand.css">
+<style>
+/* Page-specific only. All palette tokens live in assets/brand.css. */
+.os-head { padding:32px 0 16px; }
+.os-bar { position:sticky; top:0; z-index:30; background:var(--offwhite); padding-top:8px; }
+.panel[hidden] { display:none; }
+
+.ring-row { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); }
+.ring-card { text-align:center; }
+.ring { width:104px; height:104px; margin:0 auto 10px; display:block; }
+.ring-track { fill:none; stroke:var(--navy-tint); stroke-width:9; }
+.ring-val { fill:none; stroke:var(--navy); stroke-width:9; stroke-linecap:round;
+  transform:rotate(-90deg); transform-origin:50% 50%; transition:stroke-dasharray 200ms ease; }
+.ring-pct { font-family:var(--disp); font-weight:800; font-size:21px; fill:var(--navy); }
+.ring-card h3 { font-size:14px; margin:0 0 3px; }
+
+.stat-row { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
+.stat { background:var(--white); border:1px solid var(--navy-tint); border-radius:var(--r);
+  padding:16px 18px; box-shadow:var(--shadow); }
+.stat .k { font-family:var(--disp); font-weight:800; font-size:30px; line-height:1.1; color:var(--navy); }
+.stat .l { font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--maroon-dark); font-weight:700; margin-top:4px; }
+
+.comp-row { border:1px solid var(--navy-tint); border-radius:var(--r-sm);
+  background:var(--white); padding:13px 15px; margin-bottom:8px; }
+.comp-row[data-conf="1"] { border-color:var(--state-locked); border-style:dashed; }
+.comp-row[data-conf="2"] { border-color:var(--gold); }
+.comp-row[data-conf="3"] { border-color:var(--navy); background:var(--navy-tint); }
+.comp-row[hidden] { display:none; }
+.comp-top { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; }
+.comp-n { font-variant-numeric:tabular-nums; font-weight:700; color:var(--maroon-dark); }
+.comp-name { font-weight:700; }
+.comp-can { display:block; margin:4px 0 8px; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.conf-set { display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }
+.conf-btn { font-family:inherit; font-size:12px; font-weight:700; padding:7px 11px; min-height:32px;
+  border-radius:999px; cursor:pointer; background:var(--white); color:var(--navy);
+  border:1px solid var(--navy-tint); }
+.conf-btn:hover { border-color:var(--gold); }
+.conf-btn[aria-pressed="true"] { background:var(--navy); color:var(--white); border-color:var(--navy); }
+
+.bar-list { list-style:none; margin:0; padding:0; }
+.bar-item { margin-bottom:12px; }
+.bar-head { display:flex; justify-content:space-between; gap:12px; font-size:14px; margin-bottom:4px; }
+.bar-head b { font-weight:700; }
+
+.recall-stage { min-height:210px; display:flex; flex-direction:column; justify-content:center; }
+.recall-prompt { font-family:var(--disp); font-weight:700; font-size:clamp(19px,3vw,25px); color:var(--navy); margin:0 0 10px; }
+.recall-answer { font-family:var(--serif); font-size:17px; background:var(--white); border-radius:var(--r);
+  padding:13px 16px; margin:14px 0; box-shadow:0 1px 2px rgba(8,16,31,.06), 0 8px 18px rgba(8,16,31,.09); }
+.grade-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+
+.draw-timer { font-family:var(--disp); font-weight:800; font-size:44px; font-variant-numeric:tabular-nums; color:var(--navy); }
+.note { font-family:var(--serif); font-style:italic; }
+.flag { border-radius:var(--r); padding:12px 15px; background:var(--white); box-shadow:0 1px 2px rgba(8,16,31,.06), 0 8px 18px rgba(8,16,31,.09);
+  border-radius:var(--r-sm); margin:0 0 16px; font-size:14px; }
+.week-pill { display:inline-block; font-size:12px; font-weight:700; padding:4px 9px;
+  border:1px solid var(--navy-tint); border-radius:999px; margin:0 4px 4px 0; background:var(--white); }
+.week-pill.is-now { border-color:var(--gold); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the dashboard</a>
+<div class="wrap">
+
+<header class="os-head">
+  <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Yuba College</p>
+  <h1>Competency recall</h1>
+  <p class="subhead">Retrieval practice at the competency level, while the card bank is written</p>
+  <p class="usage">Everything here runs off one list: the competencies. Rate what you can actually do, and this tells you what to work on next, what you are weakest at, and what is due for recall today. Nothing is submitted and nothing is graded. It is for you.</p>
+</header>
+
+<div class="os-bar no-print">
+  <div class="tabs" role="tablist" aria-label="Mastery Physio OS views">
+    <button class="tab" role="tab" id="tab-dash"   aria-controls="p-dash"   aria-selected="true">Dashboard</button>
+    <button class="tab" role="tab" id="tab-map"    aria-controls="p-map"    aria-selected="false" tabindex="-1">Competency map</button>
+    <button class="tab" role="tab" id="tab-recall" aria-controls="p-recall" aria-selected="false" tabindex="-1">Recall</button>
+    <button class="tab" role="tab" id="tab-weak"   aria-controls="p-weak"   aria-selected="false" tabindex="-1">Weakness</button>
+    <button class="tab" role="tab" id="tab-draw"   aria-controls="p-draw"   aria-selected="false" tabindex="-1">Drawing check</button>
+    <button class="tab" role="tab" id="tab-data"   aria-controls="p-data"   aria-selected="false" tabindex="-1">Your data</button>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ DASHBOARD ============ -->
+<section class="panel" id="p-dash" role="tabpanel" aria-labelledby="tab-dash" tabindex="0">
+  <p class="visually-hidden" id="dash-live" aria-live="polite" aria-atomic="true"></p>
+
+  <div class="stat-row" style="margin-bottom:20px;">
+    <div class="stat"><div class="k" id="s-mastery">0%</div><div class="l">Course mastery</div></div>
+    <div class="stat"><div class="k" id="s-solid">0</div><div class="l">Solid or better</div></div>
+    <div class="stat"><div class="k" id="s-due">0</div><div class="l">Due for recall</div></div>
+    <div class="stat"><div class="k" id="s-hours">0</div><div class="l">Est. hours left</div></div>
+    <div class="stat"><div class="k" id="s-week">1</div><div class="l">Course week</div></div>
+  </div>
+
+  <div class="card card-static">
+    <p class="eyebrow">Start here</p>
+    <h2 id="plan-h">Your highest-value work right now</h2>
+    <p class="usage" id="plan-why">Rate a few competencies on the competency map and this will fill in.</p>
+    <ol id="plan-list" style="padding-left:20px;"></ol>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-primary" type="button" id="go-recall">Run today's recall</button>
+      <button class="btn" type="button" id="go-weak">See my weakest systems</button>
+    </div>
+  </div>
+
+  <h2 style="margin-top:26px;">Mastery by unit</h2>
+  <div class="ring-row" id="rings"></div>
+
+  <div class="card card-static" style="margin-top:22px;">
+    <p class="eyebrow">Where you are in the term</p>
+    <h2>Week by week</h2>
+    <p class="small muted" id="term-note"></p>
+    <div id="week-pills" style="margin-top:10px;"></div>
+  </div>
+</section>
+
+<!-- ============ COMPETENCY MAP ============ -->
+<section class="panel" id="p-map" role="tabpanel" aria-labelledby="tab-map" tabindex="0" hidden>
+  <div class="card card-static no-print">
+    <div style="display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;">
+      <div class="field"><label for="m-q">Search</label>
+        <input type="search" id="m-q" placeholder="cardiac output, osmolarity, reflex" autocomplete="off" style="min-width:250px;"></div>
+      <div class="field"><label for="m-mod">Unit</label><select id="m-mod"></select></div>
+      <div class="field"><label for="m-gen">System</label><select id="m-gen"></select></div>
+      <div class="field"><label for="m-conf">Confidence</label>
+        <select id="m-conf">
+          <option value="all">Any</option>
+          <option value="0">Not started</option>
+          <option value="1">Shaky</option>
+          <option value="2">Solid</option>
+          <option value="3">Mastered</option>
+          <option value="lt3">Not yet mastered</option>
+        </select></div>
+      <div class="toggles" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="toggle"><input type="checkbox" id="m-lec"><label for="m-lec">Lecture</label></span>
+        <span class="toggle"><input type="checkbox" id="m-lab"><label for="m-lab">Lab</label></span>
+        <span class="toggle"><input type="checkbox" id="m-core"><label for="m-core">Core only</label></span>
+      </div>
+    </div>
+    <p class="small" style="margin:12px 0 0;" id="m-count" aria-live="polite" aria-atomic="true"></p>
+  </div>
+  <div id="m-list"></div>
+  <p class="note" id="m-empty" hidden>No competency matches that. Try a shorter search or clear a filter.</p>
+</section>
+
+<!-- ============ RECALL ============ -->
+<section class="panel" id="p-recall" role="tabpanel" aria-labelledby="tab-recall" tabindex="0" hidden>
+  <div class="card card-static">
+    <p class="eyebrow">Spaced retrieval</p>
+    <h2>Recall</h2>
+    <p class="usage">You get the competency. You say the answer out loud, from memory, before you reveal anything. Then you rate how it went and the system decides when you see it again. Guessing and then reading the answer is not recall, and it does not work.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;margin-top:12px;">
+      <div class="field"><label for="r-scope">Draw from</label>
+        <select id="r-scope">
+          <option value="due">Due today</option>
+          <option value="week">This week</option>
+          <option value="weak">My weakest system</option>
+          <option value="module">A unit</option>
+          <option value="all">Everything</option>
+        </select></div>
+      <div class="field" id="r-modwrap" hidden><label for="r-mod">Unit</label><select id="r-mod"></select></div>
+      <button class="btn btn-primary" type="button" id="r-start">Start session</button>
+    </div>
+  </div>
+
+  <div class="card card-static" id="r-card" hidden>
+    <p class="small muted" id="r-progress" aria-live="polite" aria-atomic="true"></p>
+    <div class="recall-stage">
+      <p class="eyebrow" id="r-meta"></p>
+      <p class="recall-prompt" id="r-prompt"></p>
+      <div id="r-answer-wrap" hidden>
+        <p class="eyebrow">You should be able to</p>
+        <p class="recall-answer" id="r-answer"></p>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="button" id="r-reveal">Reveal, I have said it out loud</button>
+    <div class="grade-row" id="r-grades" hidden>
+      <button class="btn" type="button" data-grade="0">Blank</button>
+      <button class="btn" type="button" data-grade="1">Rough</button>
+      <button class="btn" type="button" data-grade="2">Got it</button>
+      <button class="btn" type="button" data-grade="3">Easy</button>
+    </div>
+  </div>
+
+  <div class="card card-static" id="r-done" hidden>
+    <h2>Session complete</h2>
+    <p class="usage" id="r-summary"></p>
+    <button class="btn btn-primary" type="button" id="r-again">Another session</button>
+  </div>
+</section>
+
+<!-- ============ WEAKNESS ============ -->
+<section class="panel" id="p-weak" role="tabpanel" aria-labelledby="tab-weak" tabindex="0" hidden>
+  <div class="card card-static">
+    <p class="eyebrow">Where the gaps are</p>
+    <h2>Weakness dashboard</h2>
+    <p class="usage">Ranked weakest first. A bar that is short because you have not rated anything in that system is a different problem than a bar that is short because you rated honestly and it is hard. The count of unrated competencies is shown so you can tell which one you are looking at.</p>
+  </div>
+  <div class="grid grid-2">
+    <div class="card card-static"><h3>By system</h3><ul class="bar-list" id="w-gen"></ul></div>
+    <div class="card card-static"><h3>By unit</h3><ul class="bar-list" id="w-mod"></ul></div>
+  </div>
+  <div class="card card-static"><h3>By thinking level</h3>
+    <p class="small muted">recall level is recall, apply level is apply, analyse level is analyze and predict. Most of this course sits at analyse level, so a low analyse level bar is the one that costs you exam points.</p>
+    <ul class="bar-list" id="w-dok"></ul></div>
+  <div class="card card-static"><h3>Your ten weakest competencies</h3>
+    <p class="small muted">Must-know first. Anything you have not rated counts as weakest.</p>
+    <ol id="w-ten" style="padding-left:20px;"></ol></div>
+</section>
+
+<!-- ============ DRAWING CHECK ============ -->
+<section class="panel" id="p-draw" role="tabpanel" aria-labelledby="tab-draw" tabindex="0" hidden>
+  <div class="card card-static">
+    <p class="eyebrow">Given not Googled</p>
+    <h2>Drawing check</h2>
+    <p class="usage">Paper, pen, no notes, no screen. You draw the pathway or the curve from memory, then you check it. If you cannot draw it you do not know it yet, whatever the multiple choice said. This is the integrity mechanism in an online course, and it is also just the fastest way to find out what you are missing.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px 18px;align-items:flex-end;margin-top:12px;">
+      <div class="field"><label for="d-scope">Pick from</label>
+        <select id="d-scope">
+          <option value="draw">Diagram and trace competencies</option>
+          <option value="week">This week</option>
+          <option value="weak">My weakest system</option>
+          <option value="all">Everything</option>
+        </select></div>
+      <button class="btn btn-primary" type="button" id="d-new">Give me one</button>
+    </div>
+  </div>
+  <div class="card card-static" id="d-card" hidden>
+    <p class="eyebrow" id="d-meta"></p>
+    <h2 id="d-name"></h2>
+    <p class="recall-answer" id="d-can"></p>
+    <p class="draw-timer" id="d-timer">5:00</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-primary" type="button" id="d-go">Start the timer</button>
+      <button class="btn" type="button" id="d-done">I drew it, log it</button>
+    </div>
+    <p class="small muted" style="margin-top:10px;" id="d-log" aria-live="polite" aria-atomic="true"></p>
+  </div>
+</section>
+
+<!-- ============ DATA ============ -->
+<section class="panel" id="p-data" role="tabpanel" aria-labelledby="tab-data" tabindex="0" hidden>
+  <div class="card card-static">
+    <p class="eyebrow">Your progress lives in this browser</p>
+    <h2>Your data</h2>
+    <p class="usage">Nothing here is sent anywhere. It is stored in this browser only, which means it does not follow you to another device and clearing your browsing data clears it. If you study on a laptop and a phone, export from one and import into the other.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+      <button class="btn btn-primary" type="button" id="x-export">Export my progress</button>
+      <button class="btn" type="button" id="x-import-btn">Import progress</button>
+      <button class="btn" type="button" id="x-reset">Erase everything</button>
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label for="x-box">Progress code</label>
+      <textarea id="x-box" spellcheck="false" placeholder="Export puts your code here. To import, paste a code in and press Import progress."></textarea>
+    </div>
+    <p class="small" id="x-msg" aria-live="polite" aria-atomic="true"></p>
+  </div>
+  <div class="card card-static">
+    <h3>What the ratings mean</h3>
+    <table>
+      <caption>Confidence scale</caption>
+      <thead><tr><th scope="col">Rating</th><th scope="col">What it means</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Not started</th><td>You have not worked this one yet.</td></tr>
+        <tr><th scope="row">Shaky</th><td>You recognize it. You could not produce it cold.</td></tr>
+        <tr><th scope="row">Solid</th><td>You can do it with a little thought, most of the time.</td></tr>
+        <tr><th scope="row">Mastered</th><td>You can do it from memory, out loud, without hesitating, and explain it to someone else.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer style="margin-top:36px;padding-top:20px;border-top:1px solid var(--navy-tint);font-size:14px;">
+  <p>BIO 005 Human Physiology &middot; Mastery Physio OS &middot; Dr. Sharilyn Rennie</p>
+  <p><a href="welcome.html" target="_top">Course home</a> &middot; <a href="os/mastery-physio-os.html" target="_top">Mastery Physio OS</a> &middot;
+     <a href="competency-study-guide.html" target="_top">Competency study guide</a> &middot;
+     <a href="course-schedule.html" target="_top">Course schedule</a></p>
+</footer>
+
+</div>
+
+<script src="bio005-competencies.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     COURSE CONFIG
+     TO CONFIRM. Term dates from the section listing for BIOL-5-D9286.
+     Scrubs mentioned a Sept 5 start; the listing says Sept 8. Fix the
+     one line below and every date in this file follows.
+     ============================================================ */
+  var CONFIG = {
+    termStart: "2026-09-08",   // TO CONFIRM, Sept 5 vs Sept 8
+    termEnd:   "2026-12-16",
+    examWindows: {             // TO CONFIRM, proposed not set
+      1: "2026-09-28", 2: "2026-10-19", 3: "2026-11-09",
+      4: "2026-12-01", 5: "2026-12-16"
+    }
+  };
+
+  var B = window.BIO005;
+  if (!B) { document.getElementById("main").innerHTML =
+    '<p class="note">The competency file did not load. Check that bio005-competencies.js sits next to this page.</p>'; return; }
+
+  var C = B.all, TOTAL = B.total;
+  var KEY = "bio005-mastery-physio-os-v1";
+  var DOKLABEL = { 1:"Know it", 2:"Use it", 3:"Work it out" };
+  var YIELDLABEL = { core:"Must know", high:"Important", support:"If you have time" };
+  var CONF_LABEL = ["Not started", "Shaky", "Solid", "I could teach it"];
+
+  /* ---------- state ---------- */
+  function today() { var d = new Date(); d.setHours(0,0,0,0); return d; }
+  function dayNum(d) { return Math.floor(d.getTime() / 86400000); }
+  function blank() { return { v:1, conf:{}, recall:{}, drew:{} }; }
+  function load() {
+    try { var raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : blank(); }
+    catch (e) { return blank(); }
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  var S = load();
+  if (!S.conf) S = blank();
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+  function conf(id) { return S.conf[id] || 0; }
+
+  /* ---------- course week ---------- */
+  function courseWeek() {
+    var start = new Date(CONFIG.termStart + "T00:00:00");
+    var w = Math.floor((today() - start) / 604800000) + 1;
+    return Math.min(15, Math.max(1, w));
+  }
+  var WEEK = courseWeek();
+
+  /* ---------- spaced repetition, SM-2 lite ---------- */
+  function dueList() {
+    var t = dayNum(today());
+    return C.filter(function (c) {
+      var r = S.recall[c.id];
+      if (!r) return false;
+      return r.due <= t;
+    });
+  }
+  function grade(id, g) {
+    var t = dayNum(today());
+    var r = S.recall[id] || { ease: 2.3, iv: 0, reps: 0, lapses: 0 };
+    if (g === 0) { r.iv = 0; r.ease = Math.max(1.3, r.ease - 0.2); r.lapses++; }
+    else if (g === 1) { r.iv = Math.max(1, Math.round(r.iv * 1.2) || 1); r.ease = Math.max(1.3, r.ease - 0.15); }
+    else if (g === 2) { r.iv = r.iv === 0 ? 1 : Math.round(r.iv * r.ease); }
+    else { r.iv = r.iv === 0 ? 3 : Math.round(r.iv * r.ease * 1.3); r.ease = Math.min(2.8, r.ease + 0.15); }
+    r.reps++;
+    r.due = t + r.iv;
+    S.recall[id] = r;
+    // a graded recall nudges confidence, never past what the student set by hand downward
+    var cur = conf(id);
+    if (g >= 2 && cur < 2) S.conf[id] = 2;
+    if (g === 3 && cur < 3) S.conf[id] = 3;
+    if (g === 0 && cur > 1) S.conf[id] = 1;
+    save();
+  }
+
+  /* ---------- scoring ---------- */
+  function masteryOf(list) {
+    if (!list.length) return 0;
+    var sum = list.reduce(function (a, c) { return a + conf(c.id); }, 0);
+    return Math.round((sum / (3 * list.length)) * 100);
+  }
+  function hoursLeft() {
+    var mins = C.reduce(function (a, c) {
+      var frac = 1 - (conf(c.id) / 3);
+      return a + c.est * frac;
+    }, 0);
+    return Math.round(mins / 60);
+  }
+
+  /* ============================================================
+     TABS
+     ============================================================ */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function show(id) {
+    tabs.forEach(function (t) {
+      var on = t.id === id;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      $(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    if (id === "tab-dash") renderDash();
+    if (id === "tab-map") renderMap();
+    if (id === "tab-weak") renderWeak();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { show(t.id); });
+    t.addEventListener("keydown", function (ev) {
+      var d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      ev.preventDefault();
+      var n = tabs[(i + d + tabs.length) % tabs.length];
+      n.focus(); show(n.id);
+    });
+  });
+
+  /* ============================================================
+     DASHBOARD
+     ============================================================ */
+  function ring(pct, label, sub) {
+    var r = 42, circ = 2 * Math.PI * r, on = (pct / 100) * circ;
+    return '<div class="card ring-card">' +
+      '<svg class="ring" viewBox="0 0 100 100" role="img" aria-label="' + esc(label + ", " + pct + " percent") + '">' +
+      '<circle class="ring-track" cx="50" cy="50" r="' + r + '"></circle>' +
+      '<circle class="ring-val" cx="50" cy="50" r="' + r + '" stroke-dasharray="' + on.toFixed(1) + ' ' + circ.toFixed(1) + '"></circle>' +
+      '<text class="ring-pct" x="50" y="57" text-anchor="middle">' + pct + '%</text></svg>' +
+      '<h3>' + esc(label) + '</h3><p class="small muted" style="margin:0;">' + esc(sub) + '</p></div>';
+  }
+
+  function planItems() {
+    // highest value = core first, then high, unrated or shaky first, weight by exam proximity
+    var t = dayNum(today());
+    return C.slice().map(function (c) {
+      var cf = conf(c.id);
+      var yieldW = c.yield === "core" ? 3 : c.yield === "high" ? 2 : 1;
+      var gap = 3 - cf;
+      var exam = CONFIG.examWindows[c.module];
+      var daysToExam = exam ? (dayNum(new Date(exam + "T00:00:00")) - t) : 999;
+      var urgency = daysToExam < 0 ? 0.4 : daysToExam < 14 ? 3 : daysToExam < 28 ? 2 : 1;
+      return { c: c, score: gap * yieldW * urgency };
+    }).filter(function (x) { return x.score > 0; })
+      .sort(function (a, b) { return b.score - a.score; })
+      .slice(0, 5).map(function (x) { return x.c; });
+  }
+
+  function renderDash() {
+    $("s-mastery").textContent = masteryOf(C) + "%";
+    $("s-solid").textContent = C.filter(function (c) { return conf(c.id) >= 2; }).length;
+    $("s-due").textContent = dueList().length;
+    $("s-hours").textContent = hoursLeft();
+    $("s-week").textContent = WEEK;
+
+    $("rings").innerHTML = B.modules.map(function (m) {
+      var list = B.byModule[m.module] || [];
+      return ring(masteryOf(list), "Unit " + m.module, m.weeks + ", " + list.length + " comps");
+    }).join("");
+
+    var plan = planItems();
+    var rated = C.filter(function (c) { return conf(c.id) > 0; }).length;
+    $("plan-why").textContent = rated === 0
+      ? "Nothing rated yet. Open the competency map, work down week " + WEEK + ", and rate honestly. Rating everything Mastered on day one only fools you."
+      : "Ranked by yield, by how far you are from mastery, and by which exam is closest. " + rated + " of " + TOTAL + " rated so far.";
+    $("plan-list").innerHTML = plan.map(function (c) {
+      return "<li style='margin-bottom:8px;'><b>" + esc(c.name) + "</b> " +
+        '<span class="tag tag-dok">Unit ' + c.module + "</span> " +
+        '<span class="tag ' + (c.yield === "core" ? "tag-core" : "tag-dok") + '">' + esc(YIELDLABEL[c.yield] || c.yield) + "</span>" +
+        '<br><span class="small muted">' + esc(c.can) + "</span></li>";
+    }).join("");
+
+    var start = new Date(CONFIG.termStart + "T00:00:00");
+    $("term-note").textContent = "Term runs " + CONFIG.termStart + " to " + CONFIG.termEnd +
+      ". Exam windows are proposed and not yet confirmed.";
+    var pills = "";
+    for (var w = 1; w <= 15; w++) {
+      var list = B.byWeek[w] || [];
+      pills += '<span class="week-pill' + (w === WEEK ? " is-now" : "") + '">Wk ' + w + ", " +
+        list.length + " comps, " + masteryOf(list) + "%</span>";
+    }
+    $("week-pills").innerHTML = pills;
+    $("dash-live").textContent = "Dashboard updated. Course mastery " + masteryOf(C) + " percent.";
+  }
+
+  $("go-recall").addEventListener("click", function () { show("tab-recall"); $("r-start").focus(); });
+  $("go-weak").addEventListener("click", function () { show("tab-weak"); });
+
+  /* ============================================================
+     COMPETENCY MAP
+     ============================================================ */
+  (function fillSelects() {
+    $("m-mod").innerHTML = '<option value="all">All modules</option>' +
+      B.modules.map(function (m) { return '<option value="' + m.module + '">Unit ' + m.module + ". " + esc(m.title) + "</option>"; }).join("");
+    $("r-mod").innerHTML = B.modules.map(function (m) { return '<option value="' + m.module + '">Unit ' + m.module + ". " + esc(m.title) + "</option>"; }).join("");
+    var gens = Object.keys(B.byGeneral).sort();
+    $("m-gen").innerHTML = '<option value="all">All systems</option>' +
+      gens.map(function (g) { return '<option value="' + esc(g) + '">' + esc(g) + "</option>"; }).join("");
+  }());
+
+  var mapBuilt = false;
+  function buildMap() {
+    $("m-list").innerHTML = C.map(function (c) {
+      return '<div class="comp-row" data-id="' + c.id + '" data-conf="' + conf(c.id) + '">' +
+        '<div class="comp-top"><span class="comp-n">' + c.n + '.</span>' +
+        '<span class="comp-name">' + esc(c.name) + "</span>" +
+        '<span class="chips">' +
+          (c.lecture ? '<span class="tag tag-lecture">Lecture</span>' : "") +
+          (c.lab ? '<span class="tag tag-lab">Lab</span>' : "") +
+          '<span class="tag tag-dok">' + DOKLABEL[c.dok] + "</span>" +
+          '<span class="tag ' + (c.yield === "core" ? "tag-core" : "tag-dok") + '">' + esc(YIELDLABEL[c.yield] || c.yield) + "</span>" +
+          '<span class="tag tag-dok">Wk ' + c.week + "</span>" +
+        "</span></div>" +
+        '<span class="comp-can">' + esc(c.can) + "</span>" +
+        '<div class="conf-set" role="group" aria-label="Confidence for ' + esc(c.name) + '">' +
+          CONF_LABEL.map(function (l, i) {
+            return '<button type="button" class="conf-btn" data-set="' + i + '" aria-pressed="' +
+              (conf(c.id) === i ? "true" : "false") + '">' + l + "</button>";
+          }).join("") +
+        "</div></div>";
+    }).join("");
+    $("m-list").addEventListener("click", function (ev) {
+      var b = ev.target.closest(".conf-btn"); if (!b) return;
+      var row = b.closest(".comp-row"), id = row.dataset.id, val = +b.dataset.set;
+      S.conf[id] = val; save();
+      row.dataset.conf = val;
+      Array.prototype.slice.call(row.querySelectorAll(".conf-btn")).forEach(function (x) {
+        x.setAttribute("aria-pressed", (+x.dataset.set === val) ? "true" : "false");
+      });
+      filterMap();
+    });
+    mapBuilt = true;
+  }
+
+  function filterMap() {
+    var q = $("m-q").value.trim().toLowerCase(),
+        mo = $("m-mod").value, ge = $("m-gen").value, cf = $("m-conf").value,
+        lec = $("m-lec").checked, lab = $("m-lab").checked, core = $("m-core").checked;
+    var vis = 0;
+    Array.prototype.slice.call($("m-list").children).forEach(function (row) {
+      var c = B.byId[row.dataset.id], ok = true, cv = conf(c.id);
+      if (mo !== "all" && c.module !== +mo) ok = false;
+      if (ok && ge !== "all" && c.general !== ge) ok = false;
+      if (ok && cf !== "all") ok = (cf === "lt3") ? cv < 3 : cv === +cf;
+      if (ok && lec && !c.lecture) ok = false;
+      if (ok && lab && !c.lab) ok = false;
+      if (ok && core && c.yield !== "core") ok = false;
+      if (ok && q) ok = (c.name + " " + c.can + " " + c.system).toLowerCase().indexOf(q) !== -1;
+      row.hidden = !ok; if (ok) vis++;
+    });
+    $("m-empty").hidden = vis !== 0;
+    $("m-count").textContent = "Showing " + vis + " of " + TOTAL + " competencies. " +
+      "Mastery on what is showing: " + masteryOf(C.filter(function (c) {
+        var r = $("m-list").querySelector('[data-id="' + c.id + '"]'); return r && !r.hidden;
+      })) + "%.";
+  }
+  function renderMap() { if (!mapBuilt) buildMap(); filterMap(); }
+  ["m-q","m-mod","m-gen","m-conf","m-lec","m-lab","m-core"].forEach(function (id) {
+    $(id).addEventListener("input", filterMap);
+    $(id).addEventListener("change", filterMap);
+  });
+
+  /* ============================================================
+     RECALL
+     ============================================================ */
+  var queue = [], qi = 0, sessionCount = 0;
+  function weakestGeneral() {
+    var best = null, low = 999;
+    Object.keys(B.byGeneral).forEach(function (g) {
+      var m = masteryOf(B.byGeneral[g]);
+      if (m < low) { low = m; best = g; }
+    });
+    return best;
+  }
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function buildQueue() {
+    var scope = $("r-scope").value, list;
+    if (scope === "due") {
+      list = dueList();
+      if (!list.length) list = C.filter(function (c) { return !S.recall[c.id]; }).filter(function (c) { return c.week <= WEEK; });
+      if (!list.length) list = C.filter(function (c) { return !S.recall[c.id]; });
+    }
+    else if (scope === "week") list = (B.byWeek[WEEK] || []).slice();
+    else if (scope === "weak") list = (B.byGeneral[weakestGeneral()] || []).slice();
+    else if (scope === "module") list = (B.byModule[+$("r-mod").value] || []).slice();
+    else list = C.slice();
+    return shuffle(list.slice()).slice(0, 20);
+  }
+  $("r-scope").addEventListener("change", function () { $("r-modwrap").hidden = $("r-scope").value !== "module"; });
+  $("r-start").addEventListener("click", function () {
+    queue = buildQueue(); qi = 0; sessionCount = 0;
+    if (!queue.length) { $("r-summary").textContent = "Nothing to draw from with that filter."; $("r-done").hidden = false; $("r-card").hidden = true; return; }
+    $("r-done").hidden = true; $("r-card").hidden = false; showCard();
+  });
+  function showCard() {
+    var c = queue[qi];
+    $("r-meta").textContent = "Unit " + c.module + " · Week " + c.week + " · " + c.system +
+      " · " + c.dok + " · " + c.yield;
+    $("r-prompt").textContent = c.name;
+    $("r-answer").textContent = c.can;
+    $("r-answer-wrap").hidden = true;
+    $("r-grades").hidden = true;
+    $("r-reveal").hidden = false;
+    $("r-progress").textContent = "Card " + (qi + 1) + " of " + queue.length +
+      ". Current confidence: " + CONF_LABEL[conf(c.id)] + ".";
+    $("r-reveal").focus();
+  }
+  $("r-reveal").addEventListener("click", function () {
+    $("r-answer-wrap").hidden = false; $("r-grades").hidden = false; $("r-reveal").hidden = true;
+    $("r-grades").querySelector("button").focus();
+  });
+  $("r-grades").addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-grade]"); if (!b) return;
+    grade(queue[qi].id, +b.dataset.grade);
+    sessionCount++; qi++;
+    if (qi >= queue.length) {
+      $("r-card").hidden = true; $("r-done").hidden = false;
+      $("r-summary").textContent = "You worked " + sessionCount + " competencies. " +
+        dueList().length + " are due again today. Course mastery is now " + masteryOf(C) + " percent.";
+      $("r-again").focus();
+    } else showCard();
+  });
+  $("r-again").addEventListener("click", function () { $("r-start").click(); });
+
+  /* ============================================================
+     WEAKNESS
+     ============================================================ */
+  function bars(el, groups) {
+    el.innerHTML = groups.map(function (g) {
+      return '<li class="bar-item"><div class="bar-head"><b>' + esc(g.label) + "</b>" +
+        "<span>" + g.pct + "%, " + g.unrated + " unrated of " + g.n + "</span></div>" +
+        '<div class="meter"><div class="meter-fill' + (g.pct < 34 ? " is-gold" : "") + '" style="width:' + g.pct + '%"></div></div></li>';
+    }).join("");
+  }
+  function groupStats(map, labelFn) {
+    return Object.keys(map).map(function (k) {
+      var list = map[k];
+      return { label: labelFn(k), pct: masteryOf(list), n: list.length,
+               unrated: list.filter(function (c) { return conf(c.id) === 0; }).length };
+    }).sort(function (a, b) { return a.pct - b.pct; });
+  }
+  function renderWeak() {
+    bars($("w-gen"), groupStats(B.byGeneral, function (k) { return k; }));
+    bars($("w-mod"), groupStats(B.byModule, function (k) {
+      var m = B.modules[+k - 1]; return "Unit " + k + ". " + m.title; }));
+    var dok = { 1: [], 2: [], 3: [] };
+    C.forEach(function (c) { dok[c.dok].push(c); });
+    bars($("w-dok"), groupStats(dok, function (k) {
+      return DOKLABEL[k]; }));
+    var ten = C.slice().map(function (c) {
+      var w = (3 - conf(c.id)) * (c.yield === "core" ? 3 : c.yield === "high" ? 2 : 1);
+      return { c: c, w: w };
+    }).sort(function (a, b) { return b.w - a.w; }).slice(0, 10);
+    $("w-ten").innerHTML = ten.map(function (x) {
+      return "<li style='margin-bottom:6px;'><b>" + esc(x.c.name) + "</b> " +
+        '<span class="small muted">Unit ' + x.c.module + ", week " + x.c.week + ", " + esc(YIELDLABEL[x.c.yield] || x.c.yield) +
+        ", currently " + CONF_LABEL[conf(x.c.id)].toLowerCase() + "</span></li>";
+    }).join("");
+  }
+
+  /* ============================================================
+     DRAWING CHECK
+     ============================================================ */
+  var dCur = null, dLeft = 300, dTimer = null;
+  $("d-new").addEventListener("click", function () {
+    var scope = $("d-scope").value, list;
+    if (scope === "draw") list = C.filter(function (c) { return c.facets.indexOf("draw") !== -1; });
+    else if (scope === "week") list = (B.byWeek[WEEK] || []).slice();
+    else if (scope === "weak") list = (B.byGeneral[weakestGeneral()] || []).slice();
+    else list = C.slice();
+    if (!list.length) list = C.slice();
+    dCur = list[Math.floor(Math.random() * list.length)];
+    $("d-meta").textContent = "Unit " + dCur.module + " · Week " + dCur.week + " · " + dCur.system;
+    $("d-name").textContent = dCur.name;
+    $("d-can").textContent = dCur.can;
+    $("d-card").hidden = false;
+    stopTimer(); dLeft = 300; paint();
+    $("d-log").textContent = S.drew[dCur.id] ? "You last logged a drawing of this one on " + S.drew[dCur.id] + "." : "";
+    $("d-go").focus();
+  });
+  function paint() {
+    var m = Math.floor(dLeft / 60), s = dLeft % 60;
+    $("d-timer").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+  }
+  function stopTimer() { if (dTimer) { clearInterval(dTimer); dTimer = null; } $("d-go").textContent = "Start the timer"; }
+  $("d-go").addEventListener("click", function () {
+    if (dTimer) { stopTimer(); return; }
+    $("d-go").textContent = "Pause";
+    dTimer = setInterval(function () {
+      dLeft--; paint();
+      if (dLeft <= 0) { stopTimer(); $("d-log").textContent = "Time. Put the pen down and check what you drew."; }
+    }, 1000);
+  });
+  $("d-done").addEventListener("click", function () {
+    if (!dCur) return;
+    stopTimer();
+    S.drew[dCur.id] = new Date().toISOString().slice(0, 10);
+    save();
+    $("d-log").textContent = "Logged. Now check it against the course material and rate it honestly on the competency map.";
+  });
+
+  /* ============================================================
+     DATA
+     ============================================================ */
+  $("x-export").addEventListener("click", function () {
+    $("x-box").value = JSON.stringify(S);
+    $("x-msg").textContent = "Exported. Copy the code and paste it into the same box on your other device.";
+  });
+  $("x-import-btn").addEventListener("click", function () {
+    try {
+      var o = JSON.parse($("x-box").value);
+      if (!o || typeof o !== "object" || !o.conf) throw new Error("shape");
+      S = { v:1, conf:o.conf || {}, recall:o.recall || {}, drew:o.drew || {} };
+      save(); mapBuilt = false;
+      $("x-msg").textContent = "Imported. " + Object.keys(S.conf).length + " ratings restored.";
+      renderDash();
+    } catch (e) { $("x-msg").textContent = "That code could not be read. Paste the whole thing, including the braces at each end."; }
+  });
+  $("x-reset").addEventListener("click", function () {
+    S = blank(); save(); mapBuilt = false;
+    $("x-box").value = ""; $("x-msg").textContent = "Erased. Everything is back to not started.";
+    renderDash();
+  });
+
+  renderDash();
+}());
+</script>
+
+<script>
+/* iframe height sender: Kajabi and GitHub Pages embeds */
+(function () {
+  "use strict";
+  var FRAME_ID = "bio005-competency-recall";
+  function sendHeight() {
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try { window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, height: h }, "*"); } catch (e) {}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  document.addEventListener("click", function () { setTimeout(sendHeight, 220); });
+  document.addEventListener("input", function () { setTimeout(sendHeight, 220); });
+  if (typeof ResizeObserver === "function") new ResizeObserver(sendHeight).observe(document.body);
+  sendHeight();
+}());
+</script>
+</body>
+</html>
