@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drawing Canvas | BIO 004 Human Anatomy</title>
+<meta name="description" content="Draw from memory. Pen, shapes, arrows, and text. Save to PDF when you are done.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Live course tokens, Aug 2026. Matches class1.html and welcome.html. */
+  --navy:#08101F;
+  --navy-deep:#08101F;
+  --navy-tint:#ECEFF4;
+  --maroon:#7A2A22;
+  --maroon-dark:#5E201A;
+  --terra:#8B1D1D;
+  --terra-dark:#6B1616;
+  --gold:#DCB45C;
+  --straw:#E8CE85;
+  --gold-text:#6E5018;
+  --ink:#08101F;
+  --ink-body:#14202F;
+  --ink-muted:#3D4860;
+  --offwhite-text:#F4EFE8;
+  --rule:#8C90A0;
+  --rule-soft:#DCE0E6;
+  --border-blue:#1E2A47;
+  --white:#FFFFFF;
+  --off-white:#FAFAF9;
+  --radius:8px;
+  --radius-card:16px;
+  --shadow-card:0 1px 3px rgba(11,21,48,.10);
+  --shadow-lift:0 12px 26px rgba(11,21,48,.16);
+  --display:"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, Segoe UI, Roboto, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink-body);font-family:var(--display);font-size:16px;line-height:1.6}
+em,i,cite,dfn,var,address{font-style:normal}
+h1,h2,h3{font-family:var(--display);font-style:normal;line-height:1.2;margin:0 0 .5rem}
+h1{font-weight:800;font-size:1.35rem;color:var(--white)}
+h2{font-weight:700;font-size:1.05rem;color:var(--navy)}
+h3{font-weight:700;font-size:.95rem;color:var(--terra-dark)}
+p{margin:0 0 .85rem}
+a{color:var(--terra-dark);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:.7rem 1.15rem;z-index:100;border-radius:0 0 var(--radius) 0;font-weight:700}
+.skip:focus{left:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.15rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.site-header{background:var(--navy);color:var(--white);padding:.9rem 0}
+.headrow{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.brand a{color:var(--offwhite-text);text-decoration:none;font-weight:600;font-size:.85rem;letter-spacing:.03em}
+.brand a:hover{color:var(--white);text-decoration:underline}
+.badge-tool{font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;background:var(--gold);color:var(--navy);padding:.25rem .7rem;border-radius:99px}
+.headactions{display:flex;flex-wrap:wrap;gap:.45rem}
+
+.panel{padding:1.25rem 0 2.5rem}
+.card{background:var(--white);border:1px solid var(--rule-soft);border-radius:var(--radius-card);padding:1.15rem;box-shadow:var(--shadow-card);margin:0 0 1rem}
+.muted{color:var(--ink-muted)}
+.small{font-size:.87rem}
+.hint{font-size:.83rem;color:var(--ink-muted);margin:.3rem 0 0}
+.kicker{font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 .35rem}
+
+.btn{appearance:none;font-family:var(--display);font-weight:700;font-size:.86rem;letter-spacing:.02em;padding:.55rem .95rem;border-radius:var(--radius);cursor:pointer;border:1px solid var(--navy);background:var(--navy);color:var(--white);transition:transform 200ms ease, box-shadow 200ms ease, background 200ms ease}
+.btn:hover{background:var(--border-blue);transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.btn.secondary{background:var(--white);color:var(--navy);border-color:var(--rule)}
+.btn.secondary:hover{background:var(--navy-tint);color:var(--navy)}
+.btn.ghost{background:transparent;color:var(--offwhite-text);border-color:rgba(255,255,255,.45)}
+.btn.ghost:hover{background:rgba(255,255,255,.12);color:var(--white)}
+.btn.accent{background:var(--terra);border-color:var(--terra)}
+.btn.accent:hover{background:var(--terra-dark)}
+.btn.tiny{padding:.4rem .7rem;font-size:.8rem}
+.btn.tiny[aria-pressed="true"]{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btnrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;padding:.7rem .9rem;border:1px solid var(--rule-soft);border-radius:var(--radius);background:var(--off-white);margin:0 0 .7rem}
+.toolgroup{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+.toollabel{font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);margin-right:.15rem}
+.swatch{width:1.9rem;height:1.9rem;border-radius:var(--radius);border:2px solid var(--rule);cursor:pointer;padding:0}
+.swatch[aria-pressed="true"]{border-color:var(--gold);border-width:3px;box-shadow:0 0 0 2px var(--white) inset}
+.custom-color{display:inline-flex;align-items:center}
+.custom-color input[type="color"]{width:1.9rem;height:1.9rem;padding:0;border:2px solid var(--rule);border-radius:var(--radius);background:var(--white);cursor:pointer}
+
+.stagewrap{border:1px solid var(--rule);border-radius:var(--radius);background:var(--white);padding:.45rem;box-shadow:var(--shadow-card)}
+.stage{position:relative}
+#cv{display:block;width:auto;max-width:100%;height:74vh;max-height:74vh;margin:0 auto;background:var(--white);touch-action:none;cursor:crosshair;border:1px dashed var(--rule-soft);border-radius:4px}
+#textbox{position:absolute;z-index:5}
+#textbox input{font-family:var(--display);font-weight:700;font-size:.92rem;padding:.28rem .4rem;border:2px solid var(--terra);border-radius:4px;min-width:11rem;background:var(--white)}
+.canvas-foot{font-weight:600;font-size:.83rem;color:var(--ink-muted);margin:.6rem 0 0}
+.statline{font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);margin:.35rem 0 0}
+
+label.field{display:block;font-weight:600;font-size:.8rem;color:var(--navy);margin:0 0 .25rem}
+input[type="text"]{width:100%;font-family:var(--display);font-size:.92rem;color:var(--ink-body);padding:.5rem .6rem;border:1px solid var(--rule);border-radius:var(--radius);background:var(--white)}
+.metagrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.8rem}
+
+.checkitem{display:flex;gap:.6rem;align-items:flex-start;padding:.4rem 0;border-bottom:1px solid var(--rule-soft)}
+.checkitem:last-child{border-bottom:0}
+.checkitem input{margin-top:.3rem;width:1.05rem;height:1.05rem;accent-color:var(--terra)}
+.scoreline{font-weight:800;font-size:.9rem;color:var(--navy);margin-top:.6rem}
+
+.feedback{border:1px solid var(--rule);border-radius:var(--radius);padding:.9rem 1rem;background:var(--white);box-shadow:var(--shadow-card);margin-top:.8rem}
+.feedback[hidden]{display:none}
+
+#exportSheet{display:none}
+#exportSheet.onscreen{display:block;border:1px solid var(--rule);border-radius:var(--radius);padding:.9rem;background:var(--off-white);margin-top:1rem}
+.ex-page{background:var(--white);padding:.9rem}
+.ex-head{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:.35rem;margin-bottom:.7rem}
+.ex-course{font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dark)}
+.ex-doc{font-weight:600;font-size:.78rem;color:var(--ink-muted)}
+#ex_img{display:block;width:100%;height:auto;border:1px solid var(--rule-soft)}
+.ex-foot{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid var(--rule);margin-top:.7rem;padding-top:.35rem;font-weight:600;font-size:.7rem;color:var(--ink-muted)}
+.ex-h2{font-size:.95rem;margin:.9rem 0 .35rem}
+.ex-note{font-size:.8rem;color:var(--ink-muted);max-width:70ch}
+.ex-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:0 0 .5rem}
+.ex-table th,.ex-table td{border-bottom:1px solid var(--rule-soft);padding:.3rem .45rem;text-align:left}
+.ex-table th{font-weight:700;width:14rem;color:var(--navy)}
+.ex-code{font-weight:700;letter-spacing:.12em;color:var(--terra-dark)}
+.ex-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem}
+.ex-strip figure{margin:0}
+.ex-strip img{width:100%;border:1px solid var(--rule);border-radius:4px;background:#fff}
+.ex-strip figcaption{font-weight:700;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);margin-top:.2rem;text-align:center}
+
+.site-footer{background:var(--navy);color:#C9D2DE;padding:1.4rem 0;margin-top:1.5rem;font-size:.83rem}
+.site-footer strong{color:var(--white)}
+
+@media (max-width:760px){
+  #cv{height:auto;max-height:none;width:100%}
+  .headrow{gap:.5rem}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .btn:hover{transform:none}
+}
+@media print{
+  body.export-mode > *{display:none !important}
+  body.export-mode #exportSheet{display:block !important;border:0;padding:0;background:#fff;margin:0}
+  body.export-mode .ex-page{padding:0}
+  body.export-mode .ex-drawing{break-after:page;page-break-after:always}
+  body.export-mode #ex_img{max-height:235mm;width:auto;max-width:100%;margin:0 auto}
+  @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the canvas</a>
+
+<header class="site-header">
+  <div class="wrap headrow">
+    <div class="brand">
+      <a href="index.html" target="_top">Human Anatomy</a>
+      <span class="badge-tool">Drawing Canvas</span>
+      <span class="sr-only">BIO 004</span>
+    </div>
+    <div class="headactions">
+      <button class="btn ghost tiny" id="undo" type="button">Undo</button>
+      <button class="btn ghost tiny" id="clear" type="button">Clear</button>
+      <button class="btn ghost tiny" id="checkBtn" type="button" hidden aria-expanded="false" aria-controls="checkPanel">Check my work</button>
+      <button class="btn tiny" id="exportBtn" type="button">Save PDF</button>
+      <button class="btn secondary tiny" id="printBtn" type="button">Print</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="panel">
+<div class="wrap">
+
+  <div class="card">
+    <div class="metagrid">
+      <div><label class="field" for="m_name">Your name</label><input type="text" id="m_name" autocomplete="off"></div>
+      <div><label class="field" for="m_title">What this drawing is</label><input type="text" id="m_title" value="Drawing from memory"></div>
+    </div>
+    <p class="hint">Your name is printed on the export and is held only in this browser tab while you work. Nothing on this page is stored or sent anywhere, so save your PDF before you close it.</p>
+  </div>
+
+  <div class="card">
+    <div class="toolbar" role="group" aria-label="Drawing tools">
+      <div class="toolgroup" role="group" aria-label="Tool">
+        <span class="toollabel">Tool</span>
+        <button type="button" class="btn secondary tiny tool" data-tool="pen" aria-pressed="true">Pen</button>
+        <button type="button" class="btn secondary tiny tool" data-tool="line" aria-pressed="false">Line</button>
+        <button type="button" class="btn secondary tiny tool" data-tool="arrow" aria-pressed="false">Arrow</button>
+        <button type="button" class="btn secondary tiny tool" data-tool="box" aria-pressed="false">Box</button>
+        <button type="button" class="btn secondary tiny tool" data-tool="circle" aria-pressed="false">Circle</button>
+        <button type="button" class="btn secondary tiny tool" data-tool="text" aria-pressed="false">Text</button>
+        <button type="button" class="btn secondary tiny tool" data-tool="erase" aria-pressed="false">Erase</button>
+      </div>
+      <div class="toolgroup" role="group" aria-label="Size">
+        <span class="toollabel">Size</span>
+        <button type="button" class="btn secondary tiny size" data-width="1.5" aria-pressed="false">Very fine</button>
+        <button type="button" class="btn secondary tiny size" data-width="2.5" aria-pressed="false">Fine</button>
+        <button type="button" class="btn secondary tiny size" data-width="4" aria-pressed="true">Medium</button>
+        <button type="button" class="btn secondary tiny size" data-width="7" aria-pressed="false">Bold</button>
+        <button type="button" class="btn secondary tiny size" data-width="12" aria-pressed="false">Marker</button>
+      </div>
+      <div class="toolgroup" role="group" aria-label="Color">
+        <span class="toollabel">Color</span>
+        <button type="button" class="swatch" data-color="#08101F" aria-label="Navy" aria-pressed="true" style="background:#08101F"></button>
+        <button type="button" class="swatch" data-color="#8B1D1D" aria-label="Rust" aria-pressed="false" style="background:#8B1D1D"></button>
+        <button type="button" class="swatch" data-color="#6E5018" aria-label="Gold" aria-pressed="false" style="background:#6E5018"></button>
+        <button type="button" class="swatch" data-color="#1F5130" aria-label="Green" aria-pressed="false" style="background:#1F5130"></button>
+        <button type="button" class="swatch" data-color="#1B3F8B" aria-label="Blue" aria-pressed="false" style="background:#1B3F8B"></button>
+        <label class="custom-color"><span class="sr-only">Custom color</span><input type="color" id="custom" value="#2C5F66"></label>
+      </div>
+      <div class="toolgroup" role="group" aria-label="Page shape">
+        <span class="toollabel">Page</span>
+        <button type="button" class="btn secondary tiny orient" data-orient="portrait" aria-pressed="true">Portrait</button>
+        <button type="button" class="btn secondary tiny orient" data-orient="landscape" aria-pressed="false">Landscape</button>
+      </div>
+    </div>
+    <p class="hint">Pen draws freehand. Line, arrow, box and circle are drag from one corner to the other. Text places a label where you click, so type it and press Enter. Changing the page shape starts a fresh sheet.</p>
+
+    <div class="stagewrap">
+      <div class="stage">
+        <canvas id="cv" width="1240" height="1754" role="img" aria-label="Drawing canvas"></canvas>
+        <div id="textbox" hidden>
+          <label class="sr-only" for="textinput">Label text, press Enter to place it</label>
+          <input type="text" id="textinput" autocomplete="off" placeholder="Type, then Enter">
+        </div>
+      </div>
+    </div>
+    <p class="canvas-foot">Draw from memory. Pen, shapes, arrows, and text. Save to PDF when you are done.</p>
+    <p class="statline" id="stats" aria-live="polite">Nothing drawn yet</p>
+  </div>
+
+  <div class="card" id="checkPanel" hidden>
+    <p class="kicker">Self check</p>
+    <h2 id="checkTitle">Score your own drawing</h2>
+    <p class="small muted">Tick only what is actually on your page. There is no answer picture on purpose, because comparing to a picture is recognition rather than recall. Anything you missed is what to study next.</p>
+    <div id="checkList"></div>
+    <p class="scoreline" id="scoreLine">0 of 0</p>
+  </div>
+
+  <div class="card">
+    <p class="kicker">Export</p>
+    <h2>Save your PDF</h2>
+    <p class="small">Save PDF opens your browser print dialog. Choose <strong>Save as PDF</strong> as the destination rather than a printer. You get two pages: the drawing, and a stamp recording how it was built.</p>
+    <div class="btnrow">
+      <button class="btn accent" id="exportBtn2" type="button">Save PDF</button>
+      <button class="btn secondary" id="previewBtn" type="button">Preview the stamp</button>
+    </div>
+    <div class="feedback" id="warn" hidden aria-live="polite"></div>
+    <div id="previewHost" hidden></div>
+  </div>
+
+</div>
+</main>
+
+<div id="exportSheet" aria-hidden="true">
+  <div class="ex-page ex-drawing">
+    <div class="ex-head">
+      <span class="ex-course" id="ex_course">BIO 004 Human Anatomy</span>
+      <span class="ex-doc" id="ex_title">Drawing from memory</span>
+    </div>
+    <img id="ex_img" alt="Student drawing">
+    <div class="ex-foot"><span id="ex_name"></span><span>Dr. Sharilyn Rennie</span></div>
+  </div>
+  <div class="ex-page ex-stamp">
+    <div class="ex-head">
+      <span class="ex-course">BIO 004 Human Anatomy</span>
+      <span class="ex-doc">Drawing provenance stamp</span>
+    </div>
+    <h2 class="ex-h2">How this drawing was made</h2>
+    <p class="ex-note">Produced inside the course drawing canvas. That tool has no facility to open, paste or import an image, so every mark above was drawn stroke by stroke in the browser. The four snapshots show the same drawing at a quarter, a half, three quarters and all of its marks.</p>
+    <table class="ex-table">
+      <tbody>
+        <tr><th scope="row">Name</th><td id="ex_s_name"></td></tr>
+        <tr><th scope="row">Drawing</th><td id="ex_s_title"></td></tr>
+        <tr><th scope="row">Started</th><td id="ex_s_started"></td></tr>
+        <tr><th scope="row">Exported</th><td id="ex_s_finished"></td></tr>
+        <tr><th scope="row">Active drawing time</th><td id="ex_s_active"></td></tr>
+        <tr><th scope="row">Marks</th><td id="ex_s_marks"></td></tr>
+        <tr><th scope="row">Points recorded</th><td id="ex_s_points"></td></tr>
+        <tr><th scope="row">Undo and clear actions</th><td id="ex_s_edits"></td></tr>
+        <tr><th scope="row">Self check</th><td id="ex_s_check">Not used</td></tr>
+        <tr><th scope="row">Verification code</th><td id="ex_s_code" class="ex-code"></td></tr>
+      </tbody>
+    </table>
+    <h2 class="ex-h2">Build up</h2>
+    <div class="ex-strip" id="ex_strip"></div>
+    <div class="ex-foot"><span>Course drawing canvas</span><span>Dr. Sharilyn Rennie</span></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0 0 .3rem"><strong>Dr. Sharilyn Rennie</strong></p>
+    <p style="margin:0">BIO 004 Human Anatomy &middot; Drawing Canvas</p>
+    <p class="small" style="margin:.5rem 0 0">Nothing typed or drawn on this page is stored, transmitted or recorded. Save your PDF before closing the tab.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================================
+   ONE PLACE TO EDIT PER ASSIGNMENT
+   Either edit DEFAULTS below, or pass them in the URL, for example:
+   mastery-canvas.html?title=Long%20bone,%20sectioned&course=BIO%20004%20Human%20Anatomy
+     &list=Diaphysis|Epiphysis|Metaphysis|Epiphyseal%20line|Periosteum|Medullary%20cavity
+   The list becomes the Check my work self score. Leave it out and that button stays hidden.
+   ========================================================================= */
+var DEFAULTS = {
+  course: 'BIO 004 Human Anatomy',
+  title: 'Drawing from memory',
+  key: 'BIO004-CANVAS-v1',
+  list: []
+};
+
+var q = new URLSearchParams(window.location.search);
+var COURSE = q.get('course') || DEFAULTS.course;
+var TITLE  = q.get('title')  || DEFAULTS.title;
+var KEY    = q.get('key')    || DEFAULTS.key;
+var LIST   = q.get('list') ? q.get('list').split('|').filter(Boolean) : DEFAULTS.list;
+
+document.title = 'Drawing Canvas | ' + COURSE;
+document.getElementById('ex_course').textContent = COURSE;
+document.querySelectorAll('.ex-stamp .ex-course').forEach(function(el){ el.textContent = COURSE; });
+document.getElementById('m_title').value = TITLE;
+
+/* ---------------- canvas engine ---------------- */
+var cv = document.getElementById('cv');
+var ctx = cv.getContext('2d');
+var W = cv.width, H = cv.height;
+var FONT = '"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+
+var marks = [], current = null, pendingText = null;
+var startedAt = null, lastPointAt = 0, activeMs = 0, editCount = 0;
+var color = '#08101F', size = 4, tool = 'pen';
+
+function bg(c){ c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, cv.width, cv.height); }
+
+function drawMark(c, o){
+  c.lineCap = 'round'; c.lineJoin = 'round';
+  c.strokeStyle = (o.tool === 'erase') ? '#FFFFFF' : o.color;
+  c.fillStyle = o.color;
+  c.lineWidth = (o.tool === 'erase') ? o.size * 5 : o.size;
+  if(o.tool === 'pen' || o.tool === 'erase'){
+    if(!o.pts.length) return;
+    c.beginPath(); c.moveTo(o.pts[0][0], o.pts[0][1]);
+    if(o.pts.length === 1){ c.lineTo(o.pts[0][0] + 0.1, o.pts[0][1] + 0.1); }
+    else { for(var i = 1; i < o.pts.length; i++){ c.lineTo(o.pts[i][0], o.pts[i][1]); } }
+    c.stroke(); return;
+  }
+  if(o.tool === 'text'){
+    c.font = '700 ' + Math.max(24, o.size * 9) + 'px ' + FONT;
+    c.textBaseline = 'top';
+    c.fillText(o.text, o.x1, o.y1); return;
+  }
+  if(o.tool === 'line' || o.tool === 'arrow'){
+    c.beginPath(); c.moveTo(o.x1, o.y1); c.lineTo(o.x2, o.y2); c.stroke();
+    if(o.tool === 'arrow'){
+      var a = Math.atan2(o.y2 - o.y1, o.x2 - o.x1);
+      var head = Math.max(12, o.size * 3.4);
+      c.beginPath(); c.moveTo(o.x2, o.y2);
+      c.lineTo(o.x2 - head * Math.cos(a - Math.PI / 7), o.y2 - head * Math.sin(a - Math.PI / 7));
+      c.lineTo(o.x2 - head * Math.cos(a + Math.PI / 7), o.y2 - head * Math.sin(a + Math.PI / 7));
+      c.closePath(); c.fill();
+    }
+    return;
+  }
+  if(o.tool === 'box'){
+    c.strokeRect(Math.min(o.x1,o.x2), Math.min(o.y1,o.y2), Math.abs(o.x2-o.x1), Math.abs(o.y2-o.y1));
+    return;
+  }
+  if(o.tool === 'circle'){
+    var rx = Math.abs(o.x2-o.x1)/2, ry = Math.abs(o.y2-o.y1)/2;
+    if(rx < 0.5 || ry < 0.5) return;
+    c.beginPath();
+    c.ellipse((o.x1+o.x2)/2, (o.y1+o.y2)/2, rx, ry, 0, 0, Math.PI*2);
+    c.stroke();
+  }
+}
+function paint(c, n){
+  var upTo = (typeof n === 'number') ? n : marks.length;
+  bg(c);
+  for(var i = 0; i < upTo; i++){ drawMark(c, marks[i]); }
+}
+function redraw(preview){ paint(ctx); if(preview) drawMark(ctx, preview); }
+bg(ctx);
+
+function pos(e){
+  var r = cv.getBoundingClientRect();
+  return [ (e.clientX - r.left) * (cv.width / r.width), (e.clientY - r.top) * (cv.height / r.height) ];
+}
+function counts(){
+  var t = 0, p = 0;
+  marks.forEach(function(o){ if(o.tool === 'text') t++; p += o.pts ? o.pts.length : 2; });
+  return { texts: t, pts: p };
+}
+function stats(){
+  var c = counts();
+  var mins = Math.floor(activeMs/60000), secs = Math.round((activeMs%60000)/1000);
+  document.getElementById('stats').textContent = marks.length === 0
+    ? 'Nothing drawn yet'
+    : marks.length + ' marks, ' + c.texts + ' text labels, about ' + mins + ' min ' + secs + ' s of drawing time';
+}
+
+/* ---------------- text ---------------- */
+var tbox = document.getElementById('textbox'), tinput = document.getElementById('textinput');
+function openText(px, py){
+  var r = cv.getBoundingClientRect(), st = cv.parentElement.getBoundingClientRect();
+  pendingText = [px, py];
+  tbox.style.left = (r.left - st.left + px * (r.width / cv.width)) + 'px';
+  tbox.style.top  = (r.top  - st.top  + py * (r.height / cv.height)) + 'px';
+  tbox.hidden = false; tinput.value = ''; tinput.focus();
+}
+function commitText(){
+  if(!pendingText) return;
+  var txt = tinput.value.trim();
+  if(txt){
+    if(startedAt === null) startedAt = Date.now();
+    marks.push({ tool:'text', color:color, size:size, x1:pendingText[0], y1:pendingText[1], text:txt });
+    activeMs += 1500; redraw(); stats();
+  }
+  pendingText = null; tbox.hidden = true; tinput.value = '';
+}
+tinput.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){ e.preventDefault(); commitText(); }
+  else if(e.key === 'Escape'){ e.preventDefault(); pendingText = null; tbox.hidden = true; }
+});
+tinput.addEventListener('blur', commitText);
+
+/* ---------------- pointer ---------------- */
+cv.addEventListener('pointerdown', function(e){
+  if(e.button !== undefined && e.button !== 0 && e.pointerType === 'mouse') return;
+  e.preventDefault();
+  var p = pos(e);
+  if(tool === 'text'){ openText(p[0], p[1]); return; }
+  var now = Date.now();
+  if(startedAt === null) startedAt = now;
+  lastPointAt = now;
+  if(tool === 'pen' || tool === 'erase'){
+    current = { tool:tool, color:color, size:size, pts:[p] };
+    marks.push(current); redraw();
+  } else {
+    current = { tool:tool, color:color, size:size, x1:p[0], y1:p[1], x2:p[0], y2:p[1], shape:true };
+    redraw(current);
+  }
+  stats();
+  try { cv.setPointerCapture(e.pointerId); } catch(err){ /* optional */ }
+});
+cv.addEventListener('pointermove', function(e){
+  if(!current) return;
+  e.preventDefault();
+  var now = Date.now(), gap = now - lastPointAt;
+  if(gap > 0 && gap < 3000) activeMs += gap;
+  lastPointAt = now;
+  var p = pos(e);
+  if(current.shape){
+    current.x2 = Math.round(p[0]*10)/10; current.y2 = Math.round(p[1]*10)/10;
+    redraw(current); return;
+  }
+  var last = current.pts[current.pts.length-1];
+  if(Math.abs(p[0]-last[0]) + Math.abs(p[1]-last[1]) < 1.2) return;
+  current.pts.push([Math.round(p[0]*10)/10, Math.round(p[1]*10)/10]);
+  redraw(); stats();
+});
+function endMark(e){
+  if(!current) return;
+  if(current.shape){
+    if(Math.abs(current.x2-current.x1) + Math.abs(current.y2-current.y1) > 3){
+      delete current.shape; marks.push(current);
+    }
+  }
+  current = null; redraw(); stats();
+  try { if(e && e.pointerId !== undefined && cv.hasPointerCapture(e.pointerId)) cv.releasePointerCapture(e.pointerId); }
+  catch(err){ /* nothing to release */ }
+}
+cv.addEventListener('pointerup', endMark);
+cv.addEventListener('pointercancel', endMark);
+cv.addEventListener('pointerleave', endMark);
+['paste','drop','dragover'].forEach(function(evt){
+  cv.addEventListener(evt, function(e){ e.preventDefault(); }, true);
+});
+
+/* ---------------- toolbar ---------------- */
+function press(sel, el){
+  Array.prototype.forEach.call(document.querySelectorAll(sel), function(o){
+    o.setAttribute('aria-pressed', String(o === el));
+  });
+}
+document.querySelectorAll('.tool').forEach(function(b){
+  b.addEventListener('click', function(){
+    tool = b.dataset.tool; press('.tool', b);
+    cv.style.cursor = (tool === 'text') ? 'text' : 'crosshair';
+  });
+});
+document.querySelectorAll('.size').forEach(function(b){
+  b.addEventListener('click', function(){ size = parseFloat(b.dataset.width); press('.size', b); });
+});
+document.querySelectorAll('.swatch').forEach(function(b){
+  b.addEventListener('click', function(){ color = b.dataset.color; press('.swatch', b); });
+});
+document.getElementById('custom').addEventListener('input', function(){
+  color = this.value; press('.swatch', null);
+});
+document.querySelectorAll('.orient').forEach(function(b){
+  b.addEventListener('click', function(){
+    if(marks.length && !window.confirm) { /* no dialog available, fall through */ }
+    var land = b.dataset.orient === 'landscape';
+    cv.width  = land ? 1754 : 1240;
+    cv.height = land ? 1240 : 1754;
+    cv.style.aspectRatio = cv.width + '/' + cv.height;
+    marks = []; editCount++; startedAt = null; activeMs = 0;
+    press('.orient', b); redraw(); stats();
+  });
+});
+function undo(){ if(!marks.length) return; marks.pop(); editCount++; redraw(); stats(); }
+function clearAll(){ if(!marks.length) return; marks = []; editCount++; redraw(); stats(); }
+document.getElementById('undo').addEventListener('click', undo);
+document.getElementById('clear').addEventListener('click', clearAll);
+
+/* ---------------- self check ---------------- */
+var checked = 0;
+if(LIST.length){
+  var btn = document.getElementById('checkBtn');
+  btn.hidden = false;
+  var host = document.getElementById('checkList');
+  document.getElementById('checkTitle').textContent = 'Score your own drawing, ' + LIST.length + ' things to find';
+  LIST.forEach(function(item, i){
+    var row = document.createElement('div');
+    row.className = 'checkitem';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.id = 'chk_' + i;
+    var lb = document.createElement('label');
+    lb.setAttribute('for', 'chk_' + i);
+    lb.textContent = item;
+    cb.addEventListener('change', function(){
+      checked = host.querySelectorAll('input:checked').length;
+      document.getElementById('scoreLine').textContent = checked + ' of ' + LIST.length;
+    });
+    row.appendChild(cb); row.appendChild(lb); host.appendChild(row);
+  });
+  document.getElementById('scoreLine').textContent = '0 of ' + LIST.length;
+  btn.addEventListener('click', function(){
+    var panel = document.getElementById('checkPanel');
+    panel.hidden = !panel.hidden;
+    btn.setAttribute('aria-expanded', String(!panel.hidden));
+    if(!panel.hidden) panel.scrollIntoView({block:'nearest'});
+  });
+}
+
+/* ---------------- stamp and export ---------------- */
+function fmt(ts){
+  var d = new Date(ts);
+  function p(n){ return (n < 10 ? '0' : '') + n; }
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
+}
+function codeFrom(name, started, finished, nMarks, nPoints, activeSec){
+  var basis = [KEY, String(name||'').trim().toLowerCase(), started, finished, nMarks, nPoints, activeSec].join('|');
+  var h1 = 2166136261, h2 = 5381;
+  for(var i = 0; i < basis.length; i++){
+    var c = basis.charCodeAt(i);
+    h1 = ((h1 ^ c) >>> 0) * 16777619 >>> 0;
+    h2 = (((h2 << 5) + h2) + c) >>> 0;
+  }
+  var hex = (('00000000'+h1.toString(16)).slice(-8) + ('00000000'+h2.toString(16)).slice(-8)).toUpperCase();
+  return hex.slice(0,4)+'-'+hex.slice(4,8)+'-'+hex.slice(8,12)+'-'+hex.slice(12,16);
+}
+function snapshot(n){
+  var off = document.createElement('canvas');
+  off.width = cv.width; off.height = cv.height;
+  paint(off.getContext('2d'), n);
+  return off.toDataURL('image/png');
+}
+function buildStamp(){
+  var name = (document.getElementById('m_name').value || '').trim();
+  var title = (document.getElementById('m_title').value || 'Untitled drawing').trim();
+  var finishedAt = Date.now(), c = counts();
+  var activeSec = Math.round(activeMs/1000);
+  var startedStr = startedAt ? fmt(startedAt) : fmt(finishedAt);
+  var finishedStr = fmt(finishedAt);
+  var code = codeFrom(name, startedStr, finishedStr, marks.length, c.pts, activeSec);
+
+  document.getElementById('ex_title').textContent = title;
+  document.getElementById('ex_name').textContent = name || 'Name not entered';
+  document.getElementById('ex_img').src = snapshot(marks.length);
+  document.getElementById('ex_s_name').textContent = name || 'Name not entered';
+  document.getElementById('ex_s_title').textContent = title;
+  document.getElementById('ex_s_started').textContent = startedStr;
+  document.getElementById('ex_s_finished').textContent = finishedStr;
+  document.getElementById('ex_s_active').textContent = Math.floor(activeSec/60)+' min '+(activeSec%60)+' s  ('+activeSec+' seconds)';
+  document.getElementById('ex_s_marks').textContent = marks.length + '  (' + c.texts + ' of them text labels)';
+  document.getElementById('ex_s_points').textContent = String(c.pts);
+  document.getElementById('ex_s_edits').textContent = String(editCount);
+  document.getElementById('ex_s_check').textContent = LIST.length ? (checked + ' of ' + LIST.length + ' found by self score') : 'Not used';
+  document.getElementById('ex_s_code').textContent = code;
+
+  var strip = document.getElementById('ex_strip');
+  strip.innerHTML = '';
+  [0.25, 0.5, 0.75, 1].forEach(function(f){
+    var n = Math.max(1, Math.round(marks.length * f));
+    var fig = document.createElement('figure');
+    var img = document.createElement('img');
+    img.src = snapshot(n);
+    img.alt = 'The drawing after ' + n + ' of ' + marks.length + ' marks';
+    var cap = document.createElement('figcaption');
+    cap.textContent = Math.round(f*100) + ' percent, ' + n + ' marks';
+    fig.appendChild(img); fig.appendChild(cap); strip.appendChild(fig);
+  });
+  return marks.length;
+}
+function warn(html){
+  var w = document.getElementById('warn');
+  w.innerHTML = html; w.hidden = false;
+}
+function guard(){
+  var name = (document.getElementById('m_name').value || '').trim();
+  if(!name){
+    warn('<h3>Enter your name first</h3><p style="margin:0">The stamp prints your name, and without it the export cannot be matched to you.</p>');
+    document.getElementById('m_name').focus();
+    return false;
+  }
+  if(!marks.length){
+    warn('<h3>Nothing drawn yet</h3><p style="margin:0">Draw on the canvas above, then save.</p>');
+    return false;
+  }
+  return true;
+}
+function doExport(){
+  if(!guard()) return;
+  buildStamp();
+  document.getElementById('warn').hidden = true;
+  document.body.classList.add('export-mode');
+  window.print();
+}
+document.getElementById('exportBtn').addEventListener('click', doExport);
+document.getElementById('exportBtn2').addEventListener('click', doExport);
+document.getElementById('printBtn').addEventListener('click', doExport);
+window.addEventListener('afterprint', function(){ document.body.classList.remove('export-mode'); });
+
+document.getElementById('previewBtn').addEventListener('click', function(){
+  if(!guard()) return;
+  buildStamp();
+  document.getElementById('warn').hidden = true;
+  var sheet = document.getElementById('exportSheet'), host = document.getElementById('previewHost');
+  sheet.classList.add('onscreen');
+  sheet.setAttribute('aria-hidden','false');
+  host.hidden = false; host.appendChild(sheet);
+  host.scrollIntoView({block:'nearest'});
+});
+
+/* ---------------- iframe height sender ---------------- */
+function sendHeight(){
+  var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                   document.body.offsetHeight, document.documentElement.offsetHeight);
+  if(window.parent !== window){
+    window.parent.postMessage({ id:'mastery-canvas', type:'resize', height:h }, '*');
+  }
+}
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+if(typeof ResizeObserver !== 'undefined'){ new ResizeObserver(sendHeight).observe(document.body); }
+document.addEventListener('click', function(){ setTimeout(sendHeight, 120); });
+setTimeout(sendHeight, 400);
+
+})();
+</script>
+</body>
+</html>
