@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIO 005 &middot; P &middot; Introduction to Physiology</title>
+<meta name="description" content="Introduction to Physiology lecture slides: homeostasis, mass balance, mass flow, control systems, feedback loops, biological rhythms, and the science of physiology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#08101F; --navy-chip:#16233C; --navy-line:#2B3A5C;
+  --terra:#8B1D1D; --terra-dark:#6B1616; --terra-lite:#D97A62;
+  --gold:#DCB45C; --gold-ink:#6B5214; --gold-lite:#FBEBC8;
+  --teal:#1F4E55; --teal-lite:#7FC4CE;
+  --white:#FFFFFF; --offwhite:#FAFAF9; --navy-tint:#EDF1F3; --onred:#F2EFEF;
+  --muted:#3D4860; --rule:#DCE0E6; --light:#DDE2EA; --faint:#A8B3C6;
+  --radius:8px; --radius-lg:16px;
+  --shadow:0 1px 3px rgba(8,16,31,0.08), 0 1px 2px rgba(8,16,31,0.05);
+  --shadow-lift:0 6px 16px rgba(8,16,31,0.10), 0 3px 6px rgba(8,16,31,0.06);
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);background:var(--offwhite);color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.5}
+/* no italics anywhere, per house rule */
+em,i,cite,dfn,var,address{font-style:normal}
+img,svg{max-width:100%}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:3px}
+body.present :focus-visible{outline-color:var(--gold)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--gold);color:var(--navy);padding:12px 18px;font-weight:800;border-radius:0 0 var(--radius) 0;z-index:200}
+.skip:focus{left:0}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- page header ---------- */
+.site-header{background:var(--terra);color:var(--white);padding:26px 20px}
+.site-header .wrap{max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lite);margin:0 0 6px}
+.site-header h1{font-size:clamp(21px,3.4vw,30px);font-weight:800;margin:0;letter-spacing:-0.01em}
+.typechip{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--terra);border-radius:999px;padding:5px 15px 5px 11px;font-size:11.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px}
+.typechip b{background:var(--navy);color:var(--gold);border-radius:999px;width:22px;height:22px;display:grid;place-items:center;font-size:12px;letter-spacing:0}
+.presentbtn{background:var(--gold);color:var(--navy);border:0;border-radius:999px;padding:12px 24px;font-family:var(--font);font-weight:800;font-size:14.5px;cursor:pointer}
+.presentbtn:hover{background:#E8C476}
+.keys{max-width:1060px;margin:12px auto 0;font-size:12.5px;color:var(--onred);line-height:2}
+.keys kbd{background:var(--navy);border:1px solid var(--navy);border-radius:4px;padding:2px 8px;font-family:var(--font);font-size:11.5px;font-weight:700;color:var(--white)}
+
+/* ---------- deck ---------- */
+.deck{max-width:1060px;margin:0 auto;padding:26px 20px 70px;display:flex;flex-direction:column;gap:26px}
+.slide{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:clamp(24px,4vw,48px);position:relative}
+.slide.dark{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.slide.terra{background:var(--terra);border-color:var(--terra);color:var(--white)}
+.slide.terra .kicker{color:var(--gold-lite)}
+.slide.terra .lede{color:var(--onred)}
+.slide.terra .hl,.slide.terra .tc{color:var(--gold)}
+.slide.terra .snum{color:var(--gold-lite)}
+.slide.terra .bigline{color:var(--gold-lite);border-top-color:#A83A3A}
+.slide.paper{background:var(--offwhite)}
+.snum{position:absolute;top:16px;right:20px;font-size:11px;font-weight:800;color:#555F70;letter-spacing:1px}
+.slide.dark .snum{color:var(--faint)}
+
+.kicker{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.slide.dark .kicker{color:var(--gold)}
+.tc{color:#F0A08A}
+.hl{color:var(--terra)}
+.slide.dark .hl{color:var(--gold)}
+h2.stitle{font-size:clamp(25px,3.6vw,37px);font-weight:800;margin:0 0 14px;line-height:1.15;letter-spacing:-0.015em}
+.lede{font-size:clamp(15px,1.7vw,17px);color:var(--muted);line-height:1.7;max-width:64em;margin:0 0 18px}
+.slide.dark .lede{color:var(--light)}
+.bigline{font-size:clamp(15px,1.7vw,17px);font-weight:800;color:var(--navy);line-height:1.55;margin:22px 0 0;padding-top:18px;border-top:1px solid var(--rule)}
+.bigline.terra{color:var(--terra)}
+.slide.dark .bigline{color:var(--gold);border-top-color:var(--navy-line)}
+.srcline{font-size:12.5px;color:var(--muted);margin:16px 0 0}
+
+/* cards & grids */
+.grid2{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));margin-top:6px}
+.grid3{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));margin-top:6px}
+.grid4{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(205px,100%),1fr));margin-top:6px}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.card .label{font-size:11.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin:0 0 8px}
+.card .label.terra{color:var(--terra)}
+.card .label.teal{color:var(--teal)}
+.card .big{font-size:clamp(38px,6vw,56px);font-weight:800;color:var(--terra);line-height:1;margin:0 0 8px;letter-spacing:-0.02em}
+.card p{font-size:14.5px;color:var(--muted);line-height:1.65;margin:0}
+.card h3{font-size:17.5px;font-weight:800;margin:0 0 8px;color:var(--navy);line-height:1.3}
+.darkpanel{background:var(--navy);border-radius:var(--radius);color:var(--white);padding:24px}
+.darkpanel .big{color:var(--gold)}
+.darkpanel .label{color:var(--gold);font-size:11.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px}
+.darkpanel h3{color:var(--white)}
+.darkpanel p{color:var(--light);font-size:14.5px;line-height:1.65;margin:0}
+.darkpanel .srcnote{font-size:12px;color:var(--faint);margin:12px 0 0}
+
+/* icon rows */
+.rows{display:flex;flex-direction:column;gap:18px;margin-top:6px}
+.row{display:flex;gap:16px;align-items:flex-start}
+.dot{flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:18px}
+.dot.navy{background:var(--navy);color:var(--gold)}
+.dot.terra{background:var(--terra);color:var(--white)}
+.row h3{font-size:17.5px;font-weight:800;margin:0 0 5px;color:var(--navy)}
+.slide.dark .row h3{color:var(--white)}
+.row p{font-size:14.5px;color:var(--muted);line-height:1.65;margin:0;max-width:62em}
+.slide.dark .row p{color:var(--light)}
+.step .n{font-size:34px;font-weight:800;color:var(--gold-ink);line-height:1;margin:0 0 8px}
+
+/* term chips */
+.terms{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 6px}
+.term{background:var(--white);border:1px solid var(--rule);border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:700;color:var(--navy);box-shadow:var(--shadow)}
+.term.t{color:var(--terra)}
+.term.g{color:var(--gold-ink)}
+.term.l{color:var(--teal)}
+
+/* memory hook + real world blocks */
+.hook{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-top:18px;display:flex;gap:16px;align-items:flex-start}
+.hook .hicon{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:19px}
+.hook .hicon.teal{background:var(--teal);color:var(--white)}
+.hook .hicon.terra{background:var(--terra);color:var(--white)}
+.hook .label{font-size:11.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin:0 0 7px}
+.hook .label.teal{color:var(--teal)}
+.hook h3{font-size:17.5px;font-weight:800;margin:0 0 7px;color:var(--navy);line-height:1.3}
+.hook p{font-size:14.5px;color:var(--muted);line-height:1.7;margin:0 0 8px}
+.hook p:last-child{margin-bottom:0}
+.hook .say{font-size:clamp(16px,2vw,20px);font-weight:800;color:var(--terra);line-height:1.4;margin:0 0 8px}
+.slide.dark .hook{background:var(--navy-chip);border-color:var(--navy-line)}
+.slide.dark .hook h3{color:var(--white)}
+.slide.dark .hook p{color:var(--light)}
+.slide.dark .hook .label{color:var(--gold)}
+.slide.dark .hook .say{color:var(--gold)}
+
+/* formula block */
+.formula{background:var(--navy);color:var(--white);border-radius:var(--radius);padding:22px 24px;margin:18px 0 0;text-align:center}
+.formula .eq{font-size:clamp(16px,2.4vw,25px);font-weight:800;line-height:1.5;letter-spacing:-0.01em;margin:0}
+.formula .eq b{color:var(--gold)}
+.formula .note{font-size:13px;color:var(--light);margin:12px 0 0}
+.slide.paper .formula,.slide .formula{box-shadow:var(--shadow)}
+
+/* worked example */
+.work{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-top:16px}
+.work ol{margin:10px 0 0;padding-left:22px}
+.work li{font-size:14.5px;color:var(--muted);line-height:1.75;margin-bottom:6px}
+.work .ans{font-size:clamp(17px,2.2vw,22px);font-weight:800;color:var(--terra);margin:14px 0 0}
+
+/* figure */
+.fig{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 20px 16px;margin-top:16px}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:13px;color:var(--muted);line-height:1.6;margin:14px 0 0;padding-top:12px;border-top:1px solid var(--rule)}
+.fig figcaption b{color:var(--navy)}
+
+/* comparison table */
+.tablewrap{margin-top:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tablewrap:focus-visible{outline:3px solid var(--terra);outline-offset:3px}
+.cmp{width:100%;min-width:520px;border-collapse:collapse;font-size:14.5px}
+.cmp caption{text-align:left;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--terra);padding-bottom:10px}
+.cmp th,.cmp td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--muted);line-height:1.6}
+.cmp thead th{color:var(--navy);font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid var(--navy)}
+.cmp tbody th{color:var(--navy);font-weight:800;width:26%}
+.cmp .neg{color:var(--teal);font-weight:700}
+.cmp .pos{color:var(--terra);font-weight:700}
+
+/* activity slides */
+.badges{display:flex;gap:10px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
+.badge{background:var(--terra);color:var(--white);border-radius:999px;padding:7px 18px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.badge.time{background:var(--navy);color:var(--gold)}
+.badge.teal{background:var(--teal);color:var(--white)}
+.checkcard{margin-top:20px}
+.checkcard ul{margin:8px 0 0;padding-left:20px}
+.checkcard li{font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:6px}
+
+ul.plain{margin:8px 0 0;padding-left:20px}
+ul.plain li{font-size:14.5px;line-height:1.7;color:var(--muted);margin-bottom:7px}
+.slide.dark ul.plain li{color:var(--light)}
+ul.plain li b{color:var(--navy)}
+.slide.dark ul.plain li b{color:var(--white)}
+
+/* ---------- present mode ---------- */
+body.present{background:var(--navy)}
+body.present .site-header,body.present .keys,body.present .page-footer{display:none}
+body.present .deck{max-width:none;padding:0;gap:0}
+body.present .slide{display:none;border-radius:0;border:0;box-shadow:none;min-height:100vh;min-height:100dvh;padding:6vh 7vw 12vh}
+body.present .slide.is-current{display:flex;flex-direction:column;justify-content:center}
+body.present .snum{display:none}
+.present-bar{display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;gap:10px;align-items:center;background:rgba(8,16,31,0.88);border:1px solid var(--navy-line);border-radius:999px;padding:6px}
+body.present .present-bar{display:flex}
+.pbtn{background:var(--terra);color:var(--white);border:0;border-radius:999px;padding:11px 19px;font-family:var(--font);font-weight:800;font-size:15px;cursor:pointer;min-height:44px;min-width:44px}
+.pbtn:hover{background:#A32626}
+.pbtn.ghost{background:var(--navy-chip);color:var(--white)}
+.pbtn.ghost:hover{background:#22345A}
+.pcount{color:var(--light);font-size:13.5px;font-weight:800;padding:0 10px;min-width:5em;text-align:center}
+.progress{display:none;position:fixed;top:0;left:0;height:4px;background:var(--gold);z-index:60;transition:width 200ms ease}
+body.present .progress{display:block}
+
+/* ---------- floating clock ---------- */
+.clock{position:fixed;top:14px;right:16px;z-index:70;display:none;flex-direction:column;align-items:flex-end;gap:6px}
+.clock.show{display:flex}
+.clock-face{background:rgba(8,16,31,0.94);color:var(--white);border:1px solid var(--navy-line);border-radius:14px;padding:8px 14px 8px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 18px rgba(0,0,0,0.35);cursor:move;user-select:none}
+.clock-time{font-size:34px;font-weight:800;letter-spacing:1px;font-variant-numeric:tabular-nums;line-height:1;min-width:2.6em;text-align:right}
+.clock.warn .clock-time{color:var(--gold)}
+.clock.done .clock-time{color:#F0A08A;animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.45}}
+.clock-btns{display:flex;gap:6px}
+.cbtn{background:var(--navy-chip);color:var(--white);border:1px solid var(--navy-line);border-radius:999px;padding:9px 12px;font-family:var(--font);font-weight:800;font-size:12.5px;cursor:pointer;line-height:1;min-height:34px}
+.cbtn.go{background:var(--gold);color:var(--navy);border-color:var(--gold);padding:9px 15px}
+.cbtn:hover{filter:brightness(1.14)}
+.clock-done-msg{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F0A08A;display:none}
+.clock.done .clock-done-msg{display:block}
+.clock-hint{font-size:11px;color:var(--muted);text-align:right}
+body.present .clock-hint{display:none}
+
+/* ---------- click to reveal, Prezi style ---------- */
+.rv{cursor:pointer;position:relative;transition:transform 260ms ease,box-shadow 260ms ease,opacity 260ms ease}
+.rv .rv-body{display:none}
+.rv.open .rv-body{display:block;animation:rvin 280ms ease}
+@keyframes rvin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rv:not(.open)::after{content:'Tap to open';position:absolute;right:14px;bottom:11px;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-ink)}
+.row.rv:not(.open)::after{right:0;bottom:-4px}
+.slide.dark .rv:not(.open)::after,.darkpanel.rv:not(.open)::after{color:var(--gold)}
+.card.rv{padding-bottom:34px}
+.card.rv.open{transform:scale(1.02);box-shadow:var(--shadow-lift);z-index:2}
+.slide.has-open .rv:not(.open){opacity:0.92}
+.slide.has-open .rv:not(.open):hover{opacity:1}
+.row.rv:not(.open) h3{margin-bottom:0}
+.rv.seen:not(.open){background:var(--navy-tint);border-color:var(--navy)}
+.slide.dark .rv.seen:not(.open),.darkpanel.rv.seen:not(.open),.slide.terra .rv.seen:not(.open){background:var(--navy);box-shadow:inset 0 0 0 2px var(--gold),var(--shadow)}
+.rv.seen:not(.open)::after{content:'\2713 opened';color:var(--teal)}
+.slide.dark .rv.seen:not(.open)::after,.darkpanel.rv.seen:not(.open)::after{color:var(--teal-lite)}
+.rvhint{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:50;font-size:12px;color:var(--faint);display:none;white-space:nowrap;background:rgba(8,16,31,0.85);padding:5px 14px;border-radius:999px}
+body.present .rvhint{display:block}
+
+/* keywords + zoom stage */
+.kw{font-size:clamp(16px,2vw,20px);font-weight:600;line-height:1.4;color:var(--navy);margin:0 0 8px}
+.kw b{color:var(--terra);font-weight:800}
+.slide.dark .kw,.darkpanel .kw{color:var(--white)}
+.slide.dark .kw b,.darkpanel .kw b{color:var(--gold)}
+.rv .rv-body>p:not(.kw),.rv .rv-body>ul,.rv .rv-body>.srcline{font-size:13.5px;color:var(--muted)}
+.darkpanel.rv .rv-body>p:not(.kw),.darkpanel.rv .rv-body>ul,.slide.dark .rv .rv-body>p:not(.kw),.slide.dark .rv .rv-body>ul{color:var(--light)}
+.zoom-back{position:fixed;inset:0;background:rgba(8,16,31,0.62);z-index:80;opacity:0;transition:opacity 260ms ease;pointer-events:none}
+.zoom-back.on{opacity:1;pointer-events:auto}
+.zoom{position:fixed;z-index:81;background:var(--white);border-radius:var(--radius-lg);box-shadow:0 30px 80px rgba(0,0,0,0.45);overflow:auto;transition:all 420ms cubic-bezier(.2,.8,.2,1);transform-origin:center;pointer-events:none;opacity:0}
+.zoom.on{pointer-events:auto;opacity:1}
+.zoom.dark{background:var(--navy);color:var(--white)}
+.zoom-inner{padding:clamp(26px,4vw,46px)}
+.zoom .dot{width:56px;height:56px;font-size:22px;margin-bottom:14px}
+.zoom h3{font-size:clamp(20px,2.6vw,30px);font-weight:800;margin:0 0 14px;letter-spacing:0;text-transform:none;color:var(--terra)}
+.zoom .label{font-size:12.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-ink);margin:0 0 12px}
+.zoom.dark h3{color:var(--gold)}
+.zoom.dark .label{color:var(--gold)}
+.zoom .big{font-size:clamp(52px,9vw,92px);color:var(--terra);margin:0 0 6px}
+.zoom.dark .big{color:var(--gold)}
+.zoom .n{font-size:clamp(38px,6vw,60px);color:var(--gold-ink);font-weight:800;margin:0 0 6px}
+.zoom.dark .n{color:var(--gold)}
+.zoom .kw{font-size:clamp(26px,4.2vw,44px);font-weight:700;line-height:1.25;margin:0 0 22px}
+.zoom .kw b{color:var(--terra)}
+.zoom.dark .kw{color:var(--white)}
+.zoom.dark .kw b{color:var(--gold)}
+.zoom .rv-body{display:block}
+.zoom .rv-body>p:not(.kw),.zoom .rv-body>ul,.zoom .rv-body>.srcline,.zoom .srcnote{font-size:clamp(15px,1.5vw,18px);color:var(--muted);line-height:1.65;max-width:56em}
+.zoom.dark .rv-body>p:not(.kw),.zoom.dark .rv-body>ul,.zoom.dark .srcnote{color:var(--light)}
+.zoom .rv-body>ul{padding-left:22px}
+.zoom-close{position:absolute;top:12px;right:14px;background:var(--white);border:1px solid var(--rule);border-radius:999px;padding:9px 15px;font-family:var(--font);font-size:11.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);cursor:pointer;min-height:38px;z-index:2}
+.zoom.dark .zoom-close{background:var(--navy-chip);border-color:var(--navy-line);color:var(--white)}
+
+/* ---------- footer ---------- */
+.page-footer{background:var(--navy);color:var(--light);padding:34px 20px;margin-top:10px}
+.page-footer .wrap{max-width:1060px;margin:0 auto}
+.page-footer b{display:block;color:var(--white);font-size:17px;font-weight:800;margin-bottom:4px}
+.page-footer p{margin:0;font-size:13.5px;color:var(--faint);line-height:1.7}
+.page-footer a{color:var(--gold)}
+
+@media (max-width:640px){
+  .cmp th,.cmp td{padding:11px 10px}
+  .cmp tbody th{width:32%}
+  .hook{flex-direction:column;gap:12px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important}
+}
+@media print{
+  .site-header,.keys,.present-bar,.progress,.clock,.rvhint,.zoom,.zoom-back,.skip{display:none !important}
+  body{background:#fff}
+  .slide{break-inside:avoid;box-shadow:none;border:1px solid #ccc;page-break-after:always}
+  .rv .rv-body{display:block !important}
+  .rv:not(.open)::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#deck">Skip to the slides</a>
+<div class="progress" id="progress" role="presentation"></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <div>
+      <p class="typechip"><b aria-hidden="true">P</b> Physiology &middot; Module 1</p>
+      <p class="eyebrow">BIO 005 &middot; Human Physiology</p>
+      <h1>Introduction to Physiology</h1>
+    </div>
+    <button type="button" class="presentbtn" id="presentBtn">Present</button>
+  </div>
+  <p class="keys"><kbd>T</kbd> clock &nbsp; <kbd>&rarr;</kbd> or <kbd>Space</kbd> opens the next box, then advances &nbsp; <kbd>&larr;</kbd> back &nbsp; <kbd>A</kbd> open everything on this slide &nbsp; <kbd>Esc</kbd> exit &nbsp;&middot;&nbsp; On a phone, just scroll.</p>
+</header>
+
+<main class="deck" id="deck">
+
+<!-- 1 TITLE -->
+<section class="slide terra"><span class="snum">1</span>
+  <p class="kicker">P &middot; Physiology &middot; Module 1</p>
+  <h2 class="stitle" style="font-size:clamp(32px,6vw,56px)">Introduction to Physiology,<br><span class="tc">how the living body actually works.</span></h2>
+  <p class="lede" style="max-width:52em">Anatomy tells you what a structure is. Physiology asks the harder question: what does it do, and how does it keep doing it while everything around you changes. Today we build the framework the rest of the course sits on.</p>
+  <p class="lede" style="margin-top:26px;color:var(--onred);font-size:14px"><b style="color:var(--white)">Dr. Sharilyn Rennie</b> &nbsp;&middot;&nbsp; BIO 005 Human Physiology</p>
+</section>
+
+<!-- 2 ROADMAP -->
+<section class="slide"><span class="snum">2</span>
+  <p class="kicker">Where we are going</p>
+  <h2 class="stitle">Six ideas, and <span class="hl">everything else hangs off them</span></h2>
+  <p class="lede">Open a box to see what is inside it. You do not need to memorize this slide, you just need to know where we are headed.</p>
+  <div class="grid3">
+    <div class="card"><p class="label teal">One</p><h3>What physiology is</h3><p class="kw">Function, <b>mechanism</b>, and the themes that repeat.</p><p>We define the field, then name the eight themes that show up in every chapter you will read this term.</p></div>
+    <div class="card"><p class="label teal">Two</p><h3>Systems and emergence</h3><p class="kw">The whole does things <b>no single part can do</b>.</p><p>Why studying one cell in isolation will never tell you what a person can do.</p></div>
+    <div class="card"><p class="label teal">Three</p><h3>Homeostasis</h3><p class="kw">A stable internal environment that is <b>never actually still</b>.</p><p>The single most important word in this course, and the one most often misunderstood.</p></div>
+    <div class="card"><p class="label teal">Four</p><h3>Mass balance and mass flow</h3><p class="kw">What comes in has to <b>match what goes out</b>.</p><p>Two equations that let you predict what happens to any substance in the body.</p></div>
+    <div class="card"><p class="label teal">Five</p><h3>Control systems</h3><p class="kw">Sensor, integrating center, <b>effector</b>.</p><p>Negative feedback, positive feedback, and feedforward, with a worked example of each.</p></div>
+    <div class="card"><p class="label teal">Six</p><h3>How we know any of it</h3><p class="kw">Physiology is built on <b>experiments</b>, not opinions.</p><p>Hypotheses, variables, controls, replication, and what makes evidence good enough to treat a patient with.</p></div>
+  </div>
+</section>
+
+<!-- 3 WHAT IS PHYSIOLOGY -->
+<section class="slide"><span class="snum">3</span>
+  <p class="kicker">Definition</p>
+  <h2 class="stitle">Physiology is the study of <span class="hl">function and mechanism</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">The definition</p><h3>What the field studies</h3><p class="kw">The <b>functions and mechanisms</b> of a living system and its parts.</p><p>In this course the living system is the human body, so we are studying what each part does and the machinery that lets it happen.</p></div>
+    <div class="darkpanel"><p class="label">The goal</p><h3>What we are trying to explain</h3><p class="kw">The <b>physical and chemical factors</b> behind the origin, development, and progression of life.</p><p>Put plainly, we are explaining the characteristics and mechanisms of the human body that make it a living being rather than a collection of chemicals.</p></div>
+  </div>
+  <p class="bigline">Anatomy asks what it looks like. Physiology asks what it does and how.</p>
+</section>
+
+<!-- 4 KEY THEMES -->
+<section class="slide"><span class="snum">4</span>
+  <p class="kicker">The eight themes</p>
+  <h2 class="stitle">Eight ideas that <span class="hl">repeat in every chapter</span></h2>
+  <p class="lede">Every topic this term is a variation on one of these. When a chapter feels like too much detail, ask yourself which theme it belongs to.</p>
+  <div class="grid4">
+    <div class="card"><p class="label teal">Theme 1</p><h3>Homeostasis and control</h3><p class="kw"><b>Stability</b> that is actively defended.</p><p>The body holds a stable internal environment, and it takes control systems to do it.</p></div>
+    <div class="card"><p class="label teal">Theme 2</p><h3>Sensing the inside</h3><p class="kw">Organisms <b>sense and control</b> the internal environment.</p><p>Nothing gets regulated unless something is measuring it first.</p></div>
+    <div class="card"><p class="label teal">Theme 3</p><h3>Responding to the outside</h3><p class="kw">The body <b>responds to the external environment</b>.</p><p>Heat, cold, altitude, food, infection. The outside world keeps pushing and the body keeps answering.</p></div>
+    <div class="card"><p class="label teal">Theme 4</p><h3>Structure and function</h3><p class="kw">Form and function are <b>linked at every level</b>.</p><p>From the shape of a protein to the shape of a lung, structure predicts what a thing can do.</p></div>
+    <div class="card"><p class="label teal">Theme 5</p><h3>Molecular interactions</h3><p class="kw">Molecules <b>bind and react</b> to produce biological function.</p><p>Enzyme and substrate, hormone and receptor. Most physiology comes down to one molecule finding another.</p></div>
+    <div class="card"><p class="label teal">Theme 6</p><h3>Compartmentation</h3><p class="kw">Dividing the body into <b>compartments isolates function</b>.</p><p>Membranes let two incompatible processes run at the same time a few nanometers apart.</p></div>
+    <div class="card"><p class="label teal">Theme 7</p><h3>Biological energy use</h3><p class="kw">Energy gets <b>transferred, stored, and spent</b>.</p><p>Every process you study this term has an energy cost, and the body budgets carefully.</p></div>
+    <div class="card"><p class="label teal">Theme 8</p><h3>Communication and information flow</h3><p class="kw">Function has to be <b>coordinated</b>.</p><p>Electrical signals, chemical signals, and feedback are how a trillion cells act like one organism.</p></div>
+  </div>
+</section>
+
+<!-- 5 SYSTEMS THEORY -->
+<section class="slide"><span class="snum">5</span>
+  <p class="kicker">Systems theory</p>
+  <h2 class="stitle">Physiology is an <span class="hl">integrative science</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">What a system is</p><h3>A group of interacting parts</h3><p class="kw">Interacting, <b>interdependent components</b> forming a complex whole.</p><p>The parts are not just sitting next to each other. Each one depends on the others, so the arrangement matters as much as the pieces.</p></div>
+    <div class="darkpanel"><p class="label">Why it matters clinically</p><h3>Change one part, change the system</h3><p class="kw">Changing one component can <b>alter the whole system</b>.</p><p>This is why a single failing organ shows up as symptoms all over the body, and why you cannot treat one number on a lab panel without thinking about the rest.</p></div>
+  </div>
+  <p class="bigline">You cannot predict what a system will do from a list of its parts.</p>
+</section>
+
+<!-- 6 SYSTEMS EXAMPLES -->
+<section class="slide paper"><span class="snum">6</span>
+  <p class="kicker">Systems theory in the body</p>
+  <h2 class="stitle">Three places where <span class="hl">one change cascades</span></h2>
+  <div class="rows">
+    <div class="row"><div class="dot navy">1</div><div><h3>Insulin production drops</h3><p class="kw">Glucose metabolism <b>changes everywhere at once</b>.</p><p>The pancreas is one organ, but when insulin production is disrupted, glucose handling shifts in muscle, liver, fat, and brain. One failure, systemic consequences.</p></div></div>
+    <div class="row"><div class="dot navy">2</div><div><h3>Kidney function is lost</h3><p class="kw">Blood pressure regulation <b>goes with it</b>.</p><p>You would not guess from the kidney's job description that it helps set blood pressure, but it controls fluid volume and releases renin, so losing kidney function raises pressure.</p></div></div>
+    <div class="row"><div class="dot navy">3</div><div><h3>Neurotransmitter levels shift</h3><p class="kw">Mood and cognition <b>shift with them</b>.</p><p>A change measured in molecules turns into a change in how a person thinks and feels. Same principle, much larger scale.</p></div></div>
+  </div>
+  <p class="bigline terra">This is what integrative means. Nothing in this body works alone.</p>
+</section>
+
+<!-- 7 EMERGENT PROPERTIES -->
+<section class="slide"><span class="snum">7</span>
+  <p class="kicker">Emergent properties</p>
+  <h2 class="stitle">Some properties <span class="hl">cannot be predicted from the parts</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Definition</p><h3>Emergent property</h3><p class="kw">A property that <b>cannot be predicted</b> from knowledge of the individual components.</p><p>It appears only once the components are assembled and interacting. Take the system apart and the property disappears.</p></div>
+    <div class="darkpanel"><p class="label">The analogy</p><h3>A box of car parts</h3><p class="kw">Nuts and bolts do not predict a <b>machine that turns gasoline into motion</b>.</p><p>Order every part of a car and lay them on the floor. Nothing in that pile tells you that assembled correctly it becomes transportation. Now ask the same question about elements, molecules, and a thinking, feeling, living person.</p></div>
+  </div>
+  <p class="bigline">Assembly, not inventory, is where the interesting properties come from.</p>
+</section>
+
+<!-- 8 EMERGENT EXAMPLES -->
+<section class="slide"><span class="snum">8</span>
+  <p class="kicker">Emergent properties in people</p>
+  <h2 class="stitle">Three things <span class="hl">no single nerve cell can do</span></h2>
+  <div class="grid3">
+    <div class="card"><p class="label teal">Example 1</p><h3>Consciousness</h3><p class="kw">Not a property of <b>any one neuron</b>.</p><p>Nothing about the electrical behavior of a single nerve cell predicts awareness. It shows up only in the network.</p></div>
+    <div class="card"><p class="label teal">Example 2</p><h3>Metabolism</h3><p class="kw">A property of <b>thousands of reactions running together</b>.</p><p>Each enzyme does one small job. Metabolism is what the whole coordinated set does.</p></div>
+    <div class="card"><p class="label teal">Example 3</p><h3>Emotion</h3><p class="kw">Emerges from <b>circuits, not from cells</b>.</p><p>You will not find fear in a neuron any more than you will find speed in a spark plug.</p></div>
+  </div>
+  <p class="bigline terra">None of these can be predicted from the properties of individual nerve cells.</p>
+</section>
+
+<!-- 9 TWO APPROACHES -->
+<section class="slide"><span class="snum">9</span>
+  <p class="kicker">How we explain things</p>
+  <h2 class="stitle">Two ways to answer <span class="hl">the same question</span></h2>
+  <p class="lede">Ask a physiologist why we sweat and you can get two completely different answers. Both are correct. They are answering different questions.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Approach 1</p><h3>Teleological</h3><p class="kw">Explains function in terms of its <b>adaptive purpose</b>.</p><p>Why do we sweat? To cool the body and maintain temperature homeostasis. This answer tells you what the process is for.</p></div>
+    <div class="card"><p class="label terra">Approach 2</p><h3>Mechanistic</h3><p class="kw">Explains function in terms of <b>cause and effect</b>.</p><p>Why do we sweat? Sweat glands release fluid onto the skin, the fluid evaporates, and evaporation carries heat away. This answer tells you how the process works.</p></div>
+  </div>
+  <p class="bigline">Most exam questions in this course are asking for the mechanism. Get in the habit of answering how, not just why.</p>
+</section>
+
+<!-- 10 TRANSLATIONAL -->
+<section class="slide dark"><span class="snum">10</span>
+  <p class="kicker">From bench to bedside</p>
+  <h2 class="stitle">Translational medicine turns <span class="hl">findings into treatment</span></h2>
+  <div class="grid2">
+    <div class="darkpanel" style="background:var(--navy-chip)"><p class="label">Definition</p><h3>Translational science</h3><p class="kw">Basic research on biological function, <b>implemented into clinical practice</b>.</p><p>It starts with someone asking a basic question about how something works, and ends with a change in how patients are cared for.</p></div>
+    <div class="darkpanel" style="background:var(--navy-chip)"><p class="label">Example</p><h3>Cancer genetics to targeted therapy</h3><p class="kw">Genetic research on cancer produced <b>targeted therapies</b>.</p><p>Researchers identified the specific mutations driving certain tumors. That basic finding became drugs designed to hit those exact targets instead of every dividing cell.</p></div>
+  </div>
+  <p class="bigline">Everything you will do clinically started as somebody's basic science question.</p>
+</section>
+
+<!-- 11 HOMEOSTASIS DEFINITION -->
+<section class="slide"><span class="snum">11</span>
+  <p class="kicker">The central concept</p>
+  <h2 class="stitle">Homeostasis is stability, <span class="hl">not stillness</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Definition</p><h3>Homeostasis</h3><p class="kw">The ability to maintain a <b>relatively stable internal environment</b> despite external change.</p><p>Note the word relatively. The internal environment moves constantly, it just stays inside a range the cells can live with.</p></div>
+    <div class="darkpanel"><p class="label">The correction</p><h3>Not static, not unchanging</h3><p class="kw">A better term is <b>dynamic equilibrium</b>.</p><p>Small changes are taking place in the internal environment all the time. Homeostasis is the ongoing work of keeping those changes small, not the absence of change.</p></div>
+  </div>
+  <p class="bigline">If you picture a flat line, you have the wrong picture. Picture a needle that keeps twitching and keeps getting corrected.</p>
+</section>
+
+<!-- 12 WHEN HOMEOSTASIS FAILS -->
+<section class="slide"><span class="snum">12</span>
+  <p class="kicker">When it fails</p>
+  <h2 class="stitle">Failed homeostasis is <span class="hl">what we call disease</span></h2>
+  <p class="lede">A pathological condition is what you get when the body can no longer hold a variable inside its range. The failure comes from one of two directions.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Cause 1</p><h3>Internal failure</h3><p class="kw">A physiological process <b>stops working properly</b>.</p><p>Pancreatic beta cell dysfunction in diabetes is the classic example. The machinery that should regulate blood glucose is itself broken.</p></div>
+    <div class="card"><p class="label terra">Cause 2</p><h3>External disruption</h3><p class="kw">Something <b>from outside overwhelms</b> the system.</p><p>A viral infection is the classic example. The control systems are intact, but the challenge is bigger than they can absorb.</p></div>
+  </div>
+  <div class="darkpanel" style="margin-top:18px"><p class="label">The term you need</p><h3>Pathophysiology</h3><p class="kw">The study of body functions in <b>diseased states</b>.</p><p>Normal physiology and pathophysiology are the same subject viewed from two sides. Learn the normal loop well enough and the disease usually tells you which step broke.</p></div>
+</section>
+
+<!-- 13 OPEN SYSTEM FIGURE -->
+<section class="slide"><span class="snum">13</span>
+  <p class="kicker">Internal and external environment</p>
+  <h2 class="stitle">The body is an <span class="hl">open system</span></h2>
+  <p class="lede">An open system exchanges both heat and materials with the outside world. That exchange is exactly why homeostasis takes constant work: things are always coming in and always going out.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 360" role="img" aria-labelledby="figOpenT figOpenD">
+      <title id="figOpenT">The body as an open system</title>
+      <desc id="figOpenD">A large box labeled external environment contains a body outline. Inside the body, extracellular fluid surrounds three cells that contain intracellular fluid. Arrows on the left show oxygen, food, and water entering. Arrows on the right show carbon dioxide, urine, sweat, and heat leaving.</desc>
+      <rect x="1" y="1" width="898" height="358" rx="10" fill="#F4F6F9" stroke="#08101F" stroke-width="2"/>
+      <text x="18" y="28" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#08101F" letter-spacing="1.5">EXTERNAL ENVIRONMENT</text>
+      <rect x="228" y="52" width="444" height="284" rx="14" fill="#E3E8EE" stroke="#1F4E55" stroke-width="2.5"/>
+      <text x="250" y="80" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#1F4E55" letter-spacing="1">INTERNAL ENVIRONMENT</text>
+      <text x="250" y="102" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="700" fill="#1F4E55">Extracellular fluid (ECF)</text>
+      <g fill="#FFFFFF" stroke="#8B1D1D" stroke-width="2.5">
+        <rect x="256" y="128" width="180" height="94" rx="34"/>
+        <rect x="466" y="128" width="180" height="94" rx="34"/>
+        <rect x="360" y="238" width="180" height="80" rx="34"/>
+      </g>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="800" fill="#6B1616" text-anchor="middle">
+        <text x="346" y="170">CELL</text><text x="346" y="192" font-size="12.5" font-weight="700">ICF</text>
+        <text x="556" y="170">CELL</text><text x="556" y="192" font-size="12.5" font-weight="700">ICF</text>
+        <text x="450" y="272">CELL</text><text x="450" y="294" font-size="12.5" font-weight="700">ICF</text>
+      </g>
+      <defs>
+        <marker id="arrIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F4E55"/></marker>
+        <marker id="arrOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B1D1D"/></marker>
+      </defs>
+      <g stroke="#1F4E55" stroke-width="3" marker-end="url(#arrIn)" fill="none">
+        <path d="M96 128 H222"/><path d="M96 190 H222"/><path d="M96 252 H222"/>
+      </g>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="800" fill="#1F4E55">
+        <text x="30" y="112">Oxygen</text><text x="30" y="174">Food</text><text x="30" y="236">Water</text>
+        <text x="30" y="300" font-size="12" font-weight="700" fill="#3D4860">INPUT</text>
+      </g>
+      <g stroke="#8B1D1D" stroke-width="3" marker-end="url(#arrOut)" fill="none">
+        <path d="M678 112 H806"/><path d="M678 174 H806"/><path d="M678 236 H806"/><path d="M678 298 H806"/>
+      </g>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="800" fill="#8B1D1D" text-anchor="end">
+        <text x="880" y="100">Carbon dioxide</text><text x="880" y="162">Urine</text><text x="880" y="224">Sweat</text><text x="880" y="286">Heat</text>
+        <text x="880" y="330" font-size="12" font-weight="700" fill="#3D4860">OUTPUT</text>
+      </g>
+    </svg>
+    <figcaption><b>Read it this way.</b> Cells live in the extracellular fluid, and the extracellular fluid is what actually touches the outside world. Keep the ECF stable and the cells stay safe, which is the whole job.</figcaption>
+  </figure>
+</section>
+
+<!-- 14 ECF AND ICF -->
+<section class="slide"><span class="snum">14</span>
+  <p class="kicker">The two fluid compartments</p>
+  <h2 class="stitle">The internal environment is <span class="hl">extracellular fluid</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label teal">Compartment 1</p><h3>Extracellular fluid, ECF</h3><p class="kw">The <b>watery internal environment</b> that surrounds the cells.</p><p>When physiologists say internal environment, this is what they mean. It is the fluid your cells are bathed in.</p></div>
+    <div class="card"><p class="label teal">Compartment 2</p><h3>Intracellular fluid, ICF</h3><p class="kw">The fluid <b>inside</b> the cells.</p><p>Separated from the ECF by the cell membrane, and held at a very different composition on purpose.</p></div>
+  </div>
+  <div class="darkpanel" style="margin-top:18px"><p class="label">Why the ECF gets the attention</p><h3>The ECF is a buffer zone</h3><p class="kw">It sits <b>between the outside world and the cells</b>, so it has to be kept stable.</p><p>Anything reaching a cell passes through the ECF first. That makes the ECF the variable the body defends most aggressively, and it is where most of the numbers you will measure clinically come from.</p></div>
+</section>
+
+<!-- 15 LAW OF MASS BALANCE -->
+<section class="slide"><span class="snum">15</span>
+  <p class="kicker">Mass balance</p>
+  <h2 class="stitle">What comes in has to <span class="hl">match what goes out</span></h2>
+  <p class="lede">The body is an open system, so to hold anything steady it has to balance the books on that substance. This is the law of mass balance, and it works for water, sodium, glucose, oxygen, carbon dioxide, and every waste product you will ever measure.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">The law</p><h3>Load stays constant when gain equals loss</h3><p class="kw">Any gain must be <b>offset by an equal loss</b>.</p><p>Load is the total amount of a substance in the body. If the amount is holding steady, then everything coming in is being matched by something going out.</p></div>
+    <div class="darkpanel"><p class="label">The two ways in, the two ways out</p><h3>Four doors, not two</h3><p class="kw">Gain is <b>intake plus metabolic production</b>. Loss is <b>excretion plus metabolic removal</b>.</p><p>Students usually remember intake and excretion and forget the other two. The body can also make a substance and destroy a substance, and both count.</p></div>
+  </div>
+  <figure class="fig">
+    <svg viewBox="0 0 900 300" role="img" aria-labelledby="figMBT figMBD">
+      <title id="figMBT">The law of mass balance</title>
+      <desc id="figMBD">A central box labeled body load of substance X. Two arrows enter from the left labeled intake from outside and metabolic production. Two arrows leave to the right labeled excretion to outside and metabolic removal. A caption states load stays constant when gain equals loss.</desc>
+      <rect x="330" y="72" width="240" height="156" rx="14" fill="#08101F"/>
+      <text x="450" y="128" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#DCB45C" letter-spacing="1.5">BODY LOAD</text>
+      <text x="450" y="164" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="34" font-weight="800" fill="#FFFFFF">of X</text>
+      <text x="450" y="196" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#DDE2EA">total amount in the body</text>
+      <defs>
+        <marker id="mbIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F4E55"/></marker>
+        <marker id="mbOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B1D1D"/></marker>
+      </defs>
+      <g stroke="#1F4E55" stroke-width="4" marker-end="url(#mbIn)" fill="none"><path d="M186 112 H322"/><path d="M186 188 H322"/></g>
+      <g stroke="#8B1D1D" stroke-width="4" marker-end="url(#mbOut)" fill="none"><path d="M578 112 H714"/><path d="M578 188 H714"/></g>
+      <g font-family="Plus Jakarta Sans, sans-serif" fill="#1F4E55">
+        <text x="18" y="40" font-size="13" font-weight="800" letter-spacing="1.5">GAIN</text>
+        <text x="18" y="106" font-size="15" font-weight="800">Intake from outside</text>
+        <text x="18" y="126" font-size="13" font-weight="600" fill="#3D4860">eat it, drink it, breathe it in</text>
+        <text x="18" y="182" font-size="15" font-weight="800">Metabolic production</text>
+        <text x="18" y="202" font-size="13" font-weight="600" fill="#3D4860">the body makes it</text>
+      </g>
+      <g font-family="Plus Jakarta Sans, sans-serif" fill="#8B1D1D" text-anchor="end">
+        <text x="882" y="40" font-size="13" font-weight="800" letter-spacing="1.5">LOSS</text>
+        <text x="882" y="106" font-size="15" font-weight="800">Excretion to outside</text>
+        <text x="882" y="126" font-size="13" font-weight="600" fill="#3D4860">urine, feces, lungs, skin</text>
+        <text x="882" y="182" font-size="15" font-weight="800">Metabolic removal</text>
+        <text x="882" y="202" font-size="13" font-weight="600" fill="#3D4860">converted into something else</text>
+      </g>
+      <text x="450" y="272" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#08101F">Load holds steady when the left side equals the right side.</text>
+    </svg>
+    <figcaption><b>Water is the easiest example.</b> Water you lose in urine and sweat has to be matched by water you drink plus the water your own metabolism produces. Ions, oxygen, carbon dioxide, glucose, and waste products all follow the same rule.</figcaption>
+  </figure>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Think of a bathtub with the tap running and the drain open.</p><p>The water level is the load. The tap is intake, the drain is excretion. The level holds steady only when the two rates match, and the level can hold perfectly steady while enormous amounts of water move through. That is exactly what your body is doing with sodium and water every single day.</p></div>
+  </div>
+</section>
+
+<!-- 16 MASS BALANCE EQUATION -->
+<section class="slide paper"><span class="snum">16</span>
+  <p class="kicker">The equation</p>
+  <h2 class="stitle">Writing mass balance <span class="hl">as math</span></h2>
+  <div class="formula">
+    <p class="eq">Total body load of X &nbsp;=&nbsp; <b>intake</b> &nbsp;+&nbsp; <b>metabolic production</b> &nbsp;&minus;&nbsp; <b>excretion</b> &nbsp;&minus;&nbsp; <b>metabolic removal</b></p>
+    <p class="note">Two ways in, two ways out. If the four terms cancel, the load is not changing.</p>
+  </div>
+  <div class="grid2" style="margin-top:20px">
+    <div class="card"><p class="label terra">Term to know</p><h3>Excretion</h3><p class="kw">Elimination of material <b>from the body</b>, through urine, feces, lungs, or skin.</p><p>Carbon dioxide produced during metabolism is excreted by the lungs. Every breath out is an excretion event, which is why holding your breath changes your blood chemistry within seconds.</p></div>
+    <div class="card"><p class="label terra">Term to know</p><h3>Metabolic conversion</h3><p class="kw">Turning a substance <b>into a different substance</b> by metabolism.</p><p>Nutrients entering metabolic pathways get converted into metabolites. The original molecule is gone from the books even though nothing left the body.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon terra" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/></svg></span>
+    <div><p class="label teal">In the clinic</p><p class="say">This is why we chart intake and output on every hospitalized patient.</p><p>The I and O sheet at the bedside is the law of mass balance written on paper. When the output column falls well behind the input column for a shift or two, somebody is retaining fluid, and that observation comes straight out of this slide.</p></div>
+  </div>
+</section>
+
+<!-- 17 MASS FLOW -->
+<section class="slide"><span class="snum">17</span>
+  <p class="kicker">Mass flow</p>
+  <h2 class="stitle">Mass balance says how much. Mass flow says <span class="hl">how fast</span></h2>
+  <p class="lede">Mass flow lets us follow a substance as it moves through the body, so instead of a total we get a rate. It describes the rate of movement of substance X through body fluids or into and out of the body.</p>
+  <div class="grid4">
+    <div class="card step"><p class="n">1</p><h3>Intake</h3><p class="kw">Substances <b>entering</b> the body.</p><p>Eaten, drunk, inhaled, injected, absorbed.</p></div>
+    <div class="card step"><p class="n">2</p><h3>Production</h3><p class="kw">Substances <b>made</b> by the body.</p><p>Metabolic pathways generating new molecules.</p></div>
+    <div class="card step"><p class="n">3</p><h3>Transport</h3><p class="kw">Substances <b>moved</b> from place to place.</p><p>Mostly by blood, which is why volume flow matters so much.</p></div>
+    <div class="card step"><p class="n">4</p><h3>Excretion</h3><p class="kw">Substances leaving <b>one compartment for another</b>.</p><p>Whether this can happen at all depends on whether the substance can cross the membrane in the way.</p></div>
+  </div>
+  <div class="formula">
+    <p class="eq">Mass flow (amount of X per min) &nbsp;=&nbsp; <b>concentration of X</b> (amount per volume) &nbsp;&times;&nbsp; <b>volume flow</b> (volume per min)</p>
+    <p class="note">Volume flow is the flow of blood, air, urine, or any other fluid carrying the substance.</p>
+  </div>
+  <p class="bigline">Concentration alone never tells you the whole story. A low concentration moving fast can deliver more than a high concentration sitting still.</p>
+</section>
+
+<!-- 18 WORKED EXAMPLE -->
+<section class="slide" data-timer="180"><span class="snum">18</span>
+  <div class="badges"><span class="badge">Work it with me</span><span class="badge time">3 min</span></div>
+  <p class="kicker">Mass flow, worked</p>
+  <h2 class="stitle">An IV glucose infusion, <span class="hl">step by step</span></h2>
+  <p class="lede" style="max-width:52em">Patient A is given an IV infusion of glucose solution with a concentration of 50 grams of glucose per liter. The infusion runs at 2 milliliters per minute. What is the mass flow of glucose into the body?</p>
+  <div class="work">
+    <p class="label terra" style="font-size:11.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--terra);margin:0 0 4px">Solution</p>
+    <ol>
+      <li>Write down what you have. Concentration of glucose is 50 g per liter. Infusion rate is 2 mL per minute.</li>
+      <li>Fix the units before you do anything else. 2 mL per minute is 0.002 L per minute. Units are where most of the points get lost.</li>
+      <li>Use the equation. Mass flow equals concentration times volume flow.</li>
+      <li>Substitute. Mass flow equals 50 g per liter times 0.002 liters per minute.</li>
+    </ol>
+    <p class="ans">Mass flow = 0.1 g of glucose per minute</p>
+    <p style="font-size:14px;color:var(--muted);margin:10px 0 0;line-height:1.7">Notice that liters cancel and you are left with grams per minute, which is exactly what a rate of input should look like. If your units do not cancel cleanly, you set the problem up wrong.</p>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Let the units do the thinking for you.</p><p>Set up every problem in this course so the units cancel down to what the question asked for. If the question wants grams per minute and your setup gives you grams per liter, you have not made an arithmetic mistake, you have used the wrong equation.</p></div>
+  </div>
+</section>
+
+<!-- 19 CLEARANCE -->
+<section class="slide"><span class="snum">19</span>
+  <p class="kicker">Clearance</p>
+  <h2 class="stitle">Output is hard to measure, so we <span class="hl">measure clearance instead</span></h2>
+  <p class="lede">Input is easy. You can weigh the food and read the label. Output is much harder, so we use an indirect method called clearance, which simply expresses how the body is handling substance X.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">What clearance is</p><h3>Volume of blood cleared per unit time</h3><p class="kw">The <b>volume of blood</b> cleared of a substance <b>per unit time</b>.</p><p>Read the units carefully. Clearance is a volume per time, not an amount per time. It answers how fast, not how much.</p></div>
+    <div class="darkpanel"><p class="label">What clearance does not tell you</p><h3>Where it went</h3><p class="kw">It only tells you the substance is <b>being removed from the bloodstream</b>.</p><p>The substance could be excreted in urine, broken down in the liver, or exhaled. Clearance is blind to the destination, and that is fine, because most of the time the rate is the clinically useful number.</p></div>
+  </div>
+  <div class="grid2" style="margin-top:18px">
+    <div class="card"><p class="label teal">Primary organs of clearance</p><h3>Kidneys and liver</h3><p class="kw">These two do <b>most of the work</b>.</p><p>The kidneys filter and excrete. The liver chemically converts substances into forms that can be excreted. Nearly every drug you will ever give a patient is cleared by one of these two.</p></div>
+    <div class="card"><p class="label teal">Secondary organs of clearance</p><h3>Lungs and skin</h3><p class="kw">Real routes, <b>smaller share</b>.</p><p>The lungs clear volatile substances like carbon dioxide and inhaled anesthetics. The skin clears water and some solutes in sweat.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon terra" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/></svg></span>
+    <div><p class="label teal">Worked number to remember</p><p class="say">Urea clearance is typically about 70 mL per minute.</p><p>Urea is a normal metabolite produced from protein metabolism. A clearance around 70 mL per minute tells you it is being removed primarily by the kidneys. When you see that number fall on a patient's chart, you are watching kidney function decline in real time, which is why urea and creatinine are on nearly every basic lab panel.</p></div>
+  </div>
+</section>
+
+<!-- 20 NOT EQUILIBRIUM -->
+<section class="slide"><span class="snum">20</span>
+  <p class="kicker">A distinction people get wrong</p>
+  <h2 class="stitle">Homeostasis does <span class="hl">not</span> mean equilibrium</h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Not this</p><h3>Equilibrium</h3><p class="kw">Implies the compartments have <b>identical composition</b>.</p><p>True equilibrium would mean the inside of your cells and the fluid around them contain the same things at the same concentrations. That is not the case anywhere in a living body, and if it ever happens you have died.</p></div>
+    <div class="card"><p class="label terra">This</p><h3>Dynamic steady state</h3><p class="kw">A relatively stable state that is <b>constantly changing and adjusting</b>.</p><p>There is no net change in the regulated variable over time, but materials are moving between compartments continuously. Steady does not mean still.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Picture a busy coffee shop that always has about forty people in it.</p><p>Customers walk in and out all morning, so nothing is static. Count the people at any moment and you get forty, so nothing is changing either. That is a dynamic steady state. Equilibrium would mean the crowd inside the shop and the crowd out on the sidewalk are identical, which is obviously not what is happening, and the difference is the entire point.</p></div>
+  </div>
+  <p class="bigline terra">Plasma, the fluid component of blood, is where you will see this most clearly. It never stops moving and its composition barely changes.</p>
+</section>
+
+<!-- 21 DISEQUILIBRIUM -->
+<section class="slide"><span class="snum">21</span>
+  <p class="kicker">Steady state disequilibrium</p>
+  <h2 class="stitle">Two compartments, <span class="hl">stable but not equal</span></h2>
+  <p class="lede">The intracellular fluid and the extracellular fluid sit in a relatively stable state of disequilibrium. They hold different concentrations of ions and molecules, so they are not at equilibrium, and yet the difference is held steady. The body spends real energy every second to keep it that way.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 300" role="img" aria-labelledby="figIonT figIonD">
+      <title id="figIonT">Ion distribution between intracellular and extracellular fluid</title>
+      <desc id="figIonD">Two boxes separated by a cell membrane. The intracellular fluid on the left is higher in potassium. The extracellular fluid on the right is higher in sodium and chloride. The two compartments are stable but not equal.</desc>
+      <rect x="20" y="40" width="380" height="220" rx="14" fill="#FFFFFF" stroke="#8B1D1D" stroke-width="3"/>
+      <rect x="500" y="40" width="380" height="220" rx="14" fill="#FFFFFF" stroke="#1F4E55" stroke-width="3"/>
+      <rect x="424" y="26" width="52" height="248" rx="8" fill="#08101F"/>
+      <text x="450" y="158" text-anchor="middle" transform="rotate(-90 450 158)" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#DCB45C" letter-spacing="2">CELL MEMBRANE</text>
+      <g font-family="Plus Jakarta Sans, sans-serif" text-anchor="middle">
+        <text x="210" y="76" font-size="14" font-weight="800" fill="#6B1616" letter-spacing="1.5">INTRACELLULAR FLUID</text>
+        <text x="210" y="98" font-size="13" font-weight="700" fill="#3D4860">inside the cell</text>
+        <text x="210" y="168" font-size="52" font-weight="800" fill="#8B1D1D">K</text>
+        <text x="248" y="146" font-size="30" font-weight="800" fill="#8B1D1D">+</text>
+        <text x="210" y="200" font-size="16" font-weight="800" fill="#08101F">HIGH potassium</text>
+        <text x="210" y="228" font-size="13.5" font-weight="600" fill="#3D4860">low sodium, low chloride</text>
+        <text x="690" y="76" font-size="14" font-weight="800" fill="#1F4E55" letter-spacing="1.5">EXTRACELLULAR FLUID</text>
+        <text x="690" y="98" font-size="13" font-weight="700" fill="#3D4860">outside the cell</text>
+        <text x="660" y="168" font-size="52" font-weight="800" fill="#1F4E55">Na</text>
+        <text x="716" y="146" font-size="30" font-weight="800" fill="#1F4E55">+</text>
+        <text x="762" y="168" font-size="46" font-weight="800" fill="#1F4E55">Cl</text>
+        <text x="806" y="146" font-size="30" font-weight="800" fill="#1F4E55">&#8722;</text>
+        <text x="690" y="200" font-size="16" font-weight="800" fill="#08101F">HIGH sodium and chloride</text>
+        <text x="690" y="228" font-size="13.5" font-weight="600" fill="#3D4860">low potassium</text>
+      </g>
+      <text x="450" y="292" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="800" fill="#08101F">Stable, held there on purpose, and nowhere near equal.</text>
+    </svg>
+    <figcaption><b>Hold onto this figure.</b> Nearly every electrical event you study this term, from a nerve impulse to a heartbeat, is the body briefly letting these gradients do what they want to do.</figcaption>
+  </figure>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Banana inside, salt water outside.</p><p>Potassium is the banana ion and it lives inside the cell. Sodium and chloride are table salt and sea water, and they live outside the cell. If you can hold that one sentence, you can reconstruct resting membrane potential, action potentials, and most of the electrolyte disorders you will meet in a clinical setting.</p></div>
+  </div>
+</section>
+
+<!-- 22 REGULATED VARIABLES AND SETPOINT -->
+<section class="slide"><span class="snum">22</span>
+  <p class="kicker">Control systems</p>
+  <h2 class="stitle">Regulated variables, setpoints, and <span class="hl">the normal range</span></h2>
+  <div class="grid3">
+    <div class="card"><p class="label teal">Term 1</p><h3>Regulated variable</h3><p class="kw">Something the body <b>actively defends</b>.</p><p>Temperature, blood glucose, heart rate, respiratory rate, blood pressure. If it has a normal range on a lab slip, somebody is regulating it.</p></div>
+    <div class="card"><p class="label teal">Term 2</p><h3>Setpoint</h3><p class="kw">The <b>optimal value</b> for that variable.</p><p>The target the control system is aiming at, though the system almost never sits exactly on it.</p></div>
+    <div class="card"><p class="label teal">Term 3</p><h3>Normal range</h3><p class="kw">The <b>allowable values</b> on either side of the setpoint.</p><p>Drift inside the range and nothing happens. Cross the edge and the control mechanism activates to bring the value back.</p></div>
+  </div>
+  <figure class="fig">
+    <svg viewBox="0 0 900 300" role="img" aria-labelledby="figOscT figOscD">
+      <title id="figOscT">Oscillation around the setpoint</title>
+      <desc id="figOscD">A graph of a regulated variable over time. A shaded band marks the normal range with a dashed setpoint line through its center. The value oscillates within the band, then rises above the upper limit, where a correction arrow brings it back down into the range.</desc>
+      <rect x="70" y="70" width="800" height="120" fill="#EDF1F3"/>
+      <line x1="70" y1="70" x2="870" y2="70" stroke="#8B1D1D" stroke-width="2" stroke-dasharray="7 5"/>
+      <line x1="70" y1="190" x2="870" y2="190" stroke="#8B1D1D" stroke-width="2" stroke-dasharray="7 5"/>
+      <line x1="70" y1="130" x2="870" y2="130" stroke="#08101F" stroke-width="2.5"/>
+      <line x1="70" y1="30" x2="70" y2="250" stroke="#08101F" stroke-width="2.5"/>
+      <line x1="70" y1="250" x2="870" y2="250" stroke="#08101F" stroke-width="2.5"/>
+      <path d="M70 130 C 120 112, 150 150, 190 132 S 260 108, 310 136 S 380 118, 420 126 S 470 60, 520 44 S 580 40, 620 66 S 680 118, 730 128 S 800 140, 866 126" fill="none" stroke="#1F4E55" stroke-width="4" stroke-linecap="round"/>
+      <defs><marker id="corr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B1D1D"/></marker></defs>
+      <path d="M566 54 V 112" stroke="#8B1D1D" stroke-width="4" marker-end="url(#corr)" fill="none"/>
+      <text x="600" y="34" font-family="Plus Jakarta Sans, sans-serif" font-size="14.5" font-weight="800" fill="#8B1D1D">Response loop activates</text>
+      <text x="600" y="52" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#3D4860">and pushes the value back into range</text>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#08101F">
+        <text x="80" y="62">Upper limit of normal range</text>
+        <text x="80" y="208">Lower limit of normal range</text>
+        <text x="80" y="124" fill="#3D4860">Setpoint</text>
+        <text x="78" y="24" font-size="13.5">Regulated variable</text>
+        <text x="866" y="274" text-anchor="end" font-size="13.5">Time</text>
+      </g>
+    </svg>
+    <figcaption><b>Most regulated functions look like this.</b> The value wanders inside the range without anyone doing anything. The response loop only switches on when the variable leaves the range, which is why homeostasis is a correction system rather than a holding system.</figcaption>
+  </figure>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Your house thermostat is not trying to hold 70 degrees. It is trying to stay between 68 and 72.</p><p>The furnace does not run continuously to pin the temperature at exactly 70, because that would be exhausting and pointless. It waits until the room drifts out of range and then kicks on. Your body regulates temperature, glucose, and blood pressure the same way, and that gap between the limits is why two healthy people can have different normal values.</p></div>
+  </div>
+</section>
+
+<!-- 23 LOCAL VS REFLEX -->
+<section class="slide"><span class="snum">23</span>
+  <p class="kicker">Two kinds of control</p>
+  <h2 class="stitle">Local control and <span class="hl">reflex control</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Type 1</p><h3>Local control</h3><p class="kw">Restricted to <b>the tissue or cell involved</b>.</p><p>The problem is detected and solved right where it happens, with no message sent anywhere else. A small patch of tissue running low on oxygen releases a chemical that widens the nearby vessels, and the rest of the body never hears about it.</p></div>
+    <div class="card"><p class="label terra">Type 2</p><h3>Reflex control, long distance</h3><p class="kw">The <b>site controlling the response is far from the problem</b>.</p><p>Systemic changes that affect the whole body need more complex control, so the signal travels. Reflex control uses long distance signaling through the nervous system, the endocrine system, or both.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Local control is fixing it yourself. Reflex control is calling the building manager.</p><p>A drafty corner of one room you handle with a space heater, and nobody else in the building is involved. A boiler failure affecting every apartment needs a call to someone with a view of the whole building. Blood pressure is a whole building problem, so it gets reflex control.</p></div>
+  </div>
+  <p class="bigline terra">Anything that uses a long distance pathway, blood pressure regulation being the standard example, is reflex control.</p>
+</section>
+
+<!-- 24 THREE COMPONENTS -->
+<section class="slide"><span class="snum">24</span>
+  <p class="kicker">Anatomy of a control system</p>
+  <h2 class="stitle">Every control system has <span class="hl">the same three parts</span></h2>
+  <p class="lede">Local and reflex control differ in how far the signal travels, not in what the pieces are. Learn these three and you can dissect any loop in the course.</p>
+  <div class="rows">
+    <div class="row"><div class="dot terra">1</div><div><h3>Sensor, also called the receptor</h3><p class="kw">Detects the change and <b>brings the information to the integrating center</b>.</p><p>Nothing gets regulated unless something measures it. Baroreceptors measure pressure, chemoreceptors measure gas and pH, thermoreceptors measure temperature.</p></div></div>
+    <div class="row"><div class="dot terra">2</div><div><h3>Integrating center, also called the controller</h3><p class="kw">Processes the incoming information and <b>initiates a response</b>.</p><p>This is where the comparison happens. The center holds the setpoint, checks the incoming value against it, and decides what to do.</p></div></div>
+    <div class="row"><div class="dot terra">3</div><div><h3>Effector, the target tissue or organ</h3><p class="kw">Creates <b>the response</b>.</p><p>Muscle contracts, gland secretes, vessel constricts. The effector is the part that actually changes something in the world.</p></div></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Smoke detector, fire department dispatcher, fire truck.</p><p>The detector senses. The dispatcher decides and sends the order. The truck shows up and does something. Any loop you meet this term, ask which structure is the detector, which is the dispatcher, and which is the truck, and the loop stops being intimidating.</p></div>
+  </div>
+</section>
+
+<!-- 25 REFLEX CONTROL -->
+<section class="slide"><span class="snum">25</span>
+  <p class="kicker">Reflex control</p>
+  <h2 class="stitle">Response loops and <span class="hl">feedback loops</span></h2>
+  <p class="lede">These two terms get used interchangeably by students and they are not the same thing. Keep them separate and the rest of this unit is much easier.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">Part 1</p><h3>Response loop</h3><p class="kw">The <b>simple control response</b> itself.</p><p>A stimulus arrives, the loop runs, a response happens. Its three core components are the sensor, the integrating center, and the effector.</p></div>
+    <div class="card"><p class="label terra">Part 2</p><h3>Feedback mechanism</h3><p class="kw">Information about the response is <b>sent back to the integrating center</b>.</p><p>The feedback loop influences the response loop, and specifically it influences the input. This is what lets the system know whether the correction worked and when to stop.</p></div>
+  </div>
+  <div class="darkpanel" style="margin-top:18px"><p class="label">Say it this way</p><h3>The response loop acts. The feedback loop reports back.</h3><p class="kw">Response loops <b>begin with a stimulus</b>. Feedback loops <b>modulate the response loop</b>.</p><p>Without feedback the body could turn a correction on but would have no way to know when to turn it off. That is a system that overshoots every single time.</p></div>
+</section>
+
+<!-- 26 SEVEN STEPS -->
+<section class="slide"><span class="snum">26</span>
+  <p class="kicker">The response loop, in order</p>
+  <h2 class="stitle">The <span class="hl">seven steps</span> you will use all term</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 900 292" role="img" aria-labelledby="figSevT figSevD">
+      <title id="figSevT">The seven steps of a response loop</title>
+      <desc id="figSevD">Seven boxes in order: stimulus, sensor or receptor, input signal along the afferent pathway, integrating center or controller, output signal along the efferent pathway, effector or target organ, and response. A curved feedback arrow returns from response to the integrating center.</desc>
+      <defs><marker id="sevA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#08101F"/></marker>
+      <marker id="sevF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B1D1D"/></marker></defs>
+      <g>
+        <rect x="14" y="86" width="112" height="92" rx="10" fill="#8B1D1D"/>
+        <rect x="140" y="86" width="112" height="92" rx="10" fill="#08101F"/>
+        <rect x="266" y="86" width="112" height="92" rx="10" fill="#16233C"/>
+        <rect x="392" y="86" width="112" height="92" rx="10" fill="#DCB45C"/>
+        <rect x="518" y="86" width="112" height="92" rx="10" fill="#16233C"/>
+        <rect x="644" y="86" width="112" height="92" rx="10" fill="#08101F"/>
+        <rect x="770" y="86" width="112" height="92" rx="10" fill="#1F4E55"/>
+      </g>
+      <g font-family="Plus Jakarta Sans, sans-serif" text-anchor="middle" font-weight="800">
+        <g font-size="12" fill="#F6DCA6"><text x="70" y="112">1</text></g>
+        <g font-size="12" fill="#DCB45C"><text x="196" y="112">2</text><text x="322" y="112">3</text><text x="574" y="112">5</text><text x="700" y="112">6</text></g>
+        <g font-size="12" fill="#08101F"><text x="448" y="112">4</text></g>
+        <g font-size="12" fill="#DCB45C"><text x="826" y="112">7</text></g>
+        <g font-size="14.5" fill="#FFFFFF">
+          <text x="70" y="140">Stimulus</text>
+          <text x="196" y="140">Sensor</text><text x="196" y="160" font-size="12" font-weight="700" fill="#DDE2EA">receptor</text>
+          <text x="322" y="140">Input signal</text><text x="322" y="160" font-size="12" font-weight="700" fill="#DDE2EA">afferent</text>
+          <text x="574" y="140">Output signal</text><text x="574" y="160" font-size="12" font-weight="700" fill="#DDE2EA">efferent</text>
+          <text x="700" y="140">Effector</text><text x="700" y="160" font-size="12" font-weight="700" fill="#DDE2EA">target organ</text>
+          <text x="826" y="140">Response</text>
+        </g>
+        <g font-size="14.5" fill="#08101F"><text x="448" y="134">Integrating</text><text x="448" y="152">center</text><text x="448" y="170" font-size="12" font-weight="700" fill="#08101F">controller</text></g>
+      </g>
+      <g stroke="#08101F" stroke-width="3" marker-end="url(#sevA)" fill="none">
+        <path d="M126 132 H136"/><path d="M252 132 H262"/><path d="M378 132 H388"/><path d="M504 132 H514"/><path d="M630 132 H640"/><path d="M756 132 H766"/>
+      </g>
+      <path d="M826 186 V 250 H 448 V 190" stroke="#8B1D1D" stroke-width="3.5" fill="none" marker-end="url(#sevF)" stroke-dasharray="9 6"/>
+      <text x="640" y="274" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="800" fill="#8B1D1D">Feedback loop: the response reports back and changes the input</text>
+      <text x="14" y="44" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#3D4860" letter-spacing="1.5">RESPONSE LOOP</text>
+      <text x="14" y="66" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#3D4860">Sensor, integrating center, and effector are the three core components. The other four are the signals and events that connect them.</text>
+    </svg>
+    <figcaption><b>Afferent and efferent trip everyone up.</b> Afferent signals <b>arrive</b> at the integrating center. Efferent signals <b>exit</b> it. A for arrives, E for exits.</figcaption>
+  </figure>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Some Sensors Inform Important Offices, Effectors Respond.</p><p>Stimulus, Sensor, Input, Integrating center, Output, Effector, Response. If a sentence is not your thing, chunk the middle instead: information goes <b>in</b>, gets <b>integrated</b>, and goes back <b>out</b>. In, integrate, out, with a stimulus on the front and a response on the back.</p></div>
+  </div>
+</section>
+
+<!-- 27 NEGATIVE FEEDBACK -->
+<section class="slide"><span class="snum">27</span>
+  <p class="kicker">Negative feedback</p>
+  <h2 class="stitle">Negative feedback is <span class="hl">how the body holds the line</span></h2>
+  <p class="lede">Negative here does not mean bad. It means the response moves the variable in the direction opposite the stimulus. If something pushes up, the loop pushes down.</p>
+  <div class="grid4">
+    <div class="card"><p class="label teal">Property 1</p><h3>Homeostatic by design</h3><p class="kw">Built to keep the system <b>at or near the setpoint</b>.</p><p>This is the loop type that maintains stability, and it is the one running in the vast majority of your body's control systems.</p></div>
+    <div class="card"><p class="label teal">Property 2</p><h3>Corrects but cannot prevent</h3><p class="kw">Restores the normal state, <b>cannot prevent the initial disturbance</b>.</p><p>Something has to go wrong first. Negative feedback is always a step behind the problem, and that lag is why the variable oscillates instead of sitting still.</p></div>
+    <div class="card"><p class="label teal">Property 3</p><h3>It shuts itself off</h3><p class="kw">When the stimulus is gone, <b>the loop shuts off</b>.</p><p>The correction removes the very signal that started the correction. This is the self limiting behavior that keeps the response from running away.</p></div>
+    <div class="card"><p class="label teal">Property 4</p><h3>It works in opposition</h3><p class="kw">Changes the variable in the <b>opposite direction</b> from the stimulus.</p><p>Not negative as in harmful. Negative as in opposing, the way a minus sign opposes a plus.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Negative feedback is the thermostat. It cannot stop the cold snap, it can only turn the furnace on afterward.</p><p>Every property on this slide falls out of that one image. The furnace runs opposite to the problem, it only starts after the room is already cold, and it shuts off as soon as the room warms up.</p></div>
+  </div>
+</section>
+
+<!-- 28 SENSOR SENSITIVITY -->
+<section class="slide paper"><span class="snum">28</span>
+  <p class="kicker">Sensitivity</p>
+  <h2 class="stitle">Not every sensor has <span class="hl">the same trigger point</span></h2>
+  <p class="lede">Each regulated variable has its own sensitivity level, and some sensors are far touchier than others. The body guards what it cannot afford to lose and tolerates drift in what it can.</p>
+  <div class="grid2">
+    <div class="darkpanel"><p class="big">3%</p><p class="label">Water conservation reflexes</p><p class="kw">Sensors fire once blood concentration rises just <b>3 percent above normal</b>.</p><p>Extremely tight. The body starts conserving water long before you would ever notice you were thirsty, because plasma concentration is not something it is willing to let drift.</p></div>
+    <div class="darkpanel"><p class="big">40%</p><p class="label">Low oxygen sensors</p><p class="kw">These will not respond until oxygen has fallen by <b>40 percent</b>.</p><p>Startlingly loose by comparison. This is one reason a patient's oxygen can fall a long way before their own body raises an alarm, and part of why we monitor it with equipment instead of trusting symptoms.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon terra" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/></svg></span>
+    <div><p class="label teal">Why this matters at the bedside</p><p class="say">A sensor with a loose trigger point is a patient who looks fine until they suddenly do not.</p><p>Compare the two numbers on this slide and you can predict which vital signs give you early warning and which give you late warning. That single comparison is worth more clinically than memorizing either number.</p></div>
+  </div>
+</section>
+
+<!-- 29 NEGATIVE FEEDBACK EXAMPLE -->
+<section class="slide"><span class="snum">29</span>
+  <p class="kicker">Worked example</p>
+  <h2 class="stitle">Blood pressure regulation, <span class="hl">all seven steps</span></h2>
+  <figure class="fig">
+    <svg viewBox="0 0 900 400" role="img" aria-labelledby="figBPT figBPD">
+      <title id="figBPT">Negative feedback control of blood pressure</title>
+      <desc id="figBPD">A loop showing blood pressure decreasing as the stimulus, baroreceptors in the carotid arteries and aorta as sensors, nerve signals to the medulla oblongata as the input, the brainstem as the integrating center, nerve impulses to the heart and vessels as the output, increased heart rate and vessel constriction as the effector response, and blood pressure returning to normal, which shuts the loop off.</desc>
+      <defs><marker id="bpA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#08101F"/></marker>
+      <marker id="bpF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B1D1D"/></marker></defs>
+      <g font-family="Plus Jakarta Sans, sans-serif">
+        <rect x="20" y="20" width="248" height="86" rx="10" fill="#8B1D1D"/>
+        <text x="36" y="46" font-size="12" font-weight="800" fill="#F6DCA6" letter-spacing="1.5">1 &middot; STIMULUS</text>
+        <text x="36" y="72" font-size="17" font-weight="800" fill="#FFFFFF">Blood pressure falls</text>
+        <text x="36" y="93" font-size="13" font-weight="600" fill="#FBEBC8">you stand up too fast</text>
+
+        <rect x="326" y="20" width="248" height="86" rx="10" fill="#08101F"/>
+        <text x="342" y="46" font-size="12" font-weight="800" fill="#DCB45C" letter-spacing="1.5">2 &middot; SENSOR</text>
+        <text x="342" y="72" font-size="17" font-weight="800" fill="#FFFFFF">Baroreceptors</text>
+        <text x="342" y="93" font-size="13" font-weight="600" fill="#DDE2EA">carotid arteries and aorta</text>
+
+        <rect x="632" y="20" width="248" height="86" rx="10" fill="#16233C"/>
+        <text x="648" y="46" font-size="12" font-weight="800" fill="#DCB45C" letter-spacing="1.5">3 &middot; INPUT SIGNAL</text>
+        <text x="648" y="72" font-size="17" font-weight="800" fill="#FFFFFF">Nerve signals to brain</text>
+        <text x="648" y="93" font-size="13" font-weight="600" fill="#DDE2EA">afferent, to the medulla</text>
+
+        <rect x="632" y="156" width="248" height="86" rx="10" fill="#DCB45C"/>
+        <text x="648" y="182" font-size="12" font-weight="800" fill="#08101F" letter-spacing="1.5">4 &middot; INTEGRATING CENTER</text>
+        <text x="648" y="208" font-size="17" font-weight="800" fill="#08101F">Brainstem</text>
+        <text x="648" y="229" font-size="13" font-weight="600" fill="#08101F">medulla oblongata processes it</text>
+
+        <rect x="326" y="156" width="248" height="86" rx="10" fill="#16233C"/>
+        <text x="342" y="182" font-size="12" font-weight="800" fill="#DCB45C" letter-spacing="1.5">5 &middot; OUTPUT SIGNAL</text>
+        <text x="342" y="208" font-size="17" font-weight="800" fill="#FFFFFF">Impulses out</text>
+        <text x="342" y="229" font-size="13" font-weight="600" fill="#DDE2EA">efferent, to heart and vessels</text>
+
+        <rect x="20" y="156" width="248" height="86" rx="10" fill="#08101F"/>
+        <text x="36" y="182" font-size="12" font-weight="800" fill="#DCB45C" letter-spacing="1.5">6 &middot; EFFECTOR</text>
+        <text x="36" y="208" font-size="17" font-weight="800" fill="#FFFFFF">Heart and vessels</text>
+        <text x="36" y="229" font-size="13" font-weight="600" fill="#DDE2EA">rate increases, vessels constrict</text>
+
+        <rect x="20" y="290" width="554" height="86" rx="10" fill="#1F4E55"/>
+        <text x="36" y="316" font-size="12" font-weight="800" fill="#DCB45C" letter-spacing="1.5">7 &middot; RESPONSE</text>
+        <text x="36" y="342" font-size="17" font-weight="800" fill="#FFFFFF">Blood pressure returns to normal</text>
+        <text x="36" y="363" font-size="13" font-weight="600" fill="#DDE2EA">the stimulus is gone, so the loop shuts itself off</text>
+      </g>
+      <g stroke="#08101F" stroke-width="3" marker-end="url(#bpA)" fill="none">
+        <path d="M268 63 H316"/><path d="M574 63 H622"/><path d="M756 106 V 146"/><path d="M632 199 H584"/><path d="M326 199 H278"/><path d="M144 242 V 280"/>
+      </g>
+      <path d="M584 333 H 756 V 252" stroke="#8B1D1D" stroke-width="3.5" fill="none" marker-end="url(#bpF)" stroke-dasharray="9 6"/>
+      <text x="880" y="366" text-anchor="end" font-family="Plus Jakarta Sans, sans-serif" font-size="13.5" font-weight="800" fill="#8B1D1D">Negative feedback</text>
+      <text x="880" y="386" text-anchor="end" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700" fill="#8B1D1D">shuts the loop down</text>
+    </svg>
+    <figcaption><b>You have felt this loop run.</b> Stand up quickly and get a moment of gray vision, and what you are experiencing is the half second before this loop catches the drop. The lightheadedness fades because step seven happened.</figcaption>
+  </figure>
+</section>
+
+<!-- 30 POSITIVE FEEDBACK -->
+<section class="slide"><span class="snum">30</span>
+  <p class="kicker">Positive feedback</p>
+  <h2 class="stitle">Positive feedback loops are <span class="hl">not homeostatic</span></h2>
+  <p class="lede">Read that heading twice. Positive feedback reinforces the stimulus instead of opposing it, which means it drives the variable away from normal on purpose. The body uses it when the goal is to finish something quickly, not to hold something steady.</p>
+  <div class="grid3">
+    <div class="card"><p class="label terra">Property 1</p><h3>It amplifies</h3><p class="kw">Reinforces the stimulus rather than <b>negating or stabilizing</b> it.</p><p>The response feeds back and makes the original signal stronger, which makes the response stronger.</p></div>
+    <div class="card"><p class="label terra">Property 2</p><h3>It moves the variable away</h3><p class="kw">Changes a variable <b>farther from its normal value</b>.</p><p>The result is an increasing response that is, at least temporarily, out of control by design.</p></div>
+    <div class="card"><p class="label terra">Property 3</p><h3>It cannot stop itself</h3><p class="kw">Requires <b>something outside the loop</b> to end it.</p><p>Since the response strengthens the stimulus, there is nothing inside the cycle capable of shutting it down. An external factor or event has to break it.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">A microphone held too close to its own speaker.</p><p>The speaker feeds the microphone, the microphone feeds the speaker, and within two seconds the whole room is covered in a scream. Nothing inside that loop can stop it. Somebody has to walk over and move the microphone, and that is your external factor.</p></div>
+  </div>
+</section>
+
+<!-- 31 CHILDBIRTH -->
+<section class="slide"><span class="snum">31</span>
+  <p class="kicker">Worked example</p>
+  <h2 class="stitle">Childbirth, the classic <span class="hl">positive feedback loop</span></h2>
+  <figure class="fig">
+    <svg viewBox="0 0 900 436" role="img" aria-labelledby="figPFT figPFD">
+      <title id="figPFT">Positive feedback in childbirth</title>
+      <desc id="figPFD">Steps of the childbirth positive feedback loop: the baby stretches the cervix, stretch receptors signal the hypothalamus, oxytocin is released, the uterus contracts harder, the baby is pushed further down, and the cycle intensifies until birth removes the stimulus.</desc>
+      <defs><marker id="pfA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#08101F"/></marker>
+      <marker id="pfF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8B1D1D"/></marker></defs>
+      <text x="10" y="28" font-family="Plus Jakarta Sans, sans-serif" font-size="14.5" font-weight="800" fill="#8B1D1D">The loop feeds itself: harder contractions press the cervix harder, which calls for more oxytocin.</text>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-weight="800">
+        <rect x="10" y="64" width="160" height="98" rx="10" fill="#8B1D1D"/>
+        <text x="24" y="88" font-size="11.5" fill="#F6DCA6" letter-spacing="1.5">1 &#183; STIMULUS</text>
+        <text x="24" y="112" font-size="14.5" fill="#FFFFFF">Baby pushes</text><text x="24" y="130" font-size="14.5" fill="#FFFFFF">on the cervix</text>
+        <text x="24" y="150" font-size="12" font-weight="600" fill="#FBEBC8">cervix stretches</text>
+
+        <rect x="190" y="64" width="160" height="98" rx="10" fill="#08101F"/>
+        <text x="204" y="88" font-size="11.5" fill="#DCB45C" letter-spacing="1.5">2 &#183; SENSOR</text>
+        <text x="204" y="112" font-size="14.5" fill="#FFFFFF">Stretch</text><text x="204" y="130" font-size="14.5" fill="#FFFFFF">receptors</text>
+        <text x="204" y="150" font-size="12" font-weight="600" fill="#DDE2EA">in the cervix</text>
+
+        <rect x="370" y="64" width="160" height="98" rx="10" fill="#16233C"/>
+        <text x="384" y="88" font-size="11.5" fill="#DCB45C" letter-spacing="1.5">3 &#183; INPUT</text>
+        <text x="384" y="112" font-size="14.5" fill="#FFFFFF">Nerve</text><text x="384" y="130" font-size="14.5" fill="#FFFFFF">impulses</text>
+        <text x="384" y="150" font-size="12" font-weight="600" fill="#DDE2EA">to the hypothalamus</text>
+
+        <rect x="550" y="64" width="160" height="98" rx="10" fill="#DCB45C"/>
+        <text x="564" y="88" font-size="11.5" fill="#08101F" letter-spacing="1.5">4 &#183; INTEGRATING</text>
+        <text x="564" y="112" font-size="14.5" fill="#08101F">Hypothalamus</text>
+        <text x="564" y="136" font-size="12" font-weight="600" fill="#08101F">releases oxytocin</text>
+
+        <rect x="730" y="64" width="160" height="98" rx="10" fill="#16233C"/>
+        <text x="744" y="88" font-size="11.5" fill="#DCB45C" letter-spacing="1.5">5 &#183; OUTPUT</text>
+        <text x="744" y="112" font-size="14.5" fill="#FFFFFF">Oxytocin</text>
+        <text x="744" y="136" font-size="12" font-weight="600" fill="#DDE2EA">travels in the blood</text>
+
+        <rect x="530" y="222" width="360" height="94" rx="10" fill="#08101F"/>
+        <text x="546" y="248" font-size="11.5" fill="#DCB45C" letter-spacing="1.5">6 &#183; EFFECTOR</text>
+        <text x="546" y="274" font-size="16" fill="#FFFFFF">Uterus contracts</text>
+        <text x="546" y="298" font-size="12.5" font-weight="600" fill="#DDE2EA">more forcefully than the contraction before it</text>
+
+        <rect x="110" y="222" width="390" height="94" rx="10" fill="#1F4E55"/>
+        <text x="126" y="248" font-size="11.5" fill="#DCB45C" letter-spacing="1.5">7 &#183; RESPONSE</text>
+        <text x="126" y="274" font-size="16" fill="#FFFFFF">Baby is pushed further down</text>
+        <text x="126" y="298" font-size="12.5" font-weight="600" fill="#DDE2EA">contractions intensify, and the cycle repeats</text>
+
+        <rect x="10" y="352" width="880" height="76" rx="10" fill="#FFFFFF" stroke="#8B1D1D" stroke-width="2.5"/>
+        <text x="28" y="378" font-size="11.5" fill="#8B1D1D" letter-spacing="1.5">8 &#183; WHAT FINALLY ENDS IT</text>
+        <text x="28" y="404" font-size="16" fill="#08101F">Birth removes the stimulus, and it is the only thing that can stop this loop.</text>
+      </g>
+      <g stroke="#08101F" stroke-width="3" marker-end="url(#pfA)" fill="none">
+        <path d="M170 113 H184"/><path d="M350 113 H364"/><path d="M530 113 H544"/><path d="M710 113 H724"/>
+        <path d="M810 162 V 214"/><path d="M530 269 H 508"/><path d="M305 316 V 344"/>
+      </g>
+      <path d="M110 250 H 58 V 172" stroke="#8B1D1D" stroke-width="3.5" fill="none" marker-end="url(#pfF)" stroke-dasharray="9 6"/>
+      <text x="460" y="196" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="800" fill="#8B1D1D">More stretch, more oxytocin, stronger contractions, more stretch again</text>
+    </svg>
+    <figcaption><b>Watch the difference from the last figure.</b> In the blood pressure loop, the response erased the stimulus. Here the response strengthens it, and the cycle keeps escalating until delivery removes the baby from the cervix. Blood clotting works the same way, with each activated clotting factor activating more of the next, until the vessel is sealed.</figcaption>
+  </figure>
+</section>
+
+<!-- 32 COMPARISON -->
+<section class="slide paper"><span class="snum">32</span>
+  <p class="kicker">Side by side</p>
+  <h2 class="stitle">Negative and positive feedback, <span class="hl">the exam version</span></h2>
+  <div class="tablewrap" role="region" aria-label="Negative and positive feedback compared" tabindex="0">
+  <table class="cmp">
+    <caption>Compare on these five lines and you can answer almost any feedback question</caption>
+    <thead><tr><th scope="col">Compare on</th><th scope="col">Negative feedback</th><th scope="col">Positive feedback</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Effect on the variable</th><td class="neg">Moves it back toward the setpoint</td><td class="pos">Moves it farther from normal</td></tr>
+      <tr><th scope="row">Homeostatic?</th><td class="neg">Yes, this is the homeostatic loop</td><td class="pos">No, it is not homeostatic</td></tr>
+      <tr><th scope="row">What it does to the stimulus</th><td class="neg">Removes or opposes it</td><td class="pos">Reinforces and amplifies it</td></tr>
+      <tr><th scope="row">How it ends</th><td class="neg">Shuts itself off when the stimulus is gone</td><td class="pos">Needs an event outside the loop to stop it</td></tr>
+      <tr><th scope="row">How common</th><td class="neg">The large majority of control systems</td><td class="pos">Rare, reserved for processes that need to finish fast</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="srcline" style="margin-top:10px">On a narrow screen, swipe the table sideways to see both columns.</p>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Negative feedback ends the story. Positive feedback escalates it until something else ends the story.</p><p>Test any loop with one question: does the response make the original signal weaker or stronger? Weaker is negative, stronger is positive. You never have to memorize which examples go in which column.</p></div>
+  </div>
+</section>
+
+<!-- 33 FEEDFORWARD -->
+<section class="slide"><span class="snum">33</span>
+  <p class="kicker">Feedforward control</p>
+  <h2 class="stitle">Some reflexes let the body <span class="hl">see it coming</span></h2>
+  <p class="lede">Negative feedback can adjust a function and hold it in range, but it can never prevent the disturbance that triggered it. Some reflexes have evolved to anticipate that a change is about to happen and start the response loop in advance. That is feedforward control.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">The problem it solves</p><h3>Feedback is always late</h3><p class="kw">Negative feedback <b>cannot prevent the initial disturbance</b>.</p><p>By the time the loop responds, the variable has already left its range. For most things that is fine. For some things, arriving late is expensive.</p></div>
+    <div class="card"><p class="label terra">The solution</p><h3>Start early</h3><p class="kw">The body <b>anticipates the change</b> and starts the loop in advance.</p><p>A cue that reliably predicts the disturbance is used to launch the response before the disturbance arrives.</p></div>
+  </div>
+  <div class="darkpanel" style="margin-top:18px"><p class="label">Example: the digestive system</p><h3>Your stomach gets ready before the food arrives</h3><p class="kw">The sight, smell, or even the <b>thought of food</b> starts saliva production and acid secretion.</p><p>Your mouth waters before you take a bite, and the stomach secretes hydrochloric acid before anything has been swallowed. Nothing has actually entered the digestive tract yet. The body is preparing for a disturbance it has good reason to expect.</p></div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Feedback is braking after you see the red light. Feedforward is easing off the gas because you know that light always turns red.</p><p>Same driver, same car, very different smoothness of ride. Anticipation costs nothing and saves the system from having to make a large correction later.</p></div>
+  </div>
+</section>
+
+<!-- 34 BIOLOGICAL RHYTHMS -->
+<section class="slide"><span class="snum">34</span>
+  <p class="kicker">Biological rhythms</p>
+  <h2 class="stitle">Setpoints <span class="hl">move on a schedule</span></h2>
+  <p class="lede">A regulated variable can change predictably and create repeating cycles. Those repeating patterns are called biological rhythms, or biorhythms. The best known are circadian rhythms, which run on a roughly 24 hour cycle.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 900 322" role="img" aria-labelledby="figCircT figCircD">
+      <title id="figCircT">Circadian rhythms across 24 hours</title>
+      <desc id="figCircD">A 24 hour graph. Body temperature is lowest in the early morning and peaks in the late afternoon. Cortisol is lowest at night and peaks in the morning shortly after waking.</desc>
+      <line x1="70" y1="40" x2="70" y2="240" stroke="#08101F" stroke-width="2.5"/>
+      <line x1="70" y1="240" x2="870" y2="240" stroke="#08101F" stroke-width="2.5"/>
+      <g stroke="#DCE0E6" stroke-width="1">
+        <line x1="270" y1="40" x2="270" y2="240"/><line x1="470" y1="40" x2="470" y2="240"/><line x1="670" y1="40" x2="670" y2="240"/>
+      </g>
+      <path d="M70 202 C 130 216, 160 220, 200 214 S 300 150, 380 118 S 500 76, 600 70 S 720 104, 800 150 S 850 186, 868 198" fill="none" stroke="#8B1D1D" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M70 224 C 110 228, 140 200, 190 108 S 260 66, 300 94 S 400 168, 500 196 S 640 216, 740 222 S 830 226, 868 216" fill="none" stroke="#1F4E55" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="12 7"/>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="800" fill="#3D4860" text-anchor="middle">
+        <text x="70" y="264">midnight</text><text x="270" y="264">6 am</text><text x="470" y="264">noon</text><text x="670" y="264">6 pm</text><text x="868" y="264">midnight</text>
+      </g>
+      <g font-family="Plus Jakarta Sans, sans-serif" font-weight="800">
+        <rect x="70" y="282" width="322" height="28" rx="6" fill="#FFFFFF" stroke="#DCE0E6"/>
+        <line x1="84" y1="296" x2="112" y2="296" stroke="#8B1D1D" stroke-width="4.5" stroke-linecap="round"/>
+        <text x="122" y="301" font-size="13.5" fill="#8B1D1D">Body temperature, peaks late afternoon</text>
+        <rect x="408" y="282" width="252" height="28" rx="6" fill="#FFFFFF" stroke="#DCE0E6"/>
+        <line x1="422" y1="296" x2="450" y2="296" stroke="#1F4E55" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="9 5"/>
+        <text x="460" y="301" font-size="13.5" fill="#1F4E55">Cortisol, peaks in the morning</text>
+        <text x="78" y="30" font-size="13" fill="#08101F">Relative level</text>
+        <text x="868" y="301" font-size="13" fill="#08101F" text-anchor="end">Time of day</text>
+      </g>
+    </svg>
+    <figcaption><b>Both of these are normal.</b> A temperature taken at 5 am and the same person's temperature at 5 pm are genuinely different numbers, and neither one is wrong. Timing is part of the measurement.</figcaption>
+  </figure>
+  <div class="grid4" style="margin-top:18px">
+    <div class="card"><p class="label teal">Rhythm 1</p><h3>Sleep and wake</h3><p class="kw">The most <b>visible</b> circadian cycle.</p><p>The one everyone notices, and the one most easily disrupted by shift work and travel.</p></div>
+    <div class="card"><p class="label teal">Rhythm 2</p><h3>Body temperature</h3><p class="kw">Peaks <b>late afternoon</b>, lowest <b>early morning</b>.</p><p>The swing is close to a full degree Fahrenheit in a healthy adult.</p></div>
+    <div class="card"><p class="label teal">Rhythm 3</p><h3>Metabolic processes</h3><p class="kw">Metabolism <b>rises and falls</b> across the day.</p><p>Which means the same meal is not handled identically at 8 in the morning and 11 at night.</p></div>
+    <div class="card"><p class="label teal">Rhythm 4</p><h3>Hormone secretion</h3><p class="kw">Cortisol is <b>lowest at night</b> and <b>peaks in the morning</b>.</p><p>This is exactly why a cortisol level has to be drawn at a specified time to mean anything.</p></div>
+  </div>
+</section>
+
+<!-- 35 SETPOINT VARIABILITY -->
+<section class="slide"><span class="snum">35</span>
+  <p class="kicker">Whose normal?</p>
+  <h2 class="stitle">Normal <span class="hl">is not the same for everyone</span></h2>
+  <p class="lede">Each regulated variable has a setpoint range that will not trigger a correction. Those normals vary from person to person and can change within the same person over time. Three factors do most of that work.</p>
+  <div class="rows">
+    <div class="row"><div class="dot navy">1</div><div><h3>Circadian rhythms</h3><p class="kw">The setpoint itself <b>moves through the day</b>.</p><p>The body is not defending one fixed number around the clock. It is defending a number that is scheduled to change, which is why the time of a measurement is part of the measurement.</p></div></div>
+    <div class="row"><div class="dot navy">2</div><div><h3>Age</h3><p class="kw">Normal ranges <b>shift across the lifespan</b>.</p><p>Resting heart rate, respiratory rate, and blood pressure ranges for a newborn, a twenty year old, and an eighty year old are genuinely different. Reading a pediatric value against an adult range is a real clinical error, not a technicality.</p></div></div>
+    <div class="row"><div class="dot navy">3</div><div><h3>Conditions a person has become accustomed to</h3><p class="kw">The body <b>adjusts to what it lives with</b>.</p><p>Someone who has spent months at high altitude carries different values than someone at sea level, and both are healthy for their circumstances.</p></div></div>
+  </div>
+  <div class="hook">
+    <span class="hicon terra" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/></svg></span>
+    <div><p class="label teal">Why this matters at the bedside</p><p class="say">A number outside the printed range is a question, not a diagnosis.</p><p>The printed range on a lab slip describes a population. Your patient is one person with an age, a schedule, and a history of what their body has adapted to. The right response to an odd value is to ask why it might be normal for this person before you decide it is not.</p></div>
+  </div>
+</section>
+
+<!-- 36 ACCLIMATIZATION -->
+<section class="slide paper"><span class="snum">36</span>
+  <p class="kicker">Adapting to conditions</p>
+  <h2 class="stitle">Acclimatization and <span class="hl">acclimation</span></h2>
+  <p class="lede">Setpoints can shift when environmental conditions change, and adaptation to those changes has a name. Which name depends entirely on where the change happened.</p>
+  <div class="grid2">
+    <div class="card"><p class="label terra">In the world</p><h3>Acclimatization</h3><p class="kw">Adaptation to a change in <b>natural environmental conditions</b>.</p><p>It happens on its own, outdoors, over days to months, without anyone designing the exposure.</p></div>
+    <div class="card"><p class="label terra">In the lab</p><h3>Acclimation</h3><p class="kw">The same process, produced <b>artificially in a laboratory</b>.</p><p>Same physiology, controlled setting. The distinction is about where the change was produced, not about what happens in the body.</p></div>
+  </div>
+  <div class="darkpanel" style="margin-top:18px"><p class="label">The example</p><h3>Wisconsin in March</h3><p class="kw">People in Wisconsin pull out shorts and T-shirts <b>the moment it hits 50 degrees</b>.</p><p>A visitor from Arizona standing next to them is wearing a jacket and thinks everyone has lost their minds. Same air temperature, same physiology, completely different response, because one group's bodies have spent four months adapting to cold. That is acclimatization, and you can watch it happen in a parking lot every spring.</p></div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Acclimati<b>Z</b>ation happens in the wild. Acclimation happens in a controlled chamber.</p><p>The longer word is the one that happens out in the bigger world. The shorter word is the one that happens in the smaller, controlled space. Same body, different address.</p></div>
+  </div>
+</section>
+
+<!-- 37 SCIENCE OF PHYSIOLOGY -->
+<section class="slide dark"><span class="snum">37</span>
+  <p class="kicker">How we know any of this</p>
+  <h2 class="stitle">Physiology is built on <span class="hl">evidence, not authority</span></h2>
+  <p class="lede">Everything in this course came from someone running an experiment. Understanding that chain matters, because you are going to be the person at the end of it making decisions about a patient.</p>
+  <div class="grid4">
+    <div class="darkpanel step" style="background:var(--navy-chip)"><p class="n" style="color:var(--gold)">1</p><h3>Hypothesis</h3><p class="kw">A <b>logical guess</b> about how events take place.</p><p>Not a wild guess. A statement built on what is already known, and specific enough that an experiment could show it to be wrong.</p></div>
+    <div class="darkpanel step" style="background:var(--navy-chip)"><p class="n" style="color:var(--gold)">2</p><h3>Testing</h3><p class="kw">Experiments designed to <b>support or reject</b> the hypothesis.</p><p>Notice the wording. A good experiment is built so it could come out against you, which is what separates a test from a demonstration.</p></div>
+    <div class="darkpanel step" style="background:var(--navy-chip)"><p class="n" style="color:var(--gold)">3</p><h3>Publication</h3><p class="kw">Results published in <b>peer reviewed journals</b>.</p><p>Before anyone acts on a finding, other scientists in the field examine the methods and the reasoning.</p></div>
+    <div class="darkpanel step" style="background:var(--navy-chip)"><p class="n" style="color:var(--gold)">4</p><h3>Clinical use</h3><p class="kw">Health professionals look to the literature to <b>guide clinical decisions</b>.</p><p>The loop closes at the bedside, which is the whole reason the first three steps have to be done well.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Two terms to keep straight</p><p class="say">Evidence based medicine is the practice of critically evaluating scientific evidence and translating it into practice.</p><p>And the scientific method itself rests on two elements only: observation and experimentation. Everything else in research is machinery built on top of those two.</p></div>
+  </div>
+</section>
+
+<!-- 38 EXPERIMENT DESIGN -->
+<section class="slide"><span class="snum">38</span>
+  <p class="kicker">Designing a good experiment</p>
+  <h2 class="stitle">Change one thing, <span class="hl">measure what happens</span></h2>
+  <p class="lede">A common biological experiment removes or alters one variable in a phenomenon in order to study its effects. Everything else is held still on purpose.</p>
+  <div class="grid4">
+    <div class="card"><p class="label terra">Term 1</p><h3>Independent variable</h3><p class="kw">The variable <b>you alter</b>.</p><p>Also called the manipulated variable. It is the one thing the researcher deliberately changes.</p></div>
+    <div class="card"><p class="label terra">Term 2</p><h3>Dependent variable</h3><p class="kw">The variable that <b>depends on the other one</b>.</p><p>The measured response. It is called dependent because its value hangs on what you did to the independent variable.</p></div>
+    <div class="card"><p class="label terra">Term 3</p><h3>Control group</h3><p class="kw">A duplicate group where the independent variable is <b>left unchanged</b>.</p><p>Everything else about this group is treated identically. Without it you have a result with nothing to compare it to.</p></div>
+    <div class="card"><p class="label terra">Term 4</p><h3>Data</h3><p class="kw">The <b>information gathered</b> during the experiment.</p><p>Commonly presented in a graph or a table so patterns are visible rather than buried in a list of numbers.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Memory hook</p><p class="say">Say the sentence out loud: I change the independent variable, and the dependent variable depends on it.</p><p>The word dependent is doing the work for you. It literally tells you which one is reacting to the other, so you never have to memorize the pair.</p></div>
+  </div>
+</section>
+
+<!-- 39 BIRD EXPERIMENT -->
+<section class="slide paper"><span class="snum">39</span>
+  <p class="kicker">Worked example</p>
+  <h2 class="stitle">The birds at the feeder, <span class="hl">taken apart</span></h2>
+  <p class="lede" style="max-width:56em">A biologist notices that birds at a feeder seem to eat more in winter than in summer. That is an observation. Here is how it becomes an experiment.</p>
+  <div class="rows">
+    <div class="row"><div class="dot terra">H</div><div><h3>Hypothesis</h3><p class="kw">Cold temperatures cause birds to <b>increase their food intake</b>.</p><p>Specific, testable, and capable of being wrong. Those three qualities are what make it usable.</p></div></div>
+    <div class="row"><div class="dot terra">E</div><div><h3>Experiment</h3><p class="kw">Keep birds at <b>different temperatures</b> and monitor food intake.</p><p>Everything else, food type, cage size, light, handling, stays identical across groups.</p></div></div>
+    <div class="row"><div class="dot navy">I</div><div><h3>Independent variable</h3><p class="kw"><b>Temperature.</b></p><p>The one thing the biologist deliberately sets. This is the manipulated variable.</p></div></div>
+    <div class="row"><div class="dot navy">D</div><div><h3>Dependent variable</h3><p class="kw"><b>Food intake.</b></p><p>The measured response, the number that is expected to move when temperature moves.</p></div></div>
+    <div class="row"><div class="dot navy">C</div><div><h3>Control group</h3><p class="kw">Birds kept at a <b>warm summer temperature</b>, treated exactly the same in every other way.</p><p>The comparison group. If the cold birds eat more than these birds, the difference can be attributed to the temperature rather than to being a bird in a cage.</p></div></div>
+  </div>
+  <p class="bigline terra">Practice reading questions this way. Find the thing that was changed, find the thing that was measured, and find the group that was left alone.</p>
+</section>
+
+<!-- 40 REPLICATION AND THEORY -->
+<section class="slide"><span class="snum">40</span>
+  <p class="kicker">What makes it hold up</p>
+  <h2 class="stitle">One result is a story. <span class="hl">Repeated results are science</span></h2>
+  <div class="grid2">
+    <div class="card"><p class="label terra">What a good experiment includes</p><h3>Replication</h3><p class="kw">The experiment is <b>repeated</b> to confirm the result was not a one time event.</p><p>Unusual things happen by chance all the time. Replication is how the field separates a real effect from a coincidence that happened to get measured.</p></div>
+    <div class="darkpanel"><p class="label">The word people misuse</p><h3>Scientific theory</h3><p class="kw">A model with <b>substantial evidence from multiple investigators</b> supporting it.</p><p>In ordinary conversation a theory is a hunch. In science it is close to the opposite: a model that has survived testing by many independent groups. When you hear that something is just a theory, that sentence is using the wrong definition.</p></div>
+  </div>
+  <div class="hook">
+    <span class="hicon terra" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4z"/></svg></span>
+    <div><p class="label teal">Carry this into clinical practice</p><p class="say">One study is a reason to pay attention. Many studies agreeing is a reason to change what you do.</p><p>This is the practical core of evidence based practice, and it is the difference between following the literature and following a headline.</p></div>
+  </div>
+</section>
+
+<!-- 41 SYNTHESIS ACTIVITY -->
+<section class="slide" data-timer="600"><span class="snum">41</span>
+  <div class="badges"><span class="badge">Draw it</span><span class="badge time">10 min</span><span class="badge teal">Synthesis</span></div>
+  <p class="kicker">Retrieval, not recognition</p>
+  <h2 class="stitle">Build the loop <span class="hl">from memory</span></h2>
+  <p class="lede" style="max-width:52em">Close the slides. On one sheet of paper, draw a complete negative feedback loop for body temperature when a person walks into a hot room. Then, next to it, draw what the same diagram would look like if the loop were positive instead.</p>
+  <div class="card checkcard"><p class="label terra">What your page needs</p><p class="kw">All <b>seven steps labeled</b>, plus the feedback arrow.</p>
+    <ul>
+      <li>All seven steps of the response loop, labeled with both the general name and the specific structure or event for temperature</li>
+      <li>The feedback arrow drawn in, pointing to the correct place</li>
+      <li>One sentence saying what shuts the loop off</li>
+      <li>On the positive feedback version, one sentence saying why nothing inside the loop can stop it</li>
+    </ul>
+  </div>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">Why we draw instead of reread</p><p class="say">Recognizing a diagram is not the same skill as producing one.</p><p>Rereading a figure feels productive and builds almost nothing. Pulling the same figure out of your own head is harder, feels worse, and is the thing that actually lasts until the exam. If you get stuck, mark the gap and keep drawing, because the gap is the most useful information on the page.</p></div>
+  </div>
+</section>
+
+<!-- 42 CLOSING -->
+<section class="slide dark"><span class="snum">42</span>
+  <p class="kicker">Before next class</p>
+  <h2 class="stitle">What to do <span class="hl">tonight</span></h2>
+  <ul class="plain">
+    <li><b>Redraw the seven step response loop</b> from memory, then check it against slide 26. Do this twice, on two different days.</li>
+    <li><b>Write your own example</b> of each loop type: one negative feedback loop, one positive feedback loop, one feedforward response. Do not reuse the ones from class.</li>
+    <li><b>Work one mass flow problem</b> with different numbers than the glucose example, and check that your units cancel.</li>
+    <li><b>Say the difference out loud</b> between homeostasis and equilibrium. If you cannot say it in one sentence without notes, go back to slide 20.</li>
+  </ul>
+  <div class="hook">
+    <span class="hicon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
+    <div><p class="label">One sentence to carry the whole unit</p><p class="say">The body is an open system that spends energy every second keeping the fluid around its cells inside a range those cells can survive.</p><p>Mass balance, control systems, feedback, and rhythms are all just the mechanisms that sentence is describing. Everything else this term is detail hanging off it.</p></div>
+  </div>
+  <p class="bigline" style="font-size:clamp(21px,3.5vw,30px)">See you next class.</p>
+</section>
+
+</main>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <b>Dr. Sharilyn Rennie</b>
+    <p>BIO 005 Human Physiology &nbsp;&middot;&nbsp; Module 1, Introduction to Physiology &nbsp;&middot;&nbsp; Slide type: P, Physiology</p>
+  </div>
+</footer>
+
+<div class="clock" id="clock">
+  <div class="clock-face" id="clockFace">
+    <span class="clock-time" id="clockTime" role="timer" aria-live="off">5:00</span>
+    <span class="clock-btns">
+      <button type="button" class="cbtn" id="cMinus" aria-label="Subtract 30 seconds">&minus;30</button>
+      <button type="button" class="cbtn" id="cPlus" aria-label="Add 30 seconds">+30</button>
+      <button type="button" class="cbtn go" id="cStart">Start</button>
+      <button type="button" class="cbtn" id="cReset" aria-label="Reset the timer">Reset</button>
+    </span>
+  </div>
+  <span class="clock-done-msg" role="status">Pencils down</span>
+  <span class="clock-hint">Drag to move. Press T to hide. Activity slides preload their own time.</span>
+</div>
+
+<div class="zoom-back" id="zoomBack"></div>
+<div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="Expanded detail">
+  <button type="button" class="zoom-close" id="zoomClose">Close</button>
+  <div class="zoom-inner" id="zoomInner"></div>
+</div>
+<p class="rvhint">Click a box and it zooms out. Arrow opens the next box, then advances. Press A to open everything on this slide.</p>
+<div class="present-bar">
+  <button type="button" class="pbtn" id="prevBtn" aria-label="Previous slide">&larr;</button>
+  <span class="pcount" id="pcount" aria-live="polite">1 / 42</span>
+  <button type="button" class="pbtn" id="nextBtn" aria-label="Next slide">&rarr;</button>
+  <button type="button" class="pbtn ghost" id="clockBtn">Clock</button>
+  <button type="button" class="pbtn ghost" id="exitBtn">Exit</button>
+</div>
+
+<script>
+/* ---------- present mode ---------- */
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var on = false, idx = 0;
+  var progress = document.getElementById('progress');
+  var pcount = document.getElementById('pcount');
+
+  function show(i){
+    if (i < 0) i = 0;
+    if (i > slides.length - 1) i = slides.length - 1;
+    idx = i;
+    if (window.__zoomOpen && window.__zoomOpen()) window.__zoomClose(true);
+    slides.forEach(function(s, k){ s.classList.toggle('is-current', k === idx); });
+    pcount.textContent = (idx + 1) + ' / ' + slides.length;
+    progress.style.width = (((idx + 1) / slides.length) * 100) + '%';
+  }
+  function enter(i){
+    on = true;
+    document.body.classList.add('present');
+    show(i || 0);
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  }
+  function exit(){
+    on = false;
+    document.body.classList.remove('present');
+    slides.forEach(function(s){ s.classList.remove('is-current'); });
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    var b = document.getElementById('presentBtn'); if (b) b.focus();
+  }
+
+  document.getElementById('presentBtn').addEventListener('click', function(){ enter(0); });
+  document.getElementById('prevBtn').addEventListener('click', function(){ show(idx - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function(){ show(idx + 1); });
+  document.getElementById('exitBtn').addEventListener('click', exit);
+
+  document.getElementById('deck').addEventListener('click', function(e){
+    if (!on) return;
+    if (e.target.closest('button,a,input,label,select,summary,.present-bar,.clock,.rv')) return;
+    if (!(window.__rvNext && window.__rvNext())) show(idx + 1);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (!on) return;
+    var tag = (e.target && e.target.tagName ? e.target.tagName : '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown'){ e.preventDefault(); if (!(window.__rvNext && window.__rvNext())) show(idx + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); if (window.__zoomOpen && window.__zoomOpen()) { window.__zoomClose(); } else show(idx - 1); }
+    else if (e.key === ' ' && tag !== 'button'){ e.preventDefault(); if (!(window.__rvNext && window.__rvNext())) show(idx + 1); }
+    else if (e.key === 'Escape'){ if (!(window.__zoomOpen && window.__zoomOpen())) exit(); }
+  });
+  document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement && on){ exit(); } });
+  if (/[?#&]present/.test(location.href)) enter(0);
+})();
+
+/* ---------- floating clock ---------- */
+(function(){
+  var clock = document.getElementById('clock');
+  var face = document.getElementById('clockFace');
+  var timeEl = document.getElementById('clockTime');
+  var startBtn = document.getElementById('cStart');
+  var total = 300, left = 300, running = false, tick = null, lastSlide = null;
+
+  function fmt(s){ var m = Math.floor(s/60), r = s%60; return m + ':' + (r<10?'0':'') + r; }
+  function paint(){
+    timeEl.textContent = fmt(left);
+    clock.classList.toggle('warn', running && left > 0 && left <= 30);
+    clock.classList.toggle('done', left === 0);
+    startBtn.textContent = running ? 'Pause' : (left === total || left === 0 ? 'Start' : 'Resume');
+  }
+  function stop(){ running = false; if (tick){ clearInterval(tick); tick = null; } paint(); }
+  function start(){
+    if (left === 0){ left = total; }
+    running = true;
+    timeEl.setAttribute('aria-live','off');
+    tick = setInterval(function(){
+      left = Math.max(0, left - 1);
+      if (left === 0){ stop(); }
+      paint();
+    }, 1000);
+    paint();
+  }
+  function setTotal(s){ total = Math.max(30, s); left = total; stop(); }
+  function toggle(){
+    clock.classList.toggle('show');
+    if (clock.classList.contains('show')) startBtn.focus();
+  }
+
+  startBtn.addEventListener('click', function(){ running ? stop() : start(); });
+  document.getElementById('cReset').addEventListener('click', function(){ left = total; stop(); });
+  document.getElementById('cPlus').addEventListener('click', function(){ left += 30; if (!running) total = left; paint(); });
+  document.getElementById('cMinus').addEventListener('click', function(){ left = Math.max(0, left - 30); if (!running) total = Math.max(30, left); paint(); });
+  document.getElementById('clockBtn').addEventListener('click', toggle);
+
+  document.addEventListener('keydown', function(e){
+    var tag = (e.target && e.target.tagName ? e.target.tagName : '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+    if (e.key === 't' || e.key === 'T'){ e.preventDefault(); toggle(); }
+  });
+
+  var obs = new MutationObserver(function(){
+    var cur = document.querySelector('.slide.is-current');
+    if (!cur || cur === lastSlide) return;
+    lastSlide = cur;
+    var s = parseInt(cur.getAttribute('data-timer') || '', 10);
+    if (s){ setTotal(s); clock.classList.add('show'); }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.slide'), function(s){
+    obs.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  var dragging = false, ox = 0, oy = 0;
+  face.addEventListener('pointerdown', function(e){
+    if (e.target.closest('button')) return;
+    dragging = true;
+    var r = clock.getBoundingClientRect();
+    ox = e.clientX - r.left; oy = e.clientY - r.top;
+    face.setPointerCapture(e.pointerId);
+  });
+  face.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    clock.style.left = (e.clientX - ox) + 'px'; clock.style.top = (e.clientY - oy) + 'px'; clock.style.right = 'auto';
+  });
+  face.addEventListener('pointerup', function(){ dragging = false; });
+
+  paint();
+})();
+
+/* ---------- click to reveal, Prezi style zoom ---------- */
+(function(){
+  var HEAD = 'H3,.label,.big,.n,.dot,.srcnote';
+  function makeReveal(el){
+    var body = document.createElement('div'); body.className = 'rv-body';
+    var kids = Array.prototype.slice.call(el.childNodes);
+    var movable = kids.filter(function(k){
+      if (k.nodeType !== 1) return k.nodeType === 3 && k.textContent.trim() !== '';
+      return !k.matches(HEAD);
+    });
+    if (!movable.length) return;
+    movable.forEach(function(k){ body.appendChild(k); });
+    el.appendChild(body);
+    el.classList.add('rv');
+    el.setAttribute('tabindex','0');
+    el.setAttribute('role','button');
+    el.setAttribute('aria-expanded','false');
+  }
+  document.querySelectorAll('.slide .row').forEach(function(row){
+    var inner = row.querySelector(':scope > div:not(.dot)');
+    if (!inner) return;
+    var parts = Array.prototype.slice.call(inner.children).filter(function(c){ return c.tagName !== 'H3'; });
+    if (!parts.length) return;
+    var body = document.createElement('div'); body.className='rv-body';
+    parts.forEach(function(c){ body.appendChild(c); });
+    inner.appendChild(body);
+    row.classList.add('rv'); row.setAttribute('tabindex','0'); row.setAttribute('role','button'); row.setAttribute('aria-expanded','false');
+  });
+  document.querySelectorAll('.slide .card, .slide .darkpanel').forEach(function(el){
+    if (el.closest('.hook')) return;
+    makeReveal(el);
+  });
+
+  var zoom = document.getElementById('zoom'), zoomBack = document.getElementById('zoomBack'), zoomInner = document.getElementById('zoomInner');
+  var zoomClose = document.getElementById('zoomClose');
+  var zoomEl = null, lastFocus = null;
+  function inPresent(){ return document.body.classList.contains('present'); }
+  function placeAt(r){ zoom.style.left=r.left+'px'; zoom.style.top=r.top+'px'; zoom.style.width=r.width+'px'; zoom.style.height=r.height+'px'; }
+  function openZoom(el){
+    if (zoomEl) { closeZoom(true); }
+    zoomEl = el;
+    lastFocus = document.activeElement;
+    var isDark = !!el.closest('.slide.dark') || el.classList.contains('darkpanel');
+    zoom.classList.toggle('dark', isDark);
+    zoomInner.innerHTML = el.innerHTML;
+    zoomInner.querySelectorAll('[id]').forEach(function(n){ n.removeAttribute('id'); });
+    var r = el.getBoundingClientRect();
+    zoom.style.transition = 'none'; placeAt(r); zoom.style.opacity = '0';
+    zoom.getBoundingClientRect();
+    var W = Math.min(window.innerWidth * 0.86, 980);
+    zoom.style.width = W + 'px'; zoom.style.height = 'auto';
+    var H = Math.min(Math.max(zoomInner.offsetHeight + 20, 240), window.innerHeight * 0.84);
+    placeAt(r); zoom.getBoundingClientRect(); zoom.style.transition = '';
+    zoom.classList.add('on'); zoomBack.classList.add('on');
+    placeAt({left:(window.innerWidth - W)/2, top:(window.innerHeight - H)/2, width:W, height:H});
+    zoom.style.opacity = '1';
+    el.classList.add('seen','open'); el.setAttribute('aria-expanded','true');
+    el.closest('.slide').classList.add('has-open');
+    zoomClose.focus();
+  }
+  function closeZoom(instant){
+    if (!zoomEl) return;
+    var el = zoomEl; zoomEl = null;
+    el.classList.remove('open'); el.setAttribute('aria-expanded','false');
+    var s = el.closest('.slide'); s.classList.toggle('has-open', !!s.querySelector('.rv.open'));
+    if (instant){ zoom.classList.remove('on'); zoomBack.classList.remove('on'); zoom.style.opacity='0'; }
+    else {
+      var r = el.getBoundingClientRect(); placeAt(r); zoom.style.opacity = '0';
+      zoom.classList.remove('on'); zoomBack.classList.remove('on');
+    }
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); } else if (el.focus) { el.focus(); }
+    lastFocus = null;
+  }
+  zoomBack.addEventListener('click', function(){ closeZoom(); });
+  zoomClose.addEventListener('click', function(){ closeZoom(); });
+  window.__zoomOpen = function(){ return !!zoomEl; };
+  window.__zoomClose = function(instant){ closeZoom(instant); };
+
+  /* keep keyboard focus inside the zoom dialog while it is open */
+  document.addEventListener('keydown', function(e){
+    if (!zoomEl || e.key !== 'Tab') return;
+    var f = zoom.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])');
+    if (!f.length) { e.preventDefault(); return; }
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    else if (!zoom.contains(document.activeElement)){ e.preventDefault(); first.focus(); }
+  }, true);
+
+  function setState(el, open){
+    if (inPresent()){
+      if (open) openZoom(el); else if (zoomEl === el) closeZoom(); else { el.classList.remove('open'); }
+      return;
+    }
+    el.classList.toggle('open', open);
+    if (open) el.classList.add('seen');
+    el.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var s = el.closest('.slide');
+    s.classList.toggle('has-open', !!s.querySelector('.rv.open'));
+  }
+  document.addEventListener('click', function(e){
+    if (zoom.contains(e.target)) return;
+    var el = e.target.closest('.rv');
+    if (!el) return;
+    if (e.target.closest('a,button')) return;
+    e.stopPropagation();
+    setState(el, !el.classList.contains('open'));
+  }, true);
+  document.addEventListener('keydown', function(e){
+    if (zoom.contains(e.target)) return;
+    var el = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.rv') : null;
+    if (el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); e.stopPropagation(); setState(el, !el.classList.contains('open')); }
+  }, true);
+
+  window.__rvNext = function(){
+    var cur = document.querySelector('.slide.is-current'); if (!cur) return false;
+    var next = cur.querySelector('.rv:not(.seen)');
+    if (next){ setState(next, true); return true; }
+    if (zoomEl){ closeZoom(); return true; }
+    return false;
+  };
+  window.__rvAll = function(open){
+    var cur = document.querySelector('.slide.is-current'); if (!cur) return;
+    closeZoom(true);
+    cur.querySelectorAll('.rv').forEach(function(el){ el.classList.toggle('seen', open); el.classList.remove('open'); el.setAttribute('aria-expanded','false'); });
+    cur.classList.remove('has-open');
+  };
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && zoomEl){ e.preventDefault(); e.stopPropagation(); closeZoom(); }
+  }, true);
+  document.addEventListener('keydown', function(e){
+    if (!document.body.classList.contains('present')) return;
+    var tag = (e.target && e.target.tagName ? e.target.tagName : '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+    if (e.key === 'a' || e.key === 'A'){ e.preventDefault(); var cur = document.querySelector('.slide.is-current'); var any = cur && cur.querySelector('.rv:not(.seen)'); window.__rvAll(!!any); }
+  });
+})();
+
+/* ---------- iframe height sender for Kajabi ---------- */
+(function(){
+  var ID = 'slides-p-introduction-to-physiology';
+  function h(){
+    return Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight
+    );
+  }
+  function send(){
+    try { parent.postMessage({ id: ID, frameId: ID, height: h(), scrollHeight: h() }, '*'); } catch (e) {}
+  }
+  window.addEventListener('load', send);
+  window.addEventListener('resize', send);
+  document.addEventListener('click', function(){ setTimeout(send, 320); });
+  if (window.ResizeObserver){ new ResizeObserver(send).observe(document.body); }
+  setTimeout(send, 400); setTimeout(send, 1200);
+  send();
+})();
+</script>
+</body>
+</html>
