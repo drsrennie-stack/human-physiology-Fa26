@@ -287,175 +287,148 @@
     var q = sec ? ('?sec=' + sec) : '';
     var t = [];
 
-    /* First tile in the dock, on purpose. It is the only one that answers
-       "what do I do right now" without the student choosing anything, and
-       it was previously reachable from nowhere at all. */
-    /* The tour sheet. It is a page of QR codes, one per short video, so a
-       student can watch on a phone while they work on the laptop. First in
-       This week because that group is the one open by default. */
-    t.push({ g: 'This week', name: 'How to videos', sub: 'Short tours of the course. Scan a code, watch on your phone',
-             url: BASE + 'bio005-tour-poster.html', icon: 'doc', tone: 'gold', qr: 'howto', soon: true,
-             kw: 'how to video videos tour tours walkthrough guide scan qr getting started orientation help' });
-    t.push({ g: 'This week', name: 'Today', sub: 'The one thing to do now, and your other class days',
-             url: BASE + 'os/mastery-physio-os.html' + q, icon: 'play', tone: 'gold', qr: 'today', key: 'today',
-             kw: 'today now next what do i do day daily plan tonight prework ahead' });
-    /* The Week N tile is gone. Today already opens on the right day and
-       carries Earlier week and Later week, and the course calendar tile
-       below covers browsing the whole term. Three doors onto the same
-       week was two too many. */
-    t.push({ g: 'This week', name: 'Study With Me', sub: 'Join a session this week or start one yourself',
-             url: BASE + 'study-session-signup.html' + q, icon: 'people', tone: 'terra', qr: 'study', kw: 'study with me sessions group hours host', soon: true });
-    t.push({ g: 'This week', name: 'Course calendar', sub: 'Every class day and what to prepare for it',
+    /* ============================================================
+       CATALOG, REORGANIZED Aug 2026 ON SCRUBS' INSTRUCTION
+
+       The groups now mirror the way the main page sorts things, so a
+       student learns one vocabulary and it holds everywhere:
+
+         This week   what is live today, pinned open
+         Lecture     the material you read and watch
+         Lab         the clinical physiology lab
+         Study       everything you do to make it stick
+         Admin       schedule, syllabus, how the course runs
+
+       WHAT CAME OUT, AND WHY
+       Digital Atlas, Loops and Muscle charts are anatomy tools that
+       rode over from the BIO 004 template. Structures on a model are
+       not what this lab trains. Repair Round came out too: it is an
+       in-class activity and this section never meets.
+
+       Exam modules pointed at competency-map.html, which is the
+       instructor tool. It carries open decisions and editing notes
+       and students should not be reading it. Competency study guide
+       is the student-facing page with the same content, written as
+       tasks, and that is what the tile points at now.
+
+       NOTES AND VIDEOS ARE SEPARATE TILES AGAIN
+       An earlier pass collapsed them into one Course materials tile,
+       on the reasoning that the materials page shows its own tabs.
+       Scrubs asked for the two buttons back. Both tiles deep-link to
+       the right tab, so the page still does the sorting, and the
+       student gets the shortcut without having to know the page has
+       tabs before they open it.
+       ============================================================ */
+
+    /* ---------- THIS WEEK. Open by default, on purpose. It is the
+       only group that answers "what do I do right now" without the
+       student choosing anything. ---------- */
+    t.push({ g: 'This week', name: 'Today', sub: 'What is due, what is open, and what to work on next',
+             url: BASE + 'os/mastery-physio-os.html' + q, icon: 'target', tone: 'gold', qr: 'today',
+             kw: 'today now due next dashboard week current' });
+    t.push({ g: 'This week', name: 'Course calendar', sub: 'Every week, every due date, every exam window',
              url: BASE + 'course-schedule.html' + q, icon: 'cal', tone: 'navy', qr: 'calendar',
-             /* 'start here' and 'how this course works' land here on
-                purpose. Both had their own tiles and came out, and the
-                Start here walkthrough is a dialog on this page now, so
-                a student searching the old names arrives at the thing
-                itself rather than at an empty result. */
-             kw: 'calendar schedule dates start here checklist orientation walkthrough '
-               + 'how this course works pedagogy tbl why week one' });
+             kw: 'calendar schedule dates due deadlines weeks exam window when' });
+    t.push({ g: 'This week', name: 'Study With Me', sub: 'Join a session this week or start one yourself',
+             url: BASE + 'study-session-signup.html' + q, icon: 'people', tone: 'terra', qr: 'study', soon: true,
+             kw: 'study with me session group together live signup partner' });
 
-    /* ---------- COURSE MATERIALS ----------
-
-       This group did not exist. Nine unrelated things sat under
-       "Study tools": the notes a student reads and the engine that
-       decides what to test them on, side by side, with nothing to
-       tell them apart. Material you study is not the same kind of
-       thing as machinery that studies you, and one heading over
-       both makes the list something to scan rather than use.
-
-       Still ONE dock. Two headings inside it, not two buttons. A
-       second floating button is another entryway to the same files
-       ordered a third way, and too many entryways is the problem
-       this course already had. */
-    /* ONE DOOR TO THE MATERIALS.
-
-       Third pass on this, and the page changed under it, which is
-       what settles it. Notes, Pre-work sheets and Concept videos
-       were separate tiles because the materials page did not show
-       its own categories. The redesigned page does: Everything,
-       Pre-work sheets, Notes, Concept videos, Workbooks, Slide
-       decks and Practice exams are tabs across the top, visible the
-       moment it opens, with the modules underneath.
-
-       So the tiles were duplicating a control that is now the first
-       thing a student sees. One tile, and the page does the sorting
-       it was built to do. Their keywords stay here, so typing
-       prework or videos still lands in the right place. */
-    t.push({ g: 'Course materials', name: 'Course materials', sub: 'Notes, pre-work, videos, workbooks and decks, by module',
+    /* ---------- LECTURE ---------- */
+    t.push({ g: 'Lecture', name: 'Notes', sub: 'The written version of every topic, by module',
+             url: BASE + 'course-materials.html#notes', icon: 'doc', tone: 'navy', qr: 'materials', soon: true,
+             kw: 'notes reading written text module chapter topic' });
+    t.push({ g: 'Lecture', name: 'Concept videos', sub: 'Watch the mechanism explained, then read the page',
+             url: BASE + 'course-materials.html#videos', icon: 'play', tone: 'terra', qr: 'materials', soon: true,
+             kw: 'video videos concept watch lecture recording loom walkthrough captions' });
+    t.push({ g: 'Lecture', name: 'Slide decks', sub: 'Step through a lecture one slide at a time, or print the set',
+             url: BASE + 'course-materials.html#slides', icon: 'doc', tone: 'navy', qr: 'materials', soon: true,
+             kw: 'slides deck powerpoint print packet lecture step' });
+    t.push({ g: 'Lecture', name: 'Pre-work', sub: 'What to do before the week opens',
+             url: BASE + 'course-materials.html#prework', icon: 'pencil', tone: 'gold', qr: 'materials', soon: true,
+             kw: 'prework pre-work before homework guided sheet night before' });
+    t.push({ g: 'Lecture', name: 'All course materials', sub: 'Everything above in one place, sorted by module',
              url: BASE + 'course-materials.html', icon: 'doc', tone: 'navy', qr: 'materials', soon: true,
-             kw: 'materials notes reading module chapter prework pre-work worksheet sheet night '
-               + 'before homework guided videos concept watch lecture walkthrough workbooks slides '
-               + 'decks practice exams index everything all' });
-    t.push({ g: 'Lab materials', name: 'Lab sprints', sub: 'Every structure you are responsible for on the models',
-             url: BASE + 'lab-sprints.html', icon: 'flask', tone: 'navy', soon: true,
-             qr: 'labs', kw: 'lab sprints models dissection structures practical stations bench' });
-    t.push({ g: 'Lab materials', name: 'Digital Atlas', sub: 'Turn the structures around and look at them',
-             url: 'https://share.articulate.com/UOHEe3p6DmTC4nXuUTE02', icon: 'globe', tone: 'gold',
-             qr: 'atlas', ext: true, kw: 'atlas 3d explore rotate structures lab' });
-    t.push({ g: 'Course materials', name: 'Exam modules', sub: 'Exactly what each exam covers',
-             url: BASE + 'competency-map.html' + q, icon: 'flask', tone: 'navy', qr: 'exams', kw: 'exam modules covers scope' });
-    /* OPENSTAX, AS A REFERENCE, NOT AS A TEXT.
+             kw: 'materials everything all index module' });
+    t.push({ g: 'Lecture', name: 'OpenStax reference', sub: 'Free online text. Nothing to buy for this course',
+             url: 'https://openstax.org/details/books/anatomy-and-physiology-2e', icon: 'globe', tone: 'gold',
+             ext: true, qr: 'materials', kw: 'openstax book text textbook free reference chapter reading' });
 
-       There is no book to buy in this course and the required
-       materials page says so plainly. This tile has to not undo
-       that, which is why it is named for what it is and the
-       subtitle says 'not required' before a student has to wonder.
+    /* ---------- LAB. Clinical Physiology Lab, not a structures lab.
+       The four skills underneath every exercise are measuring,
+       calculating, collecting data and interpreting data. ---------- */
+    t.push({ g: 'Lab', name: 'Lab manual', sub: 'Every exercise for the term, in one place',
+             url: BASE + 'lab-manual.html', icon: 'flask', tone: 'terra', qr: 'labs', soon: true,
+             kw: 'lab manual exercises bench protocol procedure book' });
+    t.push({ g: 'Lab', name: 'Lab sprints', sub: 'What you have to be able to do in lab, week by week',
+             url: BASE + 'lab-sprints.html', icon: 'flask', tone: 'navy', qr: 'labs', soon: true,
+             kw: 'lab sprints week skills able measure calculate interpret checklist' });
+    t.push({ g: 'Lab', name: 'Lab skills checklist', sub: 'Tick off what you can do, how it is measured, and what you turn in',
+             url: BASE + 'lab-competencies.html', icon: 'target', tone: 'gold', qr: 'labs', soon: true,
+             kw: 'checklist competency competencies skills can i do measured submit rubric evidence' });
+    t.push({ g: 'Lab', name: 'Clinical test bank', sub: 'What each lab test measures, and what high and low mean',
+             url: BASE + 'clinical-tests.html', icon: 'flask', tone: 'navy', qr: 'labs', soon: true,
+             kw: 'clinical tests labs cbc abg urinalysis blood typing panel reference range values' });
+    t.push({ g: 'Lab', name: 'Reading charts and data', sub: 'Curves, tracings, threshold plots, panels and trends',
+             url: BASE + 'reading-data.html', icon: 'brain', tone: 'terra', qr: 'labs', soon: true,
+             kw: 'graph chart data curve tracing waveform plot interpret read trend ecg spirometry' });
 
-       The live edition is Anatomy and Physiology 2e, and the second
-       half of that title is the catch: BIO 005 is anatomy only. A
-       student who reads it cover to cover will study a lot of
-       physiology that is not on any exam here. It earns its place
-       as a second explanation and a second set of figures when the
-       notes have not landed, and that is the job the subtitle
-       gives it. */
-    t.push({ g: 'Course materials', name: 'OpenStax reference', sub: 'Free online book, for a second explanation or more figures. Not required',
-             url: 'https://openstax.org/details/books/anatomy-and-physiology-2e',
-             icon: 'globe', tone: 'terra', ext: true,
-             kw: 'openstax textbook book text reference free online chapter reading second '
-               + 'explanation figures diagrams anatomy physiology' });
-    /* soon:true pulls this out of its group and drops it at the end
-       under Coming soon, rendered as plain text rather than a link.
-       A tile that goes somewhere unfinished is worse than one that
-       says plainly it is not ready. */
-    t.push({ g: 'Course materials', name: 'Case deep dives', sub: 'One clinical case per topic, with the PDF',
-             url: BASE + 'welcome.html' + q, icon: 'flask', tone: 'terra', soon: true,
-             kw: 'deep dive cases clinical index topics' });
-    t.push({ g: 'Practice and recall', name: 'Mastery OS', sub: 'Your cards, your weak spots, and a plan around them',
+    /* ---------- STUDY ---------- */
+    t.push({ g: 'Study', name: 'Mastery OS', sub: 'Your gaps, your weakest competencies, and what is due for recall',
              url: BASE + 'os/mastery-physio-os.html' + q, icon: 'brain', tone: 'gold', qr: 'mastery',
-             kw: 'mastery os plan cram competency recall cards flashcards spaced question rx study '
-               + 'weakness weak spot board dashboard gaps' });
-    t.push({ g: 'Practice and recall', name: 'Recall cards', sub: 'Straight into the cards that are due today',
-             url: BASE + 'os/mastery-physio-os.html#s-recall' + '', icon: 'cards', tone: 'green', qr: 'recall',
-             kw: 'recall cards flashcards spaced due today question' });
-    /* Lives on the MedMasters site, not in this repo, and it was only
-       reachable from the Loops upload kit. It is a drill tool, so it
-       belongs beside the other drill tools. */
-    t.push({ g: 'Practice and recall', name: 'Muscle charts, I O A', sub: 'Origins, insertions, actions and innervation, drilled interactively',
-             url: 'https://www.medmasterscollaborative.com/muscle-charts-i-o-a-inn', icon: 'cards', tone: 'terra',
-             ext: true, qr: 'muscles',
-             kw: 'muscle charts origin insertion action innervation ioa oia drill table muscles' });
-    t.push({ g: 'Lab materials', name: 'Loops', sub: 'Thirty-nine image loops for fast visual practice',
-             url: 'https://drsrennie-stack.github.io/loops/', icon: 'loop', tone: 'terra', qr: 'loops', ext: true, kw: 'loops images practice lab' });
-    /* The histology help tile was removed on Aug 22. It was an anatomy
-       leftover, slide tools and microscope work, and this course retires
-       histology entirely. It also carried no url, so it rendered as a
-       live link to href="undefined" on every page the dock is on, which
-       is every page. See the guard in the renderer below. */
-    /* The weak spot board was a tile here. It is the front panel of
-       Mastery OS, one tile up, and the practice exam links straight
-       into it when a paper is marked, which is the moment a student
-       actually wants it. Its keywords moved onto Mastery OS. */
-    t.push({ g: 'Practice and recall', name: 'Draw it from memory', sub: 'Draw the structure first, then check it against the list',
-             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'gold', qr: 'canvas', kw: 'draw drawing canvas memory checklist', soon: true });
-    t.push({ g: 'Practice and recall', name: 'What I got done today', sub: 'And what you meant to do and did not',
-             url: BASE + 'bio005-day-review.html', icon: 'target', tone: 'terra', qr: 'today', kw: 'today review day summary time missed', soon: true });
-    /* THE BANK IS NOT THE STUDENT TOOL.
+             kw: 'mastery os dashboard gaps weakness progress track' });
+    t.push({ g: 'Study', name: 'Recall cards', sub: 'Spaced retrieval practice on the course competencies',
+             url: BASE + 'os/mastery-physio-os.html#s-recall', icon: 'cards', tone: 'navy', qr: 'recall',
+             kw: 'cards recall flashcards spaced repetition quiz retrieval practice' });
+    t.push({ g: 'Study', name: 'Draw it from memory', sub: 'Draw the mechanism first, then check it',
+             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra', qr: 'canvas', soon: true,
+             kw: 'draw drawing canvas memory loop mechanism sketch diagram' });
+    t.push({ g: 'Study', name: 'Competency study guide', sub: 'Everything you are expected to be able to do, written as tasks',
+             url: BASE + 'competency-study-guide.html' + q, icon: 'doc', tone: 'navy', qr: 'exams',
+             kw: 'competency competencies study guide exam covers scope objectives able to' });
+    t.push({ g: 'Study', name: 'Practice exam', sub: 'A fresh paper in the real format, scored, with the reasoning',
+             url: BASE + 'practice-lecture-exam.html', icon: 'doc', tone: 'navy', qr: 'pexam', soon: true,
+             kw: 'practice exam test mock paper score questions' });
+    t.push({ g: 'Study', name: 'Brain dump practice', sub: 'Spin a prompt, set your clock, write it on paper, then check yourself',
+             url: BASE + 'brain-dump-practice.html', icon: 'pencil', tone: 'terra', qr: 'braindump', soon: true,
+             kw: 'brain dump blurt write timer prompt blank paper' });
+    t.push({ g: 'Study', name: 'What I got done today', sub: 'And what you meant to do and did not',
+             url: BASE + 'bio005-day-review.html', icon: 'target', tone: 'navy', soon: true,
+             kw: 'day review done today log reflect plan' });
 
-       This used to point at bio005-braindump-bank-fall2026.html, which is
-       the printable list of every prompt with its answer key beside it,
-       built to run the class from. Handing a student the answer key and
-       calling it practice is the one thing a brain dump cannot survive.
-       The practice tool spins for one prompt, times it, and keeps the key
-       hidden until they say they are done. */
-    /* The three Summer midterm practice exams are still in the repo
-       but they are a fixed paper for a term that no longer exists.
-       This draws a fresh one per exam from the live question bank. */
-    t.push({ g: 'Practice and recall', name: 'Practice exam', sub: 'A fresh 100 point paper in the real format, scored, with the reasoning',
-             url: BASE + 'practice-lecture-exam.html', icon: 'doc', tone: 'terra', qr: 'pexam', soon: true,
-             kw: 'practice exam lecture test mock paper multiple choice quiz midterm final revision' });
-    t.push({ g: 'Practice and recall', name: 'Brain dump practice', sub: 'Spin for a prompt, set your clock, write it on paper, then check yourself',
-             url: BASE + 'brain-dump-practice.html', icon: 'pencil', tone: 'navy', qr: 'braindump', soon: true,
-             kw: 'brain dump practice prompt wheel spin timer paper retrieval blank page' });
-    /* soon:true pulls a tile out of its group and drops it into Coming
-       soon at the very bottom, dimmed and not clickable. Set it on
-       anything that exists but is not finished, rather than hiding it,
-       so students can see what is on the way. */
-    t.push({ g: 'Practice and recall', name: 'Repair Round', sub: 'The in-class repair activity, still being built',
-             url: BASE + 'repair-round-activity.html', icon: 'target', tone: 'gold', soon: true,
-             kw: 'repair round activity capture sheet pairs in class' });
+    /* ---------- STUDY, the review pages. Physiology assumes chemistry,
+       math and anatomy it does not teach. before-you-start.html tells a
+       student whether they have a gap; these three are where they go to
+       close one. ---------- */
+    t.push({ g: 'Study', name: 'Before you start', sub: 'Three short checks that tell you whether you need to review',
+             url: BASE + 'before-you-start.html', icon: 'target', tone: 'gold',
+             kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
+    t.push({ g: 'Study', name: 'Chemistry review', sub: 'The chemistry physiology runs on, and nothing more',
+             url: BASE + 'review-chemistry.html', icon: 'flask', tone: 'terra', soon: true,
+             kw: 'chemistry review ions gradient ph buffer protein atp bonds concentration' });
+    t.push({ g: 'Study', name: 'Math review', sub: 'The calculations this course actually asks for',
+             url: BASE + 'review-math.html', icon: 'brain', tone: 'navy', soon: true,
+             kw: 'math review calculation units conversion ratio percent log formula' });
+    t.push({ g: 'Study', name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense',
+             url: BASE + 'review-anatomy.html', icon: 'globe', tone: 'gold', soon: true,
+             kw: 'anatomy review structure nephron heart lung neuron muscle location' });
 
-    t.push({ g: 'About the course', name: 'Syllabus', sub: S ? S.label : 'Pick your section first',
-             url: BASE + (S ? S.syllabus : 'fall-2026-syllabus.html'), icon: 'doc', tone: 'navy', kw: 'syllabus grading policy', soon: true });
-
-    /* welcome.html IS the course home. Offering a "Course home" tile
-       while a student is standing on it is a dead click, so it is left
-       out on that page. */
-    if (!/\/welcome\.html$|\/$/.test(location.pathname)) {
-      t.push({ g: 'About the course', name: 'Course home', sub: S ? S.label : 'Pick your section',
-               url: BASE + 'welcome.html' + q, icon: 'home', tone: 'gold', qr: 'home', kw: 'home welcome start' });
-    }
-    /* First in Course, because the question a student cannot answer is the
-       thing most likely to stop them, and the board is faster than my inbox. */
-    t.push({ g: 'About the course', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
+    /* ---------- ADMIN ---------- */
+    t.push({ g: 'Admin', name: 'Syllabus', sub: 'How the course runs, in full',
+             url: BASE + (S ? S.syllabus : 'fall-2026-syllabus.html'), icon: 'doc', tone: 'navy', soon: true,
+             kw: 'syllabus policy rules grading late work ai policy contact' });
+    t.push({ g: 'Admin', name: 'What you do and what it is worth', sub: 'Every graded thing, the points, and the AI policy',
+             url: BASE + 'what-you-do.html' + q, icon: 'target', tone: 'gold',
+             kw: 'grading points worth graded assignments weight ai policy scholar' });
+    t.push({ g: 'Admin', name: 'How to videos', sub: 'Short tours of the course. Scan a code, watch on your phone',
+             url: BASE + 'bio005-tour-poster.html', icon: 'play', tone: 'terra', qr: 'howto', soon: true,
+             kw: 'how to tour help video walkthrough getting started orientation' });
+    t.push({ g: 'Admin', name: 'Course home', sub: 'Back to the front of the course',
+             url: BASE + 'welcome.html' + q, icon: 'home', tone: 'navy', qr: 'home',
+             kw: 'home hub front start main course' });
+    t.push({ g: 'Admin', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
              url: BASE + 'virtual-office.html' + q, icon: 'people', tone: 'terra', soon: true,
-             kw: 'virtual office question board discussion ask help stuck forum post canvas' });
-    /* Start here and How this course works were tiles in this group.
-       Both are week-one orientation: read once, never opened again,
-       and occupying two of the dock's slots for the other sixteen
-       weeks. The pages stay where they are, linked from the calendar
-       walkthrough and the syllabus, which is where a student is when
-       the question comes up. */
+             kw: 'office hours ask question help contact instructor forum' });
+
     return t;
   }
 
@@ -694,17 +667,33 @@
       return;
     }
 
-    /* Anything flagged soon leaves its own group and collects at the end
-       under one heading, so the tools that work are not interleaved with
-       the ones that do not. */
-    var SOON_G = 'Coming soon';
-    var ready = list.filter(function (t) { return !t.soon; });
-    var soon  = list.filter(function (t) { return t.soon; });
-    soon.forEach(function (t) { t.g = SOON_G; });
-    list = ready.concat(soon);
+    /* SOON TILES STAY IN THEIR OWN GROUP. Reversed Aug 2026.
+
+       This used to hoist everything flagged soon into one Coming soon
+       heap at the end, on the reasoning that working tools should not
+       be interleaved with ones that do not work. That reasoning holds
+       when three things are unfinished. It fails at twenty one: the
+       dock became one long Coming soon pile with four nearly empty
+       headings above it, and the Lecture, Lab, Study and Admin shape
+       stopped being visible at all.
+
+       The shape is the point. A student who opens the dock in week 1
+       should see what the course is made of, including the parts that
+       are not switched on yet. Inside each group the ready tiles sort
+       first and the soon ones follow, so nothing working is buried,
+       and every soon tile still says Soon and is not a link. */
 
     var groups = [], seen = {};
     list.forEach(function (t) { if (!seen[t.g]) { seen[t.g] = []; groups.push(t.g); } seen[t.g].push(t); });
+
+    /* Group ORDER comes from the catalog, so Lecture, Lab, Study and Admin
+       stay in that order even when a whole group is still unbuilt. Only the
+       tiles INSIDE a group are reordered, ready first and soon after. A
+       global sort would have done both and pushed Lab to the bottom for
+       having nothing switched on yet, which is the opposite of the point. */
+    groups.forEach(function (g) {
+      seen[g].sort(function (a, b) { return (a.soon ? 1 : 0) - (b.soon ? 1 : 0); });
+    });
 
     /* Searching opens everything: a hit hidden inside a folded group
        reads as no result. Browsing folds everything but This week. */
