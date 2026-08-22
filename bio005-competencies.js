@@ -23,7 +23,11 @@
      can      the student-facing "I can" statement, one sentence
      dok      depth of knowledge, 1 recall, 2 apply, 3 analyze, 4 transfer
      yield    core (must know), high (important), support (if time)
-     est      estimated minutes of focused study to reach mastery
+     est      estimated minutes of focused study to reach mastery.
+              THESE ARE AUTHORED ESTIMATES, NOT MEASUREMENTS. They drive
+              the week-load chart and the weekly hours figure on the main
+              sheet, so anything built on them inherits that uncertainty.
+              Replace them with real numbers once a cohort has run.
      facets   how it gets assessed and practiced:
               lecture, lab, graph, calc, data, clinical, draw, model
 
