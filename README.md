@@ -17,10 +17,13 @@ Built on the BIO 004 Human Anatomy course architecture (`drsrennie-stack/new-bui
 | `index.html` | Redirect to `welcome.html`, same pattern as the anatomy repo. |
 | `mastery-physio-os-standalone.html` | **Single file build of the OS.** Every dependency inlined. Double click it and it works, no server and no sibling files. Regenerate it after any change in `os/`, and never edit it by hand. |
 | `week-01.html` | **Week 1 course material.** The lecture content, at the depth the competencies ask for. Ten sections, seven concept checks with the answer behind a button, three data tables, and a worked case at the end. This is the pattern for weeks 2 to 15. |
-| `before-you-start.html` | **Readiness checks.** Two boxes, chemistry and anatomy. Each is a short quiz, one question at a time, then a recommendation: either go straight to week 1, or a short review of only the two or three things they missed. |
+| `before-you-start.html` | **Readiness checks.** Three boxes: chemistry, anatomy and math. Each is a short quiz, one question at a time, then a recommendation: either go straight to week 1, or a short review of only the two or three things they missed. |
 | `os/mastery-physio-os.html` | **Mastery Physio OS.** Forked from the BIO 004 Mastery OS, running on physiology data. Ten views: Today, Dashboard, Competencies, Weaknesses, Recall, Self-Tutoring, Evidence, Learning Skills, Coach, Study Together. Course tools dock and Hootie included. |
 | `competency-recall.html` | Competency-level retrieval practice. Stands in for the card bank until it is written. |
 | `anatomy-review.html` | **Optional anatomy review.** All 4,674 BIO 004 cards, own spacing engine, own storage keys. Cannot move a physiology mastery bar. |
+| `competency-packet.html` | **The Competency Packet, on screen.** Built to match the BIO 004 Competency Packet: cover, load table, all 268 by unit and topic in two columns with Lecture and Lab tags, and the 27 entry prerequisites in front. Generated, do not edit by hand. |
+| `BIO005-Fall2026-Competency-Packet.pdf` | **The Competency Packet, 18 pages.** The printable artifact. For students to work down on paper and for another institution reviewing the course for equivalency. |
+| `unit-01.html` to `unit-05.html` | **What each unit assumes.** The chemistry, anatomy and math that unit uses, each with a short check at that unit's depth. Generated from `before-you-start.html`, do not edit by hand. |
 | `competency-study-guide.html` | **Forked from `module-1-structure-list.html`.** All 268 competencies by module and topic, tagged Lecture and Lab, tick boxes, sidebar contents, find-a-competency search, print stylesheet. |
 | `course-schedule.html` | Fifteen weeks, five modules, exam windows. |
 | `physiology-course-home.html` | Earlier course home. Superseded by `welcome.html`, kept until you decide which to keep. |
@@ -42,7 +45,7 @@ Built on the BIO 004 Human Anatomy course architecture (`drsrennie-stack/new-bui
 | `bio005-competencies.js` | **Source of truth.** 268 competencies. Everything reads this. |
 | `bio005-competencies.csv` | The same list as a spreadsheet, same schema as `BIO004Fall2026Competencies.csv`. |
 | `bio005-schedule-fall2026.js` | Term data, weekly containers, exam windows, grading skeleton, open decisions. |
-| `readiness-check.js` | The two readiness sets: 8 chemistry concepts and 10 questions, 10 anatomy concepts and 11 questions. **Resource links are marked "Link to add" where a URL is not filled in.** |
+| `readiness-check.js` | The three readiness sets: 8 chemistry concepts and 10 questions, 10 anatomy concepts and 11 questions, 9 math concepts and 10 questions. Every concept carries a `units` array saying which of the five units uses it, which is what the per-unit block on each week page is built from. **Resource links are marked "Link to add" where a URL is not filled in.** |
 
 ### Design and compliance
 
@@ -55,6 +58,9 @@ Built on the BIO 004 Human Anatomy course architecture (`drsrennie-stack/new-bui
 | `CONVERSION-PLAN.md` | **What to keep, convert and retire from the anatomy build,** with the counts behind each call. |
 | `LANGUAGE.md` | **How this course talks to students.** Plain and exact. The banned word list and what to say instead. |
 | `tools/language-audit.py` | Scans every student page for instructor and build vocabulary. Run before you push. |
+| `tools/build-competency-packet.py` | **Builds the Competency Packet, HTML and PDF.** WeasyPrint, the same engine that produced the BIO 004 packet. |
+| `tools/build-unit-pages.py` | **Builds `unit-01.html` to `unit-05.html`** from `before-you-start.html`, filtered by unit. Rerun after editing either that page or `readiness-check.js`. |
+| `tools/build-unit-prereqs.py` | **Writes the "what this unit assumes" block into each week page** from the `units` arrays in `readiness-check.js`. Rerun after changing a concept's units. Idempotent, refreshes between markers. |
 | `tools/build-standalone.py` | **Rebuilds `mastery-physio-os-standalone.html` from `os/`.** Run it after any change in `os/`. Pass any other page to get a self-contained copy of that page to send. Until Aug 21 there was no such tool and the standalone was built by hand, which is how two copies of the same file drift apart. |
 
 
@@ -108,11 +114,19 @@ Matches the BIO 004 schema, so the Mastery OS, the card bank, and the gap finder
 
 ## Design system
 
-PRIMARY teaching palette, per `palettes.md` at the workspace root. `assets/brand.css` is the implementation.
+`assets/brand.css` is the implementation and the single source of truth for this repo.
 
-Navy `#1E3D4C`, navy-deep `#142a36`, navy-tint `#EDF1F3`, brushed gold `#B8924A`, terra cotta `#C2734D`, terra-dark `#A0522D`, white `#FFFFFF` for cards, off-white `#FAFAF9` for the page.
+**Changed Aug 21, 2026 on Scrubs' instruction: maroon replaces terra cotta, dark navy replaces navy, and the teal-leaning neutrals are on blue-grays.** These are the values `welcome.html` was already using, so the document pages now match the course home instead of diverging from it.
 
-Plus Jakarta Sans for display, DM Sans for eyebrow labels, Lora italic for usage instructions and body emphasis. White cards on off-white, lifting 2px on hover. Thin 1px borders. No bookend decorative bars. No pastel tints. No shaded card backgrounds.
+Navy `#08101F`, navy-deep `#060A18`, navy-tint `#ECEFF4`, brushed gold `#B8924A`, gold-deep `#8A6D33`, maroon `#7A2A22`, maroon-dark `#5E201A`, ink-soft `#414B5C`, white `#FFFFFF` for cards, off-white `#FAFAF9` for the page.
+
+Contrast went up on every text pair and the one documented AA-only limitation closed: terra-dark headings were 5.62:1 and maroon-dark is 12.37:1. Measured table in `compliance-notes.md` section 3.
+
+`palettes.md` at the workspace root still specifies the old values and needs updating, or the next session that reads it will repaint this repo backwards. Tracked as item W in `PLACEHOLDERS.md`.
+
+Plus Jakarta Sans for display, DM Sans for eyebrow labels, Lora italic for usage instructions and body emphasis. White cards on off-white, lifting 2px on hover. Thin 1px borders. No pastel tints. No shaded card backgrounds.
+
+**No bookend borders, anywhere, ever.** Not down the left edge of a callout, not across the top of a section, not as a rim under a panel header. If something needs to stand apart, it comes up off the page on a shadow. Every decorative rule in this repo was removed on Aug 21 and replaced with a lift.
 
 **No sage. No cream.** Both were in this repo before Aug 17 and both are out of the teaching design system. See `BRAND-MIGRATION.md`.
 
@@ -129,6 +143,9 @@ Every HTML deliverable in this repo:
 - puts `target="_top"` on every internal and same-domain link, `target="_blank" rel="noopener"` on external ones
 - meets WCAG 2.2 AA as a floor and AAA where the palette allows
 - uses no em dashes, anywhere, including code comments
+- uses no decorative bookend rules. Separation is shadow, not a colored bar.
+- writes to students the way Scrubs talks to them. Plain, direct, second person. "The math you need for physiology", not "the arithmetic this course requires". See `LANGUAGE.md`.
+- **bolds strategically, for retention.** Bold the term at its definition, the number worth keeping, and the decision rule. Not whole sentences, and not more than about two things in a paragraph, because bolding everything bolds nothing.
 - passes `python3 tools/language-audit.py`. No DOK, yield, facets, asynchronous, module or build notes on a student page. See `LANGUAGE.md`.
 - signs student-facing material "Dr. Sharilyn Rennie" with no credential suffix
 

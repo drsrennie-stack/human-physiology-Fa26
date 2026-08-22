@@ -14,6 +14,8 @@ STUDENT_PAGES = [
     'anatomy-review.html',
     'before-you-start.html',
     'week-01.html',
+    'unit-01.html', 'unit-02.html', 'unit-03.html', 'unit-04.html', 'unit-05.html',
+    'competency-packet.html',
     'workbook_week01_fluid-homeostasis.html',
     'workbook_week02_membranes-transport.html',
     'workbook_week03_membrane-potential.html',
@@ -83,6 +85,45 @@ def page_text(path):
 def allowed(context):
     return any(re.search(a, context, re.I) for a in ALLOW)
 
+def bold_check(page):
+    """Two things that are easy to regress and hard to see in a diff.
+
+    1. Bold density. Bold is a retrieval cue, not emphasis. Once a page is
+       more than about a quarter bold, the bold has stopped pointing at
+       anything. See LANGUAGE.md.
+    2. .idlist without .plain. The checklist form of that list puts a tick
+       box on every line and sets it in a 190px column, which is right for
+       a checklist and unreadable for teaching prose. A rewrite of a week
+       page dropped .plain from all seventeen lists once and every
+       explanation on the page came back bold, boxed and in three columns.
+    """
+    raw = open(page, encoding='utf-8', errors='replace').read()
+    notes = []
+
+    chunks = re.findall(r'<li>(.*?)</li>|<p class="ask">(.*?)</p>', raw, flags=re.S)
+    body = bold = 0
+    for a, b in chunks:
+        it = a or b
+        text = html.unescape(re.sub(r'<[^>]+>', '', it))
+        body += len(text)
+        for m in re.findall(r'<b>(.*?)</b>', it, flags=re.S):
+            bold += len(html.unescape(re.sub(r'<[^>]+>', '', m)))
+    if body:
+        pct = round(bold / body * 100)
+        if pct > 30:
+            notes.append('bold is %d%% of the body text. Aim under 30. '
+                         'Bold the term, the number and the rule, not the sentence.' % pct)
+
+    # Only the week pages. competency-study-guide and anatomy-review are
+    # checklists on purpose, and a tick box per line is the point there.
+    plain = len(re.findall(r'class="idlist plain"', raw))
+    check = len(re.findall(r'class="idlist"', raw))
+    if re.match(r'week-\d\d\.html$', os.path.basename(page)) and check > 1 and plain == 0:
+        notes.append('%d idlist blocks and none are .plain. Teaching prose in the '
+                     'checklist form gets a tick box per line and three columns.' % check)
+    return notes
+
+
 def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     os.chdir(root)
@@ -117,9 +158,23 @@ def main():
             if len(hits) > 12:
                 print(f'   ... and {len(hits) - 12} more')
 
+    style = 0
+    for page in STUDENT_PAGES:
+        if not os.path.exists(page):
+            continue
+        notes = bold_check(page)
+        if notes:
+            style += len(notes)
+            print('\n%s' % page)
+            for n in notes:
+                print('   style              %s' % n)
+
     print()
+    if style and not total:
+        print('No banned vocabulary, but %d style problem(s) above. See LANGUAGE.md.' % style)
+        return 1
     if total:
-        print(f'{total} student-facing problems. See LANGUAGE.md.')
+        print(f'{total} student-facing problems, plus {style} style problem(s). See LANGUAGE.md.')
         return 1
     print('Clean. No instructor or build vocabulary on any student page.')
     print('That does not mean the writing is good. Read it as a student and')

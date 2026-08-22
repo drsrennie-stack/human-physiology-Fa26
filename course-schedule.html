@@ -402,6 +402,16 @@ footer .sm{font-size:12.5px;}
       card.appendChild(links);
     }
 
+    /* Every week has a unit page, whether or not its own material is
+       written yet, because the prerequisites for a unit do not depend on
+       which weeks inside it have been built. */
+    var ulinks = el('div','wk-links');
+    var a3 = document.createElement('a');
+    a3.href = 'unit-0' + w.module + '.html'; a3.target = '_top'; a3.className = 'alt';
+    a3.textContent = 'What unit ' + w.module + ' assumes you already have';
+    ulinks.appendChild(a3);
+    card.appendChild(ulinks);
+
     card.appendChild(el('div','meta-line',
       'Estimated focused study time this week, about ' + Math.round(mins/60*10)/10 + ' hours.'));
 

@@ -20,12 +20,12 @@
      THE TWO BOXES
 
      Red is chemistry, gold is anatomy, side by side, and they keep
-     those colours everywhere in the course so a student recognises
+     those colors everywhere in the course so a student recognizes
      them without reading a word.
 
-     Both sit up off the page on a layered shadow. The colour is the
+     Both sit up off the page on a layered shadow. The color is the
      frame; the questions themselves sit on white inside it, because
-     a coloured background under body text costs contrast and there
+     a colored background under body text costs contrast and there
      is none to spare.
 
      CONTRAST, MEASURED, remeasured Aug 21 after the move to maroon
@@ -690,7 +690,50 @@
   .rd-btn-primary{background:var(--navy,#08101F);color:#fff;border-color:var(--navy,#08101F);}
   .rd-btn-primary:hover{background:var(--navy-darkest,#060A18);}
   @media print{.rd-opt,.rd-btn{display:none;} .rd-concept.is-ok{opacity:1;}}
-</style>
+
+  /* ---------- EXPLANATION LISTS ----------
+     .idlist is a checklist: narrow columns and a tick box on every line,
+     which is right when a student is working down a list of things to
+     tick off. It is wrong for prose. These lines are sentences to read,
+     not items to tick, and set in a 190px column with .term at 700 they
+     come out bold, boxed and columnar. .plain keeps the card and the
+     label and drops all three. */
+  ul.idlist.plain{column-width:auto;column-count:1;column-gap:0}
+  ul.idlist.plain li{padding-left:17px;margin:0 0 14px;font-size:1rem;line-height:1.62}
+  ul.idlist.plain li:last-child{margin-bottom:0}
+  ul.idlist.plain li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+    border:0;border-radius:50%;background:var(--maroon);opacity:.75}
+  /* .term is bold because on a checklist it is the name of the thing.
+     Here the whole sentence is inside it, and a bold paragraph has no
+     emphasis left to give. The <b> inside still lands. */
+  ul.idlist.plain .term{font-weight:400;color:var(--navy)}
+  ul.idlist.plain .term b{font-weight:700;color:var(--navy)}
+  @media print{
+    ul.idlist.plain li{font-size:9.7pt;margin:0 0 6pt;line-height:1.5}
+  }
+
+  
+  /* ---------- UNIT ROUTER ----------
+     Five cards, one per unit. Lifts on a shadow, no bookend rule. */
+  .unitrouter{display:grid;gap:12px;grid-template-columns:minmax(0,1fr);margin:18px 0 6px}
+  @media(min-width:760px){.unitrouter{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .unitrouter a{display:block;background:#fff;border:1px solid var(--rule);border-radius:12px;
+    padding:14px 17px;text-decoration:none;color:var(--navy);
+    box-shadow:0 1px 2px rgba(8,16,31,.06), 0 8px 18px rgba(8,16,31,.09);
+    transition:transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease}
+  .unitrouter a:hover{transform:translateY(-2px);border-color:var(--maroon-dark);text-decoration:none;
+    box-shadow:0 1px 2px rgba(8,16,31,.06), 0 16px 30px rgba(8,16,31,.13)}
+  .unitrouter .ur-n{display:block;font-family:var(--font-eyebrow);font-size:.66rem;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--maroon-dark);margin:0 0 4px}
+  .unitrouter .ur-t{display:block;font-family:var(--font-display);font-weight:700;font-size:1rem;
+    line-height:1.3;margin:0 0 3px}
+  .unitrouter .ur-w{display:block;font-size:.84rem;color:var(--gray)}
+  @media print{
+    .unitrouter{grid-template-columns:repeat(2,1fr);gap:7pt}
+    .unitrouter a{box-shadow:none;padding:8pt 10pt;break-inside:avoid}
+  }
+
+  </style>
 </head>
 <body>
 <a class="skip" href="#notes">Skip to the structure list</a>
@@ -732,6 +775,7 @@
       <li><a href="#chem">Chemistry, the red box</a></li>
       <li><a href="#anat">Anatomy, the gold box</a></li>
       <li><a href="#math">Math, the navy box</a></li>
+      <li><a href="#units">Go straight to your unit</a></li>
     </ol>
 
     <div class="finder">
@@ -817,13 +861,27 @@
         <p class="intro-line">Physiology assumes some chemistry, some anatomy, and a little math. Take the three checks below, five minutes each, and each one tells you the same thing: either you are good to go, or here are the two or three things worth a look first.</p>
         <div class="tblock">
           <p class="tname">The point</p>
-          <ul class="idlist">
-            <li><span class="term"><b>Red box is chemistry. Gold box is anatomy.</b> They stay those colours everywhere in this course, so you will always know which is which.</span></li><li><span class="term">Take the check first. There is deliberately nothing to read before it, because you want to find out what you are missing, not confirm what you just read.</span></li>
+          <ul class="idlist plain">
+            <li><span class="term"><b>Red box is chemistry. Gold box is anatomy.</b> They stay those colors everywhere in this course, so you will always know which is which.</span></li><li><span class="term">Take the check first. There is deliberately nothing to read before it, because you want to find out what you are missing, not confirm what you just read.</span></li>
             <li><span class="term">It is not graded and I never see it. Answer honestly or the result is worthless to you.</span></li>
             <li><span class="term">If you do well, you are told to move on. That is a real answer, not a polite one. Do not spend a weekend on something you already know.</span></li>
             <li><span class="term">If you miss things, you get a short review of only those things, with the week each one turns up. Two or three items, not eighteen.</span></li>
             <li><span class="term">You can take it again any time. Your last result is saved in this browser only.</span></li>
           </ul>
+        </div>
+      </section>
+
+
+      <section id="units" aria-labelledby="h-units">
+        <h2 id="h-units">Or go straight to the unit you are in</h2>
+        <p>This page is the whole course in one go, which is the right thing to take once, in week 1. It is the wrong thing to reread in November.</p>
+        <p><b>Each unit has its own page carrying only what that unit uses, checked at that unit's depth.</b> pH here is what the scale means. pH on the unit 5 page is a patient with a blood gas. Same idea, different question, because by then you need a different thing from it.</p>
+        <div class="unitrouter">
+          <a href="unit-01.html" target="_top"><span class="ur-n">Unit 1</span><span class="ur-t">Foundations, membranes and cell signaling</span><span class="ur-w">Weeks 1 to 3</span></a>
+          <a href="unit-02.html" target="_top"><span class="ur-n">Unit 2</span><span class="ur-t">Neurophysiology and muscle physiology</span><span class="ur-w">Weeks 4 to 6</span></a>
+          <a href="unit-03.html" target="_top"><span class="ur-n">Unit 3</span><span class="ur-t">Sensory, motor, autonomic and endocrine</span><span class="ur-w">Weeks 7 to 9</span></a>
+          <a href="unit-04.html" target="_top"><span class="ur-n">Unit 4</span><span class="ur-t">Cardiovascular and respiratory</span><span class="ur-w">Weeks 10 to 12</span></a>
+          <a href="unit-05.html" target="_top"><span class="ur-n">Unit 5</span><span class="ur-t">Renal, digestive, metabolic, immune, reproductive</span><span class="ur-w">Weeks 13 to 15</span></a>
         </div>
       </section>
 

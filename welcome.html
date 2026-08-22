@@ -97,7 +97,6 @@
     background:var(--navy);
     color:var(--offwhite-text);
     overflow:hidden;
-    border-top:4px solid var(--border-blue);
   }
   .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;}
   .aurora span{
@@ -185,7 +184,6 @@
   #screen-tour{
     position:relative;min-height:100vh;
     background:var(--navy);color:var(--offwhite-text);
-    border-top:4px solid var(--border-blue);
     padding:44px 20px 64px;
   }
   .tour-wrap{max-width:1040px;margin:0 auto;width:100%;}
@@ -301,7 +299,8 @@
   .narrator{
     position:fixed;left:0;right:0;bottom:0;z-index:70;
     background:var(--dark);
-    border-top:3px solid var(--border-blue);
+    /* No bookend rule. The bar sits above the page on a shadow instead. */
+    box-shadow:0 -10px 26px rgba(6,10,24,.28);
     color:var(--offwhite-text);
     padding:16px 20px;
     display:none;
@@ -332,7 +331,6 @@
   /* ===================== WELCOME BACK ===================== */
   #screen-back{
     background:var(--page);color:var(--ink);
-    border-top:4px solid var(--border-blue);
   }
   .back-head{
     background:var(--navy);color:var(--offwhite-text);
@@ -456,7 +454,6 @@
 
   footer{
     background:var(--dark);color:var(--offwhite-text);
-    border-top:4px solid var(--border-blue);
     text-align:center;padding:22px 20px;font-size:13px;
   }
   footer p{margin:3px 0;opacity:.85;}
@@ -581,7 +578,7 @@
   footer{background:var(--navy);border-top:1px solid rgba(244,239,232,.16)}
 
   /* A navy chip on a navy body is invisible. The course-material row
-     is deliberately multicoloured, so only the navy one needs to
+     is deliberately multicolored, so only the navy one needs to
      change: it gets a hairline and a lift so it still reads as a
      pill rather than as bare text. */
   .back-body .chip{
@@ -1302,6 +1299,11 @@
     var nudge = document.getElementById('hootieNudge');
 
     function link(url, text, internal){
+      /* A tile with no url yet, anything marked not built, reached here as
+         the string "undefined" and rendered href="undefined", which is a
+         link straight to a 404. If there is no url there is no link, and
+         the words stay as plain text. */
+      if (!url || url === 'undefined') return text;
       var t = internal ? ' target="_top"' : ' target="_blank" rel="noopener"';
       return '<a href="'+url+'"'+t+'>'+text+'</a>';
     }

@@ -444,7 +444,29 @@
     p.ask{font-size:9.6pt;margin:5pt 0 7pt;break-inside:avoid}
     .blank.full{margin-top:9pt}
   }
-</style>
+
+  /* ---------- EXPLANATION LISTS ----------
+     .idlist is a checklist: narrow columns and a tick box on every line,
+     which is right when a student is working down a list of things to
+     tick off. It is wrong for prose. These lines are sentences to read,
+     not items to tick, and set in a 190px column with .term at 700 they
+     come out bold, boxed and columnar. .plain keeps the card and the
+     label and drops all three. */
+  ul.idlist.plain{column-width:auto;column-count:1;column-gap:0}
+  ul.idlist.plain li{padding-left:17px;margin:0 0 14px;font-size:1rem;line-height:1.62}
+  ul.idlist.plain li:last-child{margin-bottom:0}
+  ul.idlist.plain li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;
+    border:0;border-radius:50%;background:var(--maroon);opacity:.75}
+  /* .term is bold because on a checklist it is the name of the thing.
+     Here the whole sentence is inside it, and a bold paragraph has no
+     emphasis left to give. The <b> inside still lands. */
+  ul.idlist.plain .term{font-weight:400;color:var(--navy)}
+  ul.idlist.plain .term b{font-weight:700;color:var(--navy)}
+  @media print{
+    ul.idlist.plain li{font-size:9.7pt;margin:0 0 6pt;line-height:1.5}
+  }
+
+  </style>
 </head>
 <body>
 <a class="skip" href="#notes">Skip to the structure list</a>
@@ -565,8 +587,8 @@
         <p class="intro-line">Anatomy, not physiology. Nothing here is on a physiology exam. Use it if it helps you, ignore it if it does not.</p>
         <div class="tblock">
           <p class="tname">Why it is here</p>
-          <ul class="idlist">
-            <li><span class="term">Physiology assumes you know the anatomy. When you hit a week on the heart and realise you are shaky on the chambers and valves, this is where you go.</span></li>
+          <ul class="idlist plain">
+            <li><span class="term">Physiology assumes you know the anatomy. When you hit a week on the heart and realize you are shaky on the chambers and valves, this is where you go.</span></li>
             <li><span class="term">These are the 4,674 cards from BIO 004 Human Anatomy. They are already written and already good, so there is no reason to make you go and find them somewhere else.</span></li>
             <li><span class="term">Answering them does not move anything in the Mastery Physio OS. Reviewing the brachial plexus has not taught you about filtration in the kidney, and this app will never pretend otherwise.</span></li>
             <li><span class="term">Your progress here is saved separately, in this browser only. Nothing is submitted and nothing is graded.</span></li>
@@ -574,7 +596,7 @@
         </div>
         <div class="tblock">
           <p class="tname">How to use it well</p>
-          <ul class="idlist">
+          <ul class="idlist plain">
             <li><span class="term">Go looking for a specific thing. Open it the week you need it, not as a daily habit. Your physiology work comes first.</span></li>
             <li><span class="term">Say the answer out loud before you reveal it. Reading the answer and nodding is not review.</span></li>
             <li><span class="term">If a whole area is gone, that is worth knowing early rather than in week 10. Tell me and we will sort out what you need.</span></li>

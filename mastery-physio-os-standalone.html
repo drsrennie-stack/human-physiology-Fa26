@@ -10190,12 +10190,11 @@ window.BIO005_SESSIONS = {
              kw: 'muscle charts origin insertion action innervation ioa oia drill table muscles' });
     t.push({ g: 'Lab materials', name: 'Loops', sub: 'Thirty-nine image loops for fast visual practice',
              url: 'https://drsrennie-stack.github.io/loops/', icon: 'loop', tone: 'terra', qr: 'loops', ext: true, kw: 'loops images practice lab' });
-    /* The slide tools were built and then never linked anywhere a
-       student would look. Lab materials, next to Loops, because both
-       are visual practice. */
-    t.push({ g: 'Lab materials', name: 'Histology help', sub: 'Every free slide tool, sorted by the kind of help you need',
-             kw: 'histology tissue tissues slide slides microscope epithelium epithelia connective '
-               + 'cartilage bone blood leukocytes second look atlas quiz unknowns scan sheet video' });
+    /* The histology help tile was removed on Aug 22. It was an anatomy
+       leftover, slide tools and microscope work, and this course retires
+       histology entirely. It also carried no url, so it rendered as a
+       live link to href="undefined" on every page the dock is on, which
+       is every page. See the guard in the renderer below. */
     /* The weak spot board was a tile here. It is the front panel of
        Mastery OS, one tile up, and the practice exam links straight
        into it when a paper is marked, which is the moment a student
@@ -10523,6 +10522,18 @@ window.BIO005_SESSIONS = {
         if (t.soon) {
           html += '<div class="bd-cell"><div class="bd-tile soon">' +
             '<span class="bd-ic ' + t.tone + '">' + icon(t.icon) + '</span>' +
+            '<span class="bd-tx"><span class="bd-n">' + esc(t.name) +
+              '<span class="bd-soon">Soon</span></span>' +
+            '<span class="bd-s">' + esc(t.sub) + '</span></span>' +
+          '</div></div>';
+          return;
+        }
+        /* No url means no link. A tile that reaches here without one used
+           to render href="undefined" and send a student to a 404. It now
+           degrades to the same not-yet treatment as a tile marked soon. */
+        if (!t.url) {
+          html += '<div class="bd-cell"><div class="bd-tile soon">' +
+            '<span class="bd-ic ' + (t.tone || 'navy') + '">' + icon(t.icon) + '</span>' +
             '<span class="bd-tx"><span class="bd-n">' + esc(t.name) +
               '<span class="bd-soon">Soon</span></span>' +
             '<span class="bd-s">' + esc(t.sub) + '</span></span>' +

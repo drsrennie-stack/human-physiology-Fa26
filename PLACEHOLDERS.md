@@ -93,7 +93,7 @@ Nothing in this build assumes a section number beyond BIOL-5-D9286, a room, or a
 
 **A. Term start date. Asked seven times, still open, and it is now also in `welcome.html` week math and on the week 1 cover.** Scrubs said the course starts **Sept 5**. Sept 5 2026 is a Saturday, and the section listing says the term runs **Tue Sep 8 to Wed Dec 16**. Sep 8 is what is coded everywhere: `bio005-schedule-fall2026.js`, `BIO005_META`, and `CONFIG.termStart` in `mastery-physio-os.html`. If Sept 5 is right, change `CONFIG.termStart` in `mastery-physio-os.html` and the term dates in the schedule file, and every derived date follows. Until then Sep 8 stands.
 
-**B. Which competency list is canonical.** Resolved in favour of the 268 list. `bio005-competencies.js` now holds 268 competencies, replacing the earlier 137. The old file is still in git history at the previous commit if any of it needs recovering. Everything downstream reads the new file and has been verified against it.
+**B. Which competency list is canonical.** Resolved in favor of the 268 list. `bio005-competencies.js` now holds 268 competencies, replacing the earlier 137. The old file is still in git history at the previous commit if any of it needs recovering. Everything downstream reads the new file and has been verified against it.
 
 **C. DOK distribution.** The 268 list runs 160 at DOK 3, 101 at DOK 2, 7 at DOK 1. Physiology skews to predict and trace so this is expected, but it does not match the BIO 004 shape, which is mostly DOK 2. Accept, or re-level some DOK 3 items down.
 
@@ -159,3 +159,12 @@ Gold is unchanged: `#B8924A` on light, `#8A6D33` where white text sits on it, `#
 **Y. Resource links for the math box.** The nine math concepts point at the week 1 material, which exists, so unlike the chemistry box there are no dead "Link to add" fields. If you want outside practice for unit conversion or reading a graph, name it and I will add it. The chemistry box still has nine "Link to add" fields waiting on you.
 
 **Z. The `units` arrays are my reading of your `usedIn` text, not your call.** `readiness-check.js` now tags every concept with which of the five units uses it, and `tools/build-unit-prereqs.py` builds each week page's prerequisite block from that. I derived the tags from the `usedIn` sentence already on each concept. Unit 1 currently comes out at 8 chemistry, 2 anatomy, 8 math. Worth a look: if a concept is tagged into a unit it does not really serve, that unit's block gets noisy, and if one is missing a unit a student arrives short. Fix the array, rerun the tool, and every week page updates.
+
+**AA. Articulation facts are missing from the packet cover.** The BIO 004 packet cover carries the line every evaluating institution actually reads: *5.0 units &middot; C-ID BIOL 110B &middot; Cal-GETC Area 5B with laboratory &middot; Transferable to CSU and UC*. I have none of the equivalents for BIO 005 and did not invent them, so the physiology cover carries only what is confirmed: 15 weeks, the dates, the section number, and that it is fully online. The packet says on its own cover that it is for course-equivalency review, so this is the one gap on it that actually costs something. Send me four things and I will regenerate it in a minute:
+
+- unit value
+- C-ID descriptor, if BIO 005 has one
+- Cal-GETC area
+- transferability statement
+
+**AB. The packet and the study guide overlap and should not both drift.** `competency-packet.html` and `competency-study-guide.html` are both the 268, from the same data file, for different jobs: the packet is the printed artifact, the study guide is the working checklist with tick boxes and a search. Both regenerate from `bio005-competencies.js`, so the content cannot diverge, but the framing copy is written twice. Worth a look when you read them side by side.

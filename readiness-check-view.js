@@ -66,9 +66,40 @@
     return DATA.verdicts[DATA.verdicts.length - 1];
   }
 
-  function build(set, mountId) {
+  /* UNIT FILTER
+     A unit page passes its number and gets only the concepts that unit
+     uses and only the questions written at that unit's depth. The same
+     concept turns up in several units: pH is "what does the scale mean"
+     in unit 1 and a compensating patient in unit 5, and those are two
+     different questions carrying the same concept id. Filtering on the
+     question's own units array is what keeps them apart. Passing no
+     unit gives the whole set, which is what the course-wide page uses. */
+  function forUnit(set, unit) {
+    if (!unit) return set;
+    var concepts = set.concepts.filter(function (c) {
+      return c.units && c.units.indexOf(unit) !== -1;
+    });
+    var ids = concepts.map(function (c) { return c.id; });
+    return {
+      key: set.key + '-u' + unit,
+      title: set.title,
+      blurb: set.blurb,
+      concepts: concepts,
+      questions: set.questions.filter(function (q) {
+        return q.units && q.units.indexOf(unit) !== -1 && ids.indexOf(q.concept) !== -1;
+      })
+    };
+  }
+
+  function build(setIn, mountId, unit) {
     var mount = document.getElementById(mountId);
     if (!mount) return;
+    var set = forUnit(setIn, unit);
+    if (!set.questions.length) {
+      mount.innerHTML = '<div class="rd-panel"><p class="rd-sub">' +
+        'No check for this one yet.</p></div>';
+      return;
+    }
 
     var answers = {};
     var at = 0;
@@ -252,7 +283,14 @@
     renderStart();
   }
 
-  build(DATA.chemistry, 'chemMount');
-  build(DATA.anatomy, 'anatMount');
-  build(DATA.math, 'mathMount');
+  /* A unit page sets data-unit on the page; the course-wide page does not. */
+  var unit = 0;
+  try {
+    var u = document.body.getAttribute('data-readiness-unit');
+    unit = u ? parseInt(u, 10) : 0;
+  } catch (e) { unit = 0; }
+
+  build(DATA.chemistry, 'chemMount', unit);
+  build(DATA.anatomy, 'anatMount', unit);
+  build(DATA.math, 'mathMount', unit);
 }());
