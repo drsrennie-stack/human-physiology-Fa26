@@ -151,9 +151,19 @@ a:hover{color:var(--maroon-dark)}
 .enter .skipline a:hover{color:#fff}
 
 /* ---------- SIDE CARDS ---------- */
-.side{display:grid;gap:20px;position:sticky;top:20px}
-@media(max-width:920px){.side{position:static}}
+.side{display:grid;gap:20px}
 .side ul{margin:0;padding:0 0 0 20px;color:var(--ink-soft);font-size:.94rem}
+.side-p{color:var(--ink-soft);font-size:.94rem;margin:0 0 12px}
+.side-p strong{color:var(--navy)}
+.hours{margin:0 0 16px}
+.hours-h{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
+.hrow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+      padding:8px 0;border-bottom:1px solid var(--rule);font-size:.94rem}
+.hrow:last-child{border-bottom:0}
+.hlab{color:var(--ink-soft)}
+.hval{color:var(--navy);font-weight:700;white-space:nowrap}
+.hrow.total{border-top:2px solid var(--navy);border-bottom:0;margin-top:4px;padding-top:10px}
+.hrow.total .hlab{color:var(--navy);font-weight:700}
 .side li{margin:0 0 8px}
 .side li strong{color:var(--navy)}
 
@@ -225,7 +235,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
   <div class="hero-inner">
     <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Fall 2026</p>
     <h1 id="welcome-h1">Welcome to Human Physiology</h1>
-    <p class="lede">This course is about how the body works. Not what the parts are called, but what they do, how they talk to each other, and what happens when one of them stops holding the line.</p>
+    <p class="lede">This course is about how the body works. Not what the parts are called, but what they do, how they work together, and what happens when one of them stops working correctly.</p>
     <p class="lede">Everything runs online, lecture and lab both, on your own schedule inside each week. Before you start, take five minutes to get your device set up so the course tools work the first time you open them.</p>
     <ul class="chips">
       <li class="gold">Fully online</li>
@@ -241,7 +251,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
 
     <main id="main">
       <div class="card">
-        <p class="kicker">Five minutes, once</p>
+        <p class="kicker">Takes about five minutes</p>
         <h2>Get your system set up</h2>
         <p class="sub">This course runs on interactive pages you open in your browser: simulators, drawing canvases, recall cards, and lab tools. The check below tells you whether your device is ready for them, and what to fix if it is not. Nothing here is graded and nothing is submitted.</p>
 
@@ -253,7 +263,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
             <span class="step-n">Step 1</span>
             <h3 id="s1-h">Run the automatic check</h3>
           </div>
-          <p>One click. It looks at your browser, your screen, whether the course can remember your progress, and whether video and audio will play.</p>
+          <p>This takes one click. It checks your browser, your screen size, whether the course can save your progress on this device, and whether video and audio will play.</p>
           <div class="btnrow">
             <button type="button" class="btn" id="runBtn">Run the system check</button>
           </div>
@@ -320,9 +330,9 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
         <section class="step" aria-labelledby="s2-h">
           <div class="step-head">
             <span class="step-n">Step 2</span>
-            <h3 id="s2-h">Test the three things that need you</h3>
+            <h3 id="s2-h">Test the three things you have to try yourself</h3>
           </div>
-          <p>These cannot be tested without a click from you, because a browser will only allow them when a person asks. Try each one now rather than in week 6 with an assignment due.</p>
+          <p>Your browser only allows these three things when you click something yourself, so the automatic check cannot do them for you. It is worth trying them now instead of running into a problem later, when an assignment is due.</p>
 
           <ul class="checks" id="manualList">
             <li class="check" data-state="waiting" data-key="popup">
@@ -344,7 +354,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
                 <span class="check-name">Drawing works on your device</span>
                 <span class="tag">Not tested</span>
               </div>
-              <p class="check-detail">A lot of what you turn in this term is drawn by hand: control loops, flow charts, pathways. You can draw with a mouse, a trackpad, a finger, or a stylus. Scribble in the box to check yours.</p>
+              <p class="check-detail">Much of what you turn in this term is drawn by hand, including diagrams of how a process works. You can draw with a mouse, a trackpad, a finger, or a stylus. Draw something in the box to check that yours works.</p>
               <div style="margin:12px 0 0 35px">
                 <div class="pad-wrap">
                   <canvas id="pad" width="820" height="300" aria-label="Practice drawing area. Draw here with your mouse, finger, or stylus to test that drawing works. Nothing is saved.">Your browser does not support the drawing canvas. Use the button below to mark this step as handled, and message me in Canvas so we can sort out a drawing setup that works for you.</canvas>
@@ -374,7 +384,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
       <section class="enter" aria-labelledby="enter-h">
         <p class="kicker">Step 3</p>
         <h2 id="enter-h">Enter the course</h2>
-        <p>The course home is your map for the whole term: the weeks, the labs, the study tools, and what is due when.</p>
+        <p>The course home lists every week, every lab, the study tools, and what is due when.</p>
         <div class="btnrow" style="justify-content:center">
           <a class="btn big" id="enterBtn" href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html"
              target="_top" aria-disabled="true" aria-describedby="enter-lock">
@@ -382,30 +392,50 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
             <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
-        <p class="lockline" id="enter-lock">Run the automatic check in step 1 first, so you find out about a problem here instead of on an assignment.</p>
+        <p class="lockline" id="enter-lock">Run the check in step 1 first. It is better to find a problem here than in the middle of an assignment.</p>
         <p class="skipline"><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html" target="_top">Skip the setup and go straight to the course home</a></p>
       </section>
     </main>
 
     <!-- SIDE -->
     <aside class="side" aria-labelledby="side-h">
+
       <div class="card" style="padding:24px 22px">
-        <p class="kicker">What this course asks of you</p>
-        <h2 id="side-h" style="font-size:1.18rem">The honest version</h2>
+        <p class="kicker">Read this before census</p>
+        <h2 id="side-h" style="font-size:1.18rem">How much time this really takes</h2>
+        <p class="side-p">BIOL 5 is a four unit lab course. Four units is about 216 hours of work for the semester. A normal term spreads those hours across 18 weeks. Ours runs 14 weeks, so the same 216 hours have to fit into fewer of them.</p>
+
+        <div class="hours" role="group" aria-labelledby="hours-h">
+          <p class="hours-h" id="hours-h">A typical week</p>
+          <div class="hrow"><span class="hlab">Lab</span><span class="hval">about 8 hours</span></div>
+          <div class="hrow"><span class="hlab">Lecture material</span><span class="hval">about 3 hours</span></div>
+          <div class="hrow"><span class="hlab">Studying on your own</span><span class="hval">about 5 hours</span></div>
+          <div class="hrow total"><span class="hlab">Every week</span><span class="hval">about 15 to 16 hours</span></div>
+        </div>
+
+        <p class="side-p"><strong>That is the minimum for a passing grade.</strong> It is not the number for an A, and it is not an estimate of how long the work takes if you are struggling with it.</p>
+
+        <p class="side-p">Taking physiology online does not reduce any of that. It is the same course, the same 216 hours, and the same standard as the section that meets in a room. What changes is that you schedule the hours yourself instead of a room and a clock scheduling them for you. There is no version of this course that takes less time, and there is no shortcut that substitutes for the hours.</p>
+
+        <p class="side-p">If 15 hours a week does not fit in your term right now, that is worth knowing this week rather than in November. Come talk to me and we will look at your options while you still have them.</p>
+      </div>
+
+      <div class="card" style="padding:24px 22px">
+        <p class="kicker">What the work is</p>
+        <h2 style="font-size:1.18rem">Where those hours go</h2>
         <ul>
-          <li><strong>About 12 to 15 hours a week.</strong> Six to eight of those are lab.</li>
-          <li><strong>You draw every week.</strong> Hand drawn control loops are how you show you understand a mechanism, and they are what an answer key cannot do for you.</li>
+          <li><strong>You draw every week.</strong> Drawing a process by hand is how you show that you understand it. An answer key cannot draw one for you.</li>
           <li><strong>You get your own patient.</strong> Your term project is one patient file, seeded to you, that you build week by week and defend at the end.</li>
           <li><strong>There is no online final exam.</strong> The final is a synthesis project and a case conference.</li>
-          <li><strong>No anatomy prerequisite panic.</strong> Some of you have had anatomy and some have not. The course is built to work either way.</li>
+          <li><strong>You do not need anatomy first.</strong> Some of you have taken it and some have not. The course is built to work either way.</li>
         </ul>
       </div>
 
       <div class="card" style="padding:24px 22px">
-        <p class="kicker">If something failed</p>
-        <h2 style="font-size:1.18rem">Come in anyway</h2>
-        <p style="color:var(--ink-soft);font-size:.94rem;margin:0 0 12px">A failed check is a setting to change, not a door that closes. Nothing on this page can keep you out of the course.</p>
-        <p style="color:var(--ink-soft);font-size:.94rem;margin:0">If you cannot get something working, message me in Canvas and tell me which line said it needed attention. That one detail usually solves it in a single reply.</p>
+        <p class="kicker">If a check fails</p>
+        <h2 style="font-size:1.18rem">What to do about it</h2>
+        <p class="side-p">A check that says Needs attention means a setting on your device has to change. It does not block you from the course.</p>
+        <p class="side-p" style="margin-bottom:0">If you cannot get it working, message me in Canvas and tell me which line said Needs attention. That one detail is usually enough for me to send you the fix.</p>
       </div>
     </aside>
   </div>
@@ -413,12 +443,12 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
   <!-- DOORS -->
   <section class="doors" aria-labelledby="doors-h">
     <h2 id="doors-h">While you are here</h2>
-    <p>Four pages worth opening before week 1.</p>
+    <p>These four pages are worth opening before week 1.</p>
     <nav class="doorgrid" aria-label="More BIO 005 pages">
       <a class="door" href="https://drsrennie-stack.github.io/human-physiology-Fa26/before-you-start.html" target="_top">
         <span class="dk">Take it before week 1</span>
         <span class="dt">Before you start</span>
-        <span class="dd">What physiology assumes you already know in chemistry, anatomy, and math, plus three short checks that tell you whether you need a weekend on it.</span>
+        <span class="dd">What physiology expects you to already know in chemistry, anatomy, and math, plus three short checks that tell you whether you need to review any of it before week 1.</span>
       </a>
       <a class="door" href="https://drsrennie-stack.github.io/human-physiology-Fa26/course-schedule.html" target="_top">
         <span class="dk">Dates</span>
@@ -590,7 +620,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
     var btn = document.getElementById('enterBtn');
     btn.setAttribute('aria-disabled','false');
     btn.removeAttribute('aria-describedby');
-    document.getElementById('enter-lock').textContent = 'Setup check complete. The course home opens in this window.';
+    document.getElementById('enter-lock').textContent = 'Your setup check is done. The course home will open in this window.';
   }
 
   document.getElementById('runBtn').addEventListener('click', function(){
@@ -621,7 +651,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
         w.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Pop-up test, BIO 005</title></head><body style="font-family:system-ui,sans-serif;background:#FAFAF9;color:#08101F;padding:28px;line-height:1.6"><h1 style="font-size:20px;margin:0 0 8px">This tab opened correctly.</h1><p style="margin:0;color:#414B5C">Your browser will let the BIO 005 lab tools open in their own tab. You can close this window.</p></body></html>');
         w.document.close();
       }catch(err){ /* opened but not writable, still a pass */ }
-      setState('popup','ok','A test tab opened. The lab tools will open the same way. Close that tab when you are done looking at it.');
+      setState('popup','ok','A test tab opened, so the lab tools will open the same way. You can close that tab whenever you like.');
       announce('Pop-up test passed. A new tab opened.');
       setTimeout(function(){ try{ w.close(); }catch(err){} }, 6000);
     } else {
@@ -665,7 +695,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
       if(marks > 12 && !done){
         done = true;
         var word = kind === 'touch' ? 'your finger' : (kind === 'pen' ? 'your stylus' : 'your mouse or trackpad');
-        setState('draw','ok','Drawing works with ' + word + '. That is all the weekly control loops need.');
+        setState('draw','ok','Drawing works with ' + word + '. That is all the weekly drawings need.');
         announce('Drawing test passed.');
       }
       e.preventDefault();
@@ -690,7 +720,7 @@ a.door .dd{font-size:.9rem;color:var(--ink-soft);display:block;margin-top:5px}
   })();
 
   document.getElementById('printBtn').addEventListener('click', function(){
-    setState('print','ok','Print dialog opened. If you saw a Destination or a PDF option in it, you can hand in the PDF lab reports. Cancel the dialog, nothing needs printing today.');
+    setState('print','ok','The print dialog opened. If you saw a Destination or a Save as PDF option in it, you can turn in the PDF lab reports. You can cancel the dialog now, nothing needs printing today.');
     announce('Print dialog opened.');
     setTimeout(function(){ try{ window.print(); }catch(err){} }, 60);
   });
