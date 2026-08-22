@@ -1,343 +1,803 @@
 /* ============================================================
    BIO 005 Human Physiology, Yuba College, Fall 2026
-   Complete course competency map. Source of truth for Mastery Physio OS,
-   the study guide, the competency map, the schedule, and the card bank.
+   Complete course competency map. Source of truth for Mastery OS,
+   the schedule builder, the spaced-recall bank, and the gap finder.
 
-   Built on the BIO 004 Human Anatomy competency schema, so every
-   downstream tool reads this file without modification.
+   Built from the BIO 004 Human Anatomy competency schema so every
+   downstream tool (weakness dashboard, card bank, exam blueprints)
+   works without modification.
 
    SCOPE BOUNDARY
    This is a physiology course. Every competency is a mechanism, a
    regulation, a calculation, or a prediction. Structure appears only
-   where structure explains function. Pure identification competencies
-   belong in anatomy and are not listed here.
+   where the structure explains the function. Pure identification
+   competencies belong in anatomy and are not listed here.
 
    FIELDS
      id       stable slug, never renumber once cards are tagged to it
-     n        display number, 1 to 268, matches the printed study guide
      module   1 to 5, matches the five exam blocks
      week     provisional week placement, moves when the calendar lands
-     system   fine-grained topic tag, matches the study guide topic heading
-     general  coarse system tag, for filtering and the weakness dashboard
+     system   fine-grained topic tag
+     general  coarse body-system tag for filtering and the dashboard
      name     the specific competency, short
-     can      the student-facing statement, one sentence
-     dok      1 recall, 2 apply, 3 analyze
+     can      the student-facing "I can" statement, one sentence
+     dok      depth of knowledge, 1 recall, 2 apply, 3 analyze, 4 transfer
      yield    core (must know), high (important), support (if time)
      est      estimated minutes of focused study to reach mastery
-     facets   lecture, lab, calc, graph, data, clinical, draw, model
-     lecture  true if examinable in writing
-     lab      true if it must be produced in lab
+     facets   how it gets assessed and practiced:
+              lecture, lab, graph, calc, data, clinical, draw, model
 
-   COUNTS
-     268 competencies. 234 lecture, 132 lab, 98 both, 34 lab only.
-     Estimated 111 hours of focused study across 15 weeks.
+   DELIVERY
+   Section BIOL-5-D9286, Sutter Internet (NET). Lecture and lab are
+   BOTH fully asynchronous online. There is no synchronous meeting and
+   no in-person lab, so no TBL structure (no iRAT, no tRAT, no in-room
+   application activity). Everything has to work without the
+   instructor present. The 'lab' facet in this file means a virtual or
+   at-home lab task, not a room.
 
-   COMPATIBILITY
-     BIO005_MODULES carries both the old keys (n, weeks as an array,
-     focus) and the new ones (module, weeksLabel, count, lecture, lab),
-     so competency-map.html and course-schedule.html keep working.
+   TERM
+   Sep 8 2026 (Tue) through Dec 16 2026 (Wed). That is 14 full
+   instructional weeks plus a short 3-day closing week.
+     Week 1 .... Tue Sep 8 to Sun Sep 13   (short, term opens Tuesday)
+     Weeks 2-14  Mon to Sun
+     Week 15 ... Mon Dec 14 to Wed Dec 16  (3 days, closes the term)
+   Census 9/27/2026. Last day to drop 11/21/2026.
+
+   PLACEHOLDER NOTE
+   Module assignment is the stable part; week is the movable part.
+   Week 15 is only three days and currently carries immune,
+   reproductive, and the integration capstone. That is the trim
+   candidate if the term runs tight. See PLACEHOLDERS.md.
    ============================================================ */
-
-window.BIO005_MODULES = [
-  { n:1, module:1, title:"Foundations, Membranes and Cell Signaling", weeks:[1, 2, 3], weeksLabel:"Weeks 1 to 3", exam:"Exam 1", examOpens:null, examCloses:null,
-    count:49, lecture:40, lab:24,
-    focus:"Homeostasis, transport, membrane potential, and signal transduction. Everything later in the course is an application of this module." },
-  { n:2, module:2, title:"Neurophysiology and Muscle Physiology", weeks:[4, 5, 6], weeksLabel:"Weeks 4 to 6", exam:"Exam 2", examOpens:null, examCloses:null,
-    count:50, lecture:44, lab:29,
-    focus:"Excitable tissue: action potentials, synapses, and how electrical events become mechanical force." },
-  { n:3, module:3, title:"Sensory, Motor, Autonomic and Endocrine Physiology", weeks:[7, 8, 9], weeksLabel:"Weeks 7 to 9", exam:"Exam 3", examOpens:null, examCloses:null,
-    count:46, lecture:40, lab:21,
-    focus:"The two long-range control systems, neural and hormonal, and how they share the work of regulation." },
-  { n:4, module:4, title:"Cardiovascular and Respiratory Physiology", weeks:[10, 11, 12], weeksLabel:"Weeks 10 to 12", exam:"Exam 4", examOpens:null, examCloses:null,
-    count:63, lecture:56, lab:32,
-    focus:"Bulk transport of oxygen and carbon dioxide, and the pressure and flow rules that govern both pumps." },
-  { n:5, module:5, title:"Renal, Digestive, Metabolic, Immune and Reproductive Physiology", weeks:[13, 14, 15], weeksLabel:"Weeks 13 to 15", exam:"Exam 5", examOpens:null, examCloses:null,
-    count:60, lecture:54, lab:26,
-    focus:"Long-term regulation of volume, composition, and pH, plus nutrient handling, defense, and reproduction." },
-];
-
 
 window.BIO005_COMPETENCIES = [
 
-  /* ---------- MODULE 1. Foundations, Membranes and Cell Signaling, weeks 1 to 3 ---------- */
-  { id:"w1-levels-function", n:1, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Physiology and levels of function", can:"Define physiology and place a given process at the correct level of organization from molecule to organism, then state the level at which that process is best explained.", dok:1, yield:"core", est:15, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-structure-function", n:2, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Structure and function relationship", can:"Predict how a change in the structure of a molecule, cell, tissue, or organ alters its function, using examples from two different organ systems.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w1-homeostasis", n:3, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Homeostasis defined", can:"Define homeostasis, regulated variable, and setpoint, and distinguish homeostasis from chemical equilibrium and from steady state.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-feedback-components", n:4, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Feedback loop components", can:"Diagram a negative feedback loop labeling stimulus, sensor, afferent path, integrating center, efferent path, effector, and response, and trace body temperature or blood glucose through every step.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
-  { id:"w1-feedback-types", n:5, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Negative and positive feedback", can:"Distinguish negative from positive feedback by the direction of the response and give a physiological example of each, explaining why a positive feedback loop needs an outside event to end it.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-feedforward", n:6, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Feedforward control and acclimatization", can:"Explain anticipatory feedforward control and acclimatization and identify which one is operating in a given scenario.", dok:2, yield:"support", est:15, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-control-pathways", n:7, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Local and reflex control pathways", can:"Distinguish a local control pathway from a long distance reflex pathway and classify a given response as one or the other.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-mass-balance", n:8, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Mass balance", can:"Apply the mass balance equation to a solute or to body water and calculate the intake, production, and output combination that holds the amount in the body constant.", dok:3, yield:"high", est:25, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w1-fluid-compartments", n:9, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Body fluid compartments", can:"State the approximate volumes of total body water, intracellular fluid, extracellular fluid, plasma, and interstitial fluid in a 70 kg adult and compare the dominant solutes of the intracellular and extracellular compartments.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w1-compartment-shifts", n:10, module:1, week:1, system:"Foundations of Physiology", general:"Foundations", name:"Compartment separation and clinical volume shifts", can:"Predict the direction of water movement between compartments when extracellular osmolarity rises or falls and name a clinical situation that produces each shift.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w1-units-conversion", n:11, module:1, week:1, system:"Quantitative Skills for Physiology", general:"Foundations", name:"Units and unit conversion", can:"Convert among the units used in physiology including molarity, osmolarity, milliequivalents, mmHg, liters per minute, and percent solutions.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w1-lab-graphing", n:12, module:1, week:1, system:"Quantitative Skills for Physiology", general:"Foundations", name:"Graphing and data interpretation", can:"Construct a labeled graph with the independent variable on the x axis, and read slope, direction, and trend from a physiological data set.", dok:2, yield:"core", est:20, facets:["lab", "graph", "data"], lecture:false, lab:true },
-  { id:"w1-lab-experimental-design", n:13, module:1, week:1, system:"Quantitative Skills for Physiology", general:"Foundations", name:"Experimental design and controls", can:"Identify the hypothesis, independent variable, dependent variable, and control condition in a physiology experiment and state what the control rules out.", dok:3, yield:"core", est:30, facets:["lab"], lecture:false, lab:true },
-  { id:"w1-lab-measurement-error", n:14, module:1, week:1, system:"Quantitative Skills for Physiology", general:"Foundations", name:"Measurement error and variability", can:"Distinguish random from systematic error and explain why physiological measurements are repeated and averaged.", dok:2, yield:"support", est:15, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w1-water-properties", n:15, module:1, week:1, system:"Chemical Foundations", general:"Foundations", name:"Water and solution properties", can:"Explain how the polarity and hydrogen bonding of water determine solubility and identify whether a given solute is hydrophilic or hydrophobic.", dok:1, yield:"support", est:10, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-ph-buffers", n:16, module:1, week:1, system:"Chemical Foundations", general:"Foundations", name:"pH and buffers", can:"Define pH, state the normal pH range of arterial blood, and explain how a buffer pair resists a change in pH when acid or base is added.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w1-protein-function", n:17, module:1, week:1, system:"Chemical Foundations", general:"Foundations", name:"Protein structure and function", can:"Relate the levels of protein structure to binding site shape and explain how denaturation by heat or pH change destroys function.", dok:2, yield:"high", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w1-enzyme-function", n:18, module:1, week:1, system:"Chemical Foundations", general:"Foundations", name:"Enzyme activity and regulation", can:"Describe how enzymes lower activation energy and predict the effect of substrate concentration, temperature, pH, and competitive or allosteric inhibition on reaction rate.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w1-atp-energy", n:19, module:1, week:1, system:"Chemical Foundations", general:"Foundations", name:"ATP and energy coupling", can:"Explain how ATP hydrolysis is coupled to endergonic cellular work and name three categories of work that require it.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w1-lab-enzyme-assay", n:20, module:1, week:1, system:"Chemical Foundations", general:"Foundations", name:"Enzyme assay", can:"Measure enzyme activity across a range of temperature or pH using a spectrophotometric or colorimetric assay, plot the results, and identify the optimum.", dok:3, yield:"high", est:25, facets:["lab", "graph", "data"], lecture:false, lab:true },
-  { id:"w2-membrane-structure", n:21, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Membrane composition and fluidity", can:"Describe the fluid mosaic membrane and state how phospholipids, cholesterol, glycolipids, and integral and peripheral proteins contribute to its properties.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-permeability", n:22, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Determinants of permeability", can:"Rank molecules by their ability to cross a lipid bilayer unaided using size, charge, and lipid solubility, and predict which will require a protein.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-fick-diffusion", n:23, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Simple diffusion and Fick's law", can:"State the variables in Fick's law of diffusion and predict how a change in concentration gradient, surface area, membrane thickness, or distance changes the rate of transfer.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w2-osmolarity-tonicity", n:24, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Osmolarity and tonicity", can:"Calculate the osmolarity of a solution, distinguish osmolarity from tonicity, and classify a solution as isotonic, hypotonic, or hypertonic to a cell.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w2-osmosis-cell-volume", n:25, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Osmosis and cell volume", can:"Predict the direction of water movement and the resulting change in cell volume when a cell is placed in a solution of stated osmolarity and penetrating solute content.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w2-lab-diffusion-osmosis", n:26, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Diffusion and osmosis experiment", can:"Measure diffusion and osmotic movement across a selectively permeable membrane and relate the observed rate to molecular size and concentration gradient.", dok:2, yield:"core", est:20, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w2-lab-rbc-tonicity", n:27, module:1, week:2, system:"Membrane Structure and Diffusion", general:"Membranes and Signaling", name:"Tonicity and red blood cells", can:"Observe erythrocytes in solutions of different tonicity, identify crenation, normal shape, and hemolysis, and explain each result.", dok:2, yield:"high", est:20, facets:["lab"], lecture:false, lab:true },
-  { id:"w2-facilitated-diffusion", n:28, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Facilitated diffusion", can:"Describe carrier and channel mediated diffusion and explain why carrier mediated transport shows saturation and specificity while simple diffusion does not.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-primary-active-transport", n:29, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Primary active transport", can:"Explain how the sodium potassium ATPase uses ATP to move three sodium out and two potassium in, and state the two gradients it maintains.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w2-secondary-active-transport", n:30, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Secondary active transport", can:"Distinguish symport from antiport and trace how the sodium gradient powers glucose uptake by SGLT and calcium removal by the sodium calcium exchanger.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-transport-maximum", n:31, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Transport maximum and saturation", can:"Interpret a transport rate curve, identify the transport maximum, and apply the concept to renal glucose handling in hyperglycemia.", dok:3, yield:"high", est:25, facets:["lecture", "lab", "graph"], lecture:true, lab:true },
-  { id:"w2-vesicular-transport", n:32, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Vesicular transport", can:"Compare phagocytosis, pinocytosis, receptor mediated endocytosis, and exocytosis by trigger, cargo, and energy requirement.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-transepithelial-transport", n:33, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Transepithelial transport", can:"Trace glucose or sodium from lumen to blood across a polarized epithelium and identify which step occurs at the apical membrane and which at the basolateral membrane.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-lab-transport-sim", n:34, module:1, week:2, system:"Membrane Transport", general:"Membranes and Signaling", name:"Transport simulation", can:"Use a membrane transport simulation to distinguish simple diffusion from facilitated diffusion and active transport by their response to gradient reversal and metabolic poison.", dok:3, yield:"high", est:25, facets:["lab", "model"], lecture:false, lab:true },
-  { id:"w2-electrochemical-gradient", n:35, module:1, week:2, system:"Membrane Potential", general:"Membranes and Signaling", name:"Ion distribution and electrochemical gradients", can:"State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-nernst", n:36, module:1, week:2, system:"Membrane Potential", general:"Membranes and Signaling", name:"Nernst equation", can:"Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w2-resting-potential", n:37, module:1, week:2, system:"Membrane Potential", general:"Membranes and Signaling", name:"Resting membrane potential", can:"Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-ion-channels", n:38, module:1, week:2, system:"Membrane Potential", general:"Membranes and Signaling", name:"Ion channel gating", can:"Compare leak, voltage gated, ligand gated, and mechanically gated channels by what opens each one and give a physiological location for each.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w2-potential-terms", n:39, module:1, week:2, system:"Membrane Potential", general:"Membranes and Signaling", name:"Depolarization and hyperpolarization", can:"Define depolarization, repolarization, hyperpolarization, and overshoot and label each on a membrane potential tracing.", dok:1, yield:"core", est:15, facets:["lecture", "lab", "graph", "draw"], lecture:true, lab:true },
-  { id:"w2-lab-membrane-potential", n:40, module:1, week:2, system:"Membrane Potential", general:"Membranes and Signaling", name:"Membrane potential simulation", can:"Manipulate extracellular potassium and sodium in a simulation and record the resulting change in resting membrane potential against the Nernst prediction.", dok:3, yield:"high", est:25, facets:["lab", "data", "model"], lecture:false, lab:true },
-  { id:"w3-signal-types", n:41, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Signal types and range", can:"Classify a chemical signal as autocrine, paracrine, neurotransmitter, neurohormone, or hormone by its route and distance of travel.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-receptor-location", n:42, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Receptor location and ligand solubility", can:"Predict whether a signal molecule binds a surface receptor or an intracellular receptor from its lipid solubility and relate that to the speed and duration of the response.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-gpcr-pathway", n:43, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"G protein coupled receptors", can:"Trace a G protein coupled receptor pathway from ligand binding through the G protein and amplifier enzyme to the second messenger and the cellular response.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-second-messengers", n:44, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Second messengers", can:"Identify cyclic AMP, IP3, diacylglycerol, and calcium as second messengers and state the enzyme that generates each and one target it activates.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-catalytic-intracellular-receptors", n:45, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Catalytic receptors and intracellular receptors", can:"Compare a receptor enzyme such as the insulin receptor with an intracellular steroid receptor by mechanism and by time course of the response.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-signal-amplification", n:46, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Signal amplification", can:"Explain how a cascade amplifies a signal and estimate the size of the amplification across the steps of a given pathway.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-receptor-modulation", n:47, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Receptor modulation", can:"Define agonist, antagonist, competitive inhibition, up regulation, and down regulation and predict the effect of chronic ligand excess on target cell sensitivity.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w3-signal-termination", n:48, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Signal termination", can:"Name three mechanisms that end a chemical signal and explain why a signal that cannot be terminated produces pathology.", dok:2, yield:"high", est:20, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w3-lab-dose-response", n:49, module:1, week:3, system:"Cell Signaling", general:"Membranes and Signaling", name:"Dose response relationships", can:"Plot a dose response curve, identify threshold, maximal response, and EC50, and compare a full agonist with a partial agonist on the same axes.", dok:3, yield:"high", est:25, facets:["lab", "graph"], lecture:false, lab:true },
+/* ============================================================
+   MODULE 1  Foundations, membranes, and cell signaling
+   Weeks 1 to 3. Exam 1.
+   ============================================================ */
 
-  /* ---------- MODULE 2. Neurophysiology and Muscle Physiology, weeks 4 to 6 ---------- */
-  { id:"w4-neuron-classes", n:50, module:2, week:4, system:"Neurons and Neuroglia", general:"Nervous System", name:"Neuron structural and functional classes", can:"Classify a neuron as multipolar, bipolar, or pseudounipolar by structure and as sensory, motor, or interneuron by function, and match each class to a location in the nervous system.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w4-neuron-regions", n:51, module:2, week:4, system:"Neurons and Neuroglia", general:"Nervous System", name:"Functional regions of a neuron", can:"Label the dendrites, cell body, axon hillock, trigger zone, axon, and axon terminal and state which signal type each region carries.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
-  { id:"w4-glia-functions", n:52, module:2, week:4, system:"Neurons and Neuroglia", general:"Nervous System", name:"Glial cell functions", can:"Match astrocytes, oligodendrocytes, microglia, ependymal cells, satellite cells, and Schwann cells to their physiological roles.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w4-myelin", n:53, module:2, week:4, system:"Neurons and Neuroglia", general:"Nervous System", name:"Myelin and its loss", can:"Explain how myelin and the nodes of Ranvier speed conduction and predict the functional consequence of demyelination.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w4-axonal-transport", n:54, module:2, week:4, system:"Neurons and Neuroglia", general:"Nervous System", name:"Axonal transport", can:"Distinguish fast anterograde and retrograde axonal transport from slow transport and state what each carries.", dok:1, yield:"support", est:10, facets:["lecture"], lecture:true, lab:false },
-  { id:"w4-graded-potentials", n:55, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Graded potentials", can:"Describe how a graded potential is produced and explain why it varies with stimulus strength and decays with distance, using the terms current leak and cytoplasmic resistance.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w4-action-potential", n:56, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Action potential phases", can:"Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and afterhyperpolarization.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
-  { id:"w4-threshold", n:57, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Threshold and all or none", can:"Explain what threshold represents at the trigger zone and why action potential amplitude does not change with a stronger stimulus.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w4-intensity-coding", n:58, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Coding of stimulus intensity", can:"Explain how the nervous system encodes stimulus strength when action potential amplitude is fixed.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w4-refractory", n:59, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Refractory periods", can:"Distinguish the absolute from the relative refractory period by channel state and explain how the refractory period sets maximum firing frequency and prevents backward conduction.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w4-conduction-velocity", n:60, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Conduction velocity", can:"Rank axons by conduction velocity using diameter and myelination and contrast continuous with saltatory conduction.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w4-ion-disturbance", n:61, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Effects of altered extracellular ions", can:"Predict the effect of hyperkalemia and hypokalemia on resting potential and excitability and explain why local anesthetics that block sodium channels abolish the action potential.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w4-lab-ap-simulation", n:62, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Action potential simulation", can:"Run a neuron simulation with sodium and potassium channel blockers and interpret the resulting change in the action potential tracing.", dok:3, yield:"core", est:30, facets:["lab", "data", "clinical", "model"], lecture:false, lab:true },
-  { id:"w4-lab-nerve-conduction", n:63, module:2, week:4, system:"Electrical Signaling", general:"Nervous System", name:"Nerve conduction measurement", can:"Measure conduction velocity from a recorded compound action potential and account for the difference between the fastest and slowest fibers.", dok:3, yield:"high", est:25, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w5-synaptic-sequence", n:64, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Sequence at a chemical synapse", can:"Order the events of chemical synaptic transmission from action potential arrival through calcium entry and vesicle fusion to receptor binding and postsynaptic response.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w5-neurotransmitters", n:65, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Neurotransmitter classes", can:"Match acetylcholine, the catecholamines, serotonin, glutamate, GABA, glycine, and the neuropeptides to their usual excitatory or inhibitory effect and to a site of action.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w5-neurotransmitter-removal", n:66, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Neurotransmitter removal", can:"Name the three routes that clear a neurotransmitter from the synaptic cleft, degradation, reuptake, and diffusion, and give a drug that blocks one of them.", dok:2, yield:"high", est:20, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w5-postsynaptic-potentials", n:67, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Excitatory and inhibitory postsynaptic potentials", can:"Distinguish an EPSP from an IPSP by the ion channel opened and the direction of the membrane potential change.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w5-summation-integration", n:68, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Summation and integration", can:"Distinguish temporal from spatial summation and determine whether a stated combination of EPSPs and IPSPs will bring the trigger zone to threshold.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w5-presynaptic-modulation", n:69, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Presynaptic modulation", can:"Compare presynaptic inhibition and facilitation with postsynaptic modulation and state the advantage of presynaptic control at a single input, which is selectivity.", dok:2, yield:"support", est:15, facets:["lecture"], lecture:true, lab:false },
-  { id:"w5-synaptic-plasticity", n:70, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Synaptic plasticity", can:"Explain long term potentiation as a mechanism of learning and identify the roles of repeated stimulation and receptor insertion.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w5-electrical-synapses", n:71, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Electrical synapses", can:"Compare an electrical synapse at a gap junction with a chemical synapse by speed and by capacity for modulation.", dok:1, yield:"support", est:10, facets:["lecture"], lecture:true, lab:false },
-  { id:"w5-lab-synapse-sim", n:72, module:2, week:5, system:"Synaptic Transmission", general:"Nervous System", name:"Synapse simulation", can:"Alter neurotransmitter release and receptor availability in a synapse simulation and interpret the resulting postsynaptic recording.", dok:3, yield:"high", est:25, facets:["lab", "model"], lecture:false, lab:true },
-  { id:"w5-reflex-arc", n:73, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Reflex arc components", can:"Diagram a reflex arc naming the receptor, sensory neuron, integrating center, motor neuron, and effector, and classify the reflex as monosynaptic or polysynaptic.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
-  { id:"w5-stretch-reflex", n:74, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Muscle spindle and stretch reflex", can:"Explain how the muscle spindle detects stretch and trace the stretch reflex including reciprocal inhibition of the antagonist.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w5-golgi-tendon", n:75, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Golgi tendon organ", can:"Contrast the stimulus and the reflex response of the Golgi tendon organ with those of the muscle spindle.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w5-withdrawal-reflex", n:76, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Withdrawal and crossed extensor reflexes", can:"Trace the flexor withdrawal reflex and the crossed extensor reflex and explain how the two together preserve balance.", dok:2, yield:"high", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w5-spinal-pathways", n:77, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Ascending and descending pathways", can:"Compare the dorsal column, spinothalamic, and corticospinal pathways by the information carried, the side of decussation, and the deficit produced by a lesion.", dok:3, yield:"core", est:30, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w5-csf-bbb", n:78, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Cerebrospinal fluid and the blood brain barrier", can:"State the functions of cerebrospinal fluid and explain how the blood brain barrier selects what reaches neurons, including why lipid soluble drugs cross readily.", dok:2, yield:"high", est:20, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w5-lab-reflex-testing", n:79, module:2, week:5, system:"Central Integration and Reflexes", general:"Nervous System", name:"Reflex testing and reaction time", can:"Elicit and grade deep tendon reflexes and measure reaction time to distinguish a reflex response from a voluntary response by latency.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w6-nmj", n:80, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Neuromuscular junction", can:"Trace transmission at the neuromuscular junction from the motor neuron action potential to the end plate potential and explain why every action potential in the motor neuron produces one in the muscle fiber.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-ec-coupling", n:81, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Excitation contraction coupling", can:"Trace excitation contraction coupling from the T tubule through the DHP and ryanodine receptors to calcium release from the sarcoplasmic reticulum.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-crossbridge-cycle", n:82, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Crossbridge cycle", can:"Order the steps of the crossbridge cycle, binding, power stroke, detachment, and reactivation, and state where ATP binds and where it is hydrolyzed.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-calcium-regulation", n:83, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Calcium and the regulatory proteins", can:"Explain how calcium binding to troponin moves tropomyosin off the myosin binding site and predict what happens to contraction if calcium cannot be released.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w6-relaxation", n:84, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Relaxation and calcium removal", can:"Explain how SERCA and acetylcholinesterase end a contraction and predict the result if either one fails.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w6-twitch", n:85, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"The muscle twitch", can:"Label the latent period, contraction phase, and relaxation phase on a twitch tracing and explain what limits each phase.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "graph", "draw"], lecture:true, lab:true },
-  { id:"w6-summation-tetanus", n:86, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Summation and tetanus", can:"Explain wave summation and distinguish unfused from fused tetanus by stimulus frequency and calcium accumulation.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-motor-units", n:87, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Motor units and recruitment", can:"Define the motor unit and explain how size of the unit and orderly recruitment grade the force a whole muscle produces.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-length-tension", n:88, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Length tension relationship", can:"Interpret a length tension curve and explain why tension falls at very short and very long sarcomere lengths.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "graph"], lecture:true, lab:true },
-  { id:"w6-contraction-types", n:89, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Isometric and isotonic contraction", can:"Distinguish isometric, concentric, and eccentric contractions and predict shortening velocity from the load applied.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-fiber-types", n:90, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Muscle fiber types", can:"Compare slow oxidative, fast oxidative glycolytic, and fast glycolytic fibers by speed, ATP source, fatigue resistance, and typical task.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-muscle-energetics", n:91, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"ATP sources during activity", can:"Order creatine phosphate, anaerobic glycolysis, and oxidative phosphorylation by how quickly each supplies ATP and how long each can sustain it.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w6-fatigue", n:92, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Fatigue and oxygen debt", can:"Distinguish central from peripheral fatigue and explain the metabolic basis of excess post exercise oxygen consumption.", dok:3, yield:"high", est:25, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-muscle-adaptation", n:93, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Muscle plasticity", can:"Predict the change in fiber size, capillary supply, and mitochondrial content produced by endurance training, resistance training, and disuse.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w6-lab-emg-fatigue", n:94, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Electromyography and grip fatigue", can:"Record grip force and surface EMG over a sustained contraction and relate the decline in force to recruitment and fatigue.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w6-lab-muscle-sim", n:95, module:2, week:6, system:"Skeletal Muscle Physiology", general:"Muscle", name:"Twitch and tetanus simulation", can:"Generate twitch and tetanus tracings in a muscle simulation by varying stimulus voltage and frequency and identify threshold and maximal stimulus.", dok:3, yield:"core", est:30, facets:["lab", "model"], lecture:false, lab:true },
-  { id:"w6-smooth-muscle", n:96, module:2, week:6, system:"Cardiac and Smooth Muscle", general:"Muscle", name:"Smooth muscle contraction mechanism", can:"Trace smooth muscle contraction through calcium entry and release to calmodulin and myosin light chain kinase and explain why the mechanism is slower and more economical than in skeletal muscle.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w6-smooth-regulation", n:97, module:2, week:6, system:"Cardiac and Smooth Muscle", general:"Muscle", name:"Smooth muscle types and regulation", can:"Compare single unit and multi unit smooth muscle and list the stimuli that alter smooth muscle tone including stretch and local chemical signals.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w6-cardiac-muscle", n:98, module:2, week:6, system:"Cardiac and Smooth Muscle", general:"Muscle", name:"Cardiac muscle properties", can:"Explain how intercalated discs and gap junctions allow the myocardium to act as a functional syncytium and state why cardiac muscle cannot be tetanized.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w6-muscle-comparison", n:99, module:2, week:6, system:"Cardiac and Smooth Muscle", general:"Muscle", name:"Comparison of the three muscle types", can:"Build a comparison of skeletal, cardiac, and smooth muscle by calcium source, regulatory protein, control, and speed of contraction.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
+  { id:"m1-physiology-scope", module:1, week:1, system:"Foundations", general:"Foundations",
+    name:"What physiology asks",
+    can:"State the difference between an anatomical question and a physiological question, and rewrite a structure question as a mechanism question.",
+    dok:2, yield:"core", est:10, facets:["lecture"] },
 
-  /* ---------- MODULE 3. Sensory, Motor, Autonomic and Endocrine Physiology, weeks 7 to 9 ---------- */
-  { id:"w7-transduction", n:100, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Sensory transduction", can:"Explain how a stimulus is converted into a receptor potential and how that graded potential becomes a train of action potentials in the sensory neuron.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-receptor-classes", n:101, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Receptor classification", can:"Classify a receptor by stimulus type as a mechanoreceptor, chemoreceptor, thermoreceptor, photoreceptor, or nociceptor and give a body location for each.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w7-stimulus-coding", n:102, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Stimulus coding", can:"Explain how the nervous system encodes modality, location, intensity, and duration and identify the labeled line principle.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-receptive-fields", n:103, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Receptive fields and acuity", can:"Relate receptive field size and lateral inhibition to two point discrimination and predict which body regions have the finest acuity.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w7-receptor-adaptation", n:104, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Receptor adaptation", can:"Distinguish tonic from phasic receptors by their adaptation rate and match each to a stimulus the body needs to monitor continuously or only at onset.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w7-somatosensory-pathways", n:105, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Somatosensory pathways", can:"Trace touch and pain information from receptor to cortex and explain why the somatosensory homunculus is disproportionate.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-pain-modulation", n:106, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Pain and its modulation", can:"Distinguish fast and slow pain by fiber type, explain referred pain by convergence, and describe how gate control and endogenous opioids reduce pain transmission.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-lab-tactile-mapping", n:107, module:3, week:7, system:"General Sensory Physiology", general:"Sensory", name:"Tactile mapping and adaptation testing", can:"Measure two point discrimination at several body sites and show receptor adaptation and referred sensation experimentally.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w7-vision-optics", n:108, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Optics and accommodation", can:"Explain refraction by the cornea and lens and describe how accommodation and the pupillary reflex focus near and far images.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w7-phototransduction", n:109, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Phototransduction", can:"Trace phototransduction from photon absorption by retinal through the change in cyclic GMP to the decrease in glutamate release and explain why photoreceptors hyperpolarize to light.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-visual-processing", n:110, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Rods cones and visual processing", can:"Compare rods and cones by sensitivity and acuity and trace the visual pathway to predict the field deficit produced by a lesion at the optic nerve or the optic chiasm.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w7-vision-clinical", n:111, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Refractive errors and clinical vision", can:"Explain myopia, hyperopia, presbyopia, and astigmatism in terms of focal point and eyeball or lens shape and state the corrective lens for each.", dok:3, yield:"high", est:25, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w7-hearing-transduction", n:112, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Auditory transduction", can:"Trace sound from the tympanic membrane through the ossicles and cochlear fluid to hair cell bending and auditory nerve firing and explain how pitch and loudness are coded.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-hearing-clinical", n:113, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Conductive and sensorineural hearing loss", can:"Distinguish conductive from sensorineural hearing loss by the site of the lesion and by the expected Weber and Rinne results.", dok:3, yield:"high", est:25, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w7-equilibrium", n:114, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Equilibrium", can:"Explain how the semicircular canals detect angular acceleration and how the utricle and saccule detect linear acceleration and head position.", dok:2, yield:"high", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w7-chemical-senses", n:115, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Taste and smell", can:"Compare gustatory and olfactory transduction and explain why olfactory input reaches the limbic system without a thalamic relay.", dok:2, yield:"support", est:15, facets:["lecture"], lecture:true, lab:false },
-  { id:"w7-lab-vision-tests", n:116, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Vision testing", can:"Perform visual acuity, blind spot, accommodation, and color vision testing and interpret each result.", dok:2, yield:"core", est:20, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w7-lab-hearing-tests", n:117, module:3, week:7, system:"Special Senses", general:"Sensory", name:"Hearing and equilibrium testing", can:"Perform Weber and Rinne tuning fork tests and a balance test and interpret the findings.", dok:3, yield:"high", est:25, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w8-motor-hierarchy", n:118, module:3, week:8, system:"Motor Control", general:"Motor Control", name:"Motor control hierarchy", can:"Order the levels of motor control from spinal reflex through brainstem to cortex and state what each level contributes to a voluntary movement.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-corticospinal", n:119, module:3, week:8, system:"Motor Control", general:"Motor Control", name:"Corticospinal pathway", can:"Trace the corticospinal pathway from the primary motor cortex to the skeletal muscle and identify where it crosses.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-cerebellum-basal-ganglia", n:120, module:3, week:8, system:"Motor Control", general:"Motor Control", name:"Cerebellum and basal ganglia", can:"Contrast the contributions of the cerebellum and the basal ganglia to movement and match a described motor sign to the structure involved.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-umn-lmn", n:121, module:3, week:8, system:"Motor Control", general:"Motor Control", name:"Upper and lower motor neuron signs", can:"Distinguish upper from lower motor neuron lesions by tone, reflexes, and muscle bulk and assign a set of findings to the correct level.", dok:3, yield:"high", est:25, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w8-ans-organization", n:122, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Autonomic and somatic organization", can:"Contrast the somatic motor system with the autonomic two neuron pathway by neuron count and by effector tissue.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-ans-divisions", n:123, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Sympathetic and parasympathetic divisions", can:"Compare the two autonomic divisions by CNS origin and ganglion location and predict the effect of each on heart rate and on the gastrointestinal tract.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w8-ans-receptors", n:124, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Autonomic neurotransmitters and receptors", can:"Match nicotinic, muscarinic, alpha, and beta receptors to their neurotransmitter, their location, and the response each produces.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-ans-tone", n:125, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Dual innervation and tonic control", can:"Explain dual innervation and autonomic tone and predict the effect of removing one division from a dually innervated organ.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-adrenal-medulla", n:126, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Adrenal medulla", can:"Explain why the adrenal medulla is a modified sympathetic ganglion and compare the duration of its circulating catecholamine effect with direct sympathetic innervation.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w8-ans-pharmacology", n:127, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Autonomic pharmacology", can:"Predict the effect of a beta blocker or a muscarinic antagonist on a named organ from the receptor it targets.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w8-lab-autonomic-testing", n:128, module:3, week:8, system:"Autonomic Nervous System", general:"Autonomic", name:"Autonomic function testing", can:"Measure heart rate variability and the response to a cold pressor or orthostatic challenge and interpret the result as sympathetic or parasympathetic dominance.", dok:3, yield:"high", est:25, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w9-hormone-classes", n:129, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Hormone classes", can:"Classify hormones as peptide, steroid, or amine and compare the three by synthesis, storage, and receptor location.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-hormone-transport", n:130, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Hormone transport and half life", can:"Explain how protein binding in plasma affects the free hormone fraction and the half life and predict which hormone class circulates bound.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-hormone-receptors", n:131, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Hormone receptors and target response", can:"Explain why one hormone can produce different responses in different tissues and relate receptor number to target cell sensitivity.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-hormone-interactions", n:132, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Hormone interactions", can:"Define synergism, permissiveness, and antagonism and identify each in a described hormone pair.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-hormone-release", n:133, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Control of hormone release", can:"Classify a hormone stimulus as humoral, neural, or hormonal and trace an example of each.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-hypothalamic-pituitary", n:134, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Hypothalamic pituitary axes", can:"Trace a three tier axis from hypothalamic releasing hormone through the anterior pituitary trophic hormone to the peripheral gland and place the long and short loop negative feedback.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w9-endocrine-pathology", n:135, module:3, week:9, system:"Endocrine Principles", general:"Endocrine", name:"Primary and secondary endocrine disorders", can:"Use hormone levels at two tiers of an axis to classify a disorder as primary or secondary and as hypersecretion or hyposecretion.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w9-posterior-pituitary", n:136, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Posterior pituitary hormones", can:"Explain why the posterior pituitary is neural tissue and state the stimulus and target action of antidiuretic hormone and oxytocin.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-growth-hormone", n:137, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Growth hormone", can:"Describe the direct and insulin like growth factor mediated actions of growth hormone and predict the result of excess or deficiency before and after epiphyseal closure.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w9-thyroid", n:138, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Thyroid hormone", can:"Trace thyroid hormone synthesis, state the metabolic actions of T3 and T4, and match hyperthyroid and hypothyroid signs to the underlying rate of metabolism.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w9-adrenal-cortex", n:139, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Adrenal cortex", can:"Match the three cortical zones to aldosterone, cortisol, and the adrenal androgens and state the primary action of each.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w9-stress-response", n:140, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Cortisol and the stress response", can:"Describe the metabolic, immune, and cardiovascular actions of cortisol and explain the consequences of chronic elevation.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w9-calcium-homeostasis", n:141, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Calcium homeostasis", can:"Trace the response to falling plasma calcium through parathyroid hormone, calcitriol, and the actions on bone, kidney, and intestine, and state the role of calcitonin.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w9-islet-hormones", n:142, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Pancreatic islet hormones", can:"Compare insulin and glucagon by stimulus and by effect on liver glycogen and on plasma glucose and identify the islet cell that secretes each.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w9-diabetes", n:143, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Diabetes mellitus", can:"Distinguish type 1 from type 2 diabetes by mechanism and explain how untreated hyperglycemia produces polyuria and ketoacidosis.", dok:3, yield:"core", est:30, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w9-lab-glucose-tolerance", n:144, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Glucose tolerance testing", can:"Plot a glucose tolerance curve from measured or simulated data and distinguish a normal response from an impaired one.", dok:3, yield:"core", est:30, facets:["lab", "graph", "data", "model"], lecture:false, lab:true },
-  { id:"w9-lab-hormone-assay", n:145, module:3, week:9, system:"Endocrine Glands", general:"Endocrine", name:"Hormone assay", can:"Run or simulate an immunoassay for a hormone and use the standard curve to determine an unknown concentration.", dok:3, yield:"high", est:25, facets:["lab", "graph", "model"], lecture:false, lab:true },
+  { id:"m1-levels-function", module:1, week:1, system:"Foundations", general:"Foundations",
+    name:"Levels of function",
+    can:"Trace one function from the molecular level to the whole-organism level and name what is doing the work at each level.",
+    dok:2, yield:"core", est:15, facets:["lecture","draw"] },
 
-  /* ---------- MODULE 4. Cardiovascular and Respiratory Physiology, weeks 10 to 12 ---------- */
-  { id:"w10-plasma", n:146, module:4, week:10, system:"Blood", general:"Blood", name:"Plasma and blood functions", can:"State the three functional categories of blood, transport, regulation, and protection, and name the major plasma proteins and the function of each.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w10-hematocrit", n:147, module:4, week:10, system:"Blood", general:"Blood", name:"Hematocrit and formed elements", can:"Define hematocrit and interpret a value as normal or abnormal in the context of anemia and dehydration.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w10-rbc-hemoglobin", n:148, module:4, week:10, system:"Blood", general:"Blood", name:"Erythrocyte structure and hemoglobin", can:"Relate the biconcave shape and absent nucleus of the erythrocyte to its function and describe how the four heme groups of hemoglobin carry oxygen.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w10-erythropoiesis", n:149, module:4, week:10, system:"Blood", general:"Blood", name:"Erythropoiesis and its regulation", can:"Trace the erythropoietin negative feedback loop from tissue hypoxia to increased red cell production and state the nutrients required.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w10-rbc-destruction", n:150, module:4, week:10, system:"Blood", general:"Blood", name:"Red cell destruction and bilirubin", can:"Trace the fate of hemoglobin after red cell breakdown and explain how failure to clear bilirubin produces jaundice.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w10-leukocytes", n:151, module:4, week:10, system:"Blood", general:"Blood", name:"Leukocytes", can:"Match neutrophils, lymphocytes, monocytes, eosinophils, and basophils to their defensive function and to the condition that raises each.", dok:2, yield:"high", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w10-hemostasis", n:152, module:4, week:10, system:"Blood", general:"Blood", name:"Hemostasis", can:"Order the three phases of hemostasis, vascular spasm, platelet plug formation, and coagulation, and identify the role of von Willebrand factor and thromboxane.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w10-coagulation", n:153, module:4, week:10, system:"Blood", general:"Blood", name:"Coagulation cascade", can:"Compare the intrinsic and extrinsic pathways to the common pathway and identify the roles of thrombin, fibrin, calcium, and vitamin K.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w10-fibrinolysis", n:154, module:4, week:10, system:"Blood", general:"Blood", name:"Clot limitation and fibrinolysis", can:"Explain how anticoagulants and plasmin limit and remove a clot and predict the effect of a drug that blocks vitamin K or platelet aggregation.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w10-blood-types", n:155, module:4, week:10, system:"Blood", general:"Blood", name:"ABO and Rh blood types", can:"Predict agglutination for any donor and recipient ABO and Rh combination and explain the mechanism of hemolytic disease of the newborn.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w10-lab-hematocrit", n:156, module:4, week:10, system:"Blood", general:"Blood", name:"Hematocrit and hemoglobin determination", can:"Determine hematocrit and hemoglobin from a sample or simulation and evaluate the result against reference ranges.", dok:2, yield:"core", est:20, facets:["lab", "model"], lecture:false, lab:true },
-  { id:"w10-lab-blood-typing", n:157, module:4, week:10, system:"Blood", general:"Blood", name:"Blood typing", can:"Perform simulated ABO and Rh typing and determine compatible donor types for the result obtained.", dok:3, yield:"core", est:30, facets:["lab", "data", "model"], lecture:false, lab:true },
-  { id:"w10-pacemaker-potential", n:158, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"Pacemaker potential", can:"Explain the unstable pacemaker potential of the sinoatrial node by the funny current, calcium entry, and potassium exit and state what sets intrinsic heart rate.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w10-cardiac-ap", n:159, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"Contractile cell action potential", can:"Diagram the ventricular action potential and identify the ion movement responsible for the rapid upstroke, the plateau, and repolarization.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
-  { id:"w10-conduction-system", n:160, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"Conduction system", can:"Trace an impulse through the sinoatrial node, internodal pathways, atrioventricular node, bundle of His, bundle branches, and Purkinje fibers and explain the purpose of the atrioventricular delay.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w10-cardiac-refractory", n:161, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"Cardiac refractory period", can:"Explain why the long refractory period of cardiac muscle prevents tetanus and why that matters for pump function.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w10-ecg-basics", n:162, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"ECG waves and intervals", can:"Label the P wave, QRS complex, T wave, PR interval, and QT interval and state the electrical event each represents.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
-  { id:"w10-ecg-interpretation", n:163, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"ECG interpretation", can:"Calculate heart rate from an ECG strip and identify sinus rhythm, tachycardia, bradycardia, and a first degree or complete heart block.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w10-lab-ecg", n:164, module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular", name:"ECG recording", can:"Record a lead II ECG, measure the intervals, and correlate each wave with the mechanical event that follows it.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w11-cardiac-cycle", n:165, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Cardiac cycle", can:"Order the phases of the cardiac cycle and state the pressure relationship that opens and closes the atrioventricular and semilunar valves in each phase.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-pv-loop", n:166, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Pressure volume loop", can:"Label the four phases of a ventricular pressure volume loop and predict how the loop changes with increased preload, increased afterload, or increased contractility.", dok:3, yield:"high", est:25, facets:["lecture", "draw"], lecture:true, lab:false },
-  { id:"w11-heart-sounds", n:167, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Heart sounds", can:"Explain the origin of the first and second heart sounds and relate a murmur to valve stenosis or regurgitation by its timing.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-stroke-volume", n:168, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Stroke volume and ejection fraction", can:"Calculate stroke volume and ejection fraction from end diastolic and end systolic volumes and interpret a reduced ejection fraction.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w11-cardiac-output", n:169, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Cardiac output", can:"Calculate cardiac output and cardiac reserve and predict the effect of a change in heart rate or stroke volume on each.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w11-frank-starling", n:170, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Frank Starling relationship", can:"State the Frank Starling law and explain how venous return and end diastolic volume determine the force of the next contraction.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-preload-afterload", n:171, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Preload afterload and contractility", can:"Distinguish preload, afterload, and contractility and predict how a change in each alters stroke volume.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-cardiac-regulation", n:172, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Autonomic regulation of the heart", can:"Explain how sympathetic and parasympathetic input alter heart rate and contractility at the receptor and second messenger level.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-lab-heart-sounds", n:173, module:4, week:11, system:"Cardiac Mechanics", general:"Cardiovascular", name:"Heart sound and pulse correlation", can:"Auscultate the heart sounds, locate the valve areas, and correlate the sounds with the pulse and with the cardiac cycle phases.", dok:2, yield:"core", est:20, facets:["lab"], lecture:false, lab:true },
-  { id:"w11-flow-resistance", n:174, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Pressure flow and resistance", can:"Apply the relationship among flow, pressure gradient, and resistance and predict the effect of a change in vessel radius, blood viscosity, or vessel length on flow.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-vessel-function", n:175, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Vessel structure and function", can:"Match arteries, arterioles, capillaries, venules, and veins to their role in pressure buffering, resistance, exchange, and capacitance.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-blood-pressure", n:176, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Arterial blood pressure", can:"Define systolic, diastolic, pulse, and mean arterial pressure, calculate mean arterial pressure, and explain how it is determined by cardiac output and total peripheral resistance.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w11-local-blood-flow", n:177, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Local control of blood flow", can:"Explain myogenic, metabolic, and endothelial control of arteriolar tone and predict the local flow response to increased tissue metabolism.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-capillary-exchange", n:178, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Capillary exchange and Starling forces", can:"Identify the four Starling forces at a capillary and determine the net direction of fluid movement at the arterial and venous ends.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-edema", n:179, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Edema", can:"Explain how increased capillary hydrostatic pressure, reduced plasma protein, increased permeability, or lymphatic blockage each produce edema and match a clinical scenario to its mechanism.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w11-lymph-return", n:180, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Lymphatic return", can:"State the volume of fluid the lymphatic system returns each day and trace lymph from an interstitial space to the subclavian vein.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-venous-return", n:181, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Venous return", can:"Explain the skeletal muscle pump, the respiratory pump, and venoconstriction and predict the effect of prolonged standing on venous return and stroke volume.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-lab-bp-measurement", n:182, module:4, week:11, system:"Vascular Physiology", general:"Cardiovascular", name:"Blood pressure measurement", can:"Measure blood pressure by auscultation, explain the origin of the Korotkoff sounds, and record the response to a postural or exercise challenge.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w11-baroreflex", n:183, module:4, week:11, system:"Cardiovascular Regulation", general:"Cardiovascular", name:"Baroreceptor reflex", can:"Trace the baroreceptor reflex from the carotid sinus and aortic arch through the medulla to the heart and vessels and state the response to a fall in blood pressure.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-cv-hormonal", n:184, module:4, week:11, system:"Cardiovascular Regulation", general:"Cardiovascular", name:"Hormonal control of blood pressure", can:"Describe the roles of angiotensin II, aldosterone, antidiuretic hormone, and atrial natriuretic peptide in long term blood pressure control.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w11-exercise-cv", n:185, module:4, week:11, system:"Cardiovascular Regulation", general:"Cardiovascular", name:"Cardiovascular response to exercise", can:"Predict the change in heart rate, stroke volume, cardiac output, total peripheral resistance, and regional blood flow distribution during moderate exercise.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w11-shock-compensation", n:186, module:4, week:11, system:"Cardiovascular Regulation", general:"Cardiovascular", name:"Compensation in hemorrhage and shock", can:"Sequence the compensatory responses to blood loss and explain the point at which compensation fails.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-respiratory-functions", n:187, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Functions and functional zones", can:"State the functions of the respiratory system and distinguish the conducting zone from the respiratory zone by structure and by role in gas exchange.", dok:1, yield:"core", est:15, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w12-ventilation-mechanics", n:188, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Pressure gradients and airflow", can:"Apply Boyle's law to inspiration and expiration and relate alveolar pressure to atmospheric pressure at each point in a quiet breath.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-intrapleural-pressure", n:189, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Intrapleural pressure", can:"Explain why intrapleural pressure is subatmospheric and predict what happens to the lung and chest wall when the pleural seal is broken.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-compliance", n:190, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Compliance and elastic recoil", can:"Define lung compliance and elastic recoil and predict the effect of fibrosis and of emphysema on each.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-surfactant", n:191, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Surfactant and surface tension", can:"Explain how surfactant lowers surface tension and why its absence causes alveolar collapse in the premature newborn.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-airway-resistance", n:192, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Airway resistance", can:"Identify the main determinant of airway resistance and predict the effect of bronchoconstriction, mucus, and sympathetic stimulation on airflow.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-lung-volumes", n:193, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Lung volumes and capacities", can:"Define tidal volume, inspiratory and expiratory reserve volume, residual volume, vital capacity, and total lung capacity and read each from a spirogram.", dok:2, yield:"core", est:20, facets:["lecture", "lab", "graph"], lecture:true, lab:true },
-  { id:"w12-spirometry-patterns", n:194, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Obstructive and restrictive patterns", can:"Use the ratio of forced expiratory volume in one second to forced vital capacity to classify a spirometry result as obstructive or restrictive.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w12-dead-space", n:195, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Alveolar ventilation and dead space", can:"Calculate minute ventilation and alveolar ventilation and explain why slow deep breathing ventilates the alveoli better than rapid shallow breathing.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w12-lab-spirometry", n:196, module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory", name:"Spirometry", can:"Record a spirogram, calculate the lung volumes and capacities available from it, and compare the results with predicted values.", dok:3, yield:"core", est:30, facets:["lab", "calc", "graph", "data"], lecture:false, lab:true },
-  { id:"w12-partial-pressures", n:197, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Partial pressures", can:"Apply Dalton's law to calculate the partial pressure of oxygen in inspired and alveolar air and state the normal partial pressures in alveolar air, arterial blood, and venous blood.", dok:3, yield:"core", est:30, facets:["lecture", "calc"], lecture:true, lab:false },
-  { id:"w12-gas-diffusion", n:198, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Diffusion at the respiratory membrane", can:"Apply the determinants of diffusion to the respiratory membrane and predict the effect of edema, fibrosis, and emphysema on gas transfer.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-va-q-matching", n:199, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Ventilation perfusion matching", can:"Explain how local hypoxic vasoconstriction and bronchiolar responses match ventilation to perfusion and predict the consequence of a mismatch.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-oxygen-transport", n:200, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Oxygen transport and the oxyhemoglobin curve", can:"Explain the sigmoid shape of the oxyhemoglobin dissociation curve and state the physiological advantage of the steep and the flat portions.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "graph"], lecture:true, lab:true },
-  { id:"w12-hb-curve-shifts", n:201, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Curve shifts", can:"Predict the direction of the oxyhemoglobin curve shift produced by a change in pH, carbon dioxide, temperature, or 2,3 bisphosphoglycerate and state what the shift means for tissue oxygen delivery.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "graph"], lecture:true, lab:true },
-  { id:"w12-co2-transport", n:202, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Carbon dioxide transport", can:"Name the three forms in which carbon dioxide is carried, state the approximate percentage of each, and trace the chloride shift in a systemic capillary.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-bohr-haldane", n:203, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Bohr and Haldane effects", can:"Distinguish the Bohr effect from the Haldane effect and explain how the two work together at the tissue and at the lung.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-oxygen-content", n:204, module:4, week:12, system:"Gas Exchange and Transport", general:"Respiratory", name:"Oxygen content versus partial pressure", can:"Distinguish oxygen content from oxygen partial pressure and saturation and explain why anemia and carbon monoxide poisoning reduce delivery differently.", dok:3, yield:"high", est:25, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w12-respiratory-centers", n:205, module:4, week:12, system:"Control of Ventilation", general:"Respiratory", name:"Respiratory centers", can:"Identify the medullary and pontine respiratory centers and explain how the basic breathing rhythm is generated and modified.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-chemoreceptors", n:206, module:4, week:12, system:"Control of Ventilation", general:"Respiratory", name:"Chemoreceptor control", can:"Compare central and peripheral chemoreceptors by stimulus and explain why carbon dioxide is the primary minute to minute drive to breathe.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-ventilation-adaptation", n:207, module:4, week:12, system:"Control of Ventilation", general:"Respiratory", name:"Ventilation in exercise and at altitude", can:"Predict the ventilatory response to exercise and to acute and chronic altitude exposure and explain the acclimatization changes.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w12-lab-ventilation-response", n:208, module:4, week:12, system:"Control of Ventilation", general:"Respiratory", name:"Ventilatory response testing", can:"Measure the change in breathing rate and depth after hyperventilation, breath holding, and rebreathing and explain each result by the change in carbon dioxide.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
+  { id:"m1-homeostasis", module:1, week:1, system:"Foundations", general:"Foundations",
+    name:"Homeostasis and setpoints",
+    can:"Define homeostasis, setpoint, and normal range, and explain why a regulated variable oscillates around its setpoint instead of holding still.",
+    dok:2, yield:"core", est:15, facets:["lecture","graph"] },
 
-  /* ---------- MODULE 5. Renal, Digestive, Metabolic, Immune and Reproductive Physiology, weeks 13 to 15 ---------- */
-  { id:"w13-kidney-functions", n:209, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Kidney functions", can:"List the homeostatic functions of the kidney including water and electrolyte balance, acid base regulation, waste excretion, blood pressure control, and hormone production.", dok:1, yield:"core", est:15, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-nephron-function", n:210, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Nephron structure and function", can:"Match each nephron segment to its dominant transport function and distinguish a cortical from a juxtamedullary nephron by capability.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w13-renal-processes", n:211, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Three renal processes", can:"Define filtration, reabsorption, secretion, and excretion and write the equation that relates them for any solute.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-filtration-membrane", n:212, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Filtration membrane and selectivity", can:"Describe the three layers of the filtration membrane and predict which plasma components appear in the filtrate based on size and charge.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w13-gfr-forces", n:213, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Net filtration pressure and GFR", can:"Calculate net filtration pressure from glomerular hydrostatic pressure, capsular pressure, and colloid osmotic pressure and predict the effect of each change on glomerular filtration rate.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w13-gfr-regulation", n:214, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Regulation of GFR", can:"Compare myogenic autoregulation, tubuloglomerular feedback, sympathetic control, and hormonal control and predict the effect of afferent and efferent arteriolar constriction on filtration rate.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-renal-clearance", n:215, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Renal clearance", can:"Calculate the clearance of a substance and use inulin and creatinine clearance to estimate glomerular filtration rate.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w13-clearance-inference", n:216, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Clearance and handling inference", can:"Use a clearance value relative to glomerular filtration rate to determine whether a substance is net reabsorbed or net secreted.", dok:3, yield:"high", est:25, facets:["lecture", "lab", "calc"], lecture:true, lab:true },
-  { id:"w13-proximal-reabsorption", n:217, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Proximal tubule reabsorption", can:"Explain how the sodium gradient drives reabsorption of glucose, amino acids, and water in the proximal tubule and state why reabsorption there is described as isosmotic.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-renal-threshold", n:218, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Transport maximum and renal threshold", can:"Distinguish transport maximum from renal threshold and explain the appearance of glucose in urine when plasma glucose is elevated.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w13-tubular-secretion", n:219, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Tubular secretion", can:"State the purpose of tubular secretion and name substances secreted including hydrogen ion, potassium, and organic anions such as drugs.", dok:2, yield:"high", est:20, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w13-countercurrent", n:220, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Countercurrent mechanism", can:"Explain how the countercurrent multiplier of the loop of Henle and the countercurrent exchanger of the vasa recta build and preserve the medullary osmotic gradient.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-adh-water-balance", n:221, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Antidiuretic hormone and urine concentration", can:"Trace the response to dehydration from osmoreceptor firing through antidiuretic hormone release to aquaporin insertion and concentrated urine.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w13-raas", n:222, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Renin angiotensin aldosterone system", can:"Trace the renin angiotensin aldosterone pathway from the stimulus for renin release to the effects of angiotensin II and aldosterone on vessels, tubules, and blood pressure.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w13-natriuretic-peptides", n:223, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Natriuretic peptides", can:"Explain how atrial natriuretic peptide opposes the renin angiotensin aldosterone system and state the stimulus for its release.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-potassium-handling", n:224, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Potassium handling", can:"Explain how aldosterone and plasma potassium regulate potassium secretion in the collecting duct and predict the effect of a potassium wasting diuretic.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-micturition", n:225, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Micturition", can:"Trace the micturition reflex and explain how the internal and external sphincters allow voluntary control.", dok:2, yield:"support", est:15, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-lab-urinalysis", n:226, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Urinalysis", can:"Perform a urinalysis measuring specific gravity, pH, glucose, protein, ketones, and blood and relate any abnormal finding to the renal process that failed.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w13-lab-renal-calculation", n:227, module:5, week:13, system:"Renal Physiology", general:"Renal", name:"Renal function calculation", can:"Calculate glomerular filtration rate, clearance, and filtered load from a data set and interpret the values in a clinical case.", dok:3, yield:"core", est:30, facets:["lab", "calc", "data", "clinical"], lecture:false, lab:true },
-  { id:"w13-buffer-systems", n:228, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"Buffer systems", can:"Compare the bicarbonate, phosphate, and protein buffer systems by location and speed and explain why bicarbonate is the dominant extracellular buffer.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-respiratory-ph-control", n:229, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"Respiratory control of pH", can:"Explain how a change in ventilation shifts the carbon dioxide and bicarbonate equilibrium and therefore plasma pH.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-renal-ph-control", n:230, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"Renal control of pH", can:"Describe how the kidney secretes hydrogen ion and reclaims or generates bicarbonate and explain why renal compensation is slower and more complete than respiratory compensation.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w13-acid-base-disorders", n:231, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"The four acid base disorders", can:"Classify a disorder as respiratory or metabolic and as acidosis or alkalosis from pH, partial pressure of carbon dioxide, and bicarbonate.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w13-acid-base-compensation", n:232, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"Compensation", can:"Determine whether an acid base disorder is uncompensated, partially compensated, or fully compensated and name the system doing the compensating.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w13-lab-abg-interpretation", n:233, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"Arterial blood gas interpretation", can:"Interpret a set of arterial blood gas values and match the result to a plausible clinical cause.", dok:3, yield:"core", est:30, facets:["lab", "clinical"], lecture:false, lab:true },
-  { id:"w13-volume-osmolarity", n:234, module:5, week:13, system:"Acid Base and Fluid Balance", general:"Acid Base and Fluid", name:"Volume and osmolarity disturbances", can:"Classify a disturbance as volume depletion or overload and as hypoosmotic, isosmotic, or hyperosmotic and predict the resulting fluid shift between compartments.", dok:3, yield:"high", est:25, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-digestive-processes", n:235, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Four digestive processes", can:"Distinguish motility, secretion, digestion, and absorption and identify where in the tract each dominates.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-gi-motility", n:236, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Motility patterns", can:"Compare peristalsis, segmentation, and the migrating motor complex by pattern and purpose.", dok:2, yield:"core", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w14-gi-regulation", n:237, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Neural and hormonal regulation", can:"Explain short and long reflex control by the enteric nervous system and match gastrin, secretin, cholecystokinin, and glucose dependent insulinotropic peptide to their stimulus and action.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-digestive-phases", n:238, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Phases of digestive control", can:"Describe the cephalic, gastric, and intestinal phases and state the dominant control mechanism in each.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-gastric-secretion", n:239, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Gastric secretion and mucosal protection", can:"Trace the production of hydrochloric acid by the parietal cell and explain how the mucosal barrier protects the stomach and how ulcers develop when it fails.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-pancreatic-bile-secretion", n:240, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Pancreatic and biliary secretion", can:"State the components of pancreatic juice and bile and explain how bicarbonate neutralizes chyme and how bile salts emulsify fat.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-carb-protein-absorption", n:241, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Carbohydrate and protein digestion and absorption", can:"Trace a starch and a protein from mouth to bloodstream naming the enzymes at each step and the transport mechanism at the brush border.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w14-lipid-absorption", n:242, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Lipid digestion and absorption", can:"Trace a triglyceride through emulsification, lipase action, micelle formation, and chylomicron packaging to the lymphatic route and explain why fat takes a different path than glucose.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-liver-function", n:243, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Liver function and enterohepatic circulation", can:"State the metabolic, storage, and detoxification functions of the liver and trace the enterohepatic circulation of bile salts.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-large-intestine", n:244, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Large intestine and microbiome", can:"Describe water and electrolyte absorption in the colon, the contribution of the microbiome, and the defecation reflex.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-lab-digestion-enzymes", n:245, module:5, week:14, system:"Digestive Physiology", general:"Digestive", name:"Digestive enzyme experiment", can:"Test the effect of pH, temperature, and substrate on a digestive enzyme and relate the results to the region of the tract where that enzyme works.", dok:3, yield:"core", est:30, facets:["lab", "data"], lecture:false, lab:true },
-  { id:"w14-atp-pathways", n:246, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"ATP production pathways", can:"Compare glycolysis, the citric acid cycle, and oxidative phosphorylation by location, oxygen requirement, and ATP yield.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-absorptive-state", n:247, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"Absorptive state", can:"Describe the fate of glucose, amino acids, and fats in the absorptive state and identify insulin as the dominant hormone.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-postabsorptive-state", n:248, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"Postabsorptive state", can:"Explain how glycogenolysis, gluconeogenesis, lipolysis, and ketogenesis maintain plasma glucose during fasting and name the hormones that drive each.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-glucose-regulation", n:249, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"Integrated glucose regulation", can:"Predict the hormonal and metabolic response to a carbohydrate meal and to a prolonged fast and explain how plasma glucose stays within range in both.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w14-metabolic-rate", n:250, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"Energy balance and metabolic rate", can:"Define basal metabolic rate, state the factors that raise and lower it, and explain how indirect calorimetry estimates energy expenditure.", dok:2, yield:"high", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w14-thermoregulation", n:251, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"Thermoregulation", can:"Trace the negative feedback response to heat and to cold through the hypothalamus and the effectors and explain the mechanism of fever.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w14-lab-metabolic-rate", n:252, module:5, week:14, system:"Metabolism and Energy Balance", general:"Metabolic", name:"Metabolic rate measurement", can:"Estimate metabolic rate from measured or simulated oxygen consumption and compare resting values with values after activity.", dok:3, yield:"high", est:25, facets:["lab", "data", "model"], lecture:false, lab:true },
-  { id:"w15-innate-immunity", n:253, module:5, week:15, system:"Immune Physiology", general:"Immune", name:"Innate defenses", can:"Describe the physical, chemical, and cellular innate defenses and explain what makes them nonspecific and immediate.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-inflammation", n:254, module:5, week:15, system:"Immune Physiology", general:"Immune", name:"Inflammation and fever", can:"Order the events of the inflammatory response and explain how the cardinal signs arise and why fever aids defense.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-adaptive-immunity", n:255, module:5, week:15, system:"Immune Physiology", general:"Immune", name:"Adaptive immunity", can:"Compare humoral and cell mediated immunity by the cell responsible, the target, and the mechanism of elimination.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-antibodies", n:256, module:5, week:15, system:"Immune Physiology", general:"Immune", name:"Antibody structure and function", can:"Relate antibody structure to antigen binding and name the mechanisms by which antibodies neutralize or mark a target.", dok:2, yield:"high", est:20, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w15-immune-memory", n:257, module:5, week:15, system:"Immune Physiology", general:"Immune", name:"Immune memory and immunization", can:"Compare the primary and secondary antibody responses and explain how active and passive immunization produce protection.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-immune-dysfunction", n:258, module:5, week:15, system:"Immune Physiology", general:"Immune", name:"Immune dysfunction", can:"Classify allergy, autoimmunity, and immunodeficiency by what the immune system is doing wrong in each.", dok:2, yield:"support", est:15, facets:["lecture", "clinical"], lecture:true, lab:false },
-  { id:"w15-hpg-axis", n:259, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Hypothalamic pituitary gonadal axis", can:"Trace the gonadotropin releasing hormone axis to the gonads and place the feedback loops for both sexes.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-male-reproductive", n:260, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Male reproductive physiology", can:"Explain the control of spermatogenesis by follicle stimulating hormone, luteinizing hormone, and testosterone and state the roles of the Sertoli and Leydig cells.", dok:2, yield:"core", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-ovarian-cycle", n:261, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Ovarian cycle", can:"Order the follicular, ovulatory, and luteal phases and explain how the luteinizing hormone surge is triggered by positive feedback.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w15-uterine-cycle", n:262, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Uterine cycle", can:"Correlate the menstrual, proliferative, and secretory phases of the uterine cycle with the estrogen and progesterone levels that drive them.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w15-pregnancy-hormones", n:263, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Pregnancy and placental hormones", can:"Explain how human chorionic gonadotropin rescues the corpus luteum and state the roles of placental estrogen, progesterone, and relaxin.", dok:2, yield:"high", est:20, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-parturition-lactation", n:264, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Parturition and lactation", can:"Explain labor as a positive feedback loop driven by oxytocin and compare the hormonal control of milk production with milk ejection.", dok:3, yield:"core", est:30, facets:["lecture"], lecture:true, lab:false },
-  { id:"w15-lab-cycle-graphs", n:265, module:5, week:15, system:"Reproductive Physiology", general:"Reproductive", name:"Hormone cycle graph interpretation", can:"Read a graph of gonadotropin and ovarian hormone levels across a cycle and identify the day of ovulation and the event driving each peak.", dok:3, yield:"core", est:30, facets:["lab", "graph"], lecture:false, lab:true },
-  { id:"w15-integration-case", n:266, module:5, week:15, system:"Integration", general:"Integration", name:"Multisystem integration case", can:"Given a clinical scenario, trace the disturbance through at least three organ systems and identify the compensatory responses in the order they occur.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "clinical"], lecture:true, lab:true },
-  { id:"w15-exercise-integration", n:267, module:5, week:15, system:"Integration", general:"Integration", name:"Exercise as an integrated response", can:"Build an integrated account of moderate exercise across the muscular, cardiovascular, respiratory, endocrine, and renal systems.", dok:3, yield:"core", est:30, facets:["lecture", "lab"], lecture:true, lab:true },
-  { id:"w15-drawing-synthesis", n:268, module:5, week:15, system:"Integration", general:"Integration", name:"Drawing based synthesis check", can:"Draw and annotate a homeostatic pathway from memory and explain each step aloud or in writing without notes.", dok:3, yield:"core", est:30, facets:["lecture", "lab", "draw"], lecture:true, lab:true },
+  { id:"m1-feedback-negative", module:1, week:1, system:"Foundations", general:"Foundations",
+    name:"Negative feedback loops",
+    can:"Label the receptor, control center, and effector in an unfamiliar negative feedback loop and predict what happens when the variable is pushed off setpoint.",
+    dok:3, yield:"core", est:20, facets:["lecture","draw","clinical"] },
+
+  { id:"m1-feedback-positive", module:1, week:1, system:"Foundations", general:"Foundations",
+    name:"Positive feedback and feedforward",
+    can:"Give physiological examples of positive feedback and feedforward control and explain what ends a positive feedback loop.",
+    dok:2, yield:"high", est:15, facets:["lecture","clinical"] },
+
+  { id:"m1-fluid-compartments", module:1, week:1, system:"Body Fluids", general:"Foundations",
+    name:"Body fluid compartments",
+    can:"State the approximate volumes of total body water, intracellular fluid, interstitial fluid, and plasma, and name what separates each compartment.",
+    dok:1, yield:"core", est:15, facets:["lecture","calc"] },
+
+  { id:"m1-ion-distribution", module:1, week:1, system:"Body Fluids", general:"Foundations",
+    name:"Ion distribution across the membrane",
+    can:"State which ions are concentrated inside versus outside the cell and explain what maintains that difference.",
+    dok:2, yield:"core", est:15, facets:["lecture","draw"] },
+
+  { id:"m1-ph-buffers", module:1, week:1, system:"Chemical Basis", general:"Foundations",
+    name:"pH and buffering",
+    can:"Explain what a buffer does to a pH change and identify the physiological buffer systems by where they act.",
+    dok:2, yield:"core", est:15, facets:["lecture","calc"] },
+
+  { id:"m1-protein-shape-function", module:1, week:2, system:"Chemical Basis", general:"Foundations",
+    name:"Protein shape drives function",
+    can:"Explain how a change in protein conformation changes its activity, and predict the effect of denaturation on a channel, enzyme, or receptor.",
+    dok:3, yield:"high", est:15, facets:["lecture","clinical"] },
+
+  { id:"m1-enzyme-kinetics", module:1, week:2, system:"Chemical Basis", general:"Foundations",
+    name:"Enzyme activity and saturation",
+    can:"Read a rate-versus-substrate curve, identify saturation, and explain how competitive and noncompetitive inhibitors change it.",
+    dok:3, yield:"high", est:20, facets:["lecture","graph"] },
+
+  { id:"m1-membrane-structure", module:1, week:2, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Membrane structure and permeability",
+    can:"Predict from a molecule's size, charge, and lipid solubility whether it crosses the bilayer unaided or requires a protein.",
+    dok:3, yield:"core", est:20, facets:["lecture","model"] },
+
+  { id:"m1-diffusion", module:1, week:2, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Simple diffusion and Fick's law",
+    can:"Name the variables in Fick's law and predict how changing surface area, distance, gradient, or permeability changes the diffusion rate.",
+    dok:3, yield:"core", est:20, facets:["lecture","calc","graph"] },
+
+  { id:"m1-osmosis-tonicity", module:1, week:2, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Osmosis, osmolarity, and tonicity",
+    can:"Calculate osmolarity, distinguish osmolarity from tonicity, and predict cell volume change in a given solution.",
+    dok:3, yield:"core", est:25, facets:["lecture","calc","clinical"] },
+
+  { id:"m1-facilitated-diffusion", module:1, week:2, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Channels and facilitated diffusion",
+    can:"Compare leak, voltage-gated, ligand-gated, and mechanically gated channels, and explain why carrier-mediated transport saturates but channel flux does not.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph","model"] },
+
+  { id:"m1-active-transport", module:1, week:3, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Primary and secondary active transport",
+    can:"Distinguish primary from secondary active transport, trace where the energy comes from in each, and classify a transporter as a symporter or antiporter.",
+    dok:3, yield:"core", est:20, facets:["lecture","model","draw"] },
+
+  { id:"m1-sodium-potassium-pump", module:1, week:3, system:"Membrane Transport", general:"Cell Physiology",
+    name:"The sodium-potassium pump",
+    can:"Describe the pump cycle including its 3:2 stoichiometry and explain the two things the pump accomplishes for the cell.",
+    dok:2, yield:"core", est:20, facets:["lecture","draw","model"] },
+
+  { id:"m1-vesicular-transport", module:1, week:3, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Vesicular transport",
+    can:"Distinguish phagocytosis, pinocytosis, receptor-mediated endocytosis, and exocytosis, and state when a cell needs each.",
+    dok:2, yield:"high", est:15, facets:["lecture"] },
+
+  { id:"m1-epithelial-transport", module:1, week:3, system:"Membrane Transport", general:"Cell Physiology",
+    name:"Transepithelial transport",
+    can:"Explain how apical and basolateral membranes differ in their transporters and trace glucose from lumen to blood across an epithelium.",
+    dok:3, yield:"high", est:20, facets:["lecture","draw","model"] },
+
+  { id:"m1-resting-membrane-potential", module:1, week:3, system:"Membrane Potential", general:"Cell Physiology",
+    name:"Resting membrane potential",
+    can:"Explain why the resting potential is negative and closer to the potassium equilibrium potential than the sodium one.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","model"] },
+
+  { id:"m1-nernst-ghk", module:1, week:3, system:"Membrane Potential", general:"Cell Physiology",
+    name:"Equilibrium potential",
+    can:"Use the Nernst equation to find an ion's equilibrium potential and explain what the Goldman equation adds that Nernst does not.",
+    dok:3, yield:"high", est:25, facets:["lecture","calc"] },
+
+  { id:"m1-driving-force", module:1, week:3, system:"Membrane Potential", general:"Cell Physiology",
+    name:"Electrochemical driving force",
+    can:"Given Vm and an ion's equilibrium potential, state the direction the ion will move if its channel opens.",
+    dok:3, yield:"core", est:20, facets:["lecture","calc","model"] },
+
+  { id:"m1-signaling-overview", module:1, week:3, system:"Cell Signaling", general:"Cell Physiology",
+    name:"Modes of cell communication",
+    can:"Distinguish gap junction, contact-dependent, paracrine, autocrine, endocrine, and neural signaling by distance and speed.",
+    dok:2, yield:"core", est:15, facets:["lecture"] },
+
+  { id:"m1-receptor-types", module:1, week:3, system:"Cell Signaling", general:"Cell Physiology",
+    name:"Receptor classes",
+    can:"Compare ion channel receptors, G protein-coupled receptors, enzyme-linked receptors, and intracellular receptors by location, speed, and duration of response.",
+    dok:3, yield:"core", est:25, facets:["lecture","model"] },
+
+  { id:"m1-second-messengers", module:1, week:3, system:"Cell Signaling", general:"Cell Physiology",
+    name:"Second messenger cascades",
+    can:"Trace the cAMP and the IP3/DAG pathways from ligand binding to cellular response and explain what amplification buys the cell.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","model"] },
+
+  { id:"m1-dose-response", module:1, week:3, system:"Cell Signaling", general:"Cell Physiology",
+    name:"Dose-response, agonists, and antagonists",
+    can:"Read a dose-response curve, define affinity and efficacy, and predict the curve shift produced by a competitive antagonist.",
+    dok:3, yield:"high", est:20, facets:["lecture","graph","clinical"] },
+
+  { id:"m1-receptor-regulation", module:1, week:3, system:"Cell Signaling", general:"Cell Physiology",
+    name:"Up-regulation, down-regulation, and tolerance",
+    can:"Explain how chronic exposure to a ligand changes receptor number and connect that to drug tolerance and withdrawal.",
+    dok:3, yield:"high", est:15, facets:["lecture","clinical"] },
+
+/* ============================================================
+   MODULE 2  Neurophysiology and muscle
+   Weeks 4 to 6. Exam 2.
+   ============================================================ */
+
+  { id:"m2-neuron-function", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"Functional regions of a neuron",
+    can:"Match each region of a neuron (dendrites, soma, axon hillock, axon, terminals) to the electrical job it does.",
+    dok:2, yield:"core", est:15, facets:["lecture","draw"] },
+
+  { id:"m2-glia-function", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"Glial cells as functional partners",
+    can:"State the physiological job of astrocytes, oligodendrocytes, Schwann cells, microglia, and ependymal cells.",
+    dok:1, yield:"high", est:15, facets:["lecture"] },
+
+  { id:"m2-graded-potentials", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"Graded potentials",
+    can:"Describe how graded potentials vary with stimulus strength, decay with distance, and sum in space and time.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph","draw"] },
+
+  { id:"m2-action-potential", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"The action potential",
+    can:"Draw a labeled action potential and state which gate is doing what at threshold, peak, repolarization, and afterhyperpolarization.",
+    dok:3, yield:"core", est:30, facets:["lecture","graph","draw","model"] },
+
+  { id:"m2-sodium-gates", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"Voltage-gated sodium channel gating",
+    can:"Explain the activation and inactivation gates and connect their states to the absolute and relative refractory periods.",
+    dok:3, yield:"core", est:25, facets:["lecture","model"] },
+
+  { id:"m2-conduction-velocity", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"Conduction velocity",
+    can:"Explain how myelination and axon diameter change conduction velocity and describe saltatory conduction.",
+    dok:3, yield:"core", est:20, facets:["lecture","clinical"] },
+
+  { id:"m2-demyelination", module:2, week:4, system:"Neurophysiology", general:"Nervous System",
+    name:"Demyelination",
+    can:"Predict the functional consequences of losing myelin and connect them to the clinical picture of a demyelinating disease.",
+    dok:4, yield:"high", est:15, facets:["lecture","clinical"] },
+
+  { id:"m2-synaptic-transmission", module:2, week:5, system:"Neurophysiology", general:"Nervous System",
+    name:"Chemical synaptic transmission",
+    can:"Sequence the events from action potential arrival at the terminal to postsynaptic response, including the role of calcium.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","model"] },
+
+  { id:"m2-epsp-ipsp", module:2, week:5, system:"Neurophysiology", general:"Nervous System",
+    name:"EPSPs, IPSPs, and integration",
+    can:"Predict whether a neuron fires given a set of excitatory and inhibitory inputs and explain where integration happens.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","model"] },
+
+  { id:"m2-neurotransmitters", module:2, week:5, system:"Neurophysiology", general:"Nervous System",
+    name:"Neurotransmitters and their receptors",
+    can:"Match the major neurotransmitters to their receptor types and typical effects, and explain how the same transmitter can excite one cell and inhibit another.",
+    dok:3, yield:"core", est:25, facets:["lecture","clinical"] },
+
+  { id:"m2-synapse-pharmacology", module:2, week:5, system:"Neurophysiology", general:"Nervous System",
+    name:"Where drugs act on a synapse",
+    can:"Given a drug's mechanism, name the step of synaptic transmission it targets and predict the net effect on the postsynaptic cell.",
+    dok:4, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m2-neural-plasticity", module:2, week:5, system:"Neurophysiology", general:"Nervous System",
+    name:"Plasticity and learning",
+    can:"Describe long-term potentiation and explain how synaptic strength changes with use.",
+    dok:2, yield:"support", est:15, facets:["lecture"] },
+
+  { id:"m2-skeletal-ec-coupling", module:2, week:5, system:"Muscle Physiology", general:"Muscular System",
+    name:"Excitation-contraction coupling",
+    can:"Sequence the events from motor neuron action potential to calcium release, naming the DHP and ryanodine receptors and the triad.",
+    dok:3, yield:"core", est:30, facets:["lecture","draw","model"] },
+
+  { id:"m2-nmj", module:2, week:5, system:"Muscle Physiology", general:"Muscular System",
+    name:"The neuromuscular junction",
+    can:"Describe transmission at the neuromuscular junction and predict the effect of blocking acetylcholine release, its receptor, or acetylcholinesterase.",
+    dok:4, yield:"core", est:25, facets:["lecture","clinical","model"] },
+
+  { id:"m2-crossbridge-cycle", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"The crossbridge cycle",
+    can:"Order the crossbridge steps and state where ATP binds and where it is hydrolyzed, then explain rigor mortis from that sequence.",
+    dok:3, yield:"core", est:30, facets:["lecture","draw","model","clinical"] },
+
+  { id:"m2-sliding-filament", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Sliding filament and band changes",
+    can:"State which sarcomere bands narrow, stay the same, or disappear during contraction and explain why.",
+    dok:3, yield:"core", est:20, facets:["lecture","draw","graph"] },
+
+  { id:"m2-length-tension", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Length-tension relationship",
+    can:"Read a length-tension curve and explain the descending and ascending limbs in terms of filament overlap.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph"] },
+
+  { id:"m2-motor-units", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Motor units and recruitment",
+    can:"Define a motor unit, explain the size principle, and describe the two ways the nervous system grades muscle force.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph","lab"] },
+
+  { id:"m2-twitch-tetanus", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Twitch, summation, and tetanus",
+    can:"Read a myogram and explain why increasing stimulus frequency increases force until fused tetanus.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph","lab"] },
+
+  { id:"m2-muscle-metabolism", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Muscle energy systems",
+    can:"Compare creatine phosphate, anaerobic glycolysis, and oxidative phosphorylation by speed, yield, and duration of use.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph"] },
+
+  { id:"m2-fiber-types", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Fiber types and fatigue",
+    can:"Compare slow oxidative, fast oxidative-glycolytic, and fast glycolytic fibers, and give the current physiological explanations for fatigue.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m2-smooth-muscle", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Smooth muscle contraction",
+    can:"Explain the calcium-calmodulin and myosin light chain kinase pathway and state three ways smooth muscle differs functionally from skeletal muscle.",
+    dok:3, yield:"core", est:25, facets:["lecture","model"] },
+
+  { id:"m2-smooth-muscle-tone", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Smooth muscle tone and latch",
+    can:"Explain how smooth muscle holds tension at low energy cost and why that matters for vessels and sphincters.",
+    dok:3, yield:"high", est:15, facets:["lecture"] },
+
+  { id:"m2-cardiac-muscle", module:2, week:6, system:"Muscle Physiology", general:"Muscular System",
+    name:"Cardiac muscle physiology",
+    can:"Explain calcium-induced calcium release and state why cardiac muscle cannot be tetanized.",
+    dok:3, yield:"core", est:20, facets:["lecture","model"] },
+
+/* ============================================================
+   MODULE 3  Sensory, motor, autonomic, and endocrine control
+   Weeks 7 to 9. Exam 3.
+   ============================================================ */
+
+  { id:"m3-sensory-transduction", module:3, week:7, system:"Sensory Physiology", general:"Nervous System",
+    name:"Sensory transduction",
+    can:"Explain how a stimulus becomes a receptor potential and then a train of action potentials, and how intensity is encoded.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","model"] },
+
+  { id:"m3-receptor-adaptation", module:3, week:7, system:"Sensory Physiology", general:"Nervous System",
+    name:"Adaptation and receptive fields",
+    can:"Distinguish tonic from phasic receptors, and explain how receptive field size sets two-point discrimination.",
+    dok:3, yield:"high", est:20, facets:["lecture","graph","lab"] },
+
+  { id:"m3-somatosensory", module:3, week:7, system:"Sensory Physiology", general:"Nervous System",
+    name:"Somatosensory pathways",
+    can:"Trace touch, proprioception, pain, and temperature from receptor to cortex and state where each pathway crosses.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","clinical"] },
+
+  { id:"m3-pain", module:3, week:7, system:"Sensory Physiology", general:"Nervous System",
+    name:"Nociception and pain modulation",
+    can:"Distinguish fast and slow pain, explain referred pain, and describe gate control and descending modulation.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m3-vision", module:3, week:7, system:"Special Senses", general:"Nervous System",
+    name:"Phototransduction and visual processing",
+    can:"Explain why photoreceptors hyperpolarize to light and trace the signal from rod or cone to the visual cortex.",
+    dok:3, yield:"core", est:25, facets:["lecture","model","clinical"] },
+
+  { id:"m3-vision-optics", module:3, week:7, system:"Special Senses", general:"Nervous System",
+    name:"Accommodation and refractive error",
+    can:"Explain accommodation and predict the corrective lens needed for myopia, hyperopia, and presbyopia.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical","lab"] },
+
+  { id:"m3-hearing", module:3, week:7, system:"Special Senses", general:"Nervous System",
+    name:"Hearing",
+    can:"Trace sound from the tympanic membrane to the auditory cortex and explain how the cochlea encodes pitch and loudness.",
+    dok:3, yield:"core", est:25, facets:["lecture","model","clinical"] },
+
+  { id:"m3-equilibrium", module:3, week:7, system:"Special Senses", general:"Nervous System",
+    name:"Equilibrium",
+    can:"Explain how the semicircular canals detect rotation and the otolith organs detect linear acceleration and head position.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m3-chemical-senses", module:3, week:7, system:"Special Senses", general:"Nervous System",
+    name:"Taste and smell",
+    can:"Compare taste and olfactory transduction and explain why olfaction reaches the cortex without a thalamic relay.",
+    dok:2, yield:"support", est:15, facets:["lecture"] },
+
+  { id:"m3-reflex-arc", module:3, week:8, system:"Motor Control", general:"Nervous System",
+    name:"Spinal reflexes",
+    can:"Diagram a monosynaptic stretch reflex and a polysynaptic withdrawal reflex with reciprocal inhibition, and predict the result of a lesion at any point.",
+    dok:4, yield:"core", est:25, facets:["lecture","draw","clinical","lab"] },
+
+  { id:"m3-muscle-spindle-gto", module:3, week:8, system:"Motor Control", general:"Nervous System",
+    name:"Muscle spindles and Golgi tendon organs",
+    can:"Compare what the muscle spindle and the Golgi tendon organ each sense and how each changes motor output.",
+    dok:3, yield:"core", est:20, facets:["lecture","model"] },
+
+  { id:"m3-motor-hierarchy", module:3, week:8, system:"Motor Control", general:"Nervous System",
+    name:"Motor control hierarchy",
+    can:"Describe how cortex, basal ganglia, cerebellum, brainstem, and spinal cord divide the work of producing movement.",
+    dok:3, yield:"core", est:25, facets:["lecture","clinical"] },
+
+  { id:"m3-upper-lower-motor", module:3, week:8, system:"Motor Control", general:"Nervous System",
+    name:"Upper versus lower motor neuron signs",
+    can:"Distinguish upper from lower motor neuron lesions by tone, reflexes, and atrophy, and localize a lesion from a described deficit.",
+    dok:4, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m3-cortex-eeg-sleep", module:3, week:8, system:"Integrative CNS", general:"Nervous System",
+    name:"Cortical function, EEG, and sleep",
+    can:"Relate EEG patterns to states of consciousness and describe the physiological differences between REM and non-REM sleep.",
+    dok:2, yield:"support", est:20, facets:["lecture","graph"] },
+
+  { id:"m3-memory-language", module:3, week:8, system:"Integrative CNS", general:"Nervous System",
+    name:"Learning, memory, and language",
+    can:"Distinguish working, declarative, and procedural memory and name the structures each depends on.",
+    dok:2, yield:"support", est:15, facets:["lecture","clinical"] },
+
+  { id:"m3-ans-organization", module:3, week:8, system:"Autonomic Nervous System", general:"Nervous System",
+    name:"Autonomic organization",
+    can:"Compare sympathetic and parasympathetic divisions by outflow, ganglion location, and preganglionic and postganglionic fiber length.",
+    dok:2, yield:"core", est:20, facets:["lecture","draw"] },
+
+  { id:"m3-ans-receptors", module:3, week:8, system:"Autonomic Nervous System", general:"Nervous System",
+    name:"Autonomic neurotransmitters and receptors",
+    can:"Match alpha 1, alpha 2, beta 1, beta 2, nicotinic, and muscarinic receptors to their transmitters, locations, and effects.",
+    dok:3, yield:"core", est:30, facets:["lecture","clinical"] },
+
+  { id:"m3-ans-effects", module:3, week:8, system:"Autonomic Nervous System", general:"Nervous System",
+    name:"Predicting autonomic effects",
+    can:"Given a drug or a stimulus, predict its effect on heart rate, airway diameter, pupil size, gut motility, and blood pressure.",
+    dok:4, yield:"core", est:25, facets:["lecture","clinical"] },
+
+  { id:"m3-adrenal-medulla", module:3, week:8, system:"Autonomic Nervous System", general:"Nervous System",
+    name:"The adrenal medulla as a modified ganglion",
+    can:"Explain why the adrenal medulla makes the sympathetic response longer lasting and more widespread than direct innervation alone.",
+    dok:3, yield:"high", est:15, facets:["lecture"] },
+
+  { id:"m3-hormone-classes", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Hormone classes and their handling",
+    can:"Compare peptide, steroid, and amine hormones by synthesis, storage, transport, receptor location, and speed of response.",
+    dok:3, yield:"core", est:25, facets:["lecture","model"] },
+
+  { id:"m3-hormone-regulation", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Hormone secretion control",
+    can:"Explain humoral, neural, and hormonal control of secretion and trace a negative feedback loop through a three-tier axis.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw"] },
+
+  { id:"m3-hypothalamic-pituitary", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Hypothalamic-pituitary axes",
+    can:"Distinguish anterior from posterior pituitary control and trace each tropic hormone to its target and end hormone.",
+    dok:3, yield:"core", est:30, facets:["lecture","draw","clinical"] },
+
+  { id:"m3-growth-hormone", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Growth hormone",
+    can:"Describe growth hormone's direct and IGF-mediated effects and the consequences of excess or deficiency before and after epiphyseal closure.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m3-thyroid", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Thyroid hormone",
+    can:"Describe thyroid hormone synthesis and action, and interpret TSH and free T4 values to localize a thyroid problem.",
+    dok:4, yield:"core", est:25, facets:["lecture","data","clinical"] },
+
+  { id:"m3-adrenal-cortex", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Adrenal cortex hormones",
+    can:"Match each cortical zone to its hormone and describe the metabolic and immune actions of cortisol.",
+    dok:3, yield:"core", est:25, facets:["lecture","clinical"] },
+
+  { id:"m3-stress-response", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"The stress response",
+    can:"Compare the fast sympathetic-adrenal response with the slower HPA axis response and describe the cost of chronic activation.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m3-pancreatic-hormones", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Insulin and glucagon",
+    can:"Describe insulin and glucagon actions on liver, muscle, and adipose, and predict blood glucose after a meal and after a fast.",
+    dok:4, yield:"core", est:30, facets:["lecture","graph","clinical"] },
+
+  { id:"m3-diabetes", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Diabetes mellitus physiology",
+    can:"Explain the mechanism behind polyuria, polydipsia, and ketoacidosis, and contrast type 1 and type 2 pathophysiology.",
+    dok:4, yield:"core", est:25, facets:["lecture","clinical","data"] },
+
+  { id:"m3-calcium-homeostasis", module:3, week:9, system:"Endocrine", general:"Endocrine System",
+    name:"Calcium homeostasis",
+    can:"Explain how parathyroid hormone, calcitriol, and calcitonin act on bone, kidney, and gut to hold plasma calcium in range.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","clinical"] },
+
+/* ============================================================
+   MODULE 4  Cardiovascular and respiratory
+   Weeks 10 to 12. Exam 4.
+   ============================================================ */
+
+  { id:"m4-cardiac-ap", module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular System",
+    name:"Cardiac action potentials",
+    can:"Compare the ventricular myocyte action potential with the SA nodal action potential by phases and by the currents in each.",
+    dok:3, yield:"core", est:30, facets:["lecture","graph","model"] },
+
+  { id:"m4-pacemaker", module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular System",
+    name:"Pacemaker activity and rate control",
+    can:"Explain the funny current and the pacemaker potential, and predict how sympathetic and parasympathetic input change the slope and the heart rate.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","clinical"] },
+
+  { id:"m4-conduction-timing", module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular System",
+    name:"Conduction through the heart",
+    can:"Trace the impulse through the conduction system and explain why the AV nodal delay is necessary.",
+    dok:3, yield:"core", est:20, facets:["lecture","draw"] },
+
+  { id:"m4-ecg", module:4, week:10, system:"Cardiac Electrophysiology", general:"Cardiovascular System",
+    name:"ECG interpretation basics",
+    can:"Match each ECG wave and interval to the electrical event it represents, measure rate, and recognize a rhythm as normal or abnormal.",
+    dok:4, yield:"core", est:30, facets:["lecture","data","lab","clinical"] },
+
+  { id:"m4-cardiac-cycle", module:4, week:10, system:"Cardiac Mechanics", general:"Cardiovascular System",
+    name:"The cardiac cycle",
+    can:"Align pressure, volume, valve position, heart sounds, and the ECG across one cardiac cycle on a Wiggers diagram.",
+    dok:4, yield:"core", est:35, facets:["lecture","graph","draw"] },
+
+  { id:"m4-pressure-volume-loop", module:4, week:10, system:"Cardiac Mechanics", general:"Cardiovascular System",
+    name:"Pressure-volume loops",
+    can:"Read a ventricular pressure-volume loop and predict how it changes with altered preload, afterload, or contractility.",
+    dok:4, yield:"high", est:25, facets:["lecture","graph"] },
+
+  { id:"m4-cardiac-output", module:4, week:10, system:"Cardiac Mechanics", general:"Cardiovascular System",
+    name:"Cardiac output and its determinants",
+    can:"Calculate cardiac output, ejection fraction, and stroke volume, and explain how preload, afterload, and contractility each move stroke volume.",
+    dok:3, yield:"core", est:25, facets:["lecture","calc","clinical"] },
+
+  { id:"m4-frank-starling", module:4, week:10, system:"Cardiac Mechanics", general:"Cardiovascular System",
+    name:"The Frank-Starling relationship",
+    can:"Explain the Frank-Starling mechanism at the sarcomere level and read a family of Starling curves at different contractilities.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","model"] },
+
+  { id:"m4-hemodynamics", module:4, week:11, system:"Hemodynamics", general:"Cardiovascular System",
+    name:"Pressure, flow, and resistance",
+    can:"Apply the flow equation and Poiseuille's law to predict how a change in vessel radius changes resistance and flow.",
+    dok:3, yield:"core", est:25, facets:["lecture","calc","graph"] },
+
+  { id:"m4-vessel-function", module:4, week:11, system:"Hemodynamics", general:"Cardiovascular System",
+    name:"Functional roles of the vessel types",
+    can:"Match arteries, arterioles, capillaries, venules, and veins to their functional roles, and explain why arterioles set resistance and veins hold volume.",
+    dok:3, yield:"core", est:20, facets:["lecture","graph"] },
+
+  { id:"m4-blood-pressure", module:4, week:11, system:"Hemodynamics", general:"Cardiovascular System",
+    name:"Arterial blood pressure",
+    can:"Calculate pulse pressure and mean arterial pressure and explain what changes each one.",
+    dok:3, yield:"core", est:20, facets:["lecture","calc","lab"] },
+
+  { id:"m4-capillary-exchange", module:4, week:11, system:"Microcirculation", general:"Cardiovascular System",
+    name:"Capillary exchange and Starling forces",
+    can:"Use hydrostatic and colloid osmotic pressures to predict net filtration or reabsorption at a capillary, and explain four mechanisms of edema.",
+    dok:4, yield:"core", est:30, facets:["lecture","calc","draw","clinical"] },
+
+  { id:"m4-lymphatic-function", module:4, week:11, system:"Microcirculation", general:"Cardiovascular System",
+    name:"Lymphatic return",
+    can:"Explain what the lymphatic system returns to circulation and what happens functionally when lymph drainage is blocked.",
+    dok:2, yield:"high", est:15, facets:["lecture","clinical"] },
+
+  { id:"m4-local-flow-control", module:4, week:11, system:"Blood Pressure Regulation", general:"Cardiovascular System",
+    name:"Local control of blood flow",
+    can:"Explain active hyperemia, reactive hyperemia, and myogenic autoregulation, and name the local metabolites that dilate vessels.",
+    dok:3, yield:"high", est:20, facets:["lecture","model"] },
+
+  { id:"m4-baroreceptor", module:4, week:11, system:"Blood Pressure Regulation", general:"Cardiovascular System",
+    name:"The baroreceptor reflex",
+    can:"Trace the baroreceptor reflex from sensor to effector and predict every step of the response to standing up or to hemorrhage.",
+    dok:4, yield:"core", est:30, facets:["lecture","draw","clinical","lab"] },
+
+  { id:"m4-raas-adh-bp", module:4, week:11, system:"Blood Pressure Regulation", general:"Cardiovascular System",
+    name:"Long-term blood pressure control",
+    can:"Explain how the renin-angiotensin-aldosterone system, ADH, and atrial natriuretic peptide set blood pressure over hours to days.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","clinical"] },
+
+  { id:"m4-shock", module:4, week:11, system:"Blood Pressure Regulation", general:"Cardiovascular System",
+    name:"Circulatory shock",
+    can:"Classify shock by its hemodynamic profile and predict cardiac output, resistance, and compensations in each type.",
+    dok:4, yield:"high", est:25, facets:["lecture","clinical","data"] },
+
+  { id:"m4-hemostasis", module:4, week:11, system:"Blood", general:"Cardiovascular System",
+    name:"Hemostasis",
+    can:"Sequence vascular spasm, platelet plug formation, and coagulation, and state where the intrinsic and extrinsic pathways converge.",
+    dok:3, yield:"high", est:25, facets:["lecture","draw","clinical"] },
+
+  { id:"m4-erythropoiesis-control", module:4, week:11, system:"Blood", general:"Cardiovascular System",
+    name:"Control of red cell production",
+    can:"Explain the erythropoietin feedback loop and predict hematocrit change with altitude, renal failure, or chronic hypoxia.",
+    dok:3, yield:"high", est:15, facets:["lecture","clinical"] },
+
+  { id:"m4-ventilation-mechanics", module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory System",
+    name:"Mechanics of breathing",
+    can:"Explain quiet inspiration and expiration using Boyle's law and describe how intrapleural pressure keeps the lungs inflated.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","model"] },
+
+  { id:"m4-compliance-surfactant", module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory System",
+    name:"Compliance, surface tension, and surfactant",
+    can:"Explain how surfactant lowers surface tension and stabilizes alveoli, and predict the effect of low compliance or surfactant deficiency.",
+    dok:3, yield:"core", est:25, facets:["lecture","clinical","model"] },
+
+  { id:"m4-airway-resistance", module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory System",
+    name:"Airway resistance",
+    can:"State what sets airway resistance and predict the effect of bronchoconstriction on the work of breathing and on flow.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m4-lung-volumes", module:4, week:12, system:"Respiratory Mechanics", general:"Respiratory System",
+    name:"Lung volumes, capacities, and spirometry",
+    can:"Label a spirogram, calculate the capacities, compute alveolar ventilation, and distinguish an obstructive from a restrictive pattern.",
+    dok:4, yield:"core", est:30, facets:["lecture","graph","calc","lab","data"] },
+
+  { id:"m4-gas-exchange", module:4, week:12, system:"Gas Exchange", general:"Respiratory System",
+    name:"Alveolar gas exchange",
+    can:"Use partial pressure gradients to explain gas movement at the alveolus and at the tissue, and name what limits diffusion.",
+    dok:3, yield:"core", est:25, facets:["lecture","calc","draw"] },
+
+  { id:"m4-vq-matching", module:4, week:12, system:"Gas Exchange", general:"Respiratory System",
+    name:"Ventilation-perfusion matching",
+    can:"Explain hypoxic pulmonary vasoconstriction and predict blood gases in a shunt versus a dead space problem.",
+    dok:4, yield:"high", est:25, facets:["lecture","clinical","data"] },
+
+  { id:"m4-oxygen-transport", module:4, week:12, system:"Gas Transport", general:"Respiratory System",
+    name:"Oxygen transport and the dissociation curve",
+    can:"Read the oxyhemoglobin dissociation curve, explain its sigmoid shape, and predict shifts from pH, temperature, PCO2, and 2,3-BPG.",
+    dok:4, yield:"core", est:30, facets:["lecture","graph","clinical"] },
+
+  { id:"m4-co2-transport", module:4, week:12, system:"Gas Transport", general:"Respiratory System",
+    name:"Carbon dioxide transport",
+    can:"State the three forms carbon dioxide travels in and explain the chloride shift and the Haldane effect.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","model"] },
+
+  { id:"m4-ventilation-control", module:4, week:12, system:"Gas Transport", general:"Respiratory System",
+    name:"Control of ventilation",
+    can:"Name the brainstem respiratory centers, compare central and peripheral chemoreceptors, and state which stimulus normally drives ventilation.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","clinical"] },
+
+  { id:"m4-respiratory-adjustments", module:4, week:12, system:"Gas Transport", general:"Respiratory System",
+    name:"Respiratory responses to exercise and altitude",
+    can:"Predict the ventilatory and blood gas changes during exercise and during acclimatization to altitude.",
+    dok:4, yield:"high", est:20, facets:["lecture","data","clinical"] },
+
+/* ============================================================
+   MODULE 5  Renal, acid-base, digestive, metabolism, immune,
+             and reproductive physiology
+   Weeks 13 to 15. Exam 5, then the cumulative final.
+   ============================================================ */
+
+  { id:"m5-renal-functions", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Functions of the kidney",
+    can:"List the kidney's regulatory functions beyond waste removal and name the hormone it makes or activates for each.",
+    dok:2, yield:"core", est:15, facets:["lecture"] },
+
+  { id:"m5-nephron-processes", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Filtration, reabsorption, secretion, excretion",
+    can:"Write the excretion equation and state, for any substance, which of the three processes act on it.",
+    dok:3, yield:"core", est:20, facets:["lecture","calc","draw"] },
+
+  { id:"m5-gfr", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Glomerular filtration rate",
+    can:"Use the glomerular Starling forces to explain what sets GFR and predict GFR change when afferent or efferent arteriole tone changes.",
+    dok:4, yield:"core", est:30, facets:["lecture","calc","model","clinical"] },
+
+  { id:"m5-gfr-regulation", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Autoregulation and tubuloglomerular feedback",
+    can:"Explain myogenic autoregulation and tubuloglomerular feedback and the role of the macula densa.",
+    dok:3, yield:"core", est:25, facets:["lecture","model"] },
+
+  { id:"m5-clearance", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Renal clearance",
+    can:"Calculate clearance and use it to decide whether a substance was net reabsorbed or net secreted.",
+    dok:3, yield:"core", est:25, facets:["lecture","calc","data"] },
+
+  { id:"m5-tubular-transport", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Tubular reabsorption and transport maximum",
+    can:"Describe reabsorption along the nephron segment by segment and use transport maximum and renal threshold to explain glucosuria in diabetes.",
+    dok:4, yield:"core", est:30, facets:["lecture","graph","clinical"] },
+
+  { id:"m5-countercurrent", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Countercurrent multiplier and exchanger",
+    can:"Explain how the loop of Henle builds the medullary osmotic gradient and how the vasa recta preserves it.",
+    dok:4, yield:"core", est:30, facets:["lecture","draw","model"] },
+
+  { id:"m5-urine-concentration", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Concentrating and diluting the urine",
+    can:"Explain how ADH changes collecting duct permeability and predict urine volume and osmolarity after water loading or dehydration.",
+    dok:4, yield:"core", est:25, facets:["lecture","clinical","data"] },
+
+  { id:"m5-sodium-water-balance", module:5, week:13, system:"Fluid and Electrolyte", general:"Urinary System",
+    name:"Sodium and water balance",
+    can:"Explain how aldosterone, ADH, and atrial natriuretic peptide together set sodium and water excretion, and connect that to blood volume and pressure.",
+    dok:4, yield:"core", est:30, facets:["lecture","draw","clinical"] },
+
+  { id:"m5-potassium-balance", module:5, week:13, system:"Fluid and Electrolyte", general:"Urinary System",
+    name:"Potassium balance",
+    can:"Explain how the kidney handles potassium and predict the effect of hyperkalemia and hypokalemia on excitable tissue.",
+    dok:4, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m5-micturition", module:5, week:13, system:"Renal Physiology", general:"Urinary System",
+    name:"Micturition",
+    can:"Describe the micturition reflex and how voluntary control is layered on top of it.",
+    dok:2, yield:"high", est:15, facets:["lecture","clinical"] },
+
+  { id:"m5-acid-base-principles", module:5, week:14, system:"Acid-Base", general:"Urinary System",
+    name:"Acid-base balance",
+    can:"Explain how the bicarbonate buffer system, the lungs, and the kidneys each defend pH, and state how fast each acts.",
+    dok:3, yield:"core", est:30, facets:["lecture","calc","model"] },
+
+  { id:"m5-abg-interpretation", module:5, week:14, system:"Acid-Base", general:"Urinary System",
+    name:"Interpreting an arterial blood gas",
+    can:"Classify a blood gas as respiratory or metabolic, acidosis or alkalosis, and state whether compensation is absent, partial, or full.",
+    dok:4, yield:"core", est:30, facets:["lecture","data","clinical","lab"] },
+
+  { id:"m5-renal-acid-handling", module:5, week:14, system:"Acid-Base", general:"Urinary System",
+    name:"Renal compensation",
+    can:"Explain bicarbonate reabsorption, new bicarbonate generation, and ammonium and phosphate buffering in the tubule.",
+    dok:3, yield:"high", est:25, facets:["lecture","draw"] },
+
+  { id:"m5-gi-motility", module:5, week:14, system:"Digestive Physiology", general:"Digestive System",
+    name:"GI motility",
+    can:"Distinguish peristalsis from segmentation, describe slow waves and the interstitial cells of Cajal, and name what controls each sphincter.",
+    dok:3, yield:"core", est:25, facets:["lecture","model"] },
+
+  { id:"m5-gi-regulation", module:5, week:14, system:"Digestive Physiology", general:"Digestive System",
+    name:"Neural and hormonal control of digestion",
+    can:"Compare the enteric nervous system with autonomic input, and match gastrin, secretin, CCK, and GIP to their triggers and actions.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw","clinical"] },
+
+  { id:"m5-gastric-secretion", module:5, week:14, system:"Digestive Physiology", general:"Digestive System",
+    name:"Gastric secretion",
+    can:"Explain how the parietal cell makes hydrochloric acid, name the three phases of secretion, and describe how the stomach protects itself.",
+    dok:3, yield:"core", est:25, facets:["lecture","model","clinical"] },
+
+  { id:"m5-digestion-absorption", module:5, week:14, system:"Digestive Physiology", general:"Digestive System",
+    name:"Digestion and absorption of nutrients",
+    can:"For carbohydrate, protein, and fat, name the enzymes, the final absorbable form, and the route each takes out of the enterocyte.",
+    dok:3, yield:"core", est:30, facets:["lecture","draw"] },
+
+  { id:"m5-liver-bile", module:5, week:14, system:"Digestive Physiology", general:"Digestive System",
+    name:"Liver, bile, and the pancreas",
+    can:"Explain bile's role in fat emulsification, describe enterohepatic circulation, and state what pancreatic secretion contributes.",
+    dok:3, yield:"core", est:25, facets:["lecture","clinical"] },
+
+  { id:"m5-metabolic-states", module:5, week:14, system:"Metabolism", general:"Metabolism",
+    name:"Absorptive and postabsorptive states",
+    can:"Describe the fuel flows and dominant hormones in the fed state and the fasted state, and state what supplies the brain in each.",
+    dok:3, yield:"core", est:25, facets:["lecture","graph","clinical"] },
+
+  { id:"m5-energy-balance", module:5, week:14, system:"Metabolism", general:"Metabolism",
+    name:"Energy balance and appetite",
+    can:"Define metabolic rate and its determinants, and describe how leptin, ghrelin, and the hypothalamus regulate intake.",
+    dok:2, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m5-thermoregulation", module:5, week:14, system:"Metabolism", general:"Metabolism",
+    name:"Thermoregulation",
+    can:"Diagram temperature regulation as a negative feedback loop and explain fever as a setpoint change rather than a control failure.",
+    dok:3, yield:"high", est:20, facets:["lecture","draw","clinical"] },
+
+  { id:"m5-innate-immunity", module:5, week:15, system:"Immune Physiology", general:"Immune System",
+    name:"Innate defenses",
+    can:"Describe the physical barriers, phagocytes, complement, interferons, and the inflammatory response, and explain what makes inflammation useful and what makes it harmful.",
+    dok:3, yield:"core", est:25, facets:["lecture","clinical"] },
+
+  { id:"m5-adaptive-immunity", module:5, week:15, system:"Immune Physiology", general:"Immune System",
+    name:"Adaptive immunity",
+    can:"Compare humoral and cell-mediated immunity, describe antigen presentation, and explain immunological memory and how vaccines use it.",
+    dok:3, yield:"core", est:30, facets:["lecture","draw","clinical"] },
+
+  { id:"m5-immune-dysfunction", module:5, week:15, system:"Immune Physiology", general:"Immune System",
+    name:"When immunity misfires",
+    can:"Distinguish hypersensitivity, autoimmunity, and immunodeficiency by mechanism and give a clinical example of each.",
+    dok:3, yield:"high", est:20, facets:["lecture","clinical"] },
+
+  { id:"m5-male-reproductive", module:5, week:15, system:"Reproductive Physiology", general:"Reproductive System",
+    name:"Male reproductive physiology",
+    can:"Trace the hypothalamic-pituitary-gonadal axis in the male and describe testosterone's actions and its feedback control.",
+    dok:3, yield:"core", est:25, facets:["lecture","draw"] },
+
+  { id:"m5-female-cycle", module:5, week:15, system:"Reproductive Physiology", general:"Reproductive System",
+    name:"The ovarian and uterine cycles",
+    can:"Align FSH, LH, estrogen, and progesterone with the ovarian and uterine phases and explain the LH surge as positive feedback.",
+    dok:4, yield:"core", est:35, facets:["lecture","graph","draw","clinical"] },
+
+  { id:"m5-pregnancy-lactation", module:5, week:15, system:"Reproductive Physiology", general:"Reproductive System",
+    name:"Pregnancy, parturition, and lactation",
+    can:"Explain hCG's role in maintaining the corpus luteum, describe parturition as positive feedback, and compare milk production with milk ejection.",
+    dok:3, yield:"high", est:25, facets:["lecture","clinical"] },
+
+  { id:"m5-integration-case", module:5, week:15, system:"Integration", general:"Integration",
+    name:"Multi-system integration",
+    can:"Given a clinical scenario, trace the disturbance across at least three systems and name the compensations each one mounts.",
+    dok:4, yield:"core", est:40, facets:["lecture","clinical","draw","data"] }
+
 ];
 
+/* ============================================================
+   MODULE INDEX
+   Kept separate from the competency array so the schedule builder,
+   the exam blueprint, and the viewer can all read one source.
+   Exam dates are PLACEHOLDERS. In an asynchronous course an exam is
+   a window, not a clock time, so each carries opens/closes instead
+   of a single date. Confirm the windows before publishing.
+   ============================================================ */
+
+window.BIO005_MODULES = [
+  { n:1, title:"Foundations, membranes, and cell signaling",
+    weeks:[1,2,3],
+    exam:"Exam 1", examOpens:null, examCloses:null,
+    focus:"Homeostasis, transport, membrane potential, and signal transduction. Everything later in the course is an application of this module." },
+  { n:2, title:"Neurophysiology and muscle",
+    weeks:[4,5,6],
+    exam:"Exam 2", examOpens:null, examCloses:null,
+    focus:"Excitable tissue: action potentials, synapses, and how electrical events become mechanical force." },
+  { n:3, title:"Sensory, motor, autonomic, and endocrine control",
+    weeks:[7,8,9],
+    exam:"Exam 3", examOpens:null, examCloses:null,
+    focus:"The two long-range control systems, neural and hormonal, and how they share the work of regulation." },
+  { n:4, title:"Cardiovascular and respiratory",
+    weeks:[10,11,12],
+    exam:"Exam 4", examOpens:null, examCloses:null,
+    focus:"Bulk transport of oxygen and carbon dioxide, and the pressure and flow rules that govern both pumps." },
+  { n:5, title:"Renal, acid-base, digestive, metabolic, immune, and reproductive",
+    weeks:[13,14,15],
+    exam:"Exam 5, then the cumulative final", examOpens:null, examCloses:null,
+    focus:"Long-term regulation of volume, composition, and pH, plus nutrient handling, defense, and reproduction." }
+];
+
+/* Convenience lookups used by the viewer and the gap finder. */
 window.BIO005_META = {
   course:  "BIO 005 Human Physiology",
   code:    "BIOL-5-D9286",
@@ -357,22 +817,3 @@ window.BIO005_META = {
   yieldList: ["core","high","support"],
   dokLabels: { 1:"Recall", 2:"Apply", 3:"Analyze", 4:"Transfer" }
 };
-
-/* Convenience indexes built once at load. */
-window.BIO005 = (function () {
-  var C = window.BIO005_COMPETENCIES;
-  function groupBy(key) {
-    return C.reduce(function (acc, c) { (acc[c[key]] = acc[c[key]] || []).push(c); return acc; }, {});
-  }
-  return {
-    all: C,
-    modules: window.BIO005_MODULES,
-    byId: C.reduce(function (a, c) { a[c.id] = c; return a; }, {}),
-    byModule: groupBy("module"),
-    byWeek: groupBy("week"),
-    byGeneral: groupBy("general"),
-    bySystem: groupBy("system"),
-    total: C.length,
-    totalEst: C.reduce(function (s, c) { return s + c.est; }, 0)
-  };
-}());

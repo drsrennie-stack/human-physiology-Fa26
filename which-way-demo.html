@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Way Does It Move &middot; BIO 005 Human Physiology</title>
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Yuba College.
+  DEMO of the common first-half build.
+
+  READ THIS PART, IT IS THE WHOLE POINT.
+
+  This file has two halves.
+
+  1. THE PHYSIOLOGY. A list of scenarios, right at the top, clearly
+     marked. This is the part each student writes themselves. It is
+     just typed-out physiology. No programming in it.
+
+  2. THE GAME. Everything below the second marker. It asks the
+     questions, checks the answers, keeps score, and brings back the
+     ones you missed. Every student builds this same part once.
+
+  To add a new scenario you add it to the list. You never touch the
+  game. That is the requirement, and you can see it working here.
+  ============================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#08101F; --navy-darkest:#060A18; --navy-tint:#ECEFF4;
+  --terra:#8B1D1D; --terra-dark:#6B1616;
+  --gold:#DCB45C; --gold-text:#6E5018;
+  --teal-text:#2C5F66; --ink-muted:#3D4860;
+  --rule-control:#767E8C; --rule-soft:#DCE0E6;
+  --page:#FFFFFF; --surface:#FAFAF9;
+  --shadow-card:0 1px 3px rgba(10,19,34,0.08), 0 1px 2px rgba(10,19,34,0.05);
+  --shadow-lift:0 6px 16px rgba(10,19,34,0.10), 0 3px 6px rgba(10,19,34,0.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  background:var(--surface);color:var(--navy);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+em,i,cite,dfn,var,address{font-style:normal;}
+a{color:var(--terra);}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px;}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--navy);color:#fff;
+      padding:10px 16px;font-weight:700;text-decoration:none;border-radius:0 0 8px 0;}
+.skip:focus{left:0;}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+.site-header{background:#fff;padding:18px max(18px,4vw);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.mark{width:40px;height:40px;flex:none;}
+.site-header .t1{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.24em;text-transform:uppercase;color:var(--gold-text);}
+.site-header .t2{font-size:18px;font-weight:800;letter-spacing:-0.01em;}
+.site-header .t3{font-size:12.5px;color:var(--ink-muted);}
+
+.hero{background:var(--navy);color:#fff;padding:36px max(18px,4vw) 32px;}
+.hero .wrap{max-width:760px;margin:0 auto;}
+.hero .eyebrow{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.hero h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-0.025em;margin:0 0 10px;line-height:1.14;}
+.hero h1 .accent{color:var(--gold);}
+.hero p{margin:0;color:#E6E9EF;font-size:15px;}
+
+main{max-width:760px;margin:0 auto;padding:26px max(18px,4vw) 64px;}
+
+.scorebar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:#fff;border:1px solid var(--rule-soft);border-radius:16px;
+  padding:14px 18px;box-shadow:var(--shadow-card);margin-bottom:18px;
+}
+.scorebar .lab{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);}
+.scorebar .val{font-size:20px;font-weight:800;color:var(--navy);}
+.scorebar .val.gold{color:var(--gold-text);}
+.scorebar .grp{display:flex;flex-direction:column;}
+.progress{flex:1;min-width:120px;height:8px;background:var(--navy-tint);border-radius:99px;overflow:hidden;}
+.progress span{display:block;height:100%;background:var(--gold);width:0%;transition:width 300ms ease;}
+
+.card{
+  background:#fff;border:1px solid var(--rule-soft);border-radius:16px;
+  padding:24px 26px;box-shadow:var(--shadow-card);
+}
+.topicline{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--teal-text);margin-bottom:10px;}
+.scenario{font-size:19px;font-weight:800;line-height:1.4;margin:0 0 6px;letter-spacing:-0.01em;}
+.setup{font-size:14.5px;color:var(--ink-muted);margin:0 0 20px;}
+
+fieldset{border:0;padding:0;margin:0 0 16px;}
+fieldset legend{
+  font-size:15.5px;font-weight:700;color:var(--navy);padding:0 0 9px;
+}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.opt{position:relative;}
+.opt input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer;}
+.opt span{
+  display:block;text-align:center;padding:11px 6px;border-radius:8px;
+  border:1px solid var(--rule-control);background:#fff;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-muted);
+  transition:background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+.opt input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff;}
+.opt input:focus-visible + span{outline:3px solid var(--terra);outline-offset:3px;}
+.opt input:disabled + span{cursor:default;}
+
+fieldset.right legend::after{content:' Correct';color:var(--teal-text);font-size:12.5px;font-weight:700;}
+fieldset.wrong legend::after{content:' Not quite';color:var(--terra-dark);font-size:12.5px;font-weight:700;}
+fieldset.right .opt input:checked + span{background:var(--teal-text);border-color:var(--teal-text);}
+fieldset.wrong .opt input:checked + span{background:var(--terra);border-color:var(--terra);}
+fieldset.wrong .opt.answer span{border-color:var(--teal-text);border-width:2px;color:var(--teal-text);}
+
+.why{
+  background:var(--surface);border-radius:8px;padding:16px 18px;margin-top:4px;
+}
+.why .lab{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-text);margin-bottom:6px;}
+.why p{margin:0 0 10px;font-size:14.5px;color:var(--ink-muted);}
+.why p:last-child{margin-bottom:0;}
+.why .trap{color:var(--terra-dark);font-weight:700;}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center;}
+.btn{
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:13px 24px;border-radius:4px;border:1px solid var(--navy);
+  background:var(--navy);color:#fff;cursor:pointer;
+}
+.btn:hover{background:#101B30;}
+.btn:disabled{opacity:0.45;cursor:not-allowed;}
+.btn.ghost{background:#fff;color:var(--navy);}
+.btn.ghost:hover{background:var(--navy-tint);}
+.hint{font-size:13px;color:var(--ink-muted);margin-left:auto;}
+
+.done{text-align:center;padding:12px 0 4px;}
+.done h2{font-size:26px;font-weight:800;margin:0 0 8px;letter-spacing:-0.02em;}
+.done .big{font-size:52px;font-weight:800;color:var(--gold-text);line-height:1.1;}
+.done p{color:var(--ink-muted);font-size:15px;max-width:52ch;margin:10px auto 0;}
+.misslist{text-align:left;margin:22px auto 0;max-width:56ch;}
+.misslist h3{font-size:13px;font-family:'DM Sans',sans-serif;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 10px;}
+.misslist li{font-size:14.5px;color:var(--ink-muted);margin-bottom:7px;}
+
+.teachnote{
+  background:#fff;border:1px solid var(--gold);border-radius:16px;
+  padding:20px 22px;box-shadow:var(--shadow-card);margin-top:26px;
+}
+.teachnote h2{font-size:15px;font-weight:800;margin:0 0 8px;color:var(--gold-text);}
+.teachnote p{margin:0 0 10px;font-size:14px;color:var(--ink-muted);}
+.teachnote p:last-child{margin-bottom:0;}
+.teachnote code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+  background:var(--navy-tint);padding:2px 6px;border-radius:4px;color:var(--navy);
+}
+
+footer{background:var(--navy-darkest);color:#C7CEDA;padding:30px max(18px,4vw);margin-top:48px;}
+footer .wrap{max-width:760px;margin:0 auto;}
+footer .who{color:#fff;font-weight:800;font-size:14.5px;margin-bottom:3px;}
+footer .sm{font-size:12.5px;}
+
+@media (max-width:460px){ .opts{grid-template-columns:1fr;} }
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{transition:none!important;animation:none!important;} }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the game</a>
+
+<header class="site-header">
+  <svg class="mark" viewBox="0 0 44 44" role="img" aria-label="BIO 005 Human Physiology">
+    <rect width="44" height="44" rx="8" fill="#08101F"></rect>
+    <path d="M6 24h6l3-8 4 15 4-20 3.5 13 2.5-5H38" fill="none" stroke="#DCB45C"
+          stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <div>
+    <div class="t1">Build one, demo</div>
+    <div class="t2">Which Way Does It Move</div>
+    <div class="t3">BIO 005 &middot; Yuba College</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Modules 1 and 2</div>
+    <h1>Something changes. <span class="accent">What happens next?</span></h1>
+    <p>Eight scenarios. For each one, say whether the variable goes up, goes down, or holds steady. Then find out whether your reasoning matched the mechanism.</p>
+  </div>
+</section>
+
+<main id="main">
+
+  <div class="scorebar">
+    <div class="grp">
+      <span class="lab">Scenario</span>
+      <span class="val" id="pos">1 of 8</span>
+    </div>
+    <div class="grp">
+      <span class="lab">Correct</span>
+      <span class="val gold" id="score">0</span>
+    </div>
+    <div class="progress" role="presentation"><span id="bar"></span></div>
+  </div>
+
+  <div class="card" id="stage" aria-live="polite"></div>
+
+  <div class="teachnote">
+    <h2>What you are looking at, and what students would build</h2>
+    <p>Everything in this game comes from one list sitting at the top of the file, marked <code>THE PHYSIOLOGY</code>. It is eight scenarios, each with the variables, the right direction for each, and the reason. That list is the part a student writes.</p>
+    <p>Everything under the second marker is the game. It has no physiology in it at all. It does not know what a sarcomere is. It just reads the list, asks, checks, and keeps score. That part is identical for every student in the section.</p>
+    <p>Add a ninth scenario to the list and it appears in the game. Nothing else has to change. That is the requirement, working.</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="who">Dr. Sharilyn Rennie</div>
+    <div class="sm">BIO 005 Human Physiology &middot; Yuba College</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ==============    THE PHYSIOLOGY    ========================
+   ============================================================
+   This is the part each student writes. It is typed-out
+   physiology, nothing else.
+
+   Each scenario needs:
+     topic     which part of the course it belongs to
+     comp      the competency id from the course map it targets
+     scenario  the thing that changes
+     setup     one line of context, optional
+     asks      the variables being predicted. Each one has:
+                 label   what the student is predicting
+                 answer  "up", "down", or "same"
+     why       the mechanism, in your own words
+     trap      the wrong answer people reach for, and why it is wrong
+   ============================================================ */
+
+const ITEMS = [
+
+  {
+    topic: "Membrane transport",
+    comp: "m1-osmosis-tonicity",
+    scenario: "A red blood cell is dropped into a hypertonic saline solution.",
+    setup: "The solution has a higher solute concentration than the inside of the cell.",
+    asks: [
+      { label: "Water movement out of the cell", answer: "up" },
+      { label: "Cell volume",                    answer: "down" },
+      { label: "Intracellular solute concentration", answer: "up" }
+    ],
+    why: "Water follows its own concentration gradient, moving toward the compartment with more solute. Outside is more concentrated, so water leaves and the cell shrinks. Nothing has removed the solute inside the cell, so as volume falls the solute left behind becomes more concentrated.",
+    trap: "The common mistake is thinking solute moves into the cell. The membrane will not pass most solutes freely. Water is what moves."
+  },
+
+  {
+    topic: "Membrane transport",
+    comp: "m1-sodium-potassium-pump",
+    scenario: "The sodium-potassium pump is blocked.",
+    setup: "A drug shuts the pump down while everything else stays intact.",
+    asks: [
+      { label: "Sodium concentration inside the cell", answer: "up" },
+      { label: "Resting membrane potential (how negative it is)", answer: "down" },
+      { label: "Glucose uptake by sodium-linked transport", answer: "down" }
+    ],
+    why: "The pump is what maintains low sodium inside and high potassium inside. Stop it and sodium leaks in and accumulates, so the inside becomes less negative. Sodium-linked glucose transport runs on the sodium gradient, so when that gradient collapses the glucose transport it was powering fails with it.",
+    trap: "People often stop at the sodium change and miss that secondary active transport dies too. It never had its own energy source. It was borrowing the pump's."
+  },
+
+  {
+    topic: "Membrane potential",
+    comp: "m1-resting-membrane-potential",
+    scenario: "Extracellular potassium rises from 4 to 7 mmol per liter.",
+    setup: "This happens in kidney failure and in crush injuries.",
+    asks: [
+      { label: "The potassium equilibrium potential (toward zero)", answer: "up" },
+      { label: "How negative the resting membrane potential is", answer: "down" },
+      { label: "Distance from rest to threshold", answer: "down" }
+    ],
+    why: "Resting potential sits close to the potassium equilibrium potential because the membrane is most permeable to potassium at rest. Raise potassium outside and you shrink the gradient driving potassium out, so the equilibrium potential moves toward zero and the cell depolarizes. Rest is now closer to threshold.",
+    trap: "Closer to threshold sounds like the cell fires more easily, and briefly it does. Hold the depolarization and sodium channels inactivate, and the cell becomes harder to fire, not easier. That is why hyperkalemia is dangerous rather than just twitchy."
+  },
+
+  {
+    topic: "Action potential",
+    comp: "m2-conduction-velocity",
+    scenario: "A segment of axon loses its myelin.",
+    setup: "The axon itself is intact. Only the insulation is gone.",
+    asks: [
+      { label: "Conduction velocity along that segment", answer: "down" },
+      { label: "Current leaking across the membrane", answer: "up" },
+      { label: "Chance the signal reaches the terminal", answer: "down" }
+    ],
+    why: "Myelin speeds conduction by insulating the membrane so current jumps between nodes instead of depolarizing every patch along the way. Strip it and current leaks out through the newly exposed membrane, the local current spreads a shorter distance, and conduction slows. If enough leaks the depolarization drops below threshold and the signal dies before arriving.",
+    trap: "Students often say the action potential gets smaller. It does not. An action potential is all or none. What changes is how fast it propagates and whether it propagates at all."
+  },
+
+  {
+    topic: "Synaptic transmission",
+    comp: "m2-synaptic-transmission",
+    scenario: "Extracellular calcium is lowered.",
+    setup: "An action potential still arrives at the presynaptic terminal normally.",
+    asks: [
+      { label: "Calcium entry into the terminal", answer: "down" },
+      { label: "Neurotransmitter vesicles released", answer: "down" },
+      { label: "Size of the action potential arriving at the terminal", answer: "same" }
+    ],
+    why: "Calcium entry is the trigger that fuses vesicles with the membrane. Less calcium outside means less enters, so fewer vesicles release and the postsynaptic response shrinks. The action potential arriving is unaffected, because it runs on sodium and potassium, not calcium.",
+    trap: "The third one catches people. They assume everything upstream must change too. The arriving action potential is normal. The failure is at the handoff, not the delivery."
+  },
+
+  {
+    topic: "Neuromuscular junction",
+    comp: "m2-nmj",
+    scenario: "Acetylcholinesterase is inhibited.",
+    setup: "The enzyme that clears acetylcholine from the synaptic cleft stops working.",
+    asks: [
+      { label: "Acetylcholine remaining in the cleft", answer: "up" },
+      { label: "How long the motor end plate stays depolarized", answer: "up" },
+      { label: "Ability of the muscle to relax between stimuli", answer: "down" }
+    ],
+    why: "Acetylcholinesterase is what ends the signal by breaking acetylcholine down. Block it and transmitter lingers, so the end plate stays depolarized and the muscle cannot reset between signals. This is why nerve agents and some pesticides cause sustained contraction and respiratory failure.",
+    trap: "More transmitter sounds like stronger, better contraction. Past a point it is the opposite. A muscle that cannot relax cannot do useful work, and the diaphragm is a muscle."
+  },
+
+  {
+    topic: "Muscle mechanics",
+    comp: "m2-length-tension",
+    scenario: "A sarcomere is stretched well past its optimal length.",
+    setup: "Start at peak overlap and pull further.",
+    asks: [
+      { label: "Overlap between thick and thin filaments", answer: "down" },
+      { label: "Crossbridges that can form", answer: "down" },
+      { label: "Tension the sarcomere can generate", answer: "down" }
+    ],
+    why: "Force comes from crossbridges, and crossbridges require myosin heads to reach actin. Stretch past optimal and the filaments pull apart, so fewer heads can reach, fewer bridges form, and tension falls. Every part of this chain is just a consequence of geometry.",
+    trap: "Stretching a muscle feels like it should build tension, and passive tension does rise from the elastic elements. Active tension, the part crossbridges produce, falls. Those are two different curves."
+  },
+
+  {
+    topic: "Muscle mechanics",
+    comp: "m2-twitch-tetanus",
+    scenario: "Stimulation frequency to a muscle fiber increases sharply.",
+    setup: "Same fiber, same stimulus strength, arriving much faster.",
+    asks: [
+      { label: "Calcium concentration in the cytosol between stimuli", answer: "up" },
+      { label: "Time the fiber has to relax between stimuli", answer: "down" },
+      { label: "Force produced", answer: "up" }
+    ],
+    why: "Each stimulus dumps calcium into the cytosol, and the pumps need time to clear it. Send the next stimulus before clearing finishes and calcium accumulates, more binding sites stay exposed, and contractions ride on top of each other. Push the frequency far enough and the twitches fuse into sustained tetanus.",
+    trap: "This is not the stimulus getting stronger. Each one is identical. The fiber is simply not being allowed to finish relaxing, and force builds from that alone."
+  }
+
+];
+
+/* ============================================================
+   ==============    THE GAME    ==============================
+   ============================================================
+   No physiology below this line. This part reads the list above,
+   asks the questions, checks the answers, keeps score, and brings
+   back what was missed. It works with any list in the shape above,
+   which is what makes it reusable for any topic in the course.
+   ============================================================ */
+
+(function(){
+  'use strict';
+
+  var CHOICES = [
+    { key:'up',   label:'Increases' },
+    { key:'down', label:'Decreases' },
+    { key:'same', label:'No change' }
+  ];
+
+  var order   = ITEMS.map(function(_, i){ return i; });
+  var current = 0;
+  var score   = 0;
+  var missed  = [];
+  var checked = false;
+
+  var stage = document.getElementById('stage');
+  var posEl = document.getElementById('pos');
+  var scoreEl = document.getElementById('score');
+  var barEl = document.getElementById('bar');
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function updateBar(){
+    posEl.textContent = (current + 1) + ' of ' + order.length;
+    scoreEl.textContent = String(score);
+    barEl.style.width = Math.round(current / order.length * 100) + '%';
+  }
+
+  function render(){
+    var item = ITEMS[order[current]];
+    checked = false;
+    stage.innerHTML = '';
+
+    stage.appendChild(el('div','topicline', item.topic));
+    stage.appendChild(el('h2','scenario', item.scenario));
+    if (item.setup) stage.appendChild(el('p','setup', item.setup));
+
+    item.asks.forEach(function(ask, ai){
+      var fs = document.createElement('fieldset');
+      fs.dataset.index = String(ai);
+
+      var lg = document.createElement('legend');
+      lg.textContent = ask.label;
+      fs.appendChild(lg);
+
+      var opts = el('div','opts');
+      CHOICES.forEach(function(c){
+        var wrap = el('div','opt');
+        wrap.dataset.key = c.key;
+
+        var input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'q' + current + '-' + ai;
+        input.value = c.key;
+        input.id = 'q' + current + '-' + ai + '-' + c.key;
+
+        var lab = document.createElement('label');
+        lab.setAttribute('for', input.id);
+        lab.className = 'vh';
+        lab.textContent = ask.label + ': ' + c.label;
+
+        var span = el('span', null, c.label);
+
+        input.addEventListener('change', syncButton);
+        wrap.appendChild(input);
+        wrap.appendChild(span);
+        wrap.appendChild(lab);
+        opts.appendChild(wrap);
+      });
+      fs.appendChild(opts);
+      stage.appendChild(fs);
+    });
+
+    var actions = el('div','actions');
+    var check = el('button','btn','Check my answers');
+    check.type = 'button';
+    check.id = 'checkbtn';
+    check.disabled = true;
+    check.addEventListener('click', reveal);
+    actions.appendChild(check);
+    var hint = el('span','hint','Answer all of them to continue');
+    hint.id = 'hint';
+    actions.appendChild(hint);
+    stage.appendChild(actions);
+
+    updateBar();
+  }
+
+  function allAnswered(){
+    var sets = stage.querySelectorAll('fieldset');
+    for (var i = 0; i < sets.length; i++){
+      if (!sets[i].querySelector('input:checked')) return false;
+    }
+    return true;
+  }
+
+  function syncButton(){
+    var btn = document.getElementById('checkbtn');
+    if (!btn || checked) return;
+    var ready = allAnswered();
+    btn.disabled = !ready;
+    var hint = document.getElementById('hint');
+    if (hint) hint.textContent = ready ? '' : 'Answer all of them to continue';
+  }
+
+  function reveal(){
+    if (checked) return;
+    checked = true;
+
+    var item = ITEMS[order[current]];
+    var sets = stage.querySelectorAll('fieldset');
+    var allRight = true;
+
+    Array.prototype.forEach.call(sets, function(fs, ai){
+      var want = item.asks[ai].answer;
+      var got  = fs.querySelector('input:checked').value;
+      fs.classList.add(got === want ? 'right' : 'wrong');
+      if (got !== want){
+        allRight = false;
+        var correctOpt = fs.querySelector('.opt[data-key="' + want + '"]');
+        if (correctOpt) correctOpt.classList.add('answer');
+      }
+      Array.prototype.forEach.call(fs.querySelectorAll('input'), function(i){ i.disabled = true; });
+    });
+
+    if (allRight) { score++; } else { missed.push(item); }
+
+    var why = el('div','why');
+    why.appendChild(el('div','lab','The mechanism'));
+    why.appendChild(el('p', null, item.why));
+    if (item.trap){
+      var t = document.createElement('p');
+      var b = el('span','trap','Watch out. ');
+      t.appendChild(b);
+      t.appendChild(document.createTextNode(item.trap));
+      why.appendChild(t);
+    }
+    stage.insertBefore(why, stage.querySelector('.actions'));
+
+    var actions = stage.querySelector('.actions');
+    actions.innerHTML = '';
+    var next = el('button','btn', current + 1 < order.length ? 'Next scenario' : 'See how I did');
+    next.type = 'button';
+    next.addEventListener('click', advance);
+    actions.appendChild(next);
+    next.focus();
+
+    scoreEl.textContent = String(score);
+  }
+
+  function advance(){
+    current++;
+    if (current < order.length){ render(); }
+    else { finish(); }
+  }
+
+  function finish(){
+    barEl.style.width = '100%';
+    posEl.textContent = order.length + ' of ' + order.length;
+
+    stage.innerHTML = '';
+    var done = el('div','done');
+    done.appendChild(el('h2','','Round complete'));
+    done.appendChild(el('div','big', score + ' / ' + order.length));
+
+    if (missed.length){
+      done.appendChild(el('p', null,
+        'The ones you missed are the ones worth going back to. A scenario counts as missed if any single prediction in it was wrong, because a mechanism you only half predict is a mechanism you do not have yet.'));
+
+      var box = el('div','misslist');
+      box.appendChild(el('h3', null, 'Go back to these'));
+      var ul = document.createElement('ul');
+      missed.forEach(function(m){
+        ul.appendChild(el('li', null, m.topic + ': ' + m.scenario));
+      });
+      box.appendChild(ul);
+      done.appendChild(box);
+    } else {
+      done.appendChild(el('p', null,
+        'Every prediction correct. Worth repeating in a few days rather than right now, because getting it right once and getting it right cold are different things.'));
+    }
+
+    var actions = el('div','actions');
+    actions.style.justifyContent = 'center';
+
+    if (missed.length){
+      var again = el('button','btn','Retry the ones I missed');
+      again.type = 'button';
+      again.addEventListener('click', function(){
+        order = missed.map(function(m){ return ITEMS.indexOf(m); });
+        missed = []; current = 0; score = 0;
+        render();
+      });
+      actions.appendChild(again);
+    }
+
+    var restart = el('button','btn ghost','Start over');
+    restart.type = 'button';
+    restart.addEventListener('click', function(){
+      order = ITEMS.map(function(_, i){ return i; });
+      missed = []; current = 0; score = 0;
+      render();
+    });
+    actions.appendChild(restart);
+
+    done.appendChild(actions);
+    stage.appendChild(done);
+  }
+
+  render();
+
+  /* Links break out of the iframe when embedded in Canvas. */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function(a){
+    var href = a.getAttribute('href') || '';
+    if (/^https?:\/\//i.test(href) && a.hostname !== window.location.hostname){
+      a.setAttribute('target','_blank');
+      a.setAttribute('rel','noopener');
+    } else if (href.charAt(0) !== '#'){
+      a.setAttribute('target','_top');
+    }
+  });
+
+  /* Iframe height sender, for Canvas embedding. */
+  var FRAME_ID = 'bio005-which-way';
+  function sendHeight(){
+    var h = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight
+    );
+    try { window.parent.postMessage({ id: FRAME_ID, frame: FRAME_ID, height: h, type: 'resize' }, '*'); } catch (e) {}
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  if (window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.body); }
+  setTimeout(sendHeight, 300);
+})();
+</script>
+</body>
+</html>

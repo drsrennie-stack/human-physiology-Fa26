@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What You Do &middot; BIO 005 Human Physiology</title>
+<!--
+  BIO 005 Human Physiology, Yuba College, Fall 2026.
+  Section BIOL-5-D9286, asynchronous online, lecture and lab.
+
+  The skeleton of the course. Everything a student does for credit,
+  what it is worth, whether AI is allowed on it, and how it is checked.
+
+  Reads bio005-credit-model.js. Edit that file and this page follows.
+  Weights shown are SUGGESTIONS until confirmed.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#08101F; --navy-darkest:#060A18; --navy-tint:#ECEFF4;
+  --terra:#8B1D1D; --terra-dark:#6B1616;
+  --gold:#DCB45C; --gold-text:#6E5018;
+  --teal-text:#2C5F66; --ink-muted:#3D4860;
+  --rule-control:#767E8C; --rule-soft:#DCE0E6;
+  --page:#FFFFFF; --surface:#FAFAF9;
+  --shadow-card:0 1px 3px rgba(10,19,34,0.08), 0 1px 2px rgba(10,19,34,0.05);
+  --shadow-lift:0 6px 16px rgba(10,19,34,0.10), 0 3px 6px rgba(10,19,34,0.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  background:var(--page);color:var(--navy);line-height:1.6;-webkit-font-smoothing:antialiased;}
+em,i,cite,dfn,var,address{font-style:normal;}
+a{color:var(--terra);}
+a:hover{color:var(--terra-dark);}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px;}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--navy);color:#fff;
+  padding:10px 16px;font-weight:700;text-decoration:none;border-radius:0 0 8px 0;}
+.skip:focus{left:0;}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+.site-header{background:#fff;padding:18px max(18px,4vw);display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.mark{width:42px;height:42px;flex:none;}
+.site-header .t1{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.24em;text-transform:uppercase;color:var(--gold-text);}
+.site-header .t2{font-size:18px;font-weight:800;letter-spacing:-0.01em;}
+.site-header .t3{font-size:12.5px;color:var(--ink-muted);}
+
+.hero{background:var(--navy);color:#fff;padding:42px max(18px,4vw) 36px;}
+.hero .wrap{max-width:960px;margin:0 auto;}
+.hero .eyebrow{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.hero h1{font-size:clamp(27px,4.2vw,40px);font-weight:800;letter-spacing:-0.025em;margin:0 0 12px;line-height:1.13;}
+.hero h1 .accent{color:var(--gold);}
+.hero p{margin:0 0 8px;max-width:68ch;color:#E6E9EF;font-size:15.5px;}
+
+main{max-width:960px;margin:0 auto;padding:0 max(18px,4vw) 70px;}
+.section{padding-top:42px;}
+.section h2{font-size:clamp(21px,2.6vw,27px);font-weight:800;letter-spacing:-0.015em;margin:0 0 6px;}
+.section .sub{color:var(--ink-muted);font-size:14.5px;margin:0 0 20px;max-width:74ch;}
+
+.draft{background:#fff;border:1px solid var(--gold);border-radius:16px;
+  box-shadow:var(--shadow-card);padding:18px 20px;margin-top:24px;}
+.draft .lab{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-text);margin-bottom:6px;}
+.draft p{margin:0;font-size:14px;color:var(--ink-muted);}
+
+/* Weight bar */
+.weights{display:flex;height:34px;border-radius:8px;overflow:hidden;margin-bottom:12px;
+  box-shadow:var(--shadow-card);}
+.weights div{display:flex;align-items:center;justify-content:center;
+  font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;color:#fff;
+  letter-spacing:0.06em;overflow:hidden;white-space:nowrap;}
+.wkey{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-muted);margin-bottom:8px;}
+.wkey i{width:11px;height:11px;border-radius:2px;display:inline-block;margin-right:6px;vertical-align:-1px;}
+
+/* Credit lines */
+.line{background:#fff;border:1px solid var(--rule-soft);border-radius:16px;
+  padding:20px 22px;box-shadow:var(--shadow-card);margin-bottom:12px;
+  transition:transform 200ms ease, box-shadow 200ms ease;}
+.line:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.line-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+.line-head h3{font-size:18px;font-weight:800;margin:0;letter-spacing:-0.01em;}
+.wt{font-size:22px;font-weight:800;color:var(--gold-text);margin-left:auto;}
+.wt small{font-size:12px;font-weight:700;color:var(--ink-muted);}
+.short{font-size:14.5px;color:var(--ink-muted);margin:0 0 12px;}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+.badge{font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;padding:4px 10px;border-radius:99px;border:1px solid var(--rule-control);
+  background:#fff;color:var(--ink-muted);}
+.badge.aiopen{border-color:var(--teal-text);color:var(--teal-text);}
+.badge.aiclosed{border-color:var(--terra);color:var(--terra-dark);}
+.badge.cat{border-color:var(--gold);color:var(--gold-text);}
+.rows{display:grid;gap:9px;}
+.row{display:grid;grid-template-columns:118px 1fr;gap:12px;font-size:14px;align-items:start;}
+.row .k{font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--gold-text);padding-top:3px;}
+.row .v{color:var(--ink-muted);}
+.row .v.why{color:var(--navy);}
+.row .v.todo{color:var(--terra-dark);font-weight:700;}
+@media (max-width:560px){ .row{grid-template-columns:1fr;gap:2px;} }
+
+/* Scholar */
+.scholar-top{background:var(--navy);color:#fff;border-radius:16px;padding:24px 26px;margin-bottom:16px;}
+.scholar-top h3{font-size:20px;font-weight:800;margin:0 0 8px;}
+.scholar-top p{margin:0 0 10px;color:#E6E9EF;font-size:14.8px;}
+.scholar-top p:last-child{margin-bottom:0;}
+.scholar-top .cap{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+
+.routes{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.route{background:#fff;border:1px solid var(--rule-soft);border-radius:16px;padding:18px 20px;
+  box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:8px;
+  transition:transform 200ms ease, box-shadow 200ms ease;}
+.route:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.route .pts{font-size:26px;font-weight:800;color:var(--gold-text);line-height:1;}
+.route h3{font-size:15.5px;font-weight:800;margin:0;line-height:1.3;}
+.route .mode{font-family:'DM Sans',sans-serif;font-size:9.5px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:99px;
+  border:1px solid var(--rule-control);color:var(--ink-muted);align-self:flex-start;}
+.route .mode.live{border-color:var(--gold);color:var(--gold-text);}
+.route .mode.async{border-color:var(--teal-text);color:var(--teal-text);}
+.route p{margin:0;font-size:13.8px;color:var(--ink-muted);}
+.route .ev{font-size:12.8px;color:var(--ink-muted);margin-top:auto;padding-top:6px;}
+.route .ev b{color:var(--navy);}
+.route .acc{font-size:12.8px;color:var(--teal-text);}
+
+.activities{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px;}
+.act{background:#fff;border:1px solid var(--rule-soft);border-radius:16px;padding:13px 16px;
+  box-shadow:var(--shadow-card);max-width:290px;}
+.act b{display:block;font-size:14.5px;font-weight:800;margin-bottom:2px;}
+.act span{font-size:13px;color:var(--ink-muted);}
+
+ul.rules{padding-left:20px;font-size:14.5px;color:var(--ink-muted);margin:0;}
+ul.rules li{margin-bottom:7px;}
+
+/* AI policy */
+.aigrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:640px){ .aigrid{grid-template-columns:1fr;} }
+.aibox{background:#fff;border:1px solid var(--rule-soft);border-radius:16px;padding:20px 22px;
+  box-shadow:var(--shadow-card);}
+.aibox h3{font-size:16px;font-weight:800;margin:0 0 10px;}
+.aibox.open h3{color:var(--teal-text);}
+.aibox.closed h3{color:var(--terra-dark);}
+.aibox ul{padding-left:20px;margin:0;font-size:14.2px;color:var(--ink-muted);}
+.aibox li{margin-bottom:7px;}
+.aiwhy{background:var(--navy);color:#fff;border-radius:16px;padding:22px 24px;margin-top:14px;}
+.aiwhy .lab{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.aiwhy p{margin:0;font-size:15px;color:#E6E9EF;}
+
+footer{background:var(--navy-darkest);color:#C7CEDA;padding:32px max(18px,4vw);margin-top:52px;}
+footer .wrap{max-width:960px;margin:0 auto;}
+footer .who{color:#fff;font-weight:800;font-size:15px;margin-bottom:3px;}
+footer .sm{font-size:12.5px;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{transition:none!important;animation:none!important;}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to what you do</a>
+
+<header class="site-header">
+  <svg class="mark" viewBox="0 0 44 44" role="img" aria-label="BIO 005 Human Physiology">
+    <rect width="44" height="44" rx="8" fill="#08101F"></rect>
+    <path d="M6 24h6l3-8 4 15 4-20 3.5 13 2.5-5H38" fill="none" stroke="#DCB45C"
+          stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <div>
+    <div class="t1">Course skeleton</div>
+    <div class="t2">What you do and what it is worth</div>
+    <div class="t3">BIO 005 &middot; Yuba College &middot; Fall 2026</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Asynchronous online &middot; Lecture and lab</div>
+    <h1>Everything in this class exists to <span class="accent">make you learn physiology</span></h1>
+    <p>Not to make you look busy, and not to produce work that proves you were here. If something on this page is not helping you actually learn the material, tell me and I will look at cutting it.</p>
+    <p>Nothing in this course requires you to be online at a particular time.</p>
+  </div>
+</section>
+
+<main id="main">
+
+  <div class="draft">
+    <div class="lab">Draft</div>
+    <p id="draftnote"></p>
+  </div>
+
+  <section class="section">
+    <h2>Where the grade comes from</h2>
+    <p class="sub">Most of the weight sits on the things that show your own reasoning. In a course with nobody watching you take a test, that has to be true or the grade does not mean anything.</p>
+    <div class="weights" id="weights" role="img" aria-label="Grade weight breakdown"></div>
+    <div class="wkey" id="wkey"></div>
+  </section>
+
+  <section class="section">
+    <h2>What you actually do</h2>
+    <p class="sub">Nine things. Four of them happen every week, so most weeks look the same once you learn the rhythm.</p>
+    <div id="lines"></div>
+  </section>
+
+  <section class="section">
+    <h2 id="scholar-heading">Scholar Points</h2>
+    <p class="sub">Bonus on top of your grade, earned by helping other people learn. This is the part of the course I care most about and the part I cannot make happen by myself.</p>
+    <div id="scholar"></div>
+  </section>
+
+  <section class="section">
+    <h2>What you can run a session on</h2>
+    <p class="sub">Pick one and one topic. A session that tries to cover a whole module covers nothing.</p>
+    <div class="activities" id="activities"></div>
+  </section>
+
+  <section class="section">
+    <h2>If you are hosting</h2>
+    <ul class="rules" id="hostrules"></ul>
+  </section>
+
+  <section class="section">
+    <h2>AI in this course</h2>
+    <p class="sub" id="aihead"></p>
+    <div class="aigrid">
+      <div class="aibox open">
+        <h3>Use it freely here</h3>
+        <ul id="aiopen"></ul>
+      </div>
+      <div class="aibox closed">
+        <h3>Not on these</h3>
+        <ul id="aiclosed"></ul>
+      </div>
+    </div>
+    <div class="aiwhy">
+      <div class="lab">Why the line is where it is</div>
+      <p id="aiwhy"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="who">Dr. Sharilyn Rennie</div>
+    <div class="sm">BIO 005 Human Physiology &middot; Yuba College</div>
+  </div>
+</footer>
+
+<script src="bio005-credit-model.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  var M = window.BIO005_CREDIT;
+  if (!M) return;
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  /* ---------- draft note ---------- */
+  var todo = M.lines.filter(function(l){ return /PLACEHOLDER|undecided/i.test(l.note || ''); }).length;
+  document.getElementById('draftnote').textContent =
+    'Weights on this page are proposals, not settings. ' + todo +
+    ' items still have an open decision behind them. Nothing here is final until it is in the syllabus.';
+
+  /* ---------- weight bar ---------- */
+  var CATCOLORS = {
+    'Weekly work':'#08101F',
+    'Lab':'#2C5F66',
+    'Exams':'#8B1D1D',
+    'Show me you know it':'#6B1616',
+    'AI Project Lab':'#DCB45C',
+    'Discussion':'#767E8C'
+  };
+  var catTotals = {};
+  M.lines.forEach(function(l){
+    catTotals[l.category] = (catTotals[l.category] || 0) + (l.suggestedWeight || 0);
+  });
+  var bar = document.getElementById('weights');
+  var key = document.getElementById('wkey');
+  Object.keys(catTotals).forEach(function(cat){
+    var pct = catTotals[cat];
+    var seg = document.createElement('div');
+    seg.style.width = pct + '%';
+    seg.style.background = CATCOLORS[cat] || '#3D4860';
+    if (cat === 'AI Project Lab') seg.style.color = '#08101F';
+    seg.textContent = pct >= 8 ? pct + '%' : '';
+    seg.title = cat + ': ' + pct + ' percent';
+    bar.appendChild(seg);
+
+    var k = document.createElement('span');
+    var sw = document.createElement('i');
+    sw.style.background = CATCOLORS[cat] || '#3D4860';
+    k.appendChild(sw);
+    k.appendChild(document.createTextNode(cat + ' ' + pct + '%'));
+    key.appendChild(k);
+  });
+  bar.setAttribute('aria-label',
+    'Grade weight by category: ' + Object.keys(catTotals).map(function(c){
+      return c + ' ' + catTotals[c] + ' percent';
+    }).join(', ') + '. Scholar Points add up to ' + M.scholar.suggestedCap + ' points on top.');
+
+  /* ---------- credit lines ---------- */
+  var wrap = document.getElementById('lines');
+  M.lines.forEach(function(l){
+    var card = el('article','line');
+
+    var head = el('div','line-head');
+    head.appendChild(el('h3', null, l.name));
+    var wt = el('span','wt', (l.suggestedWeight != null ? l.suggestedWeight + '%' : 'TBD'));
+    var small = el('small', null, ' suggested');
+    wt.appendChild(small);
+    head.appendChild(wt);
+    card.appendChild(head);
+
+    card.appendChild(el('p','short', l.short));
+
+    var badges = el('div','badges');
+    badges.appendChild(el('span','badge cat', l.category));
+    if (l.count) badges.appendChild(el('span','badge', l.count + ' total'));
+    badges.appendChild(el('span','badge ' + (l.ai === 'open' ? 'aiopen' : 'aiclosed'),
+      l.ai === 'open' ? 'AI allowed' : 'No AI'));
+    badges.appendChild(el('span','badge', l.syncRequired ? 'Set time required' : 'No set time'));
+    card.appendChild(badges);
+
+    var rows = el('div','rows');
+    function row(k, v, cls){
+      if (!v) return;
+      var r = el('div','row');
+      r.appendChild(el('div','k', k));
+      r.appendChild(el('div','v' + (cls ? ' ' + cls : ''), v));
+      rows.appendChild(r);
+    }
+    row('When', l.cadence);
+    row('Why it exists', l.purpose, 'why');
+    row('AI', l.aiNote);
+    row('How it is checked', l.verification);
+    row('Still open', l.note, /PLACEHOLDER|undecided/i.test(l.note || '') ? 'todo' : '');
+    card.appendChild(rows);
+
+    wrap.appendChild(card);
+  });
+
+  /* ---------- scholar ---------- */
+  var S = M.scholar;
+  var sWrap = document.getElementById('scholar');
+
+  var top = el('div','scholar-top');
+  top.appendChild(el('div','cap',
+    'Up to ' + S.suggestedCap + ' points added to your grade &middot; target ' + S.suggestedTarget + ' ' + S.unit + 's'));
+  top.querySelector('.cap').innerHTML =
+    'Up to ' + S.suggestedCap + ' points added to your grade &middot; Target ' + S.suggestedTarget + ' ' + S.unit + 's';
+  top.appendChild(el('p', null, S.rule));
+  top.appendChild(el('p', null,
+    'Every point you can earn at a live session you can also earn without one. If you work nights, have kids, live in another time zone, or your internet will not hold a video call, you can still max this out. Nothing here requires you to be anywhere at a set hour.'));
+  sWrap.appendChild(top);
+
+  var routes = el('div','routes');
+  S.routes.forEach(function(r){
+    var c = el('div','route');
+    c.appendChild(el('div','pts', '+' + r.points));
+    c.appendChild(el('h3', null, r.name));
+    c.appendChild(el('span','mode ' + r.mode, r.mode === 'live' ? 'Live session' : 'On your own time'));
+    c.appendChild(el('p', null, r.what));
+    if (r.why) c.appendChild(el('p', null, r.why));
+    if (r.access) c.appendChild(el('p','acc', r.access));
+    var ev = el('div','ev');
+    ev.appendChild(el('b', null, 'Proof. '));
+    ev.appendChild(document.createTextNode(r.evidence));
+    c.appendChild(ev);
+    routes.appendChild(c);
+  });
+  sWrap.appendChild(routes);
+
+  /* ---------- activities ---------- */
+  var aw = document.getElementById('activities');
+  S.activities.forEach(function(a){
+    var d = el('div','act');
+    d.appendChild(el('b', null, a.name));
+    d.appendChild(el('span', null, a.note));
+    aw.appendChild(d);
+  });
+
+  /* ---------- host rules ---------- */
+  var hr = document.getElementById('hostrules');
+  S.hostRules.forEach(function(r){ hr.appendChild(el('li', null, r)); });
+
+  /* ---------- ai policy ---------- */
+  var P = M.aiPolicy;
+  document.getElementById('aihead').textContent = P.headline;
+  P.open.forEach(function(t){ document.getElementById('aiopen').appendChild(el('li', null, t)); });
+  P.closed.forEach(function(t){ document.getElementById('aiclosed').appendChild(el('li', null, t)); });
+  document.getElementById('aiwhy').textContent = P.why;
+
+  /* ---------- links break out of the iframe ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function(a){
+    var href = a.getAttribute('href') || '';
+    if (/^https?:\/\//i.test(href) && a.hostname !== window.location.hostname){
+      a.setAttribute('target','_blank'); a.setAttribute('rel','noopener');
+    } else if (href.charAt(0) !== '#'){
+      a.setAttribute('target','_top');
+    }
+  });
+
+  /* ---------- iframe height sender ---------- */
+  var FRAME_ID = 'bio005-what-you-do';
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try { window.parent.postMessage({ id:FRAME_ID, frame:FRAME_ID, height:h, type:'resize' }, '*'); } catch(e){}
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  if (window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.body); }
+  setTimeout(sendHeight, 300);
+})();
+</script>
+</body>
+</html>
