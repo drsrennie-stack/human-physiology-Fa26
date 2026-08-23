@@ -3033,7 +3033,14 @@ function drawpad(cfg) {
 
   var inkRow = el('div', { class: 'dp-tools', role: 'group', 'aria-label': 'Ink colour' });
   var inkBtns = {};
-  INK.forEach(function (c) {
+  /* A pad can hold a colour back. On a figure where the answer is drawn in
+     red, red is not offered to the student, so the two lines can never be
+     the same colour by accident. */
+  var palette = cfg.inks
+    ? INK.filter(function (k) { return cfg.inks.indexOf(k.id) >= 0; })
+    : INK;
+  if (palette.length) ink = palette[0].hex;
+  palette.forEach(function (c) {
     var b = el('button', {
       class: 'dp-ink', type: 'button', 'aria-pressed': c.hex === ink ? 'true' : 'false',
       'aria-label': c.name + ' ink', style: '--ink:' + c.hex,
@@ -4448,8 +4455,15 @@ function truthFig(run) {
       { x: T0, label: 'Stands', color: C.navy },
       { y: 65, label: 'MAP floor, 65', color: C.goldText }
     ],
-    series: [{ pts: trace(run, 'sbp'), color: C.teal, width: 3.4 }],
-    aria: 'The same axes, now carrying what actually happened to her systolic pressure.'
+    /* Deliberately far from the pen's default navy in hue and weight, and
+       labelled on the line itself, so the two are told apart by form and by
+       words rather than by colour. */
+    series: [{ pts: trace(run, 'sbp'), color: C.terra, width: 5 }],
+    marks: [{
+      x: TMAX * 0.62, y: state(run, TMAX * 0.62).sbp,
+      color: C.terra, label: 'What actually happened', dx: 0, dy: 26, anchor: 'middle'
+    }],
+    aria: 'The same axes, now carrying what actually happened to her systolic pressure, drawn as a thick red line labelled What actually happened.'
   });
 }
 
@@ -4757,6 +4771,8 @@ function casePanel() {
         geom: PRESS_GEOM,
         background: blankPressureFig(),
         bucket: B.sim,
+        /* red is the answer line on this figure, so it is not on offer here */
+        inks: ['navy', 'teal', 'gold'],
         instruction: 'Use the pen. Draw one line, left to right. There is no right answer being marked here: the point is to commit to a shape before you see the real one, because the gap between them is what you actually learn from.',
         alt: {
           prompt: 'Describe the line instead. How far does her systolic fall, how quickly, does it come back, and where does it settle by sixty seconds? Give numbers.',
@@ -4858,7 +4874,7 @@ function casePanel() {
       var card = L.card([
         L.kicker('Both lines, one set of axes'),
         el('h3', { text: 'Where your line and hers parted company' }),
-        para('Your line is still exactly where you drew it. Hers has been laid underneath it, on the same axes, in teal. Look at the two together before you read the table.'),
+        para('Your line is still exactly where you drew it. Hers has been laid underneath it on the same axes: the <b>thick red line labelled on the graph</b>. Yours is the thinner hand drawn one. Look at the two together before you read the table.'),
         el('div', { class: 'scroll-x' }, t),
         note('None of this is being marked. A prediction that was wrong in an interesting way is worth more than a lucky one, and the question underneath is the part that counts.'),
         el('div', { style: 'margin-top:20px' }, L.clinicalNote({
