@@ -890,6 +890,28 @@ section.block:first-of-type{border-top:none}
 <!-- The competency map lives in competenciesfall2026.js. The hyphenated
      competencies-fall2026.js is an older copy without the "general" body-system
      tag that buildFromSchedule() groups by, so it must not be used here. -->
+<script>
+/* ============================================================
+   ONE-TIME STORAGE CLEANUP, Aug 2026.
+
+   These four keys used to be unprefixed, which meant this course and
+   BIO 004 shared them: both are served from drsrennie-stack.github.io
+   and localStorage is scoped to the origin, not the path. Anatomy's
+   schedule was landing in the physiology OS.
+
+   The keys are namespaced now. This clears the old shared ones so a
+   student who used either course before does not carry the collision
+   around in their browser. It runs once and marks itself done.
+   ============================================================ */
+(function () {
+  try {
+    if (localStorage.getItem('bio005-storage-split') === '1') { return; }
+    ['mos-schedule', 'mos-section', 'loopScores_v1', 'loopsEngine_v1']
+      .forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    localStorage.setItem('bio005-storage-split', '1');
+  } catch (e) {}
+}());
+</script>
 <script src="card-competency-map.js"></script>
 <script src="mastery-evidence.js"></script>
 <script src="../bio005-competencies.js"></script>
@@ -1005,16 +1027,16 @@ var FALL_SECTIONS={net:FALL_NET,'':FALL_NET};
    only honoured when it cannot be wrong.
 
    Accepted, in order:
-     1. store 'mos-schedule'      an explicit per-device override
+     1. store 'bio005-mos-schedule'      an explicit per-device override
      2. FALL_SECTIONS[section]    the correct per-section data
      3. window.BIO005_SECTIONS    a per-section map, section read out
      4. window.BIO005_SCHEDULE    ONLY if its own 'section' field
                                   matches the selected section
      5. the summer fallback below
    ------------------------------------------------------------------ */
-var MOS_SECTION=store.get('mos-section')||'mw';
+var MOS_SECTION=store.get('bio005-mos-section')||'mw';
 function mosResolveSchedule(){
-  var s=store.get('mos-schedule');
+  var s=store.get('bio005-mos-schedule');
   /* A cached schedule from a term that has already ended is worse than
      no cache at all: it silently hands the app last term's week titles
      and exam dates, which is how a week-1 student got shown week-11
@@ -1027,7 +1049,7 @@ function mosResolveSchedule(){
       if(last) endsBeforeFall=Date.parse(last) < Date.parse('2026-08-17');
     }catch(e){}
     if(endsBeforeFall){
-      try{ store.set('mos-schedule',null); localStorage.removeItem('mos-schedule'); }catch(e){}
+      try{ store.set('bio005-mos-schedule',null); localStorage.removeItem('bio005-mos-schedule'); }catch(e){}
       if(typeof console!=='undefined'&&console.warn){
         console.warn('[Mastery Physio OS] Dropped a cached schedule that ended before Fall 2026 started.');
       }
@@ -1141,7 +1163,7 @@ function importSchedule(){
     var sched=parseScheduleText($('#cfgPaste').value);
     var st=$('#cfgStart').value,en=$('#cfgEnd').value;
     if(st)sched.start=st;if(en)sched.end=en;
-    SCHEDULE=sched;store.set('mos-schedule',SCHEDULE);
+    SCHEDULE=sched;store.set('bio005-mos-schedule',SCHEDULE);
     applySchedule(true);ingestRecall();renderAll();
     var ex=scheduleExams();
     info.innerHTML='Loaded <b>'+SCHEDULE.weeks.length+' weeks</b>. Exams detected: '+(ex.length?ex.map(function(e){return esc(e.name)+' ('+fmtShort(e.date)+')';}).join(', '):'none yet, add exam dates to your schedule')+'.';
@@ -1198,7 +1220,7 @@ function mergeAgg(into, from){
    wrong. That is the miss a lab practical punishes hardest, because the
    student does not know to go back to it. */
 function loopStationStore(){
-  try{ return JSON.parse(localStorage.getItem('loopsEngine_v1')||'null'); }catch(e){ return null; }
+  try{ return JSON.parse(localStorage.getItem('bio005-loopsEngine_v1')||'null'); }catch(e){ return null; }
 }
 function loopStationMiss(r){
   if(!r || !r.seen) return null;
@@ -1261,7 +1283,7 @@ function loopStationAgg(){
 function loopAgg(){
   var agg = {};
   var LOOPS = window.BIO005_LOOPS; if(!LOOPS) return agg;
-  var st; try{ st = JSON.parse(localStorage.getItem('loopScores_v1')||'null'); }catch(e){ st = null; }
+  var st; try{ st = JSON.parse(localStorage.getItem('bio005-loopScores_v1')||'null'); }catch(e){ st = null; }
   /* THE PIPE WAS NEVER CONNECTED.
 
      This read loopScores_v1. The Walkthroughs app has never written that key. What
@@ -1816,7 +1838,7 @@ var LOOPS_BASE='https://drsrennie-stack.github.io/loops/';
    one, even though both technically cover it. */
 function loopShort(t){ return String(t).replace(/\s*Loop\s*$/,''); }
 function loopAvgPct(loopId){
-  var st; try{ st=JSON.parse(localStorage.getItem('loopScores_v1')||'null'); }catch(e){ return null; }
+  var st; try{ st=JSON.parse(localStorage.getItem('bio005-loopScores_v1')||'null'); }catch(e){ return null; }
   var runs = st && st[loopId];
   if(!runs || !runs.length) return null;
   var got=0, of=0;
@@ -2534,7 +2556,7 @@ function obNext(){
   var pdays=d.days||4,pwh=gradeHoursFor(d.grade||'B');
   var secSel=d.section||'mw';var secKey=(secSel==='mw')?'mw':'tr';
   S.profile={onboarded:true,name:d.name||'',grade:d.grade||'B',section:secSel,sectionKey:secKey,days:pdays,weeklyHours:pwh,hoursPerDay:Math.round((pwh/pdays)*10)/10,activities:d.activities||['retrieval','draw'],confidence:d.confidence||'building'};
-  SCHEDULE=FALL_SECTIONS[secKey]||SCHEDULE;store.set('mos-section',secKey);store.set('mos-schedule',SCHEDULE);applySchedule(true);ingestRecall();
+  SCHEDULE=FALL_SECTIONS[secKey]||SCHEDULE;store.set('bio005-mos-section',secKey);store.set('bio005-mos-schedule',SCHEDULE);applySchedule(true);ingestRecall();
   save();
   $('#onboard').hidden=true;
   renderAll();
@@ -3978,8 +4000,8 @@ $('#instrReload').addEventListener('click',function(){applySchedule(true);render
 })();
 $('#cfgImport').addEventListener('click',importSchedule);
 $('#cfgFile').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$('#cfgPaste').value=r.result;};r.readAsText(f);});
-$('#cfgStart').addEventListener('change',function(){if(this.value){SCHEDULE.start=this.value;store.set('mos-schedule',SCHEDULE);}});
-$('#cfgEnd').addEventListener('change',function(){if(this.value){SCHEDULE.end=this.value;store.set('mos-schedule',SCHEDULE);}});
+$('#cfgStart').addEventListener('change',function(){if(this.value){SCHEDULE.start=this.value;store.set('bio005-mos-schedule',SCHEDULE);}});
+$('#cfgEnd').addEventListener('change',function(){if(this.value){SCHEDULE.end=this.value;store.set('bio005-mos-schedule',SCHEDULE);}});
 $('#instrOverlay').addEventListener('click',function(e){if(e.target===this)closeInstructor();});
 
 /* game controls */
@@ -4084,7 +4106,7 @@ document.addEventListener('keydown',function(e){
 });
 
 /* live sync from the spaced-recall engine (other tab writes the shared store) */
-window.addEventListener('storage',function(e){if(e.key===RECALL_KEY||e.key==='bio005-evidence-v1'||e.key==='bio005-recall-v2'||e.key==='loopsEngine_v1'){if(ingestRecall())renderAll();}});
+window.addEventListener('storage',function(e){if(e.key===RECALL_KEY||e.key==='bio005-evidence-v1'||e.key==='bio005-recall-v2'||e.key==='bio005-loopsEngine_v1'){if(ingestRecall())renderAll();}});
 window.addEventListener('focus',function(){if(ingestRecall())renderAll();});
 
 /* section nav active state */

@@ -11,7 +11,7 @@
 
      Recall Rx      localStorage['bio005-recall-v2']
                     topics[topicId].cards[cardId].history[]
-     Loops          localStorage['loopScores_v1']
+     Loops          localStorage['bio005-loopScores_v1']
                     { loopId: [ {t, right, denom, pct, ms} ] }
      Drawing        nothing. mastery-canvas.html had no storage
                     call of any kind.
@@ -56,7 +56,7 @@
 
   var KEY = 'bio005-evidence-v1';
   var RECALL_KEY = 'bio005-recall-v2';
-  var LOOPS_KEY = 'loopScores_v1';
+  var LOOPS_KEY = 'bio005-loopScores_v1';
 
   function read() {
     try {

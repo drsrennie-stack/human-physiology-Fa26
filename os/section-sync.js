@@ -16,7 +16,7 @@
    The week pages and the course calendar all read that key, so a
    student picks once and those pages follow.
 
-   Mastery OS did not. It keeps its own key, 'mos-section', in its
+   Mastery OS did not. It keeps its own key, 'bio005-mos-section', in its
    own vocabulary ('mw' / 'tr-early' / 'tr-eve'), JSON encoded,
    and it never looked at 'bio005-section'. So a student picked
    their section on welcome, walked into Mastery OS, and got asked
@@ -25,7 +25,7 @@
 
    WHAT THIS DOES
    --------------
-   Loaded BEFORE the Mastery OS app script, this seeds 'mos-section'
+   Loaded BEFORE the Mastery OS app script, this seeds 'bio005-mos-section'
    from the canonical choice, so Mastery OS starts on the section
    the student already picked.
 
@@ -33,10 +33,10 @@
    ---------------------
    Mastery OS resolves its schedule as:
 
-       store.get('mos-schedule')  ||  FALL_SECTIONS[MOS_SECTION]  || ...
+       store.get('bio005-mos-schedule')  ||  FALL_SECTIONS[MOS_SECTION]  || ...
 
-   'mos-schedule' is a CACHED COPY of a resolved schedule and it
-   wins outright. Updating 'mos-section' alone would therefore do
+   'bio005-mos-schedule' is a CACHED COPY of a resolved schedule and it
+   wins outright. Updating 'bio005-mos-section' alone would therefore do
    nothing for a student who had already been through onboarding:
    the stale cached schedule would keep answering first.
 
@@ -49,7 +49,7 @@
    ---------------------------
    'bio005-section' is written with setItem(key, value), a raw
    string:            mw
-   'mos-section' is written through Mastery OS's own store, which
+   'bio005-mos-section' is written through Mastery OS's own store, which
    JSON encodes:      "mw"
    Read and write each in its own format. Do not unify them; the
    two readers are independent and both already ship.
@@ -100,13 +100,13 @@
     var want = TO_MOS[sec];
     try {
       var have = null;
-      try { have = JSON.parse(localStorage.getItem('mos-section')); } catch (e) { have = null; }
+      try { have = JSON.parse(localStorage.getItem('bio005-mos-section')); } catch (e) { have = null; }
       if (have === want) return;              /* already in step, leave the cache alone */
 
-      localStorage.setItem('mos-section', JSON.stringify(want));
+      localStorage.setItem('bio005-mos-section', JSON.stringify(want));
       /* The cached schedule belongs to the previous section and
          would otherwise win. Drop it so Mastery OS re-resolves. */
-      localStorage.removeItem('mos-schedule');
+      localStorage.removeItem('bio005-mos-schedule');
     } catch (e) {}
   }
 
