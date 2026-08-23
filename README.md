@@ -1,53 +1,81 @@
-# BIO 005 Human Physiology, Yuba College, Fall 2026
+# BIO 005 Human Physiology
 
-Course build folder. Section BIOL-5-D9286, Sutter Internet (NET), fully asynchronous online for both lecture and lab.
+Interactive clinical physiology labs and the lab manual they belong to. Fourteen weeks, fully online and asynchronous.
 
-Built from the BIO 004 Human Anatomy template (`drsrennie-stack/new-build-bio4-solano`) so the downstream tools carry over without rewriting: the Mastery OS gap finder, the spaced-recall card bank, the weakness dashboard, and the exam blueprint all read the same competency schema.
+Dr. Sharilyn Rennie, Professor of Anatomy and Physiology.
 
-## What is in here now
+## What students open
+
+Everything at the top level is a single self-contained file. No build step, no dependencies, no external requests. Push and it works on GitHub Pages.
 
 | File | What it is |
-|------|------------|
-| `bio005-competencies.js` | The competency map. 137 competencies across 5 exam modules. Source of truth for everything else. |
-| `bio005-schedule-fall2026.js` | Term data, the weekly container, the 15 weeks, proposed exam windows, grading skeleton, open decisions. |
-| `competency-map.html` | Working tool. Filter, search, flag, see week load, pull exam blueprints, export CSV. |
-| `course-schedule.html` | Student-facing schedule. Every date derived from the data file. |
-| `index.html` | Landing redirect. |
-| `PLACEHOLDERS.md` | Everything still needed, ordered by what blocks what. |
-| `compliance-notes.md` | WCAG 2.2 audit for the two HTML pages. |
+|---|---|
+| `week-01-foundations.html` | Week 1. Rosa's case, control loops, a seeded twelve patient dataset, the oxygen curve |
+| `pulmonary-function-lab.html` | Week 13. Lung volumes, spirometry, PFT interpretation, mechanical ventilation |
+| `clinical-physiology-lab-manual.html` | The whole fourteen week manual, readable and printable |
+| `clinical-physiology-lab-manual.docx` | The same manual in Word |
 
-## The build order, and why
+Each HTML file carries an iframe height sender, so it sizes itself correctly when embedded in Canvas.
 
-Competencies first, schedule second. The schedule exists to carry a specific set of competencies each week rather than to march through chapters, so every week in `bio005-schedule-fall2026.js` names the exact competency ids it is responsible for. That link is what lets the schedule page, the exam blueprint, and the gap finder stay in sync when a date moves.
+## Compliance
 
-## The one thing that makes this course different from BIO 004
+`compliance/` holds one document per deliverable, plus `compliance/index.md`, which is the page to hand to a disability services office or an accreditation review. WCAG 2.2 AA is the floor across the course, AAA wherever it is achievable.
 
-BIO 004 is anatomy, in person, Team-Based Learning. BIO 005 is physiology, fully asynchronous, no synchronous meeting and no in-person lab. That means:
+A deliverable is not finished until its document exists and is listed in that index.
 
-- No TBL structure. No iRAT, no tRAT, no appeals, no in-room application activity. None of it survives the move to asynchronous.
-- Weekly checkpoints replace attendance.
-- Exams are windows, not clock times.
-- The drawing-based synthesis carries more weight, because it is the integrity mechanism that still works when nobody is proctoring the room.
-- Accessibility is not a nice-to-have. For an online-only cohort it is the difference between access and exclusion.
+## Rebuilding a week
 
-## Scope boundary
+Only needed to change a week's content. Students never touch anything in `src/`.
 
-Every competency here is a mechanism, a regulation, a calculation, or a prediction. Structure appears only where the structure explains the function. Pure identification competencies belong in anatomy and are deliberately absent.
+```
+cd src
+python3 build.py week01
+```
 
-## Editing
+That reads `weeks/week01.js`, inlines the engine and the stylesheet, and writes both a standalone page and an artifact version into `out/`. Move the standalone file to the repo root.
 
-Edit the two `.js` data files. Both HTML pages read from them and follow automatically. Do not type a date into the markup.
+A week is assembled from its parts:
 
-Competency ids are stable slugs. Once a recall card, an exam item, or a gradebook column is tagged to an id, do not renumber it. Add new ids instead.
+```
+cat weeks/parts/w1-*.js > weeks/week01.js
+```
 
-## Design system
+### The engine
 
-Navy `#08101F`, navy-darkest `#060A18`, navy-tint `#ECEFF4`, terra `#8B1D1D`, terra-dark `#6B1616`, gold `#DCB45C`, off-white `#FAFAF9`, teal `#2C5F66` for physiology semantics. Plus Jakarta Sans for display, DM Sans for eyebrow labels. Radius 8px on blocks, 16px on cards. No italics anywhere. No em dashes. No decorative bookend bars. No sage, no cream, no Lora.
+`src/engine/` is the shared machinery every week inherits. It is the reason weeks 2 through 14 are content work rather than fourteen rebuilds.
 
-Both HTML pages carry the iframe height-sender before the closing body tag and rewrite links at runtime so internal links get `target="_top"` and external links get `target="_blank" rel="noopener"`.
+| File | What it provides |
+|---|---|
+| `base.css`, `add.css` | The whole visual system. Palette, surfaces, every component |
+| `lab-core.js` | Page shell, tab strip, gating, plain language layer, clickable terms, formulas, multiple choice |
+| `lab-parts.js` | Decision charts, matching with three input paths, calculation tables, plotting, the test, the results page |
+| `lab-steps.js` | Worked steps and the eliminate-the-distractors question |
+| `lab-chart.js` | The patient chart and the clinical note |
 
-## Student privacy
+### Verifying
 
-Nothing in this repo stores a student name, id, email, or grade. The flag state in `competency-map.html` is instructor-only and lives in browser storage on one machine. Keep it that way.
+```
+node verify.js         # the whole lab, plus an accessibility sweep
+node verify-case.js    # the walkthrough, including the anti-shortcut check
+node verify-chart.js   # charting, the note, and every refusal they should make
+```
 
-Dr. Sharilyn Rennie
+These need Playwright and a Chromium binary. They walk the page the way a student would and assert on what happens, including the things that are supposed to fail: a blank chart row, an unmeasured value claimed as normal, a correct answer typed into a box that has not been unlocked yet.
+
+## Design commitments
+
+These hold across everything in this repo and are reasoned about in `compliance/index.md`.
+
+- Dragging is never the only way to do anything.
+- Colour never carries meaning on its own.
+- Nothing is timed, no attempt is capped, nothing locks a student out.
+- No external requests. Every page works offline and behind a campus proxy.
+- Nothing is stored or transmitted. No student identifier ever persists.
+- Gating is completion based, never score based. Getting an answer wrong never blocks anyone.
+
+## Still open
+
+- JAWS and VoiceOver pass before the course goes live.
+- The three figure logo is a placeholder built from the design system description, not the real file.
+- Weeks 2 to 12 and week 14 are specified in the manual against tools not yet built.
+- Week 11's CBC and PCR lab is partly built and has no compliance document yet.

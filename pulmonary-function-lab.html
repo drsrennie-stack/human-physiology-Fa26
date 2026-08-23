@@ -2,13 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link rel="icon" type="image/svg+xml" href="icon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pulmonary Function and Mechanical Ventilation Lab</title>
 <meta name="description" content="Interactive lab for lung volumes, spirometry, pulmonary function test interpretation, and mechanical ventilator settings.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#08101F; --navy-2:#0A1322; --navy-darkest:#060A18; --navy-tint:#ECEFF4;
@@ -19,8 +15,8 @@
   --shadow:0 1px 3px rgba(10,19,34,.08), 0 1px 2px rgba(10,19,34,.05);
   --shadow-lift:0 6px 16px rgba(10,19,34,.10), 0 3px 6px rgba(10,19,34,.06);
   --r-block:8px; --r-card:16px;
-  --display:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
-  --body:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  --display:'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
+  --body:'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -297,9 +293,6 @@ ul.tight li,ol.tight li{margin-bottom:.4em}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-/* Scrubs rule: no italics anywhere. Browser defaults included. */
-em,i,cite,dfn,var,address{font-style:normal}
 </style>
 </head>
 <body>
@@ -707,7 +700,7 @@ var GATE_INFO = {
   volumes: {
     goto: 'volumes',
     label: 'Open the lung volumes lab',
-    msg: 'The lung volumes lab comes first. Label all eight brackets on the tracing, get the four capacities right, and answer the concept check. The spirometry simulator opens as soon as that is done.'
+    msg: 'The lung volumes lab comes first. Match all eight labels onto the tracing, complete the report by filling in its four blanks, and answer the concept check. The simulator opens as soon as you have worked through those three.'
   },
   spiro: {
     goto: 'spiro',
@@ -1061,7 +1054,7 @@ function spirogramSVG(v, opts) {
   var d = pts.map(function (p, i) { return (i ? 'L' : 'M') + fmt(X(p[0]), 1) + ' ' + fmt(Y(p[1]), 1); }).join(' ');
 
   var s = '';
-  s += '<svg viewBox="0 0 ' + W + ' ' + H + '" role="group" aria-label="' + (opts.aria || 'Spirogram showing tidal breathing followed by a maximal inspiration and a maximal expiration, with lung volumes and capacities bracketed on the right') + '">';
+  s += '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || 'Spirogram showing tidal breathing followed by a maximal inspiration and a maximal expiration, with lung volumes and capacities bracketed on the right') + '">';
   /* grid */
   for (var g = 0; g <= VMAX; g++) {
     s += '<line x1="' + x0 + '" y1="' + fmt(Y(g), 1) + '" x2="' + x1 + '" y2="' + fmt(Y(g), 1) + '" stroke="#DCE0E6" stroke-width="1"/>';
@@ -1738,6 +1731,7 @@ P.learnPanel = learnPanel;
 (function () {
 'use strict';
 var P = window.PFT, el = P.el, $ = P.$, fmt = P.fmt, clamp = P.clamp;
+function fx() { return P.fx.apply(null, arguments); }
 
 /* drawing animation for the loop, respects reduced motion */
 var st = document.createElement('style');
@@ -1790,7 +1784,7 @@ function volumesPanel() {
 
   root.appendChild(el('div', { class: 'panel-intro' }, [
     el('h2', { text: 'Lung volumes lab' }),
-    el('p', { text: 'Three tasks. Find each volume and capacity on a tracing where the labels have been taken off, calculate the capacities from raw numbers the way the machine does, then one concept check. Work through all three and the spirometry simulator opens.' }),
+    el('p', { text: 'Three tasks. Match every label onto an unlabelled tracing, then complete a report that came back with four values missing, then one concept check. Work through all three and the simulator opens.' }),
     el('p', { class: 'note', text: 'You are not being graded on getting everything right here. You are being asked to go through the process. Every answer is explained as you go, and everything lands on your results page.' })
   ]));
 
@@ -1975,69 +1969,237 @@ function volumesPanel() {
   root.appendChild(doneCard);
 }
 
+/* ---------------------------------------------------------------------
+   TASK TWO: complete a partly printed report.
+
+   A real report never hands you all four volumes. It gives you a mixture
+   of volumes and capacities and leaves the rest for you to work out, so
+   you have to rearrange rather than add. The blanks are also chained:
+   one of them cannot be solved until another one has been.
+   --------------------------------------------------------------------- */
+
+/* the eight values, and how each one relates to the others */
+var ROWS = [
+  { k: 'TV',  name: 'Tidal volume',                 kind: 'volume' },
+  { k: 'IRV', name: 'Inspiratory reserve volume',   kind: 'volume' },
+  { k: 'ERV', name: 'Expiratory reserve volume',    kind: 'volume' },
+  { k: 'RV',  name: 'Residual volume',              kind: 'volume' },
+  { k: 'IC',  name: 'Inspiratory capacity',         kind: 'capacity' },
+  { k: 'FRC', name: 'Functional residual capacity', kind: 'capacity' },
+  { k: 'VC',  name: 'Vital capacity',               kind: 'capacity' },
+  { k: 'TLC', name: 'Total lung capacity',          kind: 'capacity' }
+];
+
+/* Each set gives four values and hides four. Exactly one hidden value
+   cannot be reached until another hidden value has been solved. */
+var GIVEN_SETS = [
+  {
+    given: ['TLC', 'VC', 'IC', 'TV'],
+    route: {
+      RV:  'TLC &minus; VC',
+      FRC: 'TLC &minus; IC',
+      ERV: 'FRC &minus; RV',
+      IRV: 'IC &minus; TV'
+    },
+    chained: 'ERV',
+    why: 'Expiratory reserve sits inside functional residual capacity alongside residual volume. You cannot pull it out until you have worked out both of those, and residual volume was not given to you either.'
+  },
+  {
+    given: ['FRC', 'IC', 'IRV', 'RV'],
+    route: {
+      ERV: 'FRC &minus; RV',
+      TV:  'IC &minus; IRV',
+      VC:  'IC + ERV',
+      TLC: 'IC + FRC'
+    },
+    chained: 'VC',
+    why: 'Vital capacity is everything you can move, which is inspiratory capacity plus expiratory reserve. Expiratory reserve was not given, so you have to find that first.'
+  },
+  {
+    given: ['TLC', 'RV', 'TV', 'FRC'],
+    route: {
+      VC:  'TLC &minus; RV',
+      ERV: 'FRC &minus; RV',
+      IC:  'TLC &minus; FRC',
+      IRV: 'IC &minus; TV'
+    },
+    chained: 'IRV',
+    why: 'Inspiratory reserve is what is left of inspiratory capacity once you take the tidal breath out of it. Inspiratory capacity was not given, so it has to be worked out first.'
+  }
+];
+
 function capacityTask(onDone) {
-  var vals, inputs = {}, fb = el('div', { class: 'fb', 'aria-live': 'polite' });
-  fb.hidden = true;
-  var stem = el('p', { style: 'margin-bottom:14px' });
-  var grid = el('div', { class: 'grid g2' });
+  var vals, set, inputs = {}, routeCells = {};
+  var stem = el('p');
+  var tableBox = el('div', { class: 'scroll-x' });
+  var orderSlot = el('div');
+  var fb = el('div', { class: 'fb', 'aria-live': 'polite' }); fb.hidden = true;
+  var followUp = el('div');
+  var checkBtn, unlocked = false;
 
   function newCase() {
-    vals = {
-      TV: Math.round((0.4 + Math.random() * 0.25) * 100) / 100,
-      IRV: Math.round((2.0 + Math.random() * 1.4) * 100) / 100,
-      ERV: Math.round((0.8 + Math.random() * 0.7) * 100) / 100,
-      RV: Math.round((0.9 + Math.random() * 0.7) * 100) / 100
-    };
-    stem.innerHTML = 'A body plethysmograph reports these four volumes for one patient. Work out the four capacities and enter each one in litres to two decimal places.<br>' +
-      '<strong>Tidal volume ' + fmt(vals.TV) + ' L &nbsp; Inspiratory reserve ' + fmt(vals.IRV) + ' L &nbsp; Expiratory reserve ' + fmt(vals.ERV) + ' L &nbsp; Residual volume ' + fmt(vals.RV) + ' L</strong>';
-    Object.keys(inputs).forEach(function (k) { inputs[k].value = ''; inputs[k].disabled = false; });
+    var tv  = Math.round((0.40 + Math.random() * 0.25) * 100) / 100;
+    var irv = Math.round((2.40 + Math.random() * 1.00) * 100) / 100;
+    var erv = Math.round((0.90 + Math.random() * 0.60) * 100) / 100;
+    var rv  = Math.round((0.90 + Math.random() * 0.70) * 100) / 100;
+    vals = { TV: tv, IRV: irv, ERV: erv, RV: rv };
+    vals.IC  = tv + irv;
+    vals.FRC = erv + rv;
+    vals.VC  = tv + irv + erv;
+    vals.TLC = tv + irv + erv + rv;
+    set = GIVEN_SETS[Math.floor(Math.random() * GIVEN_SETS.length)];
+    unlocked = false;
+    inputs = {}; routeCells = {};
     fb.hidden = true;
+    followUp.innerHTML = '';
+    render();
   }
 
-  [['IC', 'Inspiratory capacity', 'TV + IRV'],
-  ['FRC', 'Functional residual capacity', 'ERV + RV'],
-  ['VC', 'Vital capacity', 'TV + IRV + ERV'],
-  ['TLC', 'Total lung capacity', 'VC + RV']].forEach(function (r) {
-    var id = 'cap-' + r[0];
-    var inp = el('input', { type: 'number', step: '0.01', min: '0', id: id, inputmode: 'decimal' });
-    inputs[r[0]] = inp;
-    grid.appendChild(el('div', { class: 'field' }, [
-      el('label', { for: id, text: r[1] + ' (' + r[0] + ')' }),
-      inp,
-      el('span', { class: 'hint', text: r[2] })
+  function render() {
+    stem.innerHTML = 'This report came back with four values printed and four left blank. That is normal. A lung function report gives you a mixture of volumes and capacities, and you work out the rest.<br><br>' +
+      '<strong>Fill in the four blanks.</strong> You will have to rearrange, not just add, and one of them cannot be worked out until you have solved another one first.';
+
+    var t = el('table');
+    var head = '<caption>Lung volume study, four values missing</caption>' +
+      '<thead><tr><th>Value</th><th class="num">Litres</th><th>How you got it</th></tr></thead><tbody>';
+    var body = '';
+    ROWS.forEach(function (r) {
+      var isGiven = set.given.indexOf(r.k) >= 0;
+      body += '<tr data-row="' + r.k + '">' +
+        '<td><strong>' + r.k + '</strong> <span class="note">' + r.name + '</span></td>' +
+        '<td class="num" data-cell="' + r.k + '">' + (isGiven ? fmt(vals[r.k]) : '') + '</td>' +
+        '<td class="note" data-route="' + r.k + '">' + (isGiven ? 'Printed on the report' : '') + '</td>' +
+        '</tr>';
+    });
+    t.innerHTML = head + body + '</tbody>';
+    tableBox.innerHTML = '';
+    tableBox.appendChild(t);
+
+    /* drop an input into each blank cell */
+    ROWS.forEach(function (r) {
+      if (set.given.indexOf(r.k) >= 0) return;
+      var cell = t.querySelector('[data-cell="' + r.k + '"]');
+      var id = 'cap-' + r.k;
+      var inp = el('input', {
+        type: 'number', step: '0.01', min: '0', id: id, inputmode: 'decimal',
+        'aria-label': r.name + ' in litres', style: 'max-width:120px;text-align:right'
+      });
+      inp.disabled = !unlocked;
+      inputs[r.k] = inp;
+      cell.appendChild(inp);
+      routeCells[r.k] = t.querySelector('[data-route="' + r.k + '"]');
+      if (!unlocked) routeCells[r.k].textContent = 'Answer the question below first';
+    });
+
+    /* the thinking step, before any arithmetic happens */
+    orderSlot.innerHTML = '';
+    var blanks = ROWS.filter(function (r) { return set.given.indexOf(r.k) < 0; }).map(function (r) { return r.k; });
+    var opts = blanks.map(function (k) {
+      var row = ROWS.filter(function (r) { return r.k === k; })[0];
+      return row.k + ', ' + row.name.toLowerCase();
+    });
+    orderSlot.appendChild(el('div', { class: 'card predict', style: 'margin-top:16px' }, [
+      el('p', { class: 'kicker gold', text: 'Work out the order first' }),
+      el('p', { html: 'Three of the four blanks can be worked out straight away from the printed values. One of them cannot. It has to wait until you have solved one of the others.' }),
+      P.mcq({
+        stem: '<strong>Which blank is the one that has to wait?</strong>',
+        options: opts,
+        correct: blanks.indexOf(set.chained),
+        explain: set.why + '<br><br>Working out the order before you start is the whole skill here. The numbers are easy. Knowing which one you are allowed to solve first is not.',
+        onAnswer: function (right) {
+          P.score(P.progress.capacityCalc, right);
+          unlocked = true;
+          Object.keys(inputs).forEach(function (k) {
+            inputs[k].disabled = false;
+            routeCells[k].textContent = '';
+          });
+          checkBtn.disabled = false;
+          inputs[blanks[0]].focus();
+        }
+      })
     ]));
-  });
+  }
 
   function check() {
-    var answers = {
-      IC: vals.TV + vals.IRV,
-      FRC: vals.ERV + vals.RV,
-      VC: vals.TV + vals.IRV + vals.ERV,
-      TLC: vals.TV + vals.IRV + vals.ERV + vals.RV
-    };
     var lines = [], allRight = true;
-    Object.keys(answers).forEach(function (k) {
+    Object.keys(inputs).forEach(function (k) {
       var given = parseFloat(inputs[k].value);
-      var ok = !isNaN(given) && Math.abs(given - answers[k]) < 0.015;
+      var ok = !isNaN(given) && Math.abs(given - vals[k]) < 0.015;
       if (!ok) allRight = false;
-      lines.push('<strong>' + k + '</strong> should be ' + fmt(answers[k]) + ' L. You entered ' + (isNaN(given) ? 'nothing' : fmt(given)) + '. ' + (ok ? 'Correct.' : 'Check that sum again.'));
+      routeCells[k].innerHTML = '<strong>' + k + '</strong> = ' + set.route[k] + ' = ' + fmt(vals[k]) + ' L';
       inputs[k].disabled = true;
+      lines.push('<strong>' + k + '</strong> ' + (ok ? 'correct' : 'should be ' + fmt(vals[k]) + ' L, you put ' + (isNaN(given) ? 'nothing' : fmt(given))) + '.');
     });
     P.score(P.progress.capacityCalc, allRight);
     if (onDone) onDone();
     fb.hidden = false;
     fb.innerHTML = lines.join('<br>') + '<br><br>' + (allRight
-      ? 'All four correct. Notice that every capacity is just volumes added together, and that residual volume appears in functional residual capacity and total lung capacity but never in vital capacity.'
-      : 'Work from the tracing rather than from memory. Vital capacity is everything above residual volume, and total lung capacity is vital capacity plus residual volume.');
+      ? 'All four correct. Look at the last column. Every blank was filled by rearranging one of the same six relationships, and all eight values came off one tracing.'
+      : 'Look at the last column. Each row now shows the rearrangement that gets you there.');
+    checkBtn.disabled = true;
+    followUp.innerHTML = '';
+    followUp.appendChild(meaningStep());
   }
+
+  /* arithmetic is not the point. This asks what the completed chart says. */
+  function meaningStep() {
+    var rvPct = 100 * vals.RV / vals.TLC;
+    var opts, correct, explain;
+    if (rvPct < 33) {
+      opts = ['Air is being trapped, which suggests obstruction',
+              'This is a normal share for a healthy adult',
+              'The lungs are too small',
+              'The test was performed badly'];
+      correct = 1;
+      explain = 'At ' + fmt(rvPct, 0) + ' percent, the air this person cannot move makes up a normal share of their full lungs. Under about 35 percent is the usual band in a young adult, and it creeps up with age.';
+    } else {
+      opts = ['This is a normal share for a healthy adult',
+              'A larger than usual share of the lungs is air that cannot be moved',
+              'The lungs are unusually small',
+              'Vital capacity must have been measured wrong'];
+      correct = 1;
+      explain = 'At ' + fmt(rvPct, 0) + ' percent, more of this person\'s full lungs is stuck air than you would expect. Over about 35 percent starts to look like air trapping. It is worth noticing that you could work this out without a single predicted value, just from the shape of their own numbers.';
+    }
+    return el('div', { class: 'card check', style: 'margin-top:14px' }, [
+      el('p', { class: 'kicker', text: 'Now say what it means' }),
+      el('p', { html: 'From your completed chart, residual volume is <strong>' + fmt(vals.RV) + ' L</strong> and total lung capacity is <strong>' + fmt(vals.TLC) + ' L</strong>.' }),
+      fx('RV / TLC &nbsp;=&nbsp; ' + P.frac(fmt(vals.RV), fmt(vals.TLC)) + ' &nbsp;=&nbsp; <b>' + fmt(rvPct, 0) + '%</b>',
+        'What share of the full lungs is air that cannot be moved.', null,
+        ['Take the air they can never blow out, and ask what slice of the whole lung it is.',
+         'If your backpack is stuffed with junk you never take out, there is less room for the books you actually need. Same idea.']),
+      P.mcq({
+        stem: '<strong>What does that tell you about this person?</strong>',
+        options: opts, correct: correct, explain: explain,
+        onAnswer: function (r) { P.score(P.progress.capacityCalc, r); }
+      })
+    ]);
+  }
+
+  checkBtn = el('button', { class: 'btn', type: 'button', text: 'Check my chart', onclick: check });
+  checkBtn.disabled = true;
 
   var card = el('div', { class: 'card' }, [
     el('p', { class: 'kicker', text: 'Task two' }),
-    el('h3', { text: 'Calculate the capacities' }),
-    stem, grid, fb,
+    el('h3', { text: 'Complete the report' }),
+    stem,
+    tableBox,
+    orderSlot,
     el('div', { class: 'btnrow' }, [
-      el('button', { class: 'btn', type: 'button', text: 'Check my answers', onclick: check }),
-      el('button', { class: 'btn sec', type: 'button', text: 'New set of numbers', onclick: newCase })
+      checkBtn,
+      el('button', { class: 'btn sec', type: 'button', text: 'New report', onclick: newCase })
+    ]),
+    fb,
+    followUp,
+    el('div', { class: 'surface', style: 'margin-top:14px' }, [
+      el('h4', { text: 'The six relationships, if you need them' }),
+      el('div', { class: 'fx-list', style: 'margin-bottom:0' }, [
+        fx('TLC &nbsp;=&nbsp; IRV + TV + ERV + RV', 'All four volumes, counted once each.'),
+        fx('VC &nbsp;=&nbsp; IRV + TV + ERV', 'Everything you can move. Residual volume is deliberately left out.'),
+        fx('IC &nbsp;=&nbsp; IRV + TV', 'From a quiet breath out, all the way up.'),
+        fx('FRC &nbsp;=&nbsp; ERV + RV', 'What is left sitting in the lungs between breaths.'),
+        fx('TLC &nbsp;=&nbsp; VC + RV', 'What you can move, plus what you cannot.'),
+        fx('TLC &nbsp;=&nbsp; IC + FRC', 'Split at the resting point instead.')
+      ])
     ])
   ]);
   newCase();
