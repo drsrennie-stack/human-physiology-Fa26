@@ -97,7 +97,7 @@ window.BIO005_SECTIONS = {
  "sections": [
   {
    "key": "net",
-   "label": "Sutter Internet (NET), fully online",
+   "label": "Yuba College, fully online",
    "crn": "BIOL-5-D9286",
    "detail": "Lecture and lab both asynchronous. Weeks open Monday 12:00 am and close Sunday 11:59 pm."
   }

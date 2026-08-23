@@ -235,7 +235,7 @@
   var SEC_KEY = 'bio005-section';
 
   var SECTIONS = {
-    'net':    { label: 'Sutter Internet (NET), fully online', syllabus: 'syllabus.html', hub: 'welcome.html' }
+    'net':    { label: 'Yuba College, fully online', syllabus: 'syllabus.html', hub: 'welcome.html' }
   };
 
   function section() {

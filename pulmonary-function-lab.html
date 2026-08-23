@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pulmonary Function and Mechanical Ventilation Lab</title>
 <meta name="description" content="Interactive lab for lung volumes, spirometry, pulmonary function test interpretation, and mechanical ventilator settings.">
@@ -296,6 +297,9 @@ ul.tight li,ol.tight li{margin-bottom:.4em}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Scrubs rule: no italics anywhere. Browser defaults included. */
+em,i,cite,dfn,var,address{font-style:normal}
 </style>
 </head>
 <body>
@@ -1057,7 +1061,7 @@ function spirogramSVG(v, opts) {
   var d = pts.map(function (p, i) { return (i ? 'L' : 'M') + fmt(X(p[0]), 1) + ' ' + fmt(Y(p[1]), 1); }).join(' ');
 
   var s = '';
-  s += '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + (opts.aria || 'Spirogram showing tidal breathing followed by a maximal inspiration and a maximal expiration, with lung volumes and capacities bracketed on the right') + '">';
+  s += '<svg viewBox="0 0 ' + W + ' ' + H + '" role="group" aria-label="' + (opts.aria || 'Spirogram showing tidal breathing followed by a maximal inspiration and a maximal expiration, with lung volumes and capacities bracketed on the right') + '">';
   /* grid */
   for (var g = 0; g <= VMAX; g++) {
     s += '<line x1="' + x0 + '" y1="' + fmt(Y(g), 1) + '" x2="' + x1 + '" y2="' + fmt(Y(g), 1) + '" stroke="#DCE0E6" stroke-width="1"/>';

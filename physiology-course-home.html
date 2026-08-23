@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BIO 005 Human Physiology &middot; Course Home</title>
 <meta name="description" content="Course home for BIO 005 Human Physiology. Start with the syllabus, then work through eight units across the fall term.">
 <style>
 @import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/plus-jakarta-sans/index.css');
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
-
 /*
   BIO 005 HUMAN PHYSIOLOGY . COURSE HOME
   Hub-and-spoke: every course page links back here.
@@ -163,7 +162,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 .cta-subhead{font-size:17.4px;font-weight:400;color:#FFFFFF;opacity:0.84;line-height:1.65;margin:0 auto 36px;max-width:540px;}
 .cta-button{background:var(--maroon-alt);color:#FFFFFF;padding:15px 30px;border-radius:4px;font-size:12.3px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background 0.2s ease;}
 .cta-button:hover{background:var(--maroon-dark-2);}
-.cta-signoff{margin:30px 0 0;font-size:15.7px;color:#FFFFFF;opacity:0.8;font-style:italic;}
+.cta-signoff{margin:30px 0 0;font-size:15.7px;color:#FFFFFF;opacity:0.8;font-style:normal;}
 
 /* FOOTER (dark) */
 .footer-section{background:var(--dark);padding-top:56px;padding-bottom:32px;}
@@ -202,8 +201,44 @@ a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visi
 }
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}html{scroll-behavior:auto;}}
 
-/* Serif display headlines (Fraunces) and serif numerals */
-.hero-headline,.section-headline,.cta-headline,.support-head,.about-quote,.prob-num,.hw-num,.mod-num{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-0.015em;}
+/* Display headlines and numerals. Plus Jakarta Sans, no serif. */
+.hero-headline,.section-headline,.cta-headline,.support-head,.about-quote,.prob-num,.hw-num,.mod-num{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:600;letter-spacing:-0.015em;}
+
+/* Scrubs rule: no italics anywhere. Browser defaults included. */
+em,i,cite,dfn,var,address{font-style:normal}
+
+
+/* ============================================================
+   MAROON CANNOT CARRY TEXT ON NAVY. Added Aug 2026.
+
+   #7A2A22 on #08101F measures 1.98:1 and #5E201A measures 1.30:1.
+   Both were in use for every accent on the four dark sections of
+   this page: the eyebrows, the headline accent word, the pull
+   quote, the logo accent, the footer column headers and byline,
+   and the big problem numerals. None of it was readable.
+
+   On a dark ground the same accent role is filled by a lightened
+   maroon: #D0705F at 5.58:1 for headline-size text, #EDB0A4 at
+   10.28:1 for anything small. Same two-token split course-entry.html
+   uses. The overrides are scoped to the four dark sections by name,
+   because .section-eyebrow also appears on white sections where the
+   original maroon is correct at 9.63:1 and must not be touched.
+   ============================================================ */
+.prob-section .section-eyebrow, .about-section .section-eyebrow,
+.cta-section .section-eyebrow, .footer-section .section-eyebrow,
+.cta-section .cta-eyebrow, .footer-section .footer-col-header,
+.footer-section .footer-byline, .prob-section .footer-byline{color:#EDB0A4;}
+
+/* Three classes deep, to beat .prob-section .section-headline .accent,
+   which is the rule that put maroon on navy in the first place. A two
+   class override loses to it on specificity and silently does nothing. */
+.prob-section .section-headline .accent, .about-section .section-headline .accent,
+.cta-section .section-headline .accent, .footer-section .section-headline .accent,
+.prob-section .hero-headline .accent, .about-section .hero-headline .accent,
+.prob-section .accent, .about-section .accent,
+.cta-section .accent, .footer-section .accent,
+.about-section .about-quote, .footer-section .logo-accent,
+.cta-section .logo-accent, .prob-num{color:#D0705F;}
 </style>
 </head>
 <body>
