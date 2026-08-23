@@ -571,6 +571,65 @@ ul.tight li,ol.tight li{margin-bottom:.4em}
   .fold-slot .btn{display:none!important}
 }
 
+/* =====================================================================
+   DRAWING
+   Students have no printer. Everything is drawn on screen and every
+   canvas is copied into the submitted PDF.
+   ===================================================================== */
+.dp{margin:16px 0 0}
+.dp-inst{font-size:.95rem;line-height:1.6;margin:0 0 14px}
+.dp-inst:empty{display:none}
+.dp-bar{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;background:var(--off);
+  border:1px solid var(--hair);border-radius:var(--r-block);padding:12px 15px;margin:0 0 14px}
+.dp-tools{display:flex;flex-wrap:wrap;gap:6px}
+.dp-t{font-family:var(--display);font-weight:700;font-size:.82rem;background:#fff;color:var(--ink);
+  border:1px solid var(--rule);border-radius:7px;padding:8px 13px;cursor:pointer;line-height:1.2}
+.dp-t:hover:not(:disabled){border-color:var(--navy);background:#fff}
+.dp-t[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.dp-t:disabled{opacity:.5;cursor:default}
+.dp-ink{width:30px;height:30px;border-radius:50%;background:var(--ink);border:2px solid #fff;
+  box-shadow:0 0 0 1px var(--rule);cursor:pointer;padding:0}
+.dp-ink[aria-pressed="true"]{box-shadow:0 0 0 2px var(--navy);transform:scale(1.12)}
+.dp-ink:disabled{opacity:.5;cursor:default}
+.dp-w{display:flex;align-items:center;gap:9px}
+.dp-wl{font-family:var(--display);font-weight:700;font-size:.78rem;color:var(--ink-muted);white-space:nowrap}
+.dp-w input{width:110px;accent-color:var(--terra)}
+.dp-stage{position:relative;background:#fff;border:1px solid var(--rule);border-radius:var(--r-block);
+  overflow:hidden;box-shadow:var(--shadow)}
+.dp-bg{position:absolute;inset:0;pointer-events:none}
+.dp-bg svg{width:100%;height:100%;display:block}
+.dp-canvas{position:absolute;inset:0;cursor:crosshair;touch-action:pan-y}
+.dp[data-finger] .dp-canvas{touch-action:none}
+
+/* the described route is an equal answer, so it does not look like a fallback */
+.dp-alt{margin:16px 0 0;background:#fff;border:1px solid var(--hair);border-radius:var(--r-block);
+  box-shadow:var(--shadow)}
+.dp-alt>summary{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--navy);
+  padding:14px 17px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px}
+.dp-alt>summary::-webkit-details-marker{display:none}
+.dp-alt>summary::before{content:"";width:9px;height:9px;border-right:2px solid var(--terra);
+  border-bottom:2px solid var(--terra);transform:rotate(-45deg);transition:transform 180ms ease;flex:0 0 auto}
+.dp-alt[open]>summary::before{transform:rotate(45deg)}
+.dp-alt>summary:hover{background:var(--off)}
+.dp-alt-body{padding:0 17px 17px;border-top:1px solid var(--hair)}
+.dp-alt-body textarea{width:100%;font-family:var(--body);font-size:1rem;line-height:1.6;padding:13px 15px;
+  border:1px solid var(--rule);border-radius:8px;background:#fff;color:var(--ink);resize:vertical;margin-top:12px}
+.dp-alt-body textarea[readonly]{background:var(--off)}
+
+/* drawings reproduced on the results page */
+.sub-draw{background:#fff;border:1px solid var(--hair);border-radius:var(--r-block);padding:16px 18px;
+  margin:0 0 14px;box-shadow:var(--shadow)}
+.sub-draw img{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:6px;margin-top:10px}
+
+@media print{
+  .dp-bar,.dp-alt>summary{display:none!important}
+  .dp-stage{box-shadow:none;border:1px solid #999;break-inside:avoid}
+  .dp-alt{box-shadow:none;border:1px solid #999}
+  .dp-alt-body{padding:14px 16px;border-top:0}
+  .sub-draw{box-shadow:none;border:1px solid #999;break-inside:avoid}
+  .sub-draw img{border:1px solid #999}
+}
+
 </style>
 </head>
 <body>
@@ -1530,6 +1589,26 @@ L.calcTable = calcTable;
    labelled points, and get back an SVG string with real axes, units and
    a text alternative.
    ===================================================================== */
+/* the plot geometry, from the same defaults xy() uses, so a drawing
+   surface laid over a figure can convert a mark back into real units */
+function xyBox(cfg) {
+  var W = cfg.w || 820, H = cfg.h || 440;
+  var x0 = cfg.padL || 74, x1 = W - (cfg.padR || 26);
+  var y0 = cfg.padT || 22, y1 = H - (cfg.padB || 58);
+  return {
+    W: W, H: H, x0: x0, x1: x1, y0: y0, y1: y1,
+    xmin: cfg.x.min, xmax: cfg.x.max, ymin: cfg.y.min, ymax: cfg.y.max,
+    /* viewBox units to data */
+    toData: function (vx, vy) {
+      return [
+        cfg.x.min + (vx - x0) / (x1 - x0) * (cfg.x.max - cfg.x.min),
+        cfg.y.min + (y1 - vy) / (y1 - y0) * (cfg.y.max - cfg.y.min)
+      ];
+    }
+  };
+}
+L.xyBox = xyBox;
+
 function xy(cfg) {
   var W = cfg.w || 820, H = cfg.h || 440;
   var x0 = cfg.padL || 74, x1 = W - (cfg.padR || 26), y0 = cfg.padT || 22, y1 = H - (cfg.padB || 58);
@@ -1748,6 +1827,22 @@ function renderReport() {
           '</td><td class="note">' + (meta.where[k] || '') + '</td></tr>';
       }).join('') + '</tbody>';
     root.appendChild(el('div', { class: 'card scroll-x' }, t2));
+  }
+
+  /* Every drawing, reproduced here so one Save as PDF carries the whole
+     submission. A described answer prints as the words the student wrote. */
+  if (L.drawings && L.drawings.length) {
+    var dk = [el('h3', { text: 'Your drawings' })];
+    L.drawings.forEach(function (d) {
+      var kids = [el('p', { class: 'kicker', text: d.label })];
+      if (d.how === 'drawn' && d.image) {
+        kids.push(el('img', { src: d.image, alt: 'Your drawing for ' + d.label }));
+      } else if (d.described) {
+        kids.push(el('p', { style: 'margin-bottom:0', text: d.described }));
+      }
+      dk.push(el('div', { class: 'sub-draw' }, kids));
+    });
+    root.appendChild(el('div', { class: 'card' }, dk));
   }
 
   /* The chart the student actually filled in, reproduced as they left it. */
@@ -2739,6 +2834,477 @@ function clinicalNote(cfg) {
   ]);
 }
 L.clinicalNote = clinicalNote;
+})();
+
+/* =====================================================================
+   THE CLINICAL PHYSIOLOGY LAB, shared engine
+   Part 5: drawing.
+
+   Students have no printer, so nothing is printed and filled in by hand.
+   Every drawing is made on screen, on a canvas, and every canvas is
+   copied into the results page so one Save as PDF carries the whole
+   submission: the chart, the note, the working, and every sketch.
+
+   Canvas survives print to PDF as an embedded image, which is why this
+   needs no PDF library and no external request of any kind.
+
+   ACCESSIBILITY, stated plainly
+   A canvas is a pointer surface. It cannot be operated from a keyboard,
+   and no amount of care changes that. So a drawing task is never the
+   only route to finishing a step. Every one carries a described route:
+   the same synthesis done in words or in structured choices, accepted on
+   equal terms and printed into the same PDF. That is not a lesser path
+   for people who cannot draw. It is a second correct answer.
+   ===================================================================== */
+(function () {
+'use strict';
+var L = window.LAB, el = L.el, $ = L.$, $$ = L.$$;
+
+/* every finished drawing, for the printed submission */
+L.drawings = [];
+
+var INK = [
+  { id: 'navy',  hex: '#08101F', name: 'navy' },
+  { id: 'terra', hex: '#731717', name: 'red' },
+  { id: 'teal',  hex: '#27565D', name: 'teal' },
+  { id: 'gold',  hex: '#9A7F32', name: 'gold' }
+];
+var TOOLS = [
+  { id: 'pen',    name: 'Pen' },
+  { id: 'line',   name: 'Line' },
+  { id: 'arrow',  name: 'Arrow' },
+  { id: 'rect',   name: 'Box' },
+  { id: 'ellipse',name: 'Circle' },
+  { id: 'erase',  name: 'Erase' }
+];
+
+/* =====================================================================
+   THE SURFACE
+   cfg: {
+     id, label, instruction, height, background (svg string, optional),
+     bucket, alt: { prompt, options[], minWords }, onDone
+   }
+   ===================================================================== */
+function drawpad(cfg) {
+  var H = cfg.height || 340;
+  /* When a figure sits underneath, the stage takes the figure's exact
+     aspect ratio. Without that the SVG letterboxes inside the stage and
+     a mark can no longer be converted back into seconds and mmHg. */
+  var geom = cfg.geom || null;
+  var strokes = [];        /* every stroke, so undo is real and redraw is exact */
+  var current = null;
+  var tool = 'pen', ink = '#08101F', width = 3;
+  var done = false;
+
+  var wrap = el('div', { class: 'dp' });
+  var stage = el('div', { class: 'dp-stage', style: 'height:' + H + 'px' });
+
+  /* the figure being drawn on, if there is one */
+  if (cfg.background) {
+    var bg = el('div', { class: 'dp-bg' });
+    bg.innerHTML = cfg.background;
+    stage.appendChild(bg);
+  }
+
+  var canvas = el('canvas', {
+    class: 'dp-canvas',
+    'aria-label': cfg.label + '. A drawing surface. If you would rather not draw, or cannot, use the described route below, which is worth exactly the same.'
+  });
+  stage.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+
+  function sizeCanvas() {
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    if (geom) {
+      H = Math.round(r.width * geom.H / geom.W);
+      stage.style.height = H + 'px';
+      r = stage.getBoundingClientRect();
+    }
+    /* two device pixels per css pixel, so the printed PDF stays sharp */
+    var scale = Math.min(2 * (window.devicePixelRatio || 1), 3);
+    canvas.width = Math.round(r.width * scale);
+    canvas.height = Math.round(H * scale);
+    canvas.style.width = r.width + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    redraw();
+  }
+
+  function redraw() {
+    var r = stage.getBoundingClientRect();
+    ctx.clearRect(0, 0, r.width || 1000, H);
+    strokes.forEach(paint);
+    if (current) paint(current);
+  }
+
+  function paint(s) {
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = s.ink;
+    ctx.lineWidth = s.w;
+    if (s.tool === 'erase') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = s.w * 5;
+    }
+    var p = s.pts;
+    if (!p.length) { ctx.restore(); return; }
+    ctx.beginPath();
+    if (s.tool === 'pen' || s.tool === 'erase') {
+      ctx.moveTo(p[0][0], p[0][1]);
+      for (var i = 1; i < p.length; i++) ctx.lineTo(p[i][0], p[i][1]);
+      ctx.stroke();
+    } else {
+      var a = p[0], b = p[p.length - 1];
+      if (s.tool === 'line' || s.tool === 'arrow') {
+        ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        if (s.tool === 'arrow') {
+          var ang = Math.atan2(b[1] - a[1], b[0] - a[0]), h = 9 + s.w * 2;
+          ctx.beginPath();
+          ctx.moveTo(b[0], b[1]);
+          ctx.lineTo(b[0] - h * Math.cos(ang - 0.4), b[1] - h * Math.sin(ang - 0.4));
+          ctx.moveTo(b[0], b[1]);
+          ctx.lineTo(b[0] - h * Math.cos(ang + 0.4), b[1] - h * Math.sin(ang + 0.4));
+          ctx.stroke();
+        }
+      } else if (s.tool === 'rect') {
+        ctx.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
+      } else if (s.tool === 'ellipse') {
+        ctx.ellipse((a[0] + b[0]) / 2, (a[1] + b[1]) / 2,
+          Math.abs(b[0] - a[0]) / 2, Math.abs(b[1] - a[1]) / 2, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function pos(e) {
+    var r = canvas.getBoundingClientRect();
+    return [e.clientX - r.left, e.clientY - r.top];
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    if (done) return;
+    /* a finger scrolls the page; a stylus or a mouse draws */
+    if (e.pointerType === 'touch' && !wrap.dataset.finger) return;
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    current = { tool: tool, ink: ink, w: width, pts: [pos(e)] };
+  });
+  canvas.addEventListener('pointermove', function (e) {
+    if (!current) return;
+    e.preventDefault();
+    current.pts.push(pos(e));
+    redraw();
+  });
+  function endStroke() {
+    if (!current) return;
+    if (current.pts.length > 1 || current.tool === 'pen') strokes.push(current);
+    current = null;
+    redraw();
+    say(strokes.length + ' mark' + (strokes.length === 1 ? '' : 's') + ' on the canvas.');
+  }
+  canvas.addEventListener('pointerup', endStroke);
+  canvas.addEventListener('pointercancel', endStroke);
+  canvas.addEventListener('pointerleave', endStroke);
+
+  /* ---------- the tool bar ---------- */
+  var live = el('p', { class: 'note', 'aria-live': 'polite', style: 'margin:10px 0 0' });
+  function say(t) { live.textContent = t; }
+
+  var toolRow = el('div', { class: 'dp-tools', role: 'group', 'aria-label': 'Drawing tools' });
+  var toolBtns = {};
+  TOOLS.forEach(function (t) {
+    var b = el('button', {
+      class: 'dp-t', type: 'button', 'aria-pressed': t.id === 'pen' ? 'true' : 'false',
+      text: t.name,
+      onclick: function () {
+        tool = t.id;
+        Object.keys(toolBtns).forEach(function (k) {
+          toolBtns[k].setAttribute('aria-pressed', k === t.id ? 'true' : 'false');
+        });
+        say(t.name + ' selected.');
+      }
+    });
+    toolBtns[t.id] = b;
+    toolRow.appendChild(b);
+  });
+
+  var inkRow = el('div', { class: 'dp-tools', role: 'group', 'aria-label': 'Ink colour' });
+  var inkBtns = {};
+  INK.forEach(function (c) {
+    var b = el('button', {
+      class: 'dp-ink', type: 'button', 'aria-pressed': c.hex === ink ? 'true' : 'false',
+      'aria-label': c.name + ' ink', style: '--ink:' + c.hex,
+      onclick: function () {
+        ink = c.hex;
+        Object.keys(inkBtns).forEach(function (k) {
+          inkBtns[k].setAttribute('aria-pressed', k === c.id ? 'true' : 'false');
+        });
+        say(c.name + ' ink selected.');
+      }
+    });
+    inkBtns[c.id] = b;
+    inkRow.appendChild(b);
+  });
+
+  var wId = 'dpw-' + cfg.id;
+  var wIn = el('input', {
+    type: 'range', min: '1', max: '10', value: '3', id: wId,
+    oninput: function () { width = parseInt(wIn.value, 10); }
+  });
+
+  var undoBtn = el('button', {
+    class: 'btn sec sm', type: 'button', text: 'Undo',
+    onclick: function () {
+      if (done || !strokes.length) return;
+      strokes.pop(); redraw();
+      say('Last mark removed. ' + strokes.length + ' left.');
+    }
+  });
+  var clearBtn = el('button', {
+    class: 'btn sec sm', type: 'button', text: 'Clear',
+    onclick: function () {
+      if (done) return;
+      strokes = []; redraw(); say('Canvas cleared.');
+    }
+  });
+  var fingerBtn = el('button', {
+    class: 'btn sec sm', type: 'button', 'aria-pressed': 'false',
+    text: 'Finger drawing: off',
+    onclick: function () {
+      var on = !wrap.dataset.finger;
+      if (on) wrap.dataset.finger = '1'; else delete wrap.dataset.finger;
+      fingerBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      fingerBtn.textContent = 'Finger drawing: ' + (on ? 'on' : 'off');
+      say('Finger drawing ' + (on ? 'on. One finger now draws instead of scrolling.' : 'off. One finger scrolls the page again.'));
+    }
+  });
+
+  /* ---------- the described route, which is not a fallback ---------- */
+  var altBox = null, altDone = false;
+  if (cfg.alt) {
+    var taId = 'dpa-' + cfg.id;
+    var ta = el('textarea', { id: taId, rows: '4', 'aria-label': cfg.alt.label || (cfg.label + ', described in words') });
+    var min = cfg.alt.minWords || 20;
+    var count = el('p', { class: 'note', style: 'margin:8px 0 0', 'aria-live': 'polite' });
+    ta.addEventListener('input', function () {
+      var w = ta.value.trim().split(/\s+/).filter(Boolean).length;
+      count.textContent = w + ' word' + (w === 1 ? '' : 's') + '. At least ' + min + ' are needed.';
+    });
+    var altFb = el('p', { class: 'ws-fb' }); altFb.hidden = true;
+    var altBtn = el('button', {
+      class: 'btn sm', type: 'button', text: 'Record my description',
+      onclick: function () {
+        var w = ta.value.trim().split(/\s+/).filter(Boolean).length;
+        altFb.hidden = false;
+        if (w < min) {
+          altFb.className = 'ws-fb warn';
+          altFb.textContent = 'That is ' + w + ' words. Describe what you would have drawn: what goes where, what connects to what, and which way it points.';
+          ta.focus(); return;
+        }
+        altDone = true;
+        ta.readOnly = true; altBtn.hidden = true;
+        altFb.className = 'ws-fb ok';
+        altFb.innerHTML = '<strong>Recorded. </strong>This is your answer to this step and it prints on your PDF.';
+        finish('described');
+      }
+    });
+    altBox = el('details', { class: 'dp-alt' }, [
+      el('summary', { text: 'Answer this in words instead' }),
+      el('div', { class: 'dp-alt-body' }, [
+        el('p', { class: 'note', html: cfg.alt.prompt }),
+        el('label', { class: 'sr-only', for: taId, text: cfg.alt.label || cfg.label }),
+        ta, count,
+        el('div', { class: 'btnrow', style: 'margin-top:10px' }, altBtn),
+        altFb
+      ])
+    ]);
+  }
+
+  /* ---------- committing ---------- */
+  var fb = el('p', { class: 'ws-fb' }); fb.hidden = true;
+  var doneBtn = el('button', {
+    class: 'btn', type: 'button', text: 'This is my answer',
+    onclick: function () {
+      if (done) return;
+      if (!strokes.length) {
+        fb.hidden = false;
+        fb.className = 'ws-fb warn';
+        fb.textContent = 'There is nothing on the canvas yet. Draw your answer, or open the described route below and answer in words instead. Either one counts.';
+        return;
+      }
+      finish('drawn');
+    }
+  });
+
+  function finish(how) {
+    if (done) return;
+    done = true;
+    canvas.style.cursor = 'default';
+    doneBtn.hidden = true;
+    fb.hidden = false;
+    fb.className = 'ws-fb ok';
+    fb.innerHTML = how === 'drawn'
+      ? '<strong>Recorded. </strong>Your drawing is saved into your submission and appears on the PDF.'
+      : '<strong>Recorded. </strong>Your description is saved into your submission and appears on the PDF.';
+    [undoBtn, clearBtn, fingerBtn].forEach(function (b) { b.disabled = true; });
+    Object.keys(toolBtns).forEach(function (k) { toolBtns[k].disabled = true; });
+    Object.keys(inkBtns).forEach(function (k) { inkBtns[k].disabled = true; });
+    wIn.disabled = true;
+
+    var rec = { label: cfg.label, how: how, image: '',
+                described: cfg.alt && altDone ? $('#dpa-' + cfg.id).value.trim() : '' };
+    L.drawings.push(rec);
+    if (cfg.bucket) L.score(cfg.bucket, true);
+
+    var line = how === 'drawn' ? readLine() : null;
+
+    /* Hand back the tools the caller needs: what the student drew in real
+       units, a way to lay the truth underneath it, and a way to re-save the
+       picture once both lines are showing. */
+    if (cfg.onDone) {
+      cfg.onDone(how, line, function (svg) {
+        setBackground(svg);
+        /* let the new figure paint, then save the comparison for the PDF */
+        setTimeout(function () { flatten(function (d) { rec.image = d; }); }, 60);
+      });
+    }
+    if (how === 'drawn') flatten(function (d) { if (!rec.image) rec.image = d; });
+  }
+
+  /* swap what sits under the marks. The student's line does not move. */
+  function setBackground(svg) {
+    var b = stage.querySelector('.dp-bg');
+    if (!b) { b = el('div', { class: 'dp-bg' }); stage.insertBefore(b, canvas); }
+    b.innerHTML = svg;
+  }
+
+  /* read the drawn line back in real units, so the feedback can talk
+     about what the student actually drew rather than in generalities */
+  function readLine() {
+    var r = stage.getBoundingClientRect();
+    if (!geom || !r.width) return null;
+    var sx = geom.W / r.width, sy = geom.H / H;
+    var pts = [];
+    strokes.forEach(function (s) {
+      if (s.tool === 'erase') return;
+      s.pts.forEach(function (p) {
+        var d = geom.toData(p[0] * sx, p[1] * sy);
+        /* marks made outside the plotted area are not readable as data,
+           so they are left out of the comparison rather than reported as
+           an impossible pressure at a negative time */
+        if (d[0] < geom.xmin || d[0] > geom.xmax) return;
+        if (d[1] < geom.ymin || d[1] > geom.ymax) return;
+        pts.push(d);
+      });
+    });
+    if (pts.length < 2) return null;
+    pts.sort(function (a, b) { return a[0] - b[0]; });
+    return {
+      pts: pts,
+      at: function (x) {
+        var best = pts[0], bd = Math.abs(pts[0][0] - x);
+        for (var i = 1; i < pts.length; i++) {
+          var d = Math.abs(pts[i][0] - x);
+          if (d < bd) { bd = d; best = pts[i]; }
+        }
+        return bd <= (geom.xmax - geom.xmin) * 0.06 ? best[1] : null;
+      },
+      lowest: pts.reduce(function (a, p) { return p[1] < a[1] ? p : a; }, pts[0]),
+      first: pts[0], last: pts[pts.length - 1]
+    };
+  }
+
+  /* The figure and the marks on it become one image, so the PDF shows the
+     prediction sitting on the graph it was drawn on, with the real line
+     underneath it. The background is an SVG, so it has to be rasterised
+     first, which means this is asynchronous. */
+  function flatten(cb) {
+    var r = stage.getBoundingClientRect();
+    var scale = 2;
+    var out = document.createElement('canvas');
+    out.width = Math.round(r.width * scale);
+    out.height = Math.round(H * scale);
+    var o = out.getContext('2d');
+    o.fillStyle = '#ffffff';
+    o.fillRect(0, 0, out.width, out.height);
+
+    function done() {
+      o.drawImage(canvas, 0, 0, out.width, out.height);
+      try { cb(out.toDataURL('image/png')); } catch (e) { cb(''); }
+    }
+
+    var bgEl = stage.querySelector('.dp-bg svg');
+    if (!bgEl) { done(); return; }
+    try {
+      var svg = new XMLSerializer().serializeToString(bgEl);
+      if (svg.indexOf('xmlns=') < 0) {
+        svg = svg.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+      var img = new Image();
+      img.onload = function () {
+        o.drawImage(img, 0, 0, out.width, out.height);
+        done();
+      };
+      img.onerror = function () { done(); };
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    } catch (e) { done(); }
+  }
+
+  wrap.appendChild(el('p', { class: 'dp-inst', html: cfg.instruction || '' }));
+  wrap.appendChild(el('div', { class: 'dp-bar' }, [
+    toolRow, inkRow,
+    el('div', { class: 'dp-w' }, [
+      el('label', { for: wId, class: 'dp-wl', text: 'Thickness' }), wIn
+    ])
+  ]));
+  wrap.appendChild(stage);
+  wrap.appendChild(el('div', { class: 'btnrow' }, [doneBtn, undoBtn, clearBtn, fingerBtn]));
+  wrap.appendChild(fb);
+  wrap.appendChild(live);
+  if (altBox) wrap.appendChild(altBox);
+
+  setTimeout(sizeCanvas, 0);
+  window.addEventListener('resize', function () { setTimeout(sizeCanvas, 60); });
+
+  return { node: wrap, isDone: function () { return done; }, resize: sizeCanvas };
+}
+L.drawpad = drawpad;
+
+/* =====================================================================
+   PREDICT ON THE GRAPH
+   The student draws the curve they expect straight onto the axes, then
+   the real one is revealed underneath their line. Their prediction stays
+   on screen, so they are looking at the gap between what they thought
+   and what happened, which is the entire point of predicting.
+   ===================================================================== */
+function predictOnGraph(cfg) {
+  /* cfg: {id, label, instruction, blankFig, realFig, height, alt, bucket, after} */
+  var slot = el('div');
+  var pad = drawpad({
+    id: cfg.id, label: cfg.label, instruction: cfg.instruction,
+    height: cfg.height || 380, background: cfg.blankFig,
+    bucket: cfg.bucket, alt: cfg.alt,
+    onDone: function () {
+      var reveal = el('div', { class: 'card', style: 'margin-top:18px' }, [
+        L.kicker('Now the real one'),
+        el('h3', { text: cfg.revealTitle || 'What actually happens' }),
+        el('figure', { class: 'fig' }, [
+          el('div', { html: cfg.realFig }),
+          cfg.revealCaption ? el('figcaption', { html: cfg.revealCaption }) : null
+        ]),
+        cfg.after ? el('p', { html: cfg.after, style: 'margin-top:14px' }) : null
+      ]);
+      slot.appendChild(reveal);
+      L.wireTerms(reveal);
+      reveal.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+  return el('div', null, [pad.node, slot]);
+}
+L.predictOnGraph = predictOnGraph;
 })();
 
 /* META {
@@ -3848,6 +4414,45 @@ function trace(run, key) {
 }
 function mapAt(run, t) { return state(run, t).map; }
 
+var PRESS_CFG = {
+  h: 380,
+  x: { min: 0, max: TMAX, label: 'Seconds. The patient stands at 10 seconds.', ticks: [0, 10, 20, 30, 40, 50, 60] },
+  y: { min: 40, max: 140, label: 'Pressure (mmHg)', ticks: [40, 60, 80, 100, 120, 140] }
+};
+var PRESS_GEOM = L.xyBox(PRESS_CFG);
+
+function blankPressureFig() {
+  return L.xy({
+    h: 380,
+    x: { min: 0, max: TMAX, label: 'Seconds. The patient stands at 10 seconds.', ticks: [0, 10, 20, 30, 40, 50, 60] },
+    y: { min: 40, max: 140, label: 'Pressure (mmHg)', ticks: [40, 60, 80, 100, 120, 140] },
+    bands: [{ x: [0, T0], fill: 'rgba(10,19,34,.05)' }],
+    guides: [
+      { x: T0, label: 'Stands', color: C.navy },
+      { y: 65, label: 'MAP floor, 65', color: C.goldText },
+      { y: BASE.sbp, label: 'Her systolic lying down, ' + BASE.sbp, color: C.rule }
+    ],
+    series: [],
+    aria: 'Empty axes for your prediction. Seconds along the bottom from 0 to 60, with a marker at 10 seconds where she stands. Pressure up the side from 40 to 140. A dashed line marks her systolic pressure lying down, and another marks the mean arterial pressure floor of 65.'
+  });
+}
+
+/* Her real systolic on exactly the same axes as the blank the student drew
+   on, so it can be slid underneath their line without anything moving. */
+function truthFig(run) {
+  return L.xy({
+    h: 380,
+    x: PRESS_CFG.x, y: PRESS_CFG.y,
+    bands: [{ x: [0, T0], fill: 'rgba(10,19,34,.05)' }],
+    guides: [
+      { x: T0, label: 'Stands', color: C.navy },
+      { y: 65, label: 'MAP floor, 65', color: C.goldText }
+    ],
+    series: [{ pts: trace(run, 'sbp'), color: C.teal, width: 3.4 }],
+    aria: 'The same axes, now carrying what actually happened to her systolic pressure.'
+  });
+}
+
 function pressureFig(run) {
   return L.xy({
     h: 380,
@@ -4132,13 +4737,148 @@ function casePanel() {
       }));
     });
 
-    slot.appendChild(L.card([
-      L.kicker('Step three'),
+    var runCard = L.card([
+      L.kicker('Now run it'),
       el('h3', { text: 'Stand her up and watch' }),
-      para('Standing moves 500 to 800 mL of blood down into the legs in about a second. The <t>baroreflex</t> is supposed to catch that before anyone notices. Run the healthy reflex first so you know what catching it looks like, then run Rosa.'),
+      para('Run the healthy reflex first so you know what catching it looks like, then run Rosa and put your prediction next to what actually happened.'),
       note('Both runs are required. One trace on its own tells you nothing, because there is nothing to compare it against.'),
       btns, out, qSlot
+    ]);
+    runCard.hidden = true;
+
+    slot.appendChild(L.card([
+      L.kicker('Step three'),
+      el('h3', { text: 'Before you run it, draw what you think happens' }),
+      para('Standing moves 500 to 800 mL of blood down into the legs in about a second. The <t>baroreflex</t> is supposed to catch that before anyone notices. Rosa\u2019s did not.'),
+      para('Draw the line you expect her <b>systolic</b> pressure to take. Start it flat at her lying reading, then show what happens after she stands at ten seconds, and where it ends up by sixty.'),
+      L.drawpad({
+        id: 'pred1',
+        label: 'Your prediction for Rosa\u2019s systolic pressure on standing',
+        geom: PRESS_GEOM,
+        background: blankPressureFig(),
+        bucket: B.sim,
+        instruction: 'Use the pen. Draw one line, left to right. There is no right answer being marked here: the point is to commit to a shape before you see the real one, because the gap between them is what you actually learn from.',
+        alt: {
+          prompt: 'Describe the line instead. How far does her systolic fall, how quickly, does it come back, and where does it settle by sixty seconds? Give numbers.',
+          label: 'Your prediction, described',
+          minWords: 25
+        },
+        onDone: function (how, line, reveal) {
+          if (how === 'drawn') {
+            /* the truth slides in underneath. Their line does not move. */
+            reveal(truthFig(RUNS[HER]));
+            slot.appendChild(compareCard(line));
+          } else {
+            slot.appendChild(L.card([
+              L.kicker('Now the real one'),
+              el('h3', { text: 'What actually happened to her' }),
+              el('figure', { class: 'fig' }, [
+                el('div', { html: truthFig(RUNS[HER]) }),
+                el('figcaption', { html: 'Her systolic pressure through the same manoeuvre.' })
+              ])
+            ]));
+          }
+          runCard.hidden = false;
+          runCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }).node
     ]));
+
+    /* =================================================================
+       WHERE YOUR LINE AND HERS PARTED COMPANY
+       Read off what the student actually drew and name the divergence in
+       numbers. This is not marking. It is the material for the question
+       underneath it, which asks them what they were thinking.
+       ================================================================= */
+    function compareCard(line) {
+      var run = RUNS[HER];
+      var realStart = BASE.sbp;
+      var lowT = T0, lowS = BASE.sbp;
+      for (var t = T0; t <= TMAX; t += 0.5) {
+        var sv = state(run, t).sbp;
+        if (sv < lowS) { lowS = sv; lowT = t; }
+      }
+      var realEnd = state(run, TMAX).sbp;
+      var realFall = realStart - lowS;
+
+      var rows = [];
+      function row(what, yours, hers, note) {
+        rows.push('<tr><td>' + what + '</td><td class="num">' + yours +
+                  '</td><td class="num">' + hers + '</td><td class="note">' + note + '</td></tr>');
+      }
+
+      if (line) {
+        var yStart = line.at(2), yLow = line.lowest[1], yLowT = line.lowest[0], yEnd = line.at(TMAX - 2);
+
+        if (yStart != null) {
+          var d = yStart - realStart;
+          row('Where you started her', fmt(yStart, 0), fmt(realStart, 0),
+            Math.abs(d) <= 6 ? 'You started her where her chart says she was.'
+              : (d > 0 ? 'You started her about ' + fmt(d, 0) + ' higher than her chart. Worth checking your own chart entry.'
+                       : 'You started her about ' + fmt(-d, 0) + ' lower than her chart says.'));
+        }
+        var yourFall = (yStart == null ? realStart : yStart) - yLow;
+        var fd = yourFall - realFall;
+        row('How far you dropped her', fmt(yourFall, 0) + ' points', fmt(realFall, 0) + ' points',
+          Math.abs(fd) <= 5 ? 'You called the size of the fall almost exactly.'
+            : (fd > 0 ? 'You expected a bigger fall than she had, by about ' + fmt(fd, 0) + ' points.'
+                      : 'You expected a smaller fall than she had, by about ' + fmt(-fd, 0) + ' points.'));
+
+        var td = yLowT - lowT;
+        row('When you put the lowest point', fmt(yLowT, 0) + ' s', fmt(lowT, 0) + ' s',
+          Math.abs(td) <= 4 ? 'Your timing matches hers.'
+            : (td > 0 ? 'You expected the bottom to come later than it did. Standing hits the circulation within about two seconds.'
+                      : 'You expected the bottom sooner than it came.'));
+
+        if (yEnd != null) {
+          var ed = yEnd - realEnd;
+          row('Where you left her at 60 s', fmt(yEnd, 0), fmt(realEnd, 0),
+            Math.abs(ed) <= 6 ? 'You called the recovery correctly.'
+              : (ed > 0 ? 'You expected her to recover further than she did, by about ' + fmt(ed, 0) + ' points. That gap is the reflex you assumed she had.'
+                        : 'You expected her to stay lower than she ended up, by about ' + fmt(-ed, 0) + ' points.'));
+        }
+      }
+
+      /* the comparison goes onto the submitted PDF, because the discussion
+         answer underneath it only makes sense next to the numbers it is about */
+      if (rows.length) {
+        L.noted.push({
+          section: 'Your prediction against what happened',
+          answer: rows.map(function (r) {
+            return r.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          }).join('  |  ')
+        });
+      }
+
+      var t = el('table');
+      t.innerHTML = '<caption>Your line against hers</caption><thead><tr><th scope="col">&nbsp;</th>' +
+        '<th class="num" scope="col">You drew</th><th class="num" scope="col">She did</th>' +
+        '<th scope="col">What that gap is</th></tr></thead><tbody>' + rows.join('') + '</tbody>';
+
+      var card = L.card([
+        L.kicker('Both lines, one set of axes'),
+        el('h3', { text: 'Where your line and hers parted company' }),
+        para('Your line is still exactly where you drew it. Hers has been laid underneath it, on the same axes, in teal. Look at the two together before you read the table.'),
+        el('div', { class: 'scroll-x' }, t),
+        note('None of this is being marked. A prediction that was wrong in an interesting way is worth more than a lucky one, and the question underneath is the part that counts.'),
+        el('div', { style: 'margin-top:20px' }, L.clinicalNote({
+          id: 'diverge', bucket: B.sim,
+          sections: [],
+          free: [{
+            key: 'why',
+            label: 'Why did you draw it that way?',
+            minWords: 30,
+            prompt: '<p>Take the biggest gap in that table and account for it.</p>' +
+                    '<p>What did you assume about Rosa when you drew your line? Did you expect a reflex that would catch her, and if so, what did you think would do the catching? Did you assume she would recover because most people do?</p>' +
+                    '<p>Then say what her real line tells you that your assumption did not.</p>' +
+                    '<p class="note">This is the one your instructor reads, and it is the one worth talking about in the discussion. Being wrong here is not the problem. Not knowing why you were wrong is.</p>'
+          }]
+        }))
+      ]);
+      return card;
+    }
+
+    slot.appendChild(runCard);
 
     function show(k) {
       var run = RUNS[k];
@@ -4260,15 +5000,38 @@ function casePanel() {
       items: items, targetsRoot: boxes, targetSel: '.dropbox', bucket: B.limb,
       placedText: function (it) { return it.abb + ' is ' + it.name + '. ' + (it.why || ''); },
       wrongHint: function (id, want, it) { return it.abb + ' is ' + it.name + ', and that box is asking for a different job.'; },
-      doneText: '<strong>That is the loop.</strong> Now put Rosa on it: which of those three did her trace show failing?',
+      doneText: '<strong>That is the loop.</strong> Now draw it, because naming the parts and seeing how they connect are two different pieces of knowing.',
       onComplete: function () {
-        slot.appendChild(el('div', { class: 'btnrow' }, [
-          el('button', {
-            class: 'btn cta', type: 'button',
-            onclick: function (e) { e.currentTarget.classList.add('spent'); e.currentTarget.disabled = true; finish(3); }
-          }, [el('span', { text: 'Name what failed' }), el('span', { class: 'arw', 'aria-hidden': 'true', text: '→' })])
-        ]));
-        slot.lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        var drawCard = L.card([
+          L.kicker('Draw it'),
+          el('h3', { text: 'Now draw the loop as a loop' }),
+          para('You have the three parts. Draw them as a closed circuit for Rosa: a box for each part, an arrow from each one to the next, and the arrow that closes the loop back to the start. Label what travels along each arrow.'),
+          para('Then mark, in red, the arrow that failed in her.', 'note'),
+          L.drawpad({
+            id: 'loop1',
+            label: 'The baroreflex loop, drawn',
+            height: 400,
+            bucket: B.limb,
+            instruction: 'Use the box tool for the three parts and the arrow tool between them. Switch to red ink for the arrow that failed.',
+            alt: {
+              prompt: 'Describe the loop instead. Name each part in order, say what travels from each one to the next, say what closes the loop back to the start, and name the arrow that failed in Rosa.',
+              label: 'The loop, described',
+              minWords: 30
+            },
+            onDone: function () {
+              slot.appendChild(el('div', { class: 'btnrow' }, [
+                el('button', {
+                  class: 'btn cta', type: 'button',
+                  onclick: function (e) { e.currentTarget.classList.add('spent'); e.currentTarget.disabled = true; finish(3); }
+                }, [el('span', { text: 'Write the note' }), el('span', { class: 'arw', 'aria-hidden': 'true', text: '\u2192' })])
+              ]));
+              slot.lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }).node
+        ]);
+        slot.appendChild(drawCard);
+        L.wireTerms(drawCard);
+        drawCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
 
