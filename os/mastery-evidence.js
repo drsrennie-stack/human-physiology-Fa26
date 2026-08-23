@@ -119,12 +119,25 @@
     catch (e) { return []; }
     if (!st || !st.topics) return [];
 
+    /* CREDIT THE CARD, NOT THE CHAPTER.
+       This used to resolve one entry per topic and hand every competency
+       in that chapter the result of every card answered in it. Renal
+       Physiology is one chapter carrying nineteen competencies, so a
+       student who answered a micturition card was credited with the
+       countercurrent multiplier, tubular secretion, clearance and
+       sixteen more. Mastery bars filled up for work nobody did.
+
+       card-competency-map.js now carries a "<topicId>:<cardId>" entry for
+       every card naming the one competency it actually proves. Read that
+       first and fall back to the chapter, which is still correct for any
+       card added later without its own entry. */
     var out = [];
     Object.keys(st.topics).forEach(function (tid) {
-      var entry = MAP[tid];
-      if (!entry || !entry.comps.length) return;
+      var topicEntry = MAP[tid];
       var cards = (st.topics[tid] && st.topics[tid].cards) || {};
       Object.keys(cards).forEach(function (cid) {
+        var entry = MAP[tid + ':' + cid] || topicEntry;
+        if (!entry || !entry.comps || !entry.comps.length) return;
         var r = cards[cid] || {};
         var hist = r.history;
         if (hist && hist.length) {
