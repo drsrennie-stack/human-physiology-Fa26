@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIO 005 Human Physiology, Fall 2026 Course Schedule</title>
+<meta name="description" content="Week by week course schedule for BIO 005 Human Physiology at Yuba College, Fall 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1E3D4C; --navy-deep:#142a36; --navy-tint:#EDF1F3;
+  --gold:#B8924A; --terra:#C2734D; --terra-dark:#A0522D;
+  --white:#FFFFFF; --offwhite:#FAFAF9; --muted:#435159;
+  --line:#d7dee1;
+  --rest:0 1px 3px rgba(0,0,0,0.08);
+  --hover:0 8px 16px rgba(0,0,0,0.10);
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --dm:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--offwhite);color:var(--navy);
+  font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.6;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 20px 64px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:var(--white);padding:12px 18px;z-index:20;border-radius:0 0 6px 0;font-family:var(--dm);font-weight:700}
+.skip:focus{left:0}
+a{color:var(--navy)}
+:focus-visible{outline:3px solid var(--terra-dark);outline-offset:3px}
+
+/* header */
+header.page{padding:8px 0 28px}
+.eyebrow{font-family:var(--dm);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 12px}
+h1{font-family:var(--sans);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.12;color:var(--navy);margin:0 0 10px;letter-spacing:-0.01em}
+.subhead{font-weight:600;font-size:clamp(17px,2.4vw,21px);color:var(--terra-dark);margin:0 0 14px}
+.usage{color:var(--muted);margin:0;max-width:62ch}
+
+/* key dates */
+.kdates{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin:0 0 34px;padding:0;list-style:none}
+.kd{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:14px 16px;box-shadow:var(--rest)}
+.kd-date{font-family:var(--dm);font-weight:700;font-size:15px;letter-spacing:.04em;color:var(--terra-dark);margin:0 0 4px;text-transform:uppercase}
+.kd-label{margin:0;font-size:15px;color:var(--navy);line-height:1.4}
+
+/* controls */
+.controls{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--rest);margin:0 0 30px}
+.controls h2{font-family:var(--dm);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 12px}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font-family:var(--dm);font-size:15px;font-weight:700;cursor:pointer;border-radius:8px;transition:background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+.chip{background:var(--white);color:var(--navy);border:1px solid var(--navy);padding:9px 15px;min-height:44px}
+.chip:hover{background:var(--navy-tint)}
+.chip[aria-pressed="true"]{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.chip[aria-pressed="true"]:hover{background:var(--navy-deep)}
+.act{background:var(--white);color:var(--terra-dark);border:1px solid var(--terra-dark);padding:9px 15px;min-height:44px}
+.act:hover{background:var(--terra-dark);color:var(--white)}
+.sep{width:1px;align-self:stretch;background:var(--line);margin:0 4px}
+.status{margin:12px 0 0;font-size:15px;color:var(--muted)}
+
+/* parts */
+.part{margin:0 0 40px}
+.part-h{font-family:var(--sans);font-weight:600;font-size:clamp(20px,3vw,26px);color:var(--terra-dark);margin:0 0 6px}
+.part-blurb{margin:0 0 18px;color:var(--muted);max-width:70ch}
+.weeks{display:grid;gap:14px}
+
+/* week card */
+.week{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--rest);transition:transform 200ms ease,box-shadow 200ms ease}
+.week:hover{transform:translateY(-2px);box-shadow:var(--hover)}
+.week[hidden],.part[hidden]{display:none}
+.week.is-now{border:1px solid var(--gold);border-left-width:4px}
+.week.is-done{background:var(--navy-tint);border:1px solid var(--navy)}
+.week-head{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:start}
+.wnum{margin:0;font-family:var(--dm);text-align:center;border-right:1px solid var(--line);padding-right:12px}
+.wnum-label{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dark)}
+.wnum-val{display:block;font-size:28px;font-weight:700;color:var(--navy);line-height:1.1}
+.wtitle{font-family:var(--sans);font-weight:600;font-size:19px;color:var(--navy);margin:0 0 2px}
+.wdates{margin:0;font-family:var(--dm);font-size:15px;color:var(--muted)}
+.wstatus{color:var(--terra-dark);font-weight:700}
+.wstatus:not(:empty)::before{content:" · "}
+.disclose{background:var(--white);color:var(--navy);border:1px solid var(--navy);padding:8px 14px;min-height:44px;display:inline-flex;align-items:center;gap:8px}
+.disclose:hover{background:var(--navy-tint)}
+.week.is-done .disclose{background:var(--white)}
+.chev{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform 200ms ease}
+.disclose[aria-expanded="true"] .chev{transform:rotate(-135deg) translate(-2px,-2px)}
+
+/* flags */
+.flags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0}
+.flag{font-family:var(--dm);font-size:13px;font-weight:700;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--navy);background:var(--white)}
+.flag-deadline{border-color:var(--terra-dark);color:var(--terra-dark)}
+.flag-assess{border-color:var(--gold);color:var(--navy)}
+.flag-date,.flag-note{border-color:var(--line);color:var(--muted)}
+
+/* panel */
+.panel{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.panel[data-open="false"]{display:none}
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.panel h4{font-family:var(--dm);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 8px}
+.panel ul{margin:0;padding-left:20px}
+.panel li{margin:0 0 6px;color:var(--navy)}
+.panel .work li{color:var(--navy)}
+
+/* project */
+.project{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:var(--rest);margin:8px 0 0}
+.project h2{font-family:var(--sans);font-weight:600;font-size:22px;color:var(--terra-dark);margin:0 0 10px}
+.project p{margin:0 0 12px;max-width:72ch}
+.project ol{margin:0;padding-left:22px}
+.project li{margin:0 0 8px}
+
+footer.page{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+footer.page p{margin:0 0 4px}
+
+@media (max-width:720px){
+  .week-head{grid-template-columns:52px 1fr;grid-template-areas:"num id" "btn btn"}
+  .wnum{grid-area:num}
+  .week-id{grid-area:id}
+  .disclose{grid-area:btn;justify-content:center;width:100%;margin-top:10px}
+  .panel-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  .week:hover{transform:none}
+}
+@media print{
+  body{background:var(--white)}
+  .controls,.skip,.disclose{display:none}
+  .panel[data-open="false"]{display:block}
+  .week{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .week:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#schedule">Skip to the schedule</a>
+<div class="wrap">
+
+<header class="page">
+  <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Yuba College</p>
+  <h1>Course Schedule</h1>
+  <p class="subhead">Fall 2026, September 8 to December 16, fully online</p>
+  <p class="usage">Every week runs on your own schedule. There are no meeting times and no in person sessions. Open any week to see the topics and what you turn in. Use the filters to narrow the list, or print the whole thing for your binder.</p>
+</header>
+
+<h2 class="sr-only">Key dates</h2>
+<div class="kdates"><div class="kd"><p class="kd-date">Sep 8</p><p class="kd-label">Term begins</p></div><div class="kd"><p class="kd-date">Sep 17</p><p class="kd-label">Refund deadline</p></div><div class="kd"><p class="kd-date">Sep 26</p><p class="kd-label">Last day to add, drop without a grade</p></div><div class="kd"><p class="kd-date">Sep 27</p><p class="kd-label">Census</p></div><div class="kd"><p class="kd-date">Nov 1</p><p class="kd-label">Midterm checkpoint due</p></div><div class="kd"><p class="kd-date">Nov 21</p><p class="kd-label">Last day to drop with a grade</p></div><div class="kd"><p class="kd-date">Dec 16</p><p class="kd-label">Patient file due, term ends</p></div></div>
+
+<section class="controls" aria-labelledby="controls-h">
+  <h2 id="controls-h">Filter and view</h2>
+  <div class="btnrow">
+    <button type="button" class="chip" data-filter="all" aria-pressed="true">All weeks</button>
+    <button type="button" class="chip" data-filter="foundations" aria-pressed="false">Foundations</button>
+    <button type="button" class="chip" data-filter="control" aria-pressed="false">Control systems</button>
+    <button type="button" class="chip" data-filter="systems" aria-pressed="false">Body systems</button>
+    <button type="button" class="chip" data-filter="dates" aria-pressed="false">Weeks with deadlines</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" class="act" id="toggle-all">Expand all</button>
+    <button type="button" class="act" id="jump-now">Go to current week</button>
+  </div>
+  <p class="status" id="status" role="status" aria-live="polite">Showing all 15 weeks.</p>
+</section>
+
+<main id="schedule">
+<h2 class="sr-only">Week by week schedule</h2>
+<section class="part" data-part="foundations" aria-labelledby="part-foundations">
+  <h2 class="part-h" id="part-foundations">Part 1. Foundations</h2>
+  <p class="part-blurb">The toolkit. Nothing here is a body system yet, and everything after depends on it.</p>
+  <div class="weeks">
+<article class="week" data-part="foundations" data-start="2026-09-08" data-end="2026-09-13" data-week="1">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">1</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w1-title">Foundations of Physiology</h3>
+      <p class="wdates">Sep 8 to 13<span class="wstatus" data-status-for="1"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w1" aria-expanded="false" aria-controls="panel-w1">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 1, Foundations of Physiology</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-date">Term begins Sep 8</li></ul>
+  <div class="panel" id="panel-w1" data-open="false" role="region" aria-labelledby="btn-w1">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Homeostasis and the internal environment</li><li>Control systems: sensor, integrating center, effector</li><li>Mass balance and mass flow</li><li>Clearance as a way to measure output</li><li>Negative and positive feedback</li><li>Teleological and mechanistic explanation</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Discussion 1: vision board with Canvas Studio introduction, 10 points</li><li>Patient file assigned, chart entry 1</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="foundations" data-start="2026-09-14" data-end="2026-09-20" data-week="2">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">2</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w2-title">Molecules, Water, and Energy</h3>
+      <p class="wdates">Sep 14 to 20<span class="wstatus" data-status-for="2"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w2" aria-expanded="false" aria-controls="panel-w2">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 2, Molecules, Water, and Energy</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-date">Refund deadline Sep 17</li></ul>
+  <div class="panel" id="panel-w2" data-open="false" role="region" aria-labelledby="btn-w2">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Water, solutions, and concentration</li><li>Biological molecules and protein structure</li><li>Enzymes and reaction rate</li><li>ATP and energy transfer</li><li>Metabolic pathways in outline</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 2</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="foundations" data-start="2026-09-21" data-end="2026-09-27" data-week="3">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">3</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w3-title">Membranes, Transport, and Compartments</h3>
+      <p class="wdates">Sep 21 to 27<span class="wstatus" data-status-for="3"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w3" aria-expanded="false" aria-controls="panel-w3">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 3, Membranes, Transport, and Compartments</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-deadline">Last day to add, last day to drop without a grade Sep 26</li><li class="flag flag-deadline">Census Sep 27</li></ul>
+  <div class="panel" id="panel-w3" data-open="false" role="region" aria-labelledby="btn-w3">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Membrane structure and permeability</li><li>Diffusion, channels, carriers, and pumps</li><li>Osmosis, osmolarity, and tonicity</li><li>Intracellular and extracellular compartments</li><li>Saturation and the transport maximum</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 3</li><li>Late-add catch-up path into the patient file closes at the end of this week</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="part" data-part="control" aria-labelledby="part-control">
+  <h2 class="part-h" id="part-control">Part 2. Control Systems</h2>
+  <p class="part-blurb">How a signal gets from sensor to effector, electrically and chemically. The midterm checkpoint closes this half.</p>
+  <div class="weeks">
+<article class="week" data-part="control" data-start="2026-09-28" data-end="2026-10-04" data-week="4">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">4</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w4-title">Electrical Signaling</h3>
+      <p class="wdates">Sep 28 to Oct 4<span class="wstatus" data-status-for="4"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w4" aria-expanded="false" aria-controls="panel-w4">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 4, Electrical Signaling</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w4" data-open="false" role="region" aria-labelledby="btn-w4">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Resting membrane potential</li><li>Graded potentials and action potentials</li><li>Conduction velocity and myelin</li><li>The synapse and ligand gated receptors</li><li>Neurotransmitter release and termination</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 4</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="control" data-start="2026-10-05" data-end="2026-10-11" data-week="5">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">5</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w5-title">The Nervous System</h3>
+      <p class="wdates">Oct 5 to 11<span class="wstatus" data-status-for="5"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w5" aria-expanded="false" aria-controls="panel-w5">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 5, The Nervous System</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w5" data-open="false" role="region" aria-labelledby="btn-w5">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Organization of the central nervous system</li><li>Sensory transduction and coding</li><li>Reflex arcs end to end</li><li>Autonomic branches and their targets</li><li>Somatic motor output</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 5</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="control" data-start="2026-10-12" data-end="2026-10-18" data-week="6">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">6</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w6-title">Muscle</h3>
+      <p class="wdates">Oct 12 to 18<span class="wstatus" data-status-for="6"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w6" aria-expanded="false" aria-controls="panel-w6">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 6, Muscle</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w6" data-open="false" role="region" aria-labelledby="btn-w6">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Skeletal muscle and the neuromuscular junction</li><li>Excitation contraction coupling</li><li>Twitch, summation, tetanus, and fiber types</li><li>Smooth muscle</li><li>Cardiac muscle compared to the other two</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 6</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="control" data-start="2026-10-19" data-end="2026-10-25" data-week="7">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">7</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w7-title">Chemical Signaling and Endocrine Control</h3>
+      <p class="wdates">Oct 19 to 25<span class="wstatus" data-status-for="7"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w7" aria-expanded="false" aria-controls="panel-w7">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 7, Chemical Signaling and Endocrine Control</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w7" data-open="false" role="region" aria-labelledby="btn-w7">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Classes of chemical messengers</li><li>Membrane receptors and intracellular receptors</li><li>Second messengers and signal amplification</li><li>Receptor up regulation and down regulation</li><li>Hypothalamic pituitary axes as the template</li><li>Feedback control of hormone secretion</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 7</li><li>Individual glands are met in the system weeks where they do their work</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="control" data-start="2026-10-26" data-end="2026-11-01" data-week="8">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">8</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w8-title">Reproductive Physiology</h3>
+      <p class="wdates">Oct 26 to Nov 1<span class="wstatus" data-status-for="8"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w8" aria-expanded="false" aria-controls="panel-w8">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 8, Reproductive Physiology</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-assess">Midterm checkpoint due Nov 1</li></ul>
+  <div class="panel" id="panel-w8" data-open="false" role="region" aria-labelledby="btn-w8">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>The hypothalamic pituitary gonadal axis</li><li>Gametogenesis</li><li>The ovarian and uterine cycles</li><li>The LH surge as positive feedback</li><li>Pregnancy, birth, and lactation</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 8</li><li>Midterm checkpoint: first half map assembled, narrated walkthrough</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="part" data-part="systems" aria-labelledby="part-systems">
+  <h2 class="part-h" id="part-systems">Part 3. Systems in Action</h2>
+  <p class="part-blurb">The same control loop, run again in one system after another. Each system defends one regulated variable, and the last two share the job.</p>
+  <div class="weeks">
+<article class="week" data-part="systems" data-start="2026-11-02" data-end="2026-11-08" data-week="9">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">9</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w9-title">Cardiac Function</h3>
+      <p class="wdates">Nov 2 to 8<span class="wstatus" data-status-for="9"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w9" aria-expanded="false" aria-controls="panel-w9">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 9, Cardiac Function</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w9" data-open="false" role="region" aria-labelledby="btn-w9">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Cardiac electrophysiology and the ECG</li><li>The cardiac cycle</li><li>Preload, afterload, and contractility</li><li>Stroke volume and cardiac output</li><li>Adrenal medulla and sympathetic drive</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 9</li><li>Short structure primer in the pre-work for students who have not taken anatomy</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="systems" data-start="2026-11-09" data-end="2026-11-15" data-week="10">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">10</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w10-title">Circulation and Blood Pressure</h3>
+      <p class="wdates">Nov 9 to 15<span class="wstatus" data-status-for="10"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w10" aria-expanded="false" aria-controls="panel-w10">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 10, Circulation and Blood Pressure</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-note">Veterans Day Nov 11</li></ul>
+  <div class="panel" id="panel-w10" data-open="false" role="region" aria-labelledby="btn-w10">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Pressure, flow, and resistance</li><li>Vascular smooth muscle and local control</li><li>The baroreceptor reflex</li><li>Capillary exchange and Starling forces</li><li>Renin, angiotensin, aldosterone, and blood volume</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 10</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="systems" data-start="2026-11-16" data-end="2026-11-22" data-week="11">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">11</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w11-title">Blood and Immunity</h3>
+      <p class="wdates">Nov 16 to 22<span class="wstatus" data-status-for="11"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w11" aria-expanded="false" aria-controls="panel-w11">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 11, Blood and Immunity</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-deadline">Last day to drop with a grade Nov 21</li></ul>
+  <div class="panel" id="panel-w11" data-open="false" role="region" aria-labelledby="btn-w11">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Blood composition, hematocrit, and viscosity</li><li>Oxygen carrying and hemostasis</li><li>Lymphatics and immune surveillance, straight out of Starling forces</li><li>Barriers and innate immunity</li><li>Inflammation as signal amplification</li><li>Adaptive immunity and immunological memory</li><li>Fever as a setpoint the body moves on purpose</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 11</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="systems" data-start="2026-11-23" data-end="2026-11-29" data-week="12">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">12</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w12-title">Digestion, Absorption, and Energy Balance</h3>
+      <p class="wdates">Nov 23 to 29<span class="wstatus" data-status-for="12"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w12" aria-expanded="false" aria-controls="panel-w12">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 12, Digestion, Absorption, and Energy Balance</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-note">Thanksgiving Nov 26 and 27, nothing due until Nov 30</li></ul>
+  <div class="panel" id="panel-w12" data-open="false" role="region" aria-labelledby="btn-w12">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Motility and gastrointestinal smooth muscle</li><li>Secretion and enzymatic digestion</li><li>Absorption across the epithelium</li><li>The mucosal barrier as an immune interface</li><li>Gastrin, secretin, and cholecystokinin</li><li>Insulin, glucagon, and the fed and fasted states</li><li>Thyroid hormone and metabolic rate</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 12</li><li>The holiday meal is this week&#x27;s disturbance in your patient file</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="systems" data-start="2026-11-30" data-end="2026-12-06" data-week="13">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">13</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w13-title">Respiration and Acid Base Balance</h3>
+      <p class="wdates">Nov 30 to Dec 6<span class="wstatus" data-status-for="13"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w13" aria-expanded="false" aria-controls="panel-w13">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 13, Respiration and Acid Base Balance</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w13" data-open="false" role="region" aria-labelledby="btn-w13">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Acids, bases, pH, and the buffer systems</li><li>Ventilation mechanics and compliance</li><li>Gas laws and alveolar exchange</li><li>Oxygen transport and the dissociation curve</li><li>Carbon dioxide transport and the carbonic acid equilibrium</li><li>Chemoreceptor control of ventilation</li><li>Respiratory acidosis and alkalosis, the fast lever on pH</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 13</li><li>A short pH and buffer primer runs as pre-work, so the module opens with the chemistry already in hand</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="systems" data-start="2026-12-07" data-end="2026-12-13" data-week="14">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">14</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w14-title">Renal Function, Fluid, and Electrolyte Balance</h3>
+      <p class="wdates">Dec 7 to 13<span class="wstatus" data-status-for="14"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w14" aria-expanded="false" aria-controls="panel-w14">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 14, Renal Function, Fluid, and Electrolyte Balance</span>
+    </button>
+  </div>
+  
+  <div class="panel" id="panel-w14" data-open="false" role="region" aria-labelledby="btn-w14">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Filtration, reabsorption, and secretion</li><li>Glomerular filtration rate and its regulation</li><li>Clearance, back to Week 1</li><li>Sodium, potassium, and calcium balance</li><li>Antidiuretic hormone, aldosterone, and volume</li><li>Concentrating and diluting the urine</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Concept video page and slide deck</li><li>Chart entry 14</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="week" data-part="systems" data-start="2026-12-14" data-end="2026-12-16" data-week="15">
+  <div class="week-head">
+    <p class="wnum"><span class="wnum-label">Week</span> <span class="wnum-val">15</span></p>
+    <div class="week-id">
+      <h3 class="wtitle" id="w15-title">Renal Compensation and Case Conference</h3>
+      <p class="wdates">Dec 14 to 16<span class="wstatus" data-status-for="15"></span></p>
+    </div>
+    <button type="button" class="disclose" id="btn-w15" aria-expanded="false" aria-controls="panel-w15">
+      <span class="disclose-text">Details</span>
+      <span class="chev" aria-hidden="true"></span>
+      <span class="sr-only"> for Week 15, Renal Compensation and Case Conference</span>
+    </button>
+  </div>
+  <ul class="flags"><li class="flag flag-assess">Patient file and case conference due Dec 16</li><li class="flag flag-date">Term ends Dec 16</li></ul>
+  <div class="panel" id="panel-w15" data-open="false" role="region" aria-labelledby="btn-w15">
+    <div class="panel-grid">
+      <div class="panel-col">
+        <h4>Topics</h4>
+        <ul class="topics"><li>Renal handling of hydrogen ion and bicarbonate</li><li>Renal compensation, the slow lever on pH</li><li>Integrated volume and acid base cases</li></ul>
+      </div>
+      <div class="panel-col">
+        <h4>What students do</h4>
+        <ul class="work"><li>Patient file map assembled, all fifteen loops</li><li>Recorded case conference: one disturbance traced across three systems, then the patient&#x27;s hidden condition named and defended</li><li>No proctored final exam</li></ul>
+      </div>
+    </div>
+  </div>
+</article>
+  </div>
+</section>
+
+<section class="project" aria-labelledby="proj-h">
+  <h2 id="proj-h">The term project: your patient file</h2>
+  <p>One project runs the whole term. In Week 1 you are assigned a patient who is yours alone, with their own age, history, and baseline numbers. No two students have the same patient, so there is no answer to look up.</p>
+  <ol>
+    <li>Every week your patient meets one disturbance tied to that week's material.</li>
+    <li>You draw the control loop that responds, by hand: sensor, integrating center, effector, the regulated variable, and which way the correction goes.</li>
+    <li>You predict what the numbers do, and write one line on what breaks if the loop fails.</li>
+    <li>You log where you used AI, what it got wrong for your specific patient, and how you corrected it.</li>
+  </ol>
+  <p>Your patient also carries one condition you are not told about. It never shows up in a single week. It only appears as a pattern across several. On December 16 you assemble all fifteen loops, trace one disturbance across three systems on video, then name that condition and defend it using entries you wrote back in October.</p>
+  <p>These weekly entries are also your lab work. There is no proctored final exam.</p>
+</section>
+</main>
+
+<footer class="page">
+  <p>BIO 005 Human Physiology, section BIOL-5-D9286, Sutter Internet</p>
+  <p>Dr. Sharilyn Rennie</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var weeks = Array.prototype.slice.call(document.querySelectorAll(".week"));
+  var parts = Array.prototype.slice.call(document.querySelectorAll(".part"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var status = document.getElementById("status");
+  var toggleAll = document.getElementById("toggle-all");
+  var jumpNow = document.getElementById("jump-now");
+
+  /* disclosure */
+  function setOpen(btn, open){
+    var panel = document.getElementById(btn.getAttribute("aria-controls"));
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    panel.setAttribute("data-open", open ? "true" : "false");
+    btn.querySelector(".disclose-text").textContent = open ? "Hide" : "Details";
+  }
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest ? e.target.closest(".disclose") : null;
+    if(!btn) return;
+    setOpen(btn, btn.getAttribute("aria-expanded") !== "true");
+  });
+  toggleAll.addEventListener("click", function(){
+    var opening = toggleAll.textContent.indexOf("Expand") === 0;
+    document.querySelectorAll(".week:not([hidden]) .disclose").forEach(function(b){ setOpen(b, opening); });
+    toggleAll.textContent = opening ? "Collapse all" : "Expand all";
+  });
+
+  /* filters */
+  function applyFilter(kind){
+    var shown = 0;
+    weeks.forEach(function(w){
+      var keep = kind === "all"
+        || (kind === "dates" ? !!w.querySelector(".flag-deadline, .flag-assess") : w.getAttribute("data-part") === kind);
+      if(keep){ w.removeAttribute("hidden"); shown++; } else { w.setAttribute("hidden",""); }
+    });
+    parts.forEach(function(p){
+      var any = p.querySelector(".week:not([hidden])");
+      if(any){ p.removeAttribute("hidden"); } else { p.setAttribute("hidden",""); }
+    });
+    var labels = {all:"all 15 weeks", foundations:"Part 1, Foundations", control:"Part 2, Control systems",
+                  systems:"Part 3, Body systems", dates:"weeks that carry a deadline or a checkpoint"};
+    status.textContent = "Showing " + labels[kind] + ". " + shown + (shown === 1 ? " week" : " weeks") + " listed.";
+  }
+  chips.forEach(function(c){
+    c.addEventListener("click", function(){
+      chips.forEach(function(o){ o.setAttribute("aria-pressed", o === c ? "true" : "false"); });
+      applyFilter(c.getAttribute("data-filter"));
+    });
+  });
+
+  /* current week */
+  function today(){ var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function parseDay(s){ var p = s.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+  var now = today(), current = null;
+  weeks.forEach(function(w){
+    var s = parseDay(w.getAttribute("data-start")), e = parseDay(w.getAttribute("data-end"));
+    var tag = w.querySelector(".wstatus");
+    if(now > e){ w.classList.add("is-done"); tag.textContent = "finished"; }
+    else if(now >= s && now <= e){ w.classList.add("is-now"); tag.textContent = "this week"; current = w; }
+  });
+  if(current){
+    jumpNow.textContent = "Go to this week";
+  } else if(now < parseDay(weeks[0].getAttribute("data-start"))){
+    jumpNow.textContent = "Go to Week 1";
+    current = weeks[0];
+  } else {
+    jumpNow.textContent = "Go to the last week";
+    current = weeks[weeks.length - 1];
+  }
+  jumpNow.addEventListener("click", function(){
+    if(current.hasAttribute("hidden")){
+      chips.forEach(function(o){ o.setAttribute("aria-pressed", o.getAttribute("data-filter") === "all" ? "true" : "false"); });
+      applyFilter("all");
+    }
+    var btn = current.querySelector(".disclose");
+    setOpen(btn, true);
+    current.scrollIntoView({behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+    btn.focus();
+  });
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var frameId = (function(){
+    try{ return new URLSearchParams(window.location.search).get("id") || window.name || "bio005-schedule"; }
+    catch(e){ return "bio005-schedule"; }
+  })();
+  function sendHeight(){
+    var h = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight
+    );
+    try{ window.parent.postMessage({id: frameId, height: h, frameHeight: h, type: "resize"}, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  document.addEventListener("click", function(){ setTimeout(sendHeight, 250); });
+  if(window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.body); }
+  setTimeout(sendHeight, 300);
+  sendHeight();
+})();
+</script>
+</body>
+</html>
