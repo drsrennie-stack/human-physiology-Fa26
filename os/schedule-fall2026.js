@@ -2,13 +2,11 @@
    BIO 005 Human Physiology, Yuba College, Fall 2026
    schedule-fall2026.js
 
-   What the dock and Hootie read for dates and module scope.
-   Generated from bio005-schedule-fall2026.js so there is one
-   calendar, not two. Edit that file, then regenerate this.
+   GENERATED from bio005-schedule-fall2026.js. One calendar, not two.
 
-   Every exam window here is a PROPOSAL, not a setting.
-   Holiday closures are assumed from the standard California
-   community college calendar and are not confirmed against Yuba.
+   Rebuilt Aug 24 2026: three parts, not five modules. 268 competencies,
+   ids unchanged. No unit exams. The two graded landmarks are the Week 8
+   midterm checkpoint and the Week 15 case conference.
    ============================================================ */
 
 window.BIO005_MODULES_SCHEDULE = [
@@ -19,59 +17,41 @@ window.BIO005_MODULES_SCHEDULE = [
    2,
    3
   ],
-  "exam": 1,
-  "title": "Foundations, membranes and cell signaling",
-  "detail": "Exam 1 window 2026-09-25 to 2026-09-27. Proposed, not set."
+  "exam": null,
+  "title": "Part 1. Foundations",
+  "detail": "The toolkit. Nothing is a body system yet."
  },
  {
   "n": 2,
   "weeks": [
    4,
    5,
-   6
+   6,
+   7,
+   8
   ],
-  "exam": 2,
-  "title": "Neurophysiology and muscle physiology",
-  "detail": "Exam 2 window 2026-10-16 to 2026-10-18. Proposed, not set."
+  "exam": null,
+  "title": "Part 2. Control Systems",
+  "detail": "Signal from sensor to effector. Midterm checkpoint due Sun Nov 1."
  },
  {
   "n": 3,
   "weeks": [
-   7,
-   8,
-   9
-  ],
-  "exam": 3,
-  "title": "Sensory, motor, autonomic and endocrine physiology",
-  "detail": "Exam 3 window 2026-11-06 to 2026-11-08. Proposed, not set."
- },
- {
-  "n": 4,
-  "weeks": [
+   9,
    10,
    11,
-   12
-  ],
-  "exam": 4,
-  "title": "Cardiovascular and respiratory physiology",
-  "detail": "Exam 4 window 2026-11-25 to 2026-12-01. Proposed, not set."
- },
- {
-  "n": 5,
-  "weeks": [
+   12,
    13,
    14,
    15
   ],
-  "exam": 5,
-  "title": "Renal, digestive, metabolic, immune and reproductive physiology",
-  "detail": "Exam 5 window 2026-12-11 to 2026-12-13. Proposed, not set."
+  "exam": null,
+  "title": "Part 3. Systems in Action",
+  "detail": "The same loop in one system after another. Case conference due Wed Dec 16."
  }
 ];
 
-/* The OS reads BIO005_MODULES from bio005-competencies.js. This file
-   only adds the calendar view of those modules, under its own name so
-   it cannot clobber the competency module list. */
+/* Do not clobber the competency part list if it is already loaded. */
 if (!window.BIO005_MODULES) { window.BIO005_MODULES = window.BIO005_MODULES_SCHEDULE; }
 
 window.BIO005_SECTIONS = {
@@ -105,13 +85,14 @@ window.BIO005_SECTIONS = {
  "duties": []
 };
 
+
 window.BIO005_SESSIONS = {
  "net": [
   {
    "wk": 1,
    "opens": "2026-09-08",
    "closes": "2026-09-13",
-   "title": "Homeostasis: how your body holds itself steady",
+   "title": "How physiology works and what keeps you steady",
    "exam": null,
    "note": "Short week, term opens on a Tuesday. Front-load orientation, not content."
   },
@@ -119,7 +100,7 @@ window.BIO005_SESSIONS = {
    "wk": 2,
    "opens": "2026-09-14",
    "closes": "2026-09-20",
-   "title": "How things get in and out of a cell",
+   "title": "The chemistry that does work in the body",
    "exam": null,
    "note": null
   },
@@ -127,15 +108,15 @@ window.BIO005_SESSIONS = {
    "wk": 3,
    "opens": "2026-09-21",
    "closes": "2026-09-27",
-   "title": "Membrane potential, and how cells send signals",
-   "exam": "Exam 1",
-   "note": "Census is Sun Sep 27, the same day this week closes. Exam 1 feedback should be posted before census so students choosing to drop can decide on evidence."
+   "title": "Getting across the membrane",
+   "exam": null,
+   "note": "Census is Sun Sep 27, the same day this week closes."
   },
   {
    "wk": 4,
    "opens": "2026-09-28",
    "closes": "2026-10-04",
-   "title": "The action potential: how a nerve signal fires",
+   "title": "The action potential",
    "exam": null,
    "note": null
   },
@@ -143,23 +124,23 @@ window.BIO005_SESSIONS = {
    "wk": 5,
    "opens": "2026-10-05",
    "closes": "2026-10-11",
-   "title": "How nerve cells talk to each other, and to muscle",
+   "title": "The nervous system, from sensing to moving",
    "exam": null,
-   "note": null
+   "note": "Heaviest week in the course, 35 competencies. Sensory and special senses sit here un-merged."
   },
   {
    "wk": 6,
    "opens": "2026-10-12",
    "closes": "2026-10-18",
-   "title": "How muscle contracts and makes force",
-   "exam": "Exam 2",
+   "title": "How muscle makes force",
+   "exam": null,
    "note": null
   },
   {
    "wk": 7,
    "opens": "2026-10-19",
    "closes": "2026-10-25",
-   "title": "How you see, hear, taste, smell and feel",
+   "title": "Hormones, the slow control system",
    "exam": null,
    "note": null
   },
@@ -167,47 +148,47 @@ window.BIO005_SESSIONS = {
    "wk": 8,
    "opens": "2026-10-26",
    "closes": "2026-11-01",
-   "title": "How you move, and what your body runs automatically",
-   "exam": null,
-   "note": null
+   "title": "Reproduction, and the clearest positive feedback loop",
+   "exam": "Midterm checkpoint",
+   "note": "Midterm checkpoint due Sun Nov 1, the day this week closes."
   },
   {
    "wk": 9,
    "opens": "2026-11-02",
    "closes": "2026-11-08",
-   "title": "Hormones: your body's slower control system",
-   "exam": "Exam 3",
-   "note": "Exam 3 closes Nov 8. The last day to drop is Nov 21, so students have three graded exams in hand before that decision. Keep it that way."
+   "title": "The heart as a pump",
+   "exam": null,
+   "note": null
   },
   {
    "wk": 10,
    "opens": "2026-11-09",
    "closes": "2026-11-15",
-   "title": "How the heart pumps blood",
+   "title": "Pressure, flow, and holding blood pressure steady",
    "exam": null,
-   "note": "Veterans Day falls Wed Nov 11 inside this week. Nothing graded should be due that day."
+   "note": "Veterans Day falls Wed Nov 11. Yuba observance still to confirm."
   },
   {
    "wk": 11,
    "opens": "2026-11-16",
    "closes": "2026-11-22",
-   "title": "Blood pressure and blood flow, and how they stay steady",
+   "title": "Blood, and how the body defends itself",
    "exam": null,
-   "note": "Last day to drop is Sat Nov 21, inside this week."
+   "note": "Last day to drop with a grade is Sat Nov 21."
   },
   {
    "wk": 12,
    "opens": "2026-11-23",
    "closes": "2026-11-29",
-   "title": "Breathing, and how oxygen gets to your cells",
-   "exam": "Exam 4",
-   "note": "THANKSGIVING WEEK. Thu Nov 26 and Fri Nov 27 are holidays. The natural Exam 4 close (Sun Nov 29) sits on the holiday weekend. The proposed window below opens Wed Nov 25 and closes Tue Dec 1 so it straddles the break instead of landing in it. This is the one date in the term that needs a deliberate decision."
+   "title": "Digestion, and how you use food for fuel",
+   "exam": null,
+   "note": "Thanksgiving Nov 26 and 27. Digestion is here on purpose: the holiday meal is this week's disturbance."
   },
   {
    "wk": 13,
    "opens": "2026-11-30",
    "closes": "2026-12-06",
-   "title": "How your kidneys control water and salt",
+   "title": "Breathing, gas transport, and blood pH",
    "exam": null,
    "note": null
   },
@@ -215,17 +196,17 @@ window.BIO005_SESSIONS = {
    "wk": 14,
    "opens": "2026-12-07",
    "closes": "2026-12-13",
-   "title": "Blood pH, digestion, and how you use food for fuel",
-   "exam": "Exam 5",
+   "title": "The kidney, and body fluid balance",
+   "exam": null,
    "note": null
   },
   {
    "wk": 15,
    "opens": "2026-12-14",
    "closes": "2026-12-16",
-   "title": "Immune defense, reproduction, and putting it all together",
-   "exam": "Cumulative final",
-   "note": "Three days only. This week carries immune and reproductive physiology plus the integration capstone, and the cumulative final closes it. If the term runs tight, this is the trim: immune and reproductive are the lowest-yield block in the map, and the integration capstone can move to Week 14 as the drawing task."
+   "title": "The slow lever on pH, and putting it all together",
+   "exam": "Case conference and final patient file",
+   "note": "Three days only, Dec 14 to 16. Case conference and the final patient file are due Wed Dec 16."
   }
  ]
 };

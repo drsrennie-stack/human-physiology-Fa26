@@ -158,6 +158,7 @@ def main():
             bank["modules"].append(mod)
 
     done_mods = sorted(m["n"] for m in bank["modules"])
+    all_mods = sorted(m["n"] for m in topics["modules"])
     header = (
         "/* ============================================================\n"
         "   BIO 005 Human Physiology, Yuba College, Fall 2026\n"
@@ -196,12 +197,12 @@ def main():
         "window.BIO005_CARD_BANK_STATUS = { inBuild: %s, count: %d,\n"
         "  modules: %s,\n"
         "  message: %s };\n"
-    ) % ("true" if len(done_mods) < 5 else "false",
+    ) % ("true" if done_mods != all_mods else "false",
          written, json.dumps(done_mods),
          json.dumps(
              "Modules %s are written. The rest of the bank is in progress."
              % ", ".join(str(n) for n in done_mods)
-             if len(done_mods) < 5 else "The bank is complete."))
+             if done_mods != all_mods else "The bank is complete."))
     open(os.path.join(OUT, "bio005-card-bank.js"), "w", encoding="utf-8").write(header + body + tail)
 
     # -------------------------------------------------------------- the map
@@ -250,7 +251,7 @@ def main():
     map_body = ("window.BIO005_CARD_COMPETENCY_MAP = "
                 + json.dumps(m_out, ensure_ascii=False, separators=(",", ":")) + ";\n"
                 + "window.BIO005_CARD_MAP_STATUS = { inBuild: %s, cards: %d, competencies: %d };\n"
-                % ("true" if len(done_mods) < 5 else "false", written, reachable))
+                % ("true" if done_mods != all_mods else "false", written, reachable))
     open(os.path.join(OUT, "card-competency-map.js"), "w", encoding="utf-8").write(map_header + map_body)
 
     # ------------------------------------------------------------- report
