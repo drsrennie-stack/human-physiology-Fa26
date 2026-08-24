@@ -101,7 +101,6 @@ svg.loop{display:block;width:100%;height:auto;min-width:680px}
 .note{margin:14px 0 0;background:var(--gold-pale);border-left:4px solid var(--gold-deep);
       border-radius:0 var(--r) var(--r) 0;padding:12px 15px;font-size:.93rem}
 .note p:last-child{margin-bottom:0}
-figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{
@@ -121,7 +120,7 @@ figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
 <figure class="loopfig" aria-labelledby="fig-h">
   <p class="eyebrow">Figure 1</p>
   <h2 id="fig-h">One loop, four systems</h2>
-  <p class="lead">Start on <strong>The parts</strong> to learn the seven roles. Then switch systems and watch the same boxes fill with different structures. Four loops, one design.</p>
+  <p class="lead">Start on <strong>The parts</strong> to learn the seven roles. Then switch systems and watch the same boxes fill with different structures. Four loops, one design. Every arrow runs one way around the loop, and the dashed maroon arrow is what makes it negative feedback: the response feeds back and cancels the thing that started it.</p>
 
   <div class="tabs" role="tablist" aria-label="Which feedback loop to show" id="tabs"></div>
 
@@ -171,7 +170,6 @@ figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
     <div class="note" id="note"></div>
   </div>
 
-  <figcaption>Every arrow runs one way around the loop. The dashed maroon arrow is what makes it negative feedback: the response feeds back and cancels the thing that started it.</figcaption>
 </figure>
 
 <p class="vh" id="live" role="status" aria-live="polite"></p>
@@ -191,9 +189,9 @@ figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
       parts: {
         stimulus: 'The regulated variable moves away from its setpoint',
         sensor:   'A structure that detects the change',
-        afferent: 'the signal travelling from sensor to center',
+        afferent: 'signal from sensor to center',
         centre:   'Compares the value to the setpoint and decides the response',
-        efferent: 'the signal travelling from center to effector',
+        efferent: 'signal from center to effector',
         effector: 'The muscle or gland that carries out the response',
         response: 'The change that pushes the variable back toward the setpoint and removes the stimulus'
       },
@@ -304,7 +302,7 @@ figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
     return lines;
   }
 
-  function arrowLabel(id, text, x, y, maxW) {
+  function arrowLabel(id, text, x, y, maxW, mode) {
     var e = document.getElementById(id);
     e.textContent = '';
     ruler.setAttribute('class', 'arrowlab');
@@ -316,7 +314,11 @@ figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
       else { line = test; }
     });
     if (line) { lines.push(line); }
-    e.setAttribute('y', y);
+    /* A second line would otherwise land on top of the arrow. Lift the
+       whole block: fully clear of it above a horizontal arrow, centred
+       on it beside a vertical one. */
+    var lift = (mode === 'above' ? 14 : 7) * (lines.length - 1);
+    e.setAttribute('y', y - lift);
     lines.forEach(function (ln, i) {
       var ts = document.createElementNS(NS, 'tspan');
       ts.setAttribute('x', x);
@@ -363,8 +365,8 @@ figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
 
     /* the two arrow labels wrap too, so a long nerve name cannot run
        off the edge of the drawing */
-    arrowLabel('t-aff', loop.parts.afferent, 570, 55, 224);
-    arrowLabel('t-eff', loop.parts.efferent, 776, 194, 250);
+    arrowLabel('t-aff', loop.parts.afferent, 570, 55, 250, 'above');
+    arrowLabel('t-eff', loop.parts.efferent, 776, 194, 250, 'center');
 
     tbody.innerHTML = ORDER.map(function (k) {
       return '<tr><th scope="row">' + esc(ROLE[k]) + '</th><td>' + esc(loop.parts[k]) + '</td></tr>';
