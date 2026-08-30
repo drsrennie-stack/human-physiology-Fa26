@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enter BIO 005 Human Physiology</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Yuba College, Fall 2026
+  course-entry.html
+
+  THE FRONT DOOR. Canvas holds this one card in an iframe;
+  everything else lives in the browser.
+
+  Built on the BIO 004 canvas-enter.html card so the two courses
+  read as the same hand. The deliberate difference is the accent:
+  anatomy is terra, physiology is maroon.
+
+  WHAT IS ADDED HERE
+  A "Before you enter" list on the right. Three steps, each one
+  opening a dialog: the device check, the three things a browser
+  will only do on a click, and what the class asks of you. Enter
+  Course stays locked until all three are done, and there is
+  still a plain link past it so nobody is ever shut out.
+
+  DARK SURFACE PALETTE, all measured against #08101F
+    white       #FFFFFF  19.02:1
+    gold        #C9A14A   7.86:1  eyebrow, signature, done state
+    gold-light  #F2E2B8  14.80:1  links and confirmations on dark
+    slate       #C3CCDA  11.75:1  secondary text. Never white at low
+                                  opacity, which cannot be audited.
+    accent      #D0705F   5.58:1  h1 accent word and state borders only
+    accent-ink  #EDB0A4  10.28:1  the accent that carries as small text
+    gold-ink    #D2A954   8.64:1  gold as TEXT. Bright gold is 6.89:1 on the
+                                  panel surface, which is AA but not AAA.
+    button      #7A2A22 carrying white, 9.63:1
+  No italics, no Lora, no sage, no cream, no bookend bars.
+
+  USE IN CANVAS
+    <iframe title="Enter BIO 005 Human Physiology"
+      src=".../course-entry.html" width="100%" height="900"
+      style="width:100%;height:900px;border:0"></iframe>
+  ============================================================
+-->
+<style>
+:root{
+  --navy:#08101F; --navy-deep:#060A18; --panel:#121E33;
+  --gold:#C9A14A; --gold-ink:#D2A954; --gold-light:#F2E2B8; --slate:#C3CCDA;
+  --accent-ink:#EDB0A4;
+  --accent:#D0705F; --maroon:#7A2A22; --maroon-lift:#93382D;
+  --line:rgba(255,255,255,.16);
+  --r:8px; --r-lg:14px;
+  --t:transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  --font:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:var(--font);background:var(--navy);color:#fff;line-height:1.55;
+  min-height:100vh;padding:40px 20px;
+  display:grid;grid-template-columns:minmax(0,620px) minmax(0,352px);
+  gap:40px;align-items:center;justify-content:center;
+}
+@media(max-width:1040px){
+  body{grid-template-columns:minmax(0,620px);justify-content:center;gap:30px;align-items:start}
+}
+em,i,cite,dfn,var{font-style:normal}
+h1,h2,h3{margin:0;letter-spacing:-.02em}
+p{margin:0}
+:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:4px}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:#fff;color:var(--navy);
+      padding:12px 18px;font-weight:800;text-decoration:none;border-radius:0 0 var(--r) 0}
+.skip:focus{left:0;top:0}
+
+/* ---------- THE CARD ---------- */
+.card{text-align:center;justify-self:center;max-width:620px}
+.mark{margin:0 auto 16px;display:block}
+.eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 12px}
+.pill{display:inline-block;background:var(--gold);color:var(--navy);font-size:11.5px;font-weight:800;
+      letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:7px 16px;margin:0 0 20px}
+h1{font-size:clamp(30px,5vw,44px);font-weight:800;line-height:1.1;margin:0 0 16px;color:#fff}
+h1 .a{color:var(--accent)}
+.lead{font-size:16.5px;color:#fff;margin:0 auto 26px;max-width:52ch}
+.enter{display:inline-flex;align-items:center;gap:11px;background:var(--maroon);color:#fff;text-decoration:none;
+       font-weight:800;font-size:18px;border-radius:12px;padding:17px 34px;border:2px solid var(--maroon);
+       box-shadow:0 18px 40px -14px rgba(0,0,0,.65);transition:var(--t)}
+.enter:hover{transform:translateY(-2px);background:var(--maroon-lift);border-color:var(--maroon-lift);color:#fff}
+.enter[aria-disabled="true"]{background:transparent;border:2px dashed var(--slate);color:var(--slate);
+       box-shadow:none;cursor:not-allowed}
+.enter[aria-disabled="true"]:hover{transform:none;background:transparent;border-color:var(--slate);color:var(--slate)}
+.note{font-size:13.5px;color:var(--slate);margin:22px auto 0;max-width:48ch}
+.change{display:inline-block;margin-top:16px;font-size:13.5px;font-weight:800;color:var(--gold-light)}
+.sig{font-size:13px;font-weight:800;color:var(--gold-ink);margin-top:24px;letter-spacing:.06em}
+
+/* ---------- THE RAIL ---------- */
+.rail{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+      padding:24px 22px;justify-self:center;width:100%;max-width:620px}
+.rail h2{font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px}
+.rail .sub{font-size:13.5px;color:var(--slate);margin:0 0 18px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.srow{width:100%;text-align:left;background:transparent;color:#fff;font-family:var(--font);cursor:pointer;
+      border:2px dashed var(--slate);border-radius:var(--r);padding:13px 14px;display:flex;gap:12px;
+      align-items:flex-start;transition:var(--t)}
+.srow:hover{background:rgba(255,255,255,.06)}
+.srow[data-done="yes"]{border:2px solid var(--gold);background:rgba(201,161,74,.12)}
+.snum{flex:0 0 auto;width:24px;height:24px;border-radius:999px;display:grid;place-items:center;
+      font-size:12px;font-weight:800;background:rgba(255,255,255,.16);color:#fff}
+.srow[data-done="yes"] .snum{background:var(--gold);color:var(--navy)}
+.stext{flex:1 1 auto;min-width:0}
+.stitle{font-size:14.5px;font-weight:800;color:#fff;display:block}
+.sdesc{font-size:12.8px;color:var(--slate);display:block;margin-top:3px}
+.sstate{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);
+        display:block;margin-top:7px}
+.srow[data-done="yes"] .sstate{color:var(--gold-light)}
+.railnote{font-size:12.5px;color:var(--slate);margin:16px 0 0}
+
+/* ---------- DIALOGS ---------- */
+dialog{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel);color:#fff;
+       padding:0;max-width:640px;width:calc(100% - 32px);max-height:86vh;overflow:auto}
+dialog::backdrop{background:rgba(4,8,16,.78)}
+.dhead{display:flex;align-items:flex-start;gap:16px;padding:24px 24px 0}
+.dhead h3{font-size:20px;font-weight:800;color:#fff}
+.deyebrow{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px}
+.dclose{flex:0 0 auto;width:36px;height:36px;border-radius:999px;border:1px solid var(--line);
+        background:transparent;color:#fff;font-size:19px;line-height:1;cursor:pointer;font-family:var(--font)}
+.dclose:hover{background:rgba(255,255,255,.1)}
+.dbody{padding:16px 24px 24px}
+.dbody > p{font-size:14.5px;color:var(--slate);margin:0 0 14px;max-width:62ch}
+.dbody > p strong{color:#fff}
+.dfoot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:0 24px 24px}
+
+/* ---------- BUTTONS ---------- */
+.btn{font-family:var(--font);font-weight:800;font-size:14.5px;line-height:1.2;cursor:pointer;
+     border-radius:var(--r);border:2px solid var(--gold);background:var(--gold);color:var(--navy);
+     padding:11px 20px;transition:var(--t)}
+.btn:hover{background:var(--gold-light);border-color:var(--gold-light)}
+.btn.ghost{background:transparent;color:#fff;border-color:var(--slate)}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.sm{font-size:13px;padding:9px 16px}
+.btn:disabled{background:transparent;color:var(--slate);border:2px dashed var(--slate);cursor:default}
+
+/* ---------- CHECK ITEMS ---------- */
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.check{border:2px dashed var(--slate);border-radius:var(--r);padding:13px 15px;transition:var(--t)}
+.check[data-state="ok"]{border:2px solid var(--gold);background:rgba(201,161,74,.12)}
+.check[data-state="attention"]{border:2px solid var(--accent);background:rgba(208,112,95,.12)}
+.ctop{display:flex;align-items:center;gap:11px}
+.mk{flex:0 0 auto;width:22px;height:22px;display:grid;place-items:center}
+.mk svg{width:20px;height:20px;display:block}
+.cname{font-weight:800;font-size:14.5px;color:#fff}
+.tag{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+     padding:4px 10px;border-radius:999px;border:1px solid var(--slate);color:var(--slate);white-space:nowrap}
+.check[data-state="ok"] .tag{border-color:var(--gold-light);color:var(--gold-light)}
+.check[data-state="attention"] .tag{border-color:var(--accent-ink);color:var(--accent-ink)}
+.cdetail{font-size:13.2px;color:var(--slate);margin:7px 0 0;padding-left:33px}
+.cfix{font-size:13.2px;color:var(--gold-light);font-weight:600;margin:8px 0 0;padding-left:33px}
+.cfix[hidden]{display:none}
+.cact{margin:12px 0 0 33px}
+
+/* ---------- DRAW PAD ---------- */
+.pad-wrap{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;max-width:400px}
+#pad{display:block;width:100%;height:140px;touch-action:none;cursor:crosshair;background:#fff}
+
+/* ---------- HOURS ---------- */
+.hours{margin:0 0 18px}
+.hrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.hrow:last-child{border-bottom:0}
+.hlab{color:var(--slate)}
+.hval{color:#fff;font-weight:800;white-space:nowrap}
+.hrow.total{border-top:2px solid var(--gold);border-bottom:0;margin-top:4px;padding-top:11px}
+.hrow.total .hlab{color:#fff;font-weight:800}
+.hrow.total .hval{color:var(--gold-light)}
+
+/* ---------- AGREEMENT ---------- */
+fieldset.agree{border:0;margin:0;padding:0}
+.agree legend{padding:0;font-size:14.5px;color:var(--slate);margin:0 0 14px;max-width:62ch}
+.agree legend strong{color:#fff}
+.pledge{display:grid;gap:10px}
+.pl{display:flex;align-items:flex-start;gap:13px;border:2px dashed var(--slate);border-radius:var(--r);
+    padding:13px 15px;cursor:pointer;transition:var(--t)}
+.pl:hover{background:rgba(255,255,255,.06)}
+.pl input[type="checkbox"]{flex:0 0 auto;width:24px;height:24px;margin:1px 0 0;accent-color:var(--gold);cursor:pointer}
+.pl span{font-size:14.2px;color:#fff;line-height:1.5}
+.pl:has(input:checked){border:2px solid var(--gold);background:rgba(201,161,74,.12)}
+.pl:has(input:focus-visible){outline:3px solid var(--gold);outline-offset:3px}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+@media print{
+  body{background:#fff;color:#000;display:block}
+  .rail,.enter,.skip,dialog{display:none}
+  h1,.lead,.note{color:#000}
+}
+</style>
+</head>
+<body>
+<style data-shared-nav-css>
+/* On :root, not on .sn-scope. The skip link sits outside the bar, so scoping
+   the tokens to the bar left its background transparent: white on white. */
+:root{--sn-navy:#040711;--sn-navy-70:rgba(4,7,17,.70);--sn-navy-15:rgba(4,7,17,.15);
+  --sn-gold:#DCB45C;--sn-deep:#01030A;--sn-straw:#F2E2B8;
+  --sn-font:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif}
+.sn-scope *,.sn-scope *::before,.sn-scope *::after{box-sizing:border-box}
+.sn-skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--sn-navy);color:#fff;
+  padding:14px 18px;min-height:44px;display:flex;align-items:center;
+  font:700 15px/1.2 var(--sn-font);text-decoration:none}
+.sn-skip:focus{left:0;top:0}
+.sn-bar{background:#fff;border-bottom:1px solid var(--sn-navy-15);font-family:var(--sn-font)}
+.sn-in{max-width:1180px;margin:0 auto;padding:0 max(16px,3vw);display:flex;align-items:center;
+  gap:22px;flex-wrap:wrap;min-height:62px}
+.sn-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--sn-navy);padding:8px 0}
+.sn-brand svg{height:30px;width:auto;display:block}
+.sn-brand span{display:flex;flex-direction:column;line-height:1.1}
+.sn-brand b{font-size:.94rem;font-weight:800}
+.sn-brand i{font-size:.72rem;color:var(--sn-navy-70);font-weight:600;font-style:normal}
+.sn-links{display:flex;flex-wrap:wrap;margin-left:auto}
+.sn-links a{position:relative;font-size:.9rem;font-weight:600;color:var(--sn-navy-70);
+  text-decoration:none;padding:10px 6px;margin:0 10px;min-height:44px;min-width:44px;
+  display:flex;align-items:center;justify-content:center}
+.sn-links a:hover{color:var(--sn-navy)}
+.sn-links a:hover::after,.sn-links a[aria-current="page"]::after{content:"";position:absolute;
+  left:0;right:0;bottom:7px;height:3px;border-radius:2px}
+.sn-links a:hover::after{background:var(--sn-navy-15)}
+.sn-links a[aria-current="page"]{color:var(--sn-navy);font-weight:800}
+.sn-links a[aria-current="page"]::after{background:var(--sn-gold)}
+.sn-scope :focus-visible{outline:3px solid var(--sn-navy);outline-offset:2px;
+  box-shadow:0 0 0 6px var(--sn-gold);border-radius:4px}
+.sn-foot{background:var(--sn-deep);color:#fff;padding:26px max(16px,3vw);margin-top:44px;
+  font-family:var(--sn-font)}
+.sn-foot .sn-fi{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;
+  gap:18px;flex-wrap:wrap;align-items:center}
+.sn-foot p{margin:0}
+.sn-foot .sn-n{font-weight:800;font-size:.95rem}
+.sn-foot .sn-c{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sn-straw)}
+.sn-foot nav{display:flex;flex-wrap:wrap}
+.sn-foot nav a{color:#D6DCE6;font-size:.84rem;font-weight:600;text-decoration:none;
+  padding:10px 14px;min-height:44px;display:flex;align-items:center}
+.sn-foot nav a:hover{color:#fff;text-decoration:underline}
+@media(max-width:760px){
+  .sn-bar{position:static}
+  .sn-in{gap:8px;min-height:0;padding-top:8px;padding-bottom:8px}
+  .sn-links{margin-left:0;width:100%}
+  .sn-links a{font-size:.82rem;padding:9px 4px;margin:0 8px}
+}
+@media(prefers-reduced-motion:reduce){.sn-scope *{transition:none!important}}
+</style>
+<header class="sn-scope sn-bar" data-shared-nav>
+  <nav class="sn-in" aria-label="Course sections">
+    <a class="sn-brand" href="index.html" target="_top"><svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#040711"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#040711"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#DCB45C"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#DCB45C"/></g></g></svg>
+      <span><b>BIO 005</b><i>Human Physiology</i></span></a>
+    <span class="sn-links">
+      <a href="index.html" target="_top">Home</a>
+      <a href="welcome.html" target="_top">This week</a>
+      <a href="course-materials.html" target="_top">Lecture</a>
+      <a href="clinical-physiology-lab-manual.html" target="_top">Lab</a>
+      <a href="competency-recall.html" target="_top">Study</a>
+      <a href="guides.html" target="_top">Guides</a>
+      <a href="start-here.html" target="_top" aria-current="page">Admin</a>
+    </span>
+  </nav>
+</header>
+
+<a class="skip" href="#main">Skip to the welcome card</a>
+
+<!-- ==================== THE CARD ==================== -->
+<main class="card" id="main">
+  <span class="mark">
+    <svg viewBox="40 10 125 148" width="54" height="64" role="img" aria-hidden="true" focusable="false">
+      <g transform="translate(0,18)">
+        <g transform="translate(60,0) rotate(8 0 130)">
+          <circle cx="0" cy="20" r="10" fill="#FFFFFF"/>
+          <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#FFFFFF"/>
+        </g>
+        <g transform="translate(100,0)">
+          <circle cx="0" cy="10" r="11" fill="#7A2A22"/>
+          <path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#7A2A22"/>
+        </g>
+        <g transform="translate(140,0) rotate(-8 0 130)">
+          <circle cx="0" cy="20" r="10" fill="#C9A14A"/>
+          <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/>
+        </g>
+      </g>
+    </svg>
+  </span>
+
+  <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Fall 2026</p>
+  <p class="pill">Yuba College &middot; Fully online &middot; BIOL-5-D9286</p>
+
+  <h1>Welcome to <span class="a">Human Physiology</span>.</h1>
+
+  <p class="lead">I&rsquo;m really glad you&rsquo;re here. This term we will work through how the body actually
+     runs: what each part does, how the parts work together, and what happens when one of them stops
+     working correctly. Everything you need lives in one place, your weekly pages, labs, study tools,
+     and schedule. You are never left hunting for anything.</p>
+
+  <p style="margin:0">
+    <a class="enter" id="enterBtn"
+       href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html"
+       target="_blank" rel="noopener" aria-disabled="true" aria-describedby="lockline">
+      Enter Course <span aria-hidden="true">&rarr;</span>
+    </a>
+  </p>
+
+  <p class="note" id="lockline">Work through the three steps on the right first. They take about five minutes and they open this button.</p>
+
+  <p class="note" style="margin-top:14px">This is your front door. Every time you log into Canvas the Enter Course button is right here, and it opens your course hub in a new tab so Canvas stays where you left it.</p>
+
+  <a class="change" href="https://drsrennie-stack.github.io/human-physiology-Fa26/welcome.html" target="_blank" rel="noopener">Skip the setup and go straight in</a>
+
+  <p class="sig">Dr. Sharilyn Rennie</p>
+</main>
+
+<!-- ==================== THE RAIL ==================== -->
+<aside class="rail" aria-labelledby="rail-h">
+  <h2 id="rail-h">Before you enter</h2>
+  <p class="sub">Three steps, about five minutes. Nothing here is graded and nothing is submitted.</p>
+  <p class="vh" id="live" role="status" aria-live="polite" aria-atomic="true"></p>
+
+  <ul class="steps">
+    <li>
+      <button type="button" class="srow" id="row1" data-done="no" aria-haspopup="dialog">
+        <span class="snum" aria-hidden="true">1</span>
+        <span class="stext">
+          <span class="stitle">Check your device</span>
+          <span class="sdesc">Browser, screen, saved progress, video and audio. One click, six answers.</span>
+          <span class="sstate" data-state-for="1">Not started</span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="srow" id="row2" data-done="no" aria-haspopup="dialog">
+        <span class="snum" aria-hidden="true">2</span>
+        <span class="stext">
+          <span class="stitle">Try what a browser will not test for you</span>
+          <span class="sdesc">Opening a new tab, drawing, and saving a page as a PDF.</span>
+          <span class="sstate" data-state-for="2">Not started</span>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="srow" id="row3" data-done="no" aria-haspopup="dialog">
+        <span class="snum" aria-hidden="true">3</span>
+        <span class="stext">
+          <span class="stitle">Read what this class asks of you</span>
+          <span class="sdesc">About 15 to 16 hours a week, minimum. Four lines to read and agree to.</span>
+          <span class="sstate" data-state-for="3">Not started</span>
+        </span>
+      </button>
+    </li>
+  </ul>
+
+  <p class="railnote">A step that finds a problem still counts as done. Nothing on this page can keep you out of the course.</p>
+</aside>
+
+<!-- ==================== DIALOG 1, DEVICE CHECK ==================== -->
+<dialog id="d1" aria-labelledby="d1-h">
+  <div class="dhead">
+    <div style="flex:1 1 auto">
+      <p class="deyebrow">Step 1</p>
+      <h3 id="d1-h">Check your device</h3>
+    </div>
+    <button type="button" class="dclose" data-close="d1" aria-label="Close this step">&times;</button>
+  </div>
+  <div class="dbody">
+    <p>This course runs on interactive pages you open in your browser: simulators, drawing canvases, recall cards, and lab tools. This check tells you whether your device is ready for them, and what to change if it is not.</p>
+    <p style="margin-bottom:18px"><button type="button" class="btn" id="runBtn">Run the check</button></p>
+
+    <ul class="checks">
+      <li class="check" data-state="waiting" data-key="browser">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Browser</span><span class="tag">Not checked</span></div>
+        <p class="cdetail">Chrome, Edge, Firefox, and Safari all work. Internet Explorer does not.</p>
+        <p class="cfix" hidden></p>
+      </li>
+      <li class="check" data-state="waiting" data-key="screen">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Screen size</span><span class="tag">Not checked</span></div>
+        <p class="cdetail">Phones are fine for reading. The lab simulators and the drawing canvas want a laptop or a tablet.</p>
+        <p class="cfix" hidden></p>
+      </li>
+      <li class="check" data-state="waiting" data-key="storage">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Saved progress</span><span class="tag">Not checked</span></div>
+        <p class="cdetail">The study tools remember where you left off. That only works if your browser lets this site store data on your own machine. Nothing leaves your device and nothing is sent to me.</p>
+        <p class="cfix" hidden></p>
+      </li>
+      <li class="check" data-state="waiting" data-key="media">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Video and audio</span><span class="tag">Not checked</span></div>
+        <p class="cdetail">Every lecture is a recorded video with captions. Your browser needs to be able to play it.</p>
+        <p class="cfix" hidden></p>
+      </li>
+      <li class="check" data-state="waiting" data-key="connection">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Connection</span><span class="tag">Not checked</span></div>
+        <p class="cdetail">Pages are small and load fast. Video is the only part that needs steady bandwidth.</p>
+        <p class="cfix" hidden></p>
+      </li>
+      <li class="check" data-state="waiting" data-key="display">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Your display settings</span><span class="tag">Not checked</span></div>
+        <p class="cdetail">If you have reduced motion, higher contrast, or larger text turned on, the course pages follow your setting instead of overriding it.</p>
+        <p class="cfix" hidden></p>
+      </li>
+    </ul>
+  </div>
+  <div class="dfoot"><button type="button" class="btn ghost" data-close="d1">Close</button></div>
+</dialog>
+
+<!-- ==================== DIALOG 2, THE THREE TESTS ==================== -->
+<dialog id="d2" aria-labelledby="d2-h">
+  <div class="dhead">
+    <div style="flex:1 1 auto">
+      <p class="deyebrow">Step 2</p>
+      <h3 id="d2-h">Try what a browser will not test for you</h3>
+    </div>
+    <button type="button" class="dclose" data-close="d2" aria-label="Close this step">&times;</button>
+  </div>
+  <div class="dbody">
+    <p>Your browser only allows these three things when you click something yourself, so an automatic check cannot do them for you. It is worth trying them now instead of running into a problem later, when an assignment is due.</p>
+
+    <ul class="checks">
+      <li class="check" data-state="waiting" data-key="popup">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Course tools open in a new tab</span><span class="tag">Not tested</span></div>
+        <p class="cdetail">Labs and simulators open in their own tab so you can keep your notes open beside them. If your browser blocks pop-ups, they will not open at all.</p>
+        <div class="cact"><button type="button" class="btn sm" id="popBtn">Test opening a new tab</button></div>
+        <p class="cfix" hidden></p>
+      </li>
+
+      <li class="check" data-state="waiting" data-key="draw">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Drawing works on your device</span><span class="tag">Not tested</span></div>
+        <p class="cdetail">Much of what you turn in this term is drawn by hand, including diagrams of how a process works. You can draw with a mouse, a trackpad, a finger, or a stylus. Draw something in the box to check that yours works.</p>
+        <div class="cact">
+          <div class="pad-wrap">
+            <canvas id="pad" width="800" height="280" aria-label="Practice drawing area. Draw here with your mouse, finger, or stylus to test that drawing works. Nothing is saved.">Your browser does not support the drawing canvas. Use the button below to mark this step as handled, and message me in Canvas so we can sort out a drawing setup that works for you.</canvas>
+          </div>
+          <p style="font-size:13px;color:#C3CCDA;margin:10px 0 0">Using a keyboard or a screen reader instead?
+            <button type="button" class="btn ghost sm" id="drawSkip" style="margin-left:6px">Mark drawing as handled</button>
+          </p>
+        </div>
+        <p class="cfix" hidden></p>
+      </li>
+
+      <li class="check" data-state="waiting" data-key="print">
+        <div class="ctop"><span class="mk" aria-hidden="true"></span><span class="cname">Saving a page as a PDF</span><span class="tag">Not tested</span></div>
+        <p class="cdetail">Several lab reports are turned in as a PDF you make yourself. On most computers that is the print dialog with the destination set to Save as PDF.</p>
+        <div class="cact"><button type="button" class="btn sm" id="printBtn">Open the print dialog</button></div>
+        <p class="cfix" hidden></p>
+      </li>
+    </ul>
+  </div>
+  <div class="dfoot"><button type="button" class="btn ghost" data-close="d2">Close</button></div>
+</dialog>
+
+<!-- ==================== DIALOG 3, THE COMMITMENT ==================== -->
+<dialog id="d3" aria-labelledby="d3-h">
+  <div class="dhead">
+    <div style="flex:1 1 auto">
+      <p class="deyebrow">Step 3</p>
+      <h3 id="d3-h">What this class asks of you</h3>
+    </div>
+    <button type="button" class="dclose" data-close="d3" aria-label="Close this step">&times;</button>
+  </div>
+  <div class="dbody">
+    <p>BIOL 5 is a four unit lab course. Four units is about 216 hours of work for the semester. A normal term spreads those hours across 18 weeks. Ours runs 14 weeks, so the same 216 hours have to fit into fewer of them.</p>
+
+    <div class="hours">
+      <div class="hrow"><span class="hlab">Lab</span><span class="hval">about 8 hours</span></div>
+      <div class="hrow"><span class="hlab">Lecture material</span><span class="hval">about 3 hours</span></div>
+      <div class="hrow"><span class="hlab">Studying on your own</span><span class="hval">about 5 hours</span></div>
+      <div class="hrow total"><span class="hlab">Every week</span><span class="hval">about 15 to 16 hours</span></div>
+    </div>
+
+    <p><strong>That is the minimum for a passing grade.</strong> It is not the number for an A, and it is not an estimate of how long the work takes if you are struggling with it.</p>
+
+    <p>Taking physiology online does not reduce any of that. It is the same course, the same 216 hours, and the same standard as a section that meets in a room. What changes is that you schedule the hours yourself instead of a room and a clock scheduling them for you. There is no version of this course that takes less time, and there is no shortcut that substitutes for the hours.</p>
+
+    <fieldset class="agree">
+      <legend><strong>Read each line and check it only if it is true for you.</strong></legend>
+      <div class="pledge">
+        <label class="pl" for="p1">
+          <input type="checkbox" id="p1" class="pledge-box">
+          <span>I can give this class about 15 to 16 hours a week, the same as I would give a class that meets in a room. I understand that is the minimum for passing, not the number for an A.</span>
+        </label>
+        <label class="pl" for="p2">
+          <input type="checkbox" id="p2" class="pledge-box">
+          <span>I can work independently. No one is going to sit me down and start the work for me, so I will read the week, plan my time, and keep myself moving.</span>
+        </label>
+        <label class="pl" for="p3">
+          <input type="checkbox" id="p3" class="pledge-box">
+          <span>I will submit my work on time. Due dates in an online class are real due dates, and falling a week behind in a 14 week course is hard to come back from.</span>
+        </label>
+        <label class="pl" for="p4">
+          <input type="checkbox" id="p4" class="pledge-box">
+          <span>I know help exists and I will ask for it early. I can message my instructor, use campus tutoring, and use NetTutor, which is free and available to me online.</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <p style="margin:16px 0 0">Checking these is for you, not for the gradebook. Nothing is recorded and nothing is graded. The point is that you read them once, on purpose, while you can still make a decision about your semester.</p>
+    <p style="margin:12px 0 0">If 15 hours a week does not fit in your term right now, that is worth knowing this week rather than in November. Message me and we will look at your options while you still have them.</p>
+  </div>
+  <div class="dfoot"><button type="button" class="btn ghost" data-close="d3">Close</button></div>
+</dialog>
+
+<script>
+(function(){
+  "use strict";
+
+  var live = document.getElementById('live');
+  function announce(m){ if(live){ live.textContent = m; } }
+
+  /* ---------- dialogs ---------- */
+  var opener = null;
+  function openDlg(id, row){
+    var d = document.getElementById(id);
+    opener = row;
+    if(typeof d.showModal === 'function'){ d.showModal(); } else { d.setAttribute('open',''); }
+  }
+  function closeDlg(id){
+    var d = document.getElementById(id);
+    if(typeof d.close === 'function'){ d.close(); } else { d.removeAttribute('open'); }
+  }
+  document.getElementById('row1').addEventListener('click', function(){ openDlg('d1', this); });
+  document.getElementById('row2').addEventListener('click', function(){ openDlg('d2', this); });
+  document.getElementById('row3').addEventListener('click', function(){ openDlg('d3', this); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-close]'), function(b){
+    b.addEventListener('click', function(){ closeDlg(this.getAttribute('data-close')); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('dialog'), function(d){
+    d.addEventListener('close', function(){ if(opener){ opener.focus(); opener = null; } });
+  });
+
+  /* ---------- step state ---------- */
+  var done = { 1:false, 2:false, 3:false };
+  function markStep(n, label){
+    done[n] = true;
+    document.getElementById('row' + n).setAttribute('data-done','yes');
+    document.querySelector('[data-state-for="' + n + '"]').textContent = label || 'Done';
+    refreshEntry();
+  }
+  function setStepState(n, label){
+    document.querySelector('[data-state-for="' + n + '"]').textContent = label;
+  }
+
+  function refreshEntry(){
+    var btn = document.getElementById('enterBtn');
+    var lock = document.getElementById('lockline');
+    var left = [];
+    if(!done[1]){ left.push('1'); }
+    if(!done[2]){ left.push('2'); }
+    if(!done[3]){ left.push('3'); }
+    if(left.length === 0){
+      btn.setAttribute('aria-disabled','false');
+      btn.removeAttribute('aria-describedby');
+      lock.textContent = 'All three steps are done. Enter Course opens your course hub in a new tab.';
+      return true;
+    }
+    btn.setAttribute('aria-disabled','true');
+    btn.setAttribute('aria-describedby','lockline');
+    lock.textContent = left.length === 3
+      ? 'Work through the three steps on the right first. They take about five minutes and they open this button.'
+      : (left.length === 1 ? 'One step left on the right: step ' + left[0] + '.'
+                           : 'Two steps left on the right: steps ' + left.join(' and ') + '.');
+    return false;
+  }
+
+  document.getElementById('enterBtn').addEventListener('click', function(e){
+    if(this.getAttribute('aria-disabled') === 'true'){
+      e.preventDefault();
+      announce(document.getElementById('lockline').textContent);
+      var first = document.querySelector('.srow[data-done="no"]');
+      if(first){ first.focus(); }
+    }
+  });
+
+  /* ---------- icons, drawn not colored, so state never rests on color alone ---------- */
+  var ICON = {
+    waiting:'<svg viewBox="0 0 24 24" fill="none" stroke="#C3CCDA" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2"/></svg>',
+    ok:'<svg viewBox="0 0 24 24" fill="none" stroke="#F2E2B8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.4l2.9 2.9 5.5-6"/></svg>',
+    attention:'<svg viewBox="0 0 24 24" fill="none" stroke="#EDB0A4" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2L21 19.6H3z"/><path d="M12 10v4.2"/><path d="M12 17.1v.1"/></svg>'
+  };
+  var TAG = { waiting:'Not checked', ok:'Ready', attention:'Needs attention' };
+
+  function setState(key, state, detail, fix){
+    var li = document.querySelector('[data-key="' + key + '"]');
+    if(!li){ return; }
+    li.setAttribute('data-state', state);
+    li.querySelector('.mk').innerHTML = ICON[state] || ICON.waiting;
+    li.querySelector('.tag').textContent = TAG[state] || TAG.waiting;
+    if(detail){ li.querySelector('.cdetail').textContent = detail; }
+    var f = li.querySelector('.cfix');
+    if(fix){ f.textContent = fix; f.hidden = false; } else { f.hidden = true; f.textContent = ''; }
+  }
+
+  /* ---------- step 1 checks ---------- */
+  function browserCheck(){
+    var ua = navigator.userAgent, name = 'your browser', version = 0, ok = true, m;
+    if(/Edg\//.test(ua)){ name = 'Microsoft Edge'; m = ua.match(/Edg\/(\d+)/); }
+    else if(/OPR\//.test(ua)){ name = 'Opera'; m = ua.match(/OPR\/(\d+)/); }
+    else if(/Chrome\//.test(ua) && !/Chromium/.test(ua)){ name = 'Chrome'; m = ua.match(/Chrome\/(\d+)/); }
+    else if(/Firefox\//.test(ua)){ name = 'Firefox'; m = ua.match(/Firefox\/(\d+)/); }
+    else if(/Safari\//.test(ua) && /Version\//.test(ua)){ name = 'Safari'; m = ua.match(/Version\/(\d+)/); }
+    else if(/MSIE|Trident/.test(ua)){ name = 'Internet Explorer'; ok = false; }
+    if(m){ version = parseInt(m[1], 10); }
+    var floors = { 'Chrome':100, 'Microsoft Edge':100, 'Firefox':100, 'Safari':15, 'Opera':90 };
+    if(ok && floors[name] && version && version < floors[name]){ ok = false; }
+    if(!('IntersectionObserver' in window) || !window.CSS || !CSS.supports('display','grid')){ ok = false; }
+    if(ok){
+      setState('browser','ok', name + (version ? ' ' + version : '') + '. Everything in this course runs on it.');
+    } else {
+      setState('browser','attention',
+        'You are on ' + name + (version ? ' ' + version : '') + ', which is older than the course tools expect.',
+        'Fix: update this browser, or install Chrome or Firefox and open the course there. Both are free.');
+    }
+    return ok;
+  }
+
+  function screenCheck(){
+    var w = Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0);
+    var real = (window.screen && window.screen.width) ? window.screen.width : w;
+    var wide = Math.max(w, real);
+    if(wide >= 1000){
+      setState('screen','ok','Your screen is ' + real + ' pixels wide. Plenty of room for the lab tools.');
+      return true;
+    }
+    if(wide >= 700){
+      setState('screen','ok','Your screen is ' + real + ' pixels wide. That works. The drawing canvas is easier on something a little wider if you have one.');
+      return true;
+    }
+    setState('screen','attention','Your screen is ' + real + ' pixels wide, which is phone sized.',
+      'Fix: reading and video are fine on a phone. For the lab simulators and the drawing work, plan on a laptop, a tablet, or a campus computer.');
+    return false;
+  }
+
+  function storageCheck(){
+    try{
+      var k = '__bio005_probe__';
+      window.localStorage.setItem(k, '1');
+      var got = window.localStorage.getItem(k);
+      window.localStorage.removeItem(k);
+      if(got === '1'){
+        setState('storage','ok','Your browser will remember your progress in the study tools on this device.');
+        return true;
+      }
+      throw new Error('readback failed');
+    }catch(e){
+      var framed = (window.top !== window.self);
+      setState('storage','attention',
+        'This browser is not letting the course tools save anything on your device right now.',
+        framed
+          ? 'Fix: this page is sitting inside Canvas, and some browsers block storage for a page inside another page. The course itself opens in its own tab, where this works normally. If it still fails there, turn off private or incognito browsing.'
+          : 'Fix: turn off private or incognito browsing, then allow cookies and site data for this site. In Safari, uncheck Prevent cross-site tracking.');
+      return false;
+    }
+  }
+
+  function mediaCheck(){
+    var v = document.createElement('video'), a = document.createElement('audio');
+    var mp4 = v.canPlayType && v.canPlayType('video/mp4; codecs="avc1.42E01E"');
+    var webm = v.canPlayType && v.canPlayType('video/webm; codecs="vp9"');
+    var snd = a.canPlayType && a.canPlayType('audio/mpeg');
+    if(mp4 || webm){
+      setState('media','ok','Video plays here' + (snd ? ' and so does audio.' : '.') + ' Captions are on every lecture.');
+      return true;
+    }
+    setState('media','attention','Your browser is not reporting that it can play the lecture video format.',
+      'Fix: update your browser, or open the course in Chrome or Firefox. If you are on a work computer with video blocked, the campus library machines are a reliable fallback.');
+    return false;
+  }
+
+  function connectionCheck(){
+    if(navigator.onLine === false){
+      setState('connection','attention','Your device says it is offline right now.',
+        'Fix: reconnect and run the check again. If this is a spotty connection, download the weekly PDFs when you do have signal.');
+      return false;
+    }
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if(c && c.effectiveType && /^(slow-2g|2g)$/.test(c.effectiveType)){
+      setState('connection','attention','You are online, but on a slow connection.',
+        'Fix: pages and tools will still load. For lecture video, use wifi or drop the video quality.');
+      return false;
+    }
+    setState('connection','ok','You are online.' + (c && c.effectiveType ? ' Connection reads as ' + c.effectiveType + '.' : ''));
+    return true;
+  }
+
+  function displayCheck(){
+    var bits = [], mm = window.matchMedia ? window.matchMedia.bind(window) : null;
+    if(mm){
+      if(mm('(prefers-reduced-motion: reduce)').matches){ bits.push('reduced motion is on, so the course pages will not animate'); }
+      if(mm('(prefers-contrast: more)').matches){ bits.push('higher contrast is on'); }
+      if(mm('(forced-colors: active)').matches){ bits.push('your operating system is forcing its own colors, which the pages allow'); }
+    }
+    setState('display','ok', bits.length
+      ? 'Noted: ' + bits.join('. ') + '.'
+      : 'No special display settings detected. If you use larger text, higher contrast, or reduced motion, turn it on and these pages will follow it.');
+    return true;
+  }
+
+  document.getElementById('runBtn').addEventListener('click', function(){
+    var results = [browserCheck(), screenCheck(), storageCheck(), mediaCheck(), connectionCheck(), displayCheck()];
+    var issues = results.filter(function(r){ return r === false; }).length;
+    this.textContent = 'Run the check again';
+    markStep(1, issues === 0 ? 'Done, all six ready' : 'Done, ' + issues + ' to look at');
+    announce(issues === 0
+      ? 'Device check complete. All six items are ready. Step 1 is done.'
+      : 'Device check complete. ' + issues + (issues === 1 ? ' item needs' : ' items need') + ' attention, and each one lists the fix. Step 1 is done either way.');
+  });
+
+  /* ---------- step 2 ---------- */
+  var tried = { popup:false, draw:false, print:false };
+  function step2Progress(){
+    var n = (tried.popup ? 1 : 0) + (tried.draw ? 1 : 0) + (tried.print ? 1 : 0);
+    if(n === 3){ markStep(2, 'Done, all three tried'); }
+    else { setStepState(2, n + ' of 3 tried'); }
+  }
+
+  document.getElementById('popBtn').addEventListener('click', function(){
+    var w = null;
+    try{ w = window.open('', '_blank', 'width=520,height=380'); }catch(err){ w = null; }
+    if(w && !w.closed){
+      try{
+        w.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Pop-up test, BIO 005</title></head><body style="font-family:system-ui,sans-serif;background:#FAFAF9;color:#08101F;padding:28px;line-height:1.6"><h1 style="font-size:20px;margin:0 0 8px">This tab opened correctly.</h1><p style="margin:0;color:#414B5C">Your browser will let the BIO 005 lab tools open in their own tab. You can close this window.</p></body></html>');
+        w.document.close();
+      }catch(err){}
+      setState('popup','ok','A test tab opened, so the lab tools will open the same way. You can close that tab whenever you like.');
+      announce('Pop-up test passed. A new tab opened.');
+      setTimeout(function(){ try{ w.close(); }catch(err){} }, 6000);
+    } else {
+      setState('popup','attention','Your browser blocked the new tab.',
+        'Fix: look for a small blocked pop-up icon in your address bar and choose Always allow for this site. In Safari, go to Settings, Websites, Pop-up Windows, and set this site to Allow.');
+      announce('Pop-up test blocked. A fix is listed on that item.');
+    }
+    tried.popup = true; step2Progress();
+  });
+
+  (function(){
+    var pad = document.getElementById('pad');
+    if(!pad){ return; }
+    var ctx = pad.getContext('2d');
+    var drawing = false, marks = 0, kind = 'mouse', hit = false;
+    ctx.strokeStyle = '#7A2A22'; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    function pos(e){
+      var r = pad.getBoundingClientRect();
+      return { x:(e.clientX - r.left) * (pad.width / r.width), y:(e.clientY - r.top) * (pad.height / r.height) };
+    }
+    function start(e){
+      drawing = true;
+      if(e.pointerType){ kind = e.pointerType; }
+      var p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y);
+      if(pad.setPointerCapture && e.pointerId !== undefined){ try{ pad.setPointerCapture(e.pointerId); }catch(err){} }
+      e.preventDefault();
+    }
+    function move(e){
+      if(!drawing){ return; }
+      var p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); marks++;
+      if(marks > 12 && !hit){
+        hit = true;
+        var word = kind === 'touch' ? 'your finger' : (kind === 'pen' ? 'your stylus' : 'your mouse or trackpad');
+        setState('draw','ok','Drawing works with ' + word + '. That is all the weekly drawings need.');
+        announce('Drawing test passed.');
+        tried.draw = true; step2Progress();
+      }
+      e.preventDefault();
+    }
+    function end(){ drawing = false; }
+    if(window.PointerEvent){
+      pad.addEventListener('pointerdown', start); pad.addEventListener('pointermove', move);
+      pad.addEventListener('pointerup', end); pad.addEventListener('pointercancel', end); pad.addEventListener('pointerleave', end);
+    } else {
+      pad.addEventListener('mousedown', start); pad.addEventListener('mousemove', move); window.addEventListener('mouseup', end);
+    }
+    document.getElementById('drawSkip').addEventListener('click', function(){
+      setState('draw','ok','Marked as handled. If drawing by hand is not workable for you, message me in Canvas before week 2 and we will set up an equivalent that is.');
+      announce('Drawing marked as handled.');
+      this.disabled = true;
+      tried.draw = true; step2Progress();
+    });
+  })();
+
+  document.getElementById('printBtn').addEventListener('click', function(){
+    setState('print','ok','The print dialog opened. If you saw a Destination or a Save as PDF option in it, you can turn in the PDF lab reports. You can cancel the dialog now, nothing needs printing today.');
+    announce('Print dialog opened.');
+    tried.print = true; step2Progress();
+    setTimeout(function(){ try{ window.print(); }catch(err){} }, 60);
+  });
+
+  /* ---------- step 3 ---------- */
+  function pledgesLeft(){
+    var left = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('.pledge-box'), function(b){ if(!b.checked){ left++; } });
+    return left;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.pledge-box'), function(b){
+    b.addEventListener('change', function(){
+      var left = pledgesLeft();
+      if(left === 0){
+        markStep(3, 'Done, all four agreed');
+        announce('All four lines checked. Step 3 is done.');
+      } else {
+        done[3] = false;
+        document.getElementById('row3').setAttribute('data-done','no');
+        setStepState(3, (4 - left) + ' of 4 checked');
+        refreshEntry();
+        announce(left + ' of 4 still to check.');
+      }
+    });
+  });
+
+  /* ---------- init ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.check'), function(li){
+    li.querySelector('.mk').innerHTML = ICON.waiting;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#d2 .tag'), function(t){ t.textContent = 'Not tested'; });
+  refreshEntry();
+})();
+</script>
+
+<!-- Iframe height sender, for a Canvas theme that has a listener. -->
+<script>
+(function(){
+  "use strict";
+  var FRAME_ID = 'bio005-course-entry', last = 0;
+  function height(){
+    var b = document.body, e = document.documentElement;
+    return Math.max(b.scrollHeight, b.offsetHeight, e.clientHeight, e.scrollHeight, e.offsetHeight);
+  }
+  function send(){
+    var h = height();
+    if(Math.abs(h - last) < 2){ return; }
+    last = h;
+    try{ window.parent.postMessage({ id:FRAME_ID, frameId:FRAME_ID, type:'resize', height:h, subject:'lti.frameResize' }, '*'); }catch(e){}
+  }
+  window.addEventListener('load', send);
+  window.addEventListener('resize', send);
+  document.addEventListener('DOMContentLoaded', send);
+  if(window.ResizeObserver){ new ResizeObserver(send).observe(document.body); }
+  setInterval(send, 1000);
+  send();
+})();
+</script>
+
+<footer class="sn-scope sn-foot" data-shared-nav>
+  <div class="sn-fi">
+    <div><p class="sn-n">Dr. Sharilyn Rennie</p>
+      <p class="sn-c">BIO 005 Human Physiology &middot; Fall 2026</p></div>
+    <nav aria-label="Footer">
+      <a href="welcome.html" target="_top">All weeks</a>
+      <a href="guides.html" target="_top">Guides</a>
+      <a href="start-here.html" target="_top">Syllabus</a>
+      <a href="competency-map.html" target="_top">Competencies</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

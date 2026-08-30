@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<title>Figure label kit &middot; BIO 005</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Yuba College, Fall 2026
+  label-kit.html
+
+  WHAT THIS IS FOR
+
+  The AI image app draws the picture. It does not write the words.
+  This file is how the words get on. Labels here are real text sitting
+  on top of the art, which means they are spelled right, they are
+  readable by a screen reader, they can be corrected in one line, and
+  they scale up cleanly on a projector.
+
+  HOW TO USE IT
+
+  1. Generate the art with no text in it at all. Save it into
+     assets/figures/ as fig-wNN-NN-slug-art.png
+  2. Open this file in a browser and point ART.src at that file.
+  3. Click a structure in the picture. The coordinate readout under
+     the image gives you the x and y as percentages and copies them
+     to the clipboard.
+  4. Add a line to the LABELS array with those coordinates, the text,
+     and which way the leader line should run.
+  5. When it looks right, press Copy figure block. That gives you the
+     finished <figure> to paste into a notes page or a slide. It
+     carries its own styles and needs nothing else.
+
+  LABEL RULES, same as the anatomy atlas
+    - The dot goes ON the structure. The words go OUT in white space.
+      Never put the words on top of the body.
+    - side is the direction the leader runs away from the structure,
+      so pick the side with empty space in it.
+    - Steps are numbered discs, and every numbered disc must have a
+      matching numbered sentence in the list underneath. The number
+      alone never carries the meaning.
+  ============================================================
+-->
+<style>
+:root{
+  --navy:#08101F; --navy-tint:#ECEFF4; --maroon:#7A2A22; --maroon-dark:#5E201A;
+  --gold:#B8924A; --gold-deep:#8A6D33; --gold-text:#624612; --gold-pale:#F7EFD9;
+  --offwhite:#FAFAF9; --ink-soft:#3D4759; --rule:#A3ACBA;
+  --r:8px; --rc:16px; --shadow:0 1px 3px rgba(8,16,31,.08),0 1px 2px rgba(8,16,31,.05);
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--font);background:var(--offwhite);color:var(--navy);line-height:1.6;font-size:17px;
+     padding:32px max(20px,4vw) 70px}
+em,i,cite,dfn,var,address{font-style:normal}
+h1,h2,h3{margin:0;letter-spacing:-.02em}
+p{margin:0 0 14px}
+.wrap{max-width:1000px;margin:0 auto}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:4px}
+.page-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon-dark);margin:0 0 6px}
+h1{font-size:1.7rem;margin:0 0 10px}
+.lead{max-width:70ch;color:var(--ink-soft)}
+.card{background:#fff;border:1px solid var(--rule);border-radius:var(--rc);box-shadow:var(--shadow);
+      padding:22px max(16px,2vw) 24px;margin:24px 0 0}
+h2{font-size:1.2rem;font-weight:800;margin:0 0 10px}
+
+/* ============================================================
+   THE FIGURE BLOCK. Everything from here to the end of this
+   comment block is what you copy into a notes page.
+   ============================================================ */
+.labfig{margin:0}
+.labfig .eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+                 color:var(--maroon-dark);margin:0 0 6px}
+.labfig h3{font-size:1.1rem;font-weight:800;margin:0 0 10px}
+.plate-scroll{overflow-x:auto}
+.plate{position:relative;display:block;width:100%;min-width:620px;background:#fff;border:1px solid var(--rule);
+       border-radius:var(--r);overflow:hidden}
+.plate img{display:block;width:100%;height:auto}
+.plate svg.overlay{position:absolute;inset:0;width:100%;height:100%}
+/* Lengths inside the overlay are in picture units, where the picture
+   is 100 units wide. They scale with the figure, so one setting works
+   on a phone, a laptop and a projector. */
+.ov-line{stroke:#08101F;stroke-width:.22;fill:none}
+.ov-dot{fill:#7A2A22;stroke:#fff;stroke-width:.25}
+.ov-text{font-family:var(--font);font-weight:700;font-size:2.2px;fill:#08101F;
+         paint-order:stroke;stroke:#fff;stroke-width:.62;stroke-linejoin:round}
+.ov-step circle{fill:#DCB45C;stroke:#5C4110;stroke-width:.28}
+.ov-step text{font-family:var(--font);font-weight:800;font-size:2.1px;fill:#08101F;
+              text-anchor:middle;dominant-baseline:central}
+.keylist{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.keylist li{display:flex;gap:10px;align-items:flex-start;font-size:.94rem}
+.keylist .num{flex:0 0 24px;height:24px;border-radius:999px;background:#DCB45C;color:#08101F;
+              border:1.5px solid #5C4110;font-weight:800;font-size:.8rem;display:flex;
+              align-items:center;justify-content:center;margin-top:1px}
+.keylist .bul{flex:0 0 24px;text-align:center;color:var(--maroon);font-weight:800;margin-top:1px}
+.labfig figcaption{margin-top:14px;font-size:.86rem;color:var(--ink-soft)}
+/* ============================================================ */
+
+.tools{margin:22px 0 0;border-top:1px solid var(--rule);padding-top:18px}
+.readout{font:600 .92rem var(--font);background:var(--gold-pale);border-left:4px solid var(--gold-deep);
+         border-radius:0 var(--r) var(--r) 0;padding:11px 14px;margin:0 0 14px}
+button.btn{font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;color:#fff;background:var(--maroon);
+  border:1.5px solid var(--maroon);border-radius:999px;padding:11px 20px;min-height:44px}
+button.btn:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+textarea{width:100%;min-height:190px;font:400 13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:var(--navy);background:#fff;border:1px solid #7C8798;border-radius:var(--r);padding:12px;margin-top:12px}
+.hint{font-size:.88rem;color:var(--ink-soft)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.tools{display:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<p class="page-eyebrow">BIO 005 &middot; Figure tooling</p>
+<h1>Figure label kit</h1>
+<p class="lead">The image app draws the picture with no words in it. This puts the words on afterward as real text, so they are spelled correctly, a screen reader can read them, and a wrong label is a one line fix instead of a regenerated image.</p>
+
+<div class="card">
+  <h2>Live preview</h2>
+  <figure class="labfig" id="fig">
+    <p class="eyebrow" id="fig-eyebrow">Figure</p>
+    <h3 id="fig-title">Untitled figure</h3>
+
+    <div class="plate-scroll">
+      <div class="plate" id="plate">
+        <img id="art" src="" alt="">
+        <svg class="overlay" id="ov" viewBox="0 0 100 62.5" aria-hidden="true"></svg>
+      </div>
+    </div>
+
+    <ul class="keylist" id="keylist"></ul>
+    <figcaption id="fig-cap"></figcaption>
+  </figure>
+
+  <div class="tools">
+    <p class="readout" id="readout" role="status" aria-live="polite">Click anywhere on the picture to get its coordinates.</p>
+    <button class="btn" type="button" id="copy">Copy figure block</button>
+    <p class="hint" style="margin:10px 0 0">Paste the block into a notes page. It brings its own styles, so it needs nothing else from this file.</p>
+    <label class="vh" for="out">Figure block markup</label>
+    <textarea id="out" readonly spellcheck="false"></textarea>
+  </div>
+</div>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     EDIT FROM HERE.
+
+     x and y are percentages of the picture, 0 to 100, measured from
+     the top left. Click the picture to read them off.
+
+     side  which way the leader line runs out from the structure:
+           'left', 'right', 'up', 'down'
+     len   how far it runs, in percent of the picture width
+     type  'label' for a leader and words, 'step' for a numbered disc
+     text  what the student reads. Spell it the way the exam spells it.
+     ============================================================ */
+
+  var ART = {
+    src: '',                 /* assets/figures/fig-w01-16-enzyme-art.png */
+    ratio: 16 / 10,          /* width divided by height of the picture */
+    alt: 'Line drawing of an enzyme with a substrate approaching its active site.',
+    eyebrow: 'Figure 1',
+    title: 'How an enzyme holds its substrate',
+    caption: 'The active site is a shape, not a hole. Anything that fits the shape can sit in it, which is why competitive inhibitors work.'
+  };
+
+  var LABELS = [
+    { x: 30, y: 34, side: 'left',  len: 16, type: 'label', text: 'Active site' },
+    { x: 62, y: 30, side: 'right', len: 15, type: 'label', text: 'Substrate' },
+    { x: 46, y: 68, side: 'down',  len: 12, type: 'label', text: 'Enzyme' },
+    { x: 30, y: 34, side: 'right', len: 0,  type: 'step',  text: 'Substrate collides with the enzyme and settles into the active site.' },
+    { x: 46, y: 46, side: 'right', len: 0,  type: 'step',  text: 'The enzyme changes shape slightly and grips the substrate.' },
+    { x: 68, y: 58, side: 'right', len: 0,  type: 'step',  text: 'Product leaves and the enzyme returns to its original shape, ready again.' }
+  ];
+
+  /* ============================================================
+     STOP EDITING. Everything below just draws it.
+     ============================================================ */
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var ov = document.getElementById('ov');
+  var plate = document.getElementById('plate');
+  var img = document.getElementById('art');
+  var keylist = document.getElementById('keylist');
+  var readout = document.getElementById('readout');
+
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c];
+    });
+  }
+
+  /* No art yet? Draw a placeholder so the layout is still visible. */
+  function placeholder() {
+    var w = 1600, h = Math.round(w / ART.ratio);
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '">' +
+      '<rect width="' + w + '" height="' + h + '" fill="#FFFFFF"/>' +
+      '<rect x="1" y="1" width="' + (w - 2) + '" height="' + (h - 2) + '" fill="none" stroke="#A3ACBA" stroke-dasharray="14 10"/>' +
+      '<ellipse cx="' + (w * 0.42) + '" cy="' + (h * 0.52) + '" rx="' + (w * 0.24) + '" ry="' + (h * 0.3) + '" fill="#ECEFF4" stroke="#08101F" stroke-width="4"/>' +
+      '<circle cx="' + (w * 0.62) + '" cy="' + (h * 0.3) + '" r="' + (h * 0.09) + '" fill="#F7EFD9" stroke="#8A6D33" stroke-width="4"/>' +
+      '</svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
+  }
+
+  document.getElementById('fig-eyebrow').textContent = ART.eyebrow;
+  document.getElementById('fig-title').textContent = ART.title;
+  document.getElementById('fig-cap').textContent = ART.caption;
+  img.src = ART.src || placeholder();
+  img.alt = ART.alt;
+
+  /* The overlay works in picture units: the picture is 100 units wide
+     and however many units tall its own shape makes it. x and y in the
+     LABELS array stay plain percentages, and this converts y for you,
+     so a coordinate keeps pointing at the same structure at any size. */
+  var VH = 62.5;
+  function Y(p) { return p * VH / 100; }
+
+  function fitViewBox() {
+    if (img.naturalWidth && img.naturalHeight) {
+      VH = 100 * img.naturalHeight / img.naturalWidth;
+    }
+    ov.setAttribute('viewBox', '0 0 100 ' + VH.toFixed(3));
+  }
+
+  function draw() {
+    ov.textContent = '';
+    var step = 0;
+    LABELS.forEach(function (l) {
+      if (l.type === 'step') {
+        step += 1;
+        var g = document.createElementNS(NS, 'g');
+        g.setAttribute('class', 'ov-step');
+        var c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', l.x); c.setAttribute('cy', Y(l.y));
+        c.setAttribute('r', 1.8);
+        var t = document.createElementNS(NS, 'text');
+        t.setAttribute('x', l.x); t.setAttribute('y', Y(l.y));
+        t.textContent = String(step);
+        g.appendChild(c); g.appendChild(t);
+        ov.appendChild(g);
+        return;
+      }
+
+      var dx = l.side === 'left' ? -l.len : l.side === 'right' ? l.len : 0;
+      var dy = l.side === 'up' ? -l.len : l.side === 'down' ? l.len : 0;
+      var sx = l.x, sy = Y(l.y);
+      var ex = l.x + dx, ey = Y(l.y) + dy;
+
+      var line = document.createElementNS(NS, 'path');
+      line.setAttribute('class', 'ov-line');
+      line.setAttribute('d', 'M ' + sx + ' ' + sy + ' L ' + ex + ' ' + ey);
+      ov.appendChild(line);
+
+      var dot = document.createElementNS(NS, 'circle');
+      dot.setAttribute('class', 'ov-dot');
+      dot.setAttribute('cx', sx); dot.setAttribute('cy', sy);
+      dot.setAttribute('r', 0.85);
+      ov.appendChild(dot);
+
+      /* The words sit at the far end of the leader, out in white
+         space, never on top of the structure. */
+      var anchor = l.side === 'left' ? 'end' : l.side === 'right' ? 'start' : 'middle';
+      var t2 = document.createElementNS(NS, 'text');
+      t2.setAttribute('class', 'ov-text');
+      t2.setAttribute('x', ex + (l.side === 'left' ? -0.9 : l.side === 'right' ? 0.9 : 0));
+      t2.setAttribute('y', ey + (l.side === 'up' ? -1.1 : l.side === 'down' ? 2.4 : 0.8));
+      t2.setAttribute('text-anchor', anchor);
+      t2.textContent = l.text;
+      ov.appendChild(t2);
+    });
+
+    var n = 0;
+    keylist.innerHTML = LABELS.map(function (l) {
+      if (l.type === 'step') {
+        n += 1;
+        return '<li><span class="num" aria-hidden="true">' + n + '</span><span><strong>Step ' + n + '.</strong> ' + esc(l.text) + '</span></li>';
+      }
+      return '<li><span class="bul" aria-hidden="true">&bull;</span><span>' + esc(l.text) + '</span></li>';
+    }).join('');
+  }
+
+  if (img.complete) { fitViewBox(); }
+  img.addEventListener('load', function () { fitViewBox(); draw(); });
+  draw();
+
+  /* click to read coordinates */
+  plate.addEventListener('click', function (e) {
+    var r = plate.getBoundingClientRect();
+    var x = ((e.clientX - r.left) / r.width) * 100;
+    var y = ((e.clientY - r.top) / r.height) * 100;
+    var snippet = "{ x: " + x.toFixed(1) + ", y: " + y.toFixed(1) +
+                  ", side: 'right', len: 14, type: 'label', text: '' },";
+    readout.textContent = snippet;
+    try { navigator.clipboard.writeText(snippet); } catch (err) {}
+  });
+
+  /* copy the finished figure block */
+  document.getElementById('copy').addEventListener('click', function () {
+    var css = Array.prototype.slice.call(document.styleSheets[document.styleSheets.length - 1].cssRules || [])
+      .map(function (r) { return r.cssText; })
+      .filter(function (t) { return /\.labfig|\.plate|\.ov-|\.keylist/.test(t); })
+      .join('\n');
+    var block = '<style>\n' + css + '\n</style>\n' +
+      document.getElementById('fig').outerHTML.replace(/\s+aria-hidden="true"(?=>)/g, ' aria-hidden="true"');
+    var out = document.getElementById('out');
+    out.value = block;
+    out.select();
+    try { navigator.clipboard.writeText(block); } catch (err) {}
+    readout.textContent = 'Figure block copied. It is also in the box below.';
+  });
+}());
+</script>
+
+<!-- Canvas iframe height sender. -->
+<script>
+(function () {
+  var ID = 'label-kit';
+  function send() {
+    try {
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      parent.postMessage({ id: ID, frameId: ID, height: h }, '*');
+    } catch (e) {}
+  }
+  window.addEventListener('load', send);
+  window.addEventListener('resize', send);
+  if (window.ResizeObserver) { new ResizeObserver(send).observe(document.body); }
+  send();
+}());
+</script>
+</body>
+</html>

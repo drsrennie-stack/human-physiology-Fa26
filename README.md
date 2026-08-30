@@ -1,81 +1,128 @@
-# BIO 005 Human Physiology
+# BIO 005 Human Physiology, Fall 2026
 
-Interactive clinical physiology labs and the lab manual they belong to. Fourteen weeks, fully online and asynchronous.
+Everything ready to push to `drsrennie-stack/human-physiology-Fa26`.
+Built August 30, 2026.
 
-Dr. Sharilyn Rennie, Professor of Anatomy and Physiology.
+---
 
-## What students open
+## Push this
 
-Everything at the top level is a single self-contained file. No build step, no dependencies, no external requests. Push and it works on GitHub Pages.
+Copy the contents of **`site/`** into the root of the repo. Twenty-six files.
+They are self-contained: no build step on GitHub Pages, no dependencies to
+install, and each one carries its own CSS inline so nothing half-loads.
 
-| File | What it is |
+| What | Files |
 |---|---|
-| `week-01-foundations.html` | Week 1. Rosa's case, control loops, a seeded twelve patient dataset, the oxygen curve |
-| `pulmonary-function-lab.html` | Week 13. Lung volumes, spirometry, PFT interpretation, mechanical ventilation |
-| `clinical-physiology-lab-manual.html` | The whole fourteen week manual, readable and printable |
-| `clinical-physiology-lab-manual.docx` | The same manual in Word |
+| Course home, with the calendar carousel and the live current-week marker | `index.html` |
+| Week hub | `week-01.html` |
+| Guides, and the three articles | `guides.html`, `guide-how-to-study.html`, `guide-week-page.html`, `guide-drawing.html` |
+| Pre-work notes, all fifteen weeks | `prework-week-01.html` ... `prework-week-15.html` |
+| Tools | `loop-switcher.html`, `ai-work-log.html`, `label-kit.html` |
+| The design system, shown working | `design-system.html` |
+| The design system as a droppable stylesheet | `medmasters-cards.css` |
+| Accessibility compliance record | `compliance-notes.md` |
+| The raw audit output the record is generated from | `a11y-report.json`, `a11y-tree.json` |
 
-Each HTML file carries an iframe height sender, so it sizes itself correctly when embedded in Canvas.
+**One thing to know before you push:** `index.html` will replace the redirect
+page currently at the repo root. That is intended, but check it is what you
+want first.
 
-## Compliance
+---
 
-`compliance/` holds one document per deliverable, plus `compliance/index.md`, which is the page to hand to a disability services office or an accreditation review. WCAG 2.2 AA is the floor across the course, AAA wherever it is achievable.
+## Read this before you push `nav-patch/`
 
-A deliverable is not finished until its document exists and is listed in that index.
+**`nav-patch/` is optional and it overwrites 39 files you already have.**
+Do not copy it in without looking.
 
-## Rebuilding a week
+Those 39 files are your existing pages with the shared nav bar added, so the
+menu is the same everywhere. The site has no consistent navigation today: 21 of
+46 pages carry no site menu at all, and the rest carry five different ones.
+That is WCAG 3.2.3 Consistent Navigation, a Level AA criterion.
 
-Only needed to change a week's content. Students never touch anything in `src/`.
+`DRY-RUN-REPORT.txt` lists exactly what each file gets and why. Nothing is
+deleted: a page with its own in-page jump menu keeps it, a page with its own
+footer keeps that, and a page with its own skip link keeps that too. The seven
+slide decks are skipped on purpose, because they are full-viewport and the bar
+would break them.
 
-```
-cd src
-python3 build.py week01
-```
-
-That reads `weeks/week01.js`, inlines the engine and the stylesheet, and writes both a standalone page and an artifact version into `out/`. Move the standalone file to the repo root.
-
-A week is assembled from its parts:
-
-```
-cat weeks/parts/w1-*.js > weeks/week01.js
-```
-
-### The engine
-
-`src/engine/` is the shared machinery every week inherits. It is the reason weeks 2 through 14 are content work rather than fourteen rebuilds.
-
-| File | What it provides |
-|---|---|
-| `base.css`, `add.css` | The whole visual system. Palette, surfaces, every component |
-| `lab-core.js` | Page shell, tab strip, gating, plain language layer, clickable terms, formulas, multiple choice |
-| `lab-parts.js` | Decision charts, matching with three input paths, calculation tables, plotting, the test, the results page |
-| `lab-steps.js` | Worked steps and the eliminate-the-distractors question |
-| `lab-chart.js` | The patient chart and the clinical note |
-
-### Verifying
+The safer route is to regenerate rather than copy:
 
 ```
-node verify.js         # the whole lab, plus an accessibility sweep
-node verify-case.js    # the walkthrough, including the anti-shortcut check
-node verify-chart.js   # charting, the note, and every refusal they should make
+python3 build/apply-nav.py --dry *.html    # see what would change
+python3 build/apply-nav.py *.html          # do it, in place
 ```
 
-These need Playwright and a Chromium binary. They walk the page the way a student would and assert on what happens, including the things that are supposed to fail: a blank chart row, an unmeasured value claimed as normal, a correct answer typed into a box that has not been unlocked yet.
+Run it in a clean working tree so `git diff` shows you exactly what moved.
+It is safe to run twice: a page that already has the bar is skipped.
 
-## Design commitments
+---
 
-These hold across everything in this repo and are reasoned about in `compliance/index.md`.
+## Rebuilding
 
-- Dragging is never the only way to do anything.
-- Colour never carries meaning on its own.
-- Nothing is timed, no attempt is capped, nothing locks a student out.
-- No external requests. Every page works offline and behind a campus proxy.
-- Nothing is stored or transmitted. No student identifier ever persists.
-- Gating is completion based, never score based. Getting an answer wrong never blocks anyone.
+Needs Python 3 and Node. From inside `build/`:
+
+```
+python3 build-home.py                       # index.html
+python3 build-week.py weeks/w01.json        # a week hub
+python3 build-guide.py guides/*.json        # the guides and their index
+python3 build-prework.py all                # all fifteen pre-work pages
+python3 build-spec.py                       # design-system.html
+python3 build-css.py                        # medmasters-cards.css
+```
+
+Everything reads `build/data/`, which holds the 268 competencies and the
+fifteen-week schedule. Change a competency there and every page that mentions
+it is correct on the next build. Nothing is hand-typed twice.
+
+### The stylesheet lives in one place
+
+`build-week.py` holds the tokens and the card system. `build-home.py`,
+`build-guide.py`, `build-prework.py` and `build-spec.py` all import it, and
+`build-css.py` emits `medmasters-cards.css` from the same source. There is no
+second copy to keep in sync, which is why the palette change went through
+cleanly.
+
+---
+
+## Checking accessibility
+
+```
+node a11y-report.js ../site/*.html    # writes a11y-report.json
+python3 build-compliance.py           # turns it into compliance-notes.md
+```
+
+The compliance record is **generated**, not written. Every number in it comes
+from a real browser run against the real files, so it cannot quietly go stale
+when a colour changes. If a page regresses, the next build says so in the
+table without anyone remembering to check.
+
+The auditor runs more than the legal floor: axe-core with `wcag2aaa` switched
+on, measured contrast on the rendered page rather than declared values, target
+size against the 44px enhanced rule, reflow at 320px and at 400% zoom, the
+1.4.12 text-spacing bump, and a live keyboard tab-through that compares pixels
+to prove the focus ring actually renders.
+
+Last run: **25 pages, 0 violations across 1055 checks, 666 of 666 colour pairs
+at AAA, lowest ratio 7.32:1, all 1034 targets at 44px.**
+
+---
 
 ## Still open
 
-- JAWS and VoiceOver pass before the course goes live.
-- The three figure logo is a placeholder built from the design system description, not the real file.
-- Weeks 2 to 12 and week 14 are specified in the manual against tools not yet built.
-- Week 11's CBC and PCR lab is partly built and has no compliance document yet.
+1. **The human screen reader pass.** Everything above is the accessibility tree,
+   which is strong evidence but is not the same as listening. Section 8 of
+   `compliance-notes.md` has a six-step NVDA or VoiceOver script, about fifteen
+   minutes. This is the one thing genuinely outstanding before September 8.
+2. **Week hubs 2 to 15.** Week 1 is built; the other fourteen need their step
+   specs written. Same builder, same audit.
+3. **Week 12, Thanksgiving.** A Sunday Nov 29 deadline lands on the holiday
+   weekend. Your own schedule file flags it and proposes opening Wednesday Nov 25
+   and closing Tuesday Dec 1. Needs your decision, not mine.
+4. **Points for the pre-work.** It is the spine of the week and a bigger ask
+   than a 5-point knowledge check. Worth moving points to it rather than adding
+   to the total.
+5. **Older pages carry their own accessibility debt** that the new pages do not:
+   28px buttons on the lab manual, low-contrast metadata, sideways scrolling at
+   320px. `node a11y-report.js <file>` names each one. Separate work item.
+
+Dr. Sharilyn Rennie
