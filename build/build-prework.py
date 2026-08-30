@@ -183,7 +183,8 @@ def build(wk, data):
         'wk': wk,
         'title': esc(w['title']),
         'opens': bw.fmt(w['opens']),
-        'closes': bw.fmt(w['closes']),
+        'closes': bw.fmt(bw.due_of(w)),
+        'pairline': ('<p class="when">%s</p>' % html.escape(w['pairNote'])) if w.get('pairNote') else '',
         'hours': human_time(total_min).replace('About ', 'roughly '),
         'ngroups': len(order),
         'groups': groups,
@@ -300,6 +301,7 @@ PAGE = '''<!DOCTYPE html>
       <p>Before the videos. Before any AI. Work through the list below and turn each
         thing you need to be able to do into a note in your own words.</p>
       <p class="when">Opens %(opens)s &middot; due with everything else, %(closes)s, 11:59 pm</p>
+      %(pairline)s
     </section>
 
     <section class="pw-rule" aria-labelledby="h-rule">

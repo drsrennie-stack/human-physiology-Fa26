@@ -69,6 +69,19 @@ def load_data():
     return json.loads(out.stdout)
 
 
+def due_of(w):
+    """A week's deadline. Normally the day it closes, but Weeks 12 and 13
+       share one due date so that nothing lands on the Thanksgiving weekend.
+       Everything that shows a deadline goes through here rather than reading
+       closes directly, so the pairing is expressed once."""
+    return w.get('due') or w['closes']
+
+
+def paired(w):
+    """The other weeks sharing this deadline, if any."""
+    return [n for n in (w.get('pair') or []) if n != w['wk']]
+
+
 def fmt(d):
     y, m, dd = [int(x) for x in d.split('-')]
     return datetime.date(y, m, dd).strftime('%A %B %-d')
@@ -199,8 +212,12 @@ def build(spec, data):
            ('<br><small style="font-weight:500;color:var(--ink-soft)">' + rich(c['note']) + '</small>')
            if c.get('note') else '')
         for c in spec.get('chapters', []))
-    chapters += ('<li><span class="k">Due</span><span class="v">%s, 11:59 pm</span></li>'
-                 % fmt(w['closes']))
+    others = paired(w)
+    chapters += ('<li><span class="k">Due</span><span class="v">%s, 11:59 pm%s</span></li>'
+                 % (fmt(due_of(w)),
+                    ('<br><small style="font-weight:500;color:var(--ink-soft)">'
+                     'Shared with week %s. Nothing is due on the Thanksgiving weekend.</small>'
+                     % ' and '.join(str(n) for n in others)) if others else ''))
     chapters += ('<li><span class="k">Study</span><span class="v">%.1f hours by the map</span></li>'
                  % (est / 60.0))
 

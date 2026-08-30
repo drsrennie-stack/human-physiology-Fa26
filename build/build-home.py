@@ -74,10 +74,13 @@ def month_grid(year, month, weeks):
                 break
         cls, inner = ['day'], str(d.day)
         title = d.strftime('%B %-d')
+        # A day can be the deadline for more than one week: 12 and 13 share
+        # December 6. Collect every week due today rather than assuming one.
+        due_here = [x for x in weeks if D(bw.due_of(x)) == d]
         if wk:
             cls.append('inwk')
             opens = (d == D(wk['opens']))
-            due = (d == D(wk['closes']))
+            due = bool(due_here)
             # The name a screen reader hears carries everything the colour and
             # the edge bars carry visually, so nothing is available by sight only.
             says = '%s. Week %d, %s' % (title, wk['wk'], esc(wk['title']))
@@ -86,7 +89,8 @@ def month_grid(year, month, weeks):
                 says += '. Week %d opens' % wk['wk']
             if due:
                 cls.append('due')
-                says += '. Week %d work is due, 11:59 pm' % wk['wk']
+                which = ' and '.join(str(x['wk']) for x in due_here)
+                says += ('. Week %s work is due, 11:59 pm' % which)
             inner = ('<a href="week-%02d.html" target="_top" aria-label="%s">'
                      '<span class="dn">%d</span></a>'
                      % (wk['wk'], says, d.day))
@@ -306,9 +310,15 @@ PAGE = '''<!DOCTYPE html>
   transform:translateY(-50%%);width:32px;height:22px;
   background:url("data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 28'%%3E%%3Cg fill='none' stroke='%%23040711' stroke-width='8.5' stroke-linecap='round' stroke-linejoin='round'%%3E%%3Cpath d='M4 23 C 13 23 14 13 28 12'/%%3E%%3Cpath d='M28 5 L38 12 L28 19'/%%3E%%3C/g%%3E%%3Cg fill='none' stroke='%%23DCB45C' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'%%3E%%3Cpath d='M4 23 C 13 23 14 13 28 12'/%%3E%%3Cpath d='M28 5 L38 12 L28 19'/%%3E%%3C/g%%3E%%3C/svg%%3E") center/contain no-repeat}
 @media(max-width:640px){.wkrow[data-state="now"]::before{left:-26px;width:25px;height:17px}}
-.tagnow{font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;background:var(--maroon);color:#fff;border-radius:99px;
-  padding:3px 10px;margin-left:9px;white-space:nowrap}
+.tagnow,.tagopen{font-family:var(--display);font-size:.62rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;border-radius:99px;padding:3px 10px;
+  margin-left:9px;white-space:nowrap}
+.tagnow{background:var(--terra);color:#fff}
+/* An open-but-not-current week: week 12 stays submittable right through week
+   13, because those two share a deadline. Navy rather than terra, so it reads
+   as information and does not compete with the marked week. */
+.tagopen{background:var(--navy);color:#fff}
+.wkrow[data-state="open"]{background:#F7F8F9}
 @media(max-width:640px){.wkrow{grid-template-columns:38px minmax(0,1fr)}.wkrow .when{grid-column:2}}
 
 /* ---------- app tiles, the BIO 004 games pattern ---------- */
@@ -457,7 +467,8 @@ PAGE = '''<!DOCTYPE html>
     (today < D(cur.opens) ? 'This week opens ' + pretty(cur.opens) + '.'
                           : 'This week is open now. Everything in it is due Sunday night.');
   document.getElementById('nowopen').textContent = pretty(cur.opens);
-  document.getElementById('nowdue').textContent = pretty(cur.closes) + ', 11:59 pm';
+  document.getElementById('nowdue').textContent = pretty(cur.due) + ', 11:59 pm' +
+    (cur.pairNote ? ' (with week ' + cur.pair.filter(function (n) { return n !== cur.wk; }).join(' and ') + ')' : '');
   var go = document.getElementById('nowgo');
   go.setAttribute('href', 'week-' + (cur.wk < 10 ? '0' : '') + cur.wk + '.html');
   go.textContent = 'Open week ' + cur.wk;
@@ -527,15 +538,26 @@ PAGE = '''<!DOCTYPE html>
     var wk = +row.getAttribute('data-wk');
     var w = WEEKS.filter(function (x) { return x.wk === wk; })[0];
     if (!w) { return; }
-    var state = today > D(w.closes) ? 'past' : (wk === cur.wk ? 'now' : 'ahead');
+    /* Four states, not three. A week is not "past" until its real deadline
+       has gone, which for week 12 is December 6 and not November 29. And a
+       week that has opened but is not the current one is still OPEN, not
+       "ahead": during week 13 a student can still be working on week 12,
+       because those two share a deadline. */
+    var state = today > D(w.due) ? 'past'
+              : (wk === cur.wk ? 'now'
+              : (today >= D(w.opens) ? 'open' : 'ahead'));
     row.setAttribute('data-state', state);
-    if (state === 'now') {
-      var h = row.querySelector('h3');
-      if (h && !h.querySelector('.tagnow')) {
-        var t = document.createElement('span');
-        t.className = 'tagnow'; t.textContent = 'This week';
-        h.appendChild(t);
-      }
+    var h = row.querySelector('h3');
+    if (state === 'now' && h && !h.querySelector('.tagnow')) {
+      var t = document.createElement('span');
+      t.className = 'tagnow'; t.textContent = 'This week';
+      h.appendChild(t);
+    }
+    if (state === 'open' && h && !h.querySelector('.tagopen')) {
+      var o = document.createElement('span');
+      o.className = 'tagopen';
+      o.textContent = 'Still open, due ' + pretty(w.due).replace(/^[A-Za-z]+, /, '');
+      h.appendChild(o);
     }
   });
 }());
@@ -590,7 +612,9 @@ def main():
 
     weekjson = json.dumps([
         {'wk': w['wk'], 'title': w['title'], 'opens': w['opens'],
-         'closes': w['closes'], 'n': counts.get(w['wk'], 0)}
+         'closes': w['closes'], 'due': bw.due_of(w),
+         'pair': w.get('pair'), 'pairNote': w.get('pairNote'),
+         'n': counts.get(w['wk'], 0)}
         for w in weeks])
 
     w1 = weeks[0]
@@ -605,7 +629,7 @@ def main():
         'w1title': esc(w1['title']),
         'w1line': 'This week opens %s.' % D(w1['opens']).strftime('%A %B %-d'),
         'w1open': D(w1['opens']).strftime('%A %B %-d'),
-        'w1due': D(w1['closes']).strftime('%A %B %-d') + ', 11:59 pm',
+        'w1due': D(bw.due_of(w1)).strftime('%A %B %-d') + ', 11:59 pm',
     }
     if '—' in out or '–' in out:
         raise SystemExit('em or en dash in index.html')

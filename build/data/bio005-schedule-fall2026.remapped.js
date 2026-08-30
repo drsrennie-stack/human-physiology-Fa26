@@ -353,7 +353,7 @@
   "opens": "2026-11-23",
   "closes": "2026-11-29",
   "title": "Digestion, and how you use food for fuel",
-  "note": "THANKSGIVING WEEK. Thu Nov 26 and Fri Nov 27 are holidays. The natural Exam 4 close (Sun Nov 29) sits on the holiday weekend. The proposed window below opens Wed Nov 25 and closes Tue Dec 1 so it straddles the break instead of landing in it. This is the one date in the term that needs a deliberate decision.",
+  "note": "THANKSGIVING WEEK. Thu Nov 26 and Fri Nov 27 are holidays. Nothing is due on Sun Nov 29. This week and Week 13 share a single deadline of Sun Dec 6, so the break sits inside a fourteen-day window rather than against a due date. Content and opening dates are unchanged.",
   "exam": {
    "n": 4,
    "name": "Exam 4",
@@ -385,7 +385,13 @@
    "w14-metabolic-rate",
    "w14-thermoregulation",
    "w14-lab-metabolic-rate"
-  ]
+  ],
+  "due": "2026-12-06",
+  "pair": [
+   12,
+   13
+  ],
+  "pairNote": "Weeks 12 and 13 share one deadline. Nothing is due on the Thanksgiving weekend. Everything from both weeks is due Sunday December 6, 11:59 pm."
  },
  {
   "wk": 13,
@@ -416,7 +422,13 @@
    "w12-chemoreceptors",
    "w12-ventilation-adaptation",
    "w12-lab-ventilation-response"
-  ]
+  ],
+  "due": "2026-12-06",
+  "pair": [
+   12,
+   13
+  ],
+  "pairNote": "Weeks 12 and 13 share one deadline. Nothing is due on the Thanksgiving weekend. Everything from both weeks is due Sunday December 6, 11:59 pm."
  },
  {
   "wk": 14,

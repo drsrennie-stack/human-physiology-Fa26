@@ -115,9 +115,11 @@ at AAA, lowest ratio 7.32:1, all 1034 targets at 44px.**
    minutes. This is the one thing genuinely outstanding before September 8.
 2. **Week hubs 2 to 15.** Week 1 is built; the other fourteen need their step
    specs written. Same builder, same audit.
-3. **Week 12, Thanksgiving.** A Sunday Nov 29 deadline lands on the holiday
-   weekend. Your own schedule file flags it and proposes opening Wednesday Nov 25
-   and closing Tuesday Dec 1. Needs your decision, not mine.
+3. ~~Week 12, Thanksgiving.~~ **Decided Aug 30.** Weeks 12 and 13 keep their
+   content and their opening dates. Nothing is due on Sun Nov 29. The two weeks
+   share one deadline, **Sun Dec 6, 11:59 pm**, so the break sits inside a
+   fourteen-day window instead of against a due date. Set in
+   `build/data/` via `apply-remap.js`; every page reads it through one helper.
 4. **Points for the pre-work.** It is the spine of the week and a bigger ask
    than a 5-point knowledge check. Worth moving points to it rather than adding
    to the total.
