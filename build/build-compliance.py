@@ -39,6 +39,7 @@ DESCRIBE = {
     'loop-switcher.html': ('Negative feedback loop, read mode and practice mode', 'Students'),
     'ai-work-log.html': ('Problem log: handwritten work, sources, answer, AI check', 'Students'),
     'label-kit.html': ('Figure labelling tool', 'Instructor only'),
+    'teaching-notes.html': ('Planning notes beside what the student sees', 'Instructor only'),
 }
 for i in range(1, 16):
     DESCRIBE['prework-week-%02d.html' % i] = (

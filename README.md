@@ -13,7 +13,7 @@ install, and each one carries its own CSS inline so nothing half-loads.
 
 | What | Files |
 |---|---|
-| Course home, with the calendar carousel and the live current-week marker | `index.html` |
+| Course home, with the calendar carousel, the live current-week marker and the category cards from your teaching-resources index | `index.html` |
 | Week hub | `week-01.html` |
 | Guides, and the three articles | `guides.html`, `guide-how-to-study.html`, `guide-week-page.html`, `guide-drawing.html` |
 | Pre-work notes, all fifteen weeks | `prework-week-01.html` ... `prework-week-15.html` |
@@ -26,6 +26,76 @@ install, and each one carries its own CSS inline so nothing half-loads.
 **One thing to know before you push:** `index.html` will replace the redirect
 page currently at the repo root. That is intended, but check it is what you
 want first.
+
+---
+
+## `instructor/` is yours, and the boundary is now enforced
+
+Your week notes were rendering on the student week page in a cream box:
+"Front-load orientation, not content." That is your planning voice, not your
+teaching voice, and a student reading "if the term runs tight, this is the
+trim" learns something about the course they were never meant to know.
+
+The data now carries two separate fields:
+
+- **`note`** stays yours. It renders on `instructor/teaching-notes.html` and
+  nowhere else.
+- **`studentNote`** is new, and is the only one a student page will render.
+
+`build/leak-check.py` enforces it. It knows which fields are yours, normalises
+the text so a re-wording cannot slip past, checks the rendered page **and** the
+HTML comments, and exits non-zero if anything of yours turns up on a student
+file. I proved it by putting the leak back: it caught it twice and failed the
+build. Run it after every build.
+
+**Six student notes are drafts I wrote** from facts already in your notes:
+weeks 1, 3, 8, 10, 11 and 15, covering the short first week, census, the
+midterm, Veterans Day, the drop deadline and the final. `teaching-notes.html`
+shows yours and theirs side by side so you can read them against each other in
+one pass. They need your eye before September 8.
+
+**`teaching-notes.html` is public.** It is not linked from the student site and
+it carries a noindex tag, so it will not be stumbled on or found by search, but
+GitHub Pages will serve it to anyone who guesses the filename. The page says so
+itself. If something genuinely must not be seen, keep it out of the repo rather
+than trusting an unlinked page.
+
+---
+
+## Push `data-swap/` too, or the site will contradict itself
+
+**Two files, and they matter more than anything else in this zip.**
+
+Your repo's `bio005-competencies.js` still carries the week numbers from the
+sequence you used BEFORE the Aug 24 remap. Seven live pages read that file:
+`welcome.html`, `competency-recall.html`, `competency-map.html`,
+`course-schedule.html`, `ai-work-log.html`, `unit-05-standalone.html` and the
+Mastery OS. The new pre-work pages use the adopted sequence. Push one without
+the other and the site tells students two different weeks for the same thing:
+
+| Competency | Your live pages say | The new pre-work says |
+|---|---|---|
+| Sympathetic and parasympathetic divisions | Week 5 | **Week 6** |
+| Crossbridge cycle | Week 6 | **Week 7** |
+| Signal types and range | Week 7 | **Week 4** |
+| Thyroid hormone | Week 12 | **Week 8** |
+| Nernst equation | Week 4 | **Week 3** |
+
+97 of the 268 are affected.
+
+`data-swap/` holds the corrected pair under the **original filenames**, so it
+is a straight overwrite of the two files in your repo root and no page needs
+editing. Every export is carried through, so nothing that reads them breaks.
+
+I verified that by copying your whole repo, swapping only those two files, and
+loading eleven pages before and after: identical line counts, identical export
+counts, no new JavaScript errors, and Week 6 correctly showing 25 competencies
+instead of 20.
+
+**The competency content itself was never in question.** Your repo file and the
+one these pages were built from are identical record for record: same 268 ids,
+same names, same can-statements, same dok, yield and est. Only the `week` field
+differs, and only because of the remap you adopted.
 
 ---
 
@@ -89,6 +159,7 @@ cleanly.
 ```
 node a11y-report.js ../site/*.html    # writes a11y-report.json
 python3 build-compliance.py           # turns it into compliance-notes.md
+python3 leak-check.py                 # fails if your notes reached a student page
 ```
 
 The compliance record is **generated**, not written. Every number in it comes
@@ -126,5 +197,13 @@ at AAA, lowest ratio 7.32:1, all 1034 targets at 44px.**
 5. **Older pages carry their own accessibility debt** that the new pages do not:
    28px buttons on the lab manual, low-contrast metadata, sideways scrolling at
    320px. `node a11y-report.js <file>` names each one. Separate work item.
+6. **`competency-recall.html` renders "Unit undefined, 0 comps"** in its Mastery
+   by unit panel, on your current live site, before any of my changes. The data
+   is fine; the page is not reading it correctly. Worth a look, separate from
+   anything here.
+7. **The Mastery OS keeps its own embedded copy** of the competency map in
+   `os/card-competency-map.js`, so it does not pick up the swap and still shows
+   the old weeks. It needs regenerating from the same source or it will drift
+   away from the rest of the site.
 
 Dr. Sharilyn Rennie

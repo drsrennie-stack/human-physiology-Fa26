@@ -113,51 +113,49 @@ def month_grid(year, month, weeks):
 
 
 # ---------------------------------------------------------------------------
-# App icons. Same vocabulary as the BIO 004 games page: a flat 48-unit glyph
-# in white, gold and navy, sitting inside a 74px rounded navy square.
-# Gold stays the accent inside the icon: it sits on navy, where terra is
-# only 2.63:1 and would disappear.
+# Icons in the vocabulary of her teaching-resources index: a 24-unit stroked
+# glyph, no fills, sitting in a translucent rounded chip. The stroke colour is
+# not set here on purpose. ".cat .ic svg * {stroke:var(--fg)}" paints it the
+# card's foreground, so one icon works on a navy card and on a gold one.
 # ---------------------------------------------------------------------------
+def ico(paths):
+    return ('<svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" '
+            'stroke-linecap="round" stroke-linejoin="round" '
+            'aria-hidden="true" focusable="false">%s</svg>'
+            % ''.join('<path d="%s"/>' % d for d in paths))
+
+
 ICONS = {
-    'setup':
-        '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
-        '<rect x="7" y="6" width="30" height="34" rx="5" fill="#FFFFFF"/>'
-        '<path d="M14 16h14M14 23h14M14 30h8" stroke="#040711" stroke-width="2.6" stroke-linecap="round"/>'
-        '<circle cx="34" cy="33" r="10" fill="#DCB45C"/>'
-        '<path d="M29.5 33l3.2 3.2 6-6.4" stroke="#040711" stroke-width="3" stroke-linecap="round" '
-        'stroke-linejoin="round" fill="none"/></svg>',
-    # Her own brain glyph, copied from the BIO 004 games page so the two
-    # courses share an icon rather than each having their own version.
-    'brain':
-        '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
-        '<path d="M24 10c-6 0-9 3-9 7 0 1-3 2-3 6s3 5 3 7c0 4 4 8 9 8s9-4 9-8c0-2 3-3 3-7s-3-5-3-6c0-4-3-7-9-7z" '
-        'fill="#FFFFFF"/>'
-        '<path d="M24 12v24M18 18h12M18 28h12" stroke="#8B3A2E" stroke-width="2.4" stroke-linecap="round"/></svg>',
-    'syllabus':
-        '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
-        '<rect x="9" y="6" width="30" height="36" rx="4" fill="#FFFFFF"/>'
-        '<path d="M9 10a4 4 0 0 1 4-4h22a4 4 0 0 1 4 4v5H9z" fill="#DCB45C"/>'
-        '<path d="M16 23h16M16 29h16M16 35h10" stroke="#040711" stroke-width="2.6" stroke-linecap="round"/></svg>',
-    'cards':
-        '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
-        '<rect x="7" y="12" width="21" height="28" rx="3" fill="#FFFFFF"/>'
-        '<rect x="18" y="7" width="21" height="28" rx="3" fill="#DCB45C" stroke="#040711" stroke-width="2"/>'
-        '<path d="M23 16h11M23 21h11M23 26h7" stroke="#040711" stroke-width="2" stroke-linecap="round"/></svg>',
+    # a checklist with a tick
+    'setup': ico(['M6 3h9l4 4v14H6z', 'M14 3v5h5', 'M9 12h6', 'M9 16.5l1.8 1.8L14 15']),
+    # An open book. A brain outline turned into a crosshair at 28px, and an
+    # icon nobody can read is worse than no icon.
+    'brain': ico(['M12 6.5C9.9 5 6.9 4.6 4 5v13c2.9-.4 5.9 0 8 1.5',
+                  'M12 6.5C14.1 5 17.1 4.6 20 5v13c-2.9-.4-5.9 0-8 1.5',
+                  'M12 6.5v13']),
+    # a document with a banner across the top
+    'syllabus': ico(['M5 3h14v18H5z', 'M5 3h14v4H5z', 'M8.5 11h7', 'M8.5 14.5h7', 'M8.5 18h4.5']),
+    # Two stacked cards, the back one offset so the stack reads as a stack.
+    'cards': ico(['M3.5 7.5h11v13h-11z', 'M7.5 4.5h13v13h-2',
+                  'M6.5 11.5h5', 'M6.5 15h3']),
 }
 
+# Her four card colours, taken off the teaching-resources index. The gold one
+# carries the "light" flag: dark text, and a dark icon chip instead of a pale
+# one, because a translucent white chip disappears on gold.
 TILES = [
-    ('setup', 'course-entry.html', 'Do this first', 'Set up and tech check',
-     'Fifteen minutes, and it saves you a bad week later. Check that your browser, '
-     'camera and Canvas all work before the first assignment is due.'),
-    ('brain', 'guide-how-to-study.html', 'Method', 'How to study this course',
-     'Rereading feels like studying, but it is not what makes the material stick. '
-     'This explains what to do instead, and why.'),
-    ('syllabus', 'start-here.html', 'Admin', 'Syllabus and grading',
-     'Office hours, how points are earned, deadlines, and the late work policy. '
-     'Read it once in week one so nothing surprises you in week ten.'),
-    ('cards', 'competency-recall.html', 'Study', 'Recall cards',
-     'Short practice you can do most days. Fifteen minutes at a time beats '
-     'two hours the night before.'),
+    ('setup', 'course-entry.html', '#0B1530', '#FFFFFF', False, 'Set up and tech check',
+     'Fifteen minutes, and it saves you a bad week later. Check your browser, camera and '
+     'Canvas before the first assignment is due.', 'Do this first'),
+    ('brain', 'guide-how-to-study.html', '#8B3A2E', '#FFFFFF', False, 'How to study this course',
+     'Rereading feels like studying, but it is not what makes the material stick. This is '
+     'what to do instead, and why.', 'The method'),
+    ('syllabus', 'start-here.html', '#C9A14A', '#0B1530', True, 'Syllabus and grading',
+     'Office hours, how points are earned, deadlines and the late work policy. Read it in '
+     'week one so nothing surprises you in week ten.', 'Admin'),
+    ('cards', 'competency-recall.html', '#1F2D44', '#FFFFFF', False, 'Recall cards',
+     'Short practice you can do most days. Fifteen minutes at a time beats two hours the '
+     'night before.', 'Study'),
 ]
 
 
@@ -424,7 +422,7 @@ PAGE = '''<!DOCTYPE html>
     </div>
   </div>
 
-  <div class="band band-maroon">
+  <div class="band band-light">
     <div class="hwrap">
       <section class="sec" aria-labelledby="h-start">
         <div class="sechead">
@@ -434,7 +432,7 @@ PAGE = '''<!DOCTYPE html>
             <p>If you are new to the course, or something is not working, these four are where to go.</p>
           </div>
         </div>
-        <div class="tiles">%(tiles)s</div>
+        <div class="cats">%(tiles)s</div>
       </section>
     </div>
   </div>
@@ -602,13 +600,13 @@ def main():
         for w in weeks)
 
     tiles = ''.join(
-        '<a class="tile" href="%s" target="_top">'
-        '<span class="appicon">%s</span>'
-        '<span class="chip">%s</span>'
+        '<a class="cat%s" href="%s" target="_top" style="--bg:%s;--fg:%s">'
+        '<span class="ic">%s</span>'
         '<h3>%s</h3><p>%s</p>'
-        '<span class="open">Open it &rsaquo;</span></a>'
-        % (href, ICONS[key], esc(chip), esc(title), esc(blurb))
-        for key, href, chip, title, blurb in TILES)
+        '<span class="catgo">%s <span class="arr" aria-hidden="true">&rarr;</span></span></a>'
+        % (' light' if light else '', href, bg, fg, ICONS[key],
+           esc(title), esc(blurb), esc(go))
+        for key, href, bg, fg, light, title, blurb, go in TILES)
 
     weekjson = json.dumps([
         {'wk': w['wk'], 'title': w['title'], 'opens': w['opens'],

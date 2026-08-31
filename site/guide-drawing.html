@@ -117,7 +117,10 @@ h1{font-size:clamp(1.6rem,3.4vw,2.15rem);margin:0 0 8px;line-height:1.14;max-wid
 .chips{list-style:none;display:flex;gap:6px;flex-wrap:wrap}
 .chips li{font-size:.76rem;font-weight:700;color:var(--ink-soft);background:#fff;
           border:1px solid var(--rule-soft);border-radius:999px;padding:5px 12px}
-.wknote{background:var(--gold-pale);border-radius:var(--r);padding:11px 14px;font-size:.88rem;
+/* Was gold-pale, which is cream by another name and out of the teaching
+   palette. A left rule in terra carries the same emphasis with no fill. */
+.wknote{background:#fff;border-left:4px solid var(--terra);border-radius:var(--r);
+  padding:11px 14px;font-size:.88rem;
         margin:14px 0 0;max-width:70ch}
 
 .cols{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;padding:22px 0 0}
@@ -325,6 +328,56 @@ details.drop > summary .tag{font-size:.72rem;font-weight:700;color:var(--ink-sof
   .vl-card,.vl-card.featured,.vl-card.soon{border:1px solid #000;break-inside:avoid;page-break-inside:avoid}
   .vl-badge,.cta-solid{background:none;color:#000;border:1px solid #000}
   .vl-list li::before{background:#000}
+}
+
+
+/* ============================================================
+   CATEGORY CARDS
+   Lifted from her teaching-resources index: a full-bleed colour
+   card, a translucent rounded icon chip, a big title, and an
+   uppercase link with an arrow that slides on hover.
+
+   Her geometry kept exactly: 18px radius, 54px chip at 14px
+   radius, 24px title, 214px min height, 340px grid minimum,
+   6px lift with a deeper shadow.
+
+   ONE CHANGE. Her .cat p carries opacity:.86, which measures
+   6.11:1 on the terra ground and 5.99:1 on the gold. Both clear
+   AA and both miss the 7:1 this course holds. At full opacity
+   the same text is 7.66 and 7.46. The look barely moves and the
+   floor is kept, so the opacity is gone.
+   ============================================================ */
+/* 420 rather than her 340: this page's wrap is wider than the one these
+   came off, and 340 lets three squeeze in and orphan the fourth. */
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.cat{position:relative;display:flex;flex-direction:column;gap:12px;
+  background:var(--bg);color:var(--fg);border:none;border-radius:18px;
+  padding:28px 26px;min-height:214px;text-decoration:none;
+  box-shadow:0 14px 30px rgba(11,21,48,.18);
+  transition:transform .22s ease,box-shadow .22s ease}
+.cat:hover{transform:translateY(-6px);box-shadow:0 26px 50px rgba(11,21,48,.28)}
+.cat .ic{width:54px;height:54px;border-radius:14px;background:rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center}
+.cat.light .ic{background:rgba(11,21,48,.12)}
+.cat .ic svg{width:28px;height:28px}
+.cat .ic svg *{stroke:var(--fg)}
+.cat h3{font-size:24px;font-weight:800;letter-spacing:-.01em;line-height:1.15;margin:0;color:var(--fg)}
+/* full opacity, see the note above */
+.cat p{font-size:15px;color:var(--fg);margin:0;flex:1 1 auto;line-height:1.5}
+/* Named catgo, not go. The week page already owns .go as a solid maroon
+   button, so a bare .go inside a card inherited that background and put navy
+   text on maroon at 2.36:1. */
+.cat .catgo{margin-top:auto;font-family:var(--display);font-size:13px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--fg);background:none;
+  border:0;padding:0;min-height:0;display:inline-flex;align-items:center;gap:8px}
+.cat .catgo .arr{transition:transform .2s}
+.cat:hover .catgo .arr{transform:translateX(4px)}
+.cat:focus-visible{outline:3px solid var(--navy);outline-offset:3px;
+  box-shadow:0 0 0 6px var(--gold-bright),0 26px 50px rgba(11,21,48,.28)}
+@media(prefers-reduced-motion:reduce){
+  .cat,.cat .catgo .arr{transition:none}
+  .cat:hover{transform:none}
+  .cat:hover .catgo .arr{transform:none}
 }
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
