@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P-03 Emergent Properties and Physiology | BIO 005 Human Physiology</title>
+<meta name="description" content="Some properties only exist once the parts are assembled.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15);
+  --navy-tint:#ECEFF4; --terra:#8B3A2E; --white:#fff; --offwhite:#FAFAF9;
+  --display:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--white);color:var(--navy);font-family:var(--body);font-size:16px;line-height:1.5}
+em,i,cite,dfn,var,address{font-style:normal}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
+a{color:var(--terra)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--terra);outline-offset:2px;border-radius:2px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:0;z-index:80;background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-weight:700;text-decoration:none}
+.skip:focus{left:12px;top:12px}
+
+/* Chrome */
+.brandbar{background:var(--white);padding:12px max(16px,3vw)}
+.brandbar .wrap{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:11px}
+.coursemeta{display:flex;flex-direction:column}
+.coursemeta .code{font-family:var(--display);font-weight:800;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.coursemeta .name{font-weight:600;font-size:13px;color:var(--navy-72)}
+.topband{background:var(--terra);color:#fff;padding:16px max(16px,3vw)}
+.topband .wrap{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+.topband .who{font-family:var(--display);font-weight:800;font-size:17px;color:#fff}
+.topband .where{font-size:13px;color:#fff;font-weight:600;letter-spacing:.02em}
+
+/* Stage */
+main{max-width:1240px;margin:0 auto;padding:22px max(16px,3vw) 0}
+#stagewrap{position:relative;width:100%}
+#stage{
+  position:relative;width:1280px;height:720px;transform-origin:top left;
+  background:var(--white);border:.5px solid var(--navy-15);border-radius:8px;overflow:hidden
+}
+.slide{position:absolute;inset:0;background:var(--white)}
+.slide[hidden]{display:none}
+.pad{position:absolute;inset:0;padding:64px 72px;display:flex;flex-direction:column}
+
+.slide-title{background:var(--terra)}
+.slide-title .pad{justify-content:center}
+.s-eyebrow{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:#fff;margin:0 0 22px;opacity:.94}
+.s-h1{font-size:74px;font-weight:800;color:#fff;letter-spacing:-.015em;max-width:20ch}
+.s-sub{margin:26px 0 0;font-size:26px;color:#fff;max-width:44ch;line-height:1.4;font-weight:500}
+.s-code{margin:40px 0 0;font-size:16px;color:#fff;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.codechip{background:#fff;color:var(--navy);border-radius:99px;padding:6px 15px;letter-spacing:.14em;font-family:var(--display);font-weight:800;font-size:15px}
+
+.s-h2{font-size:46px;font-weight:800;color:var(--navy);letter-spacing:-.012em;max-width:26ch;margin-bottom:34px}
+.s-h2 .key{color:var(--terra)}
+
+.boxes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-content:start}
+.box{min-width:0}
+.box.open{grid-column:1 / -1}
+.box-btn{
+  width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:var(--white);border:.5px solid var(--navy-15);border-radius:8px;
+  padding:20px 22px;cursor:pointer;font-family:var(--body);color:var(--navy);
+  transition:background 180ms ease,border-color 180ms ease
+}
+.box-btn:hover{background:var(--offwhite)}
+.box-label{font-size:23px;font-weight:700;line-height:1.25}
+.box-cue{color:var(--terra);flex:none;display:flex;transition:transform 220ms ease}
+.box.open{border:1.5px solid var(--terra);border-radius:8px;background:var(--white)}
+.box.open .box-btn{border:0;background:transparent;padding:20px 22px 10px}
+.box.open .box-btn:hover{background:transparent}
+.box.open .box-cue{transform:rotate(90deg)}
+.box-body{padding:0 22px 20px}
+.big{
+  margin:0;font-size:31px;line-height:1.35;font-weight:600;color:var(--navy);max-width:44ch;
+  transform:scale(.965);opacity:0;animation:zoomin 300ms ease forwards
+}
+.big .hot{color:var(--terra);font-weight:800}
+@keyframes zoomin{to{transform:scale(1);opacity:1}}
+
+/* Controls */
+.bar{
+  max-width:1240px;margin:16px auto 0;padding:0 max(16px,3vw) 26px;
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:14px;
+  border:.5px solid var(--navy-15);background:var(--white);color:var(--navy);
+  border-radius:4px;padding:10px 15px;cursor:pointer;text-decoration:none;line-height:1.2
+}
+.btn:hover{background:var(--navy-tint)}
+.btn-primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn-primary:hover{background:#060D22}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn[disabled]:hover{background:var(--white)}
+.counter{font-weight:700;font-size:14px;color:var(--navy-72);padding:0 4px;font-variant-numeric:tabular-nums}
+.sep{flex:1 1 auto}
+
+.pentools{display:none;flex-wrap:wrap;gap:8px;align-items:center;
+  border:.5px solid var(--navy-15);border-radius:4px;padding:7px 10px;background:var(--white)}
+.pentools.on{display:flex}
+.swatch{width:26px;height:26px;border-radius:99px;border:.5px solid var(--navy-15);cursor:pointer;padding:0}
+.swatch[aria-pressed="true"]{outline:2.5px solid var(--navy);outline-offset:2px}
+.sizebtn{width:30px;height:26px;border-radius:4px;border:.5px solid var(--navy-15);background:var(--white);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:var(--navy);font-family:var(--body)}
+.sizebtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+#pen{position:absolute;inset:0;touch-action:none;z-index:5;display:none}
+#pen.on{display:block;cursor:crosshair}
+
+.notes{max-width:1240px;margin:0 auto;padding:0 max(16px,3vw) 34px}
+.notecard{border:.5px solid var(--navy-15);border-radius:8px;padding:18px 20px;background:var(--white)}
+.notecard h3{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.notecard p{margin:0 0 12px;font-size:14px;color:var(--navy-72)}
+.notecard .row{display:flex;flex-wrap:wrap;gap:10px}
+
+footer{background:var(--navy);color:#fff;padding:26px max(16px,3vw)}
+footer .wrap{max-width:1240px;margin:0 auto}
+footer .who{font-family:var(--display);font-weight:800;font-size:15px}
+footer .role{font-size:13px;color:#C9CEDA;margin-top:3px}
+
+/* Present mode */
+body.present{background:#060D22;overflow:hidden}
+body.present .brandbar,body.present .topband,body.present .notes,body.present footer{display:none}
+body.present main{padding:0;max-width:none;height:100vh;display:flex;align-items:center;justify-content:center}
+body.present #stage{border:0;border-radius:0}
+body.present .bar{
+  position:fixed;left:0;right:0;bottom:0;margin:0;max-width:none;padding:10px 16px;
+  background:rgba(6,13,34,.94);justify-content:center;z-index:20
+}
+body.present .counter{color:#DCE1EA}
+body.present .bar .btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);color:#fff}
+body.present .bar .btn:hover{background:rgba(255,255,255,.2)}
+body.present .bar .btn-primary{background:#fff;color:var(--navy);border-color:#fff}
+body.present .pentools{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28)}
+body.present .sizebtn{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.3)}
+body.present .sizebtn[aria-pressed="true"]{background:#fff;color:var(--navy)}
+body.present .sep{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  .big{opacity:1;transform:none}
+}
+
+@media print{
+  body{background:#fff;color:#000}
+  .brandbar,.bar,.notes,.skip,#pen{display:none}
+  .topband{background:#fff;color:#000;border-bottom:1px solid #000}
+  .topband .who,.topband .where{color:#000}
+  main{padding:0;max-width:none}
+  #stagewrap{height:auto !important}
+  #stage{position:static;width:100%;height:auto;transform:none !important;border:0}
+  .slide{position:static;display:block !important;page-break-after:always;break-after:page;border-bottom:1px solid #000;padding:0}
+  .slide[hidden]{display:block !important}
+  .pad{position:static;padding:18pt 0;display:block}
+  .slide-title{background:#fff}
+  .s-eyebrow,.s-h1,.s-sub,.s-code{color:#000}
+  .codechip{background:#fff;color:#000;border:1px solid #000}
+  .s-h1{font-size:26pt}.s-sub{font-size:12pt}.s-h2{font-size:18pt;margin-bottom:10pt;color:#000}
+  .s-h2 .key{color:#000;text-decoration:underline}
+  .boxes{display:block}
+  .box{page-break-inside:avoid;break-inside:avoid;margin:0 0 8pt}
+  .box-btn{border:.5pt solid #000;background:#fff;color:#000;padding:6pt 0;border-left:0;border-right:0;border-top:0}
+  .box-cue{display:none}
+  .box-label{font-size:11pt;font-weight:700}
+  .box-body{display:block !important;padding:4pt 0 0}
+  .big{font-size:11pt;color:#000;opacity:1;transform:none;max-width:none}
+  .big .hot{color:#000;font-weight:800}
+  footer{background:#fff;color:#000}
+  footer .role{color:#000}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#deckbar">Skip to the slide controls</a>
+
+<div class="brandbar">
+  <div class="wrap">
+    <svg width="30" height="30" viewBox="0 0 34 34" role="img" aria-label="Course mark">
+      <circle cx="8" cy="8" r="4.2" fill="#0B1530"></circle><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"></circle><circle cx="26" cy="8" r="4.2" fill="#0B1530"></circle>
+      <rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"></rect><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"></rect><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"></rect>
+    </svg>
+    <div class="coursemeta"><span class="code">BIO 005</span><span class="name">Human Physiology</span></div>
+  </div>
+</div>
+
+<div class="topband">
+  <div class="wrap">
+    <span class="who">P-03 &middot; Emergent Properties and Physiology</span>
+    <span class="where">Week 1 &middot; Foundations of Physiology</span>
+  </div>
+</div>
+
+<main>
+  <div id="stagewrap">
+    <div id="stage">
+      <section class="slide slide-title" data-i="0" aria-label="Title slide"><div class="pad"><p class="s-eyebrow">BIO 005 &middot; Week 1 &middot; Foundations of Physiology</p><h1 class="s-h1">Emergent Properties and Physiology</h1><p class="s-sub">Some properties only exist once the parts are assembled.</p><p class="s-code"><span class="codechip">P-03</span> Physiology</p></div></section><section class="slide" data-i="1" aria-label="Slide 2" hidden><div class="pad"><h2 class="s-h2">Complex systems have <span class="key">emergent properties</span></h2><div class="boxes"><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">The definition</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">Properties that <span class="hot">cannot be predicted to exist</span> based only on knowledge of the system&#x27;s individual components.</p></div></div><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Where they come from</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">They appear from <span class="hot">the interactions between parts</span>, not from the parts themselves.</p></div></div></div></div></section><section class="slide" data-i="2" aria-label="Slide 3" hidden><div class="pad"><h2 class="s-h2">The <span class="key">car</span> analogy</h2><div class="boxes"><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Set it up</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">You order every part needed to build a car, from the nuts and bolts up to the big components, and lay them on the floor.</p></div></div><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Now predict</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">Looking at that pile, could you predict that assembling it gives you a machine that turns <span class="hot">the energy in gasoline into movement</span>?</p></div></div><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Now scale it up</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">In the same way, could you predict that the right combination of elements into molecules, and molecules into assemblages, gives you a <span class="hot">thinking, feeling, living organism</span>?</p></div></div></div></div></section><section class="slide" data-i="3" aria-label="Slide 4" hidden><div class="pad"><h2 class="s-h2">Emergent properties <span class="key">in humans</span></h2><div class="boxes"><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Emotions</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">You cannot find sadness in a single neuron.</p></div></div><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Intelligence</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">You cannot find it in the properties of one nerve cell either.</p></div></div><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Other aspects of brain function</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">None of these can be predicted from knowing the individual properties of <span class="hot">nerve cells</span>.</p></div></div></div></div></section><section class="slide" data-i="4" aria-label="Slide 5" hidden><div class="pad"><h2 class="s-h2">Hold onto <span class="key">this</span></h2><div class="boxes"><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">The one line</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">Emergent means <span class="hot">new at the higher level</span>. The whole does something the parts on their own never could.</p></div></div><div class="box" data-box><button type="button" class="box-btn" aria-expanded="false"><span class="box-label">Watch out for this</span><span class="box-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="box-body" hidden><p class="big">Emergent does not mean unexplainable. It means you have to <span class="hot">study the interactions</span> to explain it.</p></div></div></div></div></section>
+      <canvas id="pen"></canvas>
+    </div>
+  </div>
+</main>
+
+<div class="bar" id="deckbar">
+  <button type="button" class="btn" id="prev">
+    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back
+  </button>
+  <button type="button" class="btn btn-primary" id="next">
+    Next
+    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <span class="counter" id="counter">1 of 1</span>
+  <button type="button" class="btn" id="reset">Reset the slides</button>
+  <button type="button" class="btn" id="penToggle" aria-pressed="false">Pen</button>
+
+  <div class="pentools" id="pentools" role="group" aria-label="Pen settings">
+    <button type="button" class="swatch" data-color="#8B3A2E" style="background:#8B3A2E" aria-pressed="true" aria-label="Red pen"></button>
+    <button type="button" class="swatch" data-color="#0B1530" style="background:#0B1530" aria-pressed="false" aria-label="Navy pen"></button>
+    <button type="button" class="swatch" data-color="#1B7F5A" style="background:#1B7F5A" aria-pressed="false" aria-label="Green pen"></button>
+    <button type="button" class="swatch" data-color="#2C5F66" style="background:#2C5F66" aria-pressed="false" aria-label="Teal pen"></button>
+    <button type="button" class="swatch" data-color="#111111" style="background:#111111" aria-pressed="false" aria-label="Black pen"></button>
+    <button type="button" class="sizebtn" data-size="3" aria-pressed="false" aria-label="Thin pen">S</button>
+    <button type="button" class="sizebtn" data-size="6" aria-pressed="true" aria-label="Medium pen">M</button>
+    <button type="button" class="sizebtn" data-size="12" aria-pressed="false" aria-label="Thick pen">L</button>
+    <button type="button" class="btn" id="penUndo">Undo</button>
+    <button type="button" class="btn" id="penClear">Clear ink</button>
+  </div>
+
+  <span class="sep"></span>
+  <button type="button" class="btn" id="present">Present</button>
+  <button type="button" class="btn" id="printBtn">Print the packet</button>
+</div>
+
+<div class="notes">
+  <div class="notecard">
+    <h3>Go with this slide deck</h3>
+    <p>Watch the concept video first, then step these slides beside it. Open each box only after you have tried to answer it in your head.</p>
+    <div class="row">
+      <a class="btn" href="concept-videos-week01.html" target="_top">Back to the Week 1 videos</a>
+      <a class="btn" href="https://youtu.be/EdBo7QI5EFg" target="_blank" rel="noopener">Watch this concept on YouTube</a>
+      <a class="btn" href="https://drive.google.com/file/d/14psR_1vaE-36YLtnvsaxXt6UPLwF7dDT/view?usp=sharing" target="_blank" rel="noopener">Notes PDF for this concept</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p class="who">Dr. Sharilyn Rennie</p>
+    <p class="role">BIO 005 Human Physiology</p>
+  </div>
+</footer>
+
+<div class="vh" role="status" aria-live="polite" id="live"></div>
+
+<script>
+(function(){
+  var stage = document.getElementById("stage");
+  var wrap  = document.getElementById("stagewrap");
+  var slides = Array.prototype.slice.call(stage.querySelectorAll(".slide"));
+  var total = slides.length;
+  var idx = 0;
+  var W = 1280, H = 720;
+  var present = /[?&]present=1/.test(window.location.search);
+
+  /* ---- fit the 1280x720 stage to whatever space it has ---- */
+  function fit(){
+    var availW, availH;
+    if(present){
+      availW = window.innerWidth;
+      availH = window.innerHeight - 58;
+    } else {
+      availW = wrap.clientWidth;
+      availH = Math.max(320, window.innerHeight - 260);
+    }
+    var scale = Math.min(availW / W, availH / H);
+    if(!isFinite(scale) || scale <= 0) scale = 1;
+    var left = present ? Math.max(0, (availW - W * scale) / 2) : 0;
+    var top  = present ? Math.max(0, (availH - H * scale) / 2) : 0;
+    stage.style.transform = "translate(" + left + "px," + top + "px) scale(" + scale + ")";
+    wrap.style.height = (H * scale) + "px";
+    stage.dataset.scale = scale;
+  }
+
+  /* ---- slide stepping ---- */
+  function show(i){
+    if(i < 0 || i >= total) return;
+    idx = i;
+    slides.forEach(function(s, n){
+      if(n === i){ s.hidden = false; s.removeAttribute("aria-hidden"); }
+      else { s.hidden = true; s.setAttribute("aria-hidden","true"); }
+    });
+    document.getElementById("counter").textContent = (i + 1) + " of " + total;
+    document.getElementById("prev").disabled = (i === 0);
+    document.getElementById("next").disabled = (i === total - 1);
+    document.getElementById("live").textContent = "Slide " + (i + 1) + " of " + total + ".";
+    var u = new URL(window.location.href);
+    u.searchParams.set("s", String(i));
+    history.replaceState(null, "", u.toString());
+  }
+
+  document.getElementById("prev").addEventListener("click", function(){ show(idx - 1); });
+  document.getElementById("next").addEventListener("click", function(){ show(idx + 1); });
+
+  /* ---- boxes ---- */
+  stage.addEventListener("click", function(e){
+    var btn = e.target.closest ? e.target.closest(".box-btn") : null;
+    if(!btn) return;
+    var box = btn.parentNode;
+    var body = box.querySelector(".box-body");
+    var open = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+    box.classList.toggle("open", !open);
+    body.hidden = open;
+    if(!open){
+      var p = body.querySelector(".big");
+      if(p){ p.style.animation = "none"; void p.offsetWidth; p.style.animation = ""; }
+    }
+  });
+
+  document.getElementById("reset").addEventListener("click", function(){
+    stage.querySelectorAll(".box").forEach(function(box){
+      box.classList.remove("open");
+      var b = box.querySelector(".box-btn"); if(b) b.setAttribute("aria-expanded","false");
+      var y = box.querySelector(".box-body"); if(y) y.hidden = true;
+    });
+    document.getElementById("live").textContent = "All boxes closed.";
+  });
+
+  /* ---- pen layer ---- */
+  var canvas = document.getElementById("pen");
+  var ctx = canvas.getContext("2d");
+  var strokes = [], cur = null, drawing = false;
+  var penColor = "#8B3A2E", penSize = 6, penOn = false;
+
+  function sizeCanvas(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    redraw();
+  }
+  function redraw(){
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    strokes.forEach(function(s){
+      if(s.pts.length < 2) return;
+      ctx.strokeStyle = s.c; ctx.lineWidth = s.w;
+      ctx.beginPath(); ctx.moveTo(s.pts[0].x, s.pts[0].y);
+      for(var i = 1; i < s.pts.length; i++) ctx.lineTo(s.pts[i].x, s.pts[i].y);
+      ctx.stroke();
+    });
+  }
+  function pt(e){
+    var r = canvas.getBoundingClientRect();
+    var sc = r.width / W;
+    return { x: (e.clientX - r.left) / sc, y: (e.clientY - r.top) / sc };
+  }
+  canvas.addEventListener("pointerdown", function(e){
+    if(!penOn) return;
+    canvas.setPointerCapture(e.pointerId);
+    drawing = true; cur = { c: penColor, w: penSize, pts: [pt(e)] };
+    strokes.push(cur); e.preventDefault();
+  });
+  canvas.addEventListener("pointermove", function(e){
+    if(!drawing || !cur) return;
+    cur.pts.push(pt(e)); redraw(); e.preventDefault();
+  });
+  ["pointerup","pointercancel","pointerleave"].forEach(function(ev){
+    canvas.addEventListener(ev, function(){ drawing = false; cur = null; });
+  });
+
+  var penToggle = document.getElementById("penToggle");
+  penToggle.addEventListener("click", function(){
+    penOn = !penOn;
+    penToggle.setAttribute("aria-pressed", penOn ? "true" : "false");
+    canvas.classList.toggle("on", penOn);
+    document.getElementById("pentools").classList.toggle("on", penOn);
+    document.getElementById("live").textContent = penOn ? "Pen on. Arrow keys are paused." : "Pen off.";
+  });
+  document.querySelectorAll(".swatch").forEach(function(b){
+    b.addEventListener("click", function(){
+      penColor = b.getAttribute("data-color");
+      document.querySelectorAll(".swatch").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+    });
+  });
+  document.querySelectorAll(".sizebtn").forEach(function(b){
+    b.addEventListener("click", function(){
+      penSize = parseInt(b.getAttribute("data-size"), 10);
+      document.querySelectorAll(".sizebtn").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+    });
+  });
+  document.getElementById("penUndo").addEventListener("click", function(){ strokes.pop(); redraw(); });
+  document.getElementById("penClear").addEventListener("click", function(){ strokes = []; redraw(); document.getElementById("live").textContent = "Ink cleared."; });
+
+  /* ---- present and print ---- */
+  document.getElementById("present").addEventListener("click", function(){
+    var u = window.location.pathname + "?present=1&s=" + idx;
+    var w = window.open(u, "bio005present", "width=1400,height=850,menubar=no,toolbar=no");
+    if(w) w.focus();
+  });
+  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+
+  /* ---- keyboard ---- */
+  document.addEventListener("keydown", function(e){
+    var t = e.target;
+    if(t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+    if(penOn && (e.key === "ArrowRight" || e.key === "ArrowLeft")) return;
+    if(e.key === "ArrowRight" || e.key === "PageDown"){ show(idx + 1); }
+    else if(e.key === "ArrowLeft" || e.key === "PageUp"){ show(idx - 1); }
+    else if(e.key === "Home"){ show(0); }
+    else if(e.key === "End"){ show(total - 1); }
+  });
+
+  /* ---- boot ---- */
+  if(present) document.body.classList.add("present");
+  var start = 0;
+  var m = /[?&]s=(\d+)/.exec(window.location.search);
+  if(m) start = Math.min(total - 1, Math.max(0, parseInt(m[1], 10)));
+  sizeCanvas();
+  show(start);
+  fit();
+  window.addEventListener("resize", fit);
+  window.addEventListener("orientationchange", fit);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+
+<script>
+/* Iframe height sender for Kajabi embedding */
+(function(){
+  var FRAME_ID = "bio005-emergent-properties";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){ try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){} }
+  setTimeout(sendHeight, 400); setTimeout(sendHeight, 1500);
+})();
+</script>
+</body>
+</html>
