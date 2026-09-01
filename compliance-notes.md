@@ -149,3 +149,51 @@ Print output is single ink. Every palette hue is redefined to a dark value, the 
 1. Present mode opens a new browser window. A popup blocker can stop it, in which case the deck still steps full width in place.
 2. Ink is not persisted, so closing the window loses annotations. This is deliberate.
 3. The decks reuse the source content from the Week 1 notes PDFs. Where a source PDF had a layout artifact, the corrected version is used and the change is listed in the delivery notes.
+
+---
+
+# Addendum: the Canvas home card
+
+**File covered:** canvas-home.html
+**Date:** August 31, 2026
+
+White ground version. Palette, focus styling, reduced-motion handling and the iframe height-sender match the pages above.
+
+| Criterion | Level | Status | How it is met |
+|---|---|---|---|
+| 1.4.3 / 1.4.6 Contrast | AA / AAA | Pass | Navy `#0B1530` headline 18.04:1, terra `#8B3A2E` eyebrow and accent 7.66:1, muted `#4F576A` body 7.23:1, white on terra button 7.66:1 resting and 10.18:1 on hover. Every pair clears AAA. |
+| 1.1.1 Non-text Content | A | Pass | The three-figure mark is `aria-hidden` and decorative. Both buttons carry visible text. |
+| 2.4.1 Bypass Blocks | A | Pass | Skip link to the buttons, visible on focus. |
+| 2.4.4 Link Purpose | A | Pass | Enter Course, Read the Syllabus, and the setup-check link each state their destination in their own text. |
+| 2.4.7 Focus Visible | AA | Pass | 3px terra outline, 3px offset. |
+| 2.5.8 Target Size | AA | Pass | Buttons are 56px tall and 180px or wider, stacking full width below 560px. |
+| 1.4.10 Reflow | AA | Pass | No horizontal scrolling at 320px. Content height peaks at 767px on a phone, which the 780px iframe covers. |
+
+## Known limitations
+
+1. Canvas strips `<script>` from page content, so the iframe height is fixed at 780 rather than self-sizing. The height-sender is retained for Kajabi and any other host that listens.
+2. All three links open in a new tab, which is deliberate so Canvas keeps its place. This is announced in the visible note rather than only in an aria-label.
+
+---
+
+# Addendum: the Week 1 teaching guide
+
+**Files covered:** teaching-guide-week01.html, teaching-guide-week01.docx
+**Date:** August 31, 2026
+
+Instructor copy, not linked from any student-facing page. Same palette, focus styling and print discipline as the student pages, so it is covered by the contrast audit in section 3.
+
+- Semantic `nav`, `section`, `article` and a `dl` for the three note types per slide, so a screen reader reads term and definition rather than loose runs of text.
+- Heading order is h1 for the guide, h2 per deck, h3 per slide. No level skipped across 20 decks and 85 slides.
+- Print gives one deck per page, single ink, 10pt equivalent, with each slide note set not to break across a page turn.
+- The DOCX uses real heading styles, so it carries a navigable outline in Word and converts cleanly to a tagged PDF.
+
+## Content integrity
+
+The guide is generated from the same data structure the decks are built from, and the build fails if any deck's note count does not match its slide count. A note cannot drift away from the slide it belongs to.
+
+---
+
+# Fix log
+
+**August 31, 2026, slide overflow.** Slides with several boxes open ran past the bottom of the fixed 1280 by 720 stage and were clipped, since the stage carries `overflow: hidden`. Rather than clip the content, cap how many boxes can be open, or shorten the writing, the slide content is now measured after every open, close, reset, resize and font load, and scaled down just enough to fit. Verified across all 20 decks, 85 slides, every box open, at two viewport sizes: no overflow anywhere, with the largest shrink applied being 0.748 on the five-box biological rhythms slide. The transform is cleared before printing so the packet is unaffected.
