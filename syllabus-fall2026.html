@@ -43,7 +43,7 @@ li{margin:5px 0}
 .cover .sig{margin-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--navy-70);font-size:15px}
 
 /* ---------- contents ---------- */
-.contents{background:var(--white);border:1px solid var(--navy-15);border-radius:var(--r);padding:24px 28px;margin:40px 0 0}
+.contents{background:var(--white);border-radius:var(--r);padding:24px 28px;margin:40px 0 0;box-shadow:0 14px 30px rgba(11,21,48,.14)}
 .contents h2{font-size:20px;margin-bottom:4px}
 .contents .lede{color:var(--navy-70);margin-bottom:14px}
 .contents ol{list-style:none;margin:0;padding:0;columns:2;column-gap:44px}
@@ -69,25 +69,27 @@ tr.exam td{background:var(--gold-pale);font-weight:700}
 tr.closed td{color:var(--navy-70);background:var(--offwhite)}
 
 /* grade bar */
-.grade-bar{display:flex;border-radius:var(--r);overflow:hidden;margin:14px 0 6px;border:1px solid var(--navy-15)}
-.grade-bar > div{color:#fff;font-weight:700;font-size:14px;padding:13px 6px;text-align:center;min-height:44px}
+.grade-bar{display:flex;border-radius:var(--r);overflow:hidden;margin:14px 0 6px;box-shadow:0 14px 30px rgba(11,21,48,.14)}
+.grade-bar > div{color:#fff;padding:14px 8px;text-align:center;min-height:44px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.grade-bar .gl{font-weight:700;font-size:13.5px;line-height:1.25}
+.grade-bar .gp{font-weight:800;font-size:19px;line-height:1;font-family:var(--display);letter-spacing:-.01em}
 .gb-notes{flex:0 0 20%;background:#485064}
 .gb-mid{flex:0 0 50%;background:var(--terra)}
 .gb-lab{flex:0 0 15%;background:var(--navy)}
 .gb-book{flex:0 0 15%;background:var(--gold-bright);color:var(--navy)!important}
-@media(max-width:640px){.grade-bar{flex-direction:column}.grade-bar > div{text-align:left;padding:12px 16px}}
+@media(max-width:760px){.grade-bar{flex-direction:column}.grade-bar > div{flex-direction:row;justify-content:space-between;align-items:center;text-align:left;padding:12px 16px}}
 
 .rule-line{font-weight:700;color:var(--terra-dark)}
-.callout{background:var(--white);border:2px solid var(--terra);border-radius:var(--r);padding:14px 18px;margin:14px 0;max-width:76ch}
-.notyet{background:var(--gold-pale);border:1px solid var(--navy-15);border-radius:var(--r);padding:12px 16px;margin:14px 0;font-size:15px;max-width:76ch}
+.callout{background:var(--white);border:2px solid var(--terra);border-radius:var(--r);padding:14px 18px;margin:14px 0;max-width:76ch;box-shadow:0 14px 30px rgba(11,21,48,.14)}
+.notyet{background:var(--gold-pale);border-radius:var(--r);padding:12px 16px;margin:14px 0;font-size:15px;max-width:76ch;box-shadow:0 10px 24px rgba(11,21,48,.12)}
 .notyet::before{content:"Not posted yet: ";font-weight:800}
 
 .scale{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 8px}
-.scale div{background:var(--white);border:1px solid var(--navy-15);border-radius:var(--r);padding:12px 18px;text-align:center;flex:1 1 110px}
+.scale div{background:var(--white);border-radius:var(--r);padding:12px 18px;text-align:center;flex:1 1 110px;box-shadow:0 10px 24px rgba(11,21,48,.12)}
 .scale .g{font-family:var(--display);font-weight:800;font-size:22px;color:var(--terra)}
 .scale .p{font-size:13px;color:var(--navy-70);white-space:nowrap}
 
-.finalword{background:var(--white);border:1px solid var(--navy-15);border-radius:var(--r);padding:26px 28px;margin-top:16px}
+.finalword{background:var(--white);border-radius:var(--r);padding:26px 28px;margin-top:16px;box-shadow:0 14px 30px rgba(11,21,48,.14)}
 footer{margin-top:64px;padding:24px;color:var(--navy-70);font-size:14px;text-align:center}
 
 @media (forced-colors:active){.contents,.callout,.notyet,table,.scale div,.finalword{border:1px solid CanvasText}.grade-bar > div{border:1px solid CanvasText}}
@@ -249,10 +251,10 @@ footer{margin-top:64px;padding:24px;color:var(--navy-70);font-size:14px;text-ali
   <h2 class="sec"><span class="n">07</span>Grading and assessment</h2>
   <p>Four components. The work you can prove is your own carries the most weight.</p>
   <div class="grade-bar" role="img" aria-label="Grade weights: note sheets 20 percent, midterms 50 percent, lab 15 percent, book problems 15 percent">
-    <div class="gb-notes">Note sheets 20%</div>
-    <div class="gb-mid">Three midterms 50%</div>
-    <div class="gb-lab">Lab 15%</div>
-    <div class="gb-book">Book problems 15%</div>
+    <div class="gb-notes"><span class="gl">Note sheets</span><span class="gp">20%</span></div>
+    <div class="gb-mid"><span class="gl">Three midterms</span><span class="gp">50%</span></div>
+    <div class="gb-lab"><span class="gl">Lab</span><span class="gp">15%</span></div>
+    <div class="gb-book"><span class="gl">Book problems</span><span class="gp">15%</span></div>
   </div>
   <table>
     <tr><th scope="col">Component</th><th scope="col">Detail</th><th scope="col">Weight</th></tr>

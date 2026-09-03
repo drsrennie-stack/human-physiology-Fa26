@@ -105,3 +105,32 @@ Page N of N right, none on the cover), and a live contents page whose entries
 carry real page numbers. The HTML pages remain the online version; the PDFs
 are the print and download version, one source for both.
 
+
+## The welcome experience, ported September 2
+
+`welcome.html` is the BIO 004 welcome, ported whole to BIO 005: the
+multilingual greeting that lands on Welcome, the rising three-figure mark, the
+guided tour, the progress checkmarks, the returning-student screen with the
+week gate, and Hootie. Per the anatomy repo's course-design-system.md, which
+is hereby adopted as the BIO 005 design authority.
+
+What changed inside: one section (Sutter Internet, no picker), the eight tour
+cards are now Course tools, Syllabus, Competency Packet, Mastery OS, This
+week's videos, Course schedule, Labs in PhysioEx, and Anatomy refresher. The
+week gate runs three Parts on the Sep 8 calendar with Midterms at weeks 5, 10
+and 15. Hootie's whole answer engine was rewritten: grading now answers
+20/50/15/15, exams answer draw-and-teach, TBL became note sheets, contacts are
+Yuba (srennie@yccd.edu, DSPS, tutoring), and his intent keywords match the new
+course. Zero anatomy-course residue remains, verified by scrub.
+
+Tour link targets, all verified against the repo root or this drop:
+home.html, mastery-physio-os-standalone.html, concept-videos-week01.html,
+course-schedule.html, anatomy-review.html exist in the repo;
+syllabus-fall2026.html and competency-packet-fall2026.html ship in this
+bundle. The page needs a live browser for its animation and tour; the intro
+was visually verified in a static render.
+
+Experience chain as it now stands: Canvas card, canvas-home.html,
+welcome.html (this port), home.html dashboard, with the dock on every page.
+Next fixes in the walk: bring canvas-home and home.html up to the
+design-system doc, and align start-here.html's hours framing.
