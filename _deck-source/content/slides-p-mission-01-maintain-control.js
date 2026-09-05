@@ -80,13 +80,13 @@ module.exports = {
         icon: "!",
         iconClass: "terra",
         label: "What you are looking at",
-        h: "Something in this patient has stopped holding a number steady.",
-        say: "Three days of values from one person. You are not told which system this is, and you do not need it yet.",
+        h: "A regulated variable in this patient is no longer being held steady.",
+        say: "Three days of values from one person. You are not told which system this is.",
         p: [
           "By the end of this mission you will be able to say whether the body stopped measuring that value, stopped sending the message, or could not act on it."
         ]
       },
-      big: "Detection, signaling, effector response. A regulated variable drifts when one of the three fails."
+      big: "Detection, communication, effector response. A variable drifts when one of the three fails."
     },
 
     /* ---------------------------------------------------------- 4 */
@@ -116,14 +116,14 @@ module.exports = {
       variant: "dark",
       kicker: "Beat 1 . The mission",
       h: "What you are being asked to do",
-      lede: "How the mission is structured, so you know where it is going.",
+      lede: "How the mission is structured.",
       list: [
         "**Learn what steady actually means.** It is not what most people think.",
-        "**Learn the parts of a control loop.** Five of them, and each can fail.",
-        "**Learn how the message travels.** A sensor nothing listens to is useless.",
-        "**Come back to the patient.** Name the part that failed, and defend it."
+        "**Learn the components of a reflex pathway.** Five of them, and each can fail.",
+        "**Learn how the signal travels.** Nervous and endocrine routes, and what each is suited to.",
+        "**Come back to the patient.** Name the component that failed, and defend it."
       ],
-      big: "You are not diagnosing. You are locating the failure in a loop."
+      big: "You are not diagnosing. You are localizing a failure within a reflex pathway."
     },
 
     /* ============================================================ CONCEPT 1 */
@@ -183,24 +183,27 @@ module.exports = {
       k: "cards",
       cols: 2,
       kicker: "Concept 1 . What physiology asks",
-      h: "Two ways to answer why",
-      lede: "Why do red blood cells carry oxygen? Both answers below get used. Only one is an explanation.",
+      h: "Purpose versus mechanism",
+      lede: "Ask why red blood cells carry oxygen and you can get either of these answers. Physiology is after the second one.",
       cards: [
         {
-          label: "Teleological",
+          label: "Teleological, answers why",
           h: "They carry it to supply the tissues",
-          p: ["That is a purpose, not a mechanism. It is useful for getting oriented, and it does not tell you how oxygen actually gets carried."],
+          p: ["This answers why in terms of purpose. It is useful for getting oriented, and it does not tell you how oxygen is actually carried."],
           list: [
-            "Says nothing about how it happens.",
+            "Names a purpose, not a process.",
             "There is no measurement that could check it.",
             "Cannot be wrong, so it cannot be tested."
           ]
         },
         {
-          label: "Mechanistic",
+          label: "Mechanistic, answers how",
           labelClass: "terra",
           h: "Hemoglobin binds oxygen, and binding depends on oxygen pressure",
-          p: ["That is a mechanism. It names the molecule doing the work and the condition that changes how much it does."],
+          p: [
+            "This answers how. It names the molecule doing the work and the condition that changes how much it does.",
+            "One caution, because it comes up. A mechanism can also answer a why question, as in why did flow rise, because resistance fell. The distinction is purpose versus process, not the word at the front of the sentence."
+          ],
           list: [
             "Tells you what to measure.",
             "Predicts what happens if you change the oxygen pressure.",
@@ -349,7 +352,7 @@ module.exports = {
           label: "It is a range",
           labelClass: "teal",
           h: "Not one pinned number",
-          p: ["The value you measure moves inside a range rather than sitting on a single number. Body temperature is not 37.0 all day, and it is not supposed to be."]
+          p: ["The value you measure moves inside a range rather than sitting on a single number. Core temperature is not 37.0 C (98.6 F) all day, and it is not supposed to be."]
         }
       ],
       big: "Homeostasis is not the absence of change. It is change that gets corrected.",
@@ -550,8 +553,8 @@ module.exports = {
       k: "title",
       variant: "terra",
       kicker: "Concept 6 of 13 . Beat 3, mechanism . 4 slides",
-      h: "The parts of a control loop",
-      lede: "Five parts. Learn them once and you will recognize them in every system for the rest of the course."
+      h: "The components of a reflex pathway",
+      lede: "Five components. Learn them once and you will recognize them in every system this semester."
     },
 
     /* ---------------------------------------------------------- 30 */
@@ -559,37 +562,34 @@ module.exports = {
       k: "fig",
       kicker: "Concept 6 . The loop",
       h: "Drawn top down",
-      svg: `<svg viewBox="0 0 760 340" role="img" aria-labelledby="loopT loopD">
-  <title id="loopT">The five parts of a control loop</title>
-  <desc id="loopD">A change in the regulated variable is detected by a sensor, which sends input to an integrating center that compares it to a setpoint. The center sends output to an effector, whose response changes the regulated variable back toward the setpoint.</desc>
+      svg: `<svg viewBox="0 0 760 350" role="img" aria-labelledby="loopT loopD">
+  <title id="loopT">The five components of a reflex pathway</title>
+  <desc id="loopD">A change in the regulated variable is detected by a sensor. An afferent pathway carries the signal to an integrating center, which compares it against the setpoint. An efferent pathway carries the output to an effector. The effector produces a response, and that response feeds back on the regulated variable, closing the loop.</desc>
   <defs>
     <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#08101F"/></marker>
     <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#DCB45C"/></marker>
   </defs>
-  <rect x="250" y="14" width="260" height="52" rx="8" fill="#EDF1F3" stroke="#08101F" stroke-width="2"/>
-  <text x="380" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#08101F">Regulated variable</text>
-  <text x="380" y="57" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" fill="#3D4860">moves off setpoint</text>
-  <line x1="380" y1="66" x2="380" y2="88" stroke="#08101F" stroke-width="2" marker-end="url(#ar)"/>
-  <rect x="270" y="92" width="220" height="48" rx="8" fill="#FFFFFF" stroke="#1F4E55" stroke-width="2"/>
-  <text x="380" y="113" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1F4E55">1. Sensor</text>
-  <text x="380" y="131" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" fill="#3D4860">detects it</text>
-  <line x1="380" y1="140" x2="380" y2="162" stroke="#08101F" stroke-width="2" marker-end="url(#ar)"/>
-  <text x="396" y="156" font-family="system-ui,sans-serif" font-size="12" fill="#8B1D1D">input</text>
-  <rect x="250" y="166" width="260" height="62" rx="8" fill="#FFFFFF" stroke="#8B1D1D" stroke-width="2"/>
-  <text x="380" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#8B1D1D">2. Integrating center</text>
-  <text x="380" y="207" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" fill="#3D4860">compares against the</text>
-  <text x="380" y="222" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" font-weight="700" fill="#8B1D1D">3. setpoint</text>
-  <line x1="380" y1="228" x2="380" y2="250" stroke="#08101F" stroke-width="2" marker-end="url(#ar)"/>
-  <text x="396" y="244" font-family="system-ui,sans-serif" font-size="12" fill="#8B1D1D">output</text>
-  <rect x="270" y="254" width="220" height="48" rx="8" fill="#FFFFFF" stroke="#1F4E55" stroke-width="2"/>
-  <text x="380" y="275" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1F4E55">4. Effector</text>
-  <text x="380" y="293" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" fill="#3D4860">acts</text>
-  <path d="M270 278 L120 278 L120 40 L250 40" fill="none" stroke="#DCB45C" stroke-width="2.5" marker-end="url(#arg)"/>
-  <text x="128" y="170" font-family="system-ui,sans-serif" font-size="12.5" font-weight="700" fill="#5A4511">5. Response</text>
-  <text x="128" y="187" font-family="system-ui,sans-serif" font-size="12" fill="#3D4860">closes the loop</text>
+  <rect x="250" y="10" width="260" height="46" rx="8" fill="#EDF1F3" stroke="#08101F" stroke-width="2"/>
+  <text x="380" y="32" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#08101F">Regulated variable</text>
+  <text x="380" y="49" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" fill="#3D4860">moves off setpoint</text>
+  <line x1="380" y1="56" x2="380" y2="76" stroke="#08101F" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="270" y="80" width="220" height="42" rx="8" fill="#FFFFFF" stroke="#1F4E55" stroke-width="2"/>
+  <text x="380" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1F4E55">1. Sensor</text>
+  <line x1="380" y1="122" x2="380" y2="146" stroke="#08101F" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="392" y="139" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#8B1D1D">2. afferent pathway</text>
+  <rect x="250" y="150" width="260" height="60" rx="8" fill="#FFFFFF" stroke="#8B1D1D" stroke-width="2"/>
+  <text x="380" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#8B1D1D">3. Integrating center</text>
+  <text x="380" y="192" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12.5" fill="#3D4860">compares it against the setpoint</text>
+  <line x1="380" y1="210" x2="380" y2="234" stroke="#08101F" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="392" y="227" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#8B1D1D">4. efferent pathway</text>
+  <rect x="270" y="238" width="220" height="42" rx="8" fill="#FFFFFF" stroke="#1F4E55" stroke-width="2"/>
+  <text x="380" y="264" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1F4E55">5. Effector</text>
+  <path d="M270 259 L120 259 L120 33 L250 33" fill="none" stroke="#DCB45C" stroke-width="2.5" marker-end="url(#arg)"/>
+  <text x="128" y="155" font-family="system-ui,sans-serif" font-size="12.5" font-weight="700" fill="#5A4511">Response</text>
+  <text x="128" y="173" font-family="system-ui,sans-serif" font-size="12" fill="#3D4860">closes the loop</text>
 </svg>`,
-      cap: "<b>The gold arrow is what makes it a loop.</b> Without it, this is a chain of events.",
-      big: "Sensor, integrating center, setpoint, effector, response.",
+      cap: "<b>The gold arrow is the feedback that closes the loop.</b> Without it, this is a chain of events.",
+      big: "Sensor, afferent pathway, integrating center, efferent pathway, effector.",
       covers: ["w1-feedback-components"]
     },
 
@@ -597,17 +597,17 @@ module.exports = {
     {
       k: "rows",
       kicker: "Concept 6 . The control loop",
-      h: "The same five parts, in a system you know",
-      lede: "Body temperature on a cold day.",
+      h: "The same five components, in a system you know",
+      lede: "Thermoregulation on a cold day.",
       rows: [
-        { dot: "1", dotClass: "teal", h: "Sensor", p: ["Cold receptors in the skin, and temperature-sensitive neurons in the hypothalamus."] },
-        { dot: "2", dotClass: "terra", h: "Integrating center", p: ["The hypothalamus, comparing what it is getting against what it expects."] },
-        { dot: "3", dotClass: "terra", h: "Setpoint", p: ["Around 37 C, and adjustable, which matters when we get to fever."] },
-        { dot: "4", dotClass: "teal", h: "Effector", p: ["Skeletal muscle shivering, and smooth muscle in skin vessels constricting."] },
-        { dot: "5", dotClass: "gold", h: "Response", p: ["Heat production rises, heat loss falls, core temperature comes back up."] }
+        { dot: "1", dotClass: "teal", h: "Sensor", p: ["Cold receptors in the skin, and thermosensitive neurons in the hypothalamus."] },
+        { dot: "2", dotClass: "terra", h: "Afferent pathway", p: ["Sensory neurons carrying that input from the periphery to the hypothalamus."] },
+        { dot: "3", dotClass: "terra", h: "Integrating center", p: ["The hypothalamus, comparing the input against a setpoint near 37 C (98.6 F). The setpoint is a property of the center, not a separate structure, and it is adjustable, which is what fever exploits."] },
+        { dot: "4", dotClass: "terra", h: "Efferent pathway", p: ["Somatic motor neurons to skeletal muscle, and sympathetic fibers to cutaneous vessels."] },
+        { dot: "5", dotClass: "teal", h: "Effector", p: ["Skeletal muscle producing shivering, and cutaneous smooth muscle constricting."] }
       ],
-      big: "Every reflex pathway this semester uses these same five components.",
-      lab: "You will build these five boxes by hand for your own seeded patient, one loop per week.",
+      big: "The response, heat production up and heat loss down, feeds back on core temperature and closes the loop.",
+      lab: "You will map these five components by hand for your own seeded patient, one pathway per week.",
       covers: ["w1-feedback-components"]
     },
 
@@ -616,16 +616,17 @@ module.exports = {
       k: "rows",
       variant: "dark",
       kicker: "Concept 6 . The control loop",
-      h: "Any one of the five can be the failure",
-      lede: "This is the payoff for learning the parts, and it is what your mission patient is about.",
+      h: "Each component is a separate point of failure",
+      lede: "This is what the component list is for, and it is what your mission patient turns on.",
       rows: [
-        { dot: "1", dotClass: "teal", h: "Sensor fails", p: ["The body never learns anything changed, so no response follows. Nothing was detected."] },
-        { dot: "2", dotClass: "terra", h: "Signal fails", p: ["The change was detected, and the message never arrived."] },
-        { dot: "3", dotClass: "terra", h: "Center fails", p: ["The message arrived and was compared against the wrong setpoint."] },
-        { dot: "4", dotClass: "teal", h: "Effector fails", p: ["The order was correct and the machinery could not carry it out."] },
-        { dot: "5", dotClass: "gold", h: "Response overwhelmed", p: ["Everything works, and the disturbance is bigger than the loop can handle."] }
+        { dot: "1", dotClass: "teal", h: "Sensor fails", p: ["The change is never detected, so nothing downstream is activated."] },
+        { dot: "2", dotClass: "terra", h: "Afferent pathway fails", p: ["The change is detected and the input never reaches the integrating center."] },
+        { dot: "3", dotClass: "terra", h: "Integrating center fails", p: ["The input arrives and is compared against an inappropriate setpoint, so the output is wrong."] },
+        { dot: "4", dotClass: "terra", h: "Efferent pathway fails", p: ["The correct output is generated and never reaches the effector."] },
+        { dot: "5", dotClass: "teal", h: "Effector fails", p: ["The signal arrives and the tissue cannot produce the response."] },
+        { dot: "6", dotClass: "gold", h: "Capacity exceeded", p: ["Every component works and the disturbance exceeds what the pathway can correct. This is not a component failure, which is why it is listed separately."] }
       ],
-      big: "Five points of failure, one drifting variable. Localizing the failure is the assignment."
+      big: "Five components, five matching failures, plus the case where the pathway is simply outmatched."
     },
 
     /* ============================================================ CONCEPT 7 */
@@ -643,12 +644,12 @@ module.exports = {
       k: "cards",
       cols: 2,
       kicker: "Concept 7 . Two scales of control",
-      h: "How far does the message travel?",
+      h: "The two differ by the range of the signal",
       cards: [
         {
           label: "Local control",
           labelClass: "teal",
-          h: "Handled where the change happened",
+          h: "Correction occurs in the tissue that detected the change",
           p: ["A tissue detects a change in its own surroundings and responds, without telling anyone else."],
           list: [
             "Signal travels a very short distance.",
@@ -659,7 +660,7 @@ module.exports = {
         {
           label: "Reflex control",
           labelClass: "terra",
-          h: "Handled by a long-distance loop",
+          h: "A distant integrating center directs distant effectors",
           p: ["A sensor sends the message to a distant integrating center, which orders effectors elsewhere to respond."],
           list: [
             "Signal travels far, by nerve or blood.",
@@ -1045,7 +1046,7 @@ module.exports = {
       lede: "A loop can work perfectly and still hold a value somewhere new, because the setpoint changed.",
       rows: [
         { dot: "1", dotClass: "teal", h: "Biological rhythms", p: ["Body temperature and many hormones follow a daily cycle. The setpoint at 4 in the morning is not the setpoint at 4 in the afternoon."] },
-        { dot: "2", dotClass: "terra", h: "Fever", p: ["The hypothalamic setpoint is deliberately raised. The patient feels cold and shivers because 37 C is now below target, which is why chills come with a rising fever."] },
+        { dot: "2", dotClass: "terra", h: "Fever", p: ["The hypothalamic setpoint is deliberately raised. The patient feels cold and shivers because 37 C (98.6 F) now sits below the new target, which is why chills accompany a rising fever."] },
         { dot: "3", dotClass: "gold", h: "Acclimatization", p: ["Sustained exposure to a new environment resets what the body defends, such as altitude changing how much oxygen-carrying capacity is maintained."] }
       ],
       big: "Before you call a loop broken, check whether it is defending a different number on purpose.",
@@ -1132,7 +1133,7 @@ module.exports = {
       k: "activity",
       badges: [{ t: "Apply in class", cls: "gold" }],
       kicker: "Beat 5 . Predict",
-      h: "Six disturbances, same five boxes",
+      h: "Six disturbances, same five components",
       lede: "Pick one. Do not look up organ systems, you have not been taught them yet. Say what a working body would sense, what message it would send, what it would change, and what would power that change.",
       listLabel: "Pick one",
       list: [
@@ -1182,10 +1183,10 @@ module.exports = {
         icon: "!",
         iconClass: "terra",
         label: "Back to your patient",
-        h: "Something stopped holding a number steady. Which part?",
-        say: "You have the words for this now.",
+        h: "A regulated variable stopped being held steady. Which component?",
+        say: "You have the vocabulary for this now.",
         p: [
-          "Write the five boxes for the drifting value. Mark clearly what you are assuming rather than what you were told, then name the part you think failed and say what evidence would change your mind."
+          "Write out the five components for the drifting variable. Mark clearly what you are assuming rather than what you were told, then name the component you think failed and say what evidence would change your mind."
         ]
       },
       big: "Most of the credit is in the reasoning. A wrong answer reached honestly keeps most of it."
@@ -1196,11 +1197,11 @@ module.exports = {
       k: "close",
       kicker: "Mission 1 . Close",
       h: "What to carry into next week",
-      lede: "Five things. With these, the rest of the semester has somewhere to attach.",
+      lede: "Five points to carry forward. The rest of the semester builds on them.",
       list: [
         "A steady value is held, and holding it costs energy.",
         "Steady means two rates match, not that they are small.",
-        "Every loop: sensor, integrating center, setpoint, effector, response.",
+        "Every reflex pathway: sensor, afferent pathway, integrating center, efferent pathway, effector.",
         "One address or broadcast, and the receptor decides who answers.",
         "Negative feedback opposes and self-limits. Positive amplifies and needs an outside stop."
       ],

@@ -10,7 +10,7 @@
 **Built by:** `build-decks.js`, from `engine/ref.css` and `engine/ref.js`, the shared engine, plus `content/slides-p-mission-01-maintain-control.js` for this deck's own words and figures
 **Body typeface:** Plus Jakarta Sans, falling back to the system sans serif stack. Faces are inlined as base64 woff2 by the shared engine. No web font is requested.
 **External requests:** none. Verified by loading the file under request interception in Chromium and recording every request that was not `file:` or `data:`. The recorded list was empty.
-**What this deck covers:** Silverthorn chapter 1 plus the homeostasis and communication frame of chapter 6, taught as one mission. 64 slides across 13 concept segments, 90 reveal cards, 2 inline SVG figures, 2 comparison tables, 13 competency lines, 2 lab annotations.
+**What this deck covers:** Silverthorn chapter 1 plus the homeostasis and communication frame of chapter 6, taught as one mission. 64 slides across 13 concept segments, 91 reveal cards, 2 inline SVG figures, 2 comparison tables, 13 competency lines, 2 lab annotations.
 **Date built:** September 5, 2026
 **Reviewer:** Dr. Sharilyn Rennie
 
@@ -33,18 +33,18 @@ Target: WCAG 2.2 Level AA minimum, Level AAA where achievable.
 | 1.4.6 Contrast, enhanced | AAA | Pass, no exception | Every one of the 25 pairs reaches the AAA threshold for its size. Lowest is 7.78:1. |
 | 1.4.10 Reflow | AA | Pass | Measured at 320, 375, 768, 1024 and 1440 CSS pixels. Horizontal overflow was 0 pixels at every width. Wide tables scroll inside their own focusable container carrying `role="group"` and an accessible name. |
 | 1.4.12 Text spacing | AA | Pass | Inherited from the shared engine. No fixed heights on text containers. |
-| 2.1.1 Keyboard | A | Pass | 116 focusable elements. All 90 reveal cards are `role="button"` with `tabindex="0"`, confirmed by count: 90 of 90 tabbable. |
+| 2.1.1 Keyboard | A | Pass | 116 focusable elements. All 91 reveal cards are `role="button"` with `tabindex="0"`, confirmed by count: 91 of 91 tabbable. |
 | 2.1.2 No keyboard trap | A | Inherited | The zoom dialog's deliberate focus cycle and Escape behavior are engine features, verified previously against the decks this engine came from and not re-verified interactively here. |
 | 2.4.1 Bypass blocks | A | Pass | "Skip to the slides" is the first focusable element in the document, confirmed by walking the focusable order. |
 | 2.4.2 Page titled | A | Pass | Document title carries the deck name. |
-| 2.4.6 Headings and labels | AA | Pass | One `h1`, 64 `h2`, one per slide, and 89 `h3` inside cards and rows. Zero skipped heading levels across all 154 headings, measured by walking the heading sequence. |
+| 2.4.6 Headings and labels | AA | Pass | One `h1`, 64 `h2`, one per slide, and 90 `h3` inside cards and rows. Zero skipped heading levels across all 155 headings, measured by walking the heading sequence. |
 | 2.4.7 Focus visible | AA | Inherited | 3px outline with offset, terra on the page and gold in Present mode. Engine feature, read from the stylesheet. |
 | 2.5.8 Target size, minimum | AA | Pass, with a note | The smallest interactive targets in this file are the competency links at 27 CSS pixels tall, above the 24 pixel AA minimum. They are also inline links inside a sentence, which are exempt from this criterion regardless. Present bar controls measure 42 pixels tall, the zoom close button 38. |
 | 2.3.3 Animation from interaction | AAA | Pass | `prefers-reduced-motion: reduce` is present in the stylesheet and reduces the card lift, the zoom transition and the reveal fade. |
 | 3.1.1 Language of page | A | Pass | `lang="en"` on the root element. |
 | 3.2.3 Consistent navigation | AA | Pass | Written by the same generator from the same engine as the other decks, so header, keyboard hint line and present bar sit in the same place and behave identically. |
 | 3.2.4 Consistent identification | AA | Pass | "Tap to open", the competency line and the lab annotation mean the same thing here as in every other deck, because one generator writes all of them. |
-| 4.1.2 Name, role, value | A | Pass | All 90 reveal cards carry `role="button"`, `tabindex="0"` and `aria-expanded`, confirmed by count: 90 of 90 on each attribute. Zero icon-only buttons lack an accessible name, measured by checking every `button` with empty text content for `aria-label`. |
+| 4.1.2 Name, role, value | A | Pass | All 91 reveal cards carry `role="button"`, `tabindex="0"` and `aria-expanded`, confirmed by count: 91 of 91 on each attribute. Zero icon-only buttons lack an accessible name, measured by checking every `button` with empty text content for `aria-label`. |
 
 
 ## 3. Colour contrast audit
@@ -77,7 +77,7 @@ Measured programmatically on the rendered document.
 
 - 116 focusable elements in the document.
 - The first focusable element is "Skip to the slides", which targets the `main`.
-- All 90 reveal cards are reachable in reading order, each `role="button"` with `tabindex="0"` and an `aria-expanded` that tracks state.
+- All 91 reveal cards are reachable in reading order, each `role="button"` with `tabindex="0"` and an `aria-expanded` that tracks state.
 - No `button` in the file has empty text content without an `aria-label`.
 - Not verified interactively in this pass: the Present mode focus cycle, the zoom dialog's Escape-and-return behavior, and arrow key slide navigation. These are engine behaviors carried unchanged and were verified against the earlier decks.
 
@@ -148,7 +148,7 @@ A first build of this deck had 30 slides over ceiling and a mean of 81.6. Nothin
 What was verified instead, programmatically:
 
 - Landmark structure is present and singular: one `header`, one `main`, one `footer`.
-- Heading hierarchy is complete with zero skipped levels across 154 headings.
+- Heading hierarchy is complete with zero skipped levels across 155 headings.
 - Both figures expose an accessible name and description through `role="img"` and `aria-labelledby` resolving to a `title` and `desc`.
 - Every reveal card exposes role, focusability and expanded state.
 - Both tables expose a caption and column headers with `scope`.
