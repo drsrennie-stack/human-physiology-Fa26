@@ -30,6 +30,7 @@
   --ink:#0B1530; --maroon:#8B3A2E; --maroon-dk:#6E2D24; --maroon-wash:#F7EEEC;
   --muted:#4F576A; --faint:#6E7688; --page:#FAFAF9; --card:#FFFFFF;
   --hair:rgba(11,21,48,.15); --hair-soft:rgba(11,21,48,.07);
+  --gold:#DCB45C;
   --r-card:8px; --r-btn:4px; --r-badge:3px;
   --display:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
   --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -55,6 +56,22 @@ a{color:var(--maroon-dk)}
   border:.5px solid var(--hair);border-radius:var(--r-badge);padding:6px 11px;color:var(--muted);background:var(--card)}
 .chip.g{background:var(--maroon);border-color:var(--maroon);color:#fff}
 .chip.ai{border-color:var(--maroon);color:var(--maroon-dk);background:var(--maroon-wash)}
+
+/* ---------- prerequisite strip ---------- */
+.prereq{background:var(--ink);padding:22px 0 24px}
+.prereq .lab{font-family:var(--display);font-size:10.5px;font-weight:800;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.prereq .sub{color:rgba(255,255,255,.82);font-size:13.5px;margin-bottom:15px;max-width:70ch}
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.pc{background:#142338;border:.5px solid rgba(255,255,255,.18);border-radius:var(--r-card);padding:15px 16px}
+.pc h3{font-family:var(--display);font-size:10.5px;font-weight:800;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+.pc p{font-size:13.5px;color:#fff;line-height:1.5;margin:0}
+.pc .src{display:block;margin-top:9px;font-size:12px;color:rgba(255,255,255,.72)}
+.pc.none p{color:rgba(255,255,255,.86)}
+.pc .ok{font-size:15px;margin-right:5px}
+.pc a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+.pc a:hover{color:#F0D79A}
 main{padding:34px 0 70px}
 section{margin-bottom:30px}
 h2{font-size:20px;font-weight:800;padding-bottom:8px;border-bottom:2px solid var(--maroon);margin-bottom:14px}
@@ -76,6 +93,7 @@ li:last-child{margin-bottom:0}
   font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:6px 13px;border-radius:var(--r-badge);
   transform:translateY(-50%);margin-bottom:-4px}
 .box h3{margin-top:0}
+.chapnote{display:block;margin-top:7px;font-size:14px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;font-size:15px;margin-top:12px}
 th{font-family:var(--display);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
   color:var(--faint);text-align:left;padding:9px 12px;border-bottom:.5px solid var(--hair)}
@@ -97,14 +115,57 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   <p class="wk"><span data-wk>Week 1</span> &middot; <span data-wt>How physiology works and what keeps you steady</span></p>
 </div></header>
 
-<div class="meta"><div class="wrap"><span class="chip g">Graded</span><span class="chip">Part of 20% of your grade</span><span class="chip ai">AI closed</span><span class="chip">By hand, on paper</span></div></div>
+<div class="meta"><div class="wrap"><span class="chip g">Graded</span><span class="chip">20% of your grade</span><span class="chip">One assignment, two parts</span><span class="chip ai">AI closed</span><span class="chip">By hand, on paper</span></div></div>
+
+<div class="prereq"><div class="wrap">
+  <p class="lab">Before you start, brush up if you need to</p>
+  <p class="sub">These are the things this week's physiology assumes you already have. If a card says you are set, you are set. If not, the resource is there to fill the gap, and none of it is a lecture from me.</p>
+  <div class="pcards">
+    <div class="pc" id="pc-anat"><h3>Anatomy</h3><p></p></div>
+    <div class="pc" id="pc-math"><h3>Math</h3><p></p></div>
+    <div class="pc" id="pc-chem"><h3>Chemistry</h3><p></p></div>
+  </div>
+</div></div>
 
 <main id="main"><div class="wrap">
 
 <section>
   <h2>What this is</h2>
   <p>One box for every competency in <span data-wk>Week 1</span>. You build it by hand, on paper, in two passes and two colours. It is the first thing you do each week and the last thing you should skip, because it is also your study guide when the midterm comes.</p>
+  <p><strong>You turn this in once, at the end of the week, not after the first pass.</strong> The first pass and the second pass live on the same sheet, so there is nothing to submit until you have watched the videos and added your second colour.</p>
   <p>Due <span class="due">Sunday at 11:59 pm</span>, the Sunday that closes <span data-wk>Week 1</span>. Up to 24 hours late is an automatic 50 percent reduction. After 24 hours it is a zero.</p>
+</section>
+
+<section>
+  <h2>What you need before you start</h2>
+  <p>Gather these four things first. Nothing here needs to be bought beyond the textbook you already have.</p>
+  <table>
+    <tr><th style="width:31%">What</th><th>Where and why</th></tr>
+    <tr>
+      <td><strong>This week's competencies</strong></td>
+      <td>The boxes on your sheet come straight from this list, so open it first.
+          <a href="competency-study-guide.html" target="_top">Open the competency list &rarr;</a></td>
+    </tr>
+    <tr>
+      <td><strong>Your Silverthorn chapters</strong></td>
+      <td><span id="chapters">Chapter list loads here.</span>
+          <span id="chapnote" class="chapnote"></span></td>
+    </tr>
+    <tr>
+      <td><strong>Pearson access</strong></td>
+      <td>Silverthorn is read through Pearson. Sign in with the access you set up in Week 1. If you cannot get in, message me early in the week rather than the night before something is due, because access problems take Pearson a day or two to sort out.</td>
+    </tr>
+    <tr>
+      <td><strong>Two pens of different colours</strong></td>
+      <td>One for your first pass and one for your second. Any two colours, as long as both read clearly in a photograph. Avoid yellow and light pastels, they disappear on camera.</td>
+    </tr>
+  </table>
+
+  <div class="box">
+    <h3>About page numbers</h3>
+    <p>I give you chapters rather than page numbers on purpose. Page numbers move between printings, between the US and Global editions, and between print and the online version, so a page number that is right for me is often wrong for you. Chapter and section headings do not move.</p>
+    <p>If you are hunting for something specific, search the chapter for the term rather than scrolling to a page. The competency wording is the search term: it is written to match how the book names things.</p>
+  </div>
 </section>
 
 <section>
@@ -113,9 +174,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
     <li><b>Read this week's competencies first</b><span>Open the competency list and read the <span data-wt>Week 1</span> entries. Those are the boxes on your sheet, and they are the exact things you have to be able to do.</span></li>
     <li><b>First pass, in your first colour</b><span>Work through the sheet using your textbook and your own notes, and nothing else. Do not open the videos yet. Organize what you can already put together: mini mind maps, lists, sequences, arrows. Keep it short.</span></li>
     <li><b>Stop while the boxes are still half empty</b><span>This is deliberate. You are meant to arrive at the videos already holding a partly built picture, so that watching fills gaps you can actually feel instead of washing over you.</span></li>
+    <li><b>Do not turn it in yet</b><span>Both passes go on the same sheet and you submit it once, at the end. Handing it in now means turning in a half finished sheet in a single colour, which is exactly what does not count. Keep going.</span></li>
     <li><b>Now watch this week's concept videos</b><span>Watch them the whole way through, with your sheet in front of you.</span></li>
     <li><b>Second pass, in a different colour</b><span>Go back through the same boxes and add what you were missing, correct what you had wrong, and write down whatever finally made sense once you heard it explained.</span></li>
     <li><b>Do not erase the first pass</b><span>Leave it visible underneath, mistakes and all. Those wrong marks are the most useful thing on the page, for you and for me.</span></li>
+    <li><b>Now photograph it and submit</b><span>This is the only time you turn the note sheet in, with both passes on it and both colours showing. The photograph rules are further down this page, and they matter more than you would think.</span></li>
   </ol>
 </section>
 
@@ -174,6 +237,119 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   document.querySelectorAll("[data-wk]").forEach(function(n){ n.textContent = "Week " + w; });
   document.querySelectorAll("[data-wt]").forEach(function(n){ n.textContent = TITLES[w-1]; });
   document.title = document.title.replace("Week 1", "Week " + w);
+
+/* ---------- what each week assumes you already have ----------
+   Empty string means nothing extra is needed that week, and the
+   card says so rather than sitting blank. Sources are named
+   rather than deep-linked, because deep links rot and a named
+   chapter does not. ------------------------------------------- */
+var PRE = {
+  1:  {a:"", m:["Units and unit conversion, reading a graph, and rearranging a simple equation. Mass balance is algebra you already have.","Khan Academy, Algebra basics"], c:""},
+  2:  {a:"", m:["Exponents, scientific notation and logarithms. pH is a log scale and it will not make sense without them.","Khan Academy, Logarithms"],
+       c:["Atoms and bonds, water as a solvent, acids and bases, pH and buffers, and the four classes of biological molecule. This is the heaviest chemistry week in the course.","OpenStax Chemistry 2e, chapters 2 and 14, or Khan Academy, Chemistry"]},
+  3:  {a:["Cell structure and the epithelial tissue types.","OpenStax Anatomy and Physiology, chapters 3 and 4, or your own anatomy review page"],
+       m:["Concentration: molarity, percent solutions, and dilutions. You will calculate osmolarity all week.","Khan Academy, Molarity and solutions"],
+       c:["Solutions, solutes, and what a concentration gradient is.","OpenStax Chemistry 2e, chapter 11"]},
+  4:  {a:["The neuron: cell body, dendrites, axon, myelin. Plus the basic divisions of the nervous system.","OpenStax Anatomy and Physiology, chapter 12, or your own anatomy review page"],
+       m:["Negative numbers on a scale, and logarithms again for the Nernst equation.","Khan Academy, Logarithms"],
+       c:["Ions, charge, and what makes a gradient electrochemical rather than just chemical.","OpenStax Chemistry 2e, chapter 2"]},
+  5:  {a:["Brain regions and the spinal cord in outline. You do not need detail, you need to know roughly where things are.","OpenStax Anatomy and Physiology, chapter 13"], m:"", c:""},
+  6:  {a:["The sensory organs, and the anatomy of the autonomic nervous system.","OpenStax Anatomy and Physiology, chapters 14 and 15"],
+       m:["Log scales, because sensory intensity is measured on them.","Khan Academy, Logarithms"], c:""},
+  7:  {a:["Skeletal muscle structure down to the sarcomere, plus the major muscle groups and joint types.","OpenStax Anatomy and Physiology, chapters 9, 10 and 11, or your own anatomy review page"],
+       m:["Force, levers and ratios.","Khan Academy, Torque and angular momentum"],
+       c:["ATP and calcium as a signal. You met both in week 2.",""]},
+  8:  {a:["The endocrine glands and where they sit, plus reproductive anatomy.","OpenStax Anatomy and Physiology, chapters 17 and 27"],
+       m:["Half life, and reading a concentration curve over time.","Khan Academy, Exponential decay"],
+       c:["Steroids versus peptides, and why lipid solubility decides where a receptor lives.","OpenStax Chemistry 2e, chapter 20"]},
+  9:  {a:["Heart chambers, valves, the conduction system and the great vessels. Know these cold before this week.","OpenStax Anatomy and Physiology, chapter 19, or your own anatomy review page"],
+       m:["Multiplying through a formula. Cardiac output is heart rate times stroke volume, and you will rearrange it.",""], c:""},
+  10: {a:["Vessel types and the main circulatory routes.","OpenStax Anatomy and Physiology, chapter 20"],
+       m:["The heaviest math week. Pressure, flow and resistance, rearranging equations for any variable, and calculating mean arterial pressure.","Khan Academy, Algebra, solving for a variable"], c:""},
+  11: {a:["Blood components, and the lymphatic organs including spleen, thymus and nodes.","OpenStax Anatomy and Physiology, chapters 18 and 21"],
+       m:["Percentages and cell counts. Haematocrit is a percentage and counts run in scientific notation.","Khan Academy, Scientific notation"],
+       c:["Haemoglobin and iron, and how an antigen and an antibody bind.",""]},
+  12: {a:["The GI tract in order, plus the accessory organs: liver, gallbladder, pancreas.","OpenStax Anatomy and Physiology, chapter 23"],
+       m:["Calorie arithmetic and reading an energy balance.",""],
+       c:["Carbohydrates, fats and proteins, and hydrolysis as the reaction that breaks them apart.","OpenStax Chemistry 2e, chapter 20"]},
+  13: {a:["Lungs, airways, pleura, the thoracic cage and the diaphragm.","OpenStax Anatomy and Physiology, chapter 22"],
+       m:["Partial pressures and gas equations. Second heaviest math week after week 10.","Khan Academy, Ideal gas equation"],
+       c:["The gas laws, gas solubility, and the carbonic acid and bicarbonate system.","OpenStax Chemistry 2e, chapters 9 and 11"]},
+  14: {a:["The nephron, in detail, and the gross structure of the kidney. Worth reviewing properly, this week is built on it.","OpenStax Anatomy and Physiology, chapter 25, or your own anatomy review page"],
+       m:["Clearance and filtration calculations, and ratios. Heavy math.","Khan Academy, Ratios and proportions"],
+       c:["Osmolarity again, and how an ion moves against a gradient.",""]},
+  15: {a:"", m:["Logarithms one last time, for the Henderson Hasselbalch equation.","Khan Academy, Logarithms"],
+       c:["Buffers and acid base chemistry. If week 2 was shaky, this is the week it catches up with you.","OpenStax Chemistry 2e, chapter 14"]}
+};
+
+function fillCard(id, item) {
+  var card = document.getElementById(id);
+  if (!card) { return; }
+  var p = card.querySelector("p");
+  if (!item || item === "") {
+    card.className = "pc none";
+    p.innerHTML = '<span class="ok" aria-hidden="true">&#9786;</span>Nothing extra needed this week. You already have what this asks for.';
+    return;
+  }
+  var html = item[0];
+  if (item[1]) {
+    var src = item[1];
+    if (/anatomy review page/i.test(src)) {
+      src = src.replace(/your own anatomy review page/i,
+        '<a href="anatomy-review.html" target="_top">the anatomy review page</a>');
+    }
+    html += '<span class="src">Where: ' + src + '</span>';
+  }
+  p.innerHTML = html;
+}
+var pre = PRE[w] || {a:"", m:"", c:""};
+fillCard("pc-anat", pre.a);
+fillCard("pc-math", pre.m);
+fillCard("pc-chem", pre.c);
+
+
+var CHAPTERS = {
+  1:  [["1","Introduction to Physiology"],["6","Communication, Integration, and Homeostasis"]],
+  2:  [["2","Molecular Interaction"],["4","Energy and Cellular Metabolism"]],
+  3:  [["3","Compartmentation: Cells and Tissues"],["5","Membrane Dynamics"]],
+  4:  [["6","Communication, Integration, and Homeostasis"],["9","Neurons: Cellular and Network Properties"]],
+  5:  [["9","Neurons, the synapse sections"],["10","The Central Nervous System"]],
+  6:  [["11","Sensory Physiology"],["12","Efferent Division, autonomic sections"]],
+  7:  [["12","Efferent Division, somatic motor sections"],["13","Muscles"],["14","Integrative Physiology I: Control of Body Movement"]],
+  8:  [["8","Introduction to the Endocrine System"],["24","Endocrine Control of Growth and Metabolism"],["26","Reproduction and Development"]],
+  9:  [["15","Cardiovascular Physiology"]],
+  10: [["16","Blood Flow and the Control of Blood Pressure"]],
+  11: [["17","Blood"],["7","The Immune System"]],
+  12: [["22","The Digestive System"],["23","Metabolism and Energy Balance"]],
+  13: [["18","Mechanics of Breathing"],["19","Gas Exchange and Transport"]],
+  14: [["20","The Kidneys"]],
+  15: [["21","Integrative Physiology II: Fluid and Electrolyte Balance"],["25","Integrative Physiology III: Exercise"]]
+};
+var CHNOTE = {
+  1:  "Read chapter 6 this week for homeostasis, feedback loops and control pathways only. The signalling half comes back in week 4.",
+  2:  "Chapter 2 for water, pH, proteins and enzymes. Chapter 4 for ATP and coupling.",
+  3:  "Chapter 3 for the body fluid compartments. Chapter 5 is the core of the week.",
+  4:  "Chapter 6 returns, this time for cell signalling, receptors and second messengers.",
+  5:  "Chapter 9 is read across two weeks: the cell last week, the synapse this week.",
+  6:  "Sensory input and autonomic output are two halves of the same reflex, so they read well together.",
+  7:  "Chapter 12 is split too: the autonomic half was last week, the somatic half sits here beside the muscle it commands.",
+  8:  "Three chapters, but chapter 24 is short and mostly the calcium loop. Your midterm sits in this week, so start early.",
+  11: "The immune system is chapter 7 in this edition, well before where we teach it. That number is not a mistake.",
+  12: "Read chapter 22 properly and skim chapter 23.",
+  14: "One chapter, and it is a long one. Give it more time than a usual week.",
+  15: "Three days only. Chapter 21 for renal compensation, chapter 25 as the integration read before the case conference."
+};
+var ch = CHAPTERS[w] || [];
+var box = document.getElementById("chapters");
+if (box) {
+  box.innerHTML = ch.length
+    ? "Silverthorn 9th edition, US or Global. " +
+      ch.map(function(c){ return "<strong>Chapter " + c[0] + "</strong>, " + c[1]; }).join("; ") + "."
+    : "Chapters for this week are posted on the week page.";
+}
+var nb = document.getElementById("chapnote");
+if (nb && CHNOTE[w]) { nb.textContent = CHNOTE[w]; }
+
 })();
 (function(){
   var ID = "bio005-assignment";
@@ -186,5 +362,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   setTimeout(send,400); setTimeout(send,1500);
 })();
 </script>
+<script src="bio005-back.js"></script>
 </body>
 </html>
