@@ -197,7 +197,14 @@
   + '.b5skip:focus{left:8px;top:8px}'
   + '@media (max-width:560px){.b5nav-in{padding:9px 14px}.b5foot-in{padding:22px 14px 26px}}'
   + '@media (prefers-reduced-motion:reduce){.b5nav-back{transition:none}.b5nav-back:hover{transform:none}}'
-  + '@media print{.b5nav,.b5foot,.b5skip{display:none!important}}';
+  + '@media print{.b5nav,.b5foot,.b5skip{display:none!important}}'
+  /* The dock launcher is fixed at bottom left with a very high z-index. The
+     slide decks put their pen toolbar in the same corner, so the launcher sat
+     on top of the first few controls and the colour swatches failed the WCAG
+     2.2 target size rule by being partly covered. Lifting the toolbar clears
+     it. Harmless on every page that has no toolbar. */
+  + '.inkbar{bottom:76px!important}'
+  + '@media (max-width:560px){.inkbar{bottom:84px!important}}';
 
   function inject() {
     var style = document.createElement('style');
@@ -208,6 +215,25 @@
     var file = here();
     var me = entry(file);
     var parent = me.parent;
+
+    /* ---- main landmark ----
+       A few pages carry their content in a plain div, so a screen reader user
+       has no "jump to the main content" landmark and the skip link lands
+       nowhere useful. Promote the element the skip link already points at,
+       which is by definition the start of the content, rather than guessing. */
+    if (!document.querySelector('main, [role="main"]')) {
+      var sk = document.querySelector('a[href^="#"].skip, a[href^="#"].b5skip');
+      var tgt = null;
+      if (sk) { try { tgt = document.querySelector(sk.getAttribute('href')); } catch (e) {} }
+      if (!tgt) {
+        var h1 = document.querySelector('h1');
+        tgt = h1 ? (h1.parentNode === document.body ? null : h1.parentNode) : null;
+      }
+      if (tgt && tgt !== document.body) {
+        tgt.setAttribute('role', 'main');
+        if (!tgt.id) tgt.id = 'b5-main';
+      }
+    }
 
     /* ---- skip link, only if the page has none ---- */
     if (!document.querySelector('a[href^="#"].skip, a[href^="#"].b5skip')) {
@@ -264,9 +290,9 @@
         ['welcome.html', 'Course home', 0],
         ['syllabus-fall2026.html', 'Syllabus', 0],
         ['course-schedule.html', 'Course schedule', 0],
-        ['course-materials.html', 'Course materials', 0],
         ['clinical-physiology-lab-manual.html', 'Lab manual', 0],
         ['sitemap.html', 'All course pages', 0],
+        ['accessibility.html', 'Accessibility', 0],
         [CANVAS_HOME, 'Canvas', 1],
         [VIRTUAL_OFFICE, "Dr. Rennie's Virtual Office", 1]
       ];

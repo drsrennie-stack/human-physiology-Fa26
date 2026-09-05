@@ -468,6 +468,9 @@
     t.push({ g: 'Admin', name: 'How to videos', sub: 'Short tours of the course. Scan a code, watch on your phone',
              url: BASE + 'bio005-tour-poster.html', icon: 'play', tone: 'terra', qr: 'howto', soon: true,
              kw: 'how to tour help video walkthrough getting started orientation' });
+    t.push({ g: 'Admin', name: 'Accessibility', sub: 'How this was built, what was checked, what is still open',
+             url: BASE + 'accessibility.html' + q, icon: 'target', tone: 'terra',
+             kw: 'accessibility access screen reader contrast keyboard captions dsps accommodation wcag' });
     t.push({ g: 'Admin', name: 'Course home', sub: 'Back to the front of the course',
              url: BASE + 'welcome.html' + q, icon: 'home', tone: 'navy', qr: 'home',
              kw: 'home hub front start main course' });
