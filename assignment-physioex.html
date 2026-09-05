@@ -106,27 +106,39 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 <main id="main"><div class="wrap">
 <section>
   <h2>What this is</h2>
-  <p><strong>One sheet a week, covering everything you ran.</strong> If <span data-wk>Week 1</span> has six PhysioEx activities, you do not write six reports. You write one, and it accounts for all six together.</p>
-  <p>PhysioEx is where you generate the data. This sheet is where you say what the week's set of experiments, taken together, actually showed you. It is handwritten, and it is an analysis rather than a data dump.</p>
+  <div class="box hot" data-noex hidden>
+    <span class="tab">Different lab this week</span>
+    <p><strong>There is no PhysioEx this week.</strong> <span data-noexwhy>PhysioEx does not have an exercise that fits this material.</span> Your lab for <span data-wk>Week 1</span> is <strong><a data-noexlab href="course-materials.html" target="_top">listed in the week page</a></strong> instead.</p>
+    <p>The sheet and the deadline do not change. Everywhere below that says "activity," read it as one part of that lab.</p>
+  </div>
+  <p><strong>One sheet a week, covering everything you ran.</strong> If <span data-wk>Week 1</span> has six <span data-lab>PhysioEx</span> activities, you do not write six reports. You write one, and it accounts for all six together.</p>
+  <p><span data-labcap>PhysioEx</span> is where you generate the data. This sheet is where you say what the week's set of experiments, taken together, actually showed you. It is handwritten, and it is an analysis rather than a data dump.</p>
   <p>Due <span class="due">Sunday at 10:00 pm</span>, the Sunday that closes <span data-wk>Week 1</span>. Up to 24 hours late is an automatic 50 percent reduction. After 24 hours it is a zero.</p>
 </section>
 
 <section>
   <h2>Why this sheet is built this way</h2>
-  <div class="box hot">
+  <div class="box hot" data-ex>
     <span class="tab">Read this part</span>
     <p><strong>Let me be straight with you.</strong> PhysioEx is a simulation. The results are fixed, every student who runs it gets the same numbers, and the answers have been posted online for years. I know that. You know that.</p>
     <p>So this sheet does not ask you to report the numbers back to me, because copying numbers proves nothing about whether you understood anything. Anyone can do that in four minutes without opening the program.</p>
     <p><strong>What it asks for instead is the part nobody has written up for you:</strong> what the week's activities showed when you put them next to each other, which one changed your mind, and what you would predict next. That is genuinely yours, it is in your handwriting, and there is no version of it sitting on a website waiting to be found.</p>
     <p>You can absolutely use AI to check whether your reasoning holds together. Use it to argue with. What it cannot do is tell you which activity surprised you, or what you thought before you ran it.</p>
   </div>
+  <div class="box hot" data-noex hidden>
+    <span class="tab">Read this part</span>
+    <p><strong>Let me be straight with you.</strong> Most weeks your lab is PhysioEx, which is a simulation. The results are fixed and the answers have been posted online for years. This week is one of the weeks where you collect the data yourself instead, so there is nothing to look up at all.</p>
+    <p>Either way, this sheet does not ask you to report numbers back to me. Copying numbers proves nothing about whether you understood anything.</p>
+    <p><strong>What it asks for instead is the part nobody has written up for you:</strong> what the week's activities showed when you put them next to each other, which one changed your mind, and what you would predict next. That is genuinely yours, and it is in your handwriting.</p>
+    <p>You can absolutely use AI to check whether your reasoning holds together. Use it to argue with. What it cannot do is tell you which result surprised you, or what you thought before you ran it.</p>
+  </div>
 </section>
 
 <section>
   <h2>Do it in this order</h2>
   <ol class="steps">
-    <li><b>Write down the week's activity names first</b><span>List every PhysioEx activity assigned for <span data-wk>Week 1</span> on your sheet before you start. That list keeps you from losing track when a week has six of them.</span></li>
-    <li><b>Open an activity and read its setup screen</b><span>Every PhysioEx activity starts by telling you what it is going to change and what it is going to measure. Read that part properly instead of clicking past it. It is the only thing you need in order to make a real prediction.</span></li>
+    <li><b>Write down the week's activity names first</b><span>List every <span data-lab>PhysioEx</span> activity assigned for <span data-wk>Week 1</span> on your sheet before you start. That list keeps you from losing track when a week has six of them.</span></li>
+    <li><b data-s2t>Open an activity and read its setup screen</b><span data-s2b>Every PhysioEx activity starts by telling you what it is going to change and what it is going to measure. Read that part properly instead of clicking past it. It is the only thing you need in order to make a real prediction.</span></li>
     <li><b>Now write what you think will happen, and why</b><span>Two or three sentences, before you press start. You have already done the reading and the videos this week, so you know the mechanism. This is asking what that mechanism predicts when someone changes the thing this activity is changing. Do it for one activity, whichever one you were least sure about. You are not graded on being right.</span></li>
     <li><b>Run them all, taking short notes as you go</b><span>For each activity, note what was manipulated, what was measured, and what happened in one line. Short. This is the raw material, not the report.</span></li>
     <li><b>Look for what they have in common</b><span>Read your rows next to each other. Is the body controlling the same thing in all of them? This is the real work of the assignment, and it is the part you cannot do while you are still clicking through the program.</span></li>
@@ -175,12 +187,50 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
      iframe src in Canvas and this page relabels itself. Nothing to edit here
      week to week, and nothing to re-upload. */
   var TITLES = ["How physiology works and what keeps you steady", "The chemistry that does work in the body", "Getting across the membrane", "The action potential", "The nervous system, from sensing to moving", "How muscle makes force", "Hormones, the slow control system", "Reproduction, and the clearest positive feedback loop", "The heart as a pump", "Pressure, flow, and holding blood pressure steady", "Blood, and how the body defends itself", "Digestion, and how you use food for fuel", "Breathing, gas transport, and blood pH", "The kidney, and body fluid balance", "The slow lever on pH, and putting it all together"];
+  /* THE THREE WEEKS WITH NO PHYSIOEX.
+     PhysioEx 10.0 has no homeostasis/graphing exercise (Wk 1), no sensory
+     exercise (Wk 5) and no reproduction exercise (Wk 8). Source of record:
+     physioex-lab-map-fall2026.md. On those weeks this page swaps the tool
+     name and the two lines that assume a simulation setup screen, so it
+     never tells a student to open something that was not assigned. */
+  var NOEX = {
+    1: { lab: "the Week 1 fluid homeostasis workbook",
+         href: "workbook_week01_fluid-homeostasis.html",
+         why: "PhysioEx does not have a homeostasis or graphing exercise.",
+         s2t: "Read the whole worksheet through once before you write anything",
+         s2b: "Look at what each part is asking you to change and what it is asking you to measure. Read that properly instead of jumping to question one. It is the only thing you need in order to make a real prediction." },
+    5: { lab: "the at-home sensory and reflex lab",
+         href: "lab-week05-sensory-reflex.html",
+         why: "PhysioEx does not have a sensory exercise.",
+         s2t: "Read the setup for one test before you run it on yourself",
+         s2b: "Each test tells you what it is changing and what you will be measuring, on you. Read that properly before you start. It is the only thing you need in order to make a real prediction." },
+    8: { lab: "the hormone cycle graph worksheet",
+         href: "lab-week08-hormone-cycle.html",
+         why: "PhysioEx does not have a reproduction exercise.",
+         s2t: "Read the axes on the graph before you answer anything",
+         s2b: "Work out what is plotted, in what units, over how many days. Read that properly before you start answering. It is the only thing you need in order to say what you expect to see." }
+  };
   var q = new URLSearchParams(window.location.search);
   var w = parseInt(q.get("week"), 10);
   if (isNaN(w) || w < 1 || w > 15) { w = 1; }
   document.querySelectorAll("[data-wk]").forEach(function(n){ n.textContent = "Week " + w; });
   document.querySelectorAll("[data-wt]").forEach(function(n){ n.textContent = TITLES[w-1]; });
   document.title = document.title.replace("Week 1", "Week " + w);
+
+  var nx = NOEX[w];
+  document.querySelectorAll("[data-noex]").forEach(function(n){ n.hidden = !nx; });
+  document.querySelectorAll("[data-ex]").forEach(function(n){ n.hidden = !!nx; });
+  if (nx) {
+    document.querySelectorAll("[data-lab]").forEach(function(n){ n.textContent = "lab"; });
+    document.querySelectorAll("[data-labcap]").forEach(function(n){ n.textContent = "This week's lab"; });
+    document.querySelectorAll("[data-noexlab]").forEach(function(n){
+      n.textContent = nx.lab;
+      if (nx.href) { n.href = nx.href; }
+    });
+    document.querySelectorAll("[data-noexwhy]").forEach(function(n){ n.textContent = nx.why; });
+    document.querySelectorAll("[data-s2t]").forEach(function(n){ n.textContent = nx.s2t; });
+    document.querySelectorAll("[data-s2b]").forEach(function(n){ n.textContent = nx.s2b; });
+  }
 })();
 (function(){
   var ID = "bio005-assignment";
