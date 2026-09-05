@@ -147,6 +147,17 @@
 
   function entry(file) {
     if (PAGES[file]) return PAGES[file];
+    /* The per-week competency lists and note sheets belong to their own week,
+       and there will eventually be fifteen of each. Derive the parent from the
+       number in the filename rather than listing thirty entries above. */
+    var wk = /^(competencies|notesheet)-week-(\d{2})\.html$/.exec(file);
+    if (wk) {
+      return {
+        name: (wk[1] === 'notesheet' ? 'Week ' + (+wk[2]) + ' note sheet'
+                                     : 'Week ' + (+wk[2]) + ' competency list'),
+        parent: 'week-' + wk[2] + '.html'
+      };
+    }
     for (var i = 0; i < PREFIX.length; i++) {
       if (PREFIX[i].test.test(file)) {
         return { name: PREFIX[i].label, parent: PREFIX[i].parent };
@@ -215,17 +226,29 @@
   + 'transition:transform 200ms ease,box-shadow 200ms ease}'
   + '.b5nav-back:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.10);text-decoration:none}'
   + '.b5nav-back:focus-visible{outline:3px solid #B8924A;outline-offset:2px}'
-  + '.b5foot{background:#08101F;color:#C9CFD6;margin-top:56px;'
+  /* A quiet strip, not a slab. The first version stood 297px tall on the
+     course home with its links wrapping onto three centred lines, and on a
+     wide screen it got caught in the hero's layout and sat beside the
+     headline. It is now one left aligned row that clears everything above it
+     and cannot become a column of somebody else's grid. */
+  + '.b5foot{background:#08101F;color:#C9CFD6;margin-top:48px;width:100%;clear:both;'
+  + 'position:static;float:none;grid-column:1/-1;flex:0 0 100%;box-sizing:border-box;'
+  + 'text-align:left;'
   + 'font-family:"Plus Jakarta Sans","DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}'
-  + '.b5foot-in{max-width:1080px;margin:0 auto;padding:26px 20px 30px}'
-  + '.b5foot ul{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;'
-  + 'align-items:center;gap:6px 0;font-size:15px}'
-  + '.b5foot li{display:flex;align-items:center}'
-  + '.b5foot li+li:before{content:"·";margin:0 12px;color:#6B7A88}'
-  + '.b5foot a{color:#fff;text-decoration:none;font-weight:600;border-radius:6px;padding:2px 3px}'
+  + '.b5foot-in{max-width:1080px;margin:0 auto;padding:15px 20px 17px}'
+  + '.b5foot ul{list-style:none;margin:0 0 7px;padding:0;display:flex;flex-wrap:wrap;'
+  + 'align-items:center;gap:2px 0;font-size:13px;justify-content:flex-start;text-align:left}'
+  /* Every page brings its own list styles, and on the week pages they were
+     capping the row's width and adding 5px above and below every item, which
+     wrapped eight links onto three lines. Reset them inside the footer only. */
+  + '.b5foot nav ul{width:100%;max-width:none}'
+  + '.b5foot nav ul li{display:flex;align-items:center;margin:0;padding:0;list-style:none}'
+  + '.b5foot nav ul li:before{margin-top:0}'
+  + '.b5foot li+li:before{content:"·";margin:0 8px;color:#7FA2B4}'
+  + '.b5foot a{color:#fff;text-decoration:none;font-weight:600;border-radius:5px;padding:2px 2px}'
   + '.b5foot a:hover{text-decoration:underline}'
   + '.b5foot a:focus-visible{outline:3px solid #B8924A;outline-offset:2px}'
-  + '.b5foot p{margin:0;font-size:14px;line-height:1.6;color:#C9CFD6;max-width:70ch}'
+  + '.b5foot p{margin:0;font-size:12.5px;line-height:1.5;color:#9BA6B2;max-width:92ch;text-align:left}'
   + '.b5skip{position:absolute;left:-9999px;top:0;background:#08101F;color:#fff;padding:10px 16px;z-index:1000}'
   + '.b5skip:focus{left:8px;top:8px}'
   + '@media (max-width:560px){.b5nav-in{padding:9px 14px}.b5foot-in{padding:22px 14px 26px}}'
@@ -233,36 +256,26 @@
   + '@media print{.b5nav,.b5foot,.b5skip,.b5listen,.b5play{display:none!important}}'
 
   /* Listen to this page. Text to speech, which is NOT a screen reader, and is
-     labelled that way everywhere it appears. A student who uses a real screen
-     reader has a far better tool already configured the way they like it. This
-     is for reading fatigue, for a second language, for following along with
-     audio, and for the ones studying in the car park before a shift. */
-  + '.b5listen{display:inline-flex;align-items:center;gap:9px;background:transparent;'
-  + 'border:1px solid rgba(255,255,255,.35);color:#fff;font:inherit;font-size:14.5px;'
-  + 'font-weight:600;border-radius:9px;padding:9px 14px;cursor:pointer;margin:2px 0 14px;'
-  + 'transition:background 160ms ease,border-color 160ms ease}'
-  + '.b5listen:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.6)}'
+     labelled that way where it matters. It sits in the footer row as one more
+     link rather than as a boxed button, because a button in a box inside a
+     dark panel is what made the front door look like a advert. */
+  + '.b5listen{display:inline-flex;align-items:center;gap:6px;background:none;border:0;'
+  + 'color:#fff;font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:2px 2px;'
+  + 'border-radius:5px}'
+  + '.b5listen:hover{text-decoration:underline}'
   + '.b5listen:focus-visible{outline:3px solid #B8924A;outline-offset:2px}'
-  + '.b5listen svg{width:18px;height:18px;flex:0 0 auto}'
-  + '.b5listen .sub{font-weight:400;color:#C9CFD6;font-size:13.5px}'
+  + '.b5listen svg{width:15px;height:15px;flex:0 0 auto}'
   + '.b5play{position:fixed;right:18px;bottom:18px;z-index:2147482000;display:none;'
   + 'align-items:center;gap:8px;background:#fff;border:1px solid #E3E1DE;border-radius:12px;'
-  + 'padding:9px 11px;box-shadow:0 8px 22px rgba(0,0,0,.18)}'
+  + 'padding:8px 10px;box-shadow:0 8px 22px rgba(0,0,0,.18)}'
   + '.b5play.on{display:flex}'
-  + '.b5play button{font:inherit;font-size:14px;font-weight:700;cursor:pointer;color:#7A2A22;'
-  + 'background:#fff;border:1px solid #E3E1DE;border-radius:8px;padding:7px 11px;min-height:34px}'
+  + '.b5play button{font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;color:#7A2A22;'
+  + 'background:#fff;border:1px solid #E3E1DE;border-radius:8px;padding:6px 10px;min-height:32px}'
   + '.b5play button:hover{background:#FAFAF9}'
   + '.b5play button:focus-visible{outline:3px solid #B8924A;outline-offset:2px}'
-  + '.b5play .st{font-size:13.5px;color:#4F5663;padding:0 4px;max-width:15ch}'
+  + '.b5play .st{font-size:13px;color:#4F5663;padding:0 4px;max-width:15ch}'
   + '.b5read{background:#FBF0D8;border-radius:4px;box-shadow:0 0 0 3px #FBF0D8}'
-  + '@media (max-width:560px){.b5play{right:10px;bottom:10px;left:10px;justify-content:center}}'
-  /* The dock launcher is fixed at bottom left with a very high z-index. The
-     slide decks put their pen toolbar in the same corner, so the launcher sat
-     on top of the first few controls and the colour swatches failed the WCAG
-     2.2 target size rule by being partly covered. Lifting the toolbar clears
-     it. Harmless on every page that has no toolbar. */
-  + '.inkbar{bottom:76px!important}'
-  + '@media (max-width:560px){.inkbar{bottom:84px!important}}';
+  + '@media (max-width:560px){.b5play{right:10px;bottom:10px;left:10px;justify-content:center}}';
 
   function inject() {
     var style = document.createElement('style');
@@ -356,12 +369,12 @@
       var links = [
         ['welcome.html', 'Course home', 0],
         ['syllabus-fall2026.html', 'Syllabus', 0],
-        ['course-schedule.html', 'Course schedule', 0],
+        ['course-schedule.html', 'Schedule', 0],
         ['clinical-physiology-lab-manual.html', 'Lab manual', 0],
-        ['sitemap.html', 'All course pages', 0],
+        ['sitemap.html', 'All pages', 0],
         ['accessibility.html', 'Accessibility', 0],
         [CANVAS_HOME, 'Canvas', 1],
-        [VIRTUAL_OFFICE, "Dr. Rennie's Virtual Office", 1]
+        [VIRTUAL_OFFICE, 'Virtual Office', 1]
       ];
       var items = '';
       for (var j = 0; j < links.length; j++) {
@@ -374,9 +387,9 @@
       foot.className = 'b5foot';
       foot.innerHTML = '<div class="b5foot-in">'
         + '<nav aria-label="Site"><ul>' + items + '</ul></nav>'
-        + '<p>BIO 005 Human Physiology, Yuba College, Fall 2026. '
-        + 'Taught by Dr. Sharilyn Rennie. If a page does not work for you, '
-        + 'tell me in the Virtual Office and I will fix it.</p></div>';
+        + '<p>BIO 005 Human Physiology, Yuba College, Fall 2026. Dr. Sharilyn Rennie. '
+        + 'Listen is text to speech, not a screen reader. If a page does not work for you, '
+        + 'tell me in the Virtual Office.</p></div>';
       document.body.appendChild(foot);
     }
 
@@ -399,8 +412,8 @@
   function listen() {
     if (!('speechSynthesis' in window) || !window.SpeechSynthesisUtterance) return;
 
-    var foot = document.querySelector('.b5foot .b5foot-in');
-    if (!foot || document.querySelector('.b5listen')) return;
+    var row = document.querySelector('.b5foot nav ul');
+    if (!row || document.querySelector('.b5listen')) return;
 
     var blocks = [], idx = 0, playing = false, paused = false, keep = null;
     var rate = 1;
@@ -412,11 +425,14 @@
       + '<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/>'
       + '<path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
 
+    var li = document.createElement('li');
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'b5listen';
-    btn.innerHTML = SPEAKER + '<span>Listen to this page<br><span class="sub">Reads the page out loud. This is not a screen reader.</span></span>';
-    foot.insertBefore(btn, foot.firstChild);
+    btn.innerHTML = SPEAKER + '<span>Listen</span>';
+    btn.title = 'Reads this page out loud. This is text to speech, not a screen reader.';
+    li.appendChild(btn);
+    row.appendChild(li);
 
     var bar = document.createElement('div');
     bar.className = 'b5play';
