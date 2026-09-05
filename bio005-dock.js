@@ -232,6 +232,52 @@
      404 in production while working perfectly on a local server opened
      from inside os/. */
   var BASE = 'https://drsrennie-stack.github.io/human-physiology-Fa26/';
+  /* ---------------------------------------------------------------
+     OPENING DATES
+
+     A tile with a date here stops saying "Soon" and says when it opens,
+     for example "Opens Sat Oct 10". It becomes a working link on its own
+     the moment that time passes, with nothing to switch on by hand.
+
+     Write the date as 'YYYY-MM-DDTHH:MM:SS-07:00' for Pacific daylight
+     time, which runs to Nov 1 2026, and '-08:00' after that.
+
+     A tile with no entry here keeps saying "Soon", which is the honest
+     answer when there is no date yet. Add a line and it changes.
+     --------------------------------------------------------------- */
+  var BIO005_PLANNED = {
+    /* 'review-chemistry.html':      '2026-09-19T20:00:00-07:00', */
+    /* 'review-math.html':           '2026-09-19T20:00:00-07:00', */
+    /* 'lab-sprints.html':           '2026-09-26T20:00:00-07:00', */
+    /* 'lab-competencies.html':      '2026-09-26T20:00:00-07:00', */
+    /* 'clinical-tests.html':        '2026-10-03T20:00:00-07:00', */
+    /* 'reading-data.html':          '2026-10-03T20:00:00-07:00', */
+    /* 'practice-lecture-exam.html': '2026-10-03T20:00:00-07:00', */
+    /* 'bio005-day-review.html':     '2026-10-10T20:00:00-07:00', */
+    /* 'study-session-signup.html':  '2026-09-12T20:00:00-07:00', */
+    /* 'bio005-tour-poster.html':    '2026-09-12T20:00:00-07:00'  */
+  };
+
+  var B5_DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var B5_MONS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  /* Returns the badge text for a tile that is not open yet, or null when
+     it is open. A tile flagged soon with no date still reads "Soon". */
+  function b5Pending(t) {
+    var key = null, u = String(t.url || '');
+    for (var k in BIO005_PLANNED) {
+      if (u.indexOf(k) !== -1) { key = k; break; }
+    }
+    if (key) {
+      var when = new Date(BIO005_PLANNED[key]);
+      if (when > new Date()) {
+        return 'Opens ' + B5_DAYS[when.getDay()] + ' ' + B5_MONS[when.getMonth()] + ' ' + when.getDate();
+      }
+      return null;                 /* the date has passed, the tile goes live */
+    }
+    return t.soon ? 'Soon' : null;
+  }
+
   var SEC_KEY = 'bio005-section';
 
   var SECTIONS = {
@@ -542,7 +588,7 @@
 '.bd-tile.soon .bd-n{color:#C3CAD6}',
 '.bd-tile.soon .bd-s{color:#98A3B4;opacity:1}',
 '.bd-tile.soon .bd-ic{filter:grayscale(.75)}',
-'.bd-soon{display:inline-block;margin-left:7px;font-size:9.5px;font-weight:800;letter-spacing:.12em;',
+'.bd-soon{display:inline-block;margin-left:7px;font-size:9.5px;font-weight:800;letter-spacing:.08em;white-space:nowrap;',
 '  text-transform:uppercase;color:#0B1530;background:#C3CAD6;border-radius:999px;padding:2px 7px;vertical-align:1px}',
 
 '.bd-qrb{position:absolute;z-index:2;top:8px;right:8px;width:26px;height:26px;border-radius:8px;border:0;cursor:pointer;',
@@ -692,7 +738,7 @@
        global sort would have done both and pushed Lab to the bottom for
        having nothing switched on yet, which is the opposite of the point. */
     groups.forEach(function (g) {
-      seen[g].sort(function (a, b) { return (a.soon ? 1 : 0) - (b.soon ? 1 : 0); });
+      seen[g].sort(function (a, b) { return (b5Pending(a) ? 1 : 0) - (b5Pending(b) ? 1 : 0); });
     });
 
     /* Searching opens everything: a hit hidden inside a folded group
@@ -715,11 +761,12 @@
       seen[g].forEach(function (t) {
         /* Not a link. A tile that goes somewhere unfinished is worse than
            one that plainly says it is not ready yet. */
-        if (t.soon) {
+        var b5p = b5Pending(t);
+        if (b5p) {
           html += '<div class="bd-cell"><div class="bd-tile soon">' +
             '<span class="bd-ic ' + t.tone + '">' + icon(t.icon) + '</span>' +
             '<span class="bd-tx"><span class="bd-n">' + esc(t.name) +
-              '<span class="bd-soon">Soon</span></span>' +
+              '<span class="bd-soon">' + esc(b5p) + '</span></span>' +
             '<span class="bd-s">' + esc(t.sub) + '</span></span>' +
           '</div></div>';
           return;

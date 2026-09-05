@@ -124,27 +124,27 @@ window.BIO005_WEEKS = [
     competencies:["w1-fluid-compartments", "w1-compartment-shifts", "w2-membrane-structure", "w2-permeability", "w2-fick-diffusion", "w2-osmolarity-tonicity", "w2-osmosis-cell-volume", "w2-lab-diffusion-osmosis", "w2-lab-rbc-tonicity", "w2-facilitated-diffusion", "w2-primary-active-transport", "w2-secondary-active-transport", "w2-transport-maximum", "w2-vesicular-transport", "w2-transepithelial-transport", "w2-lab-transport-sim"] },
 
   { wk:4, module:2, opens:'2026-09-28', closes:'2026-10-04',
-    title:"The action potential",
-    competencies:["w2-electrochemical-gradient", "w2-nernst", "w2-resting-potential", "w2-ion-channels", "w2-potential-terms", "w2-lab-membrane-potential", "w4-neuron-classes", "w4-neuron-regions", "w4-glia-functions", "w4-myelin", "w4-axonal-transport", "w4-graded-potentials", "w4-action-potential", "w4-threshold", "w4-intensity-coding", "w4-refractory", "w4-conduction-velocity", "w4-ion-disturbance", "w4-lab-ap-simulation", "w4-lab-nerve-conduction", "w5-synaptic-sequence", "w5-neurotransmitters", "w5-neurotransmitter-removal", "w5-postsynaptic-potentials", "w5-summation-integration", "w5-presynaptic-modulation", "w5-synaptic-plasticity", "w5-electrical-synapses", "w5-lab-synapse-sim"] },
+    title:"How cells talk, and the electrical signal",
+    competencies:["w2-electrochemical-gradient", "w2-nernst", "w2-resting-potential", "w2-ion-channels", "w2-potential-terms", "w2-lab-membrane-potential", "w4-neuron-classes", "w4-neuron-regions", "w4-glia-functions", "w4-myelin", "w4-axonal-transport", "w4-graded-potentials", "w4-action-potential", "w4-threshold", "w4-intensity-coding", "w4-refractory", "w4-conduction-velocity", "w4-ion-disturbance", "w4-lab-ap-simulation", "w4-lab-nerve-conduction"] },
 
   { wk:5, module:2, opens:'2026-10-05', closes:'2026-10-11',
-    title:"The nervous system, from sensing to moving",
+    title:"Synapses and central integration",
     note:"Heaviest week in the course, 35 competencies. Sensory and special senses sit here un-merged.",
-    competencies:["w5-reflex-arc", "w5-stretch-reflex", "w5-golgi-tendon", "w5-withdrawal-reflex", "w5-spinal-pathways", "w5-csf-bbb", "w5-lab-reflex-testing", "w7-transduction", "w7-receptor-classes", "w7-stimulus-coding", "w7-receptive-fields", "w7-receptor-adaptation", "w7-somatosensory-pathways", "w7-pain-modulation", "w7-lab-tactile-mapping", "w7-vision-optics", "w7-phototransduction", "w7-visual-processing", "w7-vision-clinical", "w7-hearing-transduction", "w7-hearing-clinical", "w7-equilibrium", "w7-chemical-senses", "w7-lab-vision-tests", "w7-lab-hearing-tests", "w8-motor-hierarchy", "w8-corticospinal", "w8-cerebellum-basal-ganglia", "w8-umn-lmn", "w8-ans-organization", "w8-ans-divisions", "w8-ans-receptors", "w8-ans-tone", "w8-ans-pharmacology", "w8-lab-autonomic-testing"] },
+    competencies:["w5-synaptic-sequence", "w5-neurotransmitters", "w5-neurotransmitter-removal", "w5-postsynaptic-potentials", "w5-summation-integration", "w5-presynaptic-modulation", "w5-synaptic-plasticity", "w5-electrical-synapses", "w5-lab-synapse-sim", "w5-reflex-arc", "w5-stretch-reflex", "w5-golgi-tendon", "w5-withdrawal-reflex", "w5-spinal-pathways", "w5-csf-bbb", "w5-lab-reflex-testing"] },
 
   { wk:6, module:2, opens:'2026-10-12', closes:'2026-10-18',
-    title:"How muscle makes force",
-    competencies:["w6-nmj", "w6-ec-coupling", "w6-crossbridge-cycle", "w6-calcium-regulation", "w6-relaxation", "w6-twitch", "w6-summation-tetanus", "w6-motor-units", "w6-length-tension", "w6-contraction-types", "w6-fiber-types", "w6-muscle-energetics", "w6-fatigue", "w6-muscle-adaptation", "w6-lab-emg-fatigue", "w6-lab-muscle-sim", "w6-smooth-muscle", "w6-smooth-regulation", "w6-cardiac-muscle", "w6-muscle-comparison"] },
+    title:"Sensing the world, and the responses you do not control",
+    competencies:["w7-transduction", "w7-receptor-classes", "w7-stimulus-coding", "w7-receptive-fields", "w7-receptor-adaptation", "w7-somatosensory-pathways", "w7-pain-modulation", "w7-lab-tactile-mapping", "w7-vision-optics", "w7-phototransduction", "w7-visual-processing", "w7-vision-clinical", "w7-hearing-transduction", "w7-hearing-clinical", "w7-equilibrium", "w7-chemical-senses", "w7-lab-vision-tests", "w7-lab-hearing-tests", "w8-ans-organization", "w8-ans-divisions", "w8-ans-receptors", "w8-ans-tone", "w8-ans-pharmacology", "w8-lab-autonomic-testing"] },
 
   { wk:7, module:2, opens:'2026-10-19', closes:'2026-10-25',
-    title:"Hormones, the slow control system",
-    competencies:["w3-signal-types", "w3-receptor-location", "w3-gpcr-pathway", "w3-second-messengers", "w3-catalytic-intracellular-receptors", "w3-signal-amplification", "w3-receptor-modulation", "w3-signal-termination", "w3-lab-dose-response", "w9-hormone-classes", "w9-hormone-transport", "w9-hormone-receptors", "w9-hormone-interactions", "w9-hormone-release", "w9-hypothalamic-pituitary", "w9-endocrine-pathology", "w9-posterior-pituitary", "w9-lab-hormone-assay"] },
+    title:"Muscle, and how movement gets commanded",
+    competencies:["w6-nmj", "w6-ec-coupling", "w6-crossbridge-cycle", "w6-calcium-regulation", "w6-relaxation", "w6-twitch", "w6-summation-tetanus", "w6-motor-units", "w6-length-tension", "w6-contraction-types", "w6-fiber-types", "w6-muscle-energetics", "w6-fatigue", "w6-muscle-adaptation", "w6-lab-emg-fatigue", "w6-lab-muscle-sim", "w6-smooth-muscle", "w6-smooth-regulation", "w6-cardiac-muscle", "w6-muscle-comparison", "w8-motor-hierarchy", "w8-corticospinal", "w8-cerebellum-basal-ganglia", "w8-umn-lmn"] },
 
   { wk:8, module:2, opens:'2026-10-26', closes:'2026-11-01',
-    title:"Reproduction, and the clearest positive feedback loop",
+    title:"Hormones and reproduction, the slow control system",
     note:"Midterm checkpoint due Sun Nov 1, the day this week closes.",
     extras:["Midterm checkpoint"],
-    competencies:["w15-hpg-axis", "w15-male-reproductive", "w15-ovarian-cycle", "w15-uterine-cycle", "w15-pregnancy-hormones", "w15-parturition-lactation", "w15-lab-cycle-graphs"] },
+    competencies:["w3-signal-types", "w3-receptor-location", "w3-gpcr-pathway", "w3-second-messengers", "w3-catalytic-intracellular-receptors", "w3-signal-amplification", "w3-receptor-modulation", "w3-signal-termination", "w3-lab-dose-response", "w9-hormone-classes", "w9-hormone-transport", "w9-hormone-receptors", "w9-hormone-interactions", "w9-hormone-release", "w9-hypothalamic-pituitary", "w9-endocrine-pathology", "w9-posterior-pituitary", "w9-lab-hormone-assay", "w15-hpg-axis", "w15-male-reproductive", "w15-ovarian-cycle", "w15-uterine-cycle", "w15-pregnancy-hormones", "w15-parturition-lactation", "w15-lab-cycle-graphs"] },
 
   { wk:9, module:3, opens:'2026-11-02', closes:'2026-11-08',
     title:"The heart as a pump",
@@ -156,7 +156,7 @@ window.BIO005_WEEKS = [
     competencies:["w9-adrenal-cortex", "w11-flow-resistance", "w11-vessel-function", "w11-blood-pressure", "w11-local-blood-flow", "w11-capillary-exchange", "w11-edema", "w11-venous-return", "w11-lab-bp-measurement", "w11-baroreflex", "w11-cv-hormonal", "w11-exercise-cv", "w11-shock-compensation"] },
 
   { wk:11, module:3, opens:'2026-11-16', closes:'2026-11-22',
-    title:"Blood, and how the body defends itself",
+    title:"Blood and how the body defends itself",
     note:"Last day to drop with a grade is Sat Nov 21.",
     competencies:["w10-plasma", "w10-hematocrit", "w10-rbc-hemoglobin", "w10-erythropoiesis", "w10-rbc-destruction", "w10-leukocytes", "w10-hemostasis", "w10-coagulation", "w10-fibrinolysis", "w10-blood-types", "w10-lab-hematocrit", "w10-lab-blood-typing", "w11-lymph-return", "w15-innate-immunity", "w15-inflammation", "w15-adaptive-immunity", "w15-antibodies", "w15-immune-memory", "w15-immune-dysfunction"] },
 
@@ -166,15 +166,15 @@ window.BIO005_WEEKS = [
     competencies:["w9-growth-hormone", "w9-thyroid", "w9-stress-response", "w9-islet-hormones", "w9-diabetes", "w9-lab-glucose-tolerance", "w14-digestive-processes", "w14-gi-motility", "w14-gi-regulation", "w14-digestive-phases", "w14-gastric-secretion", "w14-pancreatic-bile-secretion", "w14-carb-protein-absorption", "w14-lipid-absorption", "w14-liver-function", "w14-large-intestine", "w14-lab-digestion-enzymes", "w14-absorptive-state", "w14-postabsorptive-state", "w14-glucose-regulation", "w14-metabolic-rate", "w14-thermoregulation", "w14-lab-metabolic-rate"] },
 
   { wk:13, module:3, opens:'2026-11-30', closes:'2026-12-06',
-    title:"Breathing, gas transport, and blood pH",
+    title:"Breathing, gas transport, and the fast pH lever",
     competencies:["w12-respiratory-functions", "w12-ventilation-mechanics", "w12-intrapleural-pressure", "w12-compliance", "w12-surfactant", "w12-airway-resistance", "w12-lung-volumes", "w12-spirometry-patterns", "w12-dead-space", "w12-lab-spirometry", "w12-partial-pressures", "w12-gas-diffusion", "w12-va-q-matching", "w12-oxygen-transport", "w12-hb-curve-shifts", "w12-co2-transport", "w12-bohr-haldane", "w12-oxygen-content", "w12-respiratory-centers", "w12-chemoreceptors", "w12-ventilation-adaptation", "w12-lab-ventilation-response", "w13-buffer-systems", "w13-respiratory-ph-control"] },
 
   { wk:14, module:3, opens:'2026-12-07', closes:'2026-12-13',
-    title:"The kidney, and body fluid balance",
+    title:"The kidney and body fluid balance",
     competencies:["w9-calcium-homeostasis", "w13-kidney-functions", "w13-nephron-function", "w13-renal-processes", "w13-filtration-membrane", "w13-gfr-forces", "w13-gfr-regulation", "w13-renal-clearance", "w13-clearance-inference", "w13-proximal-reabsorption", "w13-renal-threshold", "w13-tubular-secretion", "w13-countercurrent", "w13-adh-water-balance", "w13-raas", "w13-natriuretic-peptides", "w13-potassium-handling", "w13-micturition", "w13-lab-urinalysis", "w13-lab-renal-calculation", "w13-volume-osmolarity"] },
 
   { wk:15, module:3, opens:'2026-12-14', closes:'2026-12-16', short:true,
-    title:"The slow lever on pH, and putting it all together",
+    title:"The slow pH lever, and putting it all together",
     note:"Three days only, Dec 14 to 16. Case conference and the final patient file are due Wed Dec 16.",
     extras:["Case conference recording", "Final patient file"],
     competencies:["w13-renal-ph-control", "w13-acid-base-disorders", "w13-acid-base-compensation", "w13-lab-abg-interpretation", "w15-integration-case", "w15-exercise-integration", "w15-drawing-synthesis"] }
