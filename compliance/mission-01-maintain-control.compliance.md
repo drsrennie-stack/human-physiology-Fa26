@@ -125,8 +125,9 @@ A first build of this deck had 30 slides over ceiling and a mean of 81.6. Nothin
 
 | Point | Status |
 |---|---|
-| Contrast | Every control in the panel reaches AAA. Two pairs initially passed AA and missed AAA, the toolbar labels at 6.03:1 and the minimize button at 6.72:1. Both were darkened and re-measured. The deck plus canvas together now sweep 26 pairs with zero AA and zero AAA failures. |
+| Contrast | Every control in the panel reaches AAA. Two pairs initially passed AA and missed AAA, the toolbar labels at 6.03:1 and the minimize button at 6.72:1. Both were darkened and re-measured. The deck plus canvas together sweep 26 pairs with zero AA and zero AAA failures, lowest 7.78:1. |
 | Keyboard | Every tool, color, size and action is a real `button`, reachable by Tab and operable by Enter or Space. Shortcuts are D to open or minimize, V P L R B C X for the tools, Delete to remove the selected mark, Escape to minimize. |
+| Reset control | The dock carries a Reset cards button that closes every opened reveal card across the deck and clears the seen state, so nothing reads OPENED on camera. Tested: 6 opened cards, all cleared, `aria-expanded` returned to false on all 90, and the drawing in storage was untouched. |
 | Shortcut safety | The engine already uses T, A, Space, Enter, Escape and the arrow keys. The canvas uses D and the tool letters, which were free. All canvas shortcuts are suppressed while focus is in a text field, so typing a label never moves the slide. |
 | Names and roles | No icon-only control lacks an `aria-label`. Tool buttons carry `aria-pressed`. The mark count is an `aria-live="polite"` region. The canvas element itself is `role="img"` with a label stating it is a teaching aid rather than course content. |
 | Target size | Tool buttons are 34 px, color swatches 26 px, footer buttons 30 px, the slide marker 26 px. All above the 24 px AA minimum. |

@@ -144,12 +144,14 @@
       'border:1px solid #8B1D1D;border-radius:5px;background:#fff;cursor:pointer;vertical-align:middle}',
       '.tp-chip svg{width:14px;height:14px;stroke:#8B1D1D;fill:none;stroke-width:2;stroke-linecap:round}',
       '.tp-chip:hover{background:#F6EDED}',
-      '.tp-open{position:fixed;right:14px;bottom:14px;z-index:8999;border:1px solid #C9CFD8;background:#fff;',
+      '.tp-dock{position:fixed;right:14px;bottom:14px;z-index:8999;display:flex;gap:8px}',
+      '.tp-dock button{border:1px solid #C9CFD8;background:#fff;',
       'color:#08101F;border-radius:8px;height:34px;padding:0 12px;font:600 12px system-ui,sans-serif;cursor:pointer;',
       'box-shadow:0 3px 10px rgba(8,16,31,.16)}',
-      '.tp-open[hidden]{display:none!important}',
+      '.tp-dock button:hover{background:#EDF1F3}',
+      '.tp-dock button[hidden]{display:none!important}',
       '.tp-panel :focus-visible,.tp-chip:focus-visible,.tp-open:focus-visible{outline:3px solid #B8862B;outline-offset:2px}',
-      '@media print{.tp-panel,.tp-open,.tp-chip{display:none!important}}',
+      '@media print{.tp-panel,.tp-dock,.tp-chip{display:none!important}}',
       '@media (prefers-reduced-motion: reduce){.tp-panel{transition:none}}'
     ].join("");
     var s = document.createElement("style");
@@ -421,6 +423,30 @@
     slides().forEach(function (s, i) { refreshChip(i); });
   }
 
+  /* ---------- reset the reveal cards ---------- */
+
+  /* Clears every opened and seen reveal card across the whole deck, so nothing
+     reads OPENED on camera. Drawings are untouched. */
+  function resetReveals() {
+    try { if (window.__zoomOpen && window.__zoomOpen()) window.__zoomClose(true); } catch (e) {}
+    var n = 0;
+    [].forEach.call(document.querySelectorAll(".rv"), function (el) {
+      if (el.classList.contains("seen") || el.classList.contains("open")) n++;
+      el.classList.remove("seen", "open");
+      el.setAttribute("aria-expanded", "false");
+    });
+    [].forEach.call(document.querySelectorAll(".slide"), function (s) {
+      s.classList.remove("has-open");
+    });
+    var btn = document.querySelector(".tp-reset");
+    if (btn) {
+      btn.textContent = n ? "Reset, " + n + " closed" : "All closed";
+      setTimeout(function () { btn.textContent = "Reset cards"; }, 1800);
+    }
+    return n;
+  }
+  window.__bio005ResetReveals = resetReveals;
+
   /* ---------- panel ---------- */
 
   function loadSlide(idx) {
@@ -572,14 +598,28 @@
 
     document.body.appendChild(panel);
 
-    /* the launcher */
+    /* the dock: open the canvas, and reset the reveal cards before recording */
+    var dock = document.createElement("div");
+    dock.className = "tp-dock";
+
+    var reset = document.createElement("button");
+    reset.type = "button";
+    reset.className = "tp-reset";
+    reset.textContent = "Reset cards";
+    reset.setAttribute("aria-label", "Close every opened reveal card in this deck, so none read opened while you record");
+    reset.title = "Close every opened card in the deck. Drawings are not affected.";
+    reset.addEventListener("click", resetReveals);
+    dock.appendChild(reset);
+
     var open = document.createElement("button");
     open.type = "button";
     open.className = "tp-open";
     open.textContent = "Canvas (D)";
     open.setAttribute("aria-label", "Open the teaching canvas for this slide, shortcut D");
     open.addEventListener("click", function () { openPanel(); });
-    document.body.appendChild(open);
+    dock.appendChild(open);
+
+    document.body.appendChild(dock);
 
     ctx = canvas.getContext("2d");
 
