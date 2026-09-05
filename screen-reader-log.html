@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Screen reader test log &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="Instructor tool. Sixteen pages that cover all 99, the four checks to run on each, and a record of what was found.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<style>
+:root{--navy:#08101F;--maroon:#7A2A22;--maroon-dark:#5E201A;--gold:#B8924A;
+--ink:#1E3D4C;--page:#FAFAF9;--card:#FFFFFF;--rule:#E3E1DE;--muted:#505663;
+--ok:#1F5C3D;--issue:#8A3A12;--todo:#4F5663}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+font-family:'Plus Jakarta Sans','DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+a{color:var(--maroon)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:100}
+.skip:focus{left:8px;top:8px}
+
+.band{background:var(--maroon);color:#fff;padding:26px 22px}
+.band-in{max-width:1400px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.10em;text-transform:uppercase;font-weight:700;color:#EDDABF;margin:0 0 7px}
+.band h1{margin:0;font-size:clamp(23px,3vw,31px);font-weight:800;color:#fff}
+.band p{margin:10px 0 0;max-width:78ch;color:#F7EFE6;font-size:16px}
+
+.session{background:#fff;border-bottom:1px solid var(--rule);padding:16px 22px}
+.session-in{max-width:1400px;margin:0 auto;display:grid;gap:14px;
+grid-template-columns:repeat(auto-fit,minmax(190px,1fr));align-items:end}
+.f label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.04em;
+text-transform:uppercase;color:var(--muted);margin:0 0 5px}
+.f input,.f select,.f textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);
+background:#fff;border:1px solid var(--rule);border-radius:8px;padding:9px 11px}
+.f .hint{font-size:13px;color:var(--muted);margin:5px 0 0}
+
+.wrap{max-width:1400px;margin:0 auto;padding:20px 22px 70px;
+display:grid;gap:22px;grid-template-columns:335px minmax(0,1fr);align-items:start}
+@media (max-width:940px){.wrap{grid-template-columns:1fr}}
+
+.side{position:sticky;top:16px}
+@media (max-width:940px){.side{position:static}}
+.side h2{font-size:15px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+margin:0 0 10px;font-weight:800}
+.prog{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:13px 15px;margin:0 0 14px;
+box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.prog b{font-size:22px;font-weight:800;color:var(--maroon-dark);display:block;line-height:1.2}
+.prog span{font-size:13.5px;color:var(--muted)}
+.bar{height:8px;background:#EDEBE8;border-radius:5px;margin:9px 0 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);width:0}
+
+.grp{font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;
+color:var(--maroon-dark);margin:16px 0 7px}
+.grp:first-of-type{margin-top:0}
+ul.pages{list-style:none;margin:0;padding:0}
+ul.pages li{margin:0 0 7px}
+ul.pages button{width:100%;text-align:left;font:inherit;cursor:pointer;background:#fff;
+border:1px solid var(--rule);border-radius:9px;padding:11px 13px;color:var(--navy);
+box-shadow:0 1px 3px rgba(0,0,0,.08);transition:transform 160ms ease,box-shadow 160ms ease}
+ul.pages button:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.10)}
+ul.pages button[aria-current="true"]{border-color:var(--maroon);box-shadow:0 0 0 2px rgba(122,42,34,.16),0 1px 3px rgba(0,0,0,.08)}
+.pn{display:block;font-weight:700;font-size:15px}
+.pc{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;
+background:var(--todo);vertical-align:middle}
+.dot.pass{background:var(--ok)}
+.dot.issue{background:var(--issue)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.panel{background:var(--card);border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.panel h2{margin:0 0 4px;font-size:22px;font-weight:800;color:var(--maroon-dark)}
+.panel .covers{margin:0 0 16px;color:var(--muted);font-size:15px}
+.openrow{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:15px;font-weight:700;
+cursor:pointer;text-decoration:none;border-radius:9px;padding:11px 16px;border:1px solid var(--rule);
+background:#fff;color:var(--maroon);box-shadow:0 1px 3px rgba(0,0,0,.08);
+transition:transform 160ms ease,box-shadow 160ms ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.10)}
+.btn.primary{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.btn.primary:hover{background:var(--maroon-dark)}
+
+.check{border-top:1px solid var(--rule);padding:17px 0 3px}
+.check h3{margin:0 0 3px;font-size:17px;font-weight:700;color:var(--navy)}
+.check .how{margin:0 0 11px;color:var(--muted);font-size:14.5px;max-width:78ch}
+.check .how kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;
+background:#F1EFEC;border:1px solid var(--rule);border-radius:5px;padding:1px 6px}
+.radios{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.radios label{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:600;
+border:1px solid var(--rule);border-radius:8px;padding:8px 13px;cursor:pointer;background:#fff}
+.radios input{margin:0}
+.radios label:has(input:checked){border-color:var(--maroon);box-shadow:0 0 0 2px rgba(122,42,34,.15)}
+textarea{min-height:70px;resize:vertical}
+
+.foot{border-top:1px solid var(--rule);margin-top:22px;padding-top:18px;
+display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.saved{font-size:14px;color:var(--muted);margin-left:auto}
+.note{background:var(--page);border:1px solid var(--rule);border-radius:10px;padding:15px 17px;margin:20px 0 0}
+.note h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
+.note p{margin:0;font-size:14.5px;color:var(--muted);max-width:80ch}
+
+#summary{margin-top:22px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+caption{text-align:left;font-weight:800;color:var(--maroon-dark);font-size:18px;padding:0 0 10px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)}
+th{color:var(--navy);font-weight:700;white-space:nowrap}
+td.st-pass{color:var(--ok);font-weight:700}
+td.st-issue{color:var(--issue);font-weight:700}
+td.st-todo{color:var(--todo)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}
+ul.pages button:hover,.btn:hover{transform:none}}
+@media print{.side,.openrow,.foot,.skip,.note{display:none!important}
+body{background:#fff}.wrap{display:block;padding:0}.panel{box-shadow:none;padding:0}
+.band{background:#fff;color:#000;padding:0 0 10px}.band h1,.band p,.eyebrow{color:#000}
+.session{border:0;padding:0 0 10px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the test log</a>
+
+<div class="band">
+  <div class="band-in">
+    <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Instructor tool</p>
+    <h1>Screen reader test log</h1>
+    <p>Sixteen pages cover all ninety-nine, because most of the site is one template built many
+       times. Pick a page on the left, open it in a new tab, run the four checks with VoiceOver on,
+       and record what happened here. Nothing you type leaves this browser.</p>
+  </div>
+</div>
+
+<div class="session">
+  <div class="session-in">
+    <div class="f"><label for="tester">Tested by</label>
+      <input id="tester" type="text" autocomplete="name" placeholder="Dr. Sharilyn Rennie"></div>
+    <div class="f"><label for="reader">Screen reader and version</label>
+      <input id="reader" type="text" placeholder="VoiceOver, macOS 26.1"></div>
+    <div class="f"><label for="browser">Browser and version</label>
+      <input id="browser" type="text" placeholder="Safari 26.1"></div>
+    <div class="f"><label for="started">Session date and time</label>
+      <input id="started" type="text" placeholder="Click stamp"></div>
+    <div class="f"><button class="btn" type="button" id="stampSession">Stamp date and time</button></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <nav class="side" aria-label="Pages to test">
+    <h2 id="pglist">Pages to test</h2>
+    <div class="prog">
+      <b id="progNum">0 of 16</b>
+      <span>pages recorded</span>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+    <div id="sideList" aria-labelledby="pglist"></div>
+  </nav>
+
+  <main id="main">
+    <div class="panel">
+      <h2 id="pgName">Pick a page on the left</h2>
+      <p class="covers" id="pgCovers">Start with a template, since one test covers every page built
+         from it. Leave the labs and the Mastery OS until last, because they take the longest and
+         they are where problems usually are.</p>
+
+      <div class="openrow" id="openRow" hidden>
+        <a class="btn primary" id="openBtn" href="#" target="_blank" rel="noopener">Open this page in a new tab</a>
+        <button class="btn" type="button" id="stampPage">Stamp date and time</button>
+      </div>
+
+      <div id="checks" hidden>
+
+        <div class="check">
+          <h3>1. Do the headings read as an outline?</h3>
+          <p class="how">Press <kbd>VO</kbd> + <kbd>U</kbd> to open the rotor, arrow across to
+             Headings. One first level heading that says what the page is, then the sections under
+             it, no levels skipped. This one check catches most structural problems.</p>
+          <div class="radios" role="radiogroup" aria-label="Headings result">
+            <label><input type="radio" name="c1" value="pass"> Fine</label>
+            <label><input type="radio" name="c1" value="issue"> Problem</label>
+            <label><input type="radio" name="c1" value="na"> Not applicable</label>
+          </div>
+          <label class="vh" for="n1">Notes on headings</label>
+          <textarea id="n1" placeholder="What you heard, if anything was wrong"></textarea>
+        </div>
+
+        <div class="check">
+          <h3>2. Are the landmarks there?</h3>
+          <p class="how">Rotor again, arrow to Landmarks. You should hear banner, navigation, main
+             and content information. That is what lets someone skip your navigation instead of
+             hearing it on every page.</p>
+          <div class="radios" role="radiogroup" aria-label="Landmarks result">
+            <label><input type="radio" name="c2" value="pass"> Fine</label>
+            <label><input type="radio" name="c2" value="issue"> Problem</label>
+            <label><input type="radio" name="c2" value="na"> Not applicable</label>
+          </div>
+          <label class="vh" for="n2">Notes on landmarks</label>
+          <textarea id="n2" placeholder="What you heard, if anything was wrong"></textarea>
+        </div>
+
+        <div class="check">
+          <h3>3. Do the link names make sense on their own?</h3>
+          <p class="how">Rotor, arrow to Links. They are heard with no surrounding sentence, so
+             every name has to stand alone. Five links all called "read more" is a problem.
+             "Back to Week 1" is not.</p>
+          <div class="radios" role="radiogroup" aria-label="Link names result">
+            <label><input type="radio" name="c3" value="pass"> Fine</label>
+            <label><input type="radio" name="c3" value="issue"> Problem</label>
+            <label><input type="radio" name="c3" value="na"> Not applicable</label>
+          </div>
+          <label class="vh" for="n3">Notes on link names</label>
+          <textarea id="n3" placeholder="Any link name that did not stand on its own"></textarea>
+        </div>
+
+        <div class="check">
+          <h3>4. Can you tab all the way through without getting stuck?</h3>
+          <p class="how">Close the rotor with <kbd>Esc</kbd>, then <kbd>Tab</kbd> from the top with
+             no mouse. Every stop should say what it is, what it does, and what state it is in, and
+             you should always be able to get back out of anything you go into.</p>
+          <div class="radios" role="radiogroup" aria-label="Keyboard result">
+            <label><input type="radio" name="c4" value="pass"> Fine</label>
+            <label><input type="radio" name="c4" value="issue"> Problem</label>
+            <label><input type="radio" name="c4" value="na"> Not applicable</label>
+          </div>
+          <label class="vh" for="n4">Notes on tabbing through</label>
+          <textarea id="n4" placeholder="Where you got stuck, or anything that announced badly"></textarea>
+        </div>
+
+        <div class="check" id="c5wrap">
+          <h3>5. Does it say something when a value changes?</h3>
+          <p class="how">Only for the pages with a simulator, a tab set or a drawing canvas. Change
+             something and listen. If the number on screen moves and nothing is announced, a blind
+             student has no idea it happened.</p>
+          <div class="radios" role="radiogroup" aria-label="Live region result">
+            <label><input type="radio" name="c5" value="pass"> Fine</label>
+            <label><input type="radio" name="c5" value="issue"> Problem</label>
+            <label><input type="radio" name="c5" value="na"> Not applicable</label>
+          </div>
+          <label class="vh" for="n5">Notes on announcements</label>
+          <textarea id="n5" placeholder="What changed and whether you heard it"></textarea>
+        </div>
+
+        <div class="check">
+          <h3>The screen off run</h3>
+          <p class="how">Turn the brightness all the way down and do it once more. This is the real
+             test. It is the one that tells you whether the page works or whether you were reading
+             along with your eyes without noticing.</p>
+          <div class="radios" role="radiogroup" aria-label="Screen off result">
+            <label><input type="radio" name="c6" value="pass"> Did it, worked</label>
+            <label><input type="radio" name="c6" value="issue"> Did it, found something</label>
+            <label><input type="radio" name="c6" value="na"> Not yet</label>
+          </div>
+          <label class="vh" for="n6">Notes on the screen off run</label>
+          <textarea id="n6" placeholder="Anything the screen was hiding from you"></textarea>
+        </div>
+
+        <div class="check">
+          <h3>Overall, and what you did about it</h3>
+          <div class="radios" role="radiogroup" aria-label="Overall result">
+            <label><input type="radio" name="overall" value="pass"> Passed</label>
+            <label><input type="radio" name="overall" value="issue"> Issues found</label>
+            <label><input type="radio" name="overall" value="todo"> Not tested yet</label>
+          </div>
+          <label class="vh" for="fixed">What was fixed or is still open</label>
+          <textarea id="fixed" placeholder="What you fixed, or what is still open and when you will get to it"></textarea>
+          <p class="how" id="stampLine">Not yet stamped.</p>
+        </div>
+
+        <div class="foot">
+          <button class="btn primary" type="button" id="saveBtn">Save this page's result</button>
+          <button class="btn" type="button" id="clearPage">Clear this page</button>
+          <span class="saved" id="savedMsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div class="note">
+        <h3>Where this record lives</h3>
+        <p>In this browser on this computer, and nowhere else. It survives closing the tab, but it
+           will not follow you to another machine and it is not backed up. When you finish a session,
+           use Copy the whole log or Print, and put the result in the compliance notes. A screenshot
+           of the summary below works too.</p>
+      </div>
+    </div>
+
+    <div class="panel" id="summary">
+      <table>
+        <caption>The log so far</caption>
+        <thead>
+          <tr><th scope="col">Page</th><th scope="col">Covers</th><th scope="col">Result</th>
+              <th scope="col">When</th><th scope="col">Notes and fixes</th></tr>
+        </thead>
+        <tbody id="sumBody"></tbody>
+      </table>
+      <div class="foot">
+        <button class="btn primary" type="button" id="copyBtn">Copy the whole log</button>
+        <button class="btn" type="button" id="printBtn">Print or save as PDF</button>
+        <button class="btn" type="button" id="resetBtn">Clear everything</button>
+        <span class="saved" id="copyMsg" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var BASE = 'https://drsrennie-stack.github.io/human-physiology-Fa26/';
+
+  /* Sixteen pages. Between them they cover all 99, because most of this site is
+     one template built many times. The "covers" line is what makes that
+     defensible to a reviewer, so it is recorded, not just implied. */
+  var PAGES = [
+    { g:'Templates, one test covers many', f:'slides-P-homeostasis.html',
+      n:'A Week 1 concept deck', c:'Covers all 20 Week 1 concept decks', live:true },
+    { g:'Templates, one test covers many', f:'slides-p-membrane-transport.html',
+      n:'A topic slide deck', c:'Covers the 7 topic decks', live:true },
+    { g:'Templates, one test covers many', f:'week-05.html',
+      n:'A week page, still locked', c:'Covers the 14 gated week pages' },
+    { g:'Templates, one test covers many', f:'unit-01.html',
+      n:'A unit page', c:'Covers the 6 unit pages' },
+    { g:'Templates, one test covers many', f:'assignment-notesheet.html',
+      n:'An assignment page', c:'Covers the 4 assignment pages' },
+    { g:'Templates, one test covers many', f:'workbook_week01_fluid-homeostasis.html',
+      n:'A workbook', c:'Covers the 3 workbooks' },
+
+    { g:'One of a kind, and the most interactive', f:'welcome.html',
+      n:'Course home', c:'The front door, and the page with the most on it', live:true },
+    { g:'One of a kind, and the most interactive', f:'os/mastery-physio-os.html',
+      n:'Mastery OS', c:'The biggest tool in the course, ten views', live:true },
+    { g:'One of a kind, and the most interactive', f:'pulmonary-function-lab.html',
+      n:'Pulmonary function lab', c:'Tab panels, live values, tabbable diagram brackets', live:true },
+    { g:'One of a kind, and the most interactive', f:'osmosis-iv-fluids-lab.html',
+      n:'Osmosis and IV fluids lab', c:'Canvas, tab panels, a form and live values', live:true },
+    { g:'One of a kind, and the most interactive', f:'cbc-pcr-lab.html',
+      n:'CBC and PCR lab', c:'Canvas, tab panels, a form and live values', live:true },
+    { g:'One of a kind, and the most interactive', f:'mastery-canvas.html',
+      n:'Drawing canvas', c:'A drawing tool, so the hardest thing here to make announce well', live:true },
+
+    { g:'Documents a reviewer will open', f:'syllabus-fall2026.html',
+      n:'Syllabus', c:'A long document page with tables' },
+    { g:'Documents a reviewer will open', f:'course-schedule.html',
+      n:'Course schedule', c:'A table built from data' },
+    { g:'Documents a reviewer will open', f:'accessibility.html',
+      n:'Accessibility statement', c:'The page that makes the claims, so it had better hold up' },
+    { g:'Documents a reviewer will open', f:'sitemap.html',
+      n:'All course pages', c:'The link index, and the fallback if Canvas goes down' }
+  ];
+
+  var KEY = 'bio005-sr-log-v1';
+  var FIELDS = ['c1','c2','c3','c4','c5','c6','overall'];
+  var NOTES  = ['n1','n2','n3','n4','n5','n6','fixed'];
+  var state = { session:{}, pages:{} };
+  var current = null;
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) state = JSON.parse(raw);
+    } catch (e) { /* private window, or storage blocked. The tool still works, it just forgets. */ }
+    if (!state.session) state.session = {};
+    if (!state.pages) state.pages = {};
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (e) { return false; }
+  }
+  function stamp() {
+    var d = new Date();
+    var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var mons=['January','February','March','April','May','June','July','August',
+              'September','October','November','December'];
+    var h=d.getHours(), ap=h<12?'am':'pm', hh=h%12||12, mi=d.getMinutes();
+    return days[d.getDay()]+' '+mons[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()
+         + ' at '+hh+':'+(mi<10?'0'+mi:mi)+' '+ap;
+  }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  /* ---------- sidebar ---------- */
+  function drawSide() {
+    var host = document.getElementById('sideList');
+    var html = '', lastG = null;
+    PAGES.forEach(function (p, i) {
+      if (p.g !== lastG) {
+        if (lastG !== null) html += '</ul>';
+        html += '<h3 class="grp">' + esc(p.g) + '</h3><ul class="pages">';
+        lastG = p.g;
+      }
+      var rec = state.pages[p.f] || {};
+      var cls = rec.overall === 'pass' ? 'pass' : (rec.overall === 'issue' ? 'issue' : '');
+      var word = rec.overall === 'pass' ? 'passed'
+               : rec.overall === 'issue' ? 'issues found' : 'not tested yet';
+      html += '<li><button type="button" data-i="' + i + '"'
+            + (current === i ? ' aria-current="true"' : '') + '>'
+            + '<span class="pn"><span class="dot ' + cls + '"></span>' + esc(p.n)
+            + '<span class="vh">, ' + word + '</span></span>'
+            + '<span class="pc">' + esc(p.c) + '</span></button></li>';
+    });
+    html += '</ul>';
+    host.innerHTML = html;
+    [].forEach.call(host.querySelectorAll('button'), function (b) {
+      b.addEventListener('click', function () { pick(+b.getAttribute('data-i')); });
+    });
+    var done = PAGES.filter(function (p) {
+      var r = state.pages[p.f]; return r && (r.overall === 'pass' || r.overall === 'issue');
+    }).length;
+    document.getElementById('progNum').textContent = done + ' of ' + PAGES.length;
+    document.getElementById('progBar').style.width = (done / PAGES.length * 100) + '%';
+  }
+
+  /* ---------- the panel ---------- */
+  function pick(i) {
+    current = i;
+    var p = PAGES[i], rec = state.pages[p.f] || {};
+    document.getElementById('pgName').textContent = p.n;
+    document.getElementById('pgCovers').textContent = p.c + '. File: ' + p.f;
+    document.getElementById('openBtn').href = BASE + p.f;
+    document.getElementById('openRow').hidden = false;
+    document.getElementById('checks').hidden = false;
+    document.getElementById('c5wrap').style.display = p.live ? '' : 'none';
+    FIELDS.forEach(function (f) {
+      var v = rec[f] || '';
+      [].forEach.call(document.getElementsByName(f), function (r) { r.checked = (r.value === v); });
+    });
+    NOTES.forEach(function (n) { document.getElementById(n).value = rec[n] || ''; });
+    document.getElementById('stampLine').textContent = rec.when ? ('Recorded ' + rec.when) : 'Not yet stamped.';
+    document.getElementById('savedMsg').textContent = '';
+    drawSide();
+    document.getElementById('pgName').scrollIntoView({ block:'start', behavior:'smooth' });
+  }
+
+  function readPanel() {
+    var rec = {};
+    FIELDS.forEach(function (f) {
+      var sel = document.querySelector('input[name="' + f + '"]:checked');
+      rec[f] = sel ? sel.value : '';
+    });
+    NOTES.forEach(function (n) { rec[n] = document.getElementById(n).value.trim(); });
+    return rec;
+  }
+
+  function saveCurrent(auto) {
+    if (current === null) return;
+    var p = PAGES[current];
+    var rec = readPanel();
+    var old = state.pages[p.f] || {};
+    rec.when = old.when || '';
+    if (!rec.when && (rec.overall === 'pass' || rec.overall === 'issue')) rec.when = stamp();
+    state.pages[p.f] = rec;
+    var ok = save();
+    document.getElementById('stampLine').textContent = rec.when ? ('Recorded ' + rec.when) : 'Not yet stamped.';
+    document.getElementById('savedMsg').textContent = ok
+      ? (auto ? 'Saved automatically.' : 'Saved.')
+      : 'This browser is not letting the page save. Copy the log before you close the tab.';
+    drawSide(); drawSummary();
+  }
+
+  /* ---------- summary ---------- */
+  function drawSummary() {
+    var rows = '';
+    PAGES.forEach(function (p) {
+      var r = state.pages[p.f] || {};
+      var st = r.overall === 'pass' ? ['st-pass','Passed']
+             : r.overall === 'issue' ? ['st-issue','Issues found']
+             : ['st-todo','Not tested yet'];
+      var notes = [r.n1,r.n2,r.n3,r.n4,r.n5,r.n6,r.fixed].filter(Boolean).join(' ');
+      rows += '<tr><td>' + esc(p.n) + '</td><td>' + esc(p.c) + '</td>'
+            + '<td class="' + st[0] + '">' + st[1] + '</td>'
+            + '<td>' + esc(r.when || '') + '</td>'
+            + '<td>' + esc(notes.length > 220 ? notes.slice(0,220) + '...' : notes) + '</td></tr>';
+    });
+    document.getElementById('sumBody').innerHTML = rows;
+  }
+
+  function asMarkdown() {
+    var s = state.session || {};
+    var out = '# BIO 005 screen reader test log\n\n';
+    out += '- Tested by: ' + (s.tester || '') + '\n';
+    out += '- Screen reader: ' + (s.reader || '') + '\n';
+    out += '- Browser: ' + (s.browser || '') + '\n';
+    out += '- Session started: ' + (s.started || '') + '\n\n';
+    out += 'Sixteen pages tested, covering all 99 pages on the site. Most of the course is one\n';
+    out += 'template built many times, so a template tested once covers every page built from it.\n\n';
+    out += '| Page | Covers | Result | When |\n|---|---|---|---|\n';
+    PAGES.forEach(function (p) {
+      var r = state.pages[p.f] || {};
+      var st = r.overall === 'pass' ? 'Passed' : r.overall === 'issue' ? 'Issues found' : 'Not tested yet';
+      out += '| ' + p.n + ' | ' + p.c + ' | ' + st + ' | ' + (r.when || '') + ' |\n';
+    });
+    out += '\n## What was found\n\n';
+    var any = false;
+    PAGES.forEach(function (p) {
+      var r = state.pages[p.f] || {}; if (!r.overall) return;
+      var lines = [];
+      var L = [['Headings','c1','n1'],['Landmarks','c2','n2'],['Link names','c3','n3'],
+               ['Keyboard','c4','n4'],['Announcements','c5','n5'],['Screen off run','c6','n6']];
+      L.forEach(function (x) {
+        if (r[x[1]] === 'issue' || r[x[2]]) {
+          lines.push('- ' + x[0] + ': ' + (r[x[1]] || 'not recorded') + (r[x[2]] ? '. ' + r[x[2]] : ''));
+        }
+      });
+      if (r.fixed) lines.push('- Fixed or open: ' + r.fixed);
+      if (lines.length) { any = true; out += '### ' + p.n + ' (' + p.f + ')\n' + lines.join('\n') + '\n\n'; }
+    });
+    if (!any) out += 'Nothing recorded yet.\n';
+    return out;
+  }
+
+  /* ---------- wiring ---------- */
+  load();
+  ['tester','reader','browser','started'].forEach(function (id) {
+    var el = document.getElementById(id);
+    el.value = state.session[id] || '';
+    el.addEventListener('input', function () { state.session[id] = el.value; save(); });
+  });
+  document.getElementById('stampSession').addEventListener('click', function () {
+    var el = document.getElementById('started');
+    el.value = stamp(); state.session.started = el.value; save();
+  });
+  document.getElementById('stampPage').addEventListener('click', function () {
+    if (current === null) return;
+    var p = PAGES[current];
+    state.pages[p.f] = state.pages[p.f] || {};
+    state.pages[p.f].when = stamp();
+    save();
+    document.getElementById('stampLine').textContent = 'Recorded ' + state.pages[p.f].when;
+    drawSummary();
+  });
+  document.getElementById('saveBtn').addEventListener('click', function () { saveCurrent(false); });
+  document.getElementById('clearPage').addEventListener('click', function () {
+    if (current === null) return;
+    delete state.pages[PAGES[current].f];
+    save(); pick(current); drawSummary();
+    document.getElementById('savedMsg').textContent = 'Cleared.';
+  });
+  document.getElementById('checks').addEventListener('change', function () { saveCurrent(true); });
+
+  document.getElementById('copyBtn').addEventListener('click', function () {
+    var txt = asMarkdown(), msg = document.getElementById('copyMsg');
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position='fixed'; ta.style.left='-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); msg.textContent = 'Copied.'; }
+      catch (e) { msg.textContent = 'Could not copy. Use Print instead.'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function(){ msg.textContent='Copied as markdown.'; }, fallback);
+    } else fallback();
+  });
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+
+  var armed = false;
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    var b = document.getElementById('resetBtn'), msg = document.getElementById('copyMsg');
+    if (!armed) {
+      armed = true; b.textContent = 'Press again to clear everything';
+      msg.textContent = 'This wipes the whole log. Copy it first if you want to keep it.';
+      setTimeout(function(){ armed=false; b.textContent='Clear everything'; msg.textContent=''; }, 6000);
+      return;
+    }
+    state = { session:{}, pages:{} }; save();
+    ['tester','reader','browser','started'].forEach(function(id){ document.getElementById(id).value=''; });
+    current = null;
+    document.getElementById('openRow').hidden = true;
+    document.getElementById('checks').hidden = true;
+    document.getElementById('pgName').textContent = 'Pick a page on the left';
+    armed = false; b.textContent = 'Clear everything'; msg.textContent = 'Cleared.';
+    drawSide(); drawSummary();
+  });
+
+  drawSide(); drawSummary();
+})();
+</script>
+</body>
+</html>
