@@ -70,7 +70,12 @@ background:var(--todo);vertical-align:middle}
 .panel{background:var(--card);border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .panel h2{margin:0 0 4px;font-size:22px;font-weight:800;color:var(--maroon-dark)}
 .panel .covers{margin:0 0 16px;color:var(--muted);font-size:15px}
-.openrow{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}
+/* The hidden attribute loses to any class that sets display, which is how the
+   Open button ended up visible before a page had been picked, pointing at
+   nothing. This one line stops that happening anywhere on the page. */
+[hidden]{display:none!important}
+.openrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 20px}
+.url{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:var(--muted);word-break:break-all;max-width:46ch}
 .btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:15px;font-weight:700;
 cursor:pointer;text-decoration:none;border-radius:9px;padding:11px 16px;border:1px solid var(--rule);
 background:#fff;color:var(--maroon);box-shadow:0 1px 3px rgba(0,0,0,.08);
@@ -164,6 +169,7 @@ body{background:#fff}.wrap{display:block;padding:0}.panel{box-shadow:none;paddin
       <div class="openrow" id="openRow" hidden>
         <a class="btn primary" id="openBtn" href="#" target="_blank" rel="noopener">Open this page in a new tab</a>
         <button class="btn" type="button" id="stampPage">Stamp date and time</button>
+        <span class="url" id="openUrl"></span>
       </div>
 
       <div id="checks" hidden>
@@ -269,6 +275,14 @@ body{background:#fff}.wrap{display:block;padding:0}.panel{box-shadow:none;paddin
           <button class="btn" type="button" id="clearPage">Clear this page</button>
           <span class="saved" id="savedMsg" role="status" aria-live="polite"></span>
         </div>
+      </div>
+
+      <div class="note">
+        <h3>If a page does not open</h3>
+        <p>Pick a page in the left margin first. The Open button only knows where to go once you
+           have chosen one. If a tab opens showing a GitHub 404, that page is not on the live site
+           yet, so upload it and try again. The address the button will use is printed beside it,
+           so you can copy it if your browser blocks the new tab.</p>
       </div>
 
       <div class="note">
@@ -414,6 +428,7 @@ body{background:#fff}.wrap{display:block;padding:0}.panel{box-shadow:none;paddin
     document.getElementById('pgName').textContent = p.n;
     document.getElementById('pgCovers').textContent = p.c + '. File: ' + p.f;
     document.getElementById('openBtn').href = BASE + p.f;
+    document.getElementById('openUrl').textContent = BASE + p.f;
     document.getElementById('openRow').hidden = false;
     document.getElementById('checks').hidden = false;
     document.getElementById('c5wrap').style.display = p.live ? '' : 'none';
