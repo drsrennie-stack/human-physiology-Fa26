@@ -170,10 +170,45 @@ a.tile:hover{border-color:var(--maroon)}
   .pbox{padding:0 16px 16px}
 }
 
-.hold{margin-top:12px;border-left:3px solid var(--maroon);background:var(--maroon-wash);
-  padding:11px 15px;font-size:14px;color:var(--ink)}
-.hold strong{font-family:var(--display);font-weight:800}
-.hold.ok{border-left-color:var(--ink);background:#EDF0F4}
+/* White card, lifted by shadow only. No accent bar, no tinted fill. */
+.hold{margin-top:14px;background:var(--card);border-radius:var(--r-card);
+  padding:15px 18px;font-size:14px;color:var(--ink);
+  box-shadow:0 1px 3px rgba(11,21,48,.09), 0 6px 16px rgba(11,21,48,.08)}
+.hold strong{font-family:var(--display);font-weight:800;color:var(--maroon-dk)}
+.hold.ok strong{color:var(--ink)}
+
+
+/* ---------- study tools, dark cards with a QR ---------- */
+.stools{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:14px}
+.stool{background:#101B33;border-radius:16px;padding:22px 20px 20px;text-align:center;
+  text-decoration:none;color:#fff;display:flex;flex-direction:column;align-items:center;
+  transition:transform 200ms ease}
+a.stool:hover{transform:translateY(-2px)}
+.stile{width:56px;height:56px;border-radius:15px;margin-bottom:13px;
+  display:flex;align-items:center;justify-content:center;color:#fff}
+.g-gold{background:linear-gradient(150deg,#E3BE6C,#B08A33)}
+.g-terra{background:linear-gradient(150deg,#A8543C,#7E3226)}
+.g-navy{background:linear-gradient(150deg,#33456B,#1B2542)}
+.g-rust{background:linear-gradient(150deg,#B8654A,#8B3A2E)}
+.stool h3{font-family:var(--display);font-size:18px;font-weight:800;color:#fff;margin-bottom:7px}
+.stool p{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.45;margin:0 0 15px}
+.qr{display:block;width:104px;height:104px;background:#fff;border-radius:8px;padding:7px;margin-bottom:13px}
+.sgo{font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);margin-top:auto}
+.stool.soon{background:#F5F4F2;border:1px dashed var(--hair);color:var(--faint);cursor:default}
+.stool.soon h3{color:var(--faint)}
+.stool.soon p{color:var(--muted)}
+.qrnote{font-size:13px;color:var(--muted);margin-top:14px;max-width:70ch}
+@media (prefers-reduced-motion:reduce){a.stool:hover{transform:none}}
+
+.stools.two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:660px}
+.qr.soon{display:flex;align-items:center;justify-content:center;background:transparent;
+  border:1.5px dashed rgba(255,255,255,.35);color:rgba(255,255,255,.65);
+  font-size:11.5px;font-weight:700;line-height:1.45;text-align:center}
+.sgo.dim{color:rgba(255,255,255,.55)}
+.alsorow{margin-top:30px;border-top:.5px solid var(--hair);padding-top:20px}
+.alsolab{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:13px}
 
 /* ---------- admin ---------- */
 .admin{margin-top:44px;border-top:1px solid var(--hair);padding-top:24px}
@@ -353,56 +388,52 @@ footer{background:var(--card);border-top:1px solid var(--hair);padding:26px 0 30
 
   </div>
 
-  <!-- ---------- REFERENCE ---------- -->
+  <!-- ---------- STUDY TOOLS ---------- -->
   <section class="group">
-    <div class="g-head"><h2>Reference</h2><span class="sub">Open these whenever you need them</span></div>
-    <div class="tiles">
+    <div class="g-head"><h2>Study tools</h2><span class="sub">Open these whenever you need them</span></div>
+    <div class="stools two">
 
-      <a class="tile" href="clinical-physiology-lab-manual.html" target="_top">
-        <span class="thead">
-          <span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/><path d="M9 7h7M9 11h7"/></svg></span>
-        </span>
-        <h3>Lab manual</h3>
-        <p>Every lab you run this term in one document, with the background and the procedure for each.</p>
-        <span class="go">Open the manual &rarr;</span>
+      <a class="stool" href="os/mastery-physio-os.html" target="_top">
+        <span class="stile g-gold" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.4-1.2 4.2-2.6 5.6-.8.8-1.4 1.9-1.4 3v.4H9v-.4c0-1.1-.6-2.2-1.4-3C6.2 13.2 5 11.4 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg></span>
+        <h3>Mastery OS</h3>
+        <p>Spaced recall built from the same competency list as everything else. Your weak spots, and today&rsquo;s plan.</p>
+        <span class="qr"><svg width="100%" height="100%" shape-rendering="crispEdges" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41"><path stroke="#0b1530" d="M2 2.5h7m4 0h1m6 0h1m1 0h2m4 0h1m1 0h1m1 0h7m-37 1h1m5 0h1m1 0h1m1 0h2m1 0h1m2 0h2m2 0h3m5 0h1m1 0h1m5 0h1m-37 1h1m1 0h3m1 0h1m1 0h2m2 0h1m3 0h1m2 0h1m1 0h2m3 0h1m3 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h2m2 0h2m1 0h3m2 0h1m1 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m2 0h1m3 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-37 1h1m5 0h1m2 0h3m2 0h1m1 0h2m2 0h1m3 0h3m3 0h1m5 0h1m-37 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-29 1h2m1 0h1m1 0h1m2 0h1m1 0h3m2 0h1m2 0h3m-29 1h1m5 0h1m1 0h2m1 0h3m1 0h3m1 0h2m1 0h5m1 0h3m2 0h3m-36 1h1m1 0h2m1 0h1m2 0h1m2 0h1m4 0h4m1 0h4m1 0h2m2 0h3m2 0h1m-34 1h3m1 0h3m2 0h2m2 0h2m1 0h1m1 0h2m4 0h6m3 0h2m-36 1h1m1 0h1m3 0h1m5 0h1m4 0h3m1 0h1m1 0h1m1 0h3m1 0h4m2 0h1m-35 1h1m2 0h3m1 0h1m3 0h4m3 0h1m3 0h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m-37 1h1m1 0h1m2 0h1m2 0h2m1 0h2m1 0h4m1 0h7m1 0h3m1 0h1m1 0h1m-28 1h3m2 0h3m1 0h1m2 0h1m1 0h2m4 0h2m1 0h5m1 0h2m-34 1h1m4 0h1m2 0h1m4 0h1m1 0h1m1 0h1m1 0h3m2 0h1m3 0h1m1 0h3m-36 1h2m1 0h5m4 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h2m2 0h2m1 0h1m1 0h1m1 0h1m-36 1h5m2 0h1m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m1 0h2m4 0h3m-35 1h1m2 0h7m1 0h3m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m3 0h1m-37 1h1m1 0h3m4 0h1m1 0h2m2 0h2m3 0h1m2 0h2m1 0h3m3 0h2m2 0h1m-37 1h1m1 0h1m1 0h5m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h3m2 0h2m1 0h3m-34 1h2m1 0h1m4 0h2m1 0h4m2 0h2m1 0h3m3 0h1m1 0h1m2 0h1m1 0h2m-35 1h2m3 0h2m7 0h2m4 0h1m5 0h2m1 0h4m1 0h2m-34 1h1m1 0h1m1 0h2m3 0h1m3 0h1m1 0h3m1 0h3m1 0h1m1 0h6m1 0h2m-35 1h2m1 0h2m4 0h3m2 0h1m3 0h1m2 0h1m3 0h4m4 0h1m-36 1h1m1 0h1m1 0h1m2 0h2m1 0h4m3 0h3m1 0h3m2 0h2m1 0h1m1 0h1m1 0h2m-35 1h1m2 0h1m2 0h1m2 0h1m1 0h2m1 0h2m4 0h2m3 0h1m1 0h1m2 0h4m1 0h2m-37 1h1m3 0h1m5 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m4 0h1m1 0h1m1 0h6m-37 1h1m3 0h1m1 0h6m1 0h3m1 0h1m1 0h1m2 0h1m1 0h11m1 0h1m-29 1h2m2 0h1m2 0h1m1 0h3m2 0h2m2 0h1m1 0h1m3 0h1m2 0h1m-36 1h7m2 0h1m2 0h1m2 0h3m1 0h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m-37 1h1m5 0h1m2 0h8m2 0h1m2 0h1m1 0h1m1 0h3m3 0h1m3 0h1m-37 1h1m1 0h3m1 0h1m3 0h4m3 0h1m4 0h1m1 0h9m1 0h1m-35 1h1m1 0h3m1 0h1m2 0h3m1 0h1m2 0h1m1 0h2m2 0h2m5 0h2m2 0h1m1 0h2m-37 1h1m1 0h3m1 0h1m4 0h1m2 0h2m2 0h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h3m-37 1h1m5 0h1m2 0h1m1 0h3m2 0h1m5 0h1m4 0h2m1 0h1m1 0h2m2 0h1m-37 1h7m1 0h1m1 0h2m2 0h1m1 0h1m3 0h1m2 0h2m2 0h3m1 0h1m1 0h1m2 0h1"/></svg></span>
+        <span class="sgo">Open <span aria-hidden="true">&rarr;</span></span>
       </a>
 
-      <a class="tile" href="lab-report-form.html" target="_top">
-        <span class="thead">
-          <span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6z"/><path d="M15 2v5h4M9 12h7M9 16h7"/></svg></span>
-        </span>
-        <h3>Lab report form</h3>
-        <p>The printable one page form for your weekly lab report, with all seven sections laid out. Print fifteen at the start of term and you are set for the whole course.</p>
-        <span class="go">Print the form &rarr;</span>
-      </a>
-
-      <a class="tile" href="mastery-canvas.html" target="_top">
-        <span class="thead">
-          <span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l3-1 12-12-2-2L4 18z"/><path d="M15 5l4 4"/></svg></span>
-        </span>
-        <h3>Drawing canvas</h3>
-        <p>Draw a pathway from memory and save it as a PDF stamped from this course. Use it to rehearse before a midterm, when you want to know whether you can produce it without looking.</p>
-        <span class="go">Draw from memory &rarr;</span>
-      </a>
-
-      <div class="tile soon">
-        <span class="thead">
-          <span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-        </span>
-        <h3>Written notes</h3>
-        <p>Longer written explanations for the chapters that need more than a video. I am writing these during the term, starting with the hardest ones.</p>
-        <span class="soon-tag">Coming during the term</span>
-      </div>
-
-      <div class="tile soon">
-        <span class="thead">
-          <span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 1 8 8"/><path d="M4 12H1M12 20v3"/><circle cx="12" cy="12" r="3"/></svg></span>
-        </span>
+      <div class="stool">
+        <span class="stile g-terra" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span>
         <h3>Physio Loops</h3>
-        <p>Build and test control loops piece by piece, then break one component and predict what happens downstream.</p>
-        <span class="soon-tag">Coming soon</span>
+        <p>Fast visual practice. Build a control loop piece by piece, then break one part and predict what happens downstream.</p>
+        <span class="qr soon"><span>Code goes live<br>when Loops opens</span></span>
+        <span class="sgo dim">Coming soon</span>
       </div>
 
+    </div>
+    <p class="qrnote">Scan a code with your phone camera to open that tool on your phone. No typing, and no app to install. The codes are drawn into the page itself, so they keep working if the wifi drops after the page has loaded.</p>
+
+    <div class="alsorow">
+      <p class="alsolab">Also here</p>
+      <div class="tiles">
+        <a class="tile" href="mastery-canvas.html" target="_top">
+          <span class="thead"><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l3-1 12-12-2-2L4 18z"/><path d="M15 5l4 4"/></svg></span></span>
+          <h3>Drawing canvas</h3>
+          <p>Draw a pathway from memory and save it as a PDF stamped from this course.</p>
+          <span class="go">Draw from memory &rarr;</span>
+        </a>
+        <a class="tile" href="lab-report-form.html" target="_top">
+          <span class="thead"><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6z"/><path d="M15 2v5h4M9 12h7M9 16h7"/></svg></span></span>
+          <h3>Lab report form</h3>
+          <p>The printable one page form with all seven sections laid out. Print fifteen.</p>
+          <span class="go">Print the form &rarr;</span>
+        </a>
+        <a class="tile" href="clinical-physiology-lab-manual.html" target="_top">
+          <span class="thead"><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/><path d="M9 7h7M9 11h7"/></svg></span></span>
+          <h3>Lab manual</h3>
+          <p>Every lab you run this term in one document, with the background for each.</p>
+          <span class="go">Open the manual &rarr;</span>
+        </a>
+      </div>
     </div>
   </section>
 
