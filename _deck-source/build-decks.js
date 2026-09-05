@@ -391,6 +391,7 @@ ${REF_JS.replace("var ID = 'slides-p-introduction-to-physiology';", "var ID = '"
 </script>
 
 <script src="bio005-dock.js"></script>
+<script src="bio005-teach-pen.js"></script>
 </body>
 </html>
 `;
