@@ -272,7 +272,7 @@
   function secL(ctx) {
     var l = L();
     return l && l.forSection ? l.forSection(ctx.section)
-                             : {syllabus:'fall-2026-syllabus.html', hub:'bio005-course-calendar.html'};
+                             : {syllabus:'syllabus-fall2026.html', hub:'course-schedule.html'};
   }
   function ilink(url, text) { return '<a href="' + url + '" target="_top">' + text + '</a>'; }
 

@@ -235,7 +235,7 @@
   var SEC_KEY = 'bio005-section';
 
   var SECTIONS = {
-    'net':    { label: 'Yuba College, fully online', syllabus: 'syllabus.html', hub: 'welcome.html' }
+    'net':    { label: 'Yuba College, fully online', syllabus: 'syllabus-fall2026.html', hub: 'welcome.html' }
   };
 
   function section() {
@@ -335,19 +335,19 @@
 
     /* ---------- LECTURE ---------- */
     t.push({ g: 'Lecture', name: 'Notes', sub: 'The written version of every topic, by module',
-             url: BASE + 'course-materials.html#notes', icon: 'doc', tone: 'navy', qr: 'materials', soon: true,
+             url: BASE + 'course-materials.html#notes', icon: 'doc', tone: 'navy', qr: 'materials',
              kw: 'notes reading written text module chapter topic' });
     t.push({ g: 'Lecture', name: 'Concept videos', sub: 'Watch the mechanism explained, then read the page',
-             url: BASE + 'course-materials.html#videos', icon: 'play', tone: 'terra', qr: 'materials', soon: true,
+             url: BASE + 'course-materials.html#videos', icon: 'play', tone: 'terra', qr: 'materials',
              kw: 'video videos concept watch lecture recording loom walkthrough captions' });
     t.push({ g: 'Lecture', name: 'Slide decks', sub: 'Step through a lecture one slide at a time, or print the set',
-             url: BASE + 'course-materials.html#slides', icon: 'doc', tone: 'navy', qr: 'materials', soon: true,
+             url: BASE + 'course-materials.html#slides', icon: 'doc', tone: 'navy', qr: 'materials',
              kw: 'slides deck powerpoint print packet lecture step' });
     t.push({ g: 'Lecture', name: 'Pre-work', sub: 'What to do before the week opens',
-             url: BASE + 'course-materials.html#prework', icon: 'pencil', tone: 'gold', qr: 'materials', soon: true,
+             url: BASE + 'course-materials.html#prework', icon: 'pencil', tone: 'gold', qr: 'materials',
              kw: 'prework pre-work before homework guided sheet night before' });
     t.push({ g: 'Lecture', name: 'All course materials', sub: 'Everything above in one place, sorted by module',
-             url: BASE + 'course-materials.html', icon: 'doc', tone: 'navy', qr: 'materials', soon: true,
+             url: BASE + 'course-materials.html', icon: 'doc', tone: 'navy', qr: 'materials',
              kw: 'materials everything all index module' });
     t.push({ g: 'Lecture', name: 'OpenStax reference', sub: 'Free online text. Nothing to buy for this course',
              url: 'https://openstax.org/details/books/anatomy-and-physiology-2e', icon: 'globe', tone: 'gold',
@@ -357,7 +357,7 @@
        The four skills underneath every exercise are measuring,
        calculating, collecting data and interpreting data. ---------- */
     t.push({ g: 'Lab', name: 'Lab manual', sub: 'Every exercise for the term, in one place',
-             url: BASE + 'lab-manual.html', icon: 'flask', tone: 'terra', qr: 'labs', soon: true,
+             url: BASE + 'clinical-physiology-lab-manual.html', icon: 'flask', tone: 'terra', qr: 'labs',
              kw: 'lab manual exercises bench protocol procedure book' });
     t.push({ g: 'Lab', name: 'Lab sprints', sub: 'What you have to be able to do in lab, week by week',
              url: BASE + 'lab-sprints.html', icon: 'flask', tone: 'navy', qr: 'labs', soon: true,
@@ -380,7 +380,7 @@
              url: BASE + 'os/mastery-physio-os.html#s-recall', icon: 'cards', tone: 'navy', qr: 'recall',
              kw: 'cards recall flashcards spaced repetition quiz retrieval practice' });
     t.push({ g: 'Study', name: 'Draw it from memory', sub: 'Draw the mechanism first, then check it',
-             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra', qr: 'canvas', soon: true,
+             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra', qr: 'canvas',
              kw: 'draw drawing canvas memory loop mechanism sketch diagram' });
     t.push({ g: 'Study', name: 'Competency study guide', sub: 'Everything you are expected to be able to do, written as tasks',
              url: BASE + 'competency-study-guide.html' + q, icon: 'doc', tone: 'navy', qr: 'exams',
@@ -389,7 +389,7 @@
              url: BASE + 'practice-lecture-exam.html', icon: 'doc', tone: 'navy', qr: 'pexam', soon: true,
              kw: 'practice exam test mock paper score questions' });
     t.push({ g: 'Study', name: 'Brain dump practice', sub: 'Spin a prompt, set your clock, write it on paper, then check yourself',
-             url: BASE + 'brain-dump-practice.html', icon: 'pencil', tone: 'terra', qr: 'braindump', soon: true,
+             url: BASE + 'braindump-week01.html', icon: 'pencil', tone: 'terra', qr: 'braindump',
              kw: 'brain dump blurt write timer prompt blank paper' });
     t.push({ g: 'Study', name: 'What I got done today', sub: 'And what you meant to do and did not',
              url: BASE + 'bio005-day-review.html', icon: 'target', tone: 'navy', soon: true,
@@ -409,12 +409,12 @@
              url: BASE + 'review-math.html', icon: 'brain', tone: 'navy', soon: true,
              kw: 'math review calculation units conversion ratio percent log formula' });
     t.push({ g: 'Study', name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense',
-             url: BASE + 'review-anatomy.html', icon: 'globe', tone: 'gold', soon: true,
+             url: BASE + 'anatomy-review.html', icon: 'globe', tone: 'gold',
              kw: 'anatomy review structure nephron heart lung neuron muscle location' });
 
     /* ---------- ADMIN ---------- */
     t.push({ g: 'Admin', name: 'Syllabus', sub: 'How the course runs, in full',
-             url: BASE + (S ? S.syllabus : 'fall-2026-syllabus.html'), icon: 'doc', tone: 'navy', soon: true,
+             url: BASE + (S ? S.syllabus : 'syllabus-fall2026.html'), icon: 'doc', tone: 'navy',
              kw: 'syllabus policy rules grading late work ai policy contact' });
     t.push({ g: 'Admin', name: 'What you do and what it is worth', sub: 'Every graded thing, the points, and the AI policy',
              url: BASE + 'what-you-do.html' + q, icon: 'target', tone: 'gold',
@@ -426,7 +426,7 @@
              url: BASE + 'welcome.html' + q, icon: 'home', tone: 'navy', qr: 'home',
              kw: 'home hub front start main course' });
     t.push({ g: 'Admin', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
-             url: BASE + 'virtual-office.html' + q, icon: 'people', tone: 'terra', soon: true,
+             url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra',
              kw: 'office hours ask question help contact instructor forum' });
 
     return t;
