@@ -28,6 +28,16 @@ WEEKS = [
     (14, '2026-12-07', '2026-12-13', 'The kidney and body fluid balance', 3),
     (15, '2026-12-14', '2026-12-16', 'The slow pH lever, and putting it all together', 3),
 ]
+# Canvas turn-in links, per week. Add a week's links here when its Canvas items exist.
+CANVAS = {
+    1: {'lab': 'https://yccd.instructure.com/courses/42616/assignments/1240111',
+        'log': 'https://yccd.instructure.com/courses/42616/assignments/1240401',
+        'disc1a': 'https://yccd.instructure.com/courses/42616/discussion_topics/712733',
+        'disc1b': 'https://yccd.instructure.com/courses/42616/discussion_topics/713315'},
+}
+def ext(href, label):
+    return '<li><a href="%s" target="_blank" rel="noopener">%s<span class="vh"> (opens in a new tab)</span></a></li>' % (href, label)
+
 PART = {1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action'}
 D = json.load(open(os.path.join(os.path.dirname(__file__), 'week-data.json')))
 
@@ -192,12 +202,15 @@ def page(n, opens, closes, title, part):
         labtools += a(lab['sheet'][0], lab['sheet'][1].replace('Open the ', '').replace('Open your ', '').capitalize(), not labtools)
     if lab['kind'] == 'physioex':
         labtools += a('lab-report-form.html', 'Lab analysis sheet')   # the PhysioEx activity sheet, PhysioEx weeks only
+    cv = CANVAS.get(n, {})
+    if cv.get('lab'): labtools += ext(cv['lab'], 'Turn the lab in, Canvas')
 
     # discussion
     if n == 1:
         disc = (a('assignment-discussion-01-visionboard.html', 'Discussion 1A: Digital Vision Board', True)
-                + '<li><a href="https://yccd.instructure.com/courses/42616/discussion_topics/712733" target="_blank" rel="noopener">Post 1A in Canvas (new tab)</a></li>'
-                + a('assignment-discussion-01-metacognition.html', 'Discussion 1B: Week 1 Metacognitive Analysis', True))
+                + ext(CANVAS[1]['disc1a'], 'Post 1A in Canvas')
+                + a('assignment-discussion-01-metacognition.html', 'Discussion 1B: Week 1 Metacognitive Analysis', True)
+                + ext(CANVAS[1]['disc1b'], 'Post 1B in Canvas'))
         discq = 'Two this week. 1A is your digital vision board with a short video introduction. 1B is what the evidence told you about how you learned the Week 1 material.'
     else:
         disc = a('assignment-discussion.html?week=%d' % n, 'Discussion %d' % n, True)
@@ -281,7 +294,7 @@ def page(n, opens, closes, title, part):
       <li class="st free"><span class="n">03</span><h3>Practice</h3><span class="cat">No points</span><p class="q">Use it on problems you have not seen. Predict, commit, then check.</p>
         <ul class="tools" aria-label="Practice tools">{practice}</ul></li>
       <li class="st free"><span class="n">04</span><h3>Mastery Check</h3><span class="cat">No points</span><p class="q">Did the way you learned it work? Thirty questions, nothing open, you get a score.</p>
-        <ul class="tools" aria-label="Mastery Check tools">{a('practice-exam.html?week=%d' % n, 'Build your check', True)}{a('assignment-practice-log.html', 'Upload your report')}</ul>
+        <ul class="tools" aria-label="Mastery Check tools">{a('practice-exam.html?week=%d' % n, 'Build your check', True)}{a('assignment-practice-log.html', 'How to upload your report')}{ext(cv['log'], 'Upload it in Canvas') if cv.get('log') else ''}</ul>
         <p class="fine">Do one or ten. Upload the report so I can see how you are trending. The score is never graded.</p></li>
     </ol>
     <p class="branch"><b>The branch at 04.</b> <span><span class="arr">&rarr;</span> All solid? Go on to 05.</span> <span><span class="arr">&rarr;</span> Not yet? Back to 02 for that one competency, then check again.</span></p>
