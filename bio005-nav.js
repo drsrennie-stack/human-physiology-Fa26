@@ -508,7 +508,7 @@
   (function () {
     var now = new Date(), infos = [];
     for (var i = 0; i < WEEKS.length; i++) infos.push(weekInfo(i, now));
-    window.BIO005_SITE = { weeks: infos, current: infos[currentWeek(now)], parts: PARTS, fmtDate: fmtDate, fmtShort: fmtShort };
+    window.BIO005_SITE = { weeks: infos, current: infos[currentWeek(now)], parts: PARTS, fmtDate: fmtDate, fmtShort: fmtShort, held: {} };
   }());
 
   function base() {
@@ -584,12 +584,13 @@
         weeksHtml += '<h2>' + PARTS[w.part] + '</h2><ul class="b5-weeks">';
         lastPart = w.part;
       }
-      var cls = (w.n === cur.n ? 'b5-cur ' : '') + (!w.open ? 'b5-locked ' : '') + (w.past && w.n !== cur.n ? 'b5-done' : '');
-      var d = w.n === cur.n ? 'This week' : (!w.open ? 'Opens ' + fmtShort(w.opens) : (w.past ? 'Closed ' + fmtShort(w.closes) : 'Open'));
+      var lk = (!w.open || HOLD[w.n]) && w.n !== cur.n;
+      var cls = (w.n === cur.n ? 'b5-cur ' : '') + (lk ? 'b5-locked ' : '') + (w.past && w.n !== cur.n && !lk ? 'b5-done' : '');
+      var d = w.n === cur.n ? 'This week' : (lk ? 'Opens ' + fmtShort(w.opens) : (w.past ? 'Closed ' + fmtShort(w.closes) : 'Open'));
       weeksHtml += '<li><a class="' + cls.trim() + '" href="' + B + w.file + '" target="_top"'
         + (file === w.file ? ' aria-current="page"' : '') + '>'
         + '<span class="b5-t">Week ' + w.n + '</span><span class="b5-d">' + w.title + '</span>'
-        + '<span class="b5-d">' + d + (w.n === cur.n ? '<span class="b5vh">, current</span>' : '') + (!w.open ? '<span class="b5vh">, not open yet</span>' : '') + '</span></a></li>';
+        + '<span class="b5-d">' + d + (w.n === cur.n ? '<span class="b5vh">, current</span>' : '') + (lk ? '<span class="b5vh">, not open yet</span>' : '') + '</span></a></li>';
     }
     weeksHtml += '</ul>';
 
@@ -698,7 +699,7 @@
      A gated page never shows a wall. It names the opening day and the
      early access moment and gives the student five ways onward.
      ========================================================= */
-  var HOLD = { 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+  var HOLD = window.BIO005_SITE.held = { 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
 
   var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
   var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 8,
@@ -757,8 +758,8 @@
       var mm = document.querySelector('main, [role="main"]') || document.body;
       hideAroundMain(mm);
       document.title = 'Lab manual, posting soon · BIO 005 Human Physiology';
-      mm.innerHTML = '<div class="b5gate"><p class="eb">BIO 005 · Clinical Physiology Lab</p><h1>The lab manual is still being written.</h1>'
-        + '<div class="card"><p style="margin:0">Each week\'s lab lives on that week\'s page, and that is all you need for now. The collected manual posts here when it is ready.</p></div>'
+      mm.innerHTML = '<div class="b5gate"><p class="eb">BIO 005 · Clinical Physiology Lab</p><h1>The lab manual is not open yet.</h1>'
+        + '<div class="card"><p style="margin:0">Each week\'s lab lives on that week\'s page. The collected manual opens here later in the term.</p></div>'
         + '<h2>Until then</h2><ul><li><a class="main" href="' + B0 + window.BIO005_SITE.current.file + '" target="_top">This week</a></li>'
         + '<li><a href="' + B0 + 'door-lab.html" target="_top">The labs, week by week</a></li>'
         + '<li><a href="' + B0 + 'assignment-physioex.html" target="_top">How PhysioEx works</a></li></ul></div>';
@@ -772,7 +773,7 @@
         var wk = window.BIO005_SITE.weeks[k - 1];
         if (!wk || (wk.open && !HOLD[k])) return;
         var row = li.querySelector('.labrow');
-        if (row) row.innerHTML = '<span class="b5-opens">' + (wk.open ? 'Posting shortly' : 'Opens ' + fmtShort(wk.opens)) + '<span class="b5vh">, Week ' + k + ' lab not open yet</span></span>';
+        if (row) row.innerHTML = '<span class="b5-opens">' + (wk.open ? 'Not open yet' : 'Opens ' + fmtShort(wk.opens)) + '<span class="b5vh">, Week ' + k + ' lab not open yet</span></span>';
       });
       return;
     }
@@ -788,7 +789,7 @@
     var satD = new Date(w.unlock.getTime());
     var sat = satD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'America/Los_Angeles' });
     var line = w.open && held
-      ? 'The Week ' + n + ' material is still posting. It will be here shortly, and nothing is late because of it.'
+      ? 'Week ' + n + ' is not open yet.'
       : 'Week ' + n + ' opens <b>' + mon + '</b>. It unlocks early on <b>' + sat + ' at 8:00 pm Pacific</b> if you have finished the week before.';
 
     var main = document.querySelector('main, [role="main"]') || document.body;
