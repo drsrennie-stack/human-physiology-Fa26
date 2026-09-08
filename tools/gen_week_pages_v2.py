@@ -247,6 +247,7 @@ def page(n, opens, closes, title, part):
 
     apply_btn = a('assignment-apply.html?week=%d' % n, 'Open this week\'s chart entry', True)
     learn = (a('lecture-week.html?week=%d' % n, 'Lectures, in order', True)
+             + ext('https://openstax.org/details/books/anatomy-and-physiology-2e', 'OpenStax A&amp;P, free extra')
              + a('week-%s-notes.html' % nn, 'Notes')
              + a('week-%s-competencies.html' % nn, 'Competencies')
              + a('sheets/BIO005-note-sheet-week-%s.pdf' % nn, 'Note sheet (PDF)')
@@ -297,7 +298,7 @@ def page(n, opens, closes, title, part):
   <header class="top">
     <p class="eyebrow">{PART[part]} &middot; Week {n} of 15</p>
     <h1>{title}</h1>
-    <p class="read">Reading: {reading}</p>
+    <p class="read">Reading: {reading} Silverthorn is the required text. OpenStax Anatomy and Physiology is a free extra if you want a second explanation.</p>
     {opens_note}
   </header>
 
