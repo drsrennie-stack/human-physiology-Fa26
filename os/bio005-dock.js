@@ -223,6 +223,8 @@
 
 (function () {
   'use strict';
+  /* Sep 8 2026, Scrubs: Course tools suspended for now. Set DOCK_OFF to false to bring it back. */
+  var DOCK_OFF = true; if (DOCK_OFF) { window.__BIO005_DOCK__ = true; return; }
   if (window.__BIO005_DOCK__) return;      /* never inject twice */
   window.__BIO005_DOCK__ = true;
 

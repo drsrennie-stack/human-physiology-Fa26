@@ -1,0 +1,348 @@
+/* ============================================================
+   BIO 005 Human Physiology, Yuba College, Fall 2026
+   Teaching palette. Single source of truth for this repo.
+
+   SEP 6 2026, MEDMASTERS BRAND, ON SCRUBS' INSTRUCTION
+   "Everything the MedMasters brand." Every value below was read off
+   the live medmasterscollaborative.com with computed styles, not
+   estimated and not carried over from an older file.
+
+   Three palette generations existed in this repo at once. They are
+   now one.
+
+     brand.css maroon      #8B3A2E  ->  maroon       #8B3A2E
+     brand.css maroon-dark #6E2D24  ->  maroon-dark  #6E2D24
+     deck terra            #8B3A2E  ->  maroon       #8B3A2E
+     deck terra-dark       #6E2D24  ->  maroon-dark  #6E2D24
+     navy                  #0B1530  ->  navy         #0B1530
+     brand.css gold        #C9A14A  ->  gold         #C9A14A
+     deck gold             #C9A14A  ->  gold         #C9A14A
+     navy-deep             #060A18  ->  unchanged, the site uses it too
+
+   TYPE ALSO CHANGED. The site sets headlines in Open Sans 800 and
+   everything else in Plus Jakarta Sans. DM Sans is not in the
+   MedMasters system and is gone from this repo.
+
+     --disp          Plus Jakarta Sans  ->  Open Sans
+     --eyebrow-font  DM Sans            ->  Plus Jakarta Sans
+
+   Both families are self-hosted in assets/fonts-site.css. No page in
+   this repo requests a font over the network any more.
+
+   WHAT MOVED IN THE WRONG DIRECTION. Maroon got lighter, so its
+   contrast dropped while staying AAA: 9.63:1 -> 7.66:1 on white, and
+   maroon-dark 12.37:1 -> 10.18:1. Gold got brighter, so gold on
+   off-white went 2.77:1 -> 2.32:1. Gold was already never-text, and
+   the gold-deep rule below already covered it, but the margin is
+   thinner now, so the rule is no longer optional. --state-unlocked
+   was changed because of this. See its comment.
+
+   Every ratio in this file was measured, not estimated.
+
+   Sage is NOT in this palette. Ever. Do not reintroduce it from an
+   older BIO 004, BIO 304, or MCAS file.
+
+   CREAM, SEP 6 2026, SCRUBS' CALL. The live site uses cream #F5F1E8
+   on its dark band, so cream is allowed HERE AND ONLY HERE: text and
+   small fills on the dark navy band. It is never a page background,
+   never sits on white, and never appears on a light card. The token
+   is --bone, defined below with its measured ratios. Off-white
+   --offwhite remains the only page background in this repo.
+
+   Page-specific rules go in the page, never a second copy of these
+   tokens.
+   ============================================================ */
+
+:root {
+  /* ---- Core palette. See the change note at the top of this file. ---- */
+  --navy:#0B1530;          /* primary text, headers, borders. 18.04:1 on white */
+  --navy-deep:#060A18;     /* hover on navy, and the full-bleed dark band.
+                              Has to stay DARKER than --navy. Off-white text
+                              on it is 18.89:1. */
+  --navy-tint:#ECEFF4;     /* completed-state fill only, never a page background.
+                              Navy text on it is 15.65:1. */
+  --gold:#C9A14A;          /* accents and eyebrows ON DARK ONLY. 8.16:1 on
+                              navy-deep, 7.46:1 on navy, both AAA.
+                              NEVER text on white: 2.42:1, and never a border
+                              on white either, 2.32:1 on off-white is under
+                              the 3:1 non-text floor. Use --gold-deep there. */
+  --gold-ink:#060A18;      /* the text color for a gold fill. 8.16:1 on --gold.
+                              White on gold is 2.42:1 and fails. */
+  --gold-deep:#8A6D33;     /* the gold that works on a light page. 4.87:1 on
+                              white, so it may carry text at AA and may be a
+                              border. Also the frame edge when a gold panel
+                              sits on an off-white page. */
+  --maroon:#8B3A2E;        /* eyebrows, CTAs, emphasis. 7.66:1 on white and
+                              7.33:1 on off-white, both AAA, so it may carry
+                              text. White on it is 7.66:1. */
+  --maroon-dark:#6E2D24;   /* maroon hover, emphasis, heading color. 10.18:1 */
+  --white:#FFFFFF;         /* cards only */
+  --offwhite:#FAFAF9;      /* page background only */
+
+  /* ---- Derived, all verified against the core palette ---- */
+  --ink:var(--navy);
+  --ink-soft:#414B5C;      /* 8.80:1 on white, AAA, for secondary body text */
+  --line:rgba(11,21,48,0.16);
+  --line-soft:rgba(11,21,48,0.08);
+  --line-control:#0B1530;  /* form control borders, 18.04:1 on white */
+
+  /* State colors for teaching tools. Never green for completed. */
+  --state-locked:#454B58;        /* gray, dashed border. 8.75:1 on white, AAA.
+                              Was #5A6273 at 6.12:1, which is AA but under the
+                              AAA floor this repo targets. */
+  --state-unlocked:var(--gold-deep); /* WAS var(--gold). Bright gold as a border
+                              on off-white is 2.32:1, under the 3:1 floor in
+                              WCAG 1.4.11, and this border is the ONLY thing
+                              marking the unlocked state, so it has to pass.
+                              gold-deep is 4.87:1 and still reads as gold. */
+  --state-complete:var(--navy);  /* solid navy border on navy-tint fill */
+
+  /* Status text, used sparingly, all AA or better on white */
+  --ok:#1E4C33;            /* 9.83:1 */
+  --warn:#7A5310;          /* 6.84:1, AA */
+  --bad:#7A2E2E;           /* 9.30:1 */
+
+  /* ---- Type. Self-hosted in assets/fonts-site.css. ---- */
+  --disp:'Open Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --eyebrow-font:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  /* Plain-English aliases for the two above. --disp and --eyebrow-font
+     are historical names and both still work; new pages should use these,
+     because "eyebrow-font" set on <body> reads like a mistake. */
+  --display:var(--disp);
+  --body:var(--eyebrow-font);
+
+  /* ---- Bone. The live site's cream, DARK BAND ONLY. ----
+     Scrubs' call, Sep 6 2026: cream is allowed here as text and small
+     fills on the dark navy band, matching the live site exactly, and
+     NOWHERE else. It is never a page background and never sits on
+     white. Off-white --offwhite stays the only page background in this
+     repo. On --navy-deep this measures 18.71:1, AAA. On white it is
+     1.06:1, which is why the rule above is not a style preference. */
+  --bone:#F5F1E8;
+
+  /* ---- Elevation and motion, palettes.md aesthetic principles ---- */
+  --shadow:0 1px 3px rgba(0,0,0,0.08);
+  --lift:0 8px 16px rgba(0,0,0,0.10);
+  --motion:transform 200ms ease, box-shadow 200ms ease;
+
+  --r-sm:4px; --r:6px; --r-lg:10px;
+  --maxw:1120px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:var(--offwhite); color:var(--navy);
+  font-family:var(--eyebrow-font); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 20px 80px; }
+
+a { color:var(--navy); text-decoration:underline; text-underline-offset:2px; }
+a:hover { color:var(--navy-deep); }
+:focus-visible { outline:3px solid var(--navy); outline-offset:2px; border-radius:2px; }
+
+.skip {
+  position:absolute; left:-9999px; top:0; background:var(--navy); color:var(--white);
+  padding:12px 18px; z-index:200; text-decoration:none; font-weight:700;
+}
+.skip:focus { left:8px; top:8px; color:var(--white); }
+
+.visually-hidden {
+  position:absolute!important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ============================================================
+   TYPE SCALE
+   Eyebrow: Plus Jakarta Sans 12px uppercase maroon-dark
+   h1: Open Sans 800 navy
+   h2, h3: Open Sans 600 maroon-dark
+   Usage instructions and body emphasis: Plus Jakarta Sans, never italic
+   ============================================================ */
+.eyebrow {
+  font-family:var(--eyebrow-font); font-size:12px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--maroon-dark); font-weight:700; margin:0 0 10px;
+}
+h1 {
+  font-family:var(--disp); font-weight:800; color:var(--navy);
+  font-size:clamp(28px,4.2vw,42px); line-height:1.15; margin:0 0 8px; letter-spacing:-0.01em;
+}
+h2 {
+  font-family:var(--disp); font-weight:600; color:var(--maroon-dark);
+  font-size:clamp(20px,2.6vw,26px); line-height:1.2; margin:0 0 8px;
+}
+h3 {
+  font-family:var(--disp); font-weight:600; color:var(--maroon-dark);
+  font-size:17px; line-height:1.25; margin:0 0 6px;
+}
+.subhead {
+  font-family:var(--disp); font-weight:600; color:var(--maroon-dark);
+  font-size:clamp(17px,2.1vw,22px); margin:0 0 18px;
+}
+.usage, .lede { font-family:var(--serif); font-style:normal; font-size:17px; max-width:66ch; margin:0 0 8px; }
+.topic-rule {
+  font-family:var(--eyebrow-font); font-weight:700; font-size:12px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--maroon-dark); margin:26px 0 10px;
+  padding-bottom:6px; border-bottom:1px solid var(--navy-tint);
+}
+.small { font-size:14px; }
+.muted { color:var(--ink-soft); }
+
+/* ============================================================
+   CARDS
+   White cards on off-white. Lift on hover: up 2px, softer shadow.
+   No bookend bars. No pastel tints. No shaded card backgrounds.
+   ============================================================ */
+.card {
+  background:var(--white); border:1px solid var(--navy-tint); border-radius:var(--r);
+  padding:22px 24px; margin:0 0 20px; box-shadow:var(--shadow); transition:var(--motion);
+}
+.card:hover { transform:translateY(-2px); box-shadow:var(--lift); }
+.card-static:hover { transform:none; box-shadow:var(--shadow); }
+.grid { display:grid; gap:16px; }
+.grid-2 { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+.grid-3 { grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+.grid-4 { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+
+/* ============================================================
+   INTERACTIVE STATES, teaching tools
+   Locked gray dashed, unlocked gold solid, completed navy on tint.
+   Never green for completed.
+   ============================================================ */
+.state-locked   { border:1px dashed var(--state-locked); background:var(--white); color:var(--ink-soft); }
+.state-unlocked { border:1px solid var(--state-unlocked); background:var(--white); }
+.state-complete { border:1px solid var(--state-complete); background:var(--navy-tint); }
+
+/* ============================================================
+   CONTROLS
+   Minimum target 24 by 24 CSS px, WCAG 2.2 AA 2.5.8.
+   ============================================================ */
+input[type="search"], input[type="text"], input[type="number"], select, textarea {
+  font-family:inherit; font-size:15px; color:var(--navy); background:var(--white);
+  border:1px solid var(--line-control); border-radius:var(--r-sm);
+  padding:9px 11px; min-height:44px;
+}
+textarea { min-height:96px; line-height:1.5; }
+.field { display:flex; flex-direction:column; gap:5px; }
+.field > label {
+  font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  font-weight:700; color:var(--maroon-dark);
+}
+.btn {
+  font-family:inherit; font-size:14px; font-weight:700; color:var(--navy);
+  background:var(--white); border:1px solid var(--gold); border-radius:var(--r-sm);
+  padding:11px 16px; min-height:44px; cursor:pointer; transition:var(--motion);
+}
+.btn:hover { transform:translateY(-2px); box-shadow:var(--lift); }
+.btn-primary { background:var(--navy); color:var(--white); border-color:var(--navy); }
+.btn-primary:hover { background:var(--navy-deep); border-color:var(--navy-deep); }
+.btn[aria-pressed="true"], .btn.is-active { background:var(--navy-tint); border-color:var(--navy); }
+.btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.toggle {
+  display:inline-flex; align-items:center; gap:7px; background:var(--white);
+  border:1px solid var(--navy-tint); border-radius:999px; padding:9px 14px;
+  min-height:44px; cursor:pointer; font-size:14px;
+}
+.toggle input { width:24px; height:24px; accent-color:var(--navy); margin:0; }
+.toggle:has(input:checked) { border-color:var(--navy); background:var(--navy-tint); font-weight:700; }
+
+/* ============================================================
+   TAGS
+   Lecture navy on tint. Lab maroon-dark on white with maroon border.
+   Text label always present, never color alone.
+   ============================================================ */
+.tag {
+  font-family:var(--eyebrow-font); font-size:10px; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; padding:3px 8px; border-radius:3px; white-space:nowrap;
+  display:inline-block;
+}
+.tag-lecture { color:var(--navy); background:var(--navy-tint); border:1px solid var(--navy); }
+.tag-lab     { color:var(--maroon-dark); background:var(--white); border:1px solid var(--maroon); }
+.tag-core    { color:var(--navy); background:var(--white); border:1px solid var(--gold); }
+.tag-dok     { color:var(--navy); background:var(--white); border:1px solid var(--navy-tint); }
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+table { border-collapse:collapse; width:100%; font-size:15px; }
+caption {
+  text-align:left; font-family:var(--eyebrow-font); font-size:12px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--maroon-dark); font-weight:700; padding-bottom:10px;
+}
+th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--navy-tint); }
+thead th {
+  font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--navy); border-bottom:1px solid var(--navy);
+}
+td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+tr.total-row th, tr.total-row td { font-weight:700; border-top:1px solid var(--navy); border-bottom:none; }
+
+/* ============================================================
+   METERS
+   ============================================================ */
+.meter {
+  width:100%; height:8px; background:var(--navy-tint); border-radius:999px;
+  overflow:hidden;
+}
+.meter-fill { height:100%; width:0%; background:var(--navy); transition:width 200ms ease; }
+.meter-fill.is-gold { background:var(--gold); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.tabs { display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--navy-tint); padding-bottom:0; }
+.tab {
+  font-family:inherit; font-size:14px; font-weight:700; color:var(--navy);
+  background:transparent; border:none; border-bottom:3px solid transparent;
+  padding:12px 14px; min-height:44px; cursor:pointer;
+}
+.tab[aria-selected="true"] { border-bottom-color:var(--maroon); color:var(--maroon-dark); }
+.tab:hover { background:var(--navy-tint); }
+
+/* ============================================================
+   RESPONSIVE, MOTION, PRINT
+   ============================================================ */
+@media (max-width:640px) {
+  .field { width:100%; }
+  input[type="search"] { width:100%; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { transition:none!important; animation:none!important; }
+  .card:hover, .btn:hover { transform:none; }
+}
+@media print {
+  .no-print, .tabs, .btn { display:none!important; }
+  body { background:#fff; font-size:11pt; }
+  .card { box-shadow:none; border:1px solid #999; }
+  a { text-decoration:none; }
+}
+
+/* ============================================================
+   APP SURFACE, Mastery Physio OS only
+   ------------------------------------------------------------
+   The OS is a dark, full-bleed application surface. It is NOT a
+   document page, and the white-cards-on-off-white rule above does
+   not apply to it.
+
+     --navy   #0B1530   app canvas and panels, same as the document
+                        pages now use for text
+     --card   #0B1530   raised panel inside the canvas
+     --gold   #C9A14A   accent on dark, higher luminance than
+                        #C9A14A because it sits on a dark ground
+
+   RESOLVED Aug 21 2026. This block used to carry an open question:
+   palettes.md specified #0B1530 and the OS used #0B1530, and nobody
+   had said which governed. Scrubs answered it by moving the document
+   pages to the dark navy, so there is now one navy in the repo and
+   the app surface and the document pages agree on it. The only
+   remaining difference is gold, which is brighter on the dark ground
+   because it has to be.
+   ============================================================ */
