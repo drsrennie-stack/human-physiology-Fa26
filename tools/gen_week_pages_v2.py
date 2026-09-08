@@ -172,53 +172,6 @@ FOOT = '''<footer class="mm-foot"><div class="mm-wrap">
 </div></footer>'''
 
 
-def build_intro(home=False):
-    def mmss(sec): return '%d:%02d' % (sec // 60, sec % 60)
-    chap = ''.join('<li><button type="button" data-t="%d"><span class="t">%s</span><span>%s</span></button></li>' % (t, mmss(t), title) for t, title in INTRO.CHAPTERS)
-    tx = ''.join('<h4><span class="t">%s</span>%s</h4><p>%s</p>' % (mmss(INTRO.CHAPTERS[i][0]), title, body) for i, (title, body) in enumerate(INTRO.TRANSCRIPT))
-    lede = ('About thirty minutes. It shows you how the course works, where everything is, and what I am asking of you. Use the chapters to jump to any part.')
-    return ('<section class="intro" aria-labelledby="intro-h" id="intro">'
-            '<h2 id="intro-h">%s</h2>'
-            '<p class="lede">%s</p>'
-            '<div class="grid"><div><div class="frame"><iframe id="introFrame" src="https://www.loom.com/embed/%s" title="Biology 5 Human Physiology course overview, Dr. Rennie" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>'
-            '<div><h3 id="chap-h">Chapters</h3><ol class="chap" aria-labelledby="chap-h">%s</ol></div></div>'
-            '<details><summary>Read the transcript</summary><div class="tx">%s</div></details>'
-            '</section>') % ('Start here: the course introduction' if home else 'Before anything else: watch the course introduction', lede, INTRO.LOOM_ID, chap, tx)
-
-INTRO_CSS_START = '/* the course introduction video, week 1 */'
-INTRO_JS = """<script>
-(function(){
-  var f = document.getElementById('introFrame'); if (!f) return;
-  var base = f.getAttribute('src').split('?')[0];
-  var btns = document.querySelectorAll('.chap button');
-  [].forEach.call(btns, function(b){
-    b.addEventListener('click', function(){
-      f.src = base + '?t=' + b.getAttribute('data-t') + '&autoplay=1';
-      [].forEach.call(btns, function(x){ x.removeAttribute('aria-current'); });
-      b.setAttribute('aria-current', 'true');
-      f.focus();
-    });
-  });
-}());
-</script>"""
-
-def update_index():
-    """Drop the same intro block into index.html between the INTRO markers."""
-    f = 'index.html'
-    if not os.path.exists(f): return
-    s = open(f, encoding='utf-8').read()
-    a = CSS.index(INTRO_CSS_START); b = CSS.index('/* the fixed row */')
-    css = CSS[a:b]
-    block = '<!-- INTRO:start (written by tools/gen_week_pages_v2.py, edit tools/week01_intro.py) -->\n<style>' + css + '</style>\n' + build_intro(home=True) + '\n' + INTRO_JS + '\n<!-- INTRO:end -->'
-    import re
-    if '<!-- INTRO:start' in s:
-        s = re.sub(r'<!-- INTRO:start.*?<!-- INTRO:end -->', lambda m: block, s, flags=re.S)
-    else:
-        anchor = '  <div class="three">'
-        s = s.replace(anchor, block + '\n\n' + anchor, 1)
-    open(f, 'w', encoding='utf-8').write(s)
-    print('updated index.html')
-
 def long(iso):
     d = dt.date.fromisoformat(iso)
     return d.strftime('%A, %B ') + str(d.day)
@@ -307,8 +260,8 @@ def page(n, opens, closes, title, part):
                 + (a('worksheet-week02-graphing.html', 'Graphing worksheet') if n == 2 else '')
                 + a('ungraded-sheet.html?week=%d' % n, 'All of it on one sheet'))
 
-    intro = build_intro() if n == 1 else ''
-    if False:
+    intro = ''
+    if n == 1:
         def mmss(sec): return '%d:%02d' % (sec // 60, sec % 60)
         chap = ''.join('<li><button type="button" data-t="%d"><span class="t">%s</span><span>%s</span></button></li>' % (t, mmss(t), title) for t, title in INTRO.CHAPTERS)
         tx = ''.join('<h4><span class="t">%s</span>%s</h4><p>%s</p>' % (mmss(INTRO.CHAPTERS[i][0]), title, body) for i, (title, body) in enumerate(INTRO.TRANSCRIPT))
@@ -456,4 +409,3 @@ if __name__ == '__main__':
         out = 'week-%02d.html' % w[0]
         open(out, 'w', encoding='utf-8').write(page(*w))
         print('wrote', out)
-    update_index()
