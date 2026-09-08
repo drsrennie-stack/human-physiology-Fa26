@@ -190,7 +190,8 @@ def page(n, opens, closes, title, part):
         labname = lab['name']
     if lab['sheet']:
         labtools += a(lab['sheet'][0], lab['sheet'][1].replace('Open the ', '').replace('Open your ', '').capitalize(), not labtools)
-    labtools += a('lab-report-form.html', 'Lab analysis sheet')
+    if lab['kind'] == 'physioex':
+        labtools += a('lab-report-form.html', 'Lab analysis sheet')   # the PhysioEx activity sheet, PhysioEx weeks only
 
     # discussion
     if n == 1:
@@ -211,8 +212,9 @@ def page(n, opens, closes, title, part):
     retrieve = (a('note-sheet.html?week=%d' % n, 'Note sheet, second color')
                 + a('competency-brain-dump.html', 'Brain dump')
                 + a('mastery-canvas.html', 'Draw it')
-                + a('mastery-physio-os-standalone.html', 'Recall cards')
-                + a('assignment-bookproblems.html?week=%d' % n, 'Book problems')
+                + a('mastery-physio-os-standalone.html', 'Recall cards'))
+    practice = (a('assignment-bookproblems.html?week=%d' % n, 'Book problems', True)
+                + (a('worksheet-week02-graphing.html', 'Graphing worksheet') if n == 2 else '')
                 + a('ungraded-sheet.html?week=%d' % n, 'All of it on one sheet'))
 
     opens_note = ''
@@ -276,8 +278,8 @@ def page(n, opens, closes, title, part):
         <ul class="tools" aria-label="Learn tools">{learn}</ul></li>
       <li class="st free"><span class="n">02</span><h3>Retrieve</h3><span class="cat">No points</span><p class="q">Get it back with nothing open. Pick your mode.</p>
         <ul class="tools" aria-label="Retrieve tools">{retrieve}</ul></li>
-      <li class="st free"><span class="n">03</span><h3>Practice</h3><span class="cat">No points</span><p class="q">Predict, commit, check, correct, explain.</p>
-        <ul class="tools" aria-label="Practice tools">{a('practice-exam.html?week=%d' % n, 'Practice items', True)}</ul></li>
+      <li class="st free"><span class="n">03</span><h3>Practice</h3><span class="cat">No points</span><p class="q">Use it on problems you have not seen. Predict, commit, then check.</p>
+        <ul class="tools" aria-label="Practice tools">{practice}</ul></li>
       <li class="st free"><span class="n">04</span><h3>Mastery Check</h3><span class="cat">No points</span><p class="q">Did the way you learned it work? Thirty questions, nothing open, you get a score.</p>
         <ul class="tools" aria-label="Mastery Check tools">{a('practice-exam.html?week=%d' % n, 'Build your check', True)}{a('assignment-practice-log.html', 'Upload your report')}</ul>
         <p class="fine">Do one or ten. Upload the report so I can see how you are trending. The score is never graded.</p></li>
