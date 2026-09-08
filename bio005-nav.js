@@ -68,7 +68,7 @@
     'canvas-home.html':        { name: 'Course entry',           parent: null },
     'start-here.html':         { name: 'Start here',             parent: 'course-start.html' },
     'before-you-start.html':   { name: 'Before you start',       parent: 'course-start.html' },
-    'what-you-do.html':        { name: 'What you do and what it is worth', parent: 'course-start.html' },
+    'how-grading-works.html':  { name: 'How grading works',      parent: 'course-start.html' },
     'syllabus-fall2026.html':  { name: 'Syllabus',               parent: 'course-start.html' },
     'course-schedule.html':    { name: 'Course schedule',        parent: 'course-start.html' },
     'course-materials.html':   { name: 'Course materials',       parent: 'course-start.html' },
@@ -111,10 +111,10 @@
     'lab-report-form.html':          { name: 'Lab report form',           parent: 'clinical-physiology-lab-manual.html' },
 
     /* Assignments */
-    'assignment-notesheet.html':    { name: 'Note sheets',      parent: 'what-you-do.html' },
-    'assignment-discussion.html':   { name: 'Discussions',      parent: 'what-you-do.html' },
-    'assignment-bookproblems.html': { name: 'Book problems',    parent: 'what-you-do.html' },
-    'assignment-physioex.html':     { name: 'PhysioEx labs',    parent: 'what-you-do.html' },
+    'assignment-notesheet.html':    { name: 'Note sheets',      parent: 'how-grading-works.html' },
+    'assignment-discussion.html':   { name: 'Discussions',      parent: 'how-grading-works.html' },
+    'assignment-bookproblems.html': { name: 'Book problems',    parent: 'how-grading-works.html' },
+    'assignment-physioex.html':     { name: 'PhysioEx labs',    parent: 'how-grading-works.html' },
 
     /* Study tools */
     'competency-study-guide.html':   { name: 'Competency study guide', parent: 'course-start.html' },
@@ -140,7 +140,7 @@
     { test: /^workbook_week/,parent: 'course-materials.html',      label: 'Workbook' },
     { test: /^week-\d+/,     parent: 'course-schedule.html',       label: 'Week page' },
     { test: /^lab-/,         parent: 'clinical-physiology-lab-manual.html', label: 'Lab' },
-    { test: /^assignment-/,  parent: 'what-you-do.html',           label: 'Assignment' }
+    { test: /^assignment-/,  parent: 'how-grading-works.html',           label: 'Assignment' }
   ];
 
   function here() {
@@ -474,6 +474,8 @@
   + '.b5site .b5-caret{width:10px;height:10px;transition:transform 160ms ease}'
   + '.b5site button[aria-expanded="true"] .b5-caret{transform:rotate(180deg)}'
   + '.b5site .b5-home svg{width:20px;height:24px}'
+  + '.b5site .b5-canvas a{border:1.5px solid #0B1530;border-radius:999px;min-height:38px;padding:4px 14px;margin:5px 4px 5px 0;font-size:14px}'
+  + '.b5site .b5-canvas a:hover{background:#0B1530;color:#fff;border-bottom-color:#0B1530}'
   + '.b5vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}'
   + '.b5panel{position:absolute;left:0;top:100%;z-index:80;background:#fff;border:1px solid #D9DCE3;border-radius:0 0 12px 12px;'
   + 'box-shadow:0 12px 28px rgba(11,21,48,.14);padding:14px 16px 16px;min-width:300px;max-width:min(92vw,720px)}'
@@ -620,7 +622,8 @@
       + item('lab', 'door-lab.html', 'Labs')
       + item('study', 'door-study.html', 'Study')
       + item('assign', 'door-assignments.html', 'Assignments')
-      + '<li class="b5-grow ' + (sec === 'help' ? 'b5-on' : '') + '"><button type="button" id="b5-help-btn" aria-expanded="false" aria-controls="b5-help-panel">Help' + CARET + (sec === 'help' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
+      + '<li class="b5-grow b5-canvas"><a href="' + CANVAS_HOME + '" target="_top">Canvas<span class="b5vh">, back to the Canvas course</span></a></li>'
+      + '<li class="' + (sec === 'help' ? 'b5-on' : '') + '"><button type="button" id="b5-help-btn" aria-expanded="false" aria-controls="b5-help-panel">Help' + CARET + (sec === 'help' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-help-panel" hidden>' + helpHtml + '</div></li>'
       + '</ul></div>';
 
