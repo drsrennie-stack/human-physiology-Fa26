@@ -155,14 +155,31 @@ def page(n, opens, closes, title, part):
     next_ = 'week-%02d.html' % (n + 1) if n < 15 else None
     has_prompts = os.path.exists('week-%s-notesheet-prompts.html' % nn)
 
-    # due list
-    if sunday:
-        due = ('<li><span>Discussion post</span><span>Fri %s, 10 pm</span></li>' % (fri.strftime('%b ') + str(fri.day))
-               + '<li><span>Lab, case, discussion replies</span><span>Sun %s, 10 pm</span></li>' % (close.strftime('%b ') + str(close.day)))
-        due_big = 'Sunday, %s %d' % (close.strftime('%B'), close.day)
+    enc = D['encounter'].get(str(n), '')
+    labname_short = (D['lab'][str(n)]['name'] if D['lab'][str(n)]['kind'] != 'physioex' else D['lab'][str(n)]['name'].replace('&amp;', 'and'))
+    if n == 1:
+        disc_items = [('Discussion 1A: Digital Vision Board and Introduction', True), ('Discussion 1B: Week 1 Metacognitive Analysis', False)]
     else:
-        due = '<li><span>Lab, case, discussion</span><span>%s, 10 pm</span></li>' % (close.strftime('%a %b ') + str(close.day))
-        due_big = long(closes)
+        disc_items = [('Discussion %d' % n, True)]
+    close_s = close.strftime('%a %b ') + str(close.day)
+    fri_s = fri.strftime('%a %b ') + str(fri.day)
+    rows = []
+    for name, has_post in disc_items:
+        if sunday and has_post:
+            rows.append('<li><span>%s</span><span>post %s, replies %s, 10 pm</span></li>' % (name, fri_s, close_s))
+        else:
+            rows.append('<li><span>%s</span><span>%s, 10 pm</span></li>' % (name, close_s))
+    lb = D['lab'][str(n)]
+    if lb['kind'] == 'physioex':
+        due_lab = 'Lab: ' + lb['name'].replace('&amp;', 'and').split(',')[0]
+    elif lb['name'].lower().startswith('dry lab:'):
+        due_lab = 'Lab: ' + lb['name'].split(':', 1)[1].strip()
+    else:
+        due_lab = lb['name'].split(':')[0]
+    rows.append('<li><span>%s</span><span>%s, 10 pm</span></li>' % (due_lab, close_s))
+    rows.append('<li><span>Patient chart: %s</span><span>%s, 10 pm</span></li>' % (enc, close_s))
+    due = ''.join(rows)
+    due_big = ('Sunday, %s %d' % (close.strftime('%B'), close.day)) if sunday else long(closes)
 
     # lab card
     if lab['kind'] == 'physioex':
@@ -177,12 +194,15 @@ def page(n, opens, closes, title, part):
 
     # discussion
     if n == 1:
-        disc = a('assignment-discussion-01-visionboard.html', 'Your vision board', True) + a('assignment-discussion-01-metacognition.html', 'Week 1 metacognitive discussion', True)
-        discq = 'Two this week: your digital vision board with a short video introduction, and what the evidence told you about how you learned Week 1.'
+        disc = (a('assignment-discussion-01-visionboard.html', 'Discussion 1A: Digital Vision Board', True)
+                + '<li><a href="https://yccd.instructure.com/courses/42616/discussion_topics/712733" target="_blank" rel="noopener">Post 1A in Canvas (new tab)</a></li>'
+                + a('assignment-discussion-01-metacognition.html', 'Discussion 1B: Week 1 Metacognitive Analysis', True))
+        discq = 'Two this week. 1A is your digital vision board with a short video introduction. 1B is what the evidence told you about how you learned the Week 1 material.'
     else:
-        disc = a('assignment-discussion.html?week=%d' % n, 'This week\'s discussion', True)
-        discq = 'One post: something from this week\'s physiology, and your honest thinking about it.'
+        disc = a('assignment-discussion.html?week=%d' % n, 'Discussion %d' % n, True)
+        discq = 'Discussion %d: something from this week\'s physiology, and your honest thinking about it.' % n
 
+    apply_btn = a('assignment-apply.html?week=%d' % n, 'Open this week\'s chart entry', True)
     learn = (a('lecture-week.html?week=%d' % n, 'Lectures, in order', True)
              + a('week-%s-notes.html' % nn, 'Notes')
              + a('week-%s-competencies.html' % nn, 'Competencies')
@@ -269,8 +289,8 @@ def page(n, opens, closes, title, part):
       <li class="st"><span class="n">05</span><h3>Investigate</h3><span class="cat">Investigate It &middot; 25%</span><p class="q">{labname}.</p>
         <ul class="tools" aria-label="Lab tools">{labtools}</ul>
         <p class="fine">Prediction first, then the data. Due {'Sunday' if sunday else close.strftime('%A')}.</p></li>
-      <li class="st"><span class="n">06</span><h3>Apply</h3><span class="cat">Use It &middot; 25%</span><p class="q">This week's case, in the room you chose, and your patient file entry.</p>
-        <ul class="tools" aria-label="Case tools">{a('assignment-apply.html?week=%d' % n, 'Open the case', True)}{a('BIO005-patient-file.html', 'Patient file')}</ul>
+      <li class="st"><span class="n">06</span><h3>Apply</h3><span class="cat">Use It &middot; 25%</span><p class="q">Patient chart entry: {enc}. Work it in the room you chose.</p>
+        <ul class="tools" aria-label="Case tools">{apply_btn}{a('BIO005-patient-file.html', 'Patient file')}</ul>
         <p class="fine">Due {'Sunday' if sunday else close.strftime('%A')}.</p></li>
       <li class="st"><span class="n">07</span><h3>Reflect</h3><span class="cat">Think About It &middot; 15%</span><p class="q">{discq}</p>
         <ul class="tools" aria-label="Discussion tools">{disc}</ul>

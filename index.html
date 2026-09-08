@@ -93,20 +93,27 @@ a:hover{color:var(--maroon-dk)}
 .weeks .sub{color:var(--muted);font-size:16px;margin:0 0 16px}
 .part{margin:0 0 16px}
 .part h3{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
-.strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:10px}
-.wk{display:flex;flex-direction:column;gap:2px;min-height:78px;padding:12px 14px;border-radius:12px;text-decoration:none;
-  background:var(--card);box-shadow:var(--shadow);border:1.5px solid transparent;color:var(--ink);
+.strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:8px}
+.wk{display:flex;flex-direction:column;gap:2px;min-height:82px;padding:10px 8px;border-radius:10px;text-decoration:none;
+  border:1.5px solid rgba(11,21,48,.28);background:#fff;color:var(--faint);text-align:center;align-items:center;justify-content:center;
   transition:transform 200ms ease,box-shadow 200ms ease}
-.wk:hover{transform:translateY(-2px);box-shadow:var(--lift);color:var(--ink)}
-.wk .n{font-family:var(--display);font-weight:800;font-size:15px;color:var(--navy)}
-.wk .t{font-size:14px;line-height:1.35;color:var(--muted)}
-.wk .s{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:auto;padding-top:6px}
-.wk.cur{border-color:var(--maroon)}
-.wk.cur .n,.wk.cur .s{color:var(--maroon)}
-.wk.locked{border:1.5px dashed rgba(11,21,48,.28);background:transparent;box-shadow:none}
-.wk.locked .n{color:var(--faint)}
-.wk.done{background:var(--navy-tint);border-color:var(--navy)}
-.wk.done .s::after{content:"\00a0\2713"}
+.wk .n{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.wk .num{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.05}
+.wk .s{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.15;margin-top:4px}
+.wk.locked{cursor:default}
+.wk.locked .num{color:#8A93A3}
+.wk.cur{background:var(--maroon);border-color:var(--maroon);color:#fff;box-shadow:var(--lift)}
+.wk.cur .num{color:#fff}
+.wk.done{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:var(--shadow)}
+.wk.done .num{color:#fff}
+a.wk:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+a.wk.cur:hover{color:#fff}a.wk.done:hover{color:#fff}
+.legend{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:var(--faint)}
+.legend li{display:flex;align-items:center;gap:7px}
+.legend .sw{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(11,21,48,.28);background:#fff}
+.legend .sw.cur{background:var(--maroon);border-color:var(--maroon)}.legend .sw.done{background:var(--navy);border-color:var(--navy)}
+@media (max-width:1000px){.strip{grid-template-columns:repeat(8,minmax(0,1fr))}}
+@media (max-width:640px){.strip{grid-template-columns:repeat(5,minmax(0,1fr))}.wk{min-height:70px;padding:8px 4px}.wk .num{font-size:20px}}
 
 /* ---------- sections ---------- */
 .sections{padding:36px 0 0}
@@ -189,8 +196,9 @@ a:hover{color:var(--maroon-dk)}
     <section class="card" aria-labelledby="h-due">
       <h2 id="h-due">What is due this week</h2>
       <ul id="due">
-        <li><b>Discussion post</b><span class="when">Friday, September 11, 10:00 pm Pacific</span></li>
-        <li><b>Lab, case, discussion replies</b><span class="when">Sunday, September 13, 10:00 pm Pacific</span></li>
+        <li><b>Discussion 1A: Digital Vision Board and Introduction</b><span class="when">Post Friday, September 11, replies Sunday, September 13, 10:00 pm Pacific</span></li>
+        <li><b>Discussion 1B: Week 1 Metacognitive Analysis</b><span class="when">Sunday, September 13, 10:00 pm Pacific</span></li>
+        <li><b>Establishing Normal Ranges Lab, and the patient chart entry</b><span class="when">Sunday, September 13, 10:00 pm Pacific</span></li>
       </ul>
       <p class="note">Turn the three graded pieces in through <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas (opens in a new tab)</a>. The instructions for each are there too.</p>
     </section>
@@ -205,10 +213,13 @@ a:hover{color:var(--maroon-dk)}
 
   <section class="weeks" aria-labelledby="h-weeks">
     <h2 id="h-weeks">All fifteen weeks</h2>
-    <p class="sub">Three parts. A dashed card is a week that has not opened yet; the date on it is when it does.</p>
-    <div class="part"><h3>Part 1, Foundations</h3><ul class="strip" data-part="1"></ul></div>
-    <div class="part"><h3>Part 2, Control systems</h3><ul class="strip" data-part="2"></ul></div>
-    <div class="part"><h3>Part 3, Systems in action</h3><ul class="strip" data-part="3"></ul></div>
+    <p class="sub">One card per week. A week you cannot open yet shows the day it does.</p>
+    <ul class="strip" id="strip"></ul>
+    <ul class="legend" aria-label="Key">
+      <li><span class="sw cur" aria-hidden="true"></span>This week</li>
+      <li><span class="sw done" aria-hidden="true"></span>Done</li>
+      <li><span class="sw" aria-hidden="true"></span>Not open yet</li>
+    </ul>
     <noscript><p><a href="course-schedule.html" target="_top">Open the full schedule, all fifteen weeks on one page.</a></p></noscript>
   </section>
 
@@ -280,25 +291,31 @@ a:hover{color:var(--maroon-dk)}
      Week 15 closes on a Wednesday, so it gets one line. */
   var close = d(cur.closes);
   var due = document.getElementById('due');
-  if (close.getDay() === 0) {
+  if (cur.n === 1) {
+    /* Week 1 is written into the HTML above and is the one week with two discussions. */
+  } else if (close.getDay() === 0) {
     var fri = new Date(close); fri.setDate(fri.getDate() - 2);
-    due.innerHTML = '<li><b>Discussion post</b><span class="when">' + longDate(fri) + ', 10:00 pm Pacific</span></li>'
-      + '<li><b>Lab, case, discussion replies</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>';
+    due.innerHTML = '<li><b>Discussion ' + cur.n + '</b><span class="when">Post ' + longDate(fri) + ', replies ' + longDate(close) + ', 10:00 pm Pacific</span></li>'
+      + '<li><b>Lab, and the patient chart entry</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>';
   } else {
-    due.innerHTML = '<li><b>Lab, case, discussion</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>';
+    due.innerHTML = '<li><b>Discussion ' + cur.n + ', lab, and the patient chart entry</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>';
   }
 
-  /* the strip */
+  /* the strip: one small card per week. Locked weeks are not links. */
+  var strip = document.getElementById('strip');
   W.forEach(function(w){
-    var ul = document.querySelector('.strip[data-part="' + w.part + '"]');
-    if (!ul) return;
-    var cls = 'wk' + (w.n === cur.n ? ' cur' : '') + (!w.open ? ' locked' : '') + (w.past && w.n !== cur.n ? ' done' : '');
-    var state = w.n === cur.n ? 'This week' : (!w.open ? 'Opens ' + S.fmtShort(w.opens) : (w.past ? 'Closed' : 'Open'));
-    var sr = w.n === cur.n ? '<span class="vh">, current week</span>' : (!w.open ? '<span class="vh">, not open yet</span>' : '');
+    var held = (window.BIO005_SITE.held && window.BIO005_SITE.held[w.n]);
+    var locked = !w.open || (held && w.n !== cur.n);
+    var isCur = w.n === cur.n;
+    var done = w.past && !isCur && !locked;
+    var cls = 'wk' + (isCur ? ' cur' : '') + (locked && !isCur ? ' locked' : '') + (done ? ' done' : '');
+    var state = isCur ? 'This week' : (locked ? 'Opens ' + S.fmtShort(w.opens) : (done ? 'Done' : 'Open'));
+    var inner = '<span class="n">Week</span><span class="num">' + w.n + '</span><span class="s">' + state + '</span><span class="vh">, ' + w.title + (locked && !isCur ? ', not open yet' : '') + '</span>';
     var li = document.createElement('li');
-    li.innerHTML = '<a class="' + cls + '" href="' + w.file + '" target="_top"' + (w.n === cur.n ? ' aria-current="true"' : '') + '>'
-      + '<span class="n">Week ' + w.n + '</span><span class="t">' + w.title + '</span><span class="s">' + state + sr + '</span></a>';
-    ul.appendChild(li);
+    li.innerHTML = (locked && !isCur)
+      ? '<span class="' + cls + '" title="' + w.title.replace(/"/g,'&quot;') + '">' + inner + '</span>'
+      : '<a class="' + cls + '" href="' + w.file + '" target="_top"' + (isCur ? ' aria-current="true"' : '') + ' title="' + w.title.replace(/"/g,'&quot;') + '">' + inner + '</a>';
+    strip.appendChild(li);
   });
 }());
 </script>
