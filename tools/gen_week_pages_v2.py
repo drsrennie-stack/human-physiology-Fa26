@@ -9,7 +9,9 @@ category name and weight from the syllabus.
 
 Run from the repo root:  python3 tools/gen_week_pages_v2.py
 """
-import json, os, datetime as dt
+import json, os, sys, datetime as dt
+sys.path.insert(0, os.path.dirname(__file__))
+import week01_intro as INTRO
 
 WEEKS = [
     (1, '2026-09-08', '2026-09-13', 'How physiology works and what keeps you steady', 1),
@@ -76,6 +78,33 @@ header.top h1{font-size:clamp(28px,4.6vw,44px);color:var(--navy);max-width:24ch}
 header.top .read{color:var(--muted);font-size:16.5px;margin:10px 0 0}
 .opens{margin:16px 0 0;padding:12px 16px;background:var(--card);border-radius:10px;box-shadow:var(--shadow);font-size:15.5px;color:var(--muted)}
 .opens b{color:var(--navy)}
+/* the course introduction video, week 1 */
+.intro{margin:22px 0 0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px 16px}
+.intro h2{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 6px}
+.intro .lede{font-size:16px;color:var(--muted);margin:0 0 12px;max-width:70ch}
+.intro .grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:18px;align-items:start}
+.intro .frame{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:var(--navy)}
+.intro .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.intro h3{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+.chap{list-style:none;margin:0;padding:0;max-height:min(420px,56vw);overflow:auto;border-radius:10px}
+.chap li{margin:0}
+.chap button{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font:inherit;font-size:14.5px;line-height:1.35;color:var(--ink);
+background:none;border:0;border-top:1px solid var(--rule-soft);padding:8px 8px;min-height:40px;cursor:pointer;border-radius:6px}
+.chap li:first-child button{border-top:0}
+.chap button:hover{background:#F3F4F7;color:var(--maroon)}
+.chap button .t{font-family:var(--display);font-weight:800;color:var(--maroon);font-variant-numeric:tabular-nums;flex:0 0 3.4em;font-size:13.5px}
+.chap button[aria-current="true"]{background:#FBF4F2}
+.intro details{margin:14px 0 0}
+.intro summary{cursor:pointer;font-weight:700;color:var(--navy);min-height:44px;display:flex;align-items:center;gap:8px}
+.intro summary::-webkit-details-marker{display:none}
+.intro summary::before{content:"\25B8";color:var(--maroon)}
+.intro details[open] summary::before{content:"\25BE"}
+.tx{max-width:74ch;font-size:15.5px;color:var(--muted);line-height:1.6}
+.tx h4{font-family:var(--display);font-size:15px;color:var(--navy);margin:16px 0 4px}
+.tx h4 .t{font-weight:700;color:var(--maroon);margin-right:8px;font-variant-numeric:tabular-nums}
+.tx p{margin:0 0 6px}
+@media (max-width:760px){.intro .grid{grid-template-columns:1fr}.chap{max-height:260px}}
+@media print{.intro .frame,.chap{display:none}.intro details{display:block}.intro details summary{display:none}.tx{display:block}}
 /* the fixed row */
 .fixed{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;margin:22px 0 0}
 .fx{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px;display:flex;flex-direction:column;gap:4px}
@@ -230,6 +259,18 @@ def page(n, opens, closes, title, part):
                 + (a('worksheet-week02-graphing.html', 'Graphing worksheet') if n == 2 else '')
                 + a('ungraded-sheet.html?week=%d' % n, 'All of it on one sheet'))
 
+    intro = ''
+    if n == 1:
+        def mmss(sec): return '%d:%02d' % (sec // 60, sec % 60)
+        chap = ''.join('<li><button type="button" data-t="%d"><span class="t">%s</span><span>%s</span></button></li>' % (t, mmss(t), title) for t, title in INTRO.CHAPTERS)
+        tx = ''.join('<h4><span class="t">%s</span>%s</h4><p>%s</p>' % (mmss(INTRO.CHAPTERS[i][0]), title, body) for i, (title, body) in enumerate(INTRO.TRANSCRIPT))
+        intro = ('<section class="intro" aria-labelledby="intro-h" id="intro">'
+                 '<h2 id="intro-h">Before anything else: watch the course introduction</h2>'
+                 '<p class="lede">About thirty minutes. It shows you how the course works, where everything is, and what I am asking of you. Use the chapters to jump to any part.</p>'
+                 '<div class="grid"><div><div class="frame"><iframe id="introFrame" src="https://www.loom.com/embed/%s" title="Biology 5 Human Physiology course overview, Dr. Rennie" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div></div>'
+                 '<div><h3 id="chap-h">Chapters</h3><ol class="chap" aria-labelledby="chap-h">%s</ol></div></div>'
+                 '<details><summary>Read the transcript</summary><div class="tx">%s</div></details>'
+                 '</section>') % (INTRO.LOOM_ID, chap, tx)
     opens_note = ''
     if n > 1:
         opens_note = ('<p class="opens" id="opensNote" hidden><b>This week opens %s.</b> It unlocks early on Saturday, %s at 8:00 pm Pacific if you have finished the week before. Everything here is yours to look at now.</p>'
@@ -260,6 +301,7 @@ def page(n, opens, closes, title, part):
     {opens_note}
   </header>
 
+  {intro}
   <div class="fixed">
     <section class="fx" aria-labelledby="fx-c">
       <h2 id="fx-c">Fixed: the competencies</h2>
@@ -331,6 +373,20 @@ def page(n, opens, closes, title, part):
   var sat = mon - 2*86400000;
   var off = (sat < Date.UTC(2026,10,1,9)) ? 7 : 8;
   if (Date.now() < sat + (20+off)*3600000) o.hidden = false;
+}})();
+(function(){{
+  /* chapter buttons reload the Loom embed at that second; the current chapter is marked */
+  var f = document.getElementById('introFrame'); if (!f) return;
+  var base = f.getAttribute('src').split('?')[0];
+  var btns = document.querySelectorAll('.chap button');
+  [].forEach.call(btns, function(b){{
+    b.addEventListener('click', function(){{
+      f.src = base + '?t=' + b.getAttribute('data-t') + '&autoplay=1';
+      [].forEach.call(btns, function(x){{ x.removeAttribute('aria-current'); }});
+      b.setAttribute('aria-current', 'true');
+      f.focus();
+    }});
+  }});
 }})();
 (function(){{var id='bio005-week-{nn}';
 function post(){{try{{parent.postMessage({{frame:id,id:id,height:document.documentElement.scrollHeight}},'*');}}catch(e){{}}}}

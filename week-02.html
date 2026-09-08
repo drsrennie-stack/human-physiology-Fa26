@@ -30,6 +30,33 @@ header.top h1{font-size:clamp(28px,4.6vw,44px);color:var(--navy);max-width:24ch}
 header.top .read{color:var(--muted);font-size:16.5px;margin:10px 0 0}
 .opens{margin:16px 0 0;padding:12px 16px;background:var(--card);border-radius:10px;box-shadow:var(--shadow);font-size:15.5px;color:var(--muted)}
 .opens b{color:var(--navy)}
+/* the course introduction video, week 1 */
+.intro{margin:22px 0 0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px 16px}
+.intro h2{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 6px}
+.intro .lede{font-size:16px;color:var(--muted);margin:0 0 12px;max-width:70ch}
+.intro .grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:18px;align-items:start}
+.intro .frame{position:relative;width:100%;padding-top:56.25%;border-radius:10px;overflow:hidden;background:var(--navy)}
+.intro .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.intro h3{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+.chap{list-style:none;margin:0;padding:0;max-height:min(420px,56vw);overflow:auto;border-radius:10px}
+.chap li{margin:0}
+.chap button{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font:inherit;font-size:14.5px;line-height:1.35;color:var(--ink);
+background:none;border:0;border-top:1px solid var(--rule-soft);padding:8px 8px;min-height:40px;cursor:pointer;border-radius:6px}
+.chap li:first-child button{border-top:0}
+.chap button:hover{background:#F3F4F7;color:var(--maroon)}
+.chap button .t{font-family:var(--display);font-weight:800;color:var(--maroon);font-variant-numeric:tabular-nums;flex:0 0 3.4em;font-size:13.5px}
+.chap button[aria-current="true"]{background:#FBF4F2}
+.intro details{margin:14px 0 0}
+.intro summary{cursor:pointer;font-weight:700;color:var(--navy);min-height:44px;display:flex;align-items:center;gap:8px}
+.intro summary::-webkit-details-marker{display:none}
+.intro summary::before{content:"B8";color:var(--maroon)}
+.intro details[open] summary::before{content:"BE"}
+.tx{max-width:74ch;font-size:15.5px;color:var(--muted);line-height:1.6}
+.tx h4{font-family:var(--display);font-size:15px;color:var(--navy);margin:16px 0 4px}
+.tx h4 .t{font-weight:700;color:var(--maroon);margin-right:8px;font-variant-numeric:tabular-nums}
+.tx p{margin:0 0 6px}
+@media (max-width:760px){.intro .grid{grid-template-columns:1fr}.chap{max-height:260px}}
+@media print{.intro .frame,.chap{display:none}.intro details{display:block}.intro details summary{display:none}.tx{display:block}}
 /* the fixed row */
 .fixed{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;margin:22px 0 0}
 .fx{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px;display:flex;flex-direction:column;gap:4px}
@@ -108,6 +135,7 @@ border:1.5px solid var(--navy);color:var(--navy);background:transparent;transiti
     <p class="opens" id="opensNote" hidden><b>This week opens Monday, September 14.</b> It unlocks early on Saturday, September 12 at 8:00 pm Pacific if you have finished the week before. Everything here is yours to look at now.</p>
   </header>
 
+  
   <div class="fixed">
     <section class="fx" aria-labelledby="fx-c">
       <h2 id="fx-c">Fixed: the competencies</h2>
@@ -189,6 +217,20 @@ border:1.5px solid var(--navy);color:var(--navy);background:transparent;transiti
   var sat = mon - 2*86400000;
   var off = (sat < Date.UTC(2026,10,1,9)) ? 7 : 8;
   if (Date.now() < sat + (20+off)*3600000) o.hidden = false;
+})();
+(function(){
+  /* chapter buttons reload the Loom embed at that second; the current chapter is marked */
+  var f = document.getElementById('introFrame'); if (!f) return;
+  var base = f.getAttribute('src').split('?')[0];
+  var btns = document.querySelectorAll('.chap button');
+  [].forEach.call(btns, function(b){
+    b.addEventListener('click', function(){
+      f.src = base + '?t=' + b.getAttribute('data-t') + '&autoplay=1';
+      [].forEach.call(btns, function(x){ x.removeAttribute('aria-current'); });
+      b.setAttribute('aria-current', 'true');
+      f.focus();
+    });
+  });
 })();
 (function(){var id='bio005-week-02';
 function post(){try{parent.postMessage({frame:id,id:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
