@@ -335,6 +335,7 @@
        navigation. One bar, the same seven places on every page, so the
        course reads as one website rather than a pile of pages. */
     siteNav();
+    gate();
 
     /* ---- no footer ----
        Sep 7 2026, Scrubs' call: the dark block at the bottom of every page
@@ -680,6 +681,133 @@
     nav.addEventListener('focusout', function (e) {
       setTimeout(function () { if (!nav.contains(document.activeElement)) closeAll(); }, 0);
     });
+  }
+
+  /* =========================================================
+     THE WEEK GATE. Sep 8 2026.
+
+     A week's teaching pages (week-NN.html, week-NN-notes.html,
+     lecture-week.html?week=N, the note sheet questions) open on the
+     week's Monday, with early access the Saturday before at 8 pm
+     Pacific. On top of the date, HOLD keeps a week locked while it is
+     still being built: delete a week's number from HOLD when its
+     material is ready. Everything else on the site (competencies,
+     note sheet PDFs, recall cards, study guide, schedule, syllabus,
+     labs) is never gated.
+
+     A gated page never shows a wall. It names the opening day and the
+     early access moment and gives the student five ways onward.
+     ========================================================= */
+  var HOLD = { 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+
+  var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
+  var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 8,
+                    'cbc-pcr-lab.html': 11, 'pulmonary-function-lab.html': 13 };
+
+  function gatedWeek(file) {
+    var m = /^week-(\d\d)(?:-notes|-notesheet-prompts)?\.html$/.exec(file);
+    if (m) return parseInt(m[1], 10);
+    if (LAB_PAGES[file]) return LAB_PAGES[file];
+    if (file === 'lecture-week.html' || file === 'assignment-physioex.html') {
+      var q = /[?&]week=(\d{1,2})/.exec(location.search);
+      return q ? parseInt(q[1], 10) : 1;
+    }
+    return 0;
+  }
+
+  /* When a page is gated, everything the page put outside its main landmark
+     (its own masthead, side panels, intro sections) is hidden too, so the gate
+     card is the only content and the only h1 a student or a screen reader meets. */
+  function hideAroundMain(main) {
+    [].forEach.call(document.body.children, function (c) {
+      if (c === main || c.contains(main)) return;
+      var t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'LINK' || t === 'FOOTER') return;
+      if (c.classList.contains('mm-brandbar') || c.classList.contains('b5site') || c.classList.contains('b5skip') || c.classList.contains('skip') || c.classList.contains('mm-foot')) return;
+      if (c.classList.contains('b5play') || c.classList.contains('bd-dock') || c.id === 'hootie' || c.classList.contains('hootie')) return;
+      c.hidden = true;
+    });
+  }
+
+  function gateCss() {
+    if (document.querySelector('style[data-b5gate]')) return;
+    var css = document.createElement('style');
+    css.setAttribute('data-b5gate', '');
+    css.textContent = '.b5gate{max-width:760px;margin:40px auto 60px;padding:0 22px;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#0B1530}'
+      + '.b5gate .eb{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#8B3A2E;margin:0 0 10px}'
+      + '.b5gate h1{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:clamp(26px,4.4vw,40px);line-height:1.15;letter-spacing:-.02em;margin:0 0 14px}'
+      + '.b5gate .card{background:#fff;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:22px 24px;font-size:17px;line-height:1.6;color:#414B5C}'
+      + '.b5gate .card b{color:#0B1530}'
+      + '.b5gate h2{font-family:"Open Sans",system-ui,sans-serif;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#5A6675;margin:26px 0 10px}'
+      + '.b5gate ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}'
+      + '.b5gate ul a{display:inline-flex;align-items:center;min-height:44px;padding:9px 16px;border-radius:10px;border:1.5px solid #0B1530;color:#0B1530;text-decoration:none;font-weight:700;font-size:15px;background:#fff}'
+      + '.b5gate ul a:hover{background:#0B1530;color:#fff}'
+      + '.b5gate ul a.main{background:#8B3A2E;border-color:#8B3A2E;color:#fff}.b5gate ul a.main:hover{background:#6E2D24}';
+    document.head.appendChild(css);
+  }
+
+  function gate() {
+    if (/[?&]preview=1/.test(location.search)) return;   /* her own preview while building */
+    var file = here();
+    var B0 = base();
+
+    /* the lab manual, held whole */
+    if (file === 'clinical-physiology-lab-manual.html' && MANUAL_HOLD) {
+      gateCss();
+      var mm = document.querySelector('main, [role="main"]') || document.body;
+      hideAroundMain(mm);
+      document.title = 'Lab manual, posting soon · BIO 005 Human Physiology';
+      mm.innerHTML = '<div class="b5gate"><p class="eb">BIO 005 · Clinical Physiology Lab</p><h1>The lab manual is still being written.</h1>'
+        + '<div class="card"><p style="margin:0">Each week\'s lab lives on that week\'s page, and that is all you need for now. The collected manual posts here when it is ready.</p></div>'
+        + '<h2>Until then</h2><ul><li><a class="main" href="' + B0 + window.BIO005_SITE.current.file + '" target="_top">This week</a></li>'
+        + '<li><a href="' + B0 + 'door-lab.html" target="_top">The labs, week by week</a></li>'
+        + '<li><a href="' + B0 + 'assignment-physioex.html" target="_top">How PhysioEx works</a></li></ul></div>';
+      return;
+    }
+
+    /* the labs door: locked rows show their opening day instead of links */
+    if (file === 'door-lab.html') {
+      [].forEach.call(document.querySelectorAll('.rowlist li[data-week]'), function (li) {
+        var k = parseInt(li.getAttribute('data-week'), 10);
+        var wk = window.BIO005_SITE.weeks[k - 1];
+        if (!wk || (wk.open && !HOLD[k])) return;
+        var row = li.querySelector('.labrow');
+        if (row) row.innerHTML = '<span class="b5-opens">' + (wk.open ? 'Posting shortly' : 'Opens ' + fmtShort(wk.opens)) + '<span class="b5vh">, Week ' + k + ' lab not open yet</span></span>';
+      });
+      return;
+    }
+
+    var n = gatedWeek(file);
+    if (!n || n < 1 || n > 15) return;
+    var w = window.BIO005_SITE.weeks[n - 1];
+    var held = !!HOLD[n];
+    if (w.open && !held) return;
+
+    var B = base();
+    var mon = fmtDate(w.opens);
+    var satD = new Date(w.unlock.getTime());
+    var sat = satD.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'America/Los_Angeles' });
+    var line = w.open && held
+      ? 'The Week ' + n + ' material is still posting. It will be here shortly, and nothing is late because of it.'
+      : 'Week ' + n + ' opens <b>' + mon + '</b>. It unlocks early on <b>' + sat + ' at 8:00 pm Pacific</b> if you have finished the week before.';
+
+    var main = document.querySelector('main, [role="main"]') || document.body;
+    /* the page's own masthead carries the week h1; hide it so the gate card is the only heading */
+    hideAroundMain(main);
+    document.title = 'Week ' + n + ' opens ' + fmtShort(w.opens) + ' · BIO 005 Human Physiology';
+    gateCss();
+    var cur = window.BIO005_SITE.current;
+    main.innerHTML = '<div class="b5gate"><p class="eb">' + PARTS[w.part] + ' · Week ' + n + ' of 15</p>'
+      + '<h1>' + w.title + '</h1>'
+      + '<div class="card"><p style="margin:0">' + line + '</p></div>'
+      + '<h2>Until then</h2><ul>'
+      + '<li><a class="main" href="' + B + cur.file + '" target="_top">This week, Week ' + cur.n + '</a></li>'
+      + '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
+      + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' note sheet (PDF)</a></li>'
+      + '<li><a href="' + B + 'mastery-physio-os-standalone.html" target="_top">Recall cards</a></li>'
+      + '<li><a href="' + B + 'course-schedule.html" target="_top">The schedule</a></li>'
+      + '</ul></div>';
+    var h = main.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); }
   }
 
   /* ---------------------------------------------------------

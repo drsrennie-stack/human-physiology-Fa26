@@ -73,3 +73,9 @@ Checked by accessibility-tree inspection in Chromium (Playwright) and by reading
 ## 7. Reviewer
 
 Built and checked September 8, 2026, for Dr. Sharilyn Rennie. Automated checks: axe-core 4.10.2 in Chromium via Playwright, desktop 1280 px and mobile 390 px.
+
+## Addendum, September 8, 2026, second drop
+
+Files added or changed: week-01.html to week-15.html (regenerated from tools/gen_week_pages_v2.py on the seven-stage model), lecture-week.html (Week 1 videos listed in order), door-assignments.html (four graded categories), bio005-nav.js (week gate with build hold), index.html, course-questions.html and seven pages with office-hours wording removed.
+
+Checks rerun with axe-core (WCAG 2.0, 2.1, 2.2 A and AA plus best practice): week-01, week-02, week-15, lecture-week?week=1, lecture-week?week=3 (gated), week-03-notes (gated), door-assignments, index. All clean. The gate replaces the main landmark's content with one h1, one status card and a list of five links, each at least 44 px; the page's own masthead is hidden so there is a single visible h1. Stage cards on the week pages are ordered lists with labelled link groups; graded category chips are text, not color alone.
