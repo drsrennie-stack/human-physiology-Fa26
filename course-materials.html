@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Course materials &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="Everything written for BIO 005 Human Physiology, in one place, grouped by week. Filter by type or search.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Yuba College, Fall 2026
+  course-materials.html. Rebuilt Sep 8 2026 on the pattern of the
+  BIO 004 anatomy Course materials page: type filters across the
+  top, a search box, the weeks down the left, and on the right one
+  row per type per week with a badge, the item names, and a count.
+
+  This page answers WHERE SOMETHING LIVES. For what is due, the
+  course home. The list is generated: window.MATERIALS below is
+  the only thing to edit. Every href in it was checked against the
+  repo when it was built, so nothing here points at a page that
+  does not exist.
+  ============================================================
+-->
+<style>
+:root{--navy:#0B1530;--navy-deep:#060A18;--navy-tint:#ECEFF4;--maroon:#8B3A2E;--maroon-dk:#6E2D24;--gold:#C9A14A;--gold-deep:#8A6D33;
+--page:#FAFAF9;--card:#FFFFFF;--ink:#0B1530;--muted:#414B5C;--faint:#5A6675;--rule-soft:rgba(11,21,48,.10);
+--shadow:0 1px 3px rgba(0,0,0,.08);--lift:0 8px 16px rgba(0,0,0,.10);
+--display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box}html,body{margin:0}
+body{font-family:var(--body);background:var(--page);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+em,i{font-style:normal;font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0;line-height:1.15}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}.skip:focus{left:0;top:0}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+header.top{padding:34px 0 8px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+header.top h1{font-size:clamp(30px,4.8vw,46px);color:var(--navy)}header.top h1 b{color:var(--maroon)}
+header.top p{color:var(--muted);max-width:62ch;margin:12px 0 0}
+/* filters */
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:22px 0 0}
+.filters .lbl{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin-right:4px}
+.pill{font:inherit;font-size:15px;font-weight:700;border-radius:999px;padding:10px 18px;min-height:44px;cursor:pointer;
+border:1.5px solid var(--navy);background:var(--navy);color:#fff;transition:background 160ms ease,color 160ms ease}
+.pill[aria-pressed="false"]{background:#fff;color:var(--navy)}
+.pill:hover{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.search{margin:14px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search label{font-weight:700;color:var(--navy)}
+.search input{font:inherit;font-size:16px;min-height:48px;width:min(100%,380px);padding:10px 18px;border-radius:999px;border:1.5px solid rgba(11,21,48,.28);background:#fff;color:var(--ink)}
+.search input::placeholder{color:#5A6675}
+.count{margin:16px 0 0;color:var(--muted);font-size:16px}
+/* layout */
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:22px;margin:18px 0 0;align-items:start}
+.side{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 14px;position:sticky;top:64px}
+.side h2{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:4px 0 10px 10px}
+.side h3{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:12px 0 4px 10px}
+.side ul{list-style:none;margin:0;padding:0}
+.wkbtn{display:block;width:100%;text-align:left;font:inherit;background:none;border:0;border-radius:10px;padding:8px 10px;min-height:44px;cursor:pointer;color:var(--ink);line-height:1.3}
+.wkbtn small{display:block;font-size:12.5px;font-weight:700;color:var(--faint);letter-spacing:.02em}
+.wkbtn .t{font-size:14.5px;font-weight:600;color:var(--navy)}
+.wkbtn:hover{background:#F3F4F7}
+.wkbtn[aria-pressed="true"]{background:var(--navy);color:#fff;box-shadow:var(--lift)}
+.wkbtn[aria-pressed="true"] small{color:var(--gold)}.wkbtn[aria-pressed="true"] .t{color:#fff}
+.main{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:22px 26px 10px;min-width:0}
+.wkblock{padding:6px 0 18px}
+.wkblock+.wkblock{border-top:1px solid var(--rule-soft);padding-top:22px}
+.wkhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.wkhead h2{font-size:22px;color:var(--navy)}.wkhead h2 b{color:var(--maroon)}
+.wkhead .n{font-weight:700;color:var(--gold-deep);font-size:15px;white-space:nowrap}
+.wkhead p{margin:2px 0 8px;color:var(--faint);font-size:15px}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px 18px;align-items:start;padding:12px 0;border-top:1px solid var(--rule-soft)}
+.row:first-child{border-top:0}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:6px 12px;border-radius:8px;
+font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--navy);text-align:center}
+.badge.sheet{background:var(--maroon)}.badge.study{background:var(--gold-deep)}.badge.week{background:var(--navy-deep)}
+.names{font-size:16.5px;line-height:1.55}
+.names a{color:var(--ink);text-decoration:none;font-weight:700;border-radius:4px;padding:2px 0}
+.names a:hover{color:var(--maroon);text-decoration:underline}
+.names a[data-note]{position:relative}
+.names .sep{color:#8A93A3;margin:0 8px}
+.names .d{display:block;font-size:14px;color:var(--faint);font-weight:500}
+.empty{padding:26px 0;color:var(--muted)}
+.mm-foot{margin-top:46px}
+.mm-flinks{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-size:15px}
+.mm-flinks li{display:flex;align-items:center}.mm-flinks li+li::before{content:"\00B7";margin:0 12px;color:#9AA3B2}
+.mm-fleg{margin:0;font-size:14px;color:#C9CFD6}
+@media (max-width:860px){.layout{grid-template-columns:1fr}.side{position:static}.side ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:2px}.side h3{grid-column:1/-1}.row{grid-template-columns:1fr;gap:6px}.badge{justify-self:start}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (forced-colors:active){.pill,.wkbtn,.badge{border:1px solid CanvasText}.pill[aria-pressed="true"],.wkbtn[aria-pressed="true"]{border:2px solid Highlight}}
+@media print{.skip,.mm-brandbar,.filters,.search,.side{display:none!important}.layout{grid-template-columns:1fr}.main{box-shadow:none}body{background:#fff;font-size:10.5pt}}
+</style>
+</head>
+<body>
+<a class="skip" href="#list">Skip to the materials</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="index.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
+      <g transform="translate(0,18)">
+        <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
+        <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
+        <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
+      </g>
+    </svg>
+    <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<main id="main"><div class="wrap">
+  <header class="top">
+    <p class="eyebrow">BIO 005 &middot; Everything, in one place</p>
+    <h1>Course <b>materials</b></h1>
+    <p>Everything written for this course, grouped by week. This page answers where something lives. For what is due, use the <a href="index.html" target="_top">course home</a>.</p>
+  </header>
+
+  <div class="filters" role="group" aria-label="Show only one type of material">
+    <span class="lbl">Show</span>
+    <button type="button" class="pill" data-type="all" aria-pressed="true">Everything</button>
+    <button type="button" class="pill" data-type="week" aria-pressed="false">Week pages</button>
+    <button type="button" class="pill" data-type="sheet" aria-pressed="false">Note sheets</button>
+    <button type="button" class="pill" data-type="comp" aria-pressed="false">Competencies</button>
+    <button type="button" class="pill" data-type="video" aria-pressed="false">Lectures</button>
+    <button type="button" class="pill" data-type="notes" aria-pressed="false">Notes</button>
+    <button type="button" class="pill" data-type="slides" aria-pressed="false">Slide decks</button>
+    <button type="button" class="pill" data-type="lab" aria-pressed="false">Labs</button>
+    <button type="button" class="pill" data-type="workbook" aria-pressed="false">Workbooks</button>
+    <button type="button" class="pill" data-type="study" aria-pressed="false">Study tools</button>
+  </div>
+  <div class="search">
+    <label for="q">Search the materials</label>
+    <input type="search" id="q" placeholder="Try: osmosis, note sheet, week 9" autocomplete="off">
+  </div>
+  <p class="count" id="count" aria-live="polite">Loading the list.</p>
+
+  <div class="layout">
+    <nav class="side" aria-label="Weeks">
+      <h2>Weeks</h2>
+      <ul id="weeklist"></ul>
+    </nav>
+    <section class="main" id="list" aria-label="Materials"></section>
+  </div>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <ul class="mm-flinks">
+    <li><a href="index.html" target="_top">Course home</a></li>
+    <li><a href="syllabus-fall2026.html" target="_top">Syllabus</a></li>
+    <li><a href="course-schedule.html" target="_top">Schedule</a></li>
+    <li><a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a></li>
+    <li><a href="virtual-office.html" target="_top">Virtual office</a></li>
+    <li><a href="accessibility.html" target="_top">Accessibility</a></li>
+  </ul>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie</p>
+</div></footer>
+
+<script>
+window.MATERIALS = {"weeks":["How physiology works and what keeps you steady","The chemistry that does work in the body","Getting across the membrane","How cells talk, and the electrical signal","Synapses and central integration","Sensing the world, and the responses you do not control","Muscle, and how movement gets commanded","Hormones and reproduction, the slow control system","The heart as a pump","Pressure, flow, and holding blood pressure steady","Blood and how the body defends itself","Digestion, and how you use food for fuel","Breathing, gas transport, and the fast pH lever","The kidney and body fluid balance","The slow pH lever, and putting it all together"],"items":[{"w":1,"t":"sheet","n":"Week 1 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-01.pdf","d":"Print it and fill it in by hand"},{"w":1,"t":"sheet","n":"Week 1 note sheet, on screen","h":"note-sheet.html?week=1","d":"The same prompts, with the print button"},{"w":1,"t":"sheet","n":"Week 1 note sheet questions","h":"week-01-notesheet-prompts.html","d":""},{"w":1,"t":"comp","n":"Week 1 competencies","h":"week-01-competencies.html","d":"What you must be able to do by Sunday"},{"w":1,"t":"comp","n":"Week 1 in the study guide","h":"competency-study-guide.html?week=1","d":""},{"w":1,"t":"notes","n":"Week 1 notes","h":"week-01-notes.html","d":"The written version of the lectures"},{"w":1,"t":"video","n":"Week 1 lectures","h":"lecture-week.html?week=1","d":"Every video, notes page and slide deck for the week"},{"w":1,"t":"week","n":"Week 1 page","h":"week-01.html","d":"The six steps, with every link in place"},{"w":2,"t":"sheet","n":"Week 2 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-02.pdf","d":"Print it and fill it in by hand"},{"w":2,"t":"sheet","n":"Week 2 note sheet, on screen","h":"note-sheet.html?week=2","d":"The same prompts, with the print button"},{"w":2,"t":"sheet","n":"Week 2 note sheet questions","h":"week-02-notesheet-prompts.html","d":""},{"w":2,"t":"comp","n":"Week 2 competencies","h":"week-02-competencies.html","d":"What you must be able to do by Sunday"},{"w":2,"t":"comp","n":"Week 2 in the study guide","h":"competency-study-guide.html?week=2","d":""},{"w":2,"t":"notes","n":"Week 2 notes","h":"week-02-notes.html","d":"The written version of the lectures"},{"w":2,"t":"video","n":"Week 2 lectures","h":"lecture-week.html?week=2","d":"Every video, notes page and slide deck for the week"},{"w":2,"t":"week","n":"Week 2 page","h":"week-02.html","d":"The six steps, with every link in place"},{"w":3,"t":"sheet","n":"Week 3 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-03.pdf","d":"Print it and fill it in by hand"},{"w":3,"t":"sheet","n":"Week 3 note sheet, on screen","h":"note-sheet.html?week=3","d":"The same prompts, with the print button"},{"w":3,"t":"comp","n":"Week 3 competencies","h":"week-03-competencies.html","d":"What you must be able to do by Sunday"},{"w":3,"t":"comp","n":"Week 3 in the study guide","h":"competency-study-guide.html?week=3","d":""},{"w":3,"t":"notes","n":"Week 3 notes","h":"week-03-notes.html","d":"The written version of the lectures"},{"w":3,"t":"video","n":"Week 3 lectures","h":"lecture-week.html?week=3","d":"Every video, notes page and slide deck for the week"},{"w":3,"t":"week","n":"Week 3 page","h":"week-03.html","d":"The six steps, with every link in place"},{"w":4,"t":"sheet","n":"Week 4 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-04.pdf","d":"Print it and fill it in by hand"},{"w":4,"t":"sheet","n":"Week 4 note sheet, on screen","h":"note-sheet.html?week=4","d":"The same prompts, with the print button"},{"w":4,"t":"comp","n":"Week 4 competencies","h":"week-04-competencies.html","d":"What you must be able to do by Sunday"},{"w":4,"t":"comp","n":"Week 4 in the study guide","h":"competency-study-guide.html?week=4","d":""},{"w":4,"t":"notes","n":"Week 4 notes","h":"week-04-notes.html","d":"The written version of the lectures"},{"w":4,"t":"video","n":"Week 4 lectures","h":"lecture-week.html?week=4","d":"Every video, notes page and slide deck for the week"},{"w":4,"t":"week","n":"Week 4 page","h":"week-04.html","d":"The six steps, with every link in place"},{"w":5,"t":"sheet","n":"Week 5 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-05.pdf","d":"Print it and fill it in by hand"},{"w":5,"t":"sheet","n":"Week 5 note sheet, on screen","h":"note-sheet.html?week=5","d":"The same prompts, with the print button"},{"w":5,"t":"comp","n":"Week 5 competencies","h":"week-05-competencies.html","d":"What you must be able to do by Sunday"},{"w":5,"t":"comp","n":"Week 5 in the study guide","h":"competency-study-guide.html?week=5","d":""},{"w":5,"t":"notes","n":"Week 5 notes","h":"week-05-notes.html","d":"The written version of the lectures"},{"w":5,"t":"video","n":"Week 5 lectures","h":"lecture-week.html?week=5","d":"Every video, notes page and slide deck for the week"},{"w":5,"t":"week","n":"Week 5 page","h":"week-05.html","d":"The six steps, with every link in place"},{"w":6,"t":"sheet","n":"Week 6 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-06.pdf","d":"Print it and fill it in by hand"},{"w":6,"t":"sheet","n":"Week 6 note sheet, on screen","h":"note-sheet.html?week=6","d":"The same prompts, with the print button"},{"w":6,"t":"comp","n":"Week 6 competencies","h":"week-06-competencies.html","d":"What you must be able to do by Sunday"},{"w":6,"t":"comp","n":"Week 6 in the study guide","h":"competency-study-guide.html?week=6","d":""},{"w":6,"t":"notes","n":"Week 6 notes","h":"week-06-notes.html","d":"The written version of the lectures"},{"w":6,"t":"video","n":"Week 6 lectures","h":"lecture-week.html?week=6","d":"Every video, notes page and slide deck for the week"},{"w":6,"t":"week","n":"Week 6 page","h":"week-06.html","d":"The six steps, with every link in place"},{"w":7,"t":"sheet","n":"Week 7 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-07.pdf","d":"Print it and fill it in by hand"},{"w":7,"t":"sheet","n":"Week 7 note sheet, on screen","h":"note-sheet.html?week=7","d":"The same prompts, with the print button"},{"w":7,"t":"comp","n":"Week 7 competencies","h":"week-07-competencies.html","d":"What you must be able to do by Sunday"},{"w":7,"t":"comp","n":"Week 7 in the study guide","h":"competency-study-guide.html?week=7","d":""},{"w":7,"t":"notes","n":"Week 7 notes","h":"week-07-notes.html","d":"The written version of the lectures"},{"w":7,"t":"video","n":"Week 7 lectures","h":"lecture-week.html?week=7","d":"Every video, notes page and slide deck for the week"},{"w":7,"t":"week","n":"Week 7 page","h":"week-07.html","d":"The six steps, with every link in place"},{"w":8,"t":"sheet","n":"Week 8 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-08.pdf","d":"Print it and fill it in by hand"},{"w":8,"t":"sheet","n":"Week 8 note sheet, on screen","h":"note-sheet.html?week=8","d":"The same prompts, with the print button"},{"w":8,"t":"comp","n":"Week 8 competencies","h":"week-08-competencies.html","d":"What you must be able to do by Sunday"},{"w":8,"t":"comp","n":"Week 8 in the study guide","h":"competency-study-guide.html?week=8","d":""},{"w":8,"t":"notes","n":"Week 8 notes","h":"week-08-notes.html","d":"The written version of the lectures"},{"w":8,"t":"video","n":"Week 8 lectures","h":"lecture-week.html?week=8","d":"Every video, notes page and slide deck for the week"},{"w":8,"t":"week","n":"Week 8 page","h":"week-08.html","d":"The six steps, with every link in place"},{"w":9,"t":"sheet","n":"Week 9 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-09.pdf","d":"Print it and fill it in by hand"},{"w":9,"t":"sheet","n":"Week 9 note sheet, on screen","h":"note-sheet.html?week=9","d":"The same prompts, with the print button"},{"w":9,"t":"comp","n":"Week 9 competencies","h":"week-09-competencies.html","d":"What you must be able to do by Sunday"},{"w":9,"t":"comp","n":"Week 9 in the study guide","h":"competency-study-guide.html?week=9","d":""},{"w":9,"t":"notes","n":"Week 9 notes","h":"week-09-notes.html","d":"The written version of the lectures"},{"w":9,"t":"video","n":"Week 9 lectures","h":"lecture-week.html?week=9","d":"Every video, notes page and slide deck for the week"},{"w":9,"t":"week","n":"Week 9 page","h":"week-09.html","d":"The six steps, with every link in place"},{"w":10,"t":"sheet","n":"Week 10 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-10.pdf","d":"Print it and fill it in by hand"},{"w":10,"t":"sheet","n":"Week 10 note sheet, on screen","h":"note-sheet.html?week=10","d":"The same prompts, with the print button"},{"w":10,"t":"comp","n":"Week 10 competencies","h":"week-10-competencies.html","d":"What you must be able to do by Sunday"},{"w":10,"t":"comp","n":"Week 10 in the study guide","h":"competency-study-guide.html?week=10","d":""},{"w":10,"t":"notes","n":"Week 10 notes","h":"week-10-notes.html","d":"The written version of the lectures"},{"w":10,"t":"video","n":"Week 10 lectures","h":"lecture-week.html?week=10","d":"Every video, notes page and slide deck for the week"},{"w":10,"t":"week","n":"Week 10 page","h":"week-10.html","d":"The six steps, with every link in place"},{"w":11,"t":"sheet","n":"Week 11 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-11.pdf","d":"Print it and fill it in by hand"},{"w":11,"t":"sheet","n":"Week 11 note sheet, on screen","h":"note-sheet.html?week=11","d":"The same prompts, with the print button"},{"w":11,"t":"comp","n":"Week 11 competencies","h":"week-11-competencies.html","d":"What you must be able to do by Sunday"},{"w":11,"t":"comp","n":"Week 11 in the study guide","h":"competency-study-guide.html?week=11","d":""},{"w":11,"t":"notes","n":"Week 11 notes","h":"week-11-notes.html","d":"The written version of the lectures"},{"w":11,"t":"video","n":"Week 11 lectures","h":"lecture-week.html?week=11","d":"Every video, notes page and slide deck for the week"},{"w":11,"t":"week","n":"Week 11 page","h":"week-11.html","d":"The six steps, with every link in place"},{"w":12,"t":"sheet","n":"Week 12 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-12.pdf","d":"Print it and fill it in by hand"},{"w":12,"t":"sheet","n":"Week 12 note sheet, on screen","h":"note-sheet.html?week=12","d":"The same prompts, with the print button"},{"w":12,"t":"comp","n":"Week 12 competencies","h":"week-12-competencies.html","d":"What you must be able to do by Sunday"},{"w":12,"t":"comp","n":"Week 12 in the study guide","h":"competency-study-guide.html?week=12","d":""},{"w":12,"t":"notes","n":"Week 12 notes","h":"week-12-notes.html","d":"The written version of the lectures"},{"w":12,"t":"video","n":"Week 12 lectures","h":"lecture-week.html?week=12","d":"Every video, notes page and slide deck for the week"},{"w":12,"t":"week","n":"Week 12 page","h":"week-12.html","d":"The six steps, with every link in place"},{"w":13,"t":"sheet","n":"Week 13 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-13.pdf","d":"Print it and fill it in by hand"},{"w":13,"t":"sheet","n":"Week 13 note sheet, on screen","h":"note-sheet.html?week=13","d":"The same prompts, with the print button"},{"w":13,"t":"comp","n":"Week 13 competencies","h":"week-13-competencies.html","d":"What you must be able to do by Sunday"},{"w":13,"t":"comp","n":"Week 13 in the study guide","h":"competency-study-guide.html?week=13","d":""},{"w":13,"t":"notes","n":"Week 13 notes","h":"week-13-notes.html","d":"The written version of the lectures"},{"w":13,"t":"video","n":"Week 13 lectures","h":"lecture-week.html?week=13","d":"Every video, notes page and slide deck for the week"},{"w":13,"t":"week","n":"Week 13 page","h":"week-13.html","d":"The six steps, with every link in place"},{"w":14,"t":"sheet","n":"Week 14 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-14.pdf","d":"Print it and fill it in by hand"},{"w":14,"t":"sheet","n":"Week 14 note sheet, on screen","h":"note-sheet.html?week=14","d":"The same prompts, with the print button"},{"w":14,"t":"comp","n":"Week 14 competencies","h":"week-14-competencies.html","d":"What you must be able to do by Sunday"},{"w":14,"t":"comp","n":"Week 14 in the study guide","h":"competency-study-guide.html?week=14","d":""},{"w":14,"t":"notes","n":"Week 14 notes","h":"week-14-notes.html","d":"The written version of the lectures"},{"w":14,"t":"video","n":"Week 14 lectures","h":"lecture-week.html?week=14","d":"Every video, notes page and slide deck for the week"},{"w":14,"t":"week","n":"Week 14 page","h":"week-14.html","d":"The six steps, with every link in place"},{"w":15,"t":"sheet","n":"Week 15 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-15.pdf","d":"Print it and fill it in by hand"},{"w":15,"t":"sheet","n":"Week 15 note sheet, on screen","h":"note-sheet.html?week=15","d":"The same prompts, with the print button"},{"w":15,"t":"comp","n":"Week 15 competencies","h":"week-15-competencies.html","d":"What you must be able to do by Sunday"},{"w":15,"t":"comp","n":"Week 15 in the study guide","h":"competency-study-guide.html?week=15","d":""},{"w":15,"t":"notes","n":"Week 15 notes","h":"week-15-notes.html","d":"The written version of the lectures"},{"w":15,"t":"video","n":"Week 15 lectures","h":"lecture-week.html?week=15","d":"Every video, notes page and slide deck for the week"},{"w":15,"t":"week","n":"Week 15 page","h":"week-15.html","d":"The six steps, with every link in place"},{"w":1,"t":"video","n":"Week 1 concept videos","h":"concept-videos-week01.html","d":"Press play once and the whole week runs"},{"w":1,"t":"notes","n":"Maintain control","h":"biol005-m01-maintain-control-notes.html","d":"Silverthorn Chapter 1 and the control loop sections of Chapter 6"},{"w":1,"t":"slides","n":"Maintain control","h":"biol005-m01-maintain-control-slides.html","d":""},{"w":2,"t":"notes","n":"Build the molecular toolkit","h":"biol005-m02-molecular-toolkit-notes.html","d":"Water, pH and buffers, proteins, enzymes, ATP. Silverthorn Chapters 2 and 4"},{"w":2,"t":"slides","n":"Build the molecular toolkit","h":"biol005-m02-molecular-toolkit-slides.html","d":""},{"w":1,"t":"slides","n":"P-04 Approaches to Physiology","h":"slides-P-approaches.html","d":""},{"w":1,"t":"slides","n":"P-18 Biological Rhythms and Changes in Set Point","h":"slides-P-biological-rhythms.html","d":""},{"w":1,"t":"slides","n":"P-10 Excretion Clears Substances From the Body","h":"slides-P-clearance.html","d":""},{"w":1,"t":"slides","n":"P-12 Homeostasis and Control Systems","h":"slides-P-control-systems.html","d":""},{"w":1,"t":"slides","n":"P-03 Emergent Properties and Physiology","h":"slides-P-emergent-properties.html","d":""},{"w":1,"t":"slides","n":"P-20 Design of Good Scientific Experiments","h":"slides-P-experimental-design.html","d":""},{"w":1,"t":"slides","n":"P-17 Feedforward Control","h":"slides-P-feedforward-control.html","d":""},{"w":1,"t":"slides","n":"P-11 Homeostasis Does Not Equal Equilibrium","h":"slides-P-homeostasis-not-equilibrium.html","d":""},{"w":1,"t":"slides","n":"P-06 Homeostasis, the General Idea","h":"slides-P-homeostasis.html","d":""},{"w":1,"t":"slides","n":"P-07 Internal and External Environments","h":"slides-P-internal-external-environment.html","d":""},{"w":1,"t":"slides","n":"P-08 Homeostasis and Mass Balance","h":"slides-P-mass-balance.html","d":""},{"w":1,"t":"slides","n":"P-09 Homeostasis and Mass Flow","h":"slides-P-mass-flow.html","d":""},{"w":1,"t":"slides","n":"P-15 Negative Feedback, a Worked Example","h":"slides-P-negative-feedback-example.html","d":""},{"w":1,"t":"slides","n":"P-14 Negative Feedback Loops","h":"slides-P-negative-feedback.html","d":""},{"w":1,"t":"slides","n":"P-16 Positive Feedback Loops","h":"slides-P-positive-feedback.html","d":""},{"w":1,"t":"slides","n":"P-13 Reflex Control","h":"slides-P-reflex-control.html","d":""},{"w":1,"t":"slides","n":"P-19 The Science of Physiology","h":"slides-P-science-of-physiology.html","d":""},{"w":1,"t":"slides","n":"P-02 Systems Theory and Physiology","h":"slides-P-systems-theory.html","d":""},{"w":1,"t":"slides","n":"P-05 Translational Medicine","h":"slides-P-translational-medicine.html","d":""},{"w":1,"t":"slides","n":"P-01 What Is Physiology?","h":"slides-P-what-is-physiology.html","d":""},{"w":2,"t":"slides","n":"Chemical foundations","h":"slides-p-chemical-foundations.html","d":""},{"w":2,"t":"slides","n":"Quantitative skills for physiology","h":"slides-p-quantitative-skills.html","d":""},{"w":2,"t":"lab","n":"Week 2 graphing worksheet","h":"worksheet-week02-graphing.html","d":""},{"w":3,"t":"slides","n":"Membrane structure and diffusion","h":"slides-p-membrane-structure-and-diffusion.html","d":""},{"w":3,"t":"slides","n":"Membrane transport","h":"slides-p-membrane-transport.html","d":""},{"w":3,"t":"slides","n":"The cell and cell transport","h":"slides-p-the-cell-and-cell-transport.html","d":""},{"w":4,"t":"slides","n":"Membrane potential","h":"slides-p-membrane-potential.html","d":""},{"w":1,"t":"lab","n":"Standards and ranges lab","h":"reference-range-lab.html","d":""},{"w":2,"t":"lab","n":"Enzyme (amylase) lab","h":"enzyme-amylase-lab.html","d":""},{"w":3,"t":"lab","n":"Osmosis and IV fluids lab","h":"osmosis-iv-fluids-lab.html","d":""},{"w":8,"t":"lab","n":"Hormone cycle lab","h":"lab-week08-hormone-cycle.html","d":""},{"w":11,"t":"lab","n":"CBC and PCR blood analysis lab","h":"cbc-pcr-lab.html","d":""},{"w":13,"t":"lab","n":"Pulmonary function lab","h":"pulmonary-function-lab.html","d":""},{"w":15,"t":"lab","n":"Your patient file","h":"BIO005-patient-file.html","d":""},{"w":1,"t":"workbook","n":"Fluid homeostasis case","h":"workbook_week01_fluid-homeostasis.html","d":"A printable case you work by hand"},{"w":2,"t":"workbook","n":"Membranes and transport case","h":"workbook_week02_membranes-transport.html","d":"A printable case you work by hand"},{"w":3,"t":"workbook","n":"Membrane potential case","h":"workbook_week03_membrane-potential.html","d":"A printable case you work by hand"},{"w":1,"t":"lab","n":"Brain dump, Week 1","h":"braindump-week01.html","d":""},{"w":0,"t":"study","n":"Mastery OS, spaced recall","h":"mastery-physio-os-standalone.html","d":"All 268 competencies, a few minutes a day"},{"w":0,"t":"study","n":"Competency study guide","h":"competency-study-guide.html","d":"Every competency, by week"},{"w":0,"t":"study","n":"Recall cards","h":"competency-recall.html","d":""},{"w":0,"t":"study","n":"Draw it from memory","h":"mastery-canvas.html","d":"Blank canvas, pen, shapes, text, save as PDF"},{"w":0,"t":"study","n":"Practice exam","h":"practice-exam.html","d":"Timed, seeded, with a gap finder"},{"w":0,"t":"study","n":"Brain dump practice","h":"competency-brain-dump.html","d":""},{"w":0,"t":"study","n":"Competency packet","h":"competency-packet-fall2026.html","d":"All 268, printable"},{"w":0,"t":"study","n":"Anatomy review","h":"anatomy-review.html","d":"The anatomy you are assumed to have"},{"w":0,"t":"study","n":"Clinical Physiology Lab manual","h":"clinical-physiology-lab-manual.html","d":""},{"w":0,"t":"study","n":"Lab report form","h":"lab-report-form.html","d":""},{"w":0,"t":"study","n":"PhysioEx, how it works","h":"assignment-physioex.html","d":""},{"w":0,"t":"study","n":"Getting into Pearson","h":"access-pearson.html","d":""},{"w":2,"t":"lab","n":"Week 2 PhysioEx","h":"assignment-physioex.html?week=2","d":"Which exercise and activities, and what to record"},{"w":3,"t":"lab","n":"Week 3 PhysioEx","h":"assignment-physioex.html?week=3","d":"Which exercise and activities, and what to record"},{"w":4,"t":"lab","n":"Week 4 PhysioEx","h":"assignment-physioex.html?week=4","d":"Which exercise and activities, and what to record"},{"w":7,"t":"lab","n":"Week 7 PhysioEx","h":"assignment-physioex.html?week=7","d":"Which exercise and activities, and what to record"},{"w":8,"t":"lab","n":"Week 8 PhysioEx","h":"assignment-physioex.html?week=8","d":"Which exercise and activities, and what to record"},{"w":9,"t":"lab","n":"Week 9 PhysioEx","h":"assignment-physioex.html?week=9","d":"Which exercise and activities, and what to record"},{"w":10,"t":"lab","n":"Week 10 PhysioEx","h":"assignment-physioex.html?week=10","d":"Which exercise and activities, and what to record"},{"w":11,"t":"lab","n":"Week 11 PhysioEx","h":"assignment-physioex.html?week=11","d":"Which exercise and activities, and what to record"},{"w":12,"t":"lab","n":"Week 12 PhysioEx","h":"assignment-physioex.html?week=12","d":"Which exercise and activities, and what to record"},{"w":13,"t":"lab","n":"Week 13 PhysioEx","h":"assignment-physioex.html?week=13","d":"Which exercise and activities, and what to record"},{"w":14,"t":"lab","n":"Week 14 PhysioEx","h":"assignment-physioex.html?week=14","d":"Which exercise and activities, and what to record"},{"w":15,"t":"lab","n":"Week 15 PhysioEx","h":"assignment-physioex.html?week=15","d":"Which exercise and activities, and what to record"}]};
+</script>
+<script>
+(function(){
+  "use strict";
+  var M = window.MATERIALS, W = M.weeks, items = M.items;
+  var TYPE = {week:"Week page", sheet:"Note sheet", comp:"Competencies", video:"Lectures", notes:"Notes", slides:"Slides", lab:"Lab", workbook:"Workbook", study:"Study tool"};
+  var ORDER = ["week","sheet","comp","video","notes","slides","lab","workbook","study"];
+  var PART = [1,1,1,2,2,2,2,2,3,3,3,3,3,3,3];
+  var PARTNAME = {1:"Part 1, Foundations", 2:"Part 2, Control systems", 3:"Part 3, Systems in action"};
+  var type = "all", week = 0, q = "";
+
+  /* the week list on the left. Week 0 is "all weeks", and the course-wide
+     study tools sit under "Every week". */
+  var wl = document.getElementById("weeklist");
+  var html = '<li><button type="button" class="wkbtn" data-week="0" aria-pressed="true"><span class="t">All weeks</span></button></li>';
+  var lastPart = 0;
+  for (var i = 0; i < W.length; i++) {
+    if (PART[i] !== lastPart) { html += '<li><h3>' + PARTNAME[PART[i]] + '</h3></li>'; lastPart = PART[i]; }
+    html += '<li><button type="button" class="wkbtn" data-week="' + (i+1) + '" aria-pressed="false"><small>Week ' + (i+1) + '</small><span class="t">' + W[i] + '</span></button></li>';
+  }
+  html += '<li><h3>Every week</h3></li><li><button type="button" class="wkbtn" data-week="99" aria-pressed="false"><span class="t">Study tools and the lab manual</span></button></li>';
+  wl.innerHTML = html;
+
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+  function match(it){
+    if (type !== "all" && it.t !== type) return false;
+    if (week === 99 && it.w !== 0) return false;
+    if (week > 0 && week < 99 && it.w !== week) return false;
+    if (q) {
+      var hay = (it.n + " " + (it.d||"") + " " + TYPE[it.t] + " week " + it.w + " " + (it.w ? W[it.w-1] : "")).toLowerCase();
+      if (hay.indexOf(q) < 0) return false;
+    }
+    return true;
+  }
+  function render(){
+    var list = document.getElementById("list");
+    var shown = items.filter(match);
+    var groups = {};
+    shown.forEach(function(it){ (groups[it.w] = groups[it.w] || []).push(it); });
+    var keys = Object.keys(groups).map(Number).sort(function(a,b){ return (a===0?100:a) - (b===0?100:b); });
+    var out = "";
+    keys.forEach(function(w){
+      var g = groups[w];
+      var byType = {};
+      g.forEach(function(it){ (byType[it.t] = byType[it.t] || []).push(it); });
+      out += '<div class="wkblock"><div class="wkhead"><h2>' + (w ? 'Week ' + w + ' <b>' + esc(W[w-1]) + '</b>' : 'Every week <b>Study tools and the lab</b>') + '</h2><span class="n">' + g.length + (g.length === 1 ? ' item' : ' items') + '</span></div>';
+      if (w) out += '<p>' + PARTNAME[PART[w-1]] + '</p>';
+      out += '<ul class="rows">';
+      ORDER.forEach(function(t){
+        if (!byType[t]) return;
+        var names = byType[t].map(function(it){
+          return '<a href="' + it.h + '" target="_top">' + esc(it.n) + '</a>' + (it.d ? '<span class="d">' + esc(it.d) + '</span>' : '');
+        });
+        out += '<li class="row"><span class="badge ' + t + '">' + TYPE[t] + '</span><div class="names">' + names.join('<span class="sep" aria-hidden="true">·</span>') + '</div></li>';
+      });
+      out += '</ul></div>';
+    });
+    list.innerHTML = out || '<p class="empty">Nothing matches. Clear the search, or choose Everything.</p>';
+    document.getElementById("count").textContent = shown.length + (shown.length === 1 ? ' item showing.' : ' items showing.');
+  }
+
+  document.querySelectorAll(".pill").forEach(function(b){
+    b.addEventListener("click", function(){
+      document.querySelectorAll(".pill").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true"); type = b.getAttribute("data-type"); render();
+    });
+  });
+  wl.addEventListener("click", function(e){
+    var b = e.target.closest(".wkbtn"); if (!b) return;
+    wl.querySelectorAll(".wkbtn").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+    b.setAttribute("aria-pressed","true"); week = parseInt(b.getAttribute("data-week"),10); render();
+  });
+  var qi = document.getElementById("q"), tm;
+  qi.addEventListener("input", function(){ clearTimeout(tm); tm = setTimeout(function(){ q = qi.value.trim().toLowerCase(); render(); }, 120); });
+
+  /* ?week=N opens straight to that week */
+  var m = /[?&]week=(\d{1,2})/.exec(location.search);
+  if (m) { var b = wl.querySelector('.wkbtn[data-week="' + parseInt(m[1],10) + '"]'); if (b) b.click(); }
+  render();
+}());
+</script>
+<script src="bio005-nav.js" defer></script>
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<script src="bio005-back.js"></script>
+</body>
+</html>

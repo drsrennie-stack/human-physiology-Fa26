@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIO 005 &middot; Note sheet</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Yuba College, Fall 2026
+  note-sheet.html   THE SHEET ITSELF, NOT INSTRUCTIONS FOR IT
+
+  ?week=1 .. ?week=15   which week's competencies get printed
+  ?per=1 | 2 | 3        competencies per sheet of paper
+  ?blank=1              number and concept name left empty
+
+  WHY THIS PAGE EXISTS
+  --------------------
+  assignment-notesheet.html used to explain how to build a note
+  sheet. Students got lost building it and never reached the
+  physiology. This page hands them the built sheet.
+
+  PRINTING COSTS MONEY. One competency per page made Week 1
+  eighteen sheets of paper, every week, which students on this
+  campus cannot carry. So the sheet packs 1, 2 or 3 competencies
+  onto a page and DEFAULTS TO TWO. Week 1 at two per page is nine
+  sheets, at three per page it is six.
+
+  And printing is optional. A student who is not printing rules
+  the same box onto their own paper, or sets it up on a tablet.
+  The worked SVG template that used to sit on this page came out
+  Sep 7 2026 at Scrubs' request; a short note in the ABOUT THE
+  PAPER card says the same thing in three lines.
+
+  THE PROMPTS ARE ON THE SHEET as of Sep 7 2026. Both prompts for
+  each competency print beside the drawing box, two across, so the
+  competency page no longer has to be printed alongside it.
+
+  FOUR SPACES PER COMPETENCY, ALL FOUR DRAWN
+    1  Draw it                     the big one, on the left
+    2  Label every part            top right
+    3  What happens, in order      middle right
+    4  What breaks if this fails   full width across the bottom
+
+  THE BOXES HAVE NO RULES IN THEM ON PURPOSE. A ruled box invites
+  a paragraph and a paragraph is the one thing this assignment is
+  not. Words are fine inside a drawing, in little boxes with
+  arrows between them, in the order things happen. Sentences
+  running the width of the box are not, and the rule is printed
+  on every page.
+
+  TWO PASSES, TWO COLORS, SAME BOXES. Pass one from the book
+  before any video. Pass two in a second color after the video,
+  into the same boxes. The gap between the colors is the grade.
+
+  IFRAME SAFE. Nothing position:fixed. Fluid to 320px. Height
+  sender posts as bio005-note-sheet. Internal links target _top.
+  ============================================================
+-->
+<style>
+em,i,cite,dfn,var,address,blockquote{font-style:normal}
+
+:root{
+  --navy:#0B1530;        /* 18.04:1 on white */
+  --navy-deep:#060A18;
+  --maroon:#8B3A2E;      /* 7.66:1 on white, 7.33:1 on off white */
+  --maroon-dark:#6E2D24; /* 10.18:1 */
+  --ink:#0B1530;
+  --muted:#454B58;       /* 8.75:1 on white */
+  --page:#FAFAF9;
+  --card:#FFFFFF;
+  --hair:#D8DBE2;
+  --pen1:#0B1530;        /* first pass pen, 11.27:1 on white */
+  --pen2:#8B3A2E;        /* second pass pen, 7.66:1 on white */
+  --disp:'Open Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+body{background:var(--page);color:var(--ink);font-family:var(--body);
+     line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--disp);margin:0;font-weight:800;letter-spacing:-.02em}
+p{margin:0}
+a{color:var(--maroon-dark);font-weight:700}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;
+      padding:12px 20px;font-weight:700;z-index:50}
+.skip:focus{left:0}
+
+/* ---------------- screen chrome, none of it prints ---------------- */
+.top{background:var(--navy-deep);color:#fff;padding:34px 20px 30px}
+.top .wrap{max-width:940px;margin:0 auto}
+.eyebrow{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.3em;
+         text-transform:uppercase;color:var(--gold,#C9A14A);margin-bottom:12px}  /* 8.16:1 on navy-deep, AAA */
+.top h1{font-size:clamp(25px,5vw,36px);line-height:1.12;color:#fff}
+.top .sub{margin-top:11px;font-size:16px;color:#E4E7EE;max-width:64ch}  /* 14.6:1 */
+
+.btnrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.sqbtn{display:inline-block;background:#fff;color:var(--maroon-dark);border:0;
+       font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.14em;
+       text-transform:uppercase;padding:13px 18px;border-radius:4px;cursor:pointer;
+       text-decoration:none;transition:background-color 160ms ease,color 160ms ease}
+.sqbtn:hover{background:var(--gold,#C9A14A);color:var(--navy-deep,#060A18)}
+.sqbtn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #fff}
+.sqbtn.ghost:hover{background:#fff;color:var(--navy-deep)}
+
+.pick{background:#fff;border-bottom:1px solid var(--hair);padding:15px 20px}
+.pick .wrap{max-width:940px;margin:0 auto;display:flex;flex-wrap:wrap;
+            align-items:center;gap:10px 20px}
+.pick .grp{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.pick label,.pick legend{font-size:11px;font-weight:700;letter-spacing:.14em;
+            text-transform:uppercase;color:var(--muted);padding:0}
+.pick select{font-family:var(--body);font-size:15px;font-weight:600;color:var(--ink);
+             background:#fff;border:1px solid var(--navy);border-radius:4px;padding:9px 12px}
+.pick fieldset{border:0;margin:0;padding:0;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--navy);border-radius:4px;overflow:hidden}
+.seg label{position:relative;margin:0}
+.seg input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer}
+.seg span{display:block;padding:9px 15px;font-size:13px;font-weight:700;letter-spacing:.04em;
+          color:var(--navy);text-transform:none;background:#fff;cursor:pointer;
+          border-left:1px solid var(--hair)}
+.seg label:first-child span{border-left:0}
+.seg input:checked + span{background:var(--navy);color:#fff}      /* 18.04:1 */
+.seg input:focus-visible + span{outline:3px solid var(--maroon);outline-offset:-3px}
+.pick .cnt{font-size:14px;color:var(--muted);font-weight:600}
+
+.band{max-width:940px;margin:22px auto 0;padding:0 20px;display:grid;
+      grid-template-columns:1fr 1fr;gap:16px}
+.band .box{background:#fff;border:1px solid var(--hair);
+           padding:18px 20px}
+.band h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon-dark);
+         font-family:var(--body);font-weight:700;margin-bottom:9px}
+.band ol{margin:0;padding-left:19px;font-size:14.5px;color:var(--ink)}
+.band li{margin-bottom:6px}
+.band li:last-child{margin-bottom:0}
+.band p{font-size:14.5px;color:var(--ink);margin-bottom:9px}
+.band p:last-child{margin-bottom:0}
+@media (max-width:760px){ .band{grid-template-columns:1fr} }
+
+/* The hand ruling template CSS came out with the template, Sep 7 2026. */
+
+/* ---------------- one sheet of paper ---------------- */
+.sheetpage{background:var(--card);border:1px solid var(--hair);padding:24px 22px 20px;
+           margin-bottom:20px;display:flex;flex-direction:column}
+.phead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+       border-bottom:1.5px solid var(--navy);padding-bottom:8px}
+/* h1 on the first sheet page, span on the rest, identical either way */
+.phead .runner{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+               color:var(--maroon-dark);margin:0;display:inline-block;white-space:nowrap;font-family:inherit;
+               line-height:inherit;letter-spacing:.22em}
+.phead .who{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.phead .who .ln{display:inline-block;border-bottom:1px solid var(--muted);
+                width:130px;margin:0 14px 0 5px}
+
+.drawrule{margin-top:9px;font-size:11.5px;line-height:1.4;color:var(--maroon-dark);
+          border-left:2px solid var(--maroon);padding-left:9px}   /* 10.18:1 on white */
+.drawrule b{font-weight:800}
+
+/* one competency inside the sheet */
+.pg{display:flex;flex-direction:column;min-height:0;margin-top:14px}
+.pg + .pg{border-top:1px dashed var(--hair);padding-top:12px}
+
+.ptitle{display:flex;align-items:flex-start;gap:12px}
+.numbox{flex:none;width:44px;height:44px;border:1.5px solid var(--navy);
+        display:grid;place-items:center;font-family:var(--disp);font-weight:800;
+        font-size:19px;color:var(--navy)}
+.numbox.empty{color:transparent}
+.numlab{display:block;font-size:8px;font-weight:700;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--muted);text-align:center;margin-top:3px}
+.ptitle h2{font-size:18px;line-height:1.25;color:var(--navy)}
+.ptitle .blankname{display:block;border-bottom:1px solid var(--navy);height:22px;width:100%;
+                   max-width:460px}
+.can{margin-top:7px;font-size:13px;line-height:1.42;color:var(--muted)}
+.can b{color:var(--maroon-dark);font-weight:700}
+
+.meta{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:10px;
+      border-top:1px dotted var(--hair);border-bottom:1px dotted var(--hair);padding:7px 0}
+.meta span{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+           color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.tick{display:inline-block;width:13px;height:13px;border:1.2px solid var(--navy);
+      border-radius:2px;vertical-align:-2px}
+.meta .cl{display:inline-block;border-bottom:1px solid var(--muted);width:70px}
+
+/* ONE OPEN BOX.
+   Sep 7 2026, Scrubs' call: the four prescribed boxes are gone. The prompt on
+   the competency page already says what to draw, and it varies by prompt,
+   panels for one, a row of small graphs for another. Four fixed boxes fought
+   that. One box, the student divides it. */
+.grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px;flex:1;min-height:0}
+.sp{border:1.2px solid var(--navy);position:relative;padding:22px 11px 10px}
+.sp .lab{position:absolute;top:0;left:0;background:var(--navy);color:#fff;
+         font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+         padding:3px 9px}                                        /* 18.04:1 */
+/* The hint sits at the BOTTOM right. At the top it collided with the label tab
+   in the narrow right hand column, which clipped "boxes and arrows" mid word. */
+.sp .hint{position:absolute;bottom:5px;right:9px;font-size:9px;
+          color:var(--muted);letter-spacing:.01em;max-width:calc(100% - 18px);
+          text-align:right}
+.sp.open{grid-column:1;grid-row:1}
+
+/* On screen the boxes need real height, scaled by how many share a page.
+   SCREEN ONLY, and that is load bearing. These selectors are (0,3,0) and the
+   print reset that zeroes them is (0,2,0), so unscoped they won 30 to 40px per
+   block in the print layout and the third block on a three up page overflowed
+   into the one below it. */
+@media screen{
+  .d1 .sp.open{min-height:600px}
+  .d2 .sp.open{min-height:425px}
+  .d3 .sp.open{min-height:315px}
+}
+
+.foot{margin-top:10px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;
+      border-top:1px solid var(--hair);padding-top:7px}
+.foot p{font-size:9.5px;color:var(--muted);letter-spacing:.02em}
+
+.tail{max-width:940px;margin:0 auto;padding:0 20px 60px}
+.tail .box{background:#fff;border:1px solid var(--hair);padding:20px 22px}
+.tail h2{font-size:16px;color:var(--navy);margin-bottom:8px}
+.tail p{font-size:14.5px;color:var(--muted);margin-bottom:8px}
+.tail p:last-child{margin-bottom:0}
+
+@media (max-width:620px){
+  .grid{grid-template-columns:1fr}
+  .sp.open{grid-column:1;grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+@media (forced-colors:active){
+  .sp,.numbox,.sheetpage,.seg{border:1px solid CanvasText}
+  .sp .lab{border:1px solid CanvasText}
+}
+
+/* ================= PRINT: this is the deliverable ================= */
+@media print{
+  @page{size:letter portrait;margin:0.5in}
+  html,body{background:#fff}
+  body{font-size:10pt;color:#000}
+  .top,.pick,.band,.tpl,.tail,.skip,.btnrow{display:none!important}
+  .sheets{max-width:none;margin:0;padding:0}
+
+  .sheetpage{border:0;padding:0;margin:0;height:9.9in;
+             break-after:page;page-break-after:always;
+             break-inside:avoid;page-break-inside:avoid}
+  .sheetpage:last-child{break-after:auto;page-break-after:auto}
+
+  .phead{border-bottom:1.2pt solid #000}
+  .phead .runner,.phead .who{color:#000;font-size:7.5pt}
+  .phead .who .ln{border-bottom:.7pt solid #000}
+  .drawrule{color:#000;font-size:7.4pt;border-left:1.5pt solid #000;
+            padding-left:6pt;margin-top:0.05in}
+
+  /* Each competency block gets an EXPLICIT height, not flex:1. Flex let the
+     third block on a three up page push past the bottom of the paper, and the
+     absolutely positioned box 4 label then painted over the next competency's
+     title. Explicit height plus overflow:hidden cannot do that. The numbers are
+     9.9in of page, less the running head, the drawing rule and the footer,
+     divided by how many blocks share the sheet. */
+  .pg{margin-top:0.09in;min-height:0;overflow:hidden}
+  .pg + .pg{border-top:.6pt dashed #777;padding-top:0.09in}
+  .d1 .pg{height:9.10in}
+  .d2 .pg{height:4.46in}
+  .d3 .pg{height:2.92in}
+
+  .numbox{border:1.2pt solid #000;color:#000;width:0.40in;height:0.40in;font-size:13pt}
+  .numlab{color:#000;font-size:6pt}
+  .ptitle h2{font-size:13pt;color:#000}
+  .ptitle .blankname{border-bottom:.8pt solid #000}
+  .can{color:#000;font-size:9pt}
+  .can b{color:#000}
+  .meta{border-color:#000;color:#000;padding:5pt 0;margin-top:0.06in}
+  .meta span{color:#000;font-size:7.6pt}
+  .meta .cl,.tick{border-color:#000}
+
+  .grid{gap:0.09in;margin-top:0.08in;grid-template-rows:1fr}
+  .sp{border:.9pt solid #000;padding:0.19in 0.07in 0.05in}
+  /* the screen minimums would run off the page at two and three up */
+  .sp.open{min-height:0}
+  .sp .lab{background:#000;color:#fff;font-size:6.4pt;padding:2pt 6pt;
+           -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sp .hint{color:#000;font-size:6.4pt;bottom:0.03in;right:0.07in}
+
+  .foot{border-top:.6pt solid #000;margin-top:0.06in}
+  .foot p{color:#000;font-size:6.6pt}
+
+  /* Three to a page has to buy the grid its height back out of the chrome. */
+  .d3 .can{font-size:7.6pt;line-height:1.32;margin-top:4pt}
+  .d3 .ptitle h2{font-size:10.5pt;line-height:1.2}
+  .d3 .numbox{width:0.30in;height:0.30in;font-size:10pt;border-width:1pt}
+  .d3 .numlab{font-size:5.4pt;margin-top:1px}
+  .d3 .meta{padding:3pt 0;margin-top:4pt;gap:12px}
+  .d3 .meta span{font-size:6.8pt}
+  .d3 .drawrule{font-size:6.9pt}
+  .d3 .grid{gap:0.07in;margin-top:0.06in;grid-template-rows:1fr}
+  .d3 .sp{padding:0.17in 0.06in 0.04in}
+  .d3 .sp .lab{font-size:5.9pt;padding:1.6pt 5pt}
+  .d3 .sp .hint{font-size:5.9pt}
+
+  /* Two to a page trims a little less. */
+  .d2 .can{font-size:8.4pt;line-height:1.36}
+  .d2 .ptitle h2{font-size:12pt}
+  .d2 .meta{padding:4pt 0}
+}
+
+/* ---------- the two prompts, on the sheet ---------- */
+.picklab{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--rust,#8B3A2E);margin:11px 0 6px}
+.prompts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pk{position:relative;padding:8px 10px 8px 46px;border:1px solid var(--hair);border-radius:6px;
+  font-size:11.5px;line-height:1.42}
+.pk .tick{position:absolute;left:10px;top:8px;width:13px;height:13px;
+  border:1.2px solid var(--navy);border-radius:2px;display:inline-block}
+.pk .lt{position:absolute;left:31px;top:7px;font-weight:800;color:var(--rust,#8B3A2E);font-size:11.5px}
+.pk .tx{display:block}
+@media (max-width:820px){.prompts{grid-template-columns:1fr}}
+@media print{
+  .picklab{font-size:7.6pt;margin:0.07in 0 0.04in}
+  .prompts{gap:0.08in}
+  .pk{font-size:6.8pt;line-height:1.24;padding:0.04in 0.055in 0.04in 0.29in;border:.5pt solid #999}
+  .pk .tick{left:0.05in;top:0.05in;width:7.5pt;height:7.5pt;border:.7pt solid #000}
+  .pk .lt{left:0.185in;top:0.042in;font-size:7pt}
+  /* the left column has to fit whatever the longest prompt pair is */
+  .info .can{font-size:7.4pt;line-height:1.3}
+  .info .ptitle h2{font-size:9.6pt;line-height:1.16}
+  .info .meta{font-size:6.2pt;gap:0.06in;line-height:1.2}
+  /* the pass-colour lines must not be the thing that clips */
+  .info .meta .cl{width:0.62in}
+  /* the box gives up the room the prompts take, and stays usable */
+  .d1 .sp.open{min-height:0}
+  .d2 .sp.open{min-height:0}
+  .d3 .sp.open{min-height:0}
+}
+@media (forced-colors:active){.pk,.pk .tick{border:1px solid CanvasText}}
+
+/* ---------- INFORMATION LEFT, BOX RIGHT AND TALL ----------
+   Sep 7 2026. Scrubs: put the information on the left, even stacked
+   vertically, and let the square take the rest, so the drawing box ends up
+   taller than it is wide. It was a wide short strip before, which is the
+   wrong shape for a mechanism drawn top to bottom.
+
+   The left column is a fixed width rather than a percentage, because the
+   prompts have to stay readable and a percentage column collapses at three
+   competencies to a page. The box takes whatever is left and stretches to
+   the full height of the row. Narrow screens stack, since a 2.3in column
+   beside a box does not survive a phone. */
+.pg{display:grid;grid-template-columns:270px minmax(0,1fr);gap:16px;align-items:stretch}
+.info{min-width:0;display:flex;flex-direction:column}
+.info .prompts{grid-template-columns:1fr}      /* stacked in a narrow column */
+.info .meta{margin-top:auto;padding-top:10px}  /* pass colors sit at the foot */
+.grid{margin-top:0}
+@media (max-width:900px){
+  .pg{grid-template-columns:1fr}
+  .info .prompts{grid-template-columns:1fr 1fr}
+  .info .meta{margin-top:10px}
+}
+@media print{
+  .pg{grid-template-columns:2.25in minmax(0,1fr);gap:0.16in}
+  .info .prompts{grid-template-columns:1fr;gap:0.06in}
+  .info .meta{margin-top:auto;padding-top:0.06in}
+  .grid{margin-top:0}
+}
+.pdflinks{font-size:13px;color:#414B5C;margin-left:auto}
+.pdflinks a{font-weight:700}
+@media print{.pdflinks{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#sheets">Skip to the sheet</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="index.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
+      <g transform="translate(0,18)">
+        <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
+        <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
+        <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
+      </g>
+    </svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow" id="eyebrow">BIO 005 &middot; Human Physiology &middot; Fall 2026</p>
+  <h1 id="h1">Your note sheet, already built.</h1>
+  <p class="sub">One open box per competency, and the box gets drawn, not written. Your prompt says what goes in it, so you divide it however that prompt needs. Print it, rule the same box onto your own paper, or work it on a tablet. All three are graded the same.</p>
+  <p class="btnrow">
+    <button class="sqbtn" type="button" id="printbtn">Print or save as PDF</button>
+    <a class="sqbtn ghost" id="compbtn" href="week-01-competencies.html" target="_top">The competencies behind it</a>
+  </p>
+</div></header>
+
+<div class="pick"><div class="wrap">
+  <span class="grp">
+    <label for="wk">Week</label>
+    <select id="wk"></select>
+  </span>
+  <fieldset class="grp">
+    <legend>Per sheet of paper</legend>
+    <span class="seg">
+      <label><input type="radio" name="per" value="1"><span>1</span></label>
+      <label><input type="radio" name="per" value="2"><span>2</span></label>
+      <label><input type="radio" name="per" value="3"><span>3</span></label>
+    </span>
+  </fieldset>
+  <span class="cnt" id="cnt"></span>
+  <span class="pdflinks">Tagged PDF:
+    <a href="BIO005-Week1-NoteSheet.pdf" target="_blank" rel="noopener">two to a page</a> &middot;
+    <a href="BIO005-Week1-NoteSheet-Tall.pdf" target="_blank" rel="noopener">one to a page, taller box</a>
+  </span>
+</div></div>
+
+<div class="band">
+  <div class="box">
+    <h2>Before you start</h2>
+    <ol>
+      <li>Pick two pens you can tell apart. Pass one is the book, before any video. Pass two is a second color, after the videos, into the same boxes.</li>
+      <li>Stop pass one while half of every box is still empty. That empty half is the point.</li>
+      <li><strong>The box is a drawing.</strong> Read your prompt first, then divide the box to fit it. Some prompts want a picture with labels running out of it. Some want two panels side by side. Some want a row of small graphs. The division is yours to make.</li>
+      <li>Words are allowed inside the drawing. A sentence running the width of the box is not. If a box reads like a paragraph, redo it as a word picture.</li>
+    </ol>
+  </div>
+  <div class="box">
+    <h2>About the paper</h2>
+    <p><strong>You do not have to print this.</strong> Two competencies to a page is what it opens on, and three fits a whole week onto a few sheets. Printing at home, at work or in the library all count.</p>
+    <p><strong>You do not have to use this sheet at all.</strong> Rule one box per competency onto your own paper, or set the same thing up in whatever you already use. A hand ruled sheet is graded exactly the same as a printed one.</p>
+    <p>Working on a device is fine too. Save the PDF into a drawing app, or draw straight into a notes app, as long as you can still do two passes in two colors. None of this carries points, so use whatever you will actually still be doing in November.</p>
+  </div>
+</div>
+
+<!-- =============== the hand ruling template, screen only =============== -->
+<!-- THE HAND RULED TEMPLATE CAME OUT, Sep 7 2026. Scrubs: make this
+     disappear and just leave a note that they can set up their own sheet
+     if they do not want to print, and that working on a device is fine,
+     since it is not graded. The worked SVG example and its long
+     description went with it. The two links that pointed at #template
+     were rewritten in the same pass. -->
+
+<main id="sheets" class="sheets" aria-label="The note sheet"></main>
+
+<div class="tail"><div class="box">
+  <h2>Turning it in</h2>
+  <p>Photograph every sheet in order, in good light, flat on the table. Both colors have to be readable. Combine them into one PDF and upload that to the week&rsquo;s Canvas assignment. Printed and hand ruled sheets are graded the same way.</p>
+  <p>Full submission and grading detail is on the <a href="assignment-notesheet.html" target="_top">note sheet assignment page</a>.</p>
+  <p>Dr. Sharilyn Rennie</p>
+</div></div>
+
+<script src="assets/bio005-sheet-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var DATA = window.BIO005_SHEET || {};
+
+  /* Week titles as students see them on the course pages. The data file carries
+     its own titles from the competency CSV; where the two disagree the student
+     facing one wins, because that is what Canvas shows. */
+  var SITE_TITLES = {
+    1:"How physiology works and what keeps you steady",
+    2:"The chemistry that does work in the body",
+    3:"Getting across the membrane",
+    4:"How cells talk, and the electrical signal",
+    5:"Synapses and central integration",
+    6:"Sensing the world, and the responses you do not control",
+    7:"Muscle, and how movement gets commanded",
+    8:"Hormones and reproduction, the slow control system",
+    9:"The heart as a pump",
+    10:"Pressure, flow, and holding blood pressure steady",
+    11:"Blood and how the body defends itself",
+    12:"Digestion, and how you use food for fuel",
+    13:"Breathing, gas transport, and the fast pH lever",
+    14:"The kidney and body fluid balance",
+    15:"The slow pH lever, and putting it all together"
+  };
+
+  function qs(k){
+    var m = new RegExp("[?&]" + k + "=([^&]*)").exec(window.location.search);
+    return m ? decodeURIComponent(m[1].replace(/\+/g," ")) : null;
+  }
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  var BLANK = qs("blank") === "1";
+  var week  = parseInt(qs("week"), 10);
+  if (!(week >= 1 && week <= 15)) week = 1;
+
+  /* Two to a page is the default. One competency per page made Week 1
+     eighteen sheets of paper and students cannot carry that every week. */
+  var per = parseInt(qs("per"), 10);
+  if (!(per === 1 || per === 2 || per === 3)) per = 2;
+
+  function go(w, p){
+    window.location.search = "?week=" + w + "&per=" + p + (BLANK ? "&blank=1" : "");
+  }
+
+  var sel = document.getElementById("wk");
+  for (var i = 1; i <= 15; i++){
+    var o = document.createElement("option");
+    o.value = i;
+    o.textContent = "Week " + i + ", " + (SITE_TITLES[i] || "");
+    sel.appendChild(o);
+  }
+  sel.value = week;
+  sel.addEventListener("change", function(){ go(sel.value, per); });
+
+  var radios = document.querySelectorAll('input[name="per"]');
+  for (var r = 0; r < radios.length; r++){
+    radios[r].checked = (+radios[r].value === per);
+    radios[r].addEventListener("change", function(){
+      if (this.checked) go(week, this.value);
+    });
+  }
+
+  function compHTML(it, n){
+    var num  = BLANK ? '<span class="numbox empty">0</span>'
+                     : '<span class="numbox">' + n + '</span>';
+    var name = BLANK ? '<span class="blankname" aria-label="Write the concept name here"></span>'
+                     : esc(it.name);
+    var can  = BLANK
+      ? '<span class="blankname" aria-label="Write the competency here"></span>'
+      : esc(it.can);
+
+    return '' +
+    '<article class="pg">' +
+      '<div class="info">' +
+      '<div class="ptitle">' +
+        '<span>' + num + '<span class="numlab">' + (BLANK ? "No." : "Comp") + '</span></span>' +
+        '<span style="flex:1"><h2>' + name + '</h2>' +
+        '<p class="can"><b>You should be able to:</b> ' + can + '</p></span>' +
+      '</div>' +
+
+      /* THE PROMPTS ARE ON THE SHEET NOW, Sep 7 2026. Scrubs asked for the
+         question and the concept title to sit with the drawing box so the
+         competency page does not have to be printed alongside it. They run
+         two across, A beside B, because stacked they cost about twice the
+         vertical space and at three competencies to a page that is the
+         difference between a usable box and a stripe. In blank mode there
+         is nothing to print: the student writes their own. */
+      (BLANK ? '' :
+        '<p class="picklab">Pick one and do that one</p>' +
+        '<div class="prompts">' +
+          '<div class="pk"><span class="tick" aria-hidden="true"></span>' +
+            '<span class="lt">A</span><span class="tx">' + esc(it.a) + '</span></div>' +
+          '<div class="pk"><span class="tick" aria-hidden="true"></span>' +
+            '<span class="lt">B</span><span class="tx">' + esc(it.b) + '</span></div>' +
+        '</div>') +
+
+      '<div class="meta">' +
+        (BLANK ? '<span>Prompt <i class="tick" aria-hidden="true"></i> A <i class="tick" aria-hidden="true"></i> B</span>' : '') +
+        '<span>Pass 1 color <i class="cl" aria-hidden="true"></i></span>' +
+        '<span>Pass 2 color <i class="cl" aria-hidden="true"></i></span>' +
+        (it.lab ? '<span>Also a lab skill</span>' : '') +
+      '</div>' +
+
+      '</div>' +
+
+      '<div class="grid">' +
+        '<div class="sp open"><span class="lab">Draw it</span>' +
+          '<span class="hint">split it up however the prompt needs</span></div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function pageHTML(items, startAt, wk, first){
+    /* The printed sheet is its own document once it leaves the browser, and it
+       had h2 per competency with nothing above them. The runner on the first
+       sheet page is that document's h1. On later pages it stays a span, so the
+       PDF gets exactly one h1. */
+    var runner = first
+      ? '<p class="runner" role="presentation">BIO 005 &middot; Week ' + wk + ' &middot; Note sheet</p>'
+      : '<span class="runner">BIO 005 &middot; Week ' + wk + ' &middot; Note sheet</span>';
+    return '' +
+    '<section class="sheetpage d' + per + '">' +
+      '<div class="phead">' +
+        runner +
+        '<span class="who">Name<span class="ln"></span>Date<span class="ln" style="width:88px"></span></span>' +
+      '</div>' +
+      '<p class="drawrule">The box is <b>drawn</b>, not written. Divide it however your prompt ' +
+      'needs. If you need words, they go inside little boxes with arrows between them, in the ' +
+      'order things happen. Sentences running across the page do not count.</p>' +
+      items.map(function(it, k){ return compHTML(it, startAt + k); }).join("") +
+      '<div class="foot">' +
+        '<p>Pass 1 from the book, before the video. Pass 2 in the second color, after it, in the same boxes.</p>' +
+        '<p>Dr. Sharilyn Rennie</p>' +
+      '</div>' +
+    '</section>';
+  }
+
+  var w = DATA[week];
+  var host = document.getElementById("sheets");
+  var title = SITE_TITLES[week] || (w && w.title) || "";
+  var pages = 0;
+
+  if (!w || !w.items || !w.items.length){
+    host.innerHTML = '<div class="sheetpage"><p class="can">The competency list for Week ' +
+                     week + ' is not loaded. Open the week page in Canvas.</p></div>';
+  } else {
+    var out = [];
+    for (var k = 0; k < w.items.length; k += per){
+      out.push(pageHTML(w.items.slice(k, k + per), k + 1, week, k === 0));
+      pages++;
+    }
+    host.innerHTML = out.join("");
+  }
+
+  document.getElementById("eyebrow").innerHTML =
+    "BIO 005 &middot; Week " + week + " &middot; " + esc(title);
+  document.getElementById("h1").textContent = BLANK
+    ? "Blank note sheet."
+    : "Your Week " + week + " note sheet, already built.";
+
+  var nItems = w && w.items ? w.items.length : 0;
+  document.getElementById("cnt").textContent = nItems
+    ? nItems + (nItems === 1 ? " competency" : " competencies") + ", " +
+      pages + (pages === 1 ? " sheet of paper" : " sheets of paper")
+    : "";
+  document.title = "BIO 005 Week " + week + " note sheet";
+
+  document.getElementById("compbtn").href =
+    "week-" + String(week).padStart(2,"0") + "-competencies.html";
+
+  document.getElementById("printbtn").addEventListener("click", function(){
+    window.print();
+  });
+
+  /* Height sender, so Canvas can size the frame. */
+  var ID = "bio005-note-sheet";
+  function send(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    try { window.parent.postMessage({ id:ID, frameId:ID, type:"resize", height:h }, "*"); } catch(e){}
+  }
+  window.addEventListener("load", send);
+  window.addEventListener("resize", send);
+  if (typeof ResizeObserver !== "undefined"){ try { new ResizeObserver(send).observe(document.body); } catch(e){} }
+  send(); setTimeout(send, 400); setTimeout(send, 1500);
+})();
+</script>
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="index.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="clinical-physiology-lab-manual.html" target="_top">Lab manual</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800" target="_blank" rel="noopener">Virtual Office</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-nav.js" defer></script>
+</body>
+</html>

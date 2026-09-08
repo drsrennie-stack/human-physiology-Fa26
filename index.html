@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Course home &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="BIO 005 Human Physiology, Yuba College, Fall 2026. Where you are, what to do next, and what is due, all fifteen weeks.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Yuba College, Fall 2026
+  index.html, THE COURSE HOME. Rebuilt Sep 8 2026.
+
+  This is the page every path lands on: the Canvas door (home.html),
+  the brand mark, the Home tab, the floating Back button, and every
+  retired front door (welcome, course-entry, course-door, canvas-home,
+  canvas-start, start-here, physiology-course-home) now redirects here.
+
+  Three questions, answered above the fold, in this order:
+    1. Where am I        the week and the part, top left
+    2. What do I do next  one button, Open Week N, and the six steps
+    3. What is due        the two deadlines for this week
+
+  Everything else on the page is one click deep: the fifteen weeks
+  as a strip, the four sections, the full materials list, and the
+  Start here page for a student who is new.
+
+  The week data is NOT on this page. It comes from bio005-nav.js
+  (window.BIO005_SITE), the same object the Weeks menu is built
+  from, so the menu and the home page cannot disagree. The Week 1
+  content below is real HTML so the page is correct with no script;
+  the script only moves it forward to the current week.
+  ============================================================
+-->
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dk:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --page:#FAFAF9; --card:#FFFFFF; --ink:#0B1530; --muted:#414B5C; --faint:#5A6675;
+  --rule:rgba(11,21,48,.16); --rule-soft:rgba(11,21,48,.10);
+  --shadow:0 1px 3px rgba(0,0,0,.08); --lift:0 8px 16px rgba(0,0,0,.10);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--page);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+em,i,cite,dfn{font-style:normal;font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0;line-height:1.15}
+p{margin:0 0 14px}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dk)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* ---------- the top: where am I, what next, what is due ---------- */
+.top{padding:34px 0 10px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+.top h1{font-size:clamp(28px,4.6vw,44px);color:var(--navy);max-width:22ch}
+.top h1 b{color:var(--maroon);font-weight:800}
+.top .lede{color:var(--muted);font-size:17.5px;max-width:60ch;margin:12px 0 0}
+
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:18px;margin:26px 0 0}
+.card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;
+  transition:transform 200ms ease,box-shadow 200ms ease}
+.card h2{font-size:12.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+.card p{font-size:16px;color:var(--muted)}
+.card .big{font-family:var(--display);font-weight:800;font-size:26px;color:var(--navy);line-height:1.15;margin:0 0 6px}
+.card ul{margin:0;padding:0;list-style:none}
+.card li{padding:9px 0;border-top:1px solid var(--rule-soft);font-size:16px}
+.card li:first-child{border-top:0;padding-top:0}
+.card li b{color:var(--navy)}
+.card li .when{display:block;color:var(--faint);font-size:14.5px;font-weight:600}
+.gobtn{display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;text-align:center;
+  background:var(--maroon);color:#fff;border-radius:12px;font-family:var(--display);font-weight:800;
+  letter-spacing:.03em;text-transform:uppercase;font-size:19px;padding:20px 22px;min-height:66px;box-shadow:var(--lift);
+  transition:background 180ms ease,transform 180ms ease;margin:4px 0 14px}
+.gobtn:hover{background:var(--maroon-dk);color:#fff;transform:translateY(-2px)}
+.steps{margin:0;padding:0 0 0 22px;color:var(--muted);font-size:15.5px}
+.steps li{margin:0 0 4px}
+.steps li a{font-weight:600}
+.note{margin:12px 0 0;font-size:14.5px;color:var(--faint)}
+
+/* ---------- the fifteen weeks ---------- */
+.weeks{padding:36px 0 0}
+.weeks h2{font-size:22px;color:var(--navy);margin:0 0 4px}
+.weeks .sub{color:var(--muted);font-size:16px;margin:0 0 16px}
+.part{margin:0 0 16px}
+.part h3{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+.strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:10px}
+.wk{display:flex;flex-direction:column;gap:2px;min-height:78px;padding:12px 14px;border-radius:12px;text-decoration:none;
+  background:var(--card);box-shadow:var(--shadow);border:1.5px solid transparent;color:var(--ink);
+  transition:transform 200ms ease,box-shadow 200ms ease}
+.wk:hover{transform:translateY(-2px);box-shadow:var(--lift);color:var(--ink)}
+.wk .n{font-family:var(--display);font-weight:800;font-size:15px;color:var(--navy)}
+.wk .t{font-size:14px;line-height:1.35;color:var(--muted)}
+.wk .s{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:auto;padding-top:6px}
+.wk.cur{border-color:var(--maroon)}
+.wk.cur .n,.wk.cur .s{color:var(--maroon)}
+.wk.locked{border:1.5px dashed rgba(11,21,48,.28);background:transparent;box-shadow:none}
+.wk.locked .n{color:var(--faint)}
+.wk.done{background:var(--navy-tint);border-color:var(--navy)}
+.wk.done .s::after{content:"\00a0\2713"}
+
+/* ---------- sections ---------- */
+.sections{padding:36px 0 0}
+.sections h2{font-size:22px;color:var(--navy);margin:0 0 14px}
+.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.sec{display:flex;flex-direction:column;gap:6px;min-height:120px;padding:20px 22px;border-radius:14px;text-decoration:none;
+  background:var(--card);box-shadow:var(--shadow);color:var(--ink);transition:transform 200ms ease,box-shadow 200ms ease}
+.sec:hover{transform:translateY(-2px);box-shadow:var(--lift);color:var(--ink)}
+.sec h3{font-size:20px;color:var(--navy)}
+.sec p{font-size:15px;color:var(--muted);margin:0;flex:1}
+.sec .go{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--maroon)}
+.all{margin:16px 0 0;font-size:16px}
+
+/* ---------- new here ---------- */
+.newhere{margin:38px 0 0;padding:24px 26px;background:var(--card);border-radius:14px;box-shadow:var(--shadow);
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px}
+.newhere h2{font-size:19px;color:var(--navy)}
+.newhere p{margin:0;color:var(--muted);font-size:16px;flex:1 1 320px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:15.5px;border-radius:10px;
+  padding:12px 18px;min-height:46px;border:1.5px solid var(--navy);color:var(--navy);background:transparent;
+  transition:background 160ms ease,color 160ms ease}
+.btn:hover{background:var(--navy);color:#fff}
+
+/* ---------- footer ---------- */
+.mm-foot{margin-top:46px}
+.mm-flinks{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-size:15px}
+.mm-flinks li{display:flex;align-items:center}
+.mm-flinks li+li::before{content:"\00B7";margin:0 12px;color:#9AA3B2}
+.mm-fleg{margin:0;font-size:14px;color:#C9CFD6}
+
+@media (max-width:600px){.top{padding-top:24px}.card{padding:18px 18px}.gobtn{font-size:17px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover,.wk:hover,.sec:hover,.gobtn:hover{transform:none}}
+@media (forced-colors:active){.card,.wk,.sec,.newhere{border:1px solid CanvasText}.wk.cur{border:2px solid Highlight}.gobtn{border:2px solid ButtonText}}
+@media print{.skip,.mm-brandbar,.gobtn{display:none!important}body{background:#fff;font-size:11pt}.card,.wk,.sec{box-shadow:none;border:1px solid #000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to this week</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="index.html" target="_top" aria-current="page">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
+      <g transform="translate(0,18)">
+        <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
+        <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
+        <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
+      </g>
+    </svg>
+    <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<main id="main">
+<div class="wrap">
+
+  <header class="top">
+    <p class="eyebrow" id="eyebrow">Part 1, Foundations &middot; Week 1 of 15</p>
+    <h1 id="h1">Week 1. <b id="h1t">How physiology works and what keeps you steady</b></h1>
+    <p class="lede">Everything in this course is organized one week at a time. This page always shows the week that is open right now, what to do next, and what is due.</p>
+  </header>
+
+  <div class="three">
+    <section class="card" aria-labelledby="h-next">
+      <h2 id="h-next">What to do next</h2>
+      <a class="gobtn" id="go" href="week-01.html" target="_top"><span aria-hidden="true">&rarr;</span> Open Week 1</a>
+      <p style="margin-bottom:6px"><b style="color:var(--navy)">Every week, the same six steps, in this order:</b></p>
+      <ol class="steps">
+        <li>Note sheet, first pass, before you watch anything</li>
+        <li>Watch the lectures, add to the sheet in a second color</li>
+        <li>Discussion post, by Friday</li>
+        <li>Lab</li>
+        <li>Book problems and recall cards</li>
+        <li>Turn in the note sheet, then the five minute practice round</li>
+      </ol>
+      <p class="note">The week page walks you down all six with the links in place.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-due">
+      <h2 id="h-due">What is due this week</h2>
+      <ul id="due">
+        <li><b>Discussion post</b><span class="when">Friday, September 11, 10:00 pm Pacific</span></li>
+        <li><b>Discussion replies</b><span class="when">Sunday, September 13, 10:00 pm Pacific</span></li>
+        <li><b>Note sheet, lab, book problems</b><span class="when">Sunday, September 13, 10:00 pm Pacific</span></li>
+      </ul>
+      <p class="note">Turn everything in through <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas (opens in a new tab)</a>. The instructions for each assignment are there too.</p>
+    </section>
+
+    <section class="card" aria-labelledby="h-where">
+      <h2 id="h-where">Where you are</h2>
+      <p class="big" id="where-big">Week 1 of 15</p>
+      <p id="where-part">Part 1, Foundations, weeks 1 to 3. How cells hold the line: homeostasis, feedback, the chemistry that does work, and how things cross a membrane.</p>
+      <p id="where-next" style="margin-bottom:0">Next week opens Monday, September 14, and unlocks early on Saturday at 8:00 pm Pacific if you have finished this one.</p>
+    </section>
+  </div>
+
+  <section class="weeks" aria-labelledby="h-weeks">
+    <h2 id="h-weeks">All fifteen weeks</h2>
+    <p class="sub">Three parts. A dashed card is a week that has not opened yet; the date on it is when it does.</p>
+    <div class="part"><h3>Part 1, Foundations</h3><ul class="strip" data-part="1"></ul></div>
+    <div class="part"><h3>Part 2, Control systems</h3><ul class="strip" data-part="2"></ul></div>
+    <div class="part"><h3>Part 3, Systems in action</h3><ul class="strip" data-part="3"></ul></div>
+    <noscript><p><a href="course-schedule.html" target="_top">Open the full schedule, all fifteen weeks on one page.</a></p></noscript>
+  </section>
+
+  <section class="sections" aria-labelledby="h-sec">
+    <h2 id="h-sec">The four sections</h2>
+    <ul class="grid">
+      <li><a class="sec" href="door-lecture.html" target="_top"><h3>Lectures</h3><p>Videos, written notes, and slide decks for every week.</p><span class="go">Open lectures &rarr;</span></a></li>
+      <li><a class="sec" href="door-lab.html" target="_top"><h3>Labs</h3><p>The Clinical Physiology Lab manual, PhysioEx, and the lab pages week by week.</p><span class="go">Open labs &rarr;</span></a></li>
+      <li><a class="sec" href="door-study.html" target="_top"><h3>Study</h3><p>Recall cards, the competency list, draw it from memory, practice exams.</p><span class="go">Open study &rarr;</span></a></li>
+      <li><a class="sec" href="door-assignments.html" target="_top"><h3>Assignments</h3><p>What each assignment asks for and how it is graded. You turn them in through Canvas.</p><span class="go">Open assignments &rarr;</span></a></li>
+    </ul>
+    <p class="all"><a href="course-materials.html" target="_top">Everything in one list, searchable, by week and by type &rarr;</a></p>
+  </section>
+
+  <section class="newhere" aria-labelledby="h-new">
+    <div>
+      <h2 id="h-new">New here?</h2>
+      <p>Start with the welcome page. It explains how the course works, how grading works, and the three things to do before Week 1.</p>
+    </div>
+    <a class="btn" href="course-start.html" target="_top">Start here &rarr;</a>
+    <a class="btn" href="course-questions.html" target="_top">Questions and answers</a>
+  </section>
+
+</div>
+</main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <ul class="mm-flinks">
+    <li><a href="syllabus-fall2026.html" target="_top">Syllabus</a></li>
+    <li><a href="course-schedule.html" target="_top">Schedule</a></li>
+    <li><a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a></li>
+    <li><a href="virtual-office.html" target="_top">Virtual office</a></li>
+    <li><a href="accessibility.html" target="_top">Accessibility</a></li>
+    <li><a href="sitemap.html" target="_top">All pages</a></li>
+  </ul>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie</p>
+</div></footer>
+
+<script src="bio005-nav.js"></script>
+<script>
+(function(){
+  "use strict";
+  var S = window.BIO005_SITE;
+  if (!S) return;
+  var cur = S.current, W = S.weeks;
+  var PARTBLURB = {
+    1: 'Part 1, Foundations, weeks 1 to 3. How cells hold the line: homeostasis, feedback, the chemistry that does work, and how things cross a membrane.',
+    2: 'Part 2, Control systems, weeks 4 to 8. The electrical signal, synapses, the senses, how muscle makes force, and the hormones that run the slower half of control.',
+    3: 'Part 3, Systems in action, weeks 9 to 15. The heart and circulation, blood and immune defense, digestion, breathing, the kidney, and how the body defends its pH from both ends.'
+  };
+  function d(iso){ var p = iso.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function longDate(dt){ return dt.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' }); }
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  /* the top */
+  document.getElementById('eyebrow').textContent = S.parts[cur.part] + ' · Week ' + cur.n + ' of 15';
+  document.getElementById('h1').innerHTML = 'Week ' + cur.n + '. <b>' + cur.title + '</b>';
+  var go = document.getElementById('go');
+  go.href = cur.file;
+  go.innerHTML = '<span aria-hidden="true">&rarr;</span> Open Week ' + cur.n;
+  document.getElementById('where-big').textContent = 'Week ' + cur.n + ' of 15';
+  document.getElementById('where-part').textContent = PARTBLURB[cur.part];
+  var nx = W[cur.n] ;
+  document.getElementById('where-next').textContent = nx
+    ? 'Next week opens ' + longDate(d(nx.opens)) + ', and unlocks early on Saturday at 8:00 pm Pacific if you have finished this one.'
+    : 'This is the last week of the term. Everything closes ' + longDate(d(cur.closes)) + '.';
+
+  /* due dates: discussion post Friday 10 pm, everything else on the close day at 10 pm.
+     Week 15 closes on a Wednesday, so it gets one line. */
+  var close = d(cur.closes);
+  var due = document.getElementById('due');
+  if (close.getDay() === 0) {
+    var fri = new Date(close); fri.setDate(fri.getDate() - 2);
+    due.innerHTML = '<li><b>Discussion post</b><span class="when">' + longDate(fri) + ', 10:00 pm Pacific</span></li>'
+      + '<li><b>Discussion replies</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>'
+      + '<li><b>Note sheet, lab, book problems</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>';
+  } else {
+    due.innerHTML = '<li><b>Everything for this week</b><span class="when">' + longDate(close) + ', 10:00 pm Pacific</span></li>';
+  }
+
+  /* the strip */
+  W.forEach(function(w){
+    var ul = document.querySelector('.strip[data-part="' + w.part + '"]');
+    if (!ul) return;
+    var cls = 'wk' + (w.n === cur.n ? ' cur' : '') + (!w.open ? ' locked' : '') + (w.past && w.n !== cur.n ? ' done' : '');
+    var state = w.n === cur.n ? 'This week' : (!w.open ? 'Opens ' + S.fmtShort(w.opens) : (w.past ? 'Closed' : 'Open'));
+    var sr = w.n === cur.n ? '<span class="vh">, current week</span>' : (!w.open ? '<span class="vh">, not open yet</span>' : '');
+    var li = document.createElement('li');
+    li.innerHTML = '<a class="' + cls + '" href="' + w.file + '" target="_top"' + (w.n === cur.n ? ' aria-current="true"' : '') + '>'
+      + '<span class="n">Week ' + w.n + '</span><span class="t">' + w.title + '</span><span class="s">' + state + sr + '</span></a>';
+    ul.appendChild(li);
+  });
+}());
+</script>
+<script>
+/* iframe height sender, in case this page is ever framed */
+(function(){var id='bio005-index';
+function post(){try{parent.postMessage({frame:id,id:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<script src="bio005-back.js"></script>
+</body>
+</html>
