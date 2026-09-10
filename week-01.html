@@ -372,6 +372,32 @@ button.sheetbtn.thin{padding:8px 14px;font-size:14px}
 .panel .pclose:focus-visible{outline:3px solid #8B3A2E;outline-offset:2px}
 .panel iframe{display:block;width:100%;border:0;background:#fff;height:1200px}
 @media (max-width:700px){.panel iframe{height:1450px}}
+
+/* ---------- A PANEL OPENS UNDER THE CARD YOU PRESSED ----------
+   Sep 10 2026. The panels used to sit in one .panelwrap after the whole
+   grid, so pressing a button on a card in the top row opened something
+   two rows below the fold. On a laptop, and on every phone, that reads
+   as a button that does nothing. The panel is now moved into the grid
+   directly after the card that opened it, spanning the full width, which
+   is the row immediately under that card. The card it belongs to keeps a
+   marker so it is obvious which one is open, and a small notch points
+   down into the panel. */
+.choices > .panel{grid-column:1 / -1;margin:0}
+.choice.isopen{box-shadow:var(--lift);transform:translateY(-2px)}
+.choice.isopen::after{
+  content:'';position:absolute;left:50%;bottom:0;width:36px;height:10px;
+  transform:translateX(-50%);
+  background:var(--maroon);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+}
+/* .choice carries overflow:hidden for its top colour bar, so the notch is
+   drawn just inside the card's bottom edge rather than hanging below it,
+   where it would be clipped in half. */
+.panel .phead{gap:14px}
+@media (prefers-reduced-motion:reduce){
+  .choice.isopen{transform:none}
+}
+
 button.sheetbtn{font:inherit;font-weight:800;cursor:pointer;background:#fff;color:#8B3A2E;
   border:1.5px solid #8B3A2E;border-radius:10px;padding:11px 18px}
 button.sheetbtn:hover{color:#6E2D24;border-color:#6E2D24}
@@ -1420,8 +1446,29 @@ window.addEventListener('load',post);window.addEventListener('resize',post);post
       height: document.documentElement.scrollHeight }, '*'); } catch(e){}
   }
   function shut(btn, panel){
-    panel.hidden = true; btn.setAttribute('aria-expanded','false'); btn.focus(); tell();
+    panel.hidden = true; btn.setAttribute('aria-expanded','false');
+    var card = btn.closest('.choice');
+    if (card) card.classList.remove('isopen');
+    btn.focus(); tell();
   }
+  /* PUT THE PANEL WHERE THE STUDENT IS LOOKING.
+
+     The grid is auto-fit columns, so a child spanning 1 / -1 lands on the
+     row immediately after the card it follows in the DOM. Moving the panel
+     to sit right after the pressed card therefore opens it directly under
+     that card rather than under the whole grid. */
+  function placeUnder(panel, btn){
+    var card = btn.closest('.choice');
+    var grid = card && card.parentNode;
+    if (!card || !grid || grid.className.indexOf('choices') < 0) return;
+    if (card.nextSibling !== panel) grid.insertBefore(panel, card.nextSibling);
+    card.classList.add('isopen');
+  }
+  function clearMarks(){
+    var m = document.querySelectorAll('.choice.isopen');
+    for (var i = 0; i < m.length; i++) m[i].classList.remove('isopen');
+  }
+
   var btns = document.querySelectorAll('.sheetbtn');
   btns.forEach(function(btn){
     var panel = document.getElementById(btn.getAttribute('data-panel'));
@@ -1434,8 +1481,18 @@ window.addEventListener('load',post);window.addEventListener('resize',post);post
         var pn = document.getElementById(o.getAttribute('data-panel'));
         if (pn){ pn.hidden = true; o.setAttribute('aria-expanded','false'); }
       });
+      clearMarks();
       if (!panel.querySelector('iframe')) build(panel, btn.getAttribute('data-src'));
+      placeUnder(panel, btn);
       panel.hidden = false; btn.setAttribute('aria-expanded','true'); x.focus(); tell();
+      /* On the standalone site the page scrolls, so bring the panel head
+         into view. Inside Canvas the frame is full height and the parent
+         does the scrolling, which is exactly why the panel had to move
+         rather than rely on this. */
+      try {
+        panel.scrollIntoView({ block:'nearest',
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      } catch(e){}
     });
     x.addEventListener('click', function(){ shut(btn, panel); });
     panel.addEventListener('keydown', function(e){
