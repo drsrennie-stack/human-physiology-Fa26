@@ -33,7 +33,7 @@ window.BIO005_LAB = {
      which is honest. A button to a page that 404s is worse than no
      button at all. */
   sheets: {
-    1:  ['reference-range-lab.html',      'Open the Establishing Normal Ranges Lab'],
+    1:  ['reference-range-lab.html',      'Open the reference range lab'],
     2:  ['enzyme-amylase-lab.html',       'Open the enzyme lab'],
     3:  ['osmosis-iv-fluids-lab.html',    'Open the osmosis and IV fluids lab'],
     8:  ['lab-week08-hormone-cycle.html', 'Open the hormone cycle lab'],
@@ -46,7 +46,7 @@ window.BIO005_LAB = {
 
   /* ---------------------------------------------------------- 1 */
   1: { title:'Foundations of Physiology', kind:'dry',
-    dry:{ name:'Establishing Normal Ranges Lab: where a reference range comes from',
+    dry:{ name:'Standards and ranges: where a reference range comes from',
       steps:[
         'Read the three lab reports on the worksheet. Two are printed with the reference range beside each value; one is printed without it. Work the third one anyway and say what you cannot conclude.',
         'For each value, mark it in range, above range or below range, and write the distance from the nearest limit in the units of the test, not as a judgement.',

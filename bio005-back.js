@@ -74,7 +74,7 @@
   if (window.__BIO005_BACK__) return;
   window.__BIO005_BACK__ = true;
 
-  var HOME = 'index.html';
+  var HOME = 'course-start.html';
 
   /* Pages that are themselves a place to go back TO. Sending a student
      from the course home page back to the course home page is a button
