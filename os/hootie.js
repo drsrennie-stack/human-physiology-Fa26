@@ -232,13 +232,20 @@
   var INTENTS = [
     {id:'contact',  kw:['contact','email','e-mail','reach','who do i','who should i','talk to','office hour','professor','instructor','teacher','rennie','tutor','tutoring','accommodat','disab','dsp','tech ','technolog','login','log in','canvas help','password','it help']},
     {id:'struggle', kw:['struggl','behind','failing','fail ','so hard','too hard','confus','overwhelm','stress','anxious','burn','falling','fall behind','drowning','give up','quit','really hard','cant keep','can not keep','keep up','lost and','hate this','crying','panic']},
+    {id:'ai',       kw:['ai ','a.i','chatgpt','chat gpt','gpt','claude','gemini','copilot','artificial intelligence','use ai','using ai','ai on','cheat','cheating','plagiar','academic integrity','integrity']},
     {id:'grades',   kw:['grade','grading','points','percent','weight','how much is','worth','scholar point','extra credit','curve','my grade','pass the class','passing','gpa']},
     {id:'exams',    kw:['exam','test','midterm','practical','how many test','final']},
     {id:'tbl',      kw:['tbl','team based','team-based','irat','trat','readiness','team quiz']},
     {id:'mastery',  kw:['mastery','recall','flashcard','gap finder','cram','spaced','study tool','study engine']},
     {id:'study',    kw:['study with me','co-study','study session','study group','sign up','study hours','engagement hour']},
-    {id:'atlas',    kw:['atlas','3d','model','viewer','explore structure']},
-    {id:'loops',    kw:['loop','practice question','practice q']},
+    {id:'atlas',    kw:['atlas','3d','model','viewer','explore structure','anatomy review','refresher']},
+    /* The 'loops' intent is retired, Sep 7 2026. Its keyword was the bare
+       word 'loop', and in a physiology course "how do feedback loops work"
+       is close to the most common question a student can type. Every one of
+       those got answered with "loops are quick lab-based practice questions",
+       which is a BIO 004 tool and not a thing in this course. Practice
+       questions now match under 'howstudy' and 'prework'. */
+    {id:'practice', kw:['practice question','practice q','practice items','predict commit']},
     {id:'prework',  kw:['pre-work','prework','packet','before class','homework','tonight','what should i do','assignment']},
     {id:'howstudy', kw:['how do i study','how should i study','memor','forget','remember','stick','retain','draw','retrieval','revise','review']},
     {id:'week',     kw:['this week','today','due','coming up','next class','whats due','what is due','what is on','schedule']},
@@ -328,44 +335,61 @@
           + '<br><br>Reach out early. Do not wait for the next exam, and do not wait until you feel you have earned the right to ask.'
           + (ctx.nextExam ? '<br><br>' + examLine(ctx, ctx.nextExam) : '');
 
+      case 'ai':
+        return '<p>The short version: AI is open on some things, closed on others, and the line is about whether the work is evidence of <b>your</b> reasoning.</p>'
+          + '<p><b>Closed.</b> The exams, the discussions, and anything where the point is that you can do it yourself. Retrieval is closed too, not because you would be caught, but because using AI there defeats the only reason to do it.</p>'
+          + '<p><b>Open, with disclosure.</b> Labs and application cases. Say what you used it for. The reasoning still has to be yours, and it is what gets graded.</p>'
+          + '<p>The full lists, and how I use AI to build this course, are on <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course</a>.</p>';
+
       case 'grades':
-        return '<p>Your grade:</p>'
-          + '1. Weekly checkpoints: weight TO CONFIRM'
-          + '<br>2. Lecture exams: 30% (5, one per module)'
-          + '<br>3. Lab practical exams: 30% (5)'
-          + '<br>4. Lab quizzes: 5%'
-          + '<br>5. iChecks and tChecks: 5%'
-          + '<br><br>Up to 3% in Scholar Points for verified engagement hours plus a strong exam average. No exam counts above 102%. Full detail in your ' + ilink(s.syllabus, 'syllabus') + '.';
+        return '<p>Four categories:</p>'
+          + '<b>35%</b> Show Me What You Know. Two exams, draw and teach on video, 17.5 each.'
+          + '<br><b>25%</b> Investigate It. The weekly labs.'
+          + '<br><b>25%</b> Use It. Your weekly application case, building into your patient file.'
+          + '<br><b>15%</b> Think About It. The weekly discussion.'
+          + '<br><br>Your note sheet, the practice items, the Mastery Check and the recall cards carry <b>no points at all</b>, on purpose. They are the route to the four above, not extras. Full detail in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       case 'exams':
         return examLine(ctx, ctx.nextExam)
-          + '<br><br>Five exams in all, one at the end of each module, each with a lecture part and a lab practical. No exam counts above 102%, in-exam bonus only. Every date is on the ' + a('calendar') + ' and in your ' + ilink(s.syllabus, 'syllabus') + '.';
+          + '<br><br>Two exams, not five. Midterm 1 covers Weeks 1 to 7 and its window is Oct 26 to 28. Midterm 2 covers Weeks 8 to 14, Dec 14 to 16. Each is a window of three days, not an hour, and each is worth 17.5 percent.'
+          + '<br><br>Neither is multiple choice. You draw a physiological pathway and teach it out loud on video with no notes. Every week\'s Retrieve step is that same task in miniature, ungraded, so the format is familiar long before it counts. Dates are on the ' + a('calendar') + ' and in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
+      /* Rewritten Sep 7 2026. This answer used to describe "weekly
+         checkpoints" with the words "Weight is still to be set" and
+         "Placeholder grade" in it, which is a build note that reached
+         students. There are no checkpoints and no placeholder. */
       case 'tbl':
-        return '<p>Weekly checkpoints are how this course replaces attendance. Each week opens Monday and closes Sunday. Weight is still to be set, see the syllabus. Placeholder grade.</p>'
-          + 'You work the week on your own time and close it with a checkpoint. There are no teams and no synchronous sessions in this course.'
+        return '<p>There is no TBL in this course. No teams, no iRAT or tRAT, and nothing that meets at a set time. BIO 005 is fully online and asynchronous.</p>'
+          + '<p>What replaces attendance is what you turn in: your Mastery Check, your discussion post, and any lab the week requires. The note sheet and the practice work carry no points, so nothing is measuring whether you showed up, only whether the work is there.</p>'
           + '<br><br>Studying the work across the week is what makes these go well. There is no version of a checkpoint that goes well if you start it Sunday night. More in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       case 'mastery':
-        return a('masteryOS', 'Mastery OS') + ' is your study engine: spaced recall, a 3-Day Cram planner, and a Gap Finder that shows exactly what is weak. Open it and set up your plan.';
+        return '<p>' + a('masteryOS', 'The Mastery OS') + ' is your study engine: spaced recall across all 268 competencies and a gap finder that shows exactly what is weak.</p>'
+          + '<p>It works with the weekly <b>Mastery Check</b>, which is not a quiz. No points, no penalty, and no limit on attempts. It asks two levels on each competency, one to see whether you can retrieve it and one to see whether you can use it, and instead of a score it tells you which competencies are solid, which are partly there, and which are still a gap. Bring the gaps back to the OS.</p>';
 
+      /* Scholar Points are retired, and so is the engagement hours bank
+         they fed. Sep 7 2026. */
       case 'study':
-        return a('study') + ' is live co-study time. Sign up, show up, and you bank verified engagement hours toward Scholar Points at the same time.';
+        return 'There is no scheduled co-study session and no Scholar Points system in this course; both are retired. If you want to study with people, say so in the discussion thread and set something up. Office hours are Wednesdays 9:00 to 10:00 am on Zoom, drop in, and bringing a study question to those is the closest thing to co-study on the calendar.';
 
+      /* The interactive Atlas is a BIO 004 anatomy tool and is not part of
+         this course. What physiology students want when they ask about
+         anatomy is the refresher. Sep 7 2026. */
       case 'atlas':
-        return 'The ' + a('atlas') + ' lets you explore structures interactively. It is the fastest way to build the mental picture before lab.';
+        return 'The interactive Atlas belongs to the anatomy course, not this one. What you want here is the <a href="anatomy-review.html" target="_top">anatomy refresher</a>: the anatomy this course leans on, with self-checks, so you can close a gap in Week 1 rather than find it in Week 6.';
 
-      case 'loops':
-        return a('loops') + ' are quick lab-based practice questions. Use them for fast visual review between study blocks.';
+      case 'practice':
+        return 'Practice items live inside each week, in the Practice stage: predict, commit, check, correct, explain. They carry no points, and getting them wrong is the entire point of doing them. The book problems sit alongside them and are also ungraded.';
 
       case 'contact': {
         var c = (L() && L().contact) || {};
-        return '<p><b>Class, grades, or an extension.</b> Message Dr. Rennie in ' + (c.canvasInbox || 'the Canvas Inbox')
-          + ', or email ' + (c.email || 'srennie@solano.edu') + ' (' + (c.turnaround || 'about 48 to 72 hours on weekdays') + '). '
-          + 'Office hours are ' + (c.officeHours || '30 minutes before each class, or by appointment') + '.</p>'
-          + '<p><b>Accommodations.</b> The Accessibility Support Center, ' + (c.ascEmail || 'ASC@solano.edu')
-          + ' or ' + (c.ascPhone || '(707) 864-7136') + '. Set this up in Week 1, then tell Dr. Rennie your approved accommodations.</p>'
-          + '<p><b>Free tutoring.</b> In person at Fairfield, Vacaville and Vallejo, or online by Zoom. See the ' + a('astc') + '.</p>';
+        return '<p><b>Anything private: your grade, an extension, something going on in your life.</b> Message Dr. Rennie in '
+          + (c.canvasInbox || 'the Canvas Inbox') + ', or email ' + (c.email || 'srennie@yccd.edu')
+          + ' (' + (c.turnaround || 'about 48 to 72 hours on weekdays') + ').</p>'
+          + '<p><b>Anything about the course itself</b> goes in the <a href="virtual-office.html" target="_top">virtual office</a> instead, where the answer reaches everyone. Say what your question is, what you already tried, and where it stopped answering your question.</p>'
+          + '<p><b>Office hours.</b> ' + (c.officeHours || 'Wednesdays 9:00 to 10:00 am on Zoom, drop in, no appointment needed') + '.</p>'
+          + '<p><b>Accommodations.</b> Yuba DSPS, ' + (c.ascEmail || 'dspsinfo@yccd.edu')
+          + '. Set this up in Week 1, then tell Dr. Rennie your approved accommodations.</p>';
       }
 
       case 'prework':
@@ -434,9 +458,85 @@
   /* One function, everything it needs passed in. Swap this for a
      proxied model call if free-form content answers are ever
      wanted, and the 22 pages do not change. */
+
+  /* ----------------------------------------------------------
+     THE 248 ANSWERS THAT ARE ALREADY WRITTEN DOWN
+
+     Scrubs, Sep 7 2026: anything a student asks that the course
+     questions page already answers should be answered here, not
+     shrugged at. bio005-question-bank.js is generated from
+     course-questions.html, so the page stays the single source
+     and Hootie never drifts from it.
+
+     This runs AFTER the intent matcher, because an intent answer
+     knows what week it is and a stored answer does not. It runs
+     BEFORE the refusal, because "I do not know" is the wrong
+     reply to a question with an answer already on the site.
+
+     Scoring is deliberately dumb and predictable: overlap of
+     meaningful words between the question asked and the stored
+     question, weighted so a word in the stored question counts
+     more than a word buried in its answer. A weak best match is
+     no match, because a confidently wrong answer is worse than
+     an honest miss.
+     ---------------------------------------------------------- */
+  var STOP = {' the':1,a:1,an:1,and:1,are:1,as:1,at:1,be:1,but:1,by:1,can:1,do:1,does:1,
+    for:1,from:1,get:1,how:1,i:1,if:1,in:1,is:1,it:1,me:1,my:1,of:1,on:1,or:1,should:1,
+    that:1,the:1,then:1,this:1,to:1,was:1,what:1,when:1,where:1,which:1,who:1,why:1,
+    will:1,with:1,you:1,your:1,am:1,we:1,us:1,so:1,any:1,'':1};
+
+  function words(t) {
+    return String(t || '').toLowerCase().replace(/<[^>]+>/g, ' ')
+      .split(/[^a-z0-9]+/).filter(function (w) { return w.length > 2 && !STOP[w]; });
+  }
+
+  function searchBank(q) {
+    var bank = window.BIO005_QUESTIONS;
+    if (!bank || !bank.length) return null;
+    var asked = words(q);
+    if (asked.length < 2) return null;
+
+    var best = null, bestScore = 0, runnerUp = null;
+    bank.forEach(function (e) {
+      if (!e.__qw) { e.__qw = words(e.q); e.__aw = words(e.a); }
+      var score = 0;
+      asked.forEach(function (w) {
+        if (e.__qw.indexOf(w) > -1) score += 3;
+        else if (e.__aw.indexOf(w) > -1) score += 1;
+      });
+      /* a short stored question matched fully beats a long one matched partly */
+      score = score / Math.sqrt(e.__qw.length + 2);
+      if (score > bestScore) { runnerUp = best; bestScore = score; best = e; }
+    });
+
+    /* Below this the match is noise. Tuned so a two word question with one
+       real overlap does not fire. */
+    if (!best || bestScore < 1.15) return null;
+
+    var html = '<p>' + esc(best.q) + '</p>' + best.a;
+    if (runnerUp) {
+      html += '<p class="hoot-more">Not what you meant? The '
+        + '<a href="course-questions.html" target="_top">answered questions page</a> has '
+        + bank.length + ' of these, and you can filter it by typing a word.</p>';
+    }
+    return html;
+  }
+
   function hootieAnswer(qRaw, ctx) {
     var q = String(qRaw || '').toLowerCase().trim();
     if (!q) return { html: 'Ask me what is on this week, when your next exam is, how grading works, or what to do tonight.' };
+
+    /* buildContext returns null on any page that does not carry the schedule
+       globals. Every date aware branch below then throws, and the student sees
+       a dead assistant rather than an answer. The stored answers do not need a
+       context at all, so on a null context go straight to them. */
+    if (!ctx) {
+      var only = searchBank(q);
+      if (only) return { html: only, intent: 'bank' };
+      return { html: 'I cannot see the schedule from this page. The '
+        + '<a href="course-questions.html" target="_top">answered questions page</a> covers most of what students ask, '
+        + 'and the <a href="virtual-office.html" target="_top">virtual office</a> is where to put anything it does not.' };
+    }
 
     /* Explicit week number wins over everything. */
     var wkAsk = q.match(/week\s*(\d{1,2})/);
@@ -452,7 +552,7 @@
     if (exAsk) {
       var want = parseInt(exAsk[1], 10);
       var ex = ctx.exams.filter(function (e) { return e.n === want; })[0];
-      if (!ex) return { html: 'There are five exams in this course, 1 to 5. There is no Exam ' + want + '.' };
+      if (!ex) return { html: 'There are two exams in this course, Midterm 1 and Midterm 2. There is no Exam ' + want + '.' };
       return { html: examLine(ctx, ex) };
     }
 
@@ -462,6 +562,10 @@
       var html = answerFor(id, ctx);
       if (html) return { html: html, intent: id };
     }
+
+    /* Already answered on the course questions page? Say that answer. */
+    var stored = searchBank(q);
+    if (stored) return { html: stored, intent: 'bank' };
 
     /* Physiology content, or anything else. Say so; do not guess. */
     var res = weekResources(ctx, ctx.viewWk || ctx.curWk);
@@ -481,7 +585,7 @@
   var CSS = [
     '.hoo-btn{position:fixed;right:18px;bottom:18px;z-index:60;display:inline-flex;align-items:center;gap:8px;',
     '  font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;padding:11px 16px;border-radius:999px;',
-    '  background:var(--navy,#08101F);color:#fff;border:1px solid var(--navy,#08101F);',
+    '  background:var(--navy,#0B1530);color:#fff;border:1px solid var(--navy,#0B1530);',
     '  box-shadow:0 8px 16px rgba(0,0,0,.18);transition:transform 180ms ease,box-shadow 180ms ease}',
     '.hoo-btn:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(0,0,0,.22)}',
     '.hoo-btn .fish{line-height:0;display:inline-flex;background:#fff;border-radius:50%;padding:2px}',
@@ -489,17 +593,17 @@
        the pill's width, and the guess was wrong once the label and
        the mark were in place, so the bubble overlapped the button. */
     '.hoo-nudge{position:fixed;right:18px;bottom:82px;z-index:59;',
-    '  background:var(--gold,#DCB45C);color:var(--navy,#08101F);',
+    '  background:var(--gold,#C9A14A);color:var(--navy,#0B1530);',
     "  font-family:var(--eb,inherit);font-size:12.5px;font-weight:700;white-space:nowrap;",
     '  padding:7px 12px;border-radius:9px;box-shadow:0 6px 14px rgba(0,0,0,.18)}',
-    ".hoo-nudge::after{content:'';position:absolute;bottom:-6px;right:22px;border:6px solid transparent;border-top-color:var(--gold,#DCB45C)}",
+    ".hoo-nudge::after{content:'';position:absolute;bottom:-6px;right:22px;border:6px solid transparent;border-top-color:var(--gold,#C9A14A)}",
     '.hoo-nudge[hidden]{display:none}',
     '.hoo-panel{position:fixed;right:18px;bottom:76px;z-index:61;width:min(390px,calc(100vw - 36px));',
     '  max-height:min(560px,calc(100vh - 110px));display:none;flex-direction:column;',
     '  background:#fff;border:1px solid var(--line,rgba(11,21,48,.12));border-radius:var(--radius,16px);',
     '  box-shadow:0 18px 44px rgba(0,0,0,.24);overflow:hidden}',
     '.hoo-panel.on{display:flex}',
-    '.hoo-hd{display:flex;align-items:center;gap:9px;padding:12px 14px;background:var(--navy,#08101F);color:#fff}',
+    '.hoo-hd{display:flex;align-items:center;gap:9px;padding:12px 14px;background:var(--navy,#0B1530);color:#fff}',
     '.hoo-hd .fish{line-height:0;display:inline-flex;background:#fff;border-radius:50%;padding:2px}',
     '.hoo-hd h2{margin:0;font-size:.95rem;font-weight:700;color:#fff}',
     '.hoo-hd .sub{margin:1px 0 0;font-size:11.5px;color:#fff;opacity:.85}',
@@ -507,23 +611,23 @@
     '.hoo-x:hover{background:rgba(255,255,255,.16)}',
     '.hoo-log{flex:1;overflow-y:auto;padding:13px 14px;display:flex;flex-direction:column;gap:10px;background:var(--offwhite,#F3F5F8)}',
     '.hoo-msg{max-width:92%;padding:10px 12px;border-radius:13px;font-size:13.5px;line-height:1.55}',
-    '.hoo-msg.bot{background:#fff;border:1px solid var(--line,rgba(11,21,48,.12));color:var(--navy,#08101F);align-self:flex-start}',
-    '.hoo-msg.you{background:var(--navy,#08101F);color:#fff;align-self:flex-end}',
-    '.hoo-msg a{color:var(--maroon-dark,#7A2A22);font-weight:700}',
-    '.hoo-msg.you a{color:var(--gold,#DCB45C)}',
+    '.hoo-msg.bot{background:#fff;border:1px solid var(--line,rgba(11,21,48,.12));color:var(--navy,#0B1530);align-self:flex-start}',
+    '.hoo-msg.you{background:var(--navy,#0B1530);color:#fff;align-self:flex-end}',
+    '.hoo-msg a{color:var(--maroon-dark,#8B3A2E);font-weight:700}',
+    '.hoo-msg.you a{color:var(--gold,#C9A14A)}',
     '.hoo-name{display:block;font-family:var(--eb,inherit);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;',
-    '  color:var(--maroon-dark,#7A2A22);font-weight:700;margin-bottom:4px}',
+    '  color:var(--maroon-dark,#8B3A2E);font-weight:700;margin-bottom:4px}',
     '.hoo-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px;border-top:1px solid var(--line,rgba(11,21,48,.12));background:#fff}',
     '.hoo-chip{font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;padding:6px 10px;border-radius:999px;',
-    '  background:#fff;color:var(--navy,#08101F);border:1px solid var(--line,rgba(11,21,48,.12))}',
-    '.hoo-chip:hover{border-color:var(--maroon-dark,#7A2A22)}',
+    '  background:#fff;color:var(--navy,#0B1530);border:1px solid var(--line,rgba(11,21,48,.12))}',
+    '.hoo-chip:hover{border-color:var(--maroon-dark,#8B3A2E)}',
     '.hoo-form{display:flex;gap:7px;padding:10px 14px;border-top:1px solid var(--line,rgba(11,21,48,.12));background:#fff}',
     '.hoo-in{flex:1;font:inherit;font-size:13.5px;padding:9px 11px;border-radius:10px;',
-    '  border:1.5px solid var(--line,rgba(11,21,48,.12));background:var(--offwhite,#F3F5F8);color:var(--navy,#08101F)}',
+    '  border:1.5px solid var(--line,rgba(11,21,48,.12));background:var(--offwhite,#F3F5F8);color:var(--navy,#0B1530)}',
     '.hoo-send{font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;padding:9px 14px;border-radius:10px;',
-    '  background:var(--gold,#DCB45C);color:var(--navy,#08101F);border:1px solid var(--gold,#DCB45C)}',
+    '  background:var(--gold,#C9A14A);color:var(--navy,#0B1530);border:1px solid var(--gold,#C9A14A)}',
     '.hoo-btn:focus-visible,.hoo-x:focus-visible,.hoo-chip:focus-visible,.hoo-in:focus-visible,.hoo-send:focus-visible{',
-    '  outline:3px solid var(--gold,#DCB45C);outline-offset:2px}',
+    '  outline:3px solid var(--gold,#C9A14A);outline-offset:2px}',
     '@media (prefers-reduced-motion:reduce){.hoo-btn{transition:none}.hoo-btn:hover{transform:none}}',
     /* Every fixed element Hootie owns. The nudge was missing from this
        list and printed as a gold pill across the foot of the page. */
@@ -551,25 +655,25 @@
      Source of truth: the hootieBtn svg in welcome.html. */
   function hootieMark(size) {
     return '<svg viewBox="0 0 64 64" width="' + size + '" height="' + size + '" aria-hidden="true" focusable="false">'
-      + '<path d="M20 39 L6 28 Q3 39 6 50 Z" fill="#DCB45C"/>'
+      + '<path d="M20 39 L6 28 Q3 39 6 50 Z" fill="#C9A14A"/>'
       + '<ellipse cx="35" cy="40" rx="19" ry="16" fill="#E8CE85"/>'
       + '<ellipse cx="37" cy="44" rx="12" ry="9" fill="#F2E2B0"/>'
-      + '<path d="M28 25 Q36 21 44 25 L42 31 Q36 34 30 31 Z" fill="#08101F"/>'
-      + '<path d="M36 11 L55 20 L36 29 L17 20 Z" fill="#08101F"/>'
-      + '<circle cx="36" cy="20" r="1.5" fill="#DCB45C"/>'
-      + '<path d="M36 20 L53 21 L53 32" fill="none" stroke="#DCB45C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
-      + '<circle cx="53" cy="34" r="2.4" fill="#DCB45C"/>'
-      + '<circle cx="31" cy="39" r="7" fill="#FFFFFF" stroke="#08101F" stroke-width="2.4"/>'
-      + '<circle cx="45" cy="39" r="7" fill="#FFFFFF" stroke="#08101F" stroke-width="2.4"/>'
-      + '<path d="M37.6 39 H38.4" stroke="#08101F" stroke-width="2.2"/>'
-      + '<circle cx="32" cy="40" r="3" fill="#08101F"/>'
-      + '<circle cx="44" cy="40" r="3" fill="#08101F"/>'
+      + '<path d="M28 25 Q36 21 44 25 L42 31 Q36 34 30 31 Z" fill="#0B1530"/>'
+      + '<path d="M36 11 L55 20 L36 29 L17 20 Z" fill="#0B1530"/>'
+      + '<circle cx="36" cy="20" r="1.5" fill="#C9A14A"/>'
+      + '<path d="M36 20 L53 21 L53 32" fill="none" stroke="#C9A14A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<circle cx="53" cy="34" r="2.4" fill="#C9A14A"/>'
+      + '<circle cx="31" cy="39" r="7" fill="#FFFFFF" stroke="#0B1530" stroke-width="2.4"/>'
+      + '<circle cx="45" cy="39" r="7" fill="#FFFFFF" stroke="#0B1530" stroke-width="2.4"/>'
+      + '<path d="M37.6 39 H38.4" stroke="#0B1530" stroke-width="2.2"/>'
+      + '<circle cx="32" cy="40" r="3" fill="#0B1530"/>'
+      + '<circle cx="44" cy="40" r="3" fill="#0B1530"/>'
       + '<circle cx="33.1" cy="38.8" r="1" fill="#FFFFFF"/>'
       + '<circle cx="45.1" cy="38.8" r="1" fill="#FFFFFF"/>'
-      + '<path d="M33 46 Q38 51 43 46 Q38.5 48.5 33 46 Z" fill="#7A2A22"/>'
-      + '<path d="M31 49 L31 55 L36.5 52 Z" fill="#7A2A22"/>'
-      + '<path d="M42 49 L42 55 L36.5 52 Z" fill="#7A2A22"/>'
-      + '<rect x="35" y="50.2" width="3" height="3.6" rx="1" fill="#5E201A"/>'
+      + '<path d="M33 46 Q38 51 43 46 Q38.5 48.5 33 46 Z" fill="#8B3A2E"/>'
+      + '<path d="M31 49 L31 55 L36.5 52 Z" fill="#8B3A2E"/>'
+      + '<path d="M42 49 L42 55 L36.5 52 Z" fill="#8B3A2E"/>'
+      + '<rect x="35" y="50.2" width="3" height="3.6" rx="1" fill="#6E2D24"/>'
       + '</svg>';
   }
 
