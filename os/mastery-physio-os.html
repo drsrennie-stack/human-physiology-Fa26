@@ -1460,7 +1460,7 @@ function ingestRecall(){
 
 /* evidence method metadata */
 var EVIDENCE=[
-  {k:'retrieval',name:'Retrieval practice',icon:I.recall,desc:'Answer from memory, from stating a fact up to predicting what happens when something changes.',cta:'Open Spaced Recall',href:'#s-recall'}, {k:'weakness',name:'Weak spot dashboard',icon:I.recall,desc:'See which competencies your card answers say are weakest, ranked.',cta:'Open the weak spot board',href:'#s-weak'}, {k:'draw',name:'Draw from memory',icon:I.draw,desc:'Reconstruct the structure with nothing in front of you.',cta:'Open drawing canvas',href:'mastery-canvas.html'}, {k:'label',name:'Label diagrams',icon:I.label,desc:'Place every marker on a blank figure.',cta:'Open drawing canvas',href:'mastery-canvas.html'}, {k:'loop',name:'Run its Loop',icon:I.retrieve,desc:'Name every structure out loud before the label appears. For graph and data work this is the only place it can be practiced away from the data.',cta:'Walkthroughs',href:null}, {k:'data',name:'Trace and data interpretation',icon:I.eye,desc:'Read the trace or the data, do not recite the textbook value.',cta:'Mark it done',href:null}, {k:'histo',name:'Graph and curve reading',icon:I.micro,desc:'Read the curve and say what it means.',cta:'Mark it done',href:null}, {k:'explain',name:'Explain aloud',icon:I.speak,desc:'Say it out loud in plain language, no notes.',cta:'Start explaining',href:null}, {k:'teachai',name:'Teach it to an AI',icon:I.teach,desc:'Explain it out loud to a free AI tutor, like teaching a 5-year-old, and let it quiz you back.',cta:'Open AI tutor',href:null}, {k:'teach',name:'Teach another learner',icon:I.teach,desc:'The real test: can someone else follow you?',cta:'Start teaching',href:null}, {k:'clinical',name:'Clinical case',icon:I.clinical,desc:'Apply the structure to a patient scenario.',cta:'Mark it done',href:null}, {k:'questions',name:'Create practice questions',icon:I.build,desc:'Write items that would trip up a classmate.',cta:'Mark it done',href:null}
+  {k:'retrieval',name:'Retrieval practice',icon:I.recall,desc:'Answer from memory, from stating a fact up to predicting what happens when something changes.',cta:'Open Spaced Recall',href:'#s-recall'}, {k:'weakness',name:'Weak spot dashboard',icon:I.recall,desc:'See which competencies your card answers say are weakest, ranked.',cta:'Open the weak spot board',href:'#s-weak'}, {k:'draw',name:'Draw from memory',icon:I.draw,desc:'Reconstruct the structure with nothing in front of you.',cta:'Open drawing canvas',href:'mastery-canvas.html'}, {k:'label',name:'Label diagrams',icon:I.label,desc:'Place every marker on a blank figure.',cta:'Open drawing canvas',href:'mastery-canvas.html'}, {k:'loop',name:'Run its Loop',icon:I.retrieve,desc:'Name every structure out loud before the label appears. For graph and data work this is the only place it can be practiced away from the data.',cta:'Walkthroughs, in build',href:null}, {k:'data',name:'Trace and data interpretation',icon:I.eye,desc:'Read the trace or the data, do not recite the textbook value.',cta:'Mark it done',href:null}, {k:'histo',name:'Graph and curve reading',icon:I.micro,desc:'Read the curve and say what it means.',cta:'Mark it done',href:null}, {k:'explain',name:'Explain aloud',icon:I.speak,desc:'Say it out loud in plain language, no notes.',cta:'Start explaining',href:null}, {k:'teachai',name:'Teach it to an AI',icon:I.teach,desc:'Explain it out loud to a free AI tutor, like teaching a 5-year-old, and let it quiz you back.',cta:'Open AI tutor',href:null}, {k:'teach',name:'Teach another learner',icon:I.teach,desc:'The real test: can someone else follow you?',cta:'Start teaching',href:null}, {k:'clinical',name:'Clinical case',icon:I.clinical,desc:'Apply the structure to a patient scenario.',cta:'Mark it done',href:null}, {k:'questions',name:'Create practice questions',icon:I.build,desc:'Write items that would trip up a classmate.',cta:'Mark it done',href:null}
 ];
 var EVMAP={};EVIDENCE.forEach(function(e){EVMAP[e.k]=e;});
 
@@ -1901,7 +1901,7 @@ function renderLoopWeak(){
       + 'Walkthroughs is the only place the traces, graphs and data sets can be practiced away from the data. '
       + 'Run one and the structures you miss will show up here by name, so you know exactly what to '
       + 'go back to.</p>'
-      + '<a class="btn primary" href="' + esc(LOOPS_BASE) + '" target="_blank" rel="noopener">Walkthroughs</a></div>';
+      + '<a class="btn primary" href="' + esc(LOOPS_BASE) + '" target="_blank" rel="noopener">Walkthroughs, in build</a></div>';
     return;
   }
 
@@ -1911,7 +1911,7 @@ function renderLoopWeak(){
       + '<p class="eyebrow" style="color:var(--maroon-dark)">Lab ID practice</p>'
       + '<h3 style="font-size:16px;margin:2px 0 6px">No weak stations, from ' + total + ' practiced</h3>'
       + '<p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Nothing you have run is coming back wrong. Add more stations rather than redoing these.</p>'
-      + '<a class="btn" href="' + esc(LOOPS_BASE) + '" target="_blank" rel="noopener">Walkthroughs</a></div>';
+      + '<a class="btn" href="' + esc(LOOPS_BASE) + '" target="_blank" rel="noopener">Walkthroughs, in build</a></div>';
     return;
   }
 
@@ -1938,7 +1938,7 @@ function renderLoopWeak(){
     + '<p class="serif" style="flex:1;min-width:200px">Straight from your Walkthroughs runs, by name. '
     + (over ? '<b>' + over + '</b> of these you answered confidently and still got wrong, which is the miss a practical punishes hardest, so those are first. ' : '')
     + 'Out of ' + total + ' stations you have practiced.</p>'
-    + '<a class="btn rust big" href="' + esc(LOOPS_BASE) + '" target="_blank" rel="noopener">Walkthroughs</a></div>'
+    + '<a class="btn rust big" href="' + esc(LOOPS_BASE) + '" target="_blank" rel="noopener">Walkthroughs, in build</a></div>'
     + '<div class="card">' + rows + more + '</div>';
 }
 function renderWeakness(){
@@ -2125,7 +2125,7 @@ function coachRespond(id,rawText){
       actions=[{label:'Start today\'s session',kind:'gold',attr:'data-session="today"'},{label:'Work weakness cards',attr:'data-toolblank="#s-recall"'}];break;
     case 'prep-lab':
       reply='Lab today is <b>'+nm(lab)+'</b>. Lab is identification under pressure, so practice naming on unlabeled traces and raw data, not by rereading. Graph reading and data interpretation are your lowest dimensions right now.';
-      actions=[{label:'Drawing canvas',kind:'',attr:'data-tool=""'},{label:'Start today\'s session',kind:'primary',attr:'data-session="today"'}];break;
+      actions=[{label:'Drawing canvas, in build',kind:'',attr:'data-tool=""'},{label:'Start today\'s session',kind:'primary',attr:'data-session="today"'}];break;
     case 'test-weak':
       reply='You have <b>'+w.length+'</b> flagged competencies. I will build a session from only those, hardest first, starting with <b>'+(w[0]?esc(w[0].c.name):'')+'</b>.';
       actions=[{label:'Repair My Weaknesses',kind:'rust',attr:'data-session="repair"'}];break;
@@ -2167,7 +2167,7 @@ function coachFreeText(t){
 function coachFreeActions(t){
   t=t.toLowerCase();
   if(/weak|gap|struggl/.test(t))return [{label:'Repair My Weaknesses',kind:'rust',attr:'data-session="repair"'}];
-  if(/lab|trace|graph|data/.test(t))return [{label:'Drawing canvas',kind:'',attr:'data-tool="mastery-canvas.html"'}];
+  if(/lab|trace|graph|data/.test(t))return [{label:'Drawing canvas, in build',kind:'',attr:'data-tool="mastery-canvas.html"'}];
   return [{label:'Start today\'s session',kind:'gold',attr:'data-session="today"'}];
 }
 
@@ -2359,7 +2359,7 @@ function openProve(id){
   function methodBtn(e){
     var ready=PROVE_READY.indexOf(e.k)>-1;
     if(ready){var done=c.ev.indexOf(e.k)>-1;return '<button class="btn prove-m" data-provem="'+e.k+'" style="position:relative;text-align:left;display:block;width:100%;margin:0 0 8px;padding:12px 14px">'+(done?'<span class="proto-badge" style="position:absolute;top:10px;right:10px;background:#e2efe8;border-color:#bcd8c8;color:var(--ok)">Done &#10003;</span>':'')+'<b>'+esc(e.name)+'</b><br><span style="font-size:12.5px;color:var(--ink-soft);font-weight:400">'+esc(e.desc)+'</span></button>';}
-    return '<div class="prove-m soon" style="position:relative;text-align:left;width:100%;margin:0 0 8px;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r);opacity:.6"><span class="proto-badge" style="position:absolute;top:10px;right:10px">Not open yet</span><b>'+esc(e.name)+'</b><br><span style="font-size:12.5px;color:var(--ink-soft);font-weight:400">'+esc(e.desc)+'</span></div>';
+    return '<div class="prove-m soon" style="position:relative;text-align:left;width:100%;margin:0 0 8px;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r);opacity:.6"><span class="proto-badge" style="position:absolute;top:10px;right:10px">Coming soon</span><b>'+esc(e.name)+'</b><br><span style="font-size:12.5px;color:var(--ink-soft);font-weight:400">'+esc(e.desc)+'</span></div>';
   }
   gBody('<div style="text-align:left"><p style="color:var(--ink-soft);margin:0 0 14px">Pick the one way you want to prove <b>'+esc(c.name)+'</b>, whatever way you are most comfortable. Do it, and your mastery moves. Spaced recall keeps it locked in over time.</p>'+
     (c.ev.length?'<p style="background:var(--white);border:1px solid var(--line-soft);border-radius:var(--r);padding:10px 13px;font-size:13px;margin:0 0 14px">Already proven <b>'+c.ev.length+'</b> way'+(c.ev.length>1?'s':'')+': '+esc(c.ev.map(function(k){return EVMAP[k]?EVMAP[k].name:k;}).join(' · '))+'. A <b>different</b> way locks it in harder.</p>':'')+
@@ -2420,7 +2420,7 @@ function loopProveScreen(c){
     (lp
       ? '<p>Walkthroughs opens on its hub. Take the tile named <b>'+esc(lp.title)+'</b>. Say each structure out loud '+
         '<b>before</b> the label appears. Watching it is not the exercise, beating the label is.</p>'+
-        '<div class="g-actions"><button class="btn gold" id="lpGo">Walkthroughs</button>'+
+        '<div class="g-actions"><button class="btn gold" id="lpGo">Walkthroughs, in build</button>'+
         '<button class="btn" id="proveDone">I did the Loop</button>'+
         '<button class="btn ghost" id="proveBack">Back</button></div>'
       : '<p>None of the 39 Walkthroughs covers '+esc(c.name)+'. Prove it another way.</p>'+
@@ -3240,7 +3240,7 @@ function runLoop(c){
     '<p>Walkthroughs opens on its hub with 39 tiles, so take the one named above: <b>'+esc(lp?lp.title:'')+'</b>. '+
     'Name each structure out loud <b>before</b> the label appears. Watching it is not the exercise, '+
     'beating the label is.</p>'+
-    '<div class="g-actions"><button class="btn gold" id="rlGo">Walkthroughs</button>'+
+    '<div class="g-actions"><button class="btn gold" id="rlGo">Walkthroughs, in build</button>'+
     '<button class="btn" id="rlDone">I did the Loop</button></div></div>');
   $('#rlGo').onclick=function(){window.open(LOOPS_BASE,'_blank','noopener');};
   $('#rlDone').onclick=function(){bumpComp(c,4);bumpDim('data',2);runAdvance('loop');};
@@ -3968,7 +3968,7 @@ var MODES=[
 
 function renderTogether(){var el=$('#togetherGrid');if(!el)return;el.innerHTML=MODES.map(function(m){
   if(m.soon){
-    var sb='<span class="proto-badge" style="color:var(--maroon-dark);background:#FAF1EC;border-color:var(--maroon-dark)">Not open yet</span>';
+    var sb='<span class="proto-badge" style="color:var(--maroon-dark);background:#FAF1EC;border-color:var(--maroon-dark)">Coming soon</span>';
     return '<div class="mode-card"><div class="mode-top '+m.cls+'"><span class="mtag">'+esc(m.tag)+'</span><h3>'+m.emoji+' '+esc(m.name)+'</h3><div class="players">'+esc(m.players)+'</div></div><div class="mode-body"><p>'+esc(m.desc)+'</p>'+sb+'<button class="btn" disabled aria-disabled="true">Not yet available</button></div></div>';
   }
   if(m.link){

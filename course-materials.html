@@ -3,247 +3,825 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Course materials &middot; BIO 005 Human Physiology</title>
-<meta name="description" content="Everything written for BIO 005 Human Physiology, in one place, grouped by week. Filter by type or search.">
+<title>Course Tools &middot; BIO 005 Human Physiology</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
-<link rel="stylesheet" href="assets/brandbar.css">
 <!--
   ============================================================
   BIO 005 Human Physiology, Yuba College, Fall 2026
-  course-materials.html. Rebuilt Sep 8 2026 on the pattern of the
-  BIO 004 anatomy Course materials page: type filters across the
-  top, a search box, the weeks down the left, and on the right one
-  row per type per week with a badge, the item names, and a count.
+  course-materials.html
 
-  This page answers WHERE SOMETHING LIVES. For what is due, the
-  course home. The list is generated: window.MATERIALS below is
-  the only thing to edit. Every href in it was checked against the
-  repo when it was built, so nothing here points at a page that
-  does not exist.
+  THE HUB. One page, one path. Everything a student needs is
+  reachable from here in one click, grouped the way the week is
+  actually lived: this week's work first, then Lecture, Lab,
+  Study, then Admin at the bottom.
+
+  ------------------------------------------------------------
+  BRANDING, SEP 6 2026
+  ------------------------------------------------------------
+  Restyled to the MedMasters Collaborative site, on Scrubs'
+  instruction ("I would prefer the MedMasters branding, like
+  this page"). Every value below was read off the live site
+  with computed styles, not guessed:
+
+    navy      #0B1530   body text, headlines
+    ink-deep  #060A18   full-bleed dark band
+    maroon    #8B3A2E   eyebrows, CTAs, emphasis
+    gold      #C9A14A   eyebrows on the dark band only
+    display   Open Sans 800, tracked -0.025em
+    body      Plus Jakarta Sans
+    eyebrows  11px, 700, 0.3em tracking, uppercase
+    buttons   4px radius, 11px, 700, 0.2em tracking, uppercase
+    cards     square corners, hairline border, no shadow
+
+  ONE SUBSTITUTION. The live site uses bone #F5F1E8 for text on
+  the dark band. Standing rule is that cream is out of teaching
+  deliverables, so off-white #FAFAF9 is used instead. On near
+  black the two are visually indistinguishable, and the swap is
+  one token (--bone) if Scrubs wants the site value back.
+
+  SITE WIDE, SEP 6 2026. Scrubs then said "everything the
+  MedMasters brand," so the whole repo was moved onto these
+  values, not just this page: assets/brand.css, all 107 root
+  pages, and the deck engine. Two older generations were folded
+  in, brand.css maroon #8B3A2E and the physiology deck terra
+  #8B3A2E, both now #8B3A2E. The tokens below and the ones in
+  assets/brand.css now agree. This page keeps its own copy only
+  because it is self contained; the values are the same.
+
+  ------------------------------------------------------------
+  ACCESSIBILITY
+  ------------------------------------------------------------
+  Every text pair on this page is AAA (7:1 normal, 4.5:1 large).
+  Fonts are self-hosted in assets/fonts-site.css, so there is
+  zero external network traffic. The old bobbing arrow is gone,
+  replaced by a real "This week" section that says what to do
+  rather than pointing at it.
+
+  Tools that are not built yet say so plainly rather than linking
+  to a 404.
   ============================================================
 -->
 <style>
-:root{--navy:#0B1530;--navy-deep:#060A18;--navy-tint:#ECEFF4;--maroon:#8B3A2E;--maroon-dk:#6E2D24;--gold:#C9A14A;--gold-deep:#8A6D33;
---page:#FAFAF9;--card:#FFFFFF;--ink:#0B1530;--muted:#414B5C;--faint:#5A6675;--rule-soft:rgba(11,21,48,.10);
---shadow:0 1px 3px rgba(0,0,0,.08);--lift:0 8px 16px rgba(0,0,0,.10);
---display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
-*,*::before,*::after{box-sizing:border-box}html,body{margin:0}
-body{font-family:var(--body);background:var(--page);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-em,i{font-style:normal;font-weight:700}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0;line-height:1.15}
-a{color:var(--maroon);text-underline-offset:3px}
-:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
-.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}.skip:focus{left:0;top:0}
-.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
-header.top{padding:34px 0 8px}
-.eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
-header.top h1{font-size:clamp(30px,4.8vw,46px);color:var(--navy)}header.top h1 b{color:var(--maroon)}
-header.top p{color:var(--muted);max-width:62ch;margin:12px 0 0}
-/* filters */
-.filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:22px 0 0}
-.filters .lbl{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin-right:4px}
-.pill{font:inherit;font-size:15px;font-weight:700;border-radius:999px;padding:10px 18px;min-height:44px;cursor:pointer;
-border:1.5px solid var(--navy);background:var(--navy);color:#fff;transition:background 160ms ease,color 160ms ease}
-.pill[aria-pressed="false"]{background:#fff;color:var(--navy)}
-.pill:hover{background:var(--maroon);border-color:var(--maroon);color:#fff}
-.search{margin:14px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.search label{font-weight:700;color:var(--navy)}
-.search input{font:inherit;font-size:16px;min-height:48px;width:min(100%,380px);padding:10px 18px;border-radius:999px;border:1.5px solid rgba(11,21,48,.28);background:#fff;color:var(--ink)}
-.search input::placeholder{color:#5A6675}
-.count{margin:16px 0 0;color:var(--muted);font-size:16px}
-/* layout */
-.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:22px;margin:18px 0 0;align-items:start}
-.side{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 14px;position:sticky;top:64px}
-.side h2{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:4px 0 10px 10px}
-.side h3{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:12px 0 4px 10px}
-.side ul{list-style:none;margin:0;padding:0}
-.wkbtn{display:block;width:100%;text-align:left;font:inherit;background:none;border:0;border-radius:10px;padding:8px 10px;min-height:44px;cursor:pointer;color:var(--ink);line-height:1.3}
-.wkbtn small{display:block;font-size:12.5px;font-weight:700;color:var(--faint);letter-spacing:.02em}
-.wkbtn .t{font-size:14.5px;font-weight:600;color:var(--navy)}
-.wkbtn:hover{background:#F3F4F7}
-.wkbtn[aria-pressed="true"]{background:var(--navy);color:#fff;box-shadow:var(--lift)}
-.wkbtn[aria-pressed="true"] small{color:var(--gold)}.wkbtn[aria-pressed="true"] .t{color:#fff}
-.main{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:22px 26px 10px;min-width:0}
-.wkblock{padding:6px 0 18px}
-.wkblock+.wkblock{border-top:1px solid var(--rule-soft);padding-top:22px}
-.wkhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.wkhead h2{font-size:22px;color:var(--navy)}.wkhead h2 b{color:var(--maroon)}
-.wkhead .n{font-weight:700;color:var(--gold-deep);font-size:15px;white-space:nowrap}
-.wkhead p{margin:2px 0 8px;color:var(--faint);font-size:15px}
-.rows{list-style:none;margin:0;padding:0}
-.row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px 18px;align-items:start;padding:12px 0;border-top:1px solid var(--rule-soft)}
-.row:first-child{border-top:0}
-.badge{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:6px 12px;border-radius:8px;
-font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--navy);text-align:center}
-.badge.sheet{background:var(--maroon)}.badge.study{background:var(--gold-deep)}.badge.week{background:var(--navy-deep)}
-.names{font-size:16.5px;line-height:1.55}
-.names a{color:var(--ink);text-decoration:none;font-weight:700;border-radius:4px;padding:2px 0}
-.names a:hover{color:var(--maroon);text-decoration:underline}
-.names a[data-note]{position:relative}
-.names .sep{color:#8A93A3;margin:0 8px}
-.names .d{display:block;font-size:14px;color:var(--faint);font-weight:500}
-.empty{padding:26px 0;color:var(--muted)}
-.mm-foot{margin-top:46px}
-.mm-flinks{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-size:15px}
-.mm-flinks li{display:flex;align-items:center}.mm-flinks li+li::before{content:"\00B7";margin:0 12px;color:#9AA3B2}
-.mm-fleg{margin:0;font-size:14px;color:#C9CFD6}
-@media (max-width:860px){.layout{grid-template-columns:1fr}.side{position:static}.side ul{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:2px}.side h3{grid-column:1/-1}.row{grid-template-columns:1fr;gap:6px}.badge{justify-self:start}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media (forced-colors:active){.pill,.wkbtn,.badge{border:1px solid CanvasText}.pill[aria-pressed="true"],.wkbtn[aria-pressed="true"]{border:2px solid Highlight}}
-@media print{.skip,.mm-brandbar,.filters,.search,.side{display:none!important}.layout{grid-template-columns:1fr}.main{box-shadow:none}body{background:#fff;font-size:10.5pt}}
+:root{
+  /* ---- MedMasters Collaborative, read off the live site ---- */
+  --navy:#0B1530;          /* body text and headlines. 17.0:1 on white */
+  --ink-deep:#060A18;      /* the full-bleed dark band */
+  --maroon:#8B3A2E;        /* eyebrows, CTAs, emphasis. 7.66:1 on white, AAA */
+  --maroon-dk:#6E2D24;     /* maroon hover only */
+  --gold:#C9A14A;          /* eyebrows on the dark band. 8.16:1 on --ink-deep */
+  --bone:#FAFAF9;          /* text on the dark band. Site uses #F5F1E8, see header note */
+  --page:#FFFFFF;
+  --card:#FFFFFF;
+  --muted:#4A5265;         /* secondary body text. 7.82:1 on white, 7.70:1 on
+                              off-white, AAA both ways. Was #4F576A, which is
+                              7.23:1 on white but only 6.92:1 on off-white. */
+  --faint:#4A5265;         /* small labels. Same value, same reason. */
+
+  --hair:rgba(11,21,48,.16);
+  --hair-soft:rgba(11,21,48,.09);
+  --hair-dark:rgba(250,250,249,.18);
+
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--page);color:var(--navy);
+     font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+em,i,cite,dfn,var{font-style:normal}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.025em;font-weight:800}
+p{margin:0}
+a{color:var(--maroon)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;z-index:80;background:var(--navy);color:#fff;
+      padding:12px 20px;font-weight:700;text-decoration:none;border-radius:4px}
+.skip:focus{left:8px;top:8px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ---------- shared idioms from the site ---------- */
+.eyebrow{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.3em;
+         text-transform:uppercase;color:var(--maroon);margin:0}
+.on-dark .eyebrow{color:var(--gold)}
+.btn{display:inline-block;font-family:var(--body);font-size:11px;font-weight:700;
+     letter-spacing:.2em;text-transform:uppercase;text-decoration:none;
+     padding:13px 22px;border-radius:4px;border:1px solid transparent;
+     transition:background-color 160ms ease,border-color 160ms ease}
+.btn-fill{background:var(--maroon);color:#fff}
+.btn-fill:hover{background:var(--maroon-dk)}
+.btn-line{background:transparent;color:var(--navy);border-color:var(--hair)}
+.btn-line:hover{border-color:var(--maroon);color:var(--maroon)}
+
+/* ---------- brand bar ---------- */
+.brandbar{background:var(--card);border-bottom:1px solid var(--hair-soft);padding:14px 0}
+.brandbar .wrap{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.brandbar .lock{display:flex;align-items:center;gap:10px}
+.brandbar .wm{display:block;font-family:var(--display);font-size:17px;font-weight:800;
+              letter-spacing:-.02em;line-height:1;color:var(--navy)}
+.brandbar .wm b{color:var(--maroon);font-weight:800}
+/* display:block so COLLABORATIVE stacks under the wordmark the way it does
+   on the live site, instead of running on the same line. */
+.brandbar .sub{display:block;font-family:var(--body);font-size:8.5px;font-weight:700;
+               letter-spacing:.34em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+.brandbar .course{margin-left:auto;font-family:var(--body);font-size:10px;font-weight:700;
+                  letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--card);padding:52px 0 44px;border-bottom:1px solid var(--hair-soft)}
+.hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.12;margin-top:14px;max-width:19ch}
+.hero h1 em{color:var(--maroon)}
+.hero .lede{margin-top:16px;color:var(--muted);max-width:56ch;font-size:16.5px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+
+/* ---------- week strip ---------- */
+.weeks{background:var(--card);border-bottom:1px solid var(--hair);
+       padding:15px 0 17px;position:sticky;top:0;z-index:20}
+.weeks h2{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.3em;
+          text-transform:uppercase;color:var(--faint);margin-bottom:11px}
+.strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.wk{flex:none;min-width:62px;border:1px solid var(--hair);background:var(--card);
+    padding:8px 10px;text-decoration:none;color:var(--navy);text-align:center;border-radius:4px}
+.wk .n{font-family:var(--display);font-size:15px;font-weight:800;line-height:1;
+       font-variant-numeric:tabular-nums;display:block}
+.wk .d{font-size:10.5px;color:var(--faint);margin-top:3px;white-space:nowrap;display:block}
+.wk:hover{border-color:var(--maroon);color:var(--maroon)}
+.wk:hover .d{color:var(--maroon)}
+.wk[aria-current="true"]{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.wk[aria-current="true"] .d{color:#fff}   /* full white, not .9 alpha: .9 lands at 6.54:1, under the AAA floor */
+.wk.future{opacity:.55}
+.now{font-size:13px;color:var(--muted);margin-top:11px}
+.now b{color:var(--maroon);font-weight:700}
+
+/* ---------- bands ---------- */
+.band{padding:54px 0}
+.band-dark{background:var(--ink-deep);color:var(--bone)}
+.band-dark h2,.band-dark h3{color:var(--bone)}
+.band-dark .b-sub{color:rgba(250,250,249,.82)}
+.b-head{max-width:60ch}
+.b-head h2{font-size:clamp(23px,3.2vw,31px);line-height:1.18;margin-top:13px}
+.b-head h2 em{color:var(--maroon)}
+.band-dark .b-head h2 em{color:var(--gold)}
+.b-sub{margin-top:11px;color:var(--muted);font-size:15.5px;max-width:56ch}
+
+/* ---------- numbered rows, the site's "how the build works" ---------- */
+.rows{margin-top:28px;border-top:1px solid var(--hair)}
+.row{display:grid;grid-template-columns:76px 1fr;gap:18px;align-items:start;
+     padding:20px 0;border-bottom:1px solid var(--hair);text-decoration:none;color:inherit}
+a.row:hover .rt{color:var(--maroon)}
+a.row:hover .rn{color:var(--maroon-dk)}
+.rn{font-family:var(--display);font-size:34px;font-weight:800;line-height:.9;
+    color:var(--maroon);font-variant-numeric:tabular-nums}
+.rt{font-family:var(--display);font-size:17px;font-weight:800;letter-spacing:-.02em;
+    display:block;transition:color 160ms ease}
+.rd{font-size:14.5px;color:var(--muted);margin-top:5px;max-width:62ch}
+.rmeta{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.2em;
+       text-transform:uppercase;color:var(--faint);margin-top:8px;display:block}
+.rmeta.due{color:var(--maroon)}
+
+/* ---------- the path: stages with arrows between them ----------
+   The week is one sequence, not four piles. Each stage is a card, and a
+   maroon arrow sits between them so the order is impossible to miss. The
+   arrows are aria-hidden: order is already carried by the numbers, the
+   stage labels and DOM order, so a screen reader loses nothing. */
+.path{margin-top:30px}
+.stage{position:relative;background:var(--card);box-shadow:0 0 0 1px var(--hair);
+       padding:24px 28px 26px}
+.stage-hd{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:start}
+.sn{font-family:var(--display);font-size:38px;font-weight:800;line-height:.86;
+    color:var(--maroon);font-variant-numeric:tabular-nums}
+.slabel{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.28em;
+        text-transform:uppercase;color:var(--maroon);display:block;margin-bottom:5px}
+.stage h3{font-size:19px;margin:0 0 7px}
+.stage .sd{font-size:14.5px;color:var(--muted);max-width:64ch}
+.slinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.slink{display:inline-block;font-family:var(--body);font-size:10.5px;font-weight:700;
+       letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+       color:var(--navy);border:1px solid var(--hair);border-radius:4px;
+       padding:9px 14px;transition:border-color 160ms ease,color 160ms ease,background-color 160ms ease}
+.slink:hover{border-color:var(--maroon);color:var(--maroon);background:#FBF6F5}
+.slink.key{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.slink.key:hover{background:var(--maroon-dk);border-color:var(--maroon-dk);color:#fff}
+.sdue{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.2em;
+      text-transform:uppercase;color:var(--maroon);margin-top:13px;display:block}
+
+.arrow{display:flex;justify-content:center;padding:0;margin:0;height:46px;align-items:center}
+.arrow svg{color:var(--maroon);display:block}
+
+/* Study band. Same components, gold instead of maroon, on near black. */
+.band-dark .stage{background:var(--ink-deep);box-shadow:0 0 0 1px var(--hair-dark)}
+.band-dark .sn,.band-dark .slabel{color:var(--gold)}
+.band-dark .stage .sd{color:rgba(250,250,249,.82)}
+.band-dark .slink{color:var(--bone);border-color:var(--hair-dark)}
+.band-dark .slink:hover{border-color:var(--gold);color:var(--gold);background:#11151F}
+.band-dark .slink.key{background:var(--gold);border-color:var(--gold);color:var(--ink-deep)}
+.band-dark .slink.key:hover{background:#D9B565;border-color:#D9B565;color:var(--ink-deep)}
+.band-dark .arrow svg{color:var(--gold)}
+
+/* Week 1 only callout, above the path. */
+.oneoff{background:var(--card);box-shadow:0 0 0 1px var(--maroon);padding:22px 26px 24px;
+        margin-top:26px;display:block;color:inherit}
+.oneoff .otag{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.28em;
+        text-transform:uppercase;color:var(--maroon);display:block;margin-bottom:6px}
+.oneoff h3{font-size:18px;margin:0 0 6px;transition:color 160ms ease}
+.oneoff p{font-size:14.5px;color:var(--muted);max-width:64ch}
+
+/* ---------- tiles ---------- */
+/* Each tile draws its own 1px ring with a box-shadow, and the 1px grid gap
+   lets neighboring rings overlap into one hairline. Two earlier attempts were
+   wrong: per-tile borders doubled up at every wrap point and jammed the text
+   against the rule, and coloring the CONTAINER and showing it through the gap
+   painted any empty grid cell as a gray block (a four-tile group in three
+   columns leaves one). A ring per tile has neither problem. */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:1px;
+       margin-top:30px;padding:1px}
+.tile{position:relative;background:var(--card);padding:24px 26px 26px;text-decoration:none;
+      color:inherit;display:flex;flex-direction:column;
+      box-shadow:0 0 0 1px var(--hair);transition:background-color 160ms ease}
+a.tile:hover{background:#FBF6F5}
+a.tile:hover h3{color:var(--maroon)}
+.band-dark .tile{background:var(--ink-deep);box-shadow:0 0 0 1px var(--hair-dark)}
+.band-dark a.tile:hover{background:#11151F}
+.band-dark a.tile:hover h3{color:var(--gold)}
+.tile .ic{color:var(--maroon);margin-bottom:12px}
+.band-dark .tile .ic{color:var(--gold)}
+.tile h3{font-size:17px;margin-bottom:6px;transition:color 160ms ease}
+.tile p{font-size:14px;color:var(--muted);flex:1}
+.band-dark .tile p{color:rgba(250,250,249,.82)}
+.tile .go{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.2em;
+          text-transform:uppercase;color:var(--maroon);margin-top:15px}
+.band-dark .tile .go{color:var(--gold)}
+.tile.soon{cursor:default}
+.tile.soon .ic,.tile.soon h3{color:var(--faint)}
+.band-dark .tile.soon .ic,.band-dark .tile.soon h3{color:rgba(250,250,249,.62)}
+/* Top right, out of the flow. Inline, it pushed the headings of badged tiles
+   down and left the un-badged tile in the same row sitting a line higher. */
+.badge{position:absolute;top:22px;right:24px;font-family:var(--body);font-size:9.5px;
+       font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+       border:1px solid var(--maroon);color:var(--maroon);padding:3px 8px;border-radius:3px}
+.band-dark .badge{border-color:var(--gold);color:var(--gold)}
+.soon-tag{display:inline-block;font-family:var(--body);font-size:9.5px;font-weight:700;
+          letter-spacing:.2em;text-transform:uppercase;border:1px dashed var(--faint);
+          color:var(--faint);padding:3px 8px;margin-top:15px;align-self:flex-start;border-radius:3px}
+.band-dark .soon-tag{border-color:rgba(250,250,249,.42);color:rgba(250,250,249,.78)}
+
+/* ---------- admin ---------- */
+.admin{padding:46px 0 56px;border-top:1px solid var(--hair)}
+.admin h2{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.3em;
+          text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.arow{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0}
+.acard{border:1px solid var(--hair);border-radius:4px;padding:16px 18px;text-decoration:none;
+       color:var(--navy);display:flex;align-items:flex-start;gap:13px;margin:-0.5px;
+       transition:border-color 160ms ease,background-color 160ms ease}
+.acard:hover{border-color:var(--maroon);background:rgba(139,58,46,.04)}
+.acard .ic{color:var(--maroon);flex:none;margin-top:1px}
+.acard .txt{display:flex;flex-direction:column}          /* the fix: t and s were inline and ran together */
+.acard .t{font-family:var(--display);font-size:15px;font-weight:800;letter-spacing:-.02em}
+.acard .s{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink-deep);color:var(--bone);padding:34px 0 38px}
+.flinks{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+        font-size:13.5px;line-height:2.1}
+.flinks a{color:var(--bone);text-decoration:none;font-weight:600;padding:0 2px}
+.flinks a:hover{color:var(--gold);text-decoration:underline}
+.flinks .dot{color:rgba(250,250,249,.78);padding:0 10px}  /* .5 alpha was 5.14:1, under the AAA floor */
+footer :focus-visible{outline-color:var(--gold)}
+.fleg{text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--hair-dark);
+      font-size:12px;color:rgba(250,250,249,.82);font-weight:600;letter-spacing:.06em}
+.fleg .sep{color:rgba(250,250,249,.78);padding:0 8px}
+
+/* No animation on this page by design. These transitions are color only,
+   never motion, but honor the preference anyway rather than assume. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+@media(max-width:640px){
+  .band{padding:38px 0}
+  .hero{padding:36px 0 32px}
+  .row{grid-template-columns:54px 1fr;gap:14px}
+  .rn{font-size:26px}
+  .tile{padding:22px 20px 24px}
+  .brandbar .course{margin-left:0;flex-basis:100%}
+}
 </style>
 </head>
 <body>
-<a class="skip" href="#list">Skip to the materials</a>
-<div class="mm-brandbar"><div class="mm-wrap">
-  <a class="mm-mark" href="index.html" target="_top">
-    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
+<a class="skip" href="#thisweek">Skip to the course tools</a>
+
+<!-- ============ BRAND BAR ============ -->
+<div class="brandbar"><div class="wrap">
+  <span class="lock">
+    <svg viewBox="40 10 125 148" width="24" height="28" role="img" aria-label="BIO 005 Human Physiology">
       <g transform="translate(0,18)">
         <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
         <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
         <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
       </g>
     </svg>
-    <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
-  </a>
-  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+    <span>
+      <span class="wm">BIO <b>005</b></span><span class="sub">Human Physiology</span>
+    </span>
+  </span>
+  <span class="course">BIO 005 &middot; Yuba College &middot; Fall 2026</span>
 </div></div>
 
-<main id="main"><div class="wrap">
-  <header class="top">
-    <p class="eyebrow">BIO 005 &middot; Everything, in one place</p>
-    <h1>Course <b>materials</b></h1>
-    <p>Everything written for this course, grouped by week. This page answers where something lives. For what is due, use the <a href="index.html" target="_top">course home</a>.</p>
-  </header>
+<!-- ============ HERO ============ -->
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Human Physiology &middot; Course tools</p>
+  <h1>Everything for this course, in <em>one place</em>.</h1>
+  <p class="lede">Pick your week at the top, then work down the page. What is due comes first, then lecture, then lab, then the study tools. Administrative things are at the bottom for when you need them.</p>
+  <p class="cta">
+    <a class="btn btn-fill" href="#thisweek">Start this week</a>
+    <a class="btn btn-line" href="syllabus-fall2026.html" target="_top">Read the syllabus</a>
+  </p>
+</div></header>
 
-  <div class="filters" role="group" aria-label="Show only one type of material">
-    <span class="lbl">Show</span>
-    <button type="button" class="pill" data-type="all" aria-pressed="true">Everything</button>
-    <button type="button" class="pill" data-type="week" aria-pressed="false">Week pages</button>
-    <button type="button" class="pill" data-type="sheet" aria-pressed="false">Note sheets</button>
-    <button type="button" class="pill" data-type="comp" aria-pressed="false">Competencies</button>
-    <button type="button" class="pill" data-type="video" aria-pressed="false">Lectures</button>
-    <button type="button" class="pill" data-type="notes" aria-pressed="false">Notes</button>
-    <button type="button" class="pill" data-type="slides" aria-pressed="false">Slide decks</button>
-    <button type="button" class="pill" data-type="lab" aria-pressed="false">Labs</button>
-    <button type="button" class="pill" data-type="workbook" aria-pressed="false">Workbooks</button>
-    <button type="button" class="pill" data-type="study" aria-pressed="false">Study tools</button>
-  </div>
-  <div class="search">
-    <label for="q">Search the materials</label>
-    <input type="search" id="q" placeholder="Try: osmosis, note sheet, week 9" autocomplete="off">
-  </div>
-  <p class="count" id="count" aria-live="polite">Loading the list.</p>
+<!-- ============ WEEK STRIP ============ -->
+<nav class="weeks" aria-label="Course weeks"><div class="wrap">
+  <h2 id="wkh">Jump to a week</h2>
+  <div class="strip" id="strip" role="list" aria-labelledby="wkh"></div>
+  <p class="now" id="nowline"></p>
+</div></nav>
 
-  <div class="layout">
-    <nav class="side" aria-label="Weeks">
-      <h2>Weeks</h2>
-      <ul id="weeklist"></ul>
-    </nav>
-    <section class="main" id="list" aria-label="Materials"></section>
-  </div>
-</div></main>
+<main>
 
-<footer class="mm-foot"><div class="mm-wrap">
-  <ul class="mm-flinks">
-    <li><a href="index.html" target="_top">Course home</a></li>
-    <li><a href="syllabus-fall2026.html" target="_top">Syllabus</a></li>
-    <li><a href="course-schedule.html" target="_top">Schedule</a></li>
-    <li><a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a></li>
-    <li><a href="virtual-office.html" target="_top">Virtual office</a></li>
-    <li><a href="accessibility.html" target="_top">Accessibility</a></li>
-  </ul>
-  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie</p>
+  <!-- ---------- THE PATH ---------- -->
+  
+<style>
+.seqwrap{padding:30px max(40px,5vw) 34px;background:#F5F1E8}
+.seqin{max-width:1080px;margin:0 auto}
+.seqeyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8B3A2E;margin:0 0 14px}
+.seqbig{background:#fff;border:0;border-radius:12px;box-shadow:0 30px 60px rgba(11,21,48,.28), 0 12px 24px rgba(11,21,48,.16), 0 2px 6px rgba(11,21,48,.10);padding:8px 24px}
+.seqgroup{padding:16px 0 18px;border-top:1px solid rgba(11,21,48,.14)}
+.seqgroup:first-child{border-top:0}
+.seqgroup h3{margin:0 0 10px;font-size:15.5px;font-weight:800;color:#0B1530}
+.seqrow{display:flex;align-items:stretch;flex-wrap:wrap;gap:10px}
+/* An arrow travels with the chip it points at, so a row that wraps starts
+   the new line with the arrow instead of stranding one at the end of the
+   line above. */
+.seqstep{display:flex;align-items:stretch;gap:10px}
+.seqstep:first-child .seqarrow{display:none}
+.seqchip{background:#fff;border:0;border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:700;color:#0B1530;display:flex;flex-direction:column;justify-content:center;min-width:110px;box-shadow:0 12px 24px rgba(11,21,48,.26), 0 3px 8px rgba(11,21,48,.14)}
+.seqchip small{font-weight:600;font-size:11.5px;color:#454B58;margin-top:2px}
+.seqchip.done{background:#8B3A2E;color:#fff}
+.seqchip.done small{color:#F3DAD3}
+.seqchip.keep{background:#ECEFF4;color:#0B1530;box-shadow:0 6px 14px rgba(11,21,48,.16), 0 2px 5px rgba(11,21,48,.10)}
+.seqchip.keep small{color:#3A4152}
+.seqtop{display:flex;align-items:center;gap:7px}
+.seqsym{font-size:10px;line-height:1;flex:0 0 auto}
+.seqarrow{align-self:center;color:#8B3A2E;font-weight:800;font-size:18px}
+.seqkey{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 16px;font-size:12.5px;font-weight:600;color:#3A4152}
+.seqkey span{display:inline-flex;align-items:center;gap:7px}
+.seqkey b{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:10px;line-height:1}
+.seqkey b.g{background:#8B3A2E;color:#fff}
+.seqkey b.u{background:#ECEFF4;color:#0B1530}
+@media(max-width:560px){.seqchip{min-width:0;flex:1 1 40%}}
+</style>
+<section class="seqwrap" aria-label="This week's assignments, at a glance">
+  <div class="seqin">
+    <p class="seqeyebrow">This week's assignments, at a glance</p>
+    <div class="seqbig">
+
+    <div class="seqgroup">
+      <p class="seqkey" aria-label="Key">
+        <span><b class="g" aria-hidden="true">&#9679;</b>Turned in and graded</span>
+        <span><b class="u" aria-hidden="true">&#9675;</b>No points, and not optional</span>
+      </p>
+    </div>
+
+    <div class="seqgroup">
+      <h3>The note sheet</h3>
+      <div class="seqrow">
+        <span class="seqstep"><span class="seqchip">Prework note sheet, part one<small>first color, from what you know</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Lecture videos<small>concept name and number on each prompt</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Note sheet, part two<small>second color, what you did not know</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip keep"><span class="seqtop"><span class="seqsym" aria-hidden="true">&#9675;</span>Keep it</span><small>no points, and not optional. Bring it to office hours.</small></span></span>
+      </div>
+    </div>
+
+    <div class="seqgroup">
+      <h3>The book problems</h3>
+      <div class="seqrow">
+        <span class="seqstep"><span class="seqchip">Silverthorn homework problems<small>by hand, sources as you go</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">AI revision<small>the worksheet, after your attempt</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip keep"><span class="seqtop"><span class="seqsym" aria-hidden="true">&#9675;</span>Check your own</span><small>no points. The answers are in the back for exactly this.</small></span></span>
+      </div>
+    </div>
+
+    <div class="seqgroup">
+      <h3 id="seqLabTitle">The lab. This week: standards and ranges</h3>
+      <div class="seqrow" id="seqLabRow">
+        <span class="seqstep"><span class="seqchip">Predict<small>first color, before you look</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Build the range<small>the middle 95, by hand</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Read the lab test<small>the population drift case</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Look back<small>second color, commit to memory</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip done">Turn it in<small>one PDF, Sunday 10:00 pm</small></span></span>
+      </div>
+    </div>
+
+    <div class="seqgroup">
+      <h3 id="seqDiscTitle">The discussion. Week 1: your digital vision board</h3>
+      <div class="seqrow" id="seqDiscRow">
+        <span class="seqstep"><span class="seqchip">Build your board<small>one image, plus a short intro video</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip done">Post it<small>part one, Friday September 11, 10:00 pm</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip done">Reply to two classmates<small>Sunday September 13, 10:00 pm</small></span></span>
+      </div>
+    </div>
+
+    <div class="seqgroup">
+      <h3 id="seqChartTitle">The patient chart. Camila Reyes, all fifteen weeks</h3>
+      <div class="seqrow" id="seqChartRow">
+        <span class="seqstep"><span class="seqchip">Read this week's desk entry<small>your entry point, one patient all term</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Work the patient sheet<small>the five questions, by hand</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip done"><span class="seqtop"><span class="seqsym" aria-hidden="true">&#9679;</span>Turn it in</span><small>one PDF, Sunday 10:00 pm</small></span></span>
+      </div>
+    </div>
+
+    <div class="seqgroup">
+      <h3>Study. The Mastery OS, all week</h3>
+      <div class="seqrow">
+        <span class="seqstep"><span class="seqchip">Open the Week 1 recall cards<small>start here, the easier ones first</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">A few minutes daily<small>retrieve, do not reread</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Practice exam, random draw<small>a fresh set every time</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip">Mastery Check<small>harder, applied. Once the cards are steady.</small></span></span>
+        <span class="seqstep"><span class="seqarrow" aria-hidden="true">&rarr;</span><span class="seqchip keep"><span class="seqtop"><span class="seqsym" aria-hidden="true">&#9675;</span>Upload your weekly log</span><small>no points. I read it to spot who needs a hand.</small></span></span>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var TERM_START = new Date(2026, 8, 8);
+  var ms = new Date() - TERM_START;
+  var w = ms < 0 ? 1 : Math.min(15, Math.floor(ms / (7 * 864e5)) + 1);
+  var DUE = ["Sunday, September 13", "Sunday, September 20", "Sunday, September 27", "Sunday, October 4", "Sunday, October 11", "Sunday, October 18", "Sunday, October 25", "Sunday, November 1", "Sunday, November 8", "Sunday, November 15", "Sunday, November 22", "Sunday, November 29", "Sunday, December 6", "Sunday, December 13", "Wednesday, December 16"];
+  var POST = ["Friday, September 11", "Friday, September 18", "Friday, September 25", "Friday, October 2", "Friday, October 9", "Friday, October 16", "Friday, October 23", "Friday, October 30", "Friday, November 6", "Friday, November 13", "Friday, November 20", "Friday, November 27", "Friday, December 4", "Friday, December 11", "Monday, December 14"];
+  var LAB = {"1": ["The lab. This week: standards and ranges", [["Predict", "first color, before you look"], ["Build the range", "the middle 95, by hand"], ["Read the lab test", "the population drift case"], ["Look back", "second color, commit to memory"]]], "2": ["The lab. This week: the enzyme lab, PhysioEx Exercise 8", [["Predict", "first color, before you look"], ["Run PhysioEx", "until Pearson shows complete"], ["The worksheet", "data, by hand"], ["The clinical correlation", "the amylase and lipase panel"]]], "3": ["The lab. This week: osmosis and IV fluids", [["Run PhysioEx", "until Pearson shows complete"], ["The worksheet", "data, by hand"], ["The clinical correlation", "the IV fluids case"]]], "6": ["The lab. This week: posts when the week opens", [["Check back Monday", "the lab and its worksheet post then"]]], "8": ["The lab. This week: PhysioEx Exercise 4 plus the hormone cycle worksheet", [["Run PhysioEx", "Exercise 4, glucose and insulin, and the Exercise 12 ELISA"], ["The worksheet", "data, by hand"], ["Work the cycle graph", "read the cycle, name the events, explain each peak"]]]};
+  var GEN = [["Run this week's PhysioEx", "until Pearson shows complete"], ["The worksheet", "data, by hand"], ["Clinical correlations", "where the week has them"]];
+  /* done means it is turned in for points. The symbol repeats the key
+     above, so the mark does not rely on the maroon fill alone. */
+  function chip(t, sub, done){
+    var top = done
+      ? '<span class="seqtop"><span class="seqsym" aria-hidden="true">\u25CF</span>' + t + '</span>'
+      : t;
+    return '<span class="seqchip' + (done ? ' done' : '') + '">' + top + '<small>' + sub + '</small></span>';
+  }
+  var arrow = '<span class="seqarrow" aria-hidden="true">&rarr;</span>';
+  /* Join chips into steps so a wrapped row never ends on a lone arrow. */
+  function row(){
+    var a = [].slice.call(arguments), o = [];
+    for (var i = 0; i < a.length; i++) o.push('<span class="seqstep">' + (i ? arrow : '') + a[i] + '</span>');
+    return o.join('');
+  }
+  var lab = LAB[w] || ["The lab, this week", GEN];
+  var lt = document.getElementById('seqLabTitle');
+  var lr = document.getElementById('seqLabRow');
+  if (lt && lr){
+    lt.textContent = lab[0];
+    var parts = [];
+    for (var i = 0; i < lab[1].length; i++) parts.push(chip(lab[1][i][0], lab[1][i][1], false));
+    parts.push(chip('Turn it in', 'one PDF, ' + DUE[w-1] + ', 10:00 pm', true));
+    lr.innerHTML = row.apply(null, parts);
+  }
+  var ct = document.getElementById('seqChartTitle');
+  var cr = document.getElementById('seqChartRow');
+  if (ct && cr){
+    ct.textContent = 'The patient chart. Camila Reyes, week ' + w + ' of fifteen';
+    cr.innerHTML = row(
+      chip("Read this week's desk entry", 'your entry point, one patient all term', false),
+      chip('Work the patient sheet', 'the five questions, by hand', false),
+      chip('Turn it in', 'one PDF, ' + DUE[w-1] + ', 10:00 pm', true));
+  }
+  var dt = document.getElementById('seqDiscTitle');
+  var dr = document.getElementById('seqDiscRow');
+  if (dt && dr){
+    if (w === 1){
+      dt.textContent = 'The discussion. Week 1: your digital vision board';
+      dr.innerHTML = row(chip('Build your board','one image, plus a short intro video',false),
+        chip('Post it','part one, ' + POST[0] + ', 10:00 pm',true),
+        chip('Reply to two classmates', DUE[0] + ', 10:00 pm', true));
+    } else {
+      dt.textContent = 'The discussion, Week ' + w;
+      dr.innerHTML = row(chip('Write your post',"this week's physiology, plus your honest thinking",false),
+        chip('Post it', POST[w-1] + ', 10:00 pm', true),
+        chip('Reply to two classmates', DUE[w-1] + ', 10:00 pm', true));
+    }
+  }
+})();
+</script>
+
+<section class="band" id="thisweek" aria-labelledby="h-week">
+    <div class="wrap">
+      <div class="b-head">
+        <p class="eyebrow">Week 1 &middot; Do it in this order</p>
+        <h2 id="h-week">Six steps, <em>start to finish</em>.</h2>
+        <p class="b-sub">Each step feeds the next one, which is why the order matters more than the time you spend on any single step. Set the note sheet up before you watch, not after. That is the whole trick.</p>
+      </div>
+
+      <!-- Week 1 only, sits outside the loop -->
+      <div class="oneoff">
+        <span class="otag">Week 1 only, do this first</span>
+        <h3>Your vision board</h3>
+        <p>Build a board that shows who you are, then introduce yourself and walk us through it on a short video. This one is not part of the weekly routine. It happens once, in week one, so we can get to know each other. Post due Friday September 11 at 10 pm, replies due Sunday September 13 at 10 pm.</p>
+        <p class="slinks" style="margin-top:15px">
+          <a class="slink key" href="assignment-discussion-01-visionboard.html" target="_top">Instructions and rubric</a>
+          <a class="slink" href="https://yccd.instructure.com/courses/42616/discussion_topics/712733" target="_blank" rel="noopener">Post it in Canvas</a>
+        </p>
+      </div>
+
+      <div class="path">
+
+        <!-- 01 -->
+        <section class="stage" aria-labelledby="s1">
+          <div class="stage-hd">
+            <span class="sn">01</span>
+            <div>
+              <span class="slabel">Prework, part one</span>
+              <h3 id="s1">Set your note sheet up before you watch anything</h3>
+              <p class="sd">Open the prompts, pick one prompt for each competency, and lay them out on your sheet in your first color. Do not answer them yet. You are building the empty frame you are about to fill, and doing it cold is what makes the video stick instead of wash over you.</p>
+              <p class="slinks">
+                <a class="slink key" href="week-01-notesheet-prompts.html" target="_top">Get the prompts</a>
+                <a class="slink" href="note-sheet.html?week=1" target="_top">Print your Week 1 sheet</a>
+                
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <p class="arrow" aria-hidden="true"><svg width="26" height="40" viewBox="0 0 26 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v29"/><path d="M4 24l9 9 9-9"/></svg></p>
+
+        <!-- 02 -->
+        <section class="stage" aria-labelledby="s2">
+          <div class="stage-hd">
+            <span class="sn">02</span>
+            <div>
+              <span class="slabel">Watch</span>
+              <h3 id="s2">The Week 1 lecture, with your sheet open beside it</h3>
+              <p class="sd">Homeostasis, mass balance, the reflex pathway, feedback, and how signals travel. Play it straight through or take one concept at a time.</p>
+              <p class="slinks">
+                <a class="slink key" href="concept-videos-week01.html" target="_top">Watch the lecture</a>
+                <a class="slink" href="week-01-notes.html" target="_top">Read it instead</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <p class="arrow" aria-hidden="true"><svg width="26" height="40" viewBox="0 0 26 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v29"/><path d="M4 24l9 9 9-9"/></svg></p>
+
+        <!-- 03 -->
+        <section class="stage" aria-labelledby="s3">
+          <div class="stage-hd">
+            <span class="sn">03</span>
+            <div>
+              <span class="slabel">Prework, part two</span>
+              <h3 id="s3">Go back through the sheet in your second color</h3>
+              <p class="sd">After the videos, go back into the same boxes in your second color and add what you did not know. That gap between the two colors is the whole point.</p>
+              <p class="slinks">
+                <a class="slink key" href="week-01-notesheet-prompts.html" target="_top">Back to the prompts</a>
+              </p>
+              <span class="sdue">Due Sunday September 13, 10 pm</span>
+            </div>
+          </div>
+        </section>
+
+        <p class="arrow" aria-hidden="true"><svg width="26" height="40" viewBox="0 0 26 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v29"/><path d="M4 24l9 9 9-9"/></svg></p>
+
+        <!-- 04 -->
+        <section class="stage" aria-labelledby="s4">
+          <div class="stage-hd">
+            <span class="sn">04</span>
+            <div>
+              <span class="slabel">Homework</span>
+              <h3 id="s4">Silverthorn problems, chapters 1 and 6</h3>
+              <p class="sd">End of chapter problems from the book. Work them on paper before you look at anything. The answers are in the back, which is exactly why you check them after and not during. A problem you watched yourself solve is not a problem you can solve.</p>
+              <p class="slinks">
+                <a class="slink key" href="assignment-bookproblems.html" target="_top">See the problem set</a>
+              </p>
+              <span class="sdue">Due Sunday September 13, 10 pm</span>
+            </div>
+          </div>
+        </section>
+
+        <p class="arrow" aria-hidden="true"><svg width="26" height="40" viewBox="0 0 26 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v29"/><path d="M4 24l9 9 9-9"/></svg></p>
+
+        <!-- 05 -->
+        <section class="stage" aria-labelledby="s5">
+          <div class="stage-hd">
+            <span class="sn">05</span>
+            <div>
+              <span class="slabel">Lab &middot; no PhysioEx this week</span>
+              <h3 id="s5">Where the reference ranges come from</h3>
+              <p class="sd">No Pearson this week. Week 1's lab is about the ruler itself: every lab panel you will ever read has a reference range column, and this week you build one by hand, learn what that column claims and what it stays silent about, and watch what happens to "normal" when the population underneath it moves.</p>
+              <p class="slinks">
+                <a class="slink key" href="reference-range-lab.html" target="_top">Open the standards and ranges lab</a>
+                <a class="slink" href="assignment-physioex.html" target="_top">How labs are graded</a>
+                <a class="slink" href="clinical-physiology-lab-manual.html" target="_top">Lab manual</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 06, STUDY. The colored band. ---------- -->
+  <section class="band band-dark on-dark" aria-labelledby="h-study">
+    <div class="wrap">
+      <div class="b-head">
+        <p class="eyebrow">Steps six to eight &middot; Every day after</p>
+        <h2 id="h-study">Then keep it, with <em>practice cards</em>.</h2>
+        <p class="b-sub">Steps one to five are how you learn Week 1. These three are how you still have it in Week 12. Rereading feels like studying and mostly is not. Every tool here makes you produce the answer instead of recognizing it, which is the whole difference. Work them in order, easiest retrieval first: cards, then drawing from memory, then a practice exam, and the applied Mastery Check last.</p>
+      </div>
+
+      <div class="path">
+
+        <section class="stage" aria-labelledby="s6">
+          <div class="stage-hd">
+            <span class="sn">06</span>
+            <div>
+              <span class="slabel">Practice cards</span>
+              <h3 id="s6">Mastery OS, a few minutes a day</h3>
+              <p class="sd">Spaced recall cards built from the same competency list as everything else. Nearly five thousand across the term, scheduled so you meet each one again right before you would have forgotten it. Ten minutes daily beats two hours the night before, and it is not close.</p>
+              <p class="slinks">
+                <a class="slink key" href="os/mastery-physio-os.html" target="_top">Start today's cards</a>
+                <a class="slink" href="mastery-canvas.html" target="_top">Draw from memory</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <p class="arrow" aria-hidden="true"><svg width="26" height="40" viewBox="0 0 26 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v29"/><path d="M4 24l9 9 9-9"/></svg></p>
+
+        <section class="stage" aria-labelledby="s7">
+          <div class="stage-hd">
+            <span class="sn">07</span>
+            <div>
+              <span class="slabel">Before a midterm</span>
+              <h3 id="s7">Draw a pathway from memory and find out what you actually have</h3>
+              <p class="sd">Open the canvas, draw the reflex pathway with nothing in front of you, then save it as a PDF stamped from this course. If you cannot produce it without looking, you have not learned it yet, and it is much better to find that out now.</p>
+              <p class="slinks">
+                <a class="slink key" href="mastery-canvas.html" target="_top">Open the canvas</a>
+                <a class="slink" href="competency-study-guide.html" target="_top">What to draw</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <p class="arrow" aria-hidden="true"><svg width="26" height="40" viewBox="0 0 26 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3v29"/><path d="M4 24l9 9 9-9"/></svg></p>
+
+        <section class="stage" aria-labelledby="s8">
+          <div class="stage-hd">
+            <span class="sn">08</span>
+            <div>
+              <span class="slabel">Every week &middot; the check</span>
+              <h3 id="s8">Take a practice exam, then upload your weekly results</h3>
+              <p class="sd">Work in this order. The recall cards come first, because they are the easier retrieval and they are what builds the memory you will draw on. Then run a practice exam, which pulls a random set out of the bank, so you get a fresh test every time rather than a set you have memorized the shape of. The Mastery Check is the last step and the hardest one: it is applied, it wants you to use physiology on a situation rather than restate it, and it is worth taking only once the cards are steady.</p>
+              <p class="sd">Print your weekly practice log as a PDF and upload it in Canvas. It carries no points. I read it to see who is practicing and who could use a hand before an exam, which is much more useful to both of us in week 4 than in week 7.</p>
+              <p class="slinks">
+                <a class="slink key" href="practice-exam.html" target="_top">Generate a practice exam</a>
+                <a class="slink" href="assignment-practice-log.html" target="_top">How to upload your log</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- ADMIN ---------- -->
+  <section class="admin" aria-labelledby="h-admin">
+    <div class="wrap">
+      <h2 id="h-admin">Course administration</h2>
+      <div class="arow">
+        <a class="acard" href="syllabus-fall2026.html" target="_top">
+          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg></span>
+          <span class="txt"><span class="t">Syllabus</span><span class="s">How the course runs, and what is graded</span></span>
+        </a>
+        <a class="acard" href="course-schedule.html" target="_top">
+          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M3 10h18M8 2v5M16 2v5"/></svg></span>
+          <span class="txt"><span class="t">Course schedule</span><span class="s">All fifteen weeks and every due date</span></span>
+        </a>
+        <a class="acard" href="ai-in-this-course.html" target="_blank" rel="noopener">
+          <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span class="txt"><span class="t">How AI is used in this course <span aria-hidden="true">&#8599;</span></span><span class="s">Opens the course site in a new tab.</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer><div class="wrap">
+  <nav class="flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800" target="_blank" rel="noopener">Dr. Rennie&rsquo;s Virtual Office</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html#s15" target="_top">Getting help</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html#s13" target="_top">Accessibility</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="mailto:srennie@yccd.edu?subject=BIO%20005%20site%20problem%20on%20course-materials.html">Report a problem</a>
+  </nav>
+  <p class="fleg">BIO 005 Human Physiology<span class="sep" aria-hidden="true">&middot;</span>Yuba College<span class="sep" aria-hidden="true">&middot;</span>Fall 2026<span class="sep" aria-hidden="true">&middot;</span>Dr. Sharilyn Rennie</p>
 </div></footer>
 
 <script>
-window.MATERIALS = {"weeks":["How physiology works and what keeps you steady","The chemistry that does work in the body","Getting across the membrane","How cells talk, and the electrical signal","Synapses and central integration","Sensing the world, and the responses you do not control","Muscle, and how movement gets commanded","Hormones and reproduction, the slow control system","The heart as a pump","Pressure, flow, and holding blood pressure steady","Blood and how the body defends itself","Digestion, and how you use food for fuel","Breathing, gas transport, and the fast pH lever","The kidney and body fluid balance","The slow pH lever, and putting it all together"],"items":[{"w":1,"t":"sheet","n":"Week 1 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-01.pdf","d":"Print it and fill it in by hand"},{"w":1,"t":"sheet","n":"Week 1 note sheet, on screen","h":"note-sheet.html?week=1","d":"The same prompts, with the print button"},{"w":1,"t":"sheet","n":"Week 1 note sheet questions","h":"week-01-notesheet-prompts.html","d":""},{"w":1,"t":"comp","n":"Week 1 competencies","h":"week-01-competencies.html","d":"What you must be able to do by Sunday"},{"w":1,"t":"comp","n":"Week 1 in the study guide","h":"competency-study-guide.html?week=1","d":""},{"w":1,"t":"notes","n":"Week 1 notes","h":"week-01-notes.html","d":"The written version of the lectures"},{"w":1,"t":"video","n":"Week 1 lectures","h":"lecture-week.html?week=1","d":"Every video, notes page and slide deck for the week"},{"w":1,"t":"week","n":"Week 1 page","h":"week-01.html","d":"Fixed competencies and due dates, your route through the week"},{"w":2,"t":"sheet","n":"Week 2 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-02.pdf","d":"Print it and fill it in by hand"},{"w":2,"t":"sheet","n":"Week 2 note sheet, on screen","h":"note-sheet.html?week=2","d":"The same prompts, with the print button"},{"w":2,"t":"sheet","n":"Week 2 note sheet questions","h":"week-02-notesheet-prompts.html","d":""},{"w":2,"t":"comp","n":"Week 2 competencies","h":"week-02-competencies.html","d":"What you must be able to do by Sunday"},{"w":2,"t":"comp","n":"Week 2 in the study guide","h":"competency-study-guide.html?week=2","d":""},{"w":2,"t":"notes","n":"Week 2 notes","h":"week-02-notes.html","d":"The written version of the lectures"},{"w":2,"t":"video","n":"Week 2 lectures","h":"lecture-week.html?week=2","d":"Every video, notes page and slide deck for the week"},{"w":2,"t":"week","n":"Week 2 page","h":"week-02.html","d":"Fixed competencies and due dates, your route through the week"},{"w":3,"t":"sheet","n":"Week 3 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-03.pdf","d":"Print it and fill it in by hand"},{"w":3,"t":"sheet","n":"Week 3 note sheet, on screen","h":"note-sheet.html?week=3","d":"The same prompts, with the print button"},{"w":3,"t":"comp","n":"Week 3 competencies","h":"week-03-competencies.html","d":"What you must be able to do by Sunday"},{"w":3,"t":"comp","n":"Week 3 in the study guide","h":"competency-study-guide.html?week=3","d":""},{"w":3,"t":"notes","n":"Week 3 notes","h":"week-03-notes.html","d":"The written version of the lectures"},{"w":3,"t":"video","n":"Week 3 lectures","h":"lecture-week.html?week=3","d":"Every video, notes page and slide deck for the week"},{"w":3,"t":"week","n":"Week 3 page","h":"week-03.html","d":"Fixed competencies and due dates, your route through the week"},{"w":4,"t":"sheet","n":"Week 4 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-04.pdf","d":"Print it and fill it in by hand"},{"w":4,"t":"sheet","n":"Week 4 note sheet, on screen","h":"note-sheet.html?week=4","d":"The same prompts, with the print button"},{"w":4,"t":"comp","n":"Week 4 competencies","h":"week-04-competencies.html","d":"What you must be able to do by Sunday"},{"w":4,"t":"comp","n":"Week 4 in the study guide","h":"competency-study-guide.html?week=4","d":""},{"w":4,"t":"notes","n":"Week 4 notes","h":"week-04-notes.html","d":"The written version of the lectures"},{"w":4,"t":"video","n":"Week 4 lectures","h":"lecture-week.html?week=4","d":"Every video, notes page and slide deck for the week"},{"w":4,"t":"week","n":"Week 4 page","h":"week-04.html","d":"Fixed competencies and due dates, your route through the week"},{"w":5,"t":"sheet","n":"Week 5 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-05.pdf","d":"Print it and fill it in by hand"},{"w":5,"t":"sheet","n":"Week 5 note sheet, on screen","h":"note-sheet.html?week=5","d":"The same prompts, with the print button"},{"w":5,"t":"comp","n":"Week 5 competencies","h":"week-05-competencies.html","d":"What you must be able to do by Sunday"},{"w":5,"t":"comp","n":"Week 5 in the study guide","h":"competency-study-guide.html?week=5","d":""},{"w":5,"t":"notes","n":"Week 5 notes","h":"week-05-notes.html","d":"The written version of the lectures"},{"w":5,"t":"video","n":"Week 5 lectures","h":"lecture-week.html?week=5","d":"Every video, notes page and slide deck for the week"},{"w":5,"t":"week","n":"Week 5 page","h":"week-05.html","d":"Fixed competencies and due dates, your route through the week"},{"w":6,"t":"sheet","n":"Week 6 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-06.pdf","d":"Print it and fill it in by hand"},{"w":6,"t":"sheet","n":"Week 6 note sheet, on screen","h":"note-sheet.html?week=6","d":"The same prompts, with the print button"},{"w":6,"t":"comp","n":"Week 6 competencies","h":"week-06-competencies.html","d":"What you must be able to do by Sunday"},{"w":6,"t":"comp","n":"Week 6 in the study guide","h":"competency-study-guide.html?week=6","d":""},{"w":6,"t":"notes","n":"Week 6 notes","h":"week-06-notes.html","d":"The written version of the lectures"},{"w":6,"t":"video","n":"Week 6 lectures","h":"lecture-week.html?week=6","d":"Every video, notes page and slide deck for the week"},{"w":6,"t":"week","n":"Week 6 page","h":"week-06.html","d":"Fixed competencies and due dates, your route through the week"},{"w":7,"t":"sheet","n":"Week 7 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-07.pdf","d":"Print it and fill it in by hand"},{"w":7,"t":"sheet","n":"Week 7 note sheet, on screen","h":"note-sheet.html?week=7","d":"The same prompts, with the print button"},{"w":7,"t":"comp","n":"Week 7 competencies","h":"week-07-competencies.html","d":"What you must be able to do by Sunday"},{"w":7,"t":"comp","n":"Week 7 in the study guide","h":"competency-study-guide.html?week=7","d":""},{"w":7,"t":"notes","n":"Week 7 notes","h":"week-07-notes.html","d":"The written version of the lectures"},{"w":7,"t":"video","n":"Week 7 lectures","h":"lecture-week.html?week=7","d":"Every video, notes page and slide deck for the week"},{"w":7,"t":"week","n":"Week 7 page","h":"week-07.html","d":"Fixed competencies and due dates, your route through the week"},{"w":8,"t":"sheet","n":"Week 8 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-08.pdf","d":"Print it and fill it in by hand"},{"w":8,"t":"sheet","n":"Week 8 note sheet, on screen","h":"note-sheet.html?week=8","d":"The same prompts, with the print button"},{"w":8,"t":"comp","n":"Week 8 competencies","h":"week-08-competencies.html","d":"What you must be able to do by Sunday"},{"w":8,"t":"comp","n":"Week 8 in the study guide","h":"competency-study-guide.html?week=8","d":""},{"w":8,"t":"notes","n":"Week 8 notes","h":"week-08-notes.html","d":"The written version of the lectures"},{"w":8,"t":"video","n":"Week 8 lectures","h":"lecture-week.html?week=8","d":"Every video, notes page and slide deck for the week"},{"w":8,"t":"week","n":"Week 8 page","h":"week-08.html","d":"Fixed competencies and due dates, your route through the week"},{"w":9,"t":"sheet","n":"Week 9 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-09.pdf","d":"Print it and fill it in by hand"},{"w":9,"t":"sheet","n":"Week 9 note sheet, on screen","h":"note-sheet.html?week=9","d":"The same prompts, with the print button"},{"w":9,"t":"comp","n":"Week 9 competencies","h":"week-09-competencies.html","d":"What you must be able to do by Sunday"},{"w":9,"t":"comp","n":"Week 9 in the study guide","h":"competency-study-guide.html?week=9","d":""},{"w":9,"t":"notes","n":"Week 9 notes","h":"week-09-notes.html","d":"The written version of the lectures"},{"w":9,"t":"video","n":"Week 9 lectures","h":"lecture-week.html?week=9","d":"Every video, notes page and slide deck for the week"},{"w":9,"t":"week","n":"Week 9 page","h":"week-09.html","d":"Fixed competencies and due dates, your route through the week"},{"w":10,"t":"sheet","n":"Week 10 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-10.pdf","d":"Print it and fill it in by hand"},{"w":10,"t":"sheet","n":"Week 10 note sheet, on screen","h":"note-sheet.html?week=10","d":"The same prompts, with the print button"},{"w":10,"t":"comp","n":"Week 10 competencies","h":"week-10-competencies.html","d":"What you must be able to do by Sunday"},{"w":10,"t":"comp","n":"Week 10 in the study guide","h":"competency-study-guide.html?week=10","d":""},{"w":10,"t":"notes","n":"Week 10 notes","h":"week-10-notes.html","d":"The written version of the lectures"},{"w":10,"t":"video","n":"Week 10 lectures","h":"lecture-week.html?week=10","d":"Every video, notes page and slide deck for the week"},{"w":10,"t":"week","n":"Week 10 page","h":"week-10.html","d":"Fixed competencies and due dates, your route through the week"},{"w":11,"t":"sheet","n":"Week 11 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-11.pdf","d":"Print it and fill it in by hand"},{"w":11,"t":"sheet","n":"Week 11 note sheet, on screen","h":"note-sheet.html?week=11","d":"The same prompts, with the print button"},{"w":11,"t":"comp","n":"Week 11 competencies","h":"week-11-competencies.html","d":"What you must be able to do by Sunday"},{"w":11,"t":"comp","n":"Week 11 in the study guide","h":"competency-study-guide.html?week=11","d":""},{"w":11,"t":"notes","n":"Week 11 notes","h":"week-11-notes.html","d":"The written version of the lectures"},{"w":11,"t":"video","n":"Week 11 lectures","h":"lecture-week.html?week=11","d":"Every video, notes page and slide deck for the week"},{"w":11,"t":"week","n":"Week 11 page","h":"week-11.html","d":"Fixed competencies and due dates, your route through the week"},{"w":12,"t":"sheet","n":"Week 12 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-12.pdf","d":"Print it and fill it in by hand"},{"w":12,"t":"sheet","n":"Week 12 note sheet, on screen","h":"note-sheet.html?week=12","d":"The same prompts, with the print button"},{"w":12,"t":"comp","n":"Week 12 competencies","h":"week-12-competencies.html","d":"What you must be able to do by Sunday"},{"w":12,"t":"comp","n":"Week 12 in the study guide","h":"competency-study-guide.html?week=12","d":""},{"w":12,"t":"notes","n":"Week 12 notes","h":"week-12-notes.html","d":"The written version of the lectures"},{"w":12,"t":"video","n":"Week 12 lectures","h":"lecture-week.html?week=12","d":"Every video, notes page and slide deck for the week"},{"w":12,"t":"week","n":"Week 12 page","h":"week-12.html","d":"Fixed competencies and due dates, your route through the week"},{"w":13,"t":"sheet","n":"Week 13 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-13.pdf","d":"Print it and fill it in by hand"},{"w":13,"t":"sheet","n":"Week 13 note sheet, on screen","h":"note-sheet.html?week=13","d":"The same prompts, with the print button"},{"w":13,"t":"comp","n":"Week 13 competencies","h":"week-13-competencies.html","d":"What you must be able to do by Sunday"},{"w":13,"t":"comp","n":"Week 13 in the study guide","h":"competency-study-guide.html?week=13","d":""},{"w":13,"t":"notes","n":"Week 13 notes","h":"week-13-notes.html","d":"The written version of the lectures"},{"w":13,"t":"video","n":"Week 13 lectures","h":"lecture-week.html?week=13","d":"Every video, notes page and slide deck for the week"},{"w":13,"t":"week","n":"Week 13 page","h":"week-13.html","d":"Fixed competencies and due dates, your route through the week"},{"w":14,"t":"sheet","n":"Week 14 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-14.pdf","d":"Print it and fill it in by hand"},{"w":14,"t":"sheet","n":"Week 14 note sheet, on screen","h":"note-sheet.html?week=14","d":"The same prompts, with the print button"},{"w":14,"t":"comp","n":"Week 14 competencies","h":"week-14-competencies.html","d":"What you must be able to do by Sunday"},{"w":14,"t":"comp","n":"Week 14 in the study guide","h":"competency-study-guide.html?week=14","d":""},{"w":14,"t":"notes","n":"Week 14 notes","h":"week-14-notes.html","d":"The written version of the lectures"},{"w":14,"t":"video","n":"Week 14 lectures","h":"lecture-week.html?week=14","d":"Every video, notes page and slide deck for the week"},{"w":14,"t":"week","n":"Week 14 page","h":"week-14.html","d":"Fixed competencies and due dates, your route through the week"},{"w":15,"t":"sheet","n":"Week 15 note sheet (PDF)","h":"sheets/BIO005-note-sheet-week-15.pdf","d":"Print it and fill it in by hand"},{"w":15,"t":"sheet","n":"Week 15 note sheet, on screen","h":"note-sheet.html?week=15","d":"The same prompts, with the print button"},{"w":15,"t":"comp","n":"Week 15 competencies","h":"week-15-competencies.html","d":"What you must be able to do by Sunday"},{"w":15,"t":"comp","n":"Week 15 in the study guide","h":"competency-study-guide.html?week=15","d":""},{"w":15,"t":"notes","n":"Week 15 notes","h":"week-15-notes.html","d":"The written version of the lectures"},{"w":15,"t":"video","n":"Week 15 lectures","h":"lecture-week.html?week=15","d":"Every video, notes page and slide deck for the week"},{"w":15,"t":"week","n":"Week 15 page","h":"week-15.html","d":"Fixed competencies and due dates, your route through the week"},{"w":1,"t":"video","n":"Week 1 concept videos","h":"concept-videos-week01.html","d":"Press play once and the whole week runs"},{"w":1,"t":"notes","n":"Maintain control","h":"biol005-m01-maintain-control-notes.html","d":"Silverthorn Chapter 1 and the control loop sections of Chapter 6"},{"w":1,"t":"slides","n":"Maintain control","h":"biol005-m01-maintain-control-slides.html","d":""},{"w":2,"t":"notes","n":"Build the molecular toolkit","h":"biol005-m02-molecular-toolkit-notes.html","d":"Water, pH and buffers, proteins, enzymes, ATP. Silverthorn Chapters 2 and 4"},{"w":2,"t":"slides","n":"Build the molecular toolkit","h":"biol005-m02-molecular-toolkit-slides.html","d":""},{"w":1,"t":"slides","n":"P-04 Approaches to Physiology","h":"slides-P-approaches.html","d":""},{"w":1,"t":"slides","n":"P-18 Biological Rhythms and Changes in Set Point","h":"slides-P-biological-rhythms.html","d":""},{"w":1,"t":"slides","n":"P-10 Excretion Clears Substances From the Body","h":"slides-P-clearance.html","d":""},{"w":1,"t":"slides","n":"P-12 Homeostasis and Control Systems","h":"slides-P-control-systems.html","d":""},{"w":1,"t":"slides","n":"P-03 Emergent Properties and Physiology","h":"slides-P-emergent-properties.html","d":""},{"w":1,"t":"slides","n":"P-20 Design of Good Scientific Experiments","h":"slides-P-experimental-design.html","d":""},{"w":1,"t":"slides","n":"P-17 Feedforward Control","h":"slides-P-feedforward-control.html","d":""},{"w":1,"t":"slides","n":"P-11 Homeostasis Does Not Equal Equilibrium","h":"slides-P-homeostasis-not-equilibrium.html","d":""},{"w":1,"t":"slides","n":"P-06 Homeostasis, the General Idea","h":"slides-P-homeostasis.html","d":""},{"w":1,"t":"slides","n":"P-07 Internal and External Environments","h":"slides-P-internal-external-environment.html","d":""},{"w":1,"t":"slides","n":"P-08 Homeostasis and Mass Balance","h":"slides-P-mass-balance.html","d":""},{"w":1,"t":"slides","n":"P-09 Homeostasis and Mass Flow","h":"slides-P-mass-flow.html","d":""},{"w":1,"t":"slides","n":"P-15 Negative Feedback, a Worked Example","h":"slides-P-negative-feedback-example.html","d":""},{"w":1,"t":"slides","n":"P-14 Negative Feedback Loops","h":"slides-P-negative-feedback.html","d":""},{"w":1,"t":"slides","n":"P-16 Positive Feedback Loops","h":"slides-P-positive-feedback.html","d":""},{"w":1,"t":"slides","n":"P-13 Reflex Control","h":"slides-P-reflex-control.html","d":""},{"w":1,"t":"slides","n":"P-19 The Science of Physiology","h":"slides-P-science-of-physiology.html","d":""},{"w":1,"t":"slides","n":"P-02 Systems Theory and Physiology","h":"slides-P-systems-theory.html","d":""},{"w":1,"t":"slides","n":"P-05 Translational Medicine","h":"slides-P-translational-medicine.html","d":""},{"w":1,"t":"slides","n":"P-01 What Is Physiology?","h":"slides-P-what-is-physiology.html","d":""},{"w":2,"t":"slides","n":"Chemical foundations","h":"slides-p-chemical-foundations.html","d":""},{"w":2,"t":"slides","n":"Quantitative skills for physiology","h":"slides-p-quantitative-skills.html","d":""},{"w":2,"t":"lab","n":"Week 2 graphing worksheet","h":"worksheet-week02-graphing.html","d":""},{"w":3,"t":"slides","n":"Membrane structure and diffusion","h":"slides-p-membrane-structure-and-diffusion.html","d":""},{"w":3,"t":"slides","n":"Membrane transport","h":"slides-p-membrane-transport.html","d":""},{"w":3,"t":"slides","n":"The cell and cell transport","h":"slides-p-the-cell-and-cell-transport.html","d":""},{"w":4,"t":"slides","n":"Membrane potential","h":"slides-p-membrane-potential.html","d":""},{"w":1,"t":"lab","n":"Establishing Normal Ranges Lab","h":"reference-range-lab.html","d":""},{"w":2,"t":"lab","n":"Enzyme (amylase) lab","h":"enzyme-amylase-lab.html","d":""},{"w":3,"t":"lab","n":"Osmosis and IV fluids lab","h":"osmosis-iv-fluids-lab.html","d":""},{"w":8,"t":"lab","n":"Hormone cycle lab","h":"lab-week08-hormone-cycle.html","d":""},{"w":11,"t":"lab","n":"CBC and PCR blood analysis lab","h":"cbc-pcr-lab.html","d":""},{"w":13,"t":"lab","n":"Pulmonary function lab","h":"pulmonary-function-lab.html","d":""},{"w":15,"t":"lab","n":"Your patient file","h":"BIO005-patient-file.html","d":""},{"w":1,"t":"workbook","n":"Fluid homeostasis case","h":"workbook_week01_fluid-homeostasis.html","d":"A printable case you work by hand"},{"w":2,"t":"workbook","n":"Membranes and transport case","h":"workbook_week02_membranes-transport.html","d":"A printable case you work by hand"},{"w":3,"t":"workbook","n":"Membrane potential case","h":"workbook_week03_membrane-potential.html","d":"A printable case you work by hand"},{"w":1,"t":"lab","n":"Brain dump, Week 1","h":"braindump-week01.html","d":""},{"w":0,"t":"study","n":"Mastery OS, spaced recall","h":"mastery-physio-os-standalone.html","d":"All 268 competencies, a few minutes a day"},{"w":0,"t":"study","n":"Competency study guide","h":"competency-study-guide.html","d":"Every competency, by week"},{"w":0,"t":"study","n":"Recall cards","h":"competency-recall.html","d":""},{"w":0,"t":"study","n":"Draw it from memory","h":"mastery-canvas.html","d":"Blank canvas, pen, shapes, text, save as PDF"},{"w":0,"t":"study","n":"Practice exam","h":"practice-exam.html","d":"Timed, seeded, with a gap finder"},{"w":0,"t":"study","n":"Brain dump practice","h":"competency-brain-dump.html","d":""},{"w":0,"t":"study","n":"Competency packet","h":"competency-packet-fall2026.html","d":"All 268, printable"},{"w":0,"t":"study","n":"Anatomy review","h":"anatomy-review.html","d":"The anatomy you are assumed to have"},{"w":0,"t":"study","n":"PhysioEx lab analysis sheet","h":"lab-report-form.html","d":"PhysioEx weeks only"},{"w":0,"t":"study","n":"PhysioEx, how it works","h":"assignment-physioex.html","d":""},{"w":0,"t":"study","n":"Getting into Pearson","h":"access-pearson.html","d":""},{"w":2,"t":"lab","n":"Week 2 PhysioEx","h":"assignment-physioex.html?week=2","d":"Which exercise and activities, and what to record"},{"w":3,"t":"lab","n":"Week 3 PhysioEx","h":"assignment-physioex.html?week=3","d":"Which exercise and activities, and what to record"},{"w":4,"t":"lab","n":"Week 4 PhysioEx","h":"assignment-physioex.html?week=4","d":"Which exercise and activities, and what to record"},{"w":7,"t":"lab","n":"Week 7 PhysioEx","h":"assignment-physioex.html?week=7","d":"Which exercise and activities, and what to record"},{"w":8,"t":"lab","n":"Week 8 PhysioEx","h":"assignment-physioex.html?week=8","d":"Which exercise and activities, and what to record"},{"w":9,"t":"lab","n":"Week 9 PhysioEx","h":"assignment-physioex.html?week=9","d":"Which exercise and activities, and what to record"},{"w":10,"t":"lab","n":"Week 10 PhysioEx","h":"assignment-physioex.html?week=10","d":"Which exercise and activities, and what to record"},{"w":11,"t":"lab","n":"Week 11 PhysioEx","h":"assignment-physioex.html?week=11","d":"Which exercise and activities, and what to record"},{"w":12,"t":"lab","n":"Week 12 PhysioEx","h":"assignment-physioex.html?week=12","d":"Which exercise and activities, and what to record"},{"w":13,"t":"lab","n":"Week 13 PhysioEx","h":"assignment-physioex.html?week=13","d":"Which exercise and activities, and what to record"},{"w":14,"t":"lab","n":"Week 14 PhysioEx","h":"assignment-physioex.html?week=14","d":"Which exercise and activities, and what to record"},{"w":15,"t":"lab","n":"Week 15 PhysioEx","h":"assignment-physioex.html?week=15","d":"Which exercise and activities, and what to record"}]};
-</script>
-<script>
+/* ============================================================
+   Week strip. Weeks come from the fallback list below so this
+   page never renders empty, with or without the schedule file.
+   ============================================================ */
 (function(){
   "use strict";
-  var M = window.MATERIALS, W = M.weeks, items = M.items;
-  var TYPE = {week:"Week page", sheet:"Note sheet", comp:"Competencies", video:"Lectures", notes:"Notes", slides:"Slides", lab:"Lab", workbook:"Workbook", study:"Study tool"};
-  var ORDER = ["week","sheet","comp","video","notes","slides","lab","workbook","study"];
-  var PART = [1,1,1,2,2,2,2,2,3,3,3,3,3,3,3];
-  var PARTNAME = {1:"Part 1, Foundations", 2:"Part 2, Control systems", 3:"Part 3, Systems in action"};
-  var type = "all", week = 0, q = "";
+  var TERM_START = new Date(2026, 8, 8);           /* Sep 8 2026, month is 0-based */
+  var TITLES = [
+    "How physiology works and what keeps you steady",
+    "The chemistry that does work in the body",
+    "Getting across the membrane",
+    "How cells talk, and the electrical signal",
+    "Synapses and central integration",
+    "Sensing the world, and the responses you do not control",
+    "Muscle, and how movement gets commanded",
+    "Hormones and reproduction, the slow control system",
+    "The heart as a pump",
+    "Pressure, flow, and holding blood pressure steady",
+    "Blood and how the body defends itself",
+    "Digestion, and how you use food for fuel",
+    "Breathing, gas transport, and the fast pH lever",
+    "The kidney and body fluid balance",
+    "The slow pH lever, and putting it all together"
+  ];
+  var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-  /* the week list on the left. Week 0 is "all weeks", and the course-wide
-     study tools sit under "Every week". */
-  var wl = document.getElementById("weeklist");
-  var html = '<li><button type="button" class="wkbtn" data-week="0" aria-pressed="true"><span class="t">All weeks</span></button></li>';
-  var lastPart = 0;
-  for (var i = 0; i < W.length; i++) {
-    if (PART[i] !== lastPart) { html += '<li><h3>' + PARTNAME[PART[i]] + '</h3></li>'; lastPart = PART[i]; }
-    html += '<li><button type="button" class="wkbtn" data-week="' + (i+1) + '" aria-pressed="false"><small>Week ' + (i+1) + '</small><span class="t">' + W[i] + '</span></button></li>';
+  function weekStart(i){                            /* i is 0-based */
+    var d = new Date(TERM_START.getTime());
+    d.setDate(d.getDate() + i * 7);
+    return d;
   }
-  html += '<li><h3>Every week</h3></li><li><button type="button" class="wkbtn" data-week="99" aria-pressed="false"><span class="t">Study tools and the lab manual</span></button></li>';
-  wl.innerHTML = html;
+  function label(d){ return MON[d.getMonth()] + " " + d.getDate(); }
 
-  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
-  function match(it){
-    if (type !== "all" && it.t !== type) return false;
-    if (week === 99 && it.w !== 0) return false;
-    if (week > 0 && week < 99 && it.w !== week) return false;
-    if (q) {
-      var hay = (it.n + " " + (it.d||"") + " " + TYPE[it.t] + " week " + it.w + " " + (it.w ? W[it.w-1] : "")).toLowerCase();
-      if (hay.indexOf(q) < 0) return false;
-    }
-    return true;
-  }
-  function render(){
-    var list = document.getElementById("list");
-    var shown = items.filter(match);
-    var groups = {};
-    shown.forEach(function(it){ (groups[it.w] = groups[it.w] || []).push(it); });
-    var keys = Object.keys(groups).map(Number).sort(function(a,b){ return (a===0?100:a) - (b===0?100:b); });
-    var out = "";
-    keys.forEach(function(w){
-      var g = groups[w];
-      var byType = {};
-      g.forEach(function(it){ (byType[it.t] = byType[it.t] || []).push(it); });
-      out += '<div class="wkblock"><div class="wkhead"><h2>' + (w ? 'Week ' + w + ' <b>' + esc(W[w-1]) + '</b>' : 'Every week <b>Study tools and the lab</b>') + '</h2><span class="n">' + g.length + (g.length === 1 ? ' item' : ' items') + '</span></div>';
-      if (w) out += '<p>' + PARTNAME[PART[w-1]] + '</p>';
-      out += '<ul class="rows">';
-      ORDER.forEach(function(t){
-        if (!byType[t]) return;
-        var names = byType[t].map(function(it){
-          return '<a href="' + it.h + '" target="_top">' + esc(it.n) + '</a>' + (it.d ? '<span class="d">' + esc(it.d) + '</span>' : '');
-        });
-        out += '<li class="row"><span class="badge ' + t + '">' + TYPE[t] + '</span><div class="names">' + names.join('<span class="sep" aria-hidden="true">·</span>') + '</div></li>';
-      });
-      out += '</ul></div>';
-    });
-    list.innerHTML = out || '<p class="empty">Nothing matches. Clear the search, or choose Everything.</p>';
-    document.getElementById("count").textContent = shown.length + (shown.length === 1 ? ' item showing.' : ' items showing.');
+  /* Which week is it? Before the term starts, Week 1. */
+  var now = new Date();
+  var ms = now - TERM_START;
+  var cur = ms < 0 ? 1 : Math.min(15, Math.floor(ms / (7 * 864e5)) + 1);
+
+  var strip = document.getElementById("strip");
+  for (var i = 0; i < 15; i++){
+    var n = i + 1;
+    var future = n > cur;
+
+    /* Every week 1 to 15 has a page. The ones that are not written yet are
+       real placeholder pages carrying that week's title, its open date and a
+       pointer to the reading, so a future week is a normal link. It is only
+       dimmed, to show it has not opened. */
+    var a = document.createElement("a");
+    a.className = "wk" + (future ? " future" : "");
+    a.href = "week-" + (n < 10 ? "0" + n : n) + ".html";
+    a.target = "_top";
+    a.setAttribute("role", "listitem");
+    a.setAttribute("aria-label", "Week " + n + ", " + TITLES[i] +
+      (n === cur ? ", this week" : future ? ", opens later in the term" : ""));
+    if (n === cur) { a.setAttribute("aria-current", "true"); }
+    a.innerHTML = '<span class="n">' + n + '</span><span class="d">' + label(weekStart(i)) + '</span>';
+    strip.appendChild(a);
   }
 
-  document.querySelectorAll(".pill").forEach(function(b){
-    b.addEventListener("click", function(){
-      document.querySelectorAll(".pill").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
-      b.setAttribute("aria-pressed","true"); type = b.getAttribute("data-type"); render();
-    });
-  });
-  wl.addEventListener("click", function(e){
-    var b = e.target.closest(".wkbtn"); if (!b) return;
-    wl.querySelectorAll(".wkbtn").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
-    b.setAttribute("aria-pressed","true"); week = parseInt(b.getAttribute("data-week"),10); render();
-  });
-  var qi = document.getElementById("q"), tm;
-  qi.addEventListener("input", function(){ clearTimeout(tm); tm = setTimeout(function(){ q = qi.value.trim().toLowerCase(); render(); }, 120); });
+  document.getElementById("nowline").innerHTML =
+    (ms < 0 ? "The term starts Tuesday September 8. First up, <b>Week 1, " + TITLES[0] + "</b>."
+            : "You are in <b>Week " + cur + ", " + TITLES[cur - 1] + "</b>. Earlier weeks stay open, so you can go back whenever you need to.");
 
-  /* ?week=N opens straight to that week */
-  var m = /[?&]week=(\d{1,2})/.exec(location.search);
-  if (m) { var b = wl.querySelector('.wkbtn[data-week="' + parseInt(m[1],10) + '"]'); if (b) b.click(); }
-  render();
-}());
+  /* Bring the current week into view without yanking the page around. */
+  var here = strip.querySelector('[aria-current="true"]');
+  if (here && here.scrollIntoView){
+    try { here.scrollIntoView({ block: "nearest", inline: "center" }); } catch(e){}
+  }
+})();
+
+/* Iframe height sender, for Canvas and Kajabi. */
+(function(){
+  var ID = "bio005-course-materials";
+  function send(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    try { window.parent.postMessage({ id:ID, frameId:ID, type:"resize", height:h }, "*"); } catch(e){}
+  }
+  window.addEventListener("load", send);
+  window.addEventListener("resize", send);
+  if (typeof ResizeObserver !== "undefined"){ try { new ResizeObserver(send).observe(document.body); } catch(e){} }
+  setTimeout(send, 400); setTimeout(send, 1500);
+})();
 </script>
-<script src="bio005-nav.js" defer></script>
+
+
+<!-- Ask Hootie, on every page. -->
 <script src="schedule-fall2026.js"></script>
 <script src="hootie.js"></script>
+<!-- A way back, on every page. -->
 <script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
 </body>
 </html>

@@ -252,3 +252,40 @@ previous line with a dangling one. Verified at 1240px and 600px.
 
 ### Reviewer
 Dr. Sharilyn Rennie
+
+## Update, September 9 2026: collapsible sections, site wide
+
+Files covered: bio005-collapse.js, and the 148 pages that load it
+
+### What it does
+Long pages fold each section behind its own heading. The page becomes a
+short list of what is on it, and a student opens the part they need.
+Nothing is removed and nothing is summarized.
+
+### Pattern
+Disclosure, per the WAI-ARIA Authoring Practices accordion pattern.
+The heading element is kept and the button is placed inside it, so a
+screen reader announces "heading level 2, button, collapsed" rather than
+losing the heading level to a div.
+
+### Verified
+| Criterion | How it is met |
+|---|---|
+| 1.3.1 Info and relationships | Heading levels unchanged; button nested inside the heading |
+| 2.1.1 Keyboard | Every toggle and the Open everything control are real buttons, reachable and operable by keyboard |
+| 2.4.3 Focus order | Regions follow their heading in the DOM, so focus order matches reading order |
+| 2.4.7 Focus visible | 3px #8B3A2E focus ring, 3px offset, on every control |
+| 4.1.2 Name, role, value | aria-expanded on the button, aria-controls pointing at the region |
+| 1.4.3 Contrast | #5A6675 hint text on #FAFAF9 is 7.02:1, AAA. #0B1530 on #FFFFFF is 17.0:1 |
+| 2.3.3 Animation from interactions | Chevron rotation removed under prefers-reduced-motion |
+| 2.5.5 Target size | Controls are at least 38px tall; the heading itself is the target and is larger |
+
+### Content is never trapped
+Regions are hidden with the hidden property, so nothing is visible to a
+screen reader while invisible on screen. Any anchor link into a folded
+section opens it first, both from the address bar and from a click inside
+the page, so the week-page stage nav and the syllabus contents card work
+as they did. Printing opens everything and restores the state afterward.
+
+### Reviewer
+Dr. Sharilyn Rennie
