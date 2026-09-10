@@ -396,12 +396,6 @@ window.BIO005_QUESTIONS = [
   "topic": "Grading"
  },
  {
-  "id": "q65",
-  "q": "Where did Scholar Points or bonus systems go?",
-  "a": "<p>This course does not use them. Four categories, no curve, no extra credit. Simple on purpose.</p>",
-  "topic": "Grading"
- },
- {
   "id": "q66",
   "q": "What is a note sheet?",
   "a": "<p>A weekly sheet with one prompt for each competency you must be able to do that week. You complete it from the reading and the videos before anything else. It is the first step of every week.</p>",

@@ -207,23 +207,15 @@ em,i,cite,dfn,var,address{font-style:normal}
     <div id="lines"></div>
   </section>
 
-  <section class="section">
-    <h2 id="scholar-heading">Scholar Points</h2>
-    <p class="sub">Bonus on top of your grade, earned by helping other people learn. This is the part of the course I care most about and the part I cannot make happen by myself.</p>
-    <div id="scholar"></div>
-  </section>
-
-  <section class="section">
-    <h2>What you can run a session on</h2>
-    <p class="sub">Pick one and one topic. A session that tries to cover a whole module covers nothing.</p>
-    <div class="activities" id="activities"></div>
-  </section>
-
-  <section class="section">
-    <h2>If you are hosting</h2>
-    <ul class="rules" id="hostrules"></ul>
-  </section>
-
+  <!-- SCHOLAR POINTS REMOVED Sep 9 2026. They are retired. course-questions
+       said "this course does not use them", welcome.html said "no extra
+       credit and no curve", and door-study.html says nothing should offer a
+       student a currency that does not exist. This page was still
+       advertising up to three bonus points. The data stays in
+       bio005-credit-model.js as a record; nothing renders it. -->
+  <!-- The live-session sections went with Scholar Points on Sep 9 2026.
+       "What you can run a session on" and "If you are hosting" were both
+       instructions for earning a bonus that no longer exists. -->
   <section class="section">
     <h2>AI in this course</h2>
     <p class="sub" id="aihead"></p>
@@ -308,7 +300,7 @@ em,i,cite,dfn,var,address{font-style:normal}
   bar.setAttribute('aria-label',
     'Grade weight by category: ' + Object.keys(catTotals).map(function(c){
       return c + ' ' + catTotals[c] + ' percent';
-    }).join(', ') + '. Scholar Points add up to ' + M.scholar.suggestedCap + ' points on top.');
+    }).join(', ') + '.');
 
   /* ---------- credit lines ---------- */
   var wrap = document.getElementById('lines');
@@ -351,49 +343,7 @@ em,i,cite,dfn,var,address{font-style:normal}
     wrap.appendChild(card);
   });
 
-  /* ---------- scholar ---------- */
-  var S = M.scholar;
-  var sWrap = document.getElementById('scholar');
-
-  var top = el('div','scholar-top');
-  top.appendChild(el('div','cap',
-    'Up to ' + S.suggestedCap + ' points added to your grade &middot; target ' + S.suggestedTarget + ' ' + S.unit + 's'));
-  top.querySelector('.cap').innerHTML =
-    'Up to ' + S.suggestedCap + ' points added to your grade &middot; Target ' + S.suggestedTarget + ' ' + S.unit + 's';
-  top.appendChild(el('p', null, S.rule));
-  top.appendChild(el('p', null,
-    'Every point you can earn at a live session you can also earn without one. If you work nights, have kids, live in another time zone, or your internet will not hold a video call, you can still max this out. Nothing here requires you to be anywhere at a set hour.'));
-  sWrap.appendChild(top);
-
-  var routes = el('div','routes');
-  S.routes.forEach(function(r){
-    var c = el('div','route');
-    c.appendChild(el('div','pts', '+' + r.points));
-    c.appendChild(el('h3', null, r.name));
-    c.appendChild(el('span','mode ' + r.mode, r.mode === 'live' ? 'Live session' : 'On your own time'));
-    c.appendChild(el('p', null, r.what));
-    if (r.why) c.appendChild(el('p', null, r.why));
-    if (r.access) c.appendChild(el('p','acc', r.access));
-    var ev = el('div','ev');
-    ev.appendChild(el('b', null, 'Proof. '));
-    ev.appendChild(document.createTextNode(r.evidence));
-    c.appendChild(ev);
-    routes.appendChild(c);
-  });
-  sWrap.appendChild(routes);
-
-  /* ---------- activities ---------- */
-  var aw = document.getElementById('activities');
-  S.activities.forEach(function(a){
-    var d = el('div','act');
-    d.appendChild(el('b', null, a.name));
-    d.appendChild(el('span', null, a.note));
-    aw.appendChild(d);
-  });
-
-  /* ---------- host rules ---------- */
-  var hr = document.getElementById('hostrules');
-  S.hostRules.forEach(function(r){ hr.appendChild(el('li', null, r)); });
+  /* The Scholar Points renderer was removed with the section above. */
 
   /* ---------- ai policy ---------- */
   var P = M.aiPolicy;
@@ -431,5 +381,6 @@ em,i,cite,dfn,var,address{font-style:normal}
 <script src="hootie.js"></script>
 <!-- A way back, on every page. -->
 <script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
 </body>
 </html>

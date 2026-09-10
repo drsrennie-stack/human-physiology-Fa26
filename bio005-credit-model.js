@@ -23,14 +23,17 @@
    NOTHING IN THIS COURSE REQUIRES A STUDENT TO BE PRESENT
    AT A PARTICULAR TIME
    ------------------------------------------------------------
-   The section is listed as asynchronous. Live study sessions
-   exist and are the best-value way to earn Scholar Points, but
-   every point available through a live session is also available
-   through an asynchronous route. syncRequired is false on every
-   line in this file and it needs to stay that way.
+   The section is listed as asynchronous. syncRequired is false on
+   every line in this file and it needs to stay that way.
 
-   CONFIRM WITH THE YUBA DISTANCE EDUCATION COORDINATOR before
-   publishing anything involving live sessions.
+   SCHOLAR POINTS ARE NOT IN THIS COURSE. They are a BIO 004
+   anatomy mechanic. The block that used to sit at the bottom of
+   this file described a capped bonus of three points earned
+   through live sessions, and what-you-do.html was rendering it as
+   though students could earn it. Removed Sep 10 2026 on Scrubs'
+   instruction: "remove scholar points and bonus, that is only
+   anatomy." Four categories, totalling 100, no curve, no extra
+   credit.
    ============================================================ */
 
 window.BIO005_CREDIT = {
@@ -127,67 +130,9 @@ window.BIO005_CREDIT = {
      live session can still max this category out.
      ============================================================ */
 
-  scholar: {
-    name: "Scholar Points",
-    kind: "Capped bonus on top of 100",
-    suggestedCap: 3,
-    suggestedTarget: 6,
-    unit: "point",
-    rule: "Earn points through any mix of the routes below. No single route can supply more than half your total, so you have to do at least two different kinds of thing.",
-    syncRequired: false,
-    fairnessNote: "Live sessions are the best-value route and most students will choose them. Nobody is required to attend one. Confirm the whole category with the Yuba DE coordinator before publishing.",
-
-    routes: [
-      { id:"host-live", name:"Host a live Study With Me session", points:3, mode:"live",
-        what:"Set your own time, pick an activity, post it to the board, run it.",
-        evidence:"Host log: date and time, who attended, which competencies you covered, and one artifact. A photo of the shared drawing or a screenshot of the Kahoot results.",
-        why:"Hosting is worth the most because teaching it is the best way to learn it. That is not a motivational line, it is why this route pays triple." },
-
-      { id:"attend-live", name:"Attend a live Study With Me session", points:1, mode:"live",
-        what:"Show up and participate. Camera on with a virtual background is the expectation.",
-        evidence:"The host lists you on their log.",
-        why:"Participating means participating. Watching silently does not count, and the host will not list you if you did not engage.",
-        access:"If you cannot be on camera, take part by voice and in chat. You do not have to explain why." },
-
-      { id:"host-async", name:"Run an async study thread", points:3, mode:"async",
-        what:"Pick one competency, post a prompt to the board, respond to everyone who answers, and post a summary of where people went wrong.",
-        evidence:"The thread itself.",
-        why:"This is hosting without the clock. Same work, same value, no time zone required." },
-
-      { id:"drawing-clinic", name:"Post a mechanism drawing and coach two people on theirs", points:2, mode:"async",
-        what:"Hand draw a mechanism, post it, and give real feedback on two classmates' drawings. Real feedback names something specific that is wrong or missing.",
-        evidence:"Your post and your two responses.",
-        why:"Finding the error in someone else's mechanism is harder than drawing your own." },
-
-      { id:"walkthrough", name:"Record a walkthrough others use", points:2, mode:"async",
-        what:"Record yourself working through something difficult, post it, and answer the questions it generates.",
-        evidence:"The recording and your replies.",
-        why:"Same skill as the teaching video, lower stakes, and it helps somebody." },
-
-      { id:"attend-async", name:"Work through someone's async thread or walkthrough", points:1, mode:"async",
-        what:"Answer the prompt or work the walkthrough, and post what you got wrong and why.",
-        evidence:"Your post.",
-        why:"Saying out loud what you got wrong is most of the value. This route only counts if you do that part." }
-    ],
-
-    activities: [
-      { id:"kahoot",   name:"Kahoot round",        note:"Fast, social, good for a warm up. Not the whole session." },
-      { id:"loop-draw",name:"Loop drawings",       note:"One person starts a mechanism, passes it, next person adds the following step. Everybody draws." },
-      { id:"taboo",    name:"Physiology Taboo",    note:"Explain the concept without the four obvious words." },
-      { id:"pictionary",name:"Mechanism Pictionary", note:"Draw it, others name it. Physiology draws well because it is gradients, loops, and cascades." },
-      { id:"which-way",name:"Which Way Does It Move", note:"Run somebody's Build One tool as the session activity." },
-      { id:"quiz-each",name:"Quiz each other cold", note:"No notes open. The point is retrieval, not review." },
-      { id:"case",     name:"Walk a case",         note:"One patient, reveal the vitals one at a time, name the compensation before the next reveal." }
-    ],
-
-    hostRules: [
-      "Post your session to the board at least 24 hours ahead so people can plan.",
-      "45 to 60 minutes. Longer sessions lose people.",
-      "Everybody works. If one person is talking and five are watching, it is a lecture, and you already have those.",
-      "Pick one activity and one topic. A session that tries to cover a whole module covers nothing.",
-      "Submit your host log within 48 hours."
-    ]
-  },
+  /* The Scholar Points block was removed Sep 10 2026. It is an anatomy
+     mechanic and has never been part of this course. Nothing renders it
+     and nothing should reintroduce it. */
 
   /* ============================================================
      AI POLICY, THE WHOLE THING IN ONE PLACE

@@ -1161,11 +1161,6 @@ var BIO005_FAQ = [
   "a": "No. The five components and their weights are fixed for the term: 20, 40, 15, 15, 10. What you see in <a href=\"syllabus-fall2026.html#s07\">section 07</a> is the whole deal."
  },
  {
-  "cat": "Grading",
-  "q": "Where did Scholar Points or bonus systems go?",
-  "a": "This course does not use them. Four categories, no curve, no extra credit. Simple on purpose."
- },
- {
   "cat": "Midterms",
   "q": "Can I choose which pathway I teach?",
   "a": "The exam tells you what to draw and teach. The weekly practice rounds sample the same competencies, so nothing on the exam is a stranger."
