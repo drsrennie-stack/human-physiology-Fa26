@@ -237,7 +237,6 @@ def page(n, opens, closes, title, part, solid=False):
     fri_short = 'Friday 10 pm'
     prev_ = 'week-%02d.html' % (n - 1) if n > 1 else None
     next_ = 'week-%02d.html' % (n + 1) if n < 15 else None
-    has_prompts = os.path.exists('week-%s-notesheet-prompts.html' % nn)
     cv = CANVAS.get(n, {})
     bigq = BIG_Q.get(n, '')
 
@@ -246,16 +245,14 @@ def page(n, opens, closes, title, part, solid=False):
                       'Start here. I will walk you through this week\'s big physiological problem and show you how to think through the important concepts. The lectures are short and in order.',
                       main=True, go='Start the lectures &rarr;')
     learn_sub = (card('week-%s-notes.html' % nn, 'c-maroon', 'notes', 'Notes', 'The written version of what I teach, for reading and rereading.')
-                 + card('week-%s-competencies.html' % nn, 'c-maroon', 'list', 'Competencies', '%d this week. Each one is a single thing you will be able to do.' % c)
-                 + card('sheets/BIO005-note-sheet-week-%s.pdf' % nn, 'c-maroon', 'pen', 'Note sheet', 'One box per competency. Pass 1 from the book, pass 2 from the lectures, in a second color.')
-                 + (card('week-%s-notesheet-prompts.html' % nn, 'c-maroon', 'notes', 'Note sheet questions', 'The prompt for each box, on screen.') if has_prompts else '')
+                 + card('note-sheet.html?week=%d' % n, 'c-maroon', 'pen', 'Note sheet',
+                        'Optional, and the one thing I most recommend. One box per competency (%d this week) with its prompt. Print it or rule your own. Pass 1 from the book, pass 2 after the lectures, in a second color.' % c)
                  + card('https://openstax.org/details/books/anatomy-and-physiology-2e', 'c-maroon', 'book', 'OpenStax, free extra', 'A second explanation when you want one. Silverthorn is the required text.', ext_=True))
 
     # ---- PRACTICE ----
     practice = (card('competency-brain-dump.html', 'c-navy', 'practice', 'Try It From Memory',
                      'Do not look anything up yet. See what your brain can produce. What you forget tells you what needs another pass.',
                      main=True, go='Open a brain dump &rarr;')
-                + card('note-sheet.html?week=%d' % n, 'c-navy', 'pen', 'Note sheet, second pass', 'Back into the same boxes in a second color, after the lectures.')
                 + card('mastery-canvas.html', 'c-navy', 'pen', 'Draw it', 'A blank canvas. Mechanism, sequence, loop. Produce it from nothing, then check it.')
                 + card('mastery-physio-os-standalone.html', 'c-navy', 'cards', 'Recall cards', 'Spaced recall with the full reason every answer is right or wrong.')
                 + card('assignment-bookproblems.html?week=%d' % n, 'c-navy', 'graph', 'Book problems', 'Problems you have not seen. Predict, commit, then check.')
