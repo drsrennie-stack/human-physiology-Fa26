@@ -525,7 +525,9 @@ a{{color:inherit;text-decoration:none}}
 .eyebrow::before{{content:"";width:26px;height:2px;background:var(--rust)}}
 .ph{{font-family:var(--display);font-size:clamp(30px,4.6vw,46px);font-weight:800;letter-spacing:-.025em;line-height:1.08;margin:0 0 12px}}
 .ph .a{{color:var(--rust)}}
-.bq{{font-size:18px;color:var(--muted);margin:0;max-width:60ch}}
+.lead{{font-size:18px;color:var(--muted);margin:0 0 18px;max-width:60ch}}
+.wk{{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin:0 0 6px}}
+.bq{{font-size:17.5px;color:var(--ink);margin:0;max-width:60ch}}
 .bq b{{color:var(--ink)}}
 .due{{margin:12px 0 0;font-size:15px;color:var(--muted)}}
 .due b{{color:var(--ink)}}
@@ -582,8 +584,10 @@ body.framed .cat{{min-height:0;padding:22px 20px}}
 
   <main id="main">
     <section class="hero">
-      <p class="eyebrow" id="wk-eyebrow">This week</p>
-      <h1 class="ph" id="wk-title">Learn with me, then <span class="a">practice, apply, and check.</span></h1>
+      <p class="eyebrow">Yuba College &middot; Online &middot; Fall 2026</p>
+      <h1 class="ph">Welcome to <span class="a">Human Physiology</span>.</h1>
+      <p class="lead">Every week has the same four doors. I teach first, you practice, you use it on a patient and a lab, then you check what still needs work.</p>
+      <p class="wk" id="wk-eyebrow"></p>
       <p class="bq" id="wk-bq"></p>
       <p class="due" id="wk-due"></p>
     </section>
@@ -609,7 +613,7 @@ body.framed .cat{{min-height:0;padding:22px 20px}}
   var BIGQ = {bigq_js};
   var S = window.BIO005_SITE; if (!S || !S.current) return;
   var cur = S.current, n = cur.n;
-  document.getElementById('wk-eyebrow').textContent = 'Week ' + n + ' of 15 \\u00B7 ' + cur.title;
+  document.getElementById('wk-eyebrow').textContent = 'This week \\u00B7 Week ' + n + ' of 15 \\u00B7 ' + cur.title;
   var q = BIGQ[n];
   if (q) document.getElementById('wk-bq').innerHTML = '<b>This week\\u2019s big question.</b> ' + q;
   var closes = cur.closes.split('-');
