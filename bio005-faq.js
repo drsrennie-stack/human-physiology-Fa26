@@ -93,7 +93,7 @@ var BIO005_FAQ = [
  {
   "cat": "Navigating the course",
   "q": "Where are the week pages?",
-  "a": "Linked from the <a href=\"course-schedule.html\">schedule</a> and the <a href=\"home.html\">course home</a>. They are named week-01 through week-15, and each opens on its Monday."
+  "a": "Linked from the <a href=\"course-schedule.html\">schedule</a> and the <a href=\"home.html\">course home</a>. They are named week-01 through week-15, and each opens on its Monday at 8:00 am Pacific."
  },
  {
   "cat": "Navigating the course",
@@ -693,7 +693,7 @@ var BIO005_FAQ = [
  {
   "cat": "Deadlines and late work",
   "q": "When does a week open?",
-  "a": "Monday morning, except Week 1 which opens Tuesday, September 8. Everything for the week posts by its Monday."
+  "a": "Monday at 8:00 am Pacific, except Week 1, which opens Tuesday, September 8. Every week opens on its Monday morning."
  },
  {
   "cat": "Deadlines and late work",
@@ -1159,6 +1159,11 @@ var BIO005_FAQ = [
   "cat": "Grading",
   "q": "Are the weights ever adjusted during the term?",
   "a": "No. The five components and their weights are fixed for the term: 20, 40, 15, 15, 10. What you see in <a href=\"syllabus-fall2026.html#s07\">section 07</a> is the whole deal."
+ },
+ {
+  "cat": "Grading",
+  "q": "Where did Scholar Points or bonus systems go?",
+  "a": "This course does not use them. Four categories, no curve, no extra credit. Simple on purpose."
  },
  {
   "cat": "Midterms",

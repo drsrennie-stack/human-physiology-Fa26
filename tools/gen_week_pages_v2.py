@@ -321,8 +321,8 @@ def page(n, opens, closes, title, part):
                  '</section>') % (INTRO.LOOM_ID, chap, tx)
     opens_note = ''
     if n > 1:
-        opens_note = ('<p class="opens" id="opensNote" hidden><b>This week opens %s.</b> It unlocks early on Saturday, %s at 8:00 pm Pacific if you have finished the week before. Everything here is yours to look at now.</p>'
-                      % (long(opens), sat.strftime('%B ') + str(sat.day)))
+        opens_note = ('<p class="opens" id="opensNote" hidden><b>This week opens %s at 8:00 am Pacific.</b> Everything here is yours to look at now.</p>'
+                      % long(opens))
 
     html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -414,13 +414,12 @@ def page(n, opens, closes, title, part):
 
 <script>
 (function(){{
-  /* Show the opening note only before the week has unlocked (Saturday 8 pm Pacific before its Monday). */
+  /* Show the opening note only before the week opens (its Monday, 8:00 am Pacific). */
   var o = document.getElementById('opensNote'); if (!o) return;
   var p = document.body.getAttribute('data-opens').split('-');
   var mon = Date.UTC(+p[0], +p[1]-1, +p[2]);
-  var sat = mon - 2*86400000;
-  var off = (sat < Date.UTC(2026,10,1,9)) ? 7 : 8;
-  if (Date.now() < sat + (20+off)*3600000) o.hidden = false;
+  var off = (mon < Date.UTC(2026,10,1,9)) ? 7 : 8;
+  if (Date.now() < mon + (8+off)*3600000) o.hidden = false;
 }})();
 (function(){{
   /* chapter buttons reload the Loom embed at that second; the current chapter is marked */

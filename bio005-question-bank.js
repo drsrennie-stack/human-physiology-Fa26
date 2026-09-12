@@ -134,7 +134,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q21",
   "q": "Where are the week pages?",
-  "a": "<p>Linked from the <a href=\"course-schedule.html\" target=\"_top\">schedule</a> and the <a href=\"home.html\" target=\"_top\">course home</a>. They are named week-01 through week-15, and each opens on its Monday.</p>",
+  "a": "<p>Linked from the <a href=\"course-schedule.html\" target=\"_top\">schedule</a> and the <a href=\"home.html\" target=\"_top\">course home</a>. They are named week-01 through week-15, and each opens on its Monday at 8:00 am Pacific.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -393,6 +393,12 @@ window.BIO005_QUESTIONS = [
   "id": "q64",
   "q": "Are the weights ever adjusted during the term?",
   "a": "<p>No. The five components and their weights are fixed for the term: 20, 40, 15, 15, 10. What you see in <a href=\"syllabus-fall2026.html#s07\" target=\"_top\">section 07</a> is the whole deal.</p>",
+  "topic": "Grading"
+ },
+ {
+  "id": "q65",
+  "q": "Where did Scholar Points or bonus systems go?",
+  "a": "<p>This course does not use them. Four categories, no curve, no extra credit. Simple on purpose.</p>",
   "topic": "Grading"
  },
  {
@@ -902,7 +908,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q152",
   "q": "When does a week open?",
-  "a": "<p>Monday morning, except Week 1 which opens Tuesday, September 8. Everything for the week posts by its Monday.</p>",
+  "a": "<p>Monday at 8:00 am Pacific, except Week 1, which opens Tuesday, September 8. Every week opens on its Monday morning.</p>",
   "topic": "Deadlines and late work"
  },
  {
