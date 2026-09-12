@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Chemistry That Does Work in the Body &middot; Slides &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy-15)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* equation card */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:0 0 14px}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+body.present .eq .f{font-size:clamp(18px,1.9vw,28px)}
+body.present .eq .k,body.present .eq .says{font-size:clamp(14px,1.35vw,20px)}
+/* worked solution steps */
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+body.present .work>li{font-size:clamp(15px,1.45vw,21px);padding:11px 0 11px 48px}
+body.present .work>li::before{top:11px}
+body.present .work>li::before{font-size:clamp(20px,2vw,30px)}
+/* textbook figures */
+img.fig{object-fit:contain}
+.two img.fig{max-height:60vh;width:auto;max-width:100%;margin:0 auto}
+sup{font-size:.72em;line-height:0}
+
+/* ---------- deck ---------- */
+.deck{max-width:1200px;margin:0 auto;padding:22px max(16px,3vw) 44px}
+.deck-note{font-size:14px;color:var(--navy-72);margin:0 0 20px;max-width:70ch}
+.slide{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);margin:0 0 20px;overflow:hidden}
+.slide-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;
+  padding:16px 22px;border-bottom:.5px solid var(--navy-15)}
+.slide-n{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  color:var(--terra);letter-spacing:-.03em;line-height:1;min-width:52px}
+.slide-eyebrow{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--navy-72);margin:0 0 4px}
+.slide-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2.3vw,25px);
+  font-weight:800;letter-spacing:-.02em;margin:0;line-height:1.15}
+.slide-beat{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);white-space:nowrap}
+.slide-body{padding:24px 22px}
+.slide-body>*:last-child{margin-bottom:0}
+.two{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1.02fr);gap:26px;align-items:start}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+.lead{font-size:17.5px;font-weight:600;margin:0 0 14px;color:var(--navy)}
+.slide h3{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 12px}
+.slide h3+h3{margin-top:22px}
+
+/* reveal boxes: the thing Reset clears */
+.reveal-wrap{margin:16px 0 0}
+.rv-btn{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);padding:12px 18px}
+.rv-btn:hover{border-color:var(--navy);background:var(--wash)}
+.rv-btn[aria-expanded="true"]{border-color:var(--navy);border-width:2px;
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.rv{margin:14px 0 0;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 20px}
+.rv[hidden]{display:none}
+.rv p:last-child{margin-bottom:0}
+.rv .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+
+/* worked example: weak answer beside strong answer */
+.exbox{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 20px;margin:16px 0 0}
+.exbox .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.exbox .q{font-size:16.5px;font-weight:800;margin:0 0 14px;color:var(--navy)}
+.ex2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:820px){.ex2{grid-template-columns:1fr}}
+.ex{border-radius:var(--r-card);padding:14px 16px}
+.ex .lab{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin:0 0 7px}
+.ex p:last-child{margin-bottom:0}
+.ex.weak{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.ex.weak .lab{color:var(--navy-72)}
+.ex.strong{border:2px solid var(--terra)}
+.ex.strong .lab{color:var(--terra)}
+.exbox .why{font-size:14.5px;color:var(--navy-72);margin:14px 0 0}
+.exbox .why b{color:var(--navy)}
+body.present .exbox .q{font-size:clamp(17px,1.7vw,25px)}
+body.present .ex{font-size:clamp(15px,1.5vw,21px)}
+body.present .ex .lab,body.present .exbox .tag{font-size:clamp(10px,1vw,14px)}
+body.present .exbox .why{font-size:clamp(14px,1.35vw,19px)}
+
+/* in range or out of range sorter */
+.sortbl td.pickcell{padding:7px 10px}
+.pick{display:flex;gap:8px;flex-wrap:wrap}
+.pk{font-family:inherit;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:9px 12px;cursor:pointer;white-space:nowrap}
+.pk:hover{border-color:var(--navy)}
+.pk[aria-pressed="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+tr.locked .pk{cursor:default}
+tr.locked .pk:not([aria-pressed="true"]){opacity:.45}
+.res{font-size:13.5px;font-weight:700;min-width:132px}
+tr.ok .res{color:var(--navy)}
+tr.no .res{color:var(--terra)}
+.sortcount{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--navy-72);margin:14px 0 0}
+body.present .pk{font-size:clamp(11px,1.05vw,15px);padding:11px 15px}
+body.present .res{font-size:clamp(13px,1.3vw,18px)}
+
+/* predict box */
+.predict{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:16px 0 0}
+.predict .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.predict p:last-child{margin-bottom:0}
+
+/* deck toolbar */
+.deck-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  padding:12px max(16px,3vw);border-bottom:.5px solid var(--navy-15);background:#fff;
+  position:sticky;top:0;z-index:30}
+.deck-bar .sp{flex:1}
+.deck-bar .cnt{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--navy-72)}
+
+/* present mode */
+body.present{overflow:hidden;background:var(--navy)}
+body.present .site-header,body.present .deck-bar,body.present .deck-note,body.present .page-foot{display:none}
+body.present .deck{max-width:none;margin:0;padding:0}
+body.present .slide{display:none}
+body.present .slide.cur{display:flex;flex-direction:column;position:fixed;inset:0;margin:0;
+  border:0;border-radius:0;overflow:auto;background:#fff}
+body.present .slide.cur .slide-body{flex:1;max-width:1360px;width:100%;margin:0 auto;
+  padding:2.4vh 4.5vw calc(2.4vh + 92px);display:flex;flex-direction:column;justify-content:center}
+body.present .slide-head{padding:2.2vh 4.5vw}
+body.present .slide-n{font-size:clamp(32px,3.2vw,52px)}
+body.present .slide-title{font-size:clamp(24px,3vw,42px)}
+body.present .slide-eyebrow,body.present .slide-beat{font-size:clamp(10px,1vw,14px)}
+body.present .lead{font-size:clamp(20px,2.2vw,32px)}
+body.present .slide h3{font-size:clamp(11px,1.15vw,16px);margin-bottom:16px}
+body.present ul.bul>li{font-size:clamp(17px,1.75vw,27px);padding:8px 0 8px 28px}
+body.present ul.bul>li::before{top:18px;width:9px;height:9px}
+body.present ul.bul>li>ul>li{font-size:clamp(15px,1.5vw,23px)}
+body.present .tbl{font-size:clamp(15px,1.5vw,22px)}
+body.present .tbl th,body.present .tbl td{padding:11px 15px}
+body.present .rv,body.present .predict{font-size:clamp(16px,1.6vw,24px);padding:20px 24px}
+body.present .rv-btn{font-size:clamp(11px,1.05vw,15px);padding:14px 22px}
+body.present figcaption{font-size:clamp(12px,1.15vw,17px)}
+body.present .fig{max-height:42vh;width:auto;max-width:100%;margin:0 auto}
+body.present .two .fig{max-height:56vh}
+.pbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:200;display:none;
+  align-items:center;gap:10px;background:var(--navy);color:#fff;padding:8px 12px;border-radius:var(--r-pill)}
+body.present .pbar{display:flex}
+.pbar button{font-weight:800;font-size:17px;border:0;border-radius:var(--r-pill);
+  background:var(--terra);color:#fff;width:44px;height:44px;cursor:pointer}
+.pbar button:hover{background:var(--terra-dark)}
+.pbar button:disabled{background:#667085;cursor:default}
+.pbar .c{font-size:12px;font-weight:800;min-width:62px;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.pbar .x{width:auto;padding:0 16px;background:transparent;border:1px solid rgba(255,255,255,.45);
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+body.wb-on .pbar{display:none!important}
+
+@media print{
+  @page{size:landscape;margin:11mm}
+  .site-header,.deck-bar,.pbar,.deck-note,.wb,.wb-launch,.lightbox{display:none!important}
+  body{background:#fff;font-size:11pt}
+  .deck{max-width:none;padding:0}
+  .slide{display:block!important;break-after:page;page-break-after:always;margin:0 0 6mm;border:1px solid #bbb}
+  .slide:last-of-type{break-after:auto;page-break-after:auto}
+  .slide-head{break-after:avoid;page-break-after:avoid}
+  .two,.card,.tbl,.rv,.predict,figure{break-inside:avoid;page-break-inside:avoid}
+  .rv[hidden]{display:block!important}
+  .rv-btn{display:none!important}
+  .pick{display:none!important}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .cprof{break-inside:avoid;page-break-inside:avoid}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Week 2</span></span>
+  </a>
+</header>
+<div class="deck-bar">
+  <button class="btn navy" id="presentBtn" type="button">Present full screen</button>
+  <button class="btn ghost" id="resetBtn" type="button">Reset boxes</button>
+  <button class="btn ghost" id="printBtn" type="button">Print the deck</button>
+  <span class="sp"></span>
+  <span class="cnt" id="deckStatus" role="status" aria-live="polite"></span>
+</div>
+<main class="deck" id="main">
+<h1 class="vh">The chemistry that does work in the body: BIOL 005 Human Physiology week 2 lecture slides</h1>
+<p class="deck-note">38 slides with six solved problems. Present full screen to record, Reset boxes first so no answer is pre-revealed, and press W for the pen layer. Figures are from Silverthorn, Human Physiology 9th edition, Pearson.</p>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">01</span>
+    <div><p class="slide-eyebrow">BIOL 005 &middot; Week 2</p><h2 class="slide-title">The chemistry that does work in the body</h2></div>
+    <span class="slide-beat">Start</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Last week you drew a control loop. Every box in that loop, the sensor, the signal, the effector, is a molecule doing a job.</p>
+    <ul class="bul">
+      <li>This week is about what gives a molecule its job. The short answer is shape, and the long answer is this whole lecture.</li>
+      <li>You will meet the four families of biological molecules, learn how to say how much of something is in a solution, and see why pH is defended harder than almost anything else in the body.</li>
+      <li>Six problems are worked on the slides. Try each one before the answer opens.</li>
+    </ul>
+    <p class="muted" style="font-size:14.5px">Silverthorn chapter 2. Course competencies 1, 2 and 3.</p>
+  </div>
+  <div class="card navy">
+    <p class="eyebrow">The problem for today</p>
+    <p style="font-size:19px;font-weight:700;line-height:1.35;margin:0">A patient's arterial pH falls from 7.40 to 7.10. Nothing in their DNA changed. No enzyme was destroyed. Yet enzymes all over the body stopped working properly. By the end of this lecture you will be able to explain every step of why.</p>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">02</span>
+    <div><p class="slide-eyebrow">The problem</p><h2 class="slide-title">How much did the acid actually change?</h2></div>
+    <span class="slide-beat">Problem</span>
+  </header>
+  <div class="slide-body">
+<p class="lead">Before any chemistry, make a guess. The pH dropped by 0.3. That looks small.</p>
+<div class="two">
+  <div>
+    <table class="tbl">
+      <caption>Same patient, two arterial blood gases</caption>
+      <thead><tr><th scope="col"></th><th scope="col">Yesterday</th><th scope="col">Today</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Arterial pH</th><td class="num">7.40</td><td class="num">7.10</td></tr>
+        <tr><th scope="row">Hydrogen ion concentration</th><td class="num">?</td><td class="num">?</td></tr>
+        <tr><th scope="row">Enzyme activity</th><td>Normal</td><td>Reduced</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="predict">
+    <p class="tag">Predict before you look</p>
+    <p>Pick one: the hydrogen ion concentration went up by about 4 percent, by about 30 percent, or it roughly doubled. Write your pick down. We come back to it on slide 26, once you can calculate it yourself.</p>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">03</span>
+    <div><p class="slide-eyebrow">Atoms</p><h2 class="slide-title">Three particles, and only one of them moves</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-5a-atoms.jpg" alt="Diagram of an atom. Electrons in orbitals around a nucleus of protons and neutrons. Electrons form covalent bonds, create ions when gained or lost, capture and store energy, and create free radicals. Protons determine the element. Neutrons determine the isotope. Two or more atoms share electrons to form molecules, such as water."><figcaption><b>Figure 2.5a.</b> Protons and neutrons stay in the nucleus. Electrons sit in orbitals around it, and they are the part of the atom that does chemistry. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li><b>Protons</b> decide which element it is. The proton count is the atomic number.</li>
+  <li><b>Neutrons</b> decide which isotope it is. Change the neutron count and you have the same element with a different mass.</li>
+  <li><b>Electrons</b> do everything else. Every bond, every ion, every stored packet of energy, and every free radical is an electron story.</li>
+</ul>
+<h3>Electrons have four jobs in physiology</h3>
+<ul class="bul">
+  <li>Shared between atoms, they make <b>covalent bonds</b>.</li>
+  <li>Gained or lost, they make <b>ions</b>.</li>
+  <li>Pushed to a higher orbital, they <b>hold energy</b>. That is how ATP and NADH carry it.</li>
+  <li>Left unpaired, they make <b>free radicals</b>, which are reactive and damaging.</li>
+</ul>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">04</span>
+    <div><p class="slide-eyebrow">Atoms</p><h2 class="slide-title">Isotopes and ions</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-5c-isotopes-ions.jpg" alt="Hydrogen gains a neutron to become the isotope deuterium. Hydrogen loses its electron to become a hydrogen ion. An atom that gains or loses electrons becomes an ion of the same element."><figcaption><b>Figure 2.5c.</b> Add a neutron and you get an isotope of the same element. Lose an electron and you get an ion. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li>An <b>isotope</b> has the same protons and a different number of neutrons. Chemically it behaves the same. Some isotopes are unstable and give off radiation, which is the basis of nuclear medicine.</li>
+  <li>An <b>ion</b> has gained or lost electrons and now carries a charge. Chemically it behaves very differently from the neutral atom, because charge decides what it can bind and where it can go.</li>
+  <li>A hydrogen atom that loses its one electron is just a bare proton. That is the H+ that pH measures.</li>
+</ul>
+<div class="clin"><button class="clin-btn" type="button" aria-controls="clin1" aria-expanded="false"><span>What this means in the clinic</span><span class="chev" aria-hidden="true">&#9656;</span></button><div class="clin-body" id="clin1" hidden><div class="clin-grid"><div class="cprof n"><p class="who">Nursing</p><p class="means">Radioactive tracers are given as a normal molecule carrying an unstable isotope, so the body handles it exactly as it would the ordinary version.</p><p class="eg"><b>Example:</b> A patient going for a bone scan gets a phosphate compound tagged with technetium. Bone takes up the phosphate as usual, and the isotope reports where it went.</p></div><div class="cprof x"><p class="who">Radiologic technology</p><p class="means">Nuclear medicine imaging is built on isotopes. The camera sees the radiation, and the physiology decides where the isotope goes.</p><p class="eg"><b>Example:</b> Iodine 131 collects in the thyroid because the gland cannot tell it from ordinary iodine.</p></div><div class="cprof m"><p class="who">Medicine</p><p class="means">A hydrogen ion is a proton with nothing else attached, which is why it is so small and so reactive.</p><p class="eg"><b>Example:</b> Acid base disorders are really disorders of free proton concentration, and every buffer in the body exists to soak protons up.</p></div><div class="cprof r"><p class="who">Respiratory therapy</p><p class="means">Two isotopes of oxygen behave the same way in the lung, which is what lets researchers trace where oxygen ends up.</p><p class="eg"><b>Example:</b> Oxygen 18 labelled water is used to measure total energy expenditure in patients.</p></div></div></div></div></div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">05</span>
+    <div><p class="slide-eyebrow">Bonds</p><h2 class="slide-title">Covalent bonds make molecules</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-6ab-covalent.jpg" alt="Covalent bonds result when atoms share electrons. Nonpolar molecules such as a fatty acid have an even distribution of electrons. Polar molecules such as water have regions of partial charge, a negative pole at the oxygen and positive poles at the hydrogens."><figcaption><b>Figure 2.6a and b.</b> Covalent bonds share electrons and take the most energy to make or break. A fatty acid shares them evenly and is nonpolar. Water shares them unevenly and is polar. Silverthorn 9e, Pearson.</figcaption></figure><div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li>A <b>covalent bond</b> is two atoms sharing a pair of electrons. It is strong, and it takes energy to make or break.</li>
+    <li>Single, double and triple bonds share one, two or three pairs. A double bond in a fatty acid is a kink in the chain, and that kink is the difference between butter and oil.</li>
+  </ul></div>
+  <div><ul class="bul">
+    <li>If the atoms share evenly, the molecule is <b>nonpolar</b>. Mostly carbon and hydrogen.</li>
+    <li>If one atom pulls harder, the molecule is <b>polar</b>. Water is the important one. Oxygen pulls the electrons toward itself, so the oxygen end is slightly negative and the hydrogen ends slightly positive.</li>
+  </ul></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">06</span>
+    <div><p class="slide-eyebrow">Bonds</p><h2 class="slide-title">Noncovalent bonds are the reversible ones</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-6cde-noncovalent.jpg" alt="Ionic bonds are electrostatic attractions between ions, as when sodium gives an electron to chlorine to form sodium chloride. Hydrogen bonds form between a hydrogen atom and a nearby oxygen, nitrogen or fluorine atom, and hold water molecules to one another, producing surface tension. Van der Waals forces are weak nonspecific attractions between atoms."><figcaption><b>Figure 2.6c to e.</b> Ionic bonds, hydrogen bonds and van der Waals forces. Weak individually, and that weakness is the point: they can be made and broken without spending much energy. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li><b>Ionic bond</b>: opposite charges attract. Sodium hands an electron to chlorine and the two ions stick together as a crystal. Put the crystal in water and they let go.</li>
+  <li><b>Hydrogen bond</b>: a slightly positive hydrogen on one polar molecule is drawn to a slightly negative oxygen, nitrogen or fluorine on another. One is feeble. Millions of them give water its surface tension and hold the two strands of DNA together.</li>
+  <li><b>Van der Waals forces</b>: fleeting attractions between any two atoms that get close. Nonspecific, and only matter when two surfaces fit closely.</li>
+</ul>
+<div class="predict">
+  <p class="tag">Why the body runs on weak bonds</p>
+  <p>A hormone that bound its receptor with covalent bonds would never let go. The signal could never be turned off. Every reversible interaction in physiology, binding, recognition, folding, runs on these weak bonds because weak bonds can be undone.</p>
+</div>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">07</span>
+    <div><p class="slide-eyebrow">Ions</p><h2 class="slide-title">The ions that run physiology</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <ul class="bul">
+      <li>A <b>cation</b> has lost electrons and is positive. An <b>anion</b> has gained electrons and is negative.</li>
+      <li>An <b>electrolyte</b> is anything that separates into ions in water. The name comes from the fact that the solution conducts electricity.</li>
+      <li>Charge is what keeps an ion from crossing the oily middle of a membrane by itself. Every ion that moves in the body moves through a protein. Hold onto that. It generates most of weeks 3, 4 and 5.</li>
+    </ul>
+  </div>
+  <div>
+    <table class="tbl">
+      <caption>Table 2.2, the short list to know now</caption>
+      <thead><tr><th scope="col">Cations</th><th scope="col">Anions</th></tr></thead>
+      <tbody>
+        <tr><td>Sodium, Na+</td><td>Chloride, Cl-</td></tr>
+        <tr><td>Potassium, K+</td><td>Bicarbonate, HCO3-</td></tr>
+        <tr><td>Calcium, Ca2+</td><td>Phosphate, HPO4 2-</td></tr>
+        <tr><td>Hydrogen, H+</td><td>Sulfate, SO4 2-</td></tr>
+        <tr><td>Magnesium, Mg2+</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div><div class="clin"><button class="clin-btn" type="button" aria-controls="clin2" aria-expanded="false"><span>What this means in the clinic</span><span class="chev" aria-hidden="true">&#9656;</span></button><div class="clin-body" id="clin2" hidden><div class="clin-grid"><div class="cprof n"><p class="who">Nursing</p><p class="means">Potassium matters more than the other electrolytes because the heart's ability to fire depends on it.</p><p class="eg"><b>Example:</b> Potassium is replaced with monitoring and never pushed fast, because the margin between correcting it and causing an arrhythmia is small.</p></div><div class="cprof x"><p class="who">Radiologic technology</p><p class="means">Ionizing radiation is named for exactly this. The beam knocks electrons off atoms in tissue and leaves charged particles behind.</p><p class="eg"><b>Example:</b> Most of that happens in water, because water is most of the tissue. The reactive fragments go on to damage DNA, and that chain is the reason dose limits and shielding exist.</p></div><div class="cprof m"><p class="who">Medicine</p><p class="means">A charged particle cannot get through a membrane by itself. Every ion that moves needs a protein to go through.</p><p class="eg"><b>Example:</b> A drug that blocks one kind of channel can change the behavior of an entire organ.</p></div><div class="cprof r"><p class="who">Respiratory therapy</p><p class="means">Electrolytes decide how hard a muscle can pull, and breathing is muscle work.</p><p class="eg"><b>Example:</b> Low potassium or low phosphate weakens the diaphragm, which shows up as a failed weaning trial rather than as breathlessness.</p></div></div></div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">08</span>
+    <div><p class="slide-eyebrow">Solved problem 1</p><h2 class="slide-title">How heavy is one molecule of glucose?</h2></div>
+    <span class="slide-beat">Solve</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Glucose is C6H12O6. Find its molecular mass, then do the same for table salt, NaCl.</p>
+    <table class="tbl">
+      <caption>Atomic masses you are given</caption>
+      <thead><tr><th scope="col">Element</th><th scope="col">Mass, Da</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Carbon, C</th><td class="num">12</td></tr>
+        <tr><th scope="row">Hydrogen, H</th><td class="num">1</td></tr>
+        <tr><th scope="row">Oxygen, O</th><td class="num">16</td></tr>
+        <tr><th scope="row">Sodium, Na</th><td class="num">23</td></tr>
+        <tr><th scope="row">Chlorine, Cl</th><td class="num">35.5</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="font-size:14px;margin-top:10px">A dalton (Da) and an atomic mass unit (amu) are the same thing.</p>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="sp1" aria-expanded="false">Show the work</button><div class="rv" id="sp1" hidden><p class="tag">Solved</p><ol class="work"><li>Count each element in the formula. Glucose has 6 carbons, 12 hydrogens and 6 oxygens.</li><li>Multiply each count by its atomic mass. Carbon: 6 &times; 12 = 72. Hydrogen: 12 &times; 1 = 12. Oxygen: 6 &times; 16 = 96.</li><li>Add them. 72 + 12 + 96 = <b>180 Da</b>. One molecule of glucose weighs 180 daltons.</li><li>Sodium chloride: 23 + 35.5 = <b>58.5 Da</b>.</li><li>The same numbers in grams give you one mole. 180 g of glucose is one mole of glucose. 58.5 g of NaCl is one mole of NaCl. Keep both numbers, they come back in problems 2 and 3.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">09</span>
+    <div><p class="slide-eyebrow">The toolkit</p><h2 class="slide-title">Four families of biological molecules</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-5b-biomolecule-elements.jpg" alt="Top-down chart of the biomolecules. Proteins are built from amino acids in sequence, folding into alpha helices or beta sheets and then a globular or fibrous shape. Carbohydrates are monosaccharides, disaccharides and polysaccharides such as glycogen, cellulose and starch. Lipids are glycerol plus fatty acids forming monoglycerides, diglycerides and triglycerides, plus the lipid related phospholipids, eicosanoids and steroids. Nucleotides include cAMP, cGMP, ATP, ADP, FAD, NAD, RNA and DNA. Combinations include glycoproteins, glycolipids and lipoproteins."><figcaption><b>Figure 2.5b.</b> Every biological molecule belongs to one of four families, and the families combine: glycoproteins, glycolipids and lipoproteins are two families joined. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<table class="tbl">
+  <caption>What each family is for</caption>
+  <thead><tr><th scope="col">Family</th><th scope="col">Built from</th><th scope="col">Main jobs</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Carbohydrates</th><td>Sugars</td><td>Fast fuel, short term storage as glycogen, labels on cell surfaces</td></tr>
+    <tr><th scope="row">Lipids</th><td>Fatty acids, glycerol, sterol rings</td><td>Long term fuel, membranes, steroid hormones, local signals</td></tr>
+    <tr><th scope="row">Proteins</th><td>Amino acids</td><td>Almost everything that does work: enzymes, transporters, receptors, motors, structure</td></tr>
+    <tr><th scope="row">Nucleotides</th><td>Base, sugar, phosphate</td><td>Energy transfer (ATP), electron carrying (NAD, FAD), signaling (cAMP), information (DNA, RNA)</td></tr>
+  </tbody>
+</table>
+<p class="muted" style="font-size:14.5px;margin-top:10px">Most biomolecules contain carbon, hydrogen and oxygen. Proteins and nucleotides add nitrogen. Nucleotides and phospholipids add phosphorus.</p>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">10</span>
+    <div><p class="slide-eyebrow">Carbohydrates</p><h2 class="slide-title">Sugars, single and chained</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-2a-monosaccharides.jpg" alt="Monosaccharides. Five carbon sugars: ribose, which forms the backbone of RNA, and deoxyribose, which forms the backbone of DNA. Six carbon sugars: fructose, glucose also called dextrose, and galactose. Glucose and galactose differ only in the spatial arrangement of the hydroxyl groups."><figcaption><b>Figure 2.2a.</b> The pentoses ribose and deoxyribose build RNA and DNA. The hexoses glucose, fructose and galactose are fuel, and glucose is the one the body regulates. Silverthorn 9e, Pearson.</figcaption></figure><div style="margin-top:14px"><figure><img class="fig" src="assets/silverthorn-ch02/fig2-2d-polysaccharides.jpg" alt="Polysaccharides. Animals store glucose as glycogen and chitin in invertebrates. Plants store starch and build cellulose, which humans cannot digest. Yeasts and bacteria make dextran. Digestion of starch or glycogen yields maltose and then glucose."><figcaption><b>Figure 2.2d.</b> Polysaccharides are glucose polymers. Animals store glucose as glycogen, plants as starch. Cellulose is glucose too, but humans cannot digest the bond that holds it together. Silverthorn 9e, Pearson.</figcaption></figure></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">11</span>
+    <div><p class="slide-eyebrow">Carbohydrates</p><h2 class="slide-title">Two sugars joined</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-2c-disaccharides.jpg" alt="Disaccharides consist of glucose plus another monosaccharide. Sucrose, table sugar, is glucose plus fructose. Maltose is glucose plus glucose. Lactose is galactose plus glucose."><figcaption><b>Figure 2.2c.</b> Sucrose is glucose plus fructose. Maltose is glucose plus glucose. Lactose is galactose plus glucose. Each needs its own enzyme to split it. Silverthorn 9e, Pearson.</figcaption></figure><div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li>Glucose and galactose are the same atoms in a slightly different arrangement. One hydroxyl group points the other way. That one difference is why they need different enzymes and different transporters.</li>
+    <li>This is the first place shape shows up. Same formula, different shape, different treatment by the body.</li>
+  </ul></div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="q11" aria-expanded="false">Why can some adults not drink milk?</button><div class="rv" id="q11" hidden><p class="tag">Shape, again</p><p>Lactose has to be split into galactose and glucose by the enzyme lactase before the gut can absorb it. Many adults stop making lactase. The unsplit lactose stays in the gut, pulls water in with it, and feeds the bacteria of the colon. The problem is not the sugar. It is a missing protein whose binding site fits that one shape.</p></div></div></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">12</span>
+    <div><p class="slide-eyebrow">Lipids</p><h2 class="slide-title">Fatty acids and the fats built from them</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-1a-fatty-acids.jpg" alt="Fatty acids are long chains of carbon atoms bound to hydrogens with a carboxyl group at one end. Palmitic acid is saturated, with no double bonds, and is likely to be solid at room temperature. Oleic acid is monounsaturated with one double bond. Linolenic acid is polyunsaturated with two or more double bonds."><figcaption><b>Figure 2.1a.</b> A fatty acid is a carbon chain with a carboxyl group at one end. No double bonds is saturated. One is monounsaturated. Two or more is polyunsaturated. Silverthorn 9e, Pearson.</figcaption></figure></div><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-1b-lipid-formation.jpg" alt="Formation of lipids. Glycerol is a three carbon molecule. Glycerol plus one fatty acid produces a monoglyceride, plus two a diglyceride, plus three a triglyceride. More than ninety percent of lipids are in the form of triglycerides."><figcaption><b>Figure 2.1b.</b> Glycerol plus one, two or three fatty acids gives a mono, di or triglyceride. More than 90 percent of the body's lipid is triglyceride. Silverthorn 9e, Pearson.</figcaption></figure><ul class="bul" style="margin-top:12px">
+  <li>Lipids are mostly carbon and hydrogen, so they are nonpolar and do not dissolve in water. That is the whole reason they need carrier proteins in blood.</li>
+  <li>A double bond puts a kink in the chain. Kinked chains cannot pack tightly, so unsaturated fats are liquid at room temperature and saturated fats are solid.</li>
+</ul></div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">13</span>
+    <div><p class="slide-eyebrow">Lipids</p><h2 class="slide-title">The lipid relatives that do signaling and structure</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-1c-lipid-related.jpg" alt="Lipid related molecules. Eicosanoids are modified twenty carbon fatty acids with a ring and two long carbon tails, such as prostaglandin E2, and act as regulators of physiological functions. Steroids are lipid related molecules with four linked carbon rings, such as cholesterol and cortisol. Phospholipids have two fatty acids and a phosphate group and are important components of animal cell membranes."><figcaption><b>Figure 2.1c.</b> Eicosanoids are modified 20 carbon fatty acids that act as local signals. Steroids are four ring molecules built from cholesterol. Phospholipids are two fatty acids plus a phosphate group, and they build every membrane. Silverthorn 9e, Pearson.</figcaption></figure><div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li><b>Eicosanoids</b> (prostaglandins, leukotrienes, thromboxanes) are made on demand from a fatty acid in the membrane and act nearby. Aspirin and ibuprofen work by blocking the enzyme that makes them.</li>
+    <li><b>Steroids</b> all start from cholesterol. Cortisol, aldosterone, estrogen and testosterone are cholesterol with small edits, and because they are lipids they pass straight through membranes.</li>
+  </ul></div>
+  <div><ul class="bul">
+    <li><b>Phospholipids</b> are the reason cells exist. A phosphate head that loves water, two fatty acid tails that hate it. Put them in water and they arrange themselves into a double layer with the tails hidden inside. That double layer is next week.</li>
+  </ul></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">14</span>
+    <div><p class="slide-eyebrow">Proteins</p><h2 class="slide-title">Amino acids and the peptide bond</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-3a-amino-acids.jpg" alt="All amino acids have a carboxyl group, an amino group and a hydrogen attached to the same carbon. The fourth bond attaches to a variable R group. The nitrogen in the amino group makes proteins our major dietary source of nitrogen. R groups differ in size, shape and ability to form hydrogen bonds or ions. In a peptide bond, the amino group of one amino acid joins the carboxyl group of the other with the loss of water."><figcaption><b>Figure 2.3a.</b> Every amino acid has an amino group, a carboxyl group, a hydrogen and one variable R group on the same carbon. The R group is the only thing that differs between the twenty. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li>Twenty amino acids build human proteins. Nine are <b>essential</b>, meaning we cannot make them and must eat them.</li>
+  <li>The <b>R group</b> is where the personality lives. Some R groups are charged, some are polar, some are oily, one contains sulfur. Which R groups sit where decides how the chain folds.</li>
+  <li>A <b>peptide bond</b> joins the amino group of one amino acid to the carboxyl group of the next, releasing a water molecule. It is covalent, so a protein chain does not fall apart on its own.</li>
+  <li>Two to nine amino acids is an oligopeptide, ten to a hundred a polypeptide, more than a hundred a protein. Insulin, at 51, is technically a polypeptide, which is why you will see it called both.</li>
+</ul>
+<p class="muted" style="font-size:14px">A few amino acids never appear in proteins and still matter. GABA is a brain signal. Creatine stores energy in muscle. Homocysteine in excess is linked to heart disease.</p>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">15</span>
+    <div><p class="slide-eyebrow">Proteins</p><h2 class="slide-title">Four levels of structure, one shape at the end</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="grid g2">
+  <div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-3c-primary.jpg" alt="Primary structure is the sequence of amino acids in a peptide chain, like letters forming words. Oligopeptides have two to nine amino acids, polypeptides ten to one hundred, proteins more than one hundred."><figcaption><b>Figure 2.3c. Primary.</b> The order of amino acids. Set by the gene, held by peptide bonds. Silverthorn 9e, Pearson.</figcaption></figure></div>
+  <div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-3d-secondary.jpg" alt="Secondary structure is created primarily by hydrogen bonds between adjacent chains or loops, forming an alpha helix or beta strands that form sheets."><figcaption><b>Figure 2.3d. Secondary.</b> Local folding into alpha helices and beta sheets, held by hydrogen bonds along the backbone. Silverthorn 9e, Pearson.</figcaption></figure></div>
+  <div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-3e-tertiary.jpg" alt="Tertiary structure is the protein's three dimensional shape. Fibrous proteins such as collagen are usually insoluble. Globular proteins are usually soluble."><figcaption><b>Figure 2.3e. Tertiary.</b> The full three dimensional shape, held by weak bonds between R groups and sometimes by disulfide bridges. Fibrous proteins are insoluble, globular ones dissolve. Silverthorn 9e, Pearson.</figcaption></figure></div>
+  <div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-3f-quaternary.jpg" alt="Quaternary structure. Multiple subunits combine with noncovalent bonds. Hemoglobin molecules are made from four globular protein subunits."><figcaption><b>Figure 2.3f. Quaternary.</b> Several folded chains held together by noncovalent bonds. Hemoglobin is four subunits. Silverthorn 9e, Pearson.</figcaption></figure></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">16</span>
+    <div><p class="slide-eyebrow">Proteins</p><h2 class="slide-title">Why the shape is the job</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-8c-shape.jpg" alt="Molecular shape. Covalent bond angles, ionic bonds, hydrogen bonds and van der Waals forces all interact to produce the distinctive shape of a complex biomolecule. A folded protein is shown with a key marking hydrogen bonds or van der Waals forces, ionic bonds, ionic repulsion and disulfide bonds."><figcaption><b>Figure 2.8c.</b> Covalent bond angles, ionic bonds, hydrogen bonds and van der Waals forces all pull on the chain at once. The shape they settle into is what the protein can do. Silverthorn 9e, Pearson.</figcaption></figure><div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li>Only the primary structure is held by strong covalent bonds. Levels two, three and four are held mostly by the weak bonds from slide 6. That is deliberate. It lets a protein flex when something binds it.</li>
+    <li>It also means heat, pH and salt can undo the fold without touching the chain. That is <b>denaturation</b>: same amino acids, wrong shape, no function.</li>
+  </ul></div>
+  <div><ul class="bul">
+    <li>The one covalent bond that helps hold a fold is the <b>disulfide bond</b>, sulfur to sulfur between two cysteines. Insulin is two chains held by disulfide bonds. Hair is full of them, and a permanent wave works by breaking and re-forming them.</li>
+    <li>Change the pH and you change which R groups carry a charge. Change the charges and you change which ionic bonds hold. That is the mechanism behind today's opening problem. Hold onto it.</li>
+  </ul></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">17</span>
+    <div><p class="slide-eyebrow">Nucleotides</p><h2 class="slide-title">Base, sugar, phosphate</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-4a-nucleotide.jpg" alt="A nucleotide consists of one or more phosphate groups, a five carbon sugar, ribose or deoxyribose, and a carbon nitrogen ring structure called a nitrogenous base. Purines adenine and guanine have a double ring. Pyrimidines cytosine, thymine and uracil have a single ring. Adenine plus ribose is adenosine."><figcaption><b>Figure 2.4a.</b> A nucleotide is one or more phosphate groups, a five carbon sugar, and a nitrogenous base. Purines have two rings, pyrimidines have one. Silverthorn 9e, Pearson.</figcaption></figure></div><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-4b-single-nucleotides.jpg" alt="Table of single nucleotide molecules. ATP is adenine plus ribose plus three phosphate groups. ADP has two phosphate groups. NAD is adenine plus two ribose plus two phosphates plus nicotinamide. FAD adds riboflavin. These capture and transfer energy. cAMP is adenine plus ribose plus one phosphate group and is used in cell to cell communication."><figcaption><b>Figure 2.4b.</b> Single nucleotides carry energy and carry signals. ATP, ADP, NAD and FAD move energy. cAMP moves messages inside cells. Silverthorn 9e, Pearson.</figcaption></figure><ul class="bul" style="margin-top:12px">
+  <li>Two jobs. First, catch energy in high energy electrons or phosphate bonds and hand it to something that needs it. Second, carry information, as DNA, RNA and cAMP.</li>
+  <li>In DNA the bases pair by hydrogen bonds: A with T (two bonds), G with C (three bonds). A purine always pairs with a pyrimidine, so the two strands stay a constant width apart.</li>
+</ul></div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">18</span>
+    <div><p class="slide-eyebrow">Functional groups</p><h2 class="slide-title">The small parts that move as a unit</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">A functional group is a cluster of atoms that shows up over and over and moves between molecules as one piece.</p>
+    <table class="tbl">
+      <caption>Table 2.1, the four you will see most</caption>
+      <thead><tr><th scope="col">Group</th><th scope="col">Formula</th><th scope="col">What it does</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Amino</th><td class="num">NH2</td><td>Accepts H+, so it acts as a base. On every amino acid.</td></tr>
+        <tr><th scope="row">Carboxyl</th><td class="num">COOH</td><td>Gives up H+, so it acts as an acid. On every amino acid and fatty acid.</td></tr>
+        <tr><th scope="row">Hydroxyl</th><td class="num">OH</td><td>Polar, hydrogen bonds with water. Sugars are covered in them.</td></tr>
+        <tr><th scope="row">Phosphate</th><td class="num">H2PO4</td><td>Charged, holds energy in ATP, switches proteins on and off.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h3>Molecules combine across families</h3>
+    <ul class="bul">
+      <li><b>Conjugated proteins</b> carry another kind of molecule. Lipoproteins carry lipid. LDL and HDL are lipoproteins.</li>
+      <li><b>Glycosylated</b> molecules carry a sugar. Glycoproteins and glycolipids stud the outside of every cell and are how cells are recognized. Your blood type is a glycolipid.</li>
+    </ul>
+    <div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="q18" aria-expanded="false">Why phosphate is the on switch</button><div class="rv" id="q18" hidden><p class="tag">Application</p><p>Adding a phosphate group to a protein adds two negative charges at that spot. New charges pull on nearby R groups, the fold shifts, and the binding site changes shape. Kinases add phosphate, phosphatases remove it. That is how a huge fraction of cell signaling turns proteins on and off, and you will see it every week from here on.</p></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">19</span>
+    <div><p class="slide-eyebrow">Solutions</p><h2 class="slide-title">Water is the solvent for everything</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-7-solutions.jpg" alt="Terminology. A solute is any substance that dissolves in a liquid, and how easily it dissolves is its solubility. A solvent is the liquid into which solutes dissolve; in biological solutions water is the universal solvent. A solution is the combination of solutes dissolved in a solvent, and concentration is solute amount divided by volume of solution."><figcaption><b>Figure 2.7.</b> A solute dissolves in a solvent to make a solution. Concentration is the amount of solute per volume of solution. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li><b>Solute</b> is what dissolves. <b>Solvent</b> is what it dissolves in. In the body the solvent is always water, so every body fluid is an <b>aqueous</b> solution.</li>
+  <li><b>Hydrophilic</b> molecules are polar or charged and dissolve readily. <b>Hydrophobic</b> molecules are nonpolar and do not.</li>
+  <li><b>Amphipathic</b> molecules have both a polar and a nonpolar region. Phospholipids are the example that matters.</li>
+</ul>
+<div class="predict">
+  <p class="tag">Predict before you look</p>
+  <p>Two drugs are the same size. One is hydrophilic, one is hydrophobic. Which one will cross a cell membrane easily, and which one will need a carrier protein to travel in blood? Say why in one sentence each.</p>
+</div>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">20</span>
+    <div><p class="slide-eyebrow">Solutions</p><h2 class="slide-title">Hydrophilic and hydrophobic, up close</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-8a-hydrophilic.jpg" alt="Hydrophilic interactions. Molecules that have polar regions or ionic bonds readily interact with the polar regions of water, so they dissolve easily. Water molecules form hydration shells around sodium and chloride ions and around a glucose molecule."><figcaption><b>Figure 2.8a.</b> Water surrounds an ion or a polar molecule with a hydration shell. That shell is what dissolving actually is. Silverthorn 9e, Pearson.</figcaption></figure><div style="margin-top:14px"><figure><img class="fig" src="assets/silverthorn-ch02/fig2-8b-hydrophobic.jpg" alt="Hydrophobic interactions. Nonpolar molecules have an even distribution of electrons and no positive or negative poles, so they do not dissolve in water. Phospholipid molecules have polar heads and nonpolar tails and arrange themselves so the heads face water and the tails are directed away from water, forming bilayers."><figcaption><b>Figure 2.8b.</b> Nonpolar molecules have no partial charges for water to grab, so water pushes them together. Phospholipids line up with heads in water and tails away from it, and a membrane is born. Silverthorn 9e, Pearson.</figcaption></figure></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">21</span>
+    <div><p class="slide-eyebrow">Concentration</p><h2 class="slide-title">Saying how much is in there</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><div class="eq"><p class="f">Molarity (M) = moles of solute &divide; liters of solution</p><p class="k"><b>Units:</b> mol/L, written M. Body fluids are dilute, so values are usually mmol/L, written mM.</p><p class="says">What it says: <b>molarity counts particles, not mass.</b> Equal masses of two solutes are not equal numbers of molecules, and it is the number of molecules that does the work.</p></div><div class="eq"><p class="f">Percent solution = grams of solute per 100 mL of solution</p><p class="k"><b>Units:</b> g/100 mL. A 5 percent solution is 5 g in every 100 mL. Pharmacies and IV bags use this because they weigh, they do not count moles.</p><p class="says">What it says: <b>the same number means different amounts of particles for different solutes,</b> because their molecules weigh different amounts.</p></div></div><div><div class="eq"><p class="f">Equivalents (Eq) = moles &times; charge on the ion</p><p class="k"><b>Units:</b> mEq/L for ions in blood. Na+ has 1 Eq per mole. Ca2+ has 2. HPO4 2- has 2.</p><p class="says">What it says: <b>one mole of calcium carries twice the charge of one mole of sodium.</b> Body fluids must stay electrically neutral, so charge matters as much as particle count.</p></div><h3>Two more units you will read on lab reports</h3>
+<ul class="bul">
+  <li><b>mg/dL</b> is milligrams per deciliter, a deciliter being 100 mL. Glucose, calcium and cholesterol are usually reported this way in the United States.</li>
+  <li><b>One mole</b> is 6.02 &times; 10<sup>23</sup> particles, and the molecular mass in grams is one mole of that substance. That is the bridge between weighing and counting.</li>
+</ul>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">22</span>
+    <div><p class="slide-eyebrow">Solved problem 2</p><h2 class="slide-title">Make a bag of D5W, then say how strong it is</h2></div>
+    <span class="slide-beat">Solve</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">D5W is 5 percent dextrose (glucose) in water. It is one of the most common IV fluids there is.</p>
+    <ul class="bul">
+      <li>Part A. How many grams of glucose are in a 500 mL bag of D5W?</li>
+      <li>Part B. What is the molarity of D5W, in mM? You know from problem 1 that glucose is 180 g per mole.</li>
+    </ul>
+    <div class="predict"><p class="tag">Before the answer opens</p><p>Estimate part A in your head. 5 percent of 500 is a number you can get without a calculator.</p></div>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="sp2" aria-expanded="false">Show the work</button><div class="rv" id="sp2" hidden><p class="tag">Solved</p><ol class="work"><li>Part A. A 5 percent solution is 5 g in every 100 mL. A 500 mL bag is five of those. 5 &times; 5 g = <b>25 g of glucose</b>, with water added until the total volume is 500 mL.</li><li>Part B. Work with one liter. A 5 percent solution has 5 g per 100 mL, so 50 g per 1000 mL, which is 50 g/L.</li><li>Convert grams to moles. 50 g &divide; 180 g/mol = 0.278 mol.</li><li>That is 0.278 mol in one liter, so <b>0.278 M, which is 278 mM</b>.</li><li>Why it matters: body fluids sit near 280 to 300 milliosmoles per liter, and D5W was designed to land close to that so the bag does not shrink or swell the red cells it meets. The pharmacy label reads 252 mOsm/L rather than 278 because the dextrose in the bag is the monohydrate form, 198 g per mole. Same reasoning, slightly heavier molecule. Next week you will see what happens once the glucose is taken up and only water is left.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">23</span>
+    <div><p class="slide-eyebrow">Solved problem 3</p><h2 class="slide-title">Normal saline, in every unit the chart uses</h2></div>
+    <span class="slide-beat">Solve</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Normal saline is 0.9 percent NaCl. NaCl is 58.5 g per mole and splits completely into Na+ and Cl- in water.</p>
+    <ul class="bul">
+      <li>Part A. What is the sodium concentration of normal saline in mM?</li>
+      <li>Part B. What is it in mEq/L?</li>
+      <li>Part C. Plasma calcium is 2.5 mmol/L. Calcium is Ca2+ and weighs 40 g per mole. Give that value in mEq/L and in mg/dL.</li>
+    </ul>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="sp3" aria-expanded="false">Show the work</button><div class="rv" id="sp3" hidden><p class="tag">Solved</p><ol class="work"><li>Part A. 0.9 percent is 0.9 g per 100 mL, so 9 g per liter. 9 g &divide; 58.5 g/mol = 0.154 mol/L. Every NaCl gives one Na+, so <b>sodium is 154 mM</b>, and chloride is 154 mM as well.</li><li>Part B. Sodium carries one charge, so equivalents equal moles. <b>154 mEq/L</b>. Compare plasma, about 140 mEq/L. Saline is a little saltier than you are.</li><li>Part C, equivalents. Calcium carries two charges. 2.5 mmol/L &times; 2 = <b>5 mEq/L</b>.</li><li>Part C, mass. 2.5 mmol/L &times; 40 mg/mmol = 100 mg/L. A deciliter is a tenth of a liter, so <b>10 mg/dL</b>. That is exactly the number on a metabolic panel.</li><li>The lesson: the same calcium reads 2.5, 5 or 10 depending on the unit. Whenever a value looks strange, check the unit before you check the physiology.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">24</span>
+    <div><p class="slide-eyebrow">pH</p><h2 class="slide-title">A narrow window, defended hard</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<figure><img class="fig" src="assets/silverthorn-ch02/fig2-9-ph-scale.jpg" alt="The pH scale from 0, extremely acidic, to 14, extremely basic. Stomach acid is near 1, lemon juice 2, vinegar and cola 3, urine 4.5 to 7, saliva near 6.5, pure water 7, blood 7.4, pancreatic secretions 8, baking soda 8.5, household ammonia 11, chemical hair removers 12, one molar sodium hydroxide 14. Homeostatic regulation is critical because blood pH less than 7.00 or greater than 7.70 is incompatible with life."><figcaption><b>Figure 2.9.</b> The scale runs 0 to 14 and each step is ten times the hydrogen ion concentration of the step above. Arterial blood is held at 7.40, and a pH below 7.00 or above 7.70 is not compatible with life. Silverthorn 9e, Pearson.</figcaption></figure><div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li>An <b>acid</b> gives up H+ in water. The carboxyl group does this. A <b>base</b> takes H+ out of solution, either by binding it directly, like ammonia, or by releasing OH- that combines with it, like sodium hydroxide.</li>
+    <li>Water itself is 1 &times; 10<sup>-7</sup> M in H+, which is pH 7.</li>
+  </ul></div>
+  <div><ul class="bul">
+    <li>Arterial blood is <b>7.35 to 7.45</b>. Inside most cells is a little lower, about 7.0 to 7.2. Stomach contents are near 1 to 3, and urine can swing from about 4.5 to 8.</li>
+    <li>The scale is logarithmic. From pH 8 to pH 6 is not twice the acid, it is a hundred times the acid.</li>
+  </ul></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">25</span>
+    <div><p class="slide-eyebrow">pH</p><h2 class="slide-title">What the equation is actually saying</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><div class="eq"><p class="f">pH = &minus;log [H+]</p><p class="k"><b>The log is the point.</b> Square brackets mean concentration. A drop of one pH unit is a tenfold rise in hydrogen ion concentration. A drop of 0.3 is a doubling.</p><p class="says">What it says: <b>pH runs backwards.</b> More acid means a lower number, and small changes in the number are large changes in the acid.</p></div><div class="eq"><p class="f">[H+] = 10<sup>&minus;pH</sup></p><p class="k">The same equation turned around. Use it to get from a pH on a blood gas report back to an actual concentration.</p><p class="says">What it says: <b>normal arterial [H+] is about 40 nanomolar.</b> That is a millionth of the sodium concentration, and it is defended more tightly than anything else in the body.</p></div></div><div>
+<h3>Why the body cares this much</h3>
+<ul class="bul">
+  <li>Free H+ can join in hydrogen bonds and ionic bonds. Enough of it changes which R groups on a protein carry a charge.</li>
+  <li>Change the charges and the weak bonds holding the tertiary structure shift. The binding site changes shape. The protein works worse, or not at all.</li>
+  <li>A <b>buffer</b> is anything that soaks up H+ when there is too much and releases it when there is too little. Proteins buffer, phosphate buffers, and bicarbonate is the big one in blood. You build the bicarbonate system properly in week 13.</li>
+</ul>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">26</span>
+    <div><p class="slide-eyebrow">Solved problem 4</p><h2 class="slide-title">Back to the patient: how much did the acid change?</h2></div>
+    <span class="slide-beat">Solve</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Three parts, building up. Use pH = &minus;log [H+] and [H+] = 10<sup>&minus;pH</sup>.</p>
+    <ul class="bul">
+      <li>Part A. Warm up from the book. A solution has [H+] = 1 &times; 10<sup>&minus;7</sup> M. What is its pH?</li>
+      <li>Part B. Normal arterial [H+] is 40 nM, which is 4 &times; 10<sup>&minus;8</sup> M. Show that this gives pH 7.40.</li>
+      <li>Part C. Our patient dropped to pH 7.10. What is their [H+] now, and how many times higher is it than yesterday? Check your slide 2 guess.</li>
+    </ul>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="sp4" aria-expanded="false">Show the work</button><div class="rv" id="sp4" hidden><p class="tag">Solved</p><ol class="work"><li>Part A. pH = &minus;log(10<sup>&minus;7</sup>). The log of 10 to a power is the power, so log(10<sup>&minus;7</sup>) = &minus;7, and the minus sign in front makes it <b>pH 7</b>.</li><li>Part B. Split 4 &times; 10<sup>&minus;8</sup> into two logs: log(4) + log(10<sup>&minus;8</sup>) = 0.60 + (&minus;8) = &minus;7.40. Flip the sign: <b>pH 7.40</b>. Worth memorizing: 40 nM is 7.40.</li><li>Part C. [H+] = 10<sup>&minus;7.10</sup>. Write it as 10<sup>0.90</sup> &times; 10<sup>&minus;8</sup>. 10<sup>0.90</sup> is about 7.9, so [H+] is about <b>79 nM</b>.</li><li>79 &divide; 40 is close to <b>2</b>. The acid roughly doubled. A change of 0.30 on the pH scale is always a factor of 2, because log(2) is 0.30.</li><li>That is the answer to the opening problem. The pH moved by a number that looks small, the hydrogen ion concentration doubled, and doubling the free protons is enough to change which R groups are charged on proteins throughout the body.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">27</span>
+    <div><p class="slide-eyebrow">Protein interactions</p><h2 class="slide-title">The jobs proteins do</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/summary-protein-categories.jpg" alt="Functional categories of proteins: enzymes, membrane transporters, signal molecules, receptors, binding proteins, immunoglobulins, molecular motors, structural proteins, regulatory proteins. Fibrous proteins and globular proteins are illustrated."><figcaption><b>Chapter 2 summary.</b> Nine functional categories. Two shapes underneath them: fibrous proteins for structure, globular proteins for nearly everything else. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<table class="tbl">
+  <caption>Where you will meet each one</caption>
+  <thead><tr><th scope="col">Category</th><th scope="col">Example, and the week it lands</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Enzymes</th><td>Lactase. Week 2 lab and week 12</td></tr>
+    <tr><th scope="row">Membrane transporters</th><td>The sodium potassium pump. Week 3</td></tr>
+    <tr><th scope="row">Signal molecules</th><td>Insulin. Week 8</td></tr>
+    <tr><th scope="row">Receptors</th><td>The insulin receptor. Week 4 and 8</td></tr>
+    <tr><th scope="row">Binding proteins</th><td>Hemoglobin. Week 11 and 13</td></tr>
+    <tr><th scope="row">Immunoglobulins</th><td>Antibodies. Week 11</td></tr>
+    <tr><th scope="row">Motor proteins</th><td>Myosin. Week 7</td></tr>
+    <tr><th scope="row">Structural</th><td>Collagen. Everywhere</td></tr>
+    <tr><th scope="row">Regulatory</th><td>Transcription factors. Week 8</td></tr>
+  </tbody>
+</table>
+<p class="muted" style="font-size:14.5px;margin-top:10px">Every one of these works the same way underneath: something binds, the protein changes shape, and the shape change does the job. The rest of today is that one mechanism.</p>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">28</span>
+    <div><p class="slide-eyebrow">Binding</p><h2 class="slide-title">Specificity and induced fit</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-10-induced-fit.jpg" alt="The induced fit model of protein ligand binding. A protein with two binding sites is shown with two ligands, L1 and L2. The binding site shape is not an exact match to the ligand shape until the ligand binds."><figcaption><b>Figure 2.10.</b> The binding site is not an exact mold of the ligand. The two adjust to each other as they meet. A protein can have more than one binding site, and each is selective. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li>A <b>ligand</b> is anything that binds to a protein. A substrate, a hormone, a drug, an ion.</li>
+  <li><b>Specificity</b>: a protein binds one ligand or a small family of very similar ones, because the binding site and the ligand have to be <b>complementary</b> in shape and charge.</li>
+  <li><b>Induced fit</b>: neither side is rigid. Binding pulls the site into its working shape, which is how binding can switch a protein on.</li>
+  <li><b>Isoforms</b> are closely related proteins that do the same job with different affinity, often in different tissues. Fetal hemoglobin is an isoform of adult hemoglobin that grips oxygen harder.</li>
+  <li><b>Competition</b>: two ligands that fit the same site compete for it. Agonists switch the protein on. Antagonists sit in the site and block it.</li>
+</ul>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">29</span>
+    <div><p class="slide-eyebrow">Binding</p><h2 class="slide-title">Affinity, equilibrium and the law of mass action</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-11ab-mass-action.jpg" alt="The law of mass action says that when protein binding is at equilibrium, the ratio of bound and unbound components remains constant. In panel a the reaction is at equilibrium and the rate of the forward reaction equals the rate of the reverse reaction. In panel b more P or L is added and the ratio of PL to P times L is less than Keq."><figcaption><b>Figure 2.11a and b.</b> At equilibrium the forward and reverse rates are equal and the ratio of bound to unbound is constant. Add more protein or ligand and the ratio is disturbed. Silverthorn 9e, Pearson.</figcaption></figure></div><div><div class="eq"><p class="f">P + L &#8652; PL &nbsp;&nbsp; K<sub>eq</sub> = [PL] &divide; ([P][L])</p><p class="k"><b>P</b> free protein, <b>L</b> free ligand, <b>PL</b> the bound pair. K<sub>eq</sub> is the equilibrium constant.</p><p class="says">What it says: <b>a larger K<sub>eq</sub> means a higher affinity.</b> More of the mix is sitting bound at any moment.</p></div><div class="eq"><p class="f">K<sub>d</sub> = [P][L] &divide; [PL] = 1 &divide; K<sub>eq</sub></p><p class="k">The dissociation constant. Numerically it is the ligand concentration at which half the protein is bound.</p><p class="says">What it says: <b>a smaller K<sub>d</sub> means a tighter grip.</b> Pharmacology reports drugs this way: a K<sub>d</sub> of 1 nM is a drug that works at very low concentration.</p></div><ul class="bul">
+  <li><b>Affinity</b> is how strongly a protein holds its ligand. Binding is reversible, so at any moment some pairs are forming and some are coming apart.</li>
+  <li><b>Law of mass action</b>: push the concentration of anything on one side and the reaction runs toward the other side until the ratio is K<sub>eq</sub> again.</li>
+</ul></div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">30</span>
+    <div><p class="slide-eyebrow">Solved problem 5</p><h2 class="slide-title">Two receptors, one dose</h2></div>
+    <span class="slide-beat">Solve</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">A drug binds receptor A with a K<sub>d</sub> of 1 nM and receptor B with a K<sub>d</sub> of 100 nM. The drug concentration in plasma is 10 nM.</p>
+    <ul class="bul">
+      <li>Part A. Which receptor has the higher affinity for the drug?</li>
+      <li>Part B. What fraction of each receptor is occupied at 10 nM? Use: fraction bound = [L] &divide; ([L] + K<sub>d</sub>).</li>
+      <li>Part C. The dose is raised so plasma hits 100 nM. What happens to each?</li>
+    </ul>
+    <div class="predict"><p class="tag">Before the answer opens</p><p>Remember that K<sub>d</sub> is the concentration at which half the sites are full. Where is 10 nM relative to each K<sub>d</sub>?</p></div>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="sp5" aria-expanded="false">Show the work</button><div class="rv" id="sp5" hidden><p class="tag">Solved</p><ol class="work"><li>Part A. Smaller K<sub>d</sub> is tighter binding. <b>Receptor A</b>, with a K<sub>d</sub> of 1 nM, holds the drug 100 times more tightly than receptor B.</li><li>Part B, receptor A. 10 &divide; (10 + 1) = 10 &divide; 11 = <b>0.91</b>. About 91 percent of receptor A is occupied.</li><li>Part B, receptor B. 10 &divide; (10 + 100) = 10 &divide; 110 = <b>0.09</b>. About 9 percent of receptor B is occupied.</li><li>Part C. At 100 nM, receptor A: 100 &divide; 101 = 0.99, essentially full, and barely changed. Receptor B: 100 &divide; 200 = <b>0.50</b>, half full, up from 9 percent.</li><li>This is the whole logic of a therapeutic window. At the low dose the drug is almost entirely on its target, receptor A. Raise the dose and the target gains almost nothing while the off target receptor starts to fill. Side effects arrive not because the drug changed, but because the mass action moved.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">31</span>
+    <div><p class="slide-eyebrow">Binding</p><h2 class="slide-title">Disturb the equilibrium and watch it recover</h2></div>
+    <span class="slide-beat">Predict</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-11cd-mass-action.jpg" alt="Panel c: the reaction rate r1 increases to convert some of the added P or L into product PL. Panel d: equilibrium is restored when PL divided by P times L equals Keq once more. The ratio of bound to unbound is always the same at equilibrium."><figcaption><b>Figure 2.11c and d.</b> After a disturbance the forward reaction speeds up, converts some of the added P or L into PL, and the ratio settles back to K<sub>eq</sub>. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<div class="predict">
+  <p class="tag">Predict before you look</p>
+  <p>Hemoglobin in the lung sits in equilibrium with oxygen: Hb + O2 &#8652; HbO2. Blood now arrives at a muscle where the oxygen concentration is much lower than in the lung. Using nothing but the law of mass action, which way does the reaction run, and what does that do to the muscle?</p>
+</div>
+<div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="q31" aria-expanded="false">Show the reasoning</button><div class="rv" id="q31" hidden><p class="tag">The chain</p><p>Lower free oxygen means [L] on the left side has dropped. The ratio [HbO2] &divide; ([Hb][O2]) is now larger than K<sub>eq</sub>, so the reaction runs in reverse: HbO2 comes apart and releases oxygen until the ratio is restored. The muscle gets oxygen for no other reason than that it used some. No signal, no controller, just mass action. Week 13 adds the details of why the curve is S shaped, but the direction is already decided here.</p></div></div>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">32</span>
+    <div><p class="slide-eyebrow">Regulation</p><h2 class="slide-title">Switching a protein on</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-12a-proteolytic.jpg" alt="Proteolytic activation. The protein is inactive until peptide fragments are removed, after which it is the active protein."><figcaption><b>Figure 2.12a.</b> Proteolytic activation. The protein is made inactive and a piece is cut off to switch it on. Digestive enzymes and clotting factors work this way. Silverthorn 9e, Pearson.</figcaption></figure><div style="margin-top:12px"><figure><img class="fig" src="assets/silverthorn-ch02/fig2-12b-cofactor.jpg" alt="Cofactors are required for an active binding site. Without the cofactor attached, the protein is not active. Cofactor binding activates the protein."><figcaption><b>Figure 2.12b.</b> Cofactors. The binding site does not work until an ion or a small organic molecule sits in it. Many trace minerals and B vitamins are cofactors. Silverthorn 9e, Pearson.</figcaption></figure></div></div><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-12c-allosteric-activator.jpg" alt="Allosteric activator is a modulator that binds to protein away from the binding site and turns it on. The protein without the modulator is inactive. The modulator binds to the protein away from the binding site and the protein becomes active."><figcaption><b>Figure 2.12c.</b> Allosteric activation. The modulator binds somewhere other than the binding site, the shape shifts, and the site becomes usable. Silverthorn 9e, Pearson.</figcaption></figure><ul class="bul" style="margin-top:12px">
+  <li>Three ways to turn a protein on. Cut it, give it a cofactor, or bind a modulator at a second site.</li>
+  <li>The word <b>allosteric</b> means other site. Anything that binds away from the working site and changes the fold is allosteric, and it can activate or inhibit.</li>
+  <li>Why make a protein inactive and switch it on later? Because a digestive enzyme that was active from the moment it was made would digest the cell that made it.</li>
+</ul></div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">33</span>
+    <div><p class="slide-eyebrow">Regulation</p><h2 class="slide-title">Switching a protein off</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-12d-competitive-inhibitor.jpg" alt="A competitive inhibitor blocks ligand binding at the binding site. The inhibitor occupies the binding site of the active protein and the ligand cannot bind, so the protein is inactive."><figcaption><b>Figure 2.12d.</b> A competitive inhibitor sits in the binding site itself. It is beaten by adding more ligand, because the two compete for the same spot. Silverthorn 9e, Pearson.</figcaption></figure></div><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-12e-allosteric-inhibitor.jpg" alt="Allosteric inhibitor is a modulator that binds to the protein away from the binding site and inactivates the binding site. The protein without the modulator is active. When the modulator binds away from the binding site the protein becomes inactive."><figcaption><b>Figure 2.12e.</b> An allosteric inhibitor binds elsewhere and deforms the binding site. More ligand does not help, because the site itself is the problem. Silverthorn 9e, Pearson.</figcaption></figure></div></div>
+<div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li><b>Reversible</b> modulators use weak bonds and let go. <b>Irreversible</b> ones bind covalently and the protein is done until the cell makes a new one. Aspirin inhibits its enzyme irreversibly, which is why one dose affects a platelet for the rest of that platelet's life.</li>
+  </ul></div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="q33" aria-expanded="false">Which inhibitor is the poison?</button><div class="rv" id="q33" hidden><p class="tag">Apply it</p><p>Carbon monoxide binds the same site on hemoglobin that oxygen does, and holds it about 200 times more tightly. It is a competitive inhibitor with an enormous affinity advantage. The treatment follows from mass action: flood the patient with 100 percent oxygen, sometimes at high pressure, so that oxygen finally outnumbers the CO at the site.</p></div></div></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">34</span>
+    <div><p class="slide-eyebrow">Regulation</p><h2 class="slide-title">Temperature and pH change the shape</h2></div>
+    <span class="slide-beat">Perturb</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-13a-temperature-ph.jpg" alt="Temperature and pH changes may disrupt protein structure and cause loss of function. Rate of protein activity plotted against temperature in degrees Celsius rises from 20 to a peak near 37 and then falls sharply, reaching zero near 50 degrees Celsius, where the protein becomes denatured. The active protein in its normal tertiary conformation is shown next to the denatured protein, an unfolded chain."><figcaption><b>Figure 2.13a.</b> Activity climbs with temperature as molecules move faster, peaks near body temperature, then collapses as the fold comes apart. The same curve applies to pH. Silverthorn 9e, Pearson.</figcaption></figure></div><div>
+<ul class="bul">
+  <li>Warm a protein and its molecules collide more often, so its activity rises. Keep warming and the weak bonds holding the fold start to break. Around 50 &deg;C (122 &deg;F) this protein has unfolded completely. That is <b>denaturation</b>.</li>
+  <li>pH does the same thing by a different route. H+ changes which R groups are charged, the ionic bonds shift, and the fold changes.</li>
+  <li>A protein that has been mildly disturbed can refold when conditions return. A protein that has been badly denatured usually cannot. A cooked egg white does not become clear again.</li>
+</ul>
+<div class="predict">
+  <p class="tag">The figure question</p>
+  <p>Is this protein more active at 30 &deg;C (86 &deg;F) or at 48 &deg;C (118 &deg;F)? Read it off the curve, then say what a fever of 41 &deg;C (105.8 &deg;F) would be doing to an enzyme with this curve.</p>
+</div>
+</div></div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">35</span>
+    <div><p class="slide-eyebrow">Regulation</p><h2 class="slide-title">More protein, more ligand, until saturation</h2></div>
+    <span class="slide-beat">Mechanism</span>
+  </header>
+  <div class="slide-body">
+<div class="two"><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-13b-amount-of-protein.jpg" alt="Amount of protein. Reaction rate depends on the amount of protein. The more protein present, the faster the rate. Response rate in milligrams per second rises in a straight line as protein concentration increases from A to B to C. In this experiment the ligand amount remained constant."><figcaption><b>Figure 2.13b.</b> With ligand held constant, rate rises in a straight line with the amount of protein. The cell uses this: up-regulation makes more protein, down-regulation makes less. Silverthorn 9e, Pearson.</figcaption></figure></div><div><figure><img class="fig" src="assets/silverthorn-ch02/fig2-13c-amount-of-ligand.jpg" alt="Amount of ligand. If the amount of binding protein is held constant, the reaction rate depends on the amount of ligand, up to the saturation point. Response rate rises with ligand concentration in milligrams per milliliter and then levels off at a maximum rate of 4 milligrams per second near 100 milligrams per milliliter. At the maximum rate the protein is said to be saturated."><figcaption><b>Figure 2.13c.</b> With protein held constant, rate rises with ligand and then flattens. At saturation every binding site is busy, and adding more ligand does nothing. Silverthorn 9e, Pearson.</figcaption></figure></div></div>
+<div class="two" style="margin-top:14px">
+  <div><ul class="bul">
+    <li><b>Up-regulation</b>: the cell makes more copies of a protein, or breaks down fewer. <b>Down-regulation</b>: the reverse. This is how a cell tunes how sensitive it is to a signal, over hours to days.</li>
+  </ul></div>
+  <div><ul class="bul">
+    <li><b>Saturation</b>: the rate has hit a ceiling set by the number of binding sites. Once you are on the flat part of the curve, the only way to go faster is more protein.</li>
+  </ul></div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">36</span>
+    <div><p class="slide-eyebrow">Solved problem 6</p><h2 class="slide-title">Read the two curves like a clinician</h2></div>
+    <span class="slide-beat">Solve</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Use figure 2.13b and c from the previous slide.</p>
+    <ul class="bul">
+      <li>Part A. On the protein graph, what is the rate when the protein concentration is A? At what protein concentration is the rate 2.5 mg/sec?</li>
+      <li>Part B. On the ligand graph, what is the rate at a ligand concentration of 200 mg/mL?</li>
+      <li>Part C. A patient's kidney reabsorbs glucose using a transporter. Blood glucose rises from 5 mM to 20 mM. Glucose starts appearing in the urine. Which graph explains it, and what is the bottleneck?</li>
+    </ul>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="sp6" aria-expanded="false">Show the work</button><div class="rv" id="sp6" hidden><p class="tag">Solved</p><ol class="work"><li>Part A. At protein concentration A the line reads <b>1 mg/sec</b>. Follow 2.5 mg/sec across to the line and drop down: it lands at <b>C</b>. Rate is proportional to the amount of protein, so two and a half times the protein gives two and a half times the rate.</li><li>Part B. 200 mg/mL is past the bend. The curve flattened at about 100 mg/mL and stays at <b>4 mg/sec</b>. Doubling the ligand from 100 to 200 changed nothing, because every site was already busy.</li><li>Part C. This is the ligand graph. The transporters in the kidney are the protein, and glucose is the ligand. At 5 mM they keep up and every glucose is reclaimed. At 20 mM the transporters are saturated. The extra glucose has nowhere to bind, so it stays in the filtrate and leaves in the urine.</li><li>The bottleneck is the number of transporters, not the amount of glucose. That is why giving the kidney more time does not help, and why the only long term fix is on the protein side, either fewer glucose molecules arriving or more transporters made.</li><li>Say it as a rule: when a response stops increasing even though the input keeps rising, look for a saturated protein.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">37</span>
+    <div><p class="slide-eyebrow">Perturb</p><h2 class="slide-title">Now explain the patient, start to finish</h2></div>
+    <span class="slide-beat">Perturb</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Arterial pH 7.40 to 7.10. Write the causal chain on paper before you open the box. Every arrow has to be something you learned today.</p>
+    <div class="predict">
+      <p class="tag">Then perturb it</p>
+      <p>Change one thing. The patient also has a fever of 40 &deg;C (104 &deg;F). Does the fever make the pH problem better, worse, or is it a separate problem? Use the temperature curve from slide 34 to defend your answer.</p>
+    </div>
+  </div>
+  <div><div class="reveal-wrap"><button class="rv-btn" type="button" aria-controls="q37" aria-expanded="false">Show the chain</button><div class="rv" id="q37" hidden><p class="tag">One version of the answer</p><ol class="work"><li>pH fell by 0.30, so free H+ roughly doubled, from about 40 nM to about 79 nM. Problem 4.</li><li>Extra H+ binds to R groups that can accept it, amino groups especially. Charges that were negative or neutral become neutral or positive. Slides 16 and 25.</li><li>The ionic bonds and hydrogen bonds that hold the tertiary fold depend on those charges. Some break, some form where they should not. Slide 6 and 16.</li><li>The fold shifts, so the binding site shifts. Complementarity with the ligand drops, and with it affinity. Slides 28 and 29.</li><li>Lower affinity means less protein sits in the bound state at the same ligand concentration, so the rate of every reaction that protein runs falls. Mass action, slide 29.</li><li>The fever adds a second push on the same weak bonds. On the curve in figure 2.13a, 40 &deg;C (104 &deg;F) is just past the peak and sliding toward denaturation, so it makes the shape problem worse, not better. Two perturbations, one mechanism.</li></ol></div></div>
+  </div>
+</div></div>
+</article>
+<article class="slide">
+  <header class="slide-head">
+    <span class="slide-n" aria-hidden="true">38</span>
+    <div><p class="slide-eyebrow">Close</p><h2 class="slide-title">Close the page and produce it</h2></div>
+    <span class="slide-beat">Close</span>
+  </header>
+  <div class="slide-body">
+<div class="two">
+  <div>
+    <p class="lead">Blank paper, nothing open. These are the 4 competencies this lecture covers.</p>
+    <ul class="cmplist">
+      <li><span class="k">01</span><span>Water and solution properties</span></li>
+      <li><span class="k">02</span><span>pH and buffers</span></li>
+      <li><span class="k">03</span><span>Protein structure and function</span></li>
+      <li><span class="k">04</span><span>Enzyme activity and regulation</span></li>
+    </ul>
+    <p style="margin:14px 0 0">Each one has two prompts, numbered the same way everywhere: competency 3 has prompts 3-1 and 3-2. Pick one prompt per competency and head your paper with that label. The prompts are on <a href="week-02-competencies.html" target="_top">the week 2 competency list</a> and in the notes for this lecture, and <a href="competency-brain-dump.html" target="_top">the instructions</a> cover both passes.</p>
+  </div>
+  <div class="card navy">
+    <p class="eyebrow">Coming next</p>
+    <p style="font-size:18px;font-weight:700;line-height:1.4;margin:0 0 10px">Week 3: Getting across the membrane.</p>
+    <p style="margin:0;font-size:15px;opacity:.9">You now know why phospholipids line up into a double layer and why an ion cannot get through it alone. Next week you put that layer around a cell and work out what crosses, what needs a protein, and what the cell pays to move it.</p>
+  </div>
+</div></div>
+</article>
+</main>
+<div class="pbar" role="group" aria-label="Presentation controls">
+  <button type="button" class="prev" aria-label="Previous slide">&#8249;</button>
+  <span class="c">1 / 1</span>
+  <button type="button" class="next" aria-label="Next slide">&#8250;</button>
+  <button type="button" class="x" aria-label="Exit full screen">Exit</button>
+</div>
+<p class="page-foot" style="max-width:1200px;margin:0 auto;padding:0 max(16px,3vw) 40px">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; The chemistry that does work in the body. Figures &copy; Pearson Education, used under the instructor license for this course.</p>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='biol005-w02-chemistry-slides';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.maxHeight='88vh';big.style.objectFit='contain';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  "use strict";
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.deck .slide'));
+  if(!slides.length) return;
+  slides.forEach(function(s,i){
+    var n=s.querySelector('.slide-n'); if(n)n.textContent=(i<9?'0':'')+(i+1);
+    var t=s.querySelector('.slide-title');
+    s.setAttribute('aria-label','Slide '+(i+1)+' of '+slides.length+(t?': '+t.textContent:''));
+  });
+
+  /* reveal boxes */
+  function wireReveals(){
+    document.querySelectorAll('.rv-btn').forEach(function(b){
+      if(b.dataset.wired) return; b.dataset.wired='1';
+      var box=document.getElementById(b.getAttribute('aria-controls'));
+      b.setAttribute('aria-expanded','false');
+      b.addEventListener('click',function(){
+        var open=b.getAttribute('aria-expanded')==='true';
+        b.setAttribute('aria-expanded',open?'false':'true');
+        if(box)box.hidden=open;
+        if(!open&&b.dataset.openLabel)b.textContent=b.dataset.openLabel;
+        else if(open&&b.dataset.shutLabel)b.textContent=b.dataset.shutLabel;
+        if(window.__deckFit)window.__deckFit();
+      });
+      b.dataset.shutLabel=b.textContent;
+    });
+  }
+  wireReveals();
+
+  /* in range or out of range sorter */
+  function wireSorter(){
+    document.querySelectorAll('.sortbl tbody tr').forEach(function(row){
+      if(row.dataset.wired) return; row.dataset.wired='1';
+      var ans=row.getAttribute('data-ans'), res=row.querySelector('.res');
+      row.querySelectorAll('.pk').forEach(function(b){
+        b.addEventListener('click',function(){
+          if(row.classList.contains('locked')) return;
+          var right=b.getAttribute('data-v')===ans;
+          row.querySelectorAll('.pk').forEach(function(x){x.setAttribute('aria-pressed','false');});
+          b.setAttribute('aria-pressed','true');
+          row.classList.add('locked', right?'ok':'no');
+          res.textContent=(right?'Correct. ':'Not quite. ')+(row.getAttribute('data-note')||'');
+          tally();
+          if(window.__deckFit)window.__deckFit();
+        });
+      });
+    });
+  }
+  function tally(){
+    var rows=document.querySelectorAll('.sortbl tbody tr');
+    if(!rows.length) return;
+    var done=document.querySelectorAll('.sortbl tbody tr.locked').length;
+    var el=document.getElementById('sortCount');
+    if(el) el.textContent=done+' of '+rows.length+' sorted'+(done===rows.length?', now pick the one that buys you the least time':'');
+  }
+  wireSorter(); tally();
+
+  /* clinical bars behave like reveals: closed before recording, open in print */
+  function wireClin(){
+    document.querySelectorAll('.clin-btn').forEach(function(b){
+      if(b.dataset.wired) return; b.dataset.wired='1';
+      var box=document.getElementById(b.getAttribute('aria-controls'));
+      b.addEventListener('click',function(){
+        var open=b.getAttribute('aria-expanded')==='true';
+        b.setAttribute('aria-expanded',open?'false':'true');
+        if(box)box.hidden=open;
+        /* while recording, an open bar takes the whole slide: four professions
+           side by side need the width, and shrinking them to fit around the
+           slide content makes them unreadable on camera. */
+        var sl=b.closest('.slide'); if(sl) sl.classList.toggle('clinopen',!open);
+        if(window.__deckFit)window.__deckFit();
+      });
+    });
+  }
+  wireClin();
+
+  function resetAll(){
+    document.querySelectorAll('.clin-btn').forEach(function(b){
+      b.setAttribute('aria-expanded','false');
+      var box=document.getElementById(b.getAttribute('aria-controls'));
+      if(box)box.hidden=true;
+      var sl=b.closest('.slide'); if(sl) sl.classList.remove('clinopen');
+    });
+    document.querySelectorAll('.sortbl tbody tr').forEach(function(row){
+      row.classList.remove('locked','ok','no');
+      row.querySelectorAll('.pk').forEach(function(b){b.setAttribute('aria-pressed','false');});
+      var r=row.querySelector('.res'); if(r) r.textContent='';
+    });
+    tally();
+    document.querySelectorAll('.rv-btn').forEach(function(b){
+      b.setAttribute('aria-expanded','false');
+      var box=document.getElementById(b.getAttribute('aria-controls'));
+      if(box)box.hidden=true;
+      if(b.dataset.shutLabel)b.textContent=b.dataset.shutLabel;
+    });
+    var live=document.getElementById('deckStatus');
+    if(live)live.textContent='All boxes closed, ready to record';
+  }
+  var rb=document.getElementById('resetBtn'); if(rb)rb.addEventListener('click',resetAll);
+
+  /* present mode */
+  var idx=0,on=false;
+  var bar=document.querySelector('.pbar'),cnt=bar.querySelector('.c'),
+      prev=bar.querySelector('.prev'),next=bar.querySelector('.next'),exit=bar.querySelector('.x');
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach(function(s,k){s.classList.toggle('cur',k===idx);});
+    cnt.textContent=(idx+1)+' / '+slides.length;
+    prev.disabled=idx===0; next.disabled=idx===slides.length-1;
+    if(slides[idx])slides[idx].scrollTop=0;
+    fit();
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  /* Shrink the current slide just enough to fit the screen, so nothing is cut
+     off mid-recording. Runs only in present mode and never scales up. */
+  function fit(){
+    var s=slides[idx]; if(!s) return;
+    var body=s.querySelector('.slide-body'); if(!body) return;
+    body.style.zoom='';
+    if(!on) return;
+    requestAnimationFrame(function(){
+      var z=1, guard=0;
+      while(s.scrollHeight>s.clientHeight+2 && z>0.52 && guard<30){
+        z-=0.04; guard++;
+        body.style.zoom=z.toFixed(2);
+      }
+    });
+  }
+  window.addEventListener('resize',function(){ if(on) fit(); });
+  window.__deckFit=function(){ if(on) fit(); };
+  function enter(i){on=true;document.body.classList.add('present');show(i||0);
+    if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(function(){});}
+  function leave(){on=false;document.body.classList.remove('present');
+    slides.forEach(function(s){s.classList.remove('cur');});
+    if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(function(){});}
+  var pb=document.getElementById('presentBtn'); if(pb)pb.addEventListener('click',function(){enter(0);});
+  var prb=document.getElementById('printBtn'); if(prb)prb.addEventListener('click',function(){window.print();});
+  prev.addEventListener('click',function(){show(idx-1);});
+  next.addEventListener('click',function(){show(idx+1);});
+  exit.addEventListener('click',leave);
+  window.__deckStep=function(d){ if(!on)enter(idx); show(idx+d); };
+  document.addEventListener('keydown',function(e){
+    if(!on)return;
+    var tag=(e.target&&e.target.tagName||'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select')return;
+    if(!document.getElementById('wb')||document.getElementById('wb').hidden){
+      if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();show(idx+1);}
+      else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(idx-1);}
+      else if(e.key==='Escape'){leave();}
+    }
+  });
+  document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&on)leave();});
+  if(/[?#&]present\b/.test(location.href))enter(0);
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
