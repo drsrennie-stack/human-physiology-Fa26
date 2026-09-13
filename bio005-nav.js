@@ -301,10 +301,17 @@
     if (document.documentElement.getAttribute('data-fold') === 'off') return;
     var lvl = document.documentElement.getAttribute('data-fold') || FOLD[file];
     if (!lvl) return;
+    /* Sep 13 2026. This injected bio005-fold.js, which is not in the
+       repo, so every page in the FOLD list above threw a 404 and folded
+       nothing. bio005-collapse.js is the folder that actually ships and
+       does the same job, so the nav loads that instead. It carries its
+       own __BIO005_COLLAPSE__ guard, so a page with its own script tag
+       does not initialise twice. */
+    if (document.querySelector('script[src*="bio005-collapse.js"]')) return;
     if (document.querySelector('script[src*="bio005-fold.js"]')) return;
     window.BIO005_FOLD = lvl;
     var s = document.createElement('script');
-    s.src = base() + 'bio005-fold.js';
+    s.src = base() + 'bio005-collapse.js';
     document.body.appendChild(s);
   }
 

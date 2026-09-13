@@ -233,7 +233,12 @@
         '<span class="b5c-count">' + minutes(it.chars) + '</span></span>';
       it.head.appendChild(btn);
 
-      var open = saved.hasOwnProperty(id) ? !!saved[id] : (i === 0);
+      /* A page can ask for everything open. Notes pages are meant to be
+         read front to back, and fifteen closed drawers reads as a page
+         with nothing on it. A student's own toggles still win, because
+         saved state is checked first. */
+      var openAll = document.body.getAttribute('data-collapse') === 'open';
+      var open = saved.hasOwnProperty(id) ? !!saved[id] : (openAll || i === 0);
       set(btn, region, open);
       btn.addEventListener('click', function () {
         var now = btn.getAttribute('aria-expanded') !== 'true';

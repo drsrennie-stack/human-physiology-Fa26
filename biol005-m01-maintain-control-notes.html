@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maintain Control &middot; Notes &middot; BIO 005</title>
-<style><link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
 :root{
   --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
   --terra:#8B3A2E; --terra-dark:#6B2A20;
@@ -25,6 +26,28 @@ a{color:var(--terra)}
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
 .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+
+/* ---------- pre-work sequence ---------- */
+.prework{margin:26px 0 30px;padding:22px 24px;background:var(--white);border:1px solid var(--navy-15);
+  border-radius:var(--r-card);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pwh{margin:0 0 2px;font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.15;font-size:26px;color:var(--navy)}
+.pwh .hl{color:var(--terra)}
+.pwlist{list-style:none;margin:16px 0 0;padding:0;counter-reset:none}
+.pw{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--navy-08)}
+.pw:first-child{border-top:0;padding-top:4px}
+.pwn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;
+  border-radius:999px;background:var(--gold);color:var(--navy);font-weight:800;font-size:13px}
+.pw.is-now .pwn{background:var(--terra);color:#fff}
+.pwt{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px}
+.pwt>a,.pwhere{font-weight:800;font-size:16.5px;color:var(--navy)}
+.pwt>a{text-decoration:underline;text-underline-offset:2px}
+.pwt>a:hover{color:var(--terra)}
+.pwtag{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:var(--terra);
+  color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;vertical-align:2px}
+.pwd{font-size:14.5px;line-height:1.55;color:var(--navy-72)}
+@media (max-width:640px){.prework{padding:18px 16px}.pw{gap:11px}}
+@media print{.prework{break-inside:avoid}}
 
 /* ---------- editorial type ---------- */
 .disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
@@ -304,7 +327,7 @@ body.present .slide.clinopen .cprof{padding:18px 20px}
 @media(max-width:860px){.prereq{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
+<body data-collapse="open">
 <a class="skip" href="#main">Skip to the content</a>
 <header class="site-header">
   <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
@@ -322,6 +345,39 @@ body.present .slide.clinopen .cprof{padding:18px 20px}
     <span class="pill">All 12 week 1 competencies</span>
     <span class="pill ghost">Ch 1 and the reflex half of ch 6</span>
   </div>
+</div>
+
+<!-- The pre-work sequence. This page is step 1b. It sits above the
+     content on purpose, so a student who lands here without the note
+     sheet printed sees that before they start reading. The current
+     step is marked with aria-current so it is announced, not just
+     colored. -->
+<div class="prework" role="region" aria-labelledby="prework-h">
+  <p class="pwh" id="prework-h">Your pre-work, <span class="hl">in order</span></p>
+  <p class="sub">Three steps. Do them in this order and you finish the week with one complete sheet in your own handwriting, which is the thing that makes the exam easier.</p>
+  <ol class="pwlist">
+    <li class="pw">
+      <span class="pwn" aria-hidden="true">1a</span>
+      <span class="pwt">
+        <a href="note-sheet.html?week=1" target="_top">Print the note sheet</a>
+        <span class="pwd">One box per competency. The boxes are the competencies, so this is also your list of what you have to be able to do.</span>
+      </span>
+    </li>
+    <li class="pw is-now" aria-current="step">
+      <span class="pwn" aria-hidden="true">1b</span>
+      <span class="pwt">
+        <span class="pwhere">First pass: this page and the book <span class="pwtag">You are here</span></span>
+        <span class="pwd">Fill in what you can from these notes and from Silverthorn, before you watch anything. Leave the gaps you cannot fill. The gaps are the point.</span>
+      </span>
+    </li>
+    <li class="pw">
+      <span class="pwn" aria-hidden="true">1c</span>
+      <span class="pwt">
+        <a href="lecture-week.html?week=1" target="_top">Second pass: watch and add</a>
+        <span class="pwd">Watch the week's lectures and add what they give you that the reading did not. Use a different color so you can see which half came from where.</span>
+      </span>
+    </li>
+  </ol>
 </div>
 
 <h2>What physiology <span class="hl">is</span></h2>
@@ -769,6 +825,19 @@ body.present .slide.clinopen .cprof{padding:18px 20px}
 </div>
 
 <h2>Feedback <span class="hl">types</span></h2>
+<p class="sub">Three patterns cover almost every loop in this course. They differ in one thing only: what the response does to the stimulus that triggered it.</p>
+<table class="tbl">
+  <caption class="vh">The three feedback patterns compared by what the response does to the stimulus, what it is for, and how it ends</caption>
+  <thead>
+    <tr><th scope="col">Pattern</th><th scope="col">What the response does</th><th scope="col">What it is for</th><th scope="col">How it stops</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Negative feedback</th><td>Opposes the stimulus</td><td>Holding a variable near a set point</td><td>Shuts itself off as the variable comes back</td></tr>
+    <tr><th scope="row">Positive feedback</th><td>Reinforces the stimulus</td><td>Driving a process to completion</td><td>Needs an outside event to end it</td></tr>
+    <tr><th scope="row">Feedforward</th><td>Acts before the variable has changed at all</td><td>Blunting a change you can see coming</td><td>Ends when the anticipated load arrives or does not</td></tr>
+  </tbody>
+</table>
+<p>Reading it this way keeps you out of the most common trap. Positive feedback is not the body malfunctioning and negative feedback is not the body being cautious. Negative means the response subtracts from the stimulus and positive means it adds to it. That is the whole distinction, and it says nothing about whether the outcome is good for the patient.</p>
 
 <h3>Negative feedback</h3>
 <ul class="bul">

@@ -375,19 +375,28 @@
              url: BASE + 'study-with-me.html', icon: 'people', tone: 'terra', qr: 'study',
              kw: 'study with me session group together live partner scholar points kahoot' });
 
-    /* ---------- 1 LEARN ---------- */
-    t.push({ g: '1 Learn', name: 'Learn It With Dr. Rennie', sub: 'This week\'s lectures, short and in order',
-             url: BASE + 'lecture-week.html?week=' + wn, icon: 'play', tone: 'terra',
-             kw: 'lecture lectures video watch slides teach week' });
-    t.push({ g: '1 Learn', name: 'Notes', sub: 'The written version of what I teach, for reading and rereading',
-             url: BASE + 'week-' + nn + '-notes.html', icon: 'doc', tone: 'navy',
-             kw: 'notes reading written text week' });
-    t.push({ g: '1 Learn', name: 'Note sheet', sub: 'One box per competency. Print it before you start',
+    /* ---------- 1 LEARN ----------
+       The pre-work is a sequence, not a menu. Three steps in order, and
+       the dock renders them as a numbered column with arrows rather than
+       as tiles in a grid, so a student can see what comes first. The
+       note sheet IS the competency list, one box each, which is why
+       there is no separate competencies step: printing it is step one.
+       Everything else in this group is reference, not part of the week's
+       order, so it sits below the sequence under its own heading.
+       ============================================================ */
+    t.push({ g: '1 Learn', step: '1a', name: 'Print the note sheet',
+             sub: 'One box per competency. This is your pre-work sheet, so start here',
              url: BASE + 'note-sheet.html?week=' + wn, icon: 'pencil', tone: 'gold',
-             kw: 'note sheet notesheet boxes competency print handwritten journal' });
-    t.push({ g: '1 Learn', name: 'Competencies', sub: 'What you have to be able to do this week',
-             url: BASE + 'week-' + nn + '-competencies.html', icon: 'target', tone: 'navy',
-             kw: 'competencies competency list objectives what to know checklist' });
+             kw: 'note sheet notesheet boxes competency competencies print handwritten prework pre-work first' });
+    t.push({ g: '1 Learn', step: '1b', name: 'First pass: notes and the book',
+             sub: 'Fill in what you can from the written notes and Silverthorn, before any video',
+             url: BASE + 'week-' + nn + '-notes.html', icon: 'doc', tone: 'navy',
+             kw: 'notes reading written text book silverthorn first pass prework fill in' });
+    t.push({ g: '1 Learn', step: '1c', name: 'Second pass: watch and add',
+             sub: 'Watch the week\'s lectures and add what they give you that the reading did not',
+             url: BASE + 'lecture-week.html?week=' + wn, icon: 'play', tone: 'terra',
+             kw: 'lecture lectures video watch second pass prework add complete learn it with dr rennie' });
+
     t.push({ g: '1 Learn', name: 'Every week\'s lectures', sub: 'All fifteen weeks, by week',
              url: BASE + 'door-lecture.html', icon: 'play', tone: 'navy',
              kw: 'lectures all weeks library videos' });
@@ -400,7 +409,6 @@
     t.push({ g: '1 Learn', name: 'Before you start', sub: 'Three short checks that tell you whether you need to review',
              url: BASE + 'before-you-start.html', icon: 'target', tone: 'gold',
              kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
-
     /* ---------- 2 PRACTICE ---------- */
     t.push({ g: '2 Practice', name: 'Try It From Memory', sub: 'A brain dump, then the self check',
              url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
@@ -470,6 +478,10 @@
     t.push({ g: 'About the course', name: 'How this course works', sub: 'The four stages, and what mastery means here',
              url: BASE + 'how-this-course-works.html', icon: 'target', tone: 'gold',
              kw: 'how course works stages learn practice apply check intro' });
+    t.push({ g: 'About the course', name: 'Competencies, all fifteen weeks',
+             sub: 'Everything you have to be able to do in this course, week by week',
+             url: BASE + 'competency-map.html', icon: 'target', tone: 'gold',
+             kw: 'competencies competency list map objectives all weeks what to know checklist outcomes' });
     t.push({ g: 'About the course', name: 'Syllabus', sub: 'Policies, dates, exam windows',
              url: BASE + 'syllabus-fall2026.html', icon: 'doc', tone: 'navy',
              kw: 'syllabus policy rules grading late work ai policy contact' });
@@ -568,6 +580,21 @@
 "   lines left a hole beside every shorter one in its row. Stretch\n"+
 "   the row and let each tile fill its cell: the row is as tall as\n"+
 "   its tallest tile and nothing is left hanging. */",
+/* The pre-work sequence. A numbered column, not a grid, because the
+   order is the content. Arrows sit between steps and are decorative;
+   the step number is read out as part of each link's accessible name. */
+'.bd-grid>.bd-seq,.bd-grid>.bd-seqh,.bd-grid>.bd-refh{grid-column:1/-1}',
+'.bd-seq{display:flex;flex-direction:column;gap:0;margin:0 0 14px}',
+'.bd-seq .bd-cell{width:100%}',
+'.bd-seq .bd-tile{align-items:center;padding:14px 16px;background:rgba(255,255,255,.10);border-color:rgba(201,161,74,.45)}',
+'.bd-seq .bd-tile:hover{background:rgba(255,255,255,.16);border-color:#C9A14A}',
+'.bd-step{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;',
+'  border-radius:999px;background:#C9A14A;color:#0B1530;font-weight:800;font-size:13px;letter-spacing:.02em}',
+'.bd-arrow{display:flex;justify-content:center;color:#C9A14A;padding:3px 0;line-height:0}',
+'.bd-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}',
+'.bd-seqh{margin:2px 0 9px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#C9A14A}',
+'.bd-refh{margin:4px 0 9px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#AEB8C6}',
+'@media(prefers-reduced-motion:reduce){.bd-seq .bd-tile{transition:none}}',
 '.bd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;align-items:stretch}',
 '.bd-cell{height:100%}',
 '.bd-tile{height:100%}',
@@ -788,7 +815,35 @@
             +   '<span class="ct">' + seen[g].length + '</span>'
             + '</button>'
             + '<div class="bd-grid" id="' + gid + '"' + (open ? '' : ' hidden') + '>';
-      seen[g].forEach(function (t) {
+
+      /* A group whose tiles carry a step renders the sequence first, in
+         order, as a single column with arrows between the steps. What is
+         left over is reference and goes under its own quiet heading. The
+         split is data driven: no step, no sequence. */
+      var steps = seen[g].filter(function (x) { return !!x.step; });
+      var rest  = seen[g].filter(function (x) { return !x.step; });
+      if (steps.length) {
+        html += '<p class="bd-seqh">Do these in order</p><div class="bd-seq">';
+        steps.forEach(function (t, si) {
+          if (si) html += '<span class="bd-arrow" aria-hidden="true">'
+                       +  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                       +  'stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+                       +  '<line x1="12" y1="4" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg></span>';
+          var tg = t.ext ? ' target="_blank" rel="noopener"' : ' target="_top"';
+          html += '<div class="bd-cell">'
+               +    '<a class="bd-tile" href="' + esc(t.url) + '"' + tg + '>'
+               +      '<span class="bd-step" aria-hidden="true">' + esc(t.step) + '</span>'
+               +      '<span class="bd-tx"><span class="bd-n">'
+               +        '<span class="bd-vh">Step ' + esc(t.step) + '. </span>' + esc(t.name)
+               +      '</span><span class="bd-s">' + esc(t.sub) + '</span></span>'
+               +    '</a>'
+               + '</div>';
+        });
+        html += '</div>';
+        if (rest.length) html += '<p class="bd-refh">Reference, any time</p>';
+      }
+
+      rest.forEach(function (t) {
         /* Not a link. A tile that goes somewhere unfinished is worse than
            one that plainly says it is not ready yet. */
         var b5p = b5Pending(t);
