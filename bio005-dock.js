@@ -390,7 +390,7 @@
              kw: 'note sheet notesheet boxes competency competencies print handwritten prework pre-work first' });
     t.push({ g: '1 Learn', step: '1b', name: 'First pass: notes and the book',
              sub: 'Fill in what you can from the written notes and Silverthorn, before any video',
-             url: BASE + 'week-' + nn + '-notes.html', icon: 'doc', tone: 'navy',
+             url: BASE + notesFor(wn), icon: 'doc', tone: 'navy',
              kw: 'notes reading written text book silverthorn first pass prework fill in' });
     t.push({ g: '1 Learn', step: '1c', name: 'Second pass: watch and add',
              sub: 'Watch the week\'s lectures and add what they give you that the reading did not',
@@ -742,6 +742,20 @@
      actually live today, and the rest as one-line headers with a
      count. Whatever they fold or unfold is remembered, so a student
      who wants everything open gets it back every time. */
+  /* The notes of record, by week. Weeks 1 to 3 have real written notes
+     under their own names; week-NN-notes.html for those weeks is a stub
+     that now redirects here. Every other week still points at its
+     placeholder until the notes for that week are written, so adding a
+     week is one line. */
+  var NOTES = {
+    1: 'biol005-m01-maintain-control-notes.html',
+    2: 'biol005-w02-chemistry-notes.html',
+    3: 'biol005-w03-compartments-notes.html'
+  };
+  function notesFor(w) {
+    return NOTES[w] || ('week-' + (w < 10 ? '0' : '') + w + '-notes.html');
+  }
+
   var GKEY = 'bio005-dock-groups';
 
   function groupState() {

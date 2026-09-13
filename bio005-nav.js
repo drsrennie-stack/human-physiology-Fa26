@@ -275,6 +275,20 @@
      rest a heading each, with Open all and Close all above them.
      Add a page: name it here with the heading level that marks a section.
      A page can also carry <html data-fold="h2"> itself, or data-fold="off". */
+  /* The notes of record, by week. Weeks 1 to 3 have real written notes
+     under their own names; week-NN-notes.html for those weeks is a stub
+     that now redirects here. Every other week still points at its
+     placeholder until the notes for that week are written, so adding a
+     week is one line. */
+  var NOTES = {
+    1: 'biol005-m01-maintain-control-notes.html',
+    2: 'biol005-w02-chemistry-notes.html',
+    3: 'biol005-w03-compartments-notes.html'
+  };
+  function notesFor(w) {
+    return NOTES[w] || ('week-' + (w < 10 ? '0' : '') + w + '-notes.html');
+  }
+
   var FOLD = {
     'syllabus-fall2026.html': 'h2',
     'how-grading-works.html': 'h2',
@@ -285,6 +299,8 @@
     'week-01-notes.html': 'h2',
     'biol005-m01-maintain-control-notes.html': 'h2',
     'biol005-m02-molecular-toolkit-notes.html': 'h2',
+    'biol005-w02-chemistry-notes.html': 'h2',
+    'biol005-w03-compartments-notes.html': 'h2',
     'week-01-notesheet-prompts.html': 'h2',
     'week-02-notesheet-prompts.html': 'h2'
   };
@@ -688,7 +704,7 @@
         lead: 'This is where I teach you what you need to understand. <b>Watch first.</b>',
         html: '<ul>'
           + tool('lecture-week.html?week=' + wn, 'Learn It With Dr. Rennie', 'This week\'s lectures, short and in order')
-          + tool('week-' + nn + '-notes.html', 'Notes', 'The written version of what I teach')
+          + tool(notesFor(wn), 'Notes', 'The written version of what I teach')
           + tool('note-sheet.html?week=' + wn, 'Note sheet', 'One box per competency. Print it before you start')
           + tool('week-' + nn + '-competencies.html', 'Competencies', 'What you have to be able to do this week')
           + tool('door-lecture.html', 'Every week\'s lectures', 'All fifteen weeks, by week')
