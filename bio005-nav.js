@@ -849,7 +849,7 @@
       + '<li><a class="main" href="' + B + cur.file + '" target="_top">This week, Week ' + cur.n + '</a></li>'
       + '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
       + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' note sheet (PDF)</a></li>'
-      + '<li><a href="' + B + 'mastery-physio-os-standalone.html" target="_top">Recall cards</a></li>'
+      + '<li><a href="' + B + 'rx-cards.html" target="_top">Rx Cards</a></li>'
       + '<li><a href="' + B + 'course-schedule.html" target="_top">The schedule</a></li>'
       + '</ul></div>';
     var h = main.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); }

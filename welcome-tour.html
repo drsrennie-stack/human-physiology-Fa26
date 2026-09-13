@@ -826,7 +826,7 @@
          One pointer to the dock instead, which is on every page. -->
     <p class="tools-point">
       Everything else lives in <strong>Course tools</strong>, the button in the
-      bottom left corner of every page. Your note sheet, the Mastery OS, your labs,
+      bottom left corner of every page. Your note sheet, Rx Cards, your labs,
       the schedule and your syllabus are all in there, from
       wherever you happen to be.
     </p>
@@ -894,16 +894,16 @@
     return [
       {key:'tools', name:'Course tools', icon:iconTools, internal:true, frame:false, url:'',
        desc:'The button at the bottom of every page. Everything else is inside it.',
-       say:'Start here, because this one opens all the others. Look at the bottom left corner of any page in this course and you will see a button marked Course tools. Everything lives in there: this week, your note sheet, the Mastery OS, your labs, the schedule, your syllabus. You do not need to remember where anything is. You only need to remember that button.'},
+       say:'Start here, because this one opens all the others. Look at the bottom left corner of any page in this course and you will see a button marked Course tools. Everything lives in there: this week, your note sheet, Rx Cards, your labs, the schedule, your syllabus. You do not need to remember where anything is. You only need to remember that button.'},
       {key:'syllabus', name:'Syllabus', icon:iconDoc, internal:true, frame:true, url:s.syllabus,
        desc:'How the course works, the grade model, and every important date.',
        say:'Start with the syllabus. It lays out how the course works, how your grade is built, the Sunday deadline, and every date that matters this term.'},
       {key:'packet', name:'Competency Packet', icon:iconSlides, internal:true, frame:true, url:'competency-packet-fall2026.html',
        desc:'All 268 things this course asks of you. Nothing else is graded.',
        say:'The Competency Packet is the whole course on one list: 268 specific things you will be able to do, grouped by midterm and by week. Every exam question traces back to this list, and nothing is graded that is not on it. It is also where you check the anatomy, chemistry, and math the course assumes you arrive with.'},
-      {key:'mastery', name:'Mastery OS', icon:iconBrain, internal:true, frame:true, url:'mastery-physio-os-standalone.html',
+      {key:'mastery', name:'Rx Cards', icon:iconBrain, internal:true, frame:true, url:'rx-cards.html',
        desc:'Spaced recall and gap finders that track your 268 competencies.',
-       say:'The Mastery OS is your study engine. It tracks every competency, runs spaced recall cards, and shows you exactly where you are weak before a grade depends on it.'},
+       say:'Rx Cards are your recall practice. Cards on every competency come back on a schedule and get harder as you prove them, and the weekly Mastery Check shows you exactly where you are weak before a grade depends on it.'},
       {key:'videos', name:"This week's videos", icon:iconPlay, internal:true, frame:true, url:'concept-videos-week01.html',
        desc:'The concept lectures. Watch them as you work your note sheet.',
        say:'This week\u2019s videos are the concept lectures. Press play once and the whole week runs, one concept into the next, or jump to any single concept. Work your note sheet alongside them; the two are built for each other.'},
@@ -1057,7 +1057,7 @@
         '<div class="tmodal-fallback">' +
         '<strong>Look at the bottom left corner of this page</strong>' +
         '<span>There is a button marked <b>Course tools</b>. It is on every page in this course, ' +
-        'and everything is inside it: this week, your note sheet, the Mastery OS, ' +
+        'and everything is inside it: this week, your note sheet, Rx Cards, ' +
         'your labs, the schedule and your syllabus.</span>' +
         '<span>You do not have to remember where anything lives. You only have to remember that button. ' +
         'Try it now, then come back and carry on with the tour.</span>' +
@@ -1385,7 +1385,7 @@
       };
     }
     var CAL = 'course-schedule.html';
-    var MOS = 'mastery-physio-os-standalone.html';
+    var MOS = 'rx-cards.html';
     var PACKET = 'competency-packet-fall2026.html';
 
     var VID = 'concept-videos-week01.html';
@@ -1436,11 +1436,11 @@
         case 'start': return '<p>Three moves and you are ahead:</p><ol class="steps">'+
           '<li>Skim your '+link(l.syllabus,'syllabus',true)+' so you know how the course runs and when everything is due (Sunday night, every week).</li>'+
           '<li>Open this week\u2019s note sheet and work it against the '+link(VID,'concept videos',true)+'. The note sheet always comes first.</li>'+
-          '<li>Open the '+link(MOS,'Mastery OS',true)+' and let it start tracking your competencies.</li></ol>';
+          '<li>Open '+link(MOS,'Rx Cards',true)+' and start the first pile of cards.</li></ol>';
         case 'week': return '<p>Everything for the current week is on the '+link(CAL,'course schedule',true)+
           '. The rhythm never changes: note sheet first, then the videos, then book problems and your PhysioEx lab, then the five minute practice round. All of it is due Sunday night.</p>';
         case 'struggle': return '<p>This is normal and fixable. Try this, in order:</p><ol class="steps">'+
-          '<li>Open the '+link(MOS,'Mastery OS',true)+' and let the gap finder show you exactly what is weak.</li>'+
+          '<li>Open '+link(MOS,'Rx Cards',true)+' and clear what is due, then build a Mastery Check to see exactly what is weak.</li>'+
           '<li>Run your recall cards on just those competencies.</li>'+
           '<li>Come to office hours: Wednesdays 9:00 to 10:00 am on Zoom, no appointment needed.</li>'+
           '<li>Book free tutoring through the college at (530) 751-5558.</li></ol>'+
@@ -1460,7 +1460,7 @@
         case 'exams': return '<p>Two midterms, and they are not multiple choice. Each one asks you to draw a physiological pathway and teach it on video, out loud, no notes. Midterm 1 covers Weeks 1 to 7, Midterm 2 covers Weeks 8 to 14, and each is worth 17.5 percent. Every week includes a short ungraded practice round in exactly this format, so the format will be familiar. Exam windows are announced in Canvas and in your '+link(l.syllabus,'syllabus',true)+'.</p>';
         case 'notesheets': return '<p>The note sheet is your weekly pre-work: one prompt for each competency you must be able to do that week, worked from the reading and the videos before anything else. Answer from what you already know in your first color, then watch the videos and add what you did not know in a second color. Color two is your commit to memory list.</p>'+
           '<p>It carries no points and nothing is submitted. It is not optional either. It is where you find out what you do not know, and it doubles as your midterm study guide, so a sheet with real gaps showing is worth more to you than a tidy one.</p>';
-        case 'mastery': return '<p>The '+link(MOS,'Mastery OS',true)+' is your study engine: spaced recall cards across all 268 competencies and a gap finder that shows exactly what is weak before a grade depends on it. Open it and set up your plan.</p>';
+        case 'mastery': return '<p>'+link(MOS,'Rx Cards',true)+' is your recall practice: spaced recall cards across all 268 competencies, on a schedule that brings each card back before you forget it and makes them harder as you prove them. The Mastery Check on each week page is the gap finder that shows exactly what is weak before a grade depends on it. Open it and set up your plan.</p>';
         case 'labs': return '<p>Your labs run in PhysioEx, inside Pearson. Open our Canvas course, click Access Pearson in the left menu, and purchase there; that one path gets the right package, the labs, and the free eText of our Silverthorn book. Set it up in Week 1. One lab every week, due Sunday with everything else.</p>';
         case 'packet': return '<p>The '+link(PACKET,'Competency Packet',true)+' is the whole course on one list: 268 things you will be able to do, grouped by midterm and week, plus the anatomy, chemistry, and math the course assumes you arrive with. Nothing is graded that is not on that list.</p>';
         case 'refresher': return '<p>The '+link(REFRESH,'anatomy refresher',true)+' covers the anatomy this course leans on, with self-checks. If it has been a while, or you are taking anatomy at the same time, close your gaps there in Week 1.</p>';

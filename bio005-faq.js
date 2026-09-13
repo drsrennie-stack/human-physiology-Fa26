@@ -73,7 +73,7 @@ var BIO005_FAQ = [
  {
   "cat": "Getting started",
   "q": "What computer or device do I need?",
-  "a": "Anything that runs Canvas, Pearson, and the Mastery OS in a browser, plus a camera for recording your draw and teach videos. A phone camera is fine."
+  "a": "Anything that runs Canvas, Pearson, and Rx Cards in a browser, plus a camera for recording your draw and teach videos. A phone camera is fine."
  },
  {
   "cat": "Getting started",
@@ -117,8 +117,8 @@ var BIO005_FAQ = [
  },
  {
   "cat": "Navigating the course",
-  "q": "What is the Mastery OS?",
-  "a": "Your study engine: <a href=\"mastery-physio-os-standalone.html\">open it here</a>. It tracks all 268 competencies, runs spaced recall cards, and shows you exactly where you are weak before a grade depends on it."
+  "q": "What are Rx Cards?",
+  "a": "Your recall practice: <a href=\"rx-cards.html\">open them here</a>. Cards on all 268 competencies come back on a schedule, get harder as you prove them, and every answer explains why it is right. The Mastery Check on each week page is what shows you exactly where you are weak before a grade depends on it."
  },
  {
   "cat": "Navigating the course",
@@ -178,7 +178,7 @@ var BIO005_FAQ = [
  {
   "cat": "Navigating the course",
   "q": "What is the course tools button?",
-  "a": "On pages that carry it, the button in the bottom left corner opens everything: this week, your note sheet, the Mastery OS, labs, the schedule, the syllabus."
+  "a": "On pages that carry it, the button in the bottom left corner opens everything: this week, your note sheet, Rx Cards, labs, the schedule, the syllabus."
  },
  {
   "cat": "Navigating the course",
@@ -263,7 +263,7 @@ var BIO005_FAQ = [
  {
   "cat": "Grading",
   "q": "What happens if I bomb one midterm?",
-  "a": "One midterm is about 13 percent of the grade. Come to office hours, find the gap with the Mastery OS, and fix it before the next block, because physiology compounds."
+  "a": "One midterm is about 13 percent of the grade. Come to office hours, find the gap with a Mastery Check, and fix it before the next block, because physiology compounds."
  },
  {
   "cat": "Grading",
@@ -503,7 +503,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "How should I study for a midterm?",
-  "a": "Draw pathways from memory, then teach them out loud with no notes, then check the drawing against your note sheet. The Mastery OS gap finder tells you which pathways to hit first."
+  "a": "Draw pathways from memory, then teach them out loud with no notes, then check the drawing against your note sheet. The Mastery Check report tells you which pathways to hit first."
  },
  {
   "cat": "Midterms",
@@ -772,8 +772,8 @@ var BIO005_FAQ = [
  },
  {
   "cat": "Studying",
-  "q": "How do I use the Mastery OS?",
-  "a": "Open <a href=\"mastery-physio-os-standalone.html\">the OS</a>, let it track your competencies, run the daily recall cards, and clear your weakness dashboard every Sunday night. Little and often beats big and rare."
+  "q": "How do I use Rx Cards?",
+  "a": "Open <a href=\"rx-cards.html\">Rx Cards</a> every day and clear what is due. Reviews are never capped, only new cards are, so the pile stays a size you can carry. Little and often beats big and rare, because a card cannot move forward twice in one day."
  },
  {
   "cat": "Studying",
@@ -918,7 +918,7 @@ var BIO005_FAQ = [
  {
   "cat": "Help and support",
   "q": "I am struggling. What do I do first?",
-  "a": "Name the gap with the OS gap finder, run cards on just that, come to Wednesday office hours, and book free tutoring at (530) 751-5558. Reach out early; a small gap in September is a large one by November."
+  "a": "Name the gap with a Mastery Check, run Rx Cards on that week, come to Wednesday office hours, and book free tutoring at (530) 751-5558. Reach out early; a small gap in September is a large one by November."
  },
  {
   "cat": "Help and support",

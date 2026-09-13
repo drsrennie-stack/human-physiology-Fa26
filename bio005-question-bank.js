@@ -98,7 +98,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q15",
   "q": "What computer or device do I need?",
-  "a": "<p>Anything that runs Canvas, Pearson, and the Mastery OS in a browser, plus a camera for recording your draw and teach videos. A phone camera is fine.</p>",
+  "a": "<p>Anything that runs Canvas, Pearson, and Rx Cards in a browser, plus a camera for recording your draw and teach videos. A phone camera is fine.</p>",
   "topic": "Getting started"
  },
  {
@@ -163,8 +163,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q26",
-  "q": "What is the Mastery OS?",
-  "a": "<p>Your study engine: <a href=\"mastery-physio-os-standalone.html\" target=\"_top\">open it here</a>. It tracks all 268 competencies, runs spaced recall cards, and shows you exactly where you are weak before a grade depends on it.</p>",
+  "q": "What are Rx Cards?",
+  "a": "<p>Your recall practice: <a href=\"rx-cards.html\" target=\"_top\">open them here</a>. Cards on all 268 competencies come back on a schedule, get harder as you prove them, and every answer explains why it is right. The Mastery Check on each week page is what shows you exactly where you are weak before a grade depends on it.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -236,7 +236,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q38",
   "q": "What is the course tools button?",
-  "a": "<p>On pages that carry it, the button in the bottom left corner opens everything: this week, your note sheet, the Mastery OS, labs, the schedule, the syllabus.</p>",
+  "a": "<p>On pages that carry it, the button in the bottom left corner opens everything: this week, your note sheet, Rx Cards, labs, the schedule, the syllabus.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -338,7 +338,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q55",
   "q": "What happens if I bomb one midterm?",
-  "a": "<p>One midterm is about 13 percent of the grade. Come to office hours, find the gap with the Mastery OS, and fix it before the next block, because physiology compounds.</p>",
+  "a": "<p>One midterm is about 13 percent of the grade. Come to office hours, find the gap with a Mastery Check, and fix it before the next block, because physiology compounds.</p>",
   "topic": "Grading"
  },
  {
@@ -656,7 +656,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q109",
   "q": "How should I study for a midterm?",
-  "a": "<p>Draw pathways from memory, then teach them out loud with no notes, then check the drawing against your note sheet. The Mastery OS gap finder tells you which pathways to hit first.</p>",
+  "a": "<p>Draw pathways from memory, then teach them out loud with no notes, then check the drawing against your note sheet. The Mastery Check report tells you which pathways to hit first.</p>",
   "topic": "Midterms"
  },
  {
@@ -1009,8 +1009,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q169",
-  "q": "How do I use the Mastery OS?",
-  "a": "<p>Open <a href=\"mastery-physio-os-standalone.html\" target=\"_top\">the OS</a>, let it track your competencies, run the daily recall cards, and clear your weakness dashboard every Sunday night. Little and often beats big and rare.</p>",
+  "q": "How do I use Rx Cards?",
+  "a": "<p>Open <a href=\"rx-cards.html\" target=\"_top\">Rx Cards</a> every day and clear what is due. Reviews are never capped, only new cards are, so the pile stays a size you can carry. Little and often beats big and rare, because a card cannot move forward twice in one day.</p>",
   "topic": "Studying"
  },
  {
@@ -1214,7 +1214,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q203",
   "q": "I am struggling. What do I do first?",
-  "a": "<p>Name the gap with the OS gap finder, run cards on just that, come to Wednesday office hours, and book free tutoring at (530) 751-5558. Reach out early; a small gap in September is a large one by November.</p>",
+  "a": "<p>Name the gap with a Mastery Check, run Rx Cards on that week, come to Wednesday office hours, and book free tutoring at (530) 751-5558. Reach out early; a small gap in September is a large one by November.</p>",
   "topic": "Help and support"
  },
  {

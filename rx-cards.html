@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rx Cards &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="Spaced recall cards for BIO 005 Human Physiology. The cards come back on a schedule, get harder as you prove them, and every answer carries the reason it is right or wrong.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* ============================================================
+   RX CARDS
+   BIO 005 Human Physiology, Yuba College, Fall 2026
+
+   Spaced recall on the course card bank, and nothing else. One page,
+   three screens: what is due now, the reviewer, and a finish screen.
+
+   The scheduler is SM-2, the Anki algorithm. Each card carries an
+   interval in days and an ease that starts at 2.50. Again resets the
+   interval to 1 day and drops ease by 0.20. Hard multiplies the
+   interval by 1.2. Good multiplies by ease. Easy multiplies by ease
+   and adds a 1.3 bonus. Ease floors at 1.30, intervals cap at 180
+   days. Missing the question forces Again; a missed card cannot be
+   rated higher.
+
+   Difficulty rises on its own. Level 2 cards for a competency open
+   once three of its level 1 cards are proved (in review with an
+   interval of four days or more). Level 3 opens the same way off
+   level 2. So a student who keeps showing up meets harder questions
+   without choosing to.
+
+   Reviews are never capped. Only new cards a day is limited.
+
+   Storage key bio005-rx-v1, deliberately separate from the older
+   engines so it starts clean. Everything is per browser; nothing
+   leaves the device.
+
+   Brand of record, Sep 6 2026: navy #0B1530, maroon #8B3A2E, gold
+   #C9A14A, Open Sans 800 headlines, Plus Jakarta Sans body. No
+   italics. No decorative bars. White cards lift off the off-white
+   page with a shadow.
+   ============================================================ */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --white:#FFFFFF; --offwhite:#FAFAF9; --bone:#F5F1E8;
+  --ink-soft:#414B5C; --line:rgba(11,21,48,0.16); --line-soft:rgba(11,21,48,0.10); --edge:#6F7787;
+  --ok:#1F5E3A; --ok-tint:#E6F1EA; --no:#8B3A2E; --no-tint:#F6E9E6;
+  --shadow:0 1px 3px rgba(11,21,48,.08); --lift:0 8px 18px rgba(11,21,48,.10);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+em,i,cite,dfn,var{font-style:normal;font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0;line-height:1.15}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+button{font-family:var(--body)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+header.top{padding:30px 0 10px}
+h1{font-size:clamp(30px,5vw,42px);color:var(--navy)}
+h1 b{color:var(--maroon);font-weight:800}
+header.top p{color:var(--ink-soft);font-size:17.5px;margin-top:12px;max-width:60ch}
+main{padding:10px 0 70px}
+section{padding:26px 0 0}
+h2{font-size:clamp(21px,3vw,27px);color:var(--maroon);margin-bottom:8px}
+.sub{color:var(--ink-soft);margin:0 0 16px;max-width:60ch}
+.label{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px}
+.card{background:var(--white);border-radius:14px;padding:22px 24px;margin:0 0 16px;box-shadow:var(--shadow)}
+.card p:last-child{margin-bottom:0}
+
+/* ---------- counts ---------- */
+.counts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 6px}
+.count{background:var(--white);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.count .n{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;color:var(--navy);font-variant-numeric:tabular-nums}
+.count .t{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
+.count .d{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+.count.new .n{color:var(--maroon)}
+@media (max-width:560px){.counts{grid-template-columns:1fr}}
+
+/* ---------- settings ---------- */
+.row{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;margin:0 0 6px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field .lbl{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+select{font-family:var(--body);font-size:16px;color:var(--navy);background:var(--white);border:1.5px solid var(--edge);border-radius:9px;padding:10px 12px;min-height:46px;min-width:200px}
+.seg{display:inline-flex;gap:0;background:var(--white);border:1.5px solid var(--edge);border-radius:10px;overflow:hidden}
+.seg button{background:transparent;border:0;color:var(--navy);font-weight:700;font-size:15px;padding:10px 16px;min-height:46px;cursor:pointer;border-right:1.5px solid var(--edge)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.seg button:hover:not([aria-pressed="true"]){background:var(--navy-tint)}
+.seg button:focus-visible{outline-offset:-3px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;font-size:16px;font-weight:700;border-radius:10px;padding:13px 22px;min-height:48px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;transition:background 160ms ease,border-color 160ms ease}
+.btn:hover{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn.big{font-size:18px;padding:16px 28px;min-height:56px}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:disabled:hover{background:var(--navy);border-color:var(--navy)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+
+/* ---------- forecast ---------- */
+.fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:8px 0 0}
+.fc div{background:var(--white);border-radius:9px;padding:10px 6px;text-align:center;box-shadow:var(--shadow)}
+.fc .d{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.fc .n{font-family:var(--display);font-weight:800;font-size:20px;color:var(--navy);font-variant-numeric:tabular-nums}
+@media (max-width:560px){.fc{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------- ladder ---------- */
+.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ladder div{background:var(--white);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow)}
+.ladder .t{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.ladder .n{font-family:var(--display);font-weight:800;font-size:24px;color:var(--navy);font-variant-numeric:tabular-nums}
+.ladder .s{font-size:13px;color:var(--ink-soft)}
+@media (max-width:560px){.ladder{grid-template-columns:1fr}}
+
+/* ---------- reviewer ---------- */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.bar .prog{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.meter{height:6px;background:var(--navy-tint);border-radius:99px;overflow:hidden;margin:0 0 18px}
+.meter div{height:100%;background:var(--maroon);width:0;transition:width 200ms ease}
+.q{background:var(--white);border-radius:16px;padding:26px 28px;box-shadow:var(--lift)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
+.meta .lv{color:var(--maroon)}
+.meta .st{color:var(--ink-soft)}
+.stem{font-family:var(--display);font-weight:800;font-size:clamp(19px,2.6vw,24px);color:var(--navy);line-height:1.3;margin:0 0 18px}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--edge);border-radius:12px;padding:13px 16px;min-height:52px;font-size:16.5px;color:var(--navy);cursor:pointer;transition:background 140ms ease,border-color 140ms ease}
+.opt:hover:not(:disabled){background:var(--navy-tint);border-color:var(--navy)}
+.opt .k{flex:0 0 28px;height:28px;border-radius:50%;background:var(--navy-tint);color:var(--navy);font-family:var(--display);font-weight:800;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-tint);border-color:var(--ok)}
+.opt.right .k{background:var(--ok);color:#fff}
+.opt.wrong{background:var(--no-tint);border-color:var(--no)}
+.opt.wrong .k{background:var(--no);color:#fff}
+.opt.dim{opacity:.62}
+.verdict{margin:18px 0 0;padding:16px 18px;border-radius:12px;background:var(--navy-tint)}
+.verdict.right{background:var(--ok-tint)}
+.verdict.wrong{background:var(--no-tint)}
+.verdict .h{font-family:var(--display);font-weight:800;font-size:17px;margin:0 0 6px;color:var(--navy)}
+.verdict p{margin:0;font-size:15.5px;color:var(--navy)}
+.verdict .comp{margin-top:10px;font-size:13.5px;color:var(--ink-soft)}
+.rate{margin:18px 0 0}
+.rate .label{margin-bottom:8px}
+.rates{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.rates button{border:1.5px solid var(--navy);background:var(--white);color:var(--navy);border-radius:10px;padding:10px 8px;min-height:58px;font-weight:700;font-size:15px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:background 140ms ease,color 140ms ease}
+.rates button small{font-weight:600;font-size:12px;color:var(--ink-soft)}
+.rates button:hover:not(:disabled){background:var(--navy);color:#fff}
+.rates button:hover:not(:disabled) small{color:#fff}
+.rates button:disabled{opacity:.35;cursor:default}
+.rates button.again{border-color:var(--maroon);color:var(--maroon)}
+.rates button.again:hover:not(:disabled){background:var(--maroon);color:#fff}
+@media (max-width:560px){.rates{grid-template-columns:repeat(2,1fr)}.q{padding:20px 18px}}
+.keys{font-size:13.5px;color:var(--ink-soft);margin:14px 0 0}
+kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--navy-tint);border-radius:5px;padding:1px 6px;color:var(--navy)}
+
+/* ---------- finish ---------- */
+.miss{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.miss li{background:var(--white);border-radius:10px;padding:11px 14px;box-shadow:var(--shadow);font-size:15.5px}
+.miss li b{display:block;color:var(--navy)}
+.miss li span{color:var(--ink-soft);font-size:14px}
+
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0}
+.tool{display:block;text-decoration:none;background:var(--white);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);color:var(--navy);transition:transform 200ms ease,box-shadow 200ms ease}
+.tool:hover{transform:translateY(-2px);box-shadow:var(--lift);color:var(--navy)}
+.tool b{display:block;font-family:var(--display);font-weight:800;font-size:16px;margin-bottom:4px}
+.tool span{font-size:14px;color:var(--ink-soft)}
+
+.foot{margin:44px 0 0;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--ink-soft)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.skip,.mm-brandbar,.b5site,.b5nav,.btnrow{display:none!important}body{background:#fff}.card,.q,.count{box-shadow:none;border:1px solid #999}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="index.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
+      <g transform="translate(0,18)">
+        <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
+        <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
+        <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
+      </g>
+    </svg>
+    <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">Practice &middot; No points</p>
+  <h1>Rx <b>Cards.</b></h1>
+  <p>Recall cards on a schedule. A card you know comes back later; a card you miss comes back tomorrow. They get harder as you prove them, and every answer tells you why it is right and why the others are not.</p>
+</div></header>
+
+<main id="main"><div class="wrap">
+
+<!-- ================= SCREEN 1: DUE NOW ================= -->
+<div id="home">
+  <section aria-labelledby="due-h">
+    <h2 id="due-h">Due now</h2>
+    <p class="sub" id="dueline">Loading your cards.</p>
+    <div class="counts" role="group" aria-label="Cards waiting">
+      <div class="count new"><div class="n" id="nNew">0</div><div class="t">New</div><div class="d">Cards you have not seen, up to today's limit</div></div>
+      <div class="count"><div class="n" id="nLearn">0</div><div class="t">Relearning</div><div class="d">Missed recently, back for another try</div></div>
+      <div class="count"><div class="n" id="nRev">0</div><div class="t">Review</div><div class="d">Known cards whose date has come round</div></div>
+    </div>
+    <div class="btnrow">
+      <button type="button" class="btn big" id="start">Start reviewing</button>
+      <button type="button" class="btn ghost" id="extra" hidden>Nothing is due. Study 10 new cards anyway</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="set-h">
+    <h2 id="set-h">Settings</h2>
+    <div class="card">
+      <div class="row">
+        <div class="field">
+          <label for="weeks">Weeks in play</label>
+          <select id="weeks"></select>
+        </div>
+        <div class="field">
+          <span class="lbl" id="npd-l">New cards a day</span>
+          <div class="seg" role="group" aria-labelledby="npd-l" id="npd">
+            <button type="button" data-v="5" aria-pressed="false">5</button>
+            <button type="button" data-v="12" aria-pressed="false">12</button>
+            <button type="button" data-v="25" aria-pressed="false">25</button>
+            <button type="button" data-v="50" aria-pressed="false">50</button>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:14px">Reviews are never limited. Only new cards are, so the pile stays the size you can carry. The week list follows the course calendar: earlier weeks stay in, because their cards keep coming back until you have proved them.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="fc-h">
+    <h2 id="fc-h">The next seven days</h2>
+    <p class="sub">Reviews already scheduled. New cards are not counted here.</p>
+    <div class="fc" id="forecast" role="group" aria-label="Scheduled reviews by day"></div>
+  </section>
+
+  <section aria-labelledby="lad-h">
+    <h2 id="lad-h">How far up the ladder you are</h2>
+    <p class="sub">Every competency has three levels of card. Level 2 opens once you have proved three level 1 cards; level 3 opens the same way. You do not choose the level. It rises when you have earned it.</p>
+    <div class="ladder" id="ladder"></div>
+  </section>
+
+  <section aria-labelledby="cover-h">
+    <h2 id="cover-h">Covering the course, not sampling it</h2>
+    <div class="card">
+      <p>Getting every competency to level 1 by the end of the term takes about 60 cards and 25 minutes a day, seven days a week. Days a week matter more than session length, because a card cannot move forward twice in one day. Five long sessions do less than seven short ones.</p>
+      <p>Going back to earlier weeks is automatic. There is no chapter menu to manage; a card from Week 3 simply shows up in Week 9 when it is due.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SCREEN 2: REVIEWER ================= -->
+<div id="review" hidden>
+  <div class="bar">
+    <span class="prog" id="prog"></span>
+    <button type="button" class="btn ghost" id="quit">Stop for now</button>
+  </div>
+  <div class="meter" aria-hidden="true"><div id="meterfill"></div></div>
+
+  <div class="q" id="qcard">
+    <div class="meta"><span id="mWeek"></span><span id="mTopic"></span><span class="lv" id="mLevel"></span><span class="st" id="mState"></span></div>
+    <p class="stem" id="stem"></p>
+    <ul class="opts" id="opts" aria-label="Answer choices"></ul>
+    <div class="verdict" id="verdict" hidden aria-live="polite">
+      <p class="h" id="vh"></p>
+      <p id="vx"></p>
+      <p class="comp" id="vc"></p>
+    </div>
+    <div class="rate" id="rate" hidden>
+      <p class="label" id="rate-l">How well did you know it?</p>
+      <div class="rates" role="group" aria-labelledby="rate-l">
+        <button type="button" class="again" data-r="0">Again<small id="iv0"></small></button>
+        <button type="button" data-r="1">Hard<small id="iv1"></small></button>
+        <button type="button" data-r="2">Good<small id="iv2"></small></button>
+        <button type="button" data-r="3">Easy<small id="iv3"></small></button>
+      </div>
+    </div>
+  </div>
+  <p class="keys">Keyboard: <kbd>1</kbd> to <kbd>4</kbd> picks an answer, then <kbd>1</kbd> to <kbd>4</kbd> rates it. <kbd>Esc</kbd> stops.</p>
+</div>
+
+<!-- ================= SCREEN 3: FINISH ================= -->
+<div id="finish" hidden>
+  <section aria-labelledby="fin-h">
+    <h2 id="fin-h">That is the pile for now</h2>
+    <p class="sub" id="finline"></p>
+    <div class="counts" role="group" aria-label="This session">
+      <div class="count"><div class="n" id="fSeen">0</div><div class="t">Cards</div><div class="d">Answered this session</div></div>
+      <div class="count"><div class="n" id="fRight">0</div><div class="t">Right first time</div><div class="d">Before seeing the answer</div></div>
+      <div class="count"><div class="n" id="fTomorrow">0</div><div class="t">Due tomorrow</div><div class="d">Come back and they will be waiting</div></div>
+    </div>
+  </section>
+  <section aria-labelledby="gap-h" id="gapsec">
+    <h2 id="gap-h">What to go back to</h2>
+    <p class="sub">The competencies you missed this session, most missed first. Each one names the week it lives in.</p>
+    <ul class="miss" id="gaps"></ul>
+  </section>
+  <section aria-labelledby="next-h">
+    <h2 id="next-h">Where to next</h2>
+    <div class="tools">
+      <a class="tool" href="competency-brain-dump.html" target="_top"><b>Try it from memory</b><span>A blank page on the competency you missed, then check it.</span></a>
+      <a class="tool" href="mastery-canvas.html" target="_top"><b>Draw it</b><span>Mechanism, sequence, loop. Produce it from nothing.</span></a>
+      <a class="tool" href="practice-exam.html" target="_top"><b>Mastery Check</b><span>Thirty questions on a week, nothing open, and a report you can upload.</span></a>
+    </div>
+    <div class="btnrow">
+      <button type="button" class="btn" id="again">Back to Due now</button>
+    </div>
+  </section>
+</div>
+
+<p class="foot"><span>BIO 005 Human Physiology &middot; Yuba College &middot; Fall 2026</span><span>Dr. Sharilyn Rennie</span></p>
+</div></main>
+
+<script src="bio005-competencies.js"></script>
+<script src="os/bio005-card-bank.js"></script>
+<script>
+(function(){
+  'use strict';
+  var KEY = 'bio005-rx-v1';
+  var DAY = 86400000;
+  var COMPS = window.BIO005_COMPETENCIES || [];
+  var BANK = window.BIO005_CARD_BANK || {modules:[]};
+
+  /* ---------- the bank, flattened ----------
+     A card's week is the week its competency is taught in, read from
+     bio005-competencies.js. The week field on the card itself is a
+     historical label from an earlier schedule and is ignored. */
+  var compById = {};
+  COMPS.forEach(function(c){ compById[c.id] = c; });
+  var CARDS = [];
+  BANK.modules.forEach(function(m){ m.topics.forEach(function(t){ t.cards.forEach(function(c){
+    var comp = compById[c.competencyId];
+    if (!comp) return;
+    CARDS.push({ key: t.id + '/' + c.id, topic: t.title, week: comp.week, comp: comp, dok: c.dok || 1,
+                 q: c.q, options: c.options, ci: c.correctIndex, x: c.explanation || '' });
+  }); }); });
+  var byKey = {}; CARDS.forEach(function(c){ byKey[c.key] = c; });
+
+  /* ---------- storage ---------- */
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+  var S = load();
+  S.cards = S.cards || {};      /* key -> {st, iv, ease, due, reps, lapses} */
+  S.log = S.log || {};          /* yyyy-mm-dd -> {seen, right, newc} */
+  S.set = S.set || {};
+  if (!S.set.npd) S.set.npd = 12;
+
+  function today(){ var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+  function startOfToday(){ var d = new Date(); d.setHours(0,0,0,0); return d.getTime(); }
+  function dayLog(){ var k = today(); S.log[k] = S.log[k] || {seen:0, right:0, newc:0}; return S.log[k]; }
+
+  /* ---------- weeks ---------- */
+  var SITE = window.BIO005_SITE;
+  function currentWeek(){
+    if (SITE && SITE.current && SITE.current.n) return SITE.current.n;
+    var start = new Date(2026, 8, 8).getTime();
+    var n = Math.floor((Date.now() - start) / (7*DAY)) + 1;
+    return Math.max(1, Math.min(15, n));
+  }
+  function weekTitle(n){
+    if (SITE && SITE.weeks && SITE.weeks[n] && SITE.weeks[n].title) return SITE.weeks[n].title;
+    return '';
+  }
+  var qs = new URLSearchParams(location.search);
+  var qWeek = parseInt(qs.get('week'), 10);
+  var maxWeek = (qWeek >= 1 && qWeek <= 15) ? qWeek : (S.set.maxWeek || currentWeek());
+  var onlyWeek = qs.get('only') === '1';
+
+  function inPlay(c){ return onlyWeek ? c.week === maxWeek : c.week <= maxWeek; }
+
+  /* ---------- the ladder ----------
+     Level 2 of a competency opens when 3 of its level 1 cards are proved,
+     meaning in review with an interval of at least 4 days. Level 3 opens
+     off level 2 the same way. */
+  function proved(rec){ return rec && rec.st === 'rev' && rec.iv >= 4; }
+  var openLevel = {};
+  function computeLadder(){
+    var cnt = {};
+    CARDS.forEach(function(c){
+      var r = S.cards[c.key]; if (!proved(r)) return;
+      cnt[c.comp.id] = cnt[c.comp.id] || {1:0,2:0,3:0}; cnt[c.comp.id][c.dok]++;
+    });
+    COMPS.forEach(function(comp){
+      var k = cnt[comp.id] || {1:0,2:0,3:0};
+      openLevel[comp.id] = k[2] >= 3 ? 3 : (k[1] >= 3 ? 2 : 1);
+    });
+    return cnt;
+  }
+
+  /* ---------- SM-2 ---------- */
+  function nextInterval(rec, rating){
+    var ease = rec.ease || 2.5, iv = rec.iv || 0, st = rec.st || 'new';
+    if (rating === 0) return { iv: 1, ease: Math.max(1.3, ease - 0.2), st: 'learn' };
+    if (st === 'new' || st === 'learn') {
+      if (rating === 1) return { iv: 1, ease: Math.max(1.3, ease - 0.15), st: 'rev' };
+      if (rating === 2) return { iv: st === 'learn' ? Math.max(1, Math.round(iv)) : 1, ease: ease, st: 'rev' };
+      return { iv: 4, ease: ease + 0.15, st: 'rev' };
+    }
+    var f = rating === 1 ? 1.2 : rating === 2 ? ease : ease * 1.3;
+    var n = Math.max(iv + 1, Math.round(iv * f));
+    if (rating === 1) ease = Math.max(1.3, ease - 0.15);
+    if (rating === 3) ease = ease + 0.15;
+    return { iv: Math.min(180, n), ease: ease, st: 'rev' };
+  }
+  function ivLabel(n){ return n === 1 ? '1 day' : n < 30 ? n + ' days' : n < 60 ? '1 month' : Math.round(n/30) + ' months'; }
+
+  /* ---------- the pile ---------- */
+  function buildPile(forceNew){
+    computeLadder();
+    var now = Date.now(), t0 = startOfToday();
+    var learn = [], rev = [], fresh = [];
+    var newLeft = Math.max(0, S.set.npd - dayLog().newc);
+    if (forceNew) newLeft = 10;
+    CARDS.forEach(function(c){
+      if (!inPlay(c)) return;
+      var r = S.cards[c.key];
+      if (!r) { if (c.dok <= openLevel[c.comp.id]) fresh.push(c); return; }
+      if (r.due <= now || r.due < t0 + DAY) {
+        if (r.st === 'learn') learn.push(c); else rev.push(c);
+      }
+    });
+    /* reviews strictly by how overdue they are */
+    function overdue(c){ return S.cards[c.key].due; }
+    rev.sort(function(a,b){ return overdue(a) - overdue(b); });
+    learn.sort(function(a,b){ return overdue(a) - overdue(b); });
+    /* new cards: the newest open level first so the ladder is used,
+       then the week you are in, then earlier weeks, in a stable order */
+    fresh.sort(function(a,b){
+      var la = (a.dok === openLevel[a.comp.id] && a.dok > 1) ? 0 : 1;
+      var lb = (b.dok === openLevel[b.comp.id] && b.dok > 1) ? 0 : 1;
+      if (la !== lb) return la - lb;
+      var wa = a.week === maxWeek ? 0 : 1, wb = b.week === maxWeek ? 0 : 1;
+      if (wa !== wb) return wa - wb;
+      if (a.week !== b.week) return a.week - b.week;
+      return a.dok - b.dok;
+    });
+    /* one new card per competency per day where possible, so a session
+       samples the week rather than draining one competency */
+    var picked = [], seenComp = {}, rest = [];
+    fresh.forEach(function(c){ if (picked.length < newLeft && !seenComp[c.comp.id]) { picked.push(c); seenComp[c.comp.id] = 1; } else rest.push(c); });
+    while (picked.length < newLeft && rest.length) picked.push(rest.shift());
+    return { learn: learn, rev: rev, fresh: picked, freshTotal: fresh.length };
+  }
+
+  /* ---------- home screen ---------- */
+  var $ = function(id){ return document.getElementById(id); };
+  var pile;
+
+  function fillWeeks(){
+    var sel = $('weeks'); sel.innerHTML = '';
+    for (var n = 1; n <= 15; n++) {
+      var o = document.createElement('option'); o.value = n;
+      var t = weekTitle(n);
+      o.textContent = (n === 1 ? 'Week 1' : 'Weeks 1 to ' + n) + (t ? ': ' + t : '');
+      if (n === maxWeek) o.selected = true;
+      sel.appendChild(o);
+    }
+    if (onlyWeek) {
+      var only = document.createElement('option'); only.value = 'only'; only.selected = true;
+      only.textContent = 'Week ' + maxWeek + ' only'; sel.appendChild(only);
+    }
+  }
+  $('weeks').addEventListener('change', function(){
+    var v = this.value;
+    if (v === 'only') return;
+    onlyWeek = false; maxWeek = parseInt(v, 10); S.set.maxWeek = maxWeek; save(); renderHome();
+  });
+  [].forEach.call($('npd').querySelectorAll('button'), function(b){
+    b.addEventListener('click', function(){ S.set.npd = parseInt(b.dataset.v, 10); save(); renderHome(); });
+  });
+
+  function renderHome(){
+    fillWeeks();
+    [].forEach.call($('npd').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === S.set.npd)); });
+    pile = buildPile(false);
+    $('nNew').textContent = pile.fresh.length;
+    $('nLearn').textContent = pile.learn.length;
+    $('nRev').textContent = pile.rev.length;
+    var total = pile.fresh.length + pile.learn.length + pile.rev.length;
+    var inplay = CARDS.filter(inPlay).length;
+    var seen = CARDS.filter(function(c){ return inPlay(c) && S.cards[c.key]; }).length;
+    $('dueline').textContent = total
+      ? total + ' card' + (total === 1 ? '' : 's') + ' waiting, about ' + Math.max(1, Math.round(total * 0.4)) + ' minutes. ' + seen + ' of ' + inplay + ' cards in play have been started.'
+      : 'Nothing is due. ' + seen + ' of ' + inplay + ' cards in play have been started. Come back tomorrow, or pull some new ones now.';
+    $('start').disabled = !total;
+    $('extra').hidden = !!total || pile.freshTotal === 0;
+    /* forecast */
+    var fc = $('forecast'); fc.innerHTML = '';
+    var t0 = startOfToday(), names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    for (var d = 0; d < 7; d++) {
+      var lo = t0 + d*DAY, hi = lo + DAY, n = 0;
+      CARDS.forEach(function(c){ var r = S.cards[c.key]; if (!r || !inPlay(c)) return; if (d === 0 ? r.due < hi : (r.due >= lo && r.due < hi)) n++; });
+      var el = document.createElement('div');
+      var dt = new Date(lo);
+      el.innerHTML = '<div class="d">' + (d === 0 ? 'Today' : names[dt.getDay()]) + '</div><div class="n">' + n + '</div>';
+      fc.appendChild(el);
+    }
+    /* ladder */
+    var lad = $('ladder'); lad.innerHTML = '';
+    var counts = {1:0,2:0,3:0};
+    COMPS.forEach(function(comp){ if (!onlyWeek ? comp.week <= maxWeek : comp.week === maxWeek) counts[openLevel[comp.id]]++; });
+    var total3 = counts[1] + counts[2] + counts[3];
+    [[1,'At level 1','Recall. Working on the basics.'],[2,'Level 2 open','Apply. Three level 1 cards proved.'],[3,'Level 3 open','Analyze. Three level 2 cards proved.']].forEach(function(r){
+      var el = document.createElement('div');
+      el.innerHTML = '<div class="t">' + r[1] + '</div><div class="n">' + counts[r[0]] + '<span class="s"> of ' + total3 + ' competencies</span></div><div class="s">' + r[2] + '</div>';
+      lad.appendChild(el);
+    });
+  }
+
+  /* ---------- reviewer ---------- */
+  var queue = [], done = 0, total = 0, cur = null, answered = false, firstRight = false;
+  var sess = { seen:0, right:0, missed:{} };
+
+  function startSession(forceNew){
+    pile = buildPile(forceNew);
+    queue = pile.learn.concat(pile.rev);
+    /* interleave new cards through the reviews rather than stacking them at the end */
+    var step = pile.fresh.length ? Math.max(1, Math.floor((queue.length + pile.fresh.length) / pile.fresh.length)) : 0;
+    pile.fresh.forEach(function(c, i){ queue.splice(Math.min(queue.length, (i+1)*step - 1), 0, c); });
+    if (!queue.length) return;
+    done = 0; total = queue.length; sess = { seen:0, right:0, missed:{} };
+    $('home').hidden = true; $('finish').hidden = true; $('review').hidden = false;
+    next();
+  }
+
+  function next(){
+    if (!queue.length) return finishSession();
+    cur = queue.shift(); answered = false; firstRight = false;
+    var r = S.cards[cur.key] || { st:'new' };
+    $('prog').textContent = (done + 1) + ' of ' + total;
+    $('meterfill').style.width = Math.round(100 * done / total) + '%';
+    $('mWeek').textContent = 'Week ' + cur.week;
+    $('mTopic').textContent = cur.topic;
+    $('mLevel').textContent = 'Level ' + cur.dok;
+    $('mState').textContent = r.st === 'new' ? 'New card' : r.st === 'learn' ? 'Relearning' : 'Review';
+    $('stem').textContent = cur.q;
+    var ul = $('opts'); ul.innerHTML = '';
+    cur.options.forEach(function(o, i){
+      var li = document.createElement('li');
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'opt';
+      b.innerHTML = '<span class="k" aria-hidden="true">' + (i+1) + '</span><span></span>';
+      b.lastChild.textContent = o;
+      b.setAttribute('aria-label', 'Choice ' + (i+1) + ': ' + o);
+      b.addEventListener('click', function(){ answer(i); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    $('verdict').hidden = true; $('rate').hidden = true;
+    $('qcard').setAttribute('aria-busy', 'false');
+    var first = ul.querySelector('button'); if (first) first.focus();
+  }
+
+  function answer(i){
+    if (answered) return;
+    answered = true; firstRight = (i === cur.ci);
+    var btns = $('opts').querySelectorAll('button');
+    [].forEach.call(btns, function(b, k){
+      b.disabled = true;
+      if (k === cur.ci) b.classList.add('right');
+      else if (k === i) b.classList.add('wrong');
+      else b.classList.add('dim');
+    });
+    var v = $('verdict');
+    v.className = 'verdict ' + (firstRight ? 'right' : 'wrong');
+    $('vh').textContent = firstRight ? 'Right.' : 'Not this one. The answer is ' + (cur.ci + 1) + ': ' + cur.options[cur.ci];
+    $('vx').textContent = cur.x;
+    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (Week ' + cur.comp.week + ')';
+    v.hidden = false;
+    /* rating buttons, with what each would do */
+    var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5 };
+    for (var r = 0; r < 4; r++) {
+      var nx = nextInterval(rec, r);
+      $('iv' + r).textContent = ivLabel(nx.iv);
+      var b = $('rate').querySelectorAll('button')[r];
+      b.disabled = (!firstRight && r > 0);
+    }
+    $('rate').hidden = false;
+    sess.seen++; dayLog().seen++;
+    if (firstRight) { sess.right++; dayLog().right++; }
+    else { var id = cur.comp.id; sess.missed[id] = (sess.missed[id] || 0) + 1; }
+    if (!S.cards[cur.key]) dayLog().newc++;
+    save();
+    $('rate').querySelector('button' + (firstRight ? ':nth-child(3)' : ':first-child')).focus();
+  }
+
+  function rate(r){
+    if (!answered) return;
+    if (!firstRight) r = 0;
+    var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5, reps:0, lapses:0 };
+    var nx = nextInterval(rec, r);
+    var due = startOfToday() + nx.iv * DAY + 8*3600000; /* 8 am local on the due day */
+    if (r === 0) rec.lapses = (rec.lapses || 0) + 1;
+    rec.reps = (rec.reps || 0) + 1;
+    rec.st = nx.st; rec.iv = nx.iv; rec.ease = Math.round(nx.ease * 100) / 100; rec.due = due; rec.last = Date.now();
+    S.cards[cur.key] = rec;
+    /* a missed card comes back later in this same session */
+    if (r === 0) { queue.push(cur); total++; }
+    save();
+    done++;
+    next();
+  }
+  [].forEach.call($('rate').querySelectorAll('button'), function(b){ b.addEventListener('click', function(){ rate(parseInt(b.dataset.r, 10)); }); });
+
+  document.addEventListener('keydown', function(e){
+    if ($('review').hidden) return;
+    if (e.key === 'Escape') { finishSession(); return; }
+    var n = parseInt(e.key, 10);
+    if (!(n >= 1 && n <= 4)) return;
+    if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+    e.preventDefault();
+    if (!answered) { if (n <= cur.options.length) answer(n - 1); }
+    else { var b = $('rate').querySelectorAll('button')[n - 1]; if (b && !b.disabled) rate(n - 1); }
+  });
+
+  function finishSession(){
+    $('review').hidden = true; $('finish').hidden = false;
+    $('fSeen').textContent = sess.seen;
+    $('fRight').textContent = sess.right;
+    var t0 = startOfToday(), n = 0;
+    CARDS.forEach(function(c){ var r = S.cards[c.key]; if (r && inPlay(c) && r.due >= t0 + DAY && r.due < t0 + 2*DAY) n++; });
+    $('fTomorrow').textContent = n;
+    $('finline').textContent = sess.seen
+      ? (sess.right === sess.seen ? 'Every card right first time. The ones you rated Hard will be back sooner than the rest.' : 'Missed cards come back tomorrow, and again until they hold.')
+      : 'You stopped before answering anything. The pile is still waiting.';
+    var ids = Object.keys(sess.missed).sort(function(a,b){ return sess.missed[b] - sess.missed[a]; });
+    $('gapsec').hidden = !ids.length;
+    var ul = $('gaps'); ul.innerHTML = '';
+    ids.forEach(function(id){
+      var c = compById[id]; var li = document.createElement('li');
+      li.innerHTML = '<b></b><span></span>';
+      li.firstChild.textContent = c.name + ' (Week ' + c.week + ', missed ' + sess.missed[id] + ')';
+      li.lastChild.textContent = c.can;
+      ul.appendChild(li);
+    });
+    $('fin-h').setAttribute('tabindex', '-1'); $('fin-h').focus();
+  }
+
+  $('start').addEventListener('click', function(){ startSession(false); });
+  $('extra').addEventListener('click', function(){ startSession(true); });
+  $('quit').addEventListener('click', finishSession);
+  $('again').addEventListener('click', function(){ $('finish').hidden = true; $('home').hidden = false; renderHome(); $('due-h').setAttribute('tabindex','-1'); $('due-h').focus(); });
+
+  function boot(){
+    if (!CARDS.length) { $('dueline').textContent = 'The card bank did not load. Reload the page, and if it happens again tell Dr. Rennie which browser you are using.'; $('start').disabled = true; return; }
+    SITE = window.BIO005_SITE;
+    if (!(qWeek >= 1) && !S.set.maxWeek) maxWeek = currentWeek();
+    renderHome();
+  }
+  /* bio005-nav.js is deferred and sets BIO005_SITE; wait one tick for it */
+  if (document.readyState === 'complete') boot(); else window.addEventListener('load', boot);
+  window.BIO005_RX = { pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
+}());
+</script>
+<script src="bio005-nav.js" defer></script>
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<script src="bio005-back.js"></script>
+<script>
+/* iframe height sender, for Canvas */
+(function(){
+  function post(){ try { parent.postMessage({ frame:'bio005-rx-cards', id:'bio005-rx-cards', height: document.documentElement.scrollHeight }, '*'); } catch(e) {} }
+  if ('ResizeObserver' in window) new ResizeObserver(post).observe(document.documentElement);
+  window.addEventListener('load', post); window.addEventListener('resize', post); post();
+}());
+</script>
+</body>
+</html>

@@ -370,7 +370,7 @@
        only group that answers "what do I do right now" without the
        student choosing anything. ---------- */
     t.push({ g: 'This week', name: 'Today', sub: 'What is due, what is open, and what to work on next',
-             url: BASE + 'os/mastery-physio-os.html' + q, icon: 'target', tone: 'gold', qr: 'today',
+             url: BASE + 'index.html', icon: 'target', tone: 'gold', qr: 'today',
              kw: 'today now due next dashboard week current' });
     t.push({ g: 'This week', name: 'Course calendar', sub: 'Every week, every due date, every exam window',
              url: BASE + 'course-schedule.html' + q, icon: 'cal', tone: 'navy', qr: 'calendar',
@@ -419,11 +419,11 @@
              kw: 'graph chart data curve tracing waveform plot interpret read trend ecg spirometry' });
 
     /* ---------- STUDY ---------- */
-    t.push({ g: 'Study', name: 'Mastery OS', sub: 'Your gaps, your weakest competencies, and what is due for recall',
-             url: BASE + 'os/mastery-physio-os.html' + q, icon: 'brain', tone: 'gold', qr: 'mastery',
+    t.push({ g: 'Study', name: 'Practice Exam and Gap Finder', sub: 'Thirty questions on a week, and the competencies to go back to',
+             url: BASE + 'practice-exam.html', icon: 'brain', tone: 'gold', qr: 'mastery',
              kw: 'mastery os dashboard gaps weakness progress track' });
-    t.push({ g: 'Study', name: 'Recall cards', sub: 'Spaced retrieval practice on the course competencies',
-             url: BASE + 'os/mastery-physio-os.html#s-recall', icon: 'cards', tone: 'navy', qr: 'recall',
+    t.push({ g: 'Study', name: 'Rx Cards', sub: 'Spaced recall that gets harder as you prove it',
+             url: BASE + 'rx-cards.html', icon: 'cards', tone: 'navy', qr: 'recall',
              kw: 'cards recall flashcards spaced repetition quiz retrieval practice' });
     t.push({ g: 'Study', name: 'Draw it from memory', sub: 'Draw the mechanism first, then check it',
              url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra', qr: 'canvas',
@@ -978,7 +978,7 @@
   /* DATA AND ENGINE SEPARATED, Sep 7 2026.
      This used to bail out entirely on `if (window.BIO005_HOOTIE) return`.
      That is correct for the engine and wrong for the data. The two
-     standalone pages, mastery-physio-os-standalone.html and
+     standalone pages, rx-cards.html and
      unit-05-standalone.html, inline hootie.js rather than loading it, so
      BIO005_HOOTIE was already set by the time this ran, the function
      returned on line one, and neither the schedule nor the 248 answer
