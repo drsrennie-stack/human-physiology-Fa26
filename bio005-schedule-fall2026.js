@@ -230,8 +230,9 @@ window.BIO005_GRADING = {
            'Where a week uses PhysioEx it must show complete in Pearson, and the points live on the worksheet.' },
     { key:'apply',       name:'Use It', weight:25, n:15,
       ai:'open, with disclosure',
-      note:'The weekly application case, chosen from three or four set in different rooms. They differ ' +
-           'in context, not in rigor. These accumulate into the patient file, the capstone of the course.' },
+      note:'20 percent: the weekly application case, chosen from three or four set in different rooms, ' +
+           'turned in each Sunday. 5 percent: the patient chart, kept by hand all term and turned in once, ' +
+           'Wed Dec 16, as the capstone. Weekly chart work is expected but not collected.' },
     { key:'discussions', name:'Think About It', weight:15, n:15,
       ai:'closed',
       note:'One post a week carrying the physiology and the thinking about it together. Initial post ' +

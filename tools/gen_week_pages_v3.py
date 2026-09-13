@@ -283,7 +283,7 @@ def page(n, opens, closes, title, part, solid=False):
                      'Do not look anything up yet. See what your brain can produce. What you forget tells you what needs another pass.',
                      main=True, go='Open a brain dump &rarr;')
                 + card('mastery-canvas.html', 'c-navy', 'pen', 'Draw it', 'A blank canvas. Mechanism, sequence, loop. Produce it from nothing, then check it.')
-                + card('mastery-physio-os-standalone.html', 'c-navy', 'cards', 'Recall cards', 'Spaced recall with the full reason every answer is right or wrong.')
+                + card('rx-cards.html', 'c-navy', 'cards', 'Rx Cards', 'Spaced recall that gets harder as you prove it, with the reason behind every answer.')
                 + card('assignment-bookproblems.html?week=%d' % n, 'c-navy', 'graph', 'Book problems', 'Problems you have not seen. Predict, commit, then check.')
                 + (card('worksheet-week02-graphing.html', 'c-navy', 'graph', 'Graphing worksheet', 'Three figures to read and answer by hand.') if n == 2 else '')
                 + card('ungraded-sheet.html?week=%d' % n, 'c-navy', 'list', 'All of it on one sheet', 'Every practice item for the week on one printable page.'))
@@ -309,9 +309,11 @@ def page(n, opens, closes, title, part, solid=False):
         lab_att.append((cv['lab'], 'upload', 'Turn it in, Canvas', True))
     lab_cards = group(lab_lead, lab_att)
 
-    apply_cards = group(card('assignment-apply.html?week=%d' % n, 'c-gold', 'apply', 'Patient chart: ' + enc,
-                             'Your patient, this week\'s entry. Use the physiology you just learned to read what is happening to her.', np='Use It &middot; 25%', lead=True),
-                        [('patient-chart-book.html', 'notes', 'Your chart, all term', False)])
+    # Use It is 25 percent of the course: 20 on the weekly case (turned in each Sunday) and 5 on the
+    # patient chart, which is kept all term and turned in once, Wed Dec 16 (decision Sep 13 2026).
+    apply_cards = group(card('assignment-apply.html?week=%d' % n, 'c-gold', 'apply', 'Use It case: ' + enc,
+                             'This week\'s case on your patient. Use the physiology you just learned to read what is happening to her, then turn in your answers.', np='Use It &middot; 20%', lead=True),
+                        [('patient-chart-book.html', 'notes', 'Add this week to your chart', False)])
     if n == 1:
         disc_cards = (group(card('assignment-discussion-01-visionboard.html', 'c-gold', 'talk', 'Discussion 1A: Digital Vision Board', 'Who you are, and a short video introduction.', np='Think About It &middot; 15%', lead=True),
                             [(CANVAS[1]['disc1a'], 'upload', 'Post 1A, Canvas', True)])
@@ -339,7 +341,8 @@ def page(n, opens, closes, title, part, solid=False):
                      '<li><span class="box" aria-hidden="true"></span><span>Discussion %d: two replies</span><span class="when">%s</span></li>') % (n, fri_short if sunday else close_short, n, close_short)
     labdone = ('Lab turned in: ' + (lab['name'].replace('&amp;', 'and').split(',')[0] if lab['kind'] == 'physioex' else lab['name'].replace('Dry lab: ', '').split(':')[0]))
     done = ('<li><span class="box" aria-hidden="true"></span><span>%s</span><span class="when">%s</span></li>' % (labdone, close_short)
-            + '<li><span class="box" aria-hidden="true"></span><span>Patient chart entry: %s</span><span class="when">%s</span></li>' % (enc, close_short)
+            + '<li><span class="box" aria-hidden="true"></span><span>Use It case turned in: %s</span><span class="when">%s</span></li>' % (enc, close_short)
+            + '<li class="rec"><span class="box" aria-hidden="true"></span><span>Chart updated with this week\'s data and your thinking (kept, not turned in until the end of the term)</span><span class="when">Dec 16</span></li>'
             + disc_done
             + '<li class="rec"><span class="box" aria-hidden="true"></span><span>Practice exam report uploaded (no points, but I read every one)</span><span class="when">%s</span></li>' % close_short)
 
@@ -427,7 +430,7 @@ def page(n, opens, closes, title, part, solid=False):
     <div class="head"><span class="sico" aria-hidden="true">{ICON['check']}</span>
       <div><h2 id="done-h">You're done with Week {n} when&hellip;</h2><p class="lede">Everything goes in through Canvas. Times are Pacific.</p></div></div>
     <ul>{done}</ul>
-    <p class="fine">The dashed one is not graded. It is the one thing I ask for so I can see how you are doing and reach out if I should.</p>
+    <p class="fine">The dashed ones are not due this week. The practice report carries no points; it is the one thing I ask for so I can see how you are doing and reach out if I should. The chart is your capstone, worth 5 percent of the course, turned in once on Wednesday, December 16.</p>
   </section>
 
   <nav class="nextrow" aria-label="Other weeks">

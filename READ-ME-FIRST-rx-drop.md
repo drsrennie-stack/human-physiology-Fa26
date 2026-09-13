@@ -18,3 +18,11 @@ Upload everything in this zip to the repo root, keeping the folder structure (os
 
 - lecture-week.html still points Week 2 at biol005-m02-molecular-toolkit-*. That is waiting on the Week 2 work in progress; when the m02-* set is final, the manifest entries for week 2 need to change to m02-slides.html, m02-notes.html and m02-chem-review.html.
 - mastery-physio-os.html, mastery-physio-os-standalone.html and os/ stay in the repo. Nothing links to them from a student page. Delete them by hand in GitHub when you are ready.
+
+## Use It split, decided Sep 13 2026
+
+Use It stays 25 percent of the course. 20 percent is the weekly case (assignment-apply.html, turned in each Sunday). 5 percent is the patient chart (patient-chart-book.html), kept by hand all term, nothing collected week to week, turned in once as one PDF on Wednesday, December 16, and graded as one piece.
+
+Changed to say that, all in this zip: the fifteen week pages (tile now reads "Use It case: ..." at 20%, the chart attachment reads "Add this week to your chart", the done list has the case as a graded line and the chart as a dashed line dated Dec 16), tools/gen_week_pages_v3.py, assignment-apply.html, patient-chart-book.html, bio005-credit-model.js (new "chart" line, 5), bio005-schedule-fall2026.js (grading note), how-grading-works.html, syllabus-fall2026.html, how-this-course-works.html, welcome.html. Week 1 now attaches the chart book like the other fourteen weeks instead of the digital patient file.
+
+Still open: BIO005-patient-file.html and its instructions describe a different patient (seeded per student, order tokens, weekly PDF upload). It is no longer linked from any week page. Decide whether it is retired or lives somewhere else; until then it stays in the repo untouched. The Canvas assignments for the weekly chart entries, if any exist as separate items, need renaming to the Use It case, and one new Canvas assignment is needed for the chart on Dec 16.

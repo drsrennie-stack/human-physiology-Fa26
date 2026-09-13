@@ -269,19 +269,44 @@
 
   /* ---- collapsible sections on the text heavy pages ----
      Sep 8 2026. Scrubs: "be neuro friendly and design the text heavy pages
-     with collapsible boxes."
+     with collapsible boxes." The page list lives here so no page has to be
+     edited: bio005-fold.js is loaded for these and told which heading level
+     folds. A long page then opens as its outline, first section open, the
+     rest a heading each, with Open all and Close all above them.
+     Add a page: name it here with the heading level that marks a section.
+     A page can also carry <html data-fold="h2"> itself, or data-fold="off". */
+  var FOLD = {
+    'syllabus-fall2026.html': 'h2',
+    'how-grading-works.html': 'h2',
+    'how-this-course-works.html': 'h2',
+    'accessibility.html': 'h2',
+    'competency-study-guide.html': 'h2',
+    'competency-packet-fall2026.html': 'h2',
+    'week-01-notes.html': 'h2',
+    'biol005-m01-maintain-control-notes.html': 'h2',
+    'biol005-m02-molecular-toolkit-notes.html': 'h2',
+    'week-01-notesheet-prompts.html': 'h2',
+    'week-02-notesheet-prompts.html': 'h2'
+  };
+  /* Not folded on purpose: the assignment instruction pages, Start here and
+     Access Pearson. Those are short and read top to bottom as steps, and a
+     hidden step is a missed step. */
+  for (var fw = 1; fw <= 15; fw++) {
+    var fk = (fw < 10 ? '0' : '') + fw;
+    FOLD['week-' + fk + '-competencies.html'] = 'h3';
+    if (fw > 2) FOLD['week-' + fk + '-notes.html'] = 'h2';
+  }
 
-     THIS BLOCK USED TO BUILD A SECOND COLLAPSE SYSTEM AND IT NEVER WORKED.
-     It carried a page list and injected bio005-fold.js, a file that does
-     not exist in this repo and never has. Every page on the list, the
-     syllabus, the competency packet, all fifteen competency pages and the
-     notes pages, quietly fired a 404 on load and folded nothing. The
-     collapsible boxes on those pages were never there to begin with.
-
-     Removed Sep 13 2026. The system that actually works is
-     bio005-collapse.js, which is loaded by a script tag on the page and
-     is already on 132 of them. A page that should fold gets that tag.
-     Two systems doing one job is how a feature ends up half missing. */
+  function fold(file) {
+    if (document.documentElement.getAttribute('data-fold') === 'off') return;
+    var lvl = document.documentElement.getAttribute('data-fold') || FOLD[file];
+    if (!lvl) return;
+    if (document.querySelector('script[src*="bio005-fold.js"]')) return;
+    window.BIO005_FOLD = lvl;
+    var s = document.createElement('script');
+    s.src = base() + 'bio005-fold.js';
+    document.body.appendChild(s);
+  }
 
   function inject() {
     var style = document.createElement('style');
@@ -290,6 +315,7 @@
     document.head.appendChild(style);
 
     var file = here();
+    fold(file);
     var me = entry(file);
     var parent = me.parent;
 
@@ -777,7 +803,6 @@
       gateCss();
       var mm = document.querySelector('main, [role="main"]') || document.body;
       hideAroundMain(mm);
-      document.documentElement.setAttribute('data-b5-gated', 'lab-manual');
       document.title = 'Lab manual, posting soon · BIO 005 Human Physiology';
       mm.innerHTML = '<div class="b5gate"><p class="eb">BIO 005 · Clinical Physiology Lab</p><h1>The lab manual is not open yet.</h1>'
         + '<div class="card"><p style="margin:0">Each week\'s lab lives on that week\'s page. The collected manual opens here later in the term.</p></div>'
@@ -814,26 +839,6 @@
     var main = document.querySelector('main, [role="main"]') || document.body;
     /* the page's own masthead carries the week h1; hide it so the gate card is the only heading */
     hideAroundMain(main);
-
-    /* TELL THE PAGE ITS CONTENT IS GONE.
-
-       Gating replaces main's innerHTML, which deletes the containers an
-       interactive page renders itself into. That page then runs its own
-       DOMContentLoaded handler a moment later, asks for a container that
-       no longer exists, and throws on the first one. Everything after the
-       throw is skipped, including the loop that puts target="_top" on
-       every link and the iframe height sender, so a gated interactive page
-       nests the course inside itself in Canvas and never resizes.
-
-       The pulmonary function lab was doing exactly this. A page that
-       builds itself should check for this attribute before it starts:
-
-           if (document.documentElement.hasAttribute('data-b5-gated')) return;
-
-       Set before innerHTML is replaced, so it is already there for anything
-       watching. Sep 13 2026. */
-    document.documentElement.setAttribute('data-b5-gated', 'week-' + n);
-
     document.title = 'Week ' + n + ' opens ' + fmtShort(w.opens) + ' · BIO 005 Human Physiology';
     gateCss();
     var cur = window.BIO005_SITE.current;
@@ -844,7 +849,7 @@
       + '<li><a class="main" href="' + B + cur.file + '" target="_top">This week, Week ' + cur.n + '</a></li>'
       + '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
       + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' note sheet (PDF)</a></li>'
-      + '<li><a href="' + B + 'mastery-physio-os-standalone.html" target="_top">Recall cards</a></li>'
+      + '<li><a href="' + B + 'rx-cards.html" target="_top">Rx Cards</a></li>'
       + '<li><a href="' + B + 'course-schedule.html" target="_top">The schedule</a></li>'
       + '</ul></div>';
     var h = main.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); }

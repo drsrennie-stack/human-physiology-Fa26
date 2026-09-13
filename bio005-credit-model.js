@@ -26,28 +26,19 @@
    The section is listed as asynchronous. syncRequired is false on
    every line in this file and it needs to stay that way.
 
-   SCHOLAR POINTS, AND WHY THEY SIT OUTSIDE THE FOUR CATEGORIES
-
-   The four categories still total 100 and nothing below adds to
-   them. Scholar Points are not a fifth category and not extra
-   credit: they are a bump of up to 2.5 percent applied to the
-   final course percentage after the four categories are settled.
-   See scholarPoints at the bottom of this file.
-
-   The history matters, because this reversed once. The original
-   block here was a BIO 004 anatomy mechanic, a capped bonus of
-   three points with live and asynchronous routes, and it was
-   removed Sep 10 2026 on Scrubs' instruction: "remove scholar
-   points and bonus, that is only anatomy." Scholar Points came
-   back Sep 13 2026 as a different thing, attached to Study With
-   Me, earned only by studying with other people. Anything written
-   between those two dates that says Scholar Points do not exist is
-   out of date.
+   SCHOLAR POINTS ARE NOT IN THIS COURSE. They are a BIO 004
+   anatomy mechanic. The block that used to sit at the bottom of
+   this file described a capped bonus of three points earned
+   through live sessions, and what-you-do.html was rendering it as
+   though students could earn it. Removed Sep 10 2026 on Scrubs'
+   instruction: "remove scholar points and bonus, that is only
+   anatomy." Four categories, totalling 100, no curve, no extra
+   credit.
    ============================================================ */
 
 window.BIO005_CREDIT = {
 
-  status: "Weights of record, set by Scrubs Sep 7 2026. Four categories, totalling 100.",
+  status: "Weights of record, set by Scrubs Sep 7 2026, Use It split Sep 13 2026. Four categories, totalling 100.",
 
   /* The four categories total 100. Every category is asynchronous:
      nothing in this course requires a student to be present at a
@@ -86,14 +77,27 @@ window.BIO005_CREDIT = {
       name:"Use It",
       short:"Applications and the patient file",
       category:"Use It",
-      count:15, cadence:"One case per week, accumulating into the patient file",
-      suggestedWeight:25,
+      count:15, cadence:"One case per week, due Sunday 10:00 pm",
+      suggestedWeight:20,
       ai:"open-with-disclosure",
       aiNote:"The reasoning must be the student's own and is what is graded. Disclose any AI used.",
       verification:"Each case asks the same five moves: name the variable and its control system, predict, explain the mechanism step by step, interpret the evidence, justify the conclusion and name what would change it.",
       syncRequired:false,
       purpose:"Three or four cases a week set in nursing, medicine, radiology and exercise or allied health. The student chooses the room. Every case assesses the same underlying competency, so the context varies and the rigor does not.",
-      note:"This is where the choice is real and the standard is not. The cases accumulate into the patient file, which is the capstone." },
+      note:"This is where the choice is real and the standard is not. The other 5 percent of Use It is the patient chart, below." },
+
+    { id:"chart",
+      name:"Use It: the patient chart",
+      short:"Patient chart, the capstone",
+      category:"Use It",
+      count:1, cadence:"Kept by hand all term, turned in once, Wed Dec 16",
+      suggestedWeight:5,
+      ai:"open-with-disclosure",
+      aiNote:"The chart is handwritten. Disclose any AI used in thinking it through.",
+      verification:"One paper chart on one patient: flowsheets with every week's numbers, a problem list that grows, one control loop drawn per week, and the week's questions answered. Nothing is collected week to week; the finished chart is graded as one piece.",
+      syncRequired:false,
+      purpose:"Fifteen weeks of data on one patient, read as one story. By December a student can run a finger along one row and explain her whole term.",
+      note:"Decision Sep 13 2026: Use It is 25 percent total, 20 on the weekly cases and 5 on the chart. Weekly chart work is expected but not collected." },
 
     { id:"discussions",
       name:"Think About It",
@@ -131,46 +135,17 @@ window.BIO005_CREDIT = {
 
   /* ============================================================
      SCHOLAR POINTS
-     Set by Scrubs Sep 13 2026.
+     A capped bonus, not a requirement, which is what keeps the
+     live sessions optional in an asynchronous section.
 
-     Not a category, not extra credit, and not a requirement. A bump
-     applied to the final course percentage after the four categories
-     above are settled, earned only by hours spent working the
-     physiology with at least one other person.
-
-     WHY THERE IS NO ASYNCHRONOUS ROUTE. The previous version of this
-     block carried one, because it was a bonus for participation and
-     an asynchronous section cannot require anyone to be present at a
-     set time. This version is not a participation bonus. The thing
-     being rewarded IS the studying with other people, so a solo route
-     would reward something else. It stays optional instead, which is
-     what keeps the section honestly asynchronous: a student who never
-     attends one loses nothing they were entitled to.
-
-     The numbers are also written into what-you-do.html, scholar-points.html
-     and syllabus-fall2026.html. If they change, change them there too.
+     Every point available through a live route is also available
+     through an asynchronous route. A student who can never make a
+     live session can still max this category out.
      ============================================================ */
 
-  scholarPoints: {
-    maxBumpPercent: 2.5,
-    hoursForFullBump: 30,
-    weeklyCountedHoursCap: 3,
-    hostBonusHours: 1,
-    hostBonusAppliedBeforeCap: true,
-    proportionalBelowTarget: true,
-    appliedTo: "The final course percentage, after the four categories are settled.",
-    countsAs: "Time spent working the physiology with at least one other person: a Study With Me session, a study group, quizzing each other, teaching at a whiteboard, brain dumps side by side, a Kahoot, working the book problems together.",
-    doesNotCountAs: "Time studying alone, and doing graded work together, which is not allowed regardless.",
-    requirements: [
-      "The session is recorded and the host keeps the link.",
-      "Cameras on, everybody, the whole session.",
-      "Log only the time you were actually present.",
-      "One session at a time.",
-      "The host keeps the recording and the attendance list."
-    ],
-    logging: "Students log sessions on scholar-points.html, which stores the log in their own browser, and submit the week through a weekly Canvas assignment.",
-    syncRequired: false
-  },
+  /* The Scholar Points block was removed Sep 10 2026. It is an anatomy
+     mechanic and has never been part of this course. Nothing renders it
+     and nothing should reintroduce it. */
 
   /* ============================================================
      AI POLICY, THE WHOLE THING IN ONE PLACE
