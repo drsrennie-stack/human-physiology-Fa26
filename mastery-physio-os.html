@@ -648,6 +648,20 @@ section.block:first-of-type{border-top:none}
   .site-header-inner{flex-wrap:wrap;gap:10px}
   .hdr-btn{white-space:normal}
 }
+
+/* ---------- section tabs ---------- */
+.secnav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.secnav button[role=tab]{appearance:none;border:0;background:transparent;font:inherit;font-size:14px;
+  font-weight:700;color:var(--ink-soft);padding:11px 14px;min-height:44px;border-radius:var(--r) var(--r) 0 0;
+  border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap}
+.secnav button[role=tab]:hover{color:var(--ink);background:rgba(11,21,48,.04)}
+.secnav button[role=tab][aria-selected=true]{color:var(--ink);border-bottom-color:var(--terra);background:#fff}
+.secnav button[role=tab]:focus-visible{outline:3px solid var(--terra);outline-offset:-3px}
+section.block[hidden]{display:none}
+@media print{
+  .secnav{display:none!important}
+  section.block[hidden]{display:block!important}
+}
 </style>
 </head>
 <body>
@@ -690,24 +704,28 @@ section.block:first-of-type{border-top:none}
 </header>
 
 <!-- ============ SECTION NAV ============ -->
+<!-- The strip used to be ten anchor links over ten stacked sections, so it
+     looked like tabs and behaved like a scrollbar. It is a real tablist now:
+     one panel at a time, arrow keys move between tabs, and the hash still
+     deep links, so #s-recall from the dock opens Recall. -->
 <nav class="secnav" aria-label="Sections">
-  <ul>
-    <li><a href="#s-plan">Today</a></li>
-    <li><a href="#s-dash">Dashboard</a></li>
-    <li><a href="#s-map">Competencies</a></li>
-    <li><a href="#s-weak">Weaknesses</a></li>
-    <li><a href="#s-recall">Recall</a></li>
-    <li><a href="#s-flow">Self-Tutoring</a></li>
-    <li><a href="#s-evidence">Evidence</a></li>
-    <li><a href="#s-skills">Learning Skills</a></li>
-    <li><a href="#s-coach">Coach</a></li>
-    <li><a href="#s-together">Study Together</a></li>
+  <ul role="tablist">
+    <li role="presentation"><button role="tab" id="tab-s-plan" aria-controls="s-plan" aria-selected="true" tabindex="0" data-panel="s-plan">Today</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-dash" aria-controls="s-dash" aria-selected="false" tabindex="-1" data-panel="s-dash">Dashboard</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-map" aria-controls="s-map" aria-selected="false" tabindex="-1" data-panel="s-map">Competencies</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-weak" aria-controls="s-weak" aria-selected="false" tabindex="-1" data-panel="s-weak">Weaknesses</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-recall" aria-controls="s-recall" aria-selected="false" tabindex="-1" data-panel="s-recall">Recall</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-flow" aria-controls="s-flow" aria-selected="false" tabindex="-1" data-panel="s-flow">Self-Tutoring</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-evidence" aria-controls="s-evidence" aria-selected="false" tabindex="-1" data-panel="s-evidence">Evidence</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-skills" aria-controls="s-skills" aria-selected="false" tabindex="-1" data-panel="s-skills">Learning Skills</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-coach" aria-controls="s-coach" aria-selected="false" tabindex="-1" data-panel="s-coach">Coach</button></li>
+    <li role="presentation"><button role="tab" id="tab-s-together" aria-controls="s-together" aria-selected="false" tabindex="-1" data-panel="s-together">Study Together</button></li>
   </ul>
 </nav>
 
 <main id="main">
   <!-- 1 TODAY'S PLAN -->
-  <section class="block" id="s-plan" aria-labelledby="h-plan" tabindex="-1">
+  <section class="block" id="s-plan" role="tabpanel" aria-labelledby="tab-s-plan" aria-labelledby="h-plan" tabindex="-1">
     <div class="wrap">
       <!-- THE DAY RAIL.
            One row of cards, each one a named method with today's material in
@@ -720,20 +738,20 @@ section.block:first-of-type{border-top:none}
   </section>
 
   <!-- 2 DASHBOARD -->
-  <section class="block" id="s-dash" aria-labelledby="h-dash">
+  <section class="block" id="s-dash" role="tabpanel" aria-labelledby="tab-s-dash" hidden aria-labelledby="h-dash">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 2</p><h2 id="h-dash">Mastery Dashboard</h2><p class="lead">Where you are strong, and where you are exposed.</p></div>
+        <div><h2 id="h-dash">Mastery Dashboard</h2><p class="lead">Where you are strong, and where you are exposed.</p></div>
       </div>
       <div class="grid g4" id="dashGrid"><!-- JS --></div>
     </div>
   </section>
 
   <!-- 3 COMPETENCY MAP -->
-  <section class="block" id="s-map" aria-labelledby="h-map">
+  <section class="block" id="s-map" role="tabpanel" aria-labelledby="tab-s-map" hidden aria-labelledby="h-map">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 3</p><h2 id="h-map">Competency Map</h2><p class="lead">Every competency in the course, and what you have proved on each.</p></div>
+        <div><h2 id="h-map">Competency Map</h2><p class="lead">Every competency in the course, and what you have proved on each.</p></div>
       </div>
       <p style="background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:18px">These competencies are the majority of what the course covers, and working through them honestly and consistently is very likely to be effective. No tool can promise a grade, though. Your result also depends on how much time you put in, how honest you are in your own self-assessment, exam-day factors like anxiety, and other things beyond this app. Use it alongside class, the competency list, and the syllabus.</p>
       <div id="mapWrap"><!-- JS --></div>
@@ -741,10 +759,10 @@ section.block:first-of-type{border-top:none}
   </section>
 
   <!-- 4 WEAKNESS -->
-  <section class="block" id="s-weak" aria-labelledby="h-weak">
+  <section class="block" id="s-weak" role="tabpanel" aria-labelledby="tab-s-weak" hidden aria-labelledby="h-weak">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 4</p><h2 id="h-weak">Weakness Dashboard</h2><p class="lead">Collected from your misses, your low-confidence answers, and recall you have let slip.</p></div>
+        <div><h2 id="h-weak">Weakness Dashboard</h2><p class="lead">Collected from your misses, your low-confidence answers, and recall you have let slip.</p></div>
       </div>
       <div id="weakWrap"><!-- JS --></div>
       <div id="loopWeak"><!-- JS --></div>
@@ -752,7 +770,7 @@ section.block:first-of-type{border-top:none}
   </section>
 
   <!-- SPACED RECALL, in the app rather than beside it -->
-  <section class="block" id="s-recall" aria-labelledby="h-recall" tabindex="-1">
+  <section class="block" id="s-recall" role="tabpanel" aria-labelledby="tab-s-recall" hidden aria-labelledby="h-recall" tabindex="-1">
     <div class="wrap">
       <h2 id="h-recall">Recall</h2>
       <p class="note">Every card in the course is here, and the schedule decides which ones you
@@ -763,10 +781,10 @@ section.block:first-of-type{border-top:none}
   </section>
 
   <!-- 5 SELF-TUTORING -->
-  <section class="block" id="s-flow" aria-labelledby="h-flow">
+  <section class="block" id="s-flow" role="tabpanel" aria-labelledby="tab-s-flow" hidden aria-labelledby="h-flow">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 5</p><h2 id="h-flow">Self-Tutoring Workflow</h2><p class="lead">The same six steps every session, until running them is a habit.</p></div>
+        <div><h2 id="h-flow">Self-Tutoring Workflow</h2><p class="lead">The same six steps every session, until running them is a habit.</p></div>
         <button class="btn primary" data-session="today">Start today's session</button>
       </div>
       <div class="flow" id="flowWrap"><!-- JS --></div>
@@ -778,30 +796,30 @@ section.block:first-of-type{border-top:none}
   </section>
 
   <!-- 6 EVIDENCE -->
-  <section class="block" id="s-evidence" aria-labelledby="h-ev">
+  <section class="block" id="s-evidence" role="tabpanel" aria-labelledby="tab-s-evidence" hidden aria-labelledby="h-ev">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 6</p><h2 id="h-ev">Evidence of Mastery</h2><p class="lead">Mastery moves only when you prove it. Pick how you will show it today.</p></div>
+        <div><h2 id="h-ev">Evidence of Mastery</h2><p class="lead">Mastery moves only when you prove it. Pick how you will show it today.</p></div>
       </div>
       <div class="grid g3" id="evGrid"><!-- JS --></div>
     </div>
   </section>
 
   <!-- 7 LEARNING SKILLS -->
-  <section class="block" id="s-skills" aria-labelledby="h-sk">
+  <section class="block" id="s-skills" role="tabpanel" aria-labelledby="tab-s-skills" hidden aria-labelledby="h-sk">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 7</p><h2 id="h-sk">Learning Skills Dashboard</h2><p class="lead">How you learn, not only what you know. These are the transferable skills.</p></div>
+        <div><h2 id="h-sk">Learning Skills Dashboard</h2><p class="lead">How you learn, not only what you know. These are the transferable skills.</p></div>
       </div>
       <div class="card" style="padding:8px 22px"><div id="skillWrap"></div></div>
     </div>
   </section>
 
   <!-- 8 COACH -->
-  <section class="block" id="s-coach" aria-labelledby="h-co">
+  <section class="block" id="s-coach" role="tabpanel" aria-labelledby="tab-s-coach" hidden aria-labelledby="h-co">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 8</p><h2 id="h-co">AI Mastery Coach</h2><p class="lead">Meet Hootie the Knowfish. He reads your progress and points you at one action.</p></div>
+        <div><h2 id="h-co">AI Mastery Coach</h2><p class="lead">Meet Hootie the Knowfish. He reads your progress and points you at one action.</p></div>
       </div>
       <div class="card coach">
         <div class="coach-hdr"><span class="coach-ava" role="img" aria-label="Hootie the Knowfish">🐡</span><div><strong>Hootie the Knowfish</strong><span>Your Mastery Coach, DPhil (Physiology)</span></div></div>
@@ -817,10 +835,10 @@ section.block:first-of-type{border-top:none}
   </section>
 
   <!-- 9 STUDY TOGETHER -->
-  <section class="block" id="s-together" aria-labelledby="h-tog">
+  <section class="block" id="s-together" role="tabpanel" aria-labelledby="tab-s-together" hidden aria-labelledby="h-tog">
     <div class="wrap">
       <div class="sec-head">
-        <div><p class="eyebrow">Section 9</p><h2 id="h-tog">Study Together</h2><p class="lead">Mastery is social. Compete, cooperate, teach, and race. Working single-device prototypes built on your own question bank.</p></div>
+        <div><h2 id="h-tog">Study Together</h2><p class="lead">Mastery is social. Compete, cooperate, teach, and race. Working single-device prototypes built on your own question bank.</p></div>
       </div>
       <div class="grid g3" id="togetherGrid"><!-- JS --></div>
     </div>
@@ -4473,6 +4491,81 @@ else{renderAll();}
 <script src="hootie.js"></script>
 <!-- A way back, on every page. -->
 <script src="bio005-back.js"></script>
-<script src="bio005-collapse.js"></script>
+<script src="bio005-collapse.js">
+</script>
+<script>
+/* =========================================================
+   SECTION TABS
+   Ten panels, one at a time. The strip used to be anchor links
+   over ten stacked sections, so the page was a 3,600px scroll
+   that looked like it had tabs. Deep links still work: any
+   #s-... in the URL, or a click on a link to one, opens that
+   panel instead of scrolling to a hidden element.
+========================================================= */
+(function(){
+  var strip = document.querySelector('.secnav');
+  if (!strip) return;
+  var tabs = [].slice.call(strip.querySelectorAll('[role=tab]'));
+  if (!tabs.length) return;
+
+  function panelOf(tab){ return document.getElementById(tab.getAttribute('data-panel')); }
+
+  function show(id, focusTab){
+    var found = false;
+    tabs.forEach(function(tab){
+      var on = tab.getAttribute('data-panel') === id;
+      if (on) found = true;
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      tab.tabIndex = on ? 0 : -1;
+      var pane = panelOf(tab);
+      if (pane) pane.hidden = !on;
+    });
+    if (!found) return false;
+    if (focusTab){
+      var t = document.getElementById('tab-' + id);
+      if (t) t.focus();
+    }
+    return true;
+  }
+
+  strip.addEventListener('click', function(e){
+    var tab = e.target.closest('[role=tab]');
+    if (!tab) return;
+    var id = tab.getAttribute('data-panel');
+    show(id);
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+  });
+
+  strip.addEventListener('keydown', function(e){
+    var i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    var j = null;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') j = 0;
+    else if (e.key === 'End') j = tabs.length - 1;
+    if (j === null) return;
+    e.preventDefault();
+    show(tabs[j].getAttribute('data-panel'), true);
+  });
+
+  /* A link anywhere on the page that points at a panel opens it. */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#s-"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (document.getElementById('tab-' + id)){ e.preventDefault(); show(id); 
+      if (history.replaceState) history.replaceState(null, '', '#' + id); }
+  });
+
+  window.addEventListener('hashchange', function(){
+    var id = location.hash.slice(1);
+    if (id) show(id);
+  });
+
+  var start = location.hash.slice(1);
+  if (!start || !show(start)) show(tabs[0].getAttribute('data-panel'));
+}());
+</script>
 </body>
 </html>

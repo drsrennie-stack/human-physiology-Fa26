@@ -109,3 +109,16 @@
   font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
   color:var(--ink-soft,#414B5C)}
 @media print{.mm-jump,.mm-jumpwrap{display:none}}
+
+
+/* ------------------------------------------------------------
+   ONE BRAND BAR PER PAGE.
+   Sep 13 2026. 32 pages carry their own .brandbar from before this
+   stylesheet existed, and they now render it directly above the
+   shared .mm-brandbar, so the BIO 005 lockup and the Fall 2026 tag
+   appear twice down the top of the page. Rather than edit all 32,
+   the older one stands down wherever the shared one is present.
+   Pages that still have only their own keep it and look unchanged.
+   ------------------------------------------------------------ */
+body:has(.mm-brandbar) .brandbar,
+body:has(.mm-brandbar) #brandbar{ display:none !important; }
