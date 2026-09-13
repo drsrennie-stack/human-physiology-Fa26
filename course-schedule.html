@@ -195,18 +195,6 @@ em,i,cite,dfn,var,address{font-style:normal}
 .jump-key .j-disc{background:#fff;color:#8B3A2E;border-color:#8B3A2E}
 .jump-key .j-study{background:#ECEFF4;color:#0B1530;border-color:#0B1530}
 @media print{.wk-jump,.jump-key{display:none}}
-
-.stage-h{margin:26px 0 10px;font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;
-  font-weight:800;letter-spacing:.02em;font-size:13px;text-transform:uppercase;color:#8B3A2E}
-.stage-h:first-child{margin-top:0}
-.stage-row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));margin:0 0 4px}
-.beat h4{margin:0 0 2px;font-size:17px;font-weight:800;color:#0B1530}
-
-.decisions{list-style:none;margin:14px 0 0;padding:0}
-.decisions li{padding:13px 0;border-top:1px solid rgba(11,21,48,.08)}
-.decisions li:first-child{border-top:0}
-.decisions b{display:block;font-size:16px;color:#0B1530}
-.decisions .aff{display:block;margin-top:3px;font-size:14px;color:#4F576A}
 </style>
 </head>
 <body>
@@ -225,7 +213,7 @@ em,i,cite,dfn,var,address{font-style:normal}
   <div class="wrap">
     <div class="eyebrow">Fall 2026 &middot; Asynchronous online</div>
     <h1>Fifteen weeks, three parts, <span class="accent">one shape every week</span></h1>
-    <p>This course has no meeting time. Every week opens Monday at 8:00 am Pacific and closes Sunday at 10:00 pm, and every week runs the same four stages, so you learn the container once and then spend your attention on physiology instead of on finding things.</p>
+    <p>This course has no meeting time. Every week opens Monday at 8:00 am Pacific and closes Sunday at 10:00 pm, and every week runs the same seven stages, so you learn the container once and then spend your attention on physiology instead of on finding things.</p>
     <div class="termfacts" id="termfacts"></div>
   </div>
 </section>
@@ -239,7 +227,7 @@ em,i,cite,dfn,var,address{font-style:normal}
 
   <section class="section">
     <h2>How every week works</h2>
-    <p class="sub">The same four stages every week, with the same six steps inside them. Independent study runs across the whole of stage 2.</p>
+    <p class="sub">The same six steps, in the same order, every week of the term. Independent study runs alongside them.</p>
     <div class="beats" id="beats"></div>
     <!-- THE FIVE JUMP SQUARES CAME OUT, Sep 7 2026.
          Scrubs: "This takes them to the wrong pages... we changed the
@@ -275,15 +263,6 @@ em,i,cite,dfn,var,address{font-style:normal}
     </table></div>
   </section>
 
-  <!-- The banner at the top says the open items are listed at the bottom.
-       This list is what it was pointing at. Without it the script threw on
-       a null element and the target="_top" pass below it never ran, so
-       every link on this page opened inside the Canvas frame. -->
-  <section class="section">
-    <h2>Still open</h2>
-    <p class="sub">Decisions not yet made. Everything above is adopted.</p>
-    <ul id="decisions" class="decisions"></ul>
-  </section>
 
 </main>
 
@@ -357,31 +336,13 @@ em,i,cite,dfn,var,address{font-style:normal}
 
   /* ---------- beats ---------- */
   var beatWrap = document.getElementById('beats');
-  /* Grouped by the four stages the nav, the dock and the print pack all
-     use, so the week has one set of names across the whole course. The
-     six steps keep their own numbers and days inside their stage. */
-  var STAGE_ORDER = ['1 Learn', '2 Practice', '3 Apply', '4 Check'];
-  var grouped = {};
-  SHAPE.forEach(function(b){
-    var k = b.stage || '1 Learn';
-    (grouped[k] = grouped[k] || []).push(b);
-  });
-  STAGE_ORDER.forEach(function(stage){
-    var list = grouped[stage];
-    if (!list || !list.length) return;
-    var h = el('h3','stage-h', stage);
-    h.id = 'stage-' + stage.charAt(0);
-    beatWrap.appendChild(h);
-    var row = el('div','stage-row');
-    list.forEach(function(b){
-      var d = el('div','beat');
-      d.appendChild(el('h4', null, b.beat));
-      d.appendChild(el('div','when', b.when));
-      d.appendChild(el('p', null, b.what));
-      d.appendChild(el('span','g', b.graded));
-      row.appendChild(d);
-    });
-    beatWrap.appendChild(row);
+  SHAPE.forEach(function(b, i){
+    var d = el('div','beat');
+    d.appendChild(el('h3', null, b.beat));
+    d.appendChild(el('div','when', b.when));
+    d.appendChild(el('p', null, b.what));
+    d.appendChild(el('span','g', b.graded));
+    beatWrap.appendChild(d);
   });
 
   /* ---------- weeks ---------- */
@@ -479,7 +440,7 @@ em,i,cite,dfn,var,address{font-style:normal}
 
   /* ---------- decisions ---------- */
   var dl = document.getElementById('decisions');
-  if (dl) DECISIONS.forEach(function(d){
+  DECISIONS.forEach(function(d){
     var li = document.createElement('li');
     var b = document.createElement('b');
     b.textContent = d.q;

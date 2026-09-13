@@ -331,13 +331,20 @@
   /* The week that is open now. bio005-nav.js publishes it as
      window.BIO005_SITE; when the dock runs on a page without the nav the
      dates are worked out here from the same calendar. */
+  var chosenWeek = 0;   /* 0 means "the week that is open now" */
+  function calendarWeekN() {
+    if (window.BIO005_SITE && window.BIO005_SITE.current) return window.BIO005_SITE.current.n;
+    var start = new Date(2026, 8, 7).getTime(), now = Date.now();
+    return Math.max(1, Math.min(15, Math.floor((now - start) / (7 * 86400000)) + 1));
+  }
   function currentWeekN() {
+    if (chosenWeek) return chosenWeek;
     if (window.BIO005_SITE && window.BIO005_SITE.current) return window.BIO005_SITE.current.n;
     var start = new Date(2026, 8, 7).getTime(), now = Date.now();
     return Math.max(1, Math.min(15, Math.floor((now - start) / (7 * 86400000)) + 1));
   }
   function currentWeekTitle(n) {
-    if (window.BIO005_SITE && window.BIO005_SITE.weeks && window.BIO005_SITE.weeks[n]) return window.BIO005_SITE.weeks[n].title || '';
+    var W = window.BIO005_SITE && window.BIO005_SITE.weeks; if (W && W[n - 1] && W[n - 1].n === n) return W[n - 1].title || '';
     return '';
   }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
@@ -346,6 +353,7 @@
   function tools() {
     var t = [];
     var wn = currentWeekN(), nn = pad2(wn), wt = currentWeekTitle(wn);
+    var TW = chosenWeek ? 'Week ' + wn : 'This week';
 
     /* ============================================================
        CATALOG, REORGANIZED Sep 13 2026 ON SCRUBS' INSTRUCTION
@@ -365,38 +373,29 @@
        ============================================================ */
 
     /* ---------- THIS WEEK. Open by default, on purpose. ---------- */
-    t.push({ g: 'This week', name: 'Week ' + wn, sub: wt || 'This week\'s page: all four stages, in order',
+    t.push({ g: TW, name: 'Week ' + wn + (chosenWeek ? '' : ', this week'), sub: wt || 'The week page: all four stages, in order',
              url: BASE + 'week-' + nn + '.html', icon: 'target', tone: 'gold', qr: 'today',
              kw: 'this week today now week page current stages' });
-    t.push({ g: 'This week', name: 'Course calendar', sub: 'Every week, every due date, every exam window',
+    t.push({ g: TW, name: 'Course calendar', sub: 'Every week, every due date, every exam window',
              url: BASE + 'course-schedule.html', icon: 'cal', tone: 'navy', qr: 'calendar',
              kw: 'calendar schedule dates due deadlines weeks exam window when' });
-    t.push({ g: 'This week', name: 'Study With Me', sub: 'Practice with other people. Optional, and it earns Scholar Points',
+    t.push({ g: TW, name: 'Study With Me', sub: 'Practice with other people. Optional, and it earns Scholar Points',
              url: BASE + 'study-with-me.html', icon: 'people', tone: 'terra', qr: 'study',
              kw: 'study with me session group together live partner scholar points kahoot' });
 
-    /* ---------- 1 LEARN ----------
-       The pre-work is a sequence, not a menu. Three steps in order, and
-       the dock renders them as a numbered column with arrows rather than
-       as tiles in a grid, so a student can see what comes first. The
-       note sheet IS the competency list, one box each, which is why
-       there is no separate competencies step: printing it is step one.
-       Everything else in this group is reference, not part of the week's
-       order, so it sits below the sequence under its own heading.
-       ============================================================ */
-    t.push({ g: '1 Learn', step: '1a', name: 'Print the note sheet',
-             sub: 'One box per competency. This is your pre-work sheet, so start here',
+    /* ---------- 1 LEARN, in the order of record: book first, then the lectures ---------- */
+    t.push({ g: '1 Learn', name: 'Competencies', sub: 'What you have to be able to do this week',
+             url: BASE + 'week-' + nn + '-competencies.html', icon: 'target', tone: 'navy',
+             kw: 'competencies competency list objectives what to know checklist' });
+    t.push({ g: '1 Learn', name: 'Note sheet', sub: 'Pass 1 from the book before the lectures, pass 2 after in a second color',
              url: BASE + 'note-sheet.html?week=' + wn, icon: 'pencil', tone: 'gold',
-             kw: 'note sheet notesheet boxes competency competencies print handwritten prework pre-work first' });
-    t.push({ g: '1 Learn', step: '1b', name: 'First pass: notes and the book',
-             sub: 'Fill in what you can from the written notes and Silverthorn, before any video',
-             url: BASE + notesFor(wn), icon: 'doc', tone: 'navy',
-             kw: 'notes reading written text book silverthorn first pass prework fill in' });
-    t.push({ g: '1 Learn', step: '1c', name: 'Second pass: watch and add',
-             sub: 'Watch the week\'s lectures and add what they give you that the reading did not',
+             kw: 'note sheet notesheet boxes competency print handwritten journal' });
+    t.push({ g: '1 Learn', name: 'Learn It With Dr. Rennie', sub: 'After your first pass: this week\'s lectures, short and in order',
              url: BASE + 'lecture-week.html?week=' + wn, icon: 'play', tone: 'terra',
-             kw: 'lecture lectures video watch second pass prework add complete learn it with dr rennie' });
-
+             kw: 'lecture lectures video watch slides teach week' });
+    t.push({ g: '1 Learn', name: 'Notes', sub: 'The written version of what I teach, for reading and rereading',
+             url: BASE + 'week-' + nn + '-notes.html', icon: 'doc', tone: 'navy',
+             kw: 'notes reading written text week' });
     t.push({ g: '1 Learn', name: 'Every week\'s lectures', sub: 'All fifteen weeks, by week',
              url: BASE + 'door-lecture.html', icon: 'play', tone: 'navy',
              kw: 'lectures all weeks library videos' });
@@ -409,6 +408,7 @@
     t.push({ g: '1 Learn', name: 'Before you start', sub: 'Three short checks that tell you whether you need to review',
              url: BASE + 'before-you-start.html', icon: 'target', tone: 'gold',
              kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
+
     /* ---------- 2 PRACTICE ---------- */
     t.push({ g: '2 Practice', name: 'Try It From Memory', sub: 'A brain dump, then the self check',
              url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
@@ -478,10 +478,6 @@
     t.push({ g: 'About the course', name: 'How this course works', sub: 'The four stages, and what mastery means here',
              url: BASE + 'how-this-course-works.html', icon: 'target', tone: 'gold',
              kw: 'how course works stages learn practice apply check intro' });
-    t.push({ g: 'About the course', name: 'Competencies, all fifteen weeks',
-             sub: 'Everything you have to be able to do in this course, week by week',
-             url: BASE + 'competency-map.html', icon: 'target', tone: 'gold',
-             kw: 'competencies competency list map objectives all weeks what to know checklist outcomes' });
     t.push({ g: 'About the course', name: 'Syllabus', sub: 'Policies, dates, exam windows',
              url: BASE + 'syllabus-fall2026.html', icon: 'doc', tone: 'navy',
              kw: 'syllabus policy rules grading late work ai policy contact' });
@@ -541,6 +537,13 @@
 '.bd-top{display:flex;align-items:center;gap:12px;padding:16px 16px 12px}',
 '.bd-title{font-weight:800;font-size:15px;color:#fff;letter-spacing:-.01em;white-space:nowrap}',
 '.bd-sec{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#F2E2B8}',
+'.bd-wk{display:inline-flex;align-items:center;gap:8px;margin-left:2px}',
+'.bd-wkl{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F2E2B8}',
+'.bd-wksel{font:700 13.5px/1.2 "Plus Jakarta Sans",system-ui,sans-serif;color:#fff;background:rgba(255,255,255,.10);',
+'  border:1.5px solid rgba(255,255,255,.35);border-radius:9px;padding:8px 10px;min-height:40px;max-width:min(52vw,360px);cursor:pointer}',
+'.bd-wksel option{color:#0B1530;background:#fff}',
+'.bd-wksel:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}',
+'@media(max-width:520px){.bd-wkl{display:none}.bd-wksel{max-width:44vw}}',
 '.bd-x{margin-left:auto;background:rgba(255,255,255,.12);border:0;color:#fff;width:34px;height:34px;',
 '  border-radius:50%;cursor:pointer;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center}',
 '.bd-x:hover{background:rgba(255,255,255,.22)}',
@@ -580,21 +583,6 @@
 "   lines left a hole beside every shorter one in its row. Stretch\n"+
 "   the row and let each tile fill its cell: the row is as tall as\n"+
 "   its tallest tile and nothing is left hanging. */",
-/* The pre-work sequence. A numbered column, not a grid, because the
-   order is the content. Arrows sit between steps and are decorative;
-   the step number is read out as part of each link's accessible name. */
-'.bd-grid>.bd-seq,.bd-grid>.bd-seqh,.bd-grid>.bd-refh{grid-column:1/-1}',
-'.bd-seq{display:flex;flex-direction:column;gap:0;margin:0 0 14px}',
-'.bd-seq .bd-cell{width:100%}',
-'.bd-seq .bd-tile{align-items:center;padding:14px 16px;background:rgba(255,255,255,.10);border-color:rgba(201,161,74,.45)}',
-'.bd-seq .bd-tile:hover{background:rgba(255,255,255,.16);border-color:#C9A14A}',
-'.bd-step{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;',
-'  border-radius:999px;background:#C9A14A;color:#0B1530;font-weight:800;font-size:13px;letter-spacing:.02em}',
-'.bd-arrow{display:flex;justify-content:center;color:#C9A14A;padding:3px 0;line-height:0}',
-'.bd-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}',
-'.bd-seqh{margin:2px 0 9px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#C9A14A}',
-'.bd-refh{margin:4px 0 9px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#AEB8C6}',
-'@media(prefers-reduced-motion:reduce){.bd-seq .bd-tile{transition:none}}',
 '.bd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;align-items:stretch}',
 '.bd-cell{height:100%}',
 '.bd-tile{height:100%}',
@@ -703,7 +691,7 @@
     var sec = section();
     panel.innerHTML =
       '<div class="bd-top"><span class="bd-title">Course tools</span>' +
-      (sec ? '<span class="bd-sec">' + esc(SECTIONS[sec].label) + '</span>' : '') +
+      '<label class="bd-wk"><span class="bd-wkl">Week</span><select class="bd-wksel" aria-label="Which week\'s tools to show"></select></label>' +
       '<button class="bd-x" type="button" aria-label="Close course tools">&#10005;</button></div>' +
       '<div class="bd-search">' + SEARCH_IC +
         '<input type="search" autocomplete="off" placeholder="Type to find a tool, then Enter" ' +
@@ -716,6 +704,28 @@
     input = panel.querySelector('input');
     body  = panel.querySelector('.bd-body');
     live  = panel.querySelector('.bd-live');
+
+    /* THE WEEK PICKER. Every week-specific tile points at the week that is
+       open now. A student who wants last week's notes, note sheet, cards
+       or case picks that week here and every tile in the dock follows.
+       Only weeks that have opened are listed; the choice lasts while the
+       page is open and goes back to the current week next time. */
+    var wksel = panel.querySelector('.bd-wksel');
+    function fillWeeks() {
+      var cw = calendarWeekN(), html = '';
+      for (var n = 1; n <= cw; n++) {
+        var t = currentWeekTitle(n);
+        html += '<option value="' + n + '"' + (n === (chosenWeek || cw) ? ' selected' : '') + '>' + n + (n === cw ? ' (this week)' : '') + (t ? ': ' + t : '') + '</option>';
+      }
+      wksel.innerHTML = html;
+    }
+    fillWeeks();
+    wksel.addEventListener('change', function () {
+      var n = parseInt(wksel.value, 10);
+      chosenWeek = (n === calendarWeekN()) ? 0 : n;
+      render(input.value);
+      live.textContent = 'Showing Week ' + n + ' tools';
+    });
 
     render('');
 
@@ -742,20 +752,6 @@
      actually live today, and the rest as one-line headers with a
      count. Whatever they fold or unfold is remembered, so a student
      who wants everything open gets it back every time. */
-  /* The notes of record, by week. Weeks 1 to 3 have real written notes
-     under their own names; week-NN-notes.html for those weeks is a stub
-     that now redirects here. Every other week still points at its
-     placeholder until the notes for that week are written, so adding a
-     week is one line. */
-  var NOTES = {
-    1: 'biol005-m01-maintain-control-notes.html',
-    2: 'biol005-w02-chemistry-notes.html',
-    3: 'biol005-w03-compartments-notes.html'
-  };
-  function notesFor(w) {
-    return NOTES[w] || ('week-' + (w < 10 ? '0' : '') + w + '-notes.html');
-  }
-
   var GKEY = 'bio005-dock-groups';
 
   function groupState() {
@@ -829,35 +825,7 @@
             +   '<span class="ct">' + seen[g].length + '</span>'
             + '</button>'
             + '<div class="bd-grid" id="' + gid + '"' + (open ? '' : ' hidden') + '>';
-
-      /* A group whose tiles carry a step renders the sequence first, in
-         order, as a single column with arrows between the steps. What is
-         left over is reference and goes under its own quiet heading. The
-         split is data driven: no step, no sequence. */
-      var steps = seen[g].filter(function (x) { return !!x.step; });
-      var rest  = seen[g].filter(function (x) { return !x.step; });
-      if (steps.length) {
-        html += '<p class="bd-seqh">Do these in order</p><div class="bd-seq">';
-        steps.forEach(function (t, si) {
-          if (si) html += '<span class="bd-arrow" aria-hidden="true">'
-                       +  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-                       +  'stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
-                       +  '<line x1="12" y1="4" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg></span>';
-          var tg = t.ext ? ' target="_blank" rel="noopener"' : ' target="_top"';
-          html += '<div class="bd-cell">'
-               +    '<a class="bd-tile" href="' + esc(t.url) + '"' + tg + '>'
-               +      '<span class="bd-step" aria-hidden="true">' + esc(t.step) + '</span>'
-               +      '<span class="bd-tx"><span class="bd-n">'
-               +        '<span class="bd-vh">Step ' + esc(t.step) + '. </span>' + esc(t.name)
-               +      '</span><span class="bd-s">' + esc(t.sub) + '</span></span>'
-               +    '</a>'
-               + '</div>';
-        });
-        html += '</div>';
-        if (rest.length) html += '<p class="bd-refh">Reference, any time</p>';
-      }
-
-      rest.forEach(function (t) {
+      seen[g].forEach(function (t) {
         /* Not a link. A tile that goes somewhere unfinished is worse than
            one that plainly says it is not ready yet. */
         var b5p = b5Pending(t);
@@ -967,6 +935,8 @@
     launcher.setAttribute('aria-expanded', 'true');
     open = true;
     input.value = '';
+    chosenWeek = 0;
+    if (panel.querySelector('.bd-wksel')) { var ws = panel.querySelector('.bd-wksel'); ws.innerHTML = ''; (function(){ var cw = calendarWeekN(), h=''; for (var n=1;n<=cw;n++){ var t=currentWeekTitle(n); h+='<option value="'+n+'"'+(n===cw?' selected':'')+'>'+n+(n===cw?' (this week)':'')+(t?': '+t:'')+'</option>'; } ws.innerHTML=h; }()); }
     render('');
     window.setTimeout(function () { input.focus(); }, 60);
   }
