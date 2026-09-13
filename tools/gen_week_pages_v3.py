@@ -206,6 +206,21 @@ body.solid a.tool.c-navy:focus-visible{outline-color:var(--maroon)}
 :is(body.mix a.tool.hero.c-gold,body.mix a.tool.lead.c-gold,body.mix a.tool.hero.c-check,body.solid a.tool.c-gold,body.solid a.tool.c-check) .ico{background:rgba(11,21,48,.10)}
 a.tool.hero .go{text-transform:uppercase;letter-spacing:.1em;font-size:13.5px}
 @media (prefers-reduced-motion:reduce){:is(body.mix a.tool.hero,body.mix a.tool.lead,body.solid a.tool):hover{transform:none}}
+
+/* attached boxes: small boxes hanging off the bottom edge of a lead card */
+.tools li.herow{display:flex;flex-direction:column}
+.tools li.hasatt{display:flex;flex-direction:column;flex:1 1 auto}
+.tools li.hasatt>a.tool{padding-bottom:40px}
+.attach{list-style:none;margin:-22px 0 0;padding:0 0 0 18px;display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:2}
+.attach a{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:7px 14px 7px 9px;border-radius:12px;background:#fff;color:var(--navy);text-decoration:none;font-weight:700;font-size:14px;
+  border:1.5px solid var(--navy);box-shadow:0 6px 14px rgba(4,7,17,.18);transition:transform 160ms ease,box-shadow 160ms ease}
+.attach a:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(4,7,17,.22)}
+.attach a:focus-visible{outline:3px solid var(--maroon);outline-offset:3px}
+.attach .aico{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;background:var(--navy-tint);flex:none}
+.attach .aico svg{width:14px;height:14px;stroke:var(--navy)}
+@media (prefers-reduced-motion:reduce){.attach a:hover{transform:none}}
+@media (forced-colors:active){.attach a{border:1px solid ButtonText}}
+@media print{.attach a{box-shadow:none;border:1px solid #000}}
 '''
 
 
@@ -221,6 +236,20 @@ def card(href, color, icon, title, blurb, main=False, go=None, ext_=False, np=No
             '%s%s</a></li>'
             % (' class="herow"' if main else '', color, ' hero' if main else '', ' lead' if lead else '', href, tgt, ICON[icon], body,
                ('<span class="go">%s</span>' % go) if go else ''))
+
+
+def group(lead_html, attachments):
+    """A lead card with small boxes hanging off its bottom edge. attachments:
+    list of (href, icon, label, external)."""
+    if not attachments:
+        return lead_html
+    att = ''.join('<li><a href="%s"%s><span class="aico" aria-hidden="true">%s</span>%s%s</a></li>'
+                  % (h, ' target="_blank" rel="noopener"' if x else ' target="_top"', ICON[i], l,
+                     '<span class="vh"> (opens in a new tab)</span>' if x else '')
+                  for h, i, l, x in attachments)
+    # lead_html is one <li>...</li>; put the attachments inside that same li, after the card
+    li = lead_html[:-5] + '<ul class="attach" aria-label="Goes with this">' + att + '</ul></li>'
+    return li.replace('<li class="herow">', '<li class="herow hasatt">', 1) if li.startswith('<li class="herow">') else li.replace('<li>', '<li class="hasatt">', 1)
 
 
 def page(n, opens, closes, title, part, solid=False):
@@ -260,34 +289,46 @@ def page(n, opens, closes, title, part, solid=False):
                 + card('ungraded-sheet.html?week=%d' % n, 'c-navy', 'list', 'All of it on one sheet', 'Every practice item for the week on one printable page.'))
 
     # ---- APPLY ----
+    # Each graded item is one lead card with its helpers ATTACHED to it: small
+    # boxes that hang off the bottom edge of the card (Sep 12 2026, Scrubs: "a
+    # little box superimposed over top of it and hangs off the end, so you can
+    # see they are connected"). One thing to do, and the things that go with it.
     if lab['kind'] == 'physioex':
         labname = lab['name'].replace('&amp;', 'and')
-        lab_cards = card('assignment-physioex.html?week=%d' % n, 'c-gold', 'flask', 'Lab: ' + labname.split(',')[0],
-                         labname.split(',', 1)[1].strip() + '. What to run, what to record, and the clinical correlation.' if ',' in labname else 'What to run, what to record, and the clinical correlation.',
-                         np='Investigate It &middot; 25%', lead=True)
+        lab_lead = card('assignment-physioex.html?week=%d' % n, 'c-gold', 'flask', 'Lab: ' + labname.split(',')[0],
+                        labname.split(',', 1)[1].strip() + '. What to run, what to record, and the clinical correlation.' if ',' in labname else 'What to run, what to record, and the clinical correlation.',
+                        np='Investigate It &middot; 25%', lead=True)
+        lab_att = []
         if lab['sheet']:
-            lab_cards += card(lab['sheet'][0], 'c-gold', 'flask', (lambda t: t[0].upper() + t[1:])(lab['sheet'][1].replace('Open the ', '').replace('Open your ', '').replace(' iv ', ' IV ')), lab.get('corr', '') or 'The case that goes with this lab.')
-        lab_cards += card('lab-report-form.html', 'c-gold', 'chart', 'Lab analysis sheet', 'Where your PhysioEx results and your interpretation go.')
+            lab_att.append((lab['sheet'][0], 'flask', (lambda t: t[0].upper() + t[1:])(lab['sheet'][1].replace('Open the ', '').replace('Open your ', '').replace(' iv ', ' IV ')), False))
+        lab_att.append(('lab-report-form.html', 'chart', 'Lab analysis sheet', False))
     else:
-        lab_cards = card(lab['sheet'][0] if lab['sheet'] else 'door-lab.html', 'c-gold', 'flask', lab['name'].replace('Dry lab: ', ''), lab.get('corr', '') or 'Prediction first, then the data.', np='Investigate It &middot; 25%', lead=True)
+        lab_lead = card(lab['sheet'][0] if lab['sheet'] else 'door-lab.html', 'c-gold', 'flask', lab['name'].replace('Dry lab: ', ''), lab.get('corr', '') or 'Prediction first, then the data.', np='Investigate It &middot; 25%', lead=True)
+        lab_att = []
     if cv.get('lab'):
-        lab_cards += card(cv['lab'], 'c-gold', 'upload', 'Turn the lab in', 'Canvas. Due %s.' % close_short, ext_=True)
-    apply_cards = (card('assignment-apply.html?week=%d' % n, 'c-gold', 'apply', 'Patient chart: ' + enc,
-                        'Your patient, this week\'s entry. Use the physiology you just learned to read what is happening to her.', np='Use It &middot; 25%', lead=True)
-                   + card('BIO005-patient-file.html', 'c-gold', 'notes', 'Patient file', 'The running file. Every week adds a page.'))
+        lab_att.append((cv['lab'], 'upload', 'Turn it in, Canvas', True))
+    lab_cards = group(lab_lead, lab_att)
+
+    apply_cards = group(card('assignment-apply.html?week=%d' % n, 'c-gold', 'apply', 'Patient chart: ' + enc,
+                             'Your patient, this week\'s entry. Use the physiology you just learned to read what is happening to her.', np='Use It &middot; 25%', lead=True),
+                        [('patient-chart-book.html', 'notes', 'Your chart, all term', False)])
     if n == 1:
-        disc_cards = (card('assignment-discussion-01-visionboard.html', 'c-gold', 'talk', 'Discussion 1A: Digital Vision Board', 'Who you are, and a short video introduction.', np='Think About It &middot; 15%', lead=True)
-                      + card('assignment-discussion-01-metacognition.html', 'c-gold', 'talk', 'Discussion 1B: Week 1 Metacognitive Analysis', 'What the evidence told you about how you learned this week.', np='Think About It &middot; 15%', lead=True))
+        disc_cards = (group(card('assignment-discussion-01-visionboard.html', 'c-gold', 'talk', 'Discussion 1A: Digital Vision Board', 'Who you are, and a short video introduction.', np='Think About It &middot; 15%', lead=True),
+                            [(CANVAS[1]['disc1a'], 'upload', 'Post 1A, Canvas', True)])
+                      + group(card('assignment-discussion-01-metacognition.html', 'c-gold', 'talk', 'Discussion 1B: Week 1 Metacognitive Analysis', 'What the evidence told you about how you learned this week.', np='Think About It &middot; 15%', lead=True),
+                              [(CANVAS[1]['disc1b'], 'upload', 'Post 1B, Canvas', True)]))
     else:
-        disc_cards = card('assignment-discussion.html?week=%d' % n, 'c-gold', 'talk', 'Discussion %d' % n, 'Something from this week\'s physiology, and your honest thinking about it. Post by Friday, replies by Sunday.', np='Think About It &middot; 15%', lead=True)
+        disc_cards = group(card('assignment-discussion.html?week=%d' % n, 'c-gold', 'talk', 'Discussion %d' % n, 'Something from this week\'s physiology, and your honest thinking about it. Post by Friday, replies by Sunday.', np='Think About It &middot; 15%', lead=True),
+                           [(cv['disc'], 'upload', 'Post it, Canvas', True)] if cv.get('disc') else [])
 
     # ---- CHECK ----
-    check = (card('practice-exam.html?week=%d' % n, 'c-check', 'target', 'Build your check',
-                  'Thirty questions on this week\'s competencies, nothing open. You get a score and the exact competencies to go back to.',
-                  main=True, go='Start a check &rarr;')
-             + card('week-%s-competencies.html' % nn, 'c-check', 'list', 'Competency checklist', 'Tick the ones you can do from memory. The blanks are your list for another pass.')
-             + card('assignment-practice-log.html', 'c-check', 'upload', 'Upload your report', 'Do one check or ten. Send me the report so I can see how you are trending and reach out if I should.')
-             + (card(cv['log'], 'c-check', 'upload', 'Upload it in Canvas', 'Where the report goes.', ext_=True) if cv.get('log') else ''))
+    check_att = [('week-%s-competencies.html' % nn, 'list', 'Competency checklist', False),
+                 ('assignment-practice-log.html', 'upload', 'How to upload your report', False)]
+    if cv.get('log'):
+        check_att.append((cv['log'], 'upload', 'Upload it, Canvas', True))
+    check = group(card('practice-exam.html?week=%d' % n, 'c-check', 'target', 'Build your check',
+                       'Thirty questions on this week\'s competencies, nothing open. You get a score and the exact competencies to go back to. Do one or ten; upload the report so I can see how you are trending.',
+                       main=True, go='Start a check &rarr;'), check_att)
 
     # ---- done when ----
     if n == 1:

@@ -28,6 +28,10 @@ OUT  = pathlib.Path('/mnt/user-data/outputs')
 # output name -> (source page with query, PDF title, one-line description,
 #                  optional CSS selector: the printed artifact is ONLY this)
 JOBS = {
+ 'BIO005-patient-chart.pdf':
+   ('patient-chart-book.html', 'BIO 005 patient chart, all term',
+    'The running chart for Camila Reyes: face sheet, vitals and lab flowsheets, problem list, medication log, and one page per week',
+    '#book'),
  'BIO005-Week1-NoteSheet.pdf':
    ('note-sheet.html?week=1&per=2', 'BIO 005 Week 1 note sheet',
     'One open drawing box per competency, Week 1',
