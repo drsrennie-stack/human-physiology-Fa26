@@ -384,7 +384,7 @@ em,i,cite,dfn,var,address{font-style:normal}
          ['P','j-prob', 'assignment-bookproblems.html?week=',     'problems'],
          ['L','j-lab',  'assignment-physioex.html?week=',         'lab'],
          ['D','j-disc', 'assignment-discussion.html?week=',       'discussion'],
-         ['S','j-study','rx-cards.html?week=','study session']
+         ['S','j-study','mastery-physio-os-standalone.html?week=','study session']
 
        Whatever replaces it needs a sixth for Use It, assignment-apply.html,
        which did not exist when these five were written. */
@@ -438,16 +438,34 @@ em,i,cite,dfn,var,address{font-style:normal}
     gb.appendChild(tr);
   });
 
-  /* ---------- decisions ---------- */
+  /* ---------- decisions ----------
+     The open decisions list was a build planning artefact and was taken
+     out of the markup, correctly: a student has no use for a list of
+     things Scrubs had not settled yet. The loop that filled it was left
+     behind, and getElementById returned null, so this threw on every
+     single load.
+
+     It threw HERE, which is what made it serious. Everything below this
+     point stopped running: the loop that puts target="_top" on every
+     link, and the iframe height sender. Inside Canvas that meant this
+     page nested the whole course inside its own frame when a student
+     clicked anything, and the frame never resized. course-schedule.html
+     is linked from ninety other pages, so it is one of the most visited
+     pages in the course.
+
+     Guarded rather than deleted, because the list renders correctly if
+     the data is ever put back. Fixed Sep 13 2026. */
   var dl = document.getElementById('decisions');
-  DECISIONS.forEach(function(d){
-    var li = document.createElement('li');
-    var b = document.createElement('b');
-    b.textContent = d.q;
-    li.appendChild(b);
-    li.appendChild(el('span','aff','Affects: ' + d.affects));
-    dl.appendChild(li);
-  });
+  if (dl) {
+    DECISIONS.forEach(function(d){
+      var li = document.createElement('li');
+      var b = document.createElement('b');
+      b.textContent = d.q;
+      li.appendChild(b);
+      li.appendChild(el('span','aff','Affects: ' + d.affects));
+      dl.appendChild(li);
+    });
+  }
 
   /* ---------- links break out of the iframe ---------- */
   Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function(a){

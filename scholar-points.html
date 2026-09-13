@@ -60,6 +60,12 @@ h2:first-of-type{border-top:0;padding-top:0}
 h2 .hl{color:var(--terra)}
 h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
 h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+/* The questions in the FAQ are h3, because they sit directly under an h2
+   and a heading outline that runs h2 then h4 reads to a screen reader as a
+   missing level. They keep the h4 look: on this page h3 is the small
+   uppercase eyebrow, which is not what a question should look like. */
+h3.q{font-size:16.5px;font-weight:800;letter-spacing:-.01em;text-transform:none;
+  color:var(--navy);margin:18px 0 6px}
 p{margin:0 0 13px}
 .sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
 
@@ -184,7 +190,10 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
   border:1px solid var(--navy-15);border-radius:var(--r-pill);padding:6px 12px;min-height:36px;color:var(--terra)}
 .logtbl .del:hover{border-color:var(--terra)}
 .empty{color:var(--navy-72);margin:14px 0 0}
+#lgWeekHead{display:none}
 @media print{.f,.btnrow,.logtbl .del,.skip,.site-header{display:none!important}
+  body[data-weekonly] #lgWeekHead{display:block;font-weight:800;margin:0 0 8px}
+  body[data-weekonly] .logtbl tr.offweek{display:none}
   .tot .t.hero{background:#fff;color:#000;border:1px solid #000}
   .tot .t.hero .n,.tot .t.hero .k,.tot .t.hero .s{color:#000}}
 
@@ -232,7 +241,8 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 <ul class="bul">
   <li><b>Thirty hours over the semester earns the full 2.5 percent.</b> Fewer hours earn a proportion of it. Fifteen hours is 1.25 percent, six hours is half a percent, and so on. Nothing is all or nothing.</li>
   <li><b>Three hours a week is the most that counts.</b> You can do more and you are welcome to, but a single marathon weekend cannot substitute for showing up across the term. Spacing is the whole reason this works.</li>
-  <li><b>Hosting and attending count the same.</b> Running a session is more work and it is also the better study hour, so it already pays you twice. It does not need a multiplier.</li>
+  <li><b>Hosts get one extra hour.</b> Running a session means preparing it and facilitating it, and that work is real. A two hour session you hosted logs as three. Not double, just the one extra hour on top, however long the session ran. Attendees log the time they were there.</li>
+  <li><b>The three hour weekly cap is applied after the host hour.</b> So a two hour session you hosted fills the week on its own. Anything past that still goes on your log, it just does not add to the total.</li>
   <li><b>It is applied at the end of the semester</b>, to your final course percentage, after everything else is in.</li>
   <li><b>It can only help you.</b> There is no version of this that costs you anything, and choosing not to do it is a perfectly reasonable choice that leaves your grade exactly where your work put it.</li>
 </ul>
@@ -241,6 +251,21 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
   <p class="tag">What counts as an hour</p>
   <p>Time spent working the physiology with at least one other person: a Study With Me session, a study group you set up yourself, quizzing each other, teaching a competency at a whiteboard, doing brain dumps side by side, running a Kahoot, working the book problems together. It does not include time you spent alone, and it does not include doing graded work together, which is not allowed anyway.</p>
 </div>
+
+<h2>What a session has to <span class="hl">do</span> to count</h2>
+<p>None of this is here to be difficult. It is here because I am putting a percentage on your grade, and a percentage on a grade has to rest on something I can actually see.</p>
+<ul class="bul">
+  <li><b>Record it.</b> Whoever hosts records the session and keeps the link. That is what shows me it happened and that people were working, not just signed in.</li>
+  <li><b>Cameras on.</b> Everybody, for the whole session. A black square is not attendance, and a session where half the squares are black is not the thing this is trying to build.</li>
+  <li><b>Stay the whole time.</b> Log the time you were actually present. Arriving late or leaving early is fine, log what you were there for. Do not log an hour you spent in another tab.</li>
+  <li><b>One session at a time.</b> Sitting in two rooms at once means neither can be verified, so neither counts.</li>
+  <li><b>Hosts keep the recording and the attendance list.</b> If you ran it, you are the one who can show who was there and for how long.</li>
+</ul>
+<p>If something about this is a problem for you, cameras especially, come and talk to me rather than skipping the whole thing. There is almost always a way to sort it out.</p>
+
+<h2>Submitting it <span class="hl">every week</span></h2>
+<p>There is a weekly assignment in Canvas for your hours. Log your sessions as you do them, then at the end of each week open this page, press <b>Save this week for Canvas</b>, and upload that PDF. It carries just that week, plus your running total so we both know where you are.</p>
+<p>Your log stays in this browser and keeps adding up all term, so you never start over. Use the same browser on the same device and it will still be here in December. If you switch machines, save a PDF before you do.</p>
 
 <h2>Keeping <span class="hl">track</span></h2>
 <p>Log each session as you do it. The log below lives in this browser and nowhere else, so it never leaves your device. At the end of the semester, save it as a PDF and send it to me, and I will apply the bump.</p>
@@ -258,8 +283,10 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
       </select></div>
     <div class="f"><label for="lgHrs">Hours</label><input type="number" id="lgHrs" min="0.25" max="8" step="0.25" placeholder="1.5"></div>
     <div class="f"><label for="lgTopic">What you worked on</label><input type="text" id="lgTopic" placeholder="Week 4 membrane potential"></div>
-    <div class="f"><label for="lgWho">Who with</label><input type="text" id="lgWho" placeholder="First names are fine"></div>
+    <div class="f"><label for="lgWho">Who was there</label><input type="text" id="lgWho" placeholder="First names are fine"></div>
+    <div class="f"><label for="lgLink">Recording link</label><input type="url" id="lgLink" placeholder="Paste the link"></div>
   </div>
+  <p class="small"><label for="lgCam" style="display:inline-flex;align-items:center;gap:9px;font:inherit;font-size:14.5px;text-transform:none;letter-spacing:0;color:var(--navy)"><input type="checkbox" id="lgCam" style="width:20px;height:20px;min-height:0"> Cameras were on and I was there for the time I am logging</label></p>
   <div class="btnrow"><button type="button" class="btn" id="lgAdd">Add to my log</button></div>
 </section>
 
@@ -268,29 +295,37 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 <div class="bar" aria-hidden="true"><span id="lgBar"></span></div>
 
 <h3>My log</h3>
+<p id="lgWeekHead"></p>
 <div id="lgWrap"><p class="empty">Nothing logged yet.</p></div>
 
 <div class="btnrow">
-  <button type="button" class="btn" id="lgPrint">Save my log as a PDF</button>
+  <button type="button" class="btn" id="lgWeek">Save this week for Canvas</button>
+  <button type="button" class="btn ghost" id="lgPrint">Save the whole log</button>
   <a class="btn ghost" href="study-with-me.html" target="_top">Study With Me</a>
   <button type="button" class="btn ghost" id="lgClear">Clear my log</button>
 </div>
 
 <h2>Questions people <span class="hl">ask</span></h2>
 
-<h4>Is 2.5 percent enough to change my letter grade?</h4>
+<h3 class="q">Is 2.5 percent enough to change my letter grade?</h3>
 <p>Sometimes, at a boundary. An 87.5 becomes a 90. It is not enough to rescue a grade that is well down, and it was never designed to, which is the difference between this and extra credit.</p>
 
-<h4>What if I can only manage ten hours?</h4>
+<h3 class="q">What if I can only manage ten hours?</h3>
 <p>Then you earn a third of it, which is roughly 0.83 percent, and you also spent ten hours practising physiology out loud. Both of those are worth having. There is no threshold you have to clear before anything counts.</p>
 
-<h4>Can I log time I studied alone?</h4>
+<h3 class="q">Can I log time I studied alone?</h3>
 <p>No. Studying alone is most of what this course asks of you and it is already reflected in your grade through the work itself. This is specifically for the hours you spend working it with other people, because that is the part nobody does unless something nudges them.</p>
 
-<h4>Do you check?</h4>
+<h3 class="q">Why does the host get an extra hour?</h3>
+<p>Because preparing a session and running it is work that happens outside the session. Building a Kahoot, picking the competency, keeping four people on track for an hour. One extra hour, whatever the length. It is not doubled.</p>
+
+<h3 class="q">What if somebody cannot have their camera on?</h3>
+<p>Come and talk to me. There are real reasons, and none of them should cost you the hours. What I cannot do is take a room full of black squares as evidence that a session happened.</p>
+
+<h3 class="q">Do you check?</h3>
 <p>I read the logs. I am not auditing timestamps, and an honour system that somebody games mostly cheats them out of the hours, which were the actual point. Put down what you did.</p>
 
-<h4>What if I host and two people come for twenty minutes?</h4>
+<h3 class="q">What if I host and two people come for twenty minutes?</h3>
 <p>Log the time you were there working. Twenty minutes is 0.33 hours, and small sessions are real sessions.</p>
 
 <p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Yuba College</p>
@@ -300,7 +335,7 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 <script src="bio005-nav.js" defer></script>
 <script>
 (function(){ "use strict";
-  var PAGE_ID='bio005-competency-brain-dump';
+  var PAGE_ID='bio005-scholar-points';
   function sendHeight(){
     try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
   }
@@ -308,193 +343,6 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
   window.addEventListener('resize',sendHeight);
   if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
 })();
-</script>
-<!-- The spinner reads the real competency list and, where one exists,
-     the written checklist for that competency. -->
-<script src="bio005-competencies.js"></script>
-<script src="os/rubrics.js"></script>
-<script src="os/draw-checklists.js"></script>
-
-<script>
-/* ============================================================
-   THE BRAIN DUMP SPINNER
-
-   Reads the real competency list rather than carrying a copy, so
-   all 268 are in the pool and nothing here needs rewriting when a
-   competency changes.
-
-   IT DOES NOT REPEAT UNTIL IT HAS TO. A spinner that can hand you
-   the same prompt twice in a row feels broken and, worse, lets a
-   student stay on the one they already did. Each week keeps its
-   own bag: prompts come out of it until it is empty, then the bag
-   refills. The bag lives in this browser, so closing the page and
-   coming back does not hand you the same three all over again.
-
-   THE CHECKLIST IS BEHIND A PRESS. Seeing what should be on the
-   page before you have written anything turns a recall exercise
-   into a copying exercise, so it stays shut until you ask for it.
-   ============================================================ */
-(function(){
-  "use strict";
-  var chips=document.getElementById('spChips'), presets=document.getElementById('spPresets'),
-      note=document.getElementById('spNote'), go=document.getElementById('spGo'),
-      again=document.getElementById('spAgain'), out=document.getElementById('spOut');
-  if(!chips||!go||!out) return;
-
-  var COMPS=(window.BIO005_COMPETENCIES||[]).filter(function(c){return c&&c.id&&c.name;});
-  if(!COMPS.length){
-    chips.innerHTML='<p class="sp-loading">The competency list did not load, so there is nothing to spin. '
-      +'The week competency pages still have every prompt on them.</p>';
-    go.disabled=true;
-    return;
-  }
-
-  /* Which week is it, from the same term start the rest of the site uses. */
-  var TERM_START=new Date(2026,8,8);
-  var thisWeek=Math.max(1,Math.min(15,Math.floor((new Date()-TERM_START)/(7*864e5))+1));
-
-  /* ONLY WEEKS THAT HAVE OPENED.
-
-     A spinner that can hand out week 11 in week 2 is handing out material
-     nobody has been taught, which is discouraging rather than useful. The
-     pool is capped at the current week, and later weeks appear on their
-     own as the term moves. */
-  var weeks=[];
-  COMPS.forEach(function(c){
-    if(c.week && c.week<=thisWeek && weeks.indexOf(c.week)<0) weeks.push(c.week);
-  });
-  weeks.sort(function(a,b){return a-b;});
-
-  var picked={};
-  picked[thisWeek]=true;
-  if(weeks.indexOf(thisWeek)<0 && weeks.length) picked[weeks[weeks.length-1]]=true;
-
-  function selected(){
-    var out=[];
-    weeks.forEach(function(w){ if(picked[w]) out.push(w); });
-    return out;
-  }
-
-  function pool(){
-    var ws=selected();
-    return COMPS.filter(function(c){ return ws.indexOf(c.week)>-1; });
-  }
-
-  /* The bag is keyed to the exact set of weeks chosen, so switching to a
-     midterm-sized pool does not inherit the history of a one-week pool. */
-  function bagKey(){ return 'bio005-bd-bag-'+selected().join('-'); }
-  function readBag(){ try{ return JSON.parse(localStorage.getItem(bagKey())||'[]')||[]; }catch(e){ return []; } }
-  function writeBag(a){ try{ localStorage.setItem(bagKey(),JSON.stringify(a)); }catch(e){} }
-
-  function drawChips(){
-    chips.innerHTML=weeks.map(function(w){
-      return '<button type="button" class="sp-chip" data-wk="'+w+'" aria-pressed="'+(picked[w]?'true':'false')+'">'
-        +'Week '+w+'</button>';
-    }).join('');
-    [].forEach.call(chips.querySelectorAll('.sp-chip'),function(b){
-      b.onclick=function(){
-        var w=+b.getAttribute('data-wk');
-        picked[w]=!picked[w];
-        /* never leave the pool empty: the last one stays on */
-        if(!selected().length){ picked[w]=true; }
-        b.setAttribute('aria-pressed',picked[w]?'true':'false');
-        afterChange();
-      };
-    });
-  }
-
-  var PRESETS=[
-    {label:'This week only', pick:function(){ return [thisWeek]; }},
-    {label:'Everything so far', pick:function(){ return weeks.slice(); }},
-    {label:'Midterm 1, weeks 1 to 7', pick:function(){ return weeks.filter(function(w){return w<=7;}); }},
-    {label:'Midterm 2, weeks 8 to 14', pick:function(){ return weeks.filter(function(w){return w>=8&&w<=14;}); }}
-  ];
-
-  function drawPresets(){
-    presets.innerHTML=PRESETS.map(function(p,i){
-      var got=p.pick();
-      if(!got.length) return '';
-      return '<button type="button" class="sp-preset" data-pre="'+i+'">'+p.label+'</button>';
-    }).join('');
-    [].forEach.call(presets.querySelectorAll('.sp-preset'),function(b){
-      b.onclick=function(){
-        var got=PRESETS[+b.getAttribute('data-pre')].pick();
-        if(!got.length) return;
-        picked={};
-        got.forEach(function(w){ picked[w]=true; });
-        drawChips(); afterChange();
-      };
-    });
-  }
-
-  function afterChange(){
-    var ws=selected(), n=pool().length;
-    note.textContent=ws.length===1
-      ? ('Week '+ws[0]+', '+n+' competenc'+(n===1?'y':'ies')+' in the pool.')
-      : (ws.length+' weeks selected, '+n+' competencies in the pool.');
-    out.innerHTML='<p class="idle">Press Spin it for a prompt from that set.</p>';
-    again.hidden=true;
-  }
-
-  function pick(){
-    var p=pool();
-    if(!p.length) return null;
-    var used=readBag();
-    var left=p.filter(function(c){ return used.indexOf(c.id)<0; });
-    if(!left.length){ used=[]; left=p; }          /* bag empty, refill it */
-    var c=left[Math.floor(Math.random()*left.length)];
-    used.push(c.id); writeBag(used);
-    return {comp:c, left:left.length-1, total:p.length};
-  }
-
-  function rubricFor(c){
-    var R=window.BIO005_RUBRICS;
-    if(R && R[c.id] && R[c.id].length) return R[c.id];
-    var D=window.BIO005_DRAW||[];
-    for(var i=0;i<D.length;i++){
-      var d=D[i]; if(!d) continue;
-      if(d.id===c.id && (d.checklist||d.items)) return d.checklist||d.items;
-    }
-    return null;
-  }
-
-  function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(ch){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; }); }
-
-  function show(r){
-    if(!r){ out.innerHTML='<p class="idle">No competencies in the weeks you picked.</p>'; return; }
-    var c=r.comp;
-    var h='<p class="wk">Week '+c.week+(c.general?' &middot; '+esc(c.general):'')+'</p>';
-    h+='<h3>'+esc(c.name)+'</h3>';
-    h+='<p class="task">Blank paper, nothing open. '+esc(c.can||('Write everything you can produce about '+c.name+'.'))+'</p>';
-    h+='<p class="count">'+r.left+' more in this set before it comes round again.</p>';
-    if(rubricFor(c)) h+='<button type="button" class="sp-reveal" id="spShow">Show what should be on the page</button>';
-    out.innerHTML=h;
-    var btn=document.getElementById('spShow');
-    if(btn) btn.onclick=function(){
-      var list=rubricFor(c)||[];
-      var d=document.createElement('div');
-      d.className='sp-list';
-      d.innerHTML='<p class="tag">Tick what you actually produced</p><ul>'
-        + list.map(function(x){return '<li>'+esc(x)+'</li>';}).join('') + '</ul>';
-      btn.replaceWith(d);
-    };
-    again.hidden=false;
-  }
-
-  function roll(){
-    var r=pick();
-    if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      out.classList.add('rolling');
-      setTimeout(function(){ out.classList.remove('rolling'); show(r); },160);
-    } else { show(r); }
-  }
-
-  go.onclick=roll;
-  again.onclick=roll;
-
-  drawPresets(); drawChips(); afterChange();
-}());
 </script>
 
 <!-- Ask Hootie, on every page. -->
@@ -525,7 +373,7 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 (function(){
   "use strict";
   var KEY='bio005-scholar-log';
-  var TARGET_HOURS=30, MAX_BUMP=2.5, WEEK_CAP=3;
+  var TARGET_HOURS=30, MAX_BUMP=2.5, WEEK_CAP=3, HOST_BONUS=1;
 
   var el=function(id){return document.getElementById(id);};
   var wrap=el('lgWrap'), tot=el('lgTot'), bar=el('lgBar');
@@ -552,23 +400,49 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
     return M[d.getMonth()]+' '+d.getDate();
   }
 
-  /* Walk the entries oldest first, filling each week's three counted
-     hours in order, so an entry is only partly counted when it is the
-     one that crosses the cap. */
+  /* HOW AN ENTRY TURNS INTO COUNTED HOURS.
+
+     Two steps, in this order.
+
+     1. The host hour. Whoever ran the session prepared it and
+        facilitated it, and that work happens outside the session, so a
+        hosted entry earns one extra hour on top of however long it ran.
+        One, not double, and the same whether the session was forty
+        minutes or three hours.
+
+     2. The weekly cap, applied AFTER the host hour. Three counted hours
+        a week is the ceiling, so a two hour session you hosted fills a
+        week on its own. Anything past the cap stays on the log and is
+        shown, it just does not add to the total, because a student
+        should be able to see both what they did and what counted.
+
+     Entries are walked oldest first so that when an entry is the one
+     that crosses the cap, it is that entry which is partly counted
+     rather than an arbitrary one. */
   function score(rows){
-    var byWeek={}, counted=0, logged=0;
+    var byWeek={}, counted=0, logged=0, credited=0;
     var sorted=rows.slice().sort(function(a,b){ return (a.date||'')<(b.date||'')?-1:1; });
     sorted.forEach(function(r){
       var h=Math.max(0,Number(r.hours)||0);
-      logged+=h;
+      var bonus=isHost(r)?HOST_BONUS:0;
+      var earn=h+bonus;
+      logged+=h; credited+=earn;
       var w=weekOf(r.date), used=byWeek[w]||0;
       var room=Math.max(0,WEEK_CAP-used);
-      var c=Math.min(h,room);
+      var c=Math.min(earn,room);
       byWeek[w]=used+c;
       counted+=c;
-      r._counted=c;
+      r._bonus=bonus; r._earned=earn; r._counted=c; r._week=w;
     });
-    return {counted:counted, logged:logged, rows:sorted};
+    return {counted:counted, logged:logged, credited:credited, rows:sorted, byWeek:byWeek};
+  }
+  function isHost(r){ return /host/i.test(r.type||''); }
+
+  function thisWeekKey(){ return weekOf(new Date().toISOString().slice(0,10)); }
+  function weekLabel(w){
+    var a=new Date(w+'T12:00:00'), b=new Date(a); b.setDate(b.getDate()+6);
+    var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return M[a.getMonth()]+' '+a.getDate()+' to '+M[b.getMonth()]+' '+b.getDate();
   }
 
   function render(){
@@ -584,19 +458,24 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
       +'<span class="s">of '+TARGET_HOURS+' for the full bump</span></div>'
       +'<div class="t"><span class="k">Hours logged</span><span class="n">'+s.logged.toFixed(2)+'</span>'
       +'<span class="s">'+(s.logged>s.counted?'some above the 3 a week cap':'all of them counted')+'</span></div>'
-      +'<div class="t"><span class="k">Sessions</span><span class="n">'+rows.length+'</span>'
-      +'<span class="s">'+(rows.length===1?'one so far':'logged so far')+'</span></div>';
+      +'<div class="t"><span class="k">This week</span><span class="n">'
+      +(s.byWeek[thisWeekKey()]||0).toFixed(2)+'</span>'
+      +'<span class="s">of '+WEEK_CAP+' that can count this week</span></div>';
 
     bar.style.width=Math.min(100,(capped/TARGET_HOURS)*100)+'%';
 
     if(!rows.length){ wrap.innerHTML='<p class="empty">Nothing logged yet.</p>'; return; }
     var h='<table class="logtbl"><thead><tr><th>Date</th><th>What it was</th><th>Worked on</th>'
-      +'<th>With</th><th>Hours</th><th>Counted</th><th><span class="vh">Remove</span></th></tr></thead><tbody>';
+      +'<th>Who</th><th>Recording</th><th>Hours</th><th>Host hour</th><th>Counted</th>'
+      +'<th><span class="vh">Remove</span></th></tr></thead><tbody>';
     s.rows.slice().reverse().forEach(function(r){
-      var over=(r._counted||0) < (Number(r.hours)||0);
-      h+='<tr'+(over?' class="over"':'')+'><td>'+esc(pretty(r.date))+'</td><td>'+esc(r.type||'')+'</td>'
+      var over=(r._counted||0) < (r._earned||0);
+      h+='<tr data-week="'+esc(r._week||'')+'"'+(over?' class="over"':'')+'><td>'+esc(pretty(r.date))+'</td><td>'+esc(r.type||'')+'</td>'
         +'<td>'+esc(r.topic||'')+'</td><td>'+esc(r.who||'')+'</td>'
+        +'<td>'+(r.link?'<a href="'+esc(r.link)+'" target="_blank" rel="noopener">link</a>'
+                     :'<span class="s">none</span>')+'</td>'
         +'<td>'+(Number(r.hours)||0).toFixed(2)+'</td>'
+        +'<td>'+(r._bonus?'+'+r._bonus.toFixed(2):'&mdash;')+'</td>'
         +'<td>'+(r._counted||0).toFixed(2)+(over?' <span class="s">(weekly cap)</span>':'')+'</td>'
         +'<td><button type="button" class="del" data-id="'+esc(r.id)+'">Remove</button></td></tr>';
     });
@@ -618,13 +497,34 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
     var rows=read();
     rows.push({ id:Date.now()+'-'+Math.random().toString(36).slice(2,7),
       date:date, type:el('lgType').value, hours:hrs,
-      topic:el('lgTopic').value.trim(), who:el('lgWho').value.trim() });
+      topic:el('lgTopic').value.trim(), who:el('lgWho').value.trim(),
+      link:el('lgLink').value.trim(), cam:!!el('lgCam').checked });
     write(rows);
     el('lgHrs').value=''; el('lgTopic').value=''; el('lgWho').value='';
+    el('lgLink').value=''; el('lgCam').checked=false;
     render();
   };
 
-  el('lgPrint').onclick=function(){ window.print(); };
+  el('lgPrint').onclick=function(){ document.body.removeAttribute('data-weekonly'); window.print(); };
+
+  /* SAVE THIS WEEK FOR CANVAS.
+
+     The weekly assignment wants one week, not the whole term, so this
+     hides every row outside the current week for the duration of the
+     print and puts the week's dates at the top. The running total stays
+     on the page, because the point of the weekly upload is for both of
+     us to see where the term total is going. */
+  el('lgWeek').onclick=function(){
+    var wk=thisWeekKey();
+    document.body.setAttribute('data-weekonly','1');
+    var head=document.getElementById('lgWeekHead');
+    if(head) head.textContent='Week of '+weekLabel(wk);
+    [].forEach.call(document.querySelectorAll('.logtbl tbody tr'),function(tr){
+      tr.classList.toggle('offweek', tr.getAttribute('data-week')!==wk);
+    });
+    window.print();
+    setTimeout(function(){ document.body.removeAttribute('data-weekonly'); },500);
+  };
   el('lgClear').onclick=function(){
     if(!read().length) return;
     /* No confirm() dialog: inside a Canvas frame a modal dialog blocks

@@ -26,14 +26,23 @@
    The section is listed as asynchronous. syncRequired is false on
    every line in this file and it needs to stay that way.
 
-   SCHOLAR POINTS ARE NOT IN THIS COURSE. They are a BIO 004
-   anatomy mechanic. The block that used to sit at the bottom of
-   this file described a capped bonus of three points earned
-   through live sessions, and what-you-do.html was rendering it as
-   though students could earn it. Removed Sep 10 2026 on Scrubs'
-   instruction: "remove scholar points and bonus, that is only
-   anatomy." Four categories, totalling 100, no curve, no extra
-   credit.
+   SCHOLAR POINTS, AND WHY THEY SIT OUTSIDE THE FOUR CATEGORIES
+
+   The four categories still total 100 and nothing below adds to
+   them. Scholar Points are not a fifth category and not extra
+   credit: they are a bump of up to 2.5 percent applied to the
+   final course percentage after the four categories are settled.
+   See scholarPoints at the bottom of this file.
+
+   The history matters, because this reversed once. The original
+   block here was a BIO 004 anatomy mechanic, a capped bonus of
+   three points with live and asynchronous routes, and it was
+   removed Sep 10 2026 on Scrubs' instruction: "remove scholar
+   points and bonus, that is only anatomy." Scholar Points came
+   back Sep 13 2026 as a different thing, attached to Study With
+   Me, earned only by studying with other people. Anything written
+   between those two dates that says Scholar Points do not exist is
+   out of date.
    ============================================================ */
 
 window.BIO005_CREDIT = {
@@ -122,17 +131,46 @@ window.BIO005_CREDIT = {
 
   /* ============================================================
      SCHOLAR POINTS
-     A capped bonus, not a requirement, which is what keeps the
-     live sessions optional in an asynchronous section.
+     Set by Scrubs Sep 13 2026.
 
-     Every point available through a live route is also available
-     through an asynchronous route. A student who can never make a
-     live session can still max this category out.
+     Not a category, not extra credit, and not a requirement. A bump
+     applied to the final course percentage after the four categories
+     above are settled, earned only by hours spent working the
+     physiology with at least one other person.
+
+     WHY THERE IS NO ASYNCHRONOUS ROUTE. The previous version of this
+     block carried one, because it was a bonus for participation and
+     an asynchronous section cannot require anyone to be present at a
+     set time. This version is not a participation bonus. The thing
+     being rewarded IS the studying with other people, so a solo route
+     would reward something else. It stays optional instead, which is
+     what keeps the section honestly asynchronous: a student who never
+     attends one loses nothing they were entitled to.
+
+     The numbers are also written into what-you-do.html, scholar-points.html
+     and syllabus-fall2026.html. If they change, change them there too.
      ============================================================ */
 
-  /* The Scholar Points block was removed Sep 10 2026. It is an anatomy
-     mechanic and has never been part of this course. Nothing renders it
-     and nothing should reintroduce it. */
+  scholarPoints: {
+    maxBumpPercent: 2.5,
+    hoursForFullBump: 30,
+    weeklyCountedHoursCap: 3,
+    hostBonusHours: 1,
+    hostBonusAppliedBeforeCap: true,
+    proportionalBelowTarget: true,
+    appliedTo: "The final course percentage, after the four categories are settled.",
+    countsAs: "Time spent working the physiology with at least one other person: a Study With Me session, a study group, quizzing each other, teaching at a whiteboard, brain dumps side by side, a Kahoot, working the book problems together.",
+    doesNotCountAs: "Time studying alone, and doing graded work together, which is not allowed regardless.",
+    requirements: [
+      "The session is recorded and the host keeps the link.",
+      "Cameras on, everybody, the whole session.",
+      "Log only the time you were actually present.",
+      "One session at a time.",
+      "The host keeps the recording and the attendance list."
+    ],
+    logging: "Students log sessions on scholar-points.html, which stores the log in their own browser, and submit the week through a weekly Canvas assignment.",
+    syncRequired: false
+  },
 
   /* ============================================================
      AI POLICY, THE WHOLE THING IN ONE PLACE

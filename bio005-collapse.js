@@ -88,6 +88,20 @@
     'mastery-physio-os-standalone.html', 'course-questions.html'
   ];
 
+  /* THE WEEK COMPETENCY PAGES ARE DELIBERATELY NOT FOLDED.
+
+     They were not folding anyway, because each competency wraps its
+     heading in a div and the check looks for a heading that is a direct
+     child of its section. That was an accident, but the right answer is
+     the same as the accident: a competency page is a list you scan, and
+     one section per competency would turn twelve scannable items into
+     twelve closed boxes. The competency packet is opted out above for
+     exactly this reason. Making it explicit so the next person to read
+     this file does not "fix" it. */
+  for (var ow = 1; ow <= 15; ow++) {
+    OPT_OUT.push('week-' + (ow < 10 ? '0' : '') + ow + '-competencies.html');
+  }
+
   function fileName() {
     var p = location.pathname, i = p.lastIndexOf('/');
     return (i < 0 ? p : p.slice(i + 1)) || 'index.html';
@@ -172,11 +186,25 @@
     if (document.body.getAttribute('data-collapse') === 'off') return;
     if (OPT_OUT.indexOf(fileName()) > -1) return;
 
+    /* FORCING IT ON.
+
+           <body data-collapse="on">
+
+       A length threshold cannot tell dense from long. how-this-course-works
+       runs seven stages of instruction and measures 3,852 characters, which
+       put it 148 short of the cutoff, so the one page that explains how the
+       whole course works was the one page that would not fold. Rather than
+       drop the threshold for all 132 pages and find out later which short
+       pages started folding for no reason, a page that should always fold
+       says so itself. Two sections are still the floor: a page with one
+       thing on it has nothing to fold. */
+    var forced = document.body.getAttribute('data-collapse') === 'on';
+
     var items = candidates();
-    if (items.length < MIN_SECTIONS) return;
+    if (items.length < (forced ? 2 : MIN_SECTIONS)) return;
     var total = 0;
     items.forEach(function (it) { total += it.chars; });
-    if (total < PAGE_MIN_CHARS) return;
+    if (!forced && total < PAGE_MIN_CHARS) return;
 
     var st = document.createElement('style');
     st.setAttribute('data-bio005-collapse', '');
@@ -340,7 +368,60 @@
   window.addEventListener('beforeprint', beforePrint);
   window.addEventListener('afterprint', afterPrint);
 
-  function start() { setTimeout(build, 200); }
-  if (document.readyState === 'complete') start();
-  else window.addEventListener('load', start);
+  /* WAIT FOR THE PAGE TO FINISH BUILDING ITSELF.
+
+     The first version ran once, 200ms after load, and then stopped. That
+     is fine for a page whose sections are typed into the HTML, and wrong
+     for every page that renders itself from a data file. The fifteen week
+     competency pages are the worst case: each one builds twelve sections
+     and about twelve thousand characters out of bio005-competencies.js,
+     and on anything slower than a fast laptop that render finishes after
+     the 200ms had already elapsed. The check ran against an empty page,
+     found no sections, and returned. Those are the longest pages in the
+     course and the ones Scrubs was looking at when she asked for
+     collapsible boxes, and they were the ones not getting them.
+
+     So the page is watched instead of sampled. Every time the DOM stops
+     changing for a beat, the check runs again. The first run that finds
+     enough to fold does the work and disconnects the watcher. If nothing
+     ever qualifies, the watcher gives up on a deadline rather than
+     observing for the life of the page. build() is guarded so a second
+     run cannot double-fold. */
+  var built = false;
+  var buildOnce = (function () {
+    var inner = build;
+    return function () {
+      if (built) return true;
+      if (document.querySelector('[data-b5c-region]')) { built = true; return true; }
+      inner();
+      built = !!document.querySelector('[data-b5c-region]');
+      return built;
+    };
+  }());
+
+  var WATCH_MS = 6000;   /* stop watching after this */
+  var SETTLE_MS = 180;   /* quiet period that counts as "finished rendering" */
+
+  function start() {
+    if (buildOnce()) return;
+    if (!window.MutationObserver) { setTimeout(buildOnce, 1200); return; }
+
+    var timer = null, obs = null, deadline = null;
+    function stop() {
+      if (timer) clearTimeout(timer);
+      if (deadline) clearTimeout(deadline);
+      if (obs) obs.disconnect();
+    }
+    function settled() { if (buildOnce()) stop(); }
+
+    obs = new MutationObserver(function () {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(settled, SETTLE_MS);
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+    deadline = setTimeout(function () { settled(); stop(); }, WATCH_MS);
+  }
+
+  if (document.readyState === 'complete') setTimeout(start, 200);
+  else window.addEventListener('load', function () { setTimeout(start, 200); });
 }());

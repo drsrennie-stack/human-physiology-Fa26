@@ -9583,7 +9583,7 @@ window.BIO005_SESSIONS = {
     {id:'exams',    kw:['exam','test','midterm','practical','how many test','final']},
     {id:'tbl',      kw:['tbl','team based','team-based','irat','trat','readiness','team quiz']},
     {id:'mastery',  kw:['mastery','recall','flashcard','gap finder','cram','spaced','study tool','study engine']},
-    {id:'study',    kw:['study with me','co-study','study session','study group','sign up','study hours','engagement hour']},
+    {id:'study',    kw:['study with me','co-study','study session','study group','sign up','study hours','engagement hour','scholar point','study partner','host a session','study buddy']},
     {id:'atlas',    kw:['atlas','3d','model','viewer','explore structure','anatomy review','refresher']},
     /* The 'loops' intent is retired, Sep 7 2026. Its keyword was the bare
        word 'loop', and in a physiology course "how do feedback loops work"
@@ -9693,7 +9693,8 @@ window.BIO005_SESSIONS = {
           + '<br><b>25%</b> Investigate It. The weekly labs.'
           + '<br><b>25%</b> Use It. Your weekly application case, building into your patient file.'
           + '<br><b>15%</b> Think About It. The weekly discussion.'
-          + '<br><br>Your note sheet, the practice items, the Mastery Check and the recall cards carry <b>no points at all</b>, on purpose. They are the route to the four above, not extras. Full detail in your ' + ilink(s.syllabus, 'syllabus') + '.';
+          + '<br><br>Your note sheet, the practice items, the Mastery Check and the recall cards carry <b>no points at all</b>, on purpose. They are the route to the four above, not extras.'
+          + '<br><br>There is no curve and no back-end extra credit. There is a front-end version: <a href="scholar-points.html" target="_top">Scholar Points</a>, up to a 2.5 percent bump earned by studying with other people across the term. Full detail in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       case 'exams':
         return examLine(ctx, ctx.nextExam)
@@ -9713,10 +9714,13 @@ window.BIO005_SESSIONS = {
         return '<p>' + a('masteryOS', 'The Mastery OS') + ' is your study engine: spaced recall across all 268 competencies and a gap finder that shows exactly what is weak.</p>'
           + '<p>It works with the weekly <b>Mastery Check</b>, which is not a quiz. No points, no penalty, and no limit on attempts. It asks two levels on each competency, one to see whether you can retrieve it and one to see whether you can use it, and instead of a score it tells you which competencies are solid, which are partly there, and which are still a gap. Bring the gaps back to the OS.</p>';
 
-      /* Scholar Points are retired, and so is the engagement hours bank
-         they fed. Sep 7 2026. */
+      /* Scholar Points came back Sep 13 2026, attached to Study With Me.
+         The previous answer here said both were retired, which was true
+         for six days and is now the opposite of the truth. */
       case 'study':
-        return 'There is no scheduled co-study session and no Scholar Points system in this course; both are retired. If you want to study with people, say so in the discussion thread and set something up. Office hours are Wednesdays 9:00 to 10:00 am on Zoom, drop in, and bringing a study question to those is the closest thing to co-study on the calendar.';
+        return '<p><a href="study-with-me.html" target="_top">Study With Me</a> is the room for this. I post my own drop-in times, and you can set up your own session any week you want one. Nothing about it is required.</p>'
+          + '<p>The hours do earn <a href="scholar-points.html" target="_top">Scholar Points</a>: up to a 2.5 percent bump on your final course percentage, thirty hours for the full amount, three hours a week that can count. Sessions have to be recorded with cameras on, and whoever hosts gets one extra hour on top of the time the session ran. You log your hours on the Scholar Points page and upload the week in Canvas.</p>'
+          + '<p>Office hours are Wednesdays 9:00 to 10:00 am on Zoom, drop in.</p>';
 
       /* The interactive Atlas is a BIO 004 anatomy tool and is not part of
          this course. What physiology students want when they ask about

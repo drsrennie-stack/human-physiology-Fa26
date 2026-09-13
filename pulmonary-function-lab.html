@@ -4146,6 +4146,19 @@ P.renderReport = renderReport;
 P.testPanel = testPanel;
 
 document.addEventListener('DOMContentLoaded', function () {
+  /* WEEK 13 IS NOT OPEN YET, AND THE GATE HAS ALREADY TAKEN THIS PAGE.
+
+     bio005-nav.js replaces the main landmark with the "Week 13 opens
+     Monday, November 30" card, which deletes every container the panels
+     below render into. Without this check, learnPanel asked for
+     #learn-root, got null, and threw on the first line. Everything after
+     it in this handler was then skipped, including the loop that puts
+     target="_top" on every link and the iframe height sender, so the gate
+     card itself nested the course inside its own Canvas frame and never
+     resized. The student saw a broken page where they should have seen a
+     tidy "not open yet" card. Fixed Sep 13 2026. */
+  if (document.documentElement.hasAttribute('data-b5-gated')) return;
+
   P.initTabs();
   P.initEli();
   P.learnPanel();
