@@ -1,10 +1,11 @@
-# Mission 2 coverage map (instructor)
+# Week 2 coverage map (instructor)
 
 **Course:** BIO 005 Human Physiology, Yuba College, Fall 2026
 **Week:** 2, The chemistry that does work in the body
-**Mission:** 2, Build the Molecular Toolkit
+**Topic title:** Build the Molecular Toolkit
 **Source chapter:** Silverthorn, Chapter 2, Molecular Interactions
 **Files:** m02-chem-review.html (optional), m02-slides.html (required), m02-notes.html (required)
+**Compliance record:** compliance-notes-week-02.md. Scoped to this pass, so it does not overwrite the course-wide compliance-notes.md in the repo root.
 **Date:** September 13, 2026. Replaces the September 6 version.
 
 This page is instructor facing. None of these classification labels appear on the student pages.
@@ -22,6 +23,12 @@ The week is now three parts instead of one.
 | Optional chemistry review | m02-chem-review.html | Optional, ungraded | Eight self-triage blocks with Khan Academy videos, articles and practice sets |
 
 The chemistry that Week 2 assumes is no longer taught in the lecture. It moved to the optional review page, and the deck carries one reference slide (slide 5) that names each idea in a line and links to the review. That freed roughly nine slides, and modulation went from one slide to seven.
+
+**Mission framing removed.** All three files now read as Week 2 rather than Mission 2. The topic title "Build the Molecular Toolkit" stays as the page heading. The slide that explained what a mission is has been replaced with a plain opening, and every "this mission" now reads "this week."
+
+The beat labels are off the slides entirely. Nothing on a slide names a beat, and the control bar no longer shows one. The underlying order still runs problem, conditions, mechanism, response, predict, perturb, it just is not labelled on screen any more.
+
+Filenames stay `m02-*`. Renaming them would leave the old files stranded in the repo, and the GitHub web upload you use can overwrite but not delete, so you would have to clear them by hand. The `m02` prefix is now just a file prefix, and it appears nowhere a student can see.
 
 ---
 
@@ -91,7 +98,7 @@ The slide deck closes with this as an unnumbered box, labelled as not yet a list
 
 ## 6. A boundary I did not cross
 
-You said modulation and signaling. Modulation is now fully in Mission 2. Signaling is not, because Week 8 already owns it with four competencies: receptor location and ligand solubility, G protein coupled receptors, second messengers, and receptor modulation. Pulling that forward would duplicate an assessed week.
+You said modulation and signaling. Modulation is now fully in Week 2. Signaling is not, because Week 8 already owns it with four competencies: receptor location and ligand solubility, G protein coupled receptors, second messengers, and receptor modulation. Pulling that forward would duplicate an assessed week.
 
 What the deck does instead is build every foundation Week 8 needs and say so out loud. Covalent modulation on slide 17 ends on amplification and names Week 8. Up and down regulation on slide 20 ends on chronic hormone exposure and names Week 8. Affinity on slide 11 names Week 13. If you want actual signaling content moved into Week 2, that is a schedule change rather than a slide change, and it would mean deciding what leaves Week 8.
 
