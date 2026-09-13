@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission 2 · Build the Molecular Toolkit · BIO 005 Human Physiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ---------------------------------------------------------------
+   BIO 005 Human Physiology - Mission 2 slide deck
+   SWAP POINT: if your repo maroon differs, change --maroon and
+   --maroon-deep below and nothing else needs to move.
+----------------------------------------------------------------*/
+:root{
+  --maroon:#6E1F2A;
+  --maroon-deep:#54161F;
+  --maroon-tint:#F2EAEB;
+  --gold:#B8924A;
+  --terra-dark:#A0522D;
+  --ink:#22201F;
+  --ink-soft:#4A4442;
+  --white:#FFFFFF;
+  --page:#FAFAF9;
+  --line:#E3DFDC;
+  --shadow-rest:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lift:0 8px 16px rgba(0,0,0,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-size:17px;line-height:1.6;font-variant-numeric:lining-nums}
+h1,h2,h3,h4{font-family:"Plus Jakarta Sans",system-ui,Arial,sans-serif;margin:0 0 .5em}
+h1{font-weight:800;color:var(--maroon);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
+h2{font-weight:800;color:var(--maroon);font-size:clamp(1.35rem,2.8vw,1.9rem);line-height:1.25}
+h3{font-weight:600;color:var(--terra-dark);font-size:1.12rem}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.25em}
+li{margin:0 0 .45em}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-deep)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--maroon);color:#fff;padding:.6rem 1rem;z-index:200;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:4px}
+
+.brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:.65rem 1.25rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
+.brandbar .mark{font-family:"Plus Jakarta Sans";font-weight:800;color:var(--maroon);letter-spacing:.01em}
+.brandbar .course{color:var(--ink-soft);font-size:.9rem}
+.headband{background:var(--maroon);color:#fff;padding:1.1rem 1.25rem}
+.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#F3D9AE;margin:0 0 .3rem}
+.headband h1{color:#fff;margin:0}
+.headband .sub{margin:.35rem 0 0;color:#F0E6E7;font-size:.98rem}
+
+.controls{position:sticky;top:0;z-index:60;background:var(--white);
+  border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);
+  padding:.6rem .75rem;margin:1rem auto 1.25rem;max-width:1060px;
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between}
+.ctrl-group{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+button{font-family:inherit;font-size:.95rem}
+.btn{background:var(--white);color:var(--maroon);border:1px solid var(--maroon);
+  border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;
+  transition:transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease}
+.btn:hover{background:var(--maroon-tint)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn-solid{background:var(--maroon);color:#fff}
+.btn-solid:hover{background:var(--maroon-deep)}
+.btn-quiet{border-color:var(--ink-soft);color:var(--ink)}
+.btn-quiet[aria-pressed="true"]{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.counter{font-weight:700;color:var(--ink);white-space:nowrap;padding:0 .35rem}
+.beatnav{font-size:.85rem;color:var(--ink-soft)}
+
+.progress{height:6px;background:var(--line);border-radius:999px;overflow:hidden;max-width:1060px;margin:0 auto .25rem}
+.progress > span{display:block;height:100%;background:var(--gold);width:0%}
+
+.deck{max-width:1060px;margin:0 auto;padding:0 1.25rem 3rem}
+.slide{background:var(--white);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow-rest);padding:1.6rem 1.5rem 1.75rem;margin:0 0 1.25rem}
+.slide[hidden]{display:none}
+.beat{margin:0 0 .5rem;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--terra-dark)}
+.lede{font-size:1.06rem;color:var(--ink)}
+.tiny{font-size:.9rem;color:var(--ink-soft)}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:1rem 1.05rem;margin:0 0 1rem}
+.grid{display:grid;gap:1rem}
+@media(min-width:760px){
+  .grid.two{grid-template-columns:1fr 1fr}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+}
+.chain{list-style:none;padding:0;margin:0 0 1rem;counter-reset:step}
+.chain li{counter-increment:step;background:var(--white);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow-rest);padding:.7rem .85rem .7rem 2.7rem;position:relative;margin:0 0 .55rem}
+.chain li::before{content:counter(step);position:absolute;left:.8rem;top:.72rem;
+  width:1.4rem;height:1.4rem;border-radius:50%;background:var(--maroon);color:#fff;
+  font-weight:700;font-size:.82rem;display:grid;place-items:center}
+
+.term{background:none;border:none;padding:0;cursor:pointer;color:var(--maroon);font-weight:700;
+  font-family:inherit;font-size:inherit;border-bottom:2px dotted var(--maroon);line-height:inherit}
+.term:hover{color:var(--maroon-deep);border-bottom-style:solid}
+.defbox{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);
+  padding:.75rem .9rem;margin:0 0 1rem}
+.defbox:empty{display:none}
+.defbox .w{font-weight:700;color:var(--maroon)}
+
+.reveal-body{margin-top:.75rem}
+.reveal-body[hidden]{display:none}
+
+.clin{margin:1rem 0 0}
+.clin .rows{display:grid;gap:.6rem;margin-top:.75rem}
+.clin .row{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.7rem .85rem}
+.clin .who{font-family:"Plus Jakarta Sans";font-weight:700;color:var(--maroon);display:block;margin-bottom:.15rem}
+.clin .means{color:var(--ink-soft);font-size:.94rem;margin:.3rem 0 0}
+
+.sortlist{list-style:none;padding:0;margin:0}
+.sortlist li{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.7rem .85rem;margin:0 0 .6rem}
+.sortlist .val{font-weight:700}
+.sortlist .limits{color:var(--ink-soft);font-size:.92rem;display:block}
+.sortlist .picks{display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap}
+.mark-ok{color:var(--maroon);font-weight:700}
+.state-done{background:var(--maroon-tint);border-color:var(--maroon)}
+
+.tablewrap{overflow-x:auto;margin:0 0 1rem}
+table{border-collapse:collapse;width:100%;min-width:520px;background:var(--white)}
+caption{text-align:left;font-weight:700;color:var(--maroon);padding:0 0 .5rem;font-family:"Plus Jakarta Sans"}
+th,td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left;vertical-align:top;font-size:.96rem}
+th{background:var(--white);color:var(--maroon);font-family:"Plus Jakarta Sans";font-weight:700}
+
+.eq{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.85rem .95rem;margin:0 0 1rem}
+.eq .math{font-family:"Plus Jakarta Sans";font-weight:700;color:var(--maroon);font-size:1.12rem;letter-spacing:.01em}
+.eq dl{margin:.6rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.2rem .7rem;font-size:.93rem}
+.eq dt{font-weight:700;color:var(--ink)}
+.eq dd{margin:0;color:var(--ink-soft)}
+
+.comp{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:1rem 1.05rem;margin:0 0 1rem}
+.comp .id{font-weight:800;color:var(--maroon);font-family:"Plus Jakarta Sans"}
+.comp ol{margin:.6rem 0 0}
+
+#penwrap{position:relative}
+#pen{position:absolute;inset:0;width:100%;height:100%;touch-action:none;z-index:40;display:none;border-radius:14px}
+#pen.on{display:block}
+.pentools{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:0 0 .75rem;padding:0 1.25rem;max-width:1060px;margin-left:auto;margin-right:auto}
+.pentools[hidden]{display:none}
+.swatch{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--ink-soft);cursor:pointer}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--white),0 0 0 4px var(--ink)}
+.size{width:2.3rem;height:2rem;border-radius:8px;border:1px solid var(--ink-soft);background:var(--white);cursor:pointer;font-weight:700}
+.size[aria-pressed="true"]{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+
+.sitefoot{border-top:1px solid var(--line);background:var(--white);padding:1.25rem;margin-top:2rem}
+.sitefoot p{margin:0;text-align:center;font-size:.92rem;color:var(--ink-soft)}
+.sitefoot a{color:var(--maroon);font-weight:500}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+@media print{
+  .controls,.progress,.pentools,.skip,#pen{display:none !important}
+  .slide[hidden]{display:block !important}
+  .reveal-body[hidden]{display:block !important}
+  .slide{break-inside:avoid;box-shadow:none;border-color:#999;margin-bottom:.6rem}
+  body{background:#fff;font-size:10.5pt}
+  .headband{background:#fff;color:#000;border-bottom:2px solid #000}
+  .headband h1,.headband .sub,.headband .eyebrow{color:#000}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#deck">Skip to the slides</a>
+
+<header>
+  <div class="brandbar">
+    <span class="mark">Dr. Sharilyn Rennie</span>
+    <span class="course">BIO 005 Human Physiology · Yuba College · Fall 2026</span>
+  </div>
+  <div class="headband">
+    <p class="eyebrow">Week 2 · Mission 2 · Required</p>
+    <h1>Build the Molecular Toolkit</h1>
+    <p class="sub">Binding, shape, and how the body turns a protein up or down</p>
+  </div>
+</header>
+
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+
+<nav class="controls" aria-label="Slide controls">
+  <div class="ctrl-group">
+    <button class="btn" id="prev" type="button">Previous</button>
+    <span class="counter"><span id="cur">1</span> of <span id="tot">27</span></span>
+    <button class="btn btn-solid" id="next" type="button">Next</button>
+    <span class="beatnav" id="beatnav">Mission</span>
+  </div>
+  <div class="ctrl-group">
+    <button class="btn btn-quiet" id="penToggle" type="button" aria-pressed="false">Pen</button>
+    <button class="btn btn-quiet" id="resetAll" type="button">Reset</button>
+    <button class="btn btn-quiet" id="printAll" type="button">Print packet</button>
+  </div>
+</nav>
+
+<p class="sr-only" role="status" aria-live="polite" id="announce"></p>
+
+<div class="pentools" id="pentools" hidden>
+  <span class="tiny">Pen color:</span>
+  <button class="swatch" type="button" data-color="#6E1F2A" aria-pressed="true" aria-label="Maroon pen" style="background:#6E1F2A"></button>
+  <button class="swatch" type="button" data-color="#A0522D" aria-pressed="false" aria-label="Terra pen" style="background:#A0522D"></button>
+  <button class="swatch" type="button" data-color="#B8924A" aria-pressed="false" aria-label="Gold pen" style="background:#B8924A"></button>
+  <button class="swatch" type="button" data-color="#22201F" aria-pressed="false" aria-label="Black pen" style="background:#22201F"></button>
+  <span class="tiny">Size:</span>
+  <button class="size" type="button" data-size="2" aria-pressed="false">S</button>
+  <button class="size" type="button" data-size="4" aria-pressed="true">M</button>
+  <button class="size" type="button" data-size="8" aria-pressed="false">L</button>
+  <button class="btn btn-quiet" type="button" id="penClear">Clear drawing</button>
+</div>
+
+<main class="deck" id="deck" tabindex="-1">
+<div id="penwrap">
+<canvas id="pen" aria-hidden="true"></canvas>
+
+<!-- ================= 1 ================= -->
+<section class="slide" data-beat="Mission" aria-labelledby="s1">
+  <p class="beat">Beat 1 · Mission</p>
+  <h2 id="s1">Mission 2: Build the Molecular Toolkit</h2>
+  <p class="lede">Your body has one job. Keep the conditions inside you steady enough that your cells can keep working, no matter what is happening outside you or to you.</p>
+  <p>That job is too big to learn all at once, so this course breaks it into smaller jobs. We call each one a mission. A mission is a question the body has to answer in order to stay alive, and each mission gives you the science you need to answer it yourself.</p>
+  <p>Mission 1 was about control, how the body senses a change and sends the order to fix it. Mission 2 asks what carries those orders out, and then asks the question that runs the rest of the semester: how does the body turn that machinery up and down?</p>
+  <div class="card">
+    <h3>The question for this mission</h3>
+    <p>Everything the body does, it does with molecules that stick to other molecules, change shape, and let go again. So what decides whether two molecules stick, how tightly they stick, and what can change that?</p>
+  </div>
+</section>
+
+<!-- ================= 2 ================= -->
+<section class="slide" data-beat="Mission" hidden aria-labelledby="s2">
+  <p class="beat">Beat 1 · Mission</p>
+  <h2 id="s2">What is new this week, and what you already have</h2>
+  <p>Week 2 is built on chemistry you have almost certainly met before. I am not going to spend the lecture re-teaching it, because the interesting part is what the body does with it.</p>
+  <div class="grid two">
+    <div class="card">
+      <h3>Already yours</h3>
+      <ul>
+        <li>Atoms, electrons, ions and bond types</li>
+        <li>Water, polarity, what dissolves and what does not</li>
+        <li>The pH scale and what acids and bases do</li>
+        <li>The four groups of biomolecules</li>
+        <li>The four levels of protein structure</li>
+        <li>How a protein gets made from DNA</li>
+        <li>What an enzyme is and what ATP is</li>
+      </ul>
+      <p><a href="m02-chem-review.html" target="_top">Optional chemistry review, with Khan Academy videos for anything shaky</a></p>
+    </div>
+    <div class="card">
+      <h3>New this week</h3>
+      <ul>
+        <li>Why shape is function, and what the body does when shape is lost</li>
+        <li>Ligands and binding sites</li>
+        <li>Specificity, affinity, saturation and competition</li>
+        <li>The seven ways a protein gets modulated</li>
+        <li>Enzyme regulation as the worked example</li>
+        <li>Coupling ATP to real physiological work</li>
+        <li>Buffers as a physiological response, not a chemistry definition</li>
+      </ul>
+    </div>
+  </div>
+  <p class="tiny">The review page is optional and nothing on it is collected. The recordings and this deck are the required material.</p>
+</section>
+
+<!-- ================= 3 ================= -->
+<section class="slide" data-beat="Mission" hidden aria-labelledby="s3">
+  <p class="beat">Beat 1 · Mission</p>
+  <h2 id="s3">The claim on the table</h2>
+  <p>A 24 year old is brought to the emergency department after collapsing during a road race on a hot afternoon. Core temperature is 41.6 &deg;C (106.9 &deg;F). He is confused, his muscles are rigid, and his blood work shows enzymes leaking out of muscle cells into the blood.</p>
+  <p>The physician on the case tells the family:</p>
+  <div class="card">
+    <p class="lede">"The heat itself is doing the damage. His proteins are coming apart, and that is why his muscles and his brain are not working."</p>
+  </div>
+  <p>Do not agree or disagree yet. Your job across this mission is to learn the mechanism well enough to decide whether the evidence supports that claim, and to name the one test result that would settle it.</p>
+  <p>Two questions to carry with you. What would have to be true about proteins for the claim to be right? And what else, other than heat, could produce this same picture?</p>
+</section>
+
+<!-- ================= 4 ================= -->
+<section class="slide" data-beat="Conditions and load" hidden aria-labelledby="s4">
+  <p class="beat">Beat 2 · Conditions and load</p>
+  <h2 id="s4">The conditions the toolkit has to work in</h2>
+  <p>Proteins do not work under laboratory conditions of your choosing. They work in a narrow band of temperature, acidity and solute concentration, and they work poorly or not at all outside it. Sort each value. The upper and lower limits are printed beside every one, so this is reading, not memory.</p>
+
+  <ul class="sortlist" id="sort1">
+    <li data-answer="in">
+      <span class="val">Core temperature 37.0 &deg;C (98.6 &deg;F)</span>
+      <span class="limits">Normal range: 36.5 to 37.5 &deg;C (97.7 to 99.5 &deg;F)</span>
+      <div class="picks"><button class="btn" type="button" data-pick="in">In range</button><button class="btn" type="button" data-pick="out">Out of range</button></div>
+    </li>
+    <li data-answer="out">
+      <span class="val">Core temperature 41.6 &deg;C (106.9 &deg;F)</span>
+      <span class="limits">Normal range: 36.5 to 37.5 &deg;C (97.7 to 99.5 &deg;F)</span>
+      <div class="picks"><button class="btn" type="button" data-pick="in">In range</button><button class="btn" type="button" data-pick="out">Out of range</button></div>
+    </li>
+    <li data-answer="in">
+      <span class="val">Arterial pH 7.40</span>
+      <span class="limits">Normal range: 7.35 to 7.45</span>
+      <div class="picks"><button class="btn" type="button" data-pick="in">In range</button><button class="btn" type="button" data-pick="out">Out of range</button></div>
+    </li>
+    <li data-answer="out">
+      <span class="val">Arterial pH 7.18</span>
+      <span class="limits">Normal range: 7.35 to 7.45</span>
+      <div class="picks"><button class="btn" type="button" data-pick="in">In range</button><button class="btn" type="button" data-pick="out">Out of range</button></div>
+    </li>
+    <li data-answer="in">
+      <span class="val">Plasma osmolarity 290 mOsM</span>
+      <span class="limits">Normal range: 280 to 296 mOsM</span>
+      <div class="picks"><button class="btn" type="button" data-pick="in">In range</button><button class="btn" type="button" data-pick="out">Out of range</button></div>
+    </li>
+    <li data-answer="out">
+      <span class="val">Plasma potassium 6.8 mEq/L</span>
+      <span class="limits">Normal range: 3.5 to 5.0 mEq/L</span>
+      <div class="picks"><button class="btn" type="button" data-pick="in">In range</button><button class="btn" type="button" data-pick="out">Out of range</button></div>
+    </li>
+  </ul>
+  <p class="tiny">Every value on that list is regulated. None of them drifts freely. The reason they have to stay put is that the proteins doing the work only work inside them, and that is what the rest of this mission is about.</p>
+</section>
+
+<!-- ================= 5 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s5">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s5">The chemistry on one page</h2>
+  <p>Reference, not lecture. If any row here is unfamiliar, the optional review page has a Khan Academy video for it.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>What you are bringing into this week</caption>
+      <thead><tr><th scope="col">Idea</th><th scope="col">The one line version</th><th scope="col">Where it shows up in this mission</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Covalent bonds</th><td>Shared electrons. Strong. They decide what a molecule is.</td><td>The protein backbone that survives denaturation</td></tr>
+        <tr><th scope="row">Weak interactions</th><td>Hydrogen bonds, ionic attractions, hydrophobic interactions, van der Waals forces. Individually easy to break.</td><td>They hold the fold, so they are what heat and acid attack</td></tr>
+        <tr><th scope="row">Polarity</th><td>Polar dissolves in water, nonpolar does not, amphipathic sits at the boundary.</td><td>Which ligands reach which proteins, and how they travel</td></tr>
+        <tr><th scope="row">pH</th><td>How many free hydrogen ions are present. Logarithmic. Blood runs 7.35 to 7.45.</td><td>Hydrogen ions change charges, which changes shape</td></tr>
+        <tr><th scope="row">Four biomolecule groups</th><td>Carbohydrates and lipids store energy, proteins do work, nucleotides carry information and energy.</td><td>Proteins are the whole subject from here on</td></tr>
+        <tr><th scope="row">Protein structure</th><td>Primary sequence, secondary coils, tertiary fold, quaternary assembly.</td><td>The fold is the binding site</td></tr>
+        <tr><th scope="row">DNA to protein</th><td>Transcription then translation makes the protein the cell needs.</td><td>How the body changes how many copies exist</td></tr>
+        <tr><th scope="row">Enzymes and ATP</th><td>Enzymes lower activation energy. ATP carries energy between reactions.</td><td>The worked examples for binding and for paying for work</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="m02-chem-review.html" target="_top">Open the optional chemistry review</a></p>
+</section>
+
+<!-- ================= 6 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s6">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s6">Shape is function</h2>
+  <p>This is the idea the rest of the semester sits on. A protein works because it has a pocket, a groove or a surface that fits one particular partner. Change the shape and you change what fits.</p>
+  <ol class="chain">
+    <li>The amino acid sequence is set by DNA and held by covalent bonds, so it does not change.</li>
+    <li>The chain folds, driven by water pushing nonpolar groups inward, and held by many weak interactions.</li>
+    <li>The fold creates a binding site with a particular size, shape and pattern of charges.</li>
+    <li>Only molecules that match that site bind well.</li>
+    <li>Change the fold and the site changes with it. That is the lever, and almost everything in this mission is a way of pulling it.</li>
+  </ol>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>Every weak interaction holding the fold is easy to break. So why does a protein not simply fall apart at body temperature? Decide before you open this.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r6">Check my prediction</button>
+    <div class="reveal-body" id="r6" hidden>
+      <p>Because there are thousands of them at once, constantly breaking and reforming, and any one of them breaking costs nothing while the rest still hold. That also tells you the failure mode. Add enough energy, or change enough charges, and you break enough of them at the same moment that the fold cannot recover. Hold that thought for the fever case.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s7">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s7">What breaks a fold</h2>
+  <p>When enough weak interactions give way at once, the protein is <button class="term" type="button" data-word="Denaturation" data-def="Loss of a protein's folded shape because the weak interactions holding it are disrupted. The covalent backbone survives. The binding site does not.">denatured</button>. The amino acid chain is still intact and still correct. The binding site is gone.</p>
+  <div class="grid three">
+    <div class="card">
+      <h3>Heat</h3>
+      <p>Added energy makes the chain vibrate until the weak interactions cannot hold. Most human proteins are stable at 37 &deg;C (98.6 &deg;F) and begin losing function above roughly 40 to 41 &deg;C (104 to 105.8 &deg;F).</p>
+    </div>
+    <div class="card">
+      <h3>pH change</h3>
+      <p>Hydrogen ions change the charges on amino acid side chains, so ionic attractions that were holding the fold stop pulling. No heat required.</p>
+    </div>
+    <div class="card">
+      <h3>Certain chemicals</h3>
+      <p>Heavy metals and some solvents disrupt the fold directly. This is a large part of why they are poisons.</p>
+    </div>
+  </div>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def7"></div>
+  <p>Mild denaturation sometimes reverses. Often it does not, and a cooked egg white is the version of that you can see on a plate.</p>
+  <div class="clin">
+    <button class="btn btn-quiet" type="button" aria-expanded="false" aria-controls="c7">Where this shows up in your profession</button>
+    <div class="rows" id="c7" hidden>
+      <div class="row"><span class="who">Nursing</span>Cooling a patient with a dangerously high fever is not comfort care, it is protecting enzyme and structural proteins that stop working above roughly 40 to 41 &deg;C (104 to 105.8 &deg;F).<p class="means">What this means: bringing the temperature down protects the body's working parts from being wrecked by heat.</p></div>
+      <div class="row"><span class="who">Radiologic technology</span>Radiofrequency and ultrasound ablation treat tumors by heating tissue until its proteins denature, so the treatment is this mechanism used on purpose.<p class="means">What this means: some treatments deliberately cook a small area of tissue so it stops working.</p></div>
+      <div class="row"><span class="who">Medicine</span>Cardiac troponin measured in blood is a structural protein released from injured heart muscle, and its rise and fall over hours is how a heart attack is confirmed.<p class="means">What this means: when heart muscle cells are damaged, their parts leak into the blood where a test can find them.</p></div>
+      <div class="row"><span class="who">Respiratory therapy</span>Inhaled gas is warmed and humidified before it reaches the airway, because dry cold gas injures the cells and the protein layer lining it.<p class="means">What this means: the air going into the lungs has to be warm and wet or it damages the lining.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s8">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s8">Nine jobs proteins do</h2>
+  <p>Every time you meet a new system this semester, ask which of these the proteins in it are doing. The list is short and it covers most of what you will meet.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>Functions of proteins in the body</caption>
+      <thead><tr><th scope="col">Job</th><th scope="col">What it does</th><th scope="col">Example</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">1. Enzymes</th><td>Speed up chemical reactions</td><td>Salivary amylase, carbonic anhydrase</td></tr>
+        <tr><th scope="row">2. Membrane transporters</th><td>Move solutes across membranes</td><td>Sodium potassium ATPase, glucose transporters</td></tr>
+        <tr><th scope="row">3. Receptors</th><td>Receive a chemical message and start a response</td><td>Insulin receptor, beta adrenergic receptor</td></tr>
+        <tr><th scope="row">4. Signal molecules</th><td>Carry a message from one part of the body to another</td><td>Insulin, growth hormone</td></tr>
+        <tr><th scope="row">5. Binding and carrier proteins</th><td>Carry molecules that will not travel alone in blood</td><td>Albumin, hemoglobin, thyroid binding globulin</td></tr>
+        <tr><th scope="row">6. Immunoglobulins</th><td>Recognize and tag foreign material</td><td>Antibodies</td></tr>
+        <tr><th scope="row">7. Regulatory proteins</th><td>Turn genes on or off</td><td>Transcription factors</td></tr>
+        <tr><th scope="row">8. Structural proteins</th><td>Give shape, strength and anchoring</td><td>Collagen, keratin, elastin</td></tr>
+        <tr><th scope="row">9. Motor and contractile proteins</th><td>Generate movement and force</td><td>Actin, myosin, kinesin</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tiny">Textbooks group these a little differently, and some combine motor with structural and list eight. Being able to say which job a protein is doing, and how its shape lets it do that job, matters more than the grouping.</p>
+</section>
+
+<!-- ================= 9 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s9">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s9">Ligands and binding sites</h2>
+  <p>A <button class="term" type="button" data-word="Ligand" data-def="Any molecule that binds to a protein's binding site. A substrate binding an enzyme, a hormone binding a receptor, and oxygen binding hemoglobin are all ligands.">ligand</button> is whatever binds to the protein. That is the whole definition, and it covers more than students expect.</p>
+  <div class="grid two">
+    <div class="card">
+      <h3>Same idea, four names</h3>
+      <ul>
+        <li>An enzyme binds its substrate.</li>
+        <li>A receptor binds its hormone or neurotransmitter.</li>
+        <li>Hemoglobin binds oxygen.</li>
+        <li>A transporter binds the solute it is about to move.</li>
+      </ul>
+      <p>Four different chapters of the textbook, one mechanism underneath.</p>
+    </div>
+    <div class="card">
+      <h3>What happens after binding</h3>
+      <p>Binding is not the response. Binding is the trigger. What follows depends on the protein: a reaction is catalyzed, a channel opens, a cell changes what it is doing, or a passenger gets carried somewhere.</p>
+      <p>Keep those two separate in your head. Knowing what binds tells you nothing yet about what happens next.</p>
+    </div>
+  </div>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def9"></div>
+  <p>Four properties describe how binding behaves, and the next four slides take them one at a time. Once you have them you can predict most of what a drug or a hormone will do.</p>
+</section>
+
+<!-- ================= 10 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s10">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s10">Property 1: specificity, how choosy</h2>
+  <p><button class="term" type="button" data-word="Specificity" data-def="How narrow the range of ligands a protein will accept. It comes from the size, shape and charge pattern of the binding site.">Specificity</button> is how narrow the range of ligands a protein will accept. High specificity means it binds one molecule and refuses close relatives. Lower specificity means it accepts a family of similar molecules.</p>
+  <ol class="chain">
+    <li>The fold creates a site with a particular size, shape and pattern of charges.</li>
+    <li>A ligand has to physically fit the space and match those charges.</li>
+    <li>The better the match, the more of the weak interactions can form at once.</li>
+    <li>Molecules that do not match cannot make enough contacts to stay.</li>
+  </ol>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def10"></div>
+  <div class="card">
+    <h3>Why lower specificity is sometimes the design</h3>
+    <p>Liver enzymes that clear drugs are deliberately broad. A liver that only recognized molecules the body makes would be no use against anything you swallowed. Broad specificity is also why two drugs cleared by the same enzyme can interfere with each other, which comes back in the competition slide.</p>
+  </div>
+</section>
+
+<!-- ================= 11 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s11">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s11">Property 2: affinity, how tightly</h2>
+  <p><button class="term" type="button" data-word="Affinity" data-def="How strongly a protein holds a ligand once it has bound. High affinity means it binds readily and releases slowly.">Affinity</button> is how strongly the protein holds the ligand once it lands. High affinity means it binds readily and lets go slowly. Low affinity means it releases easily.</p>
+  <div class="card">
+    <h3>Affinity is a dial, not a switch</h3>
+    <p>This is the part worth slowing down on. Specificity is largely fixed by the fold. Affinity can be changed on the spot, without building a new protein, and the body changes it constantly.</p>
+  </div>
+  <ol class="chain">
+    <li>Hemoglobin picks up oxygen in the lung, where affinity is high.</li>
+    <li>It travels to working muscle, where carbon dioxide is higher, pH is lower and temperature is higher.</li>
+    <li>Those conditions change hemoglobin's shape slightly, which lowers its affinity for oxygen.</li>
+    <li>It releases oxygen exactly where the demand is, then returns to the lung and the conditions reverse.</li>
+  </ol>
+  <p>Nothing was replaced and no signal was sent. The tissue that needed oxygen created the conditions that made hemoglobin let go of it. You will build this into the oxygen dissociation curve in Week 13.</p>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def11"></div>
+</section>
+
+<!-- ================= 12 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s12">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s12">Property 3: saturation, when more stops helping</h2>
+  <p>There is a fixed number of binding sites. Add ligand and more sites fill, so the rate of whatever the protein does climbs. Keep adding, and eventually every site is occupied. <button class="term" type="button" data-word="Saturation" data-def="The point at which every binding site on every copy of a protein is occupied. Adding more ligand cannot increase the response, because there is nowhere for it to bind.">Saturation</button> is the point where more ligand changes nothing.</p>
+  <div class="eq">
+    <p class="math">rate climbs with ligand, then flattens at the maximum</p>
+    <dl>
+      <dt>Rising part</dt><dd>sites are still free, so more ligand means more binding</dd>
+      <dt>Flat part</dt><dd>every site is full, so the protein is now the limit, not the ligand</dd>
+      <dt>To raise the flat part</dt><dd>you need more copies of the protein, not more ligand</dd>
+    </dl>
+  </div>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def12"></div>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>A patient's pain is not controlled. The dose of their medication is doubled and nothing improves, but side effects get worse. Using saturation, explain both halves of that result.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r12">Check my prediction</button>
+    <div class="reveal-body" id="r12" hidden>
+      <p>The target receptors were already saturated, so the extra drug had nowhere to bind and could not add any effect. The extra drug is still circulating, though, and it binds other proteins elsewhere with lower affinity, which is where the added side effects come from. Saturation is the reason "more" stops being an answer, and it is the reason a second drug with a different target is often the move.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 13 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s13">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s13">Property 4: competition, two molecules one site</h2>
+  <p><button class="term" type="button" data-word="Competition" data-def="Two different ligands that both fit the same binding site. The one present in greater amount, or with higher affinity, occupies more of the sites.">Competition</button> happens when two different ligands both fit the same site. Whichever is present in greater amount, or binds with higher affinity, takes more of the sites. The loser is shut out even though nothing is wrong with it.</p>
+  <div class="card">
+    <h3>Both factors matter, which is the useful part</h3>
+    <p>A ligand with lower affinity can still win if there is far more of it. A ligand with much higher affinity can win even at low concentration. Knowing that is what lets you predict whether flooding the system will work as a treatment.</p>
+  </div>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>Carbon monoxide binds hemoglobin at the same site oxygen uses, with far greater affinity. A patient is pulled from a fire. Why is giving 100 percent oxygen the treatment, and why does it take time?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r13">Check my prediction</button>
+    <div class="reveal-body" id="r13" hidden>
+      <p>Because competition depends on concentration as well as affinity. Carbon monoxide wins on affinity by a wide margin, so the only lever left is to raise oxygen concentration far enough that oxygen starts taking the sites back as carbon monoxide molecules release. It takes time because you are overcoming an affinity difference with sheer numbers, which is slow. Raising the pressure as well, in a hyperbaric chamber, is the same strategy pushed harder.</p>
+    </div>
+  </div>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def13"></div>
+  <div class="clin">
+    <button class="btn btn-quiet" type="button" aria-expanded="false" aria-controls="c13">Where this shows up in your profession</button>
+    <div class="rows" id="c13" hidden>
+      <div class="row"><span class="who">Nursing</span>Naloxone reverses an opioid overdose by competing for the same receptor, and its shorter duration is why the patient can slide back once it wears off.<p class="means">What this means: the reversal drug pushes the opioid off its parking spot, but it leaves sooner than the opioid does.</p></div>
+      <div class="row"><span class="who">Radiologic technology</span>A pulse oximeter reads carbon monoxide bound hemoglobin as though it were oxygen, so a normal reading does not rule out poisoning and a different test is needed.<p class="means">What this means: the finger clip can be fooled, because it cannot tell the two apart.</p></div>
+      <div class="row"><span class="who">Medicine</span>Two drugs cleared by the same liver enzyme compete for it, so adding the second raises the blood level of the first, which is a large share of drug interaction warnings.<p class="means">What this means: two medicines can get stuck in line for the same exit, so one of them builds up.</p></div>
+      <div class="row"><span class="who">Respiratory therapy</span>In carbon monoxide poisoning you deliver the highest oxygen concentration available, because concentration is the only lever that competes against that affinity.<p class="means">What this means: flooding the lungs with oxygen is how you win back the spots carbon monoxide took.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 14 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s14">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s14">Modulation: the two routes</h2>
+  <p>A <button class="term" type="button" data-word="Modulator" data-def="Anything that changes how well a protein binds or how well it works, either by changing the protein you already have or by changing how many copies exist.">modulator</button> is anything that changes how well a protein binds or how well it works. There are only two broad routes, and every specific mechanism you will meet is one or the other.</p>
+  <div class="grid two">
+    <div class="card">
+      <h3>Route 1: change the protein you have</h3>
+      <p>Leave the number of copies alone and alter the ones already there, by blocking the site, changing the shape, or attaching something to it.</p>
+      <p><strong>Speed:</strong> seconds to minutes.</p>
+      <p>Used when the body needs a fast answer: a heartbeat, a reflex, a breath.</p>
+    </div>
+    <div class="card">
+      <h3>Route 2: change how many copies exist</h3>
+      <p>Build more of the protein, or destroy the existing ones faster. This runs through transcription and translation.</p>
+      <p><strong>Speed:</strong> hours to days.</p>
+      <p>Used when the change needs to last: adapting to altitude, to training, to a chronically high hormone level.</p>
+    </div>
+  </div>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def14"></div>
+  <p class="lede">The question to ask every time from here on: how fast does this response need to be? That alone usually tells you which route the body took.</p>
+</section>
+
+<!-- ================= 15 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s15">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s15">Lever 1: competitive inhibition</h2>
+  <p>A molecule that fits the active site sits in it and blocks the real ligand. Nothing about the protein has changed. The parking space is simply occupied.</p>
+  <ol class="chain">
+    <li>The inhibitor binds the same site the normal ligand uses.</li>
+    <li>While it sits there, the normal ligand cannot bind and the protein does nothing.</li>
+    <li>The inhibitor eventually releases, because binding is reversible.</li>
+    <li>Raise the normal ligand concentration far enough and it wins the site back, so the block is beatable.</li>
+  </ol>
+  <div class="card">
+    <h3>The example to hold on to</h3>
+    <p>A person swallows methanol. Their body converts it, using the same enzyme that handles drinking alcohol, into a product that causes blindness and organ damage. The treatment is to give ethanol, or a drug that works the same way.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r15">Why does that help?</button>
+    <div class="reveal-body" id="r15" hidden>
+      <p>Ethanol competes for the same enzyme and the enzyme prefers it. Filling the sites with ethanol means the methanol is never converted, so the toxic product is never made, and the methanol leaves the body unchanged. Notice what the treatment did not do. It did not destroy anything, repair anything, or speed anything up. It occupied binding sites, and that was enough.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 16 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s16">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s16">Lever 2: allosteric modulation</h2>
+  <p>An <button class="term" type="button" data-word="Allosteric modulator" data-def="A molecule that binds a site other than the active site and changes the protein's shape, which changes how well the active site works. It can make the protein better at its job or worse at it.">allosteric modulator</button> binds somewhere else on the protein entirely, and changes the shape of the active site from a distance. This is the one students find hardest and it is the one worth the most.</p>
+  <ol class="chain">
+    <li>The modulator binds a separate site, not the active site.</li>
+    <li>Binding changes the protein's shape.</li>
+    <li>That shape change reaches the active site and alters it.</li>
+    <li>The active site now binds its ligand better, or worse, depending on the modulator.</li>
+  </ol>
+  <div class="card">
+    <h3>Why it cannot be outcompeted</h3>
+    <p>Adding more of the normal ligand does not help here, because the modulator is not in the way. It is in a different place, changing the shape of the space the ligand is trying to enter. That difference is the whole reason the distinction between competitive and allosteric is clinically useful rather than a piece of vocabulary.</p>
+  </div>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>Carbon dioxide and hydrogen ions bind hemoglobin away from the oxygen sites and lower its affinity for oxygen. Working muscle produces both. What does that accomplish, and why is it better than sending a signal?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r16">Check my prediction</button>
+    <div class="reveal-body" id="r16" hidden>
+      <p>The tissue working hardest produces the most carbon dioxide and acid, so it automatically makes hemoglobin release more oxygen exactly where it is needed, in proportion to how hard that tissue is working. No sensor, no nerve, no hormone, no delay. The demand itself is the signal. That is allosteric modulation solving a delivery problem more elegantly than any control system could.</p>
+    </div>
+  </div>
+  <div class="defbox" role="region" aria-live="polite" aria-label="Definition" id="def16"></div>
+  <div class="clin">
+    <button class="btn btn-quiet" type="button" aria-expanded="false" aria-controls="c16">Where this shows up in your profession</button>
+    <div class="rows" id="c16" hidden>
+      <div class="row"><span class="who">Nursing</span>A febrile, acidotic patient unloads oxygen more readily at the tissue, which changes how you read a saturation number against how the patient actually looks.<p class="means">What this means: fever and acid change how easily blood hands oxygen over, so the number and the patient can disagree.</p></div>
+      <div class="row"><span class="who">Radiologic technology</span>Some contrast reactions and premedication strategies work by changing binding at sites other than the one causing the problem, which is the same idea applied to a different protein.<p class="means">What this means: a medicine can change how something else behaves without touching it directly.</p></div>
+      <div class="row"><span class="who">Medicine</span>Benzodiazepines do not open the chloride channel themselves. They bind elsewhere and make the channel respond more strongly to the body's own signal, which is why they have a ceiling effect.<p class="means">What this means: the drug turns up the body's own volume knob rather than pressing the button itself.</p></div>
+      <div class="row"><span class="who">Respiratory therapy</span>Stored blood loses the molecule that normally lowers hemoglobin's oxygen affinity, so older transfused blood holds onto oxygen more tightly at first.<p class="means">What this means: blood that has been sitting in storage does not hand over oxygen as easily right away.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 17 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s17">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s17">Lever 3: covalent modulation</h2>
+  <p>The cell attaches a chemical group to the protein, almost always a phosphate group taken from ATP. The group changes the protein's shape, which switches its activity on or off.</p>
+  <div class="grid two">
+    <div class="card">
+      <h3>Adding the phosphate</h3>
+      <p>An enzyme called a kinase takes a phosphate from ATP and attaches it to the target protein. The phosphate carries charge, so it changes the local charge pattern and the fold shifts.</p>
+    </div>
+    <div class="card">
+      <h3>Removing it</h3>
+      <p>An enzyme called a phosphatase takes the phosphate back off, returning the protein to its previous state. The switch is fully reversible, and the cell controls both directions.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Why the body uses this one so much</h3>
+    <ul>
+      <li>It is fast, in seconds.</li>
+      <li>It is reversible, and the reversal is also controlled.</li>
+      <li>It works on proteins that already exist, so nothing has to be built.</li>
+      <li>One hormone arriving at the surface can trigger a cascade that phosphorylates thousands of target proteins, which is how a small signal produces a large response.</li>
+    </ul>
+    <p>That last point is the bridge into Week 8. When we get to hormone signaling, nearly every pathway ends in something being phosphorylated.</p>
+  </div>
+</section>
+
+<!-- ================= 18 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s18">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s18">Levers 4 and 5: permanent changes</h2>
+  <div class="grid two">
+    <div class="card">
+      <h3>Irreversible inhibition</h3>
+      <p>The inhibitor binds and does not let go. That protein molecule is finished, and the only way back is for the cell to build a new one, which takes hours to days.</p>
+      <ul>
+        <li>Organophosphate pesticides and nerve agents permanently block acetylcholinesterase, so acetylcholine is never cleared from the synapse.</li>
+        <li>Aspirin permanently blocks cyclooxygenase in platelets, and platelets cannot make new protein, so the effect lasts the life of the platelet.</li>
+      </ul>
+      <p>This is why aspirin is stopped days before surgery rather than hours.</p>
+    </div>
+    <div class="card">
+      <h3>Proteolytic activation</h3>
+      <p>The protein is built in an inactive form, then a piece is cut off to reveal the working site. The cut cannot be undone.</p>
+      <ul>
+        <li>Pepsinogen is cut to pepsin only once it reaches stomach acid.</li>
+        <li>Clotting factors sit inactive in the blood until the cascade cuts them.</li>
+      </ul>
+      <p>It looks inefficient until you ask the design question: how do you store a protein whose job is to destroy things, inside the cell that made it?</p>
+    </div>
+  </div>
+  <p class="lede">Both of these trade reversibility for something. Irreversible inhibition trades it for a block that cannot be overcome. Proteolytic activation trades it for safe storage and instant readiness.</p>
+</section>
+
+<!-- ================= 19 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s19">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s19">Lever 6: pH and temperature</h2>
+  <p>These two are modulators whether the body wants them to be or not. Every protein in you is being modulated by the pH and the temperature it sits in, continuously.</p>
+  <ol class="chain">
+    <li>Hydrogen ions change the charges on amino acid side chains, and temperature changes how much the chain moves.</li>
+    <li>Both change the fold, and therefore the shape of the binding site.</li>
+    <li>Small changes shift how well the protein works. Large changes destroy it.</li>
+    <li>Every protein has a range where its shape is right, and that range is different for different proteins.</li>
+  </ol>
+  <div class="tablewrap">
+    <table>
+      <caption>Different proteins, different optimum pH</caption>
+      <thead><tr><th scope="col">Protein</th><th scope="col">Works best near</th><th scope="col">Because it lives in</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Salivary amylase</th><td>pH 7</td><td>The mouth, which is close to neutral</td></tr>
+        <tr><th scope="row">Pepsin</th><td>pH 2</td><td>The stomach, which is strongly acidic</td></tr>
+        <tr><th scope="row">Pancreatic enzymes</th><td>pH 8</td><td>The small intestine, after bicarbonate neutralizes the acid</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Notice that this explains something practical. Swallowed amylase stops working in the stomach not because it was used up, but because it arrived somewhere its shape does not hold. Location changes function, without anything being regulated at all.</p>
+  <p class="lede">This is also the reason the whole body has to defend its pH so tightly. A pH problem is not one protein failing. It is every protein in the body being modulated at once.</p>
+</section>
+
+<!-- ================= 20 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s20">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s20">Lever 7: up and down regulation</h2>
+  <p>This is Route 2, the slow one. Instead of changing the protein, the cell changes how many copies of it exist.</p>
+  <ol class="chain">
+    <li>A signal reaches the cell nucleus and changes how much that gene is transcribed.</li>
+    <li>More messenger RNA is made, or less.</li>
+    <li>Translation produces more copies of the protein, or fewer.</li>
+    <li>The cell can also change how fast existing copies are broken down, which moves the number the other way.</li>
+    <li>The cell's response to that signal is now stronger or weaker, and it stays that way for hours to days.</li>
+  </ol>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>A person is exposed to a constantly high level of one hormone for weeks. Predict what happens to the number of receptors on their target cells, and what happens if the hormone level then suddenly drops to normal.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r20">Check my prediction</button>
+    <div class="reveal-body" id="r20" hidden>
+      <p>The cells down regulate, reducing receptor numbers, so the same hormone level produces a smaller response. That is the cell protecting itself from constant stimulation. If the hormone then drops to normal, the response is now far too small for that level, and the person feels the deficiency even though the hormone value looks fine. Rebuilding receptors takes time, which is why some medications are tapered rather than stopped. You will meet this again in Week 8.</p>
+    </div>
+  </div>
+  <div class="clin">
+    <button class="btn btn-quiet" type="button" aria-expanded="false" aria-controls="c20">Where this shows up in your profession</button>
+    <div class="rows" id="c20" hidden>
+      <div class="row"><span class="who">Nursing</span>Long term steroids are tapered rather than stopped, because the body has adjusted to the outside supply and needs time to build its own production back up.<p class="means">What this means: stopping a long term medicine suddenly can leave the body with nothing, because it stopped making its own.</p></div>
+      <div class="row"><span class="who">Radiologic technology</span>A patient who has been on long term medication may respond differently to sedation or contrast than the dose chart predicts, because their receptor numbers have shifted.<p class="means">What this means: someone on a medicine for years may not react the way the standard dose expects.</p></div>
+      <div class="row"><span class="who">Medicine</span>Tolerance to a medication is often receptor down regulation, so the dose that worked in month one no longer works in month six.<p class="means">What this means: the body adjusts, so the same dose stops having the same effect.</p></div>
+      <div class="row"><span class="who">Respiratory therapy</span>Frequent use of a rescue inhaler can blunt the response to it over time, which is part of why a worsening reliever requirement is treated as a warning sign.<p class="means">What this means: using the rescue inhaler constantly makes it work less well, so needing it more is a red flag.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 21 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s21">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s21">The seven levers together</h2>
+  <p>This table is the single most reusable page in the mission. Every drug and every control system you meet for the rest of the semester is pulling one of these.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>Ways a protein gets modulated</caption>
+      <thead><tr><th scope="col">Lever</th><th scope="col">What it does</th><th scope="col">Speed</th><th scope="col">Reversible</th><th scope="col">Can more ligand beat it?</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Competitive inhibition</th><td>Occupies the active site</td><td>Seconds</td><td>Yes</td><td>Yes</td></tr>
+        <tr><th scope="row">Allosteric modulation</th><td>Binds elsewhere, changes the site's shape</td><td>Seconds</td><td>Yes</td><td>No</td></tr>
+        <tr><th scope="row">Covalent modulation</th><td>Attaches a phosphate, switching activity</td><td>Seconds</td><td>Yes, by removing it</td><td>No</td></tr>
+        <tr><th scope="row">Irreversible inhibition</th><td>Binds permanently</td><td>Seconds to act</td><td>No</td><td>No</td></tr>
+        <tr><th scope="row">Proteolytic activation</th><td>Cuts an inactive precursor to reveal the site</td><td>Seconds</td><td>No</td><td>Not applicable</td></tr>
+        <tr><th scope="row">pH and temperature</th><td>Changes charges or energy, altering the fold</td><td>Immediate</td><td>Sometimes</td><td>No</td></tr>
+        <tr><th scope="row">Up and down regulation</th><td>Changes how many copies exist</td><td>Hours to days</td><td>Yes, slowly</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="lede">Two questions get you through almost any new example. How fast does this need to happen, and can it be overcome by adding more of the normal ligand? The first picks the route, the second separates competitive from everything else.</p>
+</section>
+
+<!-- ================= 22 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s22">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s22">Enzymes, the worked example</h2>
+  <p>You already know an enzyme lowers activation energy and is not used up. Now put the four binding properties and the seven levers onto it and watch them all show up in one place.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>What changes an enzyme's rate, and which idea explains it</caption>
+      <thead><tr><th scope="col">Change</th><th scope="col">Effect on rate</th><th scope="col">The idea behind it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">More substrate</th><td>Climbs, then flattens</td><td>Saturation</td></tr>
+        <tr><th scope="row">More enzyme</th><td>The maximum itself rises</td><td>More binding sites exist</td></tr>
+        <tr><th scope="row">Temperature up to optimum</th><td>Climbs</td><td>More collisions with the site</td></tr>
+        <tr><th scope="row">Temperature past optimum</th><td>Falls sharply and does not recover</td><td>Denaturation, the fold is gone</td></tr>
+        <tr><th scope="row">Wrong pH</th><td>Falls</td><td>Charges change, the site changes shape</td></tr>
+        <tr><th scope="row">Competitive inhibitor</th><td>Falls, but can be restored with more substrate</td><td>Competition for the same site</td></tr>
+        <tr><th scope="row">Allosteric inhibitor</th><td>Falls, and more substrate does not help</td><td>The site itself was reshaped</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>In this week's lab you will run amylase at 20, 37 and 60 &deg;C (68, 98.6 and 140 &deg;F). Sketch the rate curve in your head, then say what happens when you cool the 60 &deg;C tube back to 37 &deg;C.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r22">Check my prediction</button>
+    <div class="reveal-body" id="r22" hidden>
+      <p>Low at 20 &deg;C (68 &deg;F) because molecules move slowly, highest near 37 &deg;C (98.6 &deg;F), very low at 60 &deg;C (140 &deg;F) because the enzyme has denatured. Cooling the hot tube back down does not restore activity, because the fold is gone and the binding site with it. That is the difference between slow and broken, and the cooling step is the only part of the experiment that can tell them apart.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 23 ================= -->
+<section class="slide" data-beat="Mechanism" hidden aria-labelledby="s23">
+  <p class="beat">Beat 3 · Mechanism</p>
+  <h2 id="s23">ATP: paying for physiological work</h2>
+  <p>You know ATP carries energy. The physiology question is what it is buying, and what happens when the money runs out.</p>
+  <div class="eq">
+    <p class="math">ATP + H<sub>2</sub>O &rarr; ADP + P<sub>i</sub> + energy released</p>
+    <dl>
+      <dt>ATP</dt><dd>adenosine triphosphate, the cell's spending money</dd>
+      <dt>P<sub>i</sub></dt><dd>the phosphate group released, often attached straight onto a protein</dd>
+      <dt>Energy released</dt><dd>roughly 7 to 14 kcal per mole under conditions inside a living cell</dd>
+    </dl>
+  </div>
+  <div class="grid three">
+    <div class="card">
+      <h3>Chemical work</h3>
+      <p>Building large molecules from small ones. Protein from amino acids, glycogen from glucose.</p>
+      <p class="tiny">Runs underneath everything.</p>
+    </div>
+    <div class="card">
+      <h3>Transport work</h3>
+      <p>Moving solutes against their gradient. The sodium potassium pump alone takes a large share of a resting cell's energy.</p>
+      <p class="tiny">Week 3 and Week 4.</p>
+    </div>
+    <div class="card">
+      <h3>Mechanical work</h3>
+      <p>Movement. Muscle contraction, cargo moving inside cells, cilia beating.</p>
+      <p class="tiny">Week 7.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Predict, then check</h3>
+    <p>Muscle tissue runs out of ATP. Predict what happens to the muscle, and be careful, because the obvious answer is the wrong one.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="r23">Check my prediction</button>
+    <div class="reveal-body" id="r23" hidden>
+      <p>It goes rigid rather than limp. Contraction needs ATP, but so does relaxation, because releasing the grip between the contractile proteins requires ATP to bind first. With no ATP the proteins stay locked together. This is the mechanism behind rigor mortis, and it is one of the things worth keeping in mind when we return to the runner with rigid muscles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 24 ================= -->
+<section class="slide" data-beat="Response" hidden aria-labelledby="s24">
+  <p class="beat">Beat 4 · Response</p>
+  <h2 id="s24">Buffers: the body's answer to an acid load</h2>
+  <p>You already know what a buffer is chemically. Here is the physiology. Your cells produce acid every second of every day, and blood pH still holds between 7.35 and 7.45. That is not luck, it is a three part defense.</p>
+  <div class="eq">
+    <p class="math">CO<sub>2</sub> + H<sub>2</sub>O &#8652; H<sub>2</sub>CO<sub>3</sub> &#8652; H<sup>+</sup> + HCO<sub>3</sub><sup>&minus;</sup></p>
+    <dl>
+      <dt>CO<sub>2</sub></dt><dd>carbon dioxide, made constantly by every working cell</dd>
+      <dt>HCO<sub>3</sub><sup>&minus;</sup></dt><dd>bicarbonate, the base that takes up hydrogen ions</dd>
+      <dt>&#8652;</dt><dd>runs both ways, shifting toward whichever side relieves the change</dd>
+    </dl>
+  </div>
+  <ol class="chain">
+    <li><strong>Seconds.</strong> Acid is added, bicarbonate binds the hydrogen ions, and the reaction shifts left. pH barely moves. This buys time and nothing else.</li>
+    <li><strong>Minutes.</strong> The lungs change breathing rate and depth to blow off more carbon dioxide, pulling the reaction further left.</li>
+    <li><strong>Hours to days.</strong> The kidneys adjust how much bicarbonate is kept and how much acid is excreted, restoring the sponge itself.</li>
+  </ol>
+  <p class="lede">A buffer does not prevent a pH change. It slows one down while two organ systems do the real work. That is also why bicarbonate measures low in someone producing large amounts of acid: the sponge has been used up.</p>
+  <div class="clin">
+    <button class="btn btn-quiet" type="button" aria-expanded="false" aria-controls="c24">Where this shows up in your profession</button>
+    <div class="rows" id="c24" hidden>
+      <div class="row"><span class="who">Nursing</span>A blood gas gives pH, carbon dioxide and bicarbonate together, and reading all three tells you whether the problem started in the lungs or somewhere else.<p class="means">What this means: one blood test shows both how acidic the blood is and which system is causing it.</p></div>
+      <div class="row"><span class="who">Radiologic technology</span>A patient breathing rapidly during a scan may be compensating for an acid problem, so that breathing pattern is a finding rather than only a motion artifact.<p class="means">What this means: fast breathing during a scan can be the body fixing its acid level, not just nerves.</p></div>
+      <div class="row"><span class="who">Medicine</span>In diabetic ketoacidosis the acid load overwhelms the buffer, bicarbonate measures low, and the patient breathes deeply and rapidly to blow off carbon dioxide.<p class="means">What this means: the body makes too much acid, uses up its sponge, then breathes hard to get rid of the rest.</p></div>
+      <div class="row"><span class="who">Respiratory therapy</span>Changing rate or tidal volume on a ventilator changes carbon dioxide clearance, which moves blood pH directly and within minutes.<p class="means">What this means: turning the ventilator up or down changes the acid level in the blood.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 25 ================= -->
+<section class="slide" data-beat="Predict" hidden aria-labelledby="s25">
+  <p class="beat">Beat 5 · Predict</p>
+  <h2 id="s25">Predict before you check</h2>
+  <p>Answer each one in your head first. No typing. Then open it and compare your reasoning, not only your conclusion.</p>
+
+  <div class="card">
+    <h3>1. Which lever is this?</h3>
+    <p>A drug lowers an enzyme's activity. Giving far more substrate restores the rate completely. Name the lever and say how you know.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="p1">Check</button>
+    <div class="reveal-body" id="p1" hidden>
+      <p>Competitive inhibition. Being beatable by more substrate is the signature, and only a competitive inhibitor has it, because only a competitive inhibitor is physically in the substrate's way. An allosteric inhibitor changed the shape of the site, so flooding with substrate does nothing.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>2. How fast does it need to be?</h3>
+    <p>Blood pressure drops when you stand up, and it is corrected within seconds. Which modulation route is the body using, and which one is it definitely not using?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="p2">Check</button>
+    <div class="reveal-body" id="p2" hidden>
+      <p>Route 1, changing proteins that already exist, most likely through covalent modulation and allosteric effects downstream of a receptor. It is definitely not up regulation, because building new protein takes hours and you would have fainted long before it arrived. Timing alone rules out an entire category, which is a shortcut worth keeping.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3. The same property, two directions</h3>
+    <p>A patient's medication has high affinity for its target receptor. Name one way that helps them and one way it causes a problem.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="p3">Check</button>
+    <div class="reveal-body" id="p3" hidden>
+      <p>It helps because a low dose fills the sites and the effect lasts, since the drug releases slowly. It causes a problem because the body's own signal is outcompeted at that receptor, and because if the dose is too high or a reversal is needed, that same slow release is what makes the effect hard to undo quickly. High affinity is not automatically better. It is a trade.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>4. Why the body defends pH so hard</h3>
+    <p>Explain why a pH problem produces symptoms in nearly every organ system at once, rather than in one place.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="p4">Check</button>
+    <div class="reveal-body" id="p4" hidden>
+      <p>Because pH is a modulator of every protein in the body at the same time. Hydrogen ions change charges on amino acid side chains everywhere, so enzymes, transporters and receptors in every tissue are all shifted at once. There is no single failing organ to point at. This is also why acid and base balance gets two full weeks later in the course.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 26 ================= -->
+<section class="slide" data-beat="Perturb" hidden aria-labelledby="s26">
+  <p class="beat">Beat 6 · Perturb</p>
+  <h2 id="s26">Back to the claim</h2>
+  <p>The runner, core temperature 41.6 &deg;C (106.9 &deg;F), confused, muscles rigid, muscle enzymes in the blood. The claim was that heat itself is denaturing his proteins and that is why his muscles and brain are failing.</p>
+
+  <div class="card">
+    <h3>What supports the claim</h3>
+    <ul>
+      <li>His temperature is above the range where human proteins begin losing function, around 40 to 41 &deg;C (104 to 105.8 &deg;F).</li>
+      <li>Muscle enzymes in the blood mean muscle cells have been damaged and their contents have leaked out.</li>
+      <li>Confusion fits with neurons whose transporters and enzymes are not working normally.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>What the mission taught you to question</h3>
+    <ul>
+      <li>Heat is one modulator of protein shape. Damaged muscle releases acid, and falling pH modulates every protein in the body by a different route. Get a blood gas.</li>
+      <li>Damaged muscle also releases potassium, which disturbs electrical signaling without changing any protein's shape at all. Get an electrolyte panel.</li>
+      <li>Dehydration reduces blood flow, so tissue may be short of oxygen, which stops ATP production. No ATP means muscle cannot relax, and that alone produces rigidity. The rigidity may not be a protein shape problem at all.</li>
+      <li>Confusion has other causes worth excluding, including low blood glucose.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Your decision</h3>
+    <p>Write your answer as a claim, the evidence you are leaning on, and the one test result that would most change your mind. Then say which mechanism you would treat first and why.</p>
+    <p>The honest answer for this case is that heat is clearly part of it and is the thing you can act on immediately, but at least three mechanisms from this mission are running at once, and one of them, the ATP one, is not a denaturation story at all.</p>
+  </div>
+  <p class="tiny">That is the pattern for the whole course. A claim is put on the table, you learn the mechanism, and then you decide whether the evidence carries the claim.</p>
+</section>
+
+<!-- ================= 27 ================= -->
+<section class="slide" data-beat="Close out" hidden aria-labelledby="s27">
+  <p class="beat">Close out</p>
+  <h2 id="s27">Competencies for this mission</h2>
+  <p>These are the Week 2 competencies. Each one gets a box in your handwritten lecture journal, with the two prompts underneath it. Pass 1 is from your book and your own notes, sparse, and you leave space. Pass 2 goes into the same box in a different color after you have watched the recordings.</p>
+  <p><a href="notesheet-directions.html" target="_top">Full brain dump directions are on the note sheet directions page.</a></p>
+
+  <div class="comp">
+    <p><span class="id">2-1</span> Water and solution properties. Explain how the polarity and hydrogen bonding of water determine solubility and identify whether a given solute is hydrophilic or hydrophobic.</p>
+    <ol>
+      <li>Draw a water molecule with its partial charges, then draw what happens around a charged solute and around a nonpolar one. Label which one dissolves.</li>
+      <li>List three substances in the body and mark each hydrophilic, hydrophobic or amphipathic. For each one, say how it has to travel in blood because of that.</li>
+    </ol>
+  </div>
+
+  <div class="comp">
+    <p><span class="id">2-2</span> pH and buffers. Define pH, state the normal pH range of arterial blood, and explain how a buffer pair resists a change in pH when acid or base is added.</p>
+    <ol>
+      <li>Write the pH equation and the bicarbonate buffer equation from memory, then label what each symbol stands for.</li>
+      <li>Draw the buffer equation twice, once with acid being added and once with carbon dioxide being blown off, and show with arrows which way the reaction shifts each time.</li>
+    </ol>
+  </div>
+
+  <div class="comp">
+    <p><span class="id">2-3</span> Protein structure and function. Relate the levels of protein structure to binding site shape and explain how denaturation by heat or pH change destroys function.</p>
+    <ol>
+      <li>Draw the four levels of protein structure as a sequence, and mark which bonds or interactions hold each level.</li>
+      <li>Draw a binding site with its ligand, then draw the same protein denatured, and write one sentence saying what the cell can no longer do.</li>
+    </ol>
+  </div>
+
+  <div class="comp">
+    <p><span class="id">2-4</span> Enzyme activity and regulation. Describe how enzymes lower activation energy and predict the effect of substrate concentration, temperature, pH, and competitive or allosteric inhibition on reaction rate.</p>
+    <ol>
+      <li>Draw an energy diagram with and without enzyme, and label the activation energy on both.</li>
+      <li>Draw rate curves for substrate concentration, temperature and pH on the same page. Then show on the substrate curve what a competitive inhibitor does and what an allosteric inhibitor does, and write one line on why one can be outcompeted and the other cannot.</li>
+    </ol>
+  </div>
+
+  <div class="comp">
+    <p><span class="id">2-5</span> ATP and energy coupling. Explain how ATP hydrolysis is coupled to endergonic cellular work and name three categories of work that require it.</p>
+    <ol>
+      <li>Draw the ATP to ADP reaction and show where the released energy goes rather than stopping at the word energy.</li>
+      <li>Draw one example each of chemical, transport and mechanical work, and mark on each drawing where ATP is spent.</li>
+    </ol>
+  </div>
+
+  <div class="comp">
+    <p><span class="id">2-6</span> Enzyme assay, lab. Measure enzyme activity across a range of temperature or pH using a spectrophotometric or colorimetric assay, plot the results, and identify the optimum.</p>
+    <ol>
+      <li>In your lab journal, draw the setup: what is measured, what is held constant, and what is varied.</li>
+      <li>Draw the expected curve before you run it, then draw your actual curve beside it, mark the optimum, and write one line explaining any difference.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>Also worth a box, even though it is not yet a listed competency</h3>
+    <p>Protein binding and modulation. Draw the seven levers table from memory, then pick any medication you or a family member takes and mark which lever it is most likely pulling and how fast it acts.</p>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="sitefoot">
+  <p>
+    <a href="m02-chem-review.html" target="_top">Chemistry review</a> ·
+    <a href="m02-notes.html" target="_top">Mission 2 notes</a> ·
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a> ·
+    <a href="course-schedule.html" target="_top">Schedule</a> ·
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas home</a> ·
+    <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800" target="_blank" rel="noopener">Dr. Rennie's Virtual Office</a> ·
+    <a href="accessibility.html" target="_top">Accessibility</a>
+  </p>
+  <p style="margin-top:.5rem">Dr. Sharilyn Rennie · BIO 005 Human Physiology</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var idx = 0;
+  var cur = document.getElementById("cur");
+  var tot = document.getElementById("tot");
+  var bar = document.getElementById("bar");
+  var beatnav = document.getElementById("beatnav");
+  var announce = document.getElementById("announce");
+  var deck = document.getElementById("deck");
+  tot.textContent = slides.length;
+
+  function show(n){
+    if(n < 0) n = 0;
+    if(n > slides.length - 1) n = slides.length - 1;
+    idx = n;
+    slides.forEach(function(s,i){ s.hidden = (i !== idx); });
+    cur.textContent = idx + 1;
+    bar.style.width = (((idx + 1) / slides.length) * 100) + "%";
+    var beat = slides[idx].getAttribute("data-beat") || "";
+    beatnav.textContent = beat;
+    document.getElementById("prev").disabled = (idx === 0);
+    document.getElementById("next").disabled = (idx === slides.length - 1);
+    var h = slides[idx].querySelector("h2");
+    announce.textContent = "Slide " + (idx + 1) + " of " + slides.length + ". " + beat + ". " + (h ? h.textContent : "");
+    sizeCanvas();
+    sendHeight();
+  }
+
+  document.getElementById("next").addEventListener("click", function(){ show(idx + 1); deck.focus(); });
+  document.getElementById("prev").addEventListener("click", function(){ show(idx - 1); deck.focus(); });
+
+  document.addEventListener("keydown", function(e){
+    var t = e.target.tagName;
+    if(t === "INPUT" || t === "TEXTAREA") return;
+    if(e.key === "ArrowRight"){ show(idx + 1); }
+    if(e.key === "ArrowLeft"){ show(idx - 1); }
+  });
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("button[aria-controls]");
+    if(!btn) return;
+    var panel = document.getElementById(btn.getAttribute("aria-controls"));
+    if(!panel) return;
+    var open = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+    panel.hidden = open;
+    sendHeight();
+  });
+
+  document.addEventListener("click", function(e){
+    var t = e.target.closest(".term");
+    if(!t) return;
+    var slide = t.closest(".slide");
+    var box = slide ? slide.querySelector(".defbox") : null;
+    if(!box) return;
+    box.innerHTML = "";
+    var w = document.createElement("span");
+    w.className = "w";
+    w.textContent = t.getAttribute("data-word") + ": ";
+    var d = document.createElement("span");
+    d.textContent = t.getAttribute("data-def");
+    var p = document.createElement("p");
+    p.style.margin = "0";
+    p.appendChild(w); p.appendChild(d);
+    box.appendChild(p);
+    sendHeight();
+  });
+
+  document.addEventListener("click", function(e){
+    var pick = e.target.closest("[data-pick]");
+    if(!pick) return;
+    var li = pick.closest("li");
+    var right = li.getAttribute("data-answer");
+    var chosen = pick.getAttribute("data-pick");
+    var old = li.querySelector(".result");
+    if(old) old.remove();
+    var msg = document.createElement("p");
+    msg.className = "result";
+    msg.style.margin = ".5rem 0 0";
+    msg.setAttribute("role","status");
+    if(chosen === right){
+      li.classList.add("state-done");
+      msg.innerHTML = '<span class="mark-ok">Correct.</span> Compare the value with the printed limits and you get this every time.';
+    }else{
+      li.classList.remove("state-done");
+      msg.textContent = "Not this one. Read the value against the printed upper and lower limits again.";
+    }
+    li.appendChild(msg);
+    sendHeight();
+  });
+
+  document.getElementById("resetAll").addEventListener("click", function(){
+    document.querySelectorAll('button[aria-expanded="true"]').forEach(function(b){
+      b.setAttribute("aria-expanded","false");
+      var p = document.getElementById(b.getAttribute("aria-controls"));
+      if(p) p.hidden = true;
+    });
+    document.querySelectorAll(".defbox").forEach(function(b){ b.innerHTML = ""; });
+    document.querySelectorAll(".sortlist li").forEach(function(li){
+      li.classList.remove("state-done");
+      var r = li.querySelector(".result");
+      if(r) r.remove();
+    });
+    clearPen();
+    show(0);
+    announce.textContent = "Deck reset. Every reveal is closed and the drawing layer is cleared.";
+  });
+
+  document.getElementById("printAll").addEventListener("click", function(){ window.print(); });
+
+  var canvas = document.getElementById("pen");
+  var ctx = canvas.getContext("2d");
+  var drawing = false, penOn = false;
+  var penColor = "#6E1F2A", penSize = 4;
+
+  function sizeCanvas(){
+    var wrap = document.getElementById("penwrap");
+    var data = null;
+    if(canvas.width && canvas.height){
+      try { data = ctx.getImageData(0,0,canvas.width,canvas.height); } catch(err){ data = null; }
+    }
+    canvas.width = wrap.clientWidth;
+    canvas.height = wrap.clientHeight;
+    if(data){ try { ctx.putImageData(data,0,0); } catch(err){} }
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+  }
+  function clearPen(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+
+  document.getElementById("penToggle").addEventListener("click", function(){
+    penOn = !penOn;
+    this.setAttribute("aria-pressed", penOn ? "true" : "false");
+    canvas.classList.toggle("on", penOn);
+    document.getElementById("pentools").hidden = !penOn;
+    if(penOn) sizeCanvas();
+    announce.textContent = penOn ? "Drawing layer on." : "Drawing layer off.";
+    sendHeight();
+  });
+  document.getElementById("penClear").addEventListener("click", clearPen);
+
+  document.querySelectorAll(".swatch").forEach(function(s){
+    s.addEventListener("click", function(){
+      document.querySelectorAll(".swatch").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
+      s.setAttribute("aria-pressed","true");
+      penColor = s.getAttribute("data-color");
+    });
+  });
+  document.querySelectorAll(".size").forEach(function(s){
+    s.addEventListener("click", function(){
+      document.querySelectorAll(".size").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
+      s.setAttribute("aria-pressed","true");
+      penSize = parseInt(s.getAttribute("data-size"),10);
+    });
+  });
+
+  function pos(e){
+    var r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  canvas.addEventListener("pointerdown", function(e){
+    if(!penOn) return;
+    drawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    var p = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  });
+  canvas.addEventListener("pointermove", function(e){
+    if(!drawing) return;
+    var p = pos(e);
+    ctx.strokeStyle = penColor;
+    ctx.lineWidth = penSize;
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+  });
+  ["pointerup","pointerleave","pointercancel"].forEach(function(ev){
+    canvas.addEventListener(ev, function(){ drawing = false; });
+  });
+  window.addEventListener("resize", function(){ sizeCanvas(); sendHeight(); });
+
+  function sendHeight(){
+    try{
+      var h = document.documentElement.scrollHeight;
+      if(window.parent && window.parent !== window){
+        window.parent.postMessage({ id: "m02-slides", frameHeight: h, height: h }, "*");
+      }
+    }catch(err){}
+  }
+  if(window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.documentElement); }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+
+  show(0);
+})();
+</script>
+</body>
+</html>

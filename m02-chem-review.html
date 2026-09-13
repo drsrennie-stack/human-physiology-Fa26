@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optional Chemistry Review · Week 2 · BIO 005 Human Physiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#6E1F2A;
+  --maroon-deep:#54161F;
+  --maroon-tint:#F2EAEB;
+  --gold:#B8924A;
+  --terra-dark:#A0522D;
+  --ink:#22201F;
+  --ink-soft:#4A4442;
+  --white:#FFFFFF;
+  --page:#FAFAF9;
+  --line:#E3DFDC;
+  --shadow-rest:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lift:0 8px 16px rgba(0,0,0,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-size:17px;line-height:1.65;font-variant-numeric:lining-nums}
+h1,h2,h3,h4{font-family:"Plus Jakarta Sans",system-ui,Arial,sans-serif;margin:0 0 .5em}
+h1{font-weight:800;color:var(--maroon);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
+h2{font-weight:800;color:var(--maroon);font-size:clamp(1.2rem,2.4vw,1.55rem);margin:0 0 .35em}
+h3{font-weight:600;color:var(--terra-dark);font-size:1.05rem;margin:1.1rem 0 .4rem}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.25em}
+li{margin:0 0 .4em}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-deep)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--maroon);color:#fff;padding:.6rem 1rem;z-index:200}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:4px}
+
+.brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:.65rem 1.25rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
+.brandbar .mark{font-family:"Plus Jakarta Sans";font-weight:800;color:var(--maroon)}
+.brandbar .course{color:var(--ink-soft);font-size:.9rem}
+.headband{background:var(--maroon);color:#fff;padding:1.1rem 1.25rem}
+.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#F3D9AE;margin:0 0 .3rem}
+.headband h1{color:#fff;margin:0}
+.headband .sub{margin:.35rem 0 0;color:#F0E6E7;font-size:.98rem}
+
+main{max-width:900px;margin:0 auto;padding:1.5rem 1.25rem 3rem}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:1.1rem 1.15rem;margin:0 0 1.15rem}
+.block{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:1.15rem 1.2rem;margin:0 0 1.15rem}
+.blocktop{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:flex-start;justify-content:space-between}
+.tag{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--terra-dark);margin:0 0 .3rem}
+
+.done{display:flex;gap:.55rem;align-items:center;background:var(--white);border:1px solid var(--ink-soft);border-radius:999px;padding:.35rem .8rem;cursor:pointer;white-space:nowrap}
+.done input{width:1.1rem;height:1.1rem;accent-color:var(--maroon);cursor:pointer}
+.done span{font-size:.9rem;font-weight:700;color:var(--ink)}
+.block.is-done{background:var(--maroon-tint);border-color:var(--maroon)}
+
+.links{list-style:none;padding:0;margin:.4rem 0 0}
+.links li{margin:0 0 .4rem}
+.kind{display:inline-block;min-width:4.6rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+
+.btn{background:var(--white);color:var(--maroon);border:1px solid var(--maroon);border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;font-family:inherit;font-size:.95rem;transition:background-color 200ms ease}
+.btn:hover{background:var(--maroon-tint)}
+.btn-quiet{border-color:var(--ink-soft);color:var(--ink)}
+.reveal-body[hidden]{display:none}
+.reveal-body{margin-top:.7rem}
+
+.progressline{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:.8rem 1rem;margin:0 0 1.15rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between}
+.progressline p{margin:0;font-weight:700}
+
+.tiny{font-size:.9rem;color:var(--ink-soft)}
+.toc ol{margin:0;padding-left:1.2em}
+
+.sitefoot{border-top:1px solid var(--line);background:var(--white);padding:1.25rem;margin-top:2rem}
+.sitefoot p{margin:0;text-align:center;font-size:.92rem;color:var(--ink-soft)}
+.sitefoot a{color:var(--maroon);font-weight:500}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+@media print{
+  .skip,.btn,.done,.progressline{display:none !important}
+  .reveal-body[hidden]{display:block !important}
+  body{background:#fff;font-size:10.5pt}
+  .card,.block{box-shadow:none;border-color:#999;break-inside:avoid}
+  .headband{background:#fff;color:#000;border-bottom:2px solid #000}
+  .headband h1,.headband .sub,.headband .eyebrow{color:#000}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to the review blocks</a>
+
+<header>
+  <div class="brandbar">
+    <span class="mark">Dr. Sharilyn Rennie</span>
+    <span class="course">BIO 005 Human Physiology · Yuba College · Fall 2026</span>
+  </div>
+  <div class="headband">
+    <p class="eyebrow">Week 2 · Optional and recommended</p>
+    <h1>Chemistry Review</h1>
+    <p class="sub">Fill in the chemistry so the physiology lecture can stay on the physiology</p>
+  </div>
+</header>
+
+<main id="content">
+
+  <div class="card">
+    <h2 style="margin-top:0">How to use this page</h2>
+    <p>This page is optional. Nothing on it is graded and nothing on it is collected. It exists because Week 2 assumes a set of chemistry you have probably met before, and the lecture is going to spend its time on what is new rather than on re-teaching that chemistry.</p>
+    <p>Work through it like a triage list rather than a reading assignment. Each block below opens with a short list of what you should be able to do. If you can already do those things, check the block off and move on. If any line makes you hesitate, that block has Khan Academy videos, articles and practice sets that will get you there, usually in fifteen to thirty minutes.</p>
+    <p>Every block also has one self-check question. Answer it in your head before you open the answer. If your answer matches, you are fine.</p>
+    <p class="tiny">Your checkmarks are saved in this browser only, so they are for your own tracking. Nobody else sees them and they do not follow you to another device.</p>
+  </div>
+
+  <div class="progressline">
+    <p id="tally">0 of 8 blocks checked off</p>
+    <button class="btn btn-quiet" type="button" id="clearAll">Clear my checkmarks</button>
+  </div>
+
+  <div class="card toc">
+    <h2 style="margin-top:0">The eight blocks</h2>
+    <ol>
+      <li><a href="#b1">Atoms, electrons and bonds</a></li>
+      <li><a href="#b2">Water, polarity and what dissolves</a></li>
+      <li><a href="#b3">Acids, bases and pH</a></li>
+      <li><a href="#b4">The four groups of biomolecules</a></li>
+      <li><a href="#b5">Protein structure, the four levels</a></li>
+      <li><a href="#b6">How a protein gets made</a></li>
+      <li><a href="#b7">Enzymes and activation energy</a></li>
+      <li><a href="#b8">ATP and energy coupling</a></li>
+    </ol>
+  </div>
+
+  <!-- ====================== 1 ====================== -->
+  <section class="block" id="b1" data-block="1" aria-labelledby="h1b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 1</p>
+        <h2 id="h1b">Atoms, electrons and bonds</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="1"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Say what protons, neutrons and electrons are and which one does the bonding.</li>
+      <li>Explain what makes an atom stable, and what an ion is.</li>
+      <li>Tell a covalent bond from an ionic bond, and a polar covalent bond from a nonpolar one.</li>
+      <li>Name the handful of elements that make up almost all of your body mass.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>Ions are what nerve and muscle signals are made of, and bond type is what decides whether a molecule holds its shape or falls apart. Both come back hard in Weeks 3 and 4.</p>
+
+    <h3>Check yourself</h3>
+    <p>Oxygen pulls harder on shared electrons than hydrogen does. What does that do to the bond between them, and does it create full charges or partial ones?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a1">Show the answer</button>
+    <div class="reveal-body" id="a1" hidden>
+      <p>It makes the bond polar covalent. The electrons spend more time near the oxygen, so the oxygen end is slightly negative and the hydrogen end slightly positive. These are partial charges, not full ones. No electron was transferred, so no ion was formed. That distinction is the whole basis of why water behaves the way it does.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Unit</span> <a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life" target="_blank" rel="noopener">Chemistry of life, Khan Academy AP Biology</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/introduction-to-biological-macromolecules/a/chemical-bonds-article" target="_blank" rel="noopener">Chemical bonds</a></li>
+      <li><span class="kind">Video</span> <a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/elements-of-life/v/elemental-building-blocks-of-biological-molecules" target="_blank" rel="noopener">Elemental building blocks of biological molecules</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 2 ====================== -->
+  <section class="block" id="b2" data-block="2" aria-labelledby="h2b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 2</p>
+        <h2 id="h2b">Water, polarity and what dissolves</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="2"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Draw a water molecule and mark where the partial charges sit.</li>
+      <li>Explain what a hydrogen bond is and why water molecules stick to each other.</li>
+      <li>Predict whether a given molecule dissolves in water from its structure.</li>
+      <li>Use the words hydrophilic, hydrophobic and amphipathic correctly.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>Solubility decides how a hormone or a drug travels in blood and whether it can cross a membrane on its own. It is the first thing you will use in Week 3 and again in Week 8.</p>
+
+    <h3>Check yourself</h3>
+    <p>A steroid hormone is nonpolar. Where does it have trouble, in the blood or at the cell membrane, and what does the body do about it?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a2">Show the answer</button>
+    <div class="reveal-body" id="a2" hidden>
+      <p>It has trouble in the blood, which is mostly water and excludes nonpolar molecules. The membrane is easy for it, because the inside of a membrane is a fatty environment where a nonpolar molecule is at home. The body solves the blood problem by carrying steroid hormones on binding proteins. Notice that the property helping in one place is the same property causing the problem in the other.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Unit</span> <a href="https://www.khanacademy.org/science/biology/water-acids-and-bases" target="_blank" rel="noopener">Water, acids and bases</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/water-acids-and-bases/hydrogen-bonding-in-water/a/hydrogen-bonding-in-water" target="_blank" rel="noopener">Hydrogen bonds in water</a></li>
+      <li><span class="kind">Video</span> <a href="https://www.khanacademy.org/science/biology/water-acids-and-bases/hydrogen-bonding-in-water/v/hydrogen-bonding-in-water" target="_blank" rel="noopener">Hydrogen bonding in water</a></li>
+      <li><span class="kind">Practice</span> <a href="https://www.khanacademy.org/science/biology/water-acids-and-bases/hydrogen-bonding-in-water/e/water-and-hydrogen-bonding" target="_blank" rel="noopener">Water and hydrogen bonding</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 3 ====================== -->
+  <section class="block" id="b3" data-block="3" aria-labelledby="h3b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 3</p>
+        <h2 id="h3b">Acids, bases and pH</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="3"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Define pH in words and write it as an equation.</li>
+      <li>Say what an acid does to a solution and what a base does.</li>
+      <li>Explain why the pH scale is logarithmic and what that means for a change of one unit.</li>
+      <li>Say in general terms what a buffer is.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>We are going to spend the lecture on what the body actually does about pH, which means the definition itself needs to already be yours. Acid and base balance then runs through Weeks 13 and 15.</p>
+
+    <h3>Check yourself</h3>
+    <p>Blood moves from pH 7.40 to pH 6.40. Roughly how much does the free hydrogen ion concentration change?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a3">Show the answer</button>
+    <div class="reveal-body" id="a3" hidden>
+      <p>It goes up about tenfold. One whole pH unit is a factor of ten, because the scale is logarithmic and it runs backward, so a lower pH means more free hydrogen ions. If that surprised you, this is the block to spend time on, because every blood gas you read for the rest of your career depends on it.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/water-acids-and-bases/acids-bases-and-ph/a/acids-bases-ph-and-bufffers" target="_blank" rel="noopener">Acids, bases, pH and buffers</a></li>
+      <li><span class="kind">Practice</span> <a href="https://www.khanacademy.org/science/biology/water-acids-and-bases/acids-bases-and-ph/e/acids--bases--and-ph" target="_blank" rel="noopener">Acids, bases and pH</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 4 ====================== -->
+  <section class="block" id="b4" data-block="4" aria-labelledby="h4b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 4</p>
+        <h2 id="h4b">The four groups of biomolecules</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="4"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Name the four groups: carbohydrates, lipids, proteins and nucleotides.</li>
+      <li>Say what each group is built from and give one job for each.</li>
+      <li>Describe a phospholipid and explain why its shape builds membranes.</li>
+      <li>Tell a saturated fatty acid from an unsaturated one and say what the difference does to packing.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>Phospholipids are the whole basis of Week 3. The fuel groups come back in Week 12. Steroid structure comes back in Week 8.</p>
+
+    <h3>Check yourself</h3>
+    <p>Why does a phospholipid form a sheet with two layers when you put it in water, rather than dissolving or clumping into a ball?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a4">Show the answer</button>
+    <div class="reveal-body" id="a4" hidden>
+      <p>Because it has both a water loving phosphate head and two water fearing fatty tails. Water surrounds the heads and excludes the tails, so the molecules line up with heads facing out toward water on both sides and tails tucked together in the middle. That gives you a double layer with a fatty core, which is exactly what a cell membrane is.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Unit</span> <a href="https://www.khanacademy.org/science/biology/macromolecules" target="_blank" rel="noopener">Macromolecules</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/properties-structure-and-function-of-biological-macromolecules/a/hs-biological-macromolecules-review" target="_blank" rel="noopener">Biological macromolecules review</a></li>
+      <li><span class="kind">Practice</span> <a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/introduction-to-biological-macromolecules/e/introduction-to-biological-macromolecules-exercise" target="_blank" rel="noopener">Introduction to biological macromolecules</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 5 ====================== -->
+  <section class="block" id="b5" data-block="5" aria-labelledby="h5b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 5</p>
+        <h2 id="h5b">Protein structure, the four levels</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="5"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Name the four levels of protein structure and say what each one is.</li>
+      <li>Say which bonds or interactions hold each level together.</li>
+      <li>Explain what a peptide bond is and what a disulfide bond does.</li>
+      <li>Say what denaturation means.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>This one is load bearing. The entire lecture runs on the idea that shape is function, and we cannot spend the hour building the shape from scratch. Come in knowing how a protein folds and the lecture can go straight to what happens when the fold changes.</p>
+
+    <h3>Check yourself</h3>
+    <p>A protein is boiled and loses its function. Its amino acid sequence is unchanged. What exactly was lost?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a5">Show the answer</button>
+    <div class="reveal-body" id="a5" hidden>
+      <p>The folded three dimensional shape, and with it the binding site. The covalent peptide bonds that hold the sequence together survived. What broke were the many weak interactions holding the fold, and once enough of them go at the same time the chain cannot find its way back. Correct sequence, useless protein.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/macromolecules/proteins-and-amino-acids/a/orders-of-protein-structure" target="_blank" rel="noopener">Orders of protein structure</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/macromolecules/proteins-and-amino-acids/a/introduction-to-proteins-and-amino-acids" target="_blank" rel="noopener">Introduction to proteins and amino acids</a></li>
+      <li><span class="kind">Video</span> <a href="https://www.khanacademy.org/science/biology/macromolecules/proteins-and-amino-acids/v/overview-of-protein-structure" target="_blank" rel="noopener">Overview of protein structure</a></li>
+      <li><span class="kind">Practice</span> <a href="https://www.khanacademy.org/science/biology/macromolecules/proteins-and-amino-acids/e/proteins" target="_blank" rel="noopener">Proteins</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 6 ====================== -->
+  <section class="block" id="b6" data-block="6" aria-labelledby="h6b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 6</p>
+        <h2 id="h6b">How a protein gets made</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="6"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>State the central dogma: DNA to RNA to protein.</li>
+      <li>Say what happens in transcription and where it happens.</li>
+      <li>Say what happens in translation and where it happens.</li>
+      <li>Explain in general terms how a cell can make more or less of a particular protein.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>This is the one people are surprised to see on a chemistry review list. It is here because one of the main ways the body turns a response up or down is by building more copies of a protein or fewer. You cannot follow up regulation and down regulation in the lecture without knowing what is being regulated. It comes back in Week 8 when chronic hormone exposure changes receptor numbers.</p>
+
+    <h3>Check yourself</h3>
+    <p>A cell needs twice as much of one particular enzyme by tomorrow. Name the step it would change, and say roughly how fast that change can happen compared with simply switching an existing enzyme on.</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a6">Show the answer</button>
+    <div class="reveal-body" id="a6" hidden>
+      <p>It would increase transcription of that gene, making more messenger RNA, which is then translated into more enzyme molecules. That takes hours, sometimes longer. Switching an existing enzyme on by attaching a phosphate group takes seconds. Both are real control methods and the body uses both, which is why the lecture will keep asking how fast a given response needs to be.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Unit</span> <a href="https://www.khanacademy.org/science/biology/gene-expression-central-dogma" target="_blank" rel="noopener">Central dogma, DNA to RNA to protein</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/gene-expression-central-dogma/central-dogma-transcription/a/intro-to-gene-expression-central-dogma" target="_blank" rel="noopener">Intro to gene expression</a></li>
+      <li><span class="kind">Video</span> <a href="https://www.khanacademy.org/test-prep/mcat/biomolecules/dna/v/central-dogma-of-molecular-biology-2" target="_blank" rel="noopener">Central dogma of molecular biology</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 7 ====================== -->
+  <section class="block" id="b7" data-block="7" aria-labelledby="h7b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 7</p>
+        <h2 id="h7b">Enzymes and activation energy</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="7"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Say what an enzyme is and what an active site is.</li>
+      <li>Explain what activation energy is and how an enzyme changes it.</li>
+      <li>Say what an enzyme does not change about a reaction.</li>
+      <li>Read a simple graph of reaction rate against substrate concentration.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>The lecture uses enzymes as the worked example for everything about binding and regulation, so the basic picture needs to be in place first. The Week 2 lab then has you produce a rate curve yourself.</p>
+
+    <h3>Check yourself</h3>
+    <p>An enzyme speeds a reaction up by a factor of a million. Does it change how much product the reaction can eventually produce?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a7">Show the answer</button>
+    <div class="reveal-body" id="a7" hidden>
+      <p>No. It changes only how fast the reaction reaches its endpoint, not where that endpoint is and not whether the reaction releases or requires energy overall. The enzyme is also not used up, so one molecule does the job over and over. If you were tempted to say yes, that is one of the most common misconceptions in this material and it is worth clearing up now.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Unit</span> <a href="https://www.khanacademy.org/science/biology/energy-and-enzymes" target="_blank" rel="noopener">Energy and enzymes</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/energy-and-enzymes/introduction-to-enzymes/a/activation-energy" target="_blank" rel="noopener">Activation energy</a></li>
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/ap-biology/cellular-energetics/enzyme-structure-and-catalysis/a/enzymes-and-the-active-site" target="_blank" rel="noopener">Enzymes and the active site</a></li>
+      <li><span class="kind">Video</span> <a href="https://www.khanacademy.org/test-prep/mcat/biomolecules/enzyme-structure-and-function/v/enzymes-and-activation-energy" target="_blank" rel="noopener">Enzymes and activation energy</a></li>
+      <li><span class="kind">Practice</span> <a href="https://www.khanacademy.org/science/biology/energy-and-enzymes/introduction-to-enzymes/e/enzymes-and-activation-energy" target="_blank" rel="noopener">Enzymes and activation energy</a></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 8 ====================== -->
+  <section class="block" id="b8" data-block="8" aria-labelledby="h8b">
+    <div class="blocktop">
+      <div>
+        <p class="tag">Block 8</p>
+        <h2 id="h8b">ATP and energy coupling</h2>
+      </div>
+      <label class="done"><input type="checkbox" data-check="8"> <span>I have this</span></label>
+    </div>
+
+    <h3>You should be able to</h3>
+    <ul>
+      <li>Describe what ATP is built from and what happens when it is hydrolyzed.</li>
+      <li>Explain what it means to couple an energy releasing reaction to an energy requiring one.</li>
+      <li>Say why a cell needs a molecule that carries energy around rather than releasing it as heat.</li>
+    </ul>
+
+    <h3>Why this matters in physiology</h3>
+    <p>Every pump, every contraction and every synthesis step you meet this semester is spending ATP. The lecture uses that spending to explain why tissue starved of oxygen stops working the way it does.</p>
+
+    <h3>Check yourself</h3>
+    <p>Attaching a phosphate group from ATP onto a protein changes that protein's shape. Why is that a useful thing for a cell to be able to do?</p>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="a8">Show the answer</button>
+    <div class="reveal-body" id="a8" hidden>
+      <p>Because shape is function. Changing the shape switches the protein's activity on or off, or changes what it will bind. That gives the cell a fast, reversible switch it can throw on any protein it chooses, and the energy for throwing it comes straight out of the bond that was broken. This is the mechanism behind most of the fast responses you will study.</p>
+    </div>
+
+    <h3>If you need it</h3>
+    <ul class="links">
+      <li><span class="kind">Article</span> <a href="https://www.khanacademy.org/science/biology/energy-and-enzymes/a/atp" target="_blank" rel="noopener">ATP</a></li>
+      <li><span class="kind">Video</span> <a href="https://www.khanacademy.org/science/biology/energy-and-enzymes/atp-reaction-coupling/v/reaction-coupling-to-create-glucose-6-phosphate" target="_blank" rel="noopener">Reaction coupling</a></li>
+    </ul>
+  </section>
+
+  <div class="card">
+    <h2 style="margin-top:0">When you are done here</h2>
+    <p>Go to the required material for the week: the Mission 2 recordings and the slide deck. That is where the graded work comes from.</p>
+    <p><a href="m02-slides.html" target="_top">Mission 2 slide deck</a> · <a href="m02-notes.html" target="_top">Mission 2 notes</a> · <a href="week-02.html" target="_top">Week 2 page</a></p>
+    <p class="tiny">Khan Academy is a free outside resource. It is not affiliated with this course and nothing there is graded here. If a link has moved, search Khan Academy for the topic name and let me know so I can fix it.</p>
+  </div>
+
+</main>
+
+<footer class="sitefoot">
+  <p>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a> ·
+    <a href="course-schedule.html" target="_top">Schedule</a> ·
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas home</a> ·
+    <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800" target="_blank" rel="noopener">Dr. Rennie's Virtual Office</a> ·
+    <a href="accessibility.html" target="_top">Accessibility</a>
+  </p>
+  <p style="margin-top:.5rem">Dr. Sharilyn Rennie · BIO 005 Human Physiology</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "bio005-m02-chem-review";
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("button[aria-controls]");
+    if(!btn) return;
+    var panel = document.getElementById(btn.getAttribute("aria-controls"));
+    if(!panel) return;
+    var open = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+    panel.hidden = open;
+    btn.textContent = open ? "Show the answer" : "Hide the answer";
+    sendHeight();
+  });
+
+  function load(){
+    try{
+      var raw = window.localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(err){ return {}; }
+  }
+  function save(state){
+    try{ window.localStorage.setItem(KEY, JSON.stringify(state)); }catch(err){}
+  }
+
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("[data-check]"));
+  var tally = document.getElementById("tally");
+
+  function paint(){
+    var n = 0;
+    boxes.forEach(function(b){
+      var block = b.closest(".block");
+      if(b.checked){ n++; block.classList.add("is-done"); }
+      else { block.classList.remove("is-done"); }
+    });
+    tally.textContent = n + " of " + boxes.length + " blocks checked off";
+    sendHeight();
+  }
+
+  var state = load();
+  boxes.forEach(function(b){
+    var k = b.getAttribute("data-check");
+    b.checked = state[k] === true;
+    b.addEventListener("change", function(){
+      state[k] = b.checked;
+      save(state);
+      paint();
+    });
+  });
+  paint();
+
+  document.getElementById("clearAll").addEventListener("click", function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    state = {};
+    save(state);
+    paint();
+    tally.textContent = "0 of " + boxes.length + " blocks checked off";
+  });
+
+  function sendHeight(){
+    try{
+      var h = document.documentElement.scrollHeight;
+      if(window.parent && window.parent !== window){
+        window.parent.postMessage({ id: "m02-chem-review", frameHeight: h, height: h }, "*");
+      }
+    }catch(err){}
+  }
+  if(window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.documentElement); }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+})();
+</script>
+</body>
+</html>

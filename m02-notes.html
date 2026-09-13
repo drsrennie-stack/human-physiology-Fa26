@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission 2 Notes · Build the Molecular Toolkit · BIO 005 Human Physiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#6E1F2A;
+  --maroon-deep:#54161F;
+  --maroon-tint:#F2EAEB;
+  --gold:#B8924A;
+  --terra-dark:#A0522D;
+  --ink:#22201F;
+  --ink-soft:#4A4442;
+  --white:#FFFFFF;
+  --page:#FAFAF9;
+  --line:#E3DFDC;
+  --shadow-rest:0 1px 3px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-size:17px;line-height:1.65;font-variant-numeric:lining-nums}
+h1,h2,h3{font-family:"Plus Jakarta Sans",system-ui,Arial,sans-serif;margin:0 0 .5em}
+h1{font-weight:800;color:var(--maroon);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
+h2{font-weight:800;color:var(--maroon);font-size:clamp(1.3rem,2.6vw,1.75rem);margin-top:2rem}
+h3{font-weight:600;color:var(--terra-dark);font-size:1.12rem;margin-top:1.4rem}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.25em}
+li{margin:0 0 .45em}
+a{color:var(--maroon);text-underline-offset:3px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--maroon);color:#fff;padding:.6rem 1rem;z-index:200}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:4px}
+
+.brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:.65rem 1.25rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
+.brandbar .mark{font-family:"Plus Jakarta Sans";font-weight:800;color:var(--maroon)}
+.brandbar .course{color:var(--ink-soft);font-size:.9rem}
+.headband{background:var(--maroon);color:#fff;padding:1.1rem 1.25rem}
+.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#F3D9AE;margin:0 0 .3rem}
+.headband h1{color:#fff;margin:0}
+.headband .sub{margin:.35rem 0 0;color:#F0E6E7;font-size:.98rem}
+
+main{max-width:860px;margin:0 auto;padding:1.5rem 1.25rem 3rem}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:1.05rem 1.1rem;margin:0 0 1.1rem}
+.grid{display:grid;gap:1rem}
+@media(min-width:740px){.grid.two{grid-template-columns:1fr 1fr}}
+.toc ol{margin:0;padding-left:1.2em}
+.toc a{font-weight:500}
+
+.chain{list-style:none;padding:0;margin:0 0 1rem;counter-reset:step}
+.chain li{counter-increment:step;background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.7rem .85rem .7rem 2.7rem;position:relative;margin:0 0 .55rem}
+.chain li::before{content:counter(step);position:absolute;left:.8rem;top:.72rem;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--maroon);color:#fff;font-weight:700;font-size:.82rem;display:grid;place-items:center}
+
+.eq{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.85rem .95rem;margin:0 0 1rem}
+.eq .math{font-family:"Plus Jakarta Sans";font-weight:700;color:var(--maroon);font-size:1.12rem}
+.eq dl{margin:.6rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.2rem .7rem;font-size:.93rem}
+.eq dt{font-weight:700}
+.eq dd{margin:0;color:var(--ink-soft)}
+
+.tablewrap{overflow-x:auto;margin:0 0 1rem}
+table{border-collapse:collapse;width:100%;min-width:520px;background:var(--white)}
+caption{text-align:left;font-weight:700;color:var(--maroon);padding:0 0 .5rem;font-family:"Plus Jakarta Sans"}
+th,td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left;vertical-align:top;font-size:.96rem}
+th{color:var(--maroon);font-family:"Plus Jakarta Sans";font-weight:700}
+
+.btn{background:var(--white);color:var(--maroon);border:1px solid var(--maroon);border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;font-family:inherit;font-size:.95rem;transition:background-color 200ms ease}
+.btn:hover{background:var(--maroon-tint)}
+.reveal-body[hidden]{display:none}
+.reveal-body{margin-top:.75rem}
+.tiny{font-size:.9rem;color:var(--ink-soft)}
+
+.sitefoot{border-top:1px solid var(--line);background:var(--white);padding:1.25rem;margin-top:2rem}
+.sitefoot p{margin:0;text-align:center;font-size:.92rem;color:var(--ink-soft)}
+.sitefoot a{color:var(--maroon);font-weight:500}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+@media print{
+  .skip,.btn{display:none !important}
+  .reveal-body[hidden]{display:block !important}
+  body{background:#fff;font-size:10.5pt}
+  .card,.eq{box-shadow:none;border-color:#999;break-inside:avoid}
+  .headband{background:#fff;color:#000;border-bottom:2px solid #000}
+  .headband h1,.headband .sub,.headband .eyebrow{color:#000}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to the notes</a>
+
+<header>
+  <div class="brandbar">
+    <span class="mark">Dr. Sharilyn Rennie</span>
+    <span class="course">BIO 005 Human Physiology · Yuba College · Fall 2026</span>
+  </div>
+  <div class="headband">
+    <p class="eyebrow">Week 2 · Mission 2 notes · Required</p>
+    <h1>Build the Molecular Toolkit</h1>
+    <p class="sub">Read these beside the recordings and the slide deck</p>
+  </div>
+</header>
+
+<main id="content">
+
+  <div class="card">
+    <h2 style="margin-top:0">Before you start</h2>
+    <p>These notes cover what is new this week. They do not re-teach the chemistry that Week 2 assumes, because the lecture is spending its time somewhere more useful.</p>
+    <p>If any of the following makes you hesitate, the optional chemistry review has short Khan Academy videos for each one: atoms and bond types, water and solubility, the pH scale, the four groups of biomolecules, the four levels of protein structure, how a protein gets made from DNA, and what enzymes and ATP are.</p>
+    <p><a href="m02-chem-review.html" target="_top">Open the optional chemistry review</a></p>
+    <p class="tiny">The review is optional and nothing on it is collected. The recordings, the slide deck and these notes are the required material.</p>
+  </div>
+
+  <div class="card toc">
+    <h2 style="margin-top:0">What is in these notes</h2>
+    <ol>
+      <li><a href="#mission">The mission and the claim</a></li>
+      <li><a href="#shape">Shape is function, and what breaks it</a></li>
+      <li><a href="#jobs">Nine jobs proteins do</a></li>
+      <li><a href="#binding">How binding behaves, the four properties</a></li>
+      <li><a href="#modulation">Modulation, the two routes and seven levers</a></li>
+      <li><a href="#enzymes">Enzymes, the worked example</a></li>
+      <li><a href="#atp">ATP and physiological work</a></li>
+      <li><a href="#buffers">Buffers as a physiological response</a></li>
+      <li><a href="#misconceptions">Common misconceptions</a></li>
+      <li><a href="#checks">Check yourself</a></li>
+      <li><a href="#apply">Apply it</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================ -->
+  <h2 id="mission">1. The mission and the claim</h2>
+  <p>The body has one job: keep conditions inside you steady enough for your cells to keep working. That job is too big to learn at once, so the course splits it into missions. A mission puts a real question or claim on the table, gives you the science, and then asks you to decide.</p>
+  <p>Mission 1 was about control, how the body senses a change and sends the order to fix it. Mission 2 asks what carries those orders out, and then asks the question that runs the rest of the semester: how does the body turn that machinery up and down?</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">The case</h3>
+    <p>A 24 year old collapses during a road race on a hot afternoon. Core temperature is 41.6 &deg;C (106.9 &deg;F). He is confused, his muscles are rigid, and blood work shows muscle enzymes that should be inside cells sitting out in the blood.</p>
+    <p>The physician tells the family that the heat itself is doing the damage, that his proteins are coming apart, and that is why his muscles and his brain are not working.</p>
+    <p>Do not decide yet. By the end of these notes you should be able to say what would have to be true for that claim to hold, what else could produce the same picture, and which test would tell them apart.</p>
+  </div>
+
+  <!-- ================================ -->
+  <h2 id="shape">2. Shape is function, and what breaks it</h2>
+  <p>This is the idea the rest of the semester sits on. A protein works because it has a pocket, groove or surface that fits one particular partner. Change the shape and you change what fits.</p>
+  <ol class="chain">
+    <li>DNA sets the amino acid sequence, held by covalent bonds, so the sequence does not change on its own.</li>
+    <li>The chain folds, driven by water pushing nonpolar groups inward, and held by many weak interactions at once.</li>
+    <li>The fold creates a binding site with a particular size, shape and pattern of charges.</li>
+    <li>Only molecules that match the site bind well, which is where specificity comes from.</li>
+    <li>Change the fold and the site changes with it. That is the lever, and most of this mission is different ways of pulling it.</li>
+  </ol>
+  <p>A protein does not fall apart at body temperature even though every interaction holding it is weak, because there are thousands of them, constantly breaking and reforming, and the rest hold while any one is open. The failure mode follows directly: add enough energy, or change enough charges, and enough of them go at the same moment that the fold cannot recover.</p>
+
+  <h3>Denaturation</h3>
+  <p>When that happens the protein is denatured. The amino acid chain is intact and still correct. The binding site is gone. Correct sequence, useless protein.</p>
+  <ul>
+    <li><strong>Heat.</strong> Most human proteins are stable at 37 &deg;C (98.6 &deg;F) and begin losing function above roughly 40 to 41 &deg;C (104 to 105.8 &deg;F).</li>
+    <li><strong>pH change.</strong> Hydrogen ions change the charges on amino acid side chains, so ionic attractions holding the fold stop pulling. No heat needed.</li>
+    <li><strong>Certain chemicals.</strong> Heavy metals and some solvents disrupt the fold directly, which is a large part of why they are poisons.</li>
+  </ul>
+  <p>Mild denaturation sometimes reverses. Often it does not, and a cooked egg white is the version you can see on a plate.</p>
+
+  <!-- ================================ -->
+  <h2 id="jobs">3. Nine jobs proteins do</h2>
+  <p>Every time you meet a new system this semester, ask which of these the proteins in it are doing.</p>
+  <ol>
+    <li>Enzymes, which speed reactions up.</li>
+    <li>Membrane transporters, which move solutes across membranes.</li>
+    <li>Receptors, which receive a message and start a response.</li>
+    <li>Signal molecules, such as peptide hormones.</li>
+    <li>Binding and carrier proteins, such as albumin and hemoglobin.</li>
+    <li>Immunoglobulins, which tag foreign material.</li>
+    <li>Regulatory proteins, which turn genes on and off.</li>
+    <li>Structural proteins, such as collagen and keratin.</li>
+    <li>Motor and contractile proteins, such as actin and myosin.</li>
+  </ol>
+  <p class="tiny">Textbooks group these a little differently and some list eight, combining motor with structural. Naming the job and explaining how the shape allows it matters more than the grouping.</p>
+
+  <!-- ================================ -->
+  <h2 id="binding">4. How binding behaves, the four properties</h2>
+  <p>A ligand is whatever binds to a protein's binding site. That definition covers more than students expect: a substrate binding an enzyme, a hormone binding a receptor, oxygen binding hemoglobin, and a solute binding the transporter about to move it. Four different chapters of the textbook, one mechanism underneath.</p>
+  <p>Keep binding and response separate in your head. Binding is the trigger, not the answer. Knowing what binds tells you nothing yet about what happens next.</p>
+
+  <div class="grid two">
+    <div class="card">
+      <h3 style="margin-top:0">Specificity, how choosy</h3>
+      <p>How narrow the range of ligands the protein accepts. It comes from the size, shape and charge pattern of the site, so it is largely fixed by the fold.</p>
+      <p>Lower specificity is sometimes the design. Liver enzymes that clear drugs are deliberately broad, because a liver that only recognized molecules the body makes would be no use against anything you swallowed.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Affinity, how tightly</h3>
+      <p>How strongly the protein holds a ligand once it lands. High affinity means it binds readily and releases slowly.</p>
+      <p>Affinity is a dial, not a switch, and it can be changed on the spot without building a new protein. That is what makes it the body's favorite control point.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Saturation, when more stops helping</h3>
+      <p>There is a fixed number of sites. Rate climbs as ligand increases, then flattens once every site is occupied. After that the protein is the limit, not the ligand.</p>
+      <p>To raise the flat part you need more copies of the protein. More ligand cannot do it.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Competition, two molecules one site</h3>
+      <p>Two ligands that both fit the same site. Whichever is present in greater amount, or binds with higher affinity, takes more of the sites.</p>
+      <p>Both factors matter. A low affinity ligand can still win if there is far more of it, and that is what makes some treatments possible.</p>
+    </div>
+  </div>
+
+  <h3>The example that ties all four together</h3>
+  <p>Hemoglobin binds oxygen tightly in the lung and releases it in working muscle. The molecule did not change and no signal was sent. Conditions in working tissue, higher carbon dioxide, lower pH and higher temperature, lowered its affinity so it let go exactly where oxygen was needed. Carbon monoxide competes for the same sites with far greater affinity, which is why the only treatment lever left is to raise oxygen concentration high enough to win the sites back by sheer numbers, and why that takes time. You will build all of this into the oxygen dissociation curve in Week 13.</p>
+
+  <!-- ================================ -->
+  <h2 id="modulation">5. Modulation, the two routes and seven levers</h2>
+  <p>A modulator is anything that changes how well a protein binds or how well it works. There are only two broad routes, and every specific mechanism is one or the other.</p>
+
+  <div class="grid two">
+    <div class="card">
+      <h3 style="margin-top:0">Route 1: change the protein you have</h3>
+      <p>Alter the copies already there, by blocking the site, changing the shape, or attaching something. Takes seconds to minutes. Used when the body needs a fast answer.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Route 2: change how many copies exist</h3>
+      <p>Build more of the protein or destroy existing ones faster, which runs through transcription and translation. Takes hours to days. Used when the change needs to last.</p>
+    </div>
+  </div>
+  <p class="tiny">The question to ask every time from here on: how fast does this response need to be? That alone usually tells you which route the body took.</p>
+
+  <h3>Lever 1: competitive inhibition</h3>
+  <p>A molecule that fits the active site sits in it and blocks the real ligand. Nothing about the protein changed, the parking space is simply occupied. Because binding is reversible, raising the normal ligand far enough wins the site back, so the block is beatable.</p>
+  <p>Methanol poisoning is the case to hold on to. The body converts methanol, using the same enzyme that handles drinking alcohol, into a product that causes blindness and organ damage. Giving ethanol fills those enzyme sites, the methanol is never converted, and it leaves the body unchanged. The treatment destroyed nothing and repaired nothing. It occupied binding sites.</p>
+
+  <h3>Lever 2: allosteric modulation</h3>
+  <p>The modulator binds somewhere else on the protein entirely and changes the shape of the active site from a distance. It can make the protein better at its job or worse at it.</p>
+  <p>This one cannot be outcompeted by adding more ligand, because the modulator is not in the way. It is in a different place, changing the shape of the space the ligand is trying to enter. That difference is what makes the distinction clinically useful rather than vocabulary.</p>
+  <p>Hemoglobin is again the example. Carbon dioxide and hydrogen ions bind away from the oxygen sites and lower oxygen affinity. Working muscle produces both, so the tissue working hardest automatically makes hemoglobin release more oxygen, in proportion to how hard it is working. No sensor, no nerve, no hormone, no delay. The demand itself is the signal.</p>
+
+  <h3>Lever 3: covalent modulation</h3>
+  <p>The cell attaches a chemical group, almost always a phosphate taken from ATP. An enzyme called a kinase puts it on, and a phosphatase takes it off. The phosphate carries charge, so the local charge pattern changes and the fold shifts, which switches activity on or off.</p>
+  <p>The body leans on this one heavily because it is fast, fully reversible in both directions, works on proteins that already exist, and amplifies. One hormone arriving at the cell surface can trigger a cascade that phosphorylates thousands of target proteins, which is how a small signal produces a large response. When you reach hormone signaling in Week 8, nearly every pathway ends in something being phosphorylated.</p>
+
+  <h3>Lever 4: irreversible inhibition</h3>
+  <p>The inhibitor binds and does not let go, so that protein molecule is finished and the cell must build a new one. Organophosphate pesticides permanently block acetylcholinesterase, so acetylcholine is never cleared from the synapse. Aspirin permanently blocks cyclooxygenase in platelets, and platelets cannot make new protein, so the effect lasts the life of the platelet. That is why aspirin is stopped days before surgery rather than hours.</p>
+
+  <h3>Lever 5: proteolytic activation</h3>
+  <p>The protein is built inactive, then a piece is cut off to reveal the working site, and the cut cannot be undone. Pepsinogen becomes pepsin only once it reaches stomach acid. Clotting factors sit inactive in the blood until the cascade cuts them. It looks inefficient until you ask the design question: how do you store a protein whose job is to destroy things, inside the cell that made it?</p>
+
+  <h3>Lever 6: pH and temperature</h3>
+  <p>These two modulate whether the body wants them to or not. Every protein in you is being modulated by the pH and temperature it sits in, continuously. Hydrogen ions change side chain charges and temperature changes how much the chain moves, so both change the fold and therefore the site.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>Different proteins, different optimum pH</caption>
+      <thead><tr><th scope="col">Protein</th><th scope="col">Works best near</th><th scope="col">Because it lives in</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Salivary amylase</th><td>pH 7</td><td>The mouth, close to neutral</td></tr>
+        <tr><th scope="row">Pepsin</th><td>pH 2</td><td>The stomach, strongly acidic</td></tr>
+        <tr><th scope="row">Pancreatic enzymes</th><td>pH 8</td><td>The small intestine, after bicarbonate neutralizes the acid</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>This explains something practical. Swallowed amylase stops working in the stomach not because it was used up, but because it arrived somewhere its shape does not hold. It also explains why the body defends its pH so tightly. A pH problem is not one protein failing, it is every protein being modulated at once.</p>
+
+  <h3>Lever 7: up and down regulation</h3>
+  <p>This is Route 2, the slow one. A signal changes how much that gene is transcribed, more or less messenger RNA is made, translation produces more or fewer copies, and the cell can also change how fast existing copies are destroyed. The cell's response is now stronger or weaker and stays that way for hours to days.</p>
+  <p>Constant high hormone levels cause down regulation, reducing receptor numbers so the same hormone level produces a smaller response. That is the cell protecting itself. If the hormone then drops to normal, the response is far too small for that level and the person feels a deficiency even though the hormone value looks fine. Rebuilding receptors takes time, which is why some medications are tapered rather than stopped.</p>
+
+  <h3>The seven levers together</h3>
+  <div class="tablewrap">
+    <table>
+      <caption>Ways a protein gets modulated</caption>
+      <thead><tr><th scope="col">Lever</th><th scope="col">What it does</th><th scope="col">Speed</th><th scope="col">Reversible</th><th scope="col">Beaten by more ligand?</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Competitive inhibition</th><td>Occupies the active site</td><td>Seconds</td><td>Yes</td><td>Yes</td></tr>
+        <tr><th scope="row">Allosteric modulation</th><td>Binds elsewhere, reshapes the site</td><td>Seconds</td><td>Yes</td><td>No</td></tr>
+        <tr><th scope="row">Covalent modulation</th><td>Attaches a phosphate, switching activity</td><td>Seconds</td><td>Yes, by removing it</td><td>No</td></tr>
+        <tr><th scope="row">Irreversible inhibition</th><td>Binds permanently</td><td>Seconds to act</td><td>No</td><td>No</td></tr>
+        <tr><th scope="row">Proteolytic activation</th><td>Cuts an inactive precursor</td><td>Seconds</td><td>No</td><td>Not applicable</td></tr>
+        <tr><th scope="row">pH and temperature</th><td>Changes charges or energy, altering the fold</td><td>Immediate</td><td>Sometimes</td><td>No</td></tr>
+        <tr><th scope="row">Up and down regulation</th><td>Changes how many copies exist</td><td>Hours to days</td><td>Yes, slowly</td><td>No</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Two questions get you through almost any new example. How fast does this need to happen, and can it be overcome by adding more of the normal ligand? The first picks the route, the second separates competitive inhibition from everything else.</p>
+
+  <!-- ================================ -->
+  <h2 id="enzymes">6. Enzymes, the worked example</h2>
+  <p>You already know an enzyme lowers activation energy, is not used up, and does not change where a reaction ends up at equilibrium. Now put the four binding properties and the seven levers onto it.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>What changes an enzyme's rate, and which idea explains it</caption>
+      <thead><tr><th scope="col">Change</th><th scope="col">Effect on rate</th><th scope="col">The idea behind it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">More substrate</th><td>Climbs, then flattens</td><td>Saturation</td></tr>
+        <tr><th scope="row">More enzyme</th><td>The maximum itself rises</td><td>More binding sites exist</td></tr>
+        <tr><th scope="row">Temperature up to optimum</th><td>Climbs</td><td>More collisions with the site</td></tr>
+        <tr><th scope="row">Temperature past optimum</th><td>Falls sharply, does not recover</td><td>Denaturation</td></tr>
+        <tr><th scope="row">Wrong pH</th><td>Falls</td><td>Charges change, the site changes shape</td></tr>
+        <tr><th scope="row">Competitive inhibitor</th><td>Falls, restored by more substrate</td><td>Competition for the same site</td></tr>
+        <tr><th scope="row">Allosteric inhibitor</th><td>Falls, more substrate does not help</td><td>The site itself was reshaped</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>In this week's lab you will run amylase at 20, 37 and 60 &deg;C (68, 98.6 and 140 &deg;F). Rate is low at 20 &deg;C because molecules move slowly, highest near 37 &deg;C, and very low at 60 &deg;C because the enzyme has denatured. Cooling the hot tube back to 37 &deg;C does not restore activity. That cooling step is the only part of the experiment that can tell slow apart from broken.</p>
+
+  <!-- ================================ -->
+  <h2 id="atp">7. ATP and physiological work</h2>
+  <div class="eq">
+    <p class="math">ATP + H<sub>2</sub>O &rarr; ADP + P<sub>i</sub> + energy released</p>
+    <dl>
+      <dt>ATP</dt><dd>the cell's spending money</dd>
+      <dt>P<sub>i</sub></dt><dd>the phosphate released, often attached straight onto a protein</dd>
+      <dt>Energy</dt><dd>roughly 7 to 14 kcal per mole under conditions inside a living cell</dd>
+    </dl>
+  </div>
+  <p>Three categories of work require it. Chemical work, building large molecules from small ones. Transport work, moving solutes against their gradient, where the sodium potassium pump alone takes a large share of a resting cell's energy. Mechanical work, movement of every kind.</p>
+  <p>The physiology question is what happens when the money runs out. Muscle with no ATP goes rigid, not limp, because relaxation also requires ATP: releasing the grip between the contractile proteins needs ATP to bind first. With none available the proteins stay locked. That is the mechanism behind rigor mortis, and it is worth remembering when we return to the runner with rigid muscles.</p>
+
+  <!-- ================================ -->
+  <h2 id="buffers">8. Buffers as a physiological response</h2>
+  <p>You already know what a buffer is chemically. Here is the physiology. Your cells produce acid every second, and blood pH still holds between 7.35 and 7.45. That is a three part defense running on different clocks.</p>
+  <div class="eq">
+    <p class="math">CO<sub>2</sub> + H<sub>2</sub>O &#8652; H<sub>2</sub>CO<sub>3</sub> &#8652; H<sup>+</sup> + HCO<sub>3</sub><sup>&minus;</sup></p>
+    <dl>
+      <dt>CO<sub>2</sub></dt><dd>carbon dioxide, made constantly by working cells</dd>
+      <dt>HCO<sub>3</sub><sup>&minus;</sup></dt><dd>bicarbonate, the base that takes up hydrogen ions</dd>
+      <dt>&#8652;</dt><dd>runs both ways, shifting toward whichever side relieves the change</dd>
+    </dl>
+  </div>
+  <ol class="chain">
+    <li><strong>Seconds.</strong> Bicarbonate binds the added hydrogen ions and the reaction shifts left, so pH barely moves. This buys time and nothing else.</li>
+    <li><strong>Minutes.</strong> The lungs change rate and depth to blow off carbon dioxide, pulling the reaction further left.</li>
+    <li><strong>Hours to days.</strong> The kidneys adjust bicarbonate retention and acid excretion, restoring the sponge itself.</li>
+  </ol>
+  <p>A buffer does not prevent a pH change, it slows one down while two organ systems do the real work. That is also why bicarbonate measures low in a person producing large amounts of acid: the sponge has been used up. Both levers get a full week later, respiratory in Week 13 and renal in Week 15.</p>
+
+  <!-- ================================ -->
+  <h2 id="misconceptions">9. Common misconceptions</h2>
+  <div class="card">
+    <h3 style="margin-top:0">"Denatured means the protein was destroyed."</h3>
+    <p>The chain and its covalent bonds are intact. What was lost is the folded shape and the binding site. The sequence can be perfectly correct and the protein still useless.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">"More ligand always means more response."</h3>
+    <p>Only while sites are free. Past saturation, extra ligand does nothing at the target but keeps binding other proteins elsewhere, which is where the extra side effects come from.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">"Affinity and specificity are the same thing."</h3>
+    <p>Specificity is which ligands are accepted. Affinity is how tightly an accepted ligand is held. A protein can be very choosy and still let go easily.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">"An allosteric inhibitor can be outcompeted with more substrate."</h3>
+    <p>It cannot, because it is not in the way. It changed the shape of the site. Being beatable by more substrate is the signature of competitive inhibition and nothing else.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">"Higher affinity is always better in a drug."</h3>
+    <p>It is a trade. High affinity means a low dose works and the effect lasts, and it also means the body's own signal is outcompeted and the effect is hard to reverse quickly.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">"A buffer stops pH from changing."</h3>
+    <p>It reduces how much pH changes, and it can be used up. The lungs and kidneys are what actually fix the problem.</p>
+  </div>
+
+  <!-- ================================ -->
+  <h2 id="checks">10. Check yourself</h2>
+  <p>Answer each one before opening it, and compare your reasoning rather than only your conclusion.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">1. A drug lowers an enzyme's activity, and far more substrate restores the rate completely. Which lever?</h3>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="c1">Show the answer</button>
+    <div class="reveal-body" id="c1" hidden>
+      <p>Competitive inhibition. Being beatable by more substrate is its signature, because only a competitive inhibitor is physically in the substrate's way. An allosteric inhibitor reshaped the site, so flooding with substrate changes nothing.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">2. Blood pressure drops on standing and is corrected within seconds. Which route, and which one is ruled out?</h3>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="c2">Show the answer</button>
+    <div class="reveal-body" id="c2" hidden>
+      <p>Route 1, changing proteins that already exist, most likely covalent modulation and allosteric effects downstream of a receptor. Up regulation is ruled out by timing alone, because building new protein takes hours and you would have fainted long before it arrived. Timing eliminates an entire category, which is a shortcut worth keeping.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">3. Why does a pH problem produce symptoms in nearly every organ system at once?</h3>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="c3">Show the answer</button>
+    <div class="reveal-body" id="c3" hidden>
+      <p>Because pH modulates every protein in the body simultaneously. Hydrogen ions change side chain charges everywhere, so enzymes, transporters and receptors in every tissue shift at once. There is no single failing organ to point at.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">4. Someone on a medication for six months needs a higher dose for the same effect. Name two possible mechanisms.</h3>
+    <button class="btn" type="button" aria-expanded="false" aria-controls="c4">Show the answer</button>
+    <div class="reveal-body" id="c4" hidden>
+      <p>Receptor down regulation, where the cell reduced the number of receptors in response to constant stimulation, so the same drug level produces a smaller response. Or up regulation of the liver enzymes that clear the drug, so more of it is destroyed before it reaches the target. Both are Route 2, and both take weeks, which fits the timeline.</p>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <h2 id="apply">11. Apply it</h2>
+  <p>These go in your note sheets and feed your patient file entry for the week.</p>
+  <ol>
+    <li>Return to the runner at 41.6 &deg;C (106.9 &deg;F). Write a claim, the evidence you are leaning on, and the single test result that would most change your mind. Name at least two mechanisms other than direct heat denaturation that could produce the same picture, and say how you would tell them apart. One of them should not be a denaturation story at all.</li>
+    <li>Draw the seven levers table from memory. Then pick any medication you or a family member takes, mark which lever it is most likely pulling, and say how fast it should act based on that lever alone.</li>
+    <li>Draw the bicarbonate buffer equation twice, once with acid being added and once with carbon dioxide being blown off. Mark the direction of the shift and what happens to pH each time, then label which organ handles each of the three time scales.</li>
+    <li>Sketch enzyme rate against substrate concentration. On the same axes, draw what a competitive inhibitor does and what an allosteric inhibitor does, and write one line explaining why only one of them can be overcome.</li>
+    <li>For your seeded patient, draw one control loop from this week and label where a protein is doing the work at each step: the sensor, the pathway and the effector. Then mark which lever would turn that loop up.</li>
+  </ol>
+
+  <div class="card">
+    <h3 style="margin-top:0">Competencies for this mission</h3>
+    <p>The six Week 2 competencies and their two prompts each are on the last slide of the deck. Each gets its own box in your handwritten lecture journal, and the lab competency gets a box in the lab journal instead.</p>
+    <p><a href="m02-slides.html" target="_top">Mission 2 slide deck</a> · <a href="m02-chem-review.html" target="_top">Optional chemistry review</a> · <a href="notesheet-directions.html" target="_top">Note sheet directions</a></p>
+  </div>
+
+</main>
+
+<footer class="sitefoot">
+  <p>
+    <a href="m02-chem-review.html" target="_top">Chemistry review</a> ·
+    <a href="m02-slides.html" target="_top">Mission 2 slides</a> ·
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a> ·
+    <a href="course-schedule.html" target="_top">Schedule</a> ·
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas home</a> ·
+    <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800" target="_blank" rel="noopener">Dr. Rennie's Virtual Office</a> ·
+    <a href="accessibility.html" target="_top">Accessibility</a>
+  </p>
+  <p style="margin-top:.5rem">Dr. Sharilyn Rennie · BIO 005 Human Physiology</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("button[aria-controls]");
+    if(!btn) return;
+    var panel = document.getElementById(btn.getAttribute("aria-controls"));
+    if(!panel) return;
+    var open = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", open ? "false" : "true");
+    panel.hidden = open;
+    btn.textContent = open ? "Show the answer" : "Hide the answer";
+    sendHeight();
+  });
+
+  function sendHeight(){
+    try{
+      var h = document.documentElement.scrollHeight;
+      if(window.parent && window.parent !== window){
+        window.parent.postMessage({ id: "m02-notes", frameHeight: h, height: h }, "*");
+      }
+    }catch(err){}
+  }
+  if(window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.documentElement); }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+})();
+</script>
+</body>
+</html>
