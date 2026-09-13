@@ -323,12 +323,13 @@
        does the same job, so the nav loads that instead. It carries its
        own __BIO005_COLLAPSE__ guard, so a page with its own script tag
        does not initialise twice. */
-    if (document.querySelector('script[src*="bio005-collapse.js"]')) return;
-    if (document.querySelector('script[src*="bio005-fold.js"]')) return;
+    /* Sep 13 2026, second correction. This injected a folder of its own,
+       which made a third one on pages that already had bio005-collapse.js
+       and the dock's bio005-reading-mode.js. The dock loads reading mode
+       on every page, so the nav does not need to load anything; it only
+       records which heading level marks a section, for whichever folder
+       runs. */
     window.BIO005_FOLD = lvl;
-    var s = document.createElement('script');
-    s.src = base() + 'bio005-collapse.js';
-    document.body.appendChild(s);
   }
 
   function inject() {

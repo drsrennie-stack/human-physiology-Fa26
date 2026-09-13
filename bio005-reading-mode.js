@@ -61,6 +61,15 @@
   'use strict';
 
   if (window.__BIO005_READING__) return;
+
+  /* Sep 13 2026. ONE FOLDER PER PAGE.
+     bio005-collapse.js folds the same headings this does. When both ran,
+     each heading ended up with a b5c-btn wrapping an rm-head button, a
+     button inside a button, and a click landed on neither reliably, so
+     sections would not open. Whichever folder gets there first owns the
+     page; this one stands down. */
+  if (document.querySelector('.b5c-btn')) return;
+
   window.__BIO005_READING__ = true;
 
   var STORE   = 'bio005-reading-format';   /* 'sections' (default) | 'everything' */
@@ -410,7 +419,9 @@
 
   function apply(mode) {
     if (mode === 'everything') { openAll(true); return; }
-    SECTIONS.forEach(function (s, i) { open(s, i === 0); });
+    var openAll = document.body.getAttribute('data-collapse') === 'open'
+               || document.documentElement.getAttribute('data-collapse') === 'open';
+    SECTIONS.forEach(function (s, i) { open(s, openAll || i === 0); });
   }
 
   /* an incoming #anchor always wins over the default */

@@ -65,6 +65,7 @@
 (function () {
   'use strict';
   if (window.__BIO005_COLLAPSE__) return;
+
   window.__BIO005_COLLAPSE__ = true;
 
   /* WHOLE PAGE, OR NONE OF IT.
@@ -184,6 +185,15 @@
 
   function build() {
     if (document.body.getAttribute('data-collapse') === 'off') return;
+
+    /* Sep 13 2026. ONE FOLDER PER PAGE. bio005-reading-mode.js, which the
+       dock loads course wide, folds the same headings and can section a
+       page whose headings are not already in sections, which this one
+       cannot. When both ran, each heading ended up with one folder's
+       button inside the other's, which is invalid markup, and a click
+       opened neither. This runs after load, so by now reading mode has
+       had its chance: if it took the page, leave it alone. */
+    if (document.querySelector('.rm-head') || window.__BIO005_READING__) return;
     if (OPT_OUT.indexOf(fileName()) > -1) return;
 
     /* FORCING IT ON.

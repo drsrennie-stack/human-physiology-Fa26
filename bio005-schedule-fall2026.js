@@ -35,8 +35,12 @@
    1. A week is a container with an open and a close, not a meeting.
       Every week opens Monday 12:00 am and closes Sunday 11:59 pm,
       except Week 1 (opens Tue Sep 8) and Week 15 (closes Wed Dec 16).
-   2. Every week has the same four beats so students never have to
-      relearn the container: Prime, Build, Practice, Prove.
+   2. Every week has the same shape so students never have to relearn
+      the container. The shape is the four stages the whole site uses,
+      1 Learn, 2 Practice, 3 Apply, 4 Check, and the six steps below sit
+      inside them. An earlier version of this comment named four beats
+      called Prime, Build, Practice and Prove, which never matched the
+      steps in the data underneath it.
    3. Nothing requires the instructor to be present at a moment.
    4. Checkpoints replace attendance. Each week has one low-stakes
       graded checkpoint that closes on time.
@@ -77,25 +81,25 @@ window.BIO005_TERM = {
    ============================================================ */
 
 window.BIO005_WEEK_SHAPE = [
-  { beat:'Step 1. Prime', when:'Opens Monday', minutes:20,
+  { beat:'Step 1. Prime', stage:'1 Learn', when:'Opens Monday', minutes:20,
     what:'Read the Start Here checklist and the competency list without looking anything up, then predict three answers in your head. Being wrong first is what makes the teaching stick.',
     graded:'ungraded, completion tracked' },
-  { beat:'Step 2. Teach', when:'Monday to Wednesday', minutes:196,
+  { beat:'Step 2. Teach', stage:'1 Learn', when:'Monday to Wednesday', minutes:196,
     what:'Concept video with the slide page open beside it, then the week page, then the red terms. Stop at every concept check and answer it before opening the answer.',
     graded:'ungraded' },
-  { beat:'Step 3. Practice', when:'Wednesday', minutes:90,
+  { beat:'Step 3. Practice', stage:'2 Practice', when:'Wednesday', minutes:90,
     what:'Knowledge check in Canvas, AI open, then the day\'s recall stack in the Mastery OS. Under 70 sends you back to Step 2, but only to the sections the missed questions came from.',
     graded:'10 points across the term, two lowest dropped' },
-  { beat:'Step 4. Lab', when:'Wednesday to Friday', minutes:216,
+  { beat:'Step 4. Lab', stage:'3 Apply', when:'Wednesday to Friday', minutes:216,
     what:'Run the week\'s lab exercise and record your data. This is where your patient\'s numbers come from, so it happens before the chart entry, not after.',
     graded:'20 points' },
-  { beat:'Step 5. Chart entry', when:'Saturday', minutes:90,
+  { beat:'Step 5. Chart entry', stage:'3 Apply', when:'Saturday', minutes:90,
     what:'Your patient\'s week. Draw the loop by hand on paper, answer the written questions, log your AI use. AI closed.',
     graded:'20 points' },
-  { beat:'Step 6. Close', when:'Sunday', minutes:20,
+  { beat:'Step 6. Close', stage:'4 Check', when:'Sunday', minutes:20,
     what:'Tick what you can now do on the Start Here checklist. Anything still untickable goes on your miss list.',
     graded:'ungraded' },
-  { beat:'Independent study', when:'Across the week', minutes:232,
+  { beat:'Independent study', stage:'2 Practice', when:'Across the week', minutes:232,
     what:'Re-reading, redrawing from memory, working problems, the choice branch, and the textbook. Not assigned and not submitted, and it is the largest single block of the week.',
     graded:'not submitted' }
 ];
