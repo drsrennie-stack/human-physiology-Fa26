@@ -16,6 +16,10 @@
    renaming ids is what would have forced a re-tag of all 4,980 cards,
    and avoiding that was the point of this decision.
 
+   Sep 13 2026: Weeks 3 to 8 resequenced (cell and signaling in 3,
+   transport and membrane potential in 4, neuron, reflex and autonomic
+   blocks each one week later). Only week and module fields changed.
+
    Read the `week` field. Never parse the prefix.
 
    est is minutes of study per competency, weighted by DOK: Recall 15,
@@ -164,8 +168,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w1-compartment-shifts",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Foundations of Physiology",
     "general": "Foundations of Physiology",
     "name": "Compartment separation and clinical volume shifts",
@@ -348,8 +352,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-permeability",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Determinants of permeability",
@@ -363,8 +367,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-fick-diffusion",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Simple diffusion and Fick's law",
@@ -379,8 +383,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-osmolarity-tonicity",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Osmolarity and tonicity",
@@ -395,8 +399,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-osmosis-cell-volume",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Osmosis and cell volume",
@@ -411,8 +415,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-lab-diffusion-osmosis",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Diffusion and osmosis experiment",
@@ -426,8 +430,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-lab-rbc-tonicity",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Tonicity and red blood cells",
@@ -441,8 +445,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-facilitated-diffusion",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Facilitated diffusion",
@@ -456,8 +460,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-primary-active-transport",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Primary active transport",
@@ -472,8 +476,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-secondary-active-transport",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Secondary active transport",
@@ -487,8 +491,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-transport-maximum",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Transport maximum and saturation",
@@ -503,8 +507,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-vesicular-transport",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Vesicular transport",
@@ -518,8 +522,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-transepithelial-transport",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Transepithelial transport",
@@ -533,8 +537,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-lab-transport-sim",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 4,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Transport simulation",
@@ -640,8 +644,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-signal-types",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Signal types and range",
@@ -655,8 +659,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-receptor-location",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Receptor location and ligand solubility",
@@ -670,8 +674,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-gpcr-pathway",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "G protein coupled receptors",
@@ -685,8 +689,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-second-messengers",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Second messengers",
@@ -700,8 +704,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-catalytic-intracellular-receptors",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Catalytic receptors and intracellular receptors",
@@ -715,8 +719,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-signal-amplification",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Signal amplification",
@@ -730,8 +734,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-receptor-modulation",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Receptor modulation",
@@ -745,8 +749,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-signal-termination",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Signal termination",
@@ -760,8 +764,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-lab-dose-response",
-    "module": 2,
-    "week": 8,
+    "module": 1,
+    "week": 3,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Dose response relationships",
@@ -776,7 +780,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-neuron-classes",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Neuron structural and functional classes",
@@ -792,7 +796,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-neuron-regions",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Functional regions of a neuron",
@@ -808,7 +812,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-glia-functions",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Glial cell functions",
@@ -824,7 +828,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-myelin",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Myelin and its loss",
@@ -839,7 +843,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-axonal-transport",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Axonal transport",
@@ -854,7 +858,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-graded-potentials",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Graded potentials",
@@ -869,7 +873,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-action-potential",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Action potential phases",
@@ -885,7 +889,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-threshold",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Threshold and all or none",
@@ -900,7 +904,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-intensity-coding",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Coding of stimulus intensity",
@@ -915,7 +919,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-refractory",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Refractory periods",
@@ -930,7 +934,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-conduction-velocity",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Conduction velocity",
@@ -946,7 +950,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-ion-disturbance",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Effects of altered extracellular ions",
@@ -961,7 +965,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-lab-ap-simulation",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Action potential simulation",
@@ -976,7 +980,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-lab-nerve-conduction",
     "module": 2,
-    "week": 4,
+    "week": 5,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Nerve conduction measurement",
@@ -1129,7 +1133,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-reflex-arc",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Reflex arc components",
@@ -1145,7 +1149,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-stretch-reflex",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Muscle spindle and stretch reflex",
@@ -1161,7 +1165,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-golgi-tendon",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Golgi tendon organ",
@@ -1176,7 +1180,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-withdrawal-reflex",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Withdrawal and crossed extensor reflexes",
@@ -1192,7 +1196,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-spinal-pathways",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Ascending and descending pathways",
@@ -1207,7 +1211,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-csf-bbb",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Cerebrospinal fluid and the blood brain barrier",
@@ -1222,7 +1226,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-lab-reflex-testing",
     "module": 2,
-    "week": 5,
+    "week": 6,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Reflex testing and reaction time",
@@ -1887,7 +1891,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-organization",
     "module": 2,
-    "week": 6,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic and somatic organization",
@@ -1902,7 +1906,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-divisions",
     "module": 2,
-    "week": 6,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Sympathetic and parasympathetic divisions",
@@ -1918,7 +1922,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-receptors",
     "module": 2,
-    "week": 6,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic neurotransmitters and receptors",
@@ -1933,7 +1937,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-tone",
     "module": 2,
-    "week": 6,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Dual innervation and tonic control",
@@ -1963,7 +1967,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-pharmacology",
     "module": 2,
-    "week": 6,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic pharmacology",
@@ -1978,7 +1982,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-lab-autonomic-testing",
     "module": 2,
-    "week": 6,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic function testing",
