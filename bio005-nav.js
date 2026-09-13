@@ -554,14 +554,8 @@
   + '.b5panel a .b5-np{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8A6D33}'
   + '.b5panel .b5-soon{display:flex;flex-direction:column;gap:1px;min-height:44px;padding:6px 8px;border-left:3px solid transparent;font-size:14.5px;line-height:1.3}'
   + '.b5panel .b5-soon .b5-t{font-weight:800;color:#5A6675}.b5panel .b5-soon .b5-d{font-size:13px;font-weight:600;color:#5A6675}'
-  + '.b5site .b5-tools{display:none}'
-  + '@media (max-width:760px){.b5site li.b5-stage{display:none}'
-  + '.b5site .b5-tools{display:inline-flex;align-items:center;gap:8px;position:fixed;right:14px;bottom:76px;z-index:75;min-height:48px;padding:10px 16px;border-radius:999px;'
-  + 'background:#0B1530;color:#fff;font:inherit;font-size:14px;font-weight:800;border:0;box-shadow:0 8px 18px rgba(11,21,48,.25);cursor:pointer}'
-  + '.b5site .b5-tools:focus-visible{outline:3px solid #8B3A2E;outline-offset:3px}'
-  + '#b5-all-panel h2{margin-top:14px}#b5-all-panel h2:first-child{margin-top:0}}'
-  + '@media (min-width:761px){#b5-all-panel{display:none!important}}'
-  + '@media print{.b5site,.b5-tools{display:none!important}}';
+  + '@media (max-width:760px){.b5site li.b5-stage{display:none}}'
+  + '@media print{.b5site{display:none!important}}';
 
   /* Exposed at load time, before any DOMContentLoaded work, so a page's own
      inline script can read it straight after this file is included. */
@@ -728,18 +722,19 @@
     };
     var STAGE_OF = { lecture: 'learn', study: 'practice', lab: 'apply', assign: 'apply', check: 'check' };
     var stageOn = STAGE_OF[sec] || null;
+    /* Sep 13 2026, second pass: the stage buttons open the Course tools
+       dock (bio005-dock.js) straight to that stage's group, rather than a
+       dropdown of their own. One catalog, in the dock, and the bar is a
+       row of doors into it. The dropdown markup stays as the fallback for
+       a page where the dock failed to load. */
     function stageItem(key) {
       var S = STAGES[key];
-      return '<li class="b5-stage' + (stageOn === key ? ' b5-on' : '') + '"><button type="button" id="b5-' + key + '-btn" aria-expanded="false" aria-controls="b5-' + key + '-panel">'
-        + '<span class="b5-n" aria-hidden="true">' + S.n + '</span>' + S.name + CARET
+      return '<li class="b5-stage' + (stageOn === key ? ' b5-on' : '') + '"><button type="button" id="b5-' + key + '-btn" data-stage="' + S.n + ' ' + S.name + '" aria-haspopup="dialog" aria-expanded="false" aria-controls="b5-' + key + '-panel">'
+        + '<span class="b5-n" aria-hidden="true">' + S.n + '</span>' + S.name
         + (stageOn === key ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
         + '<div class="b5panel" id="b5-' + key + '-panel" hidden>'
         + '<h2>Stage ' + S.n + ' of 4, Week ' + wn + ' &middot; ' + S.tag + '</h2><p class="b5-lead">' + S.lead + '</p>' + S.html + '</div></li>';
     }
-    var allHtml = ['learn', 'practice', 'apply', 'check'].map(function (k) {
-      var S = STAGES[k];
-      return '<h2>' + S.n + ' ' + S.name + ' &middot; ' + S.tag + '</h2>' + S.html;
-    }).join('');
 
     var nav = document.createElement('nav');
     nav.className = 'b5site';
@@ -753,9 +748,15 @@
       + '<li class="b5-grow b5-canvas"><a href="' + CANVAS_HOME + '" target="_top">Canvas<span class="b5vh">, back to the Canvas course</span></a></li>'
       + '<li class="' + (sec === 'help' ? 'b5-on' : '') + '"><button type="button" id="b5-help-btn" aria-expanded="false" aria-controls="b5-help-panel">Help' + CARET + (sec === 'help' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-help-panel" hidden>' + helpHtml + '</div></li>'
-      + '<li><button type="button" class="b5-tools" id="b5-all-btn" aria-expanded="false" aria-controls="b5-all-panel">Week ' + wn + ' tools' + CARET + '</button>'
-      + '<div class="b5panel" id="b5-all-panel" hidden><h2>This week\'s four stages</h2><p class="b5-lead">Everything for Week ' + wn + ', in the order you do it.</p>' + allHtml + '</div></li>'
       + '</ul></div>';
+
+    /* The Course tools dock rides on the nav, so every page that has the
+       bar has the dock, and the stage buttons above have something to
+       open. Skipped when the page already loads it. */
+    if (!document.querySelector('script[src*="bio005-dock.js"]') && !/[?&]embed=/.test(location.search)) {
+      var dk = document.createElement('script'); dk.src = B + 'bio005-dock.js'; dk.async = false;
+      document.head.appendChild(dk);
+    }
 
     /* This week is its own section only when the page IS the current week. */
     if (file === cur.file) {
@@ -784,6 +785,11 @@
     [].forEach.call(btns, function (b) {
       var p = document.getElementById(b.getAttribute('aria-controls'));
       b.addEventListener('click', function () {
+        if (b.getAttribute('data-stage') && window.BIO005_DOCK && window.BIO005_DOCK.open) {
+          closeAll();
+          window.BIO005_DOCK.open(b.getAttribute('data-stage'));
+          return;
+        }
         var open = b.getAttribute('aria-expanded') === 'true';
         closeAll(b);
         b.setAttribute('aria-expanded', open ? 'false' : 'true');

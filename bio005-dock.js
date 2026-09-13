@@ -328,155 +328,163 @@
   }
 
   /* One definition per tool. tone drives the icon gradient. */
+  /* The week that is open now. bio005-nav.js publishes it as
+     window.BIO005_SITE; when the dock runs on a page without the nav the
+     dates are worked out here from the same calendar. */
+  function currentWeekN() {
+    if (window.BIO005_SITE && window.BIO005_SITE.current) return window.BIO005_SITE.current.n;
+    var start = new Date(2026, 8, 7).getTime(), now = Date.now();
+    return Math.max(1, Math.min(15, Math.floor((now - start) / (7 * 86400000)) + 1));
+  }
+  function currentWeekTitle(n) {
+    if (window.BIO005_SITE && window.BIO005_SITE.weeks && window.BIO005_SITE.weeks[n]) return window.BIO005_SITE.weeks[n].title || '';
+    return '';
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  /* One definition per tool. tone drives the icon gradient. */
   function tools() {
-    var sec = section(), S = sec ? SECTIONS[sec] : null;
-    var q = sec ? ('?sec=' + sec) : '';
     var t = [];
+    var wn = currentWeekN(), nn = pad2(wn), wt = currentWeekTitle(wn);
 
     /* ============================================================
-       CATALOG, REORGANIZED Aug 2026 ON SCRUBS' INSTRUCTION
+       CATALOG, REORGANIZED Sep 13 2026 ON SCRUBS' INSTRUCTION
 
-       The groups now mirror the way the main page sorts things, so a
-       student learns one vocabulary and it holds everywhere:
+       The groups are the four stages every week page uses, in the
+       order a student works them, with This week pinned open on top
+       and About the course at the bottom. Every week-specific tile
+       points at the week that is open now, so the dock changes by
+       itself every Monday.
 
-         This week   what is live today, pinned open
-         Lecture     the material you read and watch
-         Lab         the clinical physiology lab
-         Study       everything you do to make it stick
-         Admin       schedule, syllabus, how the course runs
-
-       WHAT CAME OUT, AND WHY
-       Digital Atlas, Loops and Muscle charts are anatomy tools that
-       rode over from the BIO 004 template. Structures on a model are
-       not what this lab trains. Repair Round came out too: it is an
-       in-class activity and this section never meets.
-
-       Exam modules pointed at competency-map.html, which is the
-       instructor tool. It carries open decisions and editing notes
-       and students should not be reading it. Competency study guide
-       is the student-facing page with the same content, written as
-       tasks, and that is what the tile points at now.
-
-       NOTES AND VIDEOS ARE SEPARATE TILES AGAIN
-       An earlier pass collapsed them into one Course materials tile,
-       on the reasoning that the materials page shows its own tabs.
-       Scrubs asked for the two buttons back. Both tiles deep-link to
-       the right tab, so the page still does the sorting, and the
-       student gets the shortcut without having to know the page has
-       tabs before they open it.
+         This week     the page you are on this week, and what is live
+         1 Learn       what I teach, and the reviews if you need them
+         2 Practice    getting it back: cards, dumps, drawing, problems
+         3 Apply       the graded work, and the patient file
+         4 Check       the Mastery Check and the report
+         About         syllabus, schedule, help
        ============================================================ */
 
-    /* ---------- THIS WEEK. Open by default, on purpose. It is the
-       only group that answers "what do I do right now" without the
-       student choosing anything. ---------- */
-    t.push({ g: 'This week', name: 'Today', sub: 'What is due, what is open, and what to work on next',
-             url: BASE + 'index.html', icon: 'target', tone: 'gold', qr: 'today',
-             kw: 'today now due next dashboard week current' });
+    /* ---------- THIS WEEK. Open by default, on purpose. ---------- */
+    t.push({ g: 'This week', name: 'Week ' + wn, sub: wt || 'This week\'s page: all four stages, in order',
+             url: BASE + 'week-' + nn + '.html', icon: 'target', tone: 'gold', qr: 'today',
+             kw: 'this week today now week page current stages' });
     t.push({ g: 'This week', name: 'Course calendar', sub: 'Every week, every due date, every exam window',
-             url: BASE + 'course-schedule.html' + q, icon: 'cal', tone: 'navy', qr: 'calendar',
+             url: BASE + 'course-schedule.html', icon: 'cal', tone: 'navy', qr: 'calendar',
              kw: 'calendar schedule dates due deadlines weeks exam window when' });
-    t.push({ g: 'This week', name: 'Study With Me', sub: 'Join a session this week or start one yourself',
-             url: BASE + 'study-session-signup.html' + q, icon: 'people', tone: 'terra', qr: 'study', soon: true,
-             kw: 'study with me session group together live signup partner' });
+    t.push({ g: 'This week', name: 'Study With Me', sub: 'Practice with other people. Optional, and it earns Scholar Points',
+             url: BASE + 'study-with-me.html', icon: 'people', tone: 'terra', qr: 'study',
+             kw: 'study with me session group together live partner scholar points kahoot' });
 
-    /* ---------- LECTURE ---------- */
-    t.push({ g: 'Lecture', name: 'Notes', sub: 'The written version of every topic, by module',
-             url: BASE + 'course-materials.html#notes', icon: 'doc', tone: 'navy', qr: 'materials',
-             kw: 'notes reading written text module chapter topic' });
-    t.push({ g: 'Lecture', name: 'Concept videos', sub: 'Watch the mechanism explained, then read the page',
-             url: BASE + 'course-materials.html#videos', icon: 'play', tone: 'terra', qr: 'materials',
-             kw: 'video videos concept watch lecture recording loom walkthrough captions' });
-    t.push({ g: 'Lecture', name: 'Slide decks', sub: 'Step through a lecture one slide at a time, or print the set',
-             url: BASE + 'course-materials.html#slides', icon: 'doc', tone: 'navy', qr: 'materials',
-             kw: 'slides deck powerpoint print packet lecture step' });
-    t.push({ g: 'Lecture', name: 'Pre-work', sub: 'What to do before the week opens',
-             url: BASE + 'course-materials.html#prework', icon: 'pencil', tone: 'gold', qr: 'materials',
-             kw: 'prework pre-work before homework guided sheet night before' });
-    t.push({ g: 'Lecture', name: 'All course materials', sub: 'Everything above in one place, sorted by module',
-             url: BASE + 'course-materials.html', icon: 'doc', tone: 'navy', qr: 'materials',
-             kw: 'materials everything all index module' });
-    t.push({ g: 'Lecture', name: 'OpenStax reference', sub: 'Free online text. Nothing to buy for this course',
-             url: 'https://openstax.org/details/books/anatomy-and-physiology-2e', icon: 'globe', tone: 'gold',
-             ext: true, qr: 'materials', kw: 'openstax book text textbook free reference chapter reading' });
-
-    /* ---------- LAB. Clinical Physiology Lab, not a structures lab.
-       The four skills underneath every exercise are measuring,
-       calculating, collecting data and interpreting data. ---------- */
-    t.push({ g: 'Lab', name: 'Lab manual', sub: 'Every exercise for the term, in one place',
-             url: BASE + 'clinical-physiology-lab-manual.html', icon: 'flask', tone: 'terra', qr: 'labs',
-             kw: 'lab manual exercises bench protocol procedure book' });
-    t.push({ g: 'Lab', name: 'Lab sprints', sub: 'What you have to be able to do in lab, week by week',
-             url: BASE + 'lab-sprints.html', icon: 'flask', tone: 'navy', qr: 'labs', soon: true,
-             kw: 'lab sprints week skills able measure calculate interpret checklist' });
-    t.push({ g: 'Lab', name: 'Lab skills checklist', sub: 'Tick off what you can do, how it is measured, and what you turn in',
-             url: BASE + 'lab-competencies.html', icon: 'target', tone: 'gold', qr: 'labs', soon: true,
-             kw: 'checklist competency competencies skills can i do measured submit rubric evidence' });
-    t.push({ g: 'Lab', name: 'Clinical test bank', sub: 'What each lab test measures, and what high and low mean',
-             url: BASE + 'clinical-tests.html', icon: 'flask', tone: 'navy', qr: 'labs', soon: true,
-             kw: 'clinical tests labs cbc abg urinalysis blood typing panel reference range values' });
-    t.push({ g: 'Lab', name: 'Reading charts and data', sub: 'Curves, tracings, threshold plots, panels and trends',
-             url: BASE + 'reading-data.html', icon: 'brain', tone: 'terra', qr: 'labs', soon: true,
-             kw: 'graph chart data curve tracing waveform plot interpret read trend ecg spirometry' });
-
-    /* ---------- STUDY ---------- */
-    t.push({ g: 'Study', name: 'Practice Exam and Gap Finder', sub: 'Thirty questions on a week, and the competencies to go back to',
-             url: BASE + 'practice-exam.html', icon: 'brain', tone: 'gold', qr: 'mastery',
-             kw: 'mastery os dashboard gaps weakness progress track' });
-    t.push({ g: 'Study', name: 'Rx Cards', sub: 'Spaced recall that gets harder as you prove it',
-             url: BASE + 'rx-cards.html', icon: 'cards', tone: 'navy', qr: 'recall',
-             kw: 'cards recall flashcards spaced repetition quiz retrieval practice' });
-    t.push({ g: 'Study', name: 'Draw it from memory', sub: 'Draw the mechanism first, then check it',
-             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra', qr: 'canvas',
-             kw: 'draw drawing canvas memory loop mechanism sketch diagram' });
-    t.push({ g: 'Study', name: 'Competency study guide', sub: 'Everything you are expected to be able to do, written as tasks',
-             url: BASE + 'competency-study-guide.html' + q, icon: 'doc', tone: 'navy', qr: 'exams',
-             kw: 'competency competencies study guide exam covers scope objectives able to' });
-    t.push({ g: 'Study', name: 'Practice exam', sub: 'A fresh paper in the real format, scored, with the reasoning',
-             url: BASE + 'practice-lecture-exam.html', icon: 'doc', tone: 'navy', qr: 'pexam', soon: true,
-             kw: 'practice exam test mock paper score questions' });
-    t.push({ g: 'Study', name: 'Brain dump practice', sub: 'Spin a prompt, set your clock, write it on paper, then check yourself',
-             url: BASE + 'braindump-week01.html', icon: 'pencil', tone: 'terra', qr: 'braindump',
-             kw: 'brain dump blurt write timer prompt blank paper' });
-    t.push({ g: 'Study', name: 'What I got done today', sub: 'And what you meant to do and did not',
-             url: BASE + 'bio005-day-review.html', icon: 'target', tone: 'navy', soon: true,
-             kw: 'day review done today log reflect plan' });
-
-    /* ---------- STUDY, the review pages. Physiology assumes chemistry,
-       math and anatomy it does not teach. before-you-start.html tells a
-       student whether they have a gap; these three are where they go to
-       close one. ---------- */
-    t.push({ g: 'Study', name: 'Before you start', sub: 'Three short checks that tell you whether you need to review',
-             url: BASE + 'before-you-start.html', icon: 'target', tone: 'gold',
-             kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
-    t.push({ g: 'Study', name: 'Chemistry review', sub: 'The chemistry physiology runs on, and nothing more',
-             url: BASE + 'review-chemistry.html', icon: 'flask', tone: 'terra', soon: true,
-             kw: 'chemistry review ions gradient ph buffer protein atp bonds concentration' });
-    t.push({ g: 'Study', name: 'Math review', sub: 'The calculations this course actually asks for',
-             url: BASE + 'review-math.html', icon: 'brain', tone: 'navy', soon: true,
-             kw: 'math review calculation units conversion ratio percent log formula' });
-    t.push({ g: 'Study', name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense',
+    /* ---------- 1 LEARN ---------- */
+    t.push({ g: '1 Learn', name: 'Learn It With Dr. Rennie', sub: 'This week\'s lectures, short and in order',
+             url: BASE + 'lecture-week.html?week=' + wn, icon: 'play', tone: 'terra',
+             kw: 'lecture lectures video watch slides teach week' });
+    t.push({ g: '1 Learn', name: 'Notes', sub: 'The written version of what I teach, for reading and rereading',
+             url: BASE + 'week-' + nn + '-notes.html', icon: 'doc', tone: 'navy',
+             kw: 'notes reading written text week' });
+    t.push({ g: '1 Learn', name: 'Note sheet', sub: 'One box per competency. Print it before you start',
+             url: BASE + 'note-sheet.html?week=' + wn, icon: 'pencil', tone: 'gold',
+             kw: 'note sheet notesheet boxes competency print handwritten journal' });
+    t.push({ g: '1 Learn', name: 'Competencies', sub: 'What you have to be able to do this week',
+             url: BASE + 'week-' + nn + '-competencies.html', icon: 'target', tone: 'navy',
+             kw: 'competencies competency list objectives what to know checklist' });
+    t.push({ g: '1 Learn', name: 'Every week\'s lectures', sub: 'All fifteen weeks, by week',
+             url: BASE + 'door-lecture.html', icon: 'play', tone: 'navy',
+             kw: 'lectures all weeks library videos' });
+    t.push({ g: '1 Learn', name: 'Chemistry review', sub: 'Optional. The chemistry this course assumes, with videos to fill a gap',
+             url: BASE + 'm02-chem-review.html', icon: 'flask', tone: 'terra',
+             kw: 'chemistry review prerequisite khan academy bonds ph atoms molecules' });
+    t.push({ g: '1 Learn', name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense',
              url: BASE + 'anatomy-review.html', icon: 'globe', tone: 'gold',
              kw: 'anatomy review structure nephron heart lung neuron muscle location' });
+    t.push({ g: '1 Learn', name: 'Before you start', sub: 'Three short checks that tell you whether you need to review',
+             url: BASE + 'before-you-start.html', icon: 'target', tone: 'gold',
+             kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
 
-    /* ---------- ADMIN ---------- */
-    t.push({ g: 'Admin', name: 'Syllabus', sub: 'How the course runs, in full',
-             url: BASE + (S ? S.syllabus : 'syllabus-fall2026.html'), icon: 'doc', tone: 'navy',
-             kw: 'syllabus policy rules grading late work ai policy contact' });
-    t.push({ g: 'Admin', name: 'What you do and what it is worth', sub: 'Every graded thing, the points, and the AI policy',
-             url: BASE + 'what-you-do.html' + q, icon: 'target', tone: 'gold',
-             kw: 'grading points worth graded assignments weight ai policy scholar' });
-    t.push({ g: 'Admin', name: 'How to videos', sub: 'Short tours of the course. Scan a code, watch on your phone',
-             url: BASE + 'bio005-tour-poster.html', icon: 'play', tone: 'terra', qr: 'howto', soon: true,
-             kw: 'how to tour help video walkthrough getting started orientation' });
-    t.push({ g: 'Admin', name: 'Accessibility', sub: 'How this was built, what was checked, what is still open',
-             url: BASE + 'accessibility.html' + q, icon: 'target', tone: 'terra',
-             kw: 'accessibility access screen reader contrast keyboard captions dsps accommodation wcag' });
-    t.push({ g: 'Admin', name: 'Course home', sub: 'Back to the front of the course',
-             url: BASE + 'course-start.html' + q, icon: 'home', tone: 'navy', qr: 'home',
+    /* ---------- 2 PRACTICE ---------- */
+    t.push({ g: '2 Practice', name: 'Try It From Memory', sub: 'A brain dump, then the self check',
+             url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
+             kw: 'brain dump braindump memory blank page retrieve recall write' });
+    t.push({ g: '2 Practice', name: 'Draw it, then teach it', sub: 'Draw the mechanism from nothing, then explain it out loud with no notes',
+             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra',
+             kw: 'draw drawing canvas memory loop mechanism sketch diagram teach out loud' });
+    t.push({ g: '2 Practice', name: 'Rx Cards', sub: 'Spaced recall that gets harder as you prove it',
+             url: BASE + 'rx-cards.html?week=' + wn, icon: 'cards', tone: 'gold', qr: 'recall',
+             kw: 'cards recall rx flashcards spaced repetition quiz retrieval practice anki' });
+    t.push({ g: '2 Practice', name: 'Book problems', sub: 'Problems you have not seen. Predict, commit, then check',
+             url: BASE + 'assignment-bookproblems.html?week=' + wn, icon: 'doc', tone: 'navy',
+             kw: 'book problems textbook silverthorn questions chapter' });
+    t.push({ g: '2 Practice', name: 'Kahoot library', sub: 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term',
+             url: 'https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', icon: 'play', tone: 'gold', ext: true,
+             kw: 'kahoot kahoots quiz game review play' });
+    t.push({ g: '2 Practice', name: 'All of it on one sheet', sub: 'Every practice item for the week, printable',
+             url: BASE + 'ungraded-sheet.html?week=' + wn, icon: 'doc', tone: 'terra',
+             kw: 'one sheet ungraded printable practice items all' });
+    t.push({ g: '2 Practice', name: 'Physiology games', sub: 'Games you play out loud with other people',
+             url: BASE + 'physiology-games.html', icon: 'people', tone: 'navy', soon: true,
+             kw: 'games game play taboo memory match team' });
+
+    /* ---------- 3 APPLY ---------- */
+    t.push({ g: '3 Apply', name: 'This week\'s lab', sub: 'What to run, what to record, and how to turn it in. Investigate It, 25%',
+             url: BASE + 'week-' + nn + '.html#apply', icon: 'flask', tone: 'gold',
+             kw: 'lab physioex worksheet investigate data record turn in' });
+    t.push({ g: '3 Apply', name: 'Use It case', sub: 'This week\'s case on your patient, five questions. Use It, 20%',
+             url: BASE + 'assignment-apply.html?week=' + wn, icon: 'target', tone: 'terra',
+             kw: 'use it case apply patient questions entry point weekly' });
+    t.push({ g: '3 Apply', name: 'Discussion', sub: 'Post by Friday, two replies by Sunday. Think About It, 15%',
+             url: BASE + (wn === 1 ? 'assignment-discussion-01-metacognition.html' : 'assignment-discussion.html?week=' + wn), icon: 'people', tone: 'navy',
+             kw: 'discussion post reply metacognition think about it' });
+    t.push({ g: '3 Apply', name: 'Every lab', sub: 'All fifteen weeks of labs, and the lab manual',
+             url: BASE + 'door-lab.html', icon: 'flask', tone: 'navy',
+             kw: 'labs all lab manual clinical physiology' });
+    t.push({ g: '3 Apply', name: 'Every assignment', sub: 'Everything graded, in one place',
+             url: BASE + 'door-assignments.html', icon: 'doc', tone: 'gold',
+             kw: 'assignments graded all due list' });
+    t.push({ g: '3 Apply', name: 'How grading works', sub: 'What counts, what it is worth, what carries no points',
+             url: BASE + 'how-grading-works.html', icon: 'target', tone: 'navy',
+             kw: 'grading grades points worth weight categories' });
+
+    /* ---------- PATIENT FILE ---------- */
+    t.push({ g: 'Patient file, the capstone', name: 'Your patient chart', sub: 'One patient you keep track of all semester, by hand. Nothing turned in weekly. Use It, 5%',
+             url: BASE + 'patient-chart-book.html', icon: 'doc', tone: 'terra',
+             kw: 'patient chart file capstone camila flowsheet problem list all term' });
+    t.push({ g: 'Patient file, the capstone', name: 'What you turn in on Dec 16', sub: 'Exactly what the PDF must contain, in order',
+             url: BASE + 'assignment-patient-chart.html', icon: 'target', tone: 'gold',
+             kw: 'patient chart upload december capstone pdf turn in instructions' });
+
+    /* ---------- 4 CHECK ---------- */
+    t.push({ g: '4 Check', name: 'Mastery Check', sub: 'Thirty questions, nothing open, and a report you can upload',
+             url: BASE + 'practice-exam.html?week=' + wn, icon: 'target', tone: 'gold', qr: 'mastery',
+             kw: 'mastery check practice exam gap finder test questions score report' });
+    t.push({ g: '4 Check', name: 'Competency checklist', sub: 'Tick what you can do from memory',
+             url: BASE + 'week-' + nn + '-competencies.html', icon: 'doc', tone: 'navy',
+             kw: 'checklist competencies tick ready' });
+    t.push({ g: '4 Check', name: 'Upload your report', sub: 'No points, and I read every one',
+             url: BASE + 'assignment-practice-log.html', icon: 'doc', tone: 'terra',
+             kw: 'upload report practice log canvas trend' });
+
+    /* ---------- ABOUT THE COURSE ---------- */
+    t.push({ g: 'About the course', name: 'Course home', sub: 'The front of the course',
+             url: BASE + 'index.html', icon: 'home', tone: 'navy', qr: 'home',
              kw: 'home hub front start main course' });
-    t.push({ g: 'Admin', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
-             url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra',
+    t.push({ g: 'About the course', name: 'How this course works', sub: 'The four stages, and what mastery means here',
+             url: BASE + 'how-this-course-works.html', icon: 'target', tone: 'gold',
+             kw: 'how course works stages learn practice apply check intro' });
+    t.push({ g: 'About the course', name: 'Syllabus', sub: 'Policies, dates, exam windows',
+             url: BASE + 'syllabus-fall2026.html', icon: 'doc', tone: 'navy',
+             kw: 'syllabus policy rules grading late work ai policy contact' });
+    t.push({ g: 'About the course', name: 'Questions and answers', sub: 'The questions students ask most',
+             url: BASE + 'course-questions.html', icon: 'doc', tone: 'terra',
+             kw: 'questions answers faq help how do i' });
+    t.push({ g: 'About the course', name: 'Accessibility', sub: 'How this was built, what was checked, what is still open',
+             url: BASE + 'accessibility.html', icon: 'target', tone: 'terra',
+             kw: 'accessibility access screen reader contrast keyboard captions dsps accommodation wcag' });
+    t.push({ g: 'About the course', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
+             url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra', ext: true,
              kw: 'office hours ask question help contact instructor forum' });
+    t.push({ g: 'About the course', name: 'Canvas', sub: 'Turn work in, see grades',
+             url: 'https://yccd.instructure.com/courses/42616', icon: 'globe', tone: 'navy', qr: 'canvas', ext: true,
+             kw: 'canvas grades submit turn in lms' });
 
     return t;
   }
@@ -499,6 +507,8 @@
 '  font:800 14px/1 "Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:-.01em;',
 '  box-shadow:0 14px 34px -12px rgba(11,21,48,.62),0 3px 10px -4px rgba(11,21,48,.4);',
 '  transition:transform .18s ease,box-shadow .18s ease}',
+'html.bd-has-dock .b5-back{bottom:76px !important}',
+'@media(max-width:520px){html.bd-has-dock .b5-back{bottom:78px !important}}',
 '.bd-launch:hover{transform:translateY(-2px);box-shadow:0 20px 44px -14px rgba(11,21,48,.7)}',
 '.bd-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}',
 '.bd-launch svg{width:19px;height:19px;color:#C9A14A}',
@@ -629,7 +639,7 @@
      calls them. Removing the script tag would take those with it.
 
      Set this back to true to bring the pill back on all pages at once. */
-  var SHOW_DOCK = false;
+  var SHOW_DOCK = true;   /* back on, Sep 13 2026, regrouped by the four stages */
 
   function build() {
     if (!SHOW_DOCK) return;
@@ -646,6 +656,11 @@
     launcher.innerHTML = GRID_IC + '<span class="bd-lt">Course tools</span>';
     launcher.setAttribute('aria-label', 'Course tools. Opens every study tool for this course.');
     document.body.appendChild(launcher);
+
+    /* The Back pill (bio005-back.js) shares this corner and usually loads
+       first, so it cannot see the launcher when it measures. Lift it above
+       the launcher here, the same 12px gap it uses itself. */
+    document.documentElement.classList.add('bd-has-dock');
 
     scrim = document.createElement('div');
     scrim.className = 'bd-scrim';
@@ -855,6 +870,22 @@
   }
 
   function toggle() { open ? close() : show(); }
+
+  /* Open straight to one group: the top bar's stage buttons call this.
+     Only that group is expanded, it is scrolled into view, and focus
+     lands on its heading so a keyboard user hears where they are. */
+  function openTo(group) {
+    if (!panel) return;
+    var all = [];
+    tools().forEach(function (t) { if (all.indexOf(t.g) < 0) all.push(t.g); });
+    all.forEach(function (g) { setGroupOpen(g, g === group); });
+    show();
+    window.setTimeout(function () {
+      var h = body.querySelector('.bd-gh[data-grp="' + group.replace(/"/g, '\\"') + '"]');
+      if (h) { h.scrollIntoView({ block: 'start' }); h.focus(); }
+    }, 90);
+  }
+  window.BIO005_DOCK = { open: openTo, show: function () { show(); }, close: close };
 
   function show() {
     lastFocus = document.activeElement;
