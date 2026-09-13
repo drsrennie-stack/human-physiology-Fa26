@@ -2,84 +2,62 @@
 
 ## 1. Project
 
-BIO 005 Human Physiology, Week 2 lecture: The chemistry that does work in the body (Silverthorn chapters 2 and 4).
+BIO 005 Human Physiology, Week 2 lecture: The chemistry that does work in the body (Silverthorn chapter 2).
 
 Files covered:
 
-- `biol005-w02-chemistry-slides.html` (37 slides, 5 problems, 10 drawn figures, dark on screen and white in print)
-- `biol005-w02-chemistry-notes.html` (student notes)
-- `biol005-w02-chemistry-transcript.html` (instructor recording script, not student facing)
-- `chemistry-review.html` (optional Khan Academy review page)
+- `biol005-w02-chemistry-slides.html` (38 slides, 6 solved problems)
+- `biol005-w02-chemistry-notes.html` (notes and transcript sheet)
+- `assets/silverthorn-ch02/` (42 figure images)
 
-Date: September 13, 2026. Supersedes the September 12 notes for this week.
+Date: September 12, 2026. Updated September 13, 2026: chemical formulas now use true subscripts and superscripts, and both files carry a periodic table pop-up with a molecular mass calculator.
 
 ## 2. WCAG version and target
 
-WCAG 2.2. Level AA met on every criterion checked, and AAA met for text contrast (1.4.6) on every pair but one, which is AA. Reduced motion (2.3.3) and visible focus are inherited from the audited shell.
+WCAG 2.2. Level AA met on every criterion checked. AAA met for text contrast (1.4.6), reduced motion (2.3.3) and focus appearance. Both files reuse the audited shell from the Missions 1 and 2 build (skip link, landmarks, visible focus, reduced-motion rule, iframe height sender, `target="_top"` on internal links).
 
-## 3. Colour contrast audit
-
-The deck now has two themes. Both were measured.
-
-### Dark theme (screen and recording)
-
-Dark navy only. Nothing on the navy is a lighter navy or a blue: anything that lifts off the page is either a terra card carrying white or cream, or a plain white card.
+## 3. Color contrast audit
 
 | Text | Background | Ratio | Result |
 |---|---|---|---|
-| White #FFFFFF | Navy #0B1530 | 18.04:1 | AAA |
-| Cream #F5F1E8 | Navy | 16.0:1 | AAA |
-| Warm grey #D8CFBE, muted text | Navy | 11.67:1 | AAA |
-| Gold #C9A14A, eyebrows and accents | Navy | 7.46:1 | AAA |
-| White | Terra card #8B3A2E | 7.66:1 | AAA |
-| Cream | Terra card | 6.79:1 | AA |
-| Navy | White card (clinical bar) | 18.04:1 | AAA |
+| Navy #0B1530 body and headings | White #FFFFFF | 18.04:1 | AAA |
+| Terra #8B3A2E eyebrows, step numerals, tags, links | White | 7.66:1 | AAA |
+| Navy-72 #4F576A captions, muted text | White | 7.23:1 | AAA |
+| White text | Navy card #0B1530 | 18.04:1 | AAA |
+| Gold #C9A14A eyebrow | Navy card | 7.46:1 | AAA |
+| White pill text | Terra #8B3A2E | 7.66:1 | AAA |
+| White pill text | Rad tech pill #6B5017 | 7.54:1 | AAA |
+| White pill text | Respiratory pill #2C4A70 | 9.05:1 | AAA |
+| Navy text | Off-white wash #FAFAF9 | 17.27:1 | AAA |
 
-Gold is the accent on navy rather than terra, because terra #8B3A2E against navy is far too dark to read. Terra is used only as a card fill in the dark theme, never as text on the navy.
+Gold never carries text on a light background. Text inside the Pearson figures is part of the image and is not under our control; each figure carries a full text alternative (see section 5).
 
-### Light theme (print, and the three reading pages)
+## 4. Keyboard navigation
 
-| Text | Background | Ratio | Result |
-|---|---|---|---|
-| Navy #0B1530 | White | 18.04:1 | AAA |
-| Terra #8B3A2E | White | 7.66:1 | AAA |
-| Navy-72 #4F576A captions | White | 7.23:1 | AAA |
-| White pill text | Rad tech #6B5017 | 7.54:1 | AAA |
-| White pill text | Respiratory #2C4A70 | 9.05:1 | AAA |
+Verified in headless Chromium on the deck: Tab reaches Present, Reset, Print, every reveal button, every clinical bar, every figure (Enter or Space opens the lightbox, Escape closes and returns focus). In present mode, Arrow Right and Left, Page Up and Down, and Escape work. The pen layer keeps its W, P, H, E, bracket and Escape shortcuts. Reveal boxes and clinical bars use `aria-expanded` and `aria-controls`. Slide counter and reset confirmation are `aria-live="polite"`.
 
-Text inside the Pearson figures is part of the image and is not under our control. Every one carries a full text alternative.
+On the notes page: skip link, one h1, h2 per section, h3 within sections, h5 inside worked problems for "The work" label; term lists are `dl` elements; tables carry captions and header scope.
 
-## 4. Printing
+## 5. Screen reader
 
-Printing is the reason the dark theme is scoped to `@media screen`. A student who prints the deck gets the white version whether or not the screen was dark, and a `beforeprint` handler also drops the dark class so the print preview matches. Verified by emulating print media with the dark theme active: slide background came back white and title text navy.
+Checked against the accessibility tree in Chromium (Playwright). Every Pearson figure has a full `alt` text written from the figure, not a filename, and a visible caption that names the figure number. The tall figure 2.3 and the chart figures describe axes and values in the alt text so the solved problems are answerable without sight. Worked steps are an ordered list with the numeral generated by CSS, so the list position is announced by the list, not by the decoration. Beat labels ("Mechanism", "Solve") are plain text in the slide header and read after the title.
 
-## 5. Keyboard navigation
+Not yet done: a manual pass with VoiceOver and NVDA. Same open item as the Missions 1 and 2 build.
 
-Verified in headless Chromium. Tab reaches Present, Reset boxes, the new theme switch, Print, every reveal button, every clinical bar, every sorter button, and every figure. Enter or Space opens a figure in the lightbox; Escape closes it and returns focus. In present mode, arrow keys, Page Up and Down, and Escape work, and the pen layer keeps its W, P, H, E, bracket and Escape shortcuts.
+### Added September 13
 
-Tested interactively rather than by inspection: the solubility sorter marks right and wrong and announces through `aria-live`; Reset boxes clears all reveals, all clinical bars and all sorter rows; the theme switch toggles and reports through the live region.
+- Chemical typography. Formulas and ions are marked up with `<sub>` and `<sup>` (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>, Na<sup>+</sup>, HCO<sub>3</sub><sup>&minus;</sup>) in visible text only. Alt text stays plain (C6H12O6), which is how screen readers read a formula most clearly. The charge uses a real minus sign (&minus;), not a hyphen.
+- Periodic table pop-up. A `role="dialog"` with `aria-modal="true"` and `aria-labelledby`, opened from a fixed launcher (bottom left, mirroring the pen launcher), from inline buttons on the three mass problems, and closed by the Close button, Escape, or a click outside. Focus moves to the formula input on open and returns to the opener on close. Every element is a button with an accessible name giving name, atomic number and atomic mass, so the visual three-line tile is decorative. The result region is `aria-live="polite"`. Element tiles: navy text on white or navy-tint (18:1 and 16:1), physiology elements marked by a terra border in addition to the legend text, so color is not the only cue. The pop-up is hidden in print.
 
-## 6. Screen reader
+## 6. Known limitations and remediation
 
-Checked against the accessibility tree. Every figure has a text alternative written from the figure rather than from a filename, and the ten drawn SVGs carry `title` and `desc` elements describing the shape of the relationship, not just the labels, so a curve is answerable without seeing it. Sorter rows use a real table with row headers, `aria-pressed` on the choice buttons and an `aria-live` result cell. The relationship tables are real tables with `scope` on every header, so "if this changes, then this, because" is read as a row rather than as three loose fragments.
+- Figure images are raster. The alt text is complete, but a low vision user relying on zoom sees the figure at image resolution; images were exported at up to 1700 px on the long side and open in a lightbox at up to 94vw.
+- Present mode auto-fit scales dense slides to as low as 64 percent (slide 32, three figures). Every figure on those slides opens full size in the lightbox. If any slide reads as too small on camera, split it.
+- The site navigation injected by `bio005-nav.js` overlaps the slide header in present mode. This is inherited from the shell and affects the Missions 1 and 2 decks the same way.
+- Video captions cannot be verified until the lecture is recorded.
 
-Not yet done: a manual pass with VoiceOver and NVDA. Same open item as the previous two builds.
+Fixed during this build, and worth carrying back to the six older files that share the shell: the shell had `<link rel="stylesheet">` written inside the `<style>` element, which made browsers drop the `:root` variable block. Colors then fell back to black and bordered boxes lost their borders. The link now sits before the style block. Files with the same line: `biol005-m01-maintain-control-slides.html`, `biol005-m01-maintain-control-notes.html`, `biol005-m02-molecular-toolkit-slides.html`, `biol005-m02-molecular-toolkit-notes.html`, and two others (search the repo for `<style><link`).
 
-## 7. Known limitations and remediation
+## 7. Reviewer
 
-- Figure images from the publisher are raster. Alt text is complete, and each opens in a lightbox at up to 94vw. On the dark theme they sit on a white plate so they read as a deliberate inset rather than a rectangle of glare.
-- One dark pair, cream on the terra card, is AA rather than AAA at 6.79:1. Using white instead of cream on terra cards would take it to 7.66:1 if AAA everywhere matters more than the cream accent.
-- Khan Academy is a third-party site and its accessibility is outside this audit. The review page opens every external link in a new tab with `rel="noopener"` and labels each one by type so a screen reader user knows whether they are about to get a video, an article or a practice set.
-- Video captions cannot be verified until the lectures are recorded.
-
-## 8. Fixed in this build
-
-- **The stylesheet insertion point.** The theme block was initially added at the deck marker, which sits before the shell's own present-mode rules, so same-specificity overrides silently lost. Moving it to the end of the style block fixed it. Worth knowing for any future edit to these files: shell present-mode rules come last, so overrides have to come after them.
-- **Slide width in present mode.** The shell capped the slide body at 1360px, which on a 1080p or wider display left a wide empty margin either side and forced the auto-fit to shrink dense slides that had room to spare. Raised to `min(1860px, 95vw)`. Every one of the 37 slides now fits at full size with no shrinking at 1920 by 1080, where before four slides were being scaled to as low as 52 percent.
-- **Site chrome during recording.** The nav bar, footer and floating buttons injected by `bio005-nav.js` now hide in present mode and in print. This was an open item on both previous builds and was much more visible against a dark slide.
-- **Drawn figures on dark.** The base `.fig` rule paints a white background, so a drawn SVG showed white letterbox bars either side on the dark theme. Given an explicit navy background.
-- **Per-table sorter tally.** The Week 2 shell still had the single-sorter version that looked for one hard-coded element id and appended a message belonging to a different activity. Replaced with the per-table version already used in the Week 3 deck.
-
-## 9. Reviewer
-
-Built and checked by Claude for Dr. Sharilyn Rennie. Automated checks: overflow sweep across all 37 slides in present mode at 1920 by 1080 (zero shrinking, zero overflow), zero console or page errors on all four files, no broken images, no missing alt text, no SVG missing a title, one h1 per page, skip link present on all four, no em dashes, no italic text, no Lora. QR codes were generated and then decoded back with OpenCV to confirm each one resolves to the intended URL before shipping.
+Built and checked by Claude for Dr. Sharilyn Rennie. Headless checks: overflow sweep on all 38 slides in present mode (zero overflow), zero console errors on both pages, no em dashes, no italic text, no Lora.
