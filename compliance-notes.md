@@ -3,8 +3,33 @@
 **Project.** BIO 005 Human Physiology, Yuba College, Fall 2026.
 Repo `drsrennie-stack/human-physiology-Fa26`.
 
-**Date.** September 7, 2026.
+**Date.** September 7, 2026. Updated September 13, 2026.
 **Reviewer.** Dr. Sharilyn Rennie.
+
+---
+
+## 0. How compliance notes are named in this repo
+
+**This file is the course-wide record. It is never replaced by a single pass.**
+
+Each audited scope gets its own file, named for the scope:
+
+| File | Scope | Date |
+|---|---|---|
+| `compliance-notes.md` | This file. Course-wide record, the index, and the outstanding list for the whole build. | September 7, updated September 13, 2026 |
+| `compliance-notes-site-nav.md` | Site navigation and chrome. | Earlier pass |
+| `compliance-notes-week-02.md` | The three Week 2 lecture files. | September 13, 2026 |
+
+The rule, so this does not go wrong again: a delivery covering one week or one
+tool ships its compliance file as `compliance-notes-<scope>.md` and never as
+`compliance-notes.md`. Uploading a single-week audit under the root name would
+replace this whole record with a three-file report, and because the GitHub web
+upload overwrites without a version to recover from, the earlier record would be
+gone rather than superseded.
+
+When a scoped file is added, add a row above and a short entry in section 1. The
+detail stays in the scoped file; this file carries the index and anything still
+outstanding.
 
 ---
 
@@ -110,6 +135,17 @@ boxes are white cards lifted by shadow with no accent bars.
 `bio005-question-bank.js`, `bio005-faq.js`,
 `mastery-physio-os-standalone.html`, `unit-05-standalone.html`.
 
+**Added September 13, 2026, Week 2 lecture rebuild.** `m02-slides.html`,
+`m02-notes.html` and `m02-chem-review.html`. The full audit for these three is
+in `compliance-notes-week-02.md` and is not repeated here. Summary: every text
+pair AAA, no skipped heading levels, no dangling `aria-controls`, no unnamed
+control, no duplicate id, every table captioned and scoped, and the human screen
+reader and keyboard passes still outstanding on all three.
+
+Two things about that batch are recorded here rather than in the scoped file,
+because they affect the repo rather than those three pages: the palette and type
+correction in limitation 25 and the retired mission naming in limitation 26.
+
 ---
 
 ## 2. WCAG version and level
@@ -200,6 +236,11 @@ of its own. The room it marks is written out as text on the card, in #624612,
 which measures 8.73:1. Nothing on that page depends on telling one tab color from
 another, which is 1.4.1 Use of Color.
 
+**September 13, 2026.** The three Week 2 lecture files are measured in
+`compliance-notes-week-02.md` and are not duplicated in the table above. They
+pass AAA on every pair but one, and since September 13 they
+use the same tokens and the same type as the rest of the site. See limitation 25.
+
 ---
 
 ## 4. PDF accessibility
@@ -214,6 +255,8 @@ They are rebuilt with WeasyPrint targeting **PDF/UA-1**, by
 headless Chromium first and the settled DOM is handed over, so the PDF matches
 what a student sees.
 
+| File | Pages | Tagged | Struct tree | Lang | Headings | Figures with alt |
+|---|---|---|---|---|---|---|
 | `BIO005-Fall2026-Competencies-by-Week.pdf` | 31 | yes | yes | en-US | H1 x1, H2 x4, H3 x15 | 0 of 0 |
 | `BIO005-Fall2026-Competency-Packet.pdf` | 18 | yes | yes | en-US | H1 x1, H2 x2, H3 x5 | 0 of 0 |
 | `BIO005-Fall2026-Syllabus.pdf` | 17 | yes | yes | en-US | H1 x1, H2 x16, H3 x16 | 0 of 0 |
@@ -264,6 +307,10 @@ The horizontally scrolling template region on the note sheet carries
 `tabindex="0"` and a `role="region"` with an accessible name, so it can be
 scrolled from the keyboard.
 
+The three Week 2 lecture files added September 13 have their tab order recorded
+in `compliance-notes-week-02.md`. It was established by inspection, not by a
+hands-on browser pass, and that pass is still owed.
+
 ---
 
 ## 6. Screen reader testing
@@ -282,6 +329,10 @@ directly with pikepdf and are reported in section 4.
   likely uses.
 - Opening the six PDFs in **Adobe Acrobat's Accessibility Checker** and in a
   real reader, because a structure tree that audits clean can still read badly.
+- The same two human passes on the three Week 2 lecture files added
+  September 13. Those were checked structurally only, by parsing the built
+  files, which is a weaker check than the headless accessibility tree walk used
+  on the competency pages.
 
 An automated pass proves the semantics are present. It does not prove the page
 is usable, and this document should not be read as claiming it does.
@@ -341,10 +392,14 @@ schedule from this page" to every question asked on them.
 | 22 | `bio005-apply-cases.js`, the sixty standalone four-room cases written earlier the same day, is superseded as the graded assignment and now links from nothing. | Kept deliberately as an alternate bank for exam items and discussion seeds. Delete only if you decide you will never draw on it. |
 | 23 | The 75 chart entries and the 15 lab plans are unreviewed by a second physiologist. Every value in the chart is internally consistent and meant to be checked by students: the arrival blood gas satisfies Henderson-Hasselbalch, the compensation satisfies Winter's formula, the anion gap closes as the chloride rises, and the corrected sodium works out. | Read each week before it opens. Weeks 13 and 15 are the two most worth a second look: the oxygen-in-COPD mechanism and the source of the protons in exercise acidosis are both places where the textbook answer and current evidence disagree, and both are written to ask the student to hold the disagreement rather than key an answer to one side. |
 | 24 | Week 5's dry lab asks students to elicit reflexes and take orthostatic vitals with a partner. Not every online student has a partner, and some students cannot perform or receive these maneuvers. | The instructions carry a printed set of recorded observations as an equivalent alternative, stated in step 4, and the reasoning is what is graded either way. Verify the alternative is genuinely equivalent when the Week 5 worksheet is built. |
+| 25 | RESOLVED September 13, 2026. The three Week 2 lecture files were built on an unconfirmed palette and on DM Sans. They are re-tokened to the brand of record and now match the rest of the site: navy `#0B1530` body text and headings, maroon `#8B3A2E` accents, gold `#C9A14A` on the dark band, `--display` Open Sans 800 and `--body` Plus Jakarta Sans from `assets/fonts-site.css`. Every pair re-measured, all AAA. | Nothing outstanding. Recorded because the files shipped on September 6 with a guessed palette that was flagged as unconfirmed rather than checked against the repo first. Read the brand file before building, not after. |
+| 26 | **Mission naming is retired but still on disk.** The mission framing was dropped from the student-facing course, and the Week 2 lecture files were rewritten on September 13 to read as Week 2. Three files still carry the old naming and probably the old framing inside: `lecture-mission-01-maintain-control.html`, `lecture-mission-02-molecular-toolkit.html`, `slides-p-mission-01-maintain-control.html`. `lecture-mission-02-molecular-toolkit.html` looks like a second copy of Week 2 lecture content, now duplicated by `m02-notes.html`. | Decide which of each pair survives, then clear the retired ones by hand in the GitHub UI, since the web upload overwrites but cannot delete. Until then a student who finds one by link or search reads a version of the course that no longer exists. This is the same failure pattern as limitations 15 and 19: a retired description surviving in a file nobody grepped. |
 
 ---
 
 ## 8. Reviewer
 
-Prepared for Dr. Sharilyn Rennie, September 7, 2026, updated later the same day. Not signed off until
-section 6's outstanding screen reader passes are done.
+Prepared for Dr. Sharilyn Rennie, September 7, 2026, updated later the same day,
+and updated again September 13, 2026. Not signed off until section 6's
+outstanding screen reader passes are done, on both the original files and the
+three added September 13.

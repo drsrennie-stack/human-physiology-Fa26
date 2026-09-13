@@ -4,54 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 2 · Build the Molecular Toolkit · BIO 005 Human Physiology</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts-site.css">
 <style>
 /* ---------------------------------------------------------------
    BIO 005 Human Physiology - Week 2 slide deck
-   SWAP POINT: if your repo maroon differs, change --maroon and
-   --maroon-deep below and nothing else needs to move.
+   Palette and type are the BIO 005 brand of record, matching the rest
+   of the site. Type is self hosted through assets/fonts-site.css.
 ----------------------------------------------------------------*/
 :root{
-  --maroon:#6E1F2A;
-  --maroon-deep:#54161F;
-  --maroon-tint:#F2EAEB;
-  --gold:#B8924A;
-  --terra-dark:#A0522D;
-  --ink:#22201F;
-  --ink-soft:#4A4442;
+  /* BIO 005 brand of record. Same tokens and values as the rest of the site. */
+  --navy:#0B1530;
+  --navy-deep:#060A18;
+  --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E;
+  --maroon-dark:#6E2D24;
+  --gold:#C9A14A;
+  --gold-deep:#8A6D33;
+  --bone:#F5F1E8;
+  --ink:#0B1530;
+  --ink-soft:#414B5C;
   --white:#FFFFFF;
   --page:#FAFAF9;
-  --line:#E3DFDC;
-  --shadow-rest:0 1px 3px rgba(0,0,0,.08);
-  --shadow-lift:0 8px 16px rgba(0,0,0,.10);
+  --line:#DDE2E8;
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --shadow-rest:0 1px 3px rgba(11,21,48,.10);
+  --shadow-lift:0 8px 16px rgba(11,21,48,.12);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--page);color:var(--ink);
-  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-family:var(--body);
   font-size:17px;line-height:1.6;font-variant-numeric:lining-nums}
-h1,h2,h3,h4{font-family:"Plus Jakarta Sans",system-ui,Arial,sans-serif;margin:0 0 .5em}
-h1{font-weight:800;color:var(--maroon);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
-h2{font-weight:800;color:var(--maroon);font-size:clamp(1.35rem,2.8vw,1.9rem);line-height:1.25}
-h3{font-weight:600;color:var(--terra-dark);font-size:1.12rem}
+h1,h2,h3,h4{font-family:var(--display);margin:0 0 .5em}
+h1{font-weight:800;color:var(--navy);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
+h2{font-weight:800;color:var(--navy);font-size:clamp(1.35rem,2.8vw,1.9rem);line-height:1.25}
+h3{font-weight:600;color:var(--maroon);font-size:1.12rem}
 p{margin:0 0 1em}
 ul,ol{margin:0 0 1em;padding-left:1.25em}
 li{margin:0 0 .45em}
 a{color:var(--maroon);text-underline-offset:3px}
-a:hover{color:var(--maroon-deep)}
-.skip{position:absolute;left:-9999px;top:0;background:var(--maroon);color:#fff;padding:.6rem 1rem;z-index:200;border-radius:0 0 8px 0}
+a:hover{color:var(--maroon-dark)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:.6rem 1rem;z-index:200;border-radius:0 0 8px 0}
 .skip:focus{left:0}
-:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:4px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
 
 .brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:.65rem 1.25rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
-.brandbar .mark{font-family:"Plus Jakarta Sans";font-weight:800;color:var(--maroon);letter-spacing:.01em}
+.brandbar .mark{font-family:var(--display);font-weight:800;color:var(--navy);letter-spacing:.01em}
 .brandbar .course{color:var(--ink-soft);font-size:.9rem}
-.headband{background:var(--maroon);color:#fff;padding:1.1rem 1.25rem}
-.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#F3D9AE;margin:0 0 .3rem}
+.headband{background:var(--navy-deep);color:#fff;padding:1.1rem 1.25rem}
+.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--gold);margin:0 0 .3rem}
 .headband h1{color:#fff;margin:0}
-.headband .sub{margin:.35rem 0 0;color:#F0E6E7;font-size:.98rem}
+.headband .sub{margin:.35rem 0 0;color:#D7DCE3;font-size:.98rem}
 
 .controls{position:sticky;top:0;z-index:60;background:var(--white);
   border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);
@@ -59,16 +63,16 @@ a:hover{color:var(--maroon-deep)}
   display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between}
 .ctrl-group{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
 button{font-family:inherit;font-size:.95rem}
-.btn{background:var(--white);color:var(--maroon);border:1px solid var(--maroon);
+.btn{background:var(--white);color:var(--navy);border:1px solid var(--navy);
   border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;
   transition:transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease}
-.btn:hover{background:var(--maroon-tint)}
+.btn:hover{background:var(--navy-tint)}
 .btn:active{transform:translateY(1px)}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
 .btn-solid{background:var(--maroon);color:#fff}
-.btn-solid:hover{background:var(--maroon-deep)}
+.btn-solid:hover{background:var(--maroon-dark)}
 .btn-quiet{border-color:var(--ink-soft);color:var(--ink)}
-.btn-quiet[aria-pressed="true"]{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.btn-quiet[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 .counter{font-weight:700;color:var(--ink);white-space:nowrap;padding:0 .35rem}
 
 .progress{height:6px;background:var(--line);border-radius:999px;overflow:hidden;max-width:1060px;margin:0 auto .25rem}
@@ -91,12 +95,12 @@ button{font-family:inherit;font-size:.95rem}
 .chain li{counter-increment:step;background:var(--white);border:1px solid var(--line);border-radius:10px;
   box-shadow:var(--shadow-rest);padding:.7rem .85rem .7rem 2.7rem;position:relative;margin:0 0 .55rem}
 .chain li::before{content:counter(step);position:absolute;left:.8rem;top:.72rem;
-  width:1.4rem;height:1.4rem;border-radius:50%;background:var(--maroon);color:#fff;
+  width:1.4rem;height:1.4rem;border-radius:50%;background:var(--navy);color:#fff;
   font-weight:700;font-size:.82rem;display:grid;place-items:center}
 
 .term{background:none;border:none;padding:0;cursor:pointer;color:var(--maroon);font-weight:700;
   font-family:inherit;font-size:inherit;border-bottom:2px dotted var(--maroon);line-height:inherit}
-.term:hover{color:var(--maroon-deep);border-bottom-style:solid}
+.term:hover{color:var(--maroon-dark);border-bottom-style:solid}
 .defbox{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);
   padding:.75rem .9rem;margin:0 0 1rem}
 .defbox:empty{display:none}
@@ -108,7 +112,7 @@ button{font-family:inherit;font-size:.95rem}
 .clin{margin:1rem 0 0}
 .clin .rows{display:grid;gap:.6rem;margin-top:.75rem}
 .clin .row{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.7rem .85rem}
-.clin .who{font-family:"Plus Jakarta Sans";font-weight:700;color:var(--maroon);display:block;margin-bottom:.15rem}
+.clin .who{font-family:var(--display);font-weight:700;color:var(--maroon);display:block;margin-bottom:.15rem}
 .clin .means{color:var(--ink-soft);font-size:.94rem;margin:.3rem 0 0}
 
 .sortlist{list-style:none;padding:0;margin:0}
@@ -116,23 +120,23 @@ button{font-family:inherit;font-size:.95rem}
 .sortlist .val{font-weight:700}
 .sortlist .limits{color:var(--ink-soft);font-size:.92rem;display:block}
 .sortlist .picks{display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap}
-.mark-ok{color:var(--maroon);font-weight:700}
-.state-done{background:var(--maroon-tint);border-color:var(--maroon)}
+.mark-ok{color:var(--navy);font-weight:700}
+.state-done{background:var(--navy-tint);border-color:var(--navy)}
 
 .tablewrap{overflow-x:auto;margin:0 0 1rem}
 table{border-collapse:collapse;width:100%;min-width:520px;background:var(--white)}
-caption{text-align:left;font-weight:700;color:var(--maroon);padding:0 0 .5rem;font-family:"Plus Jakarta Sans"}
+caption{text-align:left;font-weight:700;color:var(--navy);padding:0 0 .5rem;font-family:var(--display)}
 th,td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left;vertical-align:top;font-size:.96rem}
-th{background:var(--white);color:var(--maroon);font-family:"Plus Jakarta Sans";font-weight:700}
+th{background:var(--white);color:var(--navy);font-family:var(--display);font-weight:700}
 
 .eq{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.85rem .95rem;margin:0 0 1rem}
-.eq .math{font-family:"Plus Jakarta Sans";font-weight:700;color:var(--maroon);font-size:1.12rem;letter-spacing:.01em}
+.eq .math{font-family:var(--display);font-weight:700;color:var(--navy);font-size:1.12rem;letter-spacing:.01em}
 .eq dl{margin:.6rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.2rem .7rem;font-size:.93rem}
 .eq dt{font-weight:700;color:var(--ink)}
 .eq dd{margin:0;color:var(--ink-soft)}
 
 .comp{background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-rest);padding:1rem 1.05rem;margin:0 0 1rem}
-.comp .id{font-weight:800;color:var(--maroon);font-family:"Plus Jakarta Sans"}
+.comp .id{font-weight:800;color:var(--maroon);font-family:var(--display)}
 .comp ol{margin:.6rem 0 0}
 
 #penwrap{position:relative}
@@ -143,7 +147,7 @@ th{background:var(--white);color:var(--maroon);font-family:"Plus Jakarta Sans";f
 .swatch{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--ink-soft);cursor:pointer}
 .swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--white),0 0 0 4px var(--ink)}
 .size{width:2.3rem;height:2rem;border-radius:8px;border:1px solid var(--ink-soft);background:var(--white);cursor:pointer;font-weight:700}
-.size[aria-pressed="true"]{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.size[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 
 .sitefoot{border-top:1px solid var(--line);background:var(--white);padding:1.25rem;margin-top:2rem}
 .sitefoot p{margin:0;text-align:center;font-size:.92rem;color:var(--ink-soft)}
@@ -197,10 +201,10 @@ th{background:var(--white);color:var(--maroon);font-family:"Plus Jakarta Sans";f
 
 <div class="pentools" id="pentools" hidden>
   <span class="tiny">Pen color:</span>
-  <button class="swatch" type="button" data-color="#6E1F2A" aria-pressed="true" aria-label="Maroon pen" style="background:#6E1F2A"></button>
-  <button class="swatch" type="button" data-color="#A0522D" aria-pressed="false" aria-label="Terra pen" style="background:#A0522D"></button>
-  <button class="swatch" type="button" data-color="#B8924A" aria-pressed="false" aria-label="Gold pen" style="background:#B8924A"></button>
-  <button class="swatch" type="button" data-color="#22201F" aria-pressed="false" aria-label="Black pen" style="background:#22201F"></button>
+  <button class="swatch" type="button" data-color="#0B1530" aria-pressed="true" aria-label="Navy pen" style="background:#0B1530"></button>
+  <button class="swatch" type="button" data-color="#8B3A2E" aria-pressed="false" aria-label="Maroon pen" style="background:#8B3A2E"></button>
+  <button class="swatch" type="button" data-color="#8A6D33" aria-pressed="false" aria-label="Gold pen" style="background:#8A6D33"></button>
+  <button class="swatch" type="button" data-color="#111111" aria-pressed="false" aria-label="Black pen" style="background:#111111"></button>
   <span class="tiny">Size:</span>
   <button class="size" type="button" data-size="2" aria-pressed="false">S</button>
   <button class="size" type="button" data-size="4" aria-pressed="true">M</button>
@@ -1081,7 +1085,7 @@ th{background:var(--white);color:var(--maroon);font-family:"Plus Jakarta Sans";f
   var canvas = document.getElementById("pen");
   var ctx = canvas.getContext("2d");
   var drawing = false, penOn = false;
-  var penColor = "#6E1F2A", penSize = 4;
+  var penColor = "#0B1530", penSize = 4;
 
   function sizeCanvas(){
     var wrap = document.getElementById("penwrap");

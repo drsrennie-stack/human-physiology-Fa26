@@ -6,6 +6,7 @@
 **Source chapter:** Silverthorn, Chapter 2, Molecular Interactions
 **Files:** m02-chem-review.html (optional), m02-slides.html (required), m02-notes.html (required)
 **Compliance record:** compliance-notes-week-02.md. Scoped to this pass, so it does not overwrite the course-wide compliance-notes.md in the repo root.
+**Palette and type:** brand of record, matching the rest of the site. Re-tokened September 13, 2026.
 **Date:** September 13, 2026. Replaces the September 6 version.
 
 This page is instructor facing. None of these classification labels appear on the student pages.
@@ -119,5 +120,5 @@ Suggested board moments: the fold and the lost binding site on slide 6, the allo
 
 ## 8. Two things to confirm
 
-1. The physiology maroon is set once in each file as `--maroon: #6E1F2A` with `--maroon-deep: #54161F`. Swap those two lines if the repo uses different values.
+1. Palette and type now match the brand of record, chosen September 13: navy `#0B1530` body text and headings, maroon `#8B3A2E` accents, gold `#C9A14A` on the dark band, Open Sans 800 headlines and Plus Jakarta Sans body from `assets/fonts-site.css`. Nothing to confirm.
 2. The review page links to Khan Academy. Every link was verified as a live Khan Academy URL at build time, but Khan Academy reorganizes its course paths periodically, so these are worth a click-through before the week opens and again each term.

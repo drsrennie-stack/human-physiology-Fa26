@@ -23,11 +23,11 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable. All three files share on
 | 1.1.1 Non-text content | A | Pass | No informational images. The drawing canvas is `aria-hidden` and is a recording aid, not content. |
 | 1.3.1 Info and relationships | A | Pass | Semantic `header`, `nav`, `main`, `footer`, `section`. All 8 tables use `caption` with `th scope="col"` and `th scope="row"`. Equation keys are definition lists. Review checkboxes are real inputs wrapped in labels. |
 | 1.3.2 Meaningful sequence | A | Pass | DOM order matches reading order. |
-| 1.4.3 Contrast minimum | AA | Pass | See section 3. Lowest text pair is 5.62:1. |
+| 1.4.3 Contrast minimum | AA | Pass | See section 3. Lowest text pair is 7.33:1. |
 | 1.4.4 Resize text | AA | Pass | Type in rem, layout relative, no fixed pixel heights on text containers. |
-| 1.4.6 Contrast enhanced | AAA | Pass with one exception | Every text pair is 7:1 or better except the small uppercase block-tag label on the review page at 5.62:1. See section 7. |
+| 1.4.6 Contrast enhanced | AAA | Pass | Every text pair on all three files is 7:1 or better after the September 13 re-tokening. |
 | 1.4.10 Reflow | AA | Pass | Single column at narrow widths. All 8 tables sit in `overflow-x:auto` wrappers, so the body never scrolls sideways. |
-| 1.4.11 Non-text contrast | AA | Pass | Control borders use `--ink-soft` at 9.56:1. Focus ring 11.1:1. Checkbox accent is maroon at 11.1:1. |
+| 1.4.11 Non-text contrast | AA | Pass | Control borders use `--ink-soft` at 8.80:1. Focus ring maroon at 7.66:1. Checkbox accent navy at 18.04:1. |
 | 1.4.12 Text spacing | AA | Pass | Line height 1.6 to 1.65, no fixed-height text boxes. |
 | 2.1.1 Keyboard | A | Pass by inspection | Every control is a real `button`, `a` or `input`. See section 4. |
 | 2.1.2 No keyboard trap | A | Pass | No modals, no focus capture. |
@@ -35,7 +35,7 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable. All three files share on
 | 2.4.2 Page titled | A | Pass | Three distinct descriptive titles. |
 | 2.4.3 Focus order | A | Pass | Hidden slides use the `hidden` attribute, so their controls leave the tab order. |
 | 2.4.6 Headings and labels | AA | Pass | One `h1` per file, no skipped levels on any of the three. Verified by parsing the full heading tree. |
-| 2.4.7 Focus visible | AA | Pass | 3px maroon `:focus-visible` outline with 2px offset. |
+| 2.4.7 Focus visible | AA | Pass | 3px maroon `:focus-visible` outline with 3px offset, matching the rest of the site. |
 | 2.4.11 Focus not obscured | AA (2.2) | Pass | Only the slide control bar is sticky, and focus moves downward into content. |
 | 2.5.3 Label in name | A | Pass | Visible text is the accessible name. Pen swatches carry `aria-label` since they have no text. |
 | 2.5.8 Target size minimum | AA (2.2) | Pass | Every control at least 32 by 32 CSS pixels. Pills 40px tall, swatches 32px, checkbox inside a padded label. |
@@ -49,24 +49,40 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable. All three files share on
 
 ## 3. Color contrast audit
 
-PRIMARY teaching palette with the physiology maroon substituted for navy. No sage. No cream.
+**Re-tokened September 13, 2026 to the BIO 005 brand of record**, so these three
+files now use the same palette and the same type as the rest of the site. Type is
+Open Sans 800 for headlines and Plus Jakarta Sans for everything else, pulled from
+`assets/fonts-site.css` rather than from Google Fonts. DM Sans is gone.
 
 | Foreground | Background | Ratio | Used for | Result |
 |------------|-----------|-------|----------|--------|
-| `#22201F` ink | `#FFFFFF` white | 16.22:1 | Body text on cards | AAA |
-| `#22201F` ink | `#FAFAF9` page | 15.53:1 | Body text on page | AAA |
-| `#6E1F2A` maroon | `#FFFFFF` white | 11.10:1 | Headings, links, button text, checkbox accent | AAA |
-| `#6E1F2A` maroon | `#FAFAF9` page | 10.62:1 | Headings on page ground | AAA |
-| `#4A4442` ink-soft | `#FFFFFF` white | 9.56:1 | Small print, equation keys, link-kind labels, control borders | AAA |
-| `#FFFFFF` white | `#6E1F2A` maroon | 11.10:1 | Header band text, solid button text | AAA |
-| `#F3D9AE` | `#6E1F2A` maroon | 8.11:1 | Eyebrow in the header band | AAA |
-| `#F0E6E7` | `#6E1F2A` maroon | 9.08:1 | Subhead in the header band | AAA |
-| `#6E1F2A` maroon | `#F2EAEB` maroon-tint | 9.38:1 | Completed states on the sorting activity and checked review blocks | AAA |
-| `#FFFFFF` white | `#54161F` maroon-deep | 13.89:1 | Solid button hover | AAA |
-| `#A0522D` terra-dark | `#FFFFFF` white | 5.62:1 | `h3` subheads at 19px weight 600, and the review page block-tag label at 13px | AAA for the subheads (large text), AA for the block tag |
-| `#B8924A` gold | `#FFFFFF` white | 2.90:1 | Progress bar fill only. Never text, never a control boundary. | Decorative, exempt |
+| `#0B1530` navy | `#FFFFFF` white | 18.04:1 | Body text and headings on cards | AAA |
+| `#0B1530` navy | `#FAFAF9` page | 17.27:1 | Body text and headings on the page ground | AAA |
+| `#8B3A2E` maroon | `#FFFFFF` white | 7.66:1 | Subheads, links, clickable terms, clinical bar labels, block tags | AAA |
+| `#8B3A2E` maroon | `#FAFAF9` page | 7.33:1 | The same, on the page ground | AAA |
+| `#414B5C` ink-soft | `#FFFFFF` white | 8.80:1 | Small print, equation keys, control borders | AAA |
+| `#414B5C` ink-soft | `#FAFAF9` page | 8.43:1 | The same, on the page ground | AAA |
+| `#FFFFFF` white | `#060A18` navy-deep | 19.73:1 | Header band headline | AAA |
+| `#C9A14A` gold | `#060A18` navy-deep | 8.16:1 | Header band eyebrow | AAA |
+| `#D7DCE3` | `#060A18` navy-deep | 14.31:1 | Header band subhead | AAA |
+| `#0B1530` navy | `#ECEFF4` navy-tint | 15.65:1 | Completed states on the sorting activity and checked review blocks | AAA |
+| `#FFFFFF` white | `#8B3A2E` maroon | 7.66:1 | Solid button | AAA |
+| `#FFFFFF` white | `#6E2D24` maroon-dark | 10.18:1 | Solid button hover | AAA |
+| `#FFFFFF` white | `#0B1530` navy | 18.04:1 | Chain step numbers and pressed toggles | AAA |
+| `#C9A14A` gold | `#E3E7EC` track | 1.9:1 | Progress bar fill only. `aria-hidden`, never text, never a control boundary. | Decorative, exempt |
 
-State is never carried by color alone. The sorting activity signals a correct answer three ways: tinted fill, solid maroon border, and a text message reading "Correct." A checked review block signals two ways: the checkbox state itself and the tally count above.
+**Every text pair on all three files is now AAA.** The one AA exception in the
+September 6 version, the small block tag label, is resolved: it moved from the old
+terra cotta at 5.62:1 to brand maroon at 7.66:1.
+
+Gold never carries text on a light background in these files, matching the site
+rule. It appears only as the progress bar fill, which is hidden from assistive
+technology and repeats the slide counter beside it.
+
+State is never carried by color alone. The sorting activity signals a correct
+answer three ways: tinted fill, solid navy border, and a text message reading
+"Correct." A checked review block signals two ways: the checkbox state itself and
+the tally count above it.
 
 ---
 
@@ -101,7 +117,7 @@ Checked by parsing the built files:
 | Landmarks present, navigation labelled | Pass |
 | Status regions wired to slide change, reset, pen, sorting feedback and the review tally | Pass |
 | Internal links `target="_top"`, external links `target="_blank" rel="noopener"` | Pass, 0 exceptions |
-| No em dashes, no italic markup or CSS, Lora not referenced, no sage or cream | Pass, 0 occurrences of each |
+| No em dashes, no italic markup or CSS, Lora not referenced, no sage, DM Sans removed, no Google Fonts request | Pass, 0 occurrences of each |
 
 Still to confirm with a screen reader: how the slide change announcement reads in practice, whether revealed answer text is picked up immediately after its button, and whether the checked review block state reads clearly.
 
@@ -129,9 +145,9 @@ The review page tells students that Khan Academy is an outside resource, that no
 
 ## 7. Known limitations and remediation plan
 
-1. **Small label contrast.** The block tags on the review page ("Block 1" and so on) use terra-dark `#A0522D` at 5.62:1, which passes AA but not AAA for text under 18.66px. They are decorative wayfinding and the block number also appears in the table of contents. **Remediation for AAA everywhere:** change `.tag` color to `var(--maroon)`, which is 11.1:1. One line, no other effect. This is now the only element on any of the three files below AAA.
+1. **RESOLVED September 13, 2026.** The block tag label was the last element below AAA, at 5.62:1. Re-tokening to brand maroon took it to 7.66:1. Nothing on these three files is now below AAA.
 
-2. **Maroon hex not confirmed against the repo.** Set as `--maroon: #6E1F2A` and `--maroon-deep: #54161F` at the top of each file. If the repo differs, swap those two lines. Every figure in section 3 would need rechecking after a swap, and those two values are the only inputs.
+2. **RESOLVED September 13, 2026.** These files were built on an unconfirmed palette and have been re-tokened to the brand of record: navy `#0B1530`, navy-deep `#060A18`, navy-tint `#ECEFF4`, maroon `#8B3A2E`, maroon-dark `#6E2D24`, gold `#C9A14A`, page `#FAFAF9`, cards `#FFFFFF`. Type is now `--display` Open Sans 800 and `--body` Plus Jakarta Sans, loaded from `assets/fonts-site.css`. Every ratio in section 3 was re-measured after the swap.
 
 3. **Manual testing outstanding.** Two passes are owed before publication: a hands-on keyboard walkthrough in a browser, and a screen reader pass. NVDA on Firefox and VoiceOver on Safari would cover most of your students.
 

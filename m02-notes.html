@@ -4,46 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 2 Notes · Build the Molecular Toolkit · BIO 005 Human Physiology</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts-site.css">
 <style>
 :root{
-  --maroon:#6E1F2A;
-  --maroon-deep:#54161F;
-  --maroon-tint:#F2EAEB;
-  --gold:#B8924A;
-  --terra-dark:#A0522D;
-  --ink:#22201F;
-  --ink-soft:#4A4442;
+  /* BIO 005 brand of record. Same tokens and values as the rest of the site. */
+  --navy:#0B1530;
+  --navy-deep:#060A18;
+  --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E;
+  --maroon-dark:#6E2D24;
+  --gold:#C9A14A;
+  --gold-deep:#8A6D33;
+  --bone:#F5F1E8;
+  --ink:#0B1530;
+  --ink-soft:#414B5C;
   --white:#FFFFFF;
   --page:#FAFAF9;
-  --line:#E3DFDC;
-  --shadow-rest:0 1px 3px rgba(0,0,0,.08);
+  --line:#DDE2E8;
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --shadow-rest:0 1px 3px rgba(11,21,48,.10);
+  --shadow-lift:0 8px 16px rgba(11,21,48,.12);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);
-  font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-family:var(--body);
   font-size:17px;line-height:1.65;font-variant-numeric:lining-nums}
-h1,h2,h3{font-family:"Plus Jakarta Sans",system-ui,Arial,sans-serif;margin:0 0 .5em}
-h1{font-weight:800;color:var(--maroon);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
-h2{font-weight:800;color:var(--maroon);font-size:clamp(1.3rem,2.6vw,1.75rem);margin-top:2rem}
-h3{font-weight:600;color:var(--terra-dark);font-size:1.12rem;margin-top:1.4rem}
+h1,h2,h3{font-family:var(--display);margin:0 0 .5em}
+h1{font-weight:800;color:var(--navy);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2}
+h2{font-weight:800;color:var(--navy);font-size:clamp(1.3rem,2.6vw,1.75rem);margin-top:2rem}
+h3{font-weight:600;color:var(--maroon);font-size:1.12rem;margin-top:1.4rem}
 p{margin:0 0 1em}
 ul,ol{margin:0 0 1em;padding-left:1.25em}
 li{margin:0 0 .45em}
 a{color:var(--maroon);text-underline-offset:3px}
-.skip{position:absolute;left:-9999px;top:0;background:var(--maroon);color:#fff;padding:.6rem 1rem;z-index:200}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:.6rem 1rem;z-index:200}
 .skip:focus{left:0}
-:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:4px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
 
 .brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:.65rem 1.25rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
-.brandbar .mark{font-family:"Plus Jakarta Sans";font-weight:800;color:var(--maroon)}
+.brandbar .mark{font-family:var(--display);font-weight:800;color:var(--navy)}
 .brandbar .course{color:var(--ink-soft);font-size:.9rem}
-.headband{background:var(--maroon);color:#fff;padding:1.1rem 1.25rem}
-.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#F3D9AE;margin:0 0 .3rem}
+.headband{background:var(--navy-deep);color:#fff;padding:1.1rem 1.25rem}
+.headband .eyebrow{font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--gold);margin:0 0 .3rem}
 .headband h1{color:#fff;margin:0}
-.headband .sub{margin:.35rem 0 0;color:#F0E6E7;font-size:.98rem}
+.headband .sub{margin:.35rem 0 0;color:#D7DCE3;font-size:.98rem}
 
 main{max-width:860px;margin:0 auto;padding:1.5rem 1.25rem 3rem}
 
@@ -55,22 +60,22 @@ main{max-width:860px;margin:0 auto;padding:1.5rem 1.25rem 3rem}
 
 .chain{list-style:none;padding:0;margin:0 0 1rem;counter-reset:step}
 .chain li{counter-increment:step;background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.7rem .85rem .7rem 2.7rem;position:relative;margin:0 0 .55rem}
-.chain li::before{content:counter(step);position:absolute;left:.8rem;top:.72rem;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--maroon);color:#fff;font-weight:700;font-size:.82rem;display:grid;place-items:center}
+.chain li::before{content:counter(step);position:absolute;left:.8rem;top:.72rem;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:.82rem;display:grid;place-items:center}
 
 .eq{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-rest);padding:.85rem .95rem;margin:0 0 1rem}
-.eq .math{font-family:"Plus Jakarta Sans";font-weight:700;color:var(--maroon);font-size:1.12rem}
+.eq .math{font-family:var(--display);font-weight:700;color:var(--navy);font-size:1.12rem}
 .eq dl{margin:.6rem 0 0;display:grid;grid-template-columns:auto 1fr;gap:.2rem .7rem;font-size:.93rem}
 .eq dt{font-weight:700}
 .eq dd{margin:0;color:var(--ink-soft)}
 
 .tablewrap{overflow-x:auto;margin:0 0 1rem}
 table{border-collapse:collapse;width:100%;min-width:520px;background:var(--white)}
-caption{text-align:left;font-weight:700;color:var(--maroon);padding:0 0 .5rem;font-family:"Plus Jakarta Sans"}
+caption{text-align:left;font-weight:700;color:var(--navy);padding:0 0 .5rem;font-family:var(--display)}
 th,td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left;vertical-align:top;font-size:.96rem}
-th{color:var(--maroon);font-family:"Plus Jakarta Sans";font-weight:700}
+th{color:var(--navy);font-family:var(--display);font-weight:700}
 
-.btn{background:var(--white);color:var(--maroon);border:1px solid var(--maroon);border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;font-family:inherit;font-size:.95rem;transition:background-color 200ms ease}
-.btn:hover{background:var(--maroon-tint)}
+.btn{background:var(--white);color:var(--navy);border:1px solid var(--navy);border-radius:999px;padding:.45rem 1rem;font-weight:700;cursor:pointer;font-family:inherit;font-size:.95rem;transition:background-color 200ms ease}
+.btn:hover{background:var(--navy-tint)}
 .reveal-body[hidden]{display:none}
 .reveal-body{margin-top:.75rem}
 .tiny{font-size:.9rem;color:var(--ink-soft)}
