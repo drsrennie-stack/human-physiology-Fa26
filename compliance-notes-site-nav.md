@@ -79,3 +79,15 @@ Built and checked September 8, 2026, for Dr. Sharilyn Rennie. Automated checks: 
 Files added or changed: week-01.html to week-15.html (regenerated from tools/gen_week_pages_v2.py on the seven-stage model), lecture-week.html (Week 1 videos listed in order), door-assignments.html (four graded categories), bio005-nav.js (week gate with build hold), index.html, course-questions.html and seven pages with office-hours wording removed.
 
 Checks rerun with axe-core (WCAG 2.0, 2.1, 2.2 A and AA plus best practice): week-01, week-02, week-15, lecture-week?week=1, lecture-week?week=3 (gated), week-03-notes (gated), door-assignments, index. All clean. The gate replaces the main landmark's content with one h1, one status card and a list of five links, each at least 44 px; the page's own masthead is hidden so there is a single visible h1. Stage cards on the week pages are ordered lists with labelled link groups; graded category chips are text, not color alone.
+
+## Sep 13 2026: the four stage menus
+
+The middle of the bar changed from four links (Lectures, Labs, Study, Assignments) to four disclosure buttons, 1 Learn, 2 Practice, 3 Apply, 4 Check, each opening the tools for the current week. The old bottom-left Course tools dock (bio005-dock.js) is retired and removed from the twenty pages that loaded it; the six older slide decks and welcome.html that carried the dock without the site nav now load bio005-nav.js instead, and practice-exam.html gained the nav.
+
+Accessibility of the new pieces, checked headless on week-01, rx-cards, a slide deck, welcome and practice-exam:
+
+- The stage buttons use the same disclosure pattern as Weeks and Help: aria-expanded, aria-controls, focus moves into the panel on open, Escape closes and returns focus to the button, click outside and Tab out close it.
+- The stage number badge is aria-hidden; the button's accessible name is the stage word. The section the current page belongs to is marked visually and with hidden "(current section)" text. Mapping: lectures, notes and slide decks read as Learn; study tools, Rx Cards, Study With Me and Scholar Points as Practice; labs, assignments and the patient chart as Apply; the practice exam and the practice log as Check.
+- Contrast unchanged from the audit above; the "Physiology games" placeholder is #5A6675 on white, 5.6:1, and is a span, not a link, so it is not announced as something to activate.
+- On screens 760px and narrower the four stage items leave the bar and a fixed "Week N tools" button (48px tall, bottom right, above the Back button) opens one panel with all four stages stacked in order. Same disclosure behaviour, same Escape handling.
+- The Canvas-embedded pages (assignment-*.html, how-this-course-works.html) deliberately carry no site nav, as before.

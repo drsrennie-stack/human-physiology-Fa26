@@ -486,8 +486,9 @@
     { key: 'weeks', test: /^week-\d\d(-notesheet-prompts|-competencies)?\.html$|^note-sheet\.html$/ },
     { key: 'lecture', test: /^(lecture-week|concept-videos-week\d+|door-lecture|week-\d\d-notes|slides-[pP]-.*|biol005-m\d\d-.*|worksheet-.*|welcome-to-physiology)\.html$/ },
     { key: 'lab', test: /^(door-lab|clinical-physiology-lab-manual|.*-lab|lab-.*|reference-range-lab|patient-sheet|BIO005-patient-file|assignment-physioex|access-pearson|physioex.*)\.html$/ },
-    { key: 'study', test: /^(door-study|mastery-.*|competency-.*|spaced-recall|practice-exam|braindump-.*|anatomy-review|label-kit|learning-lab|ungraded-sheet|workbook_.*)\.html$/ },
-    { key: 'assign', test: /^(door-assignments|assignment-.*|what-you-do|how-grading-works|ai-work-log)\.html$/ },
+    { key: 'check', test: /^(practice-exam|assignment-practice-log)\.html$/ },
+    { key: 'study', test: /^(door-study|mastery-.*|competency-.*|spaced-recall|rx-cards|study-with-me|scholar-points|braindump-.*|anatomy-review|label-kit|learning-lab|ungraded-sheet|workbook_.*)\.html$/ },
+    { key: 'assign', test: /^(door-assignments|assignment-.*|patient-chart-book|patient-sheet|what-you-do|how-grading-works|ai-work-log)\.html$/ },
     { key: 'help', test: /^(course-start|how-this-course-works|syllabus-.*|course-schedule|course-questions|virtual-office|accessibility|before-you-start|ai-in-this-course|sitemap|welcome-tour|course-materials)\.html$/ }
   ];
   function sectionOf(file) {
@@ -546,7 +547,21 @@
   + '@media (prefers-reduced-motion:reduce){.b5site .b5-caret{transition:none}}'
   + '@media (forced-colors:active){.b5site{border-bottom:1px solid CanvasText}.b5site .b5-on>a,.b5site .b5-on>button,.b5site a[aria-current="page"]{border-bottom-color:Highlight}'
   + '.b5panel{border:1px solid CanvasText}.b5panel a.b5-cur{border-left-color:Highlight}}'
-  + '@media print{.b5site{display:none!important}}';
+  + '.b5site .b5-n{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#ECEFF4;color:#0B1530;font-size:11.5px;font-weight:800;margin-right:2px}'
+  + '.b5site .b5-on>button .b5-n,.b5site button[aria-expanded="true"] .b5-n{background:#8B3A2E;color:#fff}'
+  + '.b5panel .b5-lead{font-size:13.5px;color:#414B5C;margin:0 0 10px;max-width:60ch}'
+  + '.b5panel .b5-lead b{color:#0B1530}'
+  + '.b5panel a .b5-np{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#8A6D33}'
+  + '.b5panel .b5-soon{display:flex;flex-direction:column;gap:1px;min-height:44px;padding:6px 8px;border-left:3px solid transparent;font-size:14.5px;line-height:1.3}'
+  + '.b5panel .b5-soon .b5-t{font-weight:800;color:#5A6675}.b5panel .b5-soon .b5-d{font-size:13px;font-weight:600;color:#5A6675}'
+  + '.b5site .b5-tools{display:none}'
+  + '@media (max-width:760px){.b5site li.b5-stage{display:none}'
+  + '.b5site .b5-tools{display:inline-flex;align-items:center;gap:8px;position:fixed;right:14px;bottom:76px;z-index:75;min-height:48px;padding:10px 16px;border-radius:999px;'
+  + 'background:#0B1530;color:#fff;font:inherit;font-size:14px;font-weight:800;border:0;box-shadow:0 8px 18px rgba(11,21,48,.25);cursor:pointer}'
+  + '.b5site .b5-tools:focus-visible{outline:3px solid #8B3A2E;outline-offset:3px}'
+  + '#b5-all-panel h2{margin-top:14px}#b5-all-panel h2:first-child{margin-top:0}}'
+  + '@media (min-width:761px){#b5-all-panel{display:none!important}}'
+  + '@media print{.b5site,.b5-tools{display:none!important}}';
 
   /* Exposed at load time, before any DOMContentLoaded work, so a page's own
      inline script can read it straight after this file is included. */
@@ -653,6 +668,79 @@
       + '<li class="b5-ext"><a href="' + CANVAS_HOME + '" target="_blank" rel="noopener"><span class="b5-t">Canvas</span><span class="b5-d">Turn work in, see grades</span></a></li>'
       + '</ul>';
 
+    /* ---- the four stages, for the week that is open now ----
+       Sep 13 2026: the middle of the bar is the same four stages the week
+       pages use (Learn, Practice, Apply, Check), each opening the tools
+       for the current week, nested the way the week page nests them. One
+       vocabulary everywhere, and it follows the week by itself. The old
+       type-based items (Lectures, Labs, Study, Assignments) and the
+       bottom-left Course tools dock are retired. */
+    var nn = pad2(cur.n), wn = cur.n;
+    function tool(href, t, d, np, ext) {
+      var exact = (file === href.split('?')[0] && (href.indexOf('?week=') < 0 || location.search.indexOf('week=' + wn) >= 0));
+      return '<li' + (ext ? ' class="b5-ext"' : '') + '><a href="' + (ext ? '' : B) + href + '"' + (ext ? ' target="_blank" rel="noopener"' : ' target="_top"')
+        + (exact ? ' aria-current="page"' : '') + '><span class="b5-t">' + t + '</span><span class="b5-d">' + d + '</span>'
+        + (np ? '<span class="b5-np">' + np + '</span>' : '') + '</a></li>';
+    }
+    var STAGES = {
+      learn: { n: 1, name: 'Learn', tag: 'No points',
+        lead: 'This is where I teach you what you need to understand. <b>Watch first.</b>',
+        html: '<ul>'
+          + tool('lecture-week.html?week=' + wn, 'Learn It With Dr. Rennie', 'This week\'s lectures, short and in order')
+          + tool('week-' + nn + '-notes.html', 'Notes', 'The written version of what I teach')
+          + tool('note-sheet.html?week=' + wn, 'Note sheet', 'One box per competency. Print it before you start')
+          + tool('week-' + nn + '-competencies.html', 'Competencies', 'What you have to be able to do this week')
+          + tool('door-lecture.html', 'Every week\'s lectures', 'All fifteen weeks, by week')
+          + '</ul>' },
+      practice: { n: 2, name: 'Practice', tag: 'No points',
+        lead: 'Get it back and work with it while mistakes are still useful. <b>Pick the ones that suit you.</b>',
+        html: '<ul>'
+          + tool('competency-brain-dump.html', 'Try It From Memory', 'A brain dump, then the self check')
+          + tool('mastery-canvas.html', 'Draw it, then teach it', 'Draw the mechanism from nothing, then explain it out loud with no notes')
+          + tool('rx-cards.html?week=' + wn, 'Rx Cards', 'Spaced recall that gets harder as you prove it')
+          + tool('assignment-bookproblems.html?week=' + wn, 'Book problems', 'Problems you have not seen. Predict, commit, check')
+          + tool('study-with-me.html', 'Study With Me', 'Quiz each other, teach it to someone. Optional, earns Scholar Points')
+          + tool('https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', 'Kahoot library', 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term', '', true)
+          + tool('ungraded-sheet.html?week=' + wn, 'All of it on one sheet', 'Every practice item for the week, printable')
+          + '<li><span class="b5-soon"><span class="b5-t">Physiology games</span><span class="b5-d">Opens later this term</span></span></li>'
+          + '</ul>' },
+      apply: { n: 3, name: 'Apply', tag: 'Graded',
+        lead: 'Use what you learned on a patient, a lab result, a decision. <b>These are graded and due Sunday 10 pm.</b>',
+        html: '<ul>'
+          + tool('week-' + nn + '.html#apply', 'This week\'s lab', 'What to run, what to record, and how to turn it in', 'Investigate It &middot; 25%')
+          + tool('assignment-apply.html?week=' + wn, 'Use It case', 'This week\'s case on your patient, five questions', 'Use It &middot; 20%')
+          + (wn === 1
+              ? tool('assignment-discussion-01-visionboard.html', 'Discussion 1A', 'Digital vision board and video introduction', 'Think About It &middot; 15%')
+                + tool('assignment-discussion-01-metacognition.html', 'Discussion 1B', 'What the evidence told you about how you learned', 'Think About It &middot; 15%')
+              : tool('assignment-discussion.html?week=' + wn, 'Discussion ' + wn, 'Post by Friday, two replies by Sunday', 'Think About It &middot; 15%'))
+          + tool('how-grading-works.html', 'How grading works', 'What counts, what it is worth')
+          + '</ul><h2>Patient file, the capstone</h2><p class="b5-lead">One patient you keep track of all semester. Each week you add that week\'s numbers and your thinking by hand. <b>Nothing is turned in weekly.</b> The whole chart comes in once, on December 16.</p><ul>'
+          + tool('patient-chart-book.html', 'Your patient chart', 'One patient, all term. Add this week by hand', 'Use It &middot; 5%')
+          + tool('assignment-patient-chart.html', 'What you turn in on Dec 16', 'Exactly what the PDF must contain, in order')
+          + '</ul>' },
+      check: { n: 4, name: 'Check', tag: 'No points',
+        lead: 'Find the gaps before they cost you points. <b>A low score is information.</b>',
+        html: '<ul>'
+          + tool('practice-exam.html?week=' + wn, 'Mastery Check', 'Thirty questions, nothing open, a report you can upload')
+          + tool('week-' + nn + '-competencies.html', 'Competency checklist', 'Tick what you can do from memory')
+          + tool('assignment-practice-log.html', 'Upload your report', 'No points, and I read every one')
+          + '</ul>' }
+    };
+    var STAGE_OF = { lecture: 'learn', study: 'practice', lab: 'apply', assign: 'apply', check: 'check' };
+    var stageOn = STAGE_OF[sec] || null;
+    function stageItem(key) {
+      var S = STAGES[key];
+      return '<li class="b5-stage' + (stageOn === key ? ' b5-on' : '') + '"><button type="button" id="b5-' + key + '-btn" aria-expanded="false" aria-controls="b5-' + key + '-panel">'
+        + '<span class="b5-n" aria-hidden="true">' + S.n + '</span>' + S.name + CARET
+        + (stageOn === key ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
+        + '<div class="b5panel" id="b5-' + key + '-panel" hidden>'
+        + '<h2>Stage ' + S.n + ' of 4, Week ' + wn + ' &middot; ' + S.tag + '</h2><p class="b5-lead">' + S.lead + '</p>' + S.html + '</div></li>';
+    }
+    var allHtml = ['learn', 'practice', 'apply', 'check'].map(function (k) {
+      var S = STAGES[k];
+      return '<h2>' + S.n + ' ' + S.name + ' &middot; ' + S.tag + '</h2>' + S.html;
+    }).join('');
+
     var nav = document.createElement('nav');
     nav.className = 'b5site';
     nav.setAttribute('aria-label', 'Course sections');
@@ -661,13 +749,12 @@
       + item('thisweek', cur.file, 'This week', 'Week ' + cur.n)
       + '<li class="' + (sec === 'weeks' ? 'b5-on' : '') + '"><button type="button" id="b5-weeks-btn" aria-expanded="false" aria-controls="b5-weeks-panel">Weeks' + CARET + (sec === 'weeks' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-weeks-panel" hidden>' + weeksHtml + '</div></li>'
-      + item('lecture', 'door-lecture.html', 'Lectures')
-      + item('lab', 'door-lab.html', 'Labs')
-      + item('study', 'door-study.html', 'Study')
-      + item('assign', 'door-assignments.html', 'Assignments')
+      + stageItem('learn') + stageItem('practice') + stageItem('apply') + stageItem('check')
       + '<li class="b5-grow b5-canvas"><a href="' + CANVAS_HOME + '" target="_top">Canvas<span class="b5vh">, back to the Canvas course</span></a></li>'
       + '<li class="' + (sec === 'help' ? 'b5-on' : '') + '"><button type="button" id="b5-help-btn" aria-expanded="false" aria-controls="b5-help-panel">Help' + CARET + (sec === 'help' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-help-panel" hidden>' + helpHtml + '</div></li>'
+      + '<li><button type="button" class="b5-tools" id="b5-all-btn" aria-expanded="false" aria-controls="b5-all-panel">Week ' + wn + ' tools' + CARET + '</button>'
+      + '<div class="b5panel" id="b5-all-panel" hidden><h2>This week\'s four stages</h2><p class="b5-lead">Everything for Week ' + wn + ', in the order you do it.</p>' + allHtml + '</div></li>'
       + '</ul></div>';
 
     /* This week is its own section only when the page IS the current week. */
