@@ -16,10 +16,6 @@
    renaming ids is what would have forced a re-tag of all 4,980 cards,
    and avoiding that was the point of this decision.
 
-   Sep 13 2026: Weeks 3 to 8 resequenced (cell and signaling in 3,
-   transport and membrane potential in 4, neuron, reflex and autonomic
-   blocks each one week later). Only week and module fields changed.
-
    Read the `week` field. Never parse the prefix.
 
    est is minutes of study per competency, weighted by DOK: Recall 15,
@@ -168,8 +164,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w1-compartment-shifts",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Foundations of Physiology",
     "general": "Foundations of Physiology",
     "name": "Compartment separation and clinical volume shifts",
@@ -245,7 +241,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w1-water-properties",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Chemical Foundations",
     "general": "Chemical Foundations",
     "name": "Water and solution properties",
@@ -260,7 +256,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w1-ph-buffers",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Chemical Foundations",
     "general": "Chemical Foundations",
     "name": "pH and buffers",
@@ -276,7 +272,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w1-protein-function",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Chemical Foundations",
     "general": "Chemical Foundations",
     "name": "Protein structure and function",
@@ -292,7 +288,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w1-enzyme-function",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Chemical Foundations",
     "general": "Chemical Foundations",
     "name": "Enzyme activity and regulation",
@@ -308,7 +304,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w1-atp-energy",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Chemical Foundations",
     "general": "Chemical Foundations",
     "name": "ATP and energy coupling",
@@ -323,7 +319,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w1-lab-enzyme-assay",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Chemical Foundations",
     "general": "Chemical Foundations",
     "name": "Enzyme assay",
@@ -338,7 +334,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-membrane-structure",
     "module": 1,
-    "week": 3,
+    "week": 2,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Membrane composition and fluidity",
@@ -352,8 +348,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-permeability",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 2,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Determinants of permeability",
@@ -367,8 +363,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-fick-diffusion",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Simple diffusion and Fick's law",
@@ -383,8 +379,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-osmolarity-tonicity",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Osmolarity and tonicity",
@@ -399,8 +395,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-osmosis-cell-volume",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Osmosis and cell volume",
@@ -415,8 +411,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-lab-diffusion-osmosis",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Diffusion and osmosis experiment",
@@ -430,8 +426,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-lab-rbc-tonicity",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Structure and Diffusion",
     "general": "Membrane Structure and Diffusion",
     "name": "Tonicity and red blood cells",
@@ -445,8 +441,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-facilitated-diffusion",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Facilitated diffusion",
@@ -460,8 +456,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-primary-active-transport",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Primary active transport",
@@ -476,8 +472,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-secondary-active-transport",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Secondary active transport",
@@ -491,8 +487,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-transport-maximum",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Transport maximum and saturation",
@@ -507,8 +503,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-vesicular-transport",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Vesicular transport",
@@ -522,8 +518,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-transepithelial-transport",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Transepithelial transport",
@@ -537,8 +533,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w2-lab-transport-sim",
-    "module": 2,
-    "week": 4,
+    "module": 1,
+    "week": 3,
     "system": "Membrane Transport",
     "general": "Membrane Transport",
     "name": "Transport simulation",
@@ -553,7 +549,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-electrochemical-gradient",
     "module": 2,
-    "week": 4,
+    "week": 3,
     "system": "Membrane Potential",
     "general": "Membrane Potential",
     "name": "Ion distribution and electrochemical gradients",
@@ -568,7 +564,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-nernst",
     "module": 2,
-    "week": 4,
+    "week": 3,
     "system": "Membrane Potential",
     "general": "Membrane Potential",
     "name": "Nernst equation",
@@ -584,7 +580,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-resting-potential",
     "module": 2,
-    "week": 4,
+    "week": 3,
     "system": "Membrane Potential",
     "general": "Membrane Potential",
     "name": "Resting membrane potential",
@@ -599,7 +595,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-ion-channels",
     "module": 2,
-    "week": 4,
+    "week": 3,
     "system": "Membrane Potential",
     "general": "Membrane Potential",
     "name": "Ion channel gating",
@@ -614,7 +610,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-potential-terms",
     "module": 2,
-    "week": 4,
+    "week": 3,
     "system": "Membrane Potential",
     "general": "Membrane Potential",
     "name": "Depolarization and hyperpolarization",
@@ -630,7 +626,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w2-lab-membrane-potential",
     "module": 2,
-    "week": 4,
+    "week": 3,
     "system": "Membrane Potential",
     "general": "Membrane Potential",
     "name": "Membrane potential simulation",
@@ -644,8 +640,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-signal-types",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Signal types and range",
@@ -659,8 +655,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-receptor-location",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Receptor location and ligand solubility",
@@ -674,8 +670,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-gpcr-pathway",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "G protein coupled receptors",
@@ -689,8 +685,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-second-messengers",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Second messengers",
@@ -704,8 +700,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-catalytic-intracellular-receptors",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Catalytic receptors and intracellular receptors",
@@ -719,8 +715,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-signal-amplification",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Signal amplification",
@@ -734,8 +730,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-receptor-modulation",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Receptor modulation",
@@ -749,8 +745,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-signal-termination",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Signal termination",
@@ -764,8 +760,8 @@ window.BIO005_COMPETENCIES = [
   },
   {
     "id": "w3-lab-dose-response",
-    "module": 1,
-    "week": 3,
+    "module": 2,
+    "week": 2,
     "system": "Cell Signaling",
     "general": "Cell Signaling",
     "name": "Dose response relationships",
@@ -780,7 +776,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-neuron-classes",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Neuron structural and functional classes",
@@ -796,7 +792,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-neuron-regions",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Functional regions of a neuron",
@@ -812,7 +808,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-glia-functions",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Glial cell functions",
@@ -828,7 +824,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-myelin",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Myelin and its loss",
@@ -843,7 +839,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-axonal-transport",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Neurons and Neuroglia",
     "general": "Neurons and Neuroglia",
     "name": "Axonal transport",
@@ -858,7 +854,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-graded-potentials",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Graded potentials",
@@ -873,7 +869,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-action-potential",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Action potential phases",
@@ -889,7 +885,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-threshold",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Threshold and all or none",
@@ -904,7 +900,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-intensity-coding",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Coding of stimulus intensity",
@@ -919,7 +915,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-refractory",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Refractory periods",
@@ -934,7 +930,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-conduction-velocity",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Conduction velocity",
@@ -950,7 +946,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-ion-disturbance",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Effects of altered extracellular ions",
@@ -965,7 +961,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-lab-ap-simulation",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Action potential simulation",
@@ -980,7 +976,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w4-lab-nerve-conduction",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Nerve conduction measurement",
@@ -995,7 +991,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-synaptic-sequence",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Sequence at a chemical synapse",
@@ -1011,7 +1007,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-neurotransmitters",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Neurotransmitter classes",
@@ -1026,7 +1022,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-neurotransmitter-removal",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Neurotransmitter removal",
@@ -1041,7 +1037,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-postsynaptic-potentials",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Excitatory and inhibitory postsynaptic potentials",
@@ -1057,7 +1053,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-summation-integration",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Summation and integration",
@@ -1073,7 +1069,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-presynaptic-modulation",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Presynaptic modulation",
@@ -1088,7 +1084,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-synaptic-plasticity",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Synaptic plasticity",
@@ -1103,7 +1099,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-electrical-synapses",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Electrical synapses",
@@ -1118,7 +1114,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-lab-synapse-sim",
     "module": 2,
-    "week": 5,
+    "week": 4,
     "system": "Synaptic Transmission",
     "general": "Synaptic Transmission",
     "name": "Synapse simulation",
@@ -1133,7 +1129,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-reflex-arc",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Reflex arc components",
@@ -1149,7 +1145,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-stretch-reflex",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Muscle spindle and stretch reflex",
@@ -1165,7 +1161,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-golgi-tendon",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Golgi tendon organ",
@@ -1180,7 +1176,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-withdrawal-reflex",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Withdrawal and crossed extensor reflexes",
@@ -1196,7 +1192,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-spinal-pathways",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Ascending and descending pathways",
@@ -1211,7 +1207,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-csf-bbb",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Cerebrospinal fluid and the blood brain barrier",
@@ -1226,7 +1222,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w5-lab-reflex-testing",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Central Integration and Reflexes",
     "general": "Central Integration and Reflexes",
     "name": "Reflex testing and reaction time",
@@ -1241,7 +1237,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-nmj",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Neuromuscular junction",
@@ -1257,7 +1253,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-ec-coupling",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Excitation contraction coupling",
@@ -1273,7 +1269,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-crossbridge-cycle",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Crossbridge cycle",
@@ -1289,7 +1285,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-calcium-regulation",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Calcium and the regulatory proteins",
@@ -1304,7 +1300,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-relaxation",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Relaxation and calcium removal",
@@ -1319,7 +1315,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-twitch",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "The muscle twitch",
@@ -1335,7 +1331,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-summation-tetanus",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Summation and tetanus",
@@ -1351,7 +1347,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-motor-units",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Motor units and recruitment",
@@ -1367,7 +1363,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-length-tension",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Length tension relationship",
@@ -1383,7 +1379,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-contraction-types",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Isometric and isotonic contraction",
@@ -1399,7 +1395,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-fiber-types",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Muscle fiber types",
@@ -1415,7 +1411,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-muscle-energetics",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "ATP sources during activity",
@@ -1430,7 +1426,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-fatigue",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Fatigue and oxygen debt",
@@ -1446,7 +1442,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-muscle-adaptation",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Muscle plasticity",
@@ -1461,7 +1457,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-lab-emg-fatigue",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Electromyography and grip fatigue",
@@ -1476,7 +1472,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-lab-muscle-sim",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Skeletal Muscle Physiology",
     "general": "Skeletal Muscle Physiology",
     "name": "Twitch and tetanus simulation",
@@ -1491,7 +1487,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-smooth-muscle",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Cardiac and Smooth Muscle",
     "general": "Cardiac and Smooth Muscle",
     "name": "Smooth muscle contraction mechanism",
@@ -1506,7 +1502,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-smooth-regulation",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Cardiac and Smooth Muscle",
     "general": "Cardiac and Smooth Muscle",
     "name": "Smooth muscle types and regulation",
@@ -1521,7 +1517,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-cardiac-muscle",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Cardiac and Smooth Muscle",
     "general": "Cardiac and Smooth Muscle",
     "name": "Cardiac muscle properties",
@@ -1537,7 +1533,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w6-muscle-comparison",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Cardiac and Smooth Muscle",
     "general": "Cardiac and Smooth Muscle",
     "name": "Comparison of the three muscle types",
@@ -1553,7 +1549,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-transduction",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Sensory transduction",
@@ -1568,7 +1564,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-receptor-classes",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Receptor classification",
@@ -1584,7 +1580,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-stimulus-coding",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Stimulus coding",
@@ -1599,7 +1595,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-receptive-fields",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Receptive fields and acuity",
@@ -1615,7 +1611,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-receptor-adaptation",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Receptor adaptation",
@@ -1631,7 +1627,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-somatosensory-pathways",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Somatosensory pathways",
@@ -1646,7 +1642,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-pain-modulation",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Pain and its modulation",
@@ -1661,7 +1657,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-lab-tactile-mapping",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "General Sensory Physiology",
     "general": "General Sensory Physiology",
     "name": "Tactile mapping and adaptation testing",
@@ -1676,7 +1672,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-vision-optics",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Optics and accommodation",
@@ -1692,7 +1688,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-phototransduction",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Phototransduction",
@@ -1707,7 +1703,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-visual-processing",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Rods cones and visual processing",
@@ -1722,7 +1718,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-vision-clinical",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Refractive errors and clinical vision",
@@ -1738,7 +1734,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-hearing-transduction",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Auditory transduction",
@@ -1753,7 +1749,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-hearing-clinical",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Conductive and sensorineural hearing loss",
@@ -1769,7 +1765,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-equilibrium",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Equilibrium",
@@ -1785,7 +1781,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-chemical-senses",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Taste and smell",
@@ -1800,7 +1796,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-lab-vision-tests",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Vision testing",
@@ -1815,7 +1811,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w7-lab-hearing-tests",
     "module": 2,
-    "week": 6,
+    "week": 5,
     "system": "Special Senses",
     "general": "Special Senses",
     "name": "Hearing and equilibrium testing",
@@ -1830,7 +1826,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-motor-hierarchy",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Motor Control",
     "general": "Motor Control",
     "name": "Motor control hierarchy",
@@ -1845,7 +1841,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-corticospinal",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Motor Control",
     "general": "Motor Control",
     "name": "Corticospinal pathway",
@@ -1860,7 +1856,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-cerebellum-basal-ganglia",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Motor Control",
     "general": "Motor Control",
     "name": "Cerebellum and basal ganglia",
@@ -1875,7 +1871,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-umn-lmn",
     "module": 2,
-    "week": 7,
+    "week": 6,
     "system": "Motor Control",
     "general": "Motor Control",
     "name": "Upper and lower motor neuron signs",
@@ -1891,7 +1887,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-organization",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic and somatic organization",
@@ -1906,7 +1902,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-divisions",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Sympathetic and parasympathetic divisions",
@@ -1922,7 +1918,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-receptors",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic neurotransmitters and receptors",
@@ -1937,7 +1933,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-tone",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Dual innervation and tonic control",
@@ -1952,7 +1948,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-adrenal-medulla",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Adrenal medulla",
@@ -1967,7 +1963,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-ans-pharmacology",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic pharmacology",
@@ -1982,7 +1978,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w8-lab-autonomic-testing",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Autonomic Nervous System",
     "general": "Autonomic Nervous System",
     "name": "Autonomic function testing",
@@ -1997,7 +1993,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-hormone-classes",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Hormone classes",
@@ -2012,7 +2008,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-hormone-transport",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Hormone transport and half life",
@@ -2027,7 +2023,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-hormone-receptors",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Hormone receptors and target response",
@@ -2042,7 +2038,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-hormone-interactions",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Hormone interactions",
@@ -2057,7 +2053,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-hormone-release",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Control of hormone release",
@@ -2072,7 +2068,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-hypothalamic-pituitary",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Hypothalamic pituitary axes",
@@ -2088,7 +2084,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-endocrine-pathology",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Principles",
     "general": "Endocrine Principles",
     "name": "Primary and secondary endocrine disorders",
@@ -2104,7 +2100,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-posterior-pituitary",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Posterior pituitary hormones",
@@ -2119,7 +2115,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-growth-hormone",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Growth hormone",
@@ -2134,7 +2130,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-thyroid",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Thyroid hormone",
@@ -2150,7 +2146,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-adrenal-cortex",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Adrenal cortex",
@@ -2166,7 +2162,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-stress-response",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Cortisol and the stress response",
@@ -2181,7 +2177,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-calcium-homeostasis",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Calcium homeostasis",
@@ -2197,7 +2193,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-islet-hormones",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Pancreatic islet hormones",
@@ -2213,7 +2209,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-diabetes",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Diabetes mellitus",
@@ -2228,7 +2224,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-lab-glucose-tolerance",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Glucose tolerance testing",
@@ -2243,7 +2239,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-lab-hormone-assay",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Hormone assay",
@@ -2258,7 +2254,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-plasma",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Plasma and blood functions",
@@ -2274,7 +2270,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-hematocrit",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Hematocrit and formed elements",
@@ -2290,7 +2286,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-rbc-hemoglobin",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Erythrocyte structure and hemoglobin",
@@ -2306,7 +2302,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-erythropoiesis",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Erythropoiesis and its regulation",
@@ -2321,7 +2317,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-rbc-destruction",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Red cell destruction and bilirubin",
@@ -2336,7 +2332,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-leukocytes",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Leukocytes",
@@ -2352,7 +2348,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-hemostasis",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Hemostasis",
@@ -2367,7 +2363,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-coagulation",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Coagulation cascade",
@@ -2382,7 +2378,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-fibrinolysis",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Clot limitation and fibrinolysis",
@@ -2397,7 +2393,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-blood-types",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "ABO and Rh blood types",
@@ -2413,7 +2409,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-lab-hematocrit",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Hematocrit and hemoglobin determination",
@@ -2428,7 +2424,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-lab-blood-typing",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Blood",
     "general": "Blood",
     "name": "Blood typing",
@@ -2443,7 +2439,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-pacemaker-potential",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "Pacemaker potential",
@@ -2458,7 +2454,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-cardiac-ap",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "Contractile cell action potential",
@@ -2474,7 +2470,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-conduction-system",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "Conduction system",
@@ -2490,7 +2486,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-cardiac-refractory",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "Cardiac refractory period",
@@ -2505,7 +2501,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-ecg-basics",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "ECG waves and intervals",
@@ -2521,7 +2517,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-ecg-interpretation",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "ECG interpretation",
@@ -2537,7 +2533,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w10-lab-ecg",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Electrophysiology",
     "general": "Cardiac Electrophysiology",
     "name": "ECG recording",
@@ -2552,7 +2548,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-cardiac-cycle",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Cardiac cycle",
@@ -2568,7 +2564,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-pv-loop",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Pressure volume loop",
@@ -2583,7 +2579,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-heart-sounds",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Heart sounds",
@@ -2599,7 +2595,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-stroke-volume",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Stroke volume and ejection fraction",
@@ -2615,7 +2611,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-cardiac-output",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Cardiac output",
@@ -2631,7 +2627,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-frank-starling",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Frank Starling relationship",
@@ -2646,7 +2642,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-preload-afterload",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Preload afterload and contractility",
@@ -2661,7 +2657,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-cardiac-regulation",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Autonomic regulation of the heart",
@@ -2676,7 +2672,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-lab-heart-sounds",
     "module": 3,
-    "week": 9,
+    "week": 8,
     "system": "Cardiac Mechanics",
     "general": "Cardiac Mechanics",
     "name": "Heart sound and pulse correlation",
@@ -2691,7 +2687,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-flow-resistance",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Pressure flow and resistance",
@@ -2707,7 +2703,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-vessel-function",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Vessel structure and function",
@@ -2723,7 +2719,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-blood-pressure",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Arterial blood pressure",
@@ -2739,7 +2735,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-local-blood-flow",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Local control of blood flow",
@@ -2754,7 +2750,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-capillary-exchange",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Capillary exchange and Starling forces",
@@ -2769,7 +2765,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-edema",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Edema",
@@ -2784,7 +2780,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-lymph-return",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Lymphatic return",
@@ -2799,7 +2795,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-venous-return",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Venous return",
@@ -2815,7 +2811,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-lab-bp-measurement",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Vascular Physiology",
     "general": "Vascular Physiology",
     "name": "Blood pressure measurement",
@@ -2830,7 +2826,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-baroreflex",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Cardiovascular Regulation",
     "general": "Cardiovascular Regulation",
     "name": "Baroreceptor reflex",
@@ -2846,7 +2842,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-cv-hormonal",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Cardiovascular Regulation",
     "general": "Cardiovascular Regulation",
     "name": "Hormonal control of blood pressure",
@@ -2861,7 +2857,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-exercise-cv",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Cardiovascular Regulation",
     "general": "Cardiovascular Regulation",
     "name": "Cardiovascular response to exercise",
@@ -2877,7 +2873,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w11-shock-compensation",
     "module": 3,
-    "week": 10,
+    "week": 9,
     "system": "Cardiovascular Regulation",
     "general": "Cardiovascular Regulation",
     "name": "Compensation in hemorrhage and shock",
@@ -2892,7 +2888,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-respiratory-functions",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Functions and functional zones",
@@ -2908,7 +2904,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-ventilation-mechanics",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Pressure gradients and airflow",
@@ -2923,7 +2919,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-intrapleural-pressure",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Intrapleural pressure",
@@ -2938,7 +2934,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-compliance",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Compliance and elastic recoil",
@@ -2953,7 +2949,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-surfactant",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Surfactant and surface tension",
@@ -2968,7 +2964,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-airway-resistance",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Airway resistance",
@@ -2983,7 +2979,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-lung-volumes",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Lung volumes and capacities",
@@ -2999,7 +2995,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-spirometry-patterns",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Obstructive and restrictive patterns",
@@ -3015,7 +3011,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-dead-space",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Alveolar ventilation and dead space",
@@ -3031,7 +3027,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-lab-spirometry",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Respiratory Mechanics",
     "general": "Respiratory Mechanics",
     "name": "Spirometry",
@@ -3046,7 +3042,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-partial-pressures",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Partial pressures",
@@ -3061,7 +3057,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-gas-diffusion",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Diffusion at the respiratory membrane",
@@ -3076,7 +3072,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-va-q-matching",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Ventilation perfusion matching",
@@ -3091,7 +3087,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-oxygen-transport",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Oxygen transport and the oxyhemoglobin curve",
@@ -3107,7 +3103,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-hb-curve-shifts",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Curve shifts",
@@ -3123,7 +3119,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-co2-transport",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Carbon dioxide transport",
@@ -3138,7 +3134,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-bohr-haldane",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Bohr and Haldane effects",
@@ -3153,7 +3149,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-oxygen-content",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Gas Exchange and Transport",
     "general": "Gas Exchange and Transport",
     "name": "Oxygen content versus partial pressure",
@@ -3168,7 +3164,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-respiratory-centers",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Control of Ventilation",
     "general": "Control of Ventilation",
     "name": "Respiratory centers",
@@ -3183,7 +3179,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-chemoreceptors",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Control of Ventilation",
     "general": "Control of Ventilation",
     "name": "Chemoreceptor control",
@@ -3198,7 +3194,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-ventilation-adaptation",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Control of Ventilation",
     "general": "Control of Ventilation",
     "name": "Ventilation in exercise and at altitude",
@@ -3213,7 +3209,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w12-lab-ventilation-response",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Control of Ventilation",
     "general": "Control of Ventilation",
     "name": "Ventilatory response testing",
@@ -3228,7 +3224,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-kidney-functions",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Kidney functions",
@@ -3243,7 +3239,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-nephron-function",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Nephron structure and function",
@@ -3259,7 +3255,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-renal-processes",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Three renal processes",
@@ -3274,7 +3270,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-filtration-membrane",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Filtration membrane and selectivity",
@@ -3290,7 +3286,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-gfr-forces",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Net filtration pressure and GFR",
@@ -3306,7 +3302,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-gfr-regulation",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Regulation of GFR",
@@ -3321,7 +3317,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-renal-clearance",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Renal clearance",
@@ -3337,7 +3333,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-clearance-inference",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Clearance and handling inference",
@@ -3353,7 +3349,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-proximal-reabsorption",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Proximal tubule reabsorption",
@@ -3368,7 +3364,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-renal-threshold",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Transport maximum and renal threshold",
@@ -3384,7 +3380,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-tubular-secretion",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Tubular secretion",
@@ -3399,7 +3395,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-countercurrent",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Countercurrent mechanism",
@@ -3414,7 +3410,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-adh-water-balance",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Antidiuretic hormone and urine concentration",
@@ -3430,7 +3426,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-raas",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Renin angiotensin aldosterone system",
@@ -3446,7 +3442,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-natriuretic-peptides",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Natriuretic peptides",
@@ -3461,7 +3457,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-potassium-handling",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Potassium handling",
@@ -3476,7 +3472,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-micturition",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Micturition",
@@ -3491,7 +3487,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-lab-urinalysis",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Urinalysis",
@@ -3506,7 +3502,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-lab-renal-calculation",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Renal Physiology",
     "general": "Renal Physiology",
     "name": "Renal function calculation",
@@ -3521,7 +3517,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-buffer-systems",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Buffer systems",
@@ -3536,7 +3532,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-respiratory-ph-control",
     "module": 3,
-    "week": 13,
+    "week": 12,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Respiratory control of pH",
@@ -3551,7 +3547,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-renal-ph-control",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Renal control of pH",
@@ -3566,7 +3562,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-acid-base-disorders",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "The four acid base disorders",
@@ -3582,7 +3578,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-acid-base-compensation",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Compensation",
@@ -3598,7 +3594,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-lab-abg-interpretation",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Arterial blood gas interpretation",
@@ -3613,7 +3609,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-volume-osmolarity",
     "module": 3,
-    "week": 14,
+    "week": 13,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Volume and osmolarity disturbances",
@@ -3628,7 +3624,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-digestive-processes",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Four digestive processes",
@@ -3643,7 +3639,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-gi-motility",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Motility patterns",
@@ -3659,7 +3655,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-gi-regulation",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Neural and hormonal regulation",
@@ -3674,7 +3670,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-digestive-phases",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Phases of digestive control",
@@ -3689,7 +3685,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-gastric-secretion",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Gastric secretion and mucosal protection",
@@ -3704,7 +3700,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-pancreatic-bile-secretion",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Pancreatic and biliary secretion",
@@ -3719,7 +3715,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-carb-protein-absorption",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Carbohydrate and protein digestion and absorption",
@@ -3735,7 +3731,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-lipid-absorption",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Lipid digestion and absorption",
@@ -3750,7 +3746,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-liver-function",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Liver function and enterohepatic circulation",
@@ -3765,7 +3761,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-large-intestine",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Large intestine and microbiome",
@@ -3780,7 +3776,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-lab-digestion-enzymes",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Digestive Physiology",
     "general": "Digestive Physiology",
     "name": "Digestive enzyme experiment",
@@ -3795,7 +3791,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-atp-pathways",
     "module": 1,
-    "week": 2,
+    "week": 0,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "ATP production pathways",
@@ -3810,7 +3806,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-absorptive-state",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "Absorptive state",
@@ -3825,7 +3821,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-postabsorptive-state",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "Postabsorptive state",
@@ -3840,7 +3836,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-glucose-regulation",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "Integrated glucose regulation",
@@ -3856,7 +3852,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-metabolic-rate",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "Energy balance and metabolic rate",
@@ -3872,7 +3868,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-thermoregulation",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "Thermoregulation",
@@ -3887,7 +3883,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w14-lab-metabolic-rate",
     "module": 3,
-    "week": 12,
+    "week": 11,
     "system": "Metabolism and Energy Balance",
     "general": "Metabolism and Energy Balance",
     "name": "Metabolic rate measurement",
@@ -3902,7 +3898,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-innate-immunity",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Immune Physiology",
     "general": "Immune Physiology",
     "name": "Innate defenses",
@@ -3917,7 +3913,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-inflammation",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Immune Physiology",
     "general": "Immune Physiology",
     "name": "Inflammation and fever",
@@ -3932,7 +3928,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-adaptive-immunity",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Immune Physiology",
     "general": "Immune Physiology",
     "name": "Adaptive immunity",
@@ -3947,7 +3943,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-antibodies",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Immune Physiology",
     "general": "Immune Physiology",
     "name": "Antibody structure and function",
@@ -3963,7 +3959,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-immune-memory",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Immune Physiology",
     "general": "Immune Physiology",
     "name": "Immune memory and immunization",
@@ -3978,7 +3974,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-immune-dysfunction",
     "module": 3,
-    "week": 11,
+    "week": 10,
     "system": "Immune Physiology",
     "general": "Immune Physiology",
     "name": "Immune dysfunction",
@@ -3993,7 +3989,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-hpg-axis",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Hypothalamic pituitary gonadal axis",
@@ -4008,7 +4004,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-male-reproductive",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Male reproductive physiology",
@@ -4023,7 +4019,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-ovarian-cycle",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Ovarian cycle",
@@ -4039,7 +4035,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-uterine-cycle",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Uterine cycle",
@@ -4055,7 +4051,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-pregnancy-hormones",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Pregnancy and placental hormones",
@@ -4070,7 +4066,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-parturition-lactation",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Parturition and lactation",
@@ -4085,7 +4081,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-lab-cycle-graphs",
     "module": 2,
-    "week": 8,
+    "week": 7,
     "system": "Reproductive Physiology",
     "general": "Reproductive Physiology",
     "name": "Hormone cycle graph interpretation",
@@ -4100,7 +4096,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-integration-case",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Integration",
     "general": "Integration",
     "name": "Multisystem integration case",
@@ -4116,7 +4112,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-exercise-integration",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Integration",
     "general": "Integration",
     "name": "Exercise as an integrated response",
@@ -4132,7 +4128,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w15-drawing-synthesis",
     "module": 3,
-    "week": 15,
+    "week": 14,
     "system": "Integration",
     "general": "Integration",
     "name": "Drawing based synthesis check",

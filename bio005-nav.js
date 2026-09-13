@@ -323,12 +323,13 @@
        does the same job, so the nav loads that instead. It carries its
        own __BIO005_COLLAPSE__ guard, so a page with its own script tag
        does not initialise twice. */
-    if (document.querySelector('script[src*="bio005-collapse.js"]')) return;
-    if (document.querySelector('script[src*="bio005-fold.js"]')) return;
+    /* Sep 13 2026, second correction. This injected a folder of its own,
+       which made a third one on pages that already had bio005-collapse.js
+       and the dock's bio005-reading-mode.js. The dock loads reading mode
+       on every page, so the nav does not need to load anything; it only
+       records which heading level marks a section, for whichever folder
+       runs. */
     window.BIO005_FOLD = lvl;
-    var s = document.createElement('script');
-    s.src = base() + 'bio005-collapse.js';
-    document.body.appendChild(s);
   }
 
   function inject() {
@@ -443,20 +444,20 @@
 
   var WEEKS = [
     [1, '2026-09-08', '2026-09-13', 'How physiology works and what keeps you steady', 1],
-    [2, '2026-09-14', '2026-09-20', 'The chemistry that does work in the body', 1],
-    [3, '2026-09-21', '2026-09-27', 'The cell, and how cells talk', 1],
-    [4, '2026-09-28', '2026-10-04', 'Getting across the membrane, and the electrical signal', 2],
-    [5, '2026-10-05', '2026-10-11', 'Neurons, action potentials and synapses', 2],
-    [6, '2026-10-12', '2026-10-18', 'Reflexes, and sensing the world', 2],
-    [7, '2026-10-19', '2026-10-25', 'Muscle, and how movement gets commanded', 2],
-    [8, '2026-10-26', '2026-11-01', 'Hormones, the autonomic system, and reproduction', 2],
-    [9, '2026-11-02', '2026-11-08', 'The heart as a pump', 3],
-    [10, '2026-11-09', '2026-11-15', 'Pressure, flow, and holding blood pressure steady', 3],
-    [11, '2026-11-16', '2026-11-22', 'Blood and how the body defends itself', 3],
-    [12, '2026-11-23', '2026-11-29', 'Digestion, and how you use food for fuel', 3],
-    [13, '2026-11-30', '2026-12-06', 'Breathing, gas transport, and the fast pH lever', 3],
-    [14, '2026-12-07', '2026-12-13', 'The kidney and body fluid balance', 3],
-    [15, '2026-12-14', '2026-12-16', 'The slow pH lever, and putting it all together', 3]
+    [2, '2026-09-14', '2026-09-20', 'The cell, and how cells talk', 1],
+    [3, '2026-09-21', '2026-09-27', 'Getting across the membrane, and the electrical signal', 1],
+    [4, '2026-09-28', '2026-10-04', 'Neurons, action potentials and synapses', 2],
+    [5, '2026-10-05', '2026-10-11', 'Reflexes, and sensing the world', 2],
+    [6, '2026-10-12', '2026-10-18', 'Muscle, and how movement gets commanded', 2],
+    [7, '2026-10-19', '2026-10-25', 'Hormones, the autonomic system, and reproduction', 2],
+    [8, '2026-10-26', '2026-11-01', 'The heart as a pump', 2],
+    [9, '2026-11-02', '2026-11-08', 'Pressure, flow, and holding blood pressure steady', 3],
+    [10, '2026-11-09', '2026-11-15', 'Blood and how the body defends itself', 3],
+    [11, '2026-11-16', '2026-11-22', 'Digestion, and how you use food for fuel', 3],
+    [12, '2026-11-23', '2026-11-29', 'Breathing, gas transport, and the fast pH lever', 3],
+    [13, '2026-11-30', '2026-12-06', 'The kidney and body fluid balance', 3],
+    [14, '2026-12-07', '2026-12-13', 'The slow pH lever, and putting it all together', 3],
+    [15, '2026-12-14', '2026-12-16', 'Catch up, and the final', 3]
   ];
   var PARTS = { 1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action' };
 

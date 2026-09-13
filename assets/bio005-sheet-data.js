@@ -5,9 +5,7 @@
    GENERATED. Source of truth: bio005-competencies.js.
    Every week's item list is the map's list for that week, in map order.
 
-   Sep 13 2026. Weeks 3 to 8 resequenced: the cell and cell signaling
-   are Week 3, transport and membrane potential Week 4, and the neuron,
-   reflex and autonomic blocks each moved one week later. Ids unchanged.
+   Sep 13 2026. Regenerated after the resequence: chemistry left the graded weeks and sits at week 0 as optional review, the cell moved to week 2, and everything after shifted up one. Prompts carried across unchanged, numbering redone within each week.
 
    Sep 7 2026. Week 1 was still the pre-Sep-5 set of 18. It is the map's
    12 now. The seven that left: four cell signaling competencies went to
@@ -16,6 +14,61 @@
    because it is not one of the 268. Their prompts traveled with them.
    ============================================================ */
 window.BIO005_SHEET = {
+ "0": {
+  "title": "Chemistry review, optional",
+  "midterm": 0,
+  "items": [
+   {
+    "n": 1,
+    "name": "Water and solution properties",
+    "can": "Explain how the polarity and hydrogen bonding of water determine solubility and identify whether a given solute is hydrophilic or hydrophobic.",
+    "a": "Draw one water molecule big, with the partial charges marked, then draw four more hydrogen bonding to it. Beside that, drop in a sodium ion and a drop of oil. Show what the water does around each one, arrows for how the molecules turn. Underneath, one line: why the same property that dissolves the salt refuses the oil.",
+    "b": "Draw a cross section of a cell membrane with water on both sides. Put four solutes on your drawing: glucose, sodium, oxygen, and a steroid hormone. Mark each one hydrophilic or hydrophobic, then draw where each one sits relative to the membrane and whether it can pass. One line under it on which property of the solute decided that, not which property of the membrane."
+   },
+   {
+    "n": 2,
+    "name": "pH and buffers",
+    "can": "Define pH, state the normal pH range of arterial blood, and explain how a buffer pair resists a change in pH when acid or base is added.",
+    "a": "Draw a pH scale as a horizontal line from 0 to 14. Mark arterial blood, stomach contents, and urine in the right places, with the actual numbers. Then draw the bicarbonate buffer pair as a two-way arrow above the blood mark, and show with arrows what the pair does when acid is added and when base is added. One line: what would happen to blood pH without it.",
+    "b": "Draw the same beaker twice, one with buffer and one without, and add the same amount of acid to each. Draw the pH before and after in both. Then draw a third panel: the buffered beaker after so much acid that the buffer runs out. Under it, one line naming what 'the buffer runs out' actually means at the molecular level."
+   },
+   {
+    "n": 3,
+    "name": "Protein structure and function",
+    "can": "Relate the levels of protein structure to binding site shape and explain how denaturation by heat or pH change destroys function.",
+    "a": "Pick one protein you will meet later this term: hemoglobin, a sodium channel, or an enzyme. Draw it at all four levels of structure, one box per level, in order. On the fourth box, circle the binding site. Then draw the same protein after heat denaturation and mark exactly what changed. One line: which level of structure was lost first, and why the binding site stopped working.",
+    "b": "Draw a binding site and its ligand as two shapes that fit, like a lock and key, then draw three failed versions beside it: one where the ligand is the wrong shape, one where the site has been distorted by low pH, and one where a second molecule is already sitting in the site. Label which of the three is competition and which is denaturation. One line on why shape is the whole story here."
+   },
+   {
+    "n": 4,
+    "name": "Enzyme activity and regulation",
+    "can": "Describe how enzymes lower activation energy and predict the effect of substrate concentration, temperature, pH, and competitive or allosteric inhibition on reaction rate.",
+    "a": "Draw an energy diagram with reactants, products, and the activation energy hump, then draw the same reaction with enzyme on top of it in a second color. Show what the enzyme changed and what it did not. Underneath, draw four small graphs in a row: rate against substrate concentration, against temperature, against pH, and with a competitive inhibitor added. Label the axes on every one. One line on which of the four curves has a plateau and what the plateau means.",
+    "b": "Draw an enzyme with its active site, then draw three copies of it: one with a competitive inhibitor in the active site, one with an allosteric inhibitor at a second site, and one with an allosteric activator. In each copy show what happened to the active site's shape. Then write which one you could overcome by adding more substrate, and why that works for one and not the other."
+   },
+   {
+    "n": 5,
+    "name": "ATP and energy coupling",
+    "can": "Explain how ATP hydrolysis is coupled to endergonic cellular work and name three categories of work that require it.",
+    "a": "Draw ATP, then draw the hydrolysis to ADP plus phosphate with the energy released as an arrow leaving. Now draw three cellular jobs that arrow can go and do: a pump moving sodium uphill, a muscle filament sliding, and a molecule being built. In each one show where the phosphate or the energy actually goes. One line: why the cell cannot just store the energy as heat instead.",
+    "b": "Draw ATP as a rechargeable battery on one side of a cycle and draw the cycle closed, with what charges it and what drains it. Then break the cycle at one point of your choosing, either the charging half or the draining half, and write what fails first in a real cell within seconds, and what fails within minutes. Be specific about which cell you picked."
+   },
+   {
+    "n": 6,
+    "name": "Enzyme assay",
+    "can": "Measure enzyme activity across a range of temperature or pH using a spectrophotometric or colorimetric assay, plot the results, and identify the optimum.",
+    "a": "Before you run anything, draw the graph you predict: rate on the y axis, whichever variable you are testing on the x, with your predicted optimum marked. Run the assay, then draw the real curve on the same axes in a second color. Label the optimum you measured. Underneath, write one line on where your prediction and the data disagreed, and one line on what in the method could have moved the measured optimum away from the true one.",
+    "b": "Draw your assay as a flow of steps, one box each, from tube to number, with an arrow between every step. Under each box write the one thing that step controls. Then circle the single step where a mistake would change your answer the most, and write what that mistake would do to the shape of your curve, not just to one point."
+   },
+   {
+    "n": 7,
+    "name": "ATP production pathways",
+    "can": "Compare glycolysis, the citric acid cycle, and oxidative phosphorylation by location, oxygen requirement, and ATP yield.",
+    "a": "Draw a cell outline with the cytosol and one mitochondrion. Place glycolysis, the citric acid cycle, and oxidative phosphorylation where each actually happens, and draw arrows for what passes from one to the next. Beside each, write its ATP yield and whether it needs oxygen. One line: which of the three keeps running when oxygen runs out, and what the cell pays for that.",
+    "b": "Draw the same three pathways as a single fuel line from one glucose molecule to the ATP total, with the running count written on the line as it climbs. Then draw a second version of the line for the same glucose under anaerobic conditions and mark where it stops. Under both, one line on why a sprinting muscle and a resting one are on different lines, and what the sprinter accumulates."
+   }
+  ]
+ },
  "1": {
   "title": "How physiology works and what keeps you steady",
   "midterm": 1,
@@ -119,77 +172,22 @@ window.BIO005_SHEET = {
   ]
  },
  "2": {
-  "title": "The chemistry that does work in the body",
-  "midterm": 1,
-  "items": [
-   {
-    "n": 1,
-    "name": "Water and solution properties",
-    "can": "Explain how the polarity and hydrogen bonding of water determine solubility and identify whether a given solute is hydrophilic or hydrophobic.",
-    "a": "Draw one water molecule big, with the partial charges marked, then draw four more hydrogen bonding to it. Beside that, drop in a sodium ion and a drop of oil. Show what the water does around each one, arrows for how the molecules turn. Underneath, one line: why the same property that dissolves the salt refuses the oil.",
-    "b": "Draw a cross section of a cell membrane with water on both sides. Put four solutes on your drawing: glucose, sodium, oxygen, and a steroid hormone. Mark each one hydrophilic or hydrophobic, then draw where each one sits relative to the membrane and whether it can pass. One line under it on which property of the solute decided that, not which property of the membrane."
-   },
-   {
-    "n": 2,
-    "name": "pH and buffers",
-    "can": "Define pH, state the normal pH range of arterial blood, and explain how a buffer pair resists a change in pH when acid or base is added.",
-    "a": "Draw a pH scale as a horizontal line from 0 to 14. Mark arterial blood, stomach contents, and urine in the right places, with the actual numbers. Then draw the bicarbonate buffer pair as a two-way arrow above the blood mark, and show with arrows what the pair does when acid is added and when base is added. One line: what would happen to blood pH without it.",
-    "b": "Draw the same beaker twice, one with buffer and one without, and add the same amount of acid to each. Draw the pH before and after in both. Then draw a third panel: the buffered beaker after so much acid that the buffer runs out. Under it, one line naming what 'the buffer runs out' actually means at the molecular level."
-   },
-   {
-    "n": 3,
-    "name": "Protein structure and function",
-    "can": "Relate the levels of protein structure to binding site shape and explain how denaturation by heat or pH change destroys function.",
-    "a": "Pick one protein you will meet later this term: hemoglobin, a sodium channel, or an enzyme. Draw it at all four levels of structure, one box per level, in order. On the fourth box, circle the binding site. Then draw the same protein after heat denaturation and mark exactly what changed. One line: which level of structure was lost first, and why the binding site stopped working.",
-    "b": "Draw a binding site and its ligand as two shapes that fit, like a lock and key, then draw three failed versions beside it: one where the ligand is the wrong shape, one where the site has been distorted by low pH, and one where a second molecule is already sitting in the site. Label which of the three is competition and which is denaturation. One line on why shape is the whole story here."
-   },
-   {
-    "n": 4,
-    "name": "Enzyme activity and regulation",
-    "can": "Describe how enzymes lower activation energy and predict the effect of substrate concentration, temperature, pH, and competitive or allosteric inhibition on reaction rate.",
-    "a": "Draw an energy diagram with reactants, products, and the activation energy hump, then draw the same reaction with enzyme on top of it in a second color. Show what the enzyme changed and what it did not. Underneath, draw four small graphs in a row: rate against substrate concentration, against temperature, against pH, and with a competitive inhibitor added. Label the axes on every one. One line on which of the four curves has a plateau and what the plateau means.",
-    "b": "Draw an enzyme with its active site, then draw three copies of it: one with a competitive inhibitor in the active site, one with an allosteric inhibitor at a second site, and one with an allosteric activator. In each copy show what happened to the active site's shape. Then write which one you could overcome by adding more substrate, and why that works for one and not the other."
-   },
-   {
-    "n": 5,
-    "name": "ATP and energy coupling",
-    "can": "Explain how ATP hydrolysis is coupled to endergonic cellular work and name three categories of work that require it.",
-    "a": "Draw ATP, then draw the hydrolysis to ADP plus phosphate with the energy released as an arrow leaving. Now draw three cellular jobs that arrow can go and do: a pump moving sodium uphill, a muscle filament sliding, and a molecule being built. In each one show where the phosphate or the energy actually goes. One line: why the cell cannot just store the energy as heat instead.",
-    "b": "Draw ATP as a rechargeable battery on one side of a cycle and draw the cycle closed, with what charges it and what drains it. Then break the cycle at one point of your choosing, either the charging half or the draining half, and write what fails first in a real cell within seconds, and what fails within minutes. Be specific about which cell you picked."
-   },
-   {
-    "n": 6,
-    "name": "Enzyme assay",
-    "can": "Measure enzyme activity across a range of temperature or pH using a spectrophotometric or colorimetric assay, plot the results, and identify the optimum.",
-    "a": "Before you run anything, draw the graph you predict: rate on the y axis, whichever variable you are testing on the x, with your predicted optimum marked. Run the assay, then draw the real curve on the same axes in a second color. Label the optimum you measured. Underneath, write one line on where your prediction and the data disagreed, and one line on what in the method could have moved the measured optimum away from the true one.",
-    "b": "Draw your assay as a flow of steps, one box each, from tube to number, with an arrow between every step. Under each box write the one thing that step controls. Then circle the single step where a mistake would change your answer the most, and write what that mistake would do to the shape of your curve, not just to one point."
-   },
-   {
-    "n": 7,
-    "name": "ATP production pathways",
-    "can": "Compare glycolysis, the citric acid cycle, and oxidative phosphorylation by location, oxygen requirement, and ATP yield.",
-    "a": "Draw a cell outline with the cytosol and one mitochondrion. Place glycolysis, the citric acid cycle, and oxidative phosphorylation where each actually happens, and draw arrows for what passes from one to the next. Beside each, write its ATP yield and whether it needs oxygen. One line: which of the three keeps running when oxygen runs out, and what the cell pays for that.",
-    "b": "Draw the same three pathways as a single fuel line from one glucose molecule to the ATP total, with the running count written on the line as it climbs. Then draw a second version of the line for the same glucose under anaerobic conditions and mark where it stops. Under both, one line on why a sprinting muscle and a resting one are on different lines, and what the sprinter accumulates."
-   }
-  ]
- },
- "3": {
   "title": "The cell, and how cells talk",
   "midterm": 1,
   "items": [
    {
     "n": 1,
-    "name": "Body fluid compartments",
-    "can": "State the approximate volumes of total body water, intracellular fluid, extracellular fluid, plasma, and interstitial fluid in a 70 kg adult and compare the dominant solutes of the intracellular and extracellular compartments.",
-    "a": "Draw the fluid compartments top down with the fractions. Use one border style for inside cells and a different one for outside.",
-    "b": "On a compartment drawing, mark where a blood sample is taken and which compartment you are actually drawing a conclusion about."
-   },
-   {
-    "n": 2,
     "name": "Membrane composition and fluidity",
     "can": "Describe the fluid mosaic membrane and state how phospholipids, cholesterol, glycolipids, and integral and peripheral proteins contribute to its properties.",
     "a": "Draw a patch of membrane in cross section, big enough to fill half your box. Put in phospholipids with heads and tails clearly different, cholesterol wedged between the tails, a transmembrane protein, a peripheral protein on the inner face, and a glycolipid with its sugar chain. Label which face is extracellular. One line: name the one component whose position alone tells you which side of the membrane you are looking at.",
     "b": "Draw the same membrane patch three times in a row: at normal body temperature, chilled, and warmed. In each, show how tightly the phospholipid tails pack and where cholesterol sits. Draw one tail with a double bond kink in it and one straight saturated tail. One line: cholesterol is called a fluidity buffer and not a stiffener, so say what the word buffer is doing there."
+   },
+   {
+    "n": 2,
+    "name": "Determinants of permeability",
+    "can": "Rank molecules by their ability to cross a lipid bilayer unaided using size, charge, and lipid solubility, and predict which will require a protein.",
+    "a": "Draw a bilayer as a vertical wall down the middle of your page. Line up six molecules on the left: oxygen, carbon dioxide, water, a steroid hormone, glucose, and a sodium ion. Draw an arrow straight through the wall for each one that crosses unaided, a blocked arrow for each that cannot, and a protein set into the wall for each that needs help. One line: sodium is tiny and still cannot cross, so say what actually stopped it.",
+    "b": "Draw a ranking ladder, most permeable at the top and least at the bottom, and place at least six molecules of your own choosing on it. Beside each rung write the properties that put it there: size, lipid solubility, and charge where it applies. One line: name the pair on your ladder that are close in size but far apart in rank, and say what separates them."
    },
    {
     "n": 3,
@@ -256,23 +254,23 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "4": {
+ "3": {
   "title": "Getting across the membrane, and the electrical signal",
   "midterm": 1,
   "items": [
    {
     "n": 1,
+    "name": "Body fluid compartments",
+    "can": "State the approximate volumes of total body water, intracellular fluid, extracellular fluid, plasma, and interstitial fluid in a 70 kg adult and compare the dominant solutes of the intracellular and extracellular compartments.",
+    "a": "Draw the fluid compartments top down with the fractions. Use one border style for inside cells and a different one for outside.",
+    "b": "On a compartment drawing, mark where a blood sample is taken and which compartment you are actually drawing a conclusion about."
+   },
+   {
+    "n": 2,
     "name": "Compartment separation and clinical volume shifts",
     "can": "Predict the direction of water movement between compartments when extracellular osmolarity rises or falls and name a clinical situation that produces each shift.",
     "a": "Draw a patient with swollen ankles and a low blood pressure. Use arrows to show where the water went.",
     "b": "Draw three scenarios: water gained in the vessels, water lost from the body, water moved into tissue. Predict blood pressure under each."
-   },
-   {
-    "n": 2,
-    "name": "Determinants of permeability",
-    "can": "Rank molecules by their ability to cross a lipid bilayer unaided using size, charge, and lipid solubility, and predict which will require a protein.",
-    "a": "Draw a bilayer as a vertical wall down the middle of your page. Line up six molecules on the left: oxygen, carbon dioxide, water, a steroid hormone, glucose, and a sodium ion. Draw an arrow straight through the wall for each one that crosses unaided, a blocked arrow for each that cannot, and a protein set into the wall for each that needs help. One line: sodium is tiny and still cannot cross, so say what actually stopped it.",
-    "b": "Draw a ranking ladder, most permeable at the top and least at the bottom, and place at least six molecules of your own choosing on it. Beside each rung write the properties that put it there: size, lipid solubility, and charge where it applies. One line: name the pair on your ladder that are close in size but far apart in rank, and say what separates them."
    },
    {
     "n": 3,
@@ -402,7 +400,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "5": {
+ "4": {
   "title": "Neurons, action potentials and synapses",
   "midterm": 1,
   "items": [
@@ -569,7 +567,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "6": {
+ "5": {
   "title": "Reflexes, and sensing the world",
   "midterm": 1,
   "items": [
@@ -750,7 +748,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "7": {
+ "6": {
   "title": "Muscle, and how movement gets commanded",
   "midterm": 1,
   "items": [
@@ -924,9 +922,9 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "8": {
+ "7": {
   "title": "Hormones, the autonomic system, and reproduction",
-  "midterm": 2,
+  "midterm": 1,
   "items": [
    {
     "n": 1,
@@ -1084,7 +1082,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "9": {
+ "8": {
   "title": "The heart as a pump",
   "midterm": 2,
   "items": [
@@ -1209,7 +1207,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "10": {
+ "9": {
   "title": "Pressure, flow, and holding blood pressure steady",
   "midterm": 2,
   "items": [
@@ -1306,7 +1304,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "11": {
+ "10": {
   "title": "Blood and how the body defends itself",
   "midterm": 2,
   "items": [
@@ -1445,7 +1443,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "12": {
+ "11": {
   "title": "Digestion, and how you use food for fuel",
   "midterm": 2,
   "items": [
@@ -1612,7 +1610,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "13": {
+ "12": {
   "title": "Breathing, gas transport, and the fast pH lever",
   "midterm": 2,
   "items": [
@@ -1786,7 +1784,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "14": {
+ "13": {
   "title": "The kidney and body fluid balance",
   "midterm": 2,
   "items": [
@@ -1939,9 +1937,9 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "15": {
+ "14": {
   "title": "The slow pH lever, and putting it all together",
-  "midterm": null,
+  "midterm": 2,
   "items": [
    {
     "n": 1,
