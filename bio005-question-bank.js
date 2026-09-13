@@ -272,7 +272,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q44",
   "q": "Is there extra credit?",
-  "a": "<p>No individual extra credit, and asking will not create any. If I ever offer extra credit, I offer it to the whole class at once.</p>",
+  "a": "<p>Not in the back-end sense. There is nothing you can do in December to pull a grade up. What this course has instead is <a href=\"scholar-points.html\" target=\"_top\">Scholar Points</a>: up to a 2.5 percent bump on your final grade, earned across the term by putting hours into practising with other people. Thirty hours earns the full 2.5, fewer earns that proportion, and three hours a week is the most that counts.</p>",
   "topic": "Grading"
  },
  {
@@ -397,8 +397,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q65",
-  "q": "Where did Scholar Points or bonus systems go?",
-  "a": "<p>This course does not use them. Four categories, no curve, no extra credit. Simple on purpose.</p>",
+  "q": "What are Scholar Points?",
+  "a": "<p>Up to a 2.5 percent bump on your final course grade, earned by hours spent practising this material with other people: <a href=\"study-with-me.html\" target=\"_top\">Study With Me</a> sessions, study groups you set up, quizzing and teaching each other. Thirty hours earns the full 2.5 percent and fewer earns that proportion. Three hours a week is the most that counts, so it cannot be done in one weekend. Details on the <a href=\"scholar-points.html\" target=\"_top\">Scholar Points</a> page.</p>",
   "topic": "Grading"
  },
  {

@@ -2904,8 +2904,10 @@ function drBuild(){
   if(weak.length){
     steps.push({tool:'',ic:'mic',name:'Teach It',sub:'Out loud, no notes',mins:8,topic:weak[0].c.name,
       why:'Fastest way to find what is still missing.',
-      body:'<b>'+esc(weak[0].c.name)+'.</b> Say it out loud to an empty room, in plain language, no notes. Where you stall is the gap. That is the bit to go back to, not the bit that came out fluently.',
-      go:function(){ openProve(weak[0].c.id); }});
+      body:'<b>'+esc(weak[0].c.name)+'.</b> Teach it at a whiteboard, talking and drawing at the same time, the way the exam asks for it. Then tick what actually made it onto the board. Where you stall is the gap.',
+      /* was openProve, which dropped the student on a menu called Prove
+         with no mention of teaching anywhere on it */
+      go:function(){ teachIt(weak[0].c); }});
   }
   /* never blow the plan: trim from the end until it fits */
   var tot=0,keep=[];
@@ -3328,20 +3330,55 @@ function brainDump(){
   var c=exerciseComp();CUR_EX=c;CUR_CONF=null;
   confGate(c,function(){bdTask(c);});
 }
+/* PAPER FIRST.
+
+   The dump belongs on paper: writing by hand is slower than typing,
+   and that is the point, and a blank page has none of the prompting a
+   text box does. Typing stays available for anyone who needs it, but
+   it is the second option rather than the only one. Either way the
+   next screen is the same checklist. */
 function bdTask(c){
-  gBody('<div class="g-qmeta"><span>Everything you know about</span><span>'+esc(c.name)+'</span></div><p class="g-q">Write everything you can recall about '+esc(c.name)+'. No notes. Keep going until you run dry.</p><textarea id="bdBox" style="width:100%;min-height:170px;font-family:inherit;font-size:15px;padding:13px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--offwhite)" placeholder="Start writing..."></textarea><div class="g-actions"><button class="btn gold" id="bdDone">I am done, check myself</button></div>');
+  gBody('<div class="g-qmeta"><span>Everything you know about</span><span>'+esc(c.name)+'</span></div>'
+    +'<p class="g-q">Blank page, pen, nothing in front of you. Write everything you can recall about '
+    +esc(c.name)+', and keep going until you run dry.</p>'
+    +'<p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 14px">When you have run out, come back '
+    +'and open the checklist. It lists what should have been on the page, and it is the same thing that '
+    +'would be looked for on an exam. You tick what you actually wrote, and that is your score.</p>'
+    +'<div class="g-actions"><button class="btn gold" id="bdPaper">I did it on paper, open the checklist</button>'
+    +'<button class="btn" id="bdType">I would rather type it</button></div>');
+  $('#bdPaper').onclick=function(){bdCheck(c,null);};
+  $('#bdType').onclick=function(){bdTyped(c);};
+}
+function bdTyped(c){
+  gBody('<div class="g-qmeta"><span>Everything you know about</span><span>'+esc(c.name)+'</span></div>'
+    +'<p class="g-q">Write everything you can recall about '+esc(c.name)+'. No notes. Keep going until you run dry.</p>'
+    +'<textarea id="bdBox" style="width:100%;min-height:170px;font-family:inherit;font-size:15px;padding:13px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--offwhite)" placeholder="Start writing..."></textarea>'
+    +'<div class="g-actions"><button class="btn gold" id="bdDone">I am done, open the checklist</button></div>');
   var box=$('#bdBox');if(box)box.focus();
   $('#bdDone').onclick=function(){bdCheck(c,($('#bdBox').value.trim().match(/\S+/g)||[]).length);};
 }
 function bdCheck(c,words){
   var rub=rubricFor(c)||[];
   if(!rub.length){
-    gBody('<div class="g-center"><div class="g-emoji">📝</div><h3>You recalled about '+words+' words</h3><p>Open your notes and highlight everything you missed. Those are your repair targets for '+esc(c.name)+'. How complete was your dump?</p><div class="g-actions"><button class="btn" data-mmscore="2">Patchy</button><button class="btn" data-mmscore="4">Solid</button><button class="btn gold" data-mmscore="6">Thorough</button></div></div>');
+    /* No written checklist for this competency yet, so the only honest
+       fallback is the student's own notes. Never print a word count as
+       though it were a result: the paper route has no count at all, and
+       on the typed route the number measures typing rather than recall. */
+    gBody('<div class="g-center"><div class="g-emoji">\u{1F4DD}</div><h3>Check it against your notes</h3>'
+      +'<p>There is no written checklist for <b>'+esc(c.name)+'</b> yet. Open your note sheet, read it beside '
+      +'what you produced, and mark everything that never made it onto your page. Those are your repair targets.</p>'
+      +'<p style="font-size:13px;color:var(--ink-soft)">How much of it did you actually get?</p>'
+      +'<div class="g-actions"><button class="btn" data-mmscore="2">Under half</button>'
+      +'<button class="btn" data-mmscore="4">Most of it</button>'
+      +'<button class="btn gold" data-mmscore="6">Nearly all of it</button></div></div>');
     return;
   }
   var checked={};
-  var b='<div class="g-qmeta"><span>Check off what you recalled</span><span>'+esc(c.name)+'</span></div>';
-  b+='<p class="g-q" style="font-size:15px">Tick every item you actually wrote down. Be honest, this is your score.</p>';
+  var b='<div class="g-qmeta"><span>What should have been on the page</span><span>'+esc(c.name)+'</span></div>';
+  b+='<p class="g-q" style="font-size:15px">Read your own page beside this list and tick only what you actually produced.</p>';
+  b+='<p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px">This is also what would be looked for on an exam, '
+   + 'so the items you leave unticked are both your score and your study list. Ticking something you did not write '
+   + 'costs you the only thing this exercise was going to tell you.</p>';
   b+='<ul style="list-style:none;padding:0;margin:0 0 14px;display:grid;gap:8px">'+rub.map(function(x,i){return '<li><button type="button" class="pm-step" data-bdi="'+i+'" aria-pressed="false"><span class="pm-box" aria-hidden="true"></span><span class="lbl">'+esc(x)+'</span></button></li>';}).join('')+'</ul>';
   b+='<div class="g-actions"><span style="align-self:center;font-weight:800" id="bdCount">0 of '+rub.length+'</span><button class="btn gold" id="bdScore">Score me</button></div>';
   gBody(b);
@@ -3361,6 +3398,151 @@ function bdResult(c,total,got){
   $('#bdAgain').onclick=function(){brainDump();};
 }
 
+/* =========================================================
+   TEACH IT
+
+   Sep 13 2026. Teach It used to hand the student to openProve,
+   the generic "pick one of twelve ways to prove this" screen.
+   Pressing Teach It and landing on a menu called Prove is
+   disorienting: they already chose, and the screen they get
+   does not mention teaching anywhere. Teaching now has its own
+   flow, start to finish, and never mentions proving.
+
+   THREE WAYS, AND THE FIRST ONE IS THE EXAM
+   -----------------------------------------
+   Talking at a whiteboard while drawing is the closest thing
+   in this course to what the midterm actually asks for, so it
+   leads. Teaching a person is the honest test of whether an
+   explanation lands. Recording is for anyone with nobody to
+   teach and no whiteboard, which is most students most nights.
+
+   THE SAME CHECKLIST EITHER WAY
+   -----------------------------
+   Whichever route they take, they finish on the same list of
+   what the explanation should have contained, ticked either by
+   themselves against their whiteboard, or by whoever they
+   taught. That count feeds mastery, the weak spot board and
+   the gap finder exactly the way the brain dump does, so a
+   competency that gets taught badly shows up as weak.
+   ========================================================= */
+var TEACH_WAYS=[
+  {k:'whiteboard', name:'At a whiteboard, out loud',
+   sub:'Talk and draw at the same time',
+   body:'Stand at a whiteboard, a window, or a big sheet of paper. Talk your way through it and draw as you go, the way you would have to on the exam. Nobody has to be watching. When you are done, look at what is on the board and tick what you actually got onto it.'},
+  {k:'person', name:'To another person',
+   sub:'They hold the checklist',
+   body:'Teach it to somebody: a classmate, a housemate, anyone who has not taken this course. Hand them the checklist while you talk and let them tick what they actually heard you cover. Somebody else ticking is harder than ticking your own, which is the point.'},
+  {k:'record', name:'Record yourself',
+   sub:'Phone camera, then watch it back',
+   body:'Record yourself teaching it, then watch it back with the checklist open. Watching yourself is uncomfortable and it is also the fastest way to hear where you hedged. The recording is yours; nothing is uploaded anywhere.'}
+];
+
+function teachIt(c){
+  if(!c) c=exerciseComp();
+  if(!c) return;
+  CUR_EX=c; CUR_EX_KIND='teach';
+  clearG();
+  var ov=$('#gameOverlay'); ov.classList.add('open'); ov.setAttribute('aria-hidden','false');
+  lastFocus=document.activeElement; $('#gameClose').focus();
+  gSet('Teach it: '+c.name,'Pick how you are teaching');
+  var b='<div style="text-align:left">';
+  b+='<p style="color:var(--ink-soft);margin:0 0 14px">Teach <b>'+esc(c.name)+'</b> to somebody, out loud, '
+   + 'in plain language, with nothing in front of you. Where you stall is the gap, and it is the fastest '
+   + 'diagnostic you have.</p>';
+  b+=TEACH_WAYS.map(function(w){
+    return '<button class="btn prove-m" data-teachw="'+w.k+'" style="text-align:left;display:block;width:100%;margin:0 0 8px;padding:12px 14px">'
+      +'<b>'+esc(w.name)+'</b><br><span style="font-size:12.5px;color:var(--ink-soft);font-weight:400">'+esc(w.sub)+'</span></button>';
+  }).join('');
+  b+='<div class="g-actions"><button class="btn" data-gameclose>Close</button></div></div>';
+  gBody(b);
+  $$('#gameBody [data-teachw]').forEach(function(btn){
+    btn.onclick=function(){ teachDo(c, btn.getAttribute('data-teachw')); };
+  });
+}
+
+function teachDo(c,k){
+  var w=null;
+  for(var i=0;i<TEACH_WAYS.length;i++) if(TEACH_WAYS[i].k===k) w=TEACH_WAYS[i];
+  if(!w) return;
+  gSet('Teach it: '+c.name, w.name);
+  var b='<div style="text-align:left">';
+  b+='<p class="g-q" style="font-size:16px;margin-bottom:10px">'+esc(w.name)+'</p>';
+  b+='<p style="margin:0 0 12px">'+esc(w.body)+'</p>';
+  if(c.can) b+='<p style="background:var(--white);border:1px solid var(--line-soft);border-radius:var(--r);padding:11px 13px;font-size:13.5px;margin:0 0 14px"><b>'+esc(c.name)+'.</b> '+esc(c.can)+'</p>';
+  b+='<p style="font-size:13px;color:var(--ink-soft);margin:0 0 4px">Do it first. The checklist afterwards is what '
+   + 'should have been in the explanation, and it is the same thing that would be looked for on an exam.</p>';
+  b+='<div class="g-actions"><button class="btn gold" id="tiDone">Done teaching, open the checklist</button>'
+   + '<button class="btn" id="tiBack">Pick a different way</button></div></div>';
+  gBody(b);
+  $('#tiDone').onclick=function(){ teachCheck(c,k); };
+  $('#tiBack').onclick=function(){ teachIt(c); };
+}
+
+function teachCheck(c,k){
+  var rub=rubricFor(c)||[];
+  if(!rub.length){
+    gBody('<div class="g-center"><div class="g-emoji">\u{1F5E3}️</div><h3>Check it against your notes</h3>'
+      +'<p>There is no written checklist for <b>'+esc(c.name)+'</b> yet. Read your note sheet back and mark '
+      +'anything you never said out loud. That is your repair list.</p>'
+      +'<p style="font-size:13px;color:var(--ink-soft)">How much of it did you cover without stalling?</p>'
+      +'<div class="g-actions"><button class="btn" data-mmscore="2">Under half</button>'
+      +'<button class="btn" data-mmscore="4">Most of it</button>'
+      +'<button class="btn gold" data-mmscore="6">Nearly all of it</button></div></div>');
+    return;
+  }
+  var who = k==='person' ? 'Hand this to the person you taught and let them tick what they actually heard.'
+         : k==='whiteboard' ? 'Look at what is on your whiteboard and tick only what is actually there.'
+         : 'Watch it back and tick only what you actually said.';
+  var checked={};
+  var b='<div class="g-qmeta"><span>What the explanation should have covered</span><span>'+esc(c.name)+'</span></div>';
+  b+='<p class="g-q" style="font-size:15px">'+esc(who)+'</p>';
+  b+='<p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px">Anything left unticked is what to go back to. '
+   + 'These are also the things an exam answer on this competency would be read for.</p>';
+  b+='<ul style="list-style:none;padding:0;margin:0 0 14px;display:grid;gap:8px">'+rub.map(function(x,i){
+      return '<li><button type="button" class="pm-step" data-tci="'+i+'" aria-pressed="false">'
+        +'<span class="pm-box" aria-hidden="true"></span><span class="lbl">'+esc(x)+'</span></button></li>';
+    }).join('')+'</ul>';
+  b+='<div class="g-actions"><span style="align-self:center;font-weight:800" id="tcCount">0 of '+rub.length+'</span>'
+   + '<button class="btn gold" id="tcScore">Score me</button></div>';
+  gBody(b);
+  $$('#gameBody .pm-step').forEach(function(btn){
+    btn.onclick=function(){
+      var i=+btn.getAttribute('data-tci');
+      checked[i]=!checked[i];
+      btn.setAttribute('aria-pressed',checked[i]?'true':'false');
+      var g=0; for(var q in checked) if(checked[q]) g++;
+      var cs=$('#tcCount'); if(cs) cs.textContent=g+' of '+rub.length;
+    };
+  });
+  $('#tcScore').onclick=function(){
+    var g=0; for(var q in checked) if(checked[q]) g++;
+    teachResult(c,rub.length,g,k);
+  };
+}
+
+function teachResult(c,total,got,k){
+  var pct=total?Math.round(got/total*100):0;
+  var bump=Math.max(1,Math.round((got/(total||1))*6));
+  bumpComp(c,bump);
+  bumpSkill('Explanation',2);
+  bumpSkill('Gap Identification',1);
+  bumpDim('teach',Math.max(2,bump));
+  var key = k==='person' ? 'teach' : 'explain';
+  if(c.ev.indexOf(key)<0) c.ev.push(key);
+  selfScored(c,bump);
+  logEvidence(key,c.id);
+  save(); renderAll();
+  var emoji = pct>=80?'✅' : pct>=50?'\u{1F4C8}' : '\u{1F501}';
+  var msg = pct>=80 ? 'That held together.'
+          : pct>=50 ? 'The shape is there, with gaps in the middle.'
+          : 'Thin. Worth reading it back and teaching it again tomorrow.';
+  gBody('<div class="g-center"><div class="g-emoji">'+emoji+'</div><h3>'+pct+'%, '+got+' of '+total+'</h3>'
+    +'<p>'+msg+' What you left unticked is your repair list for '+esc(c.name)+'. Mastery updated.</p>'
+    +'<div class="g-actions"><button class="btn gold" id="tiAgain">Teach it again</button>'
+    +'<button class="btn" data-gameclose>Done</button></div></div>');
+  $('#tiAgain').onclick=function(){ teachIt(c); };
+}
+
 /* ---- Pomodoro session (chooser + focus/break cycle) ---- */
 function pomo(){var p=S.profile.pomodoro||{};return {focus:p.focus||25,shortBrk:p.shortBrk||p.brk||5,longBrk:(p.longBrk!=null?p.longBrk:15),blocks:p.blocks||4,longEvery:(p.longEvery!=null?p.longEvery:4)};}
 function fmtClock(s){s=Math.round(s);var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
@@ -3376,13 +3558,27 @@ function resFor(comp){var R=window.BIO005_RESOURCES;return (R&&comp&&R[comp.id])
    worksheet drawings. So the lookup falls through to them: find a
    drawing that covers this competency and use its item list. If you
    ever do fill rubrics.js in, entries there still win. */
+/* THE LOOKUP WAS READING FIELDS THAT DO NOT EXIST.
+
+   This asked each draw-checklists entry for D[i].comps and D[i].items.
+   Those entries carry "id" and "checklist". So the loop never matched
+   anything, rubricFor returned null for all 268 competencies, and every
+   exercise that depends on a checklist fell through to its no-checklist
+   branch: the brain dump showed a word count and a patchy/solid/thorough
+   rating, and Draw it to Know it showed no list at all. Fixed Sep 13
+   2026, together with real entries in rubrics.js for week 1. */
 function rubricFor(comp){
-  var R=window.BIO005_RUBRICS;
-  if(R&&comp&&R[comp.id]) return R[comp.id];
   if(!comp) return null;
+  var R=window.BIO005_RUBRICS;
+  if(R && R[comp.id] && R[comp.id].length) return R[comp.id];
   var D=window.BIO005_DRAW||[];
   for(var i=0;i<D.length;i++){
-    if((D[i].comps||[]).indexOf(comp.id)>=0 && D[i].items && D[i].items.length) return D[i].items;
+    var d=D[i];
+    if(!d) continue;
+    var hit = d.id===comp.id || (d.comps||[]).indexOf(comp.id)>=0;
+    if(!hit) continue;
+    var list = d.checklist || d.items;
+    if(list && list.length) return list;
   }
   return null;
 }
