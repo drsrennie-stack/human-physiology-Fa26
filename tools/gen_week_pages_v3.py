@@ -112,7 +112,7 @@ CSS_V3 = V2.CSS + '''
 a.tool{position:relative;display:flex;flex-direction:column;width:100%;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--rule-soft);border-radius:14px;
   padding:22px 20px 18px;box-shadow:var(--shadow);overflow:hidden;transition:transform 200ms ease,box-shadow 200ms ease}
 a.tool:hover{transform:translateY(-2px);box-shadow:var(--lift)}
-a.tool::before{content:'';position:absolute;left:0;right:0;top:0;height:5px;background:var(--tab)}
+/* no accent bar on cards: white cards lifted by shadow only (her rule) */
 a.tool{--accent:#0B1530;--tab:#0B1530;--ink2:#fff}
 a.tool.c-navy{--accent:#0B1530;--tab:#0B1530;--ink2:#fff}
 a.tool.c-maroon{--accent:#8B3A2E;--tab:#8B3A2E;--ink2:#fff}
@@ -270,12 +270,18 @@ def page(n, opens, closes, title, part, solid=False):
     bigq = BIG_Q.get(n, '')
 
     # ---- LEARN ----
+    # Order of record (her words, Sep 7, reconfirmed Sep 13 2026): competencies and the
+    # note sheet first pass from the book, THEN the lectures, THEN the second pass.
+    learn_first = (card('week-%s-competencies.html' % nn, 'c-maroon', 'list', 'Competencies',
+                        'The %d things you have to be able to do this week. Read them before anything else so you know what you are looking for.' % c)
+                   + card('note-sheet.html?week=%d' % n, 'c-maroon', 'pen', 'Note sheet, pass 1',
+                          'One box per competency (%d this week). Print it or rule your own, then fill each box from Silverthorn in your own words: lists, mini maps, sequences. Sparse is fine. Leave room.' % c))
     learn_hero = card('lecture-week.html?week=%d' % n, 'c-maroon', 'learn', 'Learn It With Dr. Rennie',
-                      'Start here. I will walk you through this week\'s big physiological problem and show you how to think through the important concepts. The lectures are short and in order.',
+                      'Now watch. I will walk you through this week\'s big physiological problem and show you how to think through the important concepts. The lectures are short and in order. Keep your note sheet beside you.',
                       main=True, go='Start the lectures &rarr;')
-    learn_sub = (card('week-%s-notes.html' % nn, 'c-maroon', 'notes', 'Notes', 'The written version of what I teach, for reading and rereading.')
-                 + card('note-sheet.html?week=%d' % n, 'c-maroon', 'pen', 'Note sheet',
-                        'Optional, and the one thing I most recommend. One box per competency (%d this week) with its prompt. Print it or rule your own. Pass 1 from the book, pass 2 after the lectures, in a second color.' % c)
+    learn_sub = (card('note-sheet.html?week=%d' % n, 'c-maroon', 'pen', 'Note sheet, pass 2',
+                      'Go back to the same boxes in a second color and add what the lectures changed, corrected, or made click.')
+                 + card('week-%s-notes.html' % nn, 'c-maroon', 'notes', 'Notes', 'The written version of what I teach, for reading and rereading.')
                  + card('https://openstax.org/details/books/anatomy-and-physiology-2e', 'c-maroon', 'book', 'OpenStax, free extra', 'A second explanation when you want one. Silverthorn is the required text.', ext_=True))
 
     # ---- PRACTICE ----
@@ -388,16 +394,18 @@ def page(n, opens, closes, title, part, solid=False):
       <li><a href="#apply" style="--sc:#C9A14A;--si:#0B1530"><span class="dot" aria-hidden="true">{ICON['apply']}</span>Apply</a></li>
       <li><a href="#check" style="--sc:#ECEFF4;--si:#0B1530"><span class="dot" aria-hidden="true">{ICON['check']}</span>Check</a></li>
     </ol>
-    <div class="why"><span class="who">Dr. Rennie</span><p>I will teach you the major concepts first. Then you will practice getting them back, use them to solve a physiological problem, and check what still needs work before it costs you points.</p></div>
+    <div class="why"><span class="who">Dr. Rennie</span><p>Read the week from the book with your note sheet open, then let me teach it. Then you will practice getting it back, use it to solve a physiological problem, and check what still needs work before it costs you points.</p></div>
   </section>
 
   <section class="shelf learn free" id="learn" aria-labelledby="learn-h">
     <div class="head"><span class="sico" aria-hidden="true">{ICON['learn']}</span>
-      <div><h2 id="learn-h"><span class="stg">Stage 1 of 4</span>Learn</h2><p class="purpose">This is where I teach you what you need to understand. Watch first; everything under it helps you deepen what I taught.</p></div>
+      <div><h2 id="learn-h"><span class="stg">Stage 1 of 4</span>Learn</h2><p class="purpose">This is where you learn what you need to understand. Start from the book with your note sheet open, then watch me teach it, then go back and add what the lectures changed.</p></div>
       <span class="tag">No points</span></div>
+    <p class="sub">First, from the book</p>
+    <ul class="tools small" aria-label="Before the lectures">{learn_first}</ul>
     <ul class="tools" aria-label="Learn">{learn_hero}</ul>
-    <p class="sub">Build the details</p>
-    <ul class="tools small" aria-label="Supporting material">{learn_sub}</ul>
+    <p class="sub">After the lectures</p>
+    <ul class="tools small" aria-label="After the lectures">{learn_sub}</ul>
   </section>
 
   <section class="shelf practice free" id="practice" aria-labelledby="practice-h">
@@ -500,9 +508,9 @@ if __name__ == '__main__':
 # at this week's page and its Learn / Practice / Apply / Check sections.
 # ---------------------------------------------------------------------------
 DOORS = [
-    ('learn', 'Learn', 'Learn It With Dr. Rennie', 'Start here. I teach you this week\'s big physiological problem and how to think through the important concepts. Then the notes and reading, to build the details.', 'Start with the lectures', '#8B3A2E', '#FFFFFF', ''),
+    ('learn', 'Learn', 'Learn It With Dr. Rennie', 'Read first with your note sheet open, then watch me teach this week\'s big physiological problem, then go back and add what changed.', 'Open Learn', '#8B3A2E', '#FFFFFF', ''),
     ('practice', 'Practice', 'Try It From Memory', 'Get it back without looking. Brain dumps, drawing, recall cards, book problems. Mistakes here are useful and none of it is graded.', 'Open Practice', '#0B1530', '#FFFFFF', ''),
-    ('apply', 'Apply', 'Use What You Learned', 'The lab, your patient\'s chart, and the discussion. This is where the physiology becomes a patient, a result, a decision. These three are graded.', 'Open Apply', '#C9A14A', '#0B1530', ' light'),
+    ('apply', 'Apply', 'Use What You Learned', 'The lab, the Use It case, and the discussion, all graded. Plus your patient chart, which you keep all term and turn in once in December.', 'Open Apply', '#C9A14A', '#0B1530', ' light'),
     ('check', 'Check', 'Find the Gaps', 'A thirty question check on this week\'s competencies, and the checklist. Nothing here is graded. A low score tells you exactly what to go back to.', 'Open Check', '#ECEFF4', '#0B1530', ' light check'),
 ]
 
@@ -627,7 +635,7 @@ body.framed .cat{{min-height:0;padding:22px 20px}}
     <section class="hero">
       <p class="eyebrow">Yuba College &middot; Online &middot; Fall 2026</p>
       <h1 class="ph">Welcome to <span class="a">Human Physiology</span>.</h1>
-      <p class="lead">Every week has the same four doors. I teach first, you practice, you use it on a patient and a lab, then you check what still needs work.</p>
+      <p class="lead">Every week has the same four doors, in this order. You read with your note sheet open and I teach it, you practice getting it back, you use it on a patient and a lab, then you check what still needs work.</p>
       <p class="wk" id="wk-eyebrow"></p>
       <p class="bq" id="wk-bq"></p>
       <p class="due" id="wk-due"></p>
@@ -637,7 +645,7 @@ body.framed .cat{{min-height:0;padding:22px 20px}}
     <ul class="cats" aria-labelledby="doors">{cards}</ul>
     <ol class="order" aria-label="The order"><li>Learn</li><li>Practice</li><li>Apply</li><li>Check</li></ol>
 
-    <div class="why"><span class="who">Dr. Rennie</span><p>I teach the major concepts first. Then you practice getting them back, use them to solve a physiological problem, and check what still needs work before it costs you points.</p></div>
+    <div class="why"><span class="who">Dr. Rennie</span><p>Start from the book with your note sheet, then let me teach it. Then practice getting it back, use it to solve a physiological problem, and check what still needs work before it costs you points.</p></div>
   </main>
 
   <footer>
