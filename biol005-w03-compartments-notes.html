@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compartments, cells and tissues &middot; Notes &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy-15)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- notes page ---------- */
+.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
+.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
+.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
+  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
+.hero h1 .hl{color:var(--terra)}
+.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
+  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
+h2:first-of-type{border-top:0;padding-top:0}
+h2 .hl{color:var(--terra)}
+h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
+h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+p{margin:0 0 13px}
+.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
+
+/* term blocks, boxed so each definition reads as its own card */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+@media(max-width:760px){.terms{grid-template-columns:1fr}}
+.term{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:14px 16px}
+.term dt{font-weight:800;font-size:15.5px;margin:0 0 4px}
+.term dd{margin:0;font-size:14.5px;color:var(--navy-72)}
+.term dd b{color:var(--navy)}
+
+/* compartment color key: the same three codes are used in the figure,
+   in this legend, and on each group box, so a student can match them by eye */
+.ckey{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ckitem{display:inline-flex;align-items:center;gap:9px;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.sw{width:22px;height:22px;border-radius:5px;flex:0 0 auto}
+.sw.ext{background:var(--wash);border:1.6px dashed var(--navy-72)}
+.sw.int{background:#fff;border:2.4px solid var(--terra)}
+.sw.icf{background:var(--navy);border:1.6px solid var(--navy)}
+.ckitem .lb{line-height:1.2}
+.ckitem .sub{font-weight:600;color:var(--navy-72);font-size:12.5px;line-height:1.2}
+body.present .ckitem{font-size:clamp(13px,1.3vw,18px)}
+body.present .sw{width:26px;height:26px}
+
+/* grouped compartments: the group border shows what contains what */
+.tgroup{border-radius:var(--r-card);padding:16px 18px 18px;margin:0 0 14px}
+.tgroup .glab{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.tgroup .glab .sw{width:16px;height:16px;border-radius:4px}
+.tgroup .gnote{font-size:14px;color:var(--navy-72);margin:0 0 6px}
+.tgroup.ext{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.tgroup.ext .glab{color:var(--navy-72)}
+.tgroup.int{border:2px solid var(--terra)}
+.tgroup.int .glab{color:var(--terra)}
+.tgroup.icf{border:1.8px solid var(--navy)}
+.tgroup.icf .glab{color:var(--navy)}
+
+/* causal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.chain .lk{flex:1 1 130px;min-width:120px;background:#fff;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 13px}
+.chain .lk .k{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0 0 4px}
+.chain .lk p{margin:0;font-size:14px;line-height:1.4}
+.chain .ar{display:flex;align-items:center;justify-content:center;color:var(--terra);
+  font-size:20px;font-weight:800;padding:0 8px;flex:0 0 auto}
+@media(max-width:700px){.chain{flex-direction:column}.chain .ar{transform:rotate(90deg);padding:5px 0}}
+
+/* key box */
+.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
+.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
+.key p:last-child,.key ul:last-child{margin-bottom:0}
+
+/* equation */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:14px 0}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+
+.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+
+@media print{
+  @page{margin:13mm}
+  .site-header .site-logo svg{height:32px}
+  .wb,.wb-launch,.lightbox,.skip{display:none!important}
+  body{font-size:10.5pt}
+  h2{break-after:avoid;page-break-after:avoid}
+  .card,.key,.eq,figure,.chain,.term,.tgroup,.cprof{break-inside:avoid;page-break-inside:avoid}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* transcript blocks and worked problems */
+.sl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:0 0 10px}
+.sl b{color:var(--terra)}
+.tx p{max-width:70ch}
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+.prob{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:18px 0}
+.prob .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.prob .q{font-weight:800;margin:0 0 12px;font-size:16px}
+.prob .q+ul{margin-bottom:14px}
+.prob h5{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:14px 0 8px}
+sup,sub{font-size:.72em;line-height:0}
+img.fig{object-fit:contain}
+@media print{.prob,.work>li{break-inside:avoid;page-break-inside:avoid}}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+
+.prereq .card{padding:18px 20px}
+.prereq .eyebrow{margin-bottom:8px}
+.prereq ul.bul{margin-bottom:6px}
+.prereq ul.bul>li{padding:3px 0 3px 18px;font-size:14.5px}
+.prereq ul.bul>li::before{top:12px;width:5px;height:5px}
+.prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
+.prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
+@media(max-width:860px){.prereq{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Week 3</span></span>
+  </a>
+</header>
+<main class="wrap" id="main">
+
+
+<div class="hero">
+  <p class="eyebrow">Week 3 &middot; Lecture notes and transcript</p>
+  <h1>Compartments, cells and <span class="hl">tissues</span></h1>
+  <p class="lede">These notes follow the lecture slide by slide. Each section names the slides it covers, so you can read it before the video, follow it during the video, or use it after to check what you remember. The six worked problems from the slides are written out in full here. Silverthorn chapter 3.</p>
+  <div class="metarow">
+    <span class="pill">Competencies 1 and 3 of week 3</span>
+    <span class="pill navy">42 slides &middot; 6 worked problems</span>
+  </div>
+</div>
+<div class="key"><p class="tag">How to use this sheet</p><p>Pass one, before the video: read the section, then close the page and put what you can into the box for that competency on your note sheet. Pass two, after the video: come back in a different color and add what you missed. Try each worked problem yourself before you read the work. Getting it wrong first is how the method sticks.</p></div><h2>The problem for <span class="hl">today</span></h2><p class="sl"><b>Slides 1 to 2</b> of the deck</p><div class="tx"><p>Last week was about molecules and what gives each one its job. This week is about where those molecules live. A cell is not a bag of chemistry. It is a set of rooms, and the walls between the rooms are what make physiology possible. Today we start with the whole body and work down to a single organelle, then climb back up through junctions, tissues and one complete organ, the skin. The theme all the way through is compartmentation: keeping things apart so they can be controlled.</p><p>Here is the problem we solve by the end. A patient has a burn over 40 percent of their body. They lost very little blood. Yet twelve hours later their blood pressure has dropped from 118/76 to 88/50, their heart rate has climbed to 128, their hematocrit has risen from 40 to 50 percent, they have been given six liters of IV fluid, they weigh five kilograms more than on arrival, and their face and legs are swollen. The water is clearly still in the body. Before you know any of the biology, guess where most of it is: inside the cells, in the blood, in the spaces between cells, or in the gut. Write your guess down. Worked problem 6 answers it.</p></div><h2>One body, many <span class="hl">rooms</span></h2><p class="sl"><b>Slides 3 to 4</b> of the deck</p><div class="tx"><p>A compartment is any space with a boundary that separates inside from outside. The body has them at every scale. The cranial, thoracic and abdominopelvic cavities are the big ones. Inside the thoracic cavity sit two smaller fluid filled sacs, the pleural sacs around the lungs and the pericardial sac around the heart. Other fluid filled compartments are the circulatory system, the eyes and the cerebrospinal fluid around the brain and spinal cord. At the other end of the scale, a single vesicle inside a cell is a compartment too.</p><p>Compartments exist so that processes can be kept apart. Digestive enzymes stay in the gut, where they cannot digest you. Calcium is kept out of the cytosol until a signal lets it in, so that its arrival means something. Acid is made inside a lysosome and nowhere else. The rule to carry through the course: wherever the body needs two different sets of conditions, it builds a wall, and the wall is where the control happens.</p><p>Now a distinction that surprises people. A lumen is the hollow inside of a hollow organ. The lumen of the gut and the lumen of the airways are open to the outside world, so anything sitting in them has not yet entered the body. A swallowed coin in the stomach is in a tunnel that runs through the body; it will pass out the other end without ever crossing a cell membrane. Air in the lungs is still outside in the same sense. Glucose in the stomach only enters the body when it is absorbed across the gut wall, and oxygen only enters when it crosses the wall of an alveolus into the blood. The lumen of the heart and blood vessels is different: it is sealed, and the plasma inside it is extracellular fluid. That lumen is inside. Every time a slide this week says something crosses the epithelium, it means crossing from the outside world into the extracellular fluid.</p></div><dl class="terms"><div class="term"><dt>Compartment</dt><dd>A space with a boundary that keeps what is inside separate from what is outside. Body cavities, fluid compartments and organelles are all compartments.</dd></div><div class="term"><dt>Lumen</dt><dd>The hollow inside of a hollow organ. Gut and airway lumens are continuous with the outside world. Heart and vessel lumens are inside the body.</dd></div><div class="term"><dt>Compartmentation</dt><dd>Separating processes in space so each can run under its own conditions and be controlled on its own.</dd></div></dl><h2>Where the body keeps its <span class="hl">water</span></h2><p class="sl"><b>Slides 5 to 7</b> of the deck</p><div class="tx"><p>Functionally the body has three fluid compartments. The intracellular fluid, ICF, is all the water inside all the cells. On paper it is one compartment; in reality it is trillions of separate rooms, one per cell. The extracellular fluid, ECF, is everything outside the cells, and it has two parts: plasma, the fluid part of blood inside the vessels, and interstitial fluid, which bathes the cells outside the vessels. Two walls separate the three compartments. The capillary wall stands between plasma and interstitial fluid. The cell membrane stands between interstitial fluid and ICF.</p><p>Cells only ever feel the interstitial fluid around them, so the ECF is the internal environment that every control loop from last week was defending. Keep that in mind whenever a later week talks about a regulated variable: it is almost always an ECF value.</p></div><div class="prob"><p class="tag">Worked problem 1</p><p class="q">A 70 kg adult is about 60 percent water. Divide that water into the compartments, then say how much blood the patient has if blood is 40 percent cells by volume.</p><p class="sub">Fractions you are given: ICF is two thirds of total body water, ECF one third. Plasma is about a quarter of the ECF and interstitial fluid the rest. One kilogram of water is one liter.</p><h5>The work</h5><ol class="work"><li>Total body water. 70 kg &times; 0.60 = <b>42 L</b>.</li><li>Intracellular fluid is two thirds of that. 42 &times; 2/3 = <b>28 L</b>. Most of the body's water is inside cells.</li><li>Extracellular fluid is the remaining third. 42 &minus; 28 = <b>14 L</b>.</li><li>Plasma is about a quarter of the ECF. 14 &times; 1/4 = <b>3.5 L</b>, usually rounded to about 3 L. Interstitial fluid is the other three quarters, <b>about 10.5 to 11 L</b>.</li><li>Blood is plasma plus cells. If cells are 40 percent of blood volume, plasma is 60 percent, so blood volume = 3 L &divide; 0.60 = <b>5 L</b>. About five liters of blood, three of them plasma.</li><li>The picture to draw: a 42 L tank, two thirds of it inside cells, and of the outside third only about a quarter in the vessels. Blood is the smallest compartment and the only one we can sample easily.</li></ol></div><div class="prob"><p class="tag">Worked problem 2</p><p class="q">A nurse draws blood and the lab reports sodium 140 mmol/L and potassium 4.0 mmol/L. Which compartment do those numbers describe, and what do they let you say about the other two?</p><p class="sub">Typical values: ECF sodium 140, potassium 4, chloride 105, bicarbonate 24. ICF sodium about 15, potassium about 140, chloride about 5, bicarbonate about 10, with phosphate and protein as the main anions inside.</p><h5>The work</h5><ol class="work"><li>The needle is in a vein, so the sample is blood. The lab spins the cells out and measures the liquid, so the numbers describe <b>plasma</b>.</li><li>Plasma and interstitial fluid are separated by a capillary wall that lets water and small ions through freely. So for small ions, plasma stands in for the whole <b>ECF</b>. Sodium 140 in plasma means sodium about 140 in the fluid around every cell.</li><li>The ICF is a different story. Sodium is low inside and potassium is high, the reverse of outside. A plasma potassium of 4.0 tells you almost nothing about the 140 inside the cells, because the cell membrane keeps the two apart.</li><li>The rule: a blood test reads the ECF directly and the ICF only by inference. When a patient is low on potassium, the plasma number is the tip of the iceberg.</li><li>One trap. If the sample is handled roughly and red cells break, their ICF spills into the plasma and the potassium reads high, sometimes 6 or 7. Nothing is wrong with the patient; a wall was broken in the tube. The lab calls it a hemolyzed sample and asks for another.</li></ol></div>
+<table class="tbl">
+  <caption>The three fluid compartments in a 70 kg adult</caption>
+  <thead><tr><th scope="col">Compartment</th><th scope="col">Volume</th><th scope="col">Main ions</th><th scope="col">Separated from the next by</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Intracellular fluid</th><td class="num">28 L</td><td>K<sup>+</sup>, phosphate, protein</td><td>The cell membrane</td></tr>
+    <tr><th scope="row">Interstitial fluid</th><td class="num">about 11 L</td><td>Na<sup>+</sup>, Cl<sup>&minus;</sup>, HCO<sub>3</sub><sup>&minus;</sup></td><td>The capillary wall</td></tr>
+    <tr><th scope="row">Plasma</th><td class="num">about 3 L</td><td>Na<sup>+</sup>, Cl<sup>&minus;</sup>, HCO<sub>3</sub><sup>&minus;</sup>, plus plasma proteins</td><td></td></tr>
+  </tbody>
+</table><div class="clin"><button class="clin-btn" type="button" aria-controls="clinA" aria-expanded="false"><span>What this means in the clinic</span><span class="chev" aria-hidden="true">&#9656;</span></button><div class="clin-body" id="clinA" hidden><div class="clin-grid"><div class="cprof n"><p class="who">Nursing</p><p class="means">A plasma electrolyte tells you about the fluid outside the cells, not inside them.</p><p class="eg"><b>Example:</b> A patient with a normal plasma potassium can still be badly short of potassium inside their cells after days of vomiting. Replacement is watched over days, not fixed with one bag.</p></div><div class="cprof x"><p class="who">Radiologic technology</p><p class="means">Iodinated contrast stays in the extracellular fluid, so it lights up the vessels first and the tissue spaces second.</p><p class="eg"><b>Example:</b> On a CT with contrast, a kidney tumor enhances in the same phases as the blood supply that feeds it, because contrast is following the plasma and then leaking into the interstitial fluid.</p></div><div class="cprof m"><p class="who">Medicine</p><p class="means">A hemolyzed sample is a broken compartment, not a sick patient.</p><p class="eg"><b>Example:</b> A potassium of 6.8 drawn through a tiny needle with a lot of suction gets repeated before anyone treats it.</p></div><div class="cprof r"><p class="who">Respiratory therapy</p><p class="means">Fluid in the pleural sac is fluid in a compartment that should be nearly empty.</p><p class="eg"><b>Example:</b> A pleural effusion of a liter sits between the lung and the chest wall and stops the lung expanding, which shows up as breathlessness before the blood gases change.</p></div></div></div></div><dl class="terms"><div class="term"><dt>Intracellular fluid, ICF</dt><dd>The water inside cells. About 28 L, two thirds of body water. High potassium, low sodium.</dd></div><div class="term"><dt>Extracellular fluid, ECF</dt><dd>All the water outside cells: plasma plus interstitial fluid. About 14 L. High sodium, low potassium. The internal environment that homeostasis defends.</dd></div><div class="term"><dt>Plasma</dt><dd>The liquid part of blood, inside the vessels. About 3 L. What a blood test measures.</dd></div><div class="term"><dt>Interstitial fluid</dt><dd>The fluid between cells, outside the vessels. About 11 L. Same small ions as plasma, far less protein.</dd></div><div class="term"><dt>Hematocrit</dt><dd>The fraction of blood volume that is cells, normally about 40 to 45 percent.</dd></div><div class="term"><dt>Hemolyzed sample</dt><dd>A blood sample in which red cells have broken, spilling their potassium into the plasma and making the result read falsely high.</dd></div></dl><h2>Two things called a <span class="hl">membrane</span></h2><p class="sl"><b>Slides 8 to 9</b> of the deck</p><div class="tx"><p>The word membrane means two different things, and both matter today. A tissue membrane is a sheet of cells, usually one layer of flattened cells on a thin bed of connective tissue. The pericardium, the pleura and the lining of the gut are tissue membranes, and they separate body compartments. A cell membrane is the phospholipid bilayer around a single cell, about 8 nanometers thick, and it separates the ICF from the ECF. Every tissue membrane is built from cells that each have one. When a slide this week says membrane without saying which, it means the cell membrane.</p><p>The cell membrane has four jobs, and each one is a chapter of the course. Physical isolation: the bilayer keeps ICF and ECF from mixing, and without it the ion differences from problem 2 could not exist. Regulation of exchange: ions, nutrients, waste and water cross, but only where the membrane allows, which is the whole of the next lecture. Communication: receptors in the membrane are how a cell hears a hormone or a neurotransmitter. Structural support: the membrane is tied to the cytoskeleton inside and to other cells and the matrix outside, which is how cells hold a shape and stay in a tissue. The membrane is mostly lipid and protein with a little carbohydrate, arranged as the fluid mosaic model: a fluid sheet of lipid with proteins floating in it like tiles in a mosaic.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-02c.jpg" alt="Concept map of cell membrane components. Cholesterol and phospholipids form the lipid bilayer, a selective barrier between the cytosol and the external environment. Carbohydrates join sphingolipids to form glycolipids and join proteins to form glycoproteins, which provide structural stability, cell recognition and immune response."><figcaption><b>Figure 3.2c.</b> Lipids make the barrier, proteins do the work, carbohydrates on the outside are the labels. Silverthorn 9e, Pearson.</figcaption></figure><div class="prob"><p class="tag">Worked problem 3</p><p class="q">Table 3.1 gives three membranes. Red blood cell membrane: 49 percent protein, 43 percent lipid, 8 percent carbohydrate. Myelin around a nerve fiber: 18 percent protein, 79 percent lipid, 3 percent carbohydrate. Inner mitochondrial membrane: 76 percent protein, 24 percent lipid, no carbohydrate. Which one is mostly insulation, which one is mostly machinery, and why does one have no sugar at all?</p><h5>The work</h5><ol class="work"><li>Lipid is the barrier and protein is the working part. A membrane that is nearly all lipid is built to block; a membrane that is nearly all protein is built to do things.</li><li><b>Myelin</b> at 79 percent lipid is insulation. It wraps a nerve fiber in layer after layer of membrane so that current cannot leak out. Almost no work happens in it, so it needs almost no protein.</li><li>The <b>inner mitochondrial membrane</b> at 76 percent protein is where ATP is made. It is packed with electron carriers and the ATP synthase, so it is more machine than wall.</li><li>The <b>red cell membrane</b> is in between: transporters and structural proteins on one side, a flexible lipid sheet on the other, so the cell can squeeze through capillaries narrower than itself.</li><li>Carbohydrate sits only on the outer face of a cell membrane, where it labels the cell for other cells to read. A mitochondrion lives inside a cell and never meets another cell, so it carries no labels and no carbohydrate. The red cell, which the immune system has to recognise as self, carries the most. Your blood type is written in those sugars.</li></ol></div><h2>Lipids build the wall by <span class="hl">themselves</span></h2><p class="sl"><b>Slides 11 to 13</b> of the deck</p><div class="tx"><p>You met the phospholipid last week: a phosphate head that mixes with water and two fatty acid tails that do not. That one fact builds a membrane with no energy spent. In water the tails cluster together to get away from it and the heads face out. Two rows back to back make a bilayer, with an oily middle that water and ions cannot cross, and that oily middle is the entire reason a cell can keep its ICF different from its ECF. A small droplet of phospholipid with heads out is a micelle; your gut makes them to carry digested fat. A hollow sphere with water inside is a liposome, a tiny compartment, and drug companies use them to carry medicines. The other membrane lipids are sphingolipids, which are longer than phospholipids, and cholesterol, which wedges between the tails.</p><p>Cholesterol does two opposite things, and both are about keeping the membrane fluid. Warm the membrane and cholesterol stops the tails swinging too freely. Cool it and cholesterol stops them packing into a solid. It is a fluidity buffer, not a stiffener. A double bond in a fatty acid tail makes a kink, and kinked tails cannot pack tightly, so more unsaturated tails also means a more fluid membrane. Fluidity matters because proteins have to drift sideways to meet each other; a membrane that froze would stop signaling and transport at once.</p><p>Proteins sit in the membrane two ways. Integral proteins are built into the bilayer and cannot be removed without wrecking it. Most are transmembrane, crossing the whole membrane, often several times; channels, carriers, pumps and receptors are all transmembrane. Lipid anchored proteins hang on a fatty acid or a GPI anchor. Peripheral proteins sit on one face, loosely attached to a lipid or to an integral protein, and can be lifted off; many of them are the link to the cytoskeleton. Sphingolipids and cholesterol cluster into raised patches called lipid rafts, and lipid anchored proteins gather on them, which puts a receptor, its partner enzyme and its signaling proteins in one place so a signal can be passed fast. The mosaic is organized, not random.</p><p>Carbohydrates are only on the outside. Sugars attached to lipids are glycolipids, sugars attached to proteins are glycoproteins, and together they form a coat on the outer face called the glycocalyx. It protects the surface and it is the label other cells read: blood group antigens and the markers the immune system checks for self are all here.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-02b.jpg" alt="The fluid mosaic model. A phospholipid bilayer with heads facing the watery intracellular and extracellular fluid and tails forming the interior. Cholesterol sits between the tails. Peripheral proteins sit on the outer and inner surfaces; the outer ones can carry branched sugar chains forming glycoproteins. Transmembrane proteins cross the whole bilayer, one of them crossing seven times. Lipid anchored proteins attach to fatty acid tails. Cytoskeleton fibers run under the inner surface and attach to peripheral proteins."><figcaption><b>Figure 3.2b.</b> Lipids, cholesterol, proteins and sugars, all in one sheet. The sugars are only on the outside. Silverthorn 9e, Pearson.</figcaption></figure><dl class="terms"><div class="term"><dt>Phospholipid bilayer</dt><dd>Two rows of phospholipids tail to tail. The oily middle blocks water and ions. The basic structure of every membrane.</dd></div><div class="term"><dt>Micelle</dt><dd>A small solid droplet of phospholipid, heads out, tails in. Carries fat in the gut.</dd></div><div class="term"><dt>Liposome</dt><dd>A hollow phospholipid sphere with a watery center. A tiny compartment, used to deliver drugs.</dd></div><div class="term"><dt>Cholesterol</dt><dd>A four ring lipid wedged between the tails that keeps the membrane fluid over a range of temperatures.</dd></div><div class="term"><dt>Integral protein</dt><dd>A protein built into the bilayer. Transmembrane proteins cross it; lipid anchored proteins hang on a lipid.</dd></div><div class="term"><dt>Peripheral protein</dt><dd>A protein attached loosely to one face of the membrane, often linking it to the cytoskeleton.</dd></div><div class="term"><dt>Lipid raft</dt><dd>A raised patch of sphingolipid and cholesterol where lipid anchored proteins gather, so partners in a signal are kept together.</dd></div><div class="term"><dt>Glycocalyx</dt><dd>The sugar coat on the outer face of the cell, made of glycolipids and glycoproteins. Protection and identity.</dd></div></dl><div class="clin"><button class="clin-btn" type="button" aria-controls="clinB" aria-expanded="false"><span>What this means in the clinic</span><span class="chev" aria-hidden="true">&#9656;</span></button><div class="clin-body" id="clinB" hidden><div class="clin-grid"><div class="cprof n"><p class="who">Nursing</p><p class="means">The sugars on the outside of a red cell are the blood type, and the wrong type is destroyed.</p><p class="eg"><b>Example:</b> A type O patient given type A blood makes antibodies that bind the A sugars, and the transfused cells burst inside the vessels within minutes. That is why two nurses check the bag.</p></div><div class="cprof x"><p class="who">Radiologic technology</p><p class="means">Contrast agents and tracers are designed around whether they can get past the oily middle of a membrane.</p><p class="eg"><b>Example:</b> Gadolinium contrast for MRI stays in the extracellular fluid because it is charged and water loving; it cannot slip through the bilayer into cells.</p></div><div class="cprof m"><p class="who">Medicine</p><p class="means">Cholesterol in a membrane is normal and necessary; cholesterol in a vessel wall is the problem.</p><p class="eg"><b>Example:</b> Every cell needs cholesterol to keep its membrane fluid. Statins lower blood cholesterol, and cells keep making their own for membranes regardless.</p></div><div class="cprof r"><p class="who">Respiratory therapy</p><p class="means">Surfactant in the lung is a phospholipid layer doing the same trick as a membrane, heads to water and tails to air.</p><p class="eg"><b>Example:</b> A premature baby without surfactant has alveoli that collapse on every breath, because nothing is spreading across the water surface to lower its tension.</p></div></div></div></div><h2>Inside the <span class="hl">cell</span></h2><p class="sl"><b>Slides 14 to 19</b> of the deck</p><div class="tx"><p>Every cell in you carries the same DNA. Cells look and act differently because each one switches on a different set of genes. That is differentiation, and it is why a muscle cell is full of contractile protein and a gland cell is full of secretory vesicles. The cytoplasm is everything inside the membrane except the nucleus, and it holds four kinds of content. The cytosol is the semi-gelatinous fluid, the intracellular fluid from problem 2. Organelles are the working structures, most of them wrapped in their own membrane so they are compartments inside a compartment. Inclusions are particles with no membrane, the stored nutrients and the ribosomes. The cytoskeleton is the insoluble protein fibers that give the cell shape and let it move things.</p><p>The nucleus is a compartment with a double wall. The nuclear envelope is two membranes, continuous with the endoplasmic reticulum, pierced by nuclear pore complexes that let RNA and protein pass in both directions under control. Inside, DNA is wound around proteins as chromatin, and the dark spot with no membrane, the nucleolus, is where ribosomal RNA is made and ribosomes are assembled. Why put DNA in a room of its own? Because separation lets the cell edit the message before it is used. Messenger RNA is written in the nucleus, trimmed and checked there, and only then sent out through a pore. A wall between writing and building is quality control.</p><p>The membranous organelles are each a compartment with a job the wall protects. The mitochondrion has two membranes; the inner one folds into cristae and encloses the matrix, and that inner membrane, 76 percent protein, is where most ATP is made. The rough endoplasmic reticulum is a network of membrane tubes continuous with the nuclear envelope, with ribosomes on the outside, and it builds proteins that will be exported, sit in a membrane, or live in a lysosome. The smooth ER has no ribosomes and makes fatty acids, steroids and lipids; in muscle it stores calcium and in the liver it detoxifies drugs. The Golgi apparatus, a stack of curved flattened sacs, receives proteins from the rough ER, modifies them, sorts them and packages them into vesicles addressed to the right place. Lysosomes are small acid filled spheres, about pH 5, that digest worn out organelles and swallowed bacteria; the acid stays behind the wall. Peroxisomes break down long fatty acids and toxic molecules, making hydrogen peroxide as they work and destroying it in the same compartment. Storage and secretory vesicles hold a product until it is needed, then fuse with the cell membrane and release it.</p><p>Protein synthesis shows compartmentation in action. Every protein starts the same way: a gene is copied into messenger RNA in the nucleus, and the RNA leaves through a pore to find a ribosome. Then the path splits. A protein that will work in the cytosol is built on a free ribosome and simply released. A protein that will be secreted, or sit in a membrane, or work in a lysosome, is built on a ribosome that docks on the rough ER and is fed straight into the ER lumen. From there it moves in vesicles, ER to Golgi, Golgi to the surface or to a lysosome, sorted and modified at each stop, and it stays inside membrane the whole way. Insulin, for example, goes nucleus, pore, ribosome on rough ER, ER lumen, transport vesicle, Golgi, secretory vesicle, fusion with the cell membrane when blood glucose rises, ECF, capillary, plasma. The cell never lets a secreted protein loose in its own cytosol.</p><p>Inclusions sit loose in the cytosol with no membrane. Two of them store fuel: glycogen granules are branched chains of glucose ready to be broken back down, and lipid droplets are triglyceride, the long term store. Ribosomes are RNA plus protein and they build proteins; free ribosomes build for the cytosol, fixed ribosomes on the rough ER build for export, and ten to twenty ribosomes reading one RNA at once are a polyribosome. Proteasomes are barrel shaped protein complexes that chew up proteins the cell has tagged for destruction, both defective ones and signals whose job is done. Block the proteasomes and the short lived signaling proteins pile up first; a cell that depends on clearing a growth signal quickly cannot cope, and that is how bortezomib kills myeloma cells.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-07.jpg" alt="The path of a protein through a cell in ten steps: transcription in the nucleus, exit through a nuclear pore, translation on a ribosome, free ribosome proteins staying in the cytosol or targeted to organelles, rough ER ribosomes feeding proteins into the ER lumen, modification in the ER, transport vesicles to the Golgi, Golgi cisternae moving toward the cell membrane, some vesicles returning to the ER, some becoming lysosomes or storage vesicles, and secretory vesicles fusing with the cell membrane to release their contents into the extracellular fluid."><figcaption><b>Figure 3.7.</b> A secreted protein travels from room to room in a bubble of membrane and never touches the cytosol after it enters the ER. Silverthorn 9e, Pearson.</figcaption></figure><dl class="terms"><div class="term"><dt>Differentiation</dt><dd>The process by which a cell switches on a chosen set of genes and becomes a specialized type.</dd></div><div class="term"><dt>Cytoplasm</dt><dd>Everything inside the cell membrane except the nucleus: cytosol, organelles, inclusions and cytoskeleton.</dd></div><div class="term"><dt>Cytosol</dt><dd>The semi-gelatinous fluid of the cytoplasm. The intracellular fluid.</dd></div><div class="term"><dt>Organelle</dt><dd>A working structure inside the cell. Membranous organelles are compartments; nonmembranous ones such as ribosomes are not.</dd></div><div class="term"><dt>Inclusion</dt><dd>A particle in the cytosol with no membrane: glycogen granules, lipid droplets, ribosomes.</dd></div><div class="term"><dt>Nuclear pore complex</dt><dd>A protein gate through the double nuclear envelope that controls what passes between nucleus and cytosol.</dd></div><div class="term"><dt>Nucleolus</dt><dd>A membraneless region of the nucleus where ribosomal RNA is made and ribosomes assembled.</dd></div><div class="term"><dt>Rough endoplasmic reticulum</dt><dd>ER with ribosomes attached. Builds proteins for export, for membranes and for lysosomes.</dd></div><div class="term"><dt>Smooth endoplasmic reticulum</dt><dd>ER without ribosomes. Makes lipids and steroids; stores calcium in muscle; detoxifies in the liver.</dd></div><div class="term"><dt>Golgi apparatus</dt><dd>Stacked sacs that modify, sort and package proteins from the rough ER into vesicles.</dd></div><div class="term"><dt>Lysosome</dt><dd>An acidic membrane bound sac of digestive enzymes. The cell's digestive system.</dd></div><div class="term"><dt>Peroxisome</dt><dd>A small membrane bound sac that breaks down long fatty acids and toxins, handling the hydrogen peroxide it makes.</dd></div><div class="term"><dt>Proteasome</dt><dd>A barrel shaped protein complex that destroys proteins the cell has tagged for removal.</dd></div></dl><h2>The <span class="hl">cytoskeleton</span></h2><p class="sl"><b>Slides 20 to 22</b> of the deck</p><div class="tx"><p>Three protein fibers run through the cytoplasm, and you can tell them apart by size. Microfilaments, 7 nm, are actin; they set cell shape, fill the microvilli, and with myosin they make muscle contract. Intermediate filaments, 10 nm, are keratin in skin, hair and nails and neurofilament protein in nerve fibers; they are the strength. Microtubules, 25 nm, are tubulin; they are the tracks organelles and vesicles travel along, the core of cilia and flagella, and the spindle that pulls chromosomes apart. The cytoskeleton is not a fixed frame. Fibers are built and taken apart as needed, which is how a white blood cell crawls, how a dividing cell pinches in two, and how a cell holds its place in a tissue. Its five jobs are shape, internal organization, intracellular transport, joining cells into tissues, and movement.</p><p>Movement along the fibers is done by motor proteins. A motor protein has a tail that grips cargo and two heads that grip a fiber, and it burns ATP to swing one head past the other, so it walks. Myosin walks on actin: in muscle it is the pull, outside muscle it moves things along the microfilaments. Kinesin and dynein walk on microtubules, carrying vesicles and organelles, in a nerve fiber for up to a meter from the cell body to the ending and back. Everything a cell secretes reaches the surface on a motor protein, and everything a nerve ending needs travels down the axon on one. Dynein has a second job: it is the motor inside every cilium and flagellum, sliding neighboring microtubules past each other so that the sliding becomes a bend.</p><p>Cilia are short and many. They beat in waves and push fluid across the cell surface: mucus up out of the airways, an egg along the oviduct. The single non-moving primary cilium most cells carry is a sensor that samples the fluid. A flagellum is long and usually single; the only human cell with one is the sperm, and it moves the cell through fluid instead of moving fluid past the cell. Both are built on the same core, nine pairs of microtubules around a central pair, the 9 + 2 arrangement, driven by dynein, growing from a basal body that is a centriole. The centrosome beside the nucleus holds two centrioles, each a barrel of nine triplets, 27 microtubules; it organizes the microtubules and directs the spindle during cell division. Break dynein and every cilium in the body stops, which is the first perturbation at the end of the lecture.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-06.jpg" alt="Three parts. A scanning electron micrograph of a fallopian tube surface with ciliated and non-ciliated cells. A cilium built of microtubules, nine pairs around a central pair in cross section. A flagellum moving with a traveling wave that pushes the cell forward, and cilia sweeping back and forth like a broom; in both, fluid moves one way."><figcaption><b>Figure 3.6.</b> The 9 + 2 arrangement, in every cilium and flagellum in the body. Silverthorn 9e, Pearson.</figcaption></figure>
+<table class="tbl">
+  <caption>Table 3.2, the protein fibers of the cytoplasm</caption>
+  <thead><tr><th scope="col">Fiber</th><th scope="col">Diameter</th><th scope="col">Protein</th><th scope="col">Jobs</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Microfilaments</th><td class="num">7 nm</td><td>Actin</td><td>Cell shape, microvilli, and with myosin, muscle contraction</td></tr>
+    <tr><th scope="row">Intermediate filaments</th><td class="num">10 nm</td><td>Keratin, neurofilament protein</td><td>Strength. Skin, hair, nails, nerve fibers</td></tr>
+    <tr><th scope="row">Microtubules</th><td class="num">25 nm</td><td>Tubulin</td><td>Tracks for transport, the core of cilia and flagella, the mitotic spindle</td></tr>
+  </tbody>
+</table><dl class="terms"><div class="term"><dt>Motor protein</dt><dd>A protein that uses ATP to walk along a cytoskeletal fiber carrying cargo. Myosin on actin; kinesin and dynein on microtubules.</dd></div><div class="term"><dt>Cilium</dt><dd>A short hair like projection built of microtubules that beats to move fluid across a cell. Many per cell.</dd></div><div class="term"><dt>Flagellum</dt><dd>A long projection with the same 9 + 2 core that moves a cell through fluid. The sperm tail.</dd></div><div class="term"><dt>Centriole</dt><dd>A barrel of nine microtubule triplets. Two make the centrosome; one forms the basal body of each cilium.</dd></div><div class="term"><dt>Primary cilium</dt><dd>A single non-motile cilium on most cells that senses the surrounding fluid.</dd></div></dl><h2>From cells to tissues: matrix and <span class="hl">junctions</span></h2><p class="sl"><b>Slides 23 to 25</b> of the deck</p><div class="tx"><p>A tissue is a group of cells with a shared job, plus the material they secrete around themselves. Histology is the study of tissues. That secreted material is the extracellular matrix, and its recipe changes from tissue to tissue: watery in blood, a gel under the skin, rock in bone. It has two parts. Ground substance is a gel of proteoglycans and glycoproteins that holds water. Protein fibers run through it: collagen for strength, fibronectin and laminin to tie cells to the matrix, elastin where the tissue has to recoil. The matrix is not packing material. It carries signals, it decides how stiff a tissue is, and cells anchor to it to know where they are; a cell that loses its grip on the matrix usually dies.</p><p>Two things hold a tissue together: cells grip each other, and cells grip the matrix. Both grips are made by membrane spanning proteins called cell adhesion molecules, CAMs, organized into junctions. Cadherins make cell to cell junctions and need calcium to hold. Integrins grip the matrix and also send signals inward. Selectins make brief temporary grips, which is how a white blood cell slows down on a vessel wall. NCAMs of the immunoglobulin family guide growing nerves.</p><p>There are three kinds of junction. A communicating junction, the gap junction, is a tunnel: connexin proteins from two neighboring cells meet to make a pore, and ions and small signals pass straight from one cytosol to the next. Heart muscle spreads its electrical signal this way. An occluding junction, the tight junction, is a seal: claudin and occludin wrap the cell like a ribbon and close the space between neighbors, so nothing gets past without going through a cell. That is what lets an epithelium keep the lumen and the ECF different. Anchoring junctions hold cells to each other and to the matrix. Adherens junctions are a cadherin belt tied to actin. Desmosomes are cadherin rivets tied to intermediate filaments, and they are what let skin and heart survive being pulled. Focal adhesions are integrin grips on fibronectin in the matrix. Hemidesmosomes are integrin half rivets tied to keratin inside and laminin outside, pinning an epithelium to its basement membrane. When a junction fails, the tissue fails at exactly that joint, and the failure tells you which junction it was.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-08a.jpg" alt="A map of cell junctions. Communicating junctions: the gap junction with connexin. Occluding junctions: the tight junction with claudin and occludin and actin. Anchoring junctions: the adherens junction with cadherin and actin; the desmosome with cadherin and intermediate filaments; the focal adhesion with integrin, actin and fibronectin; and the hemidesmosome with integrin, keratin and laminin."><figcaption><b>Figure 3.8a.</b> Communicating, occluding, anchoring. A membrane protein on the outside tied to a cytoskeleton fiber on the inside. Silverthorn 9e, Pearson.</figcaption></figure><div class="prob"><p class="tag">Worked problem 4</p><p class="q">Six jobs. Pick the junction that does each one: gap, tight, or anchoring.</p><h5>The work</h5><ol class="work"><li>Heart muscle cells contract together because a signal spreads cell to cell in milliseconds. <b>Gap junction.</b> A tunnel between cytosols, so the electrical signal crosses directly.</li><li>The lining of the gut keeps bacteria in the lumen from slipping between cells into the blood. <b>Tight junction.</b> The seal between neighbors means nothing gets past without going through a cell.</li><li>Skin stays in one piece when it is rubbed, stretched or pinched. <b>Anchoring, a desmosome.</b> Rivets between epidermal cells, tied to keratin inside.</li><li>The epidermis stays attached to the dermis underneath it. <b>Anchoring, a hemidesmosome.</b> Half rivets pin the bottom layer to the basal lamina.</li><li>The kidney tubule can build a concentration difference between lumen and blood without it leaking back. <b>Tight junction.</b> The seal is what lets a transporting epithelium keep two fluids different.</li><li>Smooth muscle in the uterus contracts as one sheet during labor. <b>Gap junction.</b> Gap junctions between uterine muscle cells increase near term so the whole organ fires together.</li><li>The rule: a tunnel shares, a seal separates, a rivet holds. Ask what the tissue has to do and the junction follows.</li></ol></div><dl class="terms"><div class="term"><dt>Extracellular matrix</dt><dd>The material cells secrete around themselves: ground substance plus protein fibers. Its recipe sets the tissue's properties.</dd></div><div class="term"><dt>Ground substance</dt><dd>The gel of proteoglycans and glycoproteins in the matrix. Ranges from watery to mineralized.</dd></div><div class="term"><dt>Collagen</dt><dd>The main matrix fiber. Stiff but flexible; resists pulling.</dd></div><div class="term"><dt>Elastin</dt><dd>A matrix fiber that stretches and recoils.</dd></div><div class="term"><dt>Cell adhesion molecule, CAM</dt><dd>A membrane spanning protein that grips another cell or the matrix. Cadherins, integrins, selectins, NCAMs.</dd></div><div class="term"><dt>Gap junction</dt><dd>A communicating junction: connexin tunnels between two cytosols.</dd></div><div class="term"><dt>Tight junction</dt><dd>An occluding junction: claudin and occludin seal the space between neighboring cells.</dd></div><div class="term"><dt>Desmosome</dt><dd>An anchoring junction: cadherin rivets between cells, tied to intermediate filaments.</dd></div><div class="term"><dt>Hemidesmosome</dt><dd>An anchoring junction: integrin half rivets tying a cell to the basal lamina through laminin.</dd></div></dl><h2>Epithelia: the sheets that decide what <span class="hl">enters</span></h2><p class="sl"><b>Slides 26 to 33</b> of the deck</p><div class="tx"><p>There are four tissue types. Epithelial tissue is sheets of cells on a minimal matrix, the basal lamina. Connective tissue is scattered cells in an extensive matrix. Muscle tissue is cells linked in sheets or bundles that generate force. Neural tissue is neurons and their support cells, generating electrical signals. Muscle and neural tissue are excitable, and they are Weeks 4 to 7. Today spends its time on the other two, because epithelia decide what enters the body and connective tissue holds everything in place. One organ usually has all four; the gut has an epithelial lining, connective tissue under it, two layers of smooth muscle, and its own nerve network between them.</p><p>An epithelium is a sheet of cells, one layer or several, that covers a surface or lines a cavity or tube. Every surface where the body meets the outside world, and every internal cavity, is lined with one. The sheet sits on a basal lamina, also called the basement membrane, a thin layer of matrix the cells secrete, and hemidesmosomes pin the cells to it. Blood vessels stop at the basal lamina, so an epithelium is fed by diffusion from below. Epithelia are classified two ways. By structure, simple for one layer or stratified for many, and squamous, cuboidal or columnar by cell shape. By function, which is the classification physiology uses. The most useful single word about an epithelium is whether it is tight or leaky: a tight epithelium, sealed with tight junctions, controls everything that crosses, while a leaky one lets water and small solutes slip between the cells.</p><p>There are five functional kinds, and each one's structure follows from its job. Exchange epithelium is one layer of flat cells with pores between them, because thin and leaky is fastest; it lines the lungs and the blood vessels, where it is called endothelium. Transporting epithelium is one layer of tall cuboidal or columnar cells sealed with tight junctions and covered in microvilli, because it has to move chosen substances one way and stop everything else; the intestine and the kidney tubule are lined with it. Ciliated epithelium is one layer of cells with cilia on the free surface to move fluid; it lines the nose, trachea and upper airways and the female reproductive tract. Protective epithelium is many layers riveted with desmosomes, flattened at the surface and replaced from below, because it has to be rubbed and not tear; skin and the lining of the mouth. Secretory epithelium makes and releases a product, as scattered cells such as goblet cells or grouped into glands.</p><p>The transporting cell deserves a closer look because the rest of this week is about it. It is polarized: its apical membrane facing the lumen carries a different set of proteins from its basolateral membrane facing the ECF, and the tight junction stops the two sets mixing. Microvilli multiply the apical surface, and the cell is packed with mitochondria because moving things against a gradient costs ATP. Different tissues fit this cell with different proteins, and the set can be changed by hormones, which is how the kidney is regulated. Competency 15 is tracing glucose across this cell, and the transport itself is the next lecture.</p><p>Every route in and out of the body is a sequence of epithelia. Oxygen crosses the ciliated airway lining, then the exchange epithelium of the alveolus, then the exchange epithelium of the capillary, and it is in the plasma. Glucose crosses the transporting epithelium of the gut, then a capillary wall, and later leaves the blood across another capillary wall to reach a muscle. The same five words come back in every organ system.</p><p>Glands are secretory epithelium, and how they are built decides what they are. Every gland begins as ordinary surface epithelium that pushes down into the connective tissue below. If the stalk stays and hollows out, the gland keeps a duct to the surface and its product goes back out to the lumen or the skin: exocrine, such as sweat, saliva, digestive enzymes and mucus, with secretions that are watery, called serous, or sticky, called mucous. If the stalk is lost, the secretory cells are stranded in the connective tissue next to capillaries, and their only way out is into the ECF and then the blood: endocrine, the hormone glands. That is why a hormone has to be a molecule the whole body can be exposed to, while a digestive enzyme can be as harsh as it likes, because one is released into the internal environment and the other into the tunnel that is outside. The pancreas is both: mostly exocrine clusters with ducts to the gut, with endocrine islets scattered among them releasing insulin and glucagon into the capillaries beside them.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-09a.jpg" alt="A table of the five functional categories of epithelia. Exchange: one layer of flattened cells with pores between them; lungs and blood vessel linings. Transporting: one layer of columnar or cuboidal cells with tight junctions and microvilli; intestine, kidney, some exocrine glands. Ciliated: one layer of columnar or cuboidal cells with cilia on one side; nose, trachea, upper airways, female reproductive tract. Protective: many layers, flattened at the surface, connected by many desmosomes; skin and the lining of the mouth. Secretory: one to many layers of columnar or polygonal cells; exocrine glands such as pancreas, sweat and salivary glands, and endocrine glands such as thyroid and gonads."><figcaption><b>Figure 3.9a.</b> Five kinds of epithelium. Layers, cell shape and the special feature all follow from the job. Silverthorn 9e, Pearson.</figcaption></figure><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-10b.jpg" alt="A transporting epithelial cell between a lumen and the extracellular fluid. Microvilli project from the apical membrane facing the lumen. Tight junctions block movement between neighboring cells, so substances must cross the apical membrane, pass through the cell, and cross the basolateral membrane to reach the extracellular fluid."><figcaption><b>Figure 3.10b.</b> The polarized transporting cell. Two membranes with different proteins, and a tight junction between them. Silverthorn 9e, Pearson.</figcaption></figure><div class="prob"><p class="tag">Worked problem 5</p><p class="q">Six places in the body. For each, name the functional kind of epithelium you would expect.</p><h5>The work</h5><ol class="work"><li>The wall of an alveolus in the lung. <b>Exchange.</b> Gas has to cross fast and in both directions, so the wall is one flat cell with pores.</li><li>The lining of a kidney tubule. <b>Transporting.</b> Chosen solutes are moved one way against a gradient, which needs a polarized cell sealed by tight junctions.</li><li>The lining of the trachea. <b>Ciliated.</b> Mucus and trapped dust have to be moved up and out.</li><li>The lining of the mouth. <b>Protective.</b> Hot food, hard food and constant rubbing call for many layers replaced from below.</li><li>The cells of the thyroid gland. <b>Secretory.</b> The job is making and releasing a product, here a hormone, into the ECF.</li><li>The inside wall of a capillary. <b>Exchange.</b> Endothelium is exchange epithelium by another name: one flat cell, pores between, built for speed.</li></ol></div><div class="clin"><button class="clin-btn" type="button" aria-controls="clinC" aria-expanded="false"><span>What this means in the clinic</span><span class="chev" aria-hidden="true">&#9656;</span></button><div class="clin-body" id="clinC" hidden><div class="clin-grid"><div class="cprof n"><p class="who">Nursing</p><p class="means">The gut wall is a transporting epithelium, so what gets absorbed depends on which transporters are there.</p><p class="eg"><b>Example:</b> Oral rehydration solution works because glucose and sodium share the same apical transporter; the glucose in the drink is what pulls the salt and water in.</p></div><div class="cprof x"><p class="who">Radiologic technology</p><p class="means">Capillary walls in the brain are the exception: no pores, and tight junctions instead, so contrast normally stays out.</p><p class="eg"><b>Example:</b> Enhancement on a brain MRI means the blood brain barrier has opened, because gadolinium can only reach brain tissue where that exchange epithelium has been damaged.</p></div><div class="cprof m"><p class="who">Medicine</p><p class="means">Polarized cells put a pump on one side and a channel on the other, and drugs work by hitting one of them.</p><p class="eg"><b>Example:</b> A loop diuretic blocks one apical transporter in one segment of the kidney tubule, and the whole kidney loses salt.</p></div><div class="cprof r"><p class="who">Respiratory therapy</p><p class="means">The alveolar wall is an exchange epithelium one cell thick, and thickening it slows every gas.</p><p class="eg"><b>Example:</b> In pulmonary edema, fluid between the alveolar cell and the capillary makes the barrier thicker, and oxygen, which crosses less easily than carbon dioxide, falls first.</p></div></div></div></div><dl class="terms"><div class="term"><dt>Epithelium</dt><dd>A sheet of cells, one or more layers, covering a surface or lining a cavity or tube. No blood vessels of its own.</dd></div><div class="term"><dt>Basal lamina</dt><dd>The thin matrix layer under an epithelium, secreted by the epithelial cells. Also called the basement membrane.</dd></div><div class="term"><dt>Simple and stratified</dt><dd>One layer of cells, or many.</dd></div><div class="term"><dt>Squamous, cuboidal, columnar</dt><dd>Flat, cube shaped, or tall cells.</dd></div><div class="term"><dt>Exchange epithelium</dt><dd>One flat layer with pores. Fast, unselective exchange. Lungs, capillaries. Called endothelium in vessels.</dd></div><div class="term"><dt>Transporting epithelium</dt><dd>One layer of polarized cells with tight junctions and microvilli. Selective, one way transport. Gut, kidney.</dd></div><div class="term"><dt>Apical and basolateral membrane</dt><dd>The lumen facing and ECF facing membranes of a polarized cell, carrying different proteins, separated by a tight junction.</dd></div><div class="term"><dt>Ciliated epithelium</dt><dd>One layer with cilia that move fluid across the surface. Airways, oviduct.</dd></div><div class="term"><dt>Protective epithelium</dt><dd>Many layers, riveted by desmosomes, replaced from below. Skin, mouth.</dd></div><div class="term"><dt>Secretory epithelium</dt><dd>Cells that make and release a product, scattered or grouped into glands.</dd></div><div class="term"><dt>Exocrine gland</dt><dd>A gland that kept its duct and releases its product to the outside world or a lumen.</dd></div><div class="term"><dt>Endocrine gland</dt><dd>A gland that lost its connection to the surface and releases hormones into the ECF and blood.</dd></div><div class="term"><dt>Goblet cell</dt><dd>A single cell exocrine gland that secretes mucus into a lumen.</dd></div></dl><h2>Connective tissue, muscle and <span class="hl">nerve</span></h2><p class="sl"><b>Slides 34 to 37</b> of the deck</p><div class="tx"><p>Connective tissue is the opposite of an epithelium: cells scattered, matrix everywhere, and the matrix is the tissue. Fixed cells live there. Fibroblasts build the matrix and adipocytes store fat. Their names carry a code: a -blast is building, a -cyte is maintaining, a -clast is breaking down, so osteoblast, osteocyte and osteoclast are the builder, keeper and demolisher of bone. Mobile cells pass through: the blood cells, and macrophages that patrol for invaders. The ground substance ranges from water in blood through gel under the skin to rock in bone, and the fibers set the mechanics: collagen resists pulling, elastin snaps back, fibrillin makes sheets and filaments, fibronectin glues cells on.</p><p>Seven kinds. Loose connective tissue is flexible packing with many cell types, under epithelia and around vessels and organs. Dense irregular connective tissue is mostly collagen in random directions, the sheaths around muscles and nerves. Dense regular connective tissue is collagen in parallel bundles, pulling hard in one direction: tendons join muscle to bone, ligaments join bone to bone. Adipose tissue is fat cells with almost no matrix, white fat for storage and brown fat for heat. Blood is a connective tissue with a liquid matrix, plasma, carrying cells and platelets. Cartilage is chondrocytes in a firm but flexible matrix with no blood supply, at joint surfaces, the spine, ear, nose, larynx and trachea. Bone is osteoblasts and osteocytes in a matrix made rigid by calcium salts.</p><p>Muscle tissue is contractile. Skeletal muscle moves the skeleton under conscious command. Cardiac muscle is the heart, branched cells joined by gap junctions and desmosomes so they pull together, which means it needs a tunnel to share the signal and a rivet to survive the pull at the same time. Smooth muscle lines hollow organs and vessels and works without your attention. Neural tissue has neurons, which carry signals as electrical and chemical messages, and glial cells, which outnumber them and support them. Both tissues are excitable: their membranes can generate an electrical signal, and how they do it depends on the ion differences from problem 2 and the transporters from next lecture.</p><p>Tissues are rebuilt all the time. Cells die two ways. Necrosis is death by injury: the cell swells, bursts and spills its contents, which sets off inflammation. Apoptosis is programmed death: the cell tidily shrinks and packages itself and neighbors eat the pieces with no inflammation; the skin surface, the gut lining and the blood cells are replaced this way continuously. New cells come from stem cells that divide by mitosis. Totipotent cells can become anything including placenta, only in the first days of an embryo. Pluripotent cells can become any tissue of the body. Multipotent adult stem cells, in bone marrow, skin, gut and elsewhere, are limited to a family of cell types. Plasticity is a tissue's ability to reorganize. After a burn, the cells at the wound died by necrosis, and the leaked contents are one reason the area becomes inflamed and its capillaries start to leak. Around it the intact epidermis keeps turning over by apoptosis, with new cells rising from multipotent stem cells at the base. A deep burn that destroys that base layer cannot re-cover itself and needs a graft.</p></div>
+<table class="tbl">
+  <caption>Figure 3.12b, the types of connective tissue</caption>
+  <thead><tr><th scope="col">Tissue</th><th scope="col">Ground substance</th><th scope="col">Fibers</th><th scope="col">Main cells</th><th scope="col">Where</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Loose</th><td>Gel, more ground substance than fibers</td><td>Collagen, elastic, reticular, random</td><td>Fibroblasts</td><td>Under epithelia, around vessels and organs</td></tr>
+    <tr><th scope="row">Dense irregular</th><td>More fibers than ground substance</td><td>Mostly collagen, random</td><td>Fibroblasts</td><td>Sheaths around muscles and nerves</td></tr>
+    <tr><th scope="row">Dense regular</th><td>More fibers than ground substance</td><td>Collagen, parallel</td><td>Fibroblasts</td><td>Tendons, ligaments</td></tr>
+    <tr><th scope="row">Adipose</th><td>Very little</td><td>None</td><td>White fat, brown fat</td><td>Under skin, around organs</td></tr>
+    <tr><th scope="row">Blood</th><td>Watery plasma</td><td>None</td><td>Blood cells</td><td>Vessels</td></tr>
+    <tr><th scope="row">Cartilage</th><td>Firm but flexible, hyaluronic acid</td><td>Collagen</td><td>Chondroblasts, chondrocytes</td><td>Joint surfaces, spine, ear, nose, larynx, trachea</td></tr>
+    <tr><th scope="row">Bone</th><td>Rigid, calcium salts</td><td>Collagen</td><td>Osteoblasts, osteocytes</td><td>Bones</td></tr>
+  </tbody>
+</table><dl class="terms"><div class="term"><dt>Fibroblast</dt><dd>The fixed connective tissue cell that makes the matrix.</dd></div><div class="term"><dt>-blast, -cyte, -clast</dt><dd>Builder, keeper, demolisher. Osteoblast, osteocyte, osteoclast.</dd></div><div class="term"><dt>Tendon and ligament</dt><dd>Dense regular connective tissue. Tendon joins muscle to bone; ligament joins bone to bone.</dd></div><div class="term"><dt>Cartilage</dt><dd>Firm, flexible connective tissue made by chondrocytes. No blood supply, so it heals slowly.</dd></div><div class="term"><dt>Excitable tissue</dt><dd>Muscle and neural tissue, whose membranes can generate an electrical signal.</dd></div><div class="term"><dt>Necrosis</dt><dd>Cell death by injury. The cell bursts and causes inflammation.</dd></div><div class="term"><dt>Apoptosis</dt><dd>Programmed cell death. Tidy, with no inflammation. Normal tissue turnover.</dd></div><div class="term"><dt>Stem cell</dt><dd>A cell that can divide and produce specialized cells. Totipotent, pluripotent or multipotent by how many types it can make.</dd></div></dl><h2>The skin: all four tissues in one <span class="hl">organ</span></h2><p class="sl"><b>Slides 38 to 39</b> of the deck</p><div class="tx"><p>An organ is two or more tissues working together, and the skin has all four: a protective epithelium, connective tissue in the dermis and hypodermis, smooth muscle at each hair, and sensory nerves throughout. The epidermis is stratified protective epithelium. Cells are born at the base, fill with keratin as they rise, die, and are shed from the top. It has no blood vessels and is fed from the dermis. The dermis is loose connective tissue carrying the blood supply, the nerve endings, the sweat glands that secrete a dilute salt fluid to cool the body, the sebaceous glands that secrete a lipid mixture, and the arrector pili muscles that raise hairs. The hypodermis is adipose tissue: insulation, padding and a fuel store.</p><p>Two things stop water leaving the body through the skin: a lipid layer at the very top, left behind among the keratin of the dead surface cells, and the sheer number of cell layers. Burn the epidermis off and both are gone, and water evaporates from the exposed dermis at many times the normal rate. Two things stop the skin coming apart: desmosomes between every cell, tied to keratin inside, and hemidesmosomes pinning the bottom layer to the basal lamina, which is woven into the dermis. Each of those can fail on its own, and the second perturbation shows what each failure looks like.</p></div><figure><img class="fig" src="assets/silverthorn-ch03/fig-3-15a.jpg" alt="A block of skin. The epidermis, several cell layers thick, at the top. The dermis beneath is loose connective tissue containing sweat glands, sebaceous glands, apocrine glands, hair follicles, arrector pili muscles, sensory receptors and nerves, and blood vessels rising from below. The hypodermis at the bottom holds adipose tissue."><figcaption><b>Figure 3.15a.</b> Epidermis, dermis, hypodermis. Protective epithelium, loose connective tissue with glands, vessels, nerves and muscle, then fat. Silverthorn 9e, Pearson.</figcaption></figure><div class="clin"><button class="clin-btn" type="button" aria-controls="clinD" aria-expanded="false"><span>What this means in the clinic</span><span class="chev" aria-hidden="true">&#9656;</span></button><div class="clin-body" id="clinD" hidden><div class="clin-grid"><div class="cprof n"><p class="who">Nursing</p><p class="means">A burn wound has lost its barrier, so it leaks water out and lets bacteria in until it is covered.</p><p class="eg"><b>Example:</b> Burn dressings are chosen to hold moisture in and keep organisms out, doing the job of the epidermis until the base layer regrows or a graft takes.</p></div><div class="cprof x"><p class="who">Radiologic technology</p><p class="means">Skin is the first thing the beam meets, and it gets the highest dose of any tissue in a long procedure.</p><p class="eg"><b>Example:</b> After a long fluoroscopy case the operator checks the entry site over the following weeks, because the basal stem cells are the most radiation sensitive cells in the skin and the redness shows up late.</p></div><div class="cprof m"><p class="who">Medicine</p><p class="means">The depth of a burn is the depth of which layer was destroyed.</p><p class="eg"><b>Example:</b> A burn that spares the base of the epidermis heals from its own stem cells; one that reaches the dermis heals from the hair follicles and glands; one through the whole dermis cannot heal itself.</p></div><div class="cprof r"><p class="who">Respiratory therapy</p><p class="means">The skin and the airway are both barriers, and inhalation injury burns the airway one.</p><p class="eg"><b>Example:</b> A patient pulled from a house fire is watched for airway swelling for a day, because the ciliated epithelium of the trachea can slough and swell just as skin does.</p></div></div></div></div><dl class="terms"><div class="term"><dt>Organ</dt><dd>Two or more tissues working together. The skin has all four.</dd></div><div class="term"><dt>Epidermis</dt><dd>The stratified protective epithelium of the skin. No blood vessels; replaced from the base.</dd></div><div class="term"><dt>Dermis</dt><dd>Loose connective tissue under the epidermis, carrying vessels, nerves, glands and hair muscles.</dd></div><div class="term"><dt>Hypodermis</dt><dd>The adipose layer under the dermis.</dd></div><div class="term"><dt>Keratinocyte</dt><dd>The epidermal cell that fills with keratin as it rises, then dies to form the surface.</dd></div><div class="term"><dt>Melanocyte</dt><dd>A pigment cell near the base of the epidermis.</dd></div></dl><h2>The patient, explained <span class="hl">start to finish</span></h2><p class="sl"><b>Slides 40 to 41</b> of the deck</p><div class="prob"><p class="tag">Worked problem 6</p><p class="q">Blood pressure 88/50, heart rate 128, hematocrit up from 40 to 50, six liters of IV fluid given, five kilograms heavier, swollen. Part A: where did the water go, compartment by compartment? Part B: use the hematocrit to work out how much plasma left the vessels before any fluid was given.</p><p class="sub">What you know: blood volume on arrival 5 L, of which 3 L plasma and 2 L cells. The epidermis is destroyed over 40 percent of the body. The capillaries near a burn are inflamed and their exchange epithelium leaks plasma protein as well as water.</p><h5>The work</h5><ol class="work"><li>Two walls failed. The <b>protective epithelium</b> is gone over 40 percent of the skin, so water evaporates straight off the dermis and leaves the body. That is real loss, and the patient would have weighed less if nothing had been given.</li><li>The <b>exchange epithelium</b> of the capillaries near the burn is inflamed and leaking. Normally water and small solutes cross but protein stays in the plasma. Now protein crosses too, so nothing is holding water in the vessels. Plasma pours out of the blood into the <b>interstitial fluid</b>. That is the swelling.</li><li>Part B, the hematocrit. The cells never left, so they are still 2 L. Hematocrit is cells divided by blood volume. At 50 percent, blood volume = 2 &divide; 0.50 = 4 L, so plasma is now 2 L. <b>One liter of plasma</b>, a third of it, moved into the tissue spaces before anyone hung a bag.</li><li>Less plasma means less blood volume, so the heart has less to pump, so pressure falls and the heart rate climbs to compensate. That is the 88/50 and the 128.</li><li>The six liters of IV fluid went into the vessels, and most of it followed the leak straight out into the interstitial space. The patient is heavier and more swollen, and still under filled in the one compartment that matters for pressure. Fluid keeps being given until the capillary walls seal, usually over the first day, after which the interstitial water slowly returns to the plasma and is passed as urine.</li><li>The answer to the opening question: the interstitial fluid. Not the cells, whose membranes are intact, and not the gut. The water is in the ECF, in the wrong half of it.</li></ol></div><div class="tx"><p>Now break one part and predict the failure. First, the motor. A child is born without working dynein arms and no other protein is affected. Dynein is the motor of every cilium and flagellum, so the 9 + 2 structure is built but cannot bend. Airway cilia do not beat, so mucus and trapped bacteria sit in the lungs and sinuses instead of being swept out: chronic cough, sinus infections and repeated pneumonia from infancy. Sperm flagella do not beat and oviduct cilia do not sweep: infertility in both sexes. In the embryo, cilia set up the left right layout of the organs, so in about half of these children the heart and other organs end up on the mirror side, called situs inversus. Same protein, one defect, four systems. The condition is primary ciliary dyskinesia.</p><p>Second, the rivets. Two patients have blistering skin. Patient A makes antibodies against a cadherin found in desmosomes, so epidermal cells let go of their neighbors and the skin splits within the epidermis; the blister roof is thin, breaks easily, and rubbing intact skin makes it slide. That is pemphigus. Patient B makes antibodies against a protein of the hemidesmosome, so the whole epidermis lifts off the dermis and the split is under the epidermis; the blister is tense and full thickness and does not break with a touch. That is bullous pemphigoid. The lesson is problem 4 in reverse: tell me where the tissue came apart and I will tell you which junction was attacked.</p></div><div class="key"><p class="tag">Say it in one sentence</p><p>Every wall in the body exists to keep two conditions different, so when a wall fails, find which two compartments just became one and you have found the disease.</p></div>
+<h2>What this week assumes you <span class="hl">already have</span></h2>
+<p class="sub">If any line here is shaky, fix it before you work the week rather than after. The three review pages are linked from each card.</p>
+<div class="grid g3 prereq">
+  <div class="card">
+    <p class="eyebrow">Chemistry</p>
+    <ul class="bul">
+      <li>Polar and nonpolar molecules, and why oil and water separate</li>
+      <li>The phospholipid: a water loving head and two water hating tails</li>
+      <li>What an ion is, and that ions dissolve in water and not in oil</li>
+      <li>Proteins have a shape, and the shape is the job (last week)</li>
+    </ul>
+    <p class="pqlink"><a href="chemistry-review.html" target="_top">Chemistry review page</a></p>
+  </div>
+  <div class="card">
+    <p class="eyebrow">Anatomy</p>
+    <ul class="bul">
+      <li>The three body cavities and which organs sit in each</li>
+      <li>The layers of the skin by name: epidermis, dermis, hypodermis</li>
+      <li>What a capillary is and that blood exchanges with tissue across it</li>
+      <li>The four tissue types by name, even if only as words</li>
+    </ul>
+    <p class="pqnote">More anatomy than most weeks, because this chapter is where structure and function meet. If you have not taken anatomy, the review page covers these four in an hour.</p>
+    <p class="pqlink"><a href="anatomy-review.html" target="_top">Anatomy review page</a></p>
+  </div>
+  <div class="card">
+    <p class="eyebrow">Math</p>
+    <ul class="bul">
+      <li>Percent of a whole, and fractions such as two thirds and one quarter</li>
+      <li>Rearranging a ratio: if cells are 40 percent of blood, blood = cells &divide; 0.40</li>
+      <li>Reading a value from a table and carrying it into the next step</li>
+      <li>Nanometers, micrometers and how they compare to a millimeter</li>
+    </ul>
+    <p class="pqlink"><a href="math-review.html" target="_top">Math review page</a></p>
+  </div>
+</div>
+
+<h2>Close the page and <span class="hl">produce it</span></h2>
+<p class="sub">These are the Week 3 competencies this lecture covers, straight off the study guide, with the two prompts that go with each one. The rest of Week 3, competencies 2 and 4 to 16, belongs to the next lecture on transport and to the lab. Competency 15 uses the polarized cell from this lecture but its prompt waits for the transport lecture. Pick one prompt per competency. Blank paper, nothing open.</p>
+<p class="sub"><a href="competency-brain-dump.html" target="_top">Read the full instructions first</a>, including how the first pass before the lecture differs from the second pass after it.</p>
+<div class="cmpwrap"><div class="grid g2">
+  <section class="cmp">
+    <p class="cn" aria-hidden="true">01</p>
+    <h4>Body fluid compartments</h4>
+    <p class="ccan">State the approximate volumes of total body water, intracellular fluid, extracellular fluid, plasma, and interstitial fluid in a 70 kg adult and compare the dominant solutes of the intracellular and extracellular compartments.</p>
+    <p class="pick">Do one of the two. Head your paper with the number.</p>
+    <div class="pr a"><p class="pl">1-1</p><p>Draw the fluid compartments top down with the fractions. Use one border style for inside cells and a different one for outside.</p></div>
+    <div class="pr b"><p class="pl">1-2</p><p>On a compartment drawing, mark where a blood sample is taken and which compartment you are actually drawing a conclusion about.</p></div>
+  </section>
+  <section class="cmp">
+    <p class="cn" aria-hidden="true">03</p>
+    <h4>Membrane composition and fluidity</h4>
+    <p class="ccan">Describe the fluid mosaic membrane and state how phospholipids, cholesterol, glycolipids, and integral and peripheral proteins contribute to its properties.</p>
+    <p class="pick">Do one of the two. Head your paper with the number.</p>
+    <div class="pr a"><p class="pl">3-1</p><p>Draw a patch of membrane in cross section, big enough to fill half your box. Put in phospholipids with heads and tails clearly different, cholesterol wedged between the tails, a transmembrane protein, a peripheral protein on the inner face, and a glycolipid with its sugar chain. Label which face is extracellular. One line: name the one component whose position alone tells you which side of the membrane you are looking at.</p></div>
+    <div class="pr b"><p class="pl">3-2</p><p>Draw the same membrane patch three times in a row: at normal body temperature, chilled, and warmed. In each, show how tightly the phospholipid tails pack and where cholesterol sits. Draw one tail with a double bond kink in it and one straight saturated tail. One line: cholesterol is called a fluidity buffer and not a stiffener, so say what the word buffer is doing there.</p></div>
+  </section>
+</div></div>
+<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Compartments, cells and tissues. Values given are typical teaching figures, not laboratory reference ranges. Figures &copy; Pearson Education, Silverthorn Human Physiology 9e, used under the instructor license for this course.</p>
+
+</main>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='biol005-w03-compartments-notes';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  document.querySelectorAll('.clin-btn').forEach(function(b){
+    if(b.dataset.wired) return; b.dataset.wired='1';
+    var box=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      if(box)box.hidden=open;
+    });
+  });
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
