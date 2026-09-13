@@ -283,7 +283,7 @@ def page(n, opens, closes, title, part, solid=False):
                      'Do not look anything up yet. See what your brain can produce. What you forget tells you what needs another pass.',
                      main=True, go='Open a brain dump &rarr;')
                 + card('mastery-canvas.html', 'c-navy', 'pen', 'Draw it', 'A blank canvas. Mechanism, sequence, loop. Produce it from nothing, then check it.')
-                + card('rx-cards.html', 'c-navy', 'cards', 'Rx Cards', 'Spaced recall that gets harder as you prove it, with the reason behind every answer.')
+                + card('mastery-physio-os-standalone.html', 'c-navy', 'cards', 'Recall cards', 'Spaced recall with the full reason every answer is right or wrong.')
                 + card('assignment-bookproblems.html?week=%d' % n, 'c-navy', 'graph', 'Book problems', 'Problems you have not seen. Predict, commit, then check.')
                 + (card('worksheet-week02-graphing.html', 'c-navy', 'graph', 'Graphing worksheet', 'Three figures to read and answer by hand.') if n == 2 else '')
                 + card('ungraded-sheet.html?week=%d' % n, 'c-navy', 'list', 'All of it on one sheet', 'Every practice item for the week on one printable page.'))
