@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemistry Review &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy-15)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- notes page ---------- */
+.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
+.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
+.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
+  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
+.hero h1 .hl{color:var(--terra)}
+.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
+  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
+h2:first-of-type{border-top:0;padding-top:0}
+h2 .hl{color:var(--terra)}
+h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
+h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+p{margin:0 0 13px}
+.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
+
+/* term blocks, boxed so each definition reads as its own card */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+@media(max-width:760px){.terms{grid-template-columns:1fr}}
+.term{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:14px 16px}
+.term dt{font-weight:800;font-size:15.5px;margin:0 0 4px}
+.term dd{margin:0;font-size:14.5px;color:var(--navy-72)}
+.term dd b{color:var(--navy)}
+
+/* compartment color key: the same three codes are used in the figure,
+   in this legend, and on each group box, so a student can match them by eye */
+.ckey{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ckitem{display:inline-flex;align-items:center;gap:9px;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.sw{width:22px;height:22px;border-radius:5px;flex:0 0 auto}
+.sw.ext{background:var(--wash);border:1.6px dashed var(--navy-72)}
+.sw.int{background:#fff;border:2.4px solid var(--terra)}
+.sw.icf{background:var(--navy);border:1.6px solid var(--navy)}
+.ckitem .lb{line-height:1.2}
+.ckitem .sub{font-weight:600;color:var(--navy-72);font-size:12.5px;line-height:1.2}
+body.present .ckitem{font-size:clamp(13px,1.3vw,18px)}
+body.present .sw{width:26px;height:26px}
+
+/* grouped compartments: the group border shows what contains what */
+.tgroup{border-radius:var(--r-card);padding:16px 18px 18px;margin:0 0 14px}
+.tgroup .glab{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.tgroup .glab .sw{width:16px;height:16px;border-radius:4px}
+.tgroup .gnote{font-size:14px;color:var(--navy-72);margin:0 0 6px}
+.tgroup.ext{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.tgroup.ext .glab{color:var(--navy-72)}
+.tgroup.int{border:2px solid var(--terra)}
+.tgroup.int .glab{color:var(--terra)}
+.tgroup.icf{border:1.8px solid var(--navy)}
+.tgroup.icf .glab{color:var(--navy)}
+
+/* causal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.chain .lk{flex:1 1 130px;min-width:120px;background:#fff;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 13px}
+.chain .lk .k{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0 0 4px}
+.chain .lk p{margin:0;font-size:14px;line-height:1.4}
+.chain .ar{display:flex;align-items:center;justify-content:center;color:var(--terra);
+  font-size:20px;font-weight:800;padding:0 8px;flex:0 0 auto}
+@media(max-width:700px){.chain{flex-direction:column}.chain .ar{transform:rotate(90deg);padding:5px 0}}
+
+/* key box */
+.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
+.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
+.key p:last-child,.key ul:last-child{margin-bottom:0}
+
+/* equation */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:14px 0}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+
+.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+
+@media print{
+  @page{margin:13mm}
+  .site-header .site-logo svg{height:32px}
+  .wb,.wb-launch,.lightbox,.skip{display:none!important}
+  body{font-size:10.5pt}
+  h2{break-after:avoid;page-break-after:avoid}
+  .card,.key,.eq,figure,.chain,.term,.tgroup,.cprof{break-inside:avoid;page-break-inside:avoid}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* transcript blocks and worked problems */
+.sl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:0 0 10px}
+.sl b{color:var(--terra)}
+.tx p{max-width:70ch}
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+.prob{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:18px 0}
+.prob .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.prob .q{font-weight:800;margin:0 0 12px;font-size:16px}
+.prob .q+ul{margin-bottom:14px}
+.prob h5{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:14px 0 8px}
+sup,sub{font-size:.72em;line-height:0}
+img.fig{object-fit:contain}
+@media print{.prob,.work>li{break-inside:avoid;page-break-inside:avoid}}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+
+.prereq .card{padding:18px 20px}
+.prereq .eyebrow{margin-bottom:8px}
+.prereq ul.bul{margin-bottom:6px}
+.prereq ul.bul>li{padding:3px 0 3px 18px;font-size:14.5px}
+.prereq ul.bul>li::before{top:12px;width:5px;height:5px}
+.prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
+.prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
+@media(max-width:860px){.prereq{grid-template-columns:1fr}}
+
+/* ---------- review page ---------- */
+.kablock{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:20px 22px;margin:16px 0 0}
+.kablock h3{margin:0 0 4px}
+.kahead{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between;margin:0 0 12px}
+.kawhy{font-size:14.5px;color:var(--navy-72);margin:0 0 14px;max-width:74ch}
+.kawhy b{color:var(--terra)}
+.kalist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.kalist li{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:baseline;
+  padding:9px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.kalist li:first-child{border-top:0}
+.katype{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;background:var(--navy);border-radius:var(--r-pill);padding:5px 0;text-align:center}
+.katype.video{background:var(--terra)}
+.katype.article{background:var(--navy)}
+.katype.practice{background:#6B5017}
+.kalist a{font-weight:700}
+.usedin{font-size:13.5px;color:var(--navy-72);margin:12px 0 0}
+.usedin b{color:var(--navy)}
+.readywhen{border:2px solid var(--terra);border-radius:var(--r-card);padding:20px 22px;margin:26px 0 0}
+.readywhen .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.readywhen ul{margin:0;padding:0;list-style:none}
+.readywhen li{padding:7px 0 7px 30px;position:relative;font-size:15.5px}
+.readywhen li::before{content:"";position:absolute;left:4px;top:16px;width:8px;height:8px;
+  background:var(--terra);border-radius:50%}
+.qrcard{display:flex;gap:18px;align-items:flex-start;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:18px 20px;margin:22px 0 0}
+.qrbox{flex:0 0 auto;width:118px}
+.qrbox .qr{width:118px;height:118px;display:block}
+.qrh{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+@media(max-width:640px){.kalist li{grid-template-columns:1fr}.katype{max-width:88px}}
+@media print{.qrcard{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Review</span></span>
+  </a>
+</header>
+<main class="wrap" id="main">
+
+<div class="hero">
+  <p class="eyebrow">BIO 005 &middot; Optional review</p>
+  <h1>Chemistry <span class="hl">review</span></h1>
+  <p class="lede">This page holds the general chemistry that the physiology lectures assume you already have. It is optional, it is not graded, and nothing on it is collected. It exists so that the lectures can spend their time on physiology instead of re-teaching first-year chemistry.</p>
+  <div class="metarow">
+    <span class="pill">Not graded</span>
+    <span class="pill ghost">Work it whenever you need it</span>
+  </div>
+</div>
+<h2>How to use this <span class="hl">page</span></h2>
+<div class="key">
+  <p class="tag">Read this first</p>
+  <p>Do not work through all four sections before Week 2 starts. That is a lot of hours for something you may already know. Instead, read the four headings below and be honest with yourself about which ones feel shaky. Work only those.</p>
+  <p style="margin-top:10px">Every link goes to Khan Academy, which is free and does not require an account to watch the videos. Practice sets do ask you to sign in so they can track your progress, and that is worth doing if you plan to use more than one of them.</p>
+</div>
+<p class="sub">A note on what is not here. This is review, so it is pitched at the level you need to follow a physiology lecture, not at the level of a chemistry course. If a topic here turns out to be genuinely new rather than rusty, tell me, and we will find you a better starting point than a link.</p>
+<h2>The four things this course <span class="hl">assumes</span></h2>
+<section class="kablock"><div class="kahead"><h3>1. Atoms, electrons and ions</h3></div><p class="kawhy">The only part of an atom that does chemistry is the electron. Protons decide which element you have, neutrons decide which isotope, and electrons do everything else: they make bonds, they carry energy, and when an atom gains or loses one it becomes an ion with a net charge. That charge is what stops an ion crossing a membrane on its own.</p><ul class="kalist"><li><span class="katype video">video</span><span><a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/elements-of-life/v/elemental-building-blocks-of-biological-molecules" target="_blank" rel="noopener">Elemental building blocks of biological molecules</a></span></li><li><span class="katype article">article</span><span><a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life" target="_blank" rel="noopener">Chemistry of life, the whole unit</a></span></li></ul><p class="usedin"><b>Where this course uses it:</b> Week 2, why every ion that moves needs a protein. Week 3 and Week 4, membrane transport and the electrical signal, which are entirely about ions and charge.</p></section>
+<section class="kablock"><div class="kahead"><h3>2. Chemical bonds</h3></div><p class="kawhy">Three bonds matter. Covalent bonds are strong, they share electrons and they hold a molecule together. Ionic bonds and hydrogen bonds are weak, and that weakness is exactly why physiology works: a hormone that bound its receptor covalently could never let go, so the signal could never be switched off.</p><ul class="kalist"><li><span class="katype article">article</span><span><a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/introduction-to-biological-macromolecules/a/chemical-bonds-article" target="_blank" rel="noopener">Chemical bonds</a></span></li><li><span class="katype practice">practice</span><span><a href="https://www.khanacademy.org/science/biology/chemistry--of-life/chemical-bonds-and-reactions/e/chemical-bonds" target="_blank" rel="noopener">Chemical bonds practice set</a></span></li><li><span class="katype article">article</span><span><a href="https://www.khanacademy.org/science/chemistry/chemical-bonds" target="_blank" rel="noopener">Chemical bonds, the whole unit</a></span></li></ul><p class="usedin"><b>Where this course uses it:</b> Week 2, protein folding and denaturation. Weak bonds hold a protein in its shape, which is why heat and pH can destroy a protein without touching its chain.</p></section>
+<section class="kablock"><div class="kahead"><h3>3. Water, solutions and how we say how much</h3></div><p class="kawhy">Water is polar, which is why it dissolves charged and polar things and refuses oily ones. On top of that you need the units: a mole is a count of particles, molarity is moles per liter, a percent solution is grams per 100 millilitres, and milliequivalents add the charge on the ion. You will read all four on lab reports.</p><ul class="kalist"><li><span class="katype video">video</span><span><a href="https://www.khanacademy.org/science/ap-chemistry-beta/x2eef969c74e0d802:intermolecular-forces-and-properties/x2eef969c74e0d802:solutions-and-mixtures/v/molarity" target="_blank" rel="noopener">Molarity</a></span></li><li><span class="katype practice">practice</span><span><a href="https://www.khanacademy.org/science/hs-chemistry/x2613d8165d88df5e:stoichiometry-and-the-mole/x2613d8165d88df5e:moles-and-molar-mass/e/understand-moles-and-molar-mass" target="_blank" rel="noopener">Moles and molar mass</a></span></li><li><span class="katype practice">practice</span><span><a href="https://www.khanacademy.org/science/chemistry/states-of-matter-and-intermolecular-forces/mixtures-and-solutions/e/molarity-calculations-exercise" target="_blank" rel="noopener">Molarity practice set</a></span></li><li><span class="katype article">article</span><span><a href="https://www.khanacademy.org/science/biology/water-acids-and-bases" target="_blank" rel="noopener">Water, acids and bases, the whole unit</a></span></li><li><span class="katype practice">practice</span><span><a href="https://www.khanacademy.org/science/biology/water-acids-and-bases/acids-bases-and-ph/e/acids--bases--and-ph" target="_blank" rel="noopener">Acids, bases and pH</a></span></li></ul><p class="usedin"><b>Where this course uses it:</b> Week 2, solubility and pH. Week 3, osmosis and choosing an IV fluid. Week 13 and Week 15, the two acid base levers. This is the section worth the most if you only do one.</p></section>
+<section class="kablock"><div class="kahead"><h3>4. The four families of biological molecules</h3></div><p class="kawhy">Carbohydrates, lipids, proteins and nucleotides. You need to recognise which is which and roughly what each is for, because the lectures name them constantly without stopping to define them. Proteins get taught properly in Week 2, so the other three are the ones to review.</p><ul class="kalist"><li><span class="katype article">article</span><span><a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/properties-structure-and-function-of-biological-macromolecules/a/hs-biological-macromolecules-review" target="_blank" rel="noopener">Biological macromolecules review</a></span></li><li><span class="katype article">article</span><span><a href="https://www.khanacademy.org/science/biology/macromolecules" target="_blank" rel="noopener">Macromolecules, the whole unit</a></span></li><li><span class="katype practice">practice</span><span><a href="https://www.khanacademy.org/science/ap-biology/chemistry-of-life/introduction-to-biological-macromolecules/quiz/chemistry-of-life-quiz-1" target="_blank" rel="noopener">Chemistry of life quiz</a></span></li></ul><p class="usedin"><b>Where this course uses it:</b> Week 2, where ATP comes from and what a phospholipid is. Week 8, steroid hormones. Week 12, digestion and fuel.</p></section>
+<h2>You are ready for Week 2 <span class="hl">when</span></h2>
+<div class="readywhen">
+  <p class="tag">Check yourself against these six</p>
+  <ul>
+    <li>You can say what makes an ion different from an atom, and why that difference matters for getting across a membrane.</li>
+    <li>You can tell a covalent bond from a hydrogen bond, and say which one is easy to break.</li>
+    <li>You can look at a molecule and predict whether water will dissolve it.</li>
+    <li>You can read mmol/L, mEq/L and mg/dL on a lab report and know they are three different ways of saying how much.</li>
+    <li>You know that pH is a log scale, so each whole step is a factor of ten.</li>
+    <li>You can name the four families of biological molecules and say one job each.</li>
+  </ul>
+  <p style="margin:14px 0 0;font-size:15px">If you can do all six, skip this page entirely and go straight to the lecture. Nothing here is worth your time twice.</p>
+</div>
+<div class="qrcard">
+  <div class="qrbox"><svg class="qr" viewBox="0 0 45 45" role="img" aria-label="QR code opening the Week 2 slide deck" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect width="45" height="45" fill="#FFFFFF"/><path d="M2 2h7v1h-7zM11 2h1v1h-1zM13 2h5v1h-5zM19 2h3v1h-3zM23 2h1v1h-1zM25 2h1v1h-1zM27 2h1v1h-1zM31 2h1v1h-1zM33 2h1v1h-1zM36 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM19 3h1v1h-1zM22 3h2v1h-2zM27 3h3v1h-3zM36 3h1v1h-1zM42 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM10 4h4v1h-4zM15 4h1v1h-1zM17 4h1v1h-1zM19 4h2v1h-2zM23 4h2v1h-2zM27 4h1v1h-1zM32 4h1v1h-1zM36 4h1v1h-1zM38 4h3v1h-3zM42 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM15 5h2v1h-2zM21 5h1v1h-1zM23 5h1v1h-1zM25 5h2v1h-2zM28 5h3v1h-3zM32 5h1v1h-1zM34 5h1v1h-1zM36 5h1v1h-1zM38 5h3v1h-3zM42 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h2v1h-2zM16 6h1v1h-1zM18 6h4v1h-4zM23 6h3v1h-3zM27 6h1v1h-1zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM38 6h3v1h-3zM42 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM16 7h4v1h-4zM22 7h1v1h-1zM27 7h4v1h-4zM36 7h1v1h-1zM42 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h7v1h-7zM10 9h1v1h-1zM14 9h1v1h-1zM16 9h2v1h-2zM20 9h1v1h-1zM23 9h2v1h-2zM26 9h1v1h-1zM29 9h2v1h-2zM32 9h1v1h-1zM2 10h1v1h-1zM4 10h5v1h-5zM11 10h1v1h-1zM15 10h5v1h-5zM21 10h1v1h-1zM24 10h2v1h-2zM27 10h2v1h-2zM31 10h1v1h-1zM33 10h1v1h-1zM36 10h5v1h-5zM2 11h1v1h-1zM4 11h2v1h-2zM7 11h1v1h-1zM11 11h1v1h-1zM14 11h2v1h-2zM19 11h3v1h-3zM24 11h2v1h-2zM30 11h1v1h-1zM33 11h6v1h-6zM40 11h3v1h-3zM8 12h1v1h-1zM10 12h2v1h-2zM14 12h1v1h-1zM16 12h3v1h-3zM22 12h1v1h-1zM24 12h1v1h-1zM29 12h2v1h-2zM34 12h1v1h-1zM36 12h3v1h-3zM2 13h1v1h-1zM5 13h3v1h-3zM9 13h1v1h-1zM12 13h3v1h-3zM17 13h2v1h-2zM21 13h1v1h-1zM23 13h2v1h-2zM29 13h2v1h-2zM33 13h4v1h-4zM39 13h1v1h-1zM2 14h2v1h-2zM6 14h4v1h-4zM13 14h2v1h-2zM16 14h1v1h-1zM21 14h2v1h-2zM24 14h8v1h-8zM33 14h1v1h-1zM39 14h4v1h-4zM3 15h2v1h-2zM7 15h1v1h-1zM13 15h2v1h-2zM19 15h2v1h-2zM27 15h1v1h-1zM29 15h1v1h-1zM32 15h7v1h-7zM40 15h1v1h-1zM42 15h1v1h-1zM6 16h3v1h-3zM11 16h1v1h-1zM16 16h3v1h-3zM22 16h2v1h-2zM25 16h2v1h-2zM28 16h3v1h-3zM34 16h2v1h-2zM41 16h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM9 17h3v1h-3zM13 17h1v1h-1zM16 17h2v1h-2zM23 17h3v1h-3zM28 17h2v1h-2zM34 17h1v1h-1zM36 17h2v1h-2zM39 17h1v1h-1zM41 17h2v1h-2zM2 18h4v1h-4zM7 18h3v1h-3zM12 18h1v1h-1zM14 18h2v1h-2zM18 18h2v1h-2zM22 18h1v1h-1zM24 18h12v1h-12zM37 18h1v1h-1zM39 18h3v1h-3zM2 19h1v1h-1zM5 19h1v1h-1zM12 19h2v1h-2zM18 19h1v1h-1zM21 19h2v1h-2zM24 19h2v1h-2zM31 19h3v1h-3zM36 19h4v1h-4zM41 19h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM8 20h2v1h-2zM13 20h3v1h-3zM18 20h1v1h-1zM20 20h1v1h-1zM24 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM35 20h2v1h-2zM38 20h1v1h-1zM40 20h1v1h-1zM2 21h1v1h-1zM6 21h2v1h-2zM9 21h2v1h-2zM12 21h3v1h-3zM21 21h1v1h-1zM28 21h2v1h-2zM31 21h2v1h-2zM38 21h1v1h-1zM41 21h1v1h-1zM3 22h1v1h-1zM8 22h2v1h-2zM12 22h1v1h-1zM20 22h1v1h-1zM22 22h3v1h-3zM26 22h1v1h-1zM29 22h1v1h-1zM40 22h1v1h-1zM3 23h1v1h-1zM5 23h2v1h-2zM9 23h5v1h-5zM15 23h4v1h-4zM21 23h3v1h-3zM25 23h1v1h-1zM27 23h2v1h-2zM32 23h5v1h-5zM38 23h2v1h-2zM41 23h2v1h-2zM2 24h1v1h-1zM4 24h1v1h-1zM6 24h3v1h-3zM10 24h2v1h-2zM13 24h2v1h-2zM17 24h1v1h-1zM19 24h1v1h-1zM22 24h3v1h-3zM27 24h3v1h-3zM31 24h2v1h-2zM34 24h1v1h-1zM36 24h2v1h-2zM2 25h4v1h-4zM12 25h2v1h-2zM15 25h1v1h-1zM18 25h1v1h-1zM21 25h3v1h-3zM25 25h2v1h-2zM30 25h1v1h-1zM32 25h3v1h-3zM36 25h1v1h-1zM38 25h2v1h-2zM2 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM12 26h2v1h-2zM15 26h1v1h-1zM18 26h2v1h-2zM24 26h1v1h-1zM26 26h3v1h-3zM31 26h1v1h-1zM33 26h1v1h-1zM40 26h3v1h-3zM2 27h1v1h-1zM5 27h1v1h-1zM9 27h1v1h-1zM12 27h1v1h-1zM14 27h1v1h-1zM17 27h1v1h-1zM20 27h3v1h-3zM25 27h3v1h-3zM30 27h2v1h-2zM33 27h1v1h-1zM35 27h5v1h-5zM41 27h2v1h-2zM2 28h1v1h-1zM4 28h6v1h-6zM17 28h3v1h-3zM22 28h3v1h-3zM29 28h1v1h-1zM34 28h3v1h-3zM2 29h5v1h-5zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h3v1h-3zM20 29h2v1h-2zM23 29h1v1h-1zM33 29h3v1h-3zM38 29h2v1h-2zM41 29h1v1h-1zM6 30h3v1h-3zM12 30h1v1h-1zM16 30h1v1h-1zM19 30h1v1h-1zM24 30h1v1h-1zM27 30h3v1h-3zM31 30h1v1h-1zM33 30h1v1h-1zM39 30h2v1h-2zM42 30h1v1h-1zM2 31h1v1h-1zM9 31h1v1h-1zM11 31h1v1h-1zM14 31h3v1h-3zM20 31h1v1h-1zM22 31h2v1h-2zM26 31h1v1h-1zM28 31h7v1h-7zM36 31h1v1h-1zM38 31h2v1h-2zM42 31h1v1h-1zM2 32h1v1h-1zM4 32h1v1h-1zM7 32h2v1h-2zM12 32h3v1h-3zM16 32h1v1h-1zM19 32h3v1h-3zM27 32h1v1h-1zM35 32h2v1h-2zM39 32h1v1h-1zM41 32h1v1h-1zM2 33h1v1h-1zM4 33h3v1h-3zM10 33h5v1h-5zM17 33h2v1h-2zM21 33h4v1h-4zM26 33h1v1h-1zM28 33h1v1h-1zM30 33h1v1h-1zM34 33h3v1h-3zM38 33h2v1h-2zM2 34h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM8 34h3v1h-3zM12 34h1v1h-1zM14 34h2v1h-2zM18 34h2v1h-2zM21 34h2v1h-2zM24 34h1v1h-1zM26 34h3v1h-3zM30 34h2v1h-2zM34 34h5v1h-5zM40 34h2v1h-2zM10 35h1v1h-1zM14 35h1v1h-1zM16 35h1v1h-1zM19 35h7v1h-7zM27 35h1v1h-1zM33 35h2v1h-2zM38 35h3v1h-3zM42 35h1v1h-1zM2 36h7v1h-7zM11 36h1v1h-1zM14 36h3v1h-3zM18 36h2v1h-2zM23 36h1v1h-1zM26 36h5v1h-5zM32 36h3v1h-3zM36 36h1v1h-1zM38 36h3v1h-3zM2 37h1v1h-1zM8 37h1v1h-1zM10 37h2v1h-2zM17 37h4v1h-4zM22 37h3v1h-3zM26 37h2v1h-2zM30 37h1v1h-1zM34 37h1v1h-1zM38 37h2v1h-2zM2 38h1v1h-1zM4 38h3v1h-3zM8 38h1v1h-1zM10 38h2v1h-2zM13 38h1v1h-1zM15 38h1v1h-1zM23 38h1v1h-1zM25 38h1v1h-1zM28 38h2v1h-2zM32 38h1v1h-1zM34 38h5v1h-5zM40 38h3v1h-3zM2 39h1v1h-1zM4 39h3v1h-3zM8 39h1v1h-1zM10 39h1v1h-1zM13 39h1v1h-1zM16 39h2v1h-2zM20 39h6v1h-6zM27 39h1v1h-1zM30 39h1v1h-1zM35 39h1v1h-1zM37 39h1v1h-1zM39 39h1v1h-1zM2 40h1v1h-1zM4 40h3v1h-3zM8 40h1v1h-1zM10 40h2v1h-2zM15 40h1v1h-1zM17 40h1v1h-1zM19 40h2v1h-2zM22 40h2v1h-2zM29 40h11v1h-11zM2 41h1v1h-1zM8 41h1v1h-1zM12 41h2v1h-2zM15 41h1v1h-1zM17 41h1v1h-1zM19 41h1v1h-1zM21 41h4v1h-4zM26 41h1v1h-1zM28 41h2v1h-2zM34 41h1v1h-1zM36 41h1v1h-1zM38 41h2v1h-2zM41 41h1v1h-1zM2 42h7v1h-7zM10 42h1v1h-1zM15 42h1v1h-1zM17 42h5v1h-5zM24 42h8v1h-8zM36 42h5v1h-5z" fill="#0B1530"/></svg></div>
+  <div>
+    <p class="qrh">Back to the lecture</p>
+    <p style="margin:0 0 8px;font-size:14.5px">When you are ready, the Week 2 deck is <a href="biol005-w02-chemistry-slides.html" target="_top">The chemistry that does work in the body</a>, and the written version is in <a href="biol005-w02-chemistry-notes.html" target="_top">the notes and transcript</a>.</p>
+    <p style="margin:0;font-size:14.5px">Scan the code to open the deck on your phone.</p>
+  </div>
+</div>
+<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Chemistry review. Khan Academy is a free non-profit and is not affiliated with this course. Links were checked against Khan Academy's own pages when this page was built.</p>
+</main>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+
+<style>
+/* ---------- periodic table pop-up and molecular mass calculator ---------- */
+.pt-launch{position:fixed;left:18px;bottom:18px;z-index:2147482000;
+  background:var(--navy,#0B1530);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.pt-launch:hover{background:#16213d}
+.pt-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+body.wb-on .pt-launch{display:none}
+.pt-inline{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn,4px);padding:10px 14px;margin:10px 0 0}
+.pt-inline:hover{border-color:var(--navy);background:var(--wash)}
+.ptab{position:fixed;inset:0;z-index:2147481000;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:2vh 2vw}
+.ptab[hidden]{display:none}
+.pt-box{background:#fff;border-radius:var(--r-card,8px);width:min(1400px,98vw);max-height:96vh;overflow:auto;padding:18px 20px 20px;position:relative}
+.pt-head{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;margin:0 0 12px}
+.pt-head h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(18px,2vw,26px);letter-spacing:-.02em;margin:0;line-height:1.15;flex:1;min-width:240px}
+.pt-head h2 .hl{color:var(--terra)}
+.pt-close{background:var(--terra);color:#fff;border:0;border-radius:var(--r-btn,4px);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.pt-close:hover{background:var(--terra-dark,#6B2A20)}
+.pt-calc{display:grid;grid-template-columns:minmax(260px,1.1fr) minmax(260px,1fr);gap:14px;margin:0 0 14px}
+@media(max-width:860px){.pt-calc{grid-template-columns:1fr}}
+.pt-field label{display:block;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 6px}
+.pt-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pt-field input{font-family:inherit;font-size:20px;font-weight:800;letter-spacing:.02em;padding:10px 12px;border:1px solid var(--navy-15);border-radius:var(--r-btn,4px);color:var(--navy);flex:1;min-width:180px}
+.pt-field input:focus{outline:3px solid var(--terra);outline-offset:2px}
+.pt-b{font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn,4px);padding:11px 14px}
+.pt-b:hover{border-color:var(--navy);background:var(--wash)}
+.pt-hint{font-size:13px;color:var(--navy-72);margin:8px 0 0}
+.pt-out{border:.5px solid var(--navy-15);border-radius:var(--r-card,8px);padding:12px 14px;min-height:96px}
+.pt-out .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 6px}
+.pt-out table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+.pt-out td,.pt-out th{text-align:left;padding:5px 8px;border-bottom:.5px solid var(--navy-15)}
+.pt-out th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.pt-out td.num{text-align:right;white-space:nowrap}
+.pt-total{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.02em;color:var(--navy);margin:8px 0 0}
+.pt-total small{font-size:.55em;font-weight:700;color:var(--navy-72);letter-spacing:0}
+.pt-err{color:var(--terra);font-weight:700;font-size:14px;margin:6px 0 0}
+.pt-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));grid-template-rows:repeat(10,auto);gap:3px}
+.pt-grid .pt-el{font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  background:#fff;border:1px solid var(--navy-15);border-radius:4px;padding:3px 1px;cursor:pointer;color:var(--navy);min-width:0;line-height:1.05}
+.pt-grid .pt-el:hover{border-color:var(--navy);background:var(--wash)}
+.pt-grid .pt-el:focus-visible{outline:3px solid var(--terra);outline-offset:1px;z-index:1}
+.pt-grid .pt-el.phys{border:1.5px solid var(--terra)}
+.pt-grid .pt-el.major{border:2px solid var(--navy);background:#ECEFF4}
+.pt-n{font-size:9px;color:var(--navy-72);font-weight:700}
+.pt-s{font-size:clamp(11px,1.15vw,17px);font-weight:800;letter-spacing:-.01em}
+.pt-m{font-size:9px;color:var(--navy-72);font-weight:600;white-space:nowrap}
+.pt-gap{display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--navy-72);border:1px dashed var(--navy-15);border-radius:4px}
+.pt-grid .pt-el[style*="grid-row:9"],.pt-grid .pt-el[style*="grid-row:10"]{margin-top:0}
+.pt-grid .pt-el[style*="grid-row:9"]{margin-top:10px}
+.pt-key{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--navy-72);margin:10px 0 0}
+.pt-key span{display:inline-flex;align-items:center;gap:6px}
+.pt-key i{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--navy-15);background:#fff}
+.pt-key i.major{border:2px solid var(--navy);background:#ECEFF4}
+.pt-key i.phys{border:1.5px solid var(--terra)}
+@media(max-width:700px){.pt-n,.pt-m{display:none}.pt-grid{gap:2px}.pt-s{font-size:10px}}
+@media print{.ptab,.pt-launch,.pt-inline{display:none!important}}
+</style>
+
+<button type="button" id="ptLaunch" class="pt-launch" aria-label="Open the periodic table and molecular mass calculator">
+  <span aria-hidden="true">&#9638;</span> Periodic table
+</button>
+<div id="ptab" class="ptab" hidden role="dialog" aria-modal="true" aria-labelledby="ptTitle">
+  <div class="pt-box">
+    <div class="pt-head">
+      <h2 id="ptTitle">Periodic table and <span class="hl">molecular mass</span></h2>
+      <button type="button" class="pt-close" id="ptClose" aria-label="Close the periodic table">&#10005; Close</button>
+    </div>
+    <div class="pt-calc">
+      <div class="pt-field">
+        <label for="ptFormula">Type a formula, or tap elements below to build one</label>
+        <div class="pt-row">
+          <input id="ptFormula" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="C6H12O6" aria-describedby="ptHint">
+          <button type="button" class="pt-b" id="ptClear">Clear</button>
+        </div>
+        <p class="pt-hint" id="ptHint">Capital letter starts each element: NaCl, CaCl2, Ca(OH)2, C6H12O6. Tapping an element adds one atom of it. Masses are in daltons, and the same number is grams per mole. The slides round to whole numbers (carbon 12, oxygen 16); this table keeps two decimals, so glucose reads 180.18 here and 180 on the slide.</p>
+      </div>
+      <div class="pt-out" id="ptOut" aria-live="polite">
+        <p class="tag">Molecular mass</p>
+        <p class="pt-hint" style="margin:0">Nothing entered yet.</p>
+      </div>
+    </div>
+    <div class="pt-grid" role="group" aria-label="Periodic table of the elements. Each element is a button that adds one atom to the formula.">
+<button type="button" class="pt-el major" style="grid-row:1;grid-column:1" data-sym="H" data-mass="1.01" aria-label="Hydrogen, atomic number 1, atomic mass 1.01"><span class="pt-n" aria-hidden="true">1</span><span class="pt-s" aria-hidden="true">H</span><span class="pt-m" aria-hidden="true">1.01</span></button>
+<button type="button" class="pt-el" style="grid-row:1;grid-column:18" data-sym="He" data-mass="4.0" aria-label="Helium, atomic number 2, atomic mass 4.00"><span class="pt-n" aria-hidden="true">2</span><span class="pt-s" aria-hidden="true">He</span><span class="pt-m" aria-hidden="true">4.00</span></button>
+<button type="button" class="pt-el" style="grid-row:2;grid-column:1" data-sym="Li" data-mass="6.94" aria-label="Lithium, atomic number 3, atomic mass 6.94"><span class="pt-n" aria-hidden="true">3</span><span class="pt-s" aria-hidden="true">Li</span><span class="pt-m" aria-hidden="true">6.94</span></button>
+<button type="button" class="pt-el" style="grid-row:2;grid-column:2" data-sym="Be" data-mass="9.01" aria-label="Beryllium, atomic number 4, atomic mass 9.01"><span class="pt-n" aria-hidden="true">4</span><span class="pt-s" aria-hidden="true">Be</span><span class="pt-m" aria-hidden="true">9.01</span></button>
+<button type="button" class="pt-el" style="grid-row:2;grid-column:13" data-sym="B" data-mass="10.81" aria-label="Boron, atomic number 5, atomic mass 10.81"><span class="pt-n" aria-hidden="true">5</span><span class="pt-s" aria-hidden="true">B</span><span class="pt-m" aria-hidden="true">10.81</span></button>
+<button type="button" class="pt-el major" style="grid-row:2;grid-column:14" data-sym="C" data-mass="12.01" aria-label="Carbon, atomic number 6, atomic mass 12.01"><span class="pt-n" aria-hidden="true">6</span><span class="pt-s" aria-hidden="true">C</span><span class="pt-m" aria-hidden="true">12.01</span></button>
+<button type="button" class="pt-el major" style="grid-row:2;grid-column:15" data-sym="N" data-mass="14.01" aria-label="Nitrogen, atomic number 7, atomic mass 14.01"><span class="pt-n" aria-hidden="true">7</span><span class="pt-s" aria-hidden="true">N</span><span class="pt-m" aria-hidden="true">14.01</span></button>
+<button type="button" class="pt-el major" style="grid-row:2;grid-column:16" data-sym="O" data-mass="16.0" aria-label="Oxygen, atomic number 8, atomic mass 16.00"><span class="pt-n" aria-hidden="true">8</span><span class="pt-s" aria-hidden="true">O</span><span class="pt-m" aria-hidden="true">16.00</span></button>
+<button type="button" class="pt-el phys" style="grid-row:2;grid-column:17" data-sym="F" data-mass="19.0" aria-label="Fluorine, atomic number 9, atomic mass 19.00"><span class="pt-n" aria-hidden="true">9</span><span class="pt-s" aria-hidden="true">F</span><span class="pt-m" aria-hidden="true">19.00</span></button>
+<button type="button" class="pt-el" style="grid-row:2;grid-column:18" data-sym="Ne" data-mass="20.18" aria-label="Neon, atomic number 10, atomic mass 20.18"><span class="pt-n" aria-hidden="true">10</span><span class="pt-s" aria-hidden="true">Ne</span><span class="pt-m" aria-hidden="true">20.18</span></button>
+<button type="button" class="pt-el phys" style="grid-row:3;grid-column:1" data-sym="Na" data-mass="22.99" aria-label="Sodium, atomic number 11, atomic mass 22.99"><span class="pt-n" aria-hidden="true">11</span><span class="pt-s" aria-hidden="true">Na</span><span class="pt-m" aria-hidden="true">22.99</span></button>
+<button type="button" class="pt-el phys" style="grid-row:3;grid-column:2" data-sym="Mg" data-mass="24.3" aria-label="Magnesium, atomic number 12, atomic mass 24.30"><span class="pt-n" aria-hidden="true">12</span><span class="pt-s" aria-hidden="true">Mg</span><span class="pt-m" aria-hidden="true">24.30</span></button>
+<button type="button" class="pt-el" style="grid-row:3;grid-column:13" data-sym="Al" data-mass="26.98" aria-label="Aluminum, atomic number 13, atomic mass 26.98"><span class="pt-n" aria-hidden="true">13</span><span class="pt-s" aria-hidden="true">Al</span><span class="pt-m" aria-hidden="true">26.98</span></button>
+<button type="button" class="pt-el" style="grid-row:3;grid-column:14" data-sym="Si" data-mass="28.09" aria-label="Silicon, atomic number 14, atomic mass 28.09"><span class="pt-n" aria-hidden="true">14</span><span class="pt-s" aria-hidden="true">Si</span><span class="pt-m" aria-hidden="true">28.09</span></button>
+<button type="button" class="pt-el phys" style="grid-row:3;grid-column:15" data-sym="P" data-mass="30.97" aria-label="Phosphorus, atomic number 15, atomic mass 30.97"><span class="pt-n" aria-hidden="true">15</span><span class="pt-s" aria-hidden="true">P</span><span class="pt-m" aria-hidden="true">30.97</span></button>
+<button type="button" class="pt-el phys" style="grid-row:3;grid-column:16" data-sym="S" data-mass="32.06" aria-label="Sulfur, atomic number 16, atomic mass 32.06"><span class="pt-n" aria-hidden="true">16</span><span class="pt-s" aria-hidden="true">S</span><span class="pt-m" aria-hidden="true">32.06</span></button>
+<button type="button" class="pt-el phys" style="grid-row:3;grid-column:17" data-sym="Cl" data-mass="35.45" aria-label="Chlorine, atomic number 17, atomic mass 35.45"><span class="pt-n" aria-hidden="true">17</span><span class="pt-s" aria-hidden="true">Cl</span><span class="pt-m" aria-hidden="true">35.45</span></button>
+<button type="button" class="pt-el" style="grid-row:3;grid-column:18" data-sym="Ar" data-mass="39.95" aria-label="Argon, atomic number 18, atomic mass 39.95"><span class="pt-n" aria-hidden="true">18</span><span class="pt-s" aria-hidden="true">Ar</span><span class="pt-m" aria-hidden="true">39.95</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:1" data-sym="K" data-mass="39.1" aria-label="Potassium, atomic number 19, atomic mass 39.10"><span class="pt-n" aria-hidden="true">19</span><span class="pt-s" aria-hidden="true">K</span><span class="pt-m" aria-hidden="true">39.10</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:2" data-sym="Ca" data-mass="40.08" aria-label="Calcium, atomic number 20, atomic mass 40.08"><span class="pt-n" aria-hidden="true">20</span><span class="pt-s" aria-hidden="true">Ca</span><span class="pt-m" aria-hidden="true">40.08</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:3" data-sym="Sc" data-mass="44.96" aria-label="Scandium, atomic number 21, atomic mass 44.96"><span class="pt-n" aria-hidden="true">21</span><span class="pt-s" aria-hidden="true">Sc</span><span class="pt-m" aria-hidden="true">44.96</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:4" data-sym="Ti" data-mass="47.87" aria-label="Titanium, atomic number 22, atomic mass 47.87"><span class="pt-n" aria-hidden="true">22</span><span class="pt-s" aria-hidden="true">Ti</span><span class="pt-m" aria-hidden="true">47.87</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:5" data-sym="V" data-mass="50.94" aria-label="Vanadium, atomic number 23, atomic mass 50.94"><span class="pt-n" aria-hidden="true">23</span><span class="pt-s" aria-hidden="true">V</span><span class="pt-m" aria-hidden="true">50.94</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:6" data-sym="Cr" data-mass="52.0" aria-label="Chromium, atomic number 24, atomic mass 52.00"><span class="pt-n" aria-hidden="true">24</span><span class="pt-s" aria-hidden="true">Cr</span><span class="pt-m" aria-hidden="true">52.00</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:7" data-sym="Mn" data-mass="54.94" aria-label="Manganese, atomic number 25, atomic mass 54.94"><span class="pt-n" aria-hidden="true">25</span><span class="pt-s" aria-hidden="true">Mn</span><span class="pt-m" aria-hidden="true">54.94</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:8" data-sym="Fe" data-mass="55.84" aria-label="Iron, atomic number 26, atomic mass 55.84"><span class="pt-n" aria-hidden="true">26</span><span class="pt-s" aria-hidden="true">Fe</span><span class="pt-m" aria-hidden="true">55.84</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:9" data-sym="Co" data-mass="58.93" aria-label="Cobalt, atomic number 27, atomic mass 58.93"><span class="pt-n" aria-hidden="true">27</span><span class="pt-s" aria-hidden="true">Co</span><span class="pt-m" aria-hidden="true">58.93</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:10" data-sym="Ni" data-mass="58.69" aria-label="Nickel, atomic number 28, atomic mass 58.69"><span class="pt-n" aria-hidden="true">28</span><span class="pt-s" aria-hidden="true">Ni</span><span class="pt-m" aria-hidden="true">58.69</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:11" data-sym="Cu" data-mass="63.55" aria-label="Copper, atomic number 29, atomic mass 63.55"><span class="pt-n" aria-hidden="true">29</span><span class="pt-s" aria-hidden="true">Cu</span><span class="pt-m" aria-hidden="true">63.55</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:12" data-sym="Zn" data-mass="65.38" aria-label="Zinc, atomic number 30, atomic mass 65.38"><span class="pt-n" aria-hidden="true">30</span><span class="pt-s" aria-hidden="true">Zn</span><span class="pt-m" aria-hidden="true">65.38</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:13" data-sym="Ga" data-mass="69.72" aria-label="Gallium, atomic number 31, atomic mass 69.72"><span class="pt-n" aria-hidden="true">31</span><span class="pt-s" aria-hidden="true">Ga</span><span class="pt-m" aria-hidden="true">69.72</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:14" data-sym="Ge" data-mass="72.63" aria-label="Germanium, atomic number 32, atomic mass 72.63"><span class="pt-n" aria-hidden="true">32</span><span class="pt-s" aria-hidden="true">Ge</span><span class="pt-m" aria-hidden="true">72.63</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:15" data-sym="As" data-mass="74.92" aria-label="Arsenic, atomic number 33, atomic mass 74.92"><span class="pt-n" aria-hidden="true">33</span><span class="pt-s" aria-hidden="true">As</span><span class="pt-m" aria-hidden="true">74.92</span></button>
+<button type="button" class="pt-el phys" style="grid-row:4;grid-column:16" data-sym="Se" data-mass="78.97" aria-label="Selenium, atomic number 34, atomic mass 78.97"><span class="pt-n" aria-hidden="true">34</span><span class="pt-s" aria-hidden="true">Se</span><span class="pt-m" aria-hidden="true">78.97</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:17" data-sym="Br" data-mass="79.9" aria-label="Bromine, atomic number 35, atomic mass 79.90"><span class="pt-n" aria-hidden="true">35</span><span class="pt-s" aria-hidden="true">Br</span><span class="pt-m" aria-hidden="true">79.90</span></button>
+<button type="button" class="pt-el" style="grid-row:4;grid-column:18" data-sym="Kr" data-mass="83.8" aria-label="Krypton, atomic number 36, atomic mass 83.80"><span class="pt-n" aria-hidden="true">36</span><span class="pt-s" aria-hidden="true">Kr</span><span class="pt-m" aria-hidden="true">83.80</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:1" data-sym="Rb" data-mass="85.47" aria-label="Rubidium, atomic number 37, atomic mass 85.47"><span class="pt-n" aria-hidden="true">37</span><span class="pt-s" aria-hidden="true">Rb</span><span class="pt-m" aria-hidden="true">85.47</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:2" data-sym="Sr" data-mass="87.62" aria-label="Strontium, atomic number 38, atomic mass 87.62"><span class="pt-n" aria-hidden="true">38</span><span class="pt-s" aria-hidden="true">Sr</span><span class="pt-m" aria-hidden="true">87.62</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:3" data-sym="Y" data-mass="88.91" aria-label="Yttrium, atomic number 39, atomic mass 88.91"><span class="pt-n" aria-hidden="true">39</span><span class="pt-s" aria-hidden="true">Y</span><span class="pt-m" aria-hidden="true">88.91</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:4" data-sym="Zr" data-mass="91.22" aria-label="Zirconium, atomic number 40, atomic mass 91.22"><span class="pt-n" aria-hidden="true">40</span><span class="pt-s" aria-hidden="true">Zr</span><span class="pt-m" aria-hidden="true">91.22</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:5" data-sym="Nb" data-mass="92.91" aria-label="Niobium, atomic number 41, atomic mass 92.91"><span class="pt-n" aria-hidden="true">41</span><span class="pt-s" aria-hidden="true">Nb</span><span class="pt-m" aria-hidden="true">92.91</span></button>
+<button type="button" class="pt-el phys" style="grid-row:5;grid-column:6" data-sym="Mo" data-mass="95.95" aria-label="Molybdenum, atomic number 42, atomic mass 95.95"><span class="pt-n" aria-hidden="true">42</span><span class="pt-s" aria-hidden="true">Mo</span><span class="pt-m" aria-hidden="true">95.95</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:7" data-sym="Tc" data-mass="98.0" aria-label="Technetium, atomic number 43, atomic mass 98.00"><span class="pt-n" aria-hidden="true">43</span><span class="pt-s" aria-hidden="true">Tc</span><span class="pt-m" aria-hidden="true">98.00</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:8" data-sym="Ru" data-mass="101.07" aria-label="Ruthenium, atomic number 44, atomic mass 101.07"><span class="pt-n" aria-hidden="true">44</span><span class="pt-s" aria-hidden="true">Ru</span><span class="pt-m" aria-hidden="true">101.07</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:9" data-sym="Rh" data-mass="102.91" aria-label="Rhodium, atomic number 45, atomic mass 102.91"><span class="pt-n" aria-hidden="true">45</span><span class="pt-s" aria-hidden="true">Rh</span><span class="pt-m" aria-hidden="true">102.91</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:10" data-sym="Pd" data-mass="106.42" aria-label="Palladium, atomic number 46, atomic mass 106.42"><span class="pt-n" aria-hidden="true">46</span><span class="pt-s" aria-hidden="true">Pd</span><span class="pt-m" aria-hidden="true">106.42</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:11" data-sym="Ag" data-mass="107.87" aria-label="Silver, atomic number 47, atomic mass 107.87"><span class="pt-n" aria-hidden="true">47</span><span class="pt-s" aria-hidden="true">Ag</span><span class="pt-m" aria-hidden="true">107.87</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:12" data-sym="Cd" data-mass="112.41" aria-label="Cadmium, atomic number 48, atomic mass 112.41"><span class="pt-n" aria-hidden="true">48</span><span class="pt-s" aria-hidden="true">Cd</span><span class="pt-m" aria-hidden="true">112.41</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:13" data-sym="In" data-mass="114.82" aria-label="Indium, atomic number 49, atomic mass 114.82"><span class="pt-n" aria-hidden="true">49</span><span class="pt-s" aria-hidden="true">In</span><span class="pt-m" aria-hidden="true">114.82</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:14" data-sym="Sn" data-mass="118.71" aria-label="Tin, atomic number 50, atomic mass 118.71"><span class="pt-n" aria-hidden="true">50</span><span class="pt-s" aria-hidden="true">Sn</span><span class="pt-m" aria-hidden="true">118.71</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:15" data-sym="Sb" data-mass="121.76" aria-label="Antimony, atomic number 51, atomic mass 121.76"><span class="pt-n" aria-hidden="true">51</span><span class="pt-s" aria-hidden="true">Sb</span><span class="pt-m" aria-hidden="true">121.76</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:16" data-sym="Te" data-mass="127.6" aria-label="Tellurium, atomic number 52, atomic mass 127.60"><span class="pt-n" aria-hidden="true">52</span><span class="pt-s" aria-hidden="true">Te</span><span class="pt-m" aria-hidden="true">127.60</span></button>
+<button type="button" class="pt-el phys" style="grid-row:5;grid-column:17" data-sym="I" data-mass="126.9" aria-label="Iodine, atomic number 53, atomic mass 126.90"><span class="pt-n" aria-hidden="true">53</span><span class="pt-s" aria-hidden="true">I</span><span class="pt-m" aria-hidden="true">126.90</span></button>
+<button type="button" class="pt-el" style="grid-row:5;grid-column:18" data-sym="Xe" data-mass="131.29" aria-label="Xenon, atomic number 54, atomic mass 131.29"><span class="pt-n" aria-hidden="true">54</span><span class="pt-s" aria-hidden="true">Xe</span><span class="pt-m" aria-hidden="true">131.29</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:1" data-sym="Cs" data-mass="132.91" aria-label="Cesium, atomic number 55, atomic mass 132.91"><span class="pt-n" aria-hidden="true">55</span><span class="pt-s" aria-hidden="true">Cs</span><span class="pt-m" aria-hidden="true">132.91</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:2" data-sym="Ba" data-mass="137.33" aria-label="Barium, atomic number 56, atomic mass 137.33"><span class="pt-n" aria-hidden="true">56</span><span class="pt-s" aria-hidden="true">Ba</span><span class="pt-m" aria-hidden="true">137.33</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:4" data-sym="La" data-mass="138.91" aria-label="Lanthanum, atomic number 57, atomic mass 138.91"><span class="pt-n" aria-hidden="true">57</span><span class="pt-s" aria-hidden="true">La</span><span class="pt-m" aria-hidden="true">138.91</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:5" data-sym="Ce" data-mass="140.12" aria-label="Cerium, atomic number 58, atomic mass 140.12"><span class="pt-n" aria-hidden="true">58</span><span class="pt-s" aria-hidden="true">Ce</span><span class="pt-m" aria-hidden="true">140.12</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:6" data-sym="Pr" data-mass="140.91" aria-label="Praseodymium, atomic number 59, atomic mass 140.91"><span class="pt-n" aria-hidden="true">59</span><span class="pt-s" aria-hidden="true">Pr</span><span class="pt-m" aria-hidden="true">140.91</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:7" data-sym="Nd" data-mass="144.24" aria-label="Neodymium, atomic number 60, atomic mass 144.24"><span class="pt-n" aria-hidden="true">60</span><span class="pt-s" aria-hidden="true">Nd</span><span class="pt-m" aria-hidden="true">144.24</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:8" data-sym="Pm" data-mass="145.0" aria-label="Promethium, atomic number 61, atomic mass 145.00"><span class="pt-n" aria-hidden="true">61</span><span class="pt-s" aria-hidden="true">Pm</span><span class="pt-m" aria-hidden="true">145.00</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:9" data-sym="Sm" data-mass="150.36" aria-label="Samarium, atomic number 62, atomic mass 150.36"><span class="pt-n" aria-hidden="true">62</span><span class="pt-s" aria-hidden="true">Sm</span><span class="pt-m" aria-hidden="true">150.36</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:10" data-sym="Eu" data-mass="151.96" aria-label="Europium, atomic number 63, atomic mass 151.96"><span class="pt-n" aria-hidden="true">63</span><span class="pt-s" aria-hidden="true">Eu</span><span class="pt-m" aria-hidden="true">151.96</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:11" data-sym="Gd" data-mass="157.25" aria-label="Gadolinium, atomic number 64, atomic mass 157.25"><span class="pt-n" aria-hidden="true">64</span><span class="pt-s" aria-hidden="true">Gd</span><span class="pt-m" aria-hidden="true">157.25</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:12" data-sym="Tb" data-mass="158.93" aria-label="Terbium, atomic number 65, atomic mass 158.93"><span class="pt-n" aria-hidden="true">65</span><span class="pt-s" aria-hidden="true">Tb</span><span class="pt-m" aria-hidden="true">158.93</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:13" data-sym="Dy" data-mass="162.5" aria-label="Dysprosium, atomic number 66, atomic mass 162.50"><span class="pt-n" aria-hidden="true">66</span><span class="pt-s" aria-hidden="true">Dy</span><span class="pt-m" aria-hidden="true">162.50</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:14" data-sym="Ho" data-mass="164.93" aria-label="Holmium, atomic number 67, atomic mass 164.93"><span class="pt-n" aria-hidden="true">67</span><span class="pt-s" aria-hidden="true">Ho</span><span class="pt-m" aria-hidden="true">164.93</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:15" data-sym="Er" data-mass="167.26" aria-label="Erbium, atomic number 68, atomic mass 167.26"><span class="pt-n" aria-hidden="true">68</span><span class="pt-s" aria-hidden="true">Er</span><span class="pt-m" aria-hidden="true">167.26</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:16" data-sym="Tm" data-mass="168.93" aria-label="Thulium, atomic number 69, atomic mass 168.93"><span class="pt-n" aria-hidden="true">69</span><span class="pt-s" aria-hidden="true">Tm</span><span class="pt-m" aria-hidden="true">168.93</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:17" data-sym="Yb" data-mass="173.04" aria-label="Ytterbium, atomic number 70, atomic mass 173.04"><span class="pt-n" aria-hidden="true">70</span><span class="pt-s" aria-hidden="true">Yb</span><span class="pt-m" aria-hidden="true">173.04</span></button>
+<button type="button" class="pt-el" style="grid-row:9;grid-column:18" data-sym="Lu" data-mass="174.97" aria-label="Lutetium, atomic number 71, atomic mass 174.97"><span class="pt-n" aria-hidden="true">71</span><span class="pt-s" aria-hidden="true">Lu</span><span class="pt-m" aria-hidden="true">174.97</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:4" data-sym="Hf" data-mass="178.49" aria-label="Hafnium, atomic number 72, atomic mass 178.49"><span class="pt-n" aria-hidden="true">72</span><span class="pt-s" aria-hidden="true">Hf</span><span class="pt-m" aria-hidden="true">178.49</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:5" data-sym="Ta" data-mass="180.95" aria-label="Tantalum, atomic number 73, atomic mass 180.95"><span class="pt-n" aria-hidden="true">73</span><span class="pt-s" aria-hidden="true">Ta</span><span class="pt-m" aria-hidden="true">180.95</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:6" data-sym="W" data-mass="183.84" aria-label="Tungsten, atomic number 74, atomic mass 183.84"><span class="pt-n" aria-hidden="true">74</span><span class="pt-s" aria-hidden="true">W</span><span class="pt-m" aria-hidden="true">183.84</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:7" data-sym="Re" data-mass="186.21" aria-label="Rhenium, atomic number 75, atomic mass 186.21"><span class="pt-n" aria-hidden="true">75</span><span class="pt-s" aria-hidden="true">Re</span><span class="pt-m" aria-hidden="true">186.21</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:8" data-sym="Os" data-mass="190.23" aria-label="Osmium, atomic number 76, atomic mass 190.23"><span class="pt-n" aria-hidden="true">76</span><span class="pt-s" aria-hidden="true">Os</span><span class="pt-m" aria-hidden="true">190.23</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:9" data-sym="Ir" data-mass="192.22" aria-label="Iridium, atomic number 77, atomic mass 192.22"><span class="pt-n" aria-hidden="true">77</span><span class="pt-s" aria-hidden="true">Ir</span><span class="pt-m" aria-hidden="true">192.22</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:10" data-sym="Pt" data-mass="195.08" aria-label="Platinum, atomic number 78, atomic mass 195.08"><span class="pt-n" aria-hidden="true">78</span><span class="pt-s" aria-hidden="true">Pt</span><span class="pt-m" aria-hidden="true">195.08</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:11" data-sym="Au" data-mass="196.97" aria-label="Gold, atomic number 79, atomic mass 196.97"><span class="pt-n" aria-hidden="true">79</span><span class="pt-s" aria-hidden="true">Au</span><span class="pt-m" aria-hidden="true">196.97</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:12" data-sym="Hg" data-mass="200.59" aria-label="Mercury, atomic number 80, atomic mass 200.59"><span class="pt-n" aria-hidden="true">80</span><span class="pt-s" aria-hidden="true">Hg</span><span class="pt-m" aria-hidden="true">200.59</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:13" data-sym="Tl" data-mass="204.38" aria-label="Thallium, atomic number 81, atomic mass 204.38"><span class="pt-n" aria-hidden="true">81</span><span class="pt-s" aria-hidden="true">Tl</span><span class="pt-m" aria-hidden="true">204.38</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:14" data-sym="Pb" data-mass="207.2" aria-label="Lead, atomic number 82, atomic mass 207.20"><span class="pt-n" aria-hidden="true">82</span><span class="pt-s" aria-hidden="true">Pb</span><span class="pt-m" aria-hidden="true">207.20</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:15" data-sym="Bi" data-mass="208.98" aria-label="Bismuth, atomic number 83, atomic mass 208.98"><span class="pt-n" aria-hidden="true">83</span><span class="pt-s" aria-hidden="true">Bi</span><span class="pt-m" aria-hidden="true">208.98</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:16" data-sym="Po" data-mass="209.0" aria-label="Polonium, atomic number 84, atomic mass 209.00"><span class="pt-n" aria-hidden="true">84</span><span class="pt-s" aria-hidden="true">Po</span><span class="pt-m" aria-hidden="true">209.00</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:17" data-sym="At" data-mass="210.0" aria-label="Astatine, atomic number 85, atomic mass 210.00"><span class="pt-n" aria-hidden="true">85</span><span class="pt-s" aria-hidden="true">At</span><span class="pt-m" aria-hidden="true">210.00</span></button>
+<button type="button" class="pt-el" style="grid-row:6;grid-column:18" data-sym="Rn" data-mass="222.0" aria-label="Radon, atomic number 86, atomic mass 222.00"><span class="pt-n" aria-hidden="true">86</span><span class="pt-s" aria-hidden="true">Rn</span><span class="pt-m" aria-hidden="true">222.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:1" data-sym="Fr" data-mass="223.0" aria-label="Francium, atomic number 87, atomic mass 223.00"><span class="pt-n" aria-hidden="true">87</span><span class="pt-s" aria-hidden="true">Fr</span><span class="pt-m" aria-hidden="true">223.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:2" data-sym="Ra" data-mass="226.0" aria-label="Radium, atomic number 88, atomic mass 226.00"><span class="pt-n" aria-hidden="true">88</span><span class="pt-s" aria-hidden="true">Ra</span><span class="pt-m" aria-hidden="true">226.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:4" data-sym="Ac" data-mass="227.0" aria-label="Actinium, atomic number 89, atomic mass 227.00"><span class="pt-n" aria-hidden="true">89</span><span class="pt-s" aria-hidden="true">Ac</span><span class="pt-m" aria-hidden="true">227.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:5" data-sym="Th" data-mass="232.04" aria-label="Thorium, atomic number 90, atomic mass 232.04"><span class="pt-n" aria-hidden="true">90</span><span class="pt-s" aria-hidden="true">Th</span><span class="pt-m" aria-hidden="true">232.04</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:6" data-sym="Pa" data-mass="231.04" aria-label="Protactinium, atomic number 91, atomic mass 231.04"><span class="pt-n" aria-hidden="true">91</span><span class="pt-s" aria-hidden="true">Pa</span><span class="pt-m" aria-hidden="true">231.04</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:7" data-sym="U" data-mass="238.03" aria-label="Uranium, atomic number 92, atomic mass 238.03"><span class="pt-n" aria-hidden="true">92</span><span class="pt-s" aria-hidden="true">U</span><span class="pt-m" aria-hidden="true">238.03</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:8" data-sym="Np" data-mass="237.0" aria-label="Neptunium, atomic number 93, atomic mass 237.00"><span class="pt-n" aria-hidden="true">93</span><span class="pt-s" aria-hidden="true">Np</span><span class="pt-m" aria-hidden="true">237.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:9" data-sym="Pu" data-mass="244.0" aria-label="Plutonium, atomic number 94, atomic mass 244.00"><span class="pt-n" aria-hidden="true">94</span><span class="pt-s" aria-hidden="true">Pu</span><span class="pt-m" aria-hidden="true">244.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:10" data-sym="Am" data-mass="243.0" aria-label="Americium, atomic number 95, atomic mass 243.00"><span class="pt-n" aria-hidden="true">95</span><span class="pt-s" aria-hidden="true">Am</span><span class="pt-m" aria-hidden="true">243.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:11" data-sym="Cm" data-mass="247.0" aria-label="Curium, atomic number 96, atomic mass 247.00"><span class="pt-n" aria-hidden="true">96</span><span class="pt-s" aria-hidden="true">Cm</span><span class="pt-m" aria-hidden="true">247.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:12" data-sym="Bk" data-mass="247.0" aria-label="Berkelium, atomic number 97, atomic mass 247.00"><span class="pt-n" aria-hidden="true">97</span><span class="pt-s" aria-hidden="true">Bk</span><span class="pt-m" aria-hidden="true">247.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:13" data-sym="Cf" data-mass="251.0" aria-label="Californium, atomic number 98, atomic mass 251.00"><span class="pt-n" aria-hidden="true">98</span><span class="pt-s" aria-hidden="true">Cf</span><span class="pt-m" aria-hidden="true">251.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:14" data-sym="Es" data-mass="252.0" aria-label="Einsteinium, atomic number 99, atomic mass 252.00"><span class="pt-n" aria-hidden="true">99</span><span class="pt-s" aria-hidden="true">Es</span><span class="pt-m" aria-hidden="true">252.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:15" data-sym="Fm" data-mass="257.0" aria-label="Fermium, atomic number 100, atomic mass 257.00"><span class="pt-n" aria-hidden="true">100</span><span class="pt-s" aria-hidden="true">Fm</span><span class="pt-m" aria-hidden="true">257.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:16" data-sym="Md" data-mass="258.0" aria-label="Mendelevium, atomic number 101, atomic mass 258.00"><span class="pt-n" aria-hidden="true">101</span><span class="pt-s" aria-hidden="true">Md</span><span class="pt-m" aria-hidden="true">258.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:17" data-sym="No" data-mass="259.0" aria-label="Nobelium, atomic number 102, atomic mass 259.00"><span class="pt-n" aria-hidden="true">102</span><span class="pt-s" aria-hidden="true">No</span><span class="pt-m" aria-hidden="true">259.00</span></button>
+<button type="button" class="pt-el" style="grid-row:10;grid-column:18" data-sym="Lr" data-mass="262.0" aria-label="Lawrencium, atomic number 103, atomic mass 262.00"><span class="pt-n" aria-hidden="true">103</span><span class="pt-s" aria-hidden="true">Lr</span><span class="pt-m" aria-hidden="true">262.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:4" data-sym="Rf" data-mass="261.0" aria-label="Rutherfordium, atomic number 104, atomic mass 261.00"><span class="pt-n" aria-hidden="true">104</span><span class="pt-s" aria-hidden="true">Rf</span><span class="pt-m" aria-hidden="true">261.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:5" data-sym="Db" data-mass="262.0" aria-label="Dubnium, atomic number 105, atomic mass 262.00"><span class="pt-n" aria-hidden="true">105</span><span class="pt-s" aria-hidden="true">Db</span><span class="pt-m" aria-hidden="true">262.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:6" data-sym="Sg" data-mass="266.0" aria-label="Seaborgium, atomic number 106, atomic mass 266.00"><span class="pt-n" aria-hidden="true">106</span><span class="pt-s" aria-hidden="true">Sg</span><span class="pt-m" aria-hidden="true">266.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:7" data-sym="Bh" data-mass="264.0" aria-label="Bohrium, atomic number 107, atomic mass 264.00"><span class="pt-n" aria-hidden="true">107</span><span class="pt-s" aria-hidden="true">Bh</span><span class="pt-m" aria-hidden="true">264.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:8" data-sym="Hs" data-mass="277.0" aria-label="Hassium, atomic number 108, atomic mass 277.00"><span class="pt-n" aria-hidden="true">108</span><span class="pt-s" aria-hidden="true">Hs</span><span class="pt-m" aria-hidden="true">277.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:9" data-sym="Mt" data-mass="268.0" aria-label="Meitnerium, atomic number 109, atomic mass 268.00"><span class="pt-n" aria-hidden="true">109</span><span class="pt-s" aria-hidden="true">Mt</span><span class="pt-m" aria-hidden="true">268.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:10" data-sym="Ds" data-mass="281.0" aria-label="Darmstadtium, atomic number 110, atomic mass 281.00"><span class="pt-n" aria-hidden="true">110</span><span class="pt-s" aria-hidden="true">Ds</span><span class="pt-m" aria-hidden="true">281.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:11" data-sym="Rg" data-mass="272.0" aria-label="Roentgenium, atomic number 111, atomic mass 272.00"><span class="pt-n" aria-hidden="true">111</span><span class="pt-s" aria-hidden="true">Rg</span><span class="pt-m" aria-hidden="true">272.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:12" data-sym="Cn" data-mass="285.0" aria-label="Copernicium, atomic number 112, atomic mass 285.00"><span class="pt-n" aria-hidden="true">112</span><span class="pt-s" aria-hidden="true">Cn</span><span class="pt-m" aria-hidden="true">285.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:13" data-sym="Nh" data-mass="286.0" aria-label="Nihonium, atomic number 113, atomic mass 286.00"><span class="pt-n" aria-hidden="true">113</span><span class="pt-s" aria-hidden="true">Nh</span><span class="pt-m" aria-hidden="true">286.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:14" data-sym="Fl" data-mass="289.0" aria-label="Flerovium, atomic number 114, atomic mass 289.00"><span class="pt-n" aria-hidden="true">114</span><span class="pt-s" aria-hidden="true">Fl</span><span class="pt-m" aria-hidden="true">289.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:15" data-sym="Mc" data-mass="289.0" aria-label="Moscovium, atomic number 115, atomic mass 289.00"><span class="pt-n" aria-hidden="true">115</span><span class="pt-s" aria-hidden="true">Mc</span><span class="pt-m" aria-hidden="true">289.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:16" data-sym="Lv" data-mass="293.0" aria-label="Livermorium, atomic number 116, atomic mass 293.00"><span class="pt-n" aria-hidden="true">116</span><span class="pt-s" aria-hidden="true">Lv</span><span class="pt-m" aria-hidden="true">293.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:17" data-sym="Ts" data-mass="294.0" aria-label="Tennessine, atomic number 117, atomic mass 294.00"><span class="pt-n" aria-hidden="true">117</span><span class="pt-s" aria-hidden="true">Ts</span><span class="pt-m" aria-hidden="true">294.00</span></button>
+<button type="button" class="pt-el" style="grid-row:7;grid-column:18" data-sym="Og" data-mass="294.0" aria-label="Oganesson, atomic number 118, atomic mass 294.00"><span class="pt-n" aria-hidden="true">118</span><span class="pt-s" aria-hidden="true">Og</span><span class="pt-m" aria-hidden="true">294.00</span></button>
+<span class="pt-gap" style="grid-row:6;grid-column:3" aria-hidden="true">57 to 71</span>
+<span class="pt-gap" style="grid-row:7;grid-column:3" aria-hidden="true">89 to 103</span>
+    </div>
+    <p class="pt-key"><span><i class="major"></i> The four that make up 96 percent of the body: H, C, N, O</span><span><i class="phys"></i> The other elements physiology uses: major ions and trace elements</span><span><i></i> Everything else</span></p>
+  </div>
+</div>
+<script>
+(function(){ "use strict";
+  var M={"H":1.01,"He":4.0,"Li":6.94,"Be":9.01,"B":10.81,"C":12.01,"N":14.01,"O":16.0,"F":19.0,"Ne":20.18,"Na":22.99,"Mg":24.3,"Al":26.98,"Si":28.09,"P":30.97,"S":32.06,"Cl":35.45,"Ar":39.95,"K":39.1,"Ca":40.08,"Sc":44.96,"Ti":47.87,"V":50.94,"Cr":52.0,"Mn":54.94,"Fe":55.84,"Co":58.93,"Ni":58.69,"Cu":63.55,"Zn":65.38,"Ga":69.72,"Ge":72.63,"As":74.92,"Se":78.97,"Br":79.9,"Kr":83.8,"Rb":85.47,"Sr":87.62,"Y":88.91,"Zr":91.22,"Nb":92.91,"Mo":95.95,"Tc":98.0,"Ru":101.07,"Rh":102.91,"Pd":106.42,"Ag":107.87,"Cd":112.41,"In":114.82,"Sn":118.71,"Sb":121.76,"Te":127.6,"I":126.9,"Xe":131.29,"Cs":132.91,"Ba":137.33,"La":138.91,"Ce":140.12,"Pr":140.91,"Nd":144.24,"Pm":145.0,"Sm":150.36,"Eu":151.96,"Gd":157.25,"Tb":158.93,"Dy":162.5,"Ho":164.93,"Er":167.26,"Tm":168.93,"Yb":173.04,"Lu":174.97,"Hf":178.49,"Ta":180.95,"W":183.84,"Re":186.21,"Os":190.23,"Ir":192.22,"Pt":195.08,"Au":196.97,"Hg":200.59,"Tl":204.38,"Pb":207.2,"Bi":208.98,"Po":209.0,"At":210.0,"Rn":222.0,"Fr":223.0,"Ra":226.0,"Ac":227.0,"Th":232.04,"Pa":231.04,"U":238.03,"Np":237.0,"Pu":244.0,"Am":243.0,"Cm":247.0,"Bk":247.0,"Cf":251.0,"Es":252.0,"Fm":257.0,"Md":258.0,"No":259.0,"Lr":262.0,"Rf":261.0,"Db":262.0,"Sg":266.0,"Bh":264.0,"Hs":277.0,"Mt":268.0,"Ds":281.0,"Rg":272.0,"Cn":285.0,"Nh":286.0,"Fl":289.0,"Mc":289.0,"Lv":293.0,"Ts":294.0,"Og":294.0};
+  var dlg=document.getElementById('ptab'), launch=document.getElementById('ptLaunch'),
+      close=document.getElementById('ptClose'), inp=document.getElementById('ptFormula'),
+      out=document.getElementById('ptOut'), clear=document.getElementById('ptClear');
+  if(!dlg) return;
+  var last=null;
+  function open(from){ last=from||document.activeElement; dlg.hidden=false; inp.focus(); }
+  function shut(){ dlg.hidden=true; if(last&&last.focus) last.focus(); }
+  launch.addEventListener('click',function(){open(launch);});
+  close.addEventListener('click',shut);
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) shut(); });
+  document.addEventListener('keydown',function(e){ if(!dlg.hidden&&e.key==='Escape'){e.preventDefault();shut();} });
+  document.querySelectorAll('.pt-inline').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.dataset.formula){inp.value=b.dataset.formula;} open(b); render(); });
+  });
+
+  /* parse a formula with parentheses, e.g. Ca(OH)2 or Mg3(PO4)2 */
+  function parse(s){
+    s=s.replace(/\s+/g,'');
+    var i=0, err=null;
+    function group(){
+      var counts={};
+      while(i<s.length){
+        var ch=s[i];
+        if(ch==='('){ i++; var inner=group(); if(s[i]!==')'){err='A bracket was opened and not closed.';return counts;} i++;
+          var n=num(); for(var k in inner) counts[k]=(counts[k]||0)+inner[k]*n; }
+        else if(ch===')') return counts;
+        else if(/[A-Z]/.test(ch)){ var sym=ch; i++; if(i<s.length&&/[a-z]/.test(s[i])){sym+=s[i];i++;}
+          if(!(sym in M)){ err='No element is written '+sym+'. Each element starts with a capital letter.'; return counts; }
+          var n2=num(); counts[sym]=(counts[sym]||0)+n2; }
+        else { err='Could not read "'+ch+'".'; return counts; }
+      }
+      return counts;
+    }
+    function num(){ var m=s.slice(i).match(/^\d+/); if(m){i+=m[0].length;return parseInt(m[0],10);} return 1; }
+    var c=group(); if(i<s.length&&!err) err='A bracket was closed that was never opened.';
+    return {counts:c,err:err};
+  }
+  function render(){
+    var v=inp.value.trim();
+    if(!v){ out.innerHTML='<p class="tag">Molecular mass</p><p class="pt-hint" style="margin:0">Nothing entered yet.</p>'; return; }
+    var r=parse(v), rows='', total=0, any=false;
+    Object.keys(r.counts).forEach(function(k){
+      var n=r.counts[k], sub=n*M[k]; total+=sub; any=true;
+      rows+='<tr><td>'+k+'</td><td class="num">'+n+'</td><td class="num">'+M[k].toFixed(2)+'</td><td class="num">'+sub.toFixed(2)+'</td></tr>';
+    });
+    var h='<p class="tag">Molecular mass</p>';
+    if(any) h+='<table><thead><tr><th>Element</th><th style="text-align:right">Atoms</th><th style="text-align:right">Each, Da</th><th style="text-align:right">Total, Da</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      '<p class="pt-total">'+total.toFixed(2)+' Da <small>= '+total.toFixed(2)+' g/mol</small></p>';
+    if(r.err) h+='<p class="pt-err">'+r.err+'</p>';
+    out.innerHTML=h;
+  }
+  inp.addEventListener('input',render);
+  clear.addEventListener('click',function(){ inp.value=''; render(); inp.focus(); });
+  /* tapping an element adds one atom: bump the trailing count if it is the same element */
+  document.querySelectorAll('.pt-el').forEach(function(b){
+    b.addEventListener('click',function(){
+      var sym=b.dataset.sym, v=inp.value.replace(/\s+$/,'');
+      var m=v.match(/([A-Z][a-z]?)(\d*)$/);
+      if(m&&m[1]===sym&&!/\)$/.test(v)){ var n=(m[2]?parseInt(m[2],10):1)+1; v=v.slice(0,v.length-m[0].length)+sym+n; }
+      else v+=sym;
+      inp.value=v; render();
+    });
+  });
+})();
+</script>
+
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='chemistry-review';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  document.querySelectorAll('.clin-btn').forEach(function(b){
+    if(b.dataset.wired) return; b.dataset.wired='1';
+    var box=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      if(box)box.hidden=open;
+    });
+  });
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
