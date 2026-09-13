@@ -124,6 +124,20 @@ select{font-family:var(--body);font-size:16px;color:var(--navy);background:var(-
 .ladder .s{font-size:13px;color:var(--ink-soft)}
 @media (max-width:560px){.ladder{grid-template-columns:1fr}}
 
+/* ---------- weak spots ---------- */
+.weak{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.weak li{background:var(--white);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.weak .wt{flex:1 1 260px;min-width:0}
+.weak .wt b{display:block;color:var(--navy);font-size:15.5px}
+.weak .wt span{font-size:13.5px;color:var(--ink-soft)}
+.weak .btn{padding:8px 14px;min-height:40px;font-size:14px}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:8px 0 0}
+.wk div{background:var(--white);border-radius:9px;padding:10px 6px;text-align:center;box-shadow:var(--shadow)}
+.wk .d{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.wk .n{font-family:var(--display);font-weight:800;font-size:20px;color:var(--navy);font-variant-numeric:tabular-nums}
+.wk .r{font-size:12px;color:var(--ink-soft)}
+@media (max-width:560px){.wk{grid-template-columns:repeat(4,1fr)}}
+
 /* ---------- reviewer ---------- */
 .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px}
 .bar .prog{font-size:14px;font-weight:700;color:var(--ink-soft)}
@@ -223,6 +237,19 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     </div>
   </section>
 
+  <section aria-labelledby="weak-h" id="weaksec">
+    <h2 id="weak-h">Your weak spots</h2>
+    <p class="sub" id="weakline">The competencies whose cards you have missed or rated Hard, worst first. Drill one, or drill them all. A drill ignores the schedule and pulls only the cards you have struggled with.</p>
+    <ul class="weak" id="weak"></ul>
+    <div class="btnrow" id="weakrow" hidden><button type="button" class="btn ghost" id="drillall">Drill all my weak spots</button></div>
+  </section>
+
+  <section aria-labelledby="wk-h">
+    <h2 id="wk-h">What you did this week</h2>
+    <p class="sub">Cards answered each day, and how many you got right first time.</p>
+    <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
+  </section>
+
   <section aria-labelledby="set-h">
     <h2 id="set-h">Settings</h2>
     <div class="card">
@@ -269,7 +296,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 <!-- ================= SCREEN 2: REVIEWER ================= -->
 <div id="review" hidden>
   <div class="bar">
-    <span class="prog" id="prog"></span>
+    <span class="prog" id="prog"></span><span class="prog" id="mode" hidden>Weak spot drill</span>
     <button type="button" class="btn ghost" id="quit">Stop for now</button>
   </div>
   <div class="meter" aria-hidden="true"><div id="meterfill"></div></div>
@@ -501,6 +528,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       : 'Nothing is due. ' + seen + ' of ' + inplay + ' cards in play have been started. Come back tomorrow, or pull some new ones now.';
     $('start').disabled = !total;
     $('extra').hidden = !!total || pile.freshTotal === 0;
+    renderWeak(); renderWeek();
     /* forecast */
     var fc = $('forecast'); fc.innerHTML = '';
     var t0 = startOfToday(), names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -525,10 +553,76 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   }
 
   /* ---------- reviewer ---------- */
-  var queue = [], done = 0, total = 0, cur = null, answered = false, firstRight = false;
+  var queue = [], done = 0, total = 0, cur = null, answered = false, firstRight = false, drill = false;
   var sess = { seen:0, right:0, missed:{} };
 
+  /* ---------- weak spots ----------
+     A card is weak when it has ever been missed, has been rated Hard,
+     or its ease has fallen below 2.2 (which only happens by missing or
+     rating Hard). The score per competency is 2 per miss plus 1 per
+     Hard, across its cards. Missing is the strongest signal; Hard is
+     the low-confidence signal, a right answer the student was unsure of. */
+  function weakCard(r){ return r && ((r.lapses || 0) > 0 || (r.hard || 0) > 0 || (r.ease || 2.5) < 2.2); }
+  function weakSpots(){
+    var byComp = {};
+    CARDS.forEach(function(c){
+      var r = S.cards[c.key]; if (!inPlay(c) || !weakCard(r)) return;
+      var w = byComp[c.comp.id] = byComp[c.comp.id] || { comp: c.comp, score: 0, cards: 0, misses: 0, hard: 0 };
+      w.score += 2 * (r.lapses || 0) + (r.hard || 0) + ((r.ease || 2.5) < 2.2 ? 1 : 0);
+      w.cards++; w.misses += (r.lapses || 0); w.hard += (r.hard || 0);
+    });
+    return Object.keys(byComp).map(function(k){ return byComp[k]; }).sort(function(a,b){ return b.score - a.score; });
+  }
+  function renderWeak(){
+    var list = weakSpots(), ul = $('weak'); ul.innerHTML = '';
+    $('weakrow').hidden = !list.length;
+    if (!list.length) {
+      $('weakline').textContent = S.log && Object.keys(S.log).length
+        ? 'Nothing here yet. A competency lands on this list when you miss one of its cards or rate one Hard.'
+        : 'This fills in as you review. A competency lands here when you miss one of its cards or rate one Hard, and a drill button lets you go straight at it.';
+      return;
+    }
+    $('weakline').textContent = list.length + ' competenc' + (list.length === 1 ? 'y' : 'ies') + ' with cards you have missed or rated Hard, worst first. Drill one, or drill them all. A drill ignores the schedule and pulls only the cards you have struggled with.';
+    list.slice(0, 12).forEach(function(w){
+      var li = document.createElement('li');
+      var t = document.createElement('div'); t.className = 'wt';
+      var b = document.createElement('b'); b.textContent = w.comp.name + ' (Week ' + w.comp.week + ')';
+      var sp = document.createElement('span'); sp.textContent = w.cards + ' weak card' + (w.cards === 1 ? '' : 's') + ': ' + w.misses + ' missed, ' + w.hard + ' rated Hard';
+      t.appendChild(b); t.appendChild(sp);
+      var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn';
+      btn.textContent = 'Drill'; btn.setAttribute('aria-label', 'Drill ' + w.comp.name);
+      btn.addEventListener('click', function(){ startDrill([w.comp.id]); });
+      li.appendChild(t); li.appendChild(btn); ul.appendChild(li);
+    });
+  }
+  function renderWeek(){
+    var el = $('week'); el.innerHTML = '';
+    var names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], t0 = startOfToday();
+    for (var d = 6; d >= 0; d--) {
+      var dt = new Date(t0 - d*DAY);
+      var k = dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
+      var L = S.log[k] || { seen:0, right:0 };
+      var div = document.createElement('div');
+      div.innerHTML = '<div class="d">' + (d === 0 ? 'Today' : names[dt.getDay()]) + '</div><div class="n">' + L.seen + '</div><div class="r">' + (L.seen ? L.right + ' right' : 'no cards') + '</div>';
+      el.appendChild(div);
+    }
+  }
+  function startDrill(compIds){
+    var want = {}; compIds.forEach(function(id){ want[id] = 1; });
+    var cards = CARDS.filter(function(c){ return inPlay(c) && want[c.comp.id] && weakCard(S.cards[c.key]); });
+    if (!cards.length) return;
+    /* worst first, then shuffle lightly within the same score so the order is not memorised */
+    cards.sort(function(a,b){ var ra = S.cards[a.key], rb = S.cards[b.key]; return (2*(rb.lapses||0) + (rb.hard||0)) - (2*(ra.lapses||0) + (ra.hard||0)) || Math.random() - 0.5; });
+    queue = cards.slice(0, 40); drill = true;
+    done = 0; total = queue.length; sess = { seen:0, right:0, missed:{} };
+    $('mode').hidden = false;
+    $('home').hidden = true; $('finish').hidden = true; $('review').hidden = false;
+    next();
+  }
+  $('drillall').addEventListener('click', function(){ startDrill(weakSpots().map(function(w){ return w.comp.id; })); });
+
   function startSession(forceNew){
+    drill = false; $('mode').hidden = true;
     pile = buildPile(forceNew);
     queue = pile.learn.concat(pile.rev);
     /* interleave new cards through the reviews rather than stacking them at the end */
@@ -606,7 +700,13 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var nx = nextInterval(rec, r);
     var due = startOfToday() + nx.iv * DAY + 8*3600000; /* 8 am local on the due day */
     if (r === 0) rec.lapses = (rec.lapses || 0) + 1;
-    rec.reps = (rec.reps || 0) + 1;
+    if (r === 1) rec.hard = (rec.hard || 0) + 1;
+    if (r >= 2 && drill && rec.last && rec.last >= startOfToday()) {
+      /* a drill does not move a card forward twice in one day; a right
+         answer in a drill keeps the schedule it already has */
+      rec.reps = (rec.reps || 0) + 1; rec.lastRating = r; S.cards[cur.key] = rec; save(); done++; next(); return;
+    }
+    rec.reps = (rec.reps || 0) + 1; rec.lastRating = r;
     rec.st = nx.st; rec.iv = nx.iv; rec.ease = Math.round(nx.ease * 100) / 100; rec.due = due; rec.last = Date.now();
     S.cards[cur.key] = rec;
     /* a missed card comes back later in this same session */
@@ -635,7 +735,9 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var t0 = startOfToday(), n = 0;
     CARDS.forEach(function(c){ var r = S.cards[c.key]; if (r && inPlay(c) && r.due >= t0 + DAY && r.due < t0 + 2*DAY) n++; });
     $('fTomorrow').textContent = n;
-    $('finline').textContent = sess.seen
+    $('finline').textContent = drill && sess.seen
+      ? 'That was a drill. Cards you got right keep the schedule they had; cards you missed come back tomorrow.'
+      : sess.seen
       ? (sess.right === sess.seen ? 'Every card right first time. The ones you rated Hard will be back sooner than the rest.' : 'Missed cards come back tomorrow, and again until they hold.')
       : 'You stopped before answering anything. The pile is still waiting.';
     var ids = Object.keys(sess.missed).sort(function(a,b){ return sess.missed[b] - sess.missed[a]; });
@@ -664,7 +766,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   }
   /* bio005-nav.js is deferred and sets BIO005_SITE; wait one tick for it */
   if (document.readyState === 'complete') boot(); else window.addEventListener('load', boot);
-  window.BIO005_RX = { pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
+  window.BIO005_RX = { weak: weakSpots, drill: startDrill, pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
 }());
 </script>
 <script src="bio005-nav.js" defer></script>

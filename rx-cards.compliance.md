@@ -27,6 +27,7 @@ WCAG 2.2. Level AA is the floor on every criterion. AAA is met on contrast for a
 | 3.3.2 Labels | AA | The week select has a visible label with for/id; the segment has aria-labelledby; rating buttons name the interval each would give. |
 | 4.1.2 Name, role, value | AA | Segment buttons use aria-pressed. Tabs on the intro page use role=tab with aria-selected and roving tabindex. |
 | 4.1.3 Status messages | AA | The verdict block is aria-live="polite" so the result is announced without moving focus. |
+| Weak spots list | AA | Each Drill button carries an aria-label naming its competency, so a screen reader user hears "Drill Osmosis and cell volume" rather than twelve identical buttons. The seven day strip is a labelled group with a text value per day. |
 
 ## Color contrast audit
 
@@ -49,7 +50,7 @@ WCAG 2.2. Level AA is the floor on every criterion. AAA is met on contrast for a
 
 ## Keyboard navigation flow verified
 
-Skip link, brand mark, site nav, week select, four new-card buttons, Start reviewing. In the reviewer: answers 1 to 4, then ratings 1 to 4 (only Again is enabled after a miss), Stop for now. Finish screen: focus lands on the heading, then the three links and Back to Due now. Verified headless with tools/test_rx_cards.js (26 checks passing) and by hand in Chromium.
+Skip link, brand mark, site nav, week select, four new-card buttons, Start reviewing. In the reviewer: answers 1 to 4, then ratings 1 to 4 (only Again is enabled after a miss), Stop for now. Finish screen: focus lands on the heading, then the three links and Back to Due now. Verified headless with tools/test_rx_cards.js (31 checks passing, including the weak spot drill) and by hand in Chromium.
 
 ## Screen reader testing
 

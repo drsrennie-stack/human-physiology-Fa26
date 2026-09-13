@@ -1,4 +1,3 @@
-/* Rx Cards headless test. Serve the repo root on :8765 (python3 -m http.server 8765), then: node tools/test_rx_cards.js. 26 checks: bank flattening, week from competency, default pile, keyboard flow, verdicts, rating gates, requeue of a missed card, finish screen, persistence, forecast, SM-2 arithmetic, contrast-safe accessibility basics. */
 const { chromium } = require('playwright');
 (async () => {
   const b = await chromium.launch({executablePath: process.env.CHROME || undefined}); const p = await b.newPage({viewport:{width:1100,height:900}});
@@ -46,6 +45,19 @@ const { chromium } = require('playwright');
   // axe-lite: every button has a name, headings ordered, landmarks
   const a11y = await p.evaluate(()=>{ const bad=[...document.querySelectorAll('button,a')].filter(b=>!(b.textContent.trim()||b.getAttribute('aria-label'))); return {unnamed:bad.length, main:!!document.querySelector('main'), skip:!!document.querySelector('a.skip'), lang:document.documentElement.lang, italics:getComputedStyle(document.querySelector('em')||document.body).fontStyle}; });
   console.log(a11y); ok(a11y.unnamed===0&&a11y.main&&a11y.skip,'a11y basics');
+
+  // ---- weak spots and drill ----
+  await p.goto('http://localhost:8765/rx-cards.html?week=2', {waitUntil:'networkidle'}); await p.waitForFunction(()=>window.BIO005_RX);
+  const w = await p.evaluate(()=>({n:BIO005_RX.weak().length, li:document.querySelectorAll('#weak li').length, rowHidden:document.getElementById('weakrow').hidden, wk:[...document.querySelectorAll('#week .n')].map(x=>+x.textContent)}));
+  console.log('weak', w); ok(w.n===1&&w.li===1&&!w.rowHidden,'one weak competency listed after the earlier miss'); ok(w.wk[6]>=2,'today shows cards answered');
+  await p.click('#weak li button'); await p.waitForSelector('#review:not([hidden])');
+  const d = await p.evaluate(()=>({mode:!document.getElementById('mode').hidden, prog:prog.textContent, st:mState.textContent}));
+  console.log('drill', d); ok(d.mode&&/of 1$/.test(d.prog),'drill holds only the weak card');
+  const ci3 = await p.evaluate(()=>{ const c=BIO005_RX.cards.find(x=>x.q===stem.textContent); return c.ci; });
+  await p.keyboard.press(String(ci3+1)); await p.keyboard.press('3');
+  const after = await p.evaluate(()=>{ const st=JSON.parse(localStorage.getItem('bio005-rx-v1')); const r=Object.values(st.cards).find(r=>r.lapses===1); return {st:r.st, iv:r.iv, line:finline.textContent}; });
+  console.log(after); ok(after.st==='learn'&&after.iv===1,'drill right answer did not advance a card already reviewed today'); ok(/drill/.test(after.line),'drill finish line');
+  console.log('pass', pass, 'fail', fail);
   console.log('errors:', errs, '\npass', pass, 'fail', fail);
   await b.close();
 })();

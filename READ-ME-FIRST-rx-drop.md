@@ -5,6 +5,7 @@ Upload everything in this zip to the repo root, keeping the folder structure (os
 ## What is new
 
 - rx-cards.html: the recall card tool. Spaced recall on the existing 4980-card bank, gets harder as a student proves a competency, per-browser progress under bio005-rx-v1. Supports ?week=N (weeks 1 to N in play) and ?week=N&only=1 (that week only).
+- Rx Cards also carries a Your weak spots list (competencies with missed or Hard-rated cards, worst first, a Drill button on each and one for all of them) and a What you did this week strip. A drill ignores the schedule and pulls only the struggled-with cards; a right answer in a drill does not move a card forward a second time in one day.
 - rx-cards.compliance.md and tools/test_rx_cards.js.
 
 ## What changed
