@@ -69,12 +69,12 @@ window.BIO005_WEEK_GRID = {
       due:['check','lab','apply','disc','log'] },
 
     { wk:3,  title:'Membranes, Transport & Compartments',
-      sub:'Getting across the membrane',
+      sub:'The cell, and how cells talk',
       lab:'Diffusion, osmosis and transport', labNote:'PhysioEx Ex 1, all five activities',
       due:['check','lab','apply','disc','log'] },
 
     { wk:4,  title:'Electrical Signaling',
-      sub:'How cells talk, and the electrical signal',
+      sub:'Getting across the membrane, and the electrical signal',
       lab:'The action potential', labNote:'PhysioEx Ex 3',
       due:['check','lab','apply','disc','log'] },
 

@@ -35,12 +35,8 @@
    1. A week is a container with an open and a close, not a meeting.
       Every week opens Monday 12:00 am and closes Sunday 11:59 pm,
       except Week 1 (opens Tue Sep 8) and Week 15 (closes Wed Dec 16).
-   2. Every week has the same shape so students never have to relearn
-      the container. The shape is the four stages the whole site uses,
-      1 Learn, 2 Practice, 3 Apply, 4 Check, and the six steps below sit
-      inside them. An earlier version of this comment named four beats
-      called Prime, Build, Practice and Prove, which never matched the
-      steps in the data underneath it.
+   2. Every week has the same four beats so students never have to
+      relearn the container: Prime, Build, Practice, Prove.
    3. Nothing requires the instructor to be present at a moment.
    4. Checkpoints replace attendance. Each week has one low-stakes
       graded checkpoint that closes on time.
@@ -81,25 +77,25 @@ window.BIO005_TERM = {
    ============================================================ */
 
 window.BIO005_WEEK_SHAPE = [
-  { beat:'Step 1. Prime', stage:'1 Learn', when:'Opens Monday', minutes:20,
+  { beat:'Step 1. Prime', when:'Opens Monday', minutes:20,
     what:'Read the Start Here checklist and the competency list without looking anything up, then predict three answers in your head. Being wrong first is what makes the teaching stick.',
     graded:'ungraded, completion tracked' },
-  { beat:'Step 2. Teach', stage:'1 Learn', when:'Monday to Wednesday', minutes:196,
+  { beat:'Step 2. Teach', when:'Monday to Wednesday', minutes:196,
     what:'Concept video with the slide page open beside it, then the week page, then the red terms. Stop at every concept check and answer it before opening the answer.',
     graded:'ungraded' },
-  { beat:'Step 3. Practice', stage:'2 Practice', when:'Wednesday', minutes:90,
+  { beat:'Step 3. Practice', when:'Wednesday', minutes:90,
     what:'Knowledge check in Canvas, AI open, then the day\'s recall stack in the Mastery OS. Under 70 sends you back to Step 2, but only to the sections the missed questions came from.',
     graded:'10 points across the term, two lowest dropped' },
-  { beat:'Step 4. Lab', stage:'3 Apply', when:'Wednesday to Friday', minutes:216,
+  { beat:'Step 4. Lab', when:'Wednesday to Friday', minutes:216,
     what:'Run the week\'s lab exercise and record your data. This is where your patient\'s numbers come from, so it happens before the chart entry, not after.',
     graded:'20 points' },
-  { beat:'Step 5. Chart entry', stage:'3 Apply', when:'Saturday', minutes:90,
+  { beat:'Step 5. Chart entry', when:'Saturday', minutes:90,
     what:'Your patient\'s week. Draw the loop by hand on paper, answer the written questions, log your AI use. AI closed.',
     graded:'20 points' },
-  { beat:'Step 6. Close', stage:'4 Check', when:'Sunday', minutes:20,
+  { beat:'Step 6. Close', when:'Sunday', minutes:20,
     what:'Tick what you can now do on the Start Here checklist. Anything still untickable goes on your miss list.',
     graded:'ungraded' },
-  { beat:'Independent study', stage:'2 Practice', when:'Across the week', minutes:232,
+  { beat:'Independent study', when:'Across the week', minutes:232,
     what:'Re-reading, redrawing from memory, working problems, the choice branch, and the textbook. Not assigned and not submitted, and it is the largest single block of the week.',
     graded:'not submitted' }
 ];
@@ -123,32 +119,32 @@ window.BIO005_WEEKS = [
     competencies:["w1-water-properties", "w1-ph-buffers", "w1-protein-function", "w1-enzyme-function", "w1-atp-energy", "w1-lab-enzyme-assay", "w14-atp-pathways"] },
 
   { wk:3, module:1, opens:'2026-09-21', closes:'2026-09-27',
-    title:"Getting across the membrane",
-    note:"Census is Sun Sep 27, the same day this week closes.",
-    competencies:["w1-fluid-compartments", "w1-compartment-shifts", "w2-membrane-structure", "w2-permeability", "w2-fick-diffusion", "w2-osmolarity-tonicity", "w2-osmosis-cell-volume", "w2-lab-diffusion-osmosis", "w2-lab-rbc-tonicity", "w2-facilitated-diffusion", "w2-primary-active-transport", "w2-secondary-active-transport", "w2-transport-maximum", "w2-vesicular-transport", "w2-transepithelial-transport", "w2-lab-transport-sim"] },
+    title:"The cell, and how cells talk",
+    note:"Census is Sun Sep 27, the same day this week closes. Resequenced Sep 13: the cell and cell signaling; transport moved to Week 4.",
+    competencies:["w1-fluid-compartments", "w2-membrane-structure", "w3-signal-types", "w3-receptor-location", "w3-gpcr-pathway", "w3-second-messengers", "w3-catalytic-intracellular-receptors", "w3-signal-amplification", "w3-receptor-modulation", "w3-signal-termination", "w3-lab-dose-response"] },
 
   { wk:4, module:2, opens:'2026-09-28', closes:'2026-10-04',
-    title:"How cells talk, and the electrical signal",
-    competencies:["w2-electrochemical-gradient", "w2-nernst", "w2-resting-potential", "w2-ion-channels", "w2-potential-terms", "w2-lab-membrane-potential", "w4-neuron-classes", "w4-neuron-regions", "w4-glia-functions", "w4-myelin", "w4-axonal-transport", "w4-graded-potentials", "w4-action-potential", "w4-threshold", "w4-intensity-coding", "w4-refractory", "w4-conduction-velocity", "w4-ion-disturbance", "w4-lab-ap-simulation", "w4-lab-nerve-conduction"] },
+    title:"Getting across the membrane, and the electrical signal",
+    competencies:["w1-compartment-shifts", "w2-permeability", "w2-fick-diffusion", "w2-osmolarity-tonicity", "w2-osmosis-cell-volume", "w2-lab-diffusion-osmosis", "w2-lab-rbc-tonicity", "w2-facilitated-diffusion", "w2-primary-active-transport", "w2-secondary-active-transport", "w2-transport-maximum", "w2-vesicular-transport", "w2-transepithelial-transport", "w2-lab-transport-sim", "w2-electrochemical-gradient", "w2-nernst", "w2-resting-potential", "w2-ion-channels", "w2-potential-terms", "w2-lab-membrane-potential"] },
 
   { wk:5, module:2, opens:'2026-10-05', closes:'2026-10-11',
-    title:"Synapses and central integration",
+    title:"Neurons, action potentials and synapses",
     note:"Heaviest week in the course, 35 competencies. Sensory and special senses sit here un-merged.",
-    competencies:["w5-synaptic-sequence", "w5-neurotransmitters", "w5-neurotransmitter-removal", "w5-postsynaptic-potentials", "w5-summation-integration", "w5-presynaptic-modulation", "w5-synaptic-plasticity", "w5-electrical-synapses", "w5-lab-synapse-sim", "w5-reflex-arc", "w5-stretch-reflex", "w5-golgi-tendon", "w5-withdrawal-reflex", "w5-spinal-pathways", "w5-csf-bbb", "w5-lab-reflex-testing"] },
+    competencies:["w4-neuron-classes", "w4-neuron-regions", "w4-glia-functions", "w4-myelin", "w4-axonal-transport", "w4-graded-potentials", "w4-action-potential", "w4-threshold", "w4-intensity-coding", "w4-refractory", "w4-conduction-velocity", "w4-ion-disturbance", "w4-lab-ap-simulation", "w4-lab-nerve-conduction", "w5-synaptic-sequence", "w5-neurotransmitters", "w5-neurotransmitter-removal", "w5-postsynaptic-potentials", "w5-summation-integration", "w5-presynaptic-modulation", "w5-synaptic-plasticity", "w5-electrical-synapses", "w5-lab-synapse-sim"] },
 
   { wk:6, module:2, opens:'2026-10-12', closes:'2026-10-18',
-    title:"Sensing the world, and the responses you do not control",
-    competencies:["w7-transduction", "w7-receptor-classes", "w7-stimulus-coding", "w7-receptive-fields", "w7-receptor-adaptation", "w7-somatosensory-pathways", "w7-pain-modulation", "w7-lab-tactile-mapping", "w7-vision-optics", "w7-phototransduction", "w7-visual-processing", "w7-vision-clinical", "w7-hearing-transduction", "w7-hearing-clinical", "w7-equilibrium", "w7-chemical-senses", "w7-lab-vision-tests", "w7-lab-hearing-tests", "w8-ans-organization", "w8-ans-divisions", "w8-ans-receptors", "w8-ans-tone", "w8-ans-pharmacology", "w8-lab-autonomic-testing"] },
+    title:"Reflexes, and sensing the world",
+    competencies:["w5-reflex-arc", "w5-stretch-reflex", "w5-golgi-tendon", "w5-withdrawal-reflex", "w5-spinal-pathways", "w5-csf-bbb", "w5-lab-reflex-testing", "w7-transduction", "w7-receptor-classes", "w7-stimulus-coding", "w7-receptive-fields", "w7-receptor-adaptation", "w7-somatosensory-pathways", "w7-pain-modulation", "w7-lab-tactile-mapping", "w7-vision-optics", "w7-phototransduction", "w7-visual-processing", "w7-vision-clinical", "w7-hearing-transduction", "w7-hearing-clinical", "w7-equilibrium", "w7-chemical-senses", "w7-lab-vision-tests", "w7-lab-hearing-tests"] },
 
   { wk:7, module:2, opens:'2026-10-19', closes:'2026-10-25',
     title:"Muscle, and how movement gets commanded",
     competencies:["w6-nmj", "w6-ec-coupling", "w6-crossbridge-cycle", "w6-calcium-regulation", "w6-relaxation", "w6-twitch", "w6-summation-tetanus", "w6-motor-units", "w6-length-tension", "w6-contraction-types", "w6-fiber-types", "w6-muscle-energetics", "w6-fatigue", "w6-muscle-adaptation", "w6-lab-emg-fatigue", "w6-lab-muscle-sim", "w6-smooth-muscle", "w6-smooth-regulation", "w6-cardiac-muscle", "w6-muscle-comparison", "w8-motor-hierarchy", "w8-corticospinal", "w8-cerebellum-basal-ganglia", "w8-umn-lmn"] },
 
   { wk:8, module:2, opens:'2026-10-26', closes:'2026-11-01',
-    title:"Hormones and reproduction, the slow control system",
+    title:"Hormones, the autonomic system, and reproduction",
     note:"Midterm checkpoint due Sun Nov 1, the day this week closes.",
     extras:["Midterm checkpoint"],
-    competencies:["w3-signal-types", "w3-receptor-location", "w3-gpcr-pathway", "w3-second-messengers", "w3-catalytic-intracellular-receptors", "w3-signal-amplification", "w3-receptor-modulation", "w3-signal-termination", "w3-lab-dose-response", "w9-hormone-classes", "w9-hormone-transport", "w9-hormone-receptors", "w9-hormone-interactions", "w9-hormone-release", "w9-hypothalamic-pituitary", "w9-endocrine-pathology", "w9-posterior-pituitary", "w9-lab-hormone-assay", "w15-hpg-axis", "w15-male-reproductive", "w15-ovarian-cycle", "w15-uterine-cycle", "w15-pregnancy-hormones", "w15-parturition-lactation", "w15-lab-cycle-graphs"] },
+    competencies:["w8-ans-organization", "w8-ans-divisions", "w8-ans-receptors", "w8-ans-tone", "w8-ans-pharmacology", "w8-lab-autonomic-testing", "w9-hormone-classes", "w9-hormone-transport", "w9-hormone-receptors", "w9-hormone-interactions", "w9-hormone-release", "w9-hypothalamic-pituitary", "w9-endocrine-pathology", "w9-posterior-pituitary", "w9-lab-hormone-assay", "w15-hpg-axis", "w15-male-reproductive", "w15-ovarian-cycle", "w15-uterine-cycle", "w15-pregnancy-hormones", "w15-parturition-lactation", "w15-lab-cycle-graphs"] },
 
   { wk:9, module:3, opens:'2026-11-02', closes:'2026-11-08',
     title:"The heart as a pump",
