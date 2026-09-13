@@ -147,10 +147,13 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 }
 
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+/* The primary button is the dark maroon, not the lighter terra cotta.
+   Scrubs, Sep 13 2026. White on #6B2A20 is 10.6:1. */
 .btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
-  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra-dark);background:var(--terra-dark);
   color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark);color:#fff}
+.btn:hover{background:var(--terra);border-color:var(--terra);color:#fff}
+.btn.sm{font-size:10px;padding:10px 15px;letter-spacing:.16em}
 .btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy-15)}
 .btn.ghost:hover{background:var(--wash);border-color:var(--navy);color:var(--navy)}
 
@@ -167,11 +170,88 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 
 .page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
 
+/* ---------- the cards that open ----------
+   Scrubs, Sep 13 2026: "you click on a card and then it opens it up so
+   they can read it otherwise it's too much to read." Every card is a
+   real button with its own panel. The panel opens directly under the
+   row the card sits in, so on a wide screen the reading appears next to
+   what was pressed rather than somewhere below the fold. */
+.opens{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr));gap:14px;margin:18px 0 0}
+.opener{display:flex;flex-direction:column;gap:6px;text-align:left;cursor:pointer;
+  background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);
+  padding:18px 19px;min-height:44px;color:var(--navy);
+  box-shadow:0 1px 3px rgba(11,21,48,.08);
+  transition:transform 180ms ease,box-shadow 180ms ease,border-color 180ms ease}
+.opener:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10);border-color:var(--terra-dark)}
+.opener .ot{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:16.5px;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.opener .ot::after{content:"+";margin-left:auto;font-size:20px;font-weight:800;color:var(--terra-dark);line-height:1}
+.opener[aria-expanded="true"]{border-color:var(--terra-dark);border-width:1.5px}
+.opener[aria-expanded="true"] .ot::after{content:"\2013"}
+.opener .od{font-size:14px;color:var(--navy-72);line-height:1.5}
+.opener:focus-visible{outline:3px solid var(--terra);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.opener{transition:none}.opener:hover{transform:none}}
+
+/* ---------- the calendar, which is what this page opens on ---------- */
+.sub{color:var(--navy-72);margin:0 0 16px;max-width:66ch}
+.daygrp{margin:0 0 22px}
+.dayhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-bottom:.5px solid var(--navy-15);padding:0 0 8px;margin:0 0 12px}
+.dayhead .dn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:18px;letter-spacing:-.01em;color:var(--navy)}
+.dayhead .dd{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72)}
+.dayhead .today{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--terra-dark);color:#fff;border-radius:var(--r-pill);padding:4px 10px}
+.sesses{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sess{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 19px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);display:flex;flex-direction:column;gap:8px}
+.sess .when{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0}
+.sess h3{font-size:17px;font-weight:800;letter-spacing:-.01em;text-transform:none;color:var(--navy);margin:0;line-height:1.3}
+.sess .meta{font-size:14px;color:var(--navy-72);margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sess .lead{font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  border-radius:var(--r-pill);padding:4px 10px;white-space:nowrap}
+.sess .lead.i{background:var(--navy);color:#fff}
+.sess .lead.s{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+.sess .note{font-size:14.5px;color:var(--navy-72);margin:0}
+.sess .acts{margin-top:auto;padding-top:4px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.sess .soon{font-size:13.5px;color:var(--navy-72);margin:0}
+.swm-empty{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);
+  padding:26px 24px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.swm-empty h3{font-size:17px;text-transform:none;letter-spacing:-.01em;color:var(--navy);margin:0 0 8px}
+.swm-empty p{margin:0 0 10px;color:var(--navy-72);max-width:60ch}
+.swm-empty p:last-child{margin-bottom:0}
+
+/* ---------- the panels that hold the reading ----------
+   Not a fixed overlay. Inside a Canvas embed the page is rendered at
+   its full height and the parent does the scrolling, so position:fixed
+   pins to the top of the whole document rather than to what the student
+   can see, and a modal there traps focus in a frame with no visible
+   edges. So the panel opens in place, directly under the button that
+   opened it, with a maroon notch pointing at that button. It reads as a
+   popup and behaves like part of the page. Escape closes it and focus
+   goes back to the button. */
+.opens .pop{grid-column:1/-1;margin:4px 0 6px}
+.pop{position:relative;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);
+  padding:26px 26px 22px;margin:18px 0 6px;box-shadow:0 8px 22px rgba(11,21,48,.12)}
+.pop::before{content:"";position:absolute;top:-9px;left:var(--notch,34px);width:16px;height:16px;
+  background:var(--terra-dark);transform:rotate(45deg);border-radius:2px}
+.pop:focus{outline:none}
+.pop .x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  background:transparent;border:1px solid var(--navy-15);color:var(--navy);font-size:19px;line-height:1}
+.pop .x:hover{background:var(--wash);border-color:var(--navy)}
+.pop > h2:first-of-type{margin-top:0;padding-top:0;border-top:0;padding-right:52px}
+.pop h2{font-size:clamp(19px,2.3vw,23px)}
+.pop .done{margin:22px 0 0;padding-top:16px;border-top:.5px solid var(--navy-15)}
+@media(max-width:560px){.pop{padding:24px 18px 20px}}
+
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{
   @page{margin:13mm}
   body{font-size:10.5pt}
-  .skip,.btnrow{display:none!important}
+  .skip,.btnrow,.pop .x,.pop::before{display:none!important}
+  .pop[hidden]{display:block!important}
+  .pop{box-shadow:none;border:0;padding:0;margin:0}
   h2{break-after:avoid;page-break-after:avoid}
   .card,.key,.lbx,.band{break-inside:avoid;page-break-inside:avoid}
   .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
@@ -192,7 +272,7 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
 <div class="hero">
   <p class="eyebrow">Optional &middot; Any week</p>
   <h1>Study <span class="hl">With Me</span></h1>
-  <p class="lede">A standing invitation to work through this material with other people instead of alone. I will post my own drop-in times here, and you can set up your own sessions whenever you want one. None of it is required. The hours you do put in earn Scholar Points, which can lift your final course percentage by up to 2.5 at the end of the term.</p>
+  <p class="lede">Work through physiology with other people instead of alone. Nothing here is required, and the hours you put in earn Scholar Points.</p>
   <div class="metarow">
     <span class="pill">Optional</span>
     <span class="pill navy">Earns Scholar Points</span>
@@ -200,117 +280,419 @@ ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;heigh
   </div>
 </div>
 
-<h2>What this <span class="hl">is</span></h2>
-<p>Physiology online can get quiet. You watch the lectures on your own, you work the note sheet on your own, and it is easy to go a whole week without saying any of it out loud to another human being. That works for some people and it wears other people down, and the ones it wears down are usually the ones who were doing everything right.</p>
-<p>So this is the room where you do the practice parts together. Somebody runs a Kahoot on the week's competencies. Two of you work the Silverthorn problems side by side and argue about step three. Four of you do a brain dump on the same competency and then compare what each of you left out, which is the fastest way to find out that your gap is not the gap you assumed. Somebody teaches a pathway at a whiteboard while everyone else holds the checklist.</p>
-<p>There is also a quieter reason it works, and it is worth saying plainly: teaching somebody else is one of the strongest ways to learn something yourself. When you host a session you are not doing anyone a favor. You are getting the best study hour of your week.</p>
+<!-- ============================================================
+     THE CALENDAR COMES FIRST.
 
-<div class="key">
-  <p class="tag">What this is not</p>
-  <p>This is not where graded work gets done together. Your lab write-up, your patient chart entry and your discussion posts are yours, done by you, in your own words. Practicing the same competency in a group and then going away and writing your own answer is exactly right. Sitting in a call filling in the same worksheet together is not, and it is the one line here that matters.</p>
+     The first version of this page opened with four screens of
+     explanation and buried the sessions at the bottom. Scrubs, Sep 13
+     2026: "when you click on study with me, it should load the calendar
+     option so they can dive right into it." A student who came here to
+     find out when the next session is should not have to read an essay
+     to get to it. Everything that used to be written out on the page is
+     now a card further down that opens when it is clicked.
+     ============================================================ -->
+<h2>What is <span class="hl">coming up</span></h2>
+<p class="sub" id="swmCount">Loading the calendar.</p>
+<div id="swmCal"></div>
+
+<div class="btnrow" id="swmActions"></div>
+
+<h2>How this <span class="hl">works</span></h2>
+<p class="sub">Open whichever of these you need. Nothing here is long, and nothing here is required reading before you turn up to a session.</p>
+
+<!-- Each card opens its own panel in place, directly under the row it
+     sits in, rather than sending the student to another page or dumping
+     everything on screen at once. -->
+<div class="opens" id="swmOpens">
+
+  <button type="button" class="opener" data-pan="pan-points" aria-expanded="false" aria-controls="pan-points">
+    <span class="ot">Scholar Points</span>
+    <span class="od">What the hours are worth, and why this is not extra credit.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-count" aria-expanded="false" aria-controls="pan-count">
+    <span class="ot">What makes a session count</span>
+    <span class="od">Online and recorded, cameras on, log the time you were there.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-log" aria-expanded="false" aria-controls="pan-log">
+    <span class="ot">Logging your hours</span>
+    <span class="od">Where the log lives and what you upload each week.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-do" aria-expanded="false" aria-controls="pan-do">
+    <span class="ot">What to do in a session</span>
+    <span class="od">Six things that work. Pick one and actually do it.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-run" aria-expanded="false" aria-controls="pan-run">
+    <span class="ot">A simple run of show</span>
+    <span class="od">Four steps, so nobody has to invent an hour on the spot.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-host" aria-expanded="false" aria-controls="pan-host">
+    <span class="ot">Hosting one yourself</span>
+    <span class="od">How to get people to turn up, and why hosting is the best hour.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-not" aria-expanded="false" aria-controls="pan-not">
+    <span class="ot">The one line that matters</span>
+    <span class="od">Graded work is not done together. Practice is.</span>
+  </button>
+
+  <button type="button" class="opener" data-pan="pan-faq" aria-expanded="false" aria-controls="pan-faq">
+    <span class="ot">Questions people ask</span>
+    <span class="od">Do I have to go, what if nobody comes, which app should we use.</span>
+  </button>
+
 </div>
 
-<h2>Two ways a session <span class="hl">happens</span></h2>
-<div class="two">
-  <div class="card">
-    <p class="eyebrow navy">Led by me</p>
-    <h3>Drop-ins and review sessions</h3>
-    <p>When I hold one, it goes on this page and in the Canvas announcements. Drop in, stay for ten minutes or the whole hour, bring a question or bring nothing. There is no sign-up and no attendance.</p>
+<!-- ---------- the panels ---------- -->
+
+<div class="pop" id="pan-points" role="region" aria-label="Scholar Points" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close Scholar Points">&times;</button>
+  <h2>Scholar <span class="hl">Points</span></h2>
+  <p>I do not offer extra credit. Extra credit works from the back end: something you do late in the term to repair a grade the work already produced. Scholar Points work from the front end. You earn them by putting hours into studying this material with other people while the term is running, which is the thing that was going to improve your grade anyway. The bump is the acknowledgment, not the reason.</p>
+  <ul class="bul">
+    <li><b>Thirty hours across the term earns the full 2.5 percent.</b> Fewer hours earn a proportion of it. Fifteen hours is 1.25 percent, six hours is half a percent. Nothing is all or nothing.</li>
+    <li><b>Three hours a week is the most that counts.</b> Do more if you want to, and you should, but a single marathon weekend cannot stand in for showing up across the term. Spacing is the whole reason this works.</li>
+    <li><b>Hosting earns one extra hour.</b> A two hour session you hosted logs as three. Not double, just the one hour on top, however long it ran.</li>
+    <li><b>The weekly cap applies after the host hour,</b> so a two hour session you hosted fills the week on its own.</li>
+    <li><b>It is applied at the end of the term</b> to your final course percentage, after everything else is in.</li>
+    <li><b>It can only help you.</b> Skipping it leaves your grade exactly where your work put it.</li>
+  </ul>
+  <div class="done"><a class="btn" href="scholar-points.html" target="_top">Open Scholar Points and the log</a></div>
+</div>
+
+<div class="pop" id="pan-count" role="region" aria-label="What makes a session count" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close what makes a session count">&times;</button>
+  <h2>What makes a session <span class="hl">count</span></h2>
+  <p>None of this is here to be difficult. There is a percentage riding on it, and a percentage on a grade has to rest on something I can actually see.</p>
+  <ul class="bul">
+    <li><b>Online, not in person.</b> Zoom, Google Meet, Discord, anything you like that records. An in person study session is still worth doing, it just cannot be verified, so it does not go on the log.</li>
+    <li><b>Record it.</b> Whoever hosts records the session and keeps the link. That is what shows me it happened and that people were working, not just signed in.</li>
+    <li><b>Cameras on.</b> Everybody, the whole session. A black square is not attendance.</li>
+    <li><b>Stay the whole time.</b> Log the time you were actually present. Arriving late or leaving early is fine, log what you were there for. Do not log an hour you spent in another tab.</li>
+    <li><b>One session at a time.</b> Sitting in two rooms at once means neither can be verified, so neither counts.</li>
+    <li><b>Hosts keep the recording and the attendance list.</b> If you ran it, you are the one who can show who was there and for how long.</li>
+  </ul>
+  <p>If something about this is a problem for you, cameras especially, come and talk to me rather than skipping the whole thing. There is almost always a way to sort it out.</p>
+</div>
+
+<div class="pop" id="pan-log" role="region" aria-label="Logging your hours" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close logging your hours">&times;</button>
+  <h2>Logging your <span class="hl">hours</span></h2>
+  <p>The Scholar Points page has the log. Add each session as you finish it, with the date, how long you were there, whether you hosted, and the recording link. It adds itself up and shows you where you are against the thirty hours.</p>
+  <p>There is a weekly assignment in Canvas for your hours. At the end of each week, open the Scholar Points page, press <b>Save this week for Canvas</b>, and upload that PDF.</p>
+  <div class="key">
+    <p class="tag">Your log lives in your browser</p>
+    <p>It is stored on your own device and nowhere else, so it keeps adding up all term and you never start over. Use the same browser on the same device and it will still be there in December. If you are about to switch machines or clear your history, save a PDF first.</p>
   </div>
-  <div class="card">
-    <p class="eyebrow navy">Led by you</p>
-    <h3>Your own session</h3>
-    <p>Post in the Study With Me thread in Canvas saying when you are meeting and what you want to work on, and let people join you. Your own Zoom, a study room on campus, a coffee shop, whatever suits. You do not need my permission and you do not need to tell me how it went.</p>
+  <div class="done"><a class="btn" href="scholar-points.html" target="_top">Open the log</a></div>
+</div>
+
+<div class="pop" id="pan-do" role="region" aria-label="What to do in a session" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close what to do in a session">&times;</button>
+  <h2>What to <span class="hl">do</span> in a session</h2>
+  <p>The sessions that work are the ones where everybody is producing physiology out loud, not watching one person talk. Pick a single activity and actually do it rather than planning a syllabus for the hour.</p>
+  <ul class="ideas">
+    <li><h3>Brain dump the same competency</h3><p>Everyone writes on blank paper for five minutes, then you read each other's and find what you all missed. The overlap is the real gap.</p></li>
+    <li><h3>Teach it at a whiteboard</h3><p>One person shares a screen, or holds a real whiteboard up to the camera, and talks and draws at the same time, the way the midterm asks for. Everyone else holds the checklist and ticks what actually got covered.</p></li>
+    <li><h3>Run a Kahoot</h3><p>Somebody builds a quick one on this week's competencies beforehand and you play it together. Fast, loud, and it surfaces the things nobody knew.</p></li>
+    <li><h3>Work the book problems together</h3><p>Everyone tries the same Silverthorn problem cold, then you compare routes. Two people getting the same answer different ways teaches more than either answer.</p></li>
+    <li><h3>Quiz from the Rx Cards</h3><p>Open Rx Cards, read one out, and let the group answer before anyone looks. Say why the wrong options are wrong, not just which one is right.</p></li>
+    <li><h3>Trace a pathway out loud</h3><p>Pick a loop or a mechanism and hand it round, one step per person, each saying what happens next and why. Whoever stalls has found their own repair target.</p></li>
+  </ul>
+  <div class="done">
+    <a class="btn ghost" href="competency-brain-dump.html" target="_top">The brain dump</a>
+    <a class="btn ghost" href="rx-cards.html" target="_top">Rx Cards</a>
   </div>
 </div>
 
-<h2>Pick <span class="hl">one thing</span> to do</h2>
-<p>The sessions that work are the ones where everybody is producing physiology out loud, not watching one person talk. Pick a single activity and actually do it rather than planning a syllabus for the hour.</p>
-<ul class="ideas">
-  <li><h3>Brain dump the same competency</h3><p>Everyone writes on blank paper for five minutes, then you read each other's and find what you all missed. The overlap is the real gap.</p></li>
-  <li><h3>Teach it at a whiteboard</h3><p>One person talks and draws at the same time, the way the midterm asks for. Everyone else holds the checklist and ticks what actually got covered.</p></li>
-  <li><h3>Run a Kahoot</h3><p>Somebody builds a quick one on this week's competencies before the session and you play it together. Fast, loud, and it surfaces the things nobody knew.</p></li>
-  <li><h3>Work the book problems together</h3><p>Everyone tries the same Silverthorn problem cold, then you compare routes. Two people getting the same answer different ways teaches more than either answer.</p></li>
-  <li><h3>Quiz from the recall cards</h3><p>Open the Mastery OS, read a card out, and let the group answer before anyone looks. Say why the wrong options are wrong, not just which one is right.</p></li>
-  <li><h3>Trace a pathway out loud</h3><p>Pick a loop or a mechanism and hand it round, one step per person, each saying what happens next and why. Whoever stalls has found their own repair target.</p></li>
-</ul>
-
-<h2>A simple <span class="hl">run of show</span></h2>
-<ol class="run">
-  <li><div><b>Warm up, five minutes.</b> Everyone names three things from last week without looking. It gets people talking before anything hard starts.</div></li>
-  <li><div><b>Do your one thing.</b> Spend the bulk of the time on it and take turns, so nobody hides and nobody carries the whole hour.</div></li>
-  <li><div><b>Go back to the misses.</b> Whatever the group got wrong is the most useful thing in the room. Re-do those before you finish.</div></li>
-  <li><div><b>Close it out.</b> Each person says one thing they are going to review on their own tonight, then you stop on time.</div></li>
-</ol>
-
-<h2>Making one <span class="hl">happen</span></h2>
-<ul class="bul">
-  <li><b>Post it before you need it.</b> A session announced the night before gets one person. Two or three days ahead gets a group.</li>
-  <li><b>Say what you are working on.</b> "Week 4 membrane potential, brain dump and Kahoot" pulls people in. "Studying, anyone want to join" does not.</li>
-  <li><b>Start on time and end on time.</b> An hour that ends when it said it would is one people come back to.</li>
-  <li><b>Small is fine.</b> Two people quizzing each other is a real session. You are not failing if it is not eight.</li>
-  <li><b>Nobody has to be the expert.</b> The person who understands it least often asks the question that fixes it for everyone.</li>
-</ul>
-
-<h2>What a session has to <span class="hl">do</span> to count</h2>
-<p>These sessions earn Scholar Points, up to a 2.5 percent bump on your final course percentage. Because there is a percentage riding on it, an hour has to rest on something I can actually see. None of this is here to be difficult.</p>
-<ul class="bul">
-  <li><b>Record it.</b> Whoever hosts records the session and keeps the link. That is what shows me it happened and that people were working, not just signed in.</li>
-  <li><b>Cameras on.</b> Everybody, for the whole session. A black square is not attendance, and a session where half the squares are black is not the thing this is trying to build.</li>
-  <li><b>Stay the whole time.</b> Log the time you were actually present. Arriving late or leaving early is fine, log what you were there for. Do not log an hour you spent in another tab.</li>
-  <li><b>One session at a time.</b> Sitting in two rooms at once means neither can be verified, so neither counts.</li>
-  <li><b>Hosts keep the recording and the attendance list.</b> If you ran it, you are the one who can show who was there and for how long.</li>
-  <li><b>Hosts get one extra hour.</b> Preparing and facilitating is real work. A two hour session you hosted logs as three. Not double, just the one extra hour on top, however long the session ran.</li>
-</ul>
-<p>If something about this is a problem for you, cameras especially, come and talk to me rather than skipping the whole thing. There is almost always a way to sort it out.</p>
-
-<h2>Logging your <span class="hl">hours</span></h2>
-<p>The <a href="scholar-points.html" target="_top">Scholar Points page</a> has the log. Add each session as you finish it, with the date, how long you were there, whether you hosted, and the recording link. It adds itself up and shows you where you are against the thirty hours.</p>
-<p>There is a weekly assignment in Canvas for your hours. At the end of each week, open the Scholar Points page, press <b>Save this week for Canvas</b>, and upload that PDF. It carries just that week, plus your running total.</p>
-
-<div class="key">
-  <p class="tag">Your log lives in your browser</p>
-  <p>It is stored on your own device and nowhere else, so it keeps adding up all term and you never start over. Use the same browser on the same device and it will still be there in December. If you are about to switch machines or clear your history, save a PDF first.</p>
+<div class="pop" id="pan-run" role="region" aria-label="A simple run of show" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close the run of show">&times;</button>
+  <h2>A simple <span class="hl">run of show</span></h2>
+  <ol class="run">
+    <li><div><b>Warm up, five minutes.</b> Everyone names three things from last week without looking. It gets people talking before anything hard starts.</div></li>
+    <li><div><b>Do your one thing.</b> Spend the bulk of the time on it and take turns, so nobody hides and nobody carries the whole hour.</div></li>
+    <li><div><b>Go back to the misses.</b> Whatever the group got wrong is the most useful thing in the room. Re-do those before you finish.</div></li>
+    <li><div><b>Close it out.</b> Each person says one thing they are going to review on their own tonight, then you stop on time.</div></li>
+  </ol>
 </div>
 
-<div class="btnrow">
-  <a class="btn" href="scholar-points.html" target="_top">Scholar Points and the log</a>
-  <!-- =========================================================
-       THE STUDY WITH ME THREAD.
-       Replace the # with the Canvas discussion URL once the thread
-       exists, so students land straight in it. Everything else on
-       this page works without it.
-       ========================================================= -->
-  <a class="btn ghost" href="#" target="_blank" rel="noopener">Open the Study With Me thread in Canvas</a>
-  <a class="btn ghost" href="competency-brain-dump.html" target="_top">The brain dump</a>
-  <a class="btn ghost" href="mastery-physio-os-standalone.html" target="_top">Recall cards</a>
+<div class="pop" id="pan-host" role="region" aria-label="Hosting one yourself" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close hosting one yourself">&times;</button>
+  <h2>Hosting one <span class="hl">yourself</span></h2>
+  <p>Teaching somebody else is one of the strongest ways to learn something yourself. When you host a session you are not doing anyone a favor. You are getting the best study hour of your week, and an extra hour of Scholar Points on top of it.</p>
+  <ul class="bul">
+    <li><b>Post it before you need it.</b> A session announced the night before gets one person. Two or three days ahead gets a group.</li>
+    <li><b>Say what you are working on.</b> "Week 4 membrane potential, brain dump and Kahoot" pulls people in. "Studying, anyone want to join" does not.</li>
+    <li><b>Start on time and end on time.</b> An hour that ends when it said it would is one people come back to.</li>
+    <li><b>Small is fine.</b> Two people quizzing each other is a real session. You are not failing if it is not eight.</li>
+    <li><b>Nobody has to be the expert.</b> The person who understands it least often asks the question that fixes it for everyone.</li>
+    <li><b>Use whatever records.</b> Zoom, Google Meet, Discord. It has to be online, because the recording is what makes the hour count for everybody who turned up.</li>
+    <li><b>Start the recording before you start talking.</b> It is the one step people forget, and without it the hour does not count for anybody.</li>
+  </ul>
+  <p><b>Getting it on the calendar.</b> Send me the day, the time, what you are working on and your join link, and it goes up at the top of this page where everybody in the course will see it. That is the whole process.</p>
+  <div class="done"><a class="btn" href="#swmCal" data-tocal>Back to the calendar</a></div>
 </div>
 
-<h2>Questions people <span class="hl">ask</span></h2>
+<div class="pop" id="pan-not" role="region" aria-label="The one line that matters" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close the one line that matters">&times;</button>
+  <h2>The one line <span class="hl">that matters</span></h2>
+  <p>This is not where graded work gets done together. Your lab write-up, your patient chart entry and your discussion posts are yours, done by you, in your own words.</p>
+  <p>Practicing the same competency in a group and then going away and writing your own answer is exactly right. Sitting in a call filling in the same worksheet together is not.</p>
+  <p>Everything on this page is practice. None of it is a place to produce something you turn in.</p>
+</div>
 
-<h3 class="q">Does any of this count toward my grade?</h3>
-<p>Your hours earn Scholar Points, which can lift your final course percentage by up to 2.5 at the end of the term. It is not extra credit and it is not made up of assignments. It is a bump for time spent working the physiology with other people, and the <a href="scholar-points.html" target="_top">Scholar Points page</a> explains the difference and holds the log.</p>
+<div class="pop" id="pan-faq" role="region" aria-label="Questions people ask" tabindex="-1" hidden>
+  <button type="button" class="x" data-close aria-label="Close questions people ask">&times;</button>
+  <h2>Questions people <span class="hl">ask</span></h2>
 
-<h3 class="q">Do I have to go?</h3>
-<p>No. Plenty of people study better alone and there is nothing wrong with that. If that is you, skip this page entirely and your grade is exactly what your work put it at. Scholar Points can only add.</p>
+  <h3 class="q">Do I have to go?</h3>
+  <p>No. Plenty of people study better alone and there is nothing wrong with that. If that is you, skip this page and your grade is exactly what your work put it at. Scholar Points can only add.</p>
 
-<h3 class="q">Why do we have to record it?</h3>
-<p>Because a percentage on your grade has to rest on something I can see. The recording is how I know the session happened and that people were there start to finish. I am not watching them for content, and I am not grading anything in them.</p>
+  <h3 class="q">Why do we have to record it?</h3>
+  <p>Because a percentage on your grade has to rest on something I can see. The recording is how I know the session happened and that people were there start to finish. I am not watching them for content and I am not grading anything in them.</p>
 
-<h3 class="q">What if I forget to log a session?</h3>
-<p>Add it when you remember, with the date it actually happened. The log sorts by date and the weekly cap is worked out from the dates, not from the order you typed them in.</p>
+  <h3 class="q">Can we work on the lab or the patient chart together?</h3>
+  <p>You can talk about the physiology behind them as much as you like. What you turn in has to be yours, written by you, in your own words.</p>
 
-<h3 class="q">Can we work on the lab or the patient chart together?</h3>
-<p>You can talk about the physiology behind them as much as you like. What you turn in has to be yours, written by you, in your own words. Practice the competency together, then go away and write your own answer.</p>
+  <h3 class="q">What if I host and nobody comes?</h3>
+  <p>Then you got an hour of quiet study you had already committed to, which is not a bad outcome. Post it again the following week. The first few are always small.</p>
 
-<h3 class="q">What if I host and nobody comes?</h3>
-<p>Then you got an hour of quiet study you had already committed to, which is not a bad outcome. Post it again the following week. The first few are always small.</p>
+  <h3 class="q">What if I forget to log a session?</h3>
+  <p>Add it when you remember, with the date it actually happened. The log sorts by date and the weekly cap is worked out from the dates, not from the order you typed them in.</p>
 
-<h3 class="q">Do I need Zoom?</h3>
-<p>No. In person works, and so does any call you already use. Zoom is just the one most people already have through the college.</p>
+  <h3 class="q">Which app should we use?</h3>
+  <p>Whichever one you like, as long as it records. Zoom, Google Meet and Discord all do. Zoom is the one most people already have through the college, so it is the usual answer, but nothing here requires it.</p>
+
+  <h3 class="q">Can we meet in person instead?</h3>
+  <p>Not for Scholar Points. Sessions run online so they can be recorded, and the recording is what lets an hour count. Studying with somebody at a table is still a good use of your time, it just is not something I can verify, so it does not go on the log.</p>
+</div>
 
 <p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Yuba College</p>
 </main>
+
+<!-- The calendar reads bio005-study-sessions.js. Sessions are a data
+     file so adding one is an edit and a push, not a rebuild. -->
+<script src="bio005-study-sessions.js"></script>
+<script>
+/* ============================================================
+   STUDY WITH ME: THE CALENDAR, AND THE CARDS THAT OPEN
+
+   WHY THE CALENDAR IS THE FIRST THING ON THE PAGE
+   -----------------------------------------------
+   A student opening this page wants to know when the next session
+   is. The first version made them read four screens to find out.
+   Everything explanatory is now behind a card.
+
+   WHY THE PANELS ARE NOT MODALS
+   -----------------------------
+   Inside a Canvas embed these pages render at their full height and
+   the parent does the scrolling, so position:fixed pins to the top of
+   the whole document rather than to what the student can see, and
+   scrollIntoView from inside the frame moves nothing. A real modal
+   would also trap focus inside a frame with no visible edges. So a
+   panel opens in place, in the same grid, on the row below the card
+   that was pressed. Escape closes it and focus returns to the card.
+   ============================================================ */
+(function(){
+  "use strict";
+
+  /* ---------- the calendar ---------- */
+  var CAL=document.getElementById('swmCal'),
+      COUNT=document.getElementById('swmCount'),
+      ACTS=document.getElementById('swmActions');
+
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MON=['January','February','March','April','May','June','July',
+           'August','September','October','November','December'];
+
+  function esc(t){ return String(t==null?'':t)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function today(){
+    var d=new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+
+  /* Noon, so a date never slides a day either way on a timezone. */
+  function dateOf(iso){ return new Date(iso+'T12:00:00'); }
+
+  function clock(t){
+    if(!t) return '';
+    var p=String(t).split(':'), h=+p[0], m=p[1]||'00';
+    var ap=h>=12?'pm':'am';
+    h=((h+11)%12)+1;
+    return h+(m==='00'?'':':'+m)+' '+ap;
+  }
+  /* "6 to 7 pm" rather than "6 pm to 7 pm" when both sit in the same half
+     of the day, because that is how a person says it. */
+  function span(a,b){
+    if(!b) return clock(a);
+    var A=clock(a), B=clock(b), sfxA=A.slice(-2), sfxB=B.slice(-2);
+    if(sfxA===sfxB) A=A.slice(0,-3);
+    return A+' to '+B;
+  }
+
+  function valid(s){ return s && s.date && /^\d{4}-\d{2}-\d{2}$/.test(s.date) && s.start && s.title; }
+
+  function card(s){
+    var isI = String(s.lead||'').toLowerCase()==='instructor';
+    var who = s.who || (isI ? 'Dr. Rennie' : 'A classmate');
+    var h='<article class="sess">';
+    h+='<p class="when">'+esc(span(s.start,s.end))+'</p>';
+    h+='<h3>'+esc(s.title)+'</h3>';
+    h+='<p class="meta"><span class="lead '+(isI?'i':'s')+'">'+(isI?'Led by':'Student led')+' '+esc(who)+'</span>';
+    if(s.where) h+='<span>'+esc(s.where)+'</span>';
+    h+='</p>';
+    if(s.note) h+='<p class="note">'+esc(s.note)+'</p>';
+    h+='<div class="acts">';
+    if(s.link) h+='<a class="btn sm" href="'+esc(s.link)+'" target="_blank" rel="noopener">Join this session</a>';
+    else h+='<p class="soon">The join link posts in Canvas before it starts.</p>';
+    h+='</div></article>';
+    return h;
+  }
+
+  function render(list){
+    var t=today();
+    var up=list.filter(valid).filter(function(s){ return s.date>=t; })
+      .sort(function(a,b){ return (a.date+a.start)<(b.date+b.start)?-1:1; });
+
+    if(!up.length){
+      COUNT.textContent='';
+      CAL.innerHTML='<div class="swm-empty"><h3>Nothing on the calendar just yet.</h3>'
+        +'<p>Sessions go up here as soon as they are set, mine and other people’s. '
+        +'Check back, and watch the Canvas announcements.</p>'
+        +'<p>If you want to run one, send me the day, the time and what you want to work on, '
+        +'and it goes up here for the whole course to see.</p></div>';
+      return;
+    }
+
+    COUNT.textContent = up.length===1
+      ? 'One session coming up.'
+      : up.length+' sessions coming up.';
+
+    var by={}, order=[];
+    up.forEach(function(s){ if(!by[s.date]){ by[s.date]=[]; order.push(s.date); } by[s.date].push(s); });
+
+    var h='';
+    order.forEach(function(d){
+      var D=dateOf(d);
+      h+='<div class="daygrp"><div class="dayhead">'
+        +'<span class="dn">'+DAYS[D.getDay()]+'</span>'
+        +'<span class="dd">'+MON[D.getMonth()]+' '+D.getDate()+'</span>'
+        +(d===t?'<span class="today">Today</span>':'')
+        +'</div><div class="sesses">'
+        + by[d].map(card).join('')
+        +'</div></div>';
+    });
+    CAL.innerHTML=h;
+  }
+
+  var SESS = (window.BIO005_SESSIONS||[]).slice();
+  render(SESS);
+
+  /* If the signup backend is ever deployed for physiology, student posted
+     sessions merge into the same calendar. Until BIO005_SWM_API is filled
+     in, nothing is requested and nothing fails. */
+  var API = window.BIO005_SWM_API || '';
+  if(API){
+    fetch(API+'?action=list').then(function(r){ return r.json(); }).then(function(d){
+      if(d && d.ok && d.sessions && d.sessions.length) render(SESS.concat(d.sessions));
+    }).catch(function(){ /* the data file sessions are already on screen */ });
+  }
+
+  /* ---------- the action row under the calendar ---------- */
+  var SIGNUP = window.BIO005_SWM_SIGNUP || '';
+  var row='';
+  if(SIGNUP) row+='<a class="btn" href="'+esc(SIGNUP)+'" target="_top">Sign up or post a session</a>';
+  row+='<a class="btn'+(SIGNUP?' ghost':'')+'" href="scholar-points.html" target="_top">Log your hours</a>';
+  ACTS.innerHTML=row;
+
+  /* ---------- the cards that open ---------- */
+  var grid=document.getElementById('swmOpens');
+  if(!grid) return;
+  var openers=[].slice.call(grid.querySelectorAll('.opener'));
+  var open=null;
+
+  /* The panels are written after the grid in the markup so the page still
+     reads in order with JavaScript off. They are moved into the grid here
+     so an opened one lands on the row under its own card. */
+  openers.forEach(function(b){
+    var pan=document.getElementById(b.getAttribute('data-pan'));
+    if(pan) grid.appendChild(pan);
+  });
+
+  function close(b){
+    var pan=document.getElementById(b.getAttribute('data-pan'));
+    b.setAttribute('aria-expanded','false');
+    if(pan) pan.hidden=true;
+    open=null;
+  }
+
+  /* OPEN UNDER THE WHOLE ROW, NOT UNDER THE ONE CARD.
+
+     Dropping the panel immediately after the pressed card shoves that
+     card's neighbours below it, so pressing the first card of three makes
+     the other two appear to vanish. The panel goes after the LAST card on
+     the same visual row instead, which leaves the row intact and puts the
+     reading directly beneath it. Rows are found by measuring, because the
+     grid reflows from three columns to one on a phone and nothing in the
+     markup knows how many columns there are at any given width. */
+  function rowEndOf(b){
+    var top=b.offsetTop, last=b;
+    openers.forEach(function(o){
+      if(Math.abs(o.offsetTop-top)<2 && o.offsetLeft>=last.offsetLeft) last=o;
+    });
+    return last;
+  }
+
+  function show(b){
+    if(open && open!==b) close(open);
+    if(open===b){ close(b); b.focus(); return; }
+    var pan=document.getElementById(b.getAttribute('data-pan'));
+    if(!pan) return;
+
+    var end=rowEndOf(b);
+    grid.insertBefore(pan, end.nextSibling);
+    pan.hidden=false;
+
+    /* Point the notch at the card that was pressed rather than at a fixed
+       spot, so on a three across row it is obvious which one opened. */
+    var l=b.offsetLeft-grid.offsetLeft+(b.offsetWidth/2)-8;
+    pan.style.setProperty('--notch', Math.max(18,l)+'px');
+
+    b.setAttribute('aria-expanded','true');
+    open=b;
+    pan.focus();
+  }
+
+  openers.forEach(function(b){
+    b.addEventListener('click', function(){ show(b); });
+  });
+
+  grid.addEventListener('click', function(e){
+    var x=e.target.closest ? e.target.closest('[data-close]') : null;
+    if(!x || !open) return;
+    var b=open; close(b); b.focus();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key!=='Escape' || !open) return;
+    var b=open; close(b); b.focus();
+  });
+
+  /* "Back to the calendar" inside a panel closes it as well as jumping,
+     so the student is not left with a panel open behind them. */
+  document.addEventListener('click', function(e){
+    var a=e.target.closest ? e.target.closest('[data-tocal]') : null;
+    if(!a) return;
+    if(open) close(open);
+  });
+}());
+</script>
 
 <script src="bio005-nav.js" defer></script>
 <script>
