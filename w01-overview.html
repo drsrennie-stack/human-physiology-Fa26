@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIO 005 Human Physiology | Week 1 overview: How physiology works, and what keeps you steady</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<meta name="description" content="Week 1 of BIO 005: the order you work in, step by step, with what each step is and how long it takes.">
+<style>
+
+:root{
+  --navy:#0B1530;
+  --navy-72:#4A5265;
+  --navy-15:rgba(11,21,48,.15);
+  --navy-tint:#ECEFF4;
+  --terra:#8B3A2E;
+  --terra-dark:#6E2D24;
+  --gold:#C9A14A;
+  --white:#FFFFFF;
+  --offwhite:#FAFAF9;
+  --display:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+em,i,cite,dfn,var,address{font-style:normal}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--offwhite);color:var(--navy);
+     font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--terra-dark)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:80;background:var(--navy);color:#fff;
+      padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.wrap{max-width:880px;margin:0 auto;padding:0 max(20px,4vw)}
+
+/* Brand bar */
+.brandbar{background:var(--white);border-bottom:1px solid var(--navy-15);padding:12px 0}
+.brandbar .wrap{display:flex;align-items:center;gap:12px}
+.coursemeta{display:flex;flex-direction:column;line-height:1.15}
+.coursemeta .code{font-family:var(--display);font-size:12px;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.coursemeta .name{font-family:var(--display);font-size:14px;font-weight:700;color:var(--navy)}
+
+/* Masthead */
+.masthead{background:var(--navy);color:#fff;padding:36px 0 32px}
+.masthead .eyebrow{font-family:var(--display);font-size:12px;font-weight:800;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.masthead h1{font-family:var(--display);font-size:clamp(25px,3.4vw,38px);font-weight:800;
+  letter-spacing:-.015em;margin:0;color:#fff;line-height:1.1}
+.masthead p.sub{margin:12px 0 0;max-width:70ch;color:#fff;font-size:16px;opacity:.94}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip-back{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  background:var(--gold);border:2px solid var(--gold);color:var(--navy);border-radius:99px;
+  padding:7px 16px;font-family:var(--body);font-weight:700;font-size:13.5px;text-decoration:none}
+.chip-back:hover{background:#B8924A;border-color:#B8924A}
+
+main{padding:28px 0 10px}
+
+/* Cards */
+.card{background:var(--white);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+      padding:24px 26px 26px;margin:0 0 22px}
+.card > :first-child{margin-top:0}
+.card > :last-child{margin-bottom:0}
+.card h2{font-family:var(--display);font-size:20px;font-weight:800;color:var(--navy);
+         letter-spacing:-.01em;margin:0 0 4px}
+.card p{margin:0 0 13px;font-size:15.5px;line-height:1.62}
+.card p.lede{color:var(--navy-72);margin:0 0 16px;max-width:78ch}
+.card b{font-weight:800;color:var(--terra-dark)}
+.card ul{margin:0 0 4px;padding-left:22px}
+.card ul li{margin:0 0 8px;font-size:15.5px;line-height:1.55}
+
+/* The order. One numbered row per step, with an arrow drawn down to the next. */
+.flow{list-style:none;counter-reset:none;margin:6px 0 0;padding:0}
+.flow > li{position:relative;padding-left:56px;padding-bottom:22px}
+.flow > li:last-child{padding-bottom:0}
+.fnum{
+  position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;
+  background:var(--terra);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;
+  display:flex;align-items:center;justify-content:center;z-index:2
+}
+/* The arrow to the next step. Decorative: the numbers and the list order carry
+   the sequence, so a screen reader loses nothing when this is not announced. */
+.flow > li.hasnext::before{
+  content:"";position:absolute;left:18px;top:44px;bottom:14px;width:2px;
+  background:rgba(139,58,46,.30)
+}
+.flow > li.hasnext::after{
+  content:"";position:absolute;left:12px;bottom:4px;width:13px;height:13px;
+  border-right:2px solid rgba(139,58,46,.55);
+  border-bottom:2px solid rgba(139,58,46,.55);
+  transform:rotate(45deg)
+}
+.stagechip{
+  display:inline-block;padding:3px 11px;border-radius:99px;font-family:var(--display);
+  font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  border:2px solid;margin:0 0 7px
+}
+.stagechip.learn{background:var(--terra);border-color:var(--terra);color:#fff}
+.stagechip.practice{background:var(--navy);border-color:var(--navy);color:#fff}
+.stagechip.apply{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.stagechip.check{background:var(--white);border-color:var(--navy);color:var(--navy)}
+.flow h3{font-family:var(--display);font-size:17.5px;font-weight:800;color:var(--navy);
+         letter-spacing:-.01em;margin:0 0 3px;line-height:1.25}
+.flow .when{margin:0 0 6px;font-size:13.5px;font-weight:700;color:var(--terra-dark)}
+.flow p.what{margin:0;font-size:15px;line-height:1.55;color:var(--navy);max-width:70ch}
+.flow .tag{
+  display:inline-block;margin:8px 0 0;padding:5px 11px;border-radius:6px;
+  background:var(--navy-tint);color:var(--navy);font-size:13px;font-weight:700
+}
+.flow .tag.graded{background:var(--navy);color:#fff}
+
+/* Due list */
+.due{list-style:none;margin:0;padding:0}
+.due li{padding:11px 0;border-top:1px solid var(--navy-15);font-size:15.5px;line-height:1.5}
+.due li:first-child{border-top:0;padding-top:0}
+.due b{color:var(--navy);font-weight:800}
+.due .date{display:block;color:var(--terra-dark);font-weight:700;font-size:14px;margin-top:2px}
+
+/* Done-when checklist */
+.done{list-style:none;margin:0;padding:0}
+.done li{position:relative;padding:0 0 11px 32px;font-size:15.5px;line-height:1.55}
+.done li::before{
+  content:"";position:absolute;left:0;top:2px;width:19px;height:19px;
+  border:2px solid var(--navy);border-radius:4px
+}
+
+footer{padding:24px 0 40px}
+footer .who{font-family:var(--display);font-weight:800;color:var(--navy);margin:0}
+footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
+.help{margin:0;padding-top:16px;border-top:1px solid var(--navy-15);
+      font-size:14.5px;color:var(--navy-72)}
+
+@media (max-width:560px){
+  .masthead{padding:26px 0 24px}
+  .card{padding:20px 20px 22px}
+  .flow > li{padding-left:48px}
+  .fnum{width:34px;height:34px;font-size:14px}
+  .flow > li.hasnext::before{left:16px;top:40px}
+  .flow > li.hasnext::after{left:10px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@page{size:Letter;margin:0.55in}
+@media print{
+  body{background:#fff;font-size:11.5px}
+  .skip,.chiprow,.brandbar{display:none}
+  .masthead{background:#fff;color:var(--navy);padding:0 0 10px;border-bottom:1px solid var(--navy-15)}
+  .masthead h1{color:var(--navy);font-size:21px}
+  .masthead .eyebrow{color:var(--terra-dark);font-size:9px}
+  .masthead p.sub{color:var(--navy-72);font-size:11px;max-width:none}
+  .wrap{max-width:none;padding:0}
+  main{padding:10px 0 0}
+  .card{box-shadow:none;border:1px solid var(--navy-15);padding:13px 15px;margin-bottom:12px;
+        break-inside:avoid;page-break-inside:avoid}
+  .card h2{font-size:14px}
+  .card p,.card ul li{font-size:11.5px}
+  .flow > li{break-inside:avoid;page-break-inside:avoid;padding-bottom:16px;padding-left:46px}
+  .fnum{width:30px;height:30px;font-size:12.5px}
+  .flow h3{font-size:13px}
+  .flow .when{font-size:10.5px}
+  .flow p.what{font-size:11.5px}
+  .flow .tag{font-size:10px;padding:3px 8px}
+  .due li,.done li{font-size:11.5px}
+  footer{display:none}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the week</a>
+<div class="brandbar">
+  <div class="wrap">
+    <svg width="34" height="34" viewBox="0 0 34 34" role="img" aria-label="Course mark">
+      <circle cx="8" cy="8" r="4.2" fill="#0B1530"></circle>
+      <circle cx="17" cy="8" r="4.2" fill="#8B3A2E"></circle>
+      <circle cx="26" cy="8" r="4.2" fill="#C9A14A"></circle>
+      <rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"></rect>
+      <rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"></rect>
+      <rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"></rect>
+    </svg>
+    <div class="coursemeta">
+      <span class="code">BIO 005</span>
+      <span class="name">Human Physiology</span>
+    </div>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Week 1 of 15</p>
+    <h1>How physiology works, and what keeps you steady</h1>
+    <p class="sub">Nine steps, in this order. Each one gets you ready for the next, so working down the list is the method, not just the schedule. Every step below is its own page in this module, and the Next button at the foot of a page takes you to the one after it.</p>
+    <div class="chiprow">
+      <a class="chip-back" href="https://yccd.instructure.com/courses/42616/modules" target="_top">
+        <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Canvas modules</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="card"><h2>Before you start</h2><p><b>When it runs.</b> Week 1 runs Tuesday, September 8 through Sunday, September 13 at 10:00 pm Pacific. Everything in this module is this week, and only this week.</p><p><b>How long.</b> Plan on about 12 hours, spread across the week rather than done in one sitting. That is the floor for passing, not the number that earns an A.</p><p><b>Your reading.</b> Silverthorn Chapter 1, and the homeostasis and control pathway sections of Chapter 6.</p></section>
+    <section class="card"><h2>The order you work in</h2><p class="lede">Do not jump ahead. Every step assumes the one before it happened.</p><ol class="flow"><li class="hasnext"><div class="fnum" aria-hidden="true">1</div><span class="stagechip learn">Learn</span><h3>Print your week</h3><p class="when">Tuesday, about 45 minutes plus printing</p><p class="what">Everything you work from this week, on paper: the note sheet, the competency list and the written notes. Print it before you start, so you are working with paper in front of you instead of switching windows.</p></li><li class="hasnext"><div class="fnum" aria-hidden="true">2</div><span class="stagechip learn">Learn</span><h3>Read it, then watch it</h3><p class="when">Tuesday to Thursday, about 3 hours</p><p class="what">First pass in one color, from Silverthorn Chapter 1 or the written notes, filling each box on the note sheet as you go. Then switch colors, watch the concept videos, and add what the video gave you that the reading did not. Leave the gaps. The gaps are what tell you where to go back.</p></li><li class="hasnext"><div class="fnum" aria-hidden="true">3</div><span class="stagechip learn">Learn</span><h3>Upload your note sheet</h3><p class="when">After your second pass, by Sunday</p><p class="what">Photograph every page with both colors on it and upload it in Canvas. I am not grading it. Turning it in is how you show you are participating.</p><span class="tag graded">Graded: complete or not complete</span></li><li class="hasnext"><div class="fnum" aria-hidden="true">4</div><span class="stagechip practice">Practice</span><h3>Study it for several days</h3><p class="when">Every day from Thursday, about an hour a day</p><p class="what">Now the note sheet closes and the material has to come back out of your head. Brain dumps, drawing from memory, recall cards, book problems. Pick more than one. Four short sessions beat one long one, because the forgetting in between is what makes it stick.</p><span class="tag">Not graded, and the step that decides your exam score</span></li><li class="hasnext"><div class="fnum" aria-hidden="true">5</div><span class="stagechip apply">Apply</span><h3>Lab, the Reference Range Lab</h3><p class="when">Wednesday to Sunday, about 3 hours</p><p class="what">Calculate a reference range, decide which results fall in or out of it, and plot three serial results by hand. Work the lab page top to bottom and turn it in as one file.</p><span class="tag graded">Graded: Investigation</span></li><li class="hasnext"><div class="fnum" aria-hidden="true">6</div><span class="stagechip apply">Apply</span><h3>Your patient, the preseason physical</h3><p class="when">Saturday, about 90 minutes</p><p class="what">One more entry in the chart you keep all term. Draw this week's mechanism by hand, answer the written questions, and log any AI you used.</p><span class="tag graded">Graded: Application</span></li><li class="hasnext"><div class="fnum" aria-hidden="true">7</div><span class="stagechip apply">Apply</span><h3>Two discussions this week</h3><p class="when">Discussion 1 by Friday, September 11; Discussion 2 by Sunday, September 13</p><p class="what">Your digital vision board introduces you to the class. The second post looks at what your Mastery Check told you and what you did about it, so take the check first.</p><span class="tag graded">Graded: Thinking</span></li><li><div class="fnum" aria-hidden="true">8</div><span class="stagechip check">Check</span><h3>Mastery Check, and upload your report</h3><p class="when">Saturday or Sunday, 30 to 60 minutes</p><p class="what">Thirty questions on this week's competencies, nothing open. It names the competencies that cost you points. Do one or do ten, then upload the report. The score is for you, not for a grade.</p><span class="tag graded">Graded: complete or not complete</span></li></ol></section>
+    <section class="card"><h2>Due this week</h2><p class="lede">All times Pacific.</p><ul class="due"><li><b>Discussion 1, your digital vision board</b><span class="date">Post Friday, September 11, 10:00 pm. Replies Sunday, September 13, 10:00 pm.</span></li><li><b>Discussion 2, what the evidence told you</b><span class="date">Sunday, September 13, 10:00 pm.</span></li><li><b>Your note sheet, both passes</b><span class="date">Sunday, September 13, 10:00 pm. Complete or not complete.</span></li><li><b>Lab, the Reference Range Lab</b><span class="date">Sunday, September 13, 10:00 pm.</span></li><li><b>Application, your patient's preseason physical</b><span class="date">Sunday, September 13, 10:00 pm.</span></li><li><b>Mastery Check report</b><span class="date">Sunday, September 13, 10:00 pm. Complete or not complete.</span></li></ul></section>
+    <section class="card"><h2>You are done with Week 1 when</h2><ul class="done"><li>Your note sheet has two colors on it, you can say which boxes are still thin, and it is uploaded.</li><li>You can draw a negative feedback loop from memory and label all five parts.</li><li>You can say what makes homeostasis different from equilibrium, in your own words.</li><li>You have done at least one Mastery Check and uploaded the report.</li><li>The Reference Range Lab is turned in.</li><li>Your patient's first chart entry is turned in.</li><li>Both discussion posts are up, and your two replies to classmates.</li></ul></section>
+    <section class="card"><h2>What happens next</h2><p><b>Week 2, the cell and how cells talk,</b> opens Wednesday, September 16 at 8:00 pm Pacific. It is the biggest week of the term, about 18 hours, so start it the evening it opens rather than the following Monday.</p><p class="help">Not sure where to start, or something is not working? Ask in the <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800">Virtual Office</a>, where your classmates can see the answer too.</p></section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="who">Dr. Sharilyn Rennie</p>
+    <p class="role">BIO 005 Human Physiology</p>
+  </div>
+</footer>
+
+<!-- STANDALONE ON PURPOSE. Built to sit in a Canvas module as an iframe, so it
+     carries no site chrome: no nav bar, no course tools dock, no Hootie, no
+     floating back widget. Back to Canvas modules, target _top, is the only way
+     off the page. Do not add the site scripts to this file.
+     GENERATED by tools/week-overview/build.py. Edit the week's data there. -->
+<script>
+/* Iframe height sender. Canvas strips script tags from a pasted page, so the
+   Canvas iframe carries a fixed height and nothing listens for this. It stays
+   for the course site and Kajabi, where a listener does exist. */
+(function(){
+  var FRAME_ID = "bio005-w01-overview";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){
+    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
+  }
+  setTimeout(sendHeight, 400);
+  setTimeout(sendHeight, 1500);
+})();
+</script>
+</body>
+</html>

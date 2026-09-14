@@ -1,0 +1,158 @@
+
+:root{
+  --navy:#0B1530;
+  --navy-72:#4A5265;
+  --navy-15:rgba(11,21,48,.15);
+  --navy-tint:#ECEFF4;
+  --terra:#8B3A2E;
+  --terra-dark:#6E2D24;
+  --gold:#C9A14A;
+  --white:#FFFFFF;
+  --offwhite:#FAFAF9;
+  --display:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+em,i,cite,dfn,var,address{font-style:normal}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--offwhite);color:var(--navy);
+     font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--terra-dark)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:80;background:var(--navy);color:#fff;
+      padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.wrap{max-width:880px;margin:0 auto;padding:0 max(20px,4vw)}
+
+/* Brand bar */
+.brandbar{background:var(--white);border-bottom:1px solid var(--navy-15);padding:12px 0}
+.brandbar .wrap{display:flex;align-items:center;gap:12px}
+.coursemeta{display:flex;flex-direction:column;line-height:1.15}
+.coursemeta .code{font-family:var(--display);font-size:12px;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.coursemeta .name{font-family:var(--display);font-size:14px;font-weight:700;color:var(--navy)}
+
+/* Masthead */
+.masthead{background:var(--navy);color:#fff;padding:36px 0 32px}
+.masthead .eyebrow{font-family:var(--display);font-size:12px;font-weight:800;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.masthead h1{font-family:var(--display);font-size:clamp(25px,3.4vw,38px);font-weight:800;
+  letter-spacing:-.015em;margin:0;color:#fff;line-height:1.1}
+.masthead p.sub{margin:12px 0 0;max-width:70ch;color:#fff;font-size:16px;opacity:.94}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip-back{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  background:var(--gold);border:2px solid var(--gold);color:var(--navy);border-radius:99px;
+  padding:7px 16px;font-family:var(--body);font-weight:700;font-size:13.5px;text-decoration:none}
+.chip-back:hover{background:#B8924A;border-color:#B8924A}
+
+main{padding:28px 0 10px}
+
+/* Cards */
+.card{background:var(--white);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+      padding:24px 26px 26px;margin:0 0 22px}
+.card > :first-child{margin-top:0}
+.card > :last-child{margin-bottom:0}
+.card h2{font-family:var(--display);font-size:20px;font-weight:800;color:var(--navy);
+         letter-spacing:-.01em;margin:0 0 4px}
+.card p{margin:0 0 13px;font-size:15.5px;line-height:1.62}
+.card p.lede{color:var(--navy-72);margin:0 0 16px;max-width:78ch}
+.card b{font-weight:800;color:var(--terra-dark)}
+.card ul{margin:0 0 4px;padding-left:22px}
+.card ul li{margin:0 0 8px;font-size:15.5px;line-height:1.55}
+
+/* The order. One numbered row per step, with an arrow drawn down to the next. */
+.flow{list-style:none;counter-reset:none;margin:6px 0 0;padding:0}
+.flow > li{position:relative;padding-left:56px;padding-bottom:22px}
+.flow > li:last-child{padding-bottom:0}
+.fnum{
+  position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;
+  background:var(--terra);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;
+  display:flex;align-items:center;justify-content:center;z-index:2
+}
+/* The arrow to the next step. Decorative: the numbers and the list order carry
+   the sequence, so a screen reader loses nothing when this is not announced. */
+.flow > li.hasnext::before{
+  content:"";position:absolute;left:18px;top:44px;bottom:14px;width:2px;
+  background:rgba(139,58,46,.30)
+}
+.flow > li.hasnext::after{
+  content:"";position:absolute;left:12px;bottom:4px;width:13px;height:13px;
+  border-right:2px solid rgba(139,58,46,.55);
+  border-bottom:2px solid rgba(139,58,46,.55);
+  transform:rotate(45deg)
+}
+.stagechip{
+  display:inline-block;padding:3px 11px;border-radius:99px;font-family:var(--display);
+  font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  border:2px solid;margin:0 0 7px
+}
+.stagechip.learn{background:var(--terra);border-color:var(--terra);color:#fff}
+.stagechip.practice{background:var(--navy);border-color:var(--navy);color:#fff}
+.stagechip.apply{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.stagechip.check{background:var(--white);border-color:var(--navy);color:var(--navy)}
+.flow h3{font-family:var(--display);font-size:17.5px;font-weight:800;color:var(--navy);
+         letter-spacing:-.01em;margin:0 0 3px;line-height:1.25}
+.flow .when{margin:0 0 6px;font-size:13.5px;font-weight:700;color:var(--terra-dark)}
+.flow p.what{margin:0;font-size:15px;line-height:1.55;color:var(--navy);max-width:70ch}
+.flow .tag{
+  display:inline-block;margin:8px 0 0;padding:5px 11px;border-radius:6px;
+  background:var(--navy-tint);color:var(--navy);font-size:13px;font-weight:700
+}
+.flow .tag.graded{background:var(--navy);color:#fff}
+
+/* Due list */
+.due{list-style:none;margin:0;padding:0}
+.due li{padding:11px 0;border-top:1px solid var(--navy-15);font-size:15.5px;line-height:1.5}
+.due li:first-child{border-top:0;padding-top:0}
+.due b{color:var(--navy);font-weight:800}
+.due .date{display:block;color:var(--terra-dark);font-weight:700;font-size:14px;margin-top:2px}
+
+/* Done-when checklist */
+.done{list-style:none;margin:0;padding:0}
+.done li{position:relative;padding:0 0 11px 32px;font-size:15.5px;line-height:1.55}
+.done li::before{
+  content:"";position:absolute;left:0;top:2px;width:19px;height:19px;
+  border:2px solid var(--navy);border-radius:4px
+}
+
+footer{padding:24px 0 40px}
+footer .who{font-family:var(--display);font-weight:800;color:var(--navy);margin:0}
+footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
+.help{margin:0;padding-top:16px;border-top:1px solid var(--navy-15);
+      font-size:14.5px;color:var(--navy-72)}
+
+@media (max-width:560px){
+  .masthead{padding:26px 0 24px}
+  .card{padding:20px 20px 22px}
+  .flow > li{padding-left:48px}
+  .fnum{width:34px;height:34px;font-size:14px}
+  .flow > li.hasnext::before{left:16px;top:40px}
+  .flow > li.hasnext::after{left:10px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@page{size:Letter;margin:0.55in}
+@media print{
+  body{background:#fff;font-size:11.5px}
+  .skip,.chiprow,.brandbar{display:none}
+  .masthead{background:#fff;color:var(--navy);padding:0 0 10px;border-bottom:1px solid var(--navy-15)}
+  .masthead h1{color:var(--navy);font-size:21px}
+  .masthead .eyebrow{color:var(--terra-dark);font-size:9px}
+  .masthead p.sub{color:var(--navy-72);font-size:11px;max-width:none}
+  .wrap{max-width:none;padding:0}
+  main{padding:10px 0 0}
+  .card{box-shadow:none;border:1px solid var(--navy-15);padding:13px 15px;margin-bottom:12px;
+        break-inside:avoid;page-break-inside:avoid}
+  .card h2{font-size:14px}
+  .card p,.card ul li{font-size:11.5px}
+  .flow > li{break-inside:avoid;page-break-inside:avoid;padding-bottom:16px;padding-left:46px}
+  .fnum{width:30px;height:30px;font-size:12.5px}
+  .flow h3{font-size:13px}
+  .flow .when{font-size:10.5px}
+  .flow p.what{font-size:11.5px}
+  .flow .tag{font-size:10px;padding:3px 8px}
+  .due li,.done li{font-size:11.5px}
+  footer{display:none}
+}
