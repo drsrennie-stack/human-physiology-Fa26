@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIOL 005 Canvas Step Map</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530;
+  --navy-deep:#060A18;
+  --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E;
+  --maroon-dark:#6E2D24;
+  --gold:#C9A14A;
+  --gold-deep:#8A6D33;
+  --bone:#F5F1E8;
+  --white:#FFFFFF;
+  --page:#FAFAF9;
+  --ink:#16202F;
+  --ink-soft:#4A5464;
+  --line:#DFE3E8;
+  --shadow-rest:0 1px 3px rgba(11,21,48,.10);
+  --shadow-lift:0 8px 16px rgba(11,21,48,.12);
+  --display:"Open Sans","Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+}
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:50;
+  background:var(--navy);color:#fff;padding:10px 16px;border-radius:0 0 6px 0;
+}
+.skip:focus{left:0}
+a{color:var(--maroon-dark)}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--gold-deep);outline-offset:2px;border-radius:4px;
+}
+/* ---------- chrome ---------- */
+.brandbar{
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:10px 20px;
+}
+.brandbar .wrap{
+  max-width:1120px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.mark{display:flex;gap:4px;align-items:flex-end}
+.mark span{display:block;width:7px;border-radius:3px 3px 0 0}
+.mark span:nth-child(1){height:16px;background:var(--navy)}
+.mark span:nth-child(2){height:21px;background:var(--maroon)}
+.mark span:nth-child(3){height:13px;background:var(--gold)}
+.wordmark{
+  font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.01em;
+  color:var(--navy);
+}
+.wordmark .sub{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+.band{
+  background:var(--maroon-dark);
+  color:#fff;
+  padding:22px 20px;
+}
+.band .wrap{max-width:1120px;margin:0 auto}
+.eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--bone);margin:0 0 6px;
+}
+.band h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(22px,3.4vw,30px);line-height:1.2;margin:0;
+  text-wrap:balance;color:#fff;
+}
+.band p.lede{margin:8px 0 0;max-width:62ch;color:#F2E9E2;font-size:15px}
+main{max-width:1120px;margin:0 auto;padding-block:28px 56px;padding-left:20px;padding-right:20px}
+/* ---------- cards ---------- */
+.card{
+  background:var(--white);
+  border-radius:10px;
+  box-shadow:var(--shadow-rest);
+  padding:22px;
+}
+.card + .card{margin-top:18px}
+h2{
+  font-family:var(--display);font-weight:800;font-size:20px;margin:0 0 4px;color:var(--navy);
+  text-wrap:balance;
+}
+h3{font-family:var(--display);font-weight:800;font-size:16px;margin:0 0 4px;color:var(--navy)}
+p{margin:0 0 12px}
+p:last-child{margin-bottom:0}
+.muted{color:var(--ink-soft);font-size:14px}
+/* ---------- step view ---------- */
+.do{
+  font-size:17px;max-width:62ch;margin:0 0 18px;
+}
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 6px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--maroon-dark);color:#fff;text-decoration:none;
+  font-family:var(--body);font-weight:700;font-size:15px;
+  padding:13px 20px;border-radius:8px;border:1px solid var(--maroon-dark);
+  transition:transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  box-shadow:var(--shadow-rest);
+}
+.btn:hover{background:var(--maroon);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.btn.secondary{
+  background:var(--white);color:var(--navy);border:1px solid var(--navy);
+}
+.btn.secondary:hover{background:var(--navy-tint);color:var(--navy)}
+.btn .tag{
+  font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;
+}
+.note{
+  margin-top:18px;padding:14px 16px;background:var(--navy-tint);border-radius:8px;
+  font-size:14px;color:var(--ink);
+}
+.turnin{
+  margin-top:18px;font-size:14px;color:var(--ink-soft);
+}
+.stepnav{
+  display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap;
+}
+.stepnav a{font-weight:700;text-decoration:none;font-size:14px}
+.stepnav a:hover{text-decoration:underline}
+/* ---------- map view ---------- */
+.legend{
+  display:flex;flex-wrap:wrap;gap:18px;margin:0 0 6px;font-size:14px;color:var(--ink-soft);
+}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot.live{background:var(--maroon)}
+.dot.todo{background:#B9BEC7}
+.scroller{overflow-x:auto;margin-top:14px}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:14px}
+caption{text-align:left;font-size:14px;color:var(--ink-soft);padding-bottom:10px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:middle}
+thead th{
+  font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);white-space:nowrap;
+}
+tbody th{font-weight:700;color:var(--navy);white-space:nowrap;font-size:14px}
+tbody th .wk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+td.cell{text-align:center;padding:4px}
+td.cell a{
+  display:block;padding:8px 4px;border-radius:6px;text-decoration:none;
+  font-weight:700;color:var(--maroon-dark);font-variant-numeric:tabular-nums;
+}
+td.cell a:hover{background:var(--navy-tint)}
+td.cell a.todo{color:#7C8390}
+tr.now th,tr.now td{background:#FBF6F4}
+.rowtag{
+  display:inline-block;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--maroon-dark);
+}
+.steplist{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.steplist li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.steplist .num{
+  font-family:var(--display);font-weight:800;color:var(--maroon-dark);
+  font-variant-numeric:tabular-nums;font-size:15px;padding-top:1px;
+}
+.steplist .what{font-weight:700}
+.steplist .where{display:block;font-size:13px;color:var(--ink-soft)}
+.copyrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+button.copy{
+  font-family:var(--body);font-weight:700;font-size:13px;
+  background:var(--white);color:var(--navy);border:1px solid var(--navy);
+  padding:9px 14px;border-radius:8px;cursor:pointer;
+  transition:background-color 200ms ease;
+}
+button.copy:hover{background:var(--navy-tint)}
+code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;background:var(--navy-tint);padding:2px 6px;border-radius:4px;
+}
+pre{
+  background:var(--navy-tint);padding:14px;border-radius:8px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;margin:12px 0 0;
+}
+.status{font-size:13px;color:var(--maroon-dark);font-weight:700;min-height:19px}
+.titles{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.titles li{
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+  border-bottom:1px solid var(--line);padding:6px 0;flex-wrap:wrap;
+}
+.titles .t{font-weight:600}
+footer{
+  background:var(--navy);color:var(--bone);padding:20px;margin-top:10px;font-size:13px;
+}
+footer .wrap{max-width:1120px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap}
+footer a{color:var(--bone)}
+@media (max-width:560px){
+  .steplist li{grid-template-columns:26px 1fr}
+  .btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+
+<div class="brandbar">
+  <div class="wrap">
+    <span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="wordmark">BIOL 005 Human Physiology<span class="sub">Yuba College &middot; Fall 2026</span></span>
+  </div>
+</div>
+
+<div class="band">
+  <div class="wrap">
+    <p class="eyebrow" id="eyebrow">Canvas build</p>
+    <h1 id="pagetitle">Canvas Step Map</h1>
+    <p class="lede" id="lede">Every module, every step, and the page each step sends students to.</p>
+  </div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" target="_top">Course home</a> &middot;
+    <a href="course-schedule.html" target="_top">Schedule</a> &middot;
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a> &middot;
+    <a href="clinical-physiology-lab-manual.html" target="_top">Lab manual</a> &middot;
+    <a href="accessibility.html" target="_top">Accessibility</a> &middot;
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   BIOL 005 Canvas step pages.
+   One file. Canvas iframes it once per step:
+     canvas-steps.html?week=1&step=1
+   No query string shows the whole map.
+   EDIT ONLY THE DATA BLOCK BELOW.
+   ============================================================ */
+
+var SITE = "https://drsrennie-stack.github.io/human-physiology-Fa26/";
+
+/* Week data. lab.href "" means the lab page is not built yet and the
+   button falls back to the lab door. Swap any href for a PDF the same way:
+   lab:{label:"Reference Range Lab", href:"print/week-01-lab.pdf"} */
+var WEEKS = [
+ {n:1,  opens:"Sep 7",  title:"Foundations in Physiology",
+  lab:{label:"Reference Range Lab", href:"reference-range-lab.html"},
+  patient:"The preseason physical"},
+ {n:2,  opens:"Sep 14", title:"The Cell, and How Cells Talk",
+  lab:{label:"", href:""}, patient:"", light:true},
+ {n:3,  opens:"Sep 21", title:"Across the Membrane",
+  lab:{label:"Osmosis and IV Fluids Lab", href:"osmosis-iv-fluids-lab.html"},
+  patient:"Fluid choice at the bedside"},
+ {n:4,  opens:"Sep 28", title:"Neurons and Synapses",
+  lab:{label:"", href:""}, patient:""},
+ {n:5,  opens:"Oct 5",  title:"Reflexes and the Senses",
+  lab:{label:"Sensory and Reflex Lab", href:"lab-week05-sensory-reflex.html"},
+  patient:""},
+ {n:6,  opens:"Oct 12", title:"Muscle and Movement",
+  lab:{label:"", href:""}, patient:""},
+ {n:7,  opens:"Oct 19", title:"Hormones and Reproduction",
+  lab:{label:"Reading the Hormone Cycle", href:"lab-week08-hormone-cycle.html"},
+  patient:""},
+ {n:8,  opens:"Oct 26", title:"The Heart as a Pump",
+  lab:{label:"", href:""}, patient:""},
+ {n:9,  opens:"Nov 2",  title:"Pressure, Flow, and Blood Pressure",
+  lab:{label:"", href:""}, patient:""},
+ {n:10, opens:"Nov 9",  title:"Blood and Body Defense",
+  lab:{label:"CBC and PCR Pattern Lab", href:"cbc-pcr-lab.html"},
+  patient:""},
+ {n:11, opens:"Nov 16", title:"Digestion and Fuel",
+  lab:{label:"", href:""}, patient:""},
+ {n:12, opens:"Nov 23", title:"Breathing and Gas Transport",
+  lab:{label:"Pulmonary Function Lab", href:"pulmonary-function-lab.html"},
+  patient:""},
+ {n:13, opens:"Nov 30", title:"The Kidney and Fluid Balance",
+  lab:{label:"", href:""}, patient:""},
+ {n:14, opens:"Dec 7",  title:"The Slow pH Lever",
+  lab:{label:"", href:""}, patient:""},
+ {n:15, opens:"Dec 14", title:"Catch Up and the Final",
+  lab:{label:"", href:""}, patient:"", final:true}
+];
+
+function pad(n){ return (n<10?"0":"") + n; }
+
+/* Step definitions. Each returns the Canvas title, the instruction,
+   and the buttons. Keep the titles matching Canvas exactly. */
+function stepData(w, s){
+  var N = w.n, P = pad(N);
+  var D = {
+    0:{
+      title:"Week " + N + " | Overview",
+      canvas:"Week " + N + " | " + w.title,
+      do:"Everything for this week lives on one page. Open it, look at the whole week, then come back here and work down the steps in order.",
+      btns:[
+        {label:"Open the Week " + N + " page", href:"week-" + P + ".html", kind:"primary"},
+        {label:"The " + (w.final ? "final" : "competencies") + " for this week",
+         href: w.final ? "course-schedule.html" : "week-" + P + "-competencies.html", kind:"secondary"}
+      ]
+    },
+    1:{
+      title:"Week " + N + ", Step 1 | Watch the intro, then print your week",
+      do:"Watch the short week intro on the week page, then print the two sheets you write on all week. Print them now. You cannot do Step 2 without them.",
+      btns:[
+        {label:"Print the note sheet", href:"note-sheet.html?week=" + N, kind:"primary", tag:"print"},
+        {label:"Print the competency list", href:"week-" + P + "-competencies.html", kind:"primary", tag:"print"},
+        {label:"Week " + N + " intro", href:"week-" + P + ".html", kind:"secondary"}
+      ]
+    },
+    2:{
+      title:"Week " + N + ", Step 2 | First pass, in your first color",
+      do:"Before any video. Fill in the note sheet from the written notes and from Silverthorn. Keep it sparse, mind maps, lists, sequences, flow charts. Leave space in every box.",
+      btns:[
+        {label:"Week " + N + " written notes", href:"week-" + P + "-notes.html", kind:"primary"},
+        {label:"Book problems for this week", href:"assignment-bookproblems.html?week=" + N, kind:"secondary"}
+      ]
+    },
+    3:{
+      title:"Week " + N + ", Step 3 | Second pass, in your second color",
+      do:"Now watch the lectures. Switch colors and add what the reading did not give you into the same boxes. Two colors, one sheet, so you can see which half came from where.",
+      btns:[
+        {label:"Week " + N + " lectures", href: N===1 ? "concept-videos-week01.html" : "lecture-week.html?week=" + N, kind:"primary"},
+        {label:"Back to the written notes", href:"week-" + P + "-notes.html", kind:"secondary"}
+      ]
+    },
+    4:{
+      title:"Week " + N + ", Step 4 | Upload your note sheet",
+      do:"Photograph or scan both sides of every page and upload. Handwritten only. Label the pages so I can tell which competency each box belongs to.",
+      btns:[
+        {label:"What I am grading", href:"assignment-notesheet.html?week=" + N, kind:"primary"}
+      ],
+      turnin:"Turn this in on the Canvas assignment page, using the Submit button below the instructions."
+    },
+    5:{
+      title:"Week " + N + ", Step 5 | Study it for several days",
+      do:"About an hour a day, spread across the week, using more than one tool. Short sessions on several days beat one long session on Thursday.",
+      btns:[
+        {label:"Recall cards for Week " + N, href:"mastery-physio-os-standalone.html?week=" + N, kind:"primary"},
+        {label:"Competency recall", href:"competency-recall.html?week=" + N, kind:"secondary"},
+        {label:"Draw it from memory", href:"mastery-canvas.html?week=" + N, kind:"secondary"}
+      ]
+    },
+    6:{
+      title:"Week " + N + ", Step 6 | Lab, " + (w.lab.label || "this week's lab"),
+      do:"Work the lab all the way through, then fill in the lab analysis sheet. You are measuring, calculating, collecting data, and interpreting it.",
+      btns:[
+        {label: w.lab.label ? "Open the " + w.lab.label : "Open this week's lab",
+         href: w.lab.href || "door-lab.html", kind:"primary"},
+        {label:"Print the lab analysis sheet", href:"lab-report-form.html?week=" + N, kind:"primary", tag:"print"},
+        {label:"What I am grading", href:"assignment-physioex.html?week=" + N, kind:"secondary"}
+      ],
+      turnin:"Upload your lab analysis sheet on the Canvas assignment page."
+    },
+    7:{
+      title:"Week " + N + ", Step 7 | Your patient, " + (w.patient || "this week's case"),
+      do:"Your patient is yours for the whole term. Add this week's entry: one control loop drawn by hand, and what this week's physiology changes about your patient.",
+      btns:[
+        {label:"Open your patient file", href:"BIO005-patient-file.html?week=" + N, kind:"primary"},
+        {label:"Print the drawing page", href:"mastery-canvas.html?week=" + N, kind:"secondary"}
+      ],
+      turnin:"Upload this week's patient file entry on the Canvas assignment page."
+    },
+    8:{
+      title: N===1
+        ? "Week 1, Step 8 | Two discussions this week"
+        : "Week " + N + ", Step 8 | Discussion, due Friday",
+      do: N===1
+        ? "Week 1 has two. The vision board introduces you to the class. The metacognition post is about how the week went. Both are due Friday."
+        : "One post. Half of it is the physiology, half of it is how your learning went this week. Post by Friday, then read what your classmates wrote.",
+      btns: N===1
+        ? [{label:"Discussion 1, your vision board", href:"assignment-discussion-01-visionboard.html", kind:"primary"},
+           {label:"Discussion 2, how the week went", href:"assignment-discussion-01-metacognition.html", kind:"primary"}]
+        : [{label:"This week's discussion prompt", href:"assignment-discussion-metacognition.html?week=" + N, kind:"primary"}],
+      turnin:"Post in the Canvas discussion below."
+    },
+    9:{
+      title:"Week " + N + ", Step 9 | Mastery Check, and upload your report",
+      do:"Take a practice round, then upload the report it gives you. Do one round or do ten. I read these to find what the class is missing, not to grade you.",
+      btns:[
+        {label:"Take the Mastery Check", href:"practice-exam.html?week=" + N, kind:"primary"},
+        {label:"Brain dump, the check", href: N===1 ? "braindump-week01.html" : "note-sheet.html?week=" + N, kind:"secondary"}
+      ],
+      turnin:"Upload your practice report on the Canvas assignment page."
+    }
+  };
+  var d = D[s];
+  if (!d) return null;
+  if (!d.canvas) d.canvas = d.title;
+  return d;
+}
+
+var STEP_SHORT = [
+  "Overview",
+  "Print your week",
+  "First pass",
+  "Second pass",
+  "Upload note sheet",
+  "Study it",
+  "Lab",
+  "Patient file",
+  "Discussion",
+  "Mastery Check"
+];
+
+function el(tag, cls, html){
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function weekByN(n){
+  for (var i=0;i<WEEKS.length;i++){ if (WEEKS[i].n===n) return WEEKS[i]; }
+  return null;
+}
+
+/* ---------------- step view ---------------- */
+function renderStep(w, s){
+  var d = stepData(w, s);
+  var main = document.getElementById("main");
+  document.getElementById("eyebrow").textContent =
+    "Week " + w.n + " · " + w.title + (s===0 ? "" : " · Step " + s);
+  var heading = d.title.split("| ")[1] || d.title;
+  document.getElementById("pagetitle").textContent = heading;
+  document.getElementById("lede").textContent = s===0
+    ? "This week opens " + w.opens + ". Work down the steps in order."
+    : "Step " + s + " of 9.";
+  document.title = d.title + " | BIOL 005";
+
+  var card = el("section","card");
+  card.appendChild(el("p","do", esc(d.do)));
+
+  if (w.light && (s===6 || s===7)){
+    var skip = el("div","note",
+      "<strong>Not this week.</strong> Week 2 runs light so you have time to get your book. " +
+      "The lab and the patient case start in Week 3.");
+    card.appendChild(skip);
+    var goOn = el("div","btnrow");
+    goOn.appendChild(linkBtn({label:"Go back to the Week 2 page", href:"week-02.html", kind:"secondary"}));
+    card.appendChild(goOn);
+  } else {
+    var row = el("div","btnrow");
+    for (var i=0;i<d.btns.length;i++){ row.appendChild(linkBtn(d.btns[i])); }
+    card.appendChild(row);
+    if (d.turnin) card.appendChild(el("p","turnin", esc(d.turnin)));
+  }
+
+  var nav = el("div","stepnav");
+  if (s > 0) nav.appendChild(navLink("← Step " + (s-1) + ", " + STEP_SHORT[s-1], w.n, s-1));
+  else nav.appendChild(el("span"));
+  if (s < 9) nav.appendChild(navLink("Step " + (s+1) + ", " + STEP_SHORT[s+1] + " →", w.n, s+1));
+  card.appendChild(nav);
+
+  main.appendChild(card);
+}
+function linkBtn(b){
+  var a = el("a", "btn" + (b.kind === "secondary" ? " secondary" : ""));
+  a.href = b.href;
+  a.target = "_top";
+  a.innerHTML = (b.tag ? '<span class="tag">' + esc(b.tag) + '</span> ' : "") + esc(b.label);
+  return a;
+}
+function navLink(text, n, s){
+  var a = el("a");
+  a.href = "?week=" + n + "&step=" + s;
+  a.target = "_top";
+  a.textContent = text;
+  return a;
+}
+
+/* ---------------- map view ---------------- */
+function renderMap(){
+  var main = document.getElementById("main");
+
+  /* what each step is */
+  var c1 = el("section","card");
+  c1.appendChild(el("h2",null,"The nine steps, every week"));
+  c1.appendChild(el("p","muted","Same shape in all fifteen modules, so students never have to work out what comes next. One page per step, iframed into Canvas."));
+  var ul = el("ul","steplist");
+  var where = [
+    "week-NN.html",
+    "note-sheet.html?week=N and week-NN-competencies.html",
+    "week-NN-notes.html",
+    "lecture-week.html?week=N",
+    "assignment-notesheet.html?week=N, then the Canvas Submit button",
+    "mastery-physio-os-standalone.html?week=N",
+    "the lab page for that week, plus lab-report-form.html",
+    "BIO005-patient-file.html?week=N",
+    "assignment-discussion-metacognition.html?week=N",
+    "practice-exam.html?week=N"
+  ];
+  for (var i=0;i<STEP_SHORT.length;i++){
+    var li = el("li");
+    li.appendChild(el("span","num", i===0 ? "—" : String(i)));
+    var d = el("div");
+    d.appendChild(el("span","what", esc(STEP_SHORT[i])));
+    d.appendChild(el("span","where", esc(where[i])));
+    li.appendChild(d);
+    ul.appendChild(li);
+  }
+  c1.appendChild(ul);
+  main.appendChild(c1);
+
+  /* the grid */
+  var c2 = el("section","card");
+  c2.appendChild(el("h2",null,"Fifteen modules"));
+  c2.appendChild(el("p","muted","Click any cell to see exactly what that Canvas page looks like."));
+  var leg = el("div","legend",
+    '<span><span class="dot live"></span>Page is built and the button works</span>' +
+    '<span><span class="dot todo"></span>Falls back to the door page until you build it</span>');
+  c2.appendChild(leg);
+
+  var scroller = el("div","scroller");
+  var t = el("table");
+  t.appendChild(el("caption",null,"Week by step. The current week is shaded."));
+  var thead = el("thead");
+  var hr = el("tr");
+  hr.appendChild(el("th",null,"Module"));
+  hr.appendChild(el("th",null,"Over"));
+  for (var s=1;s<=9;s++){ hr.appendChild(el("th",null,String(s))); }
+  hr.appendChild(el("th",null,"Lab for that week"));
+  thead.appendChild(hr);
+  t.appendChild(thead);
+
+  var tbody = el("tbody");
+  var today = new Date();
+  for (var k=0;k<WEEKS.length;k++){
+    var w = WEEKS[k];
+    var tr = el("tr");
+    if (isCurrent(w, today)) tr.className = "now";
+    var th = el("th");
+    th.scope = "row";
+    th.innerHTML = '<span class="wk">Week ' + w.n + " · opens " + esc(w.opens) + "</span>" +
+                   esc(w.title) + (isCurrent(w, today) ? '<span class="rowtag">you are here</span>' : "");
+    tr.appendChild(th);
+    for (var s2=0;s2<=9;s2++){
+      var td = el("td","cell");
+      var a = el("a");
+      a.href = "?week=" + w.n + "&step=" + s2;
+      a.target = "_top";
+      a.textContent = s2===0 ? "—" : String(s2);
+      a.setAttribute("aria-label","Week " + w.n + ", " + STEP_SHORT[s2]);
+      if ((s2===6 && !w.lab.href) || (w.light && (s2===6 || s2===7))) a.className = "todo";
+      td.appendChild(a);
+      tr.appendChild(td);
+    }
+    var labcell = el("td");
+    labcell.innerHTML = w.light
+      ? '<span class="muted">Lab starts in Week 3</span>'
+      : (w.lab.label ? esc(w.lab.label) : '<span class="muted">Not built yet</span>');
+    tr.appendChild(labcell);
+    tbody.appendChild(tr);
+  }
+  t.appendChild(tbody);
+  scroller.appendChild(t);
+  c2.appendChild(scroller);
+  main.appendChild(c2);
+
+  /* canvas titles + embed code */
+  var c3 = el("section","card");
+  c3.appendChild(el("h2",null,"Posting a module"));
+  c3.appendChild(el("p",null,"Make ten Canvas pages in the module, paste one iframe into each, and name them with the titles below. Nothing else changes from week to week."));
+  var pick = el("p");
+  pick.innerHTML = '<label for="wkpick"><strong>Show me the titles and the code for </strong></label> ';
+  var sel = el("select");
+  sel.id = "wkpick";
+  sel.style.cssText = "font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:#fff";
+  for (var q=0;q<WEEKS.length;q++){
+    var o = document.createElement("option");
+    o.value = WEEKS[q].n;
+    o.textContent = "Week " + WEEKS[q].n + ", " + WEEKS[q].title;
+    sel.appendChild(o);
+  }
+  pick.appendChild(sel);
+  c3.appendChild(pick);
+
+  var titleList = el("ul","titles");
+  titleList.id = "titlelist";
+  c3.appendChild(titleList);
+
+  var pre = el("pre");
+  pre.id = "embed";
+  c3.appendChild(pre);
+
+  var cr = el("div","copyrow");
+  var b1 = el("button","copy","Copy all ten titles");
+  var b2 = el("button","copy","Copy all ten iframes");
+  var st = el("span","status");
+  st.setAttribute("aria-live","polite");
+  st.id = "copystatus";
+  cr.appendChild(b1); cr.appendChild(b2); cr.appendChild(st);
+  c3.appendChild(cr);
+  main.appendChild(c3);
+
+  function fillTitles(){
+    var w = weekByN(parseInt(sel.value,10));
+    titleList.innerHTML = "";
+    var lines = [], frames = [];
+    for (var s=0;s<=9;s++){
+      var d = stepData(w, s);
+      var t2 = s===0 ? d.canvas : d.title;
+      lines.push(t2);
+      frames.push(iframeFor(w.n, s));
+      var li = el("li");
+      li.appendChild(el("span","t", esc(t2)));
+      var cb = el("button","copy","Copy");
+      (function(txt, btn){
+        btn.addEventListener("click", function(){ copy(txt, "Copied that title."); });
+      })(t2, cb);
+      li.appendChild(cb);
+      titleList.appendChild(li);
+    }
+    pre.textContent = frames[1];
+    b1.onclick = function(){ copy(lines.join("\n"), "Copied ten titles."); };
+    b2.onclick = function(){ copy(frames.join("\n\n"), "Copied ten iframes, in step order."); };
+  }
+  sel.addEventListener("change", fillTitles);
+  fillTitles();
+}
+
+function iframeFor(n, s){
+  return '<iframe src="' + SITE + 'canvas-steps.html?week=' + n + '&step=' + s +
+         '" title="Week ' + n + ', ' + STEP_SHORT[s] + '" width="100%" height="560" ' +
+         'style="border:0;max-width:100%" loading="lazy"></iframe>';
+}
+function copy(text, msg){
+  var s = document.getElementById("copystatus");
+  function done(ok){ if (s) s.textContent = ok ? msg : "Could not copy. Select the text and copy it by hand."; }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+  } else { done(false); }
+}
+function isCurrent(w, today){
+  var parts = w.opens.split(" ");
+  var months = {Sep:8, Oct:9, Nov:10, Dec:11};
+  var start = new Date(2026, months[parts[0]], parseInt(parts[1],10));
+  var end = new Date(start.getTime() + 7*24*3600*1000);
+  return today >= start && today < end;
+}
+
+/* ---------------- route ---------------- */
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  var wn = parseInt(p.get("week"),10);
+  var sn = parseInt(p.get("step"),10);
+  var w = weekByN(wn);
+  if (w && !isNaN(sn) && sn >= 0 && sn <= 9){ renderStep(w, sn); }
+  else { renderMap(); }
+})();
+
+/* iframe height sender */
+(function(){
+  var id = "canvas-steps";
+  function send(){
+    var h = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight
+    );
+    if (window.parent !== window){
+      window.parent.postMessage({ id: id, frameId: id, height: h }, "*");
+    }
+  }
+  window.addEventListener("load", send);
+  window.addEventListener("resize", send);
+  if (window.ResizeObserver){
+    try { new ResizeObserver(send).observe(document.body); } catch(e){}
+  }
+  setTimeout(send, 300);
+})();
+</script>
+</body>
+</html>
