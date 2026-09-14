@@ -1,0 +1,729 @@
+#!/usr/bin/env python3
+"""
+Builds the BIO 005 Canvas weekly pages as Canvas Rich Content Editor HTML.
+
+Rules baked in:
+  - No <script>, no <style>, no external CSS. Canvas strips them. Everything is
+    inline style on plain elements, which the Canvas sanitizer keeps.
+  - Canvas keeps the classes "Button", "Button--primary" and "screenreader-only",
+    so those are the only classes used.
+  - Headings start at h2. Canvas renders the page title as the h1.
+  - Every link that leaves Canvas opens in a new tab and says so to a screen
+    reader. One visible sentence in the Start Here box says it to everyone.
+  - No em dashes. No italics. Times are Pacific and say so.
+"""
+import html, pathlib
+
+BASE = "https://drsrennie-stack.github.io/human-physiology-Fa26/"
+CANVAS = "https://yccd.instructure.com/courses/42616"
+CANVAS_SYLLABUS = CANVAS + "/assignments/syllabus"
+
+# The note sheet PDFs live in Canvas Files, not on the course website, so a
+# student printing their week never leaves Canvas and never loses their Back
+# button. Upload BIO005-note-sheet-week-01.pdf and week-02.pdf to Files, open
+# each one, and paste its id here. Until then these point at the Files tab,
+# which at least lands somewhere real inside the course.
+NOTE_SHEET_PDF = {
+    1: CANVAS + "/files",
+    2: CANVAS + "/files",
+}
+OUT = pathlib.Path(__file__).parent / "canvas-pages"
+OUT.mkdir(exist_ok=True)
+
+# Palette of record for the physiology site (bio-005-brand). Every text colour
+# below measures at least 7:1 on white except the muted grey, which is 7.3:1.
+NAVY = "#0B1530"
+MAROON = "#8B3A2E"
+MAROON_DARK = "#6E2D24"
+MUTED = "#4F576A"
+LINE = "#D9DDE3"        # 1px card border, decorative only
+TINT = "#ECEFF4"        # navy tint, used only behind the due list
+
+CARD = ("background:#FFFFFF;border:1px solid %s;border-radius:8px;"
+        "padding:20px 22px;margin:0 0 18px 0;box-shadow:0 1px 3px rgba(0,0,0,0.08);" % LINE)
+
+def sr(text):
+    return '<span class="screenreader-only">%s</span>' % html.escape(text)
+
+def btn(label, href, primary=True, new_tab=True):
+    """A Canvas button. Primary is maroon on white text (10.2:1)."""
+    if primary:
+        style = ("display:inline-block;margin:6px 8px 6px 0;padding:11px 18px;border-radius:6px;"
+                 "background-color:%s;border:2px solid %s;color:#FFFFFF;font-weight:700;"
+                 "text-decoration:none;min-height:24px;" % (MAROON, MAROON))
+    else:
+        style = ("display:inline-block;margin:6px 8px 6px 0;padding:11px 18px;border-radius:6px;"
+                 "background-color:#FFFFFF;border:2px solid %s;color:%s;font-weight:700;"
+                 "text-decoration:none;min-height:24px;" % (NAVY, NAVY))
+    tail = ""
+    attrs = ""
+    if new_tab:
+        attrs = ' target="_blank" rel="noopener"'
+        tail = sr(" (opens in a new tab)")
+    return ('<a class="Button Button--primary" style="%s" href="%s"%s>%s%s</a>'
+            % (style, href, attrs, html.escape(label), tail))
+
+def p(text, extra=""):
+    colour = "" if "color:" in extra else "color:%s;" % NAVY
+    return '<p style="margin:0 0 12px 0;line-height:1.6;%s%s">%s</p>' % (colour, extra, text)
+
+def h2(text, id_=None):
+    idattr = ' id="%s"' % id_ if id_ else ""
+    return ('<h2%s style="margin:28px 0 12px 0;font-size:1.5em;line-height:1.25;color:%s;">%s</h2>'
+            % (idattr, NAVY, html.escape(text)))
+
+def step_card(n, title, body_html, buttons, when=None, graded=None):
+    """One numbered step. The number is part of the heading text, so a screen
+    reader hears 'Step 3, Second pass' and nothing is carried by colour alone."""
+    when_html = ""
+    if when:
+        when_html = ('<p style="margin:0 0 10px 0;font-size:0.9em;font-weight:700;letter-spacing:0.04em;'
+                     'text-transform:uppercase;color:%s;">%s</p>' % (MAROON_DARK, html.escape(when)))
+    graded_html = ""
+    if graded:
+        graded_html = ('<p style="margin:12px 0 0 0;font-size:0.95em;color:%s;"><strong>Graded.</strong> %s</p>'
+                       % (MUTED, graded))
+    return ('<div style="%s">'
+            '<h3 style="margin:0 0 8px 0;font-size:1.25em;line-height:1.3;color:%s;">'
+            '<span style="display:inline-block;min-width:2.1em;padding:2px 10px;margin-right:10px;border-radius:999px;'
+            'background-color:%s;color:#FFFFFF;font-size:0.85em;text-align:center;">Step %d</span>%s</h3>'
+            '%s%s<p style="margin:8px 0 0 0;">%s</p>%s</div>'
+            % (CARD, NAVY, NAVY, n, html.escape(title), when_html, body_html, "".join(buttons), graded_html))
+
+def start_here(week, title, opens, closes, hours, due_rows, book):
+    due_items = "".join(
+        '<li style="margin:0 0 8px 0;"><strong>%s</strong> %s</li>' % (html.escape(what), html.escape(when))
+        for what, when in due_rows)
+    return (
+        '<p style="margin:0 0 6px 0;font-size:0.85em;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:%s;">'
+        'BIO 005 Human Physiology &middot; Week %d of 15</p>' % (MAROON_DARK, week)
+        + '<div style="%s">' % CARD
+        + '<h2 id="start-here" style="margin:0 0 12px 0;font-size:1.5em;line-height:1.25;color:%s;">Start here</h2>' % NAVY
+        + p('<strong>Where you are.</strong> Week %d runs %s through %s. Everything below is this week, and only this week.' % (week, opens, closes))
+        + p('<strong>What to do.</strong> Work down this page from top to bottom. Each step has one job and the buttons for it. Buttons that lead to the course site open in a new tab; come back to this tab to keep your place.')
+        + p('<strong>How long.</strong> Plan on about %s this week, spread across the week rather than in one sitting. That is the minimum for a passing grade, not for an A.' % hours)
+        + p('<strong>Your book.</strong> %s' % book)
+        + '<div style="background-color:%s;border-radius:6px;padding:14px 18px;margin:14px 0 0 0;">' % TINT
+        + '<h3 style="margin:0 0 8px 0;font-size:1.1em;color:%s;">Due this week (all times Pacific)</h3>' % NAVY
+        + '<ul style="margin:0;padding-left:1.2em;color:%s;">%s</ul></div>' % (NAVY, due_items)
+        + '</div>'
+    )
+
+def done_list(week, items, next_week_text):
+    lis = "".join('<li style="margin:0 0 8px 0;">%s</li>' % html.escape(i) for i in items)
+    return (h2("You are done with Week %d when" % week, "done")
+            + '<div style="%s"><ul style="margin:0;padding-left:1.2em;color:%s;line-height:1.5;">%s</ul>'
+              '<p style="margin:14px 0 0 0;color:%s;">%s</p></div>' % (CARD, NAVY, lis, NAVY, next_week_text))
+
+def help_block():
+    return (h2("If you get stuck", "help")
+            + '<div style="%s">' % CARD
+            + p('Ask in the Virtual Office first. Other students usually have the same question, and I answer there so everyone sees it. '
+                'Hootie, the question button in the corner of every course site page, knows the syllabus and can answer most how-does-this-course-work questions on the spot. '
+                'For anything private, message me in Canvas.')
+            + '<p style="margin:8px 0 0 0;">'
+            + btn("Virtual Office", CANVAS + "/discussion_topics/711800", primary=False, new_tab=False)
+            + btn("Accessibility and how this site was built", BASE + "accessibility.html", primary=False)
+            + '</p></div>')
+
+SHORT = {
+    "Watch the course introduction, then print your week": "print-your-week",
+    "Print your week": "print-your-week",
+    "First pass, in your first color: the book and the notes": "first-pass",
+    "Second pass, in your second color: the videos": "second-pass",
+    "Upload your note sheet": "upload-note-sheet",
+    "Study it for several days": "study-it",
+    "Take the Mastery Check and upload your report": "mastery-check",
+    "Lab: the Reference Range Lab (Investigate It)": "lab",
+    "Lab: PhysioEx Exercise 8, the amylase assay (Investigate It)": "lab",
+    "Your patient: the preseason physical (Use It)": "patient",
+    "Your patient: the student health visit (Use It)": "patient",
+    "Two discussions this week (Think About It)": "discussion",
+    "Discussion 2: predict, then check (Think About It)": "discussion",
+}
+
+# The four stages the course site already uses on its cards, with the card
+# colours. Every step belongs to exactly one stage, and the stages run in this
+# order, so the Canvas module reads the same way the site does.
+# Measured on white: Learn 7.66:1, Practice 18.04:1, Apply 7.46:1, Check 18.04:1.
+STAGE_ORDER = ["Learn", "Practice", "Apply", "Check"]
+STAGE_STYLE = {
+    "Learn":    ("#8B3A2E", "#FFFFFF", "#8B3A2E"),
+    "Practice": ("#0B1530", "#FFFFFF", "#0B1530"),
+    "Apply":    ("#C9A14A", "#0B1530", "#C9A14A"),
+    "Check":    ("#FFFFFF", "#0B1530", "#0B1530"),
+}
+STAGE_TAGLINE = {
+    "Learn":    ("Learn it with Dr. Rennie",
+                 "Read first with your note sheet open, then watch me teach it, then go back and add what changed."),
+    "Practice": ("Try it from memory",
+                 "Get it back without looking. Brain dumps, drawing, recall cards, book problems. Mistakes here are useful and none of it is graded."),
+    "Apply":    ("Use what you learned",
+                 "The lab, the application case and the discussion, all graded. Plus your patient chart, which you keep all term and turn in once in December."),
+    "Check":    ("Find the gaps",
+                 "A thirty question check on this week's competencies. Nothing here is graded. A low score tells you exactly what to go back to."),
+}
+STAGE = {
+    "Watch the course introduction, then print your week": "Learn",
+    "Print your week": "Learn",
+    "First pass, in your first color: the book and the notes": "Learn",
+    "Second pass, in your second color: the videos": "Learn",
+    "Upload your note sheet": "Learn",
+    "Study it for several days": "Practice",
+    "Lab: the Reference Range Lab (Investigate It)": "Apply",
+    "Lab: PhysioEx Exercise 8, the amylase assay (Investigate It)": "Apply",
+    "Your patient: the preseason physical (Use It)": "Apply",
+    "Your patient: the student health visit (Use It)": "Apply",
+    "Two discussions this week (Think About It)": "Apply",
+    "Discussion 2: predict, then check (Think About It)": "Apply",
+    "Take the Mastery Check and upload your report": "Check",
+}
+
+def stage_chip(stage, trailing=""):
+    """The stage label, then the week and step in plain text beside it."""
+    bg, fg, border = STAGE_STYLE[stage]
+    chip = ('<span style="display:inline-block;vertical-align:middle;padding:4px 13px;border-radius:999px;'
+            'background-color:%s;border:2px solid %s;color:%s;font-size:0.8em;font-weight:800;'
+            'letter-spacing:0.1em;text-transform:uppercase;">%s</span>' % (bg, border, fg, stage))
+    rest = ''
+    if trailing:
+        rest = (' <span style="display:inline-block;vertical-align:middle;font-size:0.85em;font-weight:700;'
+                'letter-spacing:0.08em;text-transform:uppercase;color:%s;">%s</span>' % (MAROON_DARK, trailing))
+    return '<p style="margin:0 0 14px 0;">' + chip + rest + '</p>'
+
+# Canvas page titles. The page title is the h1 and the module row label, so it
+# has to carry the whole step on its own, without a colon inside a colon.
+PAGE_TITLE = {
+    "Watch the course introduction, then print your week": "Watch the intro, then print your week",
+    "Print your week": "Print your week",
+    "First pass, in your first color: the book and the notes": "First pass, in your first color",
+    "Second pass, in your second color: the videos": "Second pass, in your second color",
+    "Upload your note sheet": "Upload your note sheet",
+    "Study it for several days": "Study it for several days",
+    "Take the Mastery Check and upload your report": "Mastery Check, and upload your report",
+    "Lab: the Reference Range Lab (Investigate It)": "Lab, the Reference Range Lab",
+    "Lab: PhysioEx Exercise 8, the amylase assay (Investigate It)": "Lab, PhysioEx Exercise 8, amylase",
+    "Your patient: the preseason physical (Use It)": "Your patient, the preseason physical",
+    "Your patient: the student health visit (Use It)": "Your patient, the student health visit",
+    "Two discussions this week (Think About It)": "Two discussions this week",
+    "Discussion 2: predict, then check (Think About It)": "Discussion 2, predict then check",
+}
+
+def eyebrow(text):
+    return ('<p style="margin:0 0 14px 0;font-size:0.85em;font-weight:700;letter-spacing:0.08em;'
+            'text-transform:uppercase;color:%s;">%s</p>' % (MAROON_DARK, text))
+
+def help_line(lead="Stuck on this step?"):
+    """One quiet line at the foot of every page. Not a card, so it never
+    competes with the step itself."""
+    return ('<p style="margin:22px 0 0 0;padding-top:14px;border-top:1px solid %s;font-size:0.95em;color:%s;">'
+            + lead + ' Ask in the <a style="color:%s;font-weight:700;" '
+            'href="%s/discussion_topics/711800">Virtual Office</a>, or ask Hootie, the question button in the '
+            'corner of every course site page.</p>') % (LINE, MUTED, MAROON_DARK, CANVAS)
+
+def new_tab_note(buttons):
+    """Canvas opens off-site links in a new tab, and a brand new tab has no Back
+    button history, so say plainly how to get back. Only shown when a button
+    actually leaves Canvas."""
+    off_site = [b for b in buttons if 'target="_blank"' in b]
+    if not off_site:
+        return ''
+    which = "That button opens" if len(off_site) == 1 else "Those buttons open"
+    return ('<p style="margin:12px 0 0 0;font-size:0.95em;color:%s;">%s the course website in a '
+            'new browser tab. When you are finished there, close that tab and you are back on this '
+            'page. Nothing you do here is lost.</p>' % (MUTED, which))
+
+def step_page(week, n, total, title, body_html, buttons, when=None, graded=None,
+              next_title=None, closes=None):
+    """One Canvas page carrying one step and nothing else."""
+    parts = [stage_chip(STAGE[title], "BIO 005 &middot; Week %d &middot; Step %d of %d" % (week, n, total))]
+    if when:
+        parts.append('<p style="margin:0 0 16px 0;font-size:1.05em;font-weight:700;color:%s;">%s</p>'
+                     % (NAVY, html.escape(when)))
+    parts.append('<div style="%s">' % CARD + body_html
+                 + '<p style="margin:8px 0 0 0;">%s</p>' % "".join(buttons)
+                 + new_tab_note(buttons)
+                 + ('<p style="margin:14px 0 0 0;font-size:0.95em;color:%s;"><strong>Graded.</strong> %s</p>' % (MUTED, graded)
+                    if graded else '')
+                 + '</div>')
+    if next_title:
+        parts.append('<p style="margin:18px 0 0 0;line-height:1.6;color:%s;">'
+                     '<strong>When this is done:</strong> use the Next button at the bottom of this page to go to '
+                     'Step %d: %s.</p>' % (NAVY, n + 1, html.escape(PAGE_TITLE[next_title])))
+    else:
+        parts.append('<p style="margin:18px 0 0 0;line-height:1.6;color:%s;">'
+                     '<strong>That is the last step of Week %d.</strong> Everything is due by %s.</p>'
+                     % (NAVY, week, html.escape(closes or "Sunday, 10:00 pm Pacific")))
+    parts.append(help_line())
+    return "\n".join(parts) + "\n"
+
+def week_pages(week, title, opens, closes, hours, due_rows, book, steps, done_items, next_text):
+    """Returns [(filename, canvas page title, html), ...] for one week:
+    an overview page, then one page per step, in stage order."""
+    # Stage order decides the order of the week. The data below can be written in
+    # any order; a stable sort by stage puts Learn, Practice, Apply, Check.
+    steps = sorted(steps, key=lambda st: STAGE_ORDER.index(STAGE[st["title"]]))
+    total = len(steps)
+
+    due_items = "".join(
+        '<li style="margin:0 0 8px 0;"><strong>%s</strong> %s</li>' % (html.escape(what), html.escape(when))
+        for what, when in due_rows)
+    ov = [eyebrow("BIO 005 Human Physiology &middot; Week %d of 15" % week)]
+    ov.append('<div style="%s">' % CARD
+              + '<h2 style="margin:0 0 12px 0;font-size:1.5em;line-height:1.25;color:%s;">Start here</h2>' % NAVY
+              + p('<strong>Where you are.</strong> Week %d runs %s through %s. Everything in this module is this week, and only this week.' % (week, opens, closes))
+              + p('<strong>What to do.</strong> Work through the pages in this module in order, top to bottom. Each page is one step with one job, and the Next button at the bottom of a page takes you to the following step. Buttons that lead to the course site open in a new tab; come back to Canvas to keep your place.')
+              + p('<strong>How long.</strong> Plan on about %s this week, spread across the week rather than in one sitting. That is the minimum for a passing grade, not for an A.' % hours)
+              + p('<strong>Your book.</strong> %s' % book)
+              + '<div style="background-color:%s;border-radius:6px;padding:14px 18px;margin:14px 0 0 0;">' % TINT
+              + '<h3 style="margin:0 0 8px 0;font-size:1.1em;color:%s;">Due this week (all times Pacific)</h3>' % NAVY
+              + '<ul style="margin:0;padding-left:1.2em;color:%s;">%s</ul></div>' % (NAVY, due_items)
+              + '</div>')
+    ov.append(h2("The week in four stages"))
+    ov.append(p("Every week runs through the same four stages in the same order, and each stage holds its own steps. You do not have to hold this list in your head; each step is its own page and the Next button walks you through them. It is here so you can see the shape of the week before you start.",
+                extra="color:%s;" % MUTED))
+
+    n = 0
+    for stage in STAGE_ORDER:
+        mine = [(i + 1, st) for i, st in enumerate(steps) if STAGE[st["title"]] == stage]
+        if not mine:
+            continue
+        name, blurb = STAGE_TAGLINE[stage]
+        rows = "".join(
+            '<li style="margin:0 0 9px 0;"><strong>Step %d. %s</strong> <span style="color:%s;">%s</span></li>'
+            % (i, html.escape(PAGE_TITLE[st["title"]]), MUTED, html.escape(st.get("when", "")))
+            for i, st in mine)
+        ov.append('<div style="%s">' % CARD
+                  + stage_chip(stage)
+                  + '<h3 style="margin:0 0 6px 0;font-size:1.2em;color:%s;">%s</h3>' % (NAVY, html.escape(name))
+                  + p(html.escape(blurb))
+                  + '<ul style="margin:0;padding-left:1.2em;line-height:1.6;color:%s;list-style:none;">%s</ul>' % (NAVY, rows)
+                  + '</div>')
+
+    ov.append(h2("You are done with Week %d when" % week))
+    lis = "".join('<li style="margin:0 0 8px 0;">%s</li>' % html.escape(i) for i in done_items)
+    ov.append('<div style="%s"><ul style="margin:0;padding-left:1.2em;color:%s;line-height:1.5;">%s</ul>'
+              '<p style="margin:14px 0 0 0;color:%s;">%s</p></div>' % (CARD, NAVY, lis, NAVY, next_text))
+    ov.append(help_line("Not sure where to start, or something is not working?"))
+
+    out = [("w%02d-00-overview.html" % week,
+            "Week %d overview: %s" % (week, title),
+            "\n".join(ov) + "\n")]
+    for i, st in enumerate(steps, 1):
+        nxt = steps[i]["title"] if i < total else None
+        out.append(("w%02d-%02d-%s.html" % (week, i, SHORT[st["title"]]),
+                    "Week %d, Step %d: %s" % (week, i, PAGE_TITLE[st["title"]]),
+                    step_page(week, i, total, st["title"], st["body_html"], st["buttons"],
+                              when=st.get("when"), graded=st.get("graded"),
+                              next_title=nxt, closes=closes)))
+    return out
+
+# ----------------------------------------------------------------------------
+# WEEK 1
+# ----------------------------------------------------------------------------
+W1 = dict(
+    week=1,
+    title="How physiology works and what keeps you steady",
+    opens="Tuesday, September 8",
+    closes="Sunday, September 13, 10:00 pm Pacific",
+    hours="14 hours",
+    book=("Silverthorn, <strong>Chapter 1</strong> (Introduction to Physiology) and the homeostasis and control pathway sections "
+          "of <strong>Chapter 6</strong>. If you do not have the book yet, the notes in Step 2 carry the same material, "
+          "and the free OpenStax text is linked there."),
+    due_rows=[
+        ("Discussion 1A, your vision board:", "post by Friday, September 11, 10:00 pm; replies by Sunday, September 13, 10:00 pm."),
+        ("Discussion 1B, what the evidence told you:", "post by Sunday, September 13, 10:00 pm. Replies are optional this week only."),
+        ("Note sheet upload, both passes:", "Sunday, September 13, 10:00 pm. Complete or not complete."),
+        ("Lab, the Reference Range Lab:", "Sunday, September 13, 10:00 pm."),
+        ("Application, your patient's preseason physical:", "Sunday, September 13, 10:00 pm."),
+        ("Mastery Check report:", "Sunday, September 13, 10:00 pm. Complete or not complete."),
+    ],
+    steps=[
+        dict(title="Watch the course introduction, then print your week",
+             when="Tuesday, about 45 minutes plus printing",
+             body_html=p("The introduction is about thirty minutes and shows you every part of the course once.")
+                       + p("Then print your note sheet. It is a six page PDF right here in Canvas, two competencies to a page, with the prompts and the drawing boxes already on it. Open it, print it, and you have the paper you need for the rest of the week.")
+                       + p("If you also want the <strong>competency list</strong> (the 12 things you must be able to do this week) or the <strong>brain dump paper</strong> for prompts A and B, the print pack on the course website builds those for you: tick what you want and print.")
+                       + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one."),
+             buttons=[btn("Watch the course introduction", BASE + "index.html#intro"),
+                      btn("Week 1 note sheet, ready to print (PDF)", NOTE_SHEET_PDF[1], new_tab=False),
+                      btn("Open the Week 1 print pack", BASE + "week-print-pack.html?week=1", primary=False)]),
+        dict(title="First pass, in your first color: the book and the notes",
+             when="Tuesday to Thursday, about 3 hours",
+             body_html=p("Pick one pen color and keep it for this pass. Read Chapter 1 and the control sections of Chapter 6, or read my notes, and fill in each box on the note sheet as you go: draw the idea, label it, put the steps in order. "
+                         "Then try the two competency prompts (A and B) for each box on the brain dump paper. Leave every gap you cannot fill. The gaps are the point; they tell you what the videos have to give you.")
+                       + p("Keep the writing to drawings, labels, arrows and short lists. Sentences running across the page do not help you on exam day."),
+             buttons=[btn("Read the Week 1 notes", BASE + "biol005-m01-maintain-control-notes.html"),
+                      btn("The 12 competencies, with what each one asks", BASE + "competency-study-guide.html?week=1", primary=False),
+                      btn("OpenStax, free second explanation", "https://openstax.org/details/books/anatomy-and-physiology-2e", primary=False)]),
+        dict(title="Second pass, in your second color: the videos",
+             when="Thursday and Friday, about 3 hours",
+             body_html=p("Switch pens. Press play on the first concept video and let the week run; there are twenty short videos, and the list on the page lets you jump to the one that matches the box you are working on. "
+                         "Every time the video gives you something the reading did not, add it to the same box in the second color. When you are done, the sheet shows you exactly where your reading was thin.")
+                       + p("Open the slides beside the video if you want to pause on a diagram or print a deck to draw on."),
+             buttons=[btn("Watch the Week 1 concept videos", BASE + "concept-videos-week01.html"),
+                      btn("Slides and notes for Week 1", BASE + "lecture-week.html?week=1", primary=False)]),
+        dict(title="Upload your note sheet",
+             when="After your second pass, by Sunday",
+             body_html=p("Photograph or scan every page of your note sheet with both colors on it and upload it as one file in Canvas. I am not grading the sheet. I mark it complete or not complete, and I read enough of it to see how the week went for you. "
+                         "Turning it in every week is how you show you are participating, and participating is a condition of staying enrolled. Whether you filled the boxes from the book, my notes, the videos or all three is up to you; the sheet just has to show two passes.")
+                       + p("<strong>How to photograph it.</strong>")
+                       + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;color:%s;">'
+                         '<li style="margin:0 0 8px 0;">One page at a time, flat on the table, in good light, straight down rather than at an angle.</li>'
+                         '<li style="margin:0 0 8px 0;">Both colors have to be readable. If the second color is pale, take it again nearer a window.</li>'
+                         '<li style="margin:0 0 8px 0;">Combine the pages into one file, in order, and upload that one file. Most phones will do this from the Files or Notes app; any free scanner app will too.</li>'
+                         '<li style="margin:0 0 8px 0;">Photograph each page as you finish it rather than all six on Sunday night. Losing the sheet costs you no points and a great deal of work.</li>'
+                         '<li style="margin:0 0 8px 0;">Handwritten and on paper, in your two colors. A typed sheet closes the gap between the passes, and that gap is the whole point.</li></ul>' % NAVY,
+             buttons=[btn("Upload your Week 1 note sheet in Canvas", CANVAS + "/assignments/1241504", primary=True, new_tab=False),],
+             graded="Complete or not complete, for participation. Due Sunday, September 13, 10:00 pm Pacific."),
+        dict(title="Study it for several days",
+             when="Every day from Thursday, about an hour a day",
+             body_html=p("Now the note sheet closes and the material has to come back out of your head. Do a little every day; four short sessions beat one long one, because the forgetting in between is what makes the memory stick. Pick from these, and try more than one:")
+                       + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;">'
+                         '<li><strong>Rx Cards.</strong> Spaced recall cards for this week. Rate your confidence honestly; a confident wrong answer is the one the cards will chase.</li>'
+                         '<li><strong>Draw it from memory.</strong> Redraw one note sheet box on a blank canvas with nothing open, then check it against the sheet.</li>'
+                         '<li><strong>Brain dump.</strong> Take a competency prompt cold, on paper. This is what the midterm feels like.</li>'
+                         '<li><strong>Book problems.</strong> Work them forward before you look, and backward from the answer to see how the author got there.</li>'
+                         '<li><strong>Study With Me.</strong> Do any of the above with other people and quiz each other.</li></ul>',
+             buttons=[btn("Rx Cards", BASE + "rx-cards.html"),
+                      btn("Draw it from memory", BASE + "mastery-canvas.html", primary=False),
+                      btn("Brain dump practice", BASE + "competency-brain-dump.html", primary=False),
+                      btn("Book problems", BASE + "assignment-bookproblems.html?week=1", primary=False),
+                      btn("Study With Me", BASE + "study-with-me.html", primary=False)]),
+        dict(title="Take the Mastery Check and upload your report",
+             when="Saturday or Sunday, 30 to 60 minutes",
+             body_html=p("Generate a practice exam on Week 1 (thirty questions, nothing open) and take it. It shows you every answer and the reasoning behind it, then names the competencies that cost you points. "
+                         "Do one or do ten. Then save the report and upload it in Canvas so I can see how the week went and reach out if something is not landing. The report is tracked complete or not complete; the score is for you, not for a grade."),
+             buttons=[btn("Take a Week 1 Mastery Check", BASE + "practice-exam.html?week=1"),
+                      btn("How to save and upload your report", BASE + "assignment-practice-log.html", primary=False),
+                      btn("Upload the report in Canvas", CANVAS + "/assignments/1240401", primary=False, new_tab=False)],
+             graded="Complete or not complete. Due Sunday, September 13, 10:00 pm Pacific."),
+        dict(title="Lab: the Reference Range Lab (Investigate It)",
+             when="Wednesday to Sunday, about 3 hours",
+             body_html=p("Where does a \"normal range\" on a lab report come from? This week you calculate one, decide which results are in or out of range, and plot three serial results by hand. "
+                         "Work the lab page top to bottom, record what it asks for, and turn it in as one file in Canvas."),
+             buttons=[btn("Open the Reference Range Lab", BASE + "reference-range-lab.html"),
+                      btn("Turn the lab in", CANVAS + "/assignments/1240111", primary=False, new_tab=False)],
+             graded="Investigation category. Due Sunday, September 13, 10:00 pm Pacific."),
+        dict(title="Your patient: the preseason physical (Use It)",
+             when="Saturday, about 90 minutes",
+             body_html=p("Meet your patient. Every week you add one entry to their chart: draw this week's control loop by hand, answer the written questions, and log any AI you used. "
+                         "This week's encounter is the preseason physical. The case page walks you through the five things every entry needs."),
+             buttons=[btn("Open the Week 1 case", BASE + "assignment-apply.html?week=1"),
+                      btn("Your patient chart, all term", BASE + "patient-chart-book.html", primary=False),
+                      btn("Turn in your chart entry", CANVAS + "/assignments", primary=False, new_tab=False)],
+             graded="Application category. Due Sunday, September 13, 10:00 pm Pacific."),
+        dict(title="Two discussions this week (Think About It)",
+             when="Post 1A by Friday; post 1B by Sunday",
+             body_html=p("<strong>1A, your vision board.</strong> Before we talk physiology, I want to know who you are and for you to know each other. Build a board that shows who you are and what matters to you, then introduce yourself and walk us through it on a short video. Post by Friday, reply to two classmates by Sunday.")
+                       + p("<strong>1B, what the evidence told you.</strong> Your note sheet and your Mastery Check gave you evidence about your own learning this week. Say what it showed, what surprised you, and what you will change for Week 2. Post by Sunday; replies are optional this week.")
+                       + p("1B asks about your Mastery Check, so do Step 9 first and then come back and write it. Both are due the same night."),
+             buttons=[btn("1A instructions", BASE + "assignment-discussion-01-visionboard.html"),
+                      btn("Post 1A in Canvas", CANVAS + "/discussion_topics/712733", primary=False, new_tab=False),
+                      btn("1B instructions", BASE + "assignment-discussion-01-metacognition.html?week=1"),
+                      btn("Post 1B in Canvas", CANVAS + "/discussion_topics/713315", primary=False, new_tab=False)],
+             graded="Thinking category. 1A post Friday, September 11, 10:00 pm; replies Sunday, September 13, 10:00 pm. 1B post Sunday, September 13, 10:00 pm. All Pacific."),
+    ],
+    done_items=[
+        "Your note sheet has two colors on it, you can say which boxes are still thin, and it is uploaded.",
+        "You have done at least one Mastery Check and uploaded the report.",
+        "The Reference Range Lab is turned in.",
+        "Your patient's first chart entry is turned in.",
+        "Both discussion posts are up, and your vision board replies are done.",
+    ],
+    next_text="Week 2 opens Monday, September 14, and unlocks early on Saturday, September 12 at 8:00 pm Pacific if you have finished and submitted this week.",
+)
+
+# ----------------------------------------------------------------------------
+# WEEK 2
+# ----------------------------------------------------------------------------
+W2 = dict(
+    week=2,
+    title="The cell, and how cells talk",
+    opens="Monday, September 14",
+    closes="Sunday, September 20, 10:00 pm Pacific",
+    hours="14 hours",
+    book=("Silverthorn, <strong>Chapter 3</strong> (Compartmentation: Cells and Tissues) for the cell, its membrane and its organelles, and "
+          "<strong>Chapter 6</strong> (Communication, Integration and Homeostasis) for how cells signal each other. "
+          "The permeability competency also leans on the opening pages of <strong>Chapter 5</strong>, where the book ranks what crosses a lipid bilayer unaided."),
+    due_rows=[
+        ("Discussion 2:", "post by Friday, September 18, 10:00 pm; replies by Sunday, September 20, 10:00 pm."),
+        ("Note sheet upload, both passes:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
+        ("Lab, PhysioEx Exercise 8, amylase:", "Sunday, September 20, 10:00 pm."),
+        ("Application, your patient's student health visit:", "Sunday, September 20, 10:00 pm."),
+        ("Mastery Check report:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
+    ],
+    steps=[
+        dict(title="Print your week",
+             when="Monday, about 20 minutes plus printing",
+             body_html=p("Print your note sheet first. It is a six page PDF right here in Canvas, two competencies to a page, with the prompts and the drawing boxes already on it. This week the boxes run from the membrane and the organelles through to receptors, second messengers and how a signal is switched off.")
+                       + p("If you also want the <strong>competency list</strong> (the 11 things you must be able to do this week) or the <strong>brain dump paper</strong> for prompts A and B, the print pack on the course website builds those for you: tick what you want and print.")
+                       + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one."),
+             buttons=[btn("Week 2 note sheet, ready to print (PDF)", NOTE_SHEET_PDF[2], new_tab=False),
+                      btn("Open the Week 2 print pack", BASE + "week-print-pack.html?week=2", primary=False)]),
+        dict(title="First pass, in your first color: the book and the notes",
+             when="Monday to Wednesday, about 3 hours",
+             body_html=p("Same pen color as your Week 1 first pass. Read Chapter 3, then the signal pathway sections of Chapter 6, and fill in each note sheet box as you go: draw the membrane and label what is in it, rank what can cross it unaided, then draw a signal from the ligand to the response and label every step. "
+                         "Try the A and B prompts for each competency on the brain dump paper. Leave the gaps you cannot fill.")
+                       + p("The written notes cover the cell half of the week, with the fluid compartments and the membrane worked as problems. For the signaling half, the book carries the reading this week and the videos in Step 3 carry the teaching."),
+             buttons=[btn("Read the Week 2 notes: compartments, cells and tissues", BASE + "biol005-w03-compartments-notes.html"),
+                      btn("The 11 competencies, with what each one asks", BASE + "competency-study-guide.html?week=2", primary=False),
+                      btn("OpenStax, free second explanation", "https://openstax.org/details/books/anatomy-and-physiology-2e", primary=False)]),
+        dict(title="Second pass, in your second color: the videos",
+             when="Wednesday and Thursday, about 3 hours",
+             body_html=p("Switch pens. Press play once and the week runs: twenty five short videos, the cell and its organelles first, then cell signaling, ending with a worked example of epinephrine at its receptor. "
+                         "Jump to any single concept from the list when you are filling in one box. Add what each video gives you that the reading did not, in the second color."),
+             buttons=[btn("Watch the Week 2 concept videos", BASE + "concept-videos-week03.html"),
+                      btn("Slides and notes for Week 2", BASE + "lecture-week.html?week=2", primary=False)]),
+        dict(title="Upload your note sheet",
+             when="After your second pass, by Sunday",
+             body_html=p("Photograph or scan every page of your note sheet with both colors on it and upload it as one file in Canvas. I am not grading the sheet. I mark it complete or not complete, and I read enough of it to see how the week went for you. "
+                         "Turning it in every week is how you show you are participating, and participating is a condition of staying enrolled. Whether you filled the boxes from the book, my notes, the videos or all three is up to you; the sheet just has to show two passes.")
+                       + p("<strong>How to photograph it.</strong>")
+                       + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;color:%s;">'
+                         '<li style="margin:0 0 8px 0;">One page at a time, flat on the table, in good light, straight down rather than at an angle.</li>'
+                         '<li style="margin:0 0 8px 0;">Both colors have to be readable. If the second color is pale, take it again nearer a window.</li>'
+                         '<li style="margin:0 0 8px 0;">Combine the pages into one file, in order, and upload that one file. Most phones will do this from the Files or Notes app; any free scanner app will too.</li>'
+                         '<li style="margin:0 0 8px 0;">Photograph each page as you finish it rather than all six on Sunday night. Losing the sheet costs you no points and a great deal of work.</li>'
+                         '<li style="margin:0 0 8px 0;">Handwritten and on paper, in your two colors. A typed sheet closes the gap between the passes, and that gap is the whole point.</li></ul>' % NAVY,
+             buttons=[btn("Upload your Week 2 note sheet in Canvas", CANVAS + "/assignments", primary=True, new_tab=False),],
+             graded="Complete or not complete, for participation. Due Sunday, September 20, 10:00 pm Pacific."),
+        dict(title="Study it for several days",
+             when="Every day from Wednesday, about an hour a day",
+             body_html=p("Now the note sheet closes and the material has to come back out of your head. A little every day beats one long session. Pick from these, and try more than one. The signaling pathways in particular are worth redrawing from memory until the order of steps is automatic:")
+                       + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;">'
+                         '<li><strong>Rx Cards.</strong> Spaced recall cards for Weeks 1 and 2 together, so Week 1 does not fade.</li>'
+                         '<li><strong>Draw it from memory.</strong> Redraw the G protein pathway or the fluid mosaic membrane on a blank canvas with nothing open, then check it.</li>'
+                         '<li><strong>Brain dump.</strong> Take a competency prompt cold, on paper.</li>'
+                         '<li><strong>Book problems.</strong> End of Chapter 3 and Chapter 6. Work them forward before you look, then backward from the answer.</li>'
+                         '<li><strong>Study With Me.</strong> Quiz each other on what each second messenger does and which enzyme makes it.</li></ul>',
+             buttons=[btn("Rx Cards", BASE + "rx-cards.html"),
+                      btn("Draw it from memory", BASE + "mastery-canvas.html", primary=False),
+                      btn("Brain dump practice", BASE + "competency-brain-dump.html", primary=False),
+                      btn("Book problems", BASE + "assignment-bookproblems.html?week=2", primary=False),
+                      btn("Study With Me", BASE + "study-with-me.html", primary=False)]),
+        dict(title="Take the Mastery Check and upload your report",
+             when="Saturday or Sunday, 30 to 60 minutes",
+             body_html=p("Generate a practice exam on Week 2, or on Weeks 1 and 2 together, and take it with nothing open. It shows you every answer and the reasoning, then names the competencies that cost you points. "
+                         "Save the report and upload it in Canvas. Complete or not complete; the score is yours."),
+             buttons=[btn("Take a Week 2 Mastery Check", BASE + "practice-exam.html?week=2"),
+                      btn("How to save and upload your report", BASE + "assignment-practice-log.html", primary=False),
+                      btn("Upload the report in Canvas", CANVAS + "/assignments", primary=False, new_tab=False)],
+             graded="Complete or not complete. Due Sunday, September 20, 10:00 pm Pacific."),
+        dict(title="Lab: PhysioEx Exercise 8, the amylase assay (Investigate It)",
+             when="Wednesday to Sunday, about 3 hours",
+             body_html=p("Your first PhysioEx lab. Amylase is a protein, and this week is about what proteins in and on the cell can do while they hold their shape. You run the amylase activity only (pepsin and lipase wait for Week 11), vary temperature and pH, and plot activity against each by hand. "
+                         "The controls are the whole point of the assay: they are what let you claim the change was the enzyme.")
+                       + p("Open PhysioEx through Access Pearson in the Canvas course menu. The lab page tells you which activities to run and what to record; the lab analysis sheet is what you turn in."),
+             buttons=[btn("Open the Week 2 lab instructions", BASE + "assignment-physioex.html?week=2"),
+                      btn("Lab analysis sheet", BASE + "lab-report-form.html", primary=False),
+                      btn("Turn the lab in", CANVAS + "/assignments", primary=False, new_tab=False)],
+             graded="Investigation category. Due Sunday, September 20, 10:00 pm Pacific."),
+        dict(title="Your patient: the student health visit (Use It)",
+             when="Saturday, about 90 minutes",
+             body_html=p("Your patient is back, on September 18, thirsty, tired and losing weight while eating more. This week's entry asks you to follow what the insulin to glucagon ratio switches on and off inside her cells. Insulin acts through a receptor enzyme on the cell surface, one of this week's competencies, so the pathway you drew in Step 2 is where this case starts. "
+                         "Draw the loop by hand, answer the written questions, log any AI you used, and turn the entry in."),
+             buttons=[btn("Open the Week 2 case", BASE + "assignment-apply.html?week=2"),
+                      btn("Your patient chart, all term", BASE + "patient-chart-book.html", primary=False),
+                      btn("Turn in your chart entry", CANVAS + "/assignments", primary=False, new_tab=False)],
+             graded="Application category. Due Sunday, September 20, 10:00 pm Pacific."),
+        dict(title="Discussion 2: predict, then check (Think About It)",
+             when="Post by Friday; replies by Sunday",
+             body_html=p("One post, two parts. First the physiology: pick one signal from this week, write your prediction of how the cell will respond before you look anything up, then work it properly and compare. "
+                         "Then the honest part: what did you think, what changed, and what that tells you about how you are studying. The instructions page has the exact prompt and the reply requirement."),
+             buttons=[btn("Discussion 2 instructions", BASE + "assignment-discussion.html?week=2"),
+                      btn("Post in Canvas", CANVAS + "/discussion_topics/712810", primary=False, new_tab=False)],
+             graded="Thinking category. Post Friday, September 18, 10:00 pm; two replies Sunday, September 20, 10:00 pm. Pacific."),
+    ],
+    done_items=[
+        "Your note sheet has two colors on it, you can say which boxes are still thin, and it is uploaded.",
+        "You can draw one full signal pathway, ligand to response, from memory.",
+        "You have done at least one Mastery Check and uploaded the report.",
+        "The amylase lab analysis sheet is turned in.",
+        "Your patient's second chart entry is turned in.",
+        "Your discussion post and both replies are up.",
+    ],
+    next_text="Week 3, getting across the membrane and the electrical signal, opens Monday, September 21, and unlocks early on Saturday, September 19 at 8:00 pm Pacific if you have finished and submitted this week.",
+)
+
+# ----------------------------------------------------------------------------
+# THE ONCE-ONLY PAGE: how every week works
+# ----------------------------------------------------------------------------
+def how_every_week_works():
+    """The once-only page, built around the four stages so a student meets the
+    same four words here that they meet on the site cards and in every module."""
+    parts = [eyebrow("BIO 005 Human Physiology &middot; Read once, use every week")]
+    parts.append('<div style="%s">' % CARD
+                 + '<h2 style="margin:0 0 12px 0;font-size:1.5em;line-height:1.25;color:%s;">Every week has the same four stages</h2>' % NAVY
+                 + p("Learn, Practice, Apply, Check. Every week of this course runs through those four in that order, and each stage holds a few steps. You learn the shape once, in Week 1, and after that you spend your attention on the physiology instead of on finding things.")
+                 + p("Each step is its own page in Canvas, with one job on it and the buttons for that job. The Next button at the bottom takes you to the following step, so you are never deciding what to do next.")
+                 + p("Three things you should be able to answer in five seconds anywhere in the course: where am I, what do I do next, and what is due. The stage label at the top of every page answers the first, the Next button answers the second, and the week overview answers the third.")
+                 + '</div>')
+    parts.append(h2("The four stages, and the steps inside them"))
+    stage_steps = {
+        "Learn": [("Print your week", "Competency list, note sheet, brain dump paper. Printing is optional; ruling the boxes onto your own paper is treated exactly the same."),
+                  ("First pass, in your first color", "Read the book chapters or my notes and fill in the note sheet boxes with drawings, labels and short lists. Try the competency prompts. Leave the gaps."),
+                  ("Second pass, in your second color", "Watch the week's videos in order and add what they gave you that the reading did not. The second color shows you exactly where your reading was thin."),
+                  ("Upload your note sheet", "Photograph or scan the sheet with both colors on it and upload it. Marked complete or not complete, never graded for a score. It is how you show you are participating.")],
+        "Practice": [("Study it for several days", "About an hour a day: recall cards, draw it from memory, brain dumps, book problems, Study With Me. Spacing is the whole trick, because the forgetting in between is what makes it stick.")],
+        "Apply": [("Lab", "The week's lab, with a sheet you fill in by hand and turn in. Graded, Investigation."),
+                  ("Your patient", "One entry in your patient's chart each week: draw the loop, answer the questions, log your AI use. Graded, Application."),
+                  ("Discussion", "One post carrying some physiology from the week and what you learned about your own thinking. Post Friday, replies Sunday. Graded, Thinking.")],
+        "Check": [("Mastery Check, and upload your report", "A practice exam on the week with nothing open, then upload the report. Complete or not complete. A low score is information, not a grade: it names the competencies to go back to.")],
+    }
+    n = 0
+    for stage in STAGE_ORDER:
+        name, blurb = STAGE_TAGLINE[stage]
+        rows = ""
+        for title, body in stage_steps[stage]:
+            n += 1
+            rows += ('<li style="margin:0 0 10px 0;"><strong>Step %d. %s</strong> %s</li>'
+                     % (n, html.escape(title), html.escape(body)))
+        parts.append('<div style="%s">' % CARD
+                     + stage_chip(stage)
+                     + '<h3 style="margin:0 0 6px 0;font-size:1.2em;color:%s;">%s</h3>' % (NAVY, html.escape(name))
+                     + p(html.escape(blurb))
+                     + '<ul style="margin:0;padding-left:1.2em;line-height:1.6;color:%s;list-style:none;">%s</ul>' % (NAVY, rows)
+                     + '</div>')
+    parts.append(h2("Why two colors"))
+    parts.append('<div style="%s">' % CARD
+                 + p("The note sheet is one big box per competency, and you fill each box twice. The first pass, from the book and the notes, is done before you watch anything. That pass is your baseline: what your own reading produced. The second pass, from the videos, goes into the same box in a different color. When you are done, the second color is a map of what the reading did not give you, and that map is what you study from.")
+                 + p("Do it in this order. A student who watches the video first recognizes the material instead of producing it, and the sheet stops showing the gap that makes the week work.")
+                 + p("Keep it to drawings, labels, arrows and short lists. If you need words, put them in small boxes with arrows between them, in the order things happen. Sentences running across the page do not count, because that is not how the exam will ask you.")
+                 + '</div>')
+    parts.append(h2("When things are due"))
+    parts.append('<div style="%s">' % CARD
+                 + p("<strong>Friday, 10:00 pm Pacific:</strong> your discussion post.")
+                 + p("<strong>Sunday, 10:00 pm Pacific:</strong> your discussion replies, the lab, your patient chart entry, your note sheet upload, and your Mastery Check report.")
+                 + p("Every week opens on its Monday. If you have finished and submitted the current week, the next one unlocks early on Saturday at 8:00 pm Pacific so you can start over the weekend. Late work: up to 24 hours late loses half the credit, and after that it is a zero. Plan for emergencies.")
+                 + '</div>')
+    parts.append(h2("Participation, and staying enrolled"))
+    parts.append('<div style="%s">' % CARD
+                 + p("Two things are turned in every week that carry no points: your note sheet, after both passes, and your Mastery Check report. Each is marked complete or not complete. They are how I see that you are working through the week, and how I know when to reach out. A student who stops turning them in is not participating in the class, and continued participation is a condition of staying enrolled. This is not a hoop. The sheet is the work, and uploading it takes two minutes.")
+                 + '</div>')
+    parts.append(h2("What is graded"))
+    parts.append('<div style="%s">' % CARD
+                 + '<ul style="margin:0;padding-left:1.2em;line-height:1.6;color:%s;">' % NAVY
+                 + '<li><strong>Knowledge, 35 percent.</strong> Two draw and teach midterms.</li>'
+                 + '<li><strong>Investigation, 25 percent.</strong> The weekly lab.</li>'
+                 + '<li><strong>Application, 25 percent.</strong> The weekly patient case and your chart.</li>'
+                 + '<li><strong>Thinking, 15 percent.</strong> The weekly discussion.</li></ul>'
+                 + p("All of the graded work sits in the Apply stage, plus the two midterms. Learn, Practice and Check carry no points on purpose, so you can do them the way that works for your brain. The note sheet upload and the Mastery Check report are tracked complete or not complete because they show me you are in the course.",
+                     extra="margin-top:12px;")
+                 + '<p style="margin:8px 0 0 0;">'
+                 + btn("How grading works, in full", CANVAS + "/pages/how-grading-works", primary=False, new_tab=False)
+                 + btn("Course syllabus", CANVAS_SYLLABUS, primary=False, new_tab=False) + '</p></div>')
+    parts.append(help_line("Not sure where to start, or something is not working?"))
+    return "\n".join(parts) + "\n"
+
+
+def how_grading_works():
+    """The grading reference, as a Canvas page rather than an off-site link, so
+    a student reading it can use Back and the module Next button to return."""
+    def cat(pct, name, body_html):
+        return ('<div style="%s">' % CARD
+                + '<p style="margin:0 0 4px 0;font-size:0.85em;font-weight:800;letter-spacing:0.08em;'
+                  'text-transform:uppercase;color:%s;">%s of your grade</p>' % (MAROON_DARK, pct)
+                + '<h3 style="margin:0 0 8px 0;font-size:1.25em;color:%s;">%s</h3>' % (NAVY, html.escape(name))
+                + body_html + '</div>')
+
+    parts = [eyebrow("BIO 005 Human Physiology &middot; Start here, read once")]
+    parts.append('<div style="%s">' % CARD
+                 + p("Four categories, each named for what it asks you to do rather than for the format it arrives in. "
+                     "The work that carries the most weight is the work that proves the reasoning is yours.")
+                 + p("All four sit in the Apply stage of the week, except the two midterms. Everything in Learn, Practice "
+                     "and Check carries no points, and the reason for that is at the bottom of this page.")
+                 + '</div>')
+
+    parts.append(h2("The four categories"))
+    parts.append(cat("35 percent", "Knowledge",
+        p("Two exams, 17.5 percent each. They are not multiple choice. You draw a physiological pathway and teach it out "
+          "loud on video, with no notes.")
+        + p("Midterm 1 covers Weeks 1 to 7, in a window from October 26 to 28. Midterm 2 covers Weeks 8 to 14, in a window "
+            "from December 14 to 16. Each one is a three day window rather than an hour, so you can pick your time.")))
+    parts.append(cat("25 percent", "Investigation",
+        p("The weekly labs. You generate and interpret real physiological output and write it up in the same structure a "
+          "clinical write up uses: question, prediction, evidence, interpretation, conclusion.")
+        + p("Where a week uses PhysioEx, it takes both halves. PhysioEx has to show complete in Pearson, and the points "
+            "live on your worksheet.")))
+    parts.append(cat("25 percent", "Application",
+        p("<strong>20 percent is your weekly application case</strong>, chosen from three or four set in different rooms and "
+          "turned in each Sunday. They differ in context, not in rigor, and every one of them assesses the same underlying "
+          "competency.")
+        + p("<strong>5 percent is your patient chart</strong>, the capstone. You keep it by hand all term, adding each week's "
+            "data and your thinking about it, and nothing is collected week to week. The finished chart is turned in once, on "
+            "Wednesday, December 16, and graded as one piece.")))
+    parts.append(cat("15 percent", "Thinking",
+        p("One discussion post a week, carrying the physiology and your thinking about it together: the decision you made, "
+          "the evidence, and what you adjusted.")
+        + p("The initial post is due Friday at 10:00 pm Pacific, so there is something for your classmates to reply to. "
+            "Replies are due Sunday at 10:00 pm Pacific.")))
+
+    parts.append(h2("What is not graded, and why that is deliberate"))
+    parts.append('<div style="%s">' % CARD
+                 + p("Several things you do every week carry no points at all.")
+                 + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.6;color:%s;">' % NAVY
+                 + '<li style="margin:0 0 10px 0;"><strong>The note sheet and the retrieval work.</strong> This is where you '
+                   'find out what you do not know. Grading it would push you to make it look finished instead of honest, and '
+                   'an honest sheet with gaps in it is worth more to you than a tidy one.</li>'
+                 + '<li style="margin:0 0 10px 0;"><strong>The practice items.</strong> Predict, commit, check, correct, '
+                   'explain. Getting these wrong is the point of doing them.</li>'
+                 + '<li style="margin:0 0 10px 0;"><strong>The book problems.</strong> Work them forwards if you have a way '
+                   'in. If you open one and have no idea how to start, read the worked solution and write beside each line '
+                   'why that step is there, then reproduce it from blank paper.</li>'
+                 + '<li style="margin:0 0 10px 0;"><strong>The Mastery Check.</strong> No points and no penalty, and you can '
+                   'take it as many times as you want. It does score you, and it does more than that: it reports competency '
+                   'by competency, separates what you got wrong while feeling sure from what you got wrong while unsure, and '
+                   'tells you what to go back to. None of those numbers reach the gradebook.</li>'
+                 + '<li style="margin:0 0 10px 0;"><strong>Spaced recall.</strong> Week 3 has to still be there in October, '
+                   'and spacing is what does that.</li></ul>'
+                 + p("None of this is optional in any way that matters. It is the whole route to the four categories above.")
+                 + '</div>')
+
+    parts.append(h2("The two things you turn in that carry no points"))
+    parts.append('<div style="%s">' % CARD
+                 + p("Your note sheet, after both passes, and your Mastery Check report. Each is marked complete or not "
+                     "complete, never scored. They are how I see that you are working through the week, and how I know when "
+                     "to reach out. A student who stops turning them in is not participating in the class, and continued "
+                     "participation is a condition of staying enrolled.")
+                 + '</div>')
+
+    parts.append(h2("Late work"))
+    parts.append('<div style="%s">' % CARD
+                 + p("Up to 24 hours late loses half the credit. After 24 hours it is a zero. You have the whole week and you "
+                     "choose your own hours, so plan for the emergency rather than around it.")
+                 + '<p style="margin:8px 0 0 0;">'
+                 + btn("Course syllabus", CANVAS_SYLLABUS, primary=False, new_tab=False)
+                 + btn("How every week works", CANVAS + "/pages/how-every-week-works", primary=False, new_tab=False)
+                 + '</p></div>')
+    parts.append(help_line("Not sure how something will be graded?"))
+    return "\n".join(parts) + "\n"
+
+def check(s, name):
+    bad = []
+    if "—" in s: bad.append("em dash")
+    if "<em>" in s or "<i>" in s or "font-style:italic" in s: bad.append("italics")
+    if "<script" in s or "<style" in s: bad.append("script or style block")
+    if "Lora" in s: bad.append("Lora")
+    if bad: raise SystemExit("%s failed checks: %s" % (name, ", ".join(bad)))
+
+import json
+# Clear every generated page first. Step files are named by their number, and the
+# numbers move when a step changes stage, so a stale file from an earlier run
+# would otherwise sit in the folder looking current.
+for old_file in list(OUT.glob("w0*.html")) + list(OUT.glob("how-*.html")) + list(OUT.glob("week-0*-canvas-page.html")):
+    old_file.unlink()
+
+pages = [("how-every-week-works.html", "How every week works", how_every_week_works()),
+         ("how-grading-works.html", "How grading works", how_grading_works())]
+pages += week_pages(**W1)
+pages += week_pages(**W2)
+
+index = []
+for name, page_title, content in pages:
+    check(content, name)
+    (OUT / name).write_text(content, encoding="utf-8")
+    index.append({"file": name, "canvas_page_title": page_title, "bytes": len(content)})
+    print("%-34s %-62s %6d bytes" % (name, page_title, len(content)))
+(OUT / "page-titles.json").write_text(json.dumps(index, indent=2), encoding="utf-8")
+print("\n%d pages" % len(pages))
