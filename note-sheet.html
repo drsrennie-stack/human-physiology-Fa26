@@ -364,6 +364,98 @@ a{color:var(--maroon-dark);font-weight:700}
 .pdflinks{font-size:13px;color:#414B5C;margin-left:auto}
 .pdflinks a{font-weight:700}
 @media print{.pdflinks{display:none}}
+
+/* ================================================================
+   WORK IT ON SCREEN,  ?screen=1
+   Sep 14 2026. Scrubs: the print pack is a lot of paper, and not
+   every student has a printer. This mode turns the same sheet into
+   something they draw and write straight into, with the same two
+   passes in the same two colors, saved in their own browser. When
+   they are done they still print or save a PDF to turn in, from a
+   library computer if they have to, and it comes out identical to
+   the printed sheet because it IS the printed sheet.
+
+   Nothing here changes the default page. Without ?screen=1 not one
+   of these rules matches.
+
+   THE CANVAS IS NOT KEYBOARD OPERABLE and never will be. Every box
+   therefore carries a real textarea holding the same work in words,
+   which is the accessible equivalent, not a consolation prize: a
+   word picture typed in boxes and arrows is what the assignment
+   asks for anyway. Both save, both print.
+   ================================================================ */
+.sc-bar{display:none}
+body.screenmode .sc-bar{
+  display:block;position:sticky;top:0;z-index:30;background:var(--navy-deep);color:#fff;
+  padding:11px 20px;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+body.screenmode .sc-bar .wrap{max-width:940px;margin:0 auto;display:flex;flex-wrap:wrap;
+  align-items:center;gap:9px 16px}
+.sc-bar .lb{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#E4E7EE}                                        /* 14.6:1 on navy-deep */
+.sc-tool{display:inline-flex;border:1px solid #fff;border-radius:4px;overflow:hidden}
+.sc-tool button{background:transparent;color:#fff;border:0;border-left:1px solid rgba(255,255,255,.5);
+  font-family:var(--body);font-size:13px;font-weight:700;padding:9px 14px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px}
+.sc-tool button:first-child{border-left:0}
+.sc-tool button[aria-pressed="true"]{background:#fff;color:var(--navy-deep)}
+.sc-tool button:focus-visible{outline:3px solid var(--gold,#C9A14A);outline-offset:-3px}
+.sc-swatch{display:inline-block;width:13px;height:13px;border-radius:50%;border:1px solid #fff}
+.sc-tool button[aria-pressed="true"] .sc-swatch{border-color:var(--navy-deep)}
+.sc-act{background:transparent;color:#fff;border:1px solid #fff;border-radius:4px;
+  font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:9px 13px;cursor:pointer}
+.sc-act:hover{background:#fff;color:var(--navy-deep)}
+.sc-act:focus-visible{outline:3px solid var(--gold,#C9A14A);outline-offset:2px}
+.sc-say{font-size:13px;color:#E4E7EE;margin-left:auto}
+
+/* the box becomes a drawing surface */
+body.screenmode .sp.open{padding:22px 0 0;overflow:hidden}
+body.screenmode .sp.open .hint{display:none}
+.sc-canvas{display:none}
+body.screenmode .sc-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair;
+  background:#fff}
+body.screenmode .d1 .sp.open{min-height:640px}
+body.screenmode .d2 .sp.open{min-height:470px}
+body.screenmode .d3 .sp.open{min-height:350px}
+
+/* the typed equivalent under every box */
+.sc-alt{display:none}
+body.screenmode .sc-alt{display:block;margin-top:9px}
+.sc-alt .tg{background:#fff;color:var(--maroon-dark);border:1px solid var(--navy);border-radius:4px;
+  font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 12px;cursor:pointer}
+.sc-alt .tg:hover{background:var(--navy);color:#fff}
+.sc-alt textarea{display:block;width:100%;margin-top:8px;min-height:150px;padding:11px 12px;
+  font-family:var(--body);font-size:15px;line-height:1.5;color:var(--ink);
+  background:#fff;border:1.2px solid var(--navy);border-radius:4px;resize:vertical}
+.sc-alt textarea[hidden]{display:none}
+.sc-alt .tip{margin-top:6px;font-size:12.5px;color:var(--muted)}
+
+/* A textarea prints only the lines that happen to be scrolled into it, so a
+   student who typed twelve lines would upload four. Every typing box therefore
+   has a print twin, a plain paragraph that carries the same words and grows to
+   whatever it needs. Screen shows the textarea, paper shows the twin. */
+.sc-echo{display:none;white-space:pre-wrap}
+@media print{
+  .sc-bar,.sc-alt .tg,.sc-alt .tip{display:none!important}
+  body.screenmode .sc-alt textarea{display:none!important}
+  body.screenmode .sc-echo{display:block;border:.5pt solid #777;padding:0.05in 0.06in;
+    font-size:8.5pt;line-height:1.32;color:#000;background:#fff;
+    break-inside:avoid;page-break-inside:avoid}
+  body.screenmode .sc-echo:empty{display:none}
+  body.screenmode .sp.open{padding:0.19in 0.07in 0.05in}
+  body.screenmode .sc-canvas{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* One competency to a page is what screen mode opens on, and a student who
+     typed twenty lines has to get all twenty onto the paper. So at one up the
+     page grows instead of clipping. At two and three up the fixed heights stay,
+     because there the clip is what stops the third block landing on top of the
+     one below it. */
+  body.screenmode .sheetpage.d1{height:auto;min-height:9.9in}
+  body.screenmode .d1 .pg{height:auto;overflow:visible}
+}
+@media (forced-colors:active){
+  .sc-tool,.sc-act,.sc-alt textarea{border:1px solid CanvasText}
+}
 </style>
 </head>
 <body>
@@ -390,6 +482,7 @@ a{color:var(--maroon-dark);font-weight:700}
   <p class="sub">One open box per competency, and the box gets drawn, not written. Your prompt says what goes in it, so you divide it however that prompt needs. Print it, rule the same box onto your own paper, or work it on a tablet. All three are graded the same.</p>
   <p class="btnrow">
     <button class="sqbtn" type="button" id="printbtn">Print or save as PDF</button>
+    <a class="sqbtn ghost" id="screenbtn" href="?week=1&amp;per=1&amp;screen=1" target="_top">No printer? Work it on screen</a>
     <a class="sqbtn ghost" id="compbtn" href="week-01-competencies.html" target="_top">The competencies behind it</a>
   </p>
 </div></header>
@@ -414,6 +507,28 @@ a{color:var(--maroon-dark);font-weight:700}
   </span>
 </div></div>
 
+<!-- =============== the on screen toolbar, ?screen=1 only =============== -->
+<div class="sc-bar" id="scbar" role="region" aria-label="Drawing tools"><div class="wrap">
+  <span class="lb" id="sc-penlab">Pen</span>
+  <span class="sc-tool" role="group" aria-labelledby="sc-penlab">
+    <button type="button" id="sc-p1" aria-pressed="true">
+      <span class="sc-swatch" style="background:#0B1530" aria-hidden="true"></span>Pass 1</button>
+    <button type="button" id="sc-p2" aria-pressed="false">
+      <span class="sc-swatch" style="background:#8B3A2E" aria-hidden="true"></span>Pass 2</button>
+    <button type="button" id="sc-er" aria-pressed="false">Eraser</button>
+  </span>
+  <span class="lb" id="sc-szlab">Line</span>
+  <span class="sc-tool" role="group" aria-labelledby="sc-szlab">
+    <button type="button" id="sc-sz1" aria-pressed="true">Thin</button>
+    <button type="button" id="sc-sz2" aria-pressed="false">Medium</button>
+    <button type="button" id="sc-sz3" aria-pressed="false">Thick</button>
+  </span>
+  <button type="button" class="sc-act" id="sc-undo">Undo</button>
+  <button type="button" class="sc-act" id="sc-clear">Clear a box</button>
+  <button type="button" class="sc-act" id="sc-print">Print or save as PDF</button>
+  <span class="sc-say" id="sc-say" role="status" aria-live="polite">Saved in this browser as you work</span>
+</div></div>
+
 <div class="band">
   <div class="box">
     <h2>Before you start</h2>
@@ -428,7 +543,8 @@ a{color:var(--maroon-dark);font-weight:700}
     <h2>About the paper</h2>
     <p><strong>You do not have to print this.</strong> Two competencies to a page is what it opens on, and three fits a whole week onto a few sheets. Printing at home, at work or in the library all count.</p>
     <p><strong>You do not have to use this sheet at all.</strong> Rule one box per competency onto your own paper, or set the same thing up in whatever you already use. A hand ruled sheet is graded exactly the same as a printed one.</p>
-    <p>Working on a device is fine too. Save the PDF into a drawing app, or draw straight into a notes app, as long as you can still do two passes in two colors. None of this carries points, so use whatever you will actually still be doing in November.</p>
+    <p><strong>No printer? Work it on screen.</strong> The <a href="?week=1&amp;per=1&amp;screen=1" id="altscreen" target="_top">on screen version of this same sheet</a> gives you the same boxes with a pass 1 pen and a pass 2 pen built in. Draw with a finger, a stylus or a mouse, or type the box in words if that works better for you. It saves in your own browser as you go, and when the week is done you save it as a PDF and upload that.</p>
+    <p>Any other device setup is fine too. Save the PDF into a drawing app, or draw straight into a notes app, as long as you can still do two passes in two colors. None of this carries points, so use whatever you will actually still be doing in November.</p>
   </div>
 </div>
 
@@ -445,6 +561,7 @@ a{color:var(--maroon-dark);font-weight:700}
 <div class="tail"><div class="box">
   <h2>Turning it in</h2>
   <p>Photograph every sheet in order, in good light, flat on the table. Both colors have to be readable. Combine them into one PDF and upload that to the week&rsquo;s Canvas assignment. Printed and hand ruled sheets are graded the same way.</p>
+  <p>Working on screen instead? There is nothing to photograph. Use <strong>Print or save as PDF</strong> in the toolbar and choose Save as PDF as the destination, then upload that file. Do that before you clear your browser data, because the on screen sheet lives in this browser and nowhere else.</p>
   <p>Full submission and grading detail is on the <a href="assignment-notesheet.html" target="_top">note sheet assignment page</a>.</p>
   <p>Dr. Sharilyn Rennie</p>
 </div></div>
@@ -461,12 +578,12 @@ a{color:var(--maroon-dark);font-weight:700}
   var SITE_TITLES = {
     1:"How physiology works and what keeps you steady",
     2:"The chemistry that does work in the body",
-    3:"The cell, and how cells talk",
-    4:"Getting across the membrane, and the electrical signal",
-    5:"Neurons, action potentials and synapses",
-    6:"Reflexes, and sensing the world",
+    3:"Getting across the membrane",
+    4:"How cells talk, and the electrical signal",
+    5:"Synapses and central integration",
+    6:"Sensing the world, and the responses you do not control",
     7:"Muscle, and how movement gets commanded",
-    8:"Hormones, the autonomic system, and reproduction",
+    8:"Hormones and reproduction, the slow control system",
     9:"The heart as a pump",
     10:"Pressure, flow, and holding blood pressure steady",
     11:"Blood and how the body defends itself",
@@ -487,16 +604,20 @@ a{color:var(--maroon-dark);font-weight:700}
   }
 
   var BLANK = qs("blank") === "1";
+  var SCREEN = qs("screen") === "1";
   var week  = parseInt(qs("week"), 10);
   if (!(week >= 1 && week <= 15)) week = 1;
 
   /* Two to a page is the default. One competency per page made Week 1
-     eighteen sheets of paper and students cannot carry that every week. */
+     eighteen sheets of paper and students cannot carry that every week.
+     On screen there is no paper to save, so the box gets the whole
+     screen and the default is one. */
   var per = parseInt(qs("per"), 10);
-  if (!(per === 1 || per === 2 || per === 3)) per = 2;
+  if (!(per === 1 || per === 2 || per === 3)) per = SCREEN ? 1 : 2;
 
   function go(w, p){
-    window.location.search = "?week=" + w + "&per=" + p + (BLANK ? "&blank=1" : "");
+    window.location.search = "?week=" + w + "&per=" + p +
+      (BLANK ? "&blank=1" : "") + (SCREEN ? "&screen=1" : "");
   }
 
   var sel = document.getElementById("wk");
@@ -561,8 +682,24 @@ a{color:var(--maroon-dark);font-weight:700}
       '</div>' +
 
       '<div class="grid">' +
-        '<div class="sp open"><span class="lab">Draw it</span>' +
-          '<span class="hint">split it up however the prompt needs</span></div>' +
+        '<div class="sp open" data-k="' + n + '"><span class="lab">Draw it</span>' +
+          '<span class="hint">split it up however the prompt needs</span>' +
+          (SCREEN ? '<canvas class="sc-canvas" data-k="' + n + '" role="img" aria-label="' +
+             'Drawing box for competency ' + n + '. Draw with a mouse, a finger or a stylus. ' +
+             'To do this box in words instead, use the Type this box in words button below it.' +
+             '"></canvas>' : '') +
+        '</div>' +
+        (SCREEN ?
+          '<div class="sc-alt">' +
+            '<button type="button" class="tg" data-k="' + n + '" aria-expanded="false" ' +
+              'aria-controls="sc-ta-' + n + '">Type this box in words</button>' +
+            '<textarea id="sc-ta-' + n + '" data-k="' + n + '" hidden ' +
+              'aria-label="Competency ' + n + ', this box in words"></textarea>' +
+            '<p class="sc-echo" data-k="' + n + '" aria-hidden="true"></p>' +
+            '<p class="tip">Same rule as the drawing. Short labelled pieces with arrows ' +
+            'between them, in the order things happen, not a paragraph. Start pass 2 on a new ' +
+            'line and write PASS 2 in front of it so I can see the two passes apart.</p>' +
+          '</div>' : '') +
       '</div>' +
     '</article>';
   }
@@ -628,6 +765,237 @@ a{color:var(--maroon-dark);font-weight:700}
   document.getElementById("printbtn").addEventListener("click", function(){
     window.print();
   });
+
+  document.getElementById("screenbtn").href =
+    SCREEN ? ("?week=" + week + "&per=" + per)
+           : ("?week=" + week + "&per=1&screen=1");
+  var altsc = document.getElementById("altscreen");
+  if (altsc) altsc.href = "?week=" + week + "&per=1&screen=1";
+  document.getElementById("screenbtn").textContent =
+    SCREEN ? "Back to the printable sheet" : "No printer? Work it on screen";
+
+  /* ================================================================
+     ON SCREEN MODE
+     ================================================================
+     Strokes are stored as POINTS, not as a picture. A picture would
+     have to be re-rasterised every time the box changed size, and the
+     box changes size every time the student turns a tablet sideways.
+     Points are stored 0 to 1 against the box, so the drawing follows
+     the box wherever it goes and survives a rotation.
+
+     One localStorage key per week. Week 1 with eighteen boxes drawn
+     full lands around 100 to 300 KB, well inside the 5 MB a browser
+     gives an origin, and a quota error is caught and said out loud
+     rather than losing the next stroke silently.
+
+     WHAT IS NOT HERE, on purpose: nothing is uploaded, nothing leaves
+     the browser, and there is no account. Clearing browser data
+     clears the sheet, which is why the bar says where it is saved and
+     the tail card tells them to export the PDF when a box is done.
+     ================================================================ */
+  function initScreen(){
+
+  document.body.classList.add("screenmode");
+
+  var KEY  = "bio005-notesheet-screen-w" + week;
+  var PENS = { 1:"#0B1530", 2:"#8B3A2E" };
+  var SIZES= { 1:2, 2:3.6, 3:6 };
+  var say  = document.getElementById("sc-say");
+  var store = {};
+  var tool = 1, size = 1, lastK = null, saveTimer = null, holdSay = 0;
+
+  try { store = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ store = {}; }
+
+  function rec(k){
+    if (!store[k]) store[k] = { s:[], t:"" };
+    if (!store[k].s) store[k].s = [];
+    return store[k];
+  }
+  function save(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try {
+        localStorage.setItem(KEY, JSON.stringify(store));
+        /* A message the student just triggered, "box 3 is empty again", has to
+           survive the autosave that follows it. Otherwise the screen reader
+           announcement they actually asked for gets talked over by "Saved". */
+        if (Date.now() > holdSay) say.textContent = "Saved in this browser";
+      } catch(err){
+        say.textContent = "This browser will not save any more. Print or save a PDF now.";
+      }
+    }, 350);
+  }
+  function tell(msg){ say.textContent = msg; holdSay = Date.now() + 4000; }
+
+  /* ---------------- one canvas per box ---------------- */
+  var boards = [];
+
+  function board(cv){
+    var k = cv.getAttribute("data-k");
+    var ctx = cv.getContext("2d");
+    var drawing = false, cur = null, w = 0, h = 0;
+
+    function fit(){
+      var box = cv.parentNode;
+      var r = box.getBoundingClientRect();
+      var pad = 0;
+      w = Math.max(1, Math.round(r.width - pad));
+      h = Math.max(1, Math.round(r.height - 22));   /* the label tab */
+      var dpr = Math.min(3, window.devicePixelRatio || 1);
+      cv.width  = Math.round(w * dpr);
+      cv.height = Math.round(h * dpr);
+      cv.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      redraw();
+    }
+
+    function line(st){
+      if (!st.p.length) return;
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      if (st.c === 0){
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.strokeStyle = "rgba(0,0,0,1)";
+        ctx.lineWidth = st.w * 5;
+      } else {
+        ctx.strokeStyle = PENS[st.c] || PENS[1];
+        ctx.lineWidth = st.w;
+      }
+      ctx.beginPath();
+      ctx.moveTo(st.p[0][0] * w, st.p[0][1] * h);
+      for (var i = 1; i < st.p.length; i++) ctx.lineTo(st.p[i][0] * w, st.p[i][1] * h);
+      if (st.p.length === 1) ctx.lineTo(st.p[0][0] * w + 0.01, st.p[0][1] * h);
+      ctx.stroke();
+      ctx.restore();
+    }
+    function redraw(){
+      ctx.clearRect(0, 0, w, h);
+      var s = rec(k).s;
+      for (var i = 0; i < s.length; i++) line(s[i]);
+    }
+
+    function at(ev){
+      var r = cv.getBoundingClientRect();
+      return [ (ev.clientX - r.left) / (r.width  || 1),
+               (ev.clientY - r.top)  / (r.height || 1) ];
+    }
+    cv.addEventListener("pointerdown", function(ev){
+      if (ev.button && ev.button !== 0) return;
+      drawing = true; lastK = k;
+      try { cv.setPointerCapture(ev.pointerId); } catch(e){}
+      cur = { c: tool, w: SIZES[size], p: [ at(ev) ] };
+      rec(k).s.push(cur);
+      line(cur);
+      ev.preventDefault();
+    });
+    cv.addEventListener("pointermove", function(ev){
+      if (!drawing || !cur) return;
+      cur.p.push(at(ev));
+      /* repaint only the new segment, so a long stroke stays smooth */
+      var n = cur.p.length;
+      line({ c:cur.c, w:cur.w, p:[ cur.p[n-2], cur.p[n-1] ] });
+      ev.preventDefault();
+    });
+    function end(){
+      if (!drawing) return;
+      drawing = false;
+      if (cur && cur.p.length < 2) redraw();
+      cur = null;
+      save();
+    }
+    cv.addEventListener("pointerup", end);
+    cv.addEventListener("pointercancel", end);
+    cv.addEventListener("pointerleave", end);
+
+    boards.push({ k:k, fit:fit, redraw:redraw });
+    fit();
+  }
+
+  var cvs = document.querySelectorAll(".sc-canvas");
+  for (var c = 0; c < cvs.length; c++) board(cvs[c]);
+
+  var rt = null;
+  window.addEventListener("resize", function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){ boards.forEach(function(b){ b.fit(); }); }, 160);
+  });
+
+  /* ---------------- the typed equivalent ---------------- */
+  var tas = document.querySelectorAll(".sc-alt textarea");
+  for (var t = 0; t < tas.length; t++){
+    (function(ta){
+      var k = ta.getAttribute("data-k");
+      var have = rec(k).t || "";
+      var echo = document.querySelector('.sc-echo[data-k="' + k + '"]');
+      ta.value = have;
+      if (echo) echo.textContent = have;
+      if (have) { ta.hidden = false; }
+      ta.addEventListener("input", function(){
+        rec(k).t = ta.value;
+        if (echo) echo.textContent = ta.value;
+        save();
+      });
+    })(tas[t]);
+  }
+  var tgs = document.querySelectorAll(".sc-alt .tg");
+  for (var g = 0; g < tgs.length; g++){
+    (function(btn){
+      var ta = document.getElementById("sc-ta-" + btn.getAttribute("data-k"));
+      if (!ta.hidden) btn.setAttribute("aria-expanded", "true");
+      btn.textContent = ta.hidden ? "Type this box in words" : "Hide the typing box";
+      btn.addEventListener("click", function(){
+        ta.hidden = !ta.hidden;
+        btn.setAttribute("aria-expanded", ta.hidden ? "false" : "true");
+        btn.textContent = ta.hidden ? "Type this box in words" : "Hide the typing box";
+        if (!ta.hidden) ta.focus();
+      });
+    })(tgs[g]);
+  }
+
+  /* ---------------- the toolbar ---------------- */
+  function group(ids, onPick){
+    ids.forEach(function(id, i){
+      var b = document.getElementById(id);
+      b.addEventListener("click", function(){
+        ids.forEach(function(o){
+          document.getElementById(o).setAttribute("aria-pressed", o === id ? "true" : "false");
+        });
+        onPick(i);
+      });
+    });
+  }
+  group(["sc-p1","sc-p2","sc-er"], function(i){ tool = (i === 2) ? 0 : (i + 1); });
+  group(["sc-sz1","sc-sz2","sc-sz3"], function(i){ size = i + 1; });
+
+  document.getElementById("sc-undo").addEventListener("click", function(){
+    var k = lastK;
+    if (k == null || !store[k] || !store[k].s.length){
+      tell("Nothing to undo yet. Draw in a box first.");
+      return;
+    }
+    store[k].s.pop();
+    boards.forEach(function(b){ if (b.k === k) b.redraw(); });
+    save();
+    tell("Took back the last line in box " + k + ".");
+  });
+
+  document.getElementById("sc-clear").addEventListener("click", function(){
+    var k = lastK;
+    if (k == null || !store[k] || !store[k].s.length){
+      tell("Draw in a box first, then this clears that box.");
+      return;
+    }
+    store[k].s = [];
+    boards.forEach(function(b){ if (b.k === k) b.redraw(); });
+    save();
+    tell("Box " + k + " is empty again. Your typed words are still there.");
+  });
+
+  document.getElementById("sc-print").addEventListener("click", function(){ window.print(); });
+
+  }
+  if (SCREEN) initScreen();
 
   /* Height sender, so Canvas can size the frame. */
   var ID = "bio005-note-sheet";

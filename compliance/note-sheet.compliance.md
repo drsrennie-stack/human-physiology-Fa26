@@ -246,6 +246,71 @@ Fixed by moving the root rather than by editing 40 files:
 Verified across 20 representative pages: zero remaining links to
 `welcome.html`, zero "this page has moved" banners, zero console errors.
 
-## 11. Reviewer
+## 11. Work it on screen, `?screen=1`, Sep 14 2026
+
+Added because the week print pack is a lot of paper and not every student has
+a printer. The same sheet, same competencies, same two passes, drawn and typed
+in the browser instead of on paper. Nothing changes on the default page: every
+selector in this mode is scoped to `body.screenmode`, which is only set when
+`?screen=1` is in the address.
+
+**The canvas is not keyboard operable and cannot be made so.** A freehand
+drawing surface has no keyboard equivalent worth shipping. WCAG 2.2 AA 2.1.1
+is met by conformant alternate version rather than by making the canvas
+operable:
+
+- Every drawing box carries a real `textarea` holding the same work in words,
+  reached by a `button` with `aria-expanded` and `aria-controls`, in the tab
+  order, labelled `Competency n, this box in words`.
+- The typed box is not a lesser option. A word picture in short labelled
+  pieces with arrows is what the assignment asks for either way, and the two
+  are graded the same. The instruction under each box says so.
+- The canvas carries `role="img"` and an `aria-label` that names the box and
+  points at the typing button.
+- Both routes save, and both print.
+
+**Other criteria.**
+
+- 1.4.3 and 1.4.6 contrast. Toolbar is white and #E4E7EE on #060A18, 21:1 and
+  14.6:1, both AAA. Pressed tool buttons invert to #060A18 on #fff, 21:1. Pen
+  colors are the same two as the printed sheet: #0B1530 at 18.04:1 and #8B3A2E
+  at 7.66:1 on white, both AAA as ink on paper.
+- 1.4.11 non-text contrast. Every control border is #fff on #060A18 or #0B1530
+  on #fff. No 3:1 failures.
+- 2.4.7 and 2.4.11 focus. `:focus-visible` is a 3px #C9A14A ring inside the
+  dark bar and 3px #8B3A2E elsewhere. The sticky toolbar is 60px tall at the
+  top of the scroll container and never covers a focused control, because the
+  boxes scroll under it rather than beside it.
+- 4.1.2 name, role, value. Pen, line and eraser are `button` elements in two
+  `role="group"` sets with `aria-pressed`, not dead `div`s.
+- 4.1.3 status messages. One `role="status"` `aria-live="polite"` region.
+  Undo, clear and the storage warning announce there. A message a student
+  triggered is held for four seconds so the autosave notice cannot talk over
+  it, which was the first build's bug.
+- 1.4.10 reflow. Verified at 390px: no horizontal scroll, canvas reflows to
+  342px, toolbar wraps.
+- 2.5.1 pointer gestures. Single pointer only, no gesture, no path
+  requirement other than the drawing itself, which has the typed alternative.
+
+**Known limitations and the plan.**
+
+1. The drawing lives in `localStorage` under `bio005-notesheet-screen-w<week>`,
+   one key per week, in that browser only. It does not follow a student to a
+   second device and clearing browser data clears it. Said plainly in the
+   toolbar and in the Turning it in card, with the instruction to save the PDF
+   when the week is done. Not fixed by design: nothing on this site collects
+   student work to a server.
+2. A browser with storage full stops saving. Caught, and the live region says
+   to save the PDF now rather than failing silently.
+3. Screen mode opens at one competency to a page. At two and three up the
+   printed page keeps its fixed block heights, so a very long typed answer can
+   clip there. One up grows to fit.
+
+**Verified.** Headless Chromium at 1280x900 and 390x840. Draw, pass 2 pen,
+three line widths, eraser, undo, clear a box, reload persistence, week switch
+keeping the mode, print to PDF with a 14 line typed answer, and the default
+printable page unchanged with zero canvases and zero console errors.
+
+## 12. Reviewer
 
 Dr. Sharilyn Rennie
