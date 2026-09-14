@@ -122,8 +122,11 @@ p:last-child{margin-bottom:0}
   margin-top:18px;padding:14px 16px;background:var(--navy-tint);border-radius:8px;
   font-size:14px;color:var(--ink);
 }
+.newtab{
+  margin:12px 0 0;font-size:13px;color:var(--ink-soft);
+}
 .turnin{
-  margin-top:18px;font-size:14px;color:var(--ink-soft);
+  margin-top:14px;font-size:14px;color:var(--ink-soft);
 }
 .stepnav{
   display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap;
@@ -146,8 +149,15 @@ thead th{
   font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink-soft);white-space:nowrap;
 }
+thead th.stepcol{text-align:center;padding:6px 8px}
+thead th.stepcol .lbl{display:block;font-size:10px;letter-spacing:.10em;color:var(--ink-soft)}
+thead th.stepcol .no{
+  display:block;font-family:var(--display);font-weight:800;font-size:15px;
+  color:var(--navy);letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums;
+}
 tbody th{font-weight:700;color:var(--navy);white-space:nowrap;font-size:14px}
 tbody th .wk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+tbody th .vid{margin-top:2px;letter-spacing:.04em;text-transform:none;font-weight:500}
 td.cell{text-align:center;padding:4px}
 td.cell a{
   display:block;padding:8px 4px;border-radius:6px;text-decoration:none;
@@ -227,12 +237,12 @@ footer a{color:var(--bone)}
 
 <footer>
   <div class="wrap">
-    <a href="index.html" target="_top">Course home</a> &middot;
-    <a href="course-schedule.html" target="_top">Schedule</a> &middot;
-    <a href="syllabus-fall2026.html" target="_top">Syllabus</a> &middot;
-    <a href="clinical-physiology-lab-manual.html" target="_top">Lab manual</a> &middot;
-    <a href="accessibility.html" target="_top">Accessibility</a> &middot;
-    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+    <a href="https://yccd.instructure.com/courses/42616" target="_top">Back to Canvas</a> &middot;
+    <a href="index.html" target="_blank" rel="noopener">Course home</a> &middot;
+    <a href="course-schedule.html" target="_blank" rel="noopener">Schedule</a> &middot;
+    <a href="syllabus-fall2026.html" target="_blank" rel="noopener">Syllabus</a> &middot;
+    <a href="clinical-physiology-lab-manual.html" target="_blank" rel="noopener">Lab manual</a> &middot;
+    <a href="accessibility.html" target="_blank" rel="noopener">Accessibility</a>
   </div>
 </footer>
 
@@ -246,17 +256,21 @@ footer a{color:var(--bone)}
    ============================================================ */
 
 var SITE = "https://drsrennie-stack.github.io/human-physiology-Fa26/";
+var CANVAS = "https://yccd.instructure.com/courses/42616";
 
 /* Week data. lab.href "" means the lab page is not built yet and the
    button falls back to the lab door. Swap any href for a PDF the same way:
    lab:{label:"Reference Range Lab", href:"print/week-01-lab.pdf"} */
 var WEEKS = [
  {n:1,  opens:"Sep 7",  title:"Foundations in Physiology",
+  videos:{page:"concept-videos-week01.html", count:20},
   lab:{label:"Reference Range Lab", href:"reference-range-lab.html"},
   patient:"The preseason physical"},
  {n:2,  opens:"Sep 14", title:"The Cell, and How Cells Talk",
+  videos:{page:"concept-videos-week03.html", count:25},
   lab:{label:"", href:""}, patient:"", light:true},
  {n:3,  opens:"Sep 21", title:"Across the Membrane",
+  videos:{page:"concept-videos-week04.html", count:38},
   lab:{label:"Osmosis and IV Fluids Lab", href:"osmosis-iv-fluids-lab.html"},
   patient:"Fluid choice at the bedside"},
  {n:4,  opens:"Sep 28", title:"Neurons and Synapses",
@@ -290,6 +304,7 @@ var WEEKS = [
 ];
 
 function pad(n){ return (n<10?"0":"") + n; }
+function lecturePage(w){ return w.videos ? w.videos.page : "lecture-week.html?week=" + w.n; }
 
 /* Step definitions. Each returns the Canvas title, the instruction,
    and the buttons. Keep the titles matching Canvas exactly. */
@@ -317,17 +332,21 @@ function stepData(w, s){
     },
     2:{
       title:"Week " + N + ", Step 2 | First pass, in your first color",
-      do:"Before any video. Fill in the note sheet from the written notes and from Silverthorn. Keep it sparse, mind maps, lists, sequences, flow charts. Leave space in every box.",
-      btns:[
-        {label:"Week " + N + " written notes", href:"week-" + P + "-notes.html", kind:"primary"},
+      do:"Before any video. Fill in the note sheet from the reading, using the notes PDF for each concept and your Silverthorn chapter. Keep it sparse, mind maps, lists, sequences, flow charts. Leave space in every box.",
+      btns: (w.videos
+        ? [{label:"Notes PDFs, all " + w.videos.count + " concepts", href:w.videos.page, kind:"primary", tag:"read"}]
+        : []
+        ).concat([
+        {label:"Week " + N + " written notes", href:"week-" + P + "-notes.html", kind: w.videos ? "secondary" : "primary"},
         {label:"Book problems for this week", href:"assignment-bookproblems.html?week=" + N, kind:"secondary"}
-      ]
+      ])
     },
     3:{
       title:"Week " + N + ", Step 3 | Second pass, in your second color",
       do:"Now watch the lectures. Switch colors and add what the reading did not give you into the same boxes. Two colors, one sheet, so you can see which half came from where.",
       btns:[
-        {label:"Week " + N + " lectures", href: N===1 ? "concept-videos-week01.html" : "lecture-week.html?week=" + N, kind:"primary"},
+        {label: w.videos ? "Week " + N + " concept videos, all " + w.videos.count : "Week " + N + " lectures",
+         href: lecturePage(w), kind:"primary", tag: w.videos ? "watch" : ""},
         {label:"Back to the written notes", href:"week-" + P + "-notes.html", kind:"secondary"}
       ]
     },
@@ -452,6 +471,7 @@ function renderStep(w, s){
     var row = el("div","btnrow");
     for (var i=0;i<d.btns.length;i++){ row.appendChild(linkBtn(d.btns[i])); }
     card.appendChild(row);
+    card.appendChild(el("p","newtab","These open in a new tab. Close that tab when you are done and you are back here in Canvas."));
     if (d.turnin) card.appendChild(el("p","turnin", esc(d.turnin)));
   }
 
@@ -466,14 +486,18 @@ function renderStep(w, s){
 function linkBtn(b){
   var a = el("a", "btn" + (b.kind === "secondary" ? " secondary" : ""));
   a.href = b.href;
-  a.target = "_top";
+  /* New tab, always. The Canvas page stays open behind it, so students
+     never have to find their way back. */
+  a.target = "_blank";
+  a.rel = "noopener";
   a.innerHTML = (b.tag ? '<span class="tag">' + esc(b.tag) + '</span> ' : "") + esc(b.label);
+  a.setAttribute("aria-label", b.label + ", opens in a new tab");
   return a;
 }
 function navLink(text, n, s){
+  /* Stays inside the Canvas frame on purpose. */
   var a = el("a");
   a.href = "?week=" + n + "&step=" + s;
-  a.target = "_top";
   a.textContent = text;
   return a;
 }
@@ -526,8 +550,10 @@ function renderMap(){
   var thead = el("thead");
   var hr = el("tr");
   hr.appendChild(el("th",null,"Module"));
-  hr.appendChild(el("th",null,"Over"));
-  for (var s=1;s<=9;s++){ hr.appendChild(el("th",null,String(s))); }
+  hr.appendChild(el("th","stepcol",'<span class="lbl">Over</span><span class="no">—</span>'));
+  for (var s=1;s<=9;s++){
+    hr.appendChild(el("th","stepcol",'<span class="lbl">Step</span><span class="no">' + s + "</span>"));
+  }
   hr.appendChild(el("th",null,"Lab for that week"));
   thead.appendChild(hr);
   t.appendChild(thead);
@@ -541,7 +567,10 @@ function renderMap(){
     var th = el("th");
     th.scope = "row";
     th.innerHTML = '<span class="wk">Week ' + w.n + " · opens " + esc(w.opens) + "</span>" +
-                   esc(w.title) + (isCurrent(w, today) ? '<span class="rowtag">you are here</span>' : "");
+                   esc(w.title) + (isCurrent(w, today) ? '<span class="rowtag">you are here</span>' : "") +
+                   '<span class="wk vid">' +
+                   (w.videos ? w.videos.count + " concept videos, recorded" : "No videos yet") +
+                   "</span>";
     tr.appendChild(th);
     for (var s2=0;s2<=9;s2++){
       var td = el("td","cell");
