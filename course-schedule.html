@@ -439,8 +439,11 @@ em,i,cite,dfn,var,address{font-style:normal}
   });
 
   /* ---------- decisions ---------- */
+  /* The "Still open" list was removed from the markup on Sep 13. Without this
+     guard the loop below threw on a null element, and everything after it,
+     including the pass that adds target="_top" to every link, never ran. */
   var dl = document.getElementById('decisions');
-  DECISIONS.forEach(function(d){
+  if (dl) DECISIONS.forEach(function(d){
     var li = document.createElement('li');
     var b = document.createElement('b');
     b.textContent = d.q;

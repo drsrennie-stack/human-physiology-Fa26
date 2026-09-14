@@ -325,6 +325,11 @@ body.present .slide.clinopen .cprof{padding:18px 20px}
 .prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
 .prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
 @media(max-width:860px){.prereq{grid-template-columns:1fr}}
+
+/* Print button. The print stylesheet was always here; nothing told a student
+   so. The button itself never prints. */
+#printbtn{border:0;cursor:pointer;font:inherit}
+@media print{#printbtn{display:none!important}}
 </style>
 </head>
 <body data-collapse="open">
@@ -344,6 +349,8 @@ body.present .slide.clinopen .cprof{padding:18px 20px}
   <div class="metarow">
     <span class="pill">All 12 week 1 competencies</span>
     <span class="pill ghost">Ch 1 and the reflex half of ch 6</span>
+  
+    <button type="button" class="pill navy" id="printbtn">Print these notes</button>
   </div>
 </div>
 
@@ -1619,5 +1626,6 @@ var PAGE_ID='biol005-m01-notes';
 <!-- A way back, on every page. -->
 <script src="bio005-back.js"></script>
 <script src="bio005-collapse.js"></script>
+<script>(function(){var b=document.getElementById("printbtn");if(b)b.addEventListener("click",function(){window.print();});})();</script>
 </body>
 </html>

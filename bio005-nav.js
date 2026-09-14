@@ -96,7 +96,7 @@
     'braindump-week01.html':      { name: 'Week 1 brain dump',     parent: 'week-01.html' },
     /* File names stay as uploaded; the week they belong to follows the Sep 13 2026 map. */
     'concept-videos-week03.html': { name: 'Week 2 concept videos', parent: 'week-02.html' },
-    'concept-videos-week04.html': { name: 'Week 3 concept videos', parent: 'week-03.html' },
+    'concept-videos-week04.html': { name: 'Week 2 concept videos', parent: 'week-02.html' },
     'week-print-pack.html':       { name: 'Week print pack',       parent: 'course-start.html' },
 
     /* Units */
@@ -301,14 +301,23 @@
     if (fw > 2) FOLD['week-' + fk + '-notes.html'] = 'h2';
   }
 
+  /* Sep 14 2026. This used to load bio005-fold.js, which does not exist and
+     never did. Thirty nine pages asked the server for it and got a 404, and
+     four of them, the syllabus, the accessibility page and the Week 1 and
+     Week 3 notes, had no collapsing at all as a result: they were the walls
+     of text this was written to prevent.
+
+     bio005-collapse.js does the same job, ships, and carries its own opt-out
+     list, including the week competency pages, which are a list you scan and
+     should not fold. So load that instead and let it decide. */
   function fold(file) {
     if (document.documentElement.getAttribute('data-fold') === 'off') return;
     var lvl = document.documentElement.getAttribute('data-fold') || FOLD[file];
     if (!lvl) return;
-    if (document.querySelector('script[src*="bio005-fold.js"]')) return;
+    if (document.querySelector('script[src*="bio005-collapse.js"]')) return;
     window.BIO005_FOLD = lvl;
     var s = document.createElement('script');
-    s.src = base() + 'bio005-fold.js';
+    s.src = base() + 'bio005-collapse.js';
     document.body.appendChild(s);
   }
 
@@ -425,19 +434,19 @@
   var WEEKS = [
     [1, '2026-09-08', '2026-09-13', 'How physiology works and what keeps you steady', 1],
     [2, '2026-09-14', '2026-09-20', 'The cell: structure, transport and signaling', 1],
-    [3, '2026-09-21', '2026-09-27', 'Membrane potential, neurons and synapses', 1],
+    [3, '2026-09-21', '2026-09-27', 'Catch up on the cell', 1],
     [4, '2026-09-28', '2026-10-04', 'Membrane potential, neurons and synapses', 2],
     [5, '2026-10-05', '2026-10-11', 'Reflexes, and sensing the world', 2],
     [6, '2026-10-12', '2026-10-18', 'Muscle, and how movement gets commanded', 2],
     [7, '2026-10-19', '2026-10-25', 'Hormones, the autonomic system, and reproduction', 2],
-    [8, '2026-10-26', '2026-11-01', 'The heart as a pump', 2],
-    [9, '2026-11-02', '2026-11-08', 'Pressure, flow, and holding blood pressure steady', 3],
-    [10, '2026-11-09', '2026-11-15', 'Blood and how the body defends itself', 3],
-    [11, '2026-11-16', '2026-11-22', 'Digestion, and how you use food for fuel', 3],
-    [12, '2026-11-23', '2026-11-29', 'Breathing, gas transport, and the fast pH lever', 3],
-    [13, '2026-11-30', '2026-12-06', 'The kidney and body fluid balance', 3],
-    [14, '2026-12-07', '2026-12-13', 'The slow pH lever, and putting it all together', 3],
-    [15, '2026-12-14', '2026-12-16', 'Midterm 2, and the final', 3]
+    [8, '2026-10-26', '2026-11-01', 'Midterm 1', 2],
+    [9, '2026-11-02', '2026-11-08', 'The heart as a pump', 3],
+    [10, '2026-11-09', '2026-11-15', 'Pressure, flow, and holding blood pressure steady', 3],
+    [11, '2026-11-16', '2026-11-22', 'Blood and how the body defends itself', 3],
+    [12, '2026-11-23', '2026-11-29', 'Digestion, and how you use food for fuel', 3],
+    [13, '2026-11-30', '2026-12-06', 'Breathing, gas transport, and the fast pH lever', 3],
+    [14, '2026-12-07', '2026-12-13', 'The kidney and body fluid balance', 3],
+    [15, '2026-12-14', '2026-12-16', 'The slow pH lever, putting it together, and the final', 3]
   ];
   var PARTS = { 1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action' };
 
@@ -452,10 +461,26 @@
     var offset = (mondayUTC < Date.UTC(2026, 10, 1, 9)) ? 7 : 8;   /* hours behind UTC */
     return new Date(mondayUTC + (8 + offset) * 3600000);
   }
+
+  /* Sep 14 2026. A week normally unlocks on its Monday at 8:00 am Pacific,
+     which unlockMoment works out from the week's own start date. UNLOCK is
+     the exception list: a week named here opens at that exact moment instead.
+     Weeks 2 and 3 are released together at 8:00 pm Pacific on Wednesday
+     16 September. Week 3 opens nothing new, it is the week to finish the
+     cell, so holding it shut behind Week 2 would only get in the way.
+     Delete a week from this list to put it back on the normal Monday rule. */
+  var UNLOCK = {
+    2: '2026-09-16T20:00:00-07:00',
+    3: '2026-09-16T20:00:00-07:00'
+  };
+  function weekUnlock(w) {
+    var iso = UNLOCK[w[0]];
+    return iso ? new Date(iso) : unlockMoment(w[1]);
+  }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
   function weekInfo(i, now) {
     var w = WEEKS[i];
-    var unlock = unlockMoment(w[1]);
+    var unlock = weekUnlock(w);
     var closesP = w[2].split('-');
     var closesEnd = new Date(Date.UTC(+closesP[0], +closesP[1] - 1, +closesP[2], 22 + ((Date.UTC(+closesP[0], +closesP[1] - 1, +closesP[2]) < Date.UTC(2026, 10, 1, 9)) ? 7 : 8)));
     return {
@@ -842,8 +867,9 @@
      A gated page never shows a wall. It names the opening day and the
      opening time and gives the student five ways onward.
      ========================================================= */
-  /* Sep 13 2026: Week 2 (the cell, and how cells talk) released from HOLD. */
-  var HOLD = window.BIO005_SITE.held = { 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+  /* Sep 14 2026: Weeks 2 and 3 released from HOLD. Week 3 is the catch up
+     week on the cell, so it opens with Week 2 rather than after it. */
+  var HOLD = window.BIO005_SITE.held = { 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
 
   var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
   var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 7,
@@ -929,10 +955,14 @@
     if (w.open && !held) return;
 
     var B = base();
-    var mon = fmtDate(w.opens);
+    /* Say the moment the week actually unlocks, not the Monday rule, because a
+       week on the UNLOCK exception list opens on a different day and hour. */
+    var mon = w.unlock.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric',
+                                                 hour: 'numeric', minute: '2-digit',
+                                                 timeZone: 'America/Los_Angeles' });
     var line = w.open && held
       ? 'Week ' + n + ' is not open yet.'
-      : 'Week ' + n + ' opens <b>' + mon + ' at 8:00 am Pacific</b>.';
+      : 'Week ' + n + ' opens <b>' + mon + ' Pacific</b>.';
 
     var main = document.querySelector('main, [role="main"]') || document.body;
     /* the page's own masthead carries the week h1; hide it so the gate card is the only heading */
