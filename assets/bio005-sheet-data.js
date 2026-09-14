@@ -353,6 +353,11 @@ window.BIO005_SHEET = {
   ]
  },
  "3": {
+  "title": "Catch up on the cell",
+  "midterm": 1,
+  "items": []
+ },
+ "4": {
   "title": "Membrane potential, neurons and synapses",
   "midterm": 1,
   "items": [
@@ -561,7 +566,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "4": {
+ "5": {
   "title": "Reflexes, and sensing the world",
   "midterm": 1,
   "items": [
@@ -742,7 +747,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "5": {
+ "6": {
   "title": "Muscle, and how movement gets commanded",
   "midterm": 1,
   "items": [
@@ -860,55 +865,27 @@ window.BIO005_SHEET = {
    },
    {
     "n": 17,
-    "name": "Smooth muscle contraction mechanism",
-    "can": "Trace smooth muscle contraction through calcium entry and release to calmodulin and myosin light chain kinase and explain why the mechanism is slower and more economical than in skeletal muscle.",
-    "a": "Draw a smooth muscle cell and trace one pathway across it in order: calcium entering from outside and released from the sarcoplasmic reticulum, calcium binding calmodulin, calcium calmodulin switching on myosin light chain kinase, the kinase phosphorylating the myosin light chain, and the head then cycling on actin. Draw the phosphate landing where it actually lands. One line: there is no troponin anywhere in this drawing, so name what took over its job.",
-    "b": "Draw skeletal and smooth muscle contraction as two ladders side by side, both starting at calcium and both ending at tension, one step per rung. Count the rungs in each. Beside the smooth ladder, draw a tension trace that rises slowly and then holds for a long time on very little ATP. One line: say which part of your ladder explains the slow onset and which part explains the cheap holding."
-   },
-   {
-    "n": 18,
-    "name": "Smooth muscle types and regulation",
-    "can": "Compare single unit and multi unit smooth muscle and list the stimuli that alter smooth muscle tone including stretch and local chemical signals.",
-    "a": "Draw a sheet of single unit smooth muscle with gap junctions between the cells and one pacemaker cell in it, then draw multi unit smooth muscle beside it with separate cells each carrying its own nerve ending. Name a real location in the body under each. Draw one stimulus spreading through both sheets. One line: say which arrangement lets a whole organ empty in one go, and which lets you grade the response finely.",
-    "b": "Draw a ring of smooth muscle in a vessel wall in the middle of your page, and bring an arrow into it from every stimulus that changes its tone: stretch of the wall, a sympathetic nerve ending, a circulating hormone, and a local chemical signal from the tissue outside. Mark each arrow tighten or relax. One line: pick the local chemical you drew and say what the surrounding tissue is asking the vessel to do by releasing it."
-   },
-   {
-    "n": 19,
-    "name": "Cardiac muscle properties",
-    "can": "Explain how intercalated discs and gap junctions allow the myocardium to act as a functional syncytium and state why cardiac muscle cannot be tetanized.",
-    "a": "Draw two cardiac cells joined at an intercalated disc, big enough to show the desmosomes and the gap junctions as separate structures. Show what passes through the gap junctions and what force the desmosomes are holding against. Then draw four cells in a row and trace one signal through all of them with no nerve involved. One line: name what acting as a functional syncytium buys the ventricle that a set of independent cells could not.",
-    "b": "Draw a cardiac action potential with the tension it produces on the same time axis, lined up, then draw a skeletal action potential and its twitch below at the same time scale. Bracket the absolute refractory period on both. One line: skeletal muscle can be driven into tetanus and cardiac muscle cannot, so say what would happen to the output of a heart that could be."
-   },
-   {
-    "n": 20,
-    "name": "Comparison of the three muscle types",
-    "can": "Build a comparison of skeletal, cardiac, and smooth muscle by calcium source, regulatory protein, control, and speed of contraction.",
-    "a": "Draw a three column chart, skeletal, cardiac, smooth, and fill it with drawings rather than words: one cell of each at the same magnification with striations present or absent, the calcium source drawn as arrows into the cytosol, the protein that calcium binds, and what gives the command. One line: two of the three share a regulatory protein, so name the odd one out and what it uses instead.",
-    "b": "Pick one property, calcium source, regulatory protein, control, or speed, and draw all three muscle types along a single line ordered by that property, with the drawing that justifies each placement underneath. Then do it again on a second line using a different property. One line: your two orderings do not match, so say which property matters more for the job each muscle is actually asked to do."
-   },
-   {
-    "n": 21,
     "name": "Motor control hierarchy",
     "can": "Order the levels of motor control from spinal reflex through brainstem to cortex and state what each level contributes to a voluntary movement.",
     "a": "Draw the levels stacked, spinal cord at the bottom, brainstem in the middle, cortex on top, and trace one voluntary movement of your own choosing, not walking, from the decision down to the muscle. At each level write what that level contributed. Draw the cerebellum and basal ganglia off to the side with arrows showing they adjust rather than command. One line: remove the top level only, and say what movement the person can still produce.",
     "b": "Draw the same three levels and drop a hot pan into the picture. Trace the withdrawal reflex through the lowest level alone, then trace the slower conscious response that arrives afterwards through all three. Put both on a shared time axis underneath. One line: the reflex is faster because it skipped something, so name what it skipped and what the person gave up by skipping it."
    },
    {
-    "n": 22,
+    "n": 18,
     "name": "Corticospinal pathway",
     "can": "Trace the corticospinal pathway from the primary motor cortex to the skeletal muscle and identify where it crosses.",
     "a": "Draw a coronal outline of the brain, brainstem, spinal cord, and one arm. Run the corticospinal neuron from the precentral gyrus down through the internal capsule, midbrain, and pons, and mark the pyramidal decussation in the medulla where most fibers cross. Synapse it in the ventral horn on the lower motor neuron and continue out to the muscle. Label upper and lower motor neuron. One line: name the side of the body the left motor cortex moves, and the structure that decided that.",
     "b": "Draw the pathway once, then place a lesion on it at three sites: in the motor cortex, in the medulla just above the crossing, and in the spinal cord below the crossing. For each, shade the side of the body that ends up weak. One line: two of your three lesions weaken the same side, so write what a clinician would look for to separate those two."
    },
    {
-    "n": 23,
+    "n": 19,
     "name": "Cerebellum and basal ganglia",
     "can": "Contrast the contributions of the cerebellum and the basal ganglia to movement and match a described motor sign to the structure involved.",
     "a": "Draw a hand reaching toward a target three times: normally, with cerebellar damage, and with basal ganglia damage. Draw the actual path the hand takes each time rather than writing about it. Beside each path, draw the tremor if there is one and mark the point in the movement where it shows up. One line: both patients tremble, so say when each one's tremor appears and what that timing tells you about the structure involved.",
     "b": "Draw a loop diagram with the motor cortex at the top, the cerebellum on one side and the basal ganglia on the other, each with its arrows out to and back from the cortex. Label what each loop does to the command, comparing it against feedback or selecting and scaling it. One line: name the loop that needs sensory information from the moving limb to work, and say what happens to it when that information is lost."
    },
    {
-    "n": 24,
+    "n": 20,
     "name": "Upper and lower motor neuron signs",
     "can": "Distinguish upper from lower motor neuron lesions by tone, reflexes, and muscle bulk and assign a set of findings to the correct level.",
     "a": "Draw the two neuron chain from cortex to muscle once, and mark two lesion sites, one on the upper neuron and one on the lower. Beside each, draw the limb as it behaves: the tone, the reflex hammer response drawn as a big or a small kick, the muscle bulk, and whether the muscle twitches on its own at rest. One line: both patients are weak, so name the single finding you would check first and say why that one.",
@@ -916,7 +893,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "6": {
+ "7": {
   "title": "Hormones, the autonomic system, and reproduction",
   "midterm": 1,
   "items": [
@@ -1076,129 +1053,157 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "7": {
+ "8": {
   "title": "Midterm 1",
   "midterm": 2,
   "items": []
  },
- "8": {
+ "9": {
   "title": "The heart as a pump",
   "midterm": 2,
   "items": [
    {
     "n": 1,
+    "name": "Smooth muscle contraction mechanism",
+    "can": "Trace smooth muscle contraction through calcium entry and release to calmodulin and myosin light chain kinase and explain why the mechanism is slower and more economical than in skeletal muscle.",
+    "a": "Draw a smooth muscle cell and trace one pathway across it in order: calcium entering from outside and released from the sarcoplasmic reticulum, calcium binding calmodulin, calcium calmodulin switching on myosin light chain kinase, the kinase phosphorylating the myosin light chain, and the head then cycling on actin. Draw the phosphate landing where it actually lands. One line: there is no troponin anywhere in this drawing, so name what took over its job.",
+    "b": "Draw skeletal and smooth muscle contraction as two ladders side by side, both starting at calcium and both ending at tension, one step per rung. Count the rungs in each. Beside the smooth ladder, draw a tension trace that rises slowly and then holds for a long time on very little ATP. One line: say which part of your ladder explains the slow onset and which part explains the cheap holding."
+   },
+   {
+    "n": 2,
+    "name": "Smooth muscle types and regulation",
+    "can": "Compare single unit and multi unit smooth muscle and list the stimuli that alter smooth muscle tone including stretch and local chemical signals.",
+    "a": "Draw a sheet of single unit smooth muscle with gap junctions between the cells and one pacemaker cell in it, then draw multi unit smooth muscle beside it with separate cells each carrying its own nerve ending. Name a real location in the body under each. Draw one stimulus spreading through both sheets. One line: say which arrangement lets a whole organ empty in one go, and which lets you grade the response finely.",
+    "b": "Draw a ring of smooth muscle in a vessel wall in the middle of your page, and bring an arrow into it from every stimulus that changes its tone: stretch of the wall, a sympathetic nerve ending, a circulating hormone, and a local chemical signal from the tissue outside. Mark each arrow tighten or relax. One line: pick the local chemical you drew and say what the surrounding tissue is asking the vessel to do by releasing it."
+   },
+   {
+    "n": 3,
+    "name": "Cardiac muscle properties",
+    "can": "Explain how intercalated discs and gap junctions allow the myocardium to act as a functional syncytium and state why cardiac muscle cannot be tetanized.",
+    "a": "Draw two cardiac cells joined at an intercalated disc, big enough to show the desmosomes and the gap junctions as separate structures. Show what passes through the gap junctions and what force the desmosomes are holding against. Then draw four cells in a row and trace one signal through all of them with no nerve involved. One line: name what acting as a functional syncytium buys the ventricle that a set of independent cells could not.",
+    "b": "Draw a cardiac action potential with the tension it produces on the same time axis, lined up, then draw a skeletal action potential and its twitch below at the same time scale. Bracket the absolute refractory period on both. One line: skeletal muscle can be driven into tetanus and cardiac muscle cannot, so say what would happen to the output of a heart that could be."
+   },
+   {
+    "n": 4,
+    "name": "Comparison of the three muscle types",
+    "can": "Build a comparison of skeletal, cardiac, and smooth muscle by calcium source, regulatory protein, control, and speed of contraction.",
+    "a": "Draw a three column chart, skeletal, cardiac, smooth, and fill it with drawings rather than words: one cell of each at the same magnification with striations present or absent, the calcium source drawn as arrows into the cytosol, the protein that calcium binds, and what gives the command. One line: two of the three share a regulatory protein, so name the odd one out and what it uses instead.",
+    "b": "Pick one property, calcium source, regulatory protein, control, or speed, and draw all three muscle types along a single line ordered by that property, with the drawing that justifies each placement underneath. Then do it again on a second line using a different property. One line: your two orderings do not match, so say which property matters more for the job each muscle is actually asked to do."
+   },
+   {
+    "n": 5,
     "name": "Adrenal medulla",
     "can": "Explain why the adrenal medulla is a modified sympathetic ganglion and compare the duration of its circulating catecholamine effect with direct sympathetic innervation.",
     "a": "Draw a preganglionic sympathetic neuron running to an ordinary sympathetic ganglion, and below it the same kind of neuron running to the adrenal medulla. Show the transmitter and receptor at each synapse, and show what leaves the second one into a blood vessel (about 80 percent epinephrine, about 20 percent norepinephrine). Mark which cell is the postganglionic neuron that never grew an axon. One line: what the medulla gains by dumping into blood instead of onto a target.",
     "b": "Draw one time axis in seconds and put two response curves on it starting at the same instant: one target reached by direct sympathetic nerve endings, one reached by adrenal catecholamines in the blood. Make the hormonal curve outlast the neural one by roughly five to ten times. On each, mark what ends it, fast reuptake at the synapse against slow clearance from blood over two to four minutes. One line: why a bloodborne signal cannot be switched off quickly."
    },
    {
-    "n": 2,
+    "n": 6,
     "name": "Pacemaker potential",
     "can": "Explain the unstable pacemaker potential of the sinoatrial node by the funny current, calcium entry, and potassium exit and state what sets intrinsic heart rate.",
     "a": "Draw the SA node membrane potential over two full cycles, voltage on the y axis and time on the x. Mark the most negative point near -60 mV and threshold near -40 mV. Along the slow drift upward, label the funny current sodium leak, then the calcium entry that carries the upstroke, then the potassium exit that brings it back down. One line: what sets the rate on this trace, and it is not the height of the spike.",
     "b": "Draw three pacemaker slopes on one set of axes, all rising to the same threshold: normal, one steeper, one shallower. Mark where each fires and how far apart the firings are. Beside them draw a fourth that has the normal slope but starts from a more negative point. Write the normal sinus range, 60 to 100 beats per minute, next to the normal one. One line: two of your changes slow the heart by different means, so name which does which."
    },
    {
-    "n": 3,
+    "n": 7,
     "name": "Contractile cell action potential",
     "can": "Diagram the ventricular action potential and identify the ion movement responsible for the rapid upstroke, the plateau, and repolarization.",
     "a": "Draw the ventricular contractile cell action potential, voltage against time, resting near -90 mV, peaking near +20 mV, and lasting about 250 ms. Number the phases 0 through 4 and write on each the ion and the direction that makes it: fast sodium in, brief potassium out, calcium in balanced against potassium out, potassium out, rest. One line: which phase has no counterpart in a skeletal muscle fiber, and what the heart buys with it.",
     "b": "Draw a ventricular action potential and a skeletal muscle action potential on one time axis, drawn to their true durations, about 250 ms against about 2 ms. Directly under each, on the same axis, draw the twitch it produces. Keep the scale honest. One line: with the four traces drawn to scale in front of you, say what the heart cannot do that the skeletal fiber can."
    },
    {
-    "n": 4,
+    "n": 8,
     "name": "Conduction system",
     "can": "Trace an impulse through the sinoatrial node, internodal pathways, atrioventricular node, bundle of His, bundle branches, and Purkinje fibers and explain the purpose of the atrioventricular delay.",
     "a": "Draw the heart in outline with four chambers and place the conduction system in order: SA node in the right atrial wall, internodal pathways, AV node at the base of the interatrial septum, bundle of His, right and left bundle branches down the interventricular septum, and Purkinje fibers running from the apex up the ventricular walls. Number the arrows 1 through 6. One line: why the ventricles are wired to squeeze from the apex upward.",
     "b": "Draw a horizontal time line for one beat, in milliseconds, and mark where each part of the conduction system fires. Draw the AV nodal delay as a labeled gap of about 100 ms. Above the line, draw what the atria are doing during that gap and what the ventricles are doing. One line: name one thing that would go wrong on the very next beat if the delay were zero."
    },
    {
-    "n": 5,
+    "n": 9,
     "name": "Cardiac refractory period",
     "can": "Explain why the long refractory period of cardiac muscle prevents tetanus and why that matters for pump function.",
     "a": "Draw a cardiac action potential and, directly under it on the same time axis, the twitch it produces. Shade the absolute refractory period across both drawings. Now stimulate again at three points, early, middle, and just after the shading ends, and draw what you get each time. One line: at which of the three could you get summation, and what that answer means for a chamber that has to refill between beats.",
     "b": "Draw two panels on one time scale. Left, skeletal muscle: a train of stimuli, the brief action potentials, and the twitches fusing into tetanus. Right, cardiac muscle: the same stimulus train, the long action potentials, and what the twitches actually do. One line: name the single feature of the cardiac trace that makes the right panel look different, and say what a heart in tetanus could not do."
    },
    {
-    "n": 6,
+    "n": 10,
     "name": "ECG waves and intervals",
     "can": "Label the P wave, QRS complex, T wave, PR interval, and QT interval and state the electrical event each represents.",
     "a": "Rule your own grid with small boxes of 0.04 s and draw a clean lead II tracing of two beats on it. Label the P wave, QRS complex and T wave, and beside each write the electrical event it is, not the mechanical one. Bracket the PR interval and the QT interval and write the normal duration of each. One line: name the electrical event that has no wave of its own, and say why.",
     "b": "Draw an ECG tracing across the top of your space, then under it on the same time axis draw the heart four times with the region that is depolarizing or repolarizing shaded: mid P, during QRS, during the ST segment, and during T. One line: say what the ventricles are doing electrically during the ST segment, and why that keeps the trace flat at baseline."
    },
    {
-    "n": 7,
+    "n": 11,
     "name": "ECG interpretation",
     "can": "Calculate heart rate from an ECG strip and identify sinus rhythm, tachycardia, bradycardia, and a first degree or complete heart block.",
     "a": "Draw four rhythm strips stacked on one ruled grid: normal sinus rhythm, sinus tachycardia, sinus bradycardia, and first degree block. Keep P, QRS and T in every one. Under each strip write the rate you get by counting boxes, 1500 divided by the small boxes between R waves, and the one feature that names it. One line: three of these are named by a rate and one by an interval, so say which and give the cutoff.",
     "b": "Draw a complete heart block strip: P waves marching out at their own regular rate, QRS complexes marching out at a slower regular rate, no fixed relationship between them. Mark two places where a P falls inside a QRS. Beside the strip, draw where the conduction pathway is broken and which tissue is now pacing the ventricles. One line: say why the ventricular rate lands where it does and not somewhere else."
    },
    {
-    "n": 8,
+    "n": 12,
     "name": "ECG recording",
     "can": "Record a lead II ECG, measure the intervals, and correlate each wave with the mechanical event that follows it.",
     "a": "Before you record anything, draw the lead II tracing you expect from your own resting heart, with the electrode placement sketched beside it. Record, then draw the real tracing directly under your prediction at the same scale, with your measured PR, QRS and QT written on it. One line: say where prediction and recording disagreed, and whether the cause was your heart, your technique, or the equipment.",
     "b": "Draw your recorded lead II strip across the page. Under it, on the same time axis, draw a row of small panels for the mechanical event that follows each wave: atrial contraction after P, ventricular contraction beginning after QRS, ventricular relaxation after T. Put S1 and S2 on the same axis. One line: every mechanical mark sits to the right of its electrical trigger, so say what fills that gap."
    },
    {
-    "n": 9,
+    "n": 13,
     "name": "Cardiac cycle",
     "can": "Order the phases of the cardiac cycle and state the pressure relationship that opens and closes the atrioventricular and semilunar valves in each phase.",
     "a": "Draw one time axis for a single beat and stack three pressure curves on it: left ventricular, aortic, and left atrial. Mark the four moments a valve moves, and at each one write the pressure inequality that caused it, which chamber is higher than which. Add ventricular volume as a fourth curve underneath. One line: name the two phases in which all four valves are shut, and say what the volume is doing then.",
     "b": "Draw the cardiac cycle as five panels in a row: atrial systole, isovolumetric contraction, ventricular ejection, isovolumetric relaxation, ventricular filling. In each panel draw the heart with every valve shown open or shut and an arrow for where blood is moving. Under each panel write which pressure exceeds which. One line: say which comes first, the pressure change or the valve movement, and point to the panel that proves it."
    },
    {
-    "n": 10,
+    "n": 14,
     "name": "Pressure volume loop",
     "can": "Label the four phases of a ventricular pressure volume loop and predict how the loop changes with increased preload, increased afterload, or increased contractility.",
     "a": "Draw a left ventricular pressure volume loop, volume on the x axis running from about 50 to 120 mL, pressure in mmHg on the y. Travel around it in the correct direction, label the four phases, and label the four corners where a valve opens or shuts. Mark EDV, ESV and stroke volume on the volume axis. One line: two sides of your loop are isovolumetric, so say how you can spot them by eye alone.",
     "b": "Draw the normal loop once, then draw three altered loops over it in different colors: increased preload, increased afterload, and increased contractility. For each, show what happened to the width of the loop and to ESV, and label the corner that moved. One line: only two of the three raised stroke volume, so name the one that did not and say what it raised instead."
    },
    {
-    "n": 11,
+    "n": 15,
     "name": "Heart sounds",
     "can": "Explain the origin of the first and second heart sounds and relate a murmur to valve stenosis or regurgitation by its timing.",
     "a": "Draw one cardiac cycle with ventricular and aortic pressure curves on a single time axis. Mark S1 and S2 exactly where they fall and run an arrow from each to the valve closure that made it. Bracket systole on the axis, between the two sounds. One line: the sound comes from closing and not from opening, so say what is actually vibrating to make it.",
     "b": "Draw four timing diagrams in a row, each with S1 and S2 marked and the murmur shaded in where it falls: aortic stenosis, aortic regurgitation, mitral stenosis, mitral regurgitation. Label each as systolic or diastolic. One line: write, in your own words, the rule that takes you from timing plus valve to stenosis or regurgitation."
    },
    {
-    "n": 12,
+    "n": 16,
     "name": "Stroke volume and ejection fraction",
     "can": "Calculate stroke volume and ejection fraction from end diastolic and end systolic volumes and interpret a reduced ejection fraction.",
     "a": "Draw a ventricle three times in a row: at end diastole, at end systole, and with the difference between the two shaded. Put real numbers on the drawing, EDV about 120 mL and ESV about 50 mL, and work stroke volume and ejection fraction out beside it with the arithmetic showing. One line: redraw or describe what an ejection fraction of 30 percent would do to those same three pictures.",
     "b": "Draw two patients side by side, both with a stroke volume of 55 mL. Give the first an EDV of 110 mL and the second an EDV of 180 mL, and draw the two ventricles at those relative sizes. Compute each ejection fraction on the page. One line: the stroke volumes are identical, so say which heart you would rather have and what the ratio caught that the volume missed."
    },
    {
-    "n": 13,
+    "n": 17,
     "name": "Cardiac output",
     "can": "Calculate cardiac output and cardiac reserve and predict the effect of a change in heart rate or stroke volume on each.",
     "a": "Draw the cardiac output equation as a picture rather than algebra: a heart with a rate written on it, a stroke volume drawn as a shaded slug of blood, and the product leaving as a labeled flow per minute. Use 70 beats per minute and 70 mL and show the arithmetic to about 5 L/min. Draw the same picture again at maximum exercise and label the gap between them as cardiac reserve. One line: which of the two variables has more room to grow.",
     "b": "Draw a row of three small graphs, cardiac output on the y axis of each. First, output against heart rate with stroke volume held fixed. Second, output against stroke volume with rate fixed. Third, output against heart rate again, but let the axis run past 180 beats per minute and draw what the curve really does up there. One line: name what falls at very high rates and which part of the cycle gets squeezed."
    },
    {
-    "n": 14,
+    "n": 18,
     "name": "Frank Starling relationship",
     "can": "State the Frank Starling law and explain how venous return and end diastolic volume determine the force of the next contraction.",
     "a": "Draw the Frank Starling curve, end diastolic volume on the x axis and stroke volume on the y. Put three dots on it: at rest, after a rapid fluid infusion, and after standing still for ten minutes in the heat. Beside each dot, draw a sarcomere at that length with the thick and thin filament overlap shown. One line: say what the sarcomere drawings explain that the curve on its own does not.",
     "b": "Draw a closed loop: venous return feeding end diastolic volume, feeding force of contraction, feeding stroke volume, feeding back into what the veins deliver. Now run one beat in which the right ventricle ejects more than the left, and draw where blood piles up over the next two or three beats. One line: say what this loop guarantees about the two sides of the heart with no nerve or hormone involved."
    },
    {
-    "n": 15,
+    "n": 19,
     "name": "Preload afterload and contractility",
     "can": "Distinguish preload, afterload, and contractility and predict how a change in each alters stroke volume.",
     "a": "Draw one ventricle three times. On the first, mark preload with the thing that actually stretches it before it contracts. On the second, mark afterload with what it must push against, and put a pressure value on the aorta. On the third, show contractility as more force at the same starting length. Under each, an arrow for what a rise in that variable does to stroke volume. One line: name the one that can rise while the other two hold still, and what does that in the body.",
     "b": "Draw a normal ventricle in the middle of your space and four altered versions around it: hemorrhage, severe untreated hypertension, a sympathetic surge, and an intravenous fluid overload. On every version, draw the filling volume, the pressure it ejects against, and the strength of the squeeze as three things you can see. One line: pick the version where two of the three moved at once and say which one decided stroke volume."
    },
    {
-    "n": 16,
+    "n": 20,
     "name": "Autonomic regulation of the heart",
     "can": "Explain how sympathetic and parasympathetic input alter heart rate and contractility at the receptor and second messenger level.",
     "a": "Draw the SA node cell twice, side by side. Left, sympathetic: norepinephrine, the beta 1 receptor, the G protein, cAMP, and what that does to the funny current and to calcium channels. Right, parasympathetic: the vagus, acetylcholine, the M2 muscarinic receptor, and what that does to cAMP and to potassium channels. Under each, draw the pacemaker slope it produces. One line: one of them hyperpolarizes the cell, so say why that alone slows the rate.",
     "b": "Draw a pacemaker trace with three versions on the same axes: resting with normal vagal tone, with the vagus cut, and under maximal sympathetic drive. Beside it, draw a ventricular cell showing the two places sympathetic signaling raises contractility, calcium entry and the calcium pump of the sarcoplasmic reticulum. One line: the vagus does little to the ventricles, so say what that predicts about slowing a heart against weakening one."
    },
    {
-    "n": 17,
+    "n": 21,
     "name": "Heart sound and pulse correlation",
     "can": "Auscultate the heart sounds, locate the valve areas, and correlate the sounds with the pulse and with the cardiac cycle phases.",
     "a": "Draw the chest with the four auscultation areas in their real positions: aortic at the second right intercostal space beside the sternum, pulmonic at the second left, tricuspid at the lower left sternal border, mitral at the fifth intercostal space in the midclavicular line. Run an arrow from each spot to the valve it reports on, and note that the spot is not sitting on top of the valve. One line: say what carries the sound from the valve to the spot.",
@@ -1206,7 +1211,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "9": {
+ "10": {
   "title": "Pressure, flow, and holding blood pressure steady",
   "midterm": 2,
   "items": [
@@ -1303,7 +1308,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "10": {
+ "11": {
   "title": "Blood and how the body defends itself",
   "midterm": 2,
   "items": [
@@ -1442,7 +1447,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "11": {
+ "12": {
   "title": "Digestion, and how you use food for fuel",
   "midterm": 2,
   "items": [
@@ -1609,7 +1614,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "12": {
+ "13": {
   "title": "Breathing, gas transport, and the fast pH lever",
   "midterm": 2,
   "items": [
@@ -1783,7 +1788,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "13": {
+ "14": {
   "title": "The kidney and body fluid balance",
   "midterm": 2,
   "items": [
@@ -1936,8 +1941,8 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "14": {
-  "title": "The slow pH lever, and putting it all together",
+ "15": {
+  "title": "The slow pH lever, putting it together, and the final",
   "midterm": 2,
   "items": [
    {
@@ -1990,10 +1995,5 @@ window.BIO005_SHEET = {
     "b": "Pick one regulated variable, your choice, and draw it pushed off its set point and then corrected twice on the same time axis, once by a fast neural reflex and once by a slow hormonal loop. Show the two responses starting at different times and correcting by different amounts. Label the receptor, center, and effector for each. One line: say what the fast loop buys you given that the slow one was going to fix it anyway."
    }
   ]
- },
- "15": {
-  "title": "Midterm 2, and the final",
-  "midterm": 2,
-  "items": []
  }
 };
