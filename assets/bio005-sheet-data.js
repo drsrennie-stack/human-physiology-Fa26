@@ -16,7 +16,7 @@
 window.BIO005_SHEET = {
  "0": {
   "title": "Chemistry review, optional",
-  "midterm": 0,
+  "midterm": null,
   "items": [
    {
     "n": 1,
@@ -172,90 +172,7 @@ window.BIO005_SHEET = {
   ]
  },
  "2": {
-  "title": "The cell, and how cells talk",
-  "midterm": 1,
-  "items": [
-   {
-    "n": 1,
-    "name": "Membrane composition and fluidity",
-    "can": "Describe the fluid mosaic membrane and state how phospholipids, cholesterol, glycolipids, and integral and peripheral proteins contribute to its properties.",
-    "a": "Draw a patch of membrane in cross section, big enough to fill half your box. Put in phospholipids with heads and tails clearly different, cholesterol wedged between the tails, a transmembrane protein, a peripheral protein on the inner face, and a glycolipid with its sugar chain. Label which face is extracellular. One line: name the one component whose position alone tells you which side of the membrane you are looking at.",
-    "b": "Draw the same membrane patch three times in a row: at normal body temperature, chilled, and warmed. In each, show how tightly the phospholipid tails pack and where cholesterol sits. Draw one tail with a double bond kink in it and one straight saturated tail. One line: cholesterol is called a fluidity buffer and not a stiffener, so say what the word buffer is doing there."
-   },
-   {
-    "n": 2,
-    "name": "Determinants of permeability",
-    "can": "Rank molecules by their ability to cross a lipid bilayer unaided using size, charge, and lipid solubility, and predict which will require a protein.",
-    "a": "Draw a bilayer as a vertical wall down the middle of your page. Line up six molecules on the left: oxygen, carbon dioxide, water, a steroid hormone, glucose, and a sodium ion. Draw an arrow straight through the wall for each one that crosses unaided, a blocked arrow for each that cannot, and a protein set into the wall for each that needs help. One line: sodium is tiny and still cannot cross, so say what actually stopped it.",
-    "b": "Draw a ranking ladder, most permeable at the top and least at the bottom, and place at least six molecules of your own choosing on it. Beside each rung write the properties that put it there: size, lipid solubility, and charge where it applies. One line: name the pair on your ladder that are close in size but far apart in rank, and say what separates them."
-   },
-   {
-    "n": 3,
-    "name": "Signal types and range",
-    "can": "Classify a chemical signal as autocrine, paracrine, neurotransmitter, neurohormone, or hormone by its route and distance of travel.",
-    "a": "Draw one target cell in the middle of the box. Draw an arrow in from each of the five signal types, autocrine, paracrine, neurotransmitter, neurohormone, hormone. Label each arrow with how far it traveled and what carried it.",
-    "b": "Make a five row table. Signal type, where it is released, how far it goes, what it travels through. Fill it from memory, then check one row against the book."
-   },
-   {
-    "n": 4,
-    "name": "Receptor location and ligand solubility",
-    "can": "Predict whether a signal molecule binds a surface receptor or an intracellular receptor from its lipid solubility and relate that to the speed and duration of the response.",
-    "a": "Draw a cell with one surface receptor and one intracellular receptor. Show the path a lipid soluble signal takes and the path a water soluble one takes. Mark which response is faster and which lasts longer.",
-    "b": "Write the two questions you would ask about any new signal molecule to predict where its receptor sits. Then answer both for a steroid and for a peptide hormone."
-   },
-   {
-    "n": 5,
-    "name": "G protein coupled receptors",
-    "can": "Trace a G protein coupled receptor pathway from ligand binding through the G protein and amplifier enzyme to the second messenger and the cellular response.",
-    "a": "Draw the membrane with a receptor crossing it, and trace the pathway in numbered order: ligand binds, the G protein swaps GDP for GTP, the alpha subunit leaves, it switches on the amplifier enzyme, the enzyme makes second messenger, the messenger switches on a kinase, the kinase changes a target protein. Beside each step write roughly how many molecules that one step produced from one. One line: name the step where the biggest multiplication happened.",
-    "b": "Draw a Gs pathway and a Gq pathway side by side, starting from the same membrane and ending at two different cellular responses. Label the amplifier enzyme and the second messenger on each. Then draw the off switch on both, GTP being hydrolyzed on the alpha subunit. One line: cholera toxin jams that off switch open, so write what the gut cell keeps doing and why the person loses fluid."
-   },
-   {
-    "n": 6,
-    "name": "Second messengers",
-    "can": "Identify cyclic AMP, IP3, diacylglycerol, and calcium as second messengers and state the enzyme that generates each and one target it activates.",
-    "a": "Draw a membrane and put all four second messengers on one page: cyclic AMP, IP3, diacylglycerol, and calcium. For each, draw where it comes from, the enzyme or channel that produced it, and an arrow to one thing it switches on. Keep DAG in the membrane and IP3 out in the cytosol, because that is where they actually go. One line: one of the four is not made by an enzyme at all, so name it and say where it comes from instead.",
-    "b": "Draw phospholipase C cutting PIP2 in the membrane and follow both halves. Send IP3 to the endoplasmic reticulum and draw what comes out. Leave DAG where it is and draw what it activates. Show the two halves converging on one response. Draw the adenylyl cyclase and cyclic AMP route beside it for contrast. One line: cyclic AMP is destroyed by phosphodiesterase, so say what a drug that blocks that enzyme does to the signal."
-   },
-   {
-    "n": 7,
-    "name": "Catalytic receptors and intracellular receptors",
-    "can": "Compare a receptor enzyme such as the insulin receptor with an intracellular steroid receptor by mechanism and by time course of the response.",
-    "a": "Draw one cell with the insulin receptor in the membrane on one side and a steroid receptor sitting inside the cell on the other. Trace both from hormone arrival to final response, the steroid crossing the membrane and reaching DNA, the insulin receptor phosphorylating itself and moving a glucose transporter to the surface. Put a clock beside each showing how long the response takes. One line: name the one you could not use if you needed the effect ten seconds from now.",
-    "b": "Draw one time axis with two response curves on it, a receptor enzyme response and a steroid response, each from hormone arrival through peak to fade. Make the onsets and durations honestly different. Under the axis, draw what is physically being changed in each case, an existing protein being modified or a new protein being built. One line: say which of the two you would want for the next thirty seconds and which for the next week."
-   },
-   {
-    "n": 8,
-    "name": "Signal amplification",
-    "can": "Explain how a cascade amplifies a signal and estimate the size of the amplification across the steps of a given pathway.",
-    "a": "Draw a three step cascade as a widening funnel. Put a number on each step and multiply them down the side to get the total amplification.",
-    "b": "Start from one ligand and write the count at each step of a cascade until you reach the response. One line per step, numbers only, no sentences."
-   },
-   {
-    "n": 9,
-    "name": "Receptor modulation",
-    "can": "Define agonist, antagonist, competitive inhibition, up regulation, and down regulation and predict the effect of chronic ligand excess on target cell sensitivity.",
-    "a": "Draw one target cell three times. Normal, after a long stretch of scarce signal, after a long stretch of excess signal. Show the receptor count changing in each and label which is up regulation and which is down.",
-    "b": "Define agonist, antagonist, up regulation and down regulation in your own words, one line each. Then explain in two lines why a patient who needs more opioid for the same effect is usually showing down regulation rather than drug seeking."
-   },
-   {
-    "n": 10,
-    "name": "Signal termination",
-    "can": "Name three mechanisms that end a chemical signal and explain why a signal that cannot be terminated produces pathology.",
-    "a": "Draw one signal running from receptor to response across a cell, then add three different off switches to that same drawing at three different points: the ligand removed or destroyed outside the cell, the second messenger broken down inside, and the response protein having its phosphate taken off. Name the enzyme doing each. One line: pick the switch nearest the response and say what still goes wrong if only that one fails.",
-    "b": "Pick a signal, not insulin, and draw it working normally, then draw it again with its termination broken. In the broken version show what piles up and where. Underneath, draw the effect on the tissue as two panels, one over minutes and one over weeks. One line: a signal that never shuts off eventually produces less response rather than more, so write what the cell did to itself."
-   },
-   {
-    "n": 11,
-    "name": "Dose response relationships",
-    "can": "Plot a dose response curve, identify threshold, maximal response, and EC50, and compare a full agonist with a partial agonist on the same axes.",
-    "a": "Draw a dose response curve with log dose on the x axis and response as a percentage of maximum on the y. Mark threshold, EC50, and the maximal response, with construction lines dropped to the axes. Then plot a partial agonist on the same axes. One line: the partial agonist never reaches the top no matter how much you add, so say what that tells you about the drug that raising the dose cannot fix.",
-    "b": "Draw three curves on one set of axes: a full agonist alone, the same agonist with a competitive antagonist added, and the same agonist with an antagonist that will not come off the receptor. Show which curve slides sideways and which one gets shorter. One line: only one of the two antagonists can be beaten by giving more agonist, so name it and say what feature of the graph proves it."
-   }
-  ]
- },
- "3": {
-  "title": "Getting across the membrane, and the electrical signal",
+  "title": "The cell: structure, transport and signaling",
   "midterm": 1,
   "items": [
    {
@@ -274,38 +191,38 @@ window.BIO005_SHEET = {
    },
    {
     "n": 3,
+    "name": "Membrane composition and fluidity",
+    "can": "Describe the fluid mosaic membrane and state how phospholipids, cholesterol, glycolipids, and integral and peripheral proteins contribute to its properties.",
+    "a": "Draw a patch of membrane in cross section, big enough to fill half your box. Put in phospholipids with heads and tails clearly different, cholesterol wedged between the tails, a transmembrane protein, a peripheral protein on the inner face, and a glycolipid with its sugar chain. Label which face is extracellular. One line: name the one component whose position alone tells you which side of the membrane you are looking at.",
+    "b": "Draw the same membrane patch three times in a row: at normal body temperature, chilled, and warmed. In each, show how tightly the phospholipid tails pack and where cholesterol sits. Draw one tail with a double bond kink in it and one straight saturated tail. One line: cholesterol is called a fluidity buffer and not a stiffener, so say what the word buffer is doing there."
+   },
+   {
+    "n": 4,
+    "name": "Determinants of permeability",
+    "can": "Rank molecules by their ability to cross a lipid bilayer unaided using size, charge, and lipid solubility, and predict which will require a protein.",
+    "a": "Draw a bilayer as a vertical wall down the middle of your page. Line up six molecules on the left: oxygen, carbon dioxide, water, a steroid hormone, glucose, and a sodium ion. Draw an arrow straight through the wall for each one that crosses unaided, a blocked arrow for each that cannot, and a protein set into the wall for each that needs help. One line: sodium is tiny and still cannot cross, so say what actually stopped it.",
+    "b": "Draw a ranking ladder, most permeable at the top and least at the bottom, and place at least six molecules of your own choosing on it. Beside each rung write the properties that put it there: size, lipid solubility, and charge where it applies. One line: name the pair on your ladder that are close in size but far apart in rank, and say what separates them."
+   },
+   {
+    "n": 5,
     "name": "Simple diffusion and Fick's law",
     "can": "State the variables in Fick's law of diffusion and predict how a change in concentration gradient, surface area, membrane thickness, or distance changes the rate of transfer.",
     "a": "Draw the Fick's law setup as a picture, not an equation: two compartments, a membrane between them, and label on the drawing the surface area, the concentration difference, and the membrane thickness. Then draw four small graphs in a row, rate of diffusion against each of those, plus against diffusion distance. Label both axes on every graph. One line: one variable sits in the denominator, so say which and how the shape of its graph shows that.",
     "b": "Draw a real gas exchange surface, one alveolus against one capillary, and mark on it every Fick variable the body has already optimised. Then draw the same surface in pulmonary edema, with fluid thickening the barrier. Show what changed and what did not. One line: name the single Fick variable the disease changed, and say whether breathing faster fixes it."
    },
    {
-    "n": 4,
+    "n": 6,
     "name": "Osmolarity and tonicity",
     "can": "Calculate the osmolarity of a solution, distinguish osmolarity from tonicity, and classify a solution as isotonic, hypotonic, or hypertonic to a cell.",
     "a": "Draw three beakers labeled 150 mM NaCl, 300 mM sucrose, and 300 mM urea. Under each, write the osmolarity calculation and the answer in mOsm/L. Then draw a red blood cell in each beaker and show its final volume. One line: all three have the same osmolarity and one of them lyses the cell, so name the property of the solute that decides tonicity.",
     "b": "Draw three cells that have just come out of three unknown solutions: one shrunken, one swollen but intact, and one lysed. Beside each, write two different solutions that could have produced that result, one differing in osmolarity and one differing only in penetrating solute content. One line: say what osmolarity alone failed to tell you about the lysed cell."
    },
    {
-    "n": 5,
+    "n": 7,
     "name": "Osmosis and cell volume",
     "can": "Predict the direction of water movement and the resulting change in cell volume when a cell is placed in a solution of stated osmolarity and penetrating solute content.",
     "a": "Draw a cell at normal volume in the middle of your page, 290 mOsm/L inside. Around it draw four more cells, in 150 mOsm/L NaCl, 290 mOsm/L NaCl, 450 mOsm/L NaCl, and 290 mOsm/L urea. For each, draw the water arrow with its direction and the final cell volume. One line: for the urea cell, say what happens at the first instant and what happens over the next few minutes.",
     "b": "Draw one set of axes, cell volume on the y and time on the x, with the moment of immersion marked. Plot three traces on it: a cell in 450 mOsm/L NaCl, a cell in 150 mOsm/L NaCl, and a cell in 600 mOsm/L urea. One line: one trace goes down and then climbs back past where it started, so say which solute movement caused each half of that curve."
-   },
-   {
-    "n": 6,
-    "name": "Diffusion and osmosis experiment",
-    "can": "Measure diffusion and osmotic movement across a selectively permeable membrane and relate the observed rate to molecular size and concentration gradient.",
-    "a": "Before you run anything, draw your predicted result: the bag or the plate as it will look at the start and at the end, with each test molecule drawn where you expect it to be. Run it, then draw the actual result beside your prediction in a second color. One line: name the substance that moved fastest and say whether molecular size or starting gradient explains it better in your own data.",
-    "b": "Draw a graph of distance moved on the y against molecular weight on the x, one labeled point for every substance you tested. Beside it draw a second small graph, distance moved against starting concentration. One line: your membrane passed some things and stopped others, so write the size cutoff your data actually supports and how confident you are in that number."
-   },
-   {
-    "n": 7,
-    "name": "Tonicity and red blood cells",
-    "can": "Observe erythrocytes in solutions of different tonicity, identify crenation, normal shape, and hemolysis, and explain each result.",
-    "a": "Draw three microscope fields, one per solution: distilled water, 0.9 percent NaCl, and 3 percent NaCl. In each, draw the cells as you actually see them, keeping the biconcave disc, the spiky crenated form, and the ghosts distinct. Under each field write the direction of net water movement. One line: name the slide that is hardest to count cells on, and say why that difficulty is itself the result.",
-    "b": "Draw one red cell in the center of your box and three arrows out to three versions of it: crenated, normal, and hemolysed. Beside each write the tonicity that produced it and the water arrow. Then draw what the membrane itself did in the hemolysed one. One line: crenation is reversible and hemolysis is not, so say what makes the difference."
    },
    {
     "n": 8,
@@ -351,48 +268,125 @@ window.BIO005_SHEET = {
    },
    {
     "n": 14,
-    "name": "Transport simulation",
-    "can": "Use a membrane transport simulation to distinguish simple diffusion from facilitated diffusion and active transport by their response to gradient reversal and metabolic poison.",
-    "a": "Before you run it, draw three predicted graphs in a row, transport rate against time, one each for simple diffusion, facilitated diffusion, and active transport. Then draw a fourth showing what a metabolic poison does to whichever of the three it affects. Run the simulation and draw the real curves underneath in a second color. One line: say which transport type the poison left untouched, and why it could not touch it.",
-    "b": "Draw a decision tree with three endpoints: simple diffusion, facilitated diffusion, and active transport. At each branch put one test you can actually run in the simulation, reversing the gradient, raising solute until the rate stops climbing, or adding a metabolic poison. Draw the result that sends you down each branch. One line: name the single test that separates active transport from both of the others in one step."
-   },
-   {
-    "n": 15,
     "name": "Ion distribution and electrochemical gradients",
     "can": "State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.",
     "a": "Draw a cell and give each ion a pair of bars, inside and outside, height for concentration: sodium 145 mM out against 15 mM in, potassium 4 out against 140 in, chloride 110 out against 10 in, calcium about 1 out against 0.0001 free in. Mark the membrane inside negative. On each ion draw two separate arrows, chemical force and electrical force. One line: two ions have arrows pointing opposite ways, so name both and say which force wins.",
     "b": "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride wherever your own numbers put it. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest."
    },
    {
-    "n": 16,
+    "n": 15,
     "name": "Nernst equation",
     "can": "Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move.",
     "a": "Write the Nernst equation at the top of your box, then work potassium through by hand at body temperature, 4 mM outside against 140 mM inside, every step shown, to an answer in mV. Do sodium underneath, 145 mM out against 15 mM in. Draw a voltage scale beside your working and place both answers on it. One line: an equilibrium potential is where that ion stops moving, so say which way potassium moves at minus 70 mV.",
     "b": "Draw one set of axes, equilibrium potential in mV on the y and extracellular potassium on the x. Plot the Nernst prediction for potassium at 2, 4, 10, and 20 mM outside with 140 mM held inside, calculating at least two of the points yourself. Draw a horizontal dashed line at threshold, about minus 55 mV. One line: say what happens to the cell as the curve climbs toward that line, and whether the cell gets easier or harder to excite."
    },
    {
-    "n": 17,
+    "n": 16,
     "name": "Resting membrane potential",
     "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes.",
     "a": "Draw a cell at rest with minus 70 mV written inside. On its membrane draw potassium leak channels as many, sodium leak channels as few, and the sodium potassium pump. Beside the cell draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60, and mark where minus 70 sits between them. One line: the resting potential sits close to one of those two and nowhere near halfway, so say what makes it lean.",
     "b": "Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked, then draw four labeled arrows off it showing where the potential moves when you open more potassium channels, open sodium channels, block the potassium leak, and stop the sodium potassium pump. One line: one of those four shifts the potential only a few mV even though it eventually ruins the cell, so name it and say why the immediate effect is so small."
    },
    {
-    "n": 18,
+    "n": 17,
     "name": "Ion channel gating",
     "can": "Compare leak, voltage gated, ligand gated, and mechanically gated channels by what opens each one and give a physiological location for each.",
     "a": "Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated. Draw each one twice, closed and open, and draw whatever opens it right beside it, a voltage change, a bound molecule, a stretch or a bend. Under each write one real place in the body it is found. One line: only one of the four is open at rest, so say what job that gives it.",
     "b": "Draw one neuron stretched across the whole width of your box. Along it place each channel type where it actually works: ligand gated on the dendrites, voltage gated sodium and potassium along the axon, leak channels everywhere, voltage gated calcium at the terminal. Add a mechanically gated channel on a sensory ending drawn off to the side. One line: number the order these open during one real signal and say which one starts it."
    },
    {
-    "n": 19,
+    "n": 18,
     "name": "Depolarization and hyperpolarization",
     "can": "Define depolarization, repolarization, hyperpolarization, and overshoot and label each on a membrane potential tracing.",
     "a": "Draw a membrane potential tracing with time on the x and mV on the y, starting at minus 70. Take it up past zero to about plus 30 and back down below minus 70 before it returns. Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest. Draw zero mV as a dashed line. One line: define overshoot using that dashed line, not using the peak.",
     "b": "Draw one set of axes with a dashed line at minus 70 mV and another at zero. Plot four traces from rest: a small depolarization that fades away, a hyperpolarization, a depolarization that crosses threshold, and a repolarization from plus 30 back down. Label each with its correct term. One line: say which of your traces make the cell easier to fire and which make it harder, and how you can tell from direction alone."
    },
    {
+    "n": 19,
+    "name": "Signal types and range",
+    "can": "Classify a chemical signal as autocrine, paracrine, neurotransmitter, neurohormone, or hormone by its route and distance of travel.",
+    "a": "Draw one target cell in the middle of the box. Draw an arrow in from each of the five signal types, autocrine, paracrine, neurotransmitter, neurohormone, hormone. Label each arrow with how far it traveled and what carried it.",
+    "b": "Make a five row table. Signal type, where it is released, how far it goes, what it travels through. Fill it from memory, then check one row against the book."
+   },
+   {
     "n": 20,
+    "name": "Receptor location and ligand solubility",
+    "can": "Predict whether a signal molecule binds a surface receptor or an intracellular receptor from its lipid solubility and relate that to the speed and duration of the response.",
+    "a": "Draw a cell with one surface receptor and one intracellular receptor. Show the path a lipid soluble signal takes and the path a water soluble one takes. Mark which response is faster and which lasts longer.",
+    "b": "Write the two questions you would ask about any new signal molecule to predict where its receptor sits. Then answer both for a steroid and for a peptide hormone."
+   },
+   {
+    "n": 21,
+    "name": "G protein coupled receptors",
+    "can": "Trace a G protein coupled receptor pathway from ligand binding through the G protein and amplifier enzyme to the second messenger and the cellular response.",
+    "a": "Draw the membrane with a receptor crossing it, and trace the pathway in numbered order: ligand binds, the G protein swaps GDP for GTP, the alpha subunit leaves, it switches on the amplifier enzyme, the enzyme makes second messenger, the messenger switches on a kinase, the kinase changes a target protein. Beside each step write roughly how many molecules that one step produced from one. One line: name the step where the biggest multiplication happened.",
+    "b": "Draw a Gs pathway and a Gq pathway side by side, starting from the same membrane and ending at two different cellular responses. Label the amplifier enzyme and the second messenger on each. Then draw the off switch on both, GTP being hydrolyzed on the alpha subunit. One line: cholera toxin jams that off switch open, so write what the gut cell keeps doing and why the person loses fluid."
+   },
+   {
+    "n": 22,
+    "name": "Second messengers",
+    "can": "Identify cyclic AMP, IP3, diacylglycerol, and calcium as second messengers and state the enzyme that generates each and one target it activates.",
+    "a": "Draw a membrane and put all four second messengers on one page: cyclic AMP, IP3, diacylglycerol, and calcium. For each, draw where it comes from, the enzyme or channel that produced it, and an arrow to one thing it switches on. Keep DAG in the membrane and IP3 out in the cytosol, because that is where they actually go. One line: one of the four is not made by an enzyme at all, so name it and say where it comes from instead.",
+    "b": "Draw phospholipase C cutting PIP2 in the membrane and follow both halves. Send IP3 to the endoplasmic reticulum and draw what comes out. Leave DAG where it is and draw what it activates. Show the two halves converging on one response. Draw the adenylyl cyclase and cyclic AMP route beside it for contrast. One line: cyclic AMP is destroyed by phosphodiesterase, so say what a drug that blocks that enzyme does to the signal."
+   },
+   {
+    "n": 23,
+    "name": "Catalytic receptors and intracellular receptors",
+    "can": "Compare a receptor enzyme such as the insulin receptor with an intracellular steroid receptor by mechanism and by time course of the response.",
+    "a": "Draw one cell with the insulin receptor in the membrane on one side and a steroid receptor sitting inside the cell on the other. Trace both from hormone arrival to final response, the steroid crossing the membrane and reaching DNA, the insulin receptor phosphorylating itself and moving a glucose transporter to the surface. Put a clock beside each showing how long the response takes. One line: name the one you could not use if you needed the effect ten seconds from now.",
+    "b": "Draw one time axis with two response curves on it, a receptor enzyme response and a steroid response, each from hormone arrival through peak to fade. Make the onsets and durations honestly different. Under the axis, draw what is physically being changed in each case, an existing protein being modified or a new protein being built. One line: say which of the two you would want for the next thirty seconds and which for the next week."
+   },
+   {
+    "n": 24,
+    "name": "Signal amplification",
+    "can": "Explain how a cascade amplifies a signal and estimate the size of the amplification across the steps of a given pathway.",
+    "a": "Draw a three step cascade as a widening funnel. Put a number on each step and multiply them down the side to get the total amplification.",
+    "b": "Start from one ligand and write the count at each step of a cascade until you reach the response. One line per step, numbers only, no sentences."
+   },
+   {
+    "n": 25,
+    "name": "Receptor modulation",
+    "can": "Define agonist, antagonist, competitive inhibition, up regulation, and down regulation and predict the effect of chronic ligand excess on target cell sensitivity.",
+    "a": "Draw one target cell three times. Normal, after a long stretch of scarce signal, after a long stretch of excess signal. Show the receptor count changing in each and label which is up regulation and which is down.",
+    "b": "Define agonist, antagonist, up regulation and down regulation in your own words, one line each. Then explain in two lines why a patient who needs more opioid for the same effect is usually showing down regulation rather than drug seeking."
+   },
+   {
+    "n": 26,
+    "name": "Signal termination",
+    "can": "Name three mechanisms that end a chemical signal and explain why a signal that cannot be terminated produces pathology.",
+    "a": "Draw one signal running from receptor to response across a cell, then add three different off switches to that same drawing at three different points: the ligand removed or destroyed outside the cell, the second messenger broken down inside, and the response protein having its phosphate taken off. Name the enzyme doing each. One line: pick the switch nearest the response and say what still goes wrong if only that one fails.",
+    "b": "Pick a signal, not insulin, and draw it working normally, then draw it again with its termination broken. In the broken version show what piles up and where. Underneath, draw the effect on the tissue as two panels, one over minutes and one over weeks. One line: a signal that never shuts off eventually produces less response rather than more, so write what the cell did to itself."
+   },
+   {
+    "n": 27,
+    "name": "Dose response relationships",
+    "can": "Plot a dose response curve, identify threshold, maximal response, and EC50, and compare a full agonist with a partial agonist on the same axes.",
+    "a": "Draw a dose response curve with log dose on the x axis and response as a percentage of maximum on the y. Mark threshold, EC50, and the maximal response, with construction lines dropped to the axes. Then plot a partial agonist on the same axes. One line: the partial agonist never reaches the top no matter how much you add, so say what that tells you about the drug that raising the dose cannot fix.",
+    "b": "Draw three curves on one set of axes: a full agonist alone, the same agonist with a competitive antagonist added, and the same agonist with an antagonist that will not come off the receptor. Show which curve slides sideways and which one gets shorter. One line: only one of the two antagonists can be beaten by giving more agonist, so name it and say what feature of the graph proves it."
+   },
+   {
+    "n": 28,
+    "name": "Diffusion and osmosis experiment",
+    "can": "Measure diffusion and osmotic movement across a selectively permeable membrane and relate the observed rate to molecular size and concentration gradient.",
+    "a": "Before you run anything, draw your predicted result: the bag or the plate as it will look at the start and at the end, with each test molecule drawn where you expect it to be. Run it, then draw the actual result beside your prediction in a second color. One line: name the substance that moved fastest and say whether molecular size or starting gradient explains it better in your own data.",
+    "b": "Draw a graph of distance moved on the y against molecular weight on the x, one labeled point for every substance you tested. Beside it draw a second small graph, distance moved against starting concentration. One line: your membrane passed some things and stopped others, so write the size cutoff your data actually supports and how confident you are in that number."
+   },
+   {
+    "n": 29,
+    "name": "Tonicity and red blood cells",
+    "can": "Observe erythrocytes in solutions of different tonicity, identify crenation, normal shape, and hemolysis, and explain each result.",
+    "a": "Draw three microscope fields, one per solution: distilled water, 0.9 percent NaCl, and 3 percent NaCl. In each, draw the cells as you actually see them, keeping the biconcave disc, the spiky crenated form, and the ghosts distinct. Under each field write the direction of net water movement. One line: name the slide that is hardest to count cells on, and say why that difficulty is itself the result.",
+    "b": "Draw one red cell in the center of your box and three arrows out to three versions of it: crenated, normal, and hemolysed. Beside each write the tonicity that produced it and the water arrow. Then draw what the membrane itself did in the hemolysed one. One line: crenation is reversible and hemolysis is not, so say what makes the difference."
+   },
+   {
+    "n": 30,
+    "name": "Transport simulation",
+    "can": "Use a membrane transport simulation to distinguish simple diffusion from facilitated diffusion and active transport by their response to gradient reversal and metabolic poison.",
+    "a": "Before you run it, draw three predicted graphs in a row, transport rate against time, one each for simple diffusion, facilitated diffusion, and active transport. Then draw a fourth showing what a metabolic poison does to whichever of the three it affects. Run the simulation and draw the real curves underneath in a second color. One line: say which transport type the poison left untouched, and why it could not touch it.",
+    "b": "Draw a decision tree with three endpoints: simple diffusion, facilitated diffusion, and active transport. At each branch put one test you can actually run in the simulation, reversing the gradient, raising solute until the rate stops climbing, or adding a metabolic poison. Draw the result that sends you down each branch. One line: name the single test that separates active transport from both of the others in one step."
+   },
+   {
+    "n": 31,
     "name": "Membrane potential simulation",
     "can": "Manipulate extracellular potassium and sodium in a simulation and record the resulting change in resting membrane potential against the Nernst prediction.",
     "a": "Before you touch the simulation, draw your predicted graph: resting membrane potential on the y and extracellular potassium on the x, with the Nernst prediction drawn as one line. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: the measured points sit above the Nernst line at low potassium, so name the other ion whose permeability accounts for that gap.",
@@ -400,7 +394,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "4": {
+ "3": {
   "title": "Neurons, action potentials and synapses",
   "midterm": 1,
   "items": [
@@ -567,7 +561,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "5": {
+ "4": {
   "title": "Reflexes, and sensing the world",
   "midterm": 1,
   "items": [
@@ -748,7 +742,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "6": {
+ "5": {
   "title": "Muscle, and how movement gets commanded",
   "midterm": 1,
   "items": [
@@ -922,7 +916,7 @@ window.BIO005_SHEET = {
    }
   ]
  },
- "7": {
+ "6": {
   "title": "Hormones, the autonomic system, and reproduction",
   "midterm": 1,
   "items": [
@@ -1081,6 +1075,11 @@ window.BIO005_SHEET = {
     "b": "Draw the four curves for a normal cycle, then draw a second set of axes for a cycle in which ovulation never happened. Change only what has to change and leave the rest alone. Show which curve has lost its peak and which one never rises at all. One line: name the single hormone you would measure in the second half of a cycle to prove ovulation happened, and say what it should be doing."
    }
   ]
+ },
+ "7": {
+  "title": "Midterm 1",
+  "midterm": null,
+  "items": []
  },
  "8": {
   "title": "The heart as a pump",
@@ -1991,5 +1990,10 @@ window.BIO005_SHEET = {
     "b": "Pick one regulated variable, your choice, and draw it pushed off its set point and then corrected twice on the same time axis, once by a fast neural reflex and once by a slow hormonal loop. Show the two responses starting at different times and correcting by different amounts. Label the receptor, center, and effector for each. One line: say what the fast loop buys you given that the slow one was going to fix it anyway."
    }
   ]
+ },
+ "15": {
+  "title": "Midterm 2 and the final",
+  "midterm": null,
+  "items": []
  }
 };
