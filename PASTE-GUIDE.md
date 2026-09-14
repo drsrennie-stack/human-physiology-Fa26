@@ -139,46 +139,78 @@ ignores `?week=`. The fix is in `repo-drop-v2`, which is still unpushed. Week 2 
 longer has that button at all. Everything else Week 2 depends on is also waiting on that
 push: the live site still has Week 2 as the chemistry week.
 
-## What students print now lives in Canvas
+## What students print lives in your Drive
 
-Printing used to send a student out to the course website, which is the trip they were
-getting stranded on. Everything they print is a PDF in Canvas Files now.
+Four PDFs for Week 2, one for Week 1, all on "anyone with the link" sharing, checked
+September 14, so students get in without asking for access.
 
-| Week | Button | File to upload |
-|---|---|---|
-| W1 Step 1 | Week 1 note sheet, ready to print (PDF) | `BIO005-note-sheet-week-01.pdf` |
-| W2 Step 1 | Foundations of the cell and tissues (PDF) | `BIO005-Week2-CELL-DRAFT-NoteSheet.pdf` |
-| W2 Step 1 | Cellular physiology and transport mechanisms (PDF) | `BIO005-CellPhysiology-DRAFT-NoteSheet.pdf` |
-| W2 Step 1 | The 11 Week 2 competencies (PDF) | `BIO005-CellPhysiology-DRAFT-Competencies.pdf` |
+| Week | Section | Button | File |
+|---|---|---|---|
+| W1 Step 1 | | Week 1 note sheet: introduction to physiology | Introduction to Physiology NoteSheet |
+| W2 Step 1 | Foundations of the cell and tissues | Note sheet | Cell Anatomy NoteSheet |
+| W2 Step 1 | Foundations of the cell and tissues | Competency list | Cell Anatomy Competencies |
+| W2 Step 1 | Cellular physiology and transport mechanisms | Note sheet | Cell Physiology NoteSheet |
+| W2 Step 1 | Cellular physiology and transport mechanisms | Competency list | Cell Phys Competencies |
 
-To wire them: Files, Upload, drop them in, and publish each one or students see a lock.
-Click a file and the address bar reads `.../courses/42616/files/NNNNNNN?...`. The number
-after `files/` is the id. Either send me the four ids and I will regenerate, or open the
-page file, find `href="https://yccd.instructure.com/courses/42616/files"` and make it
-`.../files/NNNNNNN/download?wrap=1`. They are in page order, so the first `files` href in
-`w02-01-print-your-week.html` is Foundations of the cell and tissues, the second is
-Cellular physiology and transport mechanisms, the third is the competencies.
+The links live in the `PRINT_PDF` table at the top of `build_canvas_pages.py`. Replace a
+`drive("...")` to point a button at a different file. Set an entry's `id` to `None` and it
+stops being a button: the page names it in plain text under a "Not posted yet" line
+instead, so a sheet that does not exist yet never gets a link that goes nowhere.
 
-The filenames live in the `PRINT_PDF` table at the top of `build_canvas_pages.py`, beside
-the id each one needs, so the two can never get crossed.
+Week 2 Step 1 is laid out as the two halves rather than as four loose buttons, with a
+heading for each and its note sheet and competency list underneath. Week 2 Step 1 no
+longer carries the print pack; Week 1 Step 1 still does, for the brain dump paper.
 
-Week 2 Step 1 no longer carries the print pack. Week 2 comes in two halves and each half
-has its own note sheet, which the page now says: Foundations of the cell and tissues is
-the anatomy, Cellular physiology and transport mechanisms is what that anatomy does,
-worked in that order, with the competency list beside them.
+A Drive link leaves Canvas, so those buttons open in a new tab and the page carries the
+line telling students to close it to come back.
 
-Only Week 1 still uses a generated note sheet. `BIO005-note-sheet-week-01.pdf` ships in
-this drop, rendered from `note-sheet.html` by `make_note_sheet_pdfs.js`. The Week 2 PDF I
-generated earlier is superseded by your two and is not in this drop.
-
-Step 4 of both weeks also lost its off-site button. The photographing instructions that
-used to live on `assignment-notesheet.html` are written into the Canvas page now, so
-uploading the sheet takes a student nowhere at all.
+Step 4 of both weeks has no off-site button at all. The photographing instructions that
+used to live on `assignment-notesheet.html` are written into the Canvas page now.
 
 A printed note sheet is mostly empty drawing boxes, which a screen reader cannot narrate.
 `note-sheet.html` stays on the course site as the equivalent accessible version, with the
 same prompts as real text in reading order, and it is where a student using a reader
 should be sent. That is recorded in the compliance notes.
+
+## The discussion template, from Week 2 on
+
+Week 2 Step 8 is the pattern for every discussion after it. The full prompt is written into
+the Canvas page, then one maroon **Post in Canvas** button and nothing else. No
+instructions button, because the instructions are already there, and nothing that leaves
+Canvas.
+
+Every weekly post is two halves, and the page says so at the top:
+
+**Part 1, the physiology.** Predict first, in writing, before looking anything up. Then
+work it properly. Then attach the hand drawn version. Week 2 is cell junctions: students
+pick the lining of the small intestine, the cardiac intercalated disc, or the epidermis,
+predict which junction is doing the work there, name what is actually present, follow one
+substance across the tissue, and trace one junction failure out to a symptom.
+
+**Part 2, what the evidence told you.** This is the metacognitive half and it carries real
+weight, so it is written as four questions, not a closing line. How did your prediction do
+and which idea had to change; what did the Mastery Check reveal; what did you do about it;
+what happened when you tried again. Questions 2 to 4 are the same all fifteen weeks.
+Question 1 changes with the week's physiology, and the week's two common wrong predictions
+are named in it so students have something to check themselves against.
+
+Two things follow from this shape. The Mastery Check sits at Step 9, one step after the
+discussion, so the page tells students to take it early in the week and come back. And the
+replies ask for both halves too: one thing the other person's tissue can do that yours
+cannot, and something taken up from their Part 2.
+
+Week 1 is the only week with two discussions, because the vision board takes Friday. It
+uses the same pattern twice on one page, a heading and a submit button per discussion.
+
+The prompt on the Canvas page and the prompt in `bio005-discussions.js` are the same
+prompt, so the site and Canvas cannot drift. Both were rewritten on September 14 when the
+Week 2 discussion moved off G protein signaling. `CANVAS-DISCUSSIONS.txt` carries the note
+explaining the change, and the Week 2 iframe height went from 3350 to 3600 because the
+prompt is longer.
+
+When you build Week 3, copy the Week 2 step block, swap the Part 1 content and the topic
+id, rewrite question 1 of Part 2 for that week's two common wrong predictions, and leave
+everything else as it is.
 
 ## Getting back from an off-site button
 

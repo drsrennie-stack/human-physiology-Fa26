@@ -3,7 +3,9 @@
    bio005-discussions.js
 
    One discussion per week. Week 1 is the vision board and lives on
-   its own page; weeks 2 to 15 are here, fourteen of them.
+   its own page; weeks 2 to 14 are here, plus "0" for the optional chemistry
+   review. Week 15 is catch up and the final and has no discussion.
+   Sep 13 2026: keys follow the week map of record.
 
    THE RULE, and every prompt below is built on it: one post, not two.
    The post works through something from that week's physiology AND
@@ -23,8 +25,12 @@
 
 window.BIO005_DISCUSSIONS = {
 
-  "2": {
-    title: "The chemistry that does work in the body",
+
+
+  /* Sep 13 2026. Chemistry left the graded weeks, so its graph reading
+     discussion is kept here under "0" for anyone doing the optional review. */
+  "0": {
+    title: "The chemistry that does work in the body (optional review)",
     eyebrow: "Reading a graph before you trust it",
     pick: "The graphing worksheet gives you three figures. Pick the one that gave you the most trouble, not the one you found easiest.",
     work: "Post your reading of that figure: what is on each axis and in what units, what the shape of the line actually says, and one thing the figure does NOT tell you that a reader might assume it does. Name the value you would need before you could act on it clinically.",
@@ -33,8 +39,18 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people who worked a different figure than you did. Say one thing their reading gave you that yours did not."
   },
 
+  "2": {
+    title: "The cell, and how cells talk",
+    eyebrow: "Predict, then check",
+    pick: "Pick one place in the body: the lining of your small intestine, where food is on one side and your blood is on the other; cardiac muscle at the intercalated disc between two heart cells; or the outer layer of your skin, which is pulled and stretched all day.",
+    work: "Before you look anything up, predict in two lines: which kind of junction is doing most of the work in that place, and what is the first thing that would go wrong if it failed? Write it down and do not change it. Then work it properly. Name the junctions actually present there; most tissues use more than one, so name each and say what it is built from and what it anchors to inside the cell. Say what each one buys that tissue: does it seal the gap between cells, hold them together against pulling, or let ions and small molecules pass from one cell into the next? Pick one substance and say how it gets from one side of that tissue to the other, through the cells or between them, and which junction decides that. Then follow one failure all the way out: take the junction you named in your prediction, break it, and trace it to something a person would actually notice or a clinician would measure. Finish with one sentence on why this tissue has the junctions it has and not the others.",
+    think: "Now the honest half, and it is not a formality. Answer all four. One, how did your prediction do: right, half right, or wrong, and which specific idea had to change? The two that catch people out most are assuming a junction that holds cells together also seals the space between them, and forgetting that a sheet of cells has a route between the cells as well as through them. Two, what did your Mastery Check reveal: one specific thing you thought you knew and did not. Three, what did you do about it: changed the resource, the approach, drew it, said it out loud, asked someone, or kept what you were doing if you can say how you knew it was working. Four, what happened when you tried again, and how could you tell? Your numbers stay yours; improving a lot, a little, holding steady or sliding tells your classmates everything useful.",
+    attach: "Your hand drawn sketch, photographed or scanned, attached to the post. Two neighboring cells side by side, every junction labeled, arrows for what can pass and what cannot. The post does not count without it.",
+    reply: "Reply to two people who picked a different place than you did. Say one thing their tissue can do that yours cannot and name the junction that is the reason, then take up something from their second half: an adjustment worth stealing, or a place where their reasoning and yours came apart."
+  },
+
   "3": {
-    title: "Getting across the membrane",
+    title: "Getting across the membrane, and the electrical signal",
     eyebrow: "Predict, then check",
     pick: "Pick one: a red cell dropped into distilled water, a red cell into 3 percent saline, or a patient given a liter of 0.45 percent saline.",
     work: "Before you look anything up, write your prediction of what happens to cell volume and why. Then work it properly: name the tonicity, say which way water moves and what drives it, and explain why osmolarity alone does not settle the question until you know whether the solute can cross. Give the clinical consequence in one sentence.",
@@ -44,7 +60,7 @@ window.BIO005_DISCUSSIONS = {
   },
 
   "4": {
-    title: "How cells talk, and the electrical signal",
+    title: "Neurons, action potentials and synapses",
     eyebrow: "Where the voltage comes from",
     pick: "Pick one change: raise extracellular potassium, block the sodium-potassium pump, or block voltage-gated sodium channels.",
     work: "Work out what your change does to the resting membrane potential and to the cell's ability to fire, and say why in terms of gradients and permeability rather than by naming a rule. Be specific about which one you are changing, the gradient or the permeability, because they are not the same lever. Then name a real situation where this happens in a patient.",
@@ -54,17 +70,7 @@ window.BIO005_DISCUSSIONS = {
   },
 
   "5": {
-    title: "Synapses and central integration",
-    eyebrow: "Adding signals up",
-    pick: "Pick one: temporal summation, spatial summation, or an inhibitory input arriving at the same time as an excitatory one.",
-    work: "Draw the situation in words: which inputs arrive, when, where on the neuron, and what the membrane does at the trigger zone. Say whether the cell fires and why that answer depends on timing and position rather than on how many inputs there were. One sentence on what would flip your answer the other way.",
-    think: "Where did your intuition disagree with the physiology? A common one is expecting more inputs to always mean more firing. Name the assumption you had to give up, or if you had none, name the thing that still feels arbitrary to you about how the cell decides.",
-    attach: "",
-    reply: "Reply to two classmates. Take their scenario and change one thing about the timing, then ask them what they think happens."
-  },
-
-  "6": {
-    title: "Sensing the world, and the responses you do not control",
+    title: "Reflexes, and sensing the world",
     eyebrow: "Why you stop noticing",
     pick: "Pick one: receptor adaptation, two-point discrimination, or an autonomic reflex you can observe in yourself.",
     work: "Explain the mechanism, then use it to explain something you have actually experienced: why you stop feeling your watch, why your fingertips can tell apart what your back cannot, why your heart rate changes before you have consciously registered a fright. Name the receptor or the pathway, not just the feeling.",
@@ -73,7 +79,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people. Tell them a second everyday experience their mechanism also explains, and check whether it really does."
   },
 
-  "7": {
+  "6": {
     title: "Muscle, and how movement gets commanded",
     eyebrow: "Force is a choice the nervous system makes",
     pick: "Pick one: the length-tension relationship, motor unit recruitment, or the difference between a twitch and tetanus.",
@@ -83,8 +89,8 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people whose mechanism was different. Ask how their mechanism and yours would interact in a single real movement."
   },
 
-  "8": {
-    title: "Hormones and reproduction, the slow control system",
+  "7": {
+    title: "Hormones, the autonomic system, and reproduction",
     eyebrow: "The one loop that runs the other way",
     pick: "Pick one: a negative feedback hormone axis, the positive feedback that triggers ovulation, or what happens when a feedback loop is broken by disease or by an exogenous hormone.",
     work: "Draw the loop out in words: the stimulus, the sensor, the integrator, the effector, the response, and the signal that closes it. Say what the loop is defending. Then say what happens if you cut it at one named point, and why that particular break produces the symptoms it does.",
@@ -93,7 +99,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people, one of whom worked a different kind of loop than you. What does their loop defend that yours does not?"
   },
 
-  "9": {
+  "8": {
     title: "The heart as a pump",
     eyebrow: "Pressure decides everything",
     pick: "Pick one moment in the cardiac cycle: a valve opening, a valve closing, or isovolumetric contraction.",
@@ -103,7 +109,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two classmates who chose a different moment. Put your moment and theirs in order and say what has to happen in between."
   },
 
-  "10": {
+  "9": {
     title: "Pressure, flow, and holding blood pressure steady",
     eyebrow: "The reflex that catches you",
     pick: "Pick one: standing up quickly, hemorrhage, or a vessel narrowed by disease.",
@@ -113,7 +119,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people with different situations. Does the reflex do the same thing in their case as in yours? If not, why not?"
   },
 
-  "11": {
+  "10": {
     title: "Blood and how the body defends itself",
     eyebrow: "Reading a panel like a clinician",
     pick: "Pick one pattern from a CBC: a low hematocrit, a raised white count with a left shift, or a low platelet count.",
@@ -123,7 +129,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people. Offer a third mechanism that could produce their number, and say what would rule it in or out."
   },
 
-  "12": {
+  "11": {
     title: "Digestion, and how you use food for fuel",
     eyebrow: "One meal, all the way through",
     pick: "Pick one macronutrient, and one real meal you actually ate this week that contains it.",
@@ -133,7 +139,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people who followed a different nutrient. Where do your two pathways meet?"
   },
 
-  "13": {
+  "12": {
     title: "Breathing, gas transport, and the fast pH lever",
     eyebrow: "Minutes, not days",
     pick: "Pick one: a right shift of the hemoglobin dissociation curve, hyperventilation, or hypoventilation.",
@@ -143,7 +149,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two classmates. Take their change and ask what the kidney would eventually do about it."
   },
 
-  "14": {
+  "13": {
     title: "The kidney and body fluid balance",
     eyebrow: "Filter everything, take back what you need",
     pick: "Pick one substance: glucose, sodium, water, or a drug.",
@@ -153,7 +159,7 @@ window.BIO005_DISCUSSIONS = {
     reply: "Reply to two people with different substances. Does the nephron treat theirs and yours the same way anywhere along its length?"
   },
 
-  "15": {
+  "14": {
     title: "The slow pH lever, and putting it all together",
     eyebrow: "The last one, and it looks backwards",
     pick: "Pick one disturbance: a metabolic acidosis, a respiratory acidosis, or a metabolic alkalosis.",
@@ -161,6 +167,18 @@ window.BIO005_DISCUSSIONS = {
     think: "Last post of the term, so make it count. Look back at what you wrote in week 2 or week 3. What can you now explain that you could not then, and what is still not solid? Be specific in both directions. Nobody finishes a physiology course with everything solid, and saying which parts are not is a more useful skill than pretending otherwise.",
     attach: "",
     reply: "Reply to two people with different disturbances. Say which of the two levers, fast or slow, is doing the work in their case."
-  }
+  },
 
+  /* Sep 13 2026. The old Week 5 prompt on summation. Synapses now sit inside
+     Week 4 with the action potential, so this prompt has no week of its own.
+     Kept in case a week wants a second option. Nothing reads this key. */
+  "spare-synapses": {
+    title: "Synapses and central integration (spare prompt, not read by any week)",
+    eyebrow: "Adding signals up",
+    pick: "Pick one: temporal summation, spatial summation, or an inhibitory input arriving at the same time as an excitatory one.",
+    work: "Draw the situation in words: which inputs arrive, when, where on the neuron, and what the membrane does at the trigger zone. Say whether the cell fires and why that answer depends on timing and position rather than on how many inputs there were. One sentence on what would flip your answer the other way.",
+    think: "Where did your intuition disagree with the physiology? A common one is expecting more inputs to always mean more firing. Name the assumption you had to give up, or if you had none, name the thing that still feels arbitrary to you about how the cell decides.",
+    attach: "",
+    reply: "Reply to two classmates. Take their scenario and change one thing about the timing, then ask them what they think happens."
+  }
 };

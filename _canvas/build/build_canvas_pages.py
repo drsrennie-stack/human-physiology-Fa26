@@ -18,25 +18,48 @@ BASE = "https://drsrennie-stack.github.io/human-physiology-Fa26/"
 CANVAS = "https://yccd.instructure.com/courses/42616"
 CANVAS_SYLLABUS = CANVAS + "/assignments/syllabus"
 
-# Everything a student prints lives in Canvas Files, not on the course website,
-# so printing the week never leaves Canvas and never loses the Back button.
-#
-# To wire one: upload the PDF to Files, publish it, click it, and read the
-# number after files/ in the address bar. Put that number in place of the
-# CANVAS + "/files" below. Until then the button lands on the Files tab, which
-# is at least inside the course.
-#
-# The filename beside each one is the file to upload, so the two can never get
-# crossed.
+# What students print lives in Google Drive, on "anyone with the link" sharing,
+# checked September 14. A Drive link leaves Canvas, so these buttons open in a
+# new tab and the page carries the line telling students to close it to come
+# back. Set id to None for a sheet that does not exist yet: it then renders as a
+# plain name under a "Not posted yet" line rather than a button that goes
+# nowhere.
+def drive(file_id):
+    return "https://drive.google.com/file/d/%s/view" % file_id
+
 PRINT_PDF = {
-    (1, "notes"):      (CANVAS + "/files", "BIO005-note-sheet-week-01.pdf"),
-    (2, "cell-notes"): (CANVAS + "/files", "BIO005-Week2-CELL-DRAFT-NoteSheet.pdf"),
-    (2, "phys-notes"): (CANVAS + "/files", "BIO005-CellPhysiology-DRAFT-NoteSheet.pdf"),
-    (2, "comps"):      (CANVAS + "/files", "BIO005-CellPhysiology-DRAFT-Competencies.pdf"),
+    (1, "notes"):      dict(id=drive("1AN276f3jUYM9HcV9QqHa2HYSLy0_YcNs"),
+                            label="Week 1 note sheet: introduction to physiology"),
+    (2, "cell-notes"): dict(id=drive("1JQPur4khec-RYzhiA7gD-n1R9Oc0fC2b"),
+                            label="Note sheet"),
+    (2, "cell-comps"): dict(id=drive("1ezl37N5urBe-fA5F_TczXkBYM-q5dKDA"),
+                            label="Competency list"),
+    (2, "phys-notes"): dict(id=drive("1w_M1mYyA4z94RlEG_zdNERRoLAbnbiwZ"),
+                            label="Note sheet"),
+    (2, "phys-comps"): dict(id=drive("1Upk5YUdoK1Zcr2KphTYFjIOcA0bs4RTu"),
+                            label="Competency list"),
 }
 
-def pdf(week, kind):
-    return PRINT_PDF[(week, kind)][0]
+def pdf_btn(week, kind, primary=True):
+    """A button if the sheet exists, nothing if it does not."""
+    e = PRINT_PDF[(week, kind)]
+    if not e["id"]:
+        return ""
+    return btn(e["label"], e["id"], primary=primary)
+
+def pdf_pending(week, *kinds):
+    """One plain line naming sheets that are not posted yet. Renders as nothing
+    once they all have links, so the page cleans itself up."""
+    missing = [PRINT_PDF[(week, k)] for k in kinds if not PRINT_PDF[(week, k)]["id"]]
+    if not missing:
+        return ""
+    names = "".join('<li style="margin:0 0 6px 0;">%s</li>' % html.escape(m["label"])
+                    for m in missing)
+    return ('<p style="margin:14px 0 6px 0;line-height:1.6;color:%s;">'
+            '<strong>Not posted yet.</strong> These are on their way and will appear here as buttons:</p>'
+            '<ul style="margin:0 0 4px 0;padding-left:1.2em;line-height:1.55;color:%s;">%s</ul>'
+            % (MUTED, MUTED, names))
+
 OUT = pathlib.Path(__file__).parent / "canvas-pages"
 OUT.mkdir(exist_ok=True)
 
@@ -74,8 +97,11 @@ def btn(label, href, primary=True, new_tab=True):
             % (style, href, attrs, html.escape(label), tail))
 
 def p(text, extra=""):
+    """extra can override margin or colour; whichever it sets is left out of the
+    base so the style attribute never carries the same property twice."""
     colour = "" if "color:" in extra else "color:%s;" % NAVY
-    return '<p style="margin:0 0 12px 0;line-height:1.6;%s%s">%s</p>' % (colour, extra, text)
+    margin = "" if "margin:" in extra else "margin:0 0 12px 0;"
+    return '<p style="%sline-height:1.6;%s%s">%s</p>' % (margin, colour, extra, text)
 
 def h2(text, id_=None):
     idattr = ' id="%s"' % id_ if id_ else ""
@@ -256,13 +282,14 @@ def new_tab_note(buttons):
     if not off_site:
         return ''
     which = "That button opens" if len(off_site) == 1 else "Those buttons open"
-    return ('<p style="margin:12px 0 0 0;font-size:0.95em;color:%s;">%s the course website in a '
-            'new browser tab. When you are finished there, close that tab and you are back on this '
-            'page. Nothing you do here is lost.</p>' % (MUTED, which))
+    return ('<p style="margin:12px 0 0 0;font-size:0.95em;color:%s;">%s in a new browser tab. '
+            'When you are finished there, close that tab and you are back on this page. Nothing you '
+            'do here is lost.</p>' % (MUTED, which))
 
 def step_page(week, n, total, title, body_html, buttons, when=None, graded=None,
-              next_title=None, closes=None):
+              next_title=None, closes=None, after_buttons=""):
     """One Canvas page carrying one step and nothing else."""
+    buttons = [b for b in buttons if b]
     parts = [stage_chip(STAGE[title], "BIO 005 &middot; Week %d &middot; Step %d of %d" % (week, n, total))]
     if when:
         parts.append('<p style="margin:0 0 16px 0;font-size:1.05em;font-weight:700;color:%s;">%s</p>'
@@ -270,6 +297,7 @@ def step_page(week, n, total, title, body_html, buttons, when=None, graded=None,
     parts.append('<div style="%s">' % CARD + body_html
                  + ('<p style="margin:8px 0 0 0;">%s</p>' % "".join(buttons) if buttons else '')
                  + new_tab_note(buttons)
+                 + after_buttons
                  + ('<p style="margin:14px 0 0 0;font-size:0.95em;color:%s;"><strong>Graded.</strong> %s</p>' % (MUTED, graded)
                     if graded else '')
                  + '</div>')
@@ -342,7 +370,8 @@ def week_pages(week, title, opens, closes, hours, due_rows, book, steps, done_it
                     "Week %d, Step %d: %s" % (week, i, PAGE_TITLE[st["title"]]),
                     step_page(week, i, total, st["title"], st["body_html"], st["buttons"],
                               when=st.get("when"), graded=st.get("graded"),
-                              next_title=nxt, closes=closes)))
+                              next_title=nxt, closes=closes,
+                              after_buttons=st.get("after_buttons", ""))))
     return out
 
 # ----------------------------------------------------------------------------
@@ -369,12 +398,13 @@ W1 = dict(
         dict(title="Watch the course introduction, then print your week",
              when="Tuesday, about 45 minutes plus printing",
              body_html=p("The introduction is about thirty minutes and shows you every part of the course once.")
-                       + p("Then print your note sheet. It is a six page PDF right here in Canvas, two competencies to a page, with the prompts and the drawing boxes already on it. Open it, print it, and you have the paper you need for the rest of the week.")
-                       + p("If you also want the <strong>competency list</strong> (the 12 things you must be able to do this week) or the <strong>brain dump paper</strong> for prompts A and B, the print pack on the course website builds those for you: tick what you want and print.")
+                       + p("Then print your note sheet. There is a box per competency with the prompts already on it, so you are not building anything, just filling it in. Print it and you have the paper you need for the rest of the week.")
+                       + p("If you also want the <strong>brain dump paper</strong> for prompts A and B, the print pack builds that for you: tick what you want and print.")
                        + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one."),
              buttons=[btn("Watch the course introduction", BASE + "index.html#intro"),
-                      btn("Week 1 note sheet, ready to print (PDF)", pdf(1, "notes"), new_tab=False),
-                      btn("Open the Week 1 print pack", BASE + "week-print-pack.html?week=1", primary=False)]),
+                      pdf_btn(1, "notes"),
+                      btn("Open the Week 1 print pack", BASE + "week-print-pack.html?week=1", primary=False)],
+             after_buttons=pdf_pending(1, "notes")),
         dict(title="First pass, in your first color: the book and the notes",
              when="Tuesday to Thursday, about 3 hours",
              body_html=p("Pick one pen color and keep it for this pass. Read Chapter 1 and the control sections of Chapter 6, or read my notes, and fill in each box on the note sheet as you go: draw the idea, label it, put the steps in order. "
@@ -564,13 +594,23 @@ W2 = dict(
     steps=[
         dict(title="Print your week",
              when="Monday, about 20 minutes plus printing",
-             body_html=p("Print all three of these before you start. They are PDFs right here in Canvas, so you never have to go looking for them.")
-                       + p("Week 2 comes in two halves, and each half has its own note sheet. <strong>Foundations of the cell and tissues</strong> is the anatomy: organelles, the membrane itself, and the four tissue types. <strong>Cellular physiology and transport mechanisms</strong> is what that anatomy does: what crosses the membrane and how, how a signal arrives, and how it is switched off. Work them in that order, because the second one only makes sense once you can see the structure it is happening in.")
-                       + p("The <strong>competency list</strong> is the third PDF. It is the 11 things you have to be able to do by Sunday, written out with what each one is asking for. Keep it beside you while you fill the boxes, so you always know which one you are answering.")
-                       + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one."),
-             buttons=[btn("Foundations of the cell and tissues (PDF)", pdf(2, "cell-notes"), new_tab=False),
-                      btn("Cellular physiology and transport mechanisms (PDF)", pdf(2, "phys-notes"), new_tab=False),
-                      btn("The 11 Week 2 competencies (PDF)", pdf(2, "comps"), primary=False, new_tab=False)]),
+             body_html=(
+               p("Week 2 comes in two halves, and each half has its own note sheet and its own competency list. Print all four before you start.")
+               + p("Work the halves in order. The anatomy is the structure, and the physiology is what that structure does, so the second half only makes sense once you can see where it is happening.")
+
+               + sub("Foundations of the cell and tissues")
+               + p("The anatomy: organelles, the membrane itself, and the four tissue types. The note sheet has a box per competency with the prompts already on it. The competency list says what each box is asking you for, so keep it beside you while you fill them in.")
+               + row(pdf_btn(2, "cell-notes"), pdf_btn(2, "cell-comps", primary=False))
+
+               + sub("Cellular physiology and transport mechanisms")
+               + p("What that anatomy does: what crosses the membrane and how, how a signal arrives, and how it is switched off. Same shape, a note sheet and a competency list.")
+               + row(pdf_btn(2, "phys-notes"), pdf_btn(2, "phys-comps", primary=False))
+
+               + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one.",
+                   extra="margin:24px 0 0 0;")
+             ),
+             buttons=[],
+             after_buttons=pdf_pending(2, "cell-notes", "cell-comps", "phys-notes", "phys-comps")),
         dict(title="First pass, in your first color: the book and the notes",
              when="Monday to Wednesday, about 3 hours",
              body_html=p("Same pen color as your Week 1 first pass. Read Chapter 3, then the signal pathway sections of Chapter 6, and fill in each note sheet box as you go: draw the membrane and label what is in it, rank what can cross it unaided, then draw a signal from the ligand to the response and label every step. "
@@ -639,10 +679,40 @@ W2 = dict(
              graded="Application category. Due Sunday, September 20, 10:00 pm Pacific."),
         dict(title="Discussion 2: predict, then check (Think About It)",
              when="Post by Friday; replies by Sunday",
-             body_html=p("One post, two parts. First the physiology: pick one signal from this week, write your prediction of how the cell will respond before you look anything up, then work it properly and compare. "
-                         "Then the honest part: what did you think, what changed, and what that tells you about how you are studying. The instructions page has the exact prompt and the reply requirement."),
-             buttons=[btn("Discussion 2 instructions", BASE + "assignment-discussion.html?week=2"),
-                      btn("Post in Canvas", CANVAS + "/discussion_topics/712810", primary=False, new_tab=False)],
+             body_html=(
+               p("One post, two parts. First the physiology, worked as a prediction you then check. Then the honest part: what the week's evidence told you about your own learning and what you did about it. Both halves are required, and the second one is not a formality. This is the shape every discussion takes from here to Week 15.")
+               + p("Part 2 asks about your Mastery Check, so take that first at Step 9 and then come back and write this. Your post is due Friday and the Mastery Check report is due Sunday, so do the check early in the week.")
+
+               # ---------------- Part 1, the physiology ----------------
+               + sub("Part 1. The physiology: predict, then check")
+               + p("This week is about what holds cells together and what that buys the tissue. Junctions are not decoration. What a tissue can do, and what goes wrong when it fails, usually comes straight back to which junctions are holding it.")
+               + p("<strong>Pick one place in the body.</strong>")
+               + ul(["The lining of your small intestine, where food is on one side and your blood is on the other.",
+                     "Cardiac muscle, at the intercalated disc between two heart cells.",
+                     "The outer layer of your skin, which is pulled and stretched all day."])
+               + p("<strong>Predict first, before you look anything up.</strong> Two lines: which kind of junction do you think is doing most of the work in that place, and what is the first thing that would go wrong if it failed? Write it down and do not change it.")
+               + p("<strong>Then work it properly.</strong>")
+               + ul(["Name the junctions actually present there. Most tissues use more than one, so name each and say what it is built from and what it anchors to inside the cell.",
+                     "Say what each one buys that tissue: does it seal the gap between cells, hold them together against pulling, or let ions and small molecules pass from one cell into the next?",
+                     "Pick one substance and say how it gets from one side of that tissue to the other: through the cells, or between them. Then say which junction decides that.",
+                     "Follow one failure all the way out. Take the junction you named in your prediction, break it, and trace it to something a person would actually notice or a clinician would measure.",
+                     "One sentence on why this tissue has the junctions it has and not the others. What is the job that made this the right answer?"])
+               + p("<strong>Attach your hand drawn sketch</strong>, photographed or scanned. Two neighboring cells side by side, every junction labeled, and arrows showing what can pass and what cannot. The post does not count without it.")
+
+               # ---------------- Part 2, the metacognition ----------------
+               + sub("Part 2. What the evidence told you")
+               + p("You chose how to learn this week, and two things told you whether that choice worked: your prediction above, and your Mastery Check. Both gave you evidence before any grade depended on it. This half is where you look at that evidence and say what you did with it. The move is <strong>decision, evidence, adjustment</strong>, the same three steps as a clinical write up, turned on yourself.")
+               + p("<strong>Answer all four.</strong>")
+               + ul(["<strong>1. How did your prediction do?</strong> Right, half right, or wrong, and name the specific idea that had to change. The two that catch people out most this week are assuming a junction that holds cells together also seals the space between them, and forgetting that a sheet of cells has a route between the cells as well as through them. Say what you were assuming that made the wrong prediction feel right.",
+                     "<strong>2. What did your Mastery Check reveal?</strong> One specific thing you thought you knew and did not. Something like: I could list the junction types but could not say which one a drug would have to get past. Not: cell junctions.",
+                     "<strong>3. What did you do about it?</strong> Changed the resource, changed the approach, drew it, said it out loud, asked someone. Or kept what you were doing, if you can say how you knew it was working. Not: I studied more.",
+                     "<strong>4. What happened when you tried again?</strong> Whether it held, and how you could tell. Something like: I redrew the intercalated disc from a blank page without looking. Not: it felt better."])
+               + p("<strong>Your numbers are yours.</strong> You do not have to post your Mastery Check score, your attempt count, or anything else with a number on it. Improving a lot, improving a little, holding steady, or sliding tells your classmates everything useful. Share the numbers too if you want to; that is your call. Your practice log comes to me separately as an assignment, so I can reach out if I see you struggling.")
+               + p("<strong>Had a bad week?</strong> Say so and answer anyway. I ran out of time, skipped the retrieval, and the check showed me what that cost is a strong post. You are graded on whether you looked at what happened and said something true about it, not on whether the week went well.")
+
+               + p("<strong>Replies, two of them, by Sunday.</strong> Reply to two people who picked a different place than you did. Say one thing their tissue can do that yours cannot and name the junction that is the reason, and then take up something from their Part 2: an adjustment worth stealing, or a place where their reasoning and yours came apart. Great post, I struggled with that too is kind and does not count. Add the sentence that comes after it.")
+             ),
+             buttons=[btn("Post in Canvas", CANVAS + "/discussion_topics/712810", new_tab=False)],
              graded="Thinking category. Post Friday, September 18, 10:00 pm; two replies Sunday, September 20, 10:00 pm. Pacific."),
     ],
     done_items=[
