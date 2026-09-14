@@ -92,6 +92,39 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 
 /* Layout */
 main{max-width:1180px;margin:0 auto;padding:30px max(20px,4vw) 10px}
+/* Second pass directions.
+   A real ordered list, laid out in columns on a wide screen so it costs the
+   iframe about 200px instead of 500px, and stacking to one column under
+   760px. Numbers are drawn from the list itself rather than typed in, so the
+   sequence stays correct if a step is ever added or removed. */
+.howto{
+  background:var(--white);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+  padding:22px 26px 24px;margin:0 0 26px
+}
+.howto h2{
+  font-family:var(--display);font-size:19px;font-weight:800;color:var(--navy);
+  letter-spacing:-.01em;margin:0 0 4px
+}
+.howto .lede{margin:0 0 16px;color:var(--navy-72);font-size:15px;max-width:78ch}
+.howto ol{
+  list-style:none;counter-reset:hstep;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:14px 26px
+}
+.howto li{
+  counter-increment:hstep;position:relative;padding-left:38px;
+  font-size:15px;color:var(--navy);line-height:1.55
+}
+.howto li::before{
+  content:counter(hstep);position:absolute;left:0;top:-1px;
+  width:27px;height:27px;border-radius:50%;
+  background:var(--terra);color:#fff;
+  font-family:var(--display);font-weight:800;font-size:14px;
+  display:flex;align-items:center;justify-content:center
+}
+.howto b{font-weight:800;color:var(--terra-dark)}
+@media (max-width:760px){.howto{padding:20px 20px 22px}}
+
 .grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);gap:28px;align-items:start}
 @media (max-width:940px){.grid{grid-template-columns:1fr}}
 
@@ -227,7 +260,7 @@ footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
   <div class="wrap">
     <p class="eyebrow">Week 2 &middot; The cell: structure, transport and signaling</p>
     <h1>Concept Videos</h1>
-    <p>Press play once and the whole week runs start to finish, one concept into the next. If you only need one idea, click it in the list and it starts there. Every concept has its slide deck and its notes PDF beside it.</p>
+    <p>Press play once and the whole week runs start to finish, one concept into the next. If you only need one idea, click it in the list and it starts there. Every concept has its notes PDF beside the player.</p>
     <div class="chiprow">
       <button type="button" class="chip" id="playAll"><span class="dot" aria-hidden="true"></span>Play the whole week</button>
       <button type="button" class="chip" id="resume"><span class="dot" aria-hidden="true"></span>Pick up where I left off</button>
@@ -240,6 +273,19 @@ footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
 </header>
 
 <main>
+  <section class="howto" aria-labelledby="howto-h">
+    <h2 id="howto-h">Your second pass, step by step</h2>
+    <p class="lede">You have already filled these boxes once from the reading. This time you are adding what the videos give you that the book did not, in a different color, so you can see the difference later.</p>
+    <ol role="list">
+      <li>Get out the note sheet you already worked from the reading, with your first pass on it.</li>
+      <li><b>Switch to a second color</b>, and stay in that color for everything you add from here.</li>
+      <li>Press play on the first video and let the week run, or click the concept in the list that matches the box you are working on.</li>
+      <li>When a video gives you something the reading did not, add it to <b>that same box</b>. Do not start a fresh sheet.</li>
+      <li>Leave the gaps where they are. A thin box is not a mistake, it is the sheet telling you where to go back.</li>
+      <li>At the end, look at how much of the sheet is in the second color. That is exactly where your reading was thin, and it is what you study first.</li>
+    </ol>
+  </section>
+
   <div class="grid">
 
     <section class="stage" aria-labelledby="nowHeading">
