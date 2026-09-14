@@ -180,6 +180,9 @@ def help_block():
             + '</p></div>')
 
 SHORT = {
+    "Cell anatomy: read it, then watch it": "cell-anatomy",
+    "Cell physiology and transport: read it, then watch it": "cell-physiology",
+    "Upload both note sheets": "upload-note-sheets",
     "Watch the course introduction, then print your week": "print-your-week",
     "Print your week": "print-your-week",
     "First pass, in your first color: the book and the notes": "first-pass",
@@ -217,6 +220,9 @@ STAGE_TAGLINE = {
                  "A thirty question check on this week's competencies. Nothing here is graded. A low score tells you exactly what to go back to."),
 }
 STAGE = {
+    "Cell anatomy: read it, then watch it": "Learn",
+    "Cell physiology and transport: read it, then watch it": "Learn",
+    "Upload both note sheets": "Learn",
     "Watch the course introduction, then print your week": "Learn",
     "Print your week": "Learn",
     "First pass, in your first color: the book and the notes": "Learn",
@@ -247,6 +253,9 @@ def stage_chip(stage, trailing=""):
 # Canvas page titles. The page title is the h1 and the module row label, so it
 # has to carry the whole step on its own, without a colon inside a colon.
 PAGE_TITLE = {
+    "Cell anatomy: read it, then watch it": "Cell anatomy, read it then watch it",
+    "Cell physiology and transport: read it, then watch it": "Cell physiology and transport, read it then watch it",
+    "Upload both note sheets": "Upload both note sheets",
     "Watch the course introduction, then print your week": "Watch the intro, then print your week",
     "Print your week": "Print your week",
     "First pass, in your first color: the book and the notes": "First pass, in your first color",
@@ -287,10 +296,13 @@ def new_tab_note(buttons):
             'do here is lost.</p>' % (MUTED, which))
 
 def step_page(week, n, total, title, body_html, buttons, when=None, graded=None,
-              next_title=None, closes=None, after_buttons=""):
-    """One Canvas page carrying one step and nothing else."""
+              next_title=None, closes=None, after_buttons="", next_label=None):
+    """One Canvas page carrying one step and nothing else.
+
+    n is a label, not an index, because a week can split a step into an a and a
+    b half that are the same step done on two bodies of material."""
     buttons = [b for b in buttons if b]
-    parts = [stage_chip(STAGE[title], "BIO 005 &middot; Week %d &middot; Step %d of %d" % (week, n, total))]
+    parts = [stage_chip(STAGE[title], "BIO 005 &middot; Week %d &middot; Step %s of %d" % (week, n, total))]
     if when:
         parts.append('<p style="margin:0 0 16px 0;font-size:1.05em;font-weight:700;color:%s;">%s</p>'
                      % (NAVY, html.escape(when)))
@@ -304,7 +316,7 @@ def step_page(week, n, total, title, body_html, buttons, when=None, graded=None,
     if next_title:
         parts.append('<p style="margin:18px 0 0 0;line-height:1.6;color:%s;">'
                      '<strong>When this is done:</strong> use the Next button at the bottom of this page to go to '
-                     'Step %d: %s.</p>' % (NAVY, n + 1, html.escape(PAGE_TITLE[next_title])))
+                     'Step %s: %s.</p>' % (NAVY, next_label, html.escape(PAGE_TITLE[next_title])))
     else:
         parts.append('<p style="margin:18px 0 0 0;line-height:1.6;color:%s;">'
                      '<strong>That is the last step of Week %d.</strong> Everything is due by %s.</p>'
@@ -318,7 +330,19 @@ def week_pages(week, title, opens, closes, hours, due_rows, book, steps, done_it
     # Stage order decides the order of the week. The data below can be written in
     # any order; a stable sort by stage puts Learn, Practice, Apply, Check.
     steps = sorted(steps, key=lambda st: STAGE_ORDER.index(STAGE[st["title"]]))
-    total = len(steps)
+
+    # Step labels. A plain week numbers 1..N. A week that splits a step gives
+    # both halves the same number and an "a"/"b" suffix, so the pair reads as
+    # one step done twice rather than as two different steps, and the count at
+    # the top of each page stays honest.
+    labels, num = [], 0
+    for st in steps:
+        if st.get("sub") in ("b", "c"):
+            labels.append("%d%s" % (num, st["sub"]))
+        else:
+            num += 1
+            labels.append("%d%s" % (num, st.get("sub", "")))
+    total = num
 
     due_items = "".join(
         '<li style="margin:0 0 8px 0;"><strong>%s</strong> %s</li>' % (html.escape(what), html.escape(when))
@@ -340,12 +364,12 @@ def week_pages(week, title, opens, closes, hours, due_rows, book, steps, done_it
 
     n = 0
     for stage in STAGE_ORDER:
-        mine = [(i + 1, st) for i, st in enumerate(steps) if STAGE[st["title"]] == stage]
+        mine = [(labels[i], st) for i, st in enumerate(steps) if STAGE[st["title"]] == stage]
         if not mine:
             continue
         name, blurb = STAGE_TAGLINE[stage]
         rows = "".join(
-            '<li style="margin:0 0 9px 0;"><strong>Step %d. %s</strong> <span style="color:%s;">%s</span></li>'
+            '<li style="margin:0 0 9px 0;"><strong>Step %s. %s</strong> <span style="color:%s;">%s</span></li>'
             % (i, html.escape(PAGE_TITLE[st["title"]]), MUTED, html.escape(st.get("when", "")))
             for i, st in mine)
         ov.append('<div style="%s">' % CARD
@@ -364,14 +388,17 @@ def week_pages(week, title, opens, closes, hours, due_rows, book, steps, done_it
     out = [("w%02d-00-overview.html" % week,
             "Week %d overview: %s" % (week, title),
             "\n".join(ov) + "\n")]
-    for i, st in enumerate(steps, 1):
-        nxt = steps[i]["title"] if i < total else None
-        out.append(("w%02d-%02d-%s.html" % (week, i, SHORT[st["title"]]),
-                    "Week %d, Step %d: %s" % (week, i, PAGE_TITLE[st["title"]]),
-                    step_page(week, i, total, st["title"], st["body_html"], st["buttons"],
+    for i, st in enumerate(steps):
+        nxt = steps[i + 1]["title"] if i + 1 < len(steps) else None
+        nxt_label = labels[i + 1] if i + 1 < len(steps) else None
+        lab = labels[i]
+        out.append(("w%02d-%s-%s.html" % (week, lab.zfill(2) if lab.isdigit() else "0" + lab, SHORT[st["title"]]),
+                    "Week %d, Step %s: %s" % (week, lab, PAGE_TITLE[st["title"]]),
+                    step_page(week, lab, total, st["title"], st["body_html"], st["buttons"],
                               when=st.get("when"), graded=st.get("graded"),
                               next_title=nxt, closes=closes,
-                              after_buttons=st.get("after_buttons", ""))))
+                              after_buttons=st.get("after_buttons", ""),
+                              next_label=nxt_label)))
     return out
 
 # ----------------------------------------------------------------------------
@@ -577,16 +604,17 @@ W1 = dict(
 # ----------------------------------------------------------------------------
 W2 = dict(
     week=2,
-    title="The cell, and how cells talk",
+    title="The cell: structure, transport and signaling",
     opens="Monday, September 14",
     closes="Sunday, September 20, 10:00 pm Pacific",
-    hours="14 hours",
-    book=("Silverthorn, <strong>Chapter 3</strong> (Compartmentation: Cells and Tissues) for the cell, its membrane and its organelles, and "
-          "<strong>Chapter 6</strong> (Communication, Integration and Homeostasis) for how cells signal each other. "
-          "The permeability competency also leans on the opening pages of <strong>Chapter 5</strong>, where the book ranks what crosses a lipid bilayer unaided."),
+    hours="18 hours, which is more than any other week",
+    book=("Two halves, two chapters. <strong>Chapter 3</strong> (Compartmentation: Cells and Tissues) is the anatomy half: the cell, "
+          "its membrane, its organelles and the four tissue types. <strong>Chapter 5</strong> (Membrane Dynamics) is the physiology half: "
+          "what crosses the membrane and how, diffusion, osmosis and the pumps. The signaling competencies at the end of the week come "
+          "from <strong>Chapter 6</strong> (Communication, Integration and Homeostasis)."),
     due_rows=[
         ("Discussion 2:", "post by Friday, September 18, 10:00 pm; replies by Sunday, September 20, 10:00 pm."),
-        ("Note sheet upload, both passes:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
+        ("Both note sheets, both passes:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
         ("Lab, PhysioEx Exercise 8, amylase:", "Sunday, September 20, 10:00 pm."),
         ("Application, your patient's student health visit:", "Sunday, September 20, 10:00 pm."),
         ("Mastery Check report:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
@@ -596,14 +624,14 @@ W2 = dict(
              when="Monday, about 20 minutes plus printing",
              body_html=(
                p("Week 2 comes in two halves, and each half has its own note sheet and its own competency list. Print all four before you start.")
-               + p("Work the halves in order. The anatomy is the structure, and the physiology is what that structure does, so the second half only makes sense once you can see where it is happening.")
+               + p("Work the halves in order. The anatomy is the structure, and the physiology is what that structure does, so the second half only makes sense once you can see where it is happening. Step 2a is the anatomy start to finish, Step 2b is the physiology.")
 
-               + sub("Foundations of the cell and tissues")
-               + p("The anatomy: organelles, the membrane itself, and the four tissue types. The note sheet has a box per competency with the prompts already on it. The competency list says what each box is asking you for, so keep it beside you while you fill them in.")
+               + sub("A. Foundations of the cell and tissues")
+               + p("Organelles, the membrane itself, and the four tissue types. The note sheet has a box per competency with the prompts already on it. The competency list says what each box is asking you for, so keep it beside you while you fill them in.")
                + row(pdf_btn(2, "cell-notes"), pdf_btn(2, "cell-comps", primary=False))
 
-               + sub("Cellular physiology and transport mechanisms")
-               + p("What that anatomy does: what crosses the membrane and how, how a signal arrives, and how it is switched off. Same shape, a note sheet and a competency list.")
+               + sub("B. Cellular physiology and transport mechanisms")
+               + p("What that anatomy does: what crosses the membrane and how, diffusion and osmosis, the pumps, how a signal arrives and how it is switched off. Same shape, a note sheet and a competency list.")
                + row(pdf_btn(2, "phys-notes"), pdf_btn(2, "phys-comps", primary=False))
 
                + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one.",
@@ -611,42 +639,62 @@ W2 = dict(
              ),
              buttons=[],
              after_buttons=pdf_pending(2, "cell-notes", "cell-comps", "phys-notes", "phys-comps")),
-        dict(title="First pass, in your first color: the book and the notes",
-             when="Monday to Wednesday, about 3 hours",
-             body_html=p("Same pen color as your Week 1 first pass. Read Chapter 3, then the signal pathway sections of Chapter 6, and fill in each note sheet box as you go: draw the membrane and label what is in it, rank what can cross it unaided, then draw a signal from the ligand to the response and label every step. "
-                         "Try the A and B prompts for each competency on the brain dump paper. Leave the gaps you cannot fill.")
-                       + p("The written notes cover the cell half of the week, with the fluid compartments and the membrane worked as problems. For the signaling half, the book carries the reading this week and the videos in Step 3 carry the teaching."),
-             buttons=[btn("Read the Week 2 notes: compartments, cells and tissues", BASE + "biol005-w03-compartments-notes.html"),
-                      btn("The 11 competencies, with what each one asks", BASE + "competency-study-guide.html?week=2", primary=False),
+
+        dict(title="Cell anatomy: read it, then watch it",
+             sub="a",
+             when="Monday to Wednesday, about 4 hours",
+             body_html=(
+               p("This is the first half, start to finish, on one page. Work the <strong>Foundations of the cell and tissues</strong> note sheet only. Leave the physiology sheet alone until Step 2b.")
+               + sub("First pass, in your first color")
+               + p("Pick one pen color and keep it for this pass. Read Chapter 3 and fill in each box as you go: draw the structure, label it, say what it is for. Then try the A and B prompts on the brain dump paper. Leave every gap you cannot fill. The gaps are the point; they tell you what the videos have to give you.")
+               + p("Keep it to drawings, labels, arrows and short lists. Sentences running across the page do not help you on exam day.")
+               + sub("Second pass, in your second color")
+               + p("Switch pens. Work through the cell videos and add what the video gives you that the reading did not, in the same boxes. When you are done the sheet shows you exactly where your reading was thin. The video list lets you jump to the one that matches the box you are on.")
+               + p("Open the slides beside the video if you want to pause on a diagram or print a deck to draw on.")
+             ),
+             buttons=[btn("Read the Week 2 notes: cells and tissues", BASE + "biol005-w03-compartments-notes.html"),
+                      btn("Watch the cell videos", BASE + "concept-videos-week03.html"),
+                      btn("Slides and notes", BASE + "lecture-week.html?week=2", primary=False),
                       btn("OpenStax, free second explanation", "https://openstax.org/details/books/anatomy-and-physiology-2e", primary=False)]),
-        dict(title="Second pass, in your second color: the videos",
-             when="Wednesday and Thursday, about 3 hours",
-             body_html=p("Switch pens. Press play once and the week runs: twenty five short videos, the cell and its organelles first, then cell signaling, ending with a worked example of epinephrine at its receptor. "
-                         "Jump to any single concept from the list when you are filling in one box. Add what each video gives you that the reading did not, in the second color."),
-             buttons=[btn("Watch the Week 2 concept videos", BASE + "concept-videos-week03.html"),
-                      btn("Slides and notes for Week 2", BASE + "lecture-week.html?week=2", primary=False)]),
-        dict(title="Upload your note sheet",
+
+        dict(title="Cell physiology and transport: read it, then watch it",
+             sub="b",
+             when="Wednesday to Friday, about 5 hours",
+             body_html=(
+               p("Now the second half, same two passes, on the <strong>Cellular physiology and transport mechanisms</strong> note sheet. This is the bigger of the two halves, so give it the extra day.")
+               + sub("First pass, in your first color")
+               + p("Read Chapter 5 for what crosses the membrane and how, and the signaling sections of Chapter 6 for how a message arrives and gets switched off. Fill the boxes as you read: draw the gradient, draw the protein, put the steps in order. Then take the A and B prompts cold on the brain dump paper and leave the gaps.")
+               + p("Two things are worth drawing rather than writing every time: the direction a substance is moving relative to its gradient, and whether the cell is spending energy to move it. Those two together are most of this half.")
+               + sub("Second pass, in your second color")
+               + p("Switch pens and work the transport videos, then the signaling ones. There are more videos here than in any other half of the course, so use the list to jump to the box you are on rather than watching straight through. Add what the video gives you in the second color.")
+             ),
+             buttons=[btn("Watch the transport videos", BASE + "concept-videos-week04.html"),
+                      btn("Watch the signaling videos", BASE + "concept-videos-week03.html#signaling"),
+                      btn("Slides and notes", BASE + "lecture-week.html?week=2", primary=False),
+                      btn("The competencies, with what each one asks", BASE + "competency-study-guide.html?week=2", primary=False)]),
+
+        dict(title="Upload both note sheets",
              when="After your second pass, by Sunday",
-             body_html=p("Photograph or scan every page of your note sheet with both colors on it and upload it as one file in Canvas. I am not grading the sheet. I mark it complete or not complete, and I read enough of it to see how the week went for you. "
-                         "Turning it in every week is how you show you are participating, and participating is a condition of staying enrolled. Whether you filled the boxes from the book, my notes, the videos or all three is up to you; the sheet just has to show two passes.")
-                       + p("<strong>How to photograph it.</strong>")
-                       + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;color:%s;">'
-                         '<li style="margin:0 0 8px 0;">One page at a time, flat on the table, in good light, straight down rather than at an angle.</li>'
-                         '<li style="margin:0 0 8px 0;">Both colors have to be readable. If the second color is pale, take it again nearer a window.</li>'
-                         '<li style="margin:0 0 8px 0;">Combine the pages into one file, in order, and upload that one file. Most phones will do this from the Files or Notes app; any free scanner app will too.</li>'
-                         '<li style="margin:0 0 8px 0;">Photograph each page as you finish it rather than all six on Sunday night. Losing the sheet costs you no points and a great deal of work.</li>'
-                         '<li style="margin:0 0 8px 0;">Handwritten and on paper, in your two colors. A typed sheet closes the gap between the passes, and that gap is the whole point.</li></ul>' % NAVY,
-             buttons=[btn("Upload your Week 2 note sheet in Canvas", CANVAS + "/assignments", primary=True, new_tab=False),],
+             body_html=p("Photograph or scan every page of <strong>both</strong> note sheets with both colors on them and upload them in Canvas. One file is fine if you can combine them; two files is fine too. I am not grading the sheets. I mark them complete or not complete, and I read enough to see how the week went for you. "
+                         "Turning them in every week is how you show you are participating, and participating is a condition of staying enrolled.")
+                       + p("<strong>How to photograph them.</strong>")
+                       + ul(["One page at a time, flat on the table, in good light, straight down rather than at an angle.",
+                             "Both colors have to be readable. If the second color is pale, take it again nearer a window.",
+                             "Keep the two halves in order, anatomy first, then physiology, so I can follow your week.",
+                             "Photograph each page as you finish it rather than all of them on Sunday night. Losing a sheet costs you no points and a great deal of work.",
+                             "Handwritten and on paper, in your two colors. A typed sheet closes the gap between the passes, and that gap is the whole point."]),
+             buttons=[btn("Upload your Week 2 note sheets in Canvas", CANVAS + "/assignments", primary=True, new_tab=False)],
              graded="Complete or not complete, for participation. Due Sunday, September 20, 10:00 pm Pacific."),
+
         dict(title="Study it for several days",
-             when="Every day from Wednesday, about an hour a day",
-             body_html=p("Now the note sheet closes and the material has to come back out of your head. A little every day beats one long session. Pick from these, and try more than one. The signaling pathways in particular are worth redrawing from memory until the order of steps is automatic:")
-                       + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;">'
-                         '<li><strong>Rx Cards.</strong> Spaced recall cards for Weeks 1 and 2 together, so Week 1 does not fade.</li>'
-                         '<li><strong>Draw it from memory.</strong> Redraw the G protein pathway or the fluid mosaic membrane on a blank canvas with nothing open, then check it.</li>'
-                         '<li><strong>Brain dump.</strong> Take a competency prompt cold, on paper.</li>'
-                         '<li><strong>Book problems.</strong> End of Chapter 3 and Chapter 6. Work them forward before you look, then backward from the answer.</li>'
-                         '<li><strong>Study With Me.</strong> Quiz each other on what each second messenger does and which enzyme makes it.</li></ul>',
+             when="Every day from Thursday, about an hour a day",
+             body_html=p("Now both note sheets close and the material has to come back out of your head. Do a little every day; four short sessions beat one long one, because the forgetting in between is what makes the memory stick. Pick from these, and try more than one:")
+                       + ul(["<strong>Rx Cards.</strong> Spaced recall cards for this week. Rate your confidence honestly; a confident wrong answer is the one the cards will chase.",
+                             "<strong>Draw it from memory.</strong> Redraw one note sheet box on a blank canvas with nothing open, then check it against the sheet.",
+                             "<strong>Brain dump.</strong> Take a competency prompt cold, on paper. This is what the midterm feels like.",
+                             "<strong>Book problems.</strong> Work them forward before you look, and backward from the answer to see how the author got there.",
+                             "<strong>Study With Me.</strong> Do any of the above with other people and quiz each other."])
+                       + p("One thing worth doing this week specifically: put the two halves side by side. Take one structure from the anatomy sheet and say what transport or signaling job it does on the physiology sheet. That link is what the exam asks for."),
              buttons=[btn("Rx Cards", BASE + "rx-cards.html"),
                       btn("Draw it from memory", BASE + "mastery-canvas.html", primary=False),
                       btn("Brain dump practice", BASE + "competency-brain-dump.html", primary=False),
@@ -681,7 +729,7 @@ W2 = dict(
              when="Post by Friday; replies by Sunday",
              body_html=(
                p("One post, two parts. First the physiology, worked as a prediction you then check. Then the honest part: what the week's evidence told you about your own learning and what you did about it. Both halves are required, and the second one is not a formality. This is the shape every discussion takes from here to Week 15.")
-               + p("Part 2 asks about your Mastery Check, so take that first at Step 9 and then come back and write this. Your post is due Friday and the Mastery Check report is due Sunday, so do the check early in the week.")
+               + p("Part 2 asks about your Mastery Check, so take that first at Step 8 and then come back and write this. Your post is due Friday and the Mastery Check report is due Sunday, so do the check early in the week.")
 
                # ---------------- Part 1, the physiology ----------------
                + sub("Part 1. The physiology: predict, then check")
@@ -716,14 +764,15 @@ W2 = dict(
              graded="Thinking category. Post Friday, September 18, 10:00 pm; two replies Sunday, September 20, 10:00 pm. Pacific."),
     ],
     done_items=[
-        "Your note sheet has two colors on it, you can say which boxes are still thin, and it is uploaded.",
+        "Both note sheets have two colors on them, you can say which boxes are still thin, and both are uploaded.",
         "You can draw one full signal pathway, ligand to response, from memory.",
+        "You can take one substance and say whether it crosses the membrane with the gradient or against it, and whether the cell pays for the trip.",
         "You have done at least one Mastery Check and uploaded the report.",
         "The amylase lab analysis sheet is turned in.",
         "Your patient's second chart entry is turned in.",
         "Your discussion post and both replies are up.",
     ],
-    next_text="Week 3, getting across the membrane and the electrical signal, opens Monday, September 21, and unlocks early on Saturday, September 19 at 8:00 pm Pacific if you have finished and submitted this week.",
+    next_text="Week 3, neurons, action potentials and synapses, opens Monday, September 21, and unlocks early on Saturday, September 19 at 8:00 pm Pacific if you have finished and submitted this week.",
 )
 
 # ----------------------------------------------------------------------------

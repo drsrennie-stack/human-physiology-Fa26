@@ -11,12 +11,19 @@ week they are in.
 
 ## The four stages, and what sits in each
 
-| Stage | Card name | Steps |
-|---|---|---|
-| Learn (maroon) | Learn it with Dr. Rennie | 1 print your week, 2 first pass, 3 second pass, 4 upload your note sheet |
-| Practice (navy) | Try it from memory | 5 study it for several days |
-| Apply (gold) | Use what you learned | 6 lab, 7 your patient, 8 discussion |
-| Check (outline) | Find the gaps | 9 Mastery Check, and upload your report |
+Week 1 runs nine steps. Week 2 runs eight, because it carries two bodies of material and
+the Learn stage splits into a 2a and a 2b rather than into separate read and watch steps.
+
+| Stage | Card name | Week 1 | Week 2 |
+|---|---|---|---|
+| Learn (maroon) | Learn it with Dr. Rennie | 1 print, 2 first pass, 3 second pass, 4 upload | 1 print, 2a cell anatomy, 2b cell physiology, 3 upload both |
+| Practice (navy) | Try it from memory | 5 study it | 4 study it |
+| Apply (gold) | Use what you learned | 6 lab, 7 patient, 8 discussion | 5 lab, 6 patient, 7 discussion |
+| Check (outline) | Find the gaps | 9 Mastery Check | 8 Mastery Check |
+
+2a and 2b are the same step done twice on different material, which is why they share a
+number. Each carries its own note sheet, its own competency list, its own reading and its
+own videos, and each does both color passes on one page.
 
 All of the graded weekly work sits in Apply. Learn, Practice and Check carry no points;
 the note sheet upload and the Mastery Check report are marked complete or not complete
@@ -46,16 +53,16 @@ and are the participation record.
 | `w01-07-patient.html` | Week 1, Step 7: Your patient, the preseason physical | Apply |
 | `w01-08-discussion.html` | Week 1, Step 8: Two discussions this week | Apply |
 | `w01-09-mastery-check.html` | Week 1, Step 9: Mastery Check, and upload your report | Check |
-| `w02-00-overview.html` | Week 2 overview: The cell, and how cells talk | |
+| `w02-00-overview.html` | Week 2 overview: The cell: structure, transport and signaling | |
 | `w02-01-print-your-week.html` | Week 2, Step 1: Print your week | Learn |
-| `w02-02-first-pass.html` | Week 2, Step 2: First pass, in your first color | Learn |
-| `w02-03-second-pass.html` | Week 2, Step 3: Second pass, in your second color | Learn |
-| `w02-04-upload-note-sheet.html` | Week 2, Step 4: Upload your note sheet | Learn |
-| `w02-05-study-it.html` | Week 2, Step 5: Study it for several days | Practice |
-| `w02-06-lab.html` | Week 2, Step 6: Lab, PhysioEx Exercise 8, amylase | Apply |
-| `w02-07-patient.html` | Week 2, Step 7: Your patient, the student health visit | Apply |
-| `w02-08-discussion.html` | Week 2, Step 8: Discussion 2, predict then check | Apply |
-| `w02-09-mastery-check.html` | Week 2, Step 9: Mastery Check, and upload your report | Check |
+| `w02-02a-cell-anatomy.html` | Week 2, Step 2a: Cell anatomy, read it then watch it | Learn |
+| `w02-02b-cell-physiology.html` | Week 2, Step 2b: Cell physiology and transport, read it then watch it | Learn |
+| `w02-03-upload-note-sheets.html` | Week 2, Step 3: Upload both note sheets | Learn |
+| `w02-04-study-it.html` | Week 2, Step 4: Study it for several days | Practice |
+| `w02-05-lab.html` | Week 2, Step 5: Lab, PhysioEx Exercise 8, amylase | Apply |
+| `w02-06-patient.html` | Week 2, Step 6: Your patient, the student health visit | Apply |
+| `w02-07-discussion.html` | Week 2, Step 7: Discussion 2, predict then check | Apply |
+| `w02-08-mastery-check.html` | Week 2, Step 8: Mastery Check, and upload your report | Check |
 
 `page-titles.json` has the same list in machine form.
 
