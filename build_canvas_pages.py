@@ -444,7 +444,7 @@ W1 = dict(
              when="Thursday and Friday, about 3 hours",
              body_html=p("Switch pens. Press play on the first concept video and let the week run; there are twenty short videos, and the list on the page lets you jump to the one that matches the box you are working on. "
                          "Every time the video gives you something the reading did not, add it to the same box in the second color. When you are done, the sheet shows you exactly where your reading was thin.")
-                       + p("Open the slides beside the video if you want to pause on a diagram or print a deck to draw on."),
+                       + p("The notes print. There is a Print button at the top of the notes page, so you can have them on paper beside the note sheet rather than switching windows."),
              buttons=[btn("Watch the Week 1 concept videos", BASE + "concept-videos-week01.html"),
                       btn("Slides and notes for Week 1", BASE + "lecture-week.html?week=1", primary=False)]),
         dict(title="Upload your note sheet",
@@ -663,12 +663,13 @@ W2 = dict(
              body_html=(
                p("Now the second half, same two passes, on the <strong>Cellular physiology and transport mechanisms</strong> note sheet. This is the bigger of the two halves, so give it the extra day.")
                + sub("First pass, in your first color")
-               + p("Read Chapter 5 for what crosses the membrane and how, and the signaling sections of Chapter 6 for how a message arrives and gets switched off. Fill the boxes as you read: draw the gradient, draw the protein, put the steps in order. Then take the A and B prompts cold on the brain dump paper and leave the gaps.")
+               + p("Read Chapter 5 for what crosses the membrane and how, and the signaling sections of Chapter 6 for how a message arrives and gets switched off, or read my transport notes, which cover the same ground with five worked problems. Fill the boxes as you read: draw the gradient, draw the protein, put the steps in order. Then take the A and B prompts cold on the brain dump paper and leave the gaps.")
                + p("Two things are worth drawing rather than writing every time: the direction a substance is moving relative to its gradient, and whether the cell is spending energy to move it. Those two together are most of this half.")
                + sub("Second pass, in your second color")
                + p("Switch pens and work the transport videos, then the signaling ones. There are more videos here than in any other half of the course, so use the list to jump to the box you are on rather than watching straight through. Add what the video gives you in the second color.")
              ),
-             buttons=[btn("Watch the transport videos", BASE + "concept-videos-week04.html"),
+             buttons=[btn("Read the transport notes", BASE + "biol005-w02-transport-notes.html"),
+                      btn("Watch the transport videos", BASE + "concept-videos-week04.html"),
                       btn("Watch the signaling videos", BASE + "concept-videos-week03.html#signaling"),
                       btn("Slides and notes", BASE + "lecture-week.html?week=2", primary=False),
                       btn("The competencies, with what each one asks", BASE + "competency-study-guide.html?week=2", primary=False)]),
