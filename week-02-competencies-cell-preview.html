@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 2 competencies, the cell &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --tint:#ECEFF4;
+  --gold:#C9A14A; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dk:#6E2D24;
+  --page:#FAFAF9; --card:#FFFFFF;
+  --muted:#414B5C; --faint:#5A6675; --rule:rgba(11,21,48,.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--page);color:var(--navy);font-size:16px;
+  line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+p{margin:0 0 14px;max-width:70ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dk)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+
+/* light page, maroon eyebrow, two tone headline. No dark band. */
+header.top{padding:30px 0 24px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:var(--navy);max-width:24ch}
+header.top h1 b{color:var(--maroon);font-weight:800}
+header.top p.sub{color:var(--muted);margin:12px 0 0;font-size:16px}
+
+.homebar{max-width:1000px;margin:0 auto;padding:16px 20px 0}
+.home{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;
+  text-decoration:none;font-weight:700;font-size:14.5px;border-radius:8px;padding:9px 15px;
+  transition:background 160ms ease}
+.home:hover{background:var(--maroon);color:#fff}
+
+.pwrap{background:var(--card);border:1px solid var(--rule);border-radius:10px;
+  padding:16px 20px;margin:22px 0 0}
+.pbar{height:9px;background:var(--tint);border-radius:99px;overflow:hidden;margin-top:9px}
+.pfill{height:100%;width:0;background:var(--maroon);border-radius:99px;transition:width 260ms ease}
+.pnote{font-size:12.5px;color:var(--muted);margin:7px 0 0}
+
+main{padding:8px 0 60px}
+.chead{border-left:4px solid var(--maroon);padding:2px 0 2px 16px;margin:32px 0 6px}
+.chead .cl{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--maroon);display:block;margin-bottom:4px}
+.chead h2{font-size:21px;color:var(--maroon)}
+
+.comp{background:var(--card);border:1px solid var(--rule);border-radius:10px;
+  padding:18px 20px;margin:12px 0;break-inside:avoid}
+.comp.done{background:var(--tint);border-color:var(--maroon)}
+.chd{display:flex;gap:11px;align-items:baseline;flex-wrap:wrap}
+.cnum{font-family:var(--display);font-weight:800;font-size:14px;color:var(--maroon);
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+.cname{font-family:var(--display);font-weight:800;font-size:17.5px;letter-spacing:-.02em}
+.tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--rule);border-radius:99px;padding:2px 9px;color:var(--faint);white-space:nowrap}
+.tag.lab{color:var(--maroon);border-color:var(--maroon)}
+.can{font-size:15px;color:var(--navy);margin:9px 0 0}
+.canlab{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);display:block;margin-bottom:3px}
+.pick{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin:16px 0 8px}
+.pick.pending{color:#5F4514}
+.prompt{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;
+  border:1px solid var(--rule);border-radius:7px;margin:0 0 8px;background:var(--card)}
+.prompt:last-child{margin-bottom:0}
+.prompt input[type=checkbox]{flex:0 0 auto;width:22px;height:22px;margin:1px 0 0;
+  accent-color:var(--maroon);cursor:pointer}
+.prompt label{cursor:pointer;margin:0;font-size:14.5px}
+.prompt.checked{background:var(--tint);border-color:var(--maroon)}
+.plet{font-family:var(--display);font-weight:800;color:var(--maroon-dk);margin-right:7px}
+
+.foot{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:13px;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  .mm-brandbar,.mm-jumpwrap,.homebar,.pwrap,.skip{display:none!important}
+  body{background:#fff;font-size:10.5pt}
+  .comp{break-inside:avoid;border-color:#999}
+
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the competencies</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
+      <g transform="translate(0,18)">
+        <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
+        <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
+        <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
+      </g>
+    </svg>
+    <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<div class="homebar"><a class="home" href="course-start.html" target="_top">
+  <span aria-hidden="true">&larr;</span> Course home</a></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 &middot; Week 2 &middot; Part 1</p>
+  <h1>Everything Week 2 <b>asks you to be able to do.</b></h1>
+  <p class="sub">The chemistry that does work in the body. 7 competencies, each one a single thing you will be able to do by Sunday, September 20.</p>
+</div></header>
+
+<div class="wrap">
+  <div class="pwrap">
+    <p style="margin:0;font-size:14px"><strong id="pcount">0 of 7</strong> picked</p>
+    <div class="pbar" role="progressbar" aria-labelledby="pcount" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><div class="pfill" id="pfill"></div></div>
+    <p class="pnote">Tick the prompt you are going to do for each competency. Your ticks stay on this device, so you can come back to the same list.</p>
+  </div>
+</div>
+
+<main id="main"><div class="wrap">
+  <div class="chead"><span class="cl">15 competencies</span><h2>The cell, inside and at work</h2></div>
+  <section class="comp" id="c-w2c-compartments" aria-labelledby="h-w2c-compartments">
+      <div class="chd"><span class="cnum">1</span><h3 class="cname" id="h-w2c-compartments">Compartmentation as a principle</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Name the three functional compartments of the body, say which one a given fluid or structure belongs to, and explain why a substance in a lumen open to the outside world has not yet entered the body.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-compartments" data-l="a"><input type="checkbox" id="w2c-compartments-a"><label for="w2c-compartments-a"><span class="plet">A</span>Draw a person in outline, then draw the digestive tract running through them as an open tube. Shade the three compartments in three different ways: the lumen open to the outside, the extracellular fluid, and the inside of cells. Put a swallowed pill, a drop of plasma and a potassium ion on your drawing, each in the compartment it is in. One line under it: what the pill has to cross before it counts as being in the body.</label></div>
+      <div class="prompt" data-c="w2c-compartments" data-l="b"><input type="checkbox" id="w2c-compartments-b"><label for="w2c-compartments-b"><span class="plet">B</span>Draw a single cell sitting in tissue, with a capillary beside it. Mark the intracellular fluid, the interstitial fluid and the plasma, and draw the barrier between each pair. Label which barrier is leaky and which is tight. Under the drawing, one line naming the compartment a drug reaches first after an injection into a vein.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-membrane-anatomy" aria-labelledby="h-w2c-membrane-anatomy">
+      <div class="chd"><span class="cnum">2</span><h3 class="cname" id="h-w2c-membrane-anatomy">Structure of the cell membrane</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Draw the fluid mosaic membrane with the phospholipid bilayer, membrane proteins, cholesterol and surface carbohydrates, and state what each component contributes to the membrane&#x27;s job.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-membrane-anatomy" data-l="a"><input type="checkbox" id="w2c-membrane-anatomy-a"><label for="w2c-membrane-anatomy-a"><span class="plet">A</span>Draw a stretch of membrane in cross section, big enough to fill half the box. Put in the two phospholipid layers with heads and tails drawn differently, then add a channel protein, a protein that sits only in the outer layer, a cholesterol molecule and a carbohydrate chain. Label each one with what it does, not just its name.</label></div>
+      <div class="prompt" data-c="w2c-membrane-anatomy" data-l="b"><input type="checkbox" id="w2c-membrane-anatomy-b"><label for="w2c-membrane-anatomy-b"><span class="plet">B</span>Draw the same membrane twice, side by side. In the first, the membrane is cold and packed with cholesterol. In the second it is warm with little cholesterol. Show the difference in how tightly the tails sit. Under both, one line on what fluidity changes about the membrane&#x27;s work.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-cytoplasm" aria-labelledby="h-w2c-cytoplasm">
+      <div class="chd"><span class="cnum">3</span><h3 class="cname" id="h-w2c-cytoplasm">Cytoplasm, cytosol and inclusions</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Distinguish cytoplasm, cytosol and inclusions, and give an example of a stored inclusion and the cell type that keeps it.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-cytoplasm" data-l="a"><input type="checkbox" id="w2c-cytoplasm-a"><label for="w2c-cytoplasm-a"><span class="plet">A</span>Draw a cell with its outline and nucleus only, then shade the cytosol one way and circle the region the word cytoplasm covers. Add a glycogen granule and a lipid droplet as inclusions, each labelled with a cell type that stores it. One line: what makes an inclusion different from an organelle.</label></div>
+      <div class="prompt" data-c="w2c-cytoplasm" data-l="b"><input type="checkbox" id="w2c-cytoplasm-b"><label for="w2c-cytoplasm-b"><span class="plet">B</span>Draw three cells in a row: a liver cell after a meal, a fat cell, and a muscle cell after a sprint. In each, draw the inclusions you would expect to find and how much. Under the row, one line on what the inclusions tell you about what that cell does for a living.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-cytoskeleton" aria-labelledby="h-w2c-cytoskeleton">
+      <div class="chd"><span class="cnum">4</span><h3 class="cname" id="h-w2c-cytoskeleton">The cytoskeleton and motor proteins</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Compare microfilaments, intermediate filaments and microtubules by what they are made of and what they do, and describe how a motor protein moves a load along a microtubule.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-cytoskeleton" data-l="a"><input type="checkbox" id="w2c-cytoskeleton-a"><label for="w2c-cytoskeleton-a"><span class="plet">A</span>Draw one cell and run all three filament types through it, each drawn differently and labelled with its protein and its job. Then draw a motor protein walking a vesicle along a microtubule, with an arrow for the direction and a mark for where the ATP goes in.</label></div>
+      <div class="prompt" data-c="w2c-cytoskeleton" data-l="b"><input type="checkbox" id="w2c-cytoskeleton-b"><label for="w2c-cytoskeleton-b"><span class="plet">B</span>Draw a nerve cell with a long axon. Show a vesicle made at the cell body being carried to the end, and a worn out mitochondrion being carried back. Label the track and the direction of each trip. One line under it on what happens to the far end of that axon if the track breaks.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-surface-structures" aria-labelledby="h-w2c-surface-structures">
+      <div class="chd"><span class="cnum">5</span><h3 class="cname" id="h-w2c-surface-structures">Cilia, flagella and microvilli</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Tell cilia, flagella and microvilli apart by structure and function, and predict what fails when the cilia of a given tissue stop moving.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-surface-structures" data-l="a"><input type="checkbox" id="w2c-surface-structures-a"><label for="w2c-surface-structures-a"><span class="plet">A</span>Draw three cell surfaces side by side, one with cilia, one with a flagellum, one with microvilli. Draw each structure to scale with the cell and mark whether it moves. Label the tissue where you would find each, and beside each one write what the cell gains from it.</label></div>
+      <div class="prompt" data-c="w2c-surface-structures" data-l="b"><input type="checkbox" id="w2c-surface-structures-b"><label for="w2c-surface-structures-b"><span class="plet">B</span>Draw the lining of an airway with a layer of mucus on top and cilia underneath, arrows showing which way the mucus travels. Then draw the same airway with the cilia paralysed by cigarette smoke. Show what happens to the mucus and to anything trapped in it. One line on why that patient coughs.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-nucleus" aria-labelledby="h-w2c-nucleus">
+      <div class="chd"><span class="cnum">6</span><h3 class="cname" id="h-w2c-nucleus">The nucleus and the path from gene to protein</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Describe the structure of the nucleus and the nucleolus and trace, in order, the steps from a gene in the nucleus to a finished protein leaving the cell.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-nucleus" data-l="a"><input type="checkbox" id="w2c-nucleus-a"><label for="w2c-nucleus-a"><span class="plet">A</span>Draw the nucleus with its double membrane, a nuclear pore, chromatin and the nucleolus. Then run an arrow chain out of the pore and across the cytosol: transcript, ribosome, rough ER, Golgi, vesicle, outside. Label what happens to the protein at each stop.</label></div>
+      <div class="prompt" data-c="w2c-nucleus" data-l="b"><input type="checkbox" id="w2c-nucleus-b"><label for="w2c-nucleus-b"><span class="plet">B</span>Draw two cells: one making a large amount of a secreted protein and one making almost none. Show the difference in the size of the nucleolus and the amount of rough ER in each. Under the two, one line naming a real cell that looks like the first drawing and what it secretes.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-er-ribosomes" aria-labelledby="h-w2c-er-ribosomes">
+      <div class="chd"><span class="cnum">7</span><h3 class="cname" id="h-w2c-er-ribosomes">Ribosomes and the endoplasmic reticulum</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Distinguish rough from smooth endoplasmic reticulum by structure and function, and predict which one is abundant in a cell given what that cell makes or does.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-er-ribosomes" data-l="a"><input type="checkbox" id="w2c-er-ribosomes-a"><label for="w2c-er-ribosomes-a"><span class="plet">A</span>Draw a cell with both kinds of ER drawn clearly differently, with ribosomes shown on one and free ribosomes floating in the cytosol as well. Label three jobs of the smooth ER. Beside the drawing, one line on the difference in destination between a protein made on a free ribosome and one made on a bound ribosome.</label></div>
+      <div class="prompt" data-c="w2c-er-ribosomes" data-l="b"><input type="checkbox" id="w2c-er-ribosomes-b"><label for="w2c-er-ribosomes-b"><span class="plet">B</span>Draw three cells: a pancreatic cell making digestive enzymes, a liver cell handling a drug, and a skeletal muscle cell storing calcium. In each, draw the ER the way you expect it to look. Under the row, one line on how a cell&#x27;s ER tells you its job before anyone tells you its name.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-golgi-secretion" aria-labelledby="h-w2c-golgi-secretion">
+      <div class="chd"><span class="cnum">8</span><h3 class="cname" id="h-w2c-golgi-secretion">The Golgi apparatus and secretion</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Describe how the Golgi modifies and sorts proteins into vesicles, and distinguish constitutive secretion from regulated secretion using a named example of each.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-golgi-secretion" data-l="a"><input type="checkbox" id="w2c-golgi-secretion-a"><label for="w2c-golgi-secretion-a"><span class="plet">A</span>Draw the Golgi stack with a receiving face and a shipping face, a vesicle arriving from the ER and three vesicles leaving for three different destinations. Label each destination. Mark on your drawing where the protein gets modified.</label></div>
+      <div class="prompt" data-c="w2c-golgi-secretion" data-l="b"><input type="checkbox" id="w2c-golgi-secretion-b"><label for="w2c-golgi-secretion-b"><span class="plet">B</span>Draw two secreting cells side by side. In one, vesicles fuse with the membrane as soon as they are made. In the other, vesicles sit stacked under the membrane waiting for a signal, and you draw the signal arriving. Label each pattern and name a real cell that uses it. One line: why a cell would hold its product back.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-lysosomes-peroxisomes" aria-labelledby="h-w2c-lysosomes-peroxisomes">
+      <div class="chd"><span class="cnum">9</span><h3 class="cname" id="h-w2c-lysosomes-peroxisomes">Lysosomes and peroxisomes</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>State what lysosomes and peroxisomes each break down and why each is kept inside a membrane, and explain what accumulates in a cell when one of these organelles fails.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-lysosomes-peroxisomes" data-l="a"><input type="checkbox" id="w2c-lysosomes-peroxisomes-a"><label for="w2c-lysosomes-peroxisomes-a"><span class="plet">A</span>Draw a cell taking in a worn out organelle and a bacterium, and follow each one to a lysosome. Mark the inside of the lysosome with its pH and label the enzymes. Beside that, draw a peroxisome with what it handles. One line on why the cell keeps these enzymes behind a membrane rather than loose in the cytosol.</label></div>
+      <div class="prompt" data-c="w2c-lysosomes-peroxisomes" data-l="b"><input type="checkbox" id="w2c-lysosomes-peroxisomes-b"><label for="w2c-lysosomes-peroxisomes-b"><span class="plet">B</span>Draw a cell whose lysosomal enzyme for one particular molecule is missing. Show what happens over time, three panels: early, later, and the cell failing. Under the panels, one line on why a disease like that shows up in the tissues that handle the most of that molecule.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-mitochondria" aria-labelledby="h-w2c-mitochondria">
+      <div class="chd"><span class="cnum">10</span><h3 class="cname" id="h-w2c-mitochondria">Mitochondrial structure and ATP</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Draw the mitochondrion with both membranes, the cristae and the matrix, say which step of energy production happens in each space, and explain why cristae are folded.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-mitochondria" data-l="a"><input type="checkbox" id="w2c-mitochondria-a"><label for="w2c-mitochondria-a"><span class="plet">A</span>Draw one mitochondrion large enough to fill half the box, with the outer membrane, the inner membrane folded into cristae, the intermembrane space and the matrix all labelled. Mark where the citric acid cycle runs and where the electron transport chain sits. One line on what the folding buys the cell.</label></div>
+      <div class="prompt" data-c="w2c-mitochondria" data-l="b"><input type="checkbox" id="w2c-mitochondria-b"><label for="w2c-mitochondria-b"><span class="plet">B</span>Draw three cells and give each the number of mitochondria you expect: a cardiac muscle cell, a skin cell, and a red blood cell. Under the row, one line on what the count predicts about how that cell makes its ATP and what happens to it when oxygen runs short.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-junctions" aria-labelledby="h-w2c-junctions">
+      <div class="chd"><span class="cnum">11</span><h3 class="cname" id="h-w2c-junctions">Cell junctions and what each one permits</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Compare gap junctions, tight junctions and anchoring junctions by structure and by what can pass, and predict which junction a given tissue depends on.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-junctions" data-l="a"><input type="checkbox" id="w2c-junctions-a"><label for="w2c-junctions-a"><span class="plet">A</span>Draw two cells side by side, joined by all three junction types stacked one above the other. Draw each junction differently and label what it lets through: ions, fluid, nothing, or mechanical pull. Beside each, name a tissue that needs it.</label></div>
+      <div class="prompt" data-c="w2c-junctions" data-l="b"><input type="checkbox" id="w2c-junctions-b"><label for="w2c-junctions-b"><span class="plet">B</span>Draw a sheet of gut lining with tight junctions holding the cells together, and show a molecule trying to get from the lumen to the blood by going between cells. Then draw the same sheet with the tight junctions loosened by inflammation. Show what now gets through. One line on what that does to the patient.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-epithelia" aria-labelledby="h-w2c-epithelia">
+      <div class="chd"><span class="cnum">12</span><h3 class="cname" id="h-w2c-epithelia">Epithelial tissue types</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Name the functional types of epithelium, match each to a location in the body, and explain how the shape and layering of the cells fit the work that epithelium does.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-epithelia" data-l="a"><input type="checkbox" id="w2c-epithelia-a"><label for="w2c-epithelia-a"><span class="plet">A</span>Draw five short strips of epithelium, one for each functional type, with the cell shape and the number of layers drawn correctly. Label each with a location and the job it does there. Under them, one line on what a single flat layer buys you and what it costs you.</label></div>
+      <div class="prompt" data-c="w2c-epithelia" data-l="b"><input type="checkbox" id="w2c-epithelia-b"><label for="w2c-epithelia-b"><span class="plet">B</span>Draw a cross section of the airway from trachea down to alveolus, and show the epithelium changing as you go. Mark where it stops being ciliated and where it thins to one layer. One line on why the change happens where it does.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-connective-matrix" aria-labelledby="h-w2c-connective-matrix">
+      <div class="chd"><span class="cnum">13</span><h3 class="cname" id="h-w2c-connective-matrix">Connective tissue and the extracellular matrix</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Describe the two parts of the extracellular matrix, name the protein fibers and what each contributes, and explain how the matrix makes a tissue stiff, stretchy or slippery.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-connective-matrix" data-l="a"><input type="checkbox" id="w2c-connective-matrix-a"><label for="w2c-connective-matrix-a"><span class="plet">A</span>Draw a patch of connective tissue with the cells small and scattered and the matrix taking most of the space. Draw collagen fibers and elastin fibers differently and label what each does under load. Show the ground substance around them. One line on which component you would change to make this tissue stiffer.</label></div>
+      <div class="prompt" data-c="w2c-connective-matrix" data-l="b"><input type="checkbox" id="w2c-connective-matrix-b"><label for="w2c-connective-matrix-b"><span class="plet">B</span>Draw three tissues: a tendon, an artery wall, and cartilage in a joint. In each, draw the fiber arrangement that gives it the property it needs. Under the row, one line on what a defect in collagen would do to all three at once.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-muscle-neural-tissue" aria-labelledby="h-w2c-muscle-neural-tissue">
+      <div class="chd"><span class="cnum">14</span><h3 class="cname" id="h-w2c-muscle-neural-tissue">Muscle and neural tissue</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Identify the three muscle tissue types and the two cell types of neural tissue by structure, and state what makes both tissue classes excitable.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-muscle-neural-tissue" data-l="a"><input type="checkbox" id="w2c-muscle-neural-tissue-a"><label for="w2c-muscle-neural-tissue-a"><span class="plet">A</span>Draw skeletal, cardiac and smooth muscle side by side, with the striations, the cell shape, the nuclei and the intercalated discs drawn where they belong. Label which are under voluntary control. One line on what all three share that makes them muscle.</label></div>
+      <div class="prompt" data-c="w2c-muscle-neural-tissue" data-l="b"><input type="checkbox" id="w2c-muscle-neural-tissue-b"><label for="w2c-muscle-neural-tissue-b"><span class="plet">B</span>Draw a neuron and a supporting glial cell together, labelling the parts of the neuron that receive and the part that sends. Then draw a muscle cell beside them. Under the drawing, one line on what excitable means and what both tissues do with that property.</label></div>
+  </section>
+  <section class="comp" id="c-w2c-cell-turnover" aria-labelledby="h-w2c-cell-turnover">
+      <div class="chd"><span class="cnum">15</span><h3 class="cname" id="h-w2c-cell-turnover">Cell growth, death and tissue remodeling</h3><span class="tag">Lecture</span></div>
+      <p class="can"><span class="canlab">You should be able to</span>Distinguish apoptosis from necrosis by what triggers each and what the tissue around it does, and explain why a tissue&#x27;s rate of turnover predicts how well it recovers from injury.</p>
+      <p class="pick">Pick one and do that one</p>
+      <div class="prompt" data-c="w2c-cell-turnover" data-l="a"><input type="checkbox" id="w2c-cell-turnover-a"><label for="w2c-cell-turnover-a"><span class="plet">A</span>Draw two dying cells side by side. In one, the cell shrinks, packages itself and is taken up by a neighbor with no mess. In the other, the cell swells, bursts and spills its contents, and you draw the inflammation that follows. Label each process and what set it off.</label></div>
+      <div class="prompt" data-c="w2c-cell-turnover" data-l="b"><input type="checkbox" id="w2c-cell-turnover-b"><label for="w2c-cell-turnover-b"><span class="plet">B</span>Draw three tissues on a scale from fast turnover to none: gut lining, liver, and cardiac muscle. Show roughly how often cells are replaced in each. Under the scale, one line on why a heart attack leaves a scar and a scraped gut lining does not.</label></div>
+  </section>
+</div></main>
+
+<script>
+(function(){
+  var KEY = 'bio005-comp-week-2';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
+
+  var rows = [].slice.call(document.querySelectorAll('.prompt'));
+  var total = 7;
+
+  function paint(){
+    var picked = 0, seen = {};
+    rows.forEach(function(r){
+      var c = r.getAttribute('data-c'), l = r.getAttribute('data-l');
+      var on = state[c] === l;
+      r.classList.toggle('checked', on);
+      r.querySelector('input').checked = on;
+      var comp = document.getElementById('c-' + c);
+      if (comp) comp.classList.toggle('done', !!state[c]);
+      if (state[c] && !seen[c]) { seen[c] = 1; picked++; }
+    });
+    var pct = total ? Math.round(picked / total * 100) : 0;
+    document.getElementById('pfill').style.width = pct + '%';
+    document.getElementById('pcount').textContent = picked + ' of ' + total;
+    var bar = document.querySelector('.pbar');
+    if (bar) bar.setAttribute('aria-valuenow', picked);
+  }
+
+  rows.forEach(function(r){
+    r.querySelector('input').addEventListener('change', function(){
+      var c = r.getAttribute('data-c'), l = r.getAttribute('data-l');
+      /* one prompt per competency: ticking B unticks A */
+      state[c] = (state[c] === l) ? null : l;
+      if (!state[c]) delete state[c];
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+      paint();
+    });
+  });
+  paint();
+}());
+</script>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
