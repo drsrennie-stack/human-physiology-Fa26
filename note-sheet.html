@@ -735,8 +735,17 @@ body.screenmode .sc-alt{display:block;margin-top:9px}
   var pages = 0;
 
   if (!w || !w.items || !w.items.length){
-    host.innerHTML = '<div class="sheetpage"><p class="can">The competency list for Week ' +
-                     week + ' is not loaded. Open the week page in Canvas.</p></div>';
+    /* The commonest cause by a mile is this file being opened on its own, out
+       of a downloads folder, away from assets/bio005-sheet-data.js. The old
+       message sent students to Canvas, which is right for them and useless for
+       whoever is testing the file. This one says which it is. */
+    host.innerHTML = '<div class="sheetpage"><p class="can">' +
+      '<b>The competency list for Week ' + week + ' did not load.</b></p>' +
+      '<p class="can" style="margin-top:8px">If you are a student: open the note sheet from ' +
+      'your week page in Canvas rather than from a downloaded copy, and it will fill in.</p>' +
+      '<p class="can" style="margin-top:8px">If you are looking at a downloaded file: this page ' +
+      'reads its competencies from <code>assets/bio005-sheet-data.js</code>. Put the file back ' +
+      'beside the <code>assets</code> folder in the site and it works.</p></div>';
   } else {
     var out = [];
     for (var k = 0; k < w.items.length; k += per){
