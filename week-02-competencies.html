@@ -2,249 +2,399 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Week 2 competencies &middot; BIO 005 Human Physiology</title>
-<link rel="icon" type="image/svg+xml" href="icon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 competencies and prompts &middot; BIOL 005 Human Physiology</title>
 <link rel="stylesheet" href="assets/fonts-site.css">
-<link rel="stylesheet" href="assets/brandbar.css">
 <style>
 :root{
-  --navy:#0B1530; --navy-deep:#060A18; --tint:#ECEFF4;
-  --gold:#C9A14A; --gold-deep:#8A6D33;
-  --maroon:#8B3A2E; --maroon-dk:#6E2D24;
-  --page:#FAFAF9; --card:#FFFFFF;
-  --muted:#414B5C; --faint:#5A6675; --rule:rgba(11,21,48,.16);
-  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
-  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --navy:#0B1530; --navy-tint:#ECEFF4; --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --gold:#C9A14A; --gold-deep:#8A6D33; --bone:#F5F1E8;
+  --white:#FFFFFF; --page:#FAFAF9; --ink:#16202F; --ink-soft:#4A5464; --line:#DFE3E8;
+  --shadow-rest:0 1px 3px rgba(11,21,48,.10);
+  --display:"Open Sans","Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
-*,*::before,*::after{box-sizing:border-box}
-html,body{margin:0}
-body{font-family:var(--body);background:var(--page);color:var(--navy);font-size:16px;
-  line-height:1.65;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
-p{margin:0 0 14px;max-width:70ch}
-a{color:var(--maroon);text-underline-offset:3px}
-a:hover{color:var(--maroon-dk)}
-:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
-.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
-.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
-  padding:12px 18px;font-weight:700;text-decoration:none}
-.skip:focus{left:0;top:0}
-
-/* light page, maroon eyebrow, two tone headline. No dark band. */
-header.top{padding:30px 0 24px}
-header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--maroon);margin:0 0 10px}
-header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:var(--navy);max-width:24ch}
-header.top h1 b{color:var(--maroon);font-weight:800}
-header.top p.sub{color:var(--muted);margin:12px 0 0;font-size:16px}
-
-.homebar{max-width:1000px;margin:0 auto;padding:16px 20px 0}
-.home{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;
-  text-decoration:none;font-weight:700;font-size:14.5px;border-radius:8px;padding:9px 15px;
-  transition:background 160ms ease}
-.home:hover{background:var(--maroon);color:#fff}
-
-.pwrap{background:var(--card);border:1px solid var(--rule);border-radius:10px;
-  padding:16px 20px;margin:22px 0 0}
-.pbar{height:9px;background:var(--tint);border-radius:99px;overflow:hidden;margin-top:9px}
-.pfill{height:100%;width:0;background:var(--maroon);border-radius:99px;transition:width 260ms ease}
-.pnote{font-size:12.5px;color:var(--muted);margin:7px 0 0}
-
-main{padding:8px 0 60px}
-.chead{border-left:4px solid var(--maroon);padding:2px 0 2px 16px;margin:32px 0 6px}
-.chead .cl{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--maroon);display:block;margin-bottom:4px}
-.chead h2{font-size:21px;color:var(--maroon)}
-
-.comp{background:var(--card);border:1px solid var(--rule);border-radius:10px;
-  padding:18px 20px;margin:12px 0;break-inside:avoid}
-.comp.done{background:var(--tint);border-color:var(--maroon)}
-.chd{display:flex;gap:11px;align-items:baseline;flex-wrap:wrap}
-.cnum{font-family:var(--display);font-weight:800;font-size:14px;color:var(--maroon);
-  white-space:nowrap;font-variant-numeric:tabular-nums}
-.cname{font-family:var(--display);font-weight:800;font-size:17.5px;letter-spacing:-.02em}
-.tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid var(--rule);border-radius:99px;padding:2px 9px;color:var(--faint);white-space:nowrap}
-.tag.lab{color:var(--maroon);border-color:var(--maroon)}
-.can{font-size:15px;color:var(--navy);margin:9px 0 0}
-.canlab{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);display:block;margin-bottom:3px}
-.pick{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--faint);margin:16px 0 8px}
-.pick.pending{color:#5F4514}
-.prompt{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;
-  border:1px solid var(--rule);border-radius:7px;margin:0 0 8px;background:var(--card)}
-.prompt:last-child{margin-bottom:0}
-.prompt input[type=checkbox]{flex:0 0 auto;width:22px;height:22px;margin:1px 0 0;
-  accent-color:var(--maroon);cursor:pointer}
-.prompt label{cursor:pointer;margin:0;font-size:14.5px}
-.prompt.checked{background:var(--tint);border-color:var(--maroon)}
-.plet{font-family:var(--display);font-weight:800;color:var(--maroon-dk);margin-right:7px}
-
-.foot{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--rule);
-  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
-  font-size:13px;color:var(--muted)}
-
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--navy);color:#fff;padding:10px 16px}
+.skip:focus{left:0}
+a{color:var(--maroon-dark)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--gold-deep);outline-offset:2px;border-radius:4px}
+.brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:10px 20px}
+.brandbar .wrap{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mark{display:flex;gap:4px;align-items:flex-end}
+.mark span{display:block;width:7px;border-radius:3px 3px 0 0}
+.mark span:nth-child(1){height:16px;background:var(--navy)}
+.mark span:nth-child(2){height:21px;background:var(--maroon)}
+.mark span:nth-child(3){height:13px;background:var(--gold)}
+.wordmark{font-family:var(--display);font-weight:800;font-size:15px;color:var(--navy)}
+.wordmark .sub{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+.band{background:var(--maroon-dark);color:#fff;padding:26px 20px}
+.band .wrap{max-width:900px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);margin:0 0 6px}
+.band h1{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);line-height:1.18;margin:0;color:#fff;text-wrap:balance}
+.band p{margin:10px 0 0;max-width:62ch;color:#F2E9E2;font-size:15px}
+main{max-width:900px;margin:0 auto;padding-block:26px 56px;padding-left:20px;padding-right:20px}
+.card{background:var(--white);border-radius:10px;box-shadow:var(--shadow-rest);padding:22px 24px;margin-bottom:18px}
+h2{font-family:var(--display);font-weight:800;font-size:22px;color:var(--navy);margin:0 0 8px;text-wrap:balance}
+.gl{font-size:12px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--maroon-dark);margin:0 0 4px}
+.lead{max-width:66ch;margin:0 0 6px;color:var(--ink-soft)}
+p{margin:0 0 10px;max-width:68ch}
+.comp{border-top:1px solid var(--line);padding-top:16px;margin-top:18px}
+.comp h3{font-family:var(--display);font-weight:800;font-size:17px;color:var(--navy);margin:0 0 6px;display:flex;gap:10px;align-items:baseline}
+.comp .num{font-variant-numeric:tabular-nums;color:var(--maroon-dark);font-size:15px;min-width:24px}
+.can{max-width:68ch;margin:0 0 10px}
+.prompts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pr{background:var(--navy-tint);border-radius:8px;padding:12px 14px}
+.pr h4{font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--maroon-dark);margin:0 0 6px}
+.pr p{font-size:15px;margin:0;max-width:none}
+nav.toc{background:var(--white);border-radius:10px;box-shadow:var(--shadow-rest);padding:20px 24px;margin-bottom:18px}
+nav.toc ol{padding-left:20px;margin:0}
+nav.toc a{text-decoration:none;font-weight:600}
+nav.toc a:hover{text-decoration:underline}
+footer{background:var(--navy);color:var(--bone);padding:20px;font-size:13px}
+footer .wrap{max-width:900px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap}
+footer a{color:var(--bone)}
+@media (max-width:640px){ .prompts{grid-template-columns:1fr} }
 @media print{
-  .mm-brandbar,.mm-jumpwrap,.homebar,.pwrap,.skip{display:none!important}
-  body{background:#fff;font-size:10.5pt}
-  .comp{break-inside:avoid;border-color:#999}
-
+  .brandbar,footer,nav.toc{display:none}
+  .card{box-shadow:none;padding:0;margin-bottom:12px}
+  body{font-size:10pt}
+  .comp{page-break-inside:avoid}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the competencies</a>
-
-<div class="mm-brandbar"><div class="mm-wrap">
-  <a class="mm-mark" href="course-start.html" target="_top">
-    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
-      <g transform="translate(0,18)">
-        <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
-        <g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g>
-        <g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>
-      </g>
-    </svg>
-    <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
-  </a>
-  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+<div class="brandbar"><div class="wrap">
+  <span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>
+  <span class="wordmark">BIOL 005 Human Physiology<span class="sub">Yuba College &middot; Fall 2026</span></span>
 </div></div>
-
-<div class="homebar"><a class="home" href="course-start.html" target="_top">
-  <span aria-hidden="true">&larr;</span> Course home</a></div>
-
-<!-- The five jump squares came out Sep 7 2026. They described the
-     assignment set as it stood before Use It became the patient chart
-     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
-     what a week contains and there was no square for Use It. The CSS is
-     left in place. See course-schedule.html for the array to restore. -->
-
-<header class="top"><div class="wrap">
-  <p class="eyebrow">BIO 005 &middot; Week 2 &middot; Part 1</p>
-  <h1>Everything Week 2 <b>asks you to be able to do.</b></h1>
-  <p class="sub">The cell, and how cells talk. 11 competencies, each one a single thing you will be able to do by Sunday, September 20.</p>
-</div></header>
-
-<div class="wrap">
-  <div class="pwrap">
-    <p style="margin:0;font-size:14px"><strong id="pcount">0 of 7</strong> picked</p>
-    <div class="pbar" role="progressbar" aria-labelledby="pcount" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><div class="pfill" id="pfill"></div></div>
-    <p class="pnote">Tick the prompt you are going to do for each competency. Your ticks stay on this device, so you can come back to the same list.</p>
+<div class="band"><div class="wrap">
+  <p class="eyebrow">Week 2 &middot; Competencies and prompts</p>
+  <h1>The cell: structure, transport and signaling</h1>
+  <p>All 31 competencies for this week, written out in full, with both hand drawing prompts underneath each one. The numbering here is the same numbering as your note sheet, so 14-1 means the same thing on both.</p>
+</div></div>
+<main id="main">
+<section class="card">
+  <h2>How to use this page</h2>
+  <p>This is the big week. Thirty one competencies, because the cell, how things cross it, and how cells talk to each other are one story and splitting them would hide the connection.</p>
+  <p>Work in the order below. Each part depends on the one before it. Print the note sheet, fill it from the written notes and Silverthorn in your first color, then watch the concept videos and add the second color.</p>
+  <p>Prompt 1 under each competency is the drawing. Prompt 2 is the second pass, the one that asks you to change something and predict what happens.</p>
+</section>
+<nav class="toc" aria-label="On this page">
+  <h2>The six parts</h2>
+  <ol>
+    <li><a href="#g1">Where the fluid sits</a></li>
+    <li><a href="#g2">The membrane itself</a></li>
+    <li><a href="#g3">Getting across</a></li>
+    <li><a href="#g4">The electrical consequence</a></li>
+    <li><a href="#g5">How cells talk</a></li>
+    <li><a href="#g6">In the lab</a></li>
+  </ol>
+</nav>
+<section class="card" id="g1">
+  <p class="gl">Part 1 of 6</p>
+  <h2>Where the fluid sits</h2>
+  <p class="lead">Before anything crosses a membrane you have to know which compartment it is leaving and which one it is entering.</p>
+<article class="comp">
+  <h3><span class="num">1</span>Body fluid compartments</h3>
+  <p class="can">State the approximate volumes of total body water, intracellular fluid, extracellular fluid, plasma, and interstitial fluid in a 70 kg adult and compare the dominant solutes of the intracellular and extracellular compartments.</p>
+  <div class="prompts">
+    <div class="pr"><h4>1-1</h4><p>Draw the fluid compartments top down with the fractions. Use one border style for inside cells and a different one for outside.</p></div>
+    <div class="pr"><h4>1-2</h4><p>On a compartment drawing, mark where a blood sample is taken and which compartment you are actually drawing a conclusion about.</p></div>
   </div>
-</div>
+</article>
+<article class="comp">
+  <h3><span class="num">2</span>Compartment separation and clinical volume shifts</h3>
+  <p class="can">Predict the direction of water movement between compartments when extracellular osmolarity rises or falls and name a clinical situation that produces each shift.</p>
+  <div class="prompts">
+    <div class="pr"><h4>2-1</h4><p>Draw a patient with swollen ankles and a low blood pressure. Use arrows to show where the water went.</p></div>
+    <div class="pr"><h4>2-2</h4><p>Draw three scenarios: water gained in the vessels, water lost from the body, water moved into tissue. Predict blood pressure under each.</p></div>
+  </div>
+</article>
+</section>
 
-<main id="main"><div class="wrap">
+<section class="card" id="g2">
+  <p class="gl">Part 2 of 6</p>
+  <h2>The membrane itself</h2>
+  <p class="lead">What it is built from, and what that build lets through.</p>
+<article class="comp">
+  <h3><span class="num">3</span>Membrane composition and fluidity</h3>
+  <p class="can">Describe the fluid mosaic membrane and state how phospholipids, cholesterol, glycolipids, and integral and peripheral proteins contribute to its properties.</p>
+  <div class="prompts">
+    <div class="pr"><h4>3-1</h4><p>Draw a patch of membrane in cross section, big enough to fill half your box. Put in phospholipids with heads and tails clearly different, cholesterol wedged between the tails, a transmembrane protein, a peripheral protein on the inner face, and a glycolipid with its sugar chain. Label which face is extracellular. One line: name the one component whose position alone tells you which side of the membrane you are looking at.</p></div>
+    <div class="pr"><h4>3-2</h4><p>Draw the same membrane patch three times in a row: at normal body temperature, chilled, and warmed. In each, show how tightly the phospholipid tails pack and where cholesterol sits. Draw one tail with a double bond kink in it and one straight saturated tail. One line: cholesterol is called a fluidity buffer and not a stiffener, so say what the word buffer is doing there.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">4</span>Determinants of permeability</h3>
+  <p class="can">Rank molecules by their ability to cross a lipid bilayer unaided using size, charge, and lipid solubility, and predict which will require a protein.</p>
+  <div class="prompts">
+    <div class="pr"><h4>4-1</h4><p>Draw a bilayer as a vertical wall down the middle of your page. Line up six molecules on the left: oxygen, carbon dioxide, water, a steroid hormone, glucose, and a sodium ion. Draw an arrow straight through the wall for each one that crosses unaided, a blocked arrow for each that cannot, and a protein set into the wall for each that needs help. One line: sodium is tiny and still cannot cross, so say what actually stopped it.</p></div>
+    <div class="pr"><h4>4-2</h4><p>Draw a ranking ladder, most permeable at the top and least at the bottom, and place at least six molecules of your own choosing on it. Beside each rung write the properties that put it there: size, lipid solubility, and charge where it applies. One line: name the pair on your ladder that are close in size but far apart in rank, and say what separates them.</p></div>
+  </div>
+</article>
+</section>
 
-  <div class="chead"><span class="cl">6 competencies</span><h2>Chemical Foundations</h2></div>
-  <section class="comp" id="c-w1-water-properties" aria-labelledby="h-w1-water-properties">
-      <div class="chd"><span class="cnum">1</span><h3 class="cname" id="h-w1-water-properties">Water and solution properties</h3><span class="tag">Lecture</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Explain how the polarity and hydrogen bonding of water determine solubility and identify whether a given solute is hydrophilic or hydrophobic.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w1-water-properties" data-l="a"><input type="checkbox" id="w1-water-properties-a"><label for="w1-water-properties-a"><span class="plet">A</span>Draw one water molecule big, with the partial charges marked, then draw four more hydrogen bonding to it. Beside that, drop in a sodium ion and a drop of oil. Show what the water does around each one, arrows for how the molecules turn. Underneath, one line: why the same property that dissolves the salt refuses the oil.</label></div>
-      <div class="prompt" data-c="w1-water-properties" data-l="b"><input type="checkbox" id="w1-water-properties-b"><label for="w1-water-properties-b"><span class="plet">B</span>Draw a cross section of a cell membrane with water on both sides. Put four solutes on your drawing: glucose, sodium, oxygen, and a steroid hormone. Mark each one hydrophilic or hydrophobic, then draw where each one sits relative to the membrane and whether it can pass. One line under it on which property of the solute decided that, not which property of the membrane.</label></div>
-  </section>
-  <section class="comp" id="c-w1-ph-buffers" aria-labelledby="h-w1-ph-buffers">
-      <div class="chd"><span class="cnum">2</span><h3 class="cname" id="h-w1-ph-buffers">pH and buffers</h3><span class="tag">Lecture</span><span class="tag lab">Lab</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Define pH, state the normal pH range of arterial blood, and explain how a buffer pair resists a change in pH when acid or base is added.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w1-ph-buffers" data-l="a"><input type="checkbox" id="w1-ph-buffers-a"><label for="w1-ph-buffers-a"><span class="plet">A</span>Draw a pH scale as a horizontal line from 0 to 14. Mark arterial blood, stomach contents, and urine in the right places, with the actual numbers. Then draw the bicarbonate buffer pair as a two-way arrow above the blood mark, and show with arrows what the pair does when acid is added and when base is added. One line: what would happen to blood pH without it.</label></div>
-      <div class="prompt" data-c="w1-ph-buffers" data-l="b"><input type="checkbox" id="w1-ph-buffers-b"><label for="w1-ph-buffers-b"><span class="plet">B</span>Draw the same beaker twice, one with buffer and one without, and add the same amount of acid to each. Draw the pH before and after in both. Then draw a third panel: the buffered beaker after so much acid that the buffer runs out. Under it, one line naming what &#39;the buffer runs out&#39; actually means at the molecular level.</label></div>
-  </section>
-  <section class="comp" id="c-w1-protein-function" aria-labelledby="h-w1-protein-function">
-      <div class="chd"><span class="cnum">3</span><h3 class="cname" id="h-w1-protein-function">Protein structure and function</h3><span class="tag">Lecture</span><span class="tag lab">Lab</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Relate the levels of protein structure to binding site shape and explain how denaturation by heat or pH change destroys function.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w1-protein-function" data-l="a"><input type="checkbox" id="w1-protein-function-a"><label for="w1-protein-function-a"><span class="plet">A</span>Pick one protein you will meet later this term: hemoglobin, a sodium channel, or an enzyme. Draw it at all four levels of structure, one box per level, in order. On the fourth box, circle the binding site. Then draw the same protein after heat denaturation and mark exactly what changed. One line: which level of structure was lost first, and why the binding site stopped working.</label></div>
-      <div class="prompt" data-c="w1-protein-function" data-l="b"><input type="checkbox" id="w1-protein-function-b"><label for="w1-protein-function-b"><span class="plet">B</span>Draw a binding site and its ligand as two shapes that fit, like a lock and key, then draw three failed versions beside it: one where the ligand is the wrong shape, one where the site has been distorted by low pH, and one where a second molecule is already sitting in the site. Label which of the three is competition and which is denaturation. One line on why shape is the whole story here.</label></div>
-  </section>
-  <section class="comp" id="c-w1-enzyme-function" aria-labelledby="h-w1-enzyme-function">
-      <div class="chd"><span class="cnum">4</span><h3 class="cname" id="h-w1-enzyme-function">Enzyme activity and regulation</h3><span class="tag">Lecture</span><span class="tag lab">Lab</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Describe how enzymes lower activation energy and predict the effect of substrate concentration, temperature, pH, and competitive or allosteric inhibition on reaction rate.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w1-enzyme-function" data-l="a"><input type="checkbox" id="w1-enzyme-function-a"><label for="w1-enzyme-function-a"><span class="plet">A</span>Draw an energy diagram with reactants, products, and the activation energy hump, then draw the same reaction with enzyme on top of it in a second color. Show what the enzyme changed and what it did not. Underneath, draw four small graphs in a row: rate against substrate concentration, against temperature, against pH, and with a competitive inhibitor added. Label the axes on every one. One line on which of the four curves has a plateau and what the plateau means.</label></div>
-      <div class="prompt" data-c="w1-enzyme-function" data-l="b"><input type="checkbox" id="w1-enzyme-function-b"><label for="w1-enzyme-function-b"><span class="plet">B</span>Draw an enzyme with its active site, then draw three copies of it: one with a competitive inhibitor in the active site, one with an allosteric inhibitor at a second site, and one with an allosteric activator. In each copy show what happened to the active site&#39;s shape. Then write which one you could overcome by adding more substrate, and why that works for one and not the other.</label></div>
-  </section>
-  <section class="comp" id="c-w1-atp-energy" aria-labelledby="h-w1-atp-energy">
-      <div class="chd"><span class="cnum">5</span><h3 class="cname" id="h-w1-atp-energy">ATP and energy coupling</h3><span class="tag">Lecture</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Explain how ATP hydrolysis is coupled to endergonic cellular work and name three categories of work that require it.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w1-atp-energy" data-l="a"><input type="checkbox" id="w1-atp-energy-a"><label for="w1-atp-energy-a"><span class="plet">A</span>Draw ATP, then draw the hydrolysis to ADP plus phosphate with the energy released as an arrow leaving. Now draw three cellular jobs that arrow can go and do: a pump moving sodium uphill, a muscle filament sliding, and a molecule being built. In each one show where the phosphate or the energy actually goes. One line: why the cell cannot just store the energy as heat instead.</label></div>
-      <div class="prompt" data-c="w1-atp-energy" data-l="b"><input type="checkbox" id="w1-atp-energy-b"><label for="w1-atp-energy-b"><span class="plet">B</span>Draw ATP as a rechargeable battery on one side of a cycle and draw the cycle closed, with what charges it and what drains it. Then break the cycle at one point of your choosing, either the charging half or the draining half, and write what fails first in a real cell within seconds, and what fails within minutes. Be specific about which cell you picked.</label></div>
-  </section>
-  <section class="comp" id="c-w1-lab-enzyme-assay" aria-labelledby="h-w1-lab-enzyme-assay">
-      <div class="chd"><span class="cnum">6</span><h3 class="cname" id="h-w1-lab-enzyme-assay">Enzyme assay</h3><span class="tag">Lecture</span><span class="tag lab">Lab</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Measure enzyme activity across a range of temperature or pH using a spectrophotometric or colorimetric assay, plot the results, and identify the optimum.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w1-lab-enzyme-assay" data-l="a"><input type="checkbox" id="w1-lab-enzyme-assay-a"><label for="w1-lab-enzyme-assay-a"><span class="plet">A</span>Before you run anything, draw the graph you predict: rate on the y axis, whichever variable you are testing on the x, with your predicted optimum marked. Run the assay, then draw the real curve on the same axes in a second color. Label the optimum you measured. Underneath, write one line on where your prediction and the data disagreed, and one line on what in the method could have moved the measured optimum away from the true one.</label></div>
-      <div class="prompt" data-c="w1-lab-enzyme-assay" data-l="b"><input type="checkbox" id="w1-lab-enzyme-assay-b"><label for="w1-lab-enzyme-assay-b"><span class="plet">B</span>Draw your assay as a flow of steps, one box each, from tube to number, with an arrow between every step. Under each box write the one thing that step controls. Then circle the single step where a mistake would change your answer the most, and write what that mistake would do to the shape of your curve, not just to one point.</label></div>
-  </section>
+<section class="card" id="g3">
+  <p class="gl">Part 3 of 6</p>
+  <h2>Getting across</h2>
+  <p class="lead">Every way a molecule moves from one side to the other, and what each one costs.</p>
+<article class="comp">
+  <h3><span class="num">5</span>Simple diffusion and Fick&#x27;s law</h3>
+  <p class="can">State the variables in Fick&#x27;s law of diffusion and predict how a change in concentration gradient, surface area, membrane thickness, or distance changes the rate of transfer.</p>
+  <div class="prompts">
+    <div class="pr"><h4>5-1</h4><p>Draw the Fick&#x27;s law setup as a picture, not an equation: two compartments, a membrane between them, and label on the drawing the surface area, the concentration difference, and the membrane thickness. Then draw four small graphs in a row, rate of diffusion against each of those, plus against diffusion distance. Label both axes on every graph. One line: one variable sits in the denominator, so say which and how the shape of its graph shows that.</p></div>
+    <div class="pr"><h4>5-2</h4><p>Draw a real gas exchange surface, one alveolus against one capillary, and mark on it every Fick variable the body has already optimised. Then draw the same surface in pulmonary edema, with fluid thickening the barrier. Show what changed and what did not. One line: name the single Fick variable the disease changed, and say whether breathing faster fixes it.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">6</span>Osmolarity and tonicity</h3>
+  <p class="can">Calculate the osmolarity of a solution, distinguish osmolarity from tonicity, and classify a solution as isotonic, hypotonic, or hypertonic to a cell.</p>
+  <div class="prompts">
+    <div class="pr"><h4>6-1</h4><p>Draw three beakers labeled 150 mM NaCl, 300 mM sucrose, and 300 mM urea. Under each, write the osmolarity calculation and the answer in mOsm/L. Then draw a red blood cell in each beaker and show its final volume. One line: all three have the same osmolarity and one of them lyses the cell, so name the property of the solute that decides tonicity.</p></div>
+    <div class="pr"><h4>6-2</h4><p>Draw three cells that have just come out of three unknown solutions: one shrunken, one swollen but intact, and one lysed. Beside each, write two different solutions that could have produced that result, one differing in osmolarity and one differing only in penetrating solute content. One line: say what osmolarity alone failed to tell you about the lysed cell.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">7</span>Osmosis and cell volume</h3>
+  <p class="can">Predict the direction of water movement and the resulting change in cell volume when a cell is placed in a solution of stated osmolarity and penetrating solute content.</p>
+  <div class="prompts">
+    <div class="pr"><h4>7-1</h4><p>Draw a cell at normal volume in the middle of your page, 290 mOsm/L inside. Around it draw four more cells, in 150 mOsm/L NaCl, 290 mOsm/L NaCl, 450 mOsm/L NaCl, and 290 mOsm/L urea. For each, draw the water arrow with its direction and the final cell volume. One line: for the urea cell, say what happens at the first instant and what happens over the next few minutes.</p></div>
+    <div class="pr"><h4>7-2</h4><p>Draw one set of axes, cell volume on the y and time on the x, with the moment of immersion marked. Plot three traces on it: a cell in 450 mOsm/L NaCl, a cell in 150 mOsm/L NaCl, and a cell in 600 mOsm/L urea. One line: one trace goes down and then climbs back past where it started, so say which solute movement caused each half of that curve.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">8</span>Facilitated diffusion</h3>
+  <p class="can">Describe carrier and channel mediated diffusion and explain why carrier mediated transport shows saturation and specificity while simple diffusion does not.</p>
+  <div class="prompts">
+    <div class="pr"><h4>8-1</h4><p>Draw a channel protein and a carrier protein in the same stretch of membrane, with a molecule crossing through each. Make the difference visible in the drawing: the channel as an open pore, the carrier changing shape around its cargo. Underneath, draw one graph of transport rate against solute concentration with two traces, simple diffusion and carrier mediated. One line: only one trace plateaus, so say what has run out at the plateau.</p></div>
+    <div class="pr"><h4>8-2</h4><p>Draw a carrier protein with glucose bound, then draw three failures beside it: galactose competing for the same carrier, a molecule of the wrong shape bouncing off, and every carrier already occupied. Label which drawing is competition, which is specificity, and which is saturation. One line: adding more glucose helps in one of those three and does nothing in another, so name each and say why.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">9</span>Primary active transport</h3>
+  <p class="can">Explain how the sodium potassium ATPase uses ATP to move three sodium out and two potassium in, and state the two gradients it maintains.</p>
+  <div class="prompts">
+    <div class="pr"><h4>9-1</h4><p>Draw the sodium potassium ATPase in a membrane with inside and outside labeled. Sketch the cycle in three or four steps: ions binding, ATP splitting, the shape change, ions releasing. Write 3 and 2 on the correct arrows in the correct directions. Beside it note the sodium and potassium concentrations inside and out that the pump maintains. One line: it moves three out for every two in, so say what that does to charge across the membrane.</p></div>
+    <div class="pr"><h4>9-2</h4><p>Draw a cell with the two gradients the pump maintains, sodium high outside and potassium high inside, as tall and short bars on each side. Now poison the pump with ouabain and draw the same bars ten minutes later and an hour later. One line: pick one downstream process that fails, not the resting membrane potential, and say how many steps removed from the pump it is.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">10</span>Secondary active transport</h3>
+  <p class="can">Distinguish symport from antiport and trace how the sodium gradient powers glucose uptake by SGLT and calcium removal by the sodium calcium exchanger.</p>
+  <div class="prompts">
+    <div class="pr"><h4>10-1</h4><p>Draw a cell membrane with the sodium potassium ATPase keeping sodium low inside. Beside it draw SGLT carrying sodium and glucose in together, and the sodium calcium exchanger sending calcium out as sodium comes in. Draw every ion arrow, and mark the sodium gradient as the shared energy source. Label which one is symport and which is antiport. One line: no ATP touches either of these two proteins, so say where their energy came from.</p></div>
+    <div class="pr"><h4>10-2</h4><p>Draw the sodium calcium exchanger working normally, then draw the same exchanger in a cell whose sodium potassium pump has been stopped. Use three panels with arrows between them: what happens to intracellular sodium, then to the exchanger&#x27;s driving force, then to intracellular calcium. One line: this is how digoxin strengthens a failing heart, so write the last step of that chain in your own words.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">11</span>Transport maximum and saturation</h3>
+  <p class="can">Interpret a transport rate curve, identify the transport maximum, and apply the concept to renal glucose handling in hyperglycemia.</p>
+  <div class="prompts">
+    <div class="pr"><h4>11-1</h4><p>Draw one set of axes, transport rate on the y and solute concentration on the x. Draw a carrier mediated curve that rises and then flattens, and mark the transport maximum with a labeled dashed line. On the same axes draw a straight simple diffusion line for contrast. One line: past the transport maximum the curve is flat, so say what is happening to every extra solute molecule that arrives.</p></div>
+    <div class="pr"><h4>11-2</h4><p>Draw a kidney tubule with glucose filtered in, reabsorbed by carriers, and any leftover carried on to urine. Draw it three times: normal plasma glucose, plasma glucose at the renal threshold near 180 mg/dL, and plasma glucose well above that. Show the urine in each. Write the glucose transport maximum, about 375 mg/min, beside them. One line: say why a person can be losing glucose in urine while every carrier is working perfectly.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">12</span>Vesicular transport</h3>
+  <p class="can">Compare phagocytosis, pinocytosis, receptor mediated endocytosis, and exocytosis by trigger, cargo, and energy requirement.</p>
+  <div class="prompts">
+    <div class="pr"><h4>12-1</h4><p>Draw one cell with four events happening on its surface at once: phagocytosis of a bacterium, pinocytosis of a droplet of fluid, receptor mediated endocytosis of a particle held in a coated pit, and exocytosis of a secretory vesicle. Draw the membrane actually deforming in each. Beside each write the trigger and the cargo. One line: all four cost ATP, so name the one that is completely unselective about what it takes in, and say what that costs the cell.</p></div>
+    <div class="pr"><h4>12-2</h4><p>Draw one particle&#x27;s whole journey by receptor mediated endocytosis, left to right across your page: binding to receptors, the coated pit, the vesicle pinching off, fusion with a lysosome, and the receptors returning to the surface. Underneath, draw the reverse journey for a molecule leaving by exocytosis. One line: pick a cell type, not a neuron, and say which direction it spends more energy on.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">13</span>Transepithelial transport</h3>
+  <p class="can">Trace glucose or sodium from lumen to blood across a polarized epithelium and identify which step occurs at the apical membrane and which at the basolateral membrane.</p>
+  <div class="prompts">
+    <div class="pr"><h4>13-1</h4><p>Draw one polarized epithelial cell, lumen on the left and blood on the right, tight junctions at the top, apical and basolateral membranes labeled. Trace one glucose molecule all the way through: SGLT at the apical membrane, GLUT at the basolateral membrane, and the sodium potassium pump on the basolateral side. Mark each step active or passive. One line: the pump never touches glucose, so say how it powers the apical step.</p></div>
+    <div class="pr"><h4>13-2</h4><p>Draw the same epithelium twice. In the first, show what would go wrong if the basolateral pump drifted around to the apical side, and use that to say what tight junctions are for. In the second, draw the cell with apical SGLT blocked. Show where glucose ends up in each. One line: oral rehydration solution contains both salt and sugar, so say which of your two drawings explains why.</p></div>
+  </div>
+</article>
+</section>
 
-  <div class="chead"><span class="cl">1 competency</span><h2>Metabolism and Energy Balance</h2></div>
-  <section class="comp" id="c-w14-atp-pathways" aria-labelledby="h-w14-atp-pathways">
-      <div class="chd"><span class="cnum">7</span><h3 class="cname" id="h-w14-atp-pathways">ATP production pathways</h3><span class="tag">Lecture</span></div>
-      <p class="can"><span class="canlab">You should be able to</span>Compare glycolysis, the citric acid cycle, and oxidative phosphorylation by location, oxygen requirement, and ATP yield.</p>
-      <p class="pick">Pick one and do that one</p>
-      <div class="prompt" data-c="w14-atp-pathways" data-l="a"><input type="checkbox" id="w14-atp-pathways-a"><label for="w14-atp-pathways-a"><span class="plet">A</span>Draw a cell outline with the cytosol and one mitochondrion. Place glycolysis, the citric acid cycle, and oxidative phosphorylation where each actually happens, and draw arrows for what passes from one to the next. Beside each, write its ATP yield and whether it needs oxygen. One line: which of the three keeps running when oxygen runs out, and what the cell pays for that.</label></div>
-      <div class="prompt" data-c="w14-atp-pathways" data-l="b"><input type="checkbox" id="w14-atp-pathways-b"><label for="w14-atp-pathways-b"><span class="plet">B</span>Draw the same three pathways as a single fuel line from one glucose molecule to the ATP total, with the running count written on the line as it climbs. Then draw a second version of the line for the same glucose under anaerobic conditions and mark where it stops. Under both, one line on why a sprinting muscle and a resting one are on different lines, and what the sprinter accumulates.</label></div>
-  </section>
+<section class="card" id="g4">
+  <p class="gl">Part 4 of 6</p>
+  <h2>The electrical consequence</h2>
+  <p class="lead">Unequal ions across a membrane make a voltage. This is where the rest of the nervous system starts.</p>
+<article class="comp">
+  <h3><span class="num">14</span>Ion distribution and electrochemical gradients</h3>
+  <p class="can">State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.</p>
+  <div class="prompts">
+    <div class="pr"><h4>14-1</h4><p>Draw a cell and give each ion a pair of bars, inside and outside, height for concentration: sodium 145 mM out against 15 mM in, potassium 4 out against 140 in, chloride 110 out against 10 in, calcium about 1 out against 0.0001 free in. Mark the membrane inside negative. On each ion draw two separate arrows, chemical force and electrical force. One line: two ions have arrows pointing opposite ways, so name both and say which force wins.</p></div>
+    <div class="pr"><h4>14-2</h4><p>Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion&#x27;s equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride wherever your own numbers put it. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">15</span>Nernst equation</h3>
+  <p class="can">Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move.</p>
+  <div class="prompts">
+    <div class="pr"><h4>15-1</h4><p>Write the Nernst equation at the top of your box, then work potassium through by hand at body temperature, 4 mM outside against 140 mM inside, every step shown, to an answer in mV. Do sodium underneath, 145 mM out against 15 mM in. Draw a voltage scale beside your working and place both answers on it. One line: an equilibrium potential is where that ion stops moving, so say which way potassium moves at minus 70 mV.</p></div>
+    <div class="pr"><h4>15-2</h4><p>Draw one set of axes, equilibrium potential in mV on the y and extracellular potassium on the x. Plot the Nernst prediction for potassium at 2, 4, 10, and 20 mM outside with 140 mM held inside, calculating at least two of the points yourself. Draw a horizontal dashed line at threshold, about minus 55 mV. One line: say what happens to the cell as the curve climbs toward that line, and whether the cell gets easier or harder to excite.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">16</span>Resting membrane potential</h3>
+  <p class="can">Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes.</p>
+  <div class="prompts">
+    <div class="pr"><h4>16-1</h4><p>Draw a cell at rest with minus 70 mV written inside. On its membrane draw potassium leak channels as many, sodium leak channels as few, and the sodium potassium pump. Beside the cell draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60, and mark where minus 70 sits between them. One line: the resting potential sits close to one of those two and nowhere near halfway, so say what makes it lean.</p></div>
+    <div class="pr"><h4>16-2</h4><p>Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked, then draw four labeled arrows off it showing where the potential moves when you open more potassium channels, open sodium channels, block the potassium leak, and stop the sodium potassium pump. One line: one of those four shifts the potential only a few mV even though it eventually ruins the cell, so name it and say why the immediate effect is so small.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">17</span>Ion channel gating</h3>
+  <p class="can">Compare leak, voltage gated, ligand gated, and mechanically gated channels by what opens each one and give a physiological location for each.</p>
+  <div class="prompts">
+    <div class="pr"><h4>17-1</h4><p>Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated. Draw each one twice, closed and open, and draw whatever opens it right beside it, a voltage change, a bound molecule, a stretch or a bend. Under each write one real place in the body it is found. One line: only one of the four is open at rest, so say what job that gives it.</p></div>
+    <div class="pr"><h4>17-2</h4><p>Draw one neuron stretched across the whole width of your box. Along it place each channel type where it actually works: ligand gated on the dendrites, voltage gated sodium and potassium along the axon, leak channels everywhere, voltage gated calcium at the terminal. Add a mechanically gated channel on a sensory ending drawn off to the side. One line: number the order these open during one real signal and say which one starts it.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">18</span>Depolarization and hyperpolarization</h3>
+  <p class="can">Define depolarization, repolarization, hyperpolarization, and overshoot and label each on a membrane potential tracing.</p>
+  <div class="prompts">
+    <div class="pr"><h4>18-1</h4><p>Draw a membrane potential tracing with time on the x and mV on the y, starting at minus 70. Take it up past zero to about plus 30 and back down below minus 70 before it returns. Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest. Draw zero mV as a dashed line. One line: define overshoot using that dashed line, not using the peak.</p></div>
+    <div class="pr"><h4>18-2</h4><p>Draw one set of axes with a dashed line at minus 70 mV and another at zero. Plot four traces from rest: a small depolarization that fades away, a hyperpolarization, a depolarization that crosses threshold, and a repolarization from plus 30 back down. Label each with its correct term. One line: say which of your traces make the cell easier to fire and which make it harder, and how you can tell from direction alone.</p></div>
+  </div>
+</article>
+</section>
 
-  <p class="foot"><span>BIO 005 Human Physiology &middot; Yuba College &middot; Fall 2026</span><span>Dr. Sharilyn Rennie</span></p>
-</div></main>
+<section class="card" id="g5">
+  <p class="gl">Part 5 of 6</p>
+  <h2>How cells talk</h2>
+  <p class="lead">One cell changes what another cell is doing, without anything physically crossing.</p>
+<article class="comp">
+  <h3><span class="num">19</span>Signal types and range</h3>
+  <p class="can">Classify a chemical signal as autocrine, paracrine, neurotransmitter, neurohormone, or hormone by its route and distance of travel.</p>
+  <div class="prompts">
+    <div class="pr"><h4>19-1</h4><p>Draw one target cell in the middle of the box. Draw an arrow in from each of the five signal types, autocrine, paracrine, neurotransmitter, neurohormone, hormone. Label each arrow with how far it traveled and what carried it.</p></div>
+    <div class="pr"><h4>19-2</h4><p>Make a five row table. Signal type, where it is released, how far it goes, what it travels through. Fill it from memory, then check one row against the book.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">20</span>Receptor location and ligand solubility</h3>
+  <p class="can">Predict whether a signal molecule binds a surface receptor or an intracellular receptor from its lipid solubility and relate that to the speed and duration of the response.</p>
+  <div class="prompts">
+    <div class="pr"><h4>20-1</h4><p>Draw a cell with one surface receptor and one intracellular receptor. Show the path a lipid soluble signal takes and the path a water soluble one takes. Mark which response is faster and which lasts longer.</p></div>
+    <div class="pr"><h4>20-2</h4><p>Write the two questions you would ask about any new signal molecule to predict where its receptor sits. Then answer both for a steroid and for a peptide hormone.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">21</span>G protein coupled receptors</h3>
+  <p class="can">Trace a G protein coupled receptor pathway from ligand binding through the G protein and amplifier enzyme to the second messenger and the cellular response.</p>
+  <div class="prompts">
+    <div class="pr"><h4>21-1</h4><p>Draw the membrane with a receptor crossing it, and trace the pathway in numbered order: ligand binds, the G protein swaps GDP for GTP, the alpha subunit leaves, it switches on the amplifier enzyme, the enzyme makes second messenger, the messenger switches on a kinase, the kinase changes a target protein. Beside each step write roughly how many molecules that one step produced from one. One line: name the step where the biggest multiplication happened.</p></div>
+    <div class="pr"><h4>21-2</h4><p>Draw a Gs pathway and a Gq pathway side by side, starting from the same membrane and ending at two different cellular responses. Label the amplifier enzyme and the second messenger on each. Then draw the off switch on both, GTP being hydrolyzed on the alpha subunit. One line: cholera toxin jams that off switch open, so write what the gut cell keeps doing and why the person loses fluid.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">22</span>Second messengers</h3>
+  <p class="can">Identify cyclic AMP, IP3, diacylglycerol, and calcium as second messengers and state the enzyme that generates each and one target it activates.</p>
+  <div class="prompts">
+    <div class="pr"><h4>22-1</h4><p>Draw a membrane and put all four second messengers on one page: cyclic AMP, IP3, diacylglycerol, and calcium. For each, draw where it comes from, the enzyme or channel that produced it, and an arrow to one thing it switches on. Keep DAG in the membrane and IP3 out in the cytosol, because that is where they actually go. One line: one of the four is not made by an enzyme at all, so name it and say where it comes from instead.</p></div>
+    <div class="pr"><h4>22-2</h4><p>Draw phospholipase C cutting PIP2 in the membrane and follow both halves. Send IP3 to the endoplasmic reticulum and draw what comes out. Leave DAG where it is and draw what it activates. Show the two halves converging on one response. Draw the adenylyl cyclase and cyclic AMP route beside it for contrast. One line: cyclic AMP is destroyed by phosphodiesterase, so say what a drug that blocks that enzyme does to the signal.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">23</span>Catalytic receptors and intracellular receptors</h3>
+  <p class="can">Compare a receptor enzyme such as the insulin receptor with an intracellular steroid receptor by mechanism and by time course of the response.</p>
+  <div class="prompts">
+    <div class="pr"><h4>23-1</h4><p>Draw one cell with the insulin receptor in the membrane on one side and a steroid receptor sitting inside the cell on the other. Trace both from hormone arrival to final response, the steroid crossing the membrane and reaching DNA, the insulin receptor phosphorylating itself and moving a glucose transporter to the surface. Put a clock beside each showing how long the response takes. One line: name the one you could not use if you needed the effect ten seconds from now.</p></div>
+    <div class="pr"><h4>23-2</h4><p>Draw one time axis with two response curves on it, a receptor enzyme response and a steroid response, each from hormone arrival through peak to fade. Make the onsets and durations honestly different. Under the axis, draw what is physically being changed in each case, an existing protein being modified or a new protein being built. One line: say which of the two you would want for the next thirty seconds and which for the next week.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">24</span>Signal amplification</h3>
+  <p class="can">Explain how a cascade amplifies a signal and estimate the size of the amplification across the steps of a given pathway.</p>
+  <div class="prompts">
+    <div class="pr"><h4>24-1</h4><p>Draw a three step cascade as a widening funnel. Put a number on each step and multiply them down the side to get the total amplification.</p></div>
+    <div class="pr"><h4>24-2</h4><p>Start from one ligand and write the count at each step of a cascade until you reach the response. One line per step, numbers only, no sentences.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">25</span>Receptor modulation</h3>
+  <p class="can">Define agonist, antagonist, competitive inhibition, up regulation, and down regulation and predict the effect of chronic ligand excess on target cell sensitivity.</p>
+  <div class="prompts">
+    <div class="pr"><h4>25-1</h4><p>Draw one target cell three times. Normal, after a long stretch of scarce signal, after a long stretch of excess signal. Show the receptor count changing in each and label which is up regulation and which is down.</p></div>
+    <div class="pr"><h4>25-2</h4><p>Define agonist, antagonist, up regulation and down regulation in your own words, one line each. Then explain in two lines why a patient who needs more opioid for the same effect is usually showing down regulation rather than drug seeking.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">26</span>Signal termination</h3>
+  <p class="can">Name three mechanisms that end a chemical signal and explain why a signal that cannot be terminated produces pathology.</p>
+  <div class="prompts">
+    <div class="pr"><h4>26-1</h4><p>Draw one signal running from receptor to response across a cell, then add three different off switches to that same drawing at three different points: the ligand removed or destroyed outside the cell, the second messenger broken down inside, and the response protein having its phosphate taken off. Name the enzyme doing each. One line: pick the switch nearest the response and say what still goes wrong if only that one fails.</p></div>
+    <div class="pr"><h4>26-2</h4><p>Pick a signal, not insulin, and draw it working normally, then draw it again with its termination broken. In the broken version show what piles up and where. Underneath, draw the effect on the tissue as two panels, one over minutes and one over weeks. One line: a signal that never shuts off eventually produces less response rather than more, so write what the cell did to itself.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">27</span>Dose response relationships</h3>
+  <p class="can">Plot a dose response curve, identify threshold, maximal response, and EC50, and compare a full agonist with a partial agonist on the same axes.</p>
+  <div class="prompts">
+    <div class="pr"><h4>27-1</h4><p>Draw a dose response curve with log dose on the x axis and response as a percentage of maximum on the y. Mark threshold, EC50, and the maximal response, with construction lines dropped to the axes. Then plot a partial agonist on the same axes. One line: the partial agonist never reaches the top no matter how much you add, so say what that tells you about the drug that raising the dose cannot fix.</p></div>
+    <div class="pr"><h4>27-2</h4><p>Draw three curves on one set of axes: a full agonist alone, the same agonist with a competitive antagonist added, and the same agonist with an antagonist that will not come off the receptor. Show which curve slides sideways and which one gets shorter. One line: only one of the two antagonists can be beaten by giving more agonist, so name it and say what feature of the graph proves it.</p></div>
+  </div>
+</article>
+</section>
 
+<section class="card" id="g6">
+  <p class="gl">Part 6 of 6</p>
+  <h2>In the lab</h2>
+  <p class="lead">The four you do with your hands and your data, not only on paper.</p>
+<article class="comp">
+  <h3><span class="num">28</span>Diffusion and osmosis experiment</h3>
+  <p class="can">Measure diffusion and osmotic movement across a selectively permeable membrane and relate the observed rate to molecular size and concentration gradient.</p>
+  <div class="prompts">
+    <div class="pr"><h4>28-1</h4><p>Before you run anything, draw your predicted result: the bag or the plate as it will look at the start and at the end, with each test molecule drawn where you expect it to be. Run it, then draw the actual result beside your prediction in a second color. One line: name the substance that moved fastest and say whether molecular size or starting gradient explains it better in your own data.</p></div>
+    <div class="pr"><h4>28-2</h4><p>Draw a graph of distance moved on the y against molecular weight on the x, one labeled point for every substance you tested. Beside it draw a second small graph, distance moved against starting concentration. One line: your membrane passed some things and stopped others, so write the size cutoff your data actually supports and how confident you are in that number.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">29</span>Tonicity and red blood cells</h3>
+  <p class="can">Observe erythrocytes in solutions of different tonicity, identify crenation, normal shape, and hemolysis, and explain each result.</p>
+  <div class="prompts">
+    <div class="pr"><h4>29-1</h4><p>Draw three microscope fields, one per solution: distilled water, 0.9 percent NaCl, and 3 percent NaCl. In each, draw the cells as you actually see them, keeping the biconcave disc, the spiky crenated form, and the ghosts distinct. Under each field write the direction of net water movement. One line: name the slide that is hardest to count cells on, and say why that difficulty is itself the result.</p></div>
+    <div class="pr"><h4>29-2</h4><p>Draw one red cell in the center of your box and three arrows out to three versions of it: crenated, normal, and hemolysed. Beside each write the tonicity that produced it and the water arrow. Then draw what the membrane itself did in the hemolysed one. One line: crenation is reversible and hemolysis is not, so say what makes the difference.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">30</span>Transport simulation</h3>
+  <p class="can">Use a membrane transport simulation to distinguish simple diffusion from facilitated diffusion and active transport by their response to gradient reversal and metabolic poison.</p>
+  <div class="prompts">
+    <div class="pr"><h4>30-1</h4><p>Before you run it, draw three predicted graphs in a row, transport rate against time, one each for simple diffusion, facilitated diffusion, and active transport. Then draw a fourth showing what a metabolic poison does to whichever of the three it affects. Run the simulation and draw the real curves underneath in a second color. One line: say which transport type the poison left untouched, and why it could not touch it.</p></div>
+    <div class="pr"><h4>30-2</h4><p>Draw a decision tree with three endpoints: simple diffusion, facilitated diffusion, and active transport. At each branch put one test you can actually run in the simulation, reversing the gradient, raising solute until the rate stops climbing, or adding a metabolic poison. Draw the result that sends you down each branch. One line: name the single test that separates active transport from both of the others in one step.</p></div>
+  </div>
+</article>
+<article class="comp">
+  <h3><span class="num">31</span>Membrane potential simulation</h3>
+  <p class="can">Manipulate extracellular potassium and sodium in a simulation and record the resulting change in resting membrane potential against the Nernst prediction.</p>
+  <div class="prompts">
+    <div class="pr"><h4>31-1</h4><p>Before you touch the simulation, draw your predicted graph: resting membrane potential on the y and extracellular potassium on the x, with the Nernst prediction drawn as one line. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: the measured points sit above the Nernst line at low potassium, so name the other ion whose permeability accounts for that gap.</p></div>
+    <div class="pr"><h4>31-2</h4><p>Draw two panels side by side using the same y axis. On the left, plot resting membrane potential against extracellular potassium from your runs. On the right, plot resting membrane potential against extracellular sodium over a comparable range. One line: one plot is nearly flat and one is not, so say what that comparison tells you about the relative permeability of the resting membrane.</p></div>
+  </div>
+</article>
+</section>
+</main>
+<footer><div class="wrap">
+  <a href="https://yccd.instructure.com/courses/42616" target="_top">Back to Canvas</a> &middot;
+  <a href="index.html" target="_blank" rel="noopener">Course home</a> &middot;
+  <a href="note-sheet.html?week=2" target="_blank" rel="noopener">Print the note sheet</a> &middot;
+  <a href="biol005-w02-cell-notes.html" target="_blank" rel="noopener">Week 2 written notes</a> &middot;
+  <a href="accessibility.html" target="_blank" rel="noopener">Accessibility</a>
+</div></footer>
 <script>
 (function(){
-  var KEY = 'bio005-comp-week-2';
-  var state = {};
-  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { state = {}; }
-
-  var rows = [].slice.call(document.querySelectorAll('.prompt'));
-  var total = 7;
-
-  function paint(){
-    var picked = 0, seen = {};
-    rows.forEach(function(r){
-      var c = r.getAttribute('data-c'), l = r.getAttribute('data-l');
-      var on = state[c] === l;
-      r.classList.toggle('checked', on);
-      r.querySelector('input').checked = on;
-      var comp = document.getElementById('c-' + c);
-      if (comp) comp.classList.toggle('done', !!state[c]);
-      if (state[c] && !seen[c]) { seen[c] = 1; picked++; }
-    });
-    var pct = total ? Math.round(picked / total * 100) : 0;
-    document.getElementById('pfill').style.width = pct + '%';
-    document.getElementById('pcount').textContent = picked + ' of ' + total;
-    var bar = document.querySelector('.pbar');
-    if (bar) bar.setAttribute('aria-valuenow', picked);
+  var id="week-02-competencies";
+  function send(){
+    var h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,document.body.offsetHeight);
+    if(window.parent!==window){window.parent.postMessage({id:id,frameId:id,height:h},"*");}
   }
-
-  rows.forEach(function(r){
-    r.querySelector('input').addEventListener('change', function(){
-      var c = r.getAttribute('data-c'), l = r.getAttribute('data-l');
-      /* one prompt per competency: ticking B unticks A */
-      state[c] = (state[c] === l) ? null : l;
-      if (!state[c]) delete state[c];
-      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
-      paint();
-    });
-  });
-  paint();
-}());
+  window.addEventListener("load",send);window.addEventListener("resize",send);
+  if(window.ResizeObserver){try{new ResizeObserver(send).observe(document.body);}catch(e){}}
+  setTimeout(send,300);
+})();
 </script>
-
-<script>
-(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
-function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
-if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
-window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
-</script>
-<!-- Ask Hootie, on every page. -->
-<script src="schedule-fall2026.js"></script>
-<script src="hootie.js"></script>
-<!-- A way back, on every page. -->
-<script src="bio005-back.js"></script>
-<script src="bio005-collapse.js"></script>
 </body>
 </html>

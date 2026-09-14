@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 notes &middot; Cells and compartmentation &middot; BIOL 005 Human Physiology</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --gold:#C9A14A; --gold-deep:#8A6D33; --bone:#F5F1E8;
+  --white:#FFFFFF; --page:#FAFAF9;
+  --ink:#16202F; --ink-soft:#4A5464; --line:#DFE3E8;
+  --shadow-rest:0 1px 3px rgba(11,21,48,.10);
+  --shadow-lift:0 8px 16px rgba(11,21,48,.12);
+  --display:"Open Sans","Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--navy);color:#fff;padding:10px 16px}
+.skip:focus{left:0}
+a{color:var(--maroon-dark)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold-deep);outline-offset:2px;border-radius:4px}
+
+.brandbar{background:var(--white);border-bottom:1px solid var(--line);padding:10px 20px}
+.brandbar .wrap{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mark{display:flex;gap:4px;align-items:flex-end}
+.mark span{display:block;width:7px;border-radius:3px 3px 0 0}
+.mark span:nth-child(1){height:16px;background:var(--navy)}
+.mark span:nth-child(2){height:21px;background:var(--maroon)}
+.mark span:nth-child(3){height:13px;background:var(--gold)}
+.wordmark{font-family:var(--display);font-weight:800;font-size:15px;color:var(--navy)}
+.wordmark .sub{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+
+.band{background:var(--maroon-dark);color:#fff;padding:26px 20px}
+.band .wrap{max-width:900px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);margin:0 0 6px}
+.band h1{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);line-height:1.18;margin:0;color:#fff;text-wrap:balance}
+.band p{margin:10px 0 0;max-width:62ch;color:#F2E9E2;font-size:15px}
+
+main{max-width:900px;margin:0 auto;padding-block:26px 56px;padding-left:20px;padding-right:20px}
+.card{background:var(--white);border-radius:10px;box-shadow:var(--shadow-rest);padding:22px 24px;margin-bottom:18px}
+h2{font-family:var(--display);font-weight:800;font-size:22px;color:var(--navy);margin:0 0 10px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:800;font-size:17px;color:var(--navy);margin:22px 0 6px}
+h4{font-family:var(--body);font-weight:700;font-size:15px;color:var(--maroon-dark);margin:16px 0 4px}
+p{margin:0 0 12px;max-width:68ch}
+ul,ol{margin:0 0 12px;padding-left:22px;max-width:68ch}
+li{margin:0 0 5px}
+.lead{font-size:17px}
+strong{font-weight:700}
+
+/* clickable hard words */
+.term{
+  font:inherit;font-weight:700;color:var(--maroon-dark);background:none;border:0;padding:0;
+  border-bottom:2px dotted var(--maroon);cursor:pointer;
+}
+.term:hover{color:var(--maroon)}
+.def{
+  display:block;margin:8px 0 12px;padding:12px 14px;background:var(--navy-tint);
+  border-radius:8px;font-size:15px;max-width:68ch;
+}
+.def[hidden]{display:none}
+
+/* boxes */
+.callout{background:var(--navy-tint);border-radius:8px;padding:14px 16px;margin:14px 0;max-width:68ch}
+.callout h4{margin-top:0}
+details{background:var(--white);border-radius:8px;box-shadow:var(--shadow-rest);margin:14px 0;padding:0}
+details > summary{
+  cursor:pointer;list-style:none;padding:12px 16px;font-weight:700;color:var(--navy);
+  font-size:15px;border-radius:8px;
+}
+details > summary::-webkit-details-marker{display:none}
+details > summary::before{content:"+ ";color:var(--maroon-dark);font-weight:800}
+details[open] > summary::before{content:"– "}
+details > div{padding:0 16px 14px}
+details.clinical > summary{color:var(--maroon-dark)}
+
+table{border-collapse:collapse;width:100%;margin:10px 0 14px;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.scroller{overflow-x:auto}
+
+.steps{counter-reset:st;list-style:none;padding-left:0}
+.steps li{counter-increment:st;display:grid;grid-template-columns:30px 1fr;gap:10px;margin-bottom:8px}
+.steps li::before{
+  content:counter(st);font-family:var(--display);font-weight:800;color:var(--maroon-dark);
+  font-variant-numeric:tabular-nums;
+}
+
+nav.toc{background:var(--white);border-radius:10px;box-shadow:var(--shadow-rest);padding:20px 24px;margin-bottom:18px}
+nav.toc ol{columns:2;column-gap:28px;padding-left:20px}
+nav.toc a{text-decoration:none;font-weight:600}
+nav.toc a:hover{text-decoration:underline}
+
+footer{background:var(--navy);color:var(--bone);padding:20px;font-size:13px}
+footer .wrap{max-width:900px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap}
+footer a{color:var(--bone)}
+
+@media (max-width:620px){ nav.toc ol{columns:1} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+@media print{
+  .brandbar,footer,nav.toc{display:none}
+  details{box-shadow:none}
+  details > div{display:block!important}
+  .card{box-shadow:none;padding:0;margin-bottom:14px}
+  body{font-size:10pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+
+<div class="brandbar"><div class="wrap">
+  <span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>
+  <span class="wordmark">BIOL 005 Human Physiology<span class="sub">Yuba College &middot; Fall 2026</span></span>
+</div></div>
+
+<div class="band"><div class="wrap">
+  <p class="eyebrow">Week 2 &middot; Written notes</p>
+  <h1>Cells and compartmentation</h1>
+  <p>Read this before you watch anything. Fill your note sheet from here and from Silverthorn chapter 3 in your first color, then watch the concept videos and add the second color.</p>
+</div></div>
+
+<main id="main">
+
+<section class="card">
+  <h2>What this page covers</h2>
+  <p>This is the structure half of Week 2. It follows Silverthorn chapter 3: how the body is divided into compartments, what the cell membrane is made of, what the organelles do, and how cells are organized into tissues and organs.</p>
+  <p>The other two thirds of Week 2, how things cross the membrane and how cells signal each other, are on their own pages. You need this one first, because both of those are about crossing or talking across the boundaries described here.</p>
+
+  <h3>What you should already know</h3>
+  <p>If any of these are shaky, fix them before you go further. Everything on this page leans on them.</p>
+  <ul>
+    <li><strong>Chemistry.</strong> Polar and nonpolar molecules, hydrogen bonding, why oil and water separate, what a protein is made of, and what an ion is.</li>
+    <li><strong>Anatomy.</strong> The body cavities by name, and roughly where the major organs sit in them.</li>
+    <li><strong>Math.</strong> Percentages, and reading a value as a fraction of a whole. Volumes come up as fractions of body weight.</li>
+  </ul>
+  <p>Chemistry review is on the optional review page. It carries no points and it is there whenever you need it.</p>
+</section>
+
+<nav class="toc" aria-label="On this page">
+  <h2>On this page</h2>
+  <ol>
+    <li><a href="#s1">Compartments, and why the body bothers</a></li>
+    <li><a href="#s2">The cavities and the fluid compartments</a></li>
+    <li><a href="#s3">Lumens, the outside that runs through you</a></li>
+    <li><a href="#s4">The cell membrane</a></li>
+    <li><a href="#s5">Membrane lipids</a></li>
+    <li><a href="#s6">Membrane proteins</a></li>
+    <li><a href="#s7">Carbohydrates and the glycocalyx</a></li>
+    <li><a href="#s8">Inside the cell</a></li>
+    <li><a href="#s9">The cytoskeleton and motor proteins</a></li>
+    <li><a href="#s10">Centrioles, cilia and flagella</a></li>
+    <li><a href="#s11">The organelles</a></li>
+    <li><a href="#s12">The nucleus, and protein synthesis as a compartment story</a></li>
+    <li><a href="#s13">Tissues</a></li>
+    <li><a href="#s14">The extracellular matrix</a></li>
+    <li><a href="#s15">Cell junctions</a></li>
+    <li><a href="#s16">Epithelial tissue</a></li>
+    <li><a href="#s17">Connective tissue</a></li>
+    <li><a href="#s18">Muscle and neural tissue</a></li>
+    <li><a href="#s19">Tissue remodeling</a></li>
+    <li><a href="#s20">Organs</a></li>
+  </ol>
+</nav>
+
+<section class="card" id="s1">
+  <h2>1. Compartments, and why the body bothers</h2>
+  <p>A <button class="term" type="button" aria-expanded="false" aria-controls="d-compartment">compartment</button> is a functional space where conditions are kept different from the space next door.</p>
+  <span class="def" id="d-compartment" hidden>Compartment: a space with its own conditions. It can be fully enclosed, like a cell, or only partly separated, like a functional zone inside a larger space. The boundary can be a membrane, a tissue layer, a bone, or nothing more than the fact that the two regions are kept chemically different.</span>
+
+  <p>Compartments cost the body something and buy it something, and you should be able to say both.</p>
+
+  <h4>What compartments buy</h4>
+  <ul>
+    <li>Processes that would interfere with each other get separated. Protein synthesis runs in one place, protein breakdown in another, and neither undoes the other.</li>
+    <li>Two spaces sitting side by side can hold completely different contents.</li>
+    <li>The extreme version is the lysosome, which holds enzymes at about pH 5 while the cytosol around it stays near pH 7. Rupture one and it damages the cell that made it.</li>
+  </ul>
+
+  <h4>What compartments cost</h4>
+  <ul>
+    <li>Every barrier makes movement harder. Anything that has to get from one side to the other now needs a way through.</li>
+    <li>That is the entire reason membrane transport exists as a topic, and it is why transport is the next thing you study this week.</li>
+  </ul>
+
+  <div class="callout">
+    <h4>Predict first</h4>
+    <p>A cell keeps a digestive enzyme inside a membrane bag at pH 5. What two separate things has that bag done for the cell? Answer in your head before you open this.</p>
+    <details><summary>Check yourself</summary><div>
+      <p>It gave the enzyme the acidic conditions it needs to work, and it kept that enzyme away from the cell's own proteins, which sit in a neutral cytosol where the enzyme is inactive anyway. Two jobs from one barrier: the right conditions in, and the damage contained.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="card" id="s2">
+  <h2>2. The cavities and the fluid compartments</h2>
+
+  <h3>Three major body cavities</h3>
+  <p>They are separated by bones and tissues and lined with tissue membranes.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Cavity</th><th>Boundaries</th><th>What it holds</th></tr></thead>
+    <tbody>
+      <tr><td>Cranial</td><td>The skull</td><td>The brain, the primary control center</td></tr>
+      <tr><td>Thoracic</td><td>Spine and ribs, with the diaphragm as the floor</td><td>The heart in its pericardial sac, and the lungs in separate pleural sacs</td></tr>
+      <tr><td>Abdominopelvic</td><td>Continuous abdomen and pelvis</td><td>Abdominal organs inside the peritoneum: stomach, intestines, liver, pancreas, gallbladder, spleen. The pelvic portion holds reproductive organs, the urinary bladder, and the terminal large intestine.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The kidneys are the exception worth memorizing. They sit <button class="term" type="button" aria-expanded="false" aria-controls="d-retro">retroperitoneally</button>, outside the abdominal cavity proper.</p>
+  <span class="def" id="d-retro" hidden>Retroperitoneal: behind the peritoneum. The organ lies between the peritoneal lining and the muscles and bones of the back, above the waist.</span>
+
+  <h3>Other fluid filled compartments</h3>
+  <ul>
+    <li>The circulatory system, vessels plus heart, is one large blood filled compartment.</li>
+    <li>The eye is two: aqueous humor in front, vitreous humor behind.</li>
+    <li>The central nervous system is bathed in cerebrospinal fluid around the brain and spinal cord.</li>
+    <li>The pleural and pericardial sacs each hold a small volume of fluid.</li>
+  </ul>
+
+  <h3>The functional fluid compartments</h3>
+  <p>This is the division that drives most of physiology.</p>
+  <ul>
+    <li><strong>ICF</strong>, intracellular fluid, is the fluid inside cells.</li>
+    <li><strong>ECF</strong>, extracellular fluid, is everything outside cells.</li>
+    <li>The cell membrane is the barrier between them.</li>
+  </ul>
+  <p>ECF divides again into <strong>plasma</strong>, the fluid portion of blood, and <strong>interstitial fluid</strong>, the fluid that surrounds most body cells.</p>
+
+  <div class="callout">
+    <h4>Predict first</h4>
+    <p>A drug is injected into a vein. Name, in order, the compartments it has to pass through to reach the inside of a muscle cell.</p>
+    <details><summary>Check yourself</summary><div>
+      <p>Plasma, then across the capillary wall into interstitial fluid, then across the cell membrane into intracellular fluid. Two barriers, three compartments. Most drugs that fail to work fail at one of those two crossings.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="card" id="s3">
+  <h2>3. Lumens, the outside that runs through you</h2>
+  <p>A <button class="term" type="button" aria-expanded="false" aria-controls="d-lumen">lumen</button> is the interior space of a hollow organ. A blood vessel lumen contains blood.</p>
+  <span class="def" id="d-lumen" hidden>Lumen: the open space inside a hollow tube or organ. It can be filled with air or with fluid.</span>
+
+  <p>Here is the idea that catches people out. Some lumens count functionally as the outside world, even though they run through the middle of your body. Material in the lumen of the digestive tract is not part of your internal environment until it crosses the wall of the gut. Think of a hole through a bead. The hole passes through the bead, but it was never inside it.</p>
+
+  <details class="clinical"><summary>What this means in the clinic</summary><div>
+    <p><strong>Nursing.</strong> E. coli living in the lumen of the large intestine is normal and harmless. Puncture the intestinal wall and the same organism is now in the internal environment, and that is a serious infection. Nothing about the bacterium changed. The compartment it sits in changed.</p>
+    <p><strong>Rad tech.</strong> This is why oral contrast outlines the gut lumen so cleanly. The contrast stays in the tube, so what you see on the image is the shape of the outside world passing through the patient.</p>
+  </div></details>
+</section>
+
+<section class="card" id="s4">
+  <h2>4. The cell membrane</h2>
+
+  <h3>Two different things are called a membrane</h3>
+  <ul>
+    <li>A <strong>tissue membrane</strong> is a thin translucent layer of tissue lining a cavity or separating compartments. Mucous membranes, peritoneum, pleura and pericardium are all tissue membranes.</li>
+    <li>A <strong>cell membrane</strong> is the phospholipid and protein boundary that separates ICF from ECF.</li>
+  </ul>
+  <p>Drawings cause the confusion. Tissue membranes are usually drawn as a single line, which makes them look like cell membranes. They are not built the same way at all.</p>
+  <p>Cell membrane, plasma membrane, and plasmalemma all mean the same structure. This course says cell membrane, to keep it away from blood plasma.</p>
+
+  <h3>Four jobs the cell membrane does</h3>
+  <ol>
+    <li><strong>Physical isolation.</strong> It is the barrier separating ICF from ECF.</li>
+    <li><strong>Regulation of exchange.</strong> It controls what ions and nutrients enter, how wastes leave, and what products get secreted out into the extracellular space.</li>
+    <li><strong>Communication.</strong> Membrane proteins recognize and respond to signals from outside, and a change in the membrane can change what the cell is doing.</li>
+    <li><strong>Structural support.</strong> Membrane proteins anchor the cytoskeleton inside and form junctions outside, both cell to cell and cell to matrix, which is what holds tissues together.</li>
+  </ol>
+
+  <h3>What it is made of</h3>
+  <p>Lipids, proteins, and a small amount of carbohydrate. The ratio of protein to lipid varies by membrane, and it tracks how much work that membrane does. The inner mitochondrial membrane is about 75 percent protein, because that is where the ATP producing enzymes sit.</p>
+
+  <h3>How the model got to where it is</h3>
+  <ul>
+    <li>1920s: chemists found enough lipid in a membrane for a double layer.</li>
+    <li>1960s: electron microscopy suggested a butter sandwich, a lipid layer between two protein layers.</li>
+    <li>1970s: freeze fracture electron microscopy showed the real three dimensional arrangement.</li>
+    <li>1972: Singer and Nicolson proposed the fluid mosaic model, which is still the model you use.</li>
+  </ul>
+
+  <h3>The fluid mosaic model</h3>
+  <ul>
+    <li>A phospholipid bilayer, with hydrophilic phosphate heads facing water on both sides and hydrophobic fatty acid tails facing inward.</li>
+    <li>Proteins embedded in it like raisins in bread.</li>
+    <li>Glycoproteins and glycolipids on the extracellular surface.</li>
+    <li>Total thickness about 8 nm.</li>
+  </ul>
+</section>
+
+<section class="card" id="s5">
+  <h2>5. Membrane lipids, the hydrophobic barrier</h2>
+  <p>Three lipid types build the barrier: phospholipids, sphingolipids, and cholesterol.</p>
+
+  <h3>Phospholipids</h3>
+  <ul>
+    <li>A glycerol backbone, two fatty acid tails, and a phosphate group head.</li>
+    <li>The head is polar and hydrophilic. The tails are nonpolar and hydrophobic.</li>
+    <li>Put them in water and they arrange themselves to hide the tails from it. Nobody instructs them. The arrangement is the lowest energy option available.</li>
+  </ul>
+
+  <h3>Three arrangements worth telling apart</h3>
+  <div class="scroller"><table>
+    <thead><tr><th>Structure</th><th>Build</th><th>Where it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Micelle</td><td>Small droplet, single layer, tails pointing inward</td><td>Fat digestion and absorption</td></tr>
+      <tr><td>Liposome</td><td>Larger sphere with a bilayer wall and a watery core</td><td>The core can carry water soluble molecules, which makes liposomes useful for drug delivery, cosmetics, and gene therapy. Immunoliposomes carry antibodies that target specific cancer cells, which improves specificity and cuts side effects. A liposome-like structure is also the likely precursor of the first cell.</td></tr>
+      <tr><td>Phospholipid bilayer</td><td>A sheet, heads out on both faces, tails in</td><td>The cell membrane itself</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sphingolipids</h3>
+  <ul>
+    <li>Also have fatty acid tails, with heads that can be phospholipid or glycolipid.</li>
+    <li>Their tails are longer than phospholipid tails, which matters in a moment when lipid rafts come up.</li>
+  </ul>
+
+  <h3>Cholesterol</h3>
+  <ul>
+    <li>Mostly hydrophobic, and it inserts itself between the phospholipid heads.</li>
+    <li>It decreases permeability to small water soluble molecules.</li>
+    <li>It keeps the membrane workable across a wide range of temperatures. At normal body temperature, 37 degrees C (98.6 degrees F), the membrane has to stay fluid enough for proteins to move and firm enough to hold together, and cholesterol is what keeps both true.</li>
+  </ul>
+</section>
+
+<section class="card" id="s6">
+  <h2>6. Membrane proteins</h2>
+  <p>Membrane proteins may account for almost one third of all proteins coded in your DNA, and a single cell has somewhere between 10 and 50 different types in its membrane. That number alone tells you the membrane is doing most of the cell's business.</p>
+
+  <h3>Integral and peripheral</h3>
+  <ul>
+    <li><strong>Integral proteins</strong> are tightly bound. Removing one means disrupting the membrane with detergents. They include transmembrane proteins and lipid anchored proteins.</li>
+    <li><strong>Peripheral proteins</strong> attach by noncovalent interactions to other membrane proteins and can be removed without destroying the membrane. They work as enzymes, structural binding sites, and cytoskeleton anchors.</li>
+  </ul>
+
+  <h3>Transmembrane proteins</h3>
+  <ul>
+    <li>They cross the membrane completely, once or as many as twelve times. A lot of the important ones cross seven times, and you will meet that seven pass shape again when you study signaling.</li>
+    <li>Extracellular loops can carry carbohydrate attachments. Intracellular loops can carry phosphate attachments.</li>
+    <li>Adding or removing a phosphate group changes what the protein does. That is how a signal from outside becomes a change inside.</li>
+    <li>They stay put because the membrane spanning stretch of amino acids is nonpolar and interacts strongly with the phospholipid tails.</li>
+  </ul>
+
+  <h3>Lipid anchored proteins</h3>
+  <ul>
+    <li>Either covalently bound to lipid tails inserted in the bilayer, or held on the outer surface by a <button class="term" type="button" aria-expanded="false" aria-controls="d-gpi">GPI anchor</button>.</li>
+    <li>Many associate with sphingolipids to form lipid rafts, which are specialized membrane patches. Because sphingolipid tails are longer, the raft sits slightly raised above its neighbors.</li>
+  </ul>
+  <span class="def" id="d-gpi" hidden>GPI anchor: glycosylphosphatidylinositol. A lipid joined to a sugar phosphate chain, which tethers a protein to the outer surface of the membrane without that protein ever crossing it.</span>
+
+  <h3>Do the proteins actually move</h3>
+  <p>The original fluid mosaic model said proteins drift laterally through the bilayer. The picture has been updated. Some integral proteins are anchored to the cytoskeleton and are effectively immobile, and that restriction is what makes cell polarity possible: different faces of the same cell carry different proteins and behave differently. Transporting epithelia depend on it completely, and you will see why when you study how the intestine and kidney move things in one direction.</p>
+</section>
+
+<section class="card" id="s7">
+  <h2>7. Carbohydrates and the glycocalyx</h2>
+  <ul>
+    <li>Membrane carbohydrates attach only on the extracellular surface. Sugars on proteins make glycoproteins, sugars on lipids make glycolipids.</li>
+    <li>Together they form the <button class="term" type="button" aria-expanded="false" aria-controls="d-glyco">glycocalyx</button>, a protective sugar layer on the outside of the cell.</li>
+    <li>Glycoproteins matter in immune recognition. Your immune system reads this layer to decide what is yours.</li>
+    <li>ABO blood groups are determined by the number and composition of sugars attached to membrane sphingolipids. Blood type is a sugar pattern on a cell surface, nothing more exotic than that.</li>
+  </ul>
+  <span class="def" id="d-glyco" hidden>Glycocalyx: the carbohydrate layer on the outer surface of the cell membrane, made of the sugar chains of glycoproteins and glycolipids.</span>
+
+  <details class="clinical"><summary>What this means in the clinic</summary><div>
+    <p><strong>Nursing.</strong> A transfusion reaction is a mismatch read at this sugar layer. The recipient's antibodies recognize surface sugars that are not theirs, and the response follows from that recognition.</p>
+    <p><strong>Rad tech.</strong> Surface recognition is also why targeted contrast and radiopharmaceutical agents work. They are built to bind something specific sitting on the outside of a particular cell type.</p>
+  </div></details>
+</section>
+
+<section class="card" id="s8">
+  <h2>8. Inside the cell</h2>
+
+  <h3>Cells differ because genes are used differently</h3>
+  <p>You have trillions of cells and over 200 cell types. Every one of them inherited the same DNA. <button class="term" type="button" aria-expanded="false" aria-controls="d-diff">Differentiation</button> is what makes them different, and the shape of a mature cell reflects the job it ended up with.</p>
+  <span class="def" id="d-diff" hidden>Differentiation: selective gene activation, so that a cell switches on some genes and not others, which changes its structure and its function.</span>
+
+  <h3>How a typical animal cell is laid out</h3>
+  <ul>
+    <li>The cell membrane separates ICF from ECF.</li>
+    <li>Inside sits the cytoplasm and the nucleus.</li>
+    <li>Cytoplasm includes the cytosol, inclusions, insoluble protein fibers, and the membrane bound organelles.</li>
+  </ul>
+
+  <h3>The four cytoplasm components</h3>
+  <div class="scroller"><table>
+    <thead><tr><th>Component</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td>Cytosol</td><td>The intracellular fluid itself, a semi gel holding dissolved nutrients, proteins, ions and wastes.</td></tr>
+      <tr><td>Inclusions</td><td>Insoluble particles with no membrane, so they sit in direct contact with the cytosol. Stored nutrients appear here as glycogen granules and lipid droplets. Others are protein or RNA protein combinations.</td></tr>
+      <tr><td>Protein fibers</td><td>Insoluble polymers providing structural support and movement.</td></tr>
+      <tr><td>Organelles</td><td>Membrane bound compartments that isolate substances and separate functions.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The dividing line to hold on to is the membrane. Inclusions have none and touch the cytosol directly. Organelles have one or more and do not.</p>
+
+  <h3>Ribosomes</h3>
+  <ul>
+    <li>Inclusions made of RNA and protein.</li>
+    <li>They build proteins under the direction of DNA.</li>
+    <li>Free ribosomes float in the cytosol and can group into polyribosomes of about 10 to 20.</li>
+    <li>Fixed ribosomes attach to an organelle surface.</li>
+    <li>A ribosome can switch between free and fixed.</li>
+    <li>Cells that export a lot of protein carry the most of them, which is a useful thing to notice on a slide.</li>
+  </ul>
+</section>
+
+<section class="card" id="s9">
+  <h2>9. The cytoskeleton and motor proteins</h2>
+
+  <h3>Three families of protein fiber</h3>
+  <div class="scroller"><table>
+    <thead><tr><th>Fiber</th><th>Size and protein</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td>Microfilaments</td><td>Thinnest. Actin.</td><td>Cell shape and movement</td></tr>
+      <tr><td>Intermediate filaments</td><td>Middle. Various proteins.</td><td>Keratin in hair and skin, neurofilament in nerve cells</td></tr>
+      <tr><td>Microtubules</td><td>Largest, hollow. Tubulin.</td><td>Tracks for transport, cilia, flagella, centrioles</td></tr>
+    </tbody>
+  </table></div>
+  <p>Many accessory proteins associate with these fibers. Broadly the fibers do two things: structural support, and movement when motor proteins work along them.</p>
+
+  <h3>What the cytoskeleton is</h3>
+  <p>A flexible, dynamic, three dimensional scaffold of actin microfilaments, intermediate filaments and microtubules. Some of it is permanent. Most of it is assembled and disassembled as the cell needs it, which is the part students tend to forget.</p>
+
+  <h3>Five jobs</h3>
+  <ol>
+    <li><strong>Cell shape.</strong> Mechanical strength, and support for structures like microvilli.</li>
+    <li><strong>Internal organization.</strong> It stabilizes where organelles sit, while the whole arrangement stays dynamic.</li>
+    <li><strong>Intracellular transport.</strong> It acts as the tracks that organelles and vesicles move along. In a neuron that can mean moving cargo up to a meter.</li>
+    <li><strong>Assembly into tissues.</strong> It connects to extracellular fibers, links cells to each other and to the matrix, and allows information transfer from cell to cell.</li>
+    <li><strong>Movement.</strong> White blood cells squeezing out of vessels, growing neurons extending processes, cilia and flagella beating. Motor proteins burn ATP to move along the fibers.</li>
+  </ol>
+
+  <h3>Motor proteins</h3>
+  <p>A motor protein converts the energy in ATP into directed movement. Three groups:</p>
+  <ul>
+    <li><strong>Myosin</strong> binds actin and is the key player in muscle contraction.</li>
+    <li><strong>Kinesin</strong> moves vesicles along microtubules.</li>
+    <li><strong>Dynein</strong> also moves vesicles along microtubules, and drives the bending of cilia and flagella.</li>
+  </ul>
+  <p>Most motor proteins have multiple protein chains and three regions: two heads that bind the cytoskeleton fiber, a neck, and a tail that binds the cargo. Movement happens because the heads alternate binding and releasing, stepping along the fiber using ATP.</p>
+
+  <div class="callout">
+    <h4>Predict first</h4>
+    <p>A drug blocks ATP production in a neuron but leaves the microtubules intact. What happens to cargo that needs to travel down the axon?</p>
+    <details><summary>Check yourself</summary><div>
+      <p>It stops. The track is fine, but the stepping is what costs ATP, and the motor protein cannot alternate binding and releasing without it. Intact road, no fuel.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="card" id="s10">
+  <h2>10. Centrioles, cilia and flagella</h2>
+
+  <h3>Centrosome and centrioles</h3>
+  <ul>
+    <li>The centrosome is the microtubule organizing center. It assembles tubulin into microtubules and sits near the nucleus.</li>
+    <li>Most animal cells have 2 centrioles per centrosome.</li>
+    <li>Each centriole is a cylinder of 27 microtubules arranged as nine triplets.</li>
+    <li>In cell division they direct the movement of DNA.</li>
+    <li>Mature nerve cells lack centrioles, because they no longer divide.</li>
+  </ul>
+
+  <h3>Cilia</h3>
+  <ul>
+    <li>Short hairlike projections. Most cells have one short cilium.</li>
+    <li>Cells lining the upper airways and part of the female reproductive tract carry many, and their coordinated beating moves fluid or secretions along.</li>
+    <li>The cilium membrane is continuous with the cell membrane.</li>
+    <li>Motile cilia have a 9 plus 2 core: nine pairs of microtubules around a central pair, anchored by a basal body inside the cell.</li>
+    <li>Movement comes from microtubule pairs sliding past each other, driven by dynein, which produces rhythmic beating.</li>
+  </ul>
+
+  <h3>Flagella</h3>
+  <ul>
+    <li>Same microtubule arrangement as cilia, much longer.</li>
+    <li>In humans only sperm has one, and it has exactly one.</li>
+    <li>Wave like motion propels the cell through fluid. The mechanism is the same as cilia.</li>
+  </ul>
+
+  <h3>Primary cilia, the nonmotile ones</h3>
+  <ul>
+    <li>Most body cells carry a single stationary primary cilium.</li>
+    <li>Structurally it lacks the central pair, so it is 9 plus 0.</li>
+    <li>Its job is sensing the external environment. Photoreceptors use one for light sensing, and kidney cells use one to sense fluid flow.</li>
+  </ul>
+
+  <details class="clinical"><summary>What this means in the clinic</summary><div>
+    <p><strong>Nursing.</strong> Mutations in ciliary proteins cause the ciliopathies, a group that includes polycystic kidney disease, vision loss, and some cancers, with links to development and to obesity. One malfunctioning structure, effects in several organs, because the same structure is used in several places.</p>
+    <p><strong>Rad tech.</strong> Polycystic kidney disease is a classic imaging finding, and knowing it comes from a ciliary defect explains why other organ findings often travel with it.</p>
+    <p><strong>Respiratory therapy.</strong> Airway clearance depends on coordinated ciliary beating. When that beating is impaired, secretions stay put, which is exactly the problem clearance therapy is trying to solve.</p>
+  </div></details>
+</section>
+
+<section class="card" id="s11">
+  <h2>11. The organelles</h2>
+  <p>Organelles are separated from the cytosol by one or more phospholipid membranes. That membrane isolates harmful substances and keeps processes apart.</p>
+
+  <h3>Mitochondria</h3>
+  <ul>
+    <li>They produce most of the cell's ATP.</li>
+    <li>A double membrane creates two compartments. Inside the inner membrane is the matrix, which holds enzymes, ribosomes, granules and mitochondrial DNA, so a mitochondrion can make some of its own proteins. Between the membranes is the intermembrane space, which is important in ATP production.</li>
+    <li>Mitochondrial DNA has a different sequence from nuclear DNA.</li>
+    <li>The <button class="term" type="button" aria-expanded="false" aria-controls="d-endo">endosymbiont theory</button> explains why.</li>
+    <li>They replicate by budding, independently of cell division. Exercise can increase the number of mitochondria in muscle.</li>
+    <li>Mitochondrial number tracks energy demand. Skeletal muscle is high, adipose tissue is low.</li>
+  </ul>
+  <span class="def" id="d-endo" hidden>Endosymbiont theory: mitochondria descended from bacteria that invaded ancient cells and stayed. The evidence is that mitochondrial DNA and RNA enzymes resemble those of bacteria, and that mitochondria carry their own DNA and replicate on their own schedule.</span>
+
+  <h3>Endoplasmic reticulum</h3>
+  <p>A network of interconnected membrane tubes with three jobs: synthesis, storage, and transport of biomolecules.</p>
+  <div class="scroller"><table>
+    <thead><tr><th></th><th>Rough ER</th><th>Smooth ER</th></tr></thead>
+    <tbody>
+      <tr><td>Ribosomes</td><td>Attached</td><td>None</td></tr>
+      <tr><td>Main work</td><td>The main site of protein synthesis. Proteins are inserted into the ER lumen and chemically modified there.</td><td>Lipid, steroid and fatty acid synthesis. Makes the phospholipids for membranes. Modifies cholesterol into steroid hormones such as estrogen and testosterone. Detoxifies drugs in liver and kidney.</td></tr>
+      <tr><td>Specialization</td><td></td><td>In skeletal muscle, a specialized smooth ER stores the calcium used for contraction.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Golgi apparatus</h3>
+  <ul>
+    <li>Stacked curved sacs, called cisternae, plus the vesicles around them.</li>
+    <li>It receives proteins from rough ER, modifies them, and packages them into vesicles.</li>
+  </ul>
+
+  <h3>Cytoplasmic vesicles</h3>
+  <ul>
+    <li><strong>Secretory vesicles</strong> hold proteins that will be released from the cell.</li>
+    <li><strong>Storage vesicles</strong> keep their contents in the cytoplasm.</li>
+  </ul>
+
+  <h4>Lysosomes</h4>
+  <ul>
+    <li>Storage vesicles that act as the digestive system of the cell. Their enzymes break down bacteria and worn out organelles. Reusable molecules go back to the cytosol and the rest is expelled.</li>
+    <li>Up to 50 enzyme types, depending on the cell.</li>
+    <li>The safety mechanism is pH. A newly formed lysosome sits at about pH 7.0 to 7.3 and its enzymes are inactive. Over time it accumulates hydrogen ions, using energy to do it, and when the pH drops to about 4.8 to 5.0 the enzymes switch on.</li>
+    <li>Enzymes are sometimes released outside the cell on purpose, for instance to dissolve extracellular material such as bone mineral.</li>
+    <li>Lysosomes can digest the cell's own material, leading to loss of cell mass. Muscle atrophy and the shrinking of the uterus after pregnancy both work this way.</li>
+  </ul>
+
+  <details class="clinical"><summary>What this means in the clinic</summary><div>
+    <p><strong>Nursing.</strong> In rheumatoid arthritis, joint tissue damage is linked to inappropriate release of lysosomal enzymes. In the lysosomal storage diseases, a specific enzyme is missing. Tay Sachs is the example to know: defective lysosomes fail to break down glycolipids, the glycolipids accumulate in neurons, and the child loses vision and coordination. It is fatal in early childhood.</p>
+    <p><strong>Rad tech.</strong> Muscle atrophy on imaging is lysosomal digestion of the cell's own proteins, not cells disappearing. Understanding that changes how you read a follow up study.</p>
+  </div></details>
+
+  <h4>Peroxisomes</h4>
+  <ul>
+    <li>Smaller than lysosomes.</li>
+    <li>They degrade long chain fatty acids and other toxic molecules.</li>
+    <li>Doing so generates hydrogen peroxide, which is itself toxic, so catalase converts it to water and oxygen.</li>
+    <li>Peroxisomal disorders disrupt lipid processing and impair neural function by altering nerve membrane structure.</li>
+  </ul>
+</section>
+
+<section class="card" id="s12">
+  <h2>12. The nucleus, and protein synthesis as a compartment story</h2>
+
+  <h3>Key parts</h3>
+  <ul>
+    <li>The nucleus holds the DNA that controls cell processes.</li>
+    <li>The nuclear envelope is a double membrane separating nucleus from cytoplasm, with pores through it.</li>
+  </ul>
+
+  <h3>Nuclear pore complexes</h3>
+  <ul>
+    <li>Large protein complexes with a central channel.</li>
+    <li>Small molecules and ions move freely when a pore is open.</li>
+    <li>Large molecules, proteins and RNA require energy dependent transport.</li>
+    <li>That transport is specific, and the specificity is what keeps DNA inside the nucleus and directs enzymes to the right compartments.</li>
+  </ul>
+
+  <h3>Chromatin and nucleoli</h3>
+  <ul>
+    <li>Chromatin is DNA plus associated proteins, granular in appearance in nondividing cells.</li>
+    <li>There are 1 to 4 nucleoli per nucleus, dark bodies of DNA and RNA protein, containing the genes and proteins for ribosomal RNA synthesis.</li>
+  </ul>
+
+  <h3>Protein synthesis, start to finish</h3>
+  <p>Follow the compartments. Every numbered step is a compartment boundary or a modification that only happens because of one.</p>
+  <ol class="steps">
+    <li>Transcription. RNA is made from a DNA template, inside the nucleus.</li>
+    <li>RNA exits the nucleus through the nuclear pores.</li>
+    <li>Translation on free ribosomes in the cytosol, or</li>
+    <li>Translation on ribosomes attached to rough ER.</li>
+    <li>The new protein enters the rough ER lumen for modification.</li>
+    <li>It is packaged into a vesicle.</li>
+    <li>The vesicle fuses with the Golgi, and the protein is modified further in the Golgi lumen.</li>
+    <li>It leaves the Golgi in storage vesicles, or</li>
+    <li>it leaves in secretory vesicles and is released to the extracellular fluid.</li>
+  </ol>
+
+  <div class="callout">
+    <h4>Predict first</h4>
+    <p>A protein destined for secretion is built on a free ribosome in the cytosol by mistake. What does it miss out on?</p>
+    <details><summary>Check yourself</summary><div>
+      <p>Every modification that happens inside a lumen. It never enters the rough ER, so it is not modified there, never reaches the Golgi for further modification, and is never packaged into a secretory vesicle. It is stuck in the cytosol in an unfinished form. The compartment is not a detour on the way out, it is where the protein gets finished.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="card" id="s13">
+  <h2>13. Tissues</h2>
+  <p>Single cells cannot perform all body functions, so cells specialize and work in groups. A <strong>tissue</strong> is a group of similar cells plus the extracellular matrix around them, working toward a common function.</p>
+  <p>Cells are held together by cell junctions and by the extracellular matrix.</p>
+  <p>Tissue complexity varies. A simple tissue is one cell type, such as the lining of a blood vessel. A complex tissue has many cell types and extensive matrix, such as connective tissue.</p>
+
+  <h3>Histology</h3>
+  <p><button class="term" type="button" aria-expanded="false" aria-controls="d-histo">Histology</button> describes tissues by cell shape and size, arrangement in layers or scattered, the type of connections between cells, and the amount of extracellular material.</p>
+  <span class="def" id="d-histo" hidden>Histology: the study of tissue structure and function.</span>
+
+  <h3>The four primary tissue types</h3>
+  <ol>
+    <li>Epithelial</li>
+    <li>Connective</li>
+    <li>Muscle</li>
+    <li>Neural</li>
+  </ol>
+</section>
+
+<section class="card" id="s14">
+  <h2>14. The extracellular matrix</h2>
+  <p>The <strong>extracellular matrix</strong> is material outside cells, synthesized and secreted by those cells. It is not inert. It actively regulates growth, development, differentiation and apoptosis, and abnormalities in it are linked to heart failure and to cancer metastasis.</p>
+
+  <h3>Two components, always</h3>
+  <ul>
+    <li><strong>Proteoglycans.</strong> Glycoproteins, protein plus polysaccharide chains. They trap water, which is what determines how hydrated a tissue is.</li>
+    <li><strong>Insoluble protein fibers.</strong> Collagen gives tensile strength. Fibronectin and laminin anchor cells to the matrix.</li>
+  </ul>
+  <p>Matrix to cell attachments connect the matrix to membrane proteins to the cytoskeleton, which allows outside-in signaling. A cell can be told something by the material it is sitting in.</p>
+
+  <h3>How much matrix, and how stiff</h3>
+  <ul>
+    <li>Very little matrix: muscle and nerve.</li>
+    <li>Extensive matrix: cartilage, bone, blood.</li>
+    <li>Consistency runs across a spectrum: watery in blood and lymph, gel like in cartilage, rigid in bone.</li>
+  </ul>
+  <p>Blood being a connective tissue surprises people every year. Read that spectrum again and it stops being strange. The matrix is plasma, and it happens to be liquid.</p>
+</section>
+
+<section class="card" id="s15">
+  <h2>15. Cell junctions</h2>
+
+  <h3>Cell adhesion molecules</h3>
+  <ul>
+    <li>CAMs are membrane spanning proteins.</li>
+    <li>They handle both transient adhesion and permanent junctions.</li>
+    <li>The interactions are weak and reversible, which is exactly what lets cells move.</li>
+    <li>Examples: NCAMs guide growing neurons, and CAMs make white blood cell migration and platelet adhesion possible.</li>
+  </ul>
+
+  <h3>Three functional categories</h3>
+
+  <h4>1. Communicating junctions, gap junctions</h4>
+  <ul>
+    <li>Direct cytoplasm to cytoplasm communication.</li>
+    <li>Built from proteins called connexins, forming channels that open and close.</li>
+    <li>They pass ions, small molecules, and electrical signals.</li>
+    <li>Common in cardiac and smooth muscle, liver, pancreas, and endocrine tissues.</li>
+  </ul>
+
+  <h4>2. Occluding junctions, tight junctions</h4>
+  <ul>
+    <li>They restrict paracellular movement, which is movement between cells rather than through them.</li>
+    <li>Built from claudins and occludins.</li>
+    <li>The barrier is dynamic. It can become leakier or tighter.</li>
+    <li>Key roles: the intestine and kidney use them to control absorption, and the blood brain barrier depends on them.</li>
+    <li>The brick wall analogy is the useful one. The cells are the bricks and the tight junctions are the mortar.</li>
+  </ul>
+
+  <h4>3. Anchoring junctions</h4>
+  <p>These provide mechanical strength, either cell to cell or cell to matrix.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Anchors</th><th>CAM</th><th>Types</th></tr></thead>
+    <tbody>
+      <tr><td>Cell to cell</td><td>Cadherins</td><td>Adherens junctions link actin filaments. Desmosomes link intermediate filaments, have dense plaques, are the strongest junction, and come as spot or belt desmosomes.</td></tr>
+      <tr><td>Cell to matrix</td><td>Integrins</td><td>Hemidesmosomes anchor intermediate filaments to laminin. Focal adhesions link actin to fibronectin and are important in signaling and migration.</td></tr>
+    </tbody>
+  </table></div>
+
+  <details class="clinical"><summary>What this means in the clinic</summary><div>
+    <p><strong>Nursing.</strong> A blister is anchoring junction failure. In pemphigus, an autoimmune attack on junction proteins produces the same separation without the friction. In cancer metastasis, cadherins decrease, proteases are secreted, and matrix metalloproteinases digest the extracellular matrix so cells can invade. A cell that lets go and can cut its way out is a cell that can travel.</p>
+    <p><strong>Rad tech.</strong> The blood brain barrier is built on tight junctions, and that is why contrast enhancement on a brain study means something. Enhancement says the barrier is disrupted at that spot.</p>
+  </div></details>
+</section>
+
+<section class="card" id="s16">
+  <h2>16. Epithelial tissue</h2>
+
+  <h3>What it does and how it is built</h3>
+  <ul>
+    <li>Protects the internal environment, regulates exchange, covers surfaces and lines cavities.</li>
+    <li>Everything entering or leaving the body crosses an epithelium. That sentence is worth keeping.</li>
+    <li>One or more cell layers, minimal extracellular matrix.</li>
+    <li>A basal lamina, also called the basement membrane, of collagen, laminin and proteoglycans anchors the epithelium to the tissue underneath.</li>
+  </ul>
+
+  <h3>Leaky and tight</h3>
+  <ul>
+    <li><strong>Leaky epithelia</strong> use anchoring junctions and allow paracellular transport. Capillaries are the example.</li>
+    <li><strong>Tight epithelia</strong> use tight junctions and force transcellular transport, through the cells. Kidney is the example.</li>
+    <li>Tightness equals selectivity. The intestine can modulate its own tightness, which means the same tissue can change how selective it is.</li>
+  </ul>
+
+  <h3>Five functional types</h3>
+  <div class="scroller"><table>
+    <thead><tr><th>Type</th><th>Structure</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>1. Exchange</td><td>Thin, flattened, simple squamous. Built for rapid diffusion of gases.</td><td>Capillaries, lungs. Endothelium is the simple squamous lining of the heart and vessels.</td></tr>
+      <tr><td>2. Transporting</td><td>Cuboidal or columnar cells, microvilli on the apical surface to increase surface area, basolateral folds, tight junctions, many mitochondria. Transport is regulated, for example by hormones.</td><td>Intestine, kidney</td></tr>
+      <tr><td>3. Ciliated</td><td>Nontransporting. Cilia move fluid across the surface.</td><td>Respiratory tract, female reproductive tract</td></tr>
+      <tr><td>4. Protective</td><td>Stratified layers resisting mechanical and chemical stress, often keratinized, high turnover.</td><td>Epidermis, mouth, esophagus, vagina</td></tr>
+      <tr><td>5. Secretory</td><td>Synthesizes and releases products. Single cells or glands.</td><td>See the glands below</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Glands</h3>
+  <ul>
+    <li><strong>Exocrine glands</strong> have ducts, and the secretion exits the body. Sweat, saliva, pancreatic enzymes. Serous secretions are watery and enzyme rich, mucous secretions are sticky glycoproteins, and goblet cells produce mucus.</li>
+    <li><strong>Endocrine glands</strong> are ductless. They secrete hormones into the ECF and then into blood. Thyroid, pituitary, gonads. Endocrine cells can also be scattered rather than gathered into a gland.</li>
+  </ul>
+  <p>Retinoids increase turnover in protective epithelia, and smoking paralyzes cilia in the respiratory tract, which raises the infection rate. Both are small facts that explain a lot of clinical behavior.</p>
+</section>
+
+<section class="card" id="s17">
+  <h2>17. Connective tissue</h2>
+  <p>The defining feature is abundant extracellular matrix with cells widely spaced. It provides support, protection and defense.</p>
+
+  <h3>Matrix structure</h3>
+  <ul>
+    <li>Ground substance is proteoglycans plus water.</li>
+    <li>Insoluble fibers are embedded in it.</li>
+    <li>The living cells constantly remodel the matrix. It is never finished.</li>
+  </ul>
+
+  <h3>Cell types, by their endings</h3>
+  <ul>
+    <li><strong>-blast</strong> secretes matrix. Fibroblast, osteoblast.</li>
+    <li><strong>-cyte</strong> maintains it.</li>
+    <li><strong>-clast</strong> breaks it down.</li>
+    <li>Fixed cells do maintenance. Mobile cells do defense.</li>
+  </ul>
+  <p>Learn the three endings once and you can read the name of almost any connective tissue cell without being taught it.</p>
+
+  <h3>Matrix fibers</h3>
+  <ul>
+    <li><strong>Collagen.</strong> The most abundant protein in the body. Flexible but inelastic, and by weight its tensile strength is greater than steel.</li>
+    <li><strong>Elastin.</strong> Stretch and recoil.</li>
+    <li><strong>Fibrillin.</strong> Forms the scaffolding for elastic fibers.</li>
+    <li><strong>Fibronectin.</strong> Connects cells to the matrix, and is important in wound healing and clotting.</li>
+  </ul>
+
+  <h3>The seven types</h3>
+  <ol>
+    <li>Loose connective tissue</li>
+    <li>Dense connective tissue. Tendons connect muscle to bone, ligaments connect bone to bone.</li>
+    <li>Adipose tissue. White fat stores energy, brown fat produces heat.</li>
+    <li>Cartilage. Flexible, no blood supply, slow to heal.</li>
+    <li>Bone. Calcified matrix, rigid support.</li>
+    <li>Blood. The matrix is plasma and the cells are suspended in it.</li>
+    <li>Lymph, often grouped with blood.</li>
+  </ol>
+
+  <div class="callout">
+    <h4>Predict first</h4>
+    <p>Cartilage has no blood supply. Predict two consequences for a patient with a cartilage injury.</p>
+    <details><summary>Check yourself</summary><div>
+      <p>It heals slowly, because everything a repair needs has to diffuse in rather than arrive by vessel. And drugs given systemically reach it poorly for the same reason. No supply line changes both repair and treatment.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="card" id="s18">
+  <h2>18. Muscle and neural tissue, the excitable tissues</h2>
+  <h3>What they share</h3>
+  <ul>
+    <li>They generate action potentials.</li>
+    <li>They have minimal extracellular matrix.</li>
+    <li>They are often connected by gap junctions.</li>
+  </ul>
+
+  <h3>Muscle tissue</h3>
+  <p>Contraction produces force and movement. Three types: skeletal, which is voluntary; cardiac, in the heart; and smooth, in organs.</p>
+
+  <h3>Neural tissue</h3>
+  <ul>
+    <li>Neurons transmit signals.</li>
+    <li>Glial cells support and protect them.</li>
+    <li>Concentrated in the central nervous system but extending body wide.</li>
+  </ul>
+  <p>These two tissues are the whole subject of Weeks 3 through 5. What you need from this page is the structural half: minimal matrix, gap junctions, and the ability to generate an action potential.</p>
+</section>
+
+<section class="card" id="s19">
+  <h2>19. Tissue remodeling</h2>
+
+  <h3>Necrosis and apoptosis</h3>
+  <div class="scroller"><table>
+    <thead><tr><th></th><th>Necrosis</th><th>Apoptosis</th></tr></thead>
+    <tbody>
+      <tr><td>What it is</td><td>Uncontrolled cell death</td><td>Programmed cell death, tidy</td></tr>
+      <tr><td>Causes</td><td>Trauma, toxins, ischemia</td><td>Normal developmental and maintenance signals</td></tr>
+      <tr><td>Features</td><td>Swelling, rupture, inflammation. Released enzymes damage neighboring cells.</td><td>Chromatin condensation, cell shrinkage, membrane blebs, then phagocytosis. No inflammation.</td></tr>
+      <tr><td>Roles</td><td>Always pathological</td><td>Development, including removing the webs between fingers. Tissue turnover. Intestinal epithelium is replaced every 2 to 5 days.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The inflammation line is the one to hold. Necrotic cells rupture and spill enzymes onto their neighbors, so the damage spreads. Apoptotic cells are packaged up and taken away, so it does not.</p>
+
+  <h3>Stem cells</h3>
+  <ul>
+    <li><strong>Totipotent.</strong> The earliest embryonic cells, able to form an entire organism.</li>
+    <li><strong>Pluripotent.</strong> Many cell types, but not an entire organism.</li>
+    <li><strong>Multipotent.</strong> Adult stem cells, restricted lineages. Bone marrow to blood is the example.</li>
+    <li><strong>iPS cells.</strong> Adult cells reprogrammed back to pluripotent. Yamanaka, 2006, Nobel Prize 2012. The advantages are that no embryos are needed and that disease can be modeled in a dish. The challenges are controlling differentiation and avoiding immune rejection.</li>
+  </ul>
+</section>
+
+<section class="card" id="s20">
+  <h2>20. Organs</h2>
+  <p>An organ is a structure made of two or more tissue types that carries out related functions.</p>
+
+  <h3>Skin as the model organ</h3>
+  <ul>
+    <li>It contains all four tissue types.</li>
+    <li>It is the largest organ, roughly 16 percent of body weight.</li>
+    <li>Functions: protection, temperature regulation, sensation, and vitamin D synthesis.</li>
+  </ul>
+  <p>Skin is the example to use whenever you are asked what an organ is, because you can name all four tissues in it and four different functions without straining.</p>
+
+  <div class="callout">
+    <h4>Before you move on</h4>
+    <p>Cover this page and draw, from memory, one cell with its membrane, three organelles of your choice, and the nucleus, then draw the route a secreted protein takes from DNA to the extracellular fluid. If any step is missing, you know which section to reread.</p>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Where this goes next</h2>
+  <p>Compartments create barriers. Barriers have to be crossed. That is the transport material, and it is the next thing in Week 2. After that comes signaling, which is how one compartment tells another what to do without anything physically crossing.</p>
+  <p>Keep this page open while you fill your note sheet. The competency boxes for the membrane and for signaling are on the same sheet.</p>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <a href="https://yccd.instructure.com/courses/42616" target="_top">Back to Canvas</a> &middot;
+  <a href="index.html" target="_blank" rel="noopener">Course home</a> &middot;
+  <a href="note-sheet.html?week=2" target="_blank" rel="noopener">Week 2 note sheet</a> &middot;
+  <a href="concept-videos-week03.html" target="_blank" rel="noopener">Concept videos</a> &middot;
+  <a href="accessibility.html" target="_blank" rel="noopener">Accessibility</a>
+</div></footer>
+
+<script>
+/* clickable hard words */
+(function(){
+  var terms = document.querySelectorAll(".term");
+  for (var i=0;i<terms.length;i++){
+    terms[i].addEventListener("click", function(){
+      var id = this.getAttribute("aria-controls");
+      var box = document.getElementById(id);
+      if (!box) return;
+      var open = box.hidden === false;
+      box.hidden = open;
+      this.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  }
+})();
+
+/* iframe height sender */
+(function(){
+  var id = "biol005-w02-cell-notes";
+  function send(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight);
+    if (window.parent !== window){ window.parent.postMessage({ id:id, frameId:id, height:h }, "*"); }
+  }
+  window.addEventListener("load", send);
+  window.addEventListener("resize", send);
+  document.addEventListener("toggle", send, true);
+  if (window.ResizeObserver){ try { new ResizeObserver(send).observe(document.body); } catch(e){} }
+  setTimeout(send, 300);
+})();
+</script>
+</body>
+</html>

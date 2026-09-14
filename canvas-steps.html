@@ -122,6 +122,14 @@ p:last-child{margin-bottom:0}
   margin-top:18px;padding:14px 16px;background:var(--navy-tint);border-radius:8px;
   font-size:14px;color:var(--ink);
 }
+.hubstep .hubhead{display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:start;margin-bottom:14px}
+.hubstep .hubnum{
+  font-family:var(--display);font-weight:800;font-size:22px;color:var(--maroon-dark);
+  font-variant-numeric:tabular-nums;line-height:1.2;
+}
+.hubstep h2{font-size:19px;margin:0 0 4px}
+.hubstep .muted{margin:0;max-width:66ch}
+@media (max-width:560px){ .hubstep .hubhead{grid-template-columns:28px 1fr;gap:10px} }
 .newtab{
   margin:12px 0 0;font-size:13px;color:var(--ink-soft);
 }
@@ -262,53 +270,95 @@ var CANVAS = "https://yccd.instructure.com/courses/42616";
    button falls back to the lab door. Swap any href for a PDF the same way:
    lab:{label:"Reference Range Lab", href:"print/week-01-lab.pdf"} */
 var WEEKS = [
- {n:1,  opens:"Sep 7",  title:"Foundations in Physiology",
+ {n:1,  opens:"Sep 7",  title:"How physiology works and what keeps you steady", comp:12,
   videos:{page:"concept-videos-week01.html", count:20},
+  notes:"biol005-m01-maintain-control-notes.html",
+  comps:"week-01-competencies.html",
   lab:{label:"Reference Range Lab", href:"reference-range-lab.html"},
   patient:"The preseason physical"},
- {n:2,  opens:"Sep 14", title:"The Cell, and How Cells Talk",
-  videos:{page:"concept-videos-week03.html", count:25},
-  lab:{label:"", href:""}, patient:"", light:true},
- {n:3,  opens:"Sep 21", title:"Across the Membrane",
-  videos:{page:"concept-videos-week04.html", count:38},
+ {n:2,  opens:"Sep 14", title:"The cell: structure, transport and signaling", comp:31,
+  videos:{page:"concept-videos-week03.html", count:25,
+          also:{page:"concept-videos-week04.html", count:38, label:"transport"}},
+  notes:"biol005-w02-cell-notes.html",
+  extraGaps:["The written notes page covers the cell and compartments. Transport and signaling are read from the notes PDF beside each concept video."],
   lab:{label:"Osmosis and IV Fluids Lab", href:"osmosis-iv-fluids-lab.html"},
   patient:"Fluid choice at the bedside"},
- {n:4,  opens:"Sep 28", title:"Neurons and Synapses",
+ {n:3,  opens:"Sep 21", title:"Neurons, action potentials and synapses", comp:23,
   lab:{label:"", href:""}, patient:""},
- {n:5,  opens:"Oct 5",  title:"Reflexes and the Senses",
+ {n:4,  opens:"Sep 28", title:"Reflexes, and sensing the world", comp:25,
   lab:{label:"Sensory and Reflex Lab", href:"lab-week05-sensory-reflex.html"},
   patient:""},
- {n:6,  opens:"Oct 12", title:"Muscle and Movement",
+ {n:5,  opens:"Oct 5",  title:"Muscle, and how movement gets commanded", comp:24,
   lab:{label:"", href:""}, patient:""},
- {n:7,  opens:"Oct 19", title:"Hormones and Reproduction",
+ {n:6,  opens:"Oct 12", title:"Hormones, the autonomic system, and reproduction", comp:22,
   lab:{label:"Reading the Hormone Cycle", href:"lab-week08-hormone-cycle.html"},
   patient:""},
- {n:8,  opens:"Oct 26", title:"The Heart as a Pump",
+ {n:7,  opens:"Oct 19", title:"Midterm 1", comp:0, exam:1,
   lab:{label:"", href:""}, patient:""},
- {n:9,  opens:"Nov 2",  title:"Pressure, Flow, and Blood Pressure",
+ {n:8,  opens:"Oct 26", title:"The heart as a pump", comp:17,
   lab:{label:"", href:""}, patient:""},
- {n:10, opens:"Nov 9",  title:"Blood and Body Defense",
+ {n:9,  opens:"Nov 2",  title:"Pressure, flow, and holding blood pressure steady", comp:13,
+  lab:{label:"", href:""}, patient:""},
+ {n:10, opens:"Nov 9",  title:"Blood and how the body defends itself", comp:19,
   lab:{label:"CBC and PCR Pattern Lab", href:"cbc-pcr-lab.html"},
   patient:""},
- {n:11, opens:"Nov 16", title:"Digestion and Fuel",
+ {n:11, opens:"Nov 16", title:"Digestion, and how you use food for fuel", comp:23,
   lab:{label:"", href:""}, patient:""},
- {n:12, opens:"Nov 23", title:"Breathing and Gas Transport",
+ {n:12, opens:"Nov 23", title:"Breathing, gas transport, and the fast pH lever", comp:24,
   lab:{label:"Pulmonary Function Lab", href:"pulmonary-function-lab.html"},
   patient:""},
- {n:13, opens:"Nov 30", title:"The Kidney and Fluid Balance",
+ {n:13, opens:"Nov 30", title:"The kidney and body fluid balance", comp:21,
   lab:{label:"", href:""}, patient:""},
- {n:14, opens:"Dec 7",  title:"The Slow pH Lever",
+ {n:14, opens:"Dec 7",  title:"The slow pH lever, and putting it all together", comp:7,
   lab:{label:"", href:""}, patient:""},
- {n:15, opens:"Dec 14", title:"Catch Up and the Final",
-  lab:{label:"", href:""}, patient:"", final:true}
+ {n:15, opens:"Dec 14", title:"Midterm 2 and the final", comp:0, exam:2,
+  lab:{label:"", href:""}, patient:""}
 ];
 
 function pad(n){ return (n<10?"0":"") + n; }
 function lecturePage(w){ return w.videos ? w.videos.page : "lecture-week.html?week=" + w.n; }
+/* The old week-NN-notes.html pages follow the retired week map, so a week
+   only gets a written-notes button when a correct page is named above.
+   Add the filename to that week's notes field as each page is written. */
+function notesHref(w){ return w.notes || ""; }
+function videoCount(w){
+  if (!w.videos) return 0;
+  return w.videos.count + (w.videos.also ? w.videos.also.count : 0);
+}
 
 /* Step definitions. Each returns the Canvas title, the instruction,
    and the buttons. Keep the titles matching Canvas exactly. */
+var EXAM_SHORT = ["Overview","Review week","Take the exam","Upload your report"];
+
+function examData(w, s){
+  var N = w.n, name = w.exam === 1 ? "Midterm 1" : "Midterm 2 and the final";
+  var D = {
+    0:{ title:"Week " + N + " | Overview",
+        canvas:"Week " + N + " | " + name,
+        do:"No new physiology this week. This week is the exam, and the review that gets you ready for it. Read the exam instructions all the way through before you start anything.",
+        btns:[{label:"How the exam works", href:"how-grading-works.html", kind:"primary"},
+              {label:"Course schedule", href:"course-schedule.html", kind:"secondary"}] },
+    1:{ title:"Week " + N + ", Step 1 | Review week, go back over your note sheets",
+        do:"Pull out every note sheet since the last exam and work from the boxes you left thinnest. Draw each one again from memory before you look.",
+        btns:[{label:"Recall cards, all weeks so far", href:"mastery-physio-os-standalone.html", kind:"primary"},
+              {label:"Draw it from memory", href:"mastery-canvas.html", kind:"secondary"}] },
+    2:{ title:"Week " + N + ", Step 2 | Take the exam",
+        do:"You draw and you explain out loud. The reasoning carries most of the points, so show the mechanism even when you are unsure of the answer.",
+        btns:[{label:"Practice round first", href:"practice-exam.html", kind:"secondary"}],
+        turnin:"The exam itself is the Canvas quiz below, recorded through Canvas Studio." },
+    3:{ title:"Week " + N + ", Step 3 | Upload your report",
+        do:"Upload what the practice rounds gave you, so I can see where the class stands going into grading.",
+        btns:[{label:"Open the practice exam", href:"practice-exam.html", kind:"primary"}],
+        turnin:"Upload on the Canvas assignment page." }
+  };
+  var d = D[s];
+  if (!d) return null;
+  if (!d.canvas) d.canvas = d.title;
+  return d;
+}
+
 function stepData(w, s){
+  if (w.exam) return examData(w, s);
   var N = w.n, P = pad(N);
   var D = {
     0:{
@@ -323,21 +373,25 @@ function stepData(w, s){
     },
     1:{
       title:"Week " + N + ", Step 1 | Watch the intro, then print your week",
-      do:"Watch the short week intro on the week page, then print the two sheets you write on all week. Print them now. You cannot do Step 2 without them.",
+      do:"Watch the short week intro on the week page, then print your note sheet. The boxes on it are this week's competencies, so it is your list and your paper in one. Print it now. You cannot do Step 2 without it.",
       btns:[
-        {label:"Print the note sheet", href:"note-sheet.html?week=" + N, kind:"primary", tag:"print"},
-        {label:"Print the competency list", href:"week-" + P + "-competencies.html", kind:"primary", tag:"print"},
+        {label:"Print the Week " + N + " note sheet", href:"note-sheet.html?week=" + N, kind:"primary", tag:"print"}
+      ].concat(w.comps ? [{label:"Competencies with worked examples", href:w.comps, kind:"secondary"}] : []
+      ).concat([
         {label:"Week " + N + " intro", href:"week-" + P + ".html", kind:"secondary"}
-      ]
+      ])
     },
     2:{
       title:"Week " + N + ", Step 2 | First pass, in your first color",
       do:"Before any video. Fill in the note sheet from the reading, using the notes PDF for each concept and your Silverthorn chapter. Keep it sparse, mind maps, lists, sequences, flow charts. Leave space in every box.",
       btns: (w.videos
-        ? [{label:"Notes PDFs, all " + w.videos.count + " concepts", href:w.videos.page, kind:"primary", tag:"read"}]
+        ? [{label:"Notes PDFs, all " + videoCount(w) + " concepts", href:w.videos.page, kind:"primary", tag:"read"}]
         : []
+        ).concat(
+        notesHref(w)
+          ? [{label:"Week " + N + " written notes", href:notesHref(w), kind: w.videos ? "secondary" : "primary"}]
+          : []
         ).concat([
-        {label:"Week " + N + " written notes", href:"week-" + P + "-notes.html", kind: w.videos ? "secondary" : "primary"},
         {label:"Book problems for this week", href:"assignment-bookproblems.html?week=" + N, kind:"secondary"}
       ])
     },
@@ -345,10 +399,13 @@ function stepData(w, s){
       title:"Week " + N + ", Step 3 | Second pass, in your second color",
       do:"Now watch the lectures. Switch colors and add what the reading did not give you into the same boxes. Two colors, one sheet, so you can see which half came from where.",
       btns:[
-        {label: w.videos ? "Week " + N + " concept videos, all " + w.videos.count : "Week " + N + " lectures",
-         href: lecturePage(w), kind:"primary", tag: w.videos ? "watch" : ""},
-        {label:"Back to the written notes", href:"week-" + P + "-notes.html", kind:"secondary"}
-      ]
+        {label: w.videos ? "Concept videos, the cell and signaling, " + w.videos.count : "Week " + N + " lectures",
+         href: lecturePage(w), kind:"primary", tag: w.videos ? "watch" : ""}
+      ].concat(w.videos && w.videos.also
+          ? [{label:"Concept videos, " + w.videos.also.label + ", " + w.videos.also.count,
+              href:w.videos.also.page, kind:"primary", tag:"watch"}]
+          : []
+      ).concat(notesHref(w) ? [{label:"Back to the written notes", href:notesHref(w), kind:"secondary"}] : [])
     },
     4:{
       title:"Week " + N + ", Step 4 | Upload your note sheet",
@@ -429,6 +486,20 @@ var STEP_SHORT = [
   "Mastery Check"
 ];
 
+/* What is genuinely not built yet for a week. Keep this honest, it is
+   shown to students and it is the list you work down. */
+function gapsFor(w){
+  var out = [];
+  if (w.exam) return out;
+  if (!w.videos) out.push("Concept videos for this week are not recorded yet. Read the written material and the book for now.");
+  if (!w.notes)  out.push("The written notes page for this week is not up yet.");
+  if (!w.lab.href) out.push("This week's lab page is not built yet. The lab button goes to the lab door until it is.");
+  if (w.extraGaps) out = out.concat(w.extraGaps);
+  return out;
+}
+function lastStep(w){ return w.exam ? 3 : 9; }
+function shortFor(w, s){ return (w.exam ? EXAM_SHORT : STEP_SHORT)[s]; }
+
 function el(tag, cls, html){
   var e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -453,7 +524,7 @@ function renderStep(w, s){
   document.getElementById("pagetitle").textContent = heading;
   document.getElementById("lede").textContent = s===0
     ? "This week opens " + w.opens + ". Work down the steps in order."
-    : "Step " + s + " of 9.";
+    : "Step " + s + " of " + lastStep(w) + ".";
   document.title = d.title + " | BIOL 005";
 
   var card = el("section","card");
@@ -476,9 +547,9 @@ function renderStep(w, s){
   }
 
   var nav = el("div","stepnav");
-  if (s > 0) nav.appendChild(navLink("← Step " + (s-1) + ", " + STEP_SHORT[s-1], w.n, s-1));
+  if (s > 0) nav.appendChild(navLink("← Step " + (s-1) + ", " + shortFor(w, s-1), w.n, s-1));
   else nav.appendChild(el("span"));
-  if (s < 9) nav.appendChild(navLink("Step " + (s+1) + ", " + STEP_SHORT[s+1] + " →", w.n, s+1));
+  if (s < lastStep(w)) nav.appendChild(navLink("Step " + (s+1) + ", " + shortFor(w, s+1) + " →", w.n, s+1));
   card.appendChild(nav);
 
   main.appendChild(card);
@@ -502,6 +573,64 @@ function navLink(text, n, s){
   return a;
 }
 
+/* ---------------- one week, everything on one page ---------------- */
+function renderHub(w){
+  var main = document.getElementById("main");
+  document.getElementById("eyebrow").textContent = "Week " + w.n + " · opens " + w.opens;
+  document.getElementById("pagetitle").textContent = w.title;
+  document.getElementById("lede").textContent = w.exam
+    ? "No new physiology this week. Review, then the exam."
+    : w.comp + " competencies this week. Work down this page from the top. Each step has to happen before the next one makes sense.";
+  document.title = "Week " + w.n + ", " + w.title + " | BIOL 005";
+
+  var intro = el("section","card");
+  intro.appendChild(el("h2",null,"Everything for this week, in order"));
+  intro.appendChild(el("p","muted",
+    "This is the same list your Canvas module carries, gathered onto one page so you can see the whole week at once. " +
+    "Every link opens in a new tab, so this page stays where it is."));
+  main.appendChild(intro);
+
+  for (var s = 0; s <= lastStep(w); s++){
+    var d = stepData(w, s);
+    if (!d) continue;
+    var card = el("section","card hubstep");
+    var head = el("div","hubhead");
+    head.appendChild(el("span","hubnum", s === 0 ? "—" : String(s)));
+    var ht = el("div");
+    ht.appendChild(el("h2",null, esc(d.title.split("| ")[1] || d.title)));
+    ht.appendChild(el("p","muted", esc(d.do)));
+    head.appendChild(ht);
+    card.appendChild(head);
+
+    var row = el("div","btnrow");
+    for (var i=0;i<d.btns.length;i++){ row.appendChild(linkBtn(d.btns[i])); }
+    if (d.btns.length) card.appendChild(row);
+    if (d.turnin) card.appendChild(el("p","turnin", esc(d.turnin)));
+    main.appendChild(card);
+  }
+
+  var gaps = gapsFor(w);
+  if (gaps.length){
+    var g = el("section","card");
+    g.appendChild(el("h2",null,"Still being built"));
+    g.appendChild(el("p","muted","Honest list of what is not up yet for this week. Everything else above works."));
+    var gu = el("ul");
+    for (var q=0;q<gaps.length;q++){ gu.appendChild(el("li", null, esc(gaps[q]))); }
+    g.appendChild(gu);
+    main.appendChild(g);
+  }
+
+  var end = el("section","card");
+  end.appendChild(el("h2",null,"Where to hand things in"));
+  end.appendChild(el("p",null,"Every submit button lives in Canvas, on the page for that step. This page is where you find the work. Canvas is where you turn it in."));
+  var back = el("div","btnrow");
+  var a = el("a","btn");
+  a.href = CANVAS; a.target = "_top"; a.textContent = "Back to Canvas";
+  back.appendChild(a);
+  end.appendChild(back);
+  main.appendChild(end);
+}
+
 /* ---------------- map view ---------------- */
 function renderMap(){
   var main = document.getElementById("main");
@@ -513,7 +642,7 @@ function renderMap(){
   var ul = el("ul","steplist");
   var where = [
     "week-NN.html",
-    "note-sheet.html?week=N and week-NN-competencies.html",
+    "note-sheet.html?week=N, the boxes are the competencies",
     "week-NN-notes.html",
     "lecture-week.html?week=N",
     "assignment-notesheet.html?week=N, then the Canvas Submit button",
@@ -569,23 +698,25 @@ function renderMap(){
     th.innerHTML = '<span class="wk">Week ' + w.n + " · opens " + esc(w.opens) + "</span>" +
                    esc(w.title) + (isCurrent(w, today) ? '<span class="rowtag">you are here</span>' : "") +
                    '<span class="wk vid">' +
-                   (w.videos ? w.videos.count + " concept videos, recorded" : "No videos yet") +
+                   (w.exam ? "No new content"
+                     : w.comp + " competencies · " +
+                       (w.videos ? videoCount(w) + " concept videos, recorded" : "no videos yet")) +
                    "</span>";
     tr.appendChild(th);
     for (var s2=0;s2<=9;s2++){
       var td = el("td","cell");
+      if (s2 > lastStep(w)){ tr.appendChild(td); continue; }
       var a = el("a");
       a.href = "?week=" + w.n + "&step=" + s2;
-      a.target = "_top";
       a.textContent = s2===0 ? "—" : String(s2);
-      a.setAttribute("aria-label","Week " + w.n + ", " + STEP_SHORT[s2]);
-      if ((s2===6 && !w.lab.href) || (w.light && (s2===6 || s2===7))) a.className = "todo";
+      a.setAttribute("aria-label","Week " + w.n + ", " + shortFor(w, s2));
+      if (s2===6 && !w.exam && !w.lab.href) a.className = "todo";
       td.appendChild(a);
       tr.appendChild(td);
     }
     var labcell = el("td");
-    labcell.innerHTML = w.light
-      ? '<span class="muted">Lab starts in Week 3</span>'
+    labcell.innerHTML = w.exam
+      ? '<span class="muted">Exam week, no lab</span>'
       : (w.lab.label ? esc(w.lab.label) : '<span class="muted">Not built yet</span>');
     tr.appendChild(labcell);
     tbody.appendChild(tr);
@@ -635,11 +766,11 @@ function renderMap(){
     var w = weekByN(parseInt(sel.value,10));
     titleList.innerHTML = "";
     var lines = [], frames = [];
-    for (var s=0;s<=9;s++){
+    for (var s=0;s<=lastStep(w);s++){
       var d = stepData(w, s);
       var t2 = s===0 ? d.canvas : d.title;
       lines.push(t2);
-      frames.push(iframeFor(w.n, s));
+      frames.push(iframeFor(w, s));
       var li = el("li");
       li.appendChild(el("span","t", esc(t2)));
       var cb = el("button","copy","Copy");
@@ -657,9 +788,9 @@ function renderMap(){
   fillTitles();
 }
 
-function iframeFor(n, s){
-  return '<iframe src="' + SITE + 'canvas-steps.html?week=' + n + '&step=' + s +
-         '" title="Week ' + n + ', ' + STEP_SHORT[s] + '" width="100%" height="560" ' +
+function iframeFor(w, s){
+  return '<iframe src="' + SITE + 'canvas-steps.html?week=' + w.n + '&step=' + s +
+         '" title="Week ' + w.n + ', ' + shortFor(w, s) + '" width="100%" height="560" ' +
          'style="border:0;max-width:100%" loading="lazy"></iframe>';
 }
 function copy(text, msg){
@@ -684,6 +815,7 @@ function isCurrent(w, today){
   var sn = parseInt(p.get("step"),10);
   var w = weekByN(wn);
   if (w && !isNaN(sn) && sn >= 0 && sn <= 9){ renderStep(w, sn); }
+  else if (w){ renderHub(w); }
   else { renderMap(); }
 })();
 
