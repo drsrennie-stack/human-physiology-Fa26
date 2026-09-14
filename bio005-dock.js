@@ -491,7 +491,7 @@
              url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra', ext: true,
              kw: 'office hours ask question help contact instructor forum' });
     t.push({ g: 'About the course', name: 'Canvas', sub: 'Turn work in, see grades',
-             url: 'https://yccd.instructure.com/courses/42616', icon: 'globe', tone: 'navy', qr: 'canvas', ext: true,
+             url: 'https://yccd.instructure.com/courses/42616/modules', icon: 'globe', tone: 'navy', qr: 'canvas', ext: true,
              kw: 'canvas grades submit turn in lms' });
 
     return t;

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIO 005 Human Physiology | Week 2 Concept Videos</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<meta name="description" content="Week 2 concept videos: the cell, its organelles, and cell signaling. Plays straight through, or jump to any concept.">
+<style>
+:root{
+  --navy:#0B1530;
+  --navy-72:#4A5265;
+  --navy-15:rgba(11,21,48,.15);
+  --navy-08:rgba(11,21,48,.08);
+  --navy-tint:#ECEFF4;
+  --terra:#8B3A2E;
+  --terra-dark:#6E2D24;
+  --white:#FFFFFF;
+  --page:#FFFFFF;
+  --offwhite:#FAFAF9;
+  --r-card:8px;
+  --r-btn:4px;
+  --display:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--navy);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  font-variant-numeric:lining-nums;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0}
+a{color:var(--terra)}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--terra);
+  outline-offset:2px;
+  border-radius:2px;
+}
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:60;
+  background:var(--navy);color:#fff;padding:10px 16px;border-radius:var(--r-btn);
+  font-weight:700;text-decoration:none;
+}
+.skip:focus{left:12px;top:12px}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Brand bar */
+.brandbar{background:var(--white);padding:14px max(20px,4vw)}
+.brandbar .wrap{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.mark{flex:none}
+.coursemeta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.coursemeta .code{
+  font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--terra)
+}
+.coursemeta .name{font-weight:600;font-size:14px;color:var(--navy-72)}
+
+/* Header band */
+.masthead{background:var(--terra);color:#fff;padding:34px max(20px,4vw) 32px}
+.masthead .wrap{max-width:1180px;margin:0 auto}
+.eyebrow{
+  font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.3em;
+  text-transform:uppercase;color:#fff;opacity:.92;margin:0 0 10px
+}
+.masthead h1{font-size:clamp(26px,4.2vw,40px);font-weight:800;color:#fff;letter-spacing:-.01em}
+.masthead p{margin:12px 0 0;max-width:64ch;color:#fff;font-size:16px}
+.masthead .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;color:var(--navy);border:0;border-radius:99px;
+  padding:8px 15px;font-family:var(--body);font-weight:700;font-size:13px;
+  cursor:pointer
+}
+.chip:hover{background:var(--navy-tint)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--terra);flex:none}
+.chip[aria-pressed="true"] .dot{background:#fff}
+
+/* Layout */
+main{max-width:1180px;margin:0 auto;padding:30px max(20px,4vw) 10px}
+.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);gap:28px;align-items:start}
+@media (max-width:940px){.grid{grid-template-columns:1fr}}
+
+/* Player */
+.stage{position:sticky;top:16px}
+@media (max-width:940px){.stage{position:static}}
+.frame{
+  position:relative;width:100%;aspect-ratio:16/9;background:var(--navy);
+  border-radius:var(--r-card);overflow:hidden
+}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.nowcard{
+  margin-top:16px;background:var(--white);border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:22px 22px 20px
+}
+.nowlabel{
+  font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--terra);margin:0 0 8px
+}
+.nowcard h2{font-size:clamp(19px,2.4vw,24px);font-weight:800}
+.nowcard .blurb{margin:10px 0 0;color:var(--navy-72);max-width:62ch}
+.nowmeta{margin:14px 0 0;font-size:13px;color:var(--navy-72);font-weight:600}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--body);font-weight:700;font-size:14px;
+  border-radius:var(--r-btn);padding:10px 16px;cursor:pointer;
+  border:.5px solid var(--navy-15);background:var(--white);color:var(--navy);
+  text-decoration:none;line-height:1.2
+}
+.btn:hover{background:var(--navy-tint)}
+.btn-primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn-primary:hover{background:#060A18}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn[disabled]:hover{background:var(--white)}
+.toggle{
+  display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:14px;
+  border:.5px solid var(--navy-15);border-radius:var(--r-btn);padding:9px 14px;background:var(--white);
+  cursor:pointer
+}
+.toggle input{width:17px;height:17px;accent-color:var(--terra);margin:0;cursor:pointer}
+.upnext{
+  margin-top:14px;font-size:14px;color:var(--navy-72);
+  border-top:.5px solid var(--navy-15);padding-top:14px
+}
+.upnext strong{color:var(--navy)}
+
+/* Index */
+.index h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.index .sub{margin:0 0 16px;font-size:14px;color:var(--navy-72)}
+.progressline{
+  display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:13px;
+  font-weight:700;color:var(--navy-72)
+}
+.bar{flex:1;height:6px;background:var(--navy-tint);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--terra);width:0%;transition:width 200ms ease}
+
+.section{margin:0 0 22px}
+.section h3{
+  font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);margin:0 0 10px
+}
+ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.item{
+  width:100%;text-align:left;display:grid;grid-template-columns:30px 1fr auto;gap:12px;
+  align-items:center;background:var(--white);border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 14px;cursor:pointer;font-family:var(--body);
+  color:var(--navy);transition:background 160ms ease,border-color 160ms ease
+}
+.item:hover{background:var(--offwhite)}
+.item .num{
+  font-family:var(--display);font-weight:800;font-size:13px;color:var(--navy-72);
+  text-align:center
+}
+.item .label{font-weight:600;font-size:14.5px;line-height:1.35}
+.item .state{font-size:12px;font-weight:700;color:var(--navy-72);white-space:nowrap}
+.item[aria-current="true"]{border:1.5px solid var(--terra);background:var(--white)}
+.item[aria-current="true"] .num,.item[aria-current="true"] .state{color:var(--terra)}
+.item[data-watched="true"]{border-color:var(--navy);background:var(--navy-tint)}
+.item[data-watched="true"] .num,.item[data-watched="true"] .state{color:var(--navy)}
+.item[data-watched="true"][aria-current="true"]{border-color:var(--terra)}
+.check{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:5px}
+
+.extras{
+  margin-top:8px;background:var(--white);border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:18px 18px 16px
+}
+.extras h3{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.extras p{margin:0 0 12px;font-size:14px;color:var(--navy-72)}
+
+footer{background:var(--navy);color:#fff;margin-top:44px;padding:30px max(20px,4vw)}
+footer .wrap{max-width:1180px;margin:0 auto}
+footer .who{font-family:var(--display);font-weight:800;font-size:15px}
+footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .stage,.chiprow,.controls,.skip{display:none}
+  body{color:#000}
+  .masthead{background:#fff;color:#000}
+  .masthead h1,.masthead p,.eyebrow{color:#000}
+  .item{border:1px solid #000;background:#fff}
+  footer{background:#fff;color:#000}
+  footer .role{color:#000}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#index">Skip to the concept list</a>
+
+<div class="brandbar">
+  <div class="wrap">
+    <svg class="mark" width="34" height="34" viewBox="0 0 34 34" role="img" aria-label="Course mark">
+      <circle cx="8" cy="8" r="4.2" fill="#0B1530"></circle>
+      <circle cx="17" cy="8" r="4.2" fill="#8B3A2E"></circle>
+      <circle cx="26" cy="8" r="4.2" fill="#C9A14A"></circle>
+      <rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"></rect>
+      <rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"></rect>
+      <rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"></rect>
+    </svg>
+    <div class="coursemeta">
+      <span class="code">BIO 005</span>
+      <span class="name">Human Physiology</span>
+    </div>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Week 2 &middot; The cell, and how cells talk</p>
+    <h1>Concept Videos</h1>
+    <p>Press play once and the whole week runs start to finish, one concept into the next. If you only need one idea, click it in the list and it starts there. Every concept has its slide deck and its notes PDF beside it.</p>
+    <div class="chiprow">
+      <button type="button" class="chip" id="playAll"><span class="dot" aria-hidden="true"></span>Play the whole week</button>
+      <button type="button" class="chip" id="resume"><span class="dot" aria-hidden="true"></span>Pick up where I left off</button>
+      <button type="button" class="chip" id="clearProgress"><span class="dot" aria-hidden="true"></span>Clear my checkmarks</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+
+    <section class="stage" aria-labelledby="nowHeading">
+      <div class="frame">
+        <div id="player"></div>
+      </div>
+
+      <div class="nowcard">
+        <p class="nowlabel">Now playing</p>
+        <h2 id="nowHeading">Loading the first video</h2>
+        <p class="blurb" id="nowBlurb">The player is starting up.</p>
+        <p class="nowmeta" id="nowMeta">Concept 1 of 25</p>
+
+        <div class="controls">
+          <button type="button" class="btn" id="prevBtn">
+            <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Previous
+          </button>
+          <button type="button" class="btn btn-primary" id="nextBtn">
+            Next concept
+            <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <a class="btn" id="notesBtn" href="#" target="_blank" rel="noopener">
+            <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h6.5L13 5v9.5H3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.3 1.7V5H12.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            Notes PDF for this concept
+          </a>
+          <a class="btn" id="slidesBtn" href="#" target="_top">
+            <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.6" y="2.4" width="12.8" height="9" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 11.4v2.4M5.4 13.8h5.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Slides for this concept
+          </a>
+          <label class="toggle" for="autoplayNext">
+            <input type="checkbox" id="autoplayNext" checked>
+            Keep playing automatically
+          </label>
+        </div>
+
+        <p class="upnext" id="upNext">Up next: <strong>Cell Permeability</strong></p>
+      </div>
+
+      <div class="vh" role="status" aria-live="polite" id="liveRegion"></div>
+    </section>
+
+    <section class="index" id="index" aria-labelledby="indexHeading">
+      <h2 id="indexHeading">All 25 concepts</h2>
+      <p class="sub">Click any concept to jump straight to it. Watched concepts stay marked on this device.</p>
+
+      <div class="progressline">
+        <span id="progressText">0 of 25 watched</span>
+        <span class="bar" aria-hidden="true"><span id="progressFill"></span></span>
+      </div>
+
+      <div id="sections"></div>
+
+      <div class="extras"><h3>Also for this week</h3><p>Print the note sheet before you start and work it in your first color from the reading, then add what these videos give you in your second color.</p><a class="btn" href="note-sheet.html?week=2" target="_top">Print the Week 2 note sheet</a> <a class="btn" href="week-02-competencies.html" target="_top">Week 2 competencies</a></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="who">Dr. Sharilyn Rennie</p>
+    <p class="role">BIO 005 Human Physiology</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Concept data ---------- */
+var CONCEPTS = [
+ {s:"The cell", t:"The General Structure of a Cell", v:"4ssiY4t4g4I", d:"1SOvpEEzOWTMHa8iI8J9tll7lPMvy0NXe",
+  b:"A cell is a membrane around a fluid, with a nucleus and a set of working parts suspended in it. Every cell in the body starts from this same plan.", f:"slides-P-C01.html"},
+ {s:"The cell", t:"Cell Permeability", v:"5pwqpAnBVJw", d:"1v5lxaC10lvp0rQfl4WV-1RRhtEUsYm1u",
+  b:"The membrane lets some things through and stops others. That selectivity is the whole reason a cell can keep its inside different from its outside.", f:"slides-P-C02.html"},
+ {s:"The cell", t:"The Nucleus, an Overview", v:"fwIFm-0Jdsg", d:"1Hp1c177-ArtbCkHfrEXf5cgxofUM01PB",
+  b:"The nucleus holds the instructions and keeps them behind a double membrane, so the message can be checked before it is used.", f:"slides-P-C03.html"},
+ {s:"The cell", t:"Cytoplasm Versus Cytosol", v:"L5P4Cqr3yjA", d:"1eGrdAVdq2mMEDZhgr6Uj-1BAh2g75Q_p",
+  b:"Cytoplasm is everything inside the membrane except the nucleus. Cytosol is just the fluid part of it. The words are not interchangeable.", f:"slides-P-C04.html"},
+ {s:"The membrane", t:"The Plasma Membrane", v:"q5dzTAhKx7Y", d:"1bGyswYsFvo5Ui1Ct5gdbhcvQur9VHjXL",
+  b:"A double layer of phospholipids with proteins floating in it, about 8 nanometers thick, and the wall between the intracellular and extracellular fluid.", f:"slides-P-C05.html"},
+ {s:"The membrane", t:"The Glycocalyx", v:"Ul1RsX9tOwU", d:"1OAaESPZJP2WgYYTeLT8Y5raDOE7Daj8T",
+  b:"The sugar coat on the outside of the cell. It protects the surface and it is the label other cells read, including your blood type.", f:"slides-P-C06.html"},
+ {s:"The membrane", t:"The Fluid Mosaic Model", v:"KRkAUbOLN5U", d:"1CX-wk0ceMOfMQN4BHJQN0EBLU7qgXHQd",
+  b:"A fluid sheet of lipid with proteins drifting in it like tiles in a mosaic. Cholesterol keeps it fluid over a range of temperatures.", f:"slides-P-C07.html"},
+ {s:"The nucleus", t:"Structures of the Nucleus", v:"nwWIDMJ7Las", d:"1tzwSg0dO4CyGoR2B8FOPmQmAMlcbi6XA",
+  b:"The nuclear envelope, its pores, chromatin, and the nucleolus where ribosomes are assembled.", f:"slides-P-C08.html"},
+ {s:"Organelles", t:"Membranous and Nonmembranous Organelles", v:"dCi_iMijvpo", d:"1duar0K-d5FTF27wgCxzqv7y2F0DD6ejl",
+  b:"Some organelles are wrapped in their own membrane and are compartments inside the cell. Others, like ribosomes, sit loose in the cytosol.", f:"slides-P-C09.html"},
+ {s:"Organelles", t:"Ribosomes", v:"JH7KLl8IupU", d:"1xvLBi1hXmNGqXi9-ELBO9QYCp_leeEcn",
+  b:"RNA plus protein, and the place every protein is built. Free ribosomes build for the cytosol; fixed ribosomes on the rough ER build for export.", f:"slides-P-C10.html"},
+ {s:"Organelles", t:"The Endoplasmic Reticulum", v:"aqTNmAcG4Ck", d:"1BEFb-NGBzTliwUab6BmKmsAaEJUfiVwH",
+  b:"Rough ER with ribosomes builds proteins for export and for membranes. Smooth ER makes lipids, stores calcium in muscle and detoxifies in the liver.", f:"slides-P-C11.html"},
+ {s:"Organelles", t:"The Golgi Apparatus", v:"9XKMxyflrHQ", d:"1YVfCGeIZGquvomRLg2gFastJK8RGznzv",
+  b:"The packing room. Proteins from the rough ER are modified, sorted, and sent out in vesicles addressed to the right place.", f:"slides-P-C12.html"},
+ {s:"Organelles", t:"Lysosomes", v:"KgO1qpPXs8M", d:"1dOtkWE7nL5dduEHmzN27zhEsIuKrFBiP",
+  b:"Acid filled sacs of digestive enzymes, the cell's digestive system. The acid stays behind the wall until it is needed.", f:"slides-P-C13.html"},
+ {s:"Organelles", t:"Peroxisomes", v:"EjZDI5LPKyU", d:"1Kyb5UT2dCJKRjAhwJXJCf65JBcA2iLE_",
+  b:"Small sacs that break down long fatty acids and toxins, making hydrogen peroxide as they work and destroying it in the same compartment.", f:"slides-P-C14.html"},
+ {s:"Organelles", t:"Mitochondria", v:"JH8Iaw4GHI0", d:"1NCDAZxd4WH0Bd7V1RppVOwcZU7EXXkig",
+  b:"Two membranes, the inner one folded into cristae, and the place most of the cell's ATP is made. Cells that do more work carry more of them.", f:"slides-P-C15.html"},
+ {s:"Organelles", t:"The Cytoskeleton", v:"rt0_aoakdMc", d:"1tiM1QWQpHq3DnyPTRYzk8Xl2-Jsb5InI",
+  b:"Three sizes of protein fiber that give the cell its shape, move things around inside it, and let it move.", f:"slides-P-C16.html"},
+ {s:"Organelles", t:"Centrioles and the Centrosome", v:"ltnIhBsUEPs", d:"11tP4Dw5A7LhHNIVx1TBY8zqzZCOJ7hmA",
+  b:"The centrosome organizes the microtubules. Its two centrioles direct the spindle in cell division and seed the base of every cilium.", f:"slides-P-C17.html"},
+ {s:"Organelles", t:"Cilia and Flagella", v:"1ShCZVPT1MI", d:"1jCpGf8Sv4ez9QhP2mosV_2o-w9kSOhLw",
+  b:"Nine pairs of microtubules around a central pair, driven by dynein. Cilia move fluid past the cell; a flagellum moves the cell through fluid.", f:"slides-P-C18.html"},
+ {s:"Cell signaling", t:"Cell Signaling, an Overview", v:"WzbpVxYYSmc", d:"17QLfzIhAmDZEMQjeAQhBNjmdTqFviJ9z",
+  b:"How one cell tells another what to do: a signal molecule, a receptor that fits it, and a response inside the target cell.", f:"slides-P-S01.html"},
+ {s:"Cell signaling", t:"Features of a Signal Pathway", v:"gaPP9q-vGVU", d:"1OpKC_u0_HMJMW-LoWgj5li_QNuqmiMIf",
+  b:"Every pathway has the same parts: signal, receptor, transduction, response, and a way to switch it off again.", f:"slides-P-S02.html"},
+ {s:"Cell signaling", t:"Signaling by Lipophilic Molecules", v:"eLlVn4f5xPA", d:"1EnYtpeySCb8fM-2DoHQqKd39xwYjJUnX",
+  b:"A fat soluble signal, like a steroid hormone, passes straight through the membrane and binds a receptor inside the cell, usually changing which genes are read.", f:"slides-P-S03.html"},
+ {s:"Cell signaling", t:"Signaling by Lipophobic Molecules", v:"gZZXdTDXmys", d:"1XbnxZq01xRr1Bo7nsPQa7dkHTfdekjje",
+  b:"A water soluble signal cannot cross the membrane, so it binds a receptor on the surface and the message is passed inward by a second messenger.", f:"slides-P-S04.html"},
+ {s:"Cell signaling", t:"Signal Transduction and Second Messengers", v:"Oy97UxTD__4", d:"1sexdH2QOUxy45wWXAwIBVFKOC-CQ1xaZ",
+  b:"How a signal on the outside of the membrane becomes a change on the inside, and why the message gets louder on the way in.", f:"slides-P-S05.html"},
+ {s:"Cell signaling", t:"Second Messenger Systems in Detail", v:"xrvm0rA0UvE", d:"1BS8v9cxeQbQM8XqvAUnjebevVQ3K1-jC",
+  b:"The G protein, adenylyl cyclase and cyclic AMP pathway step by step, and what a protein kinase does once it is switched on.", f:"slides-P-S06.html"},
+ {s:"Cell signaling", t:"A Worked Example: Epinephrine", v:"ugr3BZ3UASQ", d:"12V9XAfJXDUiDpqDWHrFhEtUCTjPanahQ",
+  b:"Epinephrine at a liver cell, from the receptor on the surface to glucose leaving the cell, one step at a time.", f:"slides-P-S07.html"}
+];
+
+var STORE_KEY = "bio005-w3-video-progress";
+var AUTOPLAY_KEY = "bio005-w3-video-autoplay";
+var LAST_KEY = "bio005-w3-video-last";
+
+/* ---------- State ---------- */
+var current = 0;
+var player = null;
+var apiReady = false;
+var pendingPlay = false;
+var watched = readWatched();
+
+function readWatched(){
+  try{
+    var raw = window.localStorage.getItem(STORE_KEY);
+    if(!raw) return {};
+    var parsed = JSON.parse(raw);
+    return (parsed && typeof parsed === "object") ? parsed : {};
+  }catch(e){ return {}; }
+}
+function saveWatched(){
+  try{ window.localStorage.setItem(STORE_KEY, JSON.stringify(watched)); }catch(e){}
+}
+function readAutoplay(){
+  try{
+    var v = window.localStorage.getItem(AUTOPLAY_KEY);
+    return v === null ? true : v === "1";
+  }catch(e){ return true; }
+}
+function saveAutoplay(on){
+  try{ window.localStorage.setItem(AUTOPLAY_KEY, on ? "1" : "0"); }catch(e){}
+}
+function readLast(){
+  try{
+    var v = parseInt(window.localStorage.getItem(LAST_KEY), 10);
+    return (isNaN(v) || v < 0 || v >= CONCEPTS.length) ? 0 : v;
+  }catch(e){ return 0; }
+}
+function saveLast(i){
+  try{ window.localStorage.setItem(LAST_KEY, String(i)); }catch(e){}
+}
+
+/* ---------- Build the index ---------- */
+var CHECK_SVG = '<svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.6l3.6 3.6L13.5 4.8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function buildIndex(){
+  var host = document.getElementById("sections");
+  var frag = document.createDocumentFragment();
+  var seen = [];
+  CONCEPTS.forEach(function(c){ if(seen.indexOf(c.s) === -1) seen.push(c.s); });
+
+  seen.forEach(function(sectionName){
+    var wrap = document.createElement("div");
+    wrap.className = "section";
+
+    var h3 = document.createElement("h3");
+    h3.textContent = sectionName;
+    wrap.appendChild(h3);
+
+    var ol = document.createElement("ol");
+    ol.className = "list";
+
+    CONCEPTS.forEach(function(c, i){
+      if(c.s !== sectionName) return;
+      var li = document.createElement("li");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "item";
+      btn.id = "item-" + i;
+      btn.setAttribute("data-i", String(i));
+      btn.innerHTML =
+        '<span class="num" aria-hidden="true">' + (i + 1) + '</span>' +
+        '<span class="label">' + c.t + '</span>' +
+        '<span class="state" data-state></span>';
+      btn.addEventListener("click", function(){ go(i, true); });
+      li.appendChild(btn);
+      ol.appendChild(li);
+    });
+
+    wrap.appendChild(ol);
+    frag.appendChild(wrap);
+  });
+
+  host.appendChild(frag);
+}
+
+function paintIndex(){
+  var done = 0;
+  CONCEPTS.forEach(function(c, i){
+    var btn = document.getElementById("item-" + i);
+    if(!btn) return;
+    var isWatched = !!watched[c.v];
+    if(isWatched) done++;
+    btn.setAttribute("data-watched", isWatched ? "true" : "false");
+    if(i === current){ btn.setAttribute("aria-current","true"); }
+    else { btn.removeAttribute("aria-current"); }
+
+    var state = btn.querySelector("[data-state]");
+    var bits = [];
+    if(i === current) bits.push("Playing now");
+    if(isWatched) bits.push(CHECK_SVG + "Watched");
+    state.innerHTML = bits.join(" ");
+  });
+
+  var pct = Math.round((done / CONCEPTS.length) * 100);
+  document.getElementById("progressText").textContent = done + " of " + CONCEPTS.length + " watched";
+  document.getElementById("progressFill").style.width = pct + "%";
+}
+
+/* ---------- Player ---------- */
+function paintNow(){
+  var c = CONCEPTS[current];
+  document.getElementById("nowHeading").textContent = c.t;
+  document.getElementById("nowBlurb").textContent = c.b;
+  document.getElementById("nowMeta").textContent = "Concept " + (current + 1) + " of " + CONCEPTS.length + " · " + c.s;
+  document.getElementById("notesBtn").href = "https://drive.google.com/file/d/" + c.d + "/view?usp=sharing";
+  document.getElementById("notesBtn").setAttribute("aria-label", "Open the notes PDF for " + c.t + ", opens in a new tab");
+  document.getElementById("slidesBtn").href = c.f;
+  document.getElementById("slidesBtn").setAttribute("aria-label", "Open the slide deck for " + c.t);
+
+  document.getElementById("prevBtn").disabled = (current === 0);
+  document.getElementById("nextBtn").disabled = (current === CONCEPTS.length - 1);
+
+  var up = document.getElementById("upNext");
+  if(current < CONCEPTS.length - 1){
+    up.innerHTML = "Up next: <strong></strong>";
+    up.querySelector("strong").textContent = CONCEPTS[current + 1].t;
+  } else {
+    up.textContent = "That is the last concept for Week 2.";
+  }
+
+  document.getElementById("liveRegion").textContent =
+    "Now playing concept " + (current + 1) + " of " + CONCEPTS.length + ", " + c.t + ".";
+}
+
+function go(i, autoplay){
+  if(i < 0 || i >= CONCEPTS.length) return;
+  current = i;
+  saveLast(i);
+  paintNow();
+  paintIndex();
+
+  if(apiReady && player && player.loadVideoById){
+    if(autoplay){ player.loadVideoById(CONCEPTS[i].v); }
+    else { player.cueVideoById(CONCEPTS[i].v); }
+  } else {
+    pendingPlay = !!autoplay;
+  }
+}
+
+function markWatched(){
+  watched[CONCEPTS[current].v] = true;
+  saveWatched();
+  paintIndex();
+}
+
+function onEnded(){
+  markWatched();
+  if(document.getElementById("autoplayNext").checked && current < CONCEPTS.length - 1){
+    go(current + 1, true);
+  } else if(current === CONCEPTS.length - 1){
+    document.getElementById("liveRegion").textContent = "You finished the last Week 2 concept video.";
+  }
+}
+
+window.onYouTubeIframeAPIReady = function(){
+  player = new YT.Player("player", {
+    videoId: CONCEPTS[current].v,
+    playerVars: {
+      rel: 0,
+      modestbranding: 1,
+      playsinline: 1,
+      cc_load_policy: 1,
+      enablejsapi: 1,
+      origin: window.location.origin
+    },
+    events: {
+      onReady: function(){
+        apiReady = true;
+        if(pendingPlay){ player.playVideo(); pendingPlay = false; }
+      },
+      onStateChange: function(e){
+        if(e.data === YT.PlayerState.ENDED) onEnded();
+      }
+    }
+  });
+};
+
+/* ---------- Wire up ---------- */
+document.addEventListener("DOMContentLoaded", function(){
+  buildIndex();
+
+  var auto = document.getElementById("autoplayNext");
+  auto.checked = readAutoplay();
+  auto.addEventListener("change", function(){ saveAutoplay(auto.checked); });
+
+  /* DEEP LINK FROM THE WEEKLY PAGE.
+     The weekly page sends a student to a specific concept, or to the first
+     concept in a group, rather than dropping them at whatever they watched
+     last. ?c=<1 based number> picks one concept. ?g=<group slug> picks the
+     first concept in that group. Neither is present when a student opens the
+     page on its own, and then the resume behavior is unchanged. */
+  function slug(x){ return String(x).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  var q = location.search, want = null;
+  var mc = /[?&]c=(\d{1,3})/.exec(q);
+  if (mc) {
+    var n = parseInt(mc[1], 10) - 1;
+    if (n >= 0 && n < CONCEPTS.length) want = n;
+  }
+  if (want === null) {
+    var mg = /[?&]g=([a-z0-9-]+)/i.exec(q);
+    if (mg) {
+      for (var gi = 0; gi < CONCEPTS.length; gi++) {
+        if (slug(CONCEPTS[gi].s) === mg[1].toLowerCase()) { want = gi; break; }
+      }
+    }
+  }
+  current = (want === null) ? readLast() : want;
+  paintNow();
+  paintIndex();
+
+  document.getElementById("prevBtn").addEventListener("click", function(){ go(current - 1, true); });
+  document.getElementById("nextBtn").addEventListener("click", function(){ markWatched(); go(current + 1, true); });
+
+  document.getElementById("playAll").addEventListener("click", function(){ go(0, true); });
+
+  document.getElementById("resume").addEventListener("click", function(){
+    var firstUnwatched = 0;
+    for(var i = 0; i < CONCEPTS.length; i++){
+      if(!watched[CONCEPTS[i].v]){ firstUnwatched = i; break; }
+      firstUnwatched = i;
+    }
+    go(firstUnwatched, true);
+  });
+
+  document.getElementById("clearProgress").addEventListener("click", function(){
+    watched = {};
+    saveWatched();
+    paintIndex();
+    document.getElementById("liveRegion").textContent = "Your watched checkmarks were cleared.";
+  });
+
+  var tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+});
+</script>
+
+<script>
+/* Iframe height sender for Kajabi embedding */
+(function(){
+  var FRAME_ID = "bio005-w3-concept-videos";
+  function sendHeight(){
+    var h = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight
+    );
+    try{
+      window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*");
+    }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){
+    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
+  }
+  setTimeout(sendHeight, 400);
+  setTimeout(sendHeight, 1500);
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>

@@ -47,7 +47,7 @@
   if (window.__bio005NavLoaded) return;
   window.__bio005NavLoaded = true;
 
-  var CANVAS_HOME = 'https://yccd.instructure.com/courses/42616';
+  var CANVAS_HOME = 'https://yccd.instructure.com/courses/42616/modules';
   var VIRTUAL_OFFICE = 'https://yccd.instructure.com/courses/42616/discussion_topics/711800';
 
   /* ---------------------------------------------------------
@@ -420,20 +420,20 @@
 
   var WEEKS = [
     [1, '2026-09-08', '2026-09-13', 'How physiology works and what keeps you steady', 1],
-    [2, '2026-09-14', '2026-09-20', 'The chemistry that does work in the body', 1],
-    [3, '2026-09-21', '2026-09-27', 'Getting across the membrane', 1],
-    [4, '2026-09-28', '2026-10-04', 'How cells talk, and the electrical signal', 2],
-    [5, '2026-10-05', '2026-10-11', 'Synapses and central integration', 2],
-    [6, '2026-10-12', '2026-10-18', 'Sensing the world, and the responses you do not control', 2],
-    [7, '2026-10-19', '2026-10-25', 'Muscle, and how movement gets commanded', 2],
-    [8, '2026-10-26', '2026-11-01', 'Hormones and reproduction, the slow control system', 2],
-    [9, '2026-11-02', '2026-11-08', 'The heart as a pump', 3],
-    [10, '2026-11-09', '2026-11-15', 'Pressure, flow, and holding blood pressure steady', 3],
-    [11, '2026-11-16', '2026-11-22', 'Blood and how the body defends itself', 3],
-    [12, '2026-11-23', '2026-11-29', 'Digestion, and how you use food for fuel', 3],
-    [13, '2026-11-30', '2026-12-06', 'Breathing, gas transport, and the fast pH lever', 3],
-    [14, '2026-12-07', '2026-12-13', 'The kidney and body fluid balance', 3],
-    [15, '2026-12-14', '2026-12-16', 'The slow pH lever, and putting it all together', 3]
+    [2, '2026-09-14', '2026-09-20', 'The cell, and how cells talk', 1],
+    [3, '2026-09-21', '2026-09-27', 'Getting across the membrane, and the electrical signal', 1],
+    [4, '2026-09-28', '2026-10-04', 'Neurons, action potentials and synapses', 2],
+    [5, '2026-10-05', '2026-10-11', 'Reflexes, and sensing the world', 2],
+    [6, '2026-10-12', '2026-10-18', 'Muscle, and how movement gets commanded', 2],
+    [7, '2026-10-19', '2026-10-25', 'Hormones, the autonomic system, and reproduction', 2],
+    [8, '2026-10-26', '2026-11-01', 'The heart as a pump', 2],
+    [9, '2026-11-02', '2026-11-08', 'Pressure, flow, and holding blood pressure steady', 3],
+    [10, '2026-11-09', '2026-11-15', 'Blood and how the body defends itself', 3],
+    [11, '2026-11-16', '2026-11-22', 'Digestion, and how you use food for fuel', 3],
+    [12, '2026-11-23', '2026-11-29', 'Breathing, gas transport, and the fast pH lever', 3],
+    [13, '2026-11-30', '2026-12-06', 'The kidney and body fluid balance', 3],
+    [14, '2026-12-07', '2026-12-13', 'The slow pH lever, and putting it all together', 3],
+    [15, '2026-12-14', '2026-12-16', 'Catch up, and the final', 3]
   ];
   var PARTS = { 1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action' };
 
