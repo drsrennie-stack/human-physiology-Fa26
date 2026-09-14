@@ -16,7 +16,7 @@
 window.BIO005_SHEET = {
  "0": {
   "title": "Chemistry review, optional",
-  "midterm": null,
+  "midterm": 1,
   "items": [
    {
     "n": 1,
@@ -226,334 +226,334 @@ window.BIO005_SHEET = {
    },
    {
     "n": 8,
-    "name": "Facilitated diffusion",
-    "can": "Describe carrier and channel mediated diffusion and explain why carrier mediated transport shows saturation and specificity while simple diffusion does not.",
-    "a": "Draw a channel protein and a carrier protein in the same stretch of membrane, with a molecule crossing through each. Make the difference visible in the drawing: the channel as an open pore, the carrier changing shape around its cargo. Underneath, draw one graph of transport rate against solute concentration with two traces, simple diffusion and carrier mediated. One line: only one trace plateaus, so say what has run out at the plateau.",
-    "b": "Draw a carrier protein with glucose bound, then draw three failures beside it: galactose competing for the same carrier, a molecule of the wrong shape bouncing off, and every carrier already occupied. Label which drawing is competition, which is specificity, and which is saturation. One line: adding more glucose helps in one of those three and does nothing in another, so name each and say why."
-   },
-   {
-    "n": 9,
-    "name": "Primary active transport",
-    "can": "Explain how the sodium potassium ATPase uses ATP to move three sodium out and two potassium in, and state the two gradients it maintains.",
-    "a": "Draw the sodium potassium ATPase in a membrane with inside and outside labeled. Sketch the cycle in three or four steps: ions binding, ATP splitting, the shape change, ions releasing. Write 3 and 2 on the correct arrows in the correct directions. Beside it note the sodium and potassium concentrations inside and out that the pump maintains. One line: it moves three out for every two in, so say what that does to charge across the membrane.",
-    "b": "Draw a cell with the two gradients the pump maintains, sodium high outside and potassium high inside, as tall and short bars on each side. Now poison the pump with ouabain and draw the same bars ten minutes later and an hour later. One line: pick one downstream process that fails, not the resting membrane potential, and say how many steps removed from the pump it is."
-   },
-   {
-    "n": 10,
-    "name": "Secondary active transport",
-    "can": "Distinguish symport from antiport and trace how the sodium gradient powers glucose uptake by SGLT and calcium removal by the sodium calcium exchanger.",
-    "a": "Draw a cell membrane with the sodium potassium ATPase keeping sodium low inside. Beside it draw SGLT carrying sodium and glucose in together, and the sodium calcium exchanger sending calcium out as sodium comes in. Draw every ion arrow, and mark the sodium gradient as the shared energy source. Label which one is symport and which is antiport. One line: no ATP touches either of these two proteins, so say where their energy came from.",
-    "b": "Draw the sodium calcium exchanger working normally, then draw the same exchanger in a cell whose sodium potassium pump has been stopped. Use three panels with arrows between them: what happens to intracellular sodium, then to the exchanger's driving force, then to intracellular calcium. One line: this is how digoxin strengthens a failing heart, so write the last step of that chain in your own words."
-   },
-   {
-    "n": 11,
-    "name": "Transport maximum and saturation",
-    "can": "Interpret a transport rate curve, identify the transport maximum, and apply the concept to renal glucose handling in hyperglycemia.",
-    "a": "Draw one set of axes, transport rate on the y and solute concentration on the x. Draw a carrier mediated curve that rises and then flattens, and mark the transport maximum with a labeled dashed line. On the same axes draw a straight simple diffusion line for contrast. One line: past the transport maximum the curve is flat, so say what is happening to every extra solute molecule that arrives.",
-    "b": "Draw a kidney tubule with glucose filtered in, reabsorbed by carriers, and any leftover carried on to urine. Draw it three times: normal plasma glucose, plasma glucose at the renal threshold near 180 mg/dL, and plasma glucose well above that. Show the urine in each. Write the glucose transport maximum, about 375 mg/min, beside them. One line: say why a person can be losing glucose in urine while every carrier is working perfectly."
-   },
-   {
-    "n": 12,
-    "name": "Vesicular transport",
-    "can": "Compare phagocytosis, pinocytosis, receptor mediated endocytosis, and exocytosis by trigger, cargo, and energy requirement.",
-    "a": "Draw one cell with four events happening on its surface at once: phagocytosis of a bacterium, pinocytosis of a droplet of fluid, receptor mediated endocytosis of a particle held in a coated pit, and exocytosis of a secretory vesicle. Draw the membrane actually deforming in each. Beside each write the trigger and the cargo. One line: all four cost ATP, so name the one that is completely unselective about what it takes in, and say what that costs the cell.",
-    "b": "Draw one particle's whole journey by receptor mediated endocytosis, left to right across your page: binding to receptors, the coated pit, the vesicle pinching off, fusion with a lysosome, and the receptors returning to the surface. Underneath, draw the reverse journey for a molecule leaving by exocytosis. One line: pick a cell type, not a neuron, and say which direction it spends more energy on."
-   },
-   {
-    "n": 13,
-    "name": "Transepithelial transport",
-    "can": "Trace glucose or sodium from lumen to blood across a polarized epithelium and identify which step occurs at the apical membrane and which at the basolateral membrane.",
-    "a": "Draw one polarized epithelial cell, lumen on the left and blood on the right, tight junctions at the top, apical and basolateral membranes labeled. Trace one glucose molecule all the way through: SGLT at the apical membrane, GLUT at the basolateral membrane, and the sodium potassium pump on the basolateral side. Mark each step active or passive. One line: the pump never touches glucose, so say how it powers the apical step.",
-    "b": "Draw the same epithelium twice. In the first, show what would go wrong if the basolateral pump drifted around to the apical side, and use that to say what tight junctions are for. In the second, draw the cell with apical SGLT blocked. Show where glucose ends up in each. One line: oral rehydration solution contains both salt and sugar, so say which of your two drawings explains why."
-   },
-   {
-    "n": 14,
-    "name": "Ion distribution and electrochemical gradients",
-    "can": "State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.",
-    "a": "Draw a cell and give each ion a pair of bars, inside and outside, height for concentration: sodium 145 mM out against 15 mM in, potassium 4 out against 140 in, chloride 110 out against 10 in, calcium about 1 out against 0.0001 free in. Mark the membrane inside negative. On each ion draw two separate arrows, chemical force and electrical force. One line: two ions have arrows pointing opposite ways, so name both and say which force wins.",
-    "b": "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride wherever your own numbers put it. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest."
-   },
-   {
-    "n": 15,
-    "name": "Nernst equation",
-    "can": "Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move.",
-    "a": "Write the Nernst equation at the top of your box, then work potassium through by hand at body temperature, 4 mM outside against 140 mM inside, every step shown, to an answer in mV. Do sodium underneath, 145 mM out against 15 mM in. Draw a voltage scale beside your working and place both answers on it. One line: an equilibrium potential is where that ion stops moving, so say which way potassium moves at minus 70 mV.",
-    "b": "Draw one set of axes, equilibrium potential in mV on the y and extracellular potassium on the x. Plot the Nernst prediction for potassium at 2, 4, 10, and 20 mM outside with 140 mM held inside, calculating at least two of the points yourself. Draw a horizontal dashed line at threshold, about minus 55 mV. One line: say what happens to the cell as the curve climbs toward that line, and whether the cell gets easier or harder to excite."
-   },
-   {
-    "n": 16,
-    "name": "Resting membrane potential",
-    "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes.",
-    "a": "Draw a cell at rest with minus 70 mV written inside. On its membrane draw potassium leak channels as many, sodium leak channels as few, and the sodium potassium pump. Beside the cell draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60, and mark where minus 70 sits between them. One line: the resting potential sits close to one of those two and nowhere near halfway, so say what makes it lean.",
-    "b": "Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked, then draw four labeled arrows off it showing where the potential moves when you open more potassium channels, open sodium channels, block the potassium leak, and stop the sodium potassium pump. One line: one of those four shifts the potential only a few mV even though it eventually ruins the cell, so name it and say why the immediate effect is so small."
-   },
-   {
-    "n": 17,
-    "name": "Ion channel gating",
-    "can": "Compare leak, voltage gated, ligand gated, and mechanically gated channels by what opens each one and give a physiological location for each.",
-    "a": "Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated. Draw each one twice, closed and open, and draw whatever opens it right beside it, a voltage change, a bound molecule, a stretch or a bend. Under each write one real place in the body it is found. One line: only one of the four is open at rest, so say what job that gives it.",
-    "b": "Draw one neuron stretched across the whole width of your box. Along it place each channel type where it actually works: ligand gated on the dendrites, voltage gated sodium and potassium along the axon, leak channels everywhere, voltage gated calcium at the terminal. Add a mechanically gated channel on a sensory ending drawn off to the side. One line: number the order these open during one real signal and say which one starts it."
-   },
-   {
-    "n": 18,
-    "name": "Depolarization and hyperpolarization",
-    "can": "Define depolarization, repolarization, hyperpolarization, and overshoot and label each on a membrane potential tracing.",
-    "a": "Draw a membrane potential tracing with time on the x and mV on the y, starting at minus 70. Take it up past zero to about plus 30 and back down below minus 70 before it returns. Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest. Draw zero mV as a dashed line. One line: define overshoot using that dashed line, not using the peak.",
-    "b": "Draw one set of axes with a dashed line at minus 70 mV and another at zero. Plot four traces from rest: a small depolarization that fades away, a hyperpolarization, a depolarization that crosses threshold, and a repolarization from plus 30 back down. Label each with its correct term. One line: say which of your traces make the cell easier to fire and which make it harder, and how you can tell from direction alone."
-   },
-   {
-    "n": 19,
-    "name": "Signal types and range",
-    "can": "Classify a chemical signal as autocrine, paracrine, neurotransmitter, neurohormone, or hormone by its route and distance of travel.",
-    "a": "Draw one target cell in the middle of the box. Draw an arrow in from each of the five signal types, autocrine, paracrine, neurotransmitter, neurohormone, hormone. Label each arrow with how far it traveled and what carried it.",
-    "b": "Make a five row table. Signal type, where it is released, how far it goes, what it travels through. Fill it from memory, then check one row against the book."
-   },
-   {
-    "n": 20,
-    "name": "Receptor location and ligand solubility",
-    "can": "Predict whether a signal molecule binds a surface receptor or an intracellular receptor from its lipid solubility and relate that to the speed and duration of the response.",
-    "a": "Draw a cell with one surface receptor and one intracellular receptor. Show the path a lipid soluble signal takes and the path a water soluble one takes. Mark which response is faster and which lasts longer.",
-    "b": "Write the two questions you would ask about any new signal molecule to predict where its receptor sits. Then answer both for a steroid and for a peptide hormone."
-   },
-   {
-    "n": 21,
-    "name": "G protein coupled receptors",
-    "can": "Trace a G protein coupled receptor pathway from ligand binding through the G protein and amplifier enzyme to the second messenger and the cellular response.",
-    "a": "Draw the membrane with a receptor crossing it, and trace the pathway in numbered order: ligand binds, the G protein swaps GDP for GTP, the alpha subunit leaves, it switches on the amplifier enzyme, the enzyme makes second messenger, the messenger switches on a kinase, the kinase changes a target protein. Beside each step write roughly how many molecules that one step produced from one. One line: name the step where the biggest multiplication happened.",
-    "b": "Draw a Gs pathway and a Gq pathway side by side, starting from the same membrane and ending at two different cellular responses. Label the amplifier enzyme and the second messenger on each. Then draw the off switch on both, GTP being hydrolyzed on the alpha subunit. One line: cholera toxin jams that off switch open, so write what the gut cell keeps doing and why the person loses fluid."
-   },
-   {
-    "n": 22,
-    "name": "Second messengers",
-    "can": "Identify cyclic AMP, IP3, diacylglycerol, and calcium as second messengers and state the enzyme that generates each and one target it activates.",
-    "a": "Draw a membrane and put all four second messengers on one page: cyclic AMP, IP3, diacylglycerol, and calcium. For each, draw where it comes from, the enzyme or channel that produced it, and an arrow to one thing it switches on. Keep DAG in the membrane and IP3 out in the cytosol, because that is where they actually go. One line: one of the four is not made by an enzyme at all, so name it and say where it comes from instead.",
-    "b": "Draw phospholipase C cutting PIP2 in the membrane and follow both halves. Send IP3 to the endoplasmic reticulum and draw what comes out. Leave DAG where it is and draw what it activates. Show the two halves converging on one response. Draw the adenylyl cyclase and cyclic AMP route beside it for contrast. One line: cyclic AMP is destroyed by phosphodiesterase, so say what a drug that blocks that enzyme does to the signal."
-   },
-   {
-    "n": 23,
-    "name": "Catalytic receptors and intracellular receptors",
-    "can": "Compare a receptor enzyme such as the insulin receptor with an intracellular steroid receptor by mechanism and by time course of the response.",
-    "a": "Draw one cell with the insulin receptor in the membrane on one side and a steroid receptor sitting inside the cell on the other. Trace both from hormone arrival to final response, the steroid crossing the membrane and reaching DNA, the insulin receptor phosphorylating itself and moving a glucose transporter to the surface. Put a clock beside each showing how long the response takes. One line: name the one you could not use if you needed the effect ten seconds from now.",
-    "b": "Draw one time axis with two response curves on it, a receptor enzyme response and a steroid response, each from hormone arrival through peak to fade. Make the onsets and durations honestly different. Under the axis, draw what is physically being changed in each case, an existing protein being modified or a new protein being built. One line: say which of the two you would want for the next thirty seconds and which for the next week."
-   },
-   {
-    "n": 24,
-    "name": "Signal amplification",
-    "can": "Explain how a cascade amplifies a signal and estimate the size of the amplification across the steps of a given pathway.",
-    "a": "Draw a three step cascade as a widening funnel. Put a number on each step and multiply them down the side to get the total amplification.",
-    "b": "Start from one ligand and write the count at each step of a cascade until you reach the response. One line per step, numbers only, no sentences."
-   },
-   {
-    "n": 25,
-    "name": "Receptor modulation",
-    "can": "Define agonist, antagonist, competitive inhibition, up regulation, and down regulation and predict the effect of chronic ligand excess on target cell sensitivity.",
-    "a": "Draw one target cell three times. Normal, after a long stretch of scarce signal, after a long stretch of excess signal. Show the receptor count changing in each and label which is up regulation and which is down.",
-    "b": "Define agonist, antagonist, up regulation and down regulation in your own words, one line each. Then explain in two lines why a patient who needs more opioid for the same effect is usually showing down regulation rather than drug seeking."
-   },
-   {
-    "n": 26,
-    "name": "Signal termination",
-    "can": "Name three mechanisms that end a chemical signal and explain why a signal that cannot be terminated produces pathology.",
-    "a": "Draw one signal running from receptor to response across a cell, then add three different off switches to that same drawing at three different points: the ligand removed or destroyed outside the cell, the second messenger broken down inside, and the response protein having its phosphate taken off. Name the enzyme doing each. One line: pick the switch nearest the response and say what still goes wrong if only that one fails.",
-    "b": "Pick a signal, not insulin, and draw it working normally, then draw it again with its termination broken. In the broken version show what piles up and where. Underneath, draw the effect on the tissue as two panels, one over minutes and one over weeks. One line: a signal that never shuts off eventually produces less response rather than more, so write what the cell did to itself."
-   },
-   {
-    "n": 27,
-    "name": "Dose response relationships",
-    "can": "Plot a dose response curve, identify threshold, maximal response, and EC50, and compare a full agonist with a partial agonist on the same axes.",
-    "a": "Draw a dose response curve with log dose on the x axis and response as a percentage of maximum on the y. Mark threshold, EC50, and the maximal response, with construction lines dropped to the axes. Then plot a partial agonist on the same axes. One line: the partial agonist never reaches the top no matter how much you add, so say what that tells you about the drug that raising the dose cannot fix.",
-    "b": "Draw three curves on one set of axes: a full agonist alone, the same agonist with a competitive antagonist added, and the same agonist with an antagonist that will not come off the receptor. Show which curve slides sideways and which one gets shorter. One line: only one of the two antagonists can be beaten by giving more agonist, so name it and say what feature of the graph proves it."
-   },
-   {
-    "n": 28,
     "name": "Diffusion and osmosis experiment",
     "can": "Measure diffusion and osmotic movement across a selectively permeable membrane and relate the observed rate to molecular size and concentration gradient.",
     "a": "Before you run anything, draw your predicted result: the bag or the plate as it will look at the start and at the end, with each test molecule drawn where you expect it to be. Run it, then draw the actual result beside your prediction in a second color. One line: name the substance that moved fastest and say whether molecular size or starting gradient explains it better in your own data.",
     "b": "Draw a graph of distance moved on the y against molecular weight on the x, one labeled point for every substance you tested. Beside it draw a second small graph, distance moved against starting concentration. One line: your membrane passed some things and stopped others, so write the size cutoff your data actually supports and how confident you are in that number."
    },
    {
-    "n": 29,
+    "n": 9,
     "name": "Tonicity and red blood cells",
     "can": "Observe erythrocytes in solutions of different tonicity, identify crenation, normal shape, and hemolysis, and explain each result.",
     "a": "Draw three microscope fields, one per solution: distilled water, 0.9 percent NaCl, and 3 percent NaCl. In each, draw the cells as you actually see them, keeping the biconcave disc, the spiky crenated form, and the ghosts distinct. Under each field write the direction of net water movement. One line: name the slide that is hardest to count cells on, and say why that difficulty is itself the result.",
     "b": "Draw one red cell in the center of your box and three arrows out to three versions of it: crenated, normal, and hemolysed. Beside each write the tonicity that produced it and the water arrow. Then draw what the membrane itself did in the hemolysed one. One line: crenation is reversible and hemolysis is not, so say what makes the difference."
    },
    {
-    "n": 30,
+    "n": 10,
+    "name": "Facilitated diffusion",
+    "can": "Describe carrier and channel mediated diffusion and explain why carrier mediated transport shows saturation and specificity while simple diffusion does not.",
+    "a": "Draw a channel protein and a carrier protein in the same stretch of membrane, with a molecule crossing through each. Make the difference visible in the drawing: the channel as an open pore, the carrier changing shape around its cargo. Underneath, draw one graph of transport rate against solute concentration with two traces, simple diffusion and carrier mediated. One line: only one trace plateaus, so say what has run out at the plateau.",
+    "b": "Draw a carrier protein with glucose bound, then draw three failures beside it: galactose competing for the same carrier, a molecule of the wrong shape bouncing off, and every carrier already occupied. Label which drawing is competition, which is specificity, and which is saturation. One line: adding more glucose helps in one of those three and does nothing in another, so name each and say why."
+   },
+   {
+    "n": 11,
+    "name": "Primary active transport",
+    "can": "Explain how the sodium potassium ATPase uses ATP to move three sodium out and two potassium in, and state the two gradients it maintains.",
+    "a": "Draw the sodium potassium ATPase in a membrane with inside and outside labeled. Sketch the cycle in three or four steps: ions binding, ATP splitting, the shape change, ions releasing. Write 3 and 2 on the correct arrows in the correct directions. Beside it note the sodium and potassium concentrations inside and out that the pump maintains. One line: it moves three out for every two in, so say what that does to charge across the membrane.",
+    "b": "Draw a cell with the two gradients the pump maintains, sodium high outside and potassium high inside, as tall and short bars on each side. Now poison the pump with ouabain and draw the same bars ten minutes later and an hour later. One line: pick one downstream process that fails, not the resting membrane potential, and say how many steps removed from the pump it is."
+   },
+   {
+    "n": 12,
+    "name": "Secondary active transport",
+    "can": "Distinguish symport from antiport and trace how the sodium gradient powers glucose uptake by SGLT and calcium removal by the sodium calcium exchanger.",
+    "a": "Draw a cell membrane with the sodium potassium ATPase keeping sodium low inside. Beside it draw SGLT carrying sodium and glucose in together, and the sodium calcium exchanger sending calcium out as sodium comes in. Draw every ion arrow, and mark the sodium gradient as the shared energy source. Label which one is symport and which is antiport. One line: no ATP touches either of these two proteins, so say where their energy came from.",
+    "b": "Draw the sodium calcium exchanger working normally, then draw the same exchanger in a cell whose sodium potassium pump has been stopped. Use three panels with arrows between them: what happens to intracellular sodium, then to the exchanger's driving force, then to intracellular calcium. One line: this is how digoxin strengthens a failing heart, so write the last step of that chain in your own words."
+   },
+   {
+    "n": 13,
+    "name": "Transport maximum and saturation",
+    "can": "Interpret a transport rate curve, identify the transport maximum, and apply the concept to renal glucose handling in hyperglycemia.",
+    "a": "Draw one set of axes, transport rate on the y and solute concentration on the x. Draw a carrier mediated curve that rises and then flattens, and mark the transport maximum with a labeled dashed line. On the same axes draw a straight simple diffusion line for contrast. One line: past the transport maximum the curve is flat, so say what is happening to every extra solute molecule that arrives.",
+    "b": "Draw a kidney tubule with glucose filtered in, reabsorbed by carriers, and any leftover carried on to urine. Draw it three times: normal plasma glucose, plasma glucose at the renal threshold near 180 mg/dL, and plasma glucose well above that. Show the urine in each. Write the glucose transport maximum, about 375 mg/min, beside them. One line: say why a person can be losing glucose in urine while every carrier is working perfectly."
+   },
+   {
+    "n": 14,
+    "name": "Vesicular transport",
+    "can": "Compare phagocytosis, pinocytosis, receptor mediated endocytosis, and exocytosis by trigger, cargo, and energy requirement.",
+    "a": "Draw one cell with four events happening on its surface at once: phagocytosis of a bacterium, pinocytosis of a droplet of fluid, receptor mediated endocytosis of a particle held in a coated pit, and exocytosis of a secretory vesicle. Draw the membrane actually deforming in each. Beside each write the trigger and the cargo. One line: all four cost ATP, so name the one that is completely unselective about what it takes in, and say what that costs the cell.",
+    "b": "Draw one particle's whole journey by receptor mediated endocytosis, left to right across your page: binding to receptors, the coated pit, the vesicle pinching off, fusion with a lysosome, and the receptors returning to the surface. Underneath, draw the reverse journey for a molecule leaving by exocytosis. One line: pick a cell type, not a neuron, and say which direction it spends more energy on."
+   },
+   {
+    "n": 15,
+    "name": "Transepithelial transport",
+    "can": "Trace glucose or sodium from lumen to blood across a polarized epithelium and identify which step occurs at the apical membrane and which at the basolateral membrane.",
+    "a": "Draw one polarized epithelial cell, lumen on the left and blood on the right, tight junctions at the top, apical and basolateral membranes labeled. Trace one glucose molecule all the way through: SGLT at the apical membrane, GLUT at the basolateral membrane, and the sodium potassium pump on the basolateral side. Mark each step active or passive. One line: the pump never touches glucose, so say how it powers the apical step.",
+    "b": "Draw the same epithelium twice. In the first, show what would go wrong if the basolateral pump drifted around to the apical side, and use that to say what tight junctions are for. In the second, draw the cell with apical SGLT blocked. Show where glucose ends up in each. One line: oral rehydration solution contains both salt and sugar, so say which of your two drawings explains why."
+   },
+   {
+    "n": 16,
     "name": "Transport simulation",
     "can": "Use a membrane transport simulation to distinguish simple diffusion from facilitated diffusion and active transport by their response to gradient reversal and metabolic poison.",
     "a": "Before you run it, draw three predicted graphs in a row, transport rate against time, one each for simple diffusion, facilitated diffusion, and active transport. Then draw a fourth showing what a metabolic poison does to whichever of the three it affects. Run the simulation and draw the real curves underneath in a second color. One line: say which transport type the poison left untouched, and why it could not touch it.",
     "b": "Draw a decision tree with three endpoints: simple diffusion, facilitated diffusion, and active transport. At each branch put one test you can actually run in the simulation, reversing the gradient, raising solute until the rate stops climbing, or adding a metabolic poison. Draw the result that sends you down each branch. One line: name the single test that separates active transport from both of the others in one step."
    },
    {
-    "n": 31,
-    "name": "Membrane potential simulation",
-    "can": "Manipulate extracellular potassium and sodium in a simulation and record the resulting change in resting membrane potential against the Nernst prediction.",
-    "a": "Before you touch the simulation, draw your predicted graph: resting membrane potential on the y and extracellular potassium on the x, with the Nernst prediction drawn as one line. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: the measured points sit above the Nernst line at low potassium, so name the other ion whose permeability accounts for that gap.",
-    "b": "Draw two panels side by side using the same y axis. On the left, plot resting membrane potential against extracellular potassium from your runs. On the right, plot resting membrane potential against extracellular sodium over a comparable range. One line: one plot is nearly flat and one is not, so say what that comparison tells you about the relative permeability of the resting membrane."
+    "n": 17,
+    "name": "Signal types and range",
+    "can": "Classify a chemical signal as autocrine, paracrine, neurotransmitter, neurohormone, or hormone by its route and distance of travel.",
+    "a": "Draw one target cell in the middle of the box. Draw an arrow in from each of the five signal types, autocrine, paracrine, neurotransmitter, neurohormone, hormone. Label each arrow with how far it traveled and what carried it.",
+    "b": "Make a five row table. Signal type, where it is released, how far it goes, what it travels through. Fill it from memory, then check one row against the book."
+   },
+   {
+    "n": 18,
+    "name": "Receptor location and ligand solubility",
+    "can": "Predict whether a signal molecule binds a surface receptor or an intracellular receptor from its lipid solubility and relate that to the speed and duration of the response.",
+    "a": "Draw a cell with one surface receptor and one intracellular receptor. Show the path a lipid soluble signal takes and the path a water soluble one takes. Mark which response is faster and which lasts longer.",
+    "b": "Write the two questions you would ask about any new signal molecule to predict where its receptor sits. Then answer both for a steroid and for a peptide hormone."
+   },
+   {
+    "n": 19,
+    "name": "G protein coupled receptors",
+    "can": "Trace a G protein coupled receptor pathway from ligand binding through the G protein and amplifier enzyme to the second messenger and the cellular response.",
+    "a": "Draw the membrane with a receptor crossing it, and trace the pathway in numbered order: ligand binds, the G protein swaps GDP for GTP, the alpha subunit leaves, it switches on the amplifier enzyme, the enzyme makes second messenger, the messenger switches on a kinase, the kinase changes a target protein. Beside each step write roughly how many molecules that one step produced from one. One line: name the step where the biggest multiplication happened.",
+    "b": "Draw a Gs pathway and a Gq pathway side by side, starting from the same membrane and ending at two different cellular responses. Label the amplifier enzyme and the second messenger on each. Then draw the off switch on both, GTP being hydrolyzed on the alpha subunit. One line: cholera toxin jams that off switch open, so write what the gut cell keeps doing and why the person loses fluid."
+   },
+   {
+    "n": 20,
+    "name": "Second messengers",
+    "can": "Identify cyclic AMP, IP3, diacylglycerol, and calcium as second messengers and state the enzyme that generates each and one target it activates.",
+    "a": "Draw a membrane and put all four second messengers on one page: cyclic AMP, IP3, diacylglycerol, and calcium. For each, draw where it comes from, the enzyme or channel that produced it, and an arrow to one thing it switches on. Keep DAG in the membrane and IP3 out in the cytosol, because that is where they actually go. One line: one of the four is not made by an enzyme at all, so name it and say where it comes from instead.",
+    "b": "Draw phospholipase C cutting PIP2 in the membrane and follow both halves. Send IP3 to the endoplasmic reticulum and draw what comes out. Leave DAG where it is and draw what it activates. Show the two halves converging on one response. Draw the adenylyl cyclase and cyclic AMP route beside it for contrast. One line: cyclic AMP is destroyed by phosphodiesterase, so say what a drug that blocks that enzyme does to the signal."
+   },
+   {
+    "n": 21,
+    "name": "Catalytic receptors and intracellular receptors",
+    "can": "Compare a receptor enzyme such as the insulin receptor with an intracellular steroid receptor by mechanism and by time course of the response.",
+    "a": "Draw one cell with the insulin receptor in the membrane on one side and a steroid receptor sitting inside the cell on the other. Trace both from hormone arrival to final response, the steroid crossing the membrane and reaching DNA, the insulin receptor phosphorylating itself and moving a glucose transporter to the surface. Put a clock beside each showing how long the response takes. One line: name the one you could not use if you needed the effect ten seconds from now.",
+    "b": "Draw one time axis with two response curves on it, a receptor enzyme response and a steroid response, each from hormone arrival through peak to fade. Make the onsets and durations honestly different. Under the axis, draw what is physically being changed in each case, an existing protein being modified or a new protein being built. One line: say which of the two you would want for the next thirty seconds and which for the next week."
+   },
+   {
+    "n": 22,
+    "name": "Signal amplification",
+    "can": "Explain how a cascade amplifies a signal and estimate the size of the amplification across the steps of a given pathway.",
+    "a": "Draw a three step cascade as a widening funnel. Put a number on each step and multiply them down the side to get the total amplification.",
+    "b": "Start from one ligand and write the count at each step of a cascade until you reach the response. One line per step, numbers only, no sentences."
+   },
+   {
+    "n": 23,
+    "name": "Receptor modulation",
+    "can": "Define agonist, antagonist, competitive inhibition, up regulation, and down regulation and predict the effect of chronic ligand excess on target cell sensitivity.",
+    "a": "Draw one target cell three times. Normal, after a long stretch of scarce signal, after a long stretch of excess signal. Show the receptor count changing in each and label which is up regulation and which is down.",
+    "b": "Define agonist, antagonist, up regulation and down regulation in your own words, one line each. Then explain in two lines why a patient who needs more opioid for the same effect is usually showing down regulation rather than drug seeking."
+   },
+   {
+    "n": 24,
+    "name": "Signal termination",
+    "can": "Name three mechanisms that end a chemical signal and explain why a signal that cannot be terminated produces pathology.",
+    "a": "Draw one signal running from receptor to response across a cell, then add three different off switches to that same drawing at three different points: the ligand removed or destroyed outside the cell, the second messenger broken down inside, and the response protein having its phosphate taken off. Name the enzyme doing each. One line: pick the switch nearest the response and say what still goes wrong if only that one fails.",
+    "b": "Pick a signal, not insulin, and draw it working normally, then draw it again with its termination broken. In the broken version show what piles up and where. Underneath, draw the effect on the tissue as two panels, one over minutes and one over weeks. One line: a signal that never shuts off eventually produces less response rather than more, so write what the cell did to itself."
+   },
+   {
+    "n": 25,
+    "name": "Dose response relationships",
+    "can": "Plot a dose response curve, identify threshold, maximal response, and EC50, and compare a full agonist with a partial agonist on the same axes.",
+    "a": "Draw a dose response curve with log dose on the x axis and response as a percentage of maximum on the y. Mark threshold, EC50, and the maximal response, with construction lines dropped to the axes. Then plot a partial agonist on the same axes. One line: the partial agonist never reaches the top no matter how much you add, so say what that tells you about the drug that raising the dose cannot fix.",
+    "b": "Draw three curves on one set of axes: a full agonist alone, the same agonist with a competitive antagonist added, and the same agonist with an antagonist that will not come off the receptor. Show which curve slides sideways and which one gets shorter. One line: only one of the two antagonists can be beaten by giving more agonist, so name it and say what feature of the graph proves it."
    }
   ]
  },
  "3": {
-  "title": "Neurons, action potentials and synapses",
+  "title": "Membrane potential, neurons and synapses",
   "midterm": 1,
   "items": [
    {
     "n": 1,
+    "name": "Ion distribution and electrochemical gradients",
+    "can": "State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.",
+    "a": "Draw a cell and give each ion a pair of bars, inside and outside, height for concentration: sodium 145 mM out against 15 mM in, potassium 4 out against 140 in, chloride 110 out against 10 in, calcium about 1 out against 0.0001 free in. Mark the membrane inside negative. On each ion draw two separate arrows, chemical force and electrical force. One line: two ions have arrows pointing opposite ways, so name both and say which force wins.",
+    "b": "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride wherever your own numbers put it. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest."
+   },
+   {
+    "n": 2,
+    "name": "Nernst equation",
+    "can": "Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move.",
+    "a": "Write the Nernst equation at the top of your box, then work potassium through by hand at body temperature, 4 mM outside against 140 mM inside, every step shown, to an answer in mV. Do sodium underneath, 145 mM out against 15 mM in. Draw a voltage scale beside your working and place both answers on it. One line: an equilibrium potential is where that ion stops moving, so say which way potassium moves at minus 70 mV.",
+    "b": "Draw one set of axes, equilibrium potential in mV on the y and extracellular potassium on the x. Plot the Nernst prediction for potassium at 2, 4, 10, and 20 mM outside with 140 mM held inside, calculating at least two of the points yourself. Draw a horizontal dashed line at threshold, about minus 55 mV. One line: say what happens to the cell as the curve climbs toward that line, and whether the cell gets easier or harder to excite."
+   },
+   {
+    "n": 3,
+    "name": "Resting membrane potential",
+    "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes.",
+    "a": "Draw a cell at rest with minus 70 mV written inside. On its membrane draw potassium leak channels as many, sodium leak channels as few, and the sodium potassium pump. Beside the cell draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60, and mark where minus 70 sits between them. One line: the resting potential sits close to one of those two and nowhere near halfway, so say what makes it lean.",
+    "b": "Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked, then draw four labeled arrows off it showing where the potential moves when you open more potassium channels, open sodium channels, block the potassium leak, and stop the sodium potassium pump. One line: one of those four shifts the potential only a few mV even though it eventually ruins the cell, so name it and say why the immediate effect is so small."
+   },
+   {
+    "n": 4,
+    "name": "Ion channel gating",
+    "can": "Compare leak, voltage gated, ligand gated, and mechanically gated channels by what opens each one and give a physiological location for each.",
+    "a": "Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated. Draw each one twice, closed and open, and draw whatever opens it right beside it, a voltage change, a bound molecule, a stretch or a bend. Under each write one real place in the body it is found. One line: only one of the four is open at rest, so say what job that gives it.",
+    "b": "Draw one neuron stretched across the whole width of your box. Along it place each channel type where it actually works: ligand gated on the dendrites, voltage gated sodium and potassium along the axon, leak channels everywhere, voltage gated calcium at the terminal. Add a mechanically gated channel on a sensory ending drawn off to the side. One line: number the order these open during one real signal and say which one starts it."
+   },
+   {
+    "n": 5,
+    "name": "Depolarization and hyperpolarization",
+    "can": "Define depolarization, repolarization, hyperpolarization, and overshoot and label each on a membrane potential tracing.",
+    "a": "Draw a membrane potential tracing with time on the x and mV on the y, starting at minus 70. Take it up past zero to about plus 30 and back down below minus 70 before it returns. Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest. Draw zero mV as a dashed line. One line: define overshoot using that dashed line, not using the peak.",
+    "b": "Draw one set of axes with a dashed line at minus 70 mV and another at zero. Plot four traces from rest: a small depolarization that fades away, a hyperpolarization, a depolarization that crosses threshold, and a repolarization from plus 30 back down. Label each with its correct term. One line: say which of your traces make the cell easier to fire and which make it harder, and how you can tell from direction alone."
+   },
+   {
+    "n": 6,
+    "name": "Membrane potential simulation",
+    "can": "Manipulate extracellular potassium and sodium in a simulation and record the resulting change in resting membrane potential against the Nernst prediction.",
+    "a": "Before you touch the simulation, draw your predicted graph: resting membrane potential on the y and extracellular potassium on the x, with the Nernst prediction drawn as one line. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: the measured points sit above the Nernst line at low potassium, so name the other ion whose permeability accounts for that gap.",
+    "b": "Draw two panels side by side using the same y axis. On the left, plot resting membrane potential against extracellular potassium from your runs. On the right, plot resting membrane potential against extracellular sodium over a comparable range. One line: one plot is nearly flat and one is not, so say what that comparison tells you about the relative permeability of the resting membrane."
+   },
+   {
+    "n": 7,
     "name": "Neuron structural and functional classes",
     "can": "Classify a neuron as multipolar, bipolar, or pseudounipolar by structure and as sensory, motor, or interneuron by function, and match each class to a location in the nervous system.",
     "a": "Draw a multipolar, a bipolar, and a pseudounipolar neuron side by side, each with its dendrites, cell body, and axon in the right arrangement and the cell body in the right position relative to the signal path. Under each write one real location in the body where you would find it. One line: one of the three has its cell body off to the side of the signal path, so say what advantage that gives a sensory neuron.",
     "b": "Draw a reflex arc across your box, from a receptor in the skin to a skeletal muscle, with three neurons in it. Label every neuron twice, once by structure and once by function, and mark whether each cell body sits inside or outside the CNS. One line: name the functional class that outnumbers the other two enormously in a human, and say what that tells you about what the CNS mostly does."
    },
    {
-    "n": 2,
+    "n": 8,
     "name": "Functional regions of a neuron",
     "can": "Label the dendrites, cell body, axon hillock, trigger zone, axon, and axon terminal and state which signal type each region carries.",
     "a": "Draw one motor neuron big, across the whole width of your box. Label the dendrites, cell body, axon hillock, trigger zone, axon, myelin, nodes, and axon terminal. Above each region write the signal type it carries, graded or all or none, and sketch the shape of that signal there. One line: mark the spot where graded becomes all or none and say what has to be true at that spot for the change to happen.",
     "b": "Draw the same neuron three times as three narrow strips stacked up. In the first, shade every region where graded potentials happen. In the second, shade every region with a high density of voltage gated sodium channels. In the third, shade where chemical signaling takes over from electrical. One line: name the region that appears in more than one strip and say why that makes it the decision point."
    },
    {
-    "n": 3,
+    "n": 9,
     "name": "Glial cell functions",
     "can": "Match astrocytes, oligodendrocytes, microglia, ependymal cells, satellite cells, and Schwann cells to their physiological roles.",
     "a": "Draw a CNS scene and a PNS scene side by side. In the CNS scene put an astrocyte touching both a capillary and a neuron, an oligodendrocyte myelinating more than one axon, a microglial cell, and ependymal cells lining a fluid space. In the PNS scene put a Schwann cell on one axon segment and satellite cells wrapped around a cell body. One line: two of these six make myelin, so say the one structural difference in how they do it.",
     "b": "Draw one neuron in the middle of your box with six arrows pointing at it, one from each glial type. On each arrow write the single job that glia does for the neuron or its surroundings. Then cross out one arrow of your own choosing and draw what goes wrong. One line: name the glial cell you removed and the first symptom you would expect, not the last."
    },
    {
-    "n": 4,
+    "n": 10,
     "name": "Myelin and its loss",
     "can": "Explain how myelin and the nodes of Ranvier speed conduction and predict the functional consequence of demyelination.",
     "a": "Draw two axons the same length side by side, one bare and one myelinated with nodes of Ranvier. On each, mark with dots every place the action potential has to be regenerated. Put a clock reading beside each showing which signal arrives first. One line: myelin is an insulator and does nothing electrical itself, so say in one sentence how adding insulation makes a signal faster.",
     "b": "Draw a myelinated axon with three intact internodes, then draw the same axon with the middle internode stripped bare. Show the action potential traveling along it and mark where it slows or fails. On both, draw the sodium channel distribution, dense at the nodes and sparse under the myelin. One line: the demyelinated stretch has few sodium channels, so say why conduction fails there rather than simply slowing down."
    },
    {
-    "n": 5,
+    "n": 11,
     "name": "Axonal transport",
     "can": "Distinguish fast anterograde and retrograde axonal transport from slow transport and state what each carries.",
     "a": "Draw a long neuron with the cell body on the left and the terminal on the right, and run a microtubule track down the axon. On the track draw fast anterograde transport with kinesin and fast retrograde transport with dynein, arrows in opposite directions, with the cargo written beside each. One line: the cell body makes everything, so say what the retrograde direction is even for.",
     "b": "Draw the same axon and add slow transport as a third, much slower stream with its cargo written beside it. Draw a scale bar showing the real speed difference, hundreds of mm per day for fast transport against a few mm per day for slow. Then draw a virus entering at the terminal and mark the route it takes to the cell body. One line: say which transport system it hijacked and why that is bad news for the neuron."
    },
    {
-    "n": 6,
+    "n": 12,
     "name": "Graded potentials",
     "can": "Describe how a graded potential is produced and explain why it varies with stimulus strength and decays with distance, using the terms current leak and cytoplasmic resistance.",
     "a": "Draw a dendrite as a long tube with a stimulus at one end. At four points along it, draw the membrane potential as a small trace, showing the signal shrinking as you move away. Draw current leaking out through channels along the way and label the cytoplasmic resistance inside the tube. One line: name the two reasons the signal shrank, and say which one you could reduce by making the tube wider.",
     "b": "Draw one set of axes, membrane potential against time, and plot three graded potentials from the same spot produced by a weak, a medium, and a strong stimulus. Then plot two of them arriving close together and summing. Mark threshold as a dashed line. One line: a graded potential changes size with stimulus strength and an action potential does not, so say what the graded potential's actual job is."
    },
    {
-    "n": 7,
+    "n": 13,
     "name": "Action potential phases",
     "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and afterhyperpolarization.",
     "a": "Draw an action potential tracing, mV on the y and ms on the x, from minus 70 up to about plus 30 and back down through an afterhyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. One line: say what closes at the peak and what is still open during the afterhyperpolarization.",
     "b": "Draw a voltage gated sodium channel four times across the top of your box, in its resting, activated, inactivated, and recovered states, with both of its gates drawn separately every time. Under each, write the membrane voltage at which that state occurs. Beneath that row, draw a voltage gated potassium channel in its two states with its timing. One line: both open on depolarization, so say what makes potassium arrive late and why the cell needs that delay."
    },
    {
-    "n": 8,
+    "n": 14,
     "name": "Threshold and all or none",
     "can": "Explain what threshold represents at the trigger zone and why action potential amplitude does not change with a stronger stimulus.",
     "a": "Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over: below threshold with a few channels open and the leak winning, exactly at threshold with the two currents balanced, and above threshold with the positive feedback running away. Draw the current arrows in and out in every panel. One line: define threshold from your three drawings in terms of two currents, not a number.",
     "b": "Draw one set of axes with four stimuli of increasing strength as bars on a bottom trace and the resulting membrane potential plotted above them. Show the first two failing to reach threshold and the last two producing identical full sized action potentials. Mark threshold. One line: the fourth stimulus was far stronger than the third and the spike came out the same size, so say what actually fixes the amplitude."
    },
    {
-    "n": 9,
+    "n": 15,
     "name": "Coding of stimulus intensity",
     "can": "Explain how the nervous system encodes stimulus strength when action potential amplitude is fixed.",
     "a": "Draw three stimulus bars of increasing strength across the bottom of your box, weak, medium, and strong. Above each, draw the spike train one sensory neuron sends, as vertical marks on a time line. Keep every spike exactly the same height. One line: say precisely what changed between your three trains, and what could not have changed.",
     "b": "Draw a patch of skin with a stimulus pressed into it, gentle on the left and hard on the right. In each, draw how many receptors and how many axons get recruited, and draw the spike train on one of those axons underneath. One line: the nervous system has two ways to say louder, so name both from your drawing and say which one a single axon can do on its own."
    },
    {
-    "n": 10,
+    "n": 16,
     "name": "Refractory periods",
     "can": "Distinguish the absolute from the relative refractory period by channel state and explain how the refractory period sets maximum firing frequency and prevents backward conduction.",
     "a": "Draw an action potential tracing and bracket the absolute and relative refractory periods underneath it. Along each bracket, draw the state of the voltage gated sodium channels, inactivated and then recovering, and show whether the potassium channels are still open. Then draw a second stimulus arriving inside each period and show the result. One line: say why no stimulus at all, however large, works during the absolute period.",
     "b": "Draw an axon with an action potential halfway along it and an arrow for the direction it is traveling. Shade the membrane behind it and mark what state its sodium channels are in. Draw the local current spreading both forward and backward, and show why only one direction succeeds. One line: an absolute refractory period of about 1 to 2 ms sets a ceiling on firing rate, so work out that ceiling in spikes per second."
    },
    {
-    "n": 11,
+    "n": 17,
     "name": "Conduction velocity",
     "can": "Rank axons by conduction velocity using diameter and myelination and contrast continuous with saltatory conduction.",
     "a": "Draw four axons stacked vertically: large myelinated, small myelinated, large unmyelinated, and small unmyelinated. Rank them fastest to slowest and write a rough velocity beside each, using the real range of about 0.5 up to about 120 m per second. One line: say which buys more speed per unit of space taken up, diameter or myelin, and why that matters for a nerve running down a limb.",
     "b": "Draw one myelinated and one unmyelinated axon of similar diameter side by side, the same length. On each, shade where the membrane actually depolarizes, continuously along one and node to node on the other. Draw the local current loops on both. One line: saltatory means jumping, but the action potential does not really jump, so say what is actually moving between the nodes."
    },
    {
-    "n": 12,
+    "n": 18,
     "name": "Effects of altered extracellular ions",
     "can": "Predict the effect of hyperkalemia and hypokalemia on resting potential and excitability and explain why local anesthetics that block sodium channels abolish the action potential.",
     "a": "Draw a voltage scale from minus 100 to plus 30 mV with the resting potential at minus 70 and threshold at about minus 55 marked on it. Using the Nernst logic for potassium, draw where the resting potential moves in hyperkalemia and in hypokalemia, and show the remaining gap to threshold in each. One line: hyperkalemia first makes the cell more excitable and then less, so say what happens to the sodium channels in between.",
     "b": "Draw a normal action potential tracing, then draw the same axon after a local anesthetic such as lidocaine has blocked its voltage gated sodium channels, and show what is left of the trace. Beside it, draw the axon in low extracellular sodium and show what changes about the peak, not about the resting level. One line: say why blocking the channel abolishes the signal while low extracellular sodium only shrinks it."
    },
    {
-    "n": 13,
+    "n": 19,
     "name": "Action potential simulation",
     "can": "Run a neuron simulation with sodium and potassium channel blockers and interpret the resulting change in the action potential tracing.",
     "a": "Before you run it, draw three predicted tracings on one set of axes: a normal action potential, one with the sodium channels blocked, and one with the potassium channels blocked. Run the simulation and draw the actual tracings underneath in a second color. One line: name the phase that changed most under the potassium blocker, and say what that tells you about which channel ends the spike.",
     "b": "Draw one set of axes and plot your normal action potential, then overlay the tracing you got with a partial sodium blocker rather than a full one. Mark exactly where the two curves separate and where they rejoin. Beside the plot, sketch the sodium and potassium channel populations at the moment of separation. One line: say what a partial block did to threshold in your run, and whether the spikes that still happened came out smaller."
    },
    {
-    "n": 14,
+    "n": 20,
     "name": "Nerve conduction measurement",
     "can": "Measure conduction velocity from a recorded compound action potential and account for the difference between the fastest and slowest fibers.",
     "a": "Draw the nerve with a stimulating electrode at one end and a recording electrode a measured distance away. Draw the trace you record, marking the stimulus artifact, the latency, and the compound action potential. Write your distance and your latency on the drawing and show the division that gives velocity in m per second. One line: say what would have to go wrong in your setup to make the measured velocity come out too high.",
     "b": "Draw the compound action potential recorded close to the stimulus and again recorded much further along, one above the other on the same time base, the second lower and wider. Underneath, draw several individual fibers of different diameters arriving at different times to account for that shape. One line: say which fibers set the leading edge of the wave and which fibers make it broaden with distance."
    },
    {
-    "n": 15,
+    "n": 21,
     "name": "Sequence at a chemical synapse",
     "can": "Order the events of chemical synaptic transmission from action potential arrival through calcium entry and vesicle fusion to receptor binding and postsynaptic response.",
     "a": "Draw one axon terminal big enough to fill half your space, with the cleft and a patch of postsynaptic membrane. Number the events in order from the action potential arriving to the postsynaptic channel opening, one arrow per step, and show where calcium enters and what it does once inside. Then redraw the terminal sitting in a calcium free bath. One line: name the step where the chain stops, and say what still happens normally upstream of it.",
     "b": "Draw two traces stacked on one shared time axis in milliseconds, the presynaptic action potential on top and the postsynaptic membrane potential below. Mark the synaptic delay between them, about 0.5 ms. In the gap under that delay, draw the events that are happening while nothing shows on either trace. One line: which single step you think eats most of that delay, and why."
    },
    {
-    "n": 16,
+    "n": 22,
     "name": "Neurotransmitter classes",
     "can": "Match acetylcholine, the catecholamines, serotonin, glutamate, GABA, glycine, and the neuropeptides to their usual excitatory or inhibitory effect and to a site of action.",
     "a": "Draw a rough brain, a spinal cord, and one peripheral effector, side by side. Place acetylcholine, a catecholamine, serotonin, glutamate, GABA, glycine, and a neuropeptide at a real site of action on your drawing. Flag each one excitatory or inhibitory with an up or down arrow drawn on the postsynaptic membrane. One line: name the one you had to flag both ways, and say what forced that.",
     "b": "Draw acetylcholine arriving at two postsynaptic membranes side by side, a skeletal muscle fiber with nicotinic receptors and a cardiac pacemaker cell with muscarinic receptors. Show the ion moving at each and draw the membrane potential trace under each. Same transmitter, opposite result. One line: given both drawings, state what actually decides whether a synapse is excitatory or inhibitory."
    },
    {
-    "n": 17,
+    "n": 23,
     "name": "Neurotransmitter removal",
     "can": "Name the three routes that clear a neurotransmitter from the synaptic cleft, degradation, reuptake, and diffusion, and give a drug that blocks one of them.",
     "a": "Draw a synaptic cleft with transmitter still in it, then draw all three exit routes off that cleft, enzymatic breakdown, reuptake, and simple diffusion. Show where each one physically happens, on the postsynaptic side, on the presynaptic side, or out the edges. Name the transmitter you picked and put a real drug on the route it blocks. One line: what the postsynaptic cell experiences once that route is shut.",
     "b": "Draw the postsynaptic potential from one normal release event, membrane potential on the y axis and time on the x. On the same axes draw that trace again under two drugs, one that blocks degradation and one that blocks reuptake. Show what changes, the height, the width, or both. One line: which drug you expect to change the trace more, and what you would need to measure to be sure."
    },
    {
-    "n": 18,
+    "n": 24,
     "name": "Excitatory and inhibitory postsynaptic potentials",
     "can": "Distinguish an EPSP from an IPSP by the ion channel opened and the direction of the membrane potential change.",
     "a": "Draw a postsynaptic neuron with two synapses on one dendrite, one excitatory and one inhibitory. At each, draw the channel that opened and the ion moving through it with an arrow for direction. Under each synapse draw its own trace starting from about -70 mV and label the peak value. One line: how an inhibitory input can still be inhibitory even when the membrane potential barely moves.",
     "b": "Draw three recorded traces from the same neuron on shared axes, all starting near -70 mV, one rising 3 mV, one falling 4 mV, and one staying flat. For each trace, work backwards and draw the channel and the ion that would produce it. Give the flat trace two different explanations. One line: which explanation a second recording could rule out, and what that recording would be."
    },
    {
-    "n": 19,
+    "n": 25,
     "name": "Summation and integration",
     "can": "Distinguish temporal from spatial summation and determine whether a stated combination of EPSPs and IPSPs will bring the trigger zone to threshold.",
     "a": "Draw the same neuron twice. On the first, one presynaptic neuron fires four times in quick succession. On the second, four separate presynaptic neurons fire at the same moment. Under each, draw the trace at the trigger zone with a resting line near -70 mV and a dashed threshold line near -55 mV. Label which is temporal and which is spatial. One line: what has to be true about timing for the first one to work at all.",
     "b": "Draw a neuron with five inputs, three excitatory worth about 4 mV each and two inhibitory worth about 5 mV each. Choose which fire and in what order, then draw the trace at the trigger zone against a threshold line near -55 mV, writing your running total along the trace. Now change one input, its timing or its sign, so the outcome flips. Write which change you made and why it was enough."
    },
    {
-    "n": 20,
+    "n": 26,
     "name": "Presynaptic modulation",
     "can": "Compare presynaptic inhibition and facilitation with postsynaptic modulation and state the advantage of presynaptic control at a single input, which is selectivity.",
     "a": "Draw a neuron with three excitatory inputs converging on it. Add a modulatory neuron that synapses on one input's terminal, not on the cell body. Show what it does to calcium entry and to transmitter release at that terminal only. Draw the postsynaptic response to all three inputs before and after. One line: what postsynaptic inhibition would have done to the other two inputs.",
     "b": "You need to cut one input's effect by half and leave the other inputs untouched. Draw two attempts side by side, one acting on that input's presynaptic terminal and one acting on the postsynaptic membrane. On each drawing, shade every synapse the attempt affected. Mark the attempt that failed the requirement. One line: name the property that makes presynaptic control the right tool for this job."
    },
    {
-    "n": 21,
+    "n": 27,
     "name": "Synaptic plasticity",
     "can": "Explain long term potentiation as a mechanism of learning and identify the roles of repeated stimulation and receptor insertion.",
     "a": "Draw a glutamate synapse with both AMPA and NMDA receptors in the postsynaptic membrane. Show the magnesium sitting in the NMDA channel at rest. In a second panel, draw the same synapse during repeated high frequency stimulation with the magnesium displaced and calcium entering. In a third, draw what the membrane looks like an hour later. One line: why one presynaptic action potential on its own cannot do this.",
     "b": "Draw a graph of postsynaptic response size against time, with a burst of high frequency stimulation marked on the time axis, and plot the response before, during, and long after the burst. On the same axes, draw a second curve for the identical experiment with NMDA receptors blocked. One line: which receptor carries the ordinary moment to moment signal, and which one carries the signal that something should change."
    },
    {
-    "n": 22,
+    "n": 28,
     "name": "Electrical synapses",
     "can": "Compare an electrical synapse at a gap junction with a chemical synapse by speed and by capacity for modulation.",
     "a": "Draw two synapses side by side in cross section at the same scale, an electrical one at a gap junction and a chemical one. Show what physically crosses at each and make clear which gap is wider. Underneath both, draw one shared time axis and mark when the postsynaptic response begins for each. One line: what the chemical synapse buys with the delay it pays.",
     "b": "Pick two real jobs, one where many cells must fire as a single unit and one where a signal must be turned up, turned down, or blocked outright. Draw the synapse you would build for each and label it electrical or chemical. On each drawing, circle the feature that made it right for that job. One line: what fails if you swap the two."
    },
    {
-    "n": 23,
+    "n": 29,
     "name": "Synapse simulation",
     "can": "Alter neurotransmitter release and receptor availability in a synapse simulation and interpret the resulting postsynaptic recording.",
     "a": "Before you run anything, draw the postsynaptic recording you predict under three conditions on shared axes, normal, reduced transmitter release, and reduced receptor availability. Label the amplitude you expect on each. Run the simulation, then draw the real traces over your prediction in a second color. One line: which of the two manipulations your prediction got wrong, and what you had assumed that turned out to be false.",
@@ -1078,7 +1078,7 @@ window.BIO005_SHEET = {
  },
  "7": {
   "title": "Midterm 1",
-  "midterm": null,
+  "midterm": 2,
   "items": []
  },
  "8": {
@@ -1992,8 +1992,8 @@ window.BIO005_SHEET = {
   ]
  },
  "15": {
-  "title": "Midterm 2 and the final",
-  "midterm": null,
+  "title": "Midterm 2, and the final",
+  "midterm": 2,
   "items": []
  }
 };

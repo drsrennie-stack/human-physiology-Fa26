@@ -47,7 +47,7 @@
   if (window.__bio005NavLoaded) return;
   window.__bio005NavLoaded = true;
 
-  var CANVAS_HOME = 'https://yccd.instructure.com/courses/42616/modules';
+  var CANVAS_HOME = 'https://yccd.instructure.com/courses/42616';
   var VIRTUAL_OFFICE = 'https://yccd.instructure.com/courses/42616/discussion_topics/711800';
 
   /* ---------------------------------------------------------
@@ -94,6 +94,10 @@
     /* Week 1 teaching spine */
     'concept-videos-week01.html': { name: 'Week 1 concept videos', parent: 'week-01.html' },
     'braindump-week01.html':      { name: 'Week 1 brain dump',     parent: 'week-01.html' },
+    /* File names stay as uploaded; the week they belong to follows the Sep 13 2026 map. */
+    'concept-videos-week03.html': { name: 'Week 2 concept videos', parent: 'week-02.html' },
+    'concept-videos-week04.html': { name: 'Week 3 concept videos', parent: 'week-03.html' },
+    'week-print-pack.html':       { name: 'Week print pack',       parent: 'course-start.html' },
 
     /* Units */
     'unit-01.html': { name: 'Unit 1', parent: 'course-materials.html' },
@@ -420,9 +424,9 @@
 
   var WEEKS = [
     [1, '2026-09-08', '2026-09-13', 'How physiology works and what keeps you steady', 1],
-    [2, '2026-09-14', '2026-09-20', 'The cell, and how cells talk', 1],
-    [3, '2026-09-21', '2026-09-27', 'Getting across the membrane, and the electrical signal', 1],
-    [4, '2026-09-28', '2026-10-04', 'Neurons, action potentials and synapses', 2],
+    [2, '2026-09-14', '2026-09-20', 'The cell: structure, transport and signaling', 1],
+    [3, '2026-09-21', '2026-09-27', 'Membrane potential, neurons and synapses', 1],
+    [4, '2026-09-28', '2026-10-04', 'Membrane potential, neurons and synapses', 2],
     [5, '2026-10-05', '2026-10-11', 'Reflexes, and sensing the world', 2],
     [6, '2026-10-12', '2026-10-18', 'Muscle, and how movement gets commanded', 2],
     [7, '2026-10-19', '2026-10-25', 'Hormones, the autonomic system, and reproduction', 2],
@@ -433,7 +437,7 @@
     [12, '2026-11-23', '2026-11-29', 'Breathing, gas transport, and the fast pH lever', 3],
     [13, '2026-11-30', '2026-12-06', 'The kidney and body fluid balance', 3],
     [14, '2026-12-07', '2026-12-13', 'The slow pH lever, and putting it all together', 3],
-    [15, '2026-12-14', '2026-12-16', 'Catch up, and the final', 3]
+    [15, '2026-12-14', '2026-12-16', 'Midterm 2, and the final', 3]
   ];
   var PARTS = { 1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action' };
 
@@ -838,11 +842,12 @@
      A gated page never shows a wall. It names the opening day and the
      opening time and gives the student five ways onward.
      ========================================================= */
-  var HOLD = window.BIO005_SITE.held = { 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+  /* Sep 13 2026: Week 2 (the cell, and how cells talk) released from HOLD. */
+  var HOLD = window.BIO005_SITE.held = { 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
 
   var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
-  var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 8,
-                    'cbc-pcr-lab.html': 11, 'pulmonary-function-lab.html': 13 };
+  var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 7,
+                    'cbc-pcr-lab.html': 10, 'pulmonary-function-lab.html': 12 };
 
   function gatedWeek(file) {
     var m = /^week-(\d\d)(?:-notes|-notesheet-prompts)?\.html$/.exec(file);

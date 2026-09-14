@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transport across the membrane &middot; Notes &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy-15)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- notes page ---------- */
+.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
+.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
+.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
+  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
+.hero h1 .hl{color:var(--terra)}
+.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
+  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
+h2:first-of-type{border-top:0;padding-top:0}
+h2 .hl{color:var(--terra)}
+h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
+h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+p{margin:0 0 13px}
+.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
+
+/* term blocks, boxed so each definition reads as its own card */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+@media(max-width:760px){.terms{grid-template-columns:1fr}}
+.term{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:14px 16px}
+.term dt{font-weight:800;font-size:15.5px;margin:0 0 4px}
+.term dd{margin:0;font-size:14.5px;color:var(--navy-72)}
+.term dd b{color:var(--navy)}
+
+/* compartment color key: the same three codes are used in the figure,
+   in this legend, and on each group box, so a student can match them by eye */
+.ckey{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ckitem{display:inline-flex;align-items:center;gap:9px;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.sw{width:22px;height:22px;border-radius:5px;flex:0 0 auto}
+.sw.ext{background:var(--wash);border:1.6px dashed var(--navy-72)}
+.sw.int{background:#fff;border:2.4px solid var(--terra)}
+.sw.icf{background:var(--navy);border:1.6px solid var(--navy)}
+.ckitem .lb{line-height:1.2}
+.ckitem .sub{font-weight:600;color:var(--navy-72);font-size:12.5px;line-height:1.2}
+body.present .ckitem{font-size:clamp(13px,1.3vw,18px)}
+body.present .sw{width:26px;height:26px}
+
+/* grouped compartments: the group border shows what contains what */
+.tgroup{border-radius:var(--r-card);padding:16px 18px 18px;margin:0 0 14px}
+.tgroup .glab{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.tgroup .glab .sw{width:16px;height:16px;border-radius:4px}
+.tgroup .gnote{font-size:14px;color:var(--navy-72);margin:0 0 6px}
+.tgroup.ext{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.tgroup.ext .glab{color:var(--navy-72)}
+.tgroup.int{border:2px solid var(--terra)}
+.tgroup.int .glab{color:var(--terra)}
+.tgroup.icf{border:1.8px solid var(--navy)}
+.tgroup.icf .glab{color:var(--navy)}
+
+/* causal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.chain .lk{flex:1 1 130px;min-width:120px;background:#fff;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 13px}
+.chain .lk .k{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0 0 4px}
+.chain .lk p{margin:0;font-size:14px;line-height:1.4}
+.chain .ar{display:flex;align-items:center;justify-content:center;color:var(--terra);
+  font-size:20px;font-weight:800;padding:0 8px;flex:0 0 auto}
+@media(max-width:700px){.chain{flex-direction:column}.chain .ar{transform:rotate(90deg);padding:5px 0}}
+
+/* key box */
+.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
+.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
+.key p:last-child,.key ul:last-child{margin-bottom:0}
+
+/* equation */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:14px 0}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+
+.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+
+@media print{
+  @page{margin:13mm}
+  .site-header .site-logo svg{height:32px}
+  .wb,.wb-launch,.lightbox,.skip{display:none!important}
+  body{font-size:10.5pt}
+  h2{break-after:avoid;page-break-after:avoid}
+  .card,.key,.eq,figure,.chain,.term,.tgroup,.cprof{break-inside:avoid;page-break-inside:avoid}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* transcript blocks and worked problems */
+.sl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:0 0 10px}
+.sl b{color:var(--terra)}
+.tx p{max-width:70ch}
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+.prob{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:18px 0}
+.prob .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.prob .q{font-weight:800;margin:0 0 12px;font-size:16px}
+.prob .q+ul{margin-bottom:14px}
+.prob h5{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:14px 0 8px}
+sup,sub{font-size:.72em;line-height:0}
+img.fig{object-fit:contain}
+@media print{.prob,.work>li{break-inside:avoid;page-break-inside:avoid}}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+
+.prereq .card{padding:18px 20px}
+.prereq .eyebrow{margin-bottom:8px}
+.prereq ul.bul{margin-bottom:6px}
+.prereq ul.bul>li{padding:3px 0 3px 18px;font-size:14.5px}
+.prereq ul.bul>li::before{top:12px;width:5px;height:5px}
+.prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
+.prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
+@media(max-width:860px){.prereq{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Week 2</span></span>
+  </a>
+</header>
+<main class="wrap" id="main">
+<div class="hero"><p class="eyebrow">Week 2 &middot; Lecture notes and transcript</p><h1>Transport across <span class="hl">the membrane</span></h1><p class="lede">The second half of Week 2. The first half gave you the cell as a structure; this half is what that structure does. Diffusion and osmosis, the carriers and the pumps, endocytosis and exocytosis, and how a sheet of cells moves something all the way from the gut into the blood. Silverthorn chapter 5.</p><div class="metarow"><span class="pill">Competencies 5 to 16 of week 2</span><span class="pill navy">9 sections &middot; 5 worked problems</span><button type="button" class="pill navy" id="printbtn" style="border:0;cursor:pointer">Print these notes</button></div></div><div class="key"><p class="tag">How to use this sheet</p><p>Pass one, before the video: read a section, then close the page and put what you can into the box for that competency on your <b>Cellular physiology and transport</b> note sheet. Pass two, after the video: come back in your second color and add what you missed. Try each worked problem yourself before you read the work. Getting it wrong first is how the method sticks. Printing this page and keeping it beside you works just as well as reading it on screen.</p></div><h2>The problem for <span class="hl">today</span></h2><p class="sl"><b>Where this sits</b></p><div class="tx"><p>The first half of this week gave you the cell as a structure: the membrane, the organelles, the four tissue types, and the junctions that hold a sheet of cells together. Nothing in it moved.</p><p>This half is about movement. A cell is a bag of concentrated solution sitting in a different solution, and it stays alive by controlling what crosses the boundary between them. Every mechanism below answers the same two questions: which way is this substance going relative to its own gradient, and is the cell paying for the trip?</p><p>Hold those two questions. If you can answer them for any substance at any membrane, you can work out the rest, and most of what looks like memorisation in this half turns out to be those two answers in different clothes.</p></div><h2>The two questions, and the <span class="hl">map they make</span></h2><p class="sl"><b>The frame for everything below</b></p><div class="tx"><p>Put the two questions on two axes and you get every transport mechanism in physiology.</p><p><b>Down its gradient, no energy spent.</b> This is passive transport. Simple diffusion if the substance crosses the lipid on its own, facilitated diffusion if it needs a protein to get through. Osmosis is this same thing for water.</p><p><b>Against its gradient, energy spent.</b> This is active transport. Primary if the protein burns ATP itself, secondary if it spends a gradient that some other pump built with ATP earlier.</p><p><b>Too big for any protein.</b> The cell wraps it in membrane instead, and that is vesicular transport: endocytosis coming in, exocytosis going out.</p><p>When you meet something new, put it on that map first. A student who knows the sodium potassium pump is primary active transport and that SGLT1 is secondary has understood the real difference between them, which is where the ATP was spent.</p></div><h2>Simple diffusion, and what sets <span class="hl">its speed</span></h2><p class="sl"><b>Competency 5</b></p><div class="tx"><p>Diffusion is molecules moving from where there are more of them to where there are fewer, driven by nothing but their own random motion. Nobody pushes them. There are simply more ways to end up spread out than stacked in one corner, so over time they spread out.</p><p>The important consequence is that diffusion needs no energy and no protein. It also never stops at equilibrium: molecules keep moving in both directions, but the two rates become equal, so the net movement is zero. Equilibrium is a standoff, not a stillness.</p><p>Fick's law names the four things that set the rate. Rate goes up with the <b>concentration gradient</b>, up with the <b>surface area</b> available, down with the <b>thickness</b> of the membrane, and down with the <b>distance</b> the substance has to travel. Membrane permeability rolls into it too, and that depends on how lipid soluble the substance is, how big it is, and the temperature.</p><p>Every one of those four shows up again later as a clinical finding. Emphysema destroys alveolar walls and cuts surface area. Pulmonary oedema puts fluid between the air and the blood and increases the distance. Fibrosis thickens the barrier. None of those are new physiology; they are Fick's law with one variable moved.</p><p>What crosses the lipid unaided, in order: small nonpolar gases like oxygen and carbon dioxide go easily, small uncharged polar molecules like water and urea go slowly, and large polar molecules and every ion do not go at all without help. That order is worth knowing cold, because it decides which mechanism a substance has to use.</p></div><div class="prob"><p class="tag">Worked problem 1</p><p class="q">Oxygen moves from an alveolus into a capillary. A patient develops pulmonary oedema, which puts a layer of fluid between the air and the blood and doubles the distance oxygen has to travel. Nothing else changes. What happens to the rate of oxygen transfer, and why does this patient feel short of breath rather than simply tired?</p><p class="sub">Fick's law: rate rises with gradient and surface area, and falls with thickness and distance.</p><h5>The work</h5><ol class="work"><li>Name the variable that changed. Distance went up. Gradient, surface area and membrane thickness are all unchanged.</li><li>Distance sits in the denominator, so doubling it roughly <b>halves</b> the rate of oxygen transfer across that patch of membrane.</li><li>Less oxygen crosses per second, so arterial oxygen falls.</li><li>Chemoreceptors respond to that fall by driving ventilation up, which is what the patient experiences as breathlessness.</li><li>The picture to draw: two boxes with a barrier between them, an arrow for oxygen, and the barrier drawn twice, once thin and once with fluid added. Label the distance on both.</li><li>The point to carry: nothing was wrong with the patient's oxygen, their haemoglobin or their gradient. One geometric variable moved and the whole system followed.</li></ol></div><h2>Osmosis: the same idea, seen from <span class="hl">the water's side</span></h2><p class="sl"><b>Competencies 6 and 7</b></p><div class="tx"><p>Osmosis is diffusion of water. Water moves down its own concentration gradient, which means it moves toward the side with <b>more solute</b>, because more solute means less water per litre.</p><p>Students lose marks here by tracking the solute. Track the water. If one side has more dissolved particles, that side has proportionally less water, and water moves in.</p><p>Osmotic pressure is the pressure you would have to apply to stop that movement. It is a way of measuring how badly water wants to move, not a push the solutes are exerting.</p><p><b>Osmolarity</b> is a count: how many osmoles of solute sit in a litre of solution. Body fluids run at about 300 milliosmoles per litre. It counts every particle, and it tells you nothing on its own about what a solution will do to a cell.</p><p><b>Tonicity</b> is the thing that actually matters to a cell, and it counts only the solutes that <b>cannot cross the membrane</b>. A solute that crosses simply follows the water and changes nothing in the end.</p><p>That distinction is the single most tested idea in this half of the week. A 300 mOsM solution of urea is isosmotic with the cell, and it will still burst a red blood cell, because urea crosses the membrane, enters the cell, and water follows it in. Isosmotic, hypotonic. The two words are not synonyms and one of them is about the membrane, not the solution.</p></div><div class="prob"><p class="tag">Worked problem 2</p><p class="q">A red blood cell is dropped into each of three solutions. A: 300 mOsM sodium chloride. B: 300 mOsM urea. C: 150 mOsM sodium chloride. Sodium chloride does not cross the red cell membrane; urea does. Predict what happens to the cell in each, and give both the osmolarity word and the tonicity word.</p><p class="sub">Cell interior is about 300 mOsM, and all of it is nonpenetrating.</p><h5>The work</h5><ol class="work"><li>Solution A. 300 mOsM, none of it penetrating. Nonpenetrating outside equals nonpenetrating inside, so water has no reason to move. <b>Isosmotic and isotonic. No volume change.</b></li><li>Solution B. 300 mOsM, but urea crosses. Count only the nonpenetrating solute outside: zero. The cell has 300 mOsM of nonpenetrating solute inside and there is none outside, so water moves in.</li><li>Urea also moves in, down its own gradient, which raises the inside osmolarity further and pulls in still more water. The cell swells and lyses. <b>Isosmotic but hypotonic.</b></li><li>Solution C. 150 mOsM, nonpenetrating. Half the nonpenetrating solute outside that the cell has inside, so water moves in and the cell swells. <b>Hyposmotic and hypotonic.</b></li><li>The picture to draw: three cells in three beakers, an arrow for water in each, and under each one write the two words separately so you are forced to notice when they disagree.</li><li>The point to carry: osmolarity is a property of a solution you can measure in a beaker. Tonicity only exists once you name a membrane, because it depends on what that membrane will let through.</li></ol></div><h2>Facilitated diffusion: a protein, but <span class="hl">still no bill</span></h2><p class="sl"><b>Competency 8</b></p><div class="tx"><p>Glucose is large and polar. It will not cross a lipid bilayer in any useful amount, and yet every cell in your body takes it up. It goes through a carrier protein, the GLUT family, down its own concentration gradient.</p><p>That is facilitated diffusion: protein mediated, still passive, still downhill, still no ATP. The protein is a door, not an engine. Take the gradient away and the movement stops, and if the gradient reverses the protein happily carries glucose the other way.</p><p>Two features come with using a protein, and both separate facilitated diffusion from simple diffusion on a graph.</p><p><b>Specificity.</b> A carrier binds a particular shape. GLUT carries glucose and some related sugars and will not carry amino acids.</p><p><b>Saturation.</b> There is a finite number of carriers. Raise the concentration far enough and every carrier is occupied, and the rate stops rising. Simple diffusion has no such ceiling; its graph is a straight line that keeps climbing.</p><p>Channels are the other protein route. A channel is an open pore rather than a binding site, so it moves ions far faster than a carrier moves anything, and it is gated: voltage gated, chemically gated, or mechanically gated. The gating is what Week 3 is built on, so notice it now.</p></div><h2>Primary active transport: paying <span class="hl">with ATP</span></h2><p class="sl"><b>Competency 9</b></p><div class="tx"><p>Everything above moves things downhill. A cell that only did that would come to equilibrium with its surroundings, and a cell at equilibrium with its surroundings is dead. Life is the business of holding gradients that would rather collapse.</p><p>Primary active transport is a protein that hydrolyses ATP itself and uses that energy to move a substance against its gradient.</p><p>The one to know is the <b>sodium potassium ATPase</b>. Per ATP it moves <b>three sodium ions out</b> and <b>two potassium ions in</b>, both against their gradients. It is in the membrane of every cell you have, and a substantial share of your resting metabolic rate goes to running it.</p><p>Two consequences follow, and both matter later.</p><p>Because three positive charges leave and only two come in, the pump is <b>electrogenic</b>: it makes the inside of the cell slightly more negative. That is a small direct contribution to the resting membrane potential you meet in Week 3.</p><p>Because it holds sodium low inside the cell, it creates a steep inward sodium gradient. That gradient is stored energy, and the whole next section is about cells spending it.</p><p>Other primary pumps worth naming: the calcium ATPase that keeps intracellular calcium about ten thousand times lower than outside, and the proton pump in the stomach that acidifies gastric juice.</p></div><h2>Secondary active transport: spending <span class="hl">somebody else's gradient</span></h2><p class="sl"><b>Competency 10</b></p><div class="tx"><p>A secondary active transporter moves one substance <b>down</b> its gradient and uses the energy released to drag a second substance <b>up</b> its own. No ATP touches this protein. The ATP was spent earlier, by the sodium potassium pump, building the gradient this transporter now spends.</p><p>That is why it is called secondary. It is one step removed from the ATP, and if you poison the sodium potassium pump, every secondary transporter in the cell fails shortly afterwards, because the gradient they all live on runs down.</p><p>Two shapes, and the names are literal.</p><p><b>Symport</b>, both substances moving in the same direction. SGLT1 in the intestine and the kidney brings sodium in down its gradient and drags glucose in with it, against the glucose gradient.</p><p><b>Antiport</b>, the two moving in opposite directions. The sodium calcium exchanger lets sodium in and throws calcium out.</p><p>Digoxin is the clinical case that ties the two sections together. It blocks the sodium potassium pump, so intracellular sodium rises, so the sodium gradient the sodium calcium exchanger depends on gets weaker, so less calcium leaves the cell, so intracellular calcium rises and the heart contracts more forcefully. Four steps, no new physiology, and a drug that has been in use for two hundred years.</p></div><div class="prob"><p class="tag">Worked problem 3</p><p class="q">A patient with cholera has watery diarrhoea and is losing salt and water fast. Intravenous fluid is not available. Oral rehydration solution, which is water with salt and glucose in it, saves the patient's life. Plain salt water does not work nearly as well. Explain why the glucose matters, using the transport proteins involved.</p><p class="sub">Cholera toxin drives chloride and water secretion into the gut lumen. It does not damage SGLT1 on the apical membrane of the intestinal cell.</p><h5>The work</h5><ol class="work"><li>Name the protein the glucose is for. SGLT1 on the apical membrane is a <b>symport</b>: sodium in, glucose in, the sodium moving down its gradient and paying for the glucose.</li><li>For SGLT1 to run, there has to be sodium in the lumen and a sodium gradient across the apical membrane. The sodium potassium pump on the basolateral membrane keeps intracellular sodium low, so the gradient is there.</li><li>With glucose present, every glucose molecule absorbed brings a sodium ion in with it. Salt alone gives no such coupling and is absorbed far less efficiently.</li><li>Sodium accumulating inside the cell is pumped out across the basolateral membrane into the interstitial fluid, which raises the osmolarity there.</li><li>Water follows that solute by osmosis, out of the lumen and into the body. The water is never actively transported; it follows the sodium the whole way.</li><li>The picture to draw: one intestinal cell with an apical and a basolateral membrane, SGLT1 on the apical side, the sodium potassium pump on the basolateral side, and a dotted arrow for water following the sodium.</li><li>The point to carry: the treatment works because cholera toxin breaks one pathway and leaves another intact. Knowing which proteins sit on which membrane is what lets you see that.</li></ol></div><h2>Transport maximum, and why glucose <span class="hl">appears in urine</span></h2><p class="sl"><b>Competency 11</b></p><div class="tx"><p>Any transport that uses a protein can saturate, because there is a finite number of proteins. The rate at which every carrier is working flat out is the <b>transport maximum</b>, the Tm.</p><p>Below the Tm, raising the concentration raises the rate. At the Tm, raising the concentration does nothing at all, and whatever cannot be carried goes somewhere else.</p><p>The kidney is the clean example. Filtered glucose is normally reabsorbed completely, so there is no glucose in urine. Raise plasma glucose far enough and the carriers saturate, and glucose starts appearing in the urine. The plasma concentration at which that begins is the <b>renal threshold</b>, around 180 to 200 mg/dL in most people, and the Tm itself is around 375 mg/min.</p><p>This is why uncontrolled diabetes produces sugar in the urine, and why it also produces thirst and high urine volume: glucose left in the tubule holds water there by osmosis, so more water is lost. Saturation of one carrier explains three symptoms.</p><p>Simple diffusion never saturates. If you are given a graph that flattens out, a protein is involved somewhere.</p></div><h2>Vesicular transport: too big for <span class="hl">any protein</span></h2><p class="sl"><b>Competency 12</b></p><div class="tx"><p>Proteins, bacteria and droplets of extracellular fluid are far too large for any channel or carrier. The cell moves them by wrapping them in a piece of its own membrane.</p><p><b>Phagocytosis</b>, cell eating. The cell sends out actin driven pseudopods that surround a large particle, a bacterium or a dead cell, and pinch off a <b>phagosome</b>. The phagosome fuses with a lysosome and the contents are digested. This is not a general cell ability: it belongs to specialised cells, chiefly macrophages and neutrophils, and it is the front line of your immune defence.</p><p><b>Pinocytosis</b>, cell drinking. The membrane dimples inward and pinches off a small vesicle of extracellular fluid with whatever happens to be dissolved in it. It is nonselective and it goes on continuously in most cells.</p><p><b>Receptor mediated endocytosis</b>, the selective one. Receptors on the surface bind a specific ligand, the loaded receptors gather in a region coated on its inner face with <b>clathrin</b>, and that coated pit invaginates and pinches off. This is how cells take up cholesterol carried as LDL, and how they take up iron carried on transferrin. Familial hypercholesterolaemia is a defect in the LDL receptor: the cholesterol is in the blood, the cell cannot bring it in, and plasma cholesterol runs very high from childhood.</p><p><b>Exocytosis</b>, the way out. A vesicle moves to the plasma membrane, fuses with it, and empties its contents outside. It does two jobs at once: it secretes the contents, and it adds the vesicle membrane, with whatever proteins were in it, to the plasma membrane. Regulated exocytosis, the kind that releases neurotransmitter or insulin, is triggered by a rise in intracellular calcium, which is worth remembering when you meet synapses in Week 3.</p><p><b>Transcytosis</b> is endocytosis on one face and exocytosis on the other, carrying something straight across a cell. Capillary endothelium moves large proteins this way.</p></div><div class="prob"><p class="tag">Worked problem 4</p><p class="q">A child is found to have a plasma cholesterol several times the normal value from a young age, and the family history shows the same pattern. Investigation shows the LDL receptor is defective. Explain why plasma cholesterol is high, and say which step of the transport pathway has failed.</p><p class="sub">LDL carries cholesterol in the blood. Cells take it up by receptor mediated endocytosis.</p><h5>The work</h5><ol class="work"><li>Name the mechanism. Cholesterol arrives as LDL, which is far too large to cross the membrane by any protein route, so it is taken up by <b>receptor mediated endocytosis</b>.</li><li>Name the step. The LDL receptor binds LDL at the cell surface and the loaded receptors gather in a clathrin coated pit, which invaginates and pinches off.</li><li>With a defective receptor, LDL is never bound, so no coated pit forms and no vesicle is taken in. The uptake step fails at the very beginning.</li><li>The cholesterol is not missing from the body. It is in the plasma and cannot get out of it, so plasma concentration rises and stays high.</li><li>Cells sense they are short of cholesterol and make more of their own, which makes the plasma level worse rather than better.</li><li>The picture to draw: a cell surface with receptors, LDL particles outside, a coated pit forming in the normal case, and the same drawing with the receptor crossed out and LDL piling up outside.</li><li>The point to carry: a transport defect does not always mean too little of a substance somewhere. Here there is far too much of it, in the wrong compartment, because the door into the right one is broken.</li></ol></div><h2>Transepithelial transport: two membranes, <span class="hl">two sets of proteins</span></h2><p class="sl"><b>Competency 13</b></p><div class="tx"><p>Everything so far moved something across one membrane. Absorbing a nutrient from the gut, or reabsorbing it in the kidney, means moving it across a whole <b>sheet of cells</b>, in one side and out the other.</p><p>That only works because an epithelial cell is <b>polarised</b>: the membrane facing the lumen, the <b>apical</b> membrane, carries different proteins from the membrane facing the blood, the <b>basolateral</b> membrane. The tight junctions from the first half of this week are what keep the two sets from mixing, which is where the anatomy and the physiology of this week meet.</p><p>Glucose absorption in the small intestine is the pathway to know, and it uses three proteins on two membranes.</p><p>On the <b>apical</b> membrane, SGLT1 brings glucose in against its gradient, powered by sodium coming down its gradient. Secondary active transport.</p><p>On the <b>basolateral</b> membrane, GLUT2 lets glucose leave down its gradient into the interstitial fluid. Facilitated diffusion.</p><p>Also on the <b>basolateral</b> membrane, the sodium potassium pump throws sodium out, keeping intracellular sodium low so the apical gradient never runs down. Primary active transport.</p><p>Three mechanisms, one molecule, one trip. That is the pathway to be able to draw from blank paper, and the question to ask yourself at every step is still the same two: which way relative to the gradient, and who is paying.</p><p>There is also a route <b>between</b> the cells rather than through them, the paracellular route, and how leaky it is depends on the tight junctions. A leaky epithelium like the proximal tubule lets a good deal through between cells; a tight one like the distal nephron or the bladder lets almost nothing.</p></div><div class="prob"><p class="tag">Worked problem 5</p><p class="q">In an experiment, a drug is applied that blocks only the basolateral sodium potassium pump in an intestinal epithelial cell. Glucose absorption across the epithelium falls to almost nothing within minutes, even though the drug never touched SGLT1. Explain the sequence.</p><p class="sub">SGLT1 on the apical membrane is a sodium glucose symport. GLUT2 on the basolateral membrane is facilitated diffusion.</p><h5>The work</h5><ol class="work"><li>Name what the pump was doing. It threw sodium out of the cell across the basolateral membrane, holding intracellular sodium low.</li><li>Block it, and sodium stops leaving. Intracellular sodium begins to rise.</li><li>SGLT1 runs on the sodium gradient across the apical membrane. As intracellular sodium rises, that gradient shrinks.</li><li>With a small gradient there is little energy to spend, so SGLT1 can no longer drag glucose in against the glucose gradient. Apical uptake falls.</li><li>Nothing is wrong with SGLT1 itself. It is a secondary active transporter and its fuel supply was cut off two steps upstream.</li><li>The picture to draw: the same polarised cell as before, with the pump crossed out and a rising sodium level written inside the cell, and an arrow through SGLT1 getting thinner.</li><li>The point to carry: this is what secondary means. Every secondary transporter in the body is one pump failure away from stopping.</li></ol></div><h2>What this half assumes you <span class="hl">already have</span></h2><p class="sl"><b>Before you go on</b></p><div class="tx"><p>From the first half of this week: the membrane as a lipid bilayer with proteins in it, and the junctions that hold an epithelium together, especially tight junctions and what they do to the route between cells.</p><p>From Week 1: the idea of a regulated variable and a control loop. Most of what is being transported here is something a loop somewhere is defending.</p><p>From the chemistry review, if you did it: polar and nonpolar, and why a charged particle will not cross an oily layer on its own. If that sentence is not solid, the whole first section rests on it.</p><p>Going forward into Week 3: ion channels and their gating, and the sodium potassium pump holding the gradients, are what the resting membrane potential and then the action potential are built from. You have already met both. Week 3 puts a voltage on them.</p></div><h2>Close the page and <span class="hl">produce it</span></h2><p class="sub">These are the twelve Week 2 competencies this half of the week covers, straight off the study guide, with the two prompts that go with each one. The other thirteen competencies of Week 2 are the cell and tissues half, and they have their own notes and their own note sheet. Pick one prompt per competency. Blank paper, nothing open.</p><p class="sub"><a href="competency-brain-dump.html" target="_top">Read the full instructions first</a>, including how the first pass before the lecture differs from the second pass after it.</p><div class="cmpwrap"><div class="grid g2"><section class="cmp"><p class="cn" aria-hidden="true">01</p><h4>Simple diffusion and Fick's law</h4><p class="ccan">State the variables in Fick's law of diffusion and predict how a change in concentration gradient, surface area, membrane thickness, or distance changes the rate of transfer.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">1-1</p><p>Draw the Fick's law setup as a picture, not an equation: two compartments, a membrane between them, and label on the drawing the surface area, the concentration difference, and the membrane thickness. Then draw four small graphs in a row, rate of diffusion against each of those, plus against diffusion distance. Label both axes on every graph. One line: one variable sits in the denominator, so say which and how the shape of its graph shows that.</p></div><div class="pr b"><p class="pl">1-2</p><p>Draw a real gas exchange surface, one alveolus against one capillary, and mark on it every Fick variable the body has already optimised. Then draw the same surface in pulmonary edema, with fluid thickening the barrier. Show what changed and what did not. One line: name the single Fick variable the disease changed, and say whether breathing faster fixes it.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">02</p><h4>Osmolarity and tonicity</h4><p class="ccan">Calculate the osmolarity of a solution, distinguish osmolarity from tonicity, and classify a solution as isotonic, hypotonic, or hypertonic to a cell.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">2-1</p><p>Draw three beakers labeled 150 mM NaCl, 300 mM sucrose, and 300 mM urea. Under each, write the osmolarity calculation and the answer in mOsm/L. Then draw a red blood cell in each beaker and show its final volume. One line: all three have the same osmolarity and one of them lyses the cell, so name the property of the solute that decides tonicity.</p></div><div class="pr b"><p class="pl">2-2</p><p>Draw three cells that have just come out of three unknown solutions: one shrunken, one swollen but intact, and one lysed. Beside each, write two different solutions that could have produced that result, one differing in osmolarity and one differing only in penetrating solute content. One line: say what osmolarity alone failed to tell you about the lysed cell.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">03</p><h4>Osmosis and cell volume</h4><p class="ccan">Predict the direction of water movement and the resulting change in cell volume when a cell is placed in a solution of stated osmolarity and penetrating solute content.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">3-1</p><p>Draw a cell at normal volume in the middle of your page, 290 mOsm/L inside. Around it draw four more cells, in 150 mOsm/L NaCl, 290 mOsm/L NaCl, 450 mOsm/L NaCl, and 290 mOsm/L urea. For each, draw the water arrow with its direction and the final cell volume. One line: for the urea cell, say what happens at the first instant and what happens over the next few minutes.</p></div><div class="pr b"><p class="pl">3-2</p><p>Draw one set of axes, cell volume on the y and time on the x, with the moment of immersion marked. Plot three traces on it: a cell in 450 mOsm/L NaCl, a cell in 150 mOsm/L NaCl, and a cell in 600 mOsm/L urea. One line: one trace goes down and then climbs back past where it started, so say which solute movement caused each half of that curve.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">04</p><h4>Diffusion and osmosis experiment</h4><p class="ccan">Measure diffusion and osmotic movement across a selectively permeable membrane and relate the observed rate to molecular size and concentration gradient.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">4-1</p><p>Before you run anything, draw your predicted result: the bag or the plate as it will look at the start and at the end, with each test molecule drawn where you expect it to be. Run it, then draw the actual result beside your prediction in a second color. One line: name the substance that moved fastest and say whether molecular size or starting gradient explains it better in your own data.</p></div><div class="pr b"><p class="pl">4-2</p><p>Draw a graph of distance moved on the y against molecular weight on the x, one labeled point for every substance you tested. Beside it draw a second small graph, distance moved against starting concentration. One line: your membrane passed some things and stopped others, so write the size cutoff your data actually supports and how confident you are in that number.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">05</p><h4>Tonicity and red blood cells</h4><p class="ccan">Observe erythrocytes in solutions of different tonicity, identify crenation, normal shape, and hemolysis, and explain each result.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">5-1</p><p>Draw three microscope fields, one per solution: distilled water, 0.9 percent NaCl, and 3 percent NaCl. In each, draw the cells as you actually see them, keeping the biconcave disc, the spiky crenated form, and the ghosts distinct. Under each field write the direction of net water movement. One line: name the slide that is hardest to count cells on, and say why that difficulty is itself the result.</p></div><div class="pr b"><p class="pl">5-2</p><p>Draw one red cell in the center of your box and three arrows out to three versions of it: crenated, normal, and hemolysed. Beside each write the tonicity that produced it and the water arrow. Then draw what the membrane itself did in the hemolysed one. One line: crenation is reversible and hemolysis is not, so say what makes the difference.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">06</p><h4>Facilitated diffusion</h4><p class="ccan">Describe carrier and channel mediated diffusion and explain why carrier mediated transport shows saturation and specificity while simple diffusion does not.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">6-1</p><p>Draw a channel protein and a carrier protein in the same stretch of membrane, with a molecule crossing through each. Make the difference visible in the drawing: the channel as an open pore, the carrier changing shape around its cargo. Underneath, draw one graph of transport rate against solute concentration with two traces, simple diffusion and carrier mediated. One line: only one trace plateaus, so say what has run out at the plateau.</p></div><div class="pr b"><p class="pl">6-2</p><p>Draw a carrier protein with glucose bound, then draw three failures beside it: galactose competing for the same carrier, a molecule of the wrong shape bouncing off, and every carrier already occupied. Label which drawing is competition, which is specificity, and which is saturation. One line: adding more glucose helps in one of those three and does nothing in another, so name each and say why.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">07</p><h4>Primary active transport</h4><p class="ccan">Explain how the sodium potassium ATPase uses ATP to move three sodium out and two potassium in, and state the two gradients it maintains.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">7-1</p><p>Draw the sodium potassium ATPase in a membrane with inside and outside labeled. Sketch the cycle in three or four steps: ions binding, ATP splitting, the shape change, ions releasing. Write 3 and 2 on the correct arrows in the correct directions. Beside it note the sodium and potassium concentrations inside and out that the pump maintains. One line: it moves three out for every two in, so say what that does to charge across the membrane.</p></div><div class="pr b"><p class="pl">7-2</p><p>Draw a cell with the two gradients the pump maintains, sodium high outside and potassium high inside, as tall and short bars on each side. Now poison the pump with ouabain and draw the same bars ten minutes later and an hour later. One line: pick one downstream process that fails, not the resting membrane potential, and say how many steps removed from the pump it is.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">08</p><h4>Secondary active transport</h4><p class="ccan">Distinguish symport from antiport and trace how the sodium gradient powers glucose uptake by SGLT and calcium removal by the sodium calcium exchanger.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">8-1</p><p>Draw a cell membrane with the sodium potassium ATPase keeping sodium low inside. Beside it draw SGLT carrying sodium and glucose in together, and the sodium calcium exchanger sending calcium out as sodium comes in. Draw every ion arrow, and mark the sodium gradient as the shared energy source. Label which one is symport and which is antiport. One line: no ATP touches either of these two proteins, so say where their energy came from.</p></div><div class="pr b"><p class="pl">8-2</p><p>Draw the sodium calcium exchanger working normally, then draw the same exchanger in a cell whose sodium potassium pump has been stopped. Use three panels with arrows between them: what happens to intracellular sodium, then to the exchanger's driving force, then to intracellular calcium. One line: this is how digoxin strengthens a failing heart, so write the last step of that chain in your own words.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">09</p><h4>Transport maximum and saturation</h4><p class="ccan">Interpret a transport rate curve, identify the transport maximum, and apply the concept to renal glucose handling in hyperglycemia.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">9-1</p><p>Draw one set of axes, transport rate on the y and solute concentration on the x. Draw a carrier mediated curve that rises and then flattens, and mark the transport maximum with a labeled dashed line. On the same axes draw a straight simple diffusion line for contrast. One line: past the transport maximum the curve is flat, so say what is happening to every extra solute molecule that arrives.</p></div><div class="pr b"><p class="pl">9-2</p><p>Draw a kidney tubule with glucose filtered in, reabsorbed by carriers, and any leftover carried on to urine. Draw it three times: normal plasma glucose, plasma glucose at the renal threshold near 180 mg/dL, and plasma glucose well above that. Show the urine in each. Write the glucose transport maximum, about 375 mg/min, beside them. One line: say why a person can be losing glucose in urine while every carrier is working perfectly.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">10</p><h4>Vesicular transport</h4><p class="ccan">Compare phagocytosis, pinocytosis, receptor mediated endocytosis, and exocytosis by trigger, cargo, and energy requirement.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">10-1</p><p>Draw one cell with four events happening on its surface at once: phagocytosis of a bacterium, pinocytosis of a droplet of fluid, receptor mediated endocytosis of a particle held in a coated pit, and exocytosis of a secretory vesicle. Draw the membrane actually deforming in each. Beside each write the trigger and the cargo. One line: all four cost ATP, so name the one that is completely unselective about what it takes in, and say what that costs the cell.</p></div><div class="pr b"><p class="pl">10-2</p><p>Draw one particle's whole journey by receptor mediated endocytosis, left to right across your page: binding to receptors, the coated pit, the vesicle pinching off, fusion with a lysosome, and the receptors returning to the surface. Underneath, draw the reverse journey for a molecule leaving by exocytosis. One line: pick a cell type, not a neuron, and say which direction it spends more energy on.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">11</p><h4>Transepithelial transport</h4><p class="ccan">Trace glucose or sodium from lumen to blood across a polarized epithelium and identify which step occurs at the apical membrane and which at the basolateral membrane.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">11-1</p><p>Draw one polarized epithelial cell, lumen on the left and blood on the right, tight junctions at the top, apical and basolateral membranes labeled. Trace one glucose molecule all the way through: SGLT at the apical membrane, GLUT at the basolateral membrane, and the sodium potassium pump on the basolateral side. Mark each step active or passive. One line: the pump never touches glucose, so say how it powers the apical step.</p></div><div class="pr b"><p class="pl">11-2</p><p>Draw the same epithelium twice. In the first, show what would go wrong if the basolateral pump drifted around to the apical side, and use that to say what tight junctions are for. In the second, draw the cell with apical SGLT blocked. Show where glucose ends up in each. One line: oral rehydration solution contains both salt and sugar, so say which of your two drawings explains why.</p></div></section><section class="cmp"><p class="cn" aria-hidden="true">12</p><h4>Transport simulation</h4><p class="ccan">Use a membrane transport simulation to distinguish simple diffusion from facilitated diffusion and active transport by their response to gradient reversal and metabolic poison.</p><p class="pick">Do one of the two. Head your paper with the number.</p><div class="pr a"><p class="pl">12-1</p><p>Before you run it, draw three predicted graphs in a row, transport rate against time, one each for simple diffusion, facilitated diffusion, and active transport. Then draw a fourth showing what a metabolic poison does to whichever of the three it affects. Run the simulation and draw the real curves underneath in a second color. One line: say which transport type the poison left untouched, and why it could not touch it.</p></div><div class="pr b"><p class="pl">12-2</p><p>Draw a decision tree with three endpoints: simple diffusion, facilitated diffusion, and active transport. At each branch put one test you can actually run in the simulation, reversing the gradient, raising solute until the rate stops climbing, or adding a metabolic poison. Draw the result that sends you down each branch. One line: name the single test that separates active transport from both of the others in one step.</p></div></section></div></div>
+<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Compartments, cells and tissues. Values given are typical teaching figures, not laboratory reference ranges. Figures &copy; Pearson Education, Silverthorn Human Physiology 9e, used under the instructor license for this course.</p>
+
+</main>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='biol005-w03-compartments-notes';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  document.querySelectorAll('.clin-btn').forEach(function(b){
+    if(b.dataset.wired) return; b.dataset.wired='1';
+    var box=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      if(box)box.hidden=open;
+    });
+  });
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+<script>(function(){var b=document.getElementById("printbtn");if(b)b.addEventListener("click",function(){window.print();});})();</script>
+</body>
+</html>

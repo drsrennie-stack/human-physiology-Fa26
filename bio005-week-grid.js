@@ -40,249 +40,100 @@
    real Canvas titles and drop the flag.
    ============================================================ */
 window.BIO005_WEEK_GRID = {
- "legend": {
-  "check": {
-   "label": "Mastery Check",
-   "noPoints": true
+
+  /* Everything in "due" is drawn from the seven stage week. The three
+     that carry points are the lab, the application case and the
+     discussion; the Mastery Check is listed because students need to
+     see it on the checklist, with noPoints marking it. */
+  legend: {
+    check:  { label:'Mastery Check',    noPoints:true  },
+    lab:    { label:'Lab',              noPoints:false },
+    apply:  { label:'Application case', noPoints:false },
+    disc:   { label:'Discussion',       noPoints:false },
+    log:    { label:'Practice engagement sheet', noPoints:true }
   },
-  "lab": {
-   "label": "Lab",
-   "noPoints": false
-  },
-  "apply": {
-   "label": "Application case",
-   "noPoints": false
-  },
-  "disc": {
-   "label": "Discussion",
-   "noPoints": false
-  },
-  "log": {
-   "label": "Practice engagement sheet",
-   "noPoints": true
-  }
- },
- "weeks": [
-  {
-   "wk": 1,
-   "title": "Foundations of Physiology",
-   "sub": "How physiology works and what keeps you steady",
-   "lab": "Standards and ranges",
-   "labNote": "No PhysioEx this week",
-   "due": [
-    "check",
-    "lab",
-    "disc",
-    "log"
-   ],
-   "extra": [
-    "Start Here",
-    "Vision board discussion"
-   ]
-  },
-  {
-   "wk": 2,
-   "title": "The Cell, and How Cells Talk",
-   "sub": "The cell, and how cells talk",
-   "lab": "Dose response, full and partial agonists",
-   "labNote": "No equipment, read the curves",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 3,
-   "title": "Membranes, Transport & Compartments",
-   "sub": "Getting across the membrane, and the electrical signal",
-   "lab": "Diffusion, osmosis and transport",
-   "labNote": "PhysioEx Ex 1, all five activities",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 4,
-   "title": "The Nervous System",
-   "sub": "Neurons, action potentials and synapses",
-   "lab": "",
-   "labNote": "Lab not named yet",
-   "due": [
-    "check",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 5,
-   "title": "Muscle",
-   "sub": "Reflexes, and sensing the world",
-   "lab": "Muscle contraction",
-   "labNote": "PhysioEx Ex 2, all activities",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 6,
-   "title": "Chemical Signaling & Endocrine Control",
-   "sub": "Muscle, and how movement gets commanded",
-   "lab": "Glucose tolerance and hormone assay",
-   "labNote": "PhysioEx Ex 4 and Ex 12",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 7,
-   "title": "Reproductive Physiology",
-   "sub": "Hormones, the autonomic system, and reproduction",
-   "lab": "Hormone cycle graphs",
-   "labNote": "No PhysioEx exercise, built worksheet",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ],
-   "exam": {
-    "n": 1,
-    "covers": "Weeks 1 to 7",
-    "window": "Mon Oct 26 to Wed Oct 28"
-   }
-  },
-  {
-   "wk": 8,
-   "title": "Cardiac Function",
-   "sub": "The heart as a pump",
-   "lab": "Cardiac physiology and ECG",
-   "labNote": "PhysioEx Ex 6",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 9,
-   "title": "Circulation & Blood Pressure",
-   "sub": "Pressure, flow, and holding blood pressure steady",
-   "lab": "Hemodynamics",
-   "labNote": "PhysioEx Ex 5",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 10,
-   "title": "Blood & Immunity",
-   "sub": "Blood and how the body defends itself",
-   "lab": "Blood analysis and typing",
-   "labNote": "PhysioEx Ex 11",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 11,
-   "title": "Digestion, Absorption & Energy Balance",
-   "sub": "Digestion, and how you use food for fuel",
-   "lab": "Digestive enzymes and metabolic rate",
-   "labNote": "PhysioEx Ex 8 and Ex 4",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 12,
-   "title": "Respiratory Physiology",
-   "provisional": "yes",
-   "sub": "Breathing, gas transport, and the fast pH lever",
-   "lab": "Pulmonary function",
-   "labNote": "PhysioEx Ex 7 and Ex 10",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 13,
-   "title": "Renal Physiology & Fluid Balance",
-   "provisional": "yes",
-   "sub": "The kidney and body fluid balance",
-   "lab": "Renal system physiology",
-   "labNote": "PhysioEx Ex 9",
-   "due": [
-    "check",
-    "lab",
-    "apply",
-    "disc",
-    "log"
-   ]
-  },
-  {
-   "wk": 14,
-   "title": "Acid-Base Balance & Integration",
-   "provisional": "yes",
-   "sub": "The slow pH lever, and putting it all together",
-   "lab": "Acid-base and ABG interpretation",
-   "labNote": "PhysioEx Ex 10",
-   "due": [
-    "check",
-    "lab",
-    "log"
-   ],
-   "extra": [
-    "Case conference recording",
-    "Final patient file"
-   ],
-   "exam": {
-    "n": 2,
-    "covers": "Weeks 8 to 14",
-    "window": "Mon Dec 14 to Wed Dec 16"
-   }
-  },
-  {
-   "wk": 15,
-   "title": "Catch Up, and the Final",
-   "sub": "Catch up, and the final",
-   "due": [
-    "check"
-   ]
-  }
- ]
+
+  weeks: [
+    { wk:1,  title:'Foundations of Physiology',
+      sub:'How physiology works and what keeps you steady',
+      lab:'Standards and ranges', labNote:'No PhysioEx this week',
+      due:['check','lab','disc','log'],
+      /* The vision board IS the introduction, Scrubs Sep 7 2026. There is
+         no separate introduce yourself discussion; listing both had
+         students posting twice. */
+      extra:['Start Here', 'Vision board discussion'] },
+
+    { wk:2,  title:'Molecules, Water & Energy',
+      sub:'The cell: structure, transport and signaling',
+      lab:'Enzyme activity, amylase', labNote:'PhysioEx Ex 8',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:3,  title:'Membranes, Transport & Compartments',
+      sub:'Membrane potential, neurons and synapses',
+      lab:'Diffusion, osmosis and transport', labNote:'PhysioEx Ex 1, all five activities',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:4,  title:'Electrical Signaling',
+      sub:'Membrane potential, neurons and synapses',
+      lab:'The action potential', labNote:'PhysioEx Ex 3',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:5,  title:'The Nervous System',
+      sub:'Reflexes, and sensing the world',
+      lab:'', labNote:'Lab not named yet',
+      due:['check','apply','disc','log'] },
+
+    { wk:6,  title:'Muscle',
+      sub:'Muscle, and how movement gets commanded',
+      lab:'Muscle contraction', labNote:'PhysioEx Ex 2, all activities',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:7,  title:'Chemical Signaling & Endocrine Control',
+      sub:'Hormones, the autonomic system, and reproduction',
+      lab:'Glucose tolerance and hormone assay', labNote:'PhysioEx Ex 4 and Ex 12',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:8,  title:'Reproductive Physiology',
+      sub:'The heart as a pump',
+      lab:'Hormone cycle graphs', labNote:'No PhysioEx exercise, built worksheet',
+      due:['check','lab','apply','disc','log'],
+      exam:{ n:1, covers:'Weeks 1 to 7', window:'Mon Oct 26 to Wed Oct 28' } },
+
+    { wk:9,  title:'Cardiac Function',
+      sub:'Pressure, flow, and holding blood pressure steady',
+      lab:'Cardiac physiology and ECG', labNote:'PhysioEx Ex 6',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:10, title:'Circulation & Blood Pressure',
+      sub:'Blood and how the body defends itself',
+      lab:'Hemodynamics', labNote:'PhysioEx Ex 5',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:11, title:'Blood & Immunity',
+      sub:'Digestion, and how you use food for fuel',
+      lab:'Blood analysis and typing', labNote:'PhysioEx Ex 11',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:12, title:'Digestion, Absorption & Energy Balance',
+      sub:'Breathing, gas transport, and the fast pH lever',
+      lab:'Digestive enzymes and metabolic rate', labNote:'PhysioEx Ex 8 and Ex 4',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:13, title:'Respiratory Physiology', provisional:'yes',
+      sub:'Breathing, gas transport, and the fast pH lever',
+      lab:'Pulmonary function', labNote:'PhysioEx Ex 7 and Ex 10',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:14, title:'Renal Physiology & Fluid Balance', provisional:'yes',
+      sub:'The kidney and body fluid balance',
+      lab:'Renal system physiology', labNote:'PhysioEx Ex 9',
+      due:['check','lab','apply','disc','log'] },
+
+    { wk:15, title:'Acid-Base Balance & Integration', provisional:'yes',
+      sub:'The slow pH lever, and putting it all together',
+      lab:'Acid-base and ABG interpretation', labNote:'PhysioEx Ex 10',
+      due:['check','lab','log'],
+      extra:['Case conference recording', 'Final patient file'],
+      exam:{ n:2, covers:'Weeks 8 to 14', window:'Mon Dec 14 to Wed Dec 16' } }
+  ]
 };

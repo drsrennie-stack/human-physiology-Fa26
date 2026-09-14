@@ -46,20 +46,20 @@
 
   var WEEKS = {
      1: { opens: '2026-09-08', unlock: '2026-09-08T00:00:00-07:00', title: 'How physiology works and what keeps you steady' },
-     2: { opens: '2026-09-14', unlock: '2026-09-12T20:00:00-07:00', title: 'The chemistry that does work in the body' },
-     3: { opens: '2026-09-21', unlock: '2026-09-19T20:00:00-07:00', title: 'Getting across the membrane' },
-     4: { opens: '2026-09-28', unlock: '2026-09-26T20:00:00-07:00', title: 'How cells talk, and the electrical signal' },
-     5: { opens: '2026-10-05', unlock: '2026-10-03T20:00:00-07:00', title: 'Synapses and central integration' },
-     6: { opens: '2026-10-12', unlock: '2026-10-10T20:00:00-07:00', title: 'Sensing the world, and the responses you do not control' },
-     7: { opens: '2026-10-19', unlock: '2026-10-17T20:00:00-07:00', title: 'Muscle, and how movement gets commanded' },
-     8: { opens: '2026-10-26', unlock: '2026-10-24T20:00:00-07:00', title: 'Hormones and reproduction, the slow control system' },
-     9: { opens: '2026-11-02', unlock: '2026-10-31T20:00:00-07:00', title: 'The heart as a pump' },
-    10: { opens: '2026-11-09', unlock: '2026-11-07T20:00:00-08:00', title: 'Pressure, flow, and holding blood pressure steady' },
-    11: { opens: '2026-11-16', unlock: '2026-11-14T20:00:00-08:00', title: 'Blood and how the body defends itself' },
-    12: { opens: '2026-11-23', unlock: '2026-11-21T20:00:00-08:00', title: 'Digestion, and how you use food for fuel' },
-    13: { opens: '2026-11-30', unlock: '2026-11-28T20:00:00-08:00', title: 'Breathing, gas transport, and the fast pH lever' },
-    14: { opens: '2026-12-07', unlock: '2026-12-05T20:00:00-08:00', title: 'The kidney and body fluid balance' },
-    15: { opens: '2026-12-14', unlock: '2026-12-12T20:00:00-08:00', title: 'The slow pH lever, and putting it all together' }
+     2: { opens: '2026-09-14', unlock: '2026-09-12T20:00:00-07:00', title: 'The cell: structure, transport and signaling' },
+     3: { opens: '2026-09-21', unlock: '2026-09-19T20:00:00-07:00', title: 'Membrane potential, neurons and synapses' },
+     4: { opens: '2026-09-28', unlock: '2026-09-26T20:00:00-07:00', title: 'Membrane potential, neurons and synapses' },
+     5: { opens: '2026-10-05', unlock: '2026-10-03T20:00:00-07:00', title: 'Reflexes, and sensing the world' },
+     6: { opens: '2026-10-12', unlock: '2026-10-10T20:00:00-07:00', title: 'Muscle, and how movement gets commanded' },
+     7: { opens: '2026-10-19', unlock: '2026-10-17T20:00:00-07:00', title: 'Hormones, the autonomic system, and reproduction' },
+     8: { opens: '2026-10-26', unlock: '2026-10-24T20:00:00-07:00', title: 'The heart as a pump' },
+     9: { opens: '2026-11-02', unlock: '2026-10-31T20:00:00-07:00', title: 'Pressure, flow, and holding blood pressure steady' },
+    10: { opens: '2026-11-09', unlock: '2026-11-07T20:00:00-08:00', title: 'Blood and how the body defends itself' },
+    11: { opens: '2026-11-16', unlock: '2026-11-14T20:00:00-08:00', title: 'Digestion, and how you use food for fuel' },
+    12: { opens: '2026-11-23', unlock: '2026-11-21T20:00:00-08:00', title: 'Breathing, gas transport, and the fast pH lever' },
+    13: { opens: '2026-11-30', unlock: '2026-11-28T20:00:00-08:00', title: 'The kidney and body fluid balance' },
+    14: { opens: '2026-12-07', unlock: '2026-12-05T20:00:00-08:00', title: 'The slow pH lever, and putting it all together' },
+    15: { opens: '2026-12-14', unlock: '2026-12-12T20:00:00-08:00', title: 'Midterm 2, and the final' }
   };
 
   var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];

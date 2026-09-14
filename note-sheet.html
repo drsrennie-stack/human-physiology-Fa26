@@ -460,12 +460,12 @@ a{color:var(--maroon-dark);font-weight:700}
      facing one wins, because that is what Canvas shows. */
   var SITE_TITLES = {
     1:"How physiology works and what keeps you steady",
-    2:"The cell, and how cells talk",
-    3:"Getting across the membrane, and the electrical signal",
-    4:"Neurons, action potentials and synapses",
-    5:"Reflexes, and sensing the world",
-    6:"Muscle, and how movement gets commanded",
-    7:"Hormones, the autonomic system, and reproduction",
+    2:"The cell: structure, transport and signaling",
+    3:"Membrane potential, neurons and synapses",
+    4:"Reflexes, and sensing the world",
+    5:"Muscle, and how movement gets commanded",
+    6:"Hormones, the autonomic system, and reproduction",
+    7:"Midterm 1",
     8:"The heart as a pump",
     9:"Pressure, flow, and holding blood pressure steady",
     10:"Blood and how the body defends itself",
@@ -473,7 +473,7 @@ a{color:var(--maroon-dark);font-weight:700}
     12:"Breathing, gas transport, and the fast pH lever",
     13:"The kidney and body fluid balance",
     14:"The slow pH lever, and putting it all together",
-    15:"Catch up, and the final"
+    15:"Midterm 2, and the final"
   };
 
   function qs(k){
@@ -488,21 +488,7 @@ a{color:var(--maroon-dark);font-weight:700}
 
   var BLANK = qs("blank") === "1";
   var week  = parseInt(qs("week"), 10);
-  /* With no week in the URL, open the week that is actually running rather
-     than always week 1, so a student who follows a plain link from the home
-     page lands on the sheet they need today. Same term start the rest of
-     the site uses. */
-  if (!(week >= 1 && week <= 15)) {
-    var OPENS = ['2026-09-08','2026-09-14','2026-09-21','2026-09-28','2026-10-05',
-                 '2026-10-12','2026-10-19','2026-10-26','2026-11-02','2026-11-09',
-                 '2026-11-16','2026-11-23','2026-11-30','2026-12-07','2026-12-14'];
-    var now = new Date(), cur = 1;
-    for (var wi = 0; wi < OPENS.length; wi++) {
-      var d = OPENS[wi].split('-');
-      if (new Date(+d[0], +d[1] - 1, +d[2]) <= now) cur = wi + 1;
-    }
-    week = cur;
-  }
+  if (!(week >= 1 && week <= 15)) week = 1;
 
   /* Two to a page is the default. One competency per page made Week 1
      eighteen sheets of paper and students cannot carry that every week. */
@@ -663,7 +649,7 @@ a{color:var(--maroon-dark);font-weight:700}
     <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
     <a href="clinical-physiology-lab-manual.html" target="_top">Lab manual</a><span class="mm-dot" aria-hidden="true">&middot;</span>
     <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
-    <a href="https://yccd.instructure.com/courses/42616/modules" target="_blank" rel="noopener">Canvas</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a><span class="mm-dot" aria-hidden="true">&middot;</span>
     <a href="https://yccd.instructure.com/courses/42616/discussion_topics/711800" target="_blank" rel="noopener">Virtual Office</a>
   </nav>
   <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>

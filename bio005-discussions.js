@@ -40,7 +40,7 @@ window.BIO005_DISCUSSIONS = {
   },
 
   "2": {
-    title: "The cell, and how cells talk",
+    title: "The cell: structure, transport and signaling",
     eyebrow: "Predict, then check",
     pick: "Pick one place in the body: the lining of your small intestine, where food is on one side and your blood is on the other; cardiac muscle at the intercalated disc between two heart cells; or the outer layer of your skin, which is pulled and stretched all day.",
     work: "Before you look anything up, predict in two lines: which kind of junction is doing most of the work in that place, and what is the first thing that would go wrong if it failed? Write it down and do not change it. Then work it properly. Name the junctions actually present there; most tissues use more than one, so name each and say what it is built from and what it anchors to inside the cell. Say what each one buys that tissue: does it seal the gap between cells, hold them together against pulling, or let ions and small molecules pass from one cell into the next? Pick one substance and say how it gets from one side of that tissue to the other, through the cells or between them, and which junction decides that. Then follow one failure all the way out: take the junction you named in your prediction, break it, and trace it to something a person would actually notice or a clinician would measure. Finish with one sentence on why this tissue has the junctions it has and not the others.",
@@ -50,7 +50,7 @@ window.BIO005_DISCUSSIONS = {
   },
 
   "3": {
-    title: "Getting across the membrane, and the electrical signal",
+    title: "Membrane potential, neurons and synapses",
     eyebrow: "Predict, then check",
     pick: "Pick one: a red cell dropped into distilled water, a red cell into 3 percent saline, or a patient given a liter of 0.45 percent saline.",
     work: "Before you look anything up, write your prediction of what happens to cell volume and why. Then work it properly: name the tonicity, say which way water moves and what drives it, and explain why osmolarity alone does not settle the question until you know whether the solute can cross. Give the clinical consequence in one sentence.",
@@ -60,7 +60,7 @@ window.BIO005_DISCUSSIONS = {
   },
 
   "4": {
-    title: "Neurons, action potentials and synapses",
+    title: "Membrane potential, neurons and synapses",
     eyebrow: "Where the voltage comes from",
     pick: "Pick one change: raise extracellular potassium, block the sodium-potassium pump, or block voltage-gated sodium channels.",
     work: "Work out what your change does to the resting membrane potential and to the cell's ability to fire, and say why in terms of gradients and permeability rather than by naming a rule. Be specific about which one you are changing, the gradient or the permeability, because they are not the same lever. Then name a real situation where this happens in a patient.",
