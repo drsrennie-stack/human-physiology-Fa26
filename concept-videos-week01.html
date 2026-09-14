@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BIO 005 Human Physiology | Week 1 Concept Videos</title>
 <link rel="stylesheet" href="assets/fonts-site.css">
-<meta name="description" content="Week 1 Foundations of Physiology concept videos. Plays straight through, or jump to any concept.">
+<meta name="description" content="Week 1 concept videos: what physiology is, homeostasis, control systems and feedback, and doing the science. Plays straight through, or jump to any concept.">
 <style>
 :root{
   --navy:#0B1530;
@@ -81,9 +81,49 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 .chip[aria-pressed="true"]{background:var(--navy);color:#fff}
 .chip .dot{width:9px;height:9px;border-radius:50%;background:var(--terra);flex:none}
 .chip[aria-pressed="true"] .dot{background:#fff}
+/* The only way out of this page. Gold so it reads as the exit rather than
+   another one of the three player controls beside it. */
+.chip-back{
+  text-decoration:none;background:#C9A14A;color:var(--navy);
+  border:2px solid #C9A14A;padding:7px 15px
+}
+.chip-back:hover{background:#B8924A;border-color:#B8924A}
 
 /* Layout */
 main{max-width:1180px;margin:0 auto;padding:30px max(20px,4vw) 10px}
+/* Second pass directions.
+   A real ordered list, laid out in columns on a wide screen so it costs the
+   iframe about 200px instead of 500px, and stacking to one column under
+   760px. Numbers are drawn from the list itself rather than typed in, so the
+   sequence stays correct if a step is ever added or removed. */
+.howto{
+  background:var(--white);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+  padding:22px 26px 24px;margin:0 0 26px
+}
+.howto h2{
+  font-family:var(--display);font-size:19px;font-weight:800;color:var(--navy);
+  letter-spacing:-.01em;margin:0 0 4px
+}
+.howto .lede{margin:0 0 16px;color:var(--navy-72);font-size:15px;max-width:78ch}
+.howto ol{
+  list-style:none;counter-reset:hstep;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:14px 26px
+}
+.howto li{
+  counter-increment:hstep;position:relative;padding-left:38px;
+  font-size:15px;color:var(--navy);line-height:1.55
+}
+.howto li::before{
+  content:counter(hstep);position:absolute;left:0;top:-1px;
+  width:27px;height:27px;border-radius:50%;
+  background:var(--terra);color:#fff;
+  font-family:var(--display);font-weight:800;font-size:14px;
+  display:flex;align-items:center;justify-content:center
+}
+.howto b{font-weight:800;color:var(--terra-dark)}
+@media (max-width:760px){.howto{padding:20px 20px 22px}}
+
 .grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);gap:28px;align-items:start}
 @media (max-width:940px){.grid{grid-template-columns:1fr}}
 
@@ -168,6 +208,30 @@ ol.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 .item[data-watched="true"][aria-current="true"]{border-color:var(--terra)}
 .check{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:5px}
 
+/* The checkmark a student can set themselves.
+   A separate button beside the row, not inside it, because a button cannot
+   nest in a button. 46px wide so it clears the AAA target size on its own. */
+ol.list li.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:stretch}
+.tick{
+  width:46px;border:.5px solid var(--navy-15);border-radius:var(--r-card);
+  background:var(--white);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;color:var(--navy-72);
+  transition:background 160ms ease,border-color 160ms ease,color 160ms ease
+}
+.tick:hover{background:var(--offwhite);border-color:var(--navy);color:var(--navy)}
+.tick[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tick svg{width:19px;height:19px}
+.tick .cmark{display:none;margin:0;vertical-align:baseline}
+.tick[aria-pressed="true"] .cring{display:none}
+.tick[aria-pressed="true"] .cmark{display:block}
+
+/* Shown only when the browser refuses to keep anything for this page, which
+   is what Safari does to a page running inside someone else's iframe. */
+.storewarn{
+  margin:10px 0 0;padding:11px 13px;border-radius:var(--r-card);
+  background:var(--navy-tint);color:var(--navy);font-size:13.5px;line-height:1.5
+}
+
 .extras{
   margin-top:8px;background:var(--white);border:.5px solid var(--navy-15);
   border-radius:var(--r-card);padding:18px 18px 16px
@@ -217,18 +281,34 @@ footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
 
 <header class="masthead">
   <div class="wrap">
-    <p class="eyebrow">Week 1 &middot; Foundations of Physiology</p>
+    <p class="eyebrow">Week 1 &middot; How physiology works and what keeps you steady</p>
     <h1>Concept Videos</h1>
-    <p>Press play once and the whole week runs start to finish, one concept into the next. If you only need one idea, click it in the list and it starts there. Every concept has its slide deck and its notes PDF beside it.</p>
+    <p>Press play once and the whole week runs start to finish, one concept into the next. If you only need one idea, click it in the list and it starts there. Every concept has its notes PDF beside the player.</p>
     <div class="chiprow">
       <button type="button" class="chip" id="playAll"><span class="dot" aria-hidden="true"></span>Play the whole week</button>
       <button type="button" class="chip" id="resume"><span class="dot" aria-hidden="true"></span>Pick up where I left off</button>
       <button type="button" class="chip" id="clearProgress"><span class="dot" aria-hidden="true"></span>Clear my checkmarks</button>
+      <a class="chip chip-back" href="https://yccd.instructure.com/courses/42616/modules" target="_top">
+        <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Canvas modules</a>
     </div>
   </div>
 </header>
 
 <main>
+  <section class="howto" aria-labelledby="howto-h">
+    <h2 id="howto-h">Your second pass, step by step</h2>
+    <p class="lede">You have already filled these boxes once from the reading. This time you are adding what the videos give you that the book did not, in a different color, so you can see the difference later.</p>
+    <ol role="list">
+      <li>Get out the note sheet you already worked from the reading, with your first pass on it.</li>
+      <li><b>Switch to a second color</b>, and stay in that color for everything you add from here.</li>
+      <li>Press play on the first video and let the week run, or click the concept in the list that matches the box you are working on.</li>
+      <li>When a video gives you something the reading did not, add it to <b>that same box</b>. Do not start a fresh sheet.</li>
+      <li>Leave the gaps where they are. A thin box is not a mistake, it is the sheet telling you where to go back.</li>
+      <li>At the end, look at how much of the sheet is in the second color. That is exactly where your reading was thin, and it is what you study first.</li>
+    </ol>
+  </section>
+
   <div class="grid">
 
     <section class="stage" aria-labelledby="nowHeading">
@@ -255,10 +335,6 @@ footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
             <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h6.5L13 5v9.5H3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.3 1.7V5H12.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
             Notes PDF for this concept
           </a>
-          <a class="btn" id="slidesBtn" href="#" target="_top">
-            <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.6" y="2.4" width="12.8" height="9" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 11.4v2.4M5.4 13.8h5.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            Slides for this concept
-          </a>
           <label class="toggle" for="autoplayNext">
             <input type="checkbox" id="autoplayNext" checked>
             Keep playing automatically
@@ -273,23 +349,16 @@ footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
 
     <section class="index" id="index" aria-labelledby="indexHeading">
       <h2 id="indexHeading">All 20 concepts</h2>
-      <p class="sub">Click any concept to jump straight to it. Watched concepts stay marked on this device.</p>
+      <p class="sub">Click a concept to jump straight to it. The circle on the right is its checkmark. The page ticks one for you once you have watched it, and you can tick or untick any of them yourself.</p>
 
       <div class="progressline">
         <span id="progressText">0 of 20 watched</span>
         <span class="bar" aria-hidden="true"><span id="progressFill"></span></span>
       </div>
+      <p class="storewarn" id="storeWarn" hidden></p>
 
       <div id="sections"></div>
 
-      <div class="extras">
-        <h3>Also for this week</h3>
-        <p>A conversational audio walkthrough of homeostasis, useful in the car or on a walk.</p>
-        <a class="btn" href="https://notebooklm.google.com/notebook/7ca5d7c7-5bad-41ca-96aa-7a643f3e6309/audio" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8a2.4 2.4 0 0 1 2.4 2.4v3.4a2.4 2.4 0 0 1-4.8 0V4.2A2.4 2.4 0 0 1 8 1.8Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.6 7.2a4.4 4.4 0 0 0 8.8 0M8 12v2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          Homeostasis podcast
-        </a>
-      </div>
     </section>
 
   </div>
@@ -359,7 +428,22 @@ var current = 0;
 var player = null;
 var apiReady = false;
 var pendingPlay = false;
+/* Does this browser actually let the page store anything?
+   Inside a Canvas module this page is a third party iframe, and Safari blocks
+   storage for those outright while Chrome and Firefox keep a separate copy per
+   site. So the answer here is genuinely no on some students' devices, and the
+   page says so rather than pretending the checkmarks were saved. */
+var STORAGE_OK = (function(){
+  try{
+    window.localStorage.setItem("bio005-probe", "1");
+    var ok = window.localStorage.getItem("bio005-probe") === "1";
+    window.localStorage.removeItem("bio005-probe");
+    return ok;
+  }catch(e){ return false; }
+})();
+
 var watched = readWatched();
+var watchTimer = null;
 
 function readWatched(){
   try{
@@ -392,7 +476,8 @@ function saveLast(i){
 }
 
 /* ---------- Build the index ---------- */
-var CHECK_SVG = '<svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.6l3.6 3.6L13.5 4.8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var RING_SVG = '<svg class="cring" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.1" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+var CHECK_SVG = '<svg class="check cmark" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8.6l3.6 3.6L13.5 4.8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 function buildIndex(){
   var host = document.getElementById("sections");
@@ -414,6 +499,8 @@ function buildIndex(){
     CONCEPTS.forEach(function(c, i){
       if(c.s !== sectionName) return;
       var li = document.createElement("li");
+      li.className = "row";
+
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "item";
@@ -424,7 +511,17 @@ function buildIndex(){
         '<span class="label">' + c.t + '</span>' +
         '<span class="state" data-state></span>';
       btn.addEventListener("click", function(){ go(i, true); });
+
+      var tick = document.createElement("button");
+      tick.type = "button";
+      tick.className = "tick";
+      tick.id = "tick-" + i;
+      tick.setAttribute("aria-pressed", "false");
+      tick.innerHTML = RING_SVG + CHECK_SVG;
+      tick.addEventListener("click", function(){ toggleWatched(i); });
+
       li.appendChild(btn);
+      li.appendChild(tick);
       ol.appendChild(li);
     });
 
@@ -446,11 +543,14 @@ function paintIndex(){
     if(i === current){ btn.setAttribute("aria-current","true"); }
     else { btn.removeAttribute("aria-current"); }
 
-    var state = btn.querySelector("[data-state]");
-    var bits = [];
-    if(i === current) bits.push("Playing now");
-    if(isWatched) bits.push(CHECK_SVG + "Watched");
-    state.innerHTML = bits.join(" ");
+    btn.querySelector("[data-state]").textContent = (i === current) ? "Playing now" : "";
+
+    var tick = document.getElementById("tick-" + i);
+    if(tick){
+      tick.setAttribute("aria-pressed", isWatched ? "true" : "false");
+      tick.setAttribute("aria-label",
+        (isWatched ? "Watched: " : "Mark as watched: ") + c.t);
+    }
   });
 
   var pct = Math.round((done / CONCEPTS.length) * 100);
@@ -466,8 +566,9 @@ function paintNow(){
   document.getElementById("nowMeta").textContent = "Concept " + (current + 1) + " of " + CONCEPTS.length + " · " + c.s;
   document.getElementById("notesBtn").href = "https://drive.google.com/file/d/" + c.d + "/view?usp=sharing";
   document.getElementById("notesBtn").setAttribute("aria-label", "Open the notes PDF for " + c.t + ", opens in a new tab");
-  document.getElementById("slidesBtn").href = c.f;
-  document.getElementById("slidesBtn").setAttribute("aria-label", "Open the slide deck for " + c.t);
+  /* No slides button on this page. It linked out to the course site, and the
+     point of this build is that a student in Canvas never leaves the iframe.
+     The slide file is still carried in each concept's f field for other pages. */
 
   document.getElementById("prevBtn").disabled = (current === 0);
   document.getElementById("nextBtn").disabled = (current === CONCEPTS.length - 1);
@@ -486,6 +587,7 @@ function paintNow(){
 
 function go(i, autoplay){
   if(i < 0 || i >= CONCEPTS.length) return;
+  stopWatchTimer();
   current = i;
   saveLast(i);
   paintNow();
@@ -499,10 +601,36 @@ function go(i, autoplay){
   }
 }
 
-function markWatched(){
-  watched[CONCEPTS[current].v] = true;
+function markWatchedAt(i){
+  if(i < 0 || i >= CONCEPTS.length) return;
+  if(watched[CONCEPTS[i].v]) return;
+  watched[CONCEPTS[i].v] = true;
   saveWatched();
   paintIndex();
+}
+function markWatched(){ markWatchedAt(current); }
+
+function toggleWatched(i){
+  var key = CONCEPTS[i].v;
+  if(watched[key]){ delete watched[key]; } else { watched[key] = true; }
+  saveWatched();
+  paintIndex();
+  document.getElementById("liveRegion").textContent =
+    CONCEPTS[i].t + (watched[key] ? " marked as watched." : " unmarked.");
+}
+
+/* Tick a concept once it has actually been playing for a while, so a student
+   who watches straight through and closes the tab still has their progress.
+   The timer runs on play and is thrown away on pause or on moving off, so
+   twenty seconds means twenty seconds of playing, not twenty of sitting there. */
+function startWatchTimer(){
+  stopWatchTimer();
+  var i = current;
+  if(watched[CONCEPTS[i].v]) return;
+  watchTimer = setTimeout(function(){ markWatchedAt(i); }, 20000);
+}
+function stopWatchTimer(){
+  if(watchTimer){ clearTimeout(watchTimer); watchTimer = null; }
 }
 
 function onEnded(){
@@ -531,6 +659,8 @@ window.onYouTubeIframeAPIReady = function(){
         if(pendingPlay){ player.playVideo(); pendingPlay = false; }
       },
       onStateChange: function(e){
+        if(e.data === YT.PlayerState.PLAYING){ startWatchTimer(); }
+        else { stopWatchTimer(); }
         if(e.data === YT.PlayerState.ENDED) onEnded();
       }
     }
@@ -540,6 +670,15 @@ window.onYouTubeIframeAPIReady = function(){
 /* ---------- Wire up ---------- */
 document.addEventListener("DOMContentLoaded", function(){
   buildIndex();
+
+  if(!STORAGE_OK){
+    var warn = document.getElementById("storeWarn");
+    warn.textContent = "Your browser will not let this page save anything while it "
+      + "is sitting inside Canvas, so your checkmarks will only last until you close "
+      + "this page. Open the videos in their own browser tab, using the link under "
+      + "this frame, and they will be remembered there.";
+    warn.hidden = false;
+  }
 
   var auto = document.getElementById("autoplayNext");
   auto.checked = readAutoplay();
@@ -598,7 +737,10 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 
 <script>
-/* Iframe height sender for Kajabi embedding */
+/* Iframe height sender. Canvas's editor strips script tags, so a page pasted
+   into Canvas cannot listen for this and the Canvas iframe carries a fixed
+   height instead. The sender stays because the same page is embedded on the
+   course site and in Kajabi, where a listener does exist. */
 (function(){
   var FRAME_ID = "bio005-w1-concept-videos";
   function sendHeight(){
@@ -619,12 +761,14 @@ document.addEventListener("DOMContentLoaded", function(){
   setTimeout(sendHeight, 1500);
 })();
 </script>
-<script src="bio005-nav.js" defer></script>
-<!-- Ask Hootie, on every page. -->
-<script src="schedule-fall2026.js"></script>
-<script src="hootie.js"></script>
-<!-- A way back, on every page. -->
-<script src="bio005-back.js"></script>
-<script src="bio005-collapse.js"></script>
+<!-- STANDALONE ON PURPOSE. Sep 14 2026.
+     This page is embedded in a Canvas module, so it carries no site chrome:
+     no bio005-nav.js sticky bar or course tools dock, no Hootie, no floating
+     back widget, no collapse loader. A student inside Canvas already has
+     Canvas's own navigation around the iframe, and two sets of menus in one
+     screen is what was sending them in circles. The only way out of this page
+     is the Back to Canvas modules button in the header, which targets _top so
+     it breaks the iframe rather than loading Canvas inside itself.
+     Do not add the site scripts back to this file. -->
 </body>
 </html>
