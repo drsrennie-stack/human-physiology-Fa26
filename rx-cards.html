@@ -120,6 +120,15 @@ select{font-family:var(--body);font-size:16px;color:var(--navy);background:var(-
 .nostore p{margin:0 0 9px;font-size:15px;line-height:1.6;color:#fff}
 .nostore p:last-child{margin:0}
 .nostore b{color:#F2D79B;font-weight:800}
+/* Shown only when the page is running inside someone else's frame. */
+.framed{background:var(--navy,#0B1530);color:#fff;border-radius:12px;padding:18px 20px;margin:0 0 18px}
+.framed h2{font-family:var(--display,inherit);font-size:17px;font-weight:800;color:#fff;margin:0 0 7px}
+.framed p{margin:0 0 12px;font-size:15px;line-height:1.6;color:#fff}
+.framed b{color:#C9A14A;font-weight:800}
+.framed .go{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:12px 20px;
+  border-radius:10px;background:#C9A14A;border:2px solid #C9A14A;color:#0B1530;
+  font-weight:800;font-size:15.5px;text-decoration:none}
+.framed .go:hover{background:#B8924A;border-color:#B8924A}
 
 /* ---------- forecast ---------- */
 .fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:8px 0 0}
@@ -237,6 +246,13 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 </div></header>
 
 <main id="main"><div class="wrap">
+
+<div class="framed" id="framed" hidden>
+  <h2>Open Rx Cards in its own tab</h2>
+  <p id="framedWhy"></p>
+  <p><a class="go" id="framedGo" href="#" target="_blank" rel="noopener">Open Rx Cards in a new tab
+    <span class="vh">(opens in a new tab)</span></a></p>
+</div>
 
 <div class="nostore" id="noStore" hidden>
   <h2>Your progress will not be saved here</h2>
@@ -826,6 +842,26 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   }
   /* The card bank is a big deferred file; wait for load before building. */
   if (document.readyState === 'complete') boot(); else window.addEventListener('load', boot);
+
+  /* ---------- Running inside a frame? -------------------------------------
+     In a Canvas module this page is a third party iframe. Safari refuses to
+     let it store anything at all, and Chrome and Firefox give it a separate
+     store from the same page opened directly, so a student's progress splits
+     in two without them ever knowing. Either way the honest move is the same:
+     hand them a real button that opens this page in its own tab. */
+  (function(){
+    var framed = false;
+    try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+    if (!framed) return;
+    var el = document.getElementById('framed');
+    if (!el) return;
+    document.getElementById('framedGo').setAttribute('href', location.href);
+    document.getElementById('framedWhy').textContent = STORAGE_OK
+      ? 'You are looking at this inside Canvas. It works here, but Canvas keeps a separate copy of your progress from the one you get opening it directly, so pick one and stay with it. Its own tab is the one that always works.'
+      : 'This browser will not let the page save anything while it is inside Canvas, so nothing you do here will be remembered. Open it in its own tab and it works properly.';
+    el.hidden = false;
+  }());
+
   window.BIO005_RX = { weak: weakSpots, drill: startDrill, pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
 }());
 </script>

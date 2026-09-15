@@ -126,6 +126,15 @@ ul.check li.on label{border-color:var(--navy);background:var(--navy-tint)}
 .nostore p{margin:0 0 9px;color:#fff;font-size:15px}
 .nostore p:last-child{margin:0}
 .nostore b{color:#F2D79B}
+/* Shown only when the page is running inside someone else's frame. */
+.framed{background:var(--navy,#0B1530);color:#fff;border-radius:12px;padding:18px 20px;margin:0 0 18px}
+.framed h2{font-family:var(--display,inherit);font-size:17px;font-weight:800;color:#fff;margin:0 0 7px}
+.framed p{margin:0 0 12px;font-size:15px;line-height:1.6;color:#fff}
+.framed b{color:#C9A14A;font-weight:800}
+.framed .go{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:12px 20px;
+  border-radius:10px;background:#C9A14A;border:2px solid #C9A14A;color:#0B1530;
+  font-weight:800;font-size:15.5px;text-decoration:none}
+.framed .go:hover{background:#B8924A;border-color:#B8924A}
 
 footer{padding:0 0 40px}
 footer .who{font-family:var(--display);font-weight:800;margin:0}
@@ -163,6 +172,13 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
 </div></header>
 
 <main id="main"><div class="wrap">
+
+  <div class="framed" id="framed" hidden>
+    <h2>Open this in its own tab</h2>
+    <p id="framedWhy"></p>
+    <p><a class="go" id="framedGo" href="#" target="_blank" rel="noopener">Open Brain Dump in a new tab
+      <span class="vh">(opens in a new tab)</span></a></p>
+  </div>
 
   <div class="nostore" id="noStore" hidden>
     <h2>Your weak spots will not be saved here</h2>
@@ -511,6 +527,26 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
   });
 
   if (!STORAGE_OK) $('noStore').hidden = false;
+
+  /* ---------- Running inside a frame? -------------------------------------
+     In a Canvas module this page is a third party iframe. Safari refuses to
+     let it store anything at all, and Chrome and Firefox give it a separate
+     store from the same page opened directly, so a student's progress splits
+     in two without them ever knowing. Either way the honest move is the same:
+     hand them a real button that opens this page in its own tab. */
+  (function(){
+    var framed = false;
+    try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+    if (!framed) return;
+    var el = document.getElementById('framed');
+    if (!el) return;
+    document.getElementById('framedGo').setAttribute('href', location.href);
+    document.getElementById('framedWhy').textContent = STORAGE_OK
+      ? 'You are looking at this inside Canvas. It works here, but Canvas keeps a separate copy of your progress from the one you get opening it directly, so pick one and stay with it. Its own tab is the one that always works.'
+      : 'This browser will not let the page save anything while it is inside Canvas, so nothing you do here will be remembered. Open it in its own tab and it works properly.';
+    el.hidden = false;
+  }());
+
   if (!POOL.length){
     $('spin').disabled = true;
     $('scStart').querySelector('.how').insertAdjacentHTML('afterend',
