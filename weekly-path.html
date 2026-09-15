@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIO 005 Human Physiology | Your weekly path through physiology</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<meta name="description" content="The seven steps every week of BIO 005 follows, in order, and what each one is for.">
+<style>
+:root{
+  --navy:#0B1530;
+  --navy-72:#4A5265;
+  --navy-15:rgba(11,21,48,.15);
+  --navy-tint:#ECEFF4;
+  --terra:#8B3A2E;
+  --terra-dark:#6E2D24;
+  --gold:#C9A14A;
+  --white:#FFFFFF;
+  --offwhite:#FAFAF9;
+  --display:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+em,i,cite,dfn,var,address{font-style:normal}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--offwhite);color:var(--navy);
+  font-family:var(--body);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased
+}
+a{color:var(--terra-dark)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:80;background:var(--navy);color:#fff;
+      padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.wrap{max-width:1320px;margin:0 auto;padding:0 max(20px,3vw)}
+
+/* Brand bar */
+.brandbar{background:var(--white);border-bottom:1px solid var(--navy-15);padding:12px 0}
+.brandbar .wrap{display:flex;align-items:center;gap:12px}
+.coursemeta{display:flex;flex-direction:column;line-height:1.15}
+.coursemeta .code{font-family:var(--display);font-size:12px;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.coursemeta .name{font-family:var(--display);font-size:14px;font-weight:700;color:var(--navy)}
+
+/* Masthead */
+.masthead{background:var(--navy);color:#fff;padding:38px 0 34px}
+.masthead .eyebrow{
+  font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin:0 0 10px
+}
+.masthead h1{
+  font-family:var(--display);font-size:clamp(26px,3.6vw,40px);font-weight:800;
+  letter-spacing:-.015em;margin:0;color:#fff;line-height:1.08
+}
+.masthead p.sub{margin:12px 0 0;max-width:72ch;color:#fff;font-size:16.5px;opacity:.94}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip-back{
+  display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  background:var(--gold);border:2px solid var(--gold);color:var(--navy);
+  border-radius:99px;padding:7px 16px;font-family:var(--body);
+  font-weight:700;font-size:13.5px;text-decoration:none
+}
+.chip-back:hover{background:#B8924A;border-color:#B8924A}
+
+main{padding:30px 0 10px}
+
+/* The seven steps */
+.pathhead{margin:0 0 6px}
+.pathhead h2{
+  font-family:var(--display);font-size:clamp(20px,2.4vw,27px);font-weight:800;
+  letter-spacing:-.015em;margin:0;color:var(--navy)
+}
+.pathhead h2 .hl{color:var(--terra)}
+.pathhead p{margin:7px 0 0;color:var(--navy-72);font-size:16px;max-width:80ch}
+
+.path{
+  list-style:none;margin:22px 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;align-items:stretch
+}
+.path > li{position:relative;display:flex}
+.path > li > .step{flex:1}
+
+/* The chevron between steps. Decorative, so it stays out of the accessibility
+   tree; the numbers and the DOM order carry the sequence. */
+.path > li:not(:last-child)::after{
+  content:"";position:absolute;right:-11px;top:34px;z-index:2;
+  width:10px;height:10px;
+  border-right:2px solid rgba(139,58,46,.55);
+  border-bottom:2px solid rgba(139,58,46,.55);
+  transform:rotate(-45deg)
+}
+
+.step{
+  background:var(--white);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+  padding:18px 16px 16px;display:flex;flex-direction:column;width:100%;
+  transition:transform 200ms ease,box-shadow 200ms ease
+}
+.step:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.10)}
+.num{
+  width:32px;height:32px;border-radius:50%;background:var(--terra);color:#fff;
+  font-family:var(--display);font-weight:800;font-size:16px;
+  display:flex;align-items:center;justify-content:center;margin:0 0 12px
+}
+.step .ico{display:block;color:var(--navy);margin:0 0 10px}
+.step h3{
+  font-family:var(--display);font-size:15px;font-weight:800;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--navy);margin:0 0 4px;line-height:1.2
+}
+.step .does{
+  margin:0 0 10px;font-size:13.5px;font-weight:700;color:var(--terra-dark);line-height:1.35
+}
+.step ul{margin:0 0 14px;padding-left:17px}
+.step ul li{margin:0 0 6px;font-size:13.5px;line-height:1.45;color:var(--navy)}
+.step .payoff{
+  margin:auto 0 0;padding-top:11px;border-top:1px solid var(--navy-15);
+  font-family:var(--display);font-size:13.5px;font-weight:800;color:var(--navy);line-height:1.3
+}
+.submitmark{
+  display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:7px 12px;
+  border-radius:6px;background:var(--navy);color:#fff;
+  font-family:var(--display);font-size:11.5px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase
+}
+
+/* The three notes underneath */
+.notes{
+  list-style:none;margin:24px 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px
+}
+.note{
+  background:var(--white);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+  padding:20px 22px 20px;height:100%
+}
+.note .nh{display:flex;align-items:center;gap:10px;margin:0 0 9px}
+.note .nh svg{color:var(--terra);flex:none}
+.note h3{
+  font-family:var(--display);font-size:14.5px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--navy);margin:0;line-height:1.25
+}
+.note p{margin:0;font-size:14.5px;line-height:1.6;color:var(--navy)}
+
+/* Closing line */
+.closing{
+  margin:26px 0 0;background:var(--navy);color:#fff;border-radius:12px;
+  padding:22px 26px;font-family:var(--display);font-size:clamp(15px,1.8vw,19px);
+  font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.35
+}
+
+footer{padding:26px 0 40px}
+footer .who{font-family:var(--display);font-weight:800;color:var(--navy);margin:0}
+footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
+
+/* Responsive. Seven across only when there is genuinely room for it. */
+@media (max-width:1220px){
+  .path{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .path > li:nth-child(4)::after{display:none}
+}
+@media (max-width:860px){
+  .path{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .path > li:nth-child(2n)::after{display:none}
+}
+@media (max-width:560px){
+  .path{grid-template-columns:1fr;gap:12px}
+  .path > li::after{display:none!important}
+  .masthead{padding:28px 0 26px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Print: landscape Letter, the seven steps stay across the page. */
+@page{size:Letter landscape;margin:0.45in}
+@media print{
+  body{background:#fff;font-size:11px}
+  .skip,.chiprow,.brandbar{display:none}
+  .masthead{background:#fff;color:var(--navy);padding:0 0 7px;
+            border-bottom:1px solid var(--navy-15)}
+  .masthead h1{color:var(--navy);font-size:19px}
+  .masthead .eyebrow{color:var(--terra-dark);font-size:9px}
+  .masthead p.sub{color:var(--navy-72);font-size:10.5px;max-width:none}
+  .wrap{max-width:none;padding:0}
+  main{padding:10px 0 0}
+  .pathhead{margin-bottom:0}
+  .pathhead h2{font-size:15.5px}
+  .pathhead p{font-size:10.5px;margin-top:3px}
+  .path{grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:10px}
+  .step{box-shadow:none;border:1px solid var(--navy-15);padding:11px 10px;
+        break-inside:avoid;page-break-inside:avoid}
+  .step:hover{transform:none}
+  .num{width:24px;height:24px;font-size:13px;margin-bottom:7px}
+  .step .ico{margin-bottom:6px}
+  .step .ico svg{width:23px;height:23px}
+  .step h3{font-size:11.5px}
+  .step .does{font-size:10.5px;margin-bottom:7px}
+  .step ul{padding-left:14px;margin-bottom:10px}
+  .step ul li{font-size:10.5px;margin-bottom:4px;line-height:1.35}
+  .step .payoff{font-size:10.5px;padding-top:7px}
+  .submitmark{font-size:9px;padding:5px 9px;margin-bottom:9px}
+  .notes{gap:10px;margin-top:10px;grid-template-columns:repeat(3,1fr);
+         break-inside:avoid;page-break-inside:avoid}
+  .note{box-shadow:none;border:1px solid var(--navy-15);padding:12px 13px;
+        break-inside:avoid;page-break-inside:avoid}
+  .note .nh{margin-bottom:6px}
+  .note .nh svg{width:17px;height:17px}
+  .note h3{font-size:11.5px}
+  .note p{font-size:10.5px;line-height:1.4}
+  .closing{margin-top:10px;padding:10px 14px;font-size:12px;
+           break-inside:avoid;page-break-inside:avoid}
+  .path > li::after{display:none}
+  footer{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the weekly path</a>
+
+<div class="brandbar">
+  <div class="wrap">
+    <svg width="34" height="34" viewBox="0 0 34 34" role="img" aria-label="Course mark">
+      <circle cx="8" cy="8" r="4.2" fill="#0B1530"></circle>
+      <circle cx="17" cy="8" r="4.2" fill="#8B3A2E"></circle>
+      <circle cx="26" cy="8" r="4.2" fill="#C9A14A"></circle>
+      <rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"></rect>
+      <rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"></rect>
+      <rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"></rect>
+    </svg>
+    <div class="coursemeta">
+      <span class="code">BIO 005</span>
+      <span class="name">Human Physiology</span>
+    </div>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Same path every week</p>
+    <h1>Your weekly path through physiology</h1>
+    <p class="sub">Follow these steps in order every week. Each one gets you ready for the next, which is
+      why the order matters more than the speed.</p>
+    <div class="chiprow">
+      <a class="chip-back" href="https://yccd.instructure.com/courses/42616/modules" target="_top">
+        <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Canvas modules</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <div class="pathhead">
+      <h2>The seven steps, <span class="hl">in order</span></h2>
+      <p>Understand it, then use it, then find out what stuck. Every week of this course runs the same way.</p>
+    </div>
+
+    <ol class="path">
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">1</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
+        <h3>Start here</h3>
+        <p class="does">Open the weekly overview</p>
+        <ul>
+          <li>Read what the week is for</li>
+          <li>See what you will be learning</li>
+          <li>Check what is due and when</li>
+          <li>Look at the whole path before you start</li>
+        </ul>
+        <p class="payoff">Know where you are going.</p>
+      </div></li>
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">2</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H3z"/><path d="M21 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/></svg></span>
+        <h3>Learn</h3>
+        <p class="does">Learn the physiology</p>
+        <ul>
+          <li>Read the assigned chapter or the written notes</li>
+          <li>Fill your note sheet in your first color</li>
+          <li>Watch the concept videos</li>
+          <li>Go back in a second color and add what changed</li>
+        </ul>
+        <p class="payoff">Build your foundation.</p>
+      </div></li>
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">3</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 5 3 3 0 0 0 1 5.5V19a2.5 2.5 0 0 0 4.5 1.5"/><path d="M14.5 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 5 3 3 0 0 1-1 5.5V19a2.5 2.5 0 0 1-4.5 1.5"/><path d="M12 5v15"/></svg></span>
+        <h3>Practice retrieval</h3>
+        <p class="does">Pull it back out of your head</p>
+        <ul>
+          <li>Do a brain dump with nothing open</li>
+          <li>Run your recall cards</li>
+          <li>Work through practice questions</li>
+          <li>Draw a diagram from memory, then check it</li>
+        </ul>
+        <p class="payoff">Strengthen your recall.</p>
+      </div></li>
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">4</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v3H9z"/><path d="M15 4.5h2.5A1.5 1.5 0 0 1 19 6v13.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5V6a1.5 1.5 0 0 1 1.5-1.5H9"/><path d="m8.5 13 2.2 2.2L15.5 10"/></svg></span>
+        <h3>Check yourself</h3>
+        <p class="does">Find out what you actually know</p>
+        <ul>
+          <li>Take the Mastery Check</li>
+          <li>See what you can explain with no help</li>
+          <li>Read what the Gap Finder names</li>
+          <li>Go back to the material for anything you missed</li>
+        </ul>
+        <p class="payoff">Know your gaps.</p>
+      </div></li>
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">5</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v5a4.5 4.5 0 0 0 9 0V3"/><path d="M4.5 3h3M13.5 3h3"/><path d="M10.5 12.5v2a5 5 0 0 0 10 0v-1.2"/><circle cx="20.5" cy="11" r="2.1"/></svg></span>
+        <h3>Apply</h3>
+        <p class="does">Use the physiology</p>
+        <ul>
+          <li>Work through your patient case</li>
+          <li>Analyze data or lab results</li>
+          <li>Solve a physiology problem</li>
+          <li>Read a figure or a graph and say what it means</li>
+        </ul>
+        <p class="payoff">Move from knowing to doing.</p>
+      </div></li>
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">6</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5"/><path d="M12 18v-5M9.8 15.2 12 13l2.2 2.2"/></svg></span>
+        <h3>Submit</h3>
+        <p class="does">Turn in the required work</p>
+        <ul>
+          <li>Upload your note sheet</li>
+          <li>Turn in the lab and the case</li>
+          <li>Post your discussions and reply</li>
+          <li>Check that nothing marked Submit is still open</li>
+        </ul>
+        <span class="submitmark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m6 11 6-6 6 6"/></svg>Submit</span>
+        <p class="payoff">Show what you have learned.</p>
+      </div></li>
+
+      <li><div class="step">
+        <div class="num" aria-hidden="true">7</div>
+        <span class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span>
+        <h3>Close the loop</h3>
+        <p class="does">Finish the week properly</p>
+        <ul>
+          <li>Confirm everything is actually submitted</li>
+          <li>Look at your Gap Finder one more time</li>
+          <li>Pick two or three things to keep practicing</li>
+          <li>Put a retrieval session later in the week on your calendar</li>
+        </ul>
+        <p class="payoff">Make it stick.</p>
+      </div></li>
+
+    </ol>
+
+    <ul class="notes">
+      <li><div class="note">
+        <div class="nh">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4.5c4-2 7 2 11 0v8c-4 2-7-2-11 0"/></svg>
+          <h3>Do not skip steps</h3>
+        </div>
+        <p>The assignments assume you have already learned the material and practiced getting it back.
+          Skipping a step makes the rest of the week feel confusing and much harder than it needs to be.</p>
+      </div></li>
+
+      <li><div class="note">
+        <div class="nh">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M4 7h11l2.5 2.5L15 12H4z"/><path d="M20 14H9l-2.5 2.5L9 19h11z"/></svg>
+          <h3>Not everything is a submission</h3>
+        </div>
+        <p>Most of what you do in a week is learning, practice and self checks, and none of it is graded.
+          The things you have to turn in are marked with the Submit icon. Look for that icon.</p>
+      </div></li>
+
+      <li><div class="note">
+        <div class="nh">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/><path d="M7.5 13h2M11 13h2M14.5 13h2M7.5 16.5h2M11 16.5h2"/></svg>
+          <h3>Need help?</h3>
+        </div>
+        <p>If you ever feel lost, go back to the weekly overview and start again at Step 1. You can also
+          message me in the Canvas Inbox or ask in the Virtual Office, where your classmates can see the
+          answer too.</p>
+      </div></li>
+    </ul>
+
+    <p class="closing">Hard work here builds a stronger you.</p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="who">Dr. Sharilyn Rennie</p>
+    <p class="role">BIO 005 Human Physiology</p>
+  </div>
+</footer>
+
+<!-- STANDALONE ON PURPOSE. Built to sit in a Canvas module as an iframe, so it
+     carries no site chrome: no nav bar, no course tools dock, no Hootie, no
+     floating back widget. Back to Canvas modules, target _top, is the only way
+     off the page. Do not add the site scripts to this file. -->
+<script>
+/* Iframe height sender. Canvas strips script tags from a pasted page, so the
+   Canvas iframe carries a fixed height and nothing listens for this. It stays
+   for the course site and Kajabi, where a listener does exist. */
+(function(){
+  var FRAME_ID = "bio005-weekly-path";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){
+    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
+  }
+  setTimeout(sendHeight, 400);
+  setTimeout(sendHeight, 1500);
+})();
+</script>
+</body>
+</html>

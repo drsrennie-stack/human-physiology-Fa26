@@ -354,19 +354,20 @@ WEEKS.append(dict(
   nsteps="Nine",
   steps=W2_STEPS,
   reading_short="Chapter 3",
-  runs="Week 2 opens Wednesday, September 16 at 8:00 pm Pacific. Everything is due Sunday, "
-       "September 20 at 10:00 pm. Week 3 adds nothing new, so this module stays unlocked through "
-       "Sunday, September 27 and you get a second week to finish it.",
-  hours="Plan on about 18 hours. That is more than any other week, so spread it across the days "
-        "rather than doing it in one sitting. Eighteen hours is the floor for passing, not the "
-        "number that earns an A.",
+  runs="Week 2 opens Wednesday, September 16 at 8:00 pm Pacific and runs for two weeks. Week 3 "
+       "adds nothing new, so this is one long stretch with the material and everything in it is "
+       "due together on Sunday, September 27 at 10:00 pm.",
+  hours="Plan on about 18 hours. That is more than any other week, which is why you have two "
+        "weeks for it. Spread it across the days rather than doing it in one sitting. Eighteen "
+        "hours is the floor for passing, not the number that earns an A.",
   reading="Two halves, two chapters. Chapter 3, Compartmentation: Cells and Tissues, is the "
           "anatomy half: the cell, its membrane, its organelles and the four tissue types. "
           "Chapter 5, Membrane Dynamics, is the physiology half: what crosses the membrane and "
           "how, diffusion, osmosis and the pumps. The signaling competencies at the end of the "
           "week come from Chapter 6, Communication, Integration and Homeostasis.",
   lead="Do not jump ahead. Step 3 assumes you did Steps 2a and 2b, and Step 8 only tells you "
-       "something useful if Step 4 happened first.",
+       "something useful if Step 4 happened first. You have two weeks, so there is room to do "
+       "this in order rather than all at once.",
   study_when="Every day from Thursday, about an hour a day",
   lab="PhysioEx Exercise 8, amylase",
   lab_when="Wednesday to Sunday, about 3 hours",
@@ -376,17 +377,17 @@ WEEKS.append(dict(
   case_what="The second entry in the chart you keep all term. Draw this week's mechanism by hand, "
             "answer the written questions, and log any AI you used.",
   discussion="Discussion 2, predict then check",
-  discussion_when="Post by Friday, September 18; two replies by Sunday, September 20",
+  discussion_when="Post by Friday, September 25; two replies by Sunday, September 27",
   due=[("Discussion 2",
-        "Post Friday, September 18, 10:00 pm. Replies Sunday, September 20, 10:00 pm."),
+        "Post Friday, September 25, 10:00 pm. Replies Sunday, September 27, 10:00 pm."),
        ("Both note sheets, both passes",
-        "Sunday, September 20, 10:00 pm. Complete or not complete."),
+        "Sunday, September 27, 10:00 pm. Complete or not complete."),
        ("Lab, PhysioEx Exercise 8, amylase",
-        "Sunday, September 20, 10:00 pm."),
+        "Sunday, September 27, 10:00 pm."),
        ("Application, your patient's student health visit",
-        "Sunday, September 20, 10:00 pm."),
+        "Sunday, September 27, 10:00 pm."),
        ("Mastery Check report",
-        "Sunday, September 20, 10:00 pm. Complete or not complete.")],
+        "Sunday, September 27, 10:00 pm. Complete or not complete.")],
   done=["Both note sheets have two colors on them, you can say which boxes are still thin, and both are uploaded.",
         "You can draw one full signal pathway, ligand to response, from memory.",
         "You can take one substance and say whether it crosses the membrane with the gradient or against it, and whether the cell pays for the trip.",
@@ -394,9 +395,9 @@ WEEKS.append(dict(
         "The amylase lab analysis sheet is turned in.",
         "Your patient's second chart entry is turned in.",
         "Your discussion post and both replies are up."],
-  whats_next="<p><b>Week 3 is a catch up week.</b> Nothing new opens. This module stays unlocked "
-             "through Sunday, September 27, so you get a second week to finish it and to close "
-             "whatever the Mastery Check found.</p>"
+  whats_next="<p><b>Week 3 is part of this week.</b> Nothing new opens, and nothing is due in "
+             "between. You have the two weeks to work the material properly and to close whatever "
+             "the Mastery Check finds. Everything lands together on the 27th.</p>"
              "<p><b>Week 4, membrane potential, neurons and synapses,</b> opens Monday, "
              "September 28 at 8:00 am Pacific.</p>",
 ))
