@@ -232,6 +232,25 @@ ol.list li.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;ali
   background:var(--navy-tint);color:var(--navy);font-size:13.5px;line-height:1.5
 }
 
+/* Open in its own tab. Shown only when this page is running inside the Canvas
+   iframe, because that is the only place the checkmarks are at risk. */
+.framed{
+  background:var(--navy);color:#fff;border-radius:var(--r-card);
+  padding:18px 20px;margin:0 0 22px
+}
+.framed h2{
+  font-family:var(--display);font-size:17px;font-weight:800;color:#fff;margin:0 0 7px
+}
+.framed p{margin:0 0 12px;font-size:15px;line-height:1.6;color:#fff}
+.framed p:last-child{margin:0}
+.framed .go{
+  display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:12px 20px;
+  border-radius:var(--r-card);background:#C9A14A;border:2px solid #C9A14A;
+  color:var(--navy);font-family:var(--body);font-weight:800;font-size:15px;
+  text-decoration:none
+}
+.framed .go:hover{background:#B8924A;border-color:#B8924A}
+
 .extras{
   margin-top:8px;background:var(--white);border:.5px solid var(--navy-15);
   border-radius:var(--r-card);padding:18px 18px 16px
@@ -296,6 +315,14 @@ footer .role{font-size:13.5px;color:#C9CEDA;margin-top:3px}
 </header>
 
 <main>
+  <div class="framed" id="framed" hidden>
+    <h2>Open the videos in their own tab</h2>
+    <p id="framedWhy"></p>
+    <p><a class="go" id="framedGo" href="#" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.5 2.5H2.5v11h11v-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Open the videos in a new tab<span class="vh"> (opens in a new tab)</span></a></p>
+  </div>
+
   <section class="howto" aria-labelledby="howto-h">
     <h2 id="howto-h">Your second pass, step by step</h2>
     <p class="lede">You have already filled these boxes once from the reading. This time you are adding what the videos give you that the book did not, in a different color, so you can see the difference later.</p>
@@ -517,6 +544,8 @@ var pendingPlay = false;
    storage for those outright while Chrome and Firefox keep a separate copy per
    site. So the answer here is genuinely no on some students' devices, and the
    page says so rather than pretending the checkmarks were saved. */
+var PAGE_URL = "https://drsrennie-stack.github.io/human-physiology-Fa26/concept-videos-week03.html";
+
 var STORAGE_OK = (function(){
   try{
     window.localStorage.setItem("bio005-probe", "1");
@@ -650,6 +679,11 @@ function paintNow(){
   document.getElementById("nowMeta").textContent = "Concept " + (current + 1) + " of " + CONCEPTS.length + " · " + c.s;
   document.getElementById("notesBtn").href = "https://drive.google.com/file/d/" + c.d + "/view?usp=sharing";
   document.getElementById("notesBtn").setAttribute("aria-label", "Open the notes PDF for " + c.t + ", opens in a new tab");
+
+  /* The escape button carries the concept, so the new tab opens on the
+     same video rather than back at the top of the week. */
+  var fg = document.getElementById("framedGo");
+  if(fg) fg.href = PAGE_URL + "?c=" + (current + 1);
   /* No slides button on this page. It linked out to the course site, and the
      point of this build is that a student in Canvas never leaves the iframe.
      The slide file is still carried in each concept's f field for other pages. */
@@ -759,10 +793,37 @@ document.addEventListener("DOMContentLoaded", function(){
     var warn = document.getElementById("storeWarn");
     warn.textContent = "Your browser will not let this page save anything while it "
       + "is sitting inside Canvas, so your checkmarks will only last until you close "
-      + "this page. Open the videos in their own browser tab, using the link under "
-      + "this frame, and they will be remembered there.";
+      + "this page. Use the button at the top of this page to open the videos in "
+      + "their own tab, and they will be remembered there.";
     warn.hidden = false;
   }
+
+  /* WHY THERE IS A BUTTON OUT OF HERE.
+     The checkmarks are the only record of how far a student got through the
+     Week 2 videos. Inside a Canvas iframe that record is not safe. Safari
+     refuses the storage outright, so nothing is kept at all. Chrome and
+     Firefox keep it, but in a store separate from the same page opened
+     directly, so a student who watches some videos in Canvas and some in
+     their own tab ends up with two half finished lists and no way to tell.
+     Either way the honest move is the same: hand them a real button. */
+  (function(){
+    var framed = false;
+    try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+    if(!framed) return;
+    var el = document.getElementById("framed");
+    if(!el) return;
+    document.getElementById("framedGo").href = PAGE_URL + "?c=" + (current + 1);
+    document.getElementById("framedWhy").textContent = STORAGE_OK
+      ? "Your checkmarks are what tell you how far you got. Canvas keeps a "
+        + "separate copy of them from the one you get opening this page "
+        + "directly, so pick one and stay with it. Its own tab is the one "
+        + "that always works, and it opens on the video you are watching now."
+      : "This browser will not let the page save anything while it is inside "
+        + "Canvas, so none of your checkmarks will be remembered here. Open "
+        + "the videos in their own tab and they are kept properly. It opens "
+        + "on the video you are watching now.";
+    el.hidden = false;
+  }());
 
   var auto = document.getElementById("autoplayNext");
   auto.checked = readAutoplay();
