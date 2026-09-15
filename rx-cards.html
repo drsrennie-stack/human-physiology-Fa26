@@ -108,6 +108,18 @@ select{font-family:var(--body);font-size:16px;color:var(--navy);background:var(-
 .btn:disabled{opacity:.45;cursor:default}
 .btn:disabled:hover{background:var(--navy);border-color:var(--navy)}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+/* The only way off this page. Gold, so it reads as the exit rather than one
+   more study control. Navy on gold is 7.46:1. */
+.btn.exit{background:var(--gold,#C9A14A);border-color:var(--gold,#C9A14A);color:var(--navy)}
+.btn.exit:hover{background:#B8924A;border-color:#B8924A;color:var(--navy)}
+/* Shown only when the browser refuses to keep anything for this page, which is
+   what Safari does to a page running inside someone else's iframe. Everything
+   Rx Cards does is remembering, so this is not a footnote. */
+.nostore{background:#8B3A2E;color:#fff;border-radius:12px;padding:18px 20px;margin:0 0 20px}
+.nostore h2{font-family:var(--display,inherit);font-size:17px;font-weight:800;color:#fff;margin:0 0 7px}
+.nostore p{margin:0 0 9px;font-size:15px;line-height:1.6;color:#fff}
+.nostore p:last-child{margin:0}
+.nostore b{color:#F2D79B;font-weight:800}
 
 /* ---------- forecast ---------- */
 .fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:8px 0 0}
@@ -200,7 +212,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 <a class="skip" href="#main">Skip to main content</a>
 
 <div class="mm-brandbar"><div class="mm-wrap">
-  <a class="mm-mark" href="index.html" target="_top">
+  <span class="mm-mark">
     <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home">
       <g transform="translate(0,18)">
         <g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g>
@@ -209,7 +221,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       </g>
     </svg>
     <span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span>
-  </a>
+  </span>
   <span class="mm-course">BIO 005 &middot; Fall 2026</span>
 </div></div>
 
@@ -217,9 +229,23 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   <p class="eyebrow">Practice &middot; No points</p>
   <h1>Rx <b>Cards.</b></h1>
   <p>Recall cards on a schedule. A card you know comes back later; a card you miss comes back tomorrow. They get harder as you prove them, and every answer tells you why it is right and why the others are not.</p>
+  <div class="btnrow">
+    <a class="btn exit" href="https://yccd.instructure.com/courses/42616/modules" target="_top">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Canvas modules</a>
+  </div>
 </div></header>
 
 <main id="main"><div class="wrap">
+
+<div class="nostore" id="noStore" hidden>
+  <h2>Your progress will not be saved here</h2>
+  <p>This browser will not let Rx Cards keep anything while it is running inside Canvas, so every
+    card you rate tonight will be gone when you close this page. You can still use it, it just will
+    not remember.</p>
+  <p><b>Open Rx Cards in its own browser tab</b>, using the link under this frame, and everything
+    is remembered properly from then on.</p>
+</div>
 
 <!-- ================= SCREEN 1: DUE NOW ================= -->
 <div id="home">
@@ -342,9 +368,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   <section aria-labelledby="next-h">
     <h2 id="next-h">Where to next</h2>
     <div class="tools">
-      <a class="tool" href="competency-brain-dump.html" target="_top"><b>Try it from memory</b><span>A blank page on the competency you missed, then check it.</span></a>
-      <a class="tool" href="mastery-canvas.html" target="_top"><b>Draw it</b><span>Mechanism, sequence, loop. Produce it from nothing.</span></a>
-      <a class="tool" href="practice-exam.html" target="_top"><b>Mastery Check</b><span>Thirty questions on a week, nothing open, and a report you can upload.</span></a>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#4A5265">When a competency keeps coming back wrong, the cards have done their job: they found it. Go back to your note sheet for that box, redraw it from nothing, and then let the card come round again.</p>
     </div>
     <div class="btnrow">
       <button type="button" class="btn" id="again">Back to Due now</button>
@@ -361,6 +385,21 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 (function(){
   'use strict';
   var KEY = 'bio005-rx-v1';
+
+  /* Does this browser actually let the page store anything?
+     Inside a Canvas module this page is a third party iframe. Safari blocks
+     storage for those outright, and Chrome and Firefox keep a separate copy
+     per site. Everything Rx Cards does is remembering what you rated, so if
+     the answer is no, the page says so loudly rather than quietly losing a
+     term of work. */
+  var STORAGE_OK = (function(){
+    try {
+      localStorage.setItem('bio005-probe','1');
+      var ok = localStorage.getItem('bio005-probe') === '1';
+      localStorage.removeItem('bio005-probe');
+      return ok;
+    } catch(e){ return false; }
+  })();
   var DAY = 86400000;
   var COMPS = window.BIO005_COMPETENCIES || [];
   var BANK = window.BIO005_CARD_BANK || {modules:[]};
@@ -394,7 +433,27 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   function dayLog(){ var k = today(); S.log[k] = S.log[k] || {seen:0, right:0, newc:0}; return S.log[k]; }
 
   /* ---------- weeks ---------- */
+  /* bio005-nav.js used to supply this. It is off this page now, so the week
+     titles live here. Keep them in step with tools/week-overview/build.py and
+     bio005-nav.js if the map changes again. */
   var SITE = window.BIO005_SITE;
+  var LOCAL_WEEKS = [
+    "How physiology works and what keeps you steady",
+    "The cell: structure, transport and signaling",
+    "Catch up on the cell",
+    "Membrane potential, neurons and synapses",
+    "Reflexes, and sensing the world",
+    "Muscle, and how movement gets commanded",
+    "Hormones, the autonomic system, and reproduction",
+    "Midterm 1",
+    "The heart as a pump",
+    "Pressure, flow, and holding blood pressure steady",
+    "Blood and how the body defends itself",
+    "Digestion, and how you use food for fuel",
+    "Breathing, gas transport, and the fast pH lever",
+    "The kidney and body fluid balance",
+    "The slow pH lever, putting it together, and the final"
+  ];
   function currentWeek(){
     if (SITE && SITE.current && SITE.current.n) return SITE.current.n;
     var start = new Date(2026, 8, 8).getTime();
@@ -403,7 +462,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   }
   function weekTitle(n){
     if (SITE && SITE.weeks && SITE.weeks[n - 1] && SITE.weeks[n - 1].n === n) return SITE.weeks[n - 1].title || '';
-    return '';
+    return LOCAL_WEEKS[n - 1] || '';
   }
   var qs = new URLSearchParams(location.search);
   var qWeek = parseInt(qs.get('week'), 10);
@@ -759,20 +818,24 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   $('again').addEventListener('click', function(){ $('finish').hidden = true; $('home').hidden = false; renderHome(); $('due-h').setAttribute('tabindex','-1'); $('due-h').focus(); });
 
   function boot(){
+    if (!STORAGE_OK) { $('noStore').hidden = false; }
     if (!CARDS.length) { $('dueline').textContent = 'The card bank did not load. Reload the page, and if it happens again tell Dr. Rennie which browser you are using.'; $('start').disabled = true; return; }
     SITE = window.BIO005_SITE;
     if (!(qWeek >= 1) && !S.set.maxWeek) maxWeek = currentWeek();
     renderHome();
   }
-  /* bio005-nav.js is deferred and sets BIO005_SITE; wait one tick for it */
+  /* The card bank is a big deferred file; wait for load before building. */
   if (document.readyState === 'complete') boot(); else window.addEventListener('load', boot);
   window.BIO005_RX = { weak: weakSpots, drill: startDrill, pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
 }());
 </script>
-<script src="bio005-nav.js" defer></script>
-<script src="schedule-fall2026.js"></script>
-<script src="hootie.js"></script>
-<script src="bio005-back.js"></script>
+<!-- STANDALONE ON PURPOSE. Sep 15 2026.
+     Rx Cards sits in a Canvas module as an iframe, so it carries no site
+     chrome: no bio005-nav.js sticky bar or course tools dock, no Hootie, no
+     floating back widget. Canvas's own navigation is already around the frame.
+     Back to Canvas modules, target _top, is the only way off the page.
+     bio005-competencies.js and os/bio005-card-bank.js stay: they are the card
+     data, not navigation. Do not add the site scripts back to this file. -->
 <script>
 /* iframe height sender, for Canvas */
 (function(){
