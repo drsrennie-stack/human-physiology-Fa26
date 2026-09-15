@@ -61,7 +61,8 @@
     /* Course home moved to course-start.html on Sep 6 2026. welcome.html was the
        root of this map and 40 pages link to it, so retiring it meant swapping the
        root here rather than editing 40 files. welcome.html now redirects. */
-    'index.html':              { name: 'Course home',            parent: null },
+    'index.html':              { name: 'Course door',            parent: null },
+    'course.html':             { name: 'Course home',            parent: 'index.html' },
     'course-start.html':       { name: 'Start here',             parent: 'index.html' },
     'welcome-tour.html':       { name: 'Welcome tour',           parent: 'course-start.html' },
     'course-entry.html':       { name: 'Start of the course',    parent: null },
@@ -511,7 +512,7 @@
 
   /* Which section a file belongs to. Order matters: the first match wins. */
   var SECTIONS = [
-    { key: 'home',  test: /^(index\.html)?$/ },
+    { key: 'home',  test: /^(index\.html|course\.html)?$/ },
     { key: 'weeks', test: /^week-\d\d(-notesheet-prompts|-competencies)?\.html$|^note-sheet\.html$/ },
     { key: 'lecture', test: /^(lecture-week|concept-videos-week\d+|door-lecture|week-\d\d-notes|slides-[pP]-.*|biol005-m\d\d-.*|worksheet-.*|welcome-to-physiology)\.html$/ },
     { key: 'lab', test: /^(door-lab|clinical-physiology-lab-manual|.*-lab|lab-.*|reference-range-lab|patient-sheet|BIO005-patient-file|assignment-physioex|access-pearson|physioex.*)\.html$/ },
@@ -628,7 +629,7 @@
       }
       var bb = document.createElement('div');
       bb.className = 'mm-brandbar';
-      bb.innerHTML = '<div class="mm-wrap"><a class="mm-mark" href="' + B + 'index.html" target="_top" aria-label="BIO 005 Human Physiology, course home">'
+      bb.innerHTML = '<div class="mm-wrap"><a class="mm-mark" href="' + B + 'course.html" target="_top" aria-label="BIO 005 Human Physiology, course home">'
         + MARK + '<span class="mm-wm">BIO <b>005</b><span class="mm-wmsub">Human Physiology</span></span></a>'
         + '<span class="mm-course">BIO 005 &middot; Fall 2026</span></div>';
       var afterSkip = document.querySelector('.b5skip, a.skip');
@@ -650,7 +651,7 @@
     /* ---- the bar ---- */
     function item(key, href, label, sub, extra) {
       var on = (sec === key);
-      var exact = (file === href) || (key === 'home' && (file === '' || file === 'index.html'));
+      var exact = (file === href) || (key === 'home' && (file === '' || file === 'index.html' || file === 'course.html'));
       return '<li class="' + (on ? 'b5-on' : '') + (extra || '') + '"><a href="' + B + href + '" target="_top"'
         + (exact ? ' aria-current="page"' : '') + '>' + label
         + (sub ? '<span class="b5-sub">' + sub + '</span>' : '')
@@ -769,7 +770,7 @@
     nav.className = 'b5site';
     nav.setAttribute('aria-label', 'Course sections');
     nav.innerHTML = '<div class="b5site-in"><ul>'
-      + '<li class="' + (sec === 'home' ? 'b5-on' : '') + '"><a class="b5-home" href="' + B + 'index.html" target="_top"' + (sec === 'home' ? ' aria-current="page"' : '') + '>' + MARK + 'Home</a></li>'
+      + '<li class="' + (sec === 'home' ? 'b5-on' : '') + '"><a class="b5-home" href="' + B + 'course.html" target="_top"' + (sec === 'home' ? ' aria-current="page"' : '') + '>' + MARK + 'Home</a></li>'
       + item('thisweek', cur.file, 'This week', 'Week ' + cur.n)
       + '<li class="' + (sec === 'weeks' ? 'b5-on' : '') + '"><button type="button" id="b5-weeks-btn" aria-expanded="false" aria-controls="b5-weeks-panel">Weeks' + CARET + (sec === 'weeks' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-weeks-panel" hidden>' + weeksHtml + '</div></li>'

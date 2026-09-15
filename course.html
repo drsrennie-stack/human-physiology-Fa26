@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIO 005 Human Physiology | Course home</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<meta name="description" content="Start here reading, then the weeks in order. Week 1 and Weeks 2 and 3 are open now.">
+<style>
+:root{
+  --navy:#0B1530;
+  --navy-72:#4A5265;
+  --navy-15:rgba(11,21,48,.15);
+  --navy-08:rgba(11,21,48,.08);
+  --navy-tint:#ECEFF4;
+  --terra:#8B3A2E;
+  --terra-dark:#6E2D24;
+  --white:#FFFFFF;
+  --page:#FFFFFF;
+  --offwhite:#FAFAF9;
+  --r-card:8px;
+  --r-btn:4px;
+  --display:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--navy);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  font-variant-numeric:lining-nums;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0}
+a{color:var(--terra)}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--terra);
+  outline-offset:2px;
+  border-radius:2px;
+}
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:60;
+  background:var(--navy);color:#fff;padding:10px 16px;border-radius:var(--r-btn);
+  font-weight:700;text-decoration:none;
+}
+.skip:focus{left:12px;top:12px}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Brand bar */
+.brandbar{background:var(--white);padding:14px max(20px,4vw)}
+.brandbar .wrap{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.mark{flex:none}
+.coursemeta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.coursemeta .code{
+  font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--terra)
+}
+.coursemeta .name{font-weight:600;font-size:14px;color:var(--navy-72)}
+
+/* Header band */
+.masthead{background:var(--terra);color:#fff;padding:34px max(20px,4vw) 32px}
+.masthead .wrap{max-width:1180px;margin:0 auto}
+.eyebrow{
+  font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.3em;
+  text-transform:uppercase;color:#fff;opacity:.92;margin:0 0 10px
+}
+.masthead h1{font-size:clamp(26px,4.2vw,40px);font-weight:800;color:#fff;letter-spacing:-.01em}
+.masthead p{margin:12px 0 0;max-width:64ch;color:#fff;font-size:16px}
+.masthead .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  background:#fff;color:var(--navy);border:0;border-radius:99px;
+  padding:8px 15px;font-family:var(--body);font-weight:700;font-size:13px;
+  cursor:pointer
+}
+.chip:hover{background:var(--navy-tint)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--terra);flex:none}
+.chip[aria-pressed="true"] .dot{background:#fff}
+/* The only way out of this page. Gold so it reads as the exit rather than
+   another one of the three player controls beside it. */
+.chip-back{
+  text-decoration:none;background:#C9A14A;color:var(--navy);
+  border:2px solid #C9A14A;padding:7px 15px
+}
+.chip-back:hover{background:#B8924A;border-color:#B8924A}
+
+
+/* Layout */
+main{max-width:940px;margin:0 auto;padding:30px max(20px,4vw) 10px}
+main.wide{max-width:1180px}
+
+/* Cards */
+.card{
+  background:var(--white);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);
+  padding:24px 26px 26px;margin:0 0 22px
+}
+.card > :first-child{margin-top:0}
+.card > :last-child{margin-bottom:0}
+.card h2{
+  font-family:var(--display);font-size:19px;font-weight:800;color:var(--navy);
+  letter-spacing:-.01em;margin:0 0 4px
+}
+.card h3{
+  font-family:var(--display);font-size:16px;font-weight:800;color:var(--navy);
+  letter-spacing:-.01em;margin:22px 0 6px
+}
+.card p{margin:0 0 13px;font-size:15.5px;line-height:1.62;color:var(--navy)}
+.card p.lede{color:var(--navy-72);margin:0 0 16px;max-width:78ch}
+.card b{font-weight:800;color:var(--terra-dark)}
+.card ul,.card ol{margin:0 0 14px;padding-left:22px}
+.card li{margin:0 0 7px;font-size:15.5px;line-height:1.55}
+.card table{border-collapse:collapse;width:100%;margin:0 0 14px;font-size:15px}
+.card th,.card td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--navy-15)}
+.card th{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.04em}
+.tablewrap{overflow-x:auto;margin:0 0 14px}
+p.lede{color:var(--navy-72);margin:0 0 18px;max-width:78ch;font-size:16px}
+
+/* Numbered steps, same counters as the Canvas step pages */
+.steps{
+  list-style:none;counter-reset:hstep;margin:0 0 6px;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:14px 26px
+}
+.steps.one{grid-template-columns:1fr;gap:14px}
+.steps li{
+  counter-increment:hstep;position:relative;padding-left:38px;
+  font-size:15.5px;color:var(--navy);line-height:1.55
+}
+.steps li::before{
+  content:counter(hstep);position:absolute;left:0;top:-1px;
+  width:27px;height:27px;border-radius:50%;
+  background:var(--terra);color:#fff;
+  font-family:var(--display);font-weight:800;font-size:14px;
+  display:flex;align-items:center;justify-content:center
+}
+
+/* Buttons */
+.btns{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 0}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;min-height:46px;
+  padding:11px 17px;border-radius:var(--r-card);text-decoration:none;
+  font-family:var(--body);font-weight:700;font-size:14.5px;
+  background:var(--terra);border:2px solid var(--terra);color:#fff
+}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.sec{background:var(--white);border-color:var(--navy);color:var(--navy)}
+.btn.sec:hover{background:var(--navy-tint)}
+.btn svg{flex:none}
+
+.graded{
+  margin:18px 0 0;padding:13px 15px;border-radius:var(--r-card);
+  background:var(--navy-tint);color:var(--navy);font-size:14.5px;line-height:1.55
+}
+.graded b{color:var(--terra-dark)}
+
+@media (max-width:760px){.card{padding:20px 20px 22px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* The two headers. One of them is removed before paint.
+   The !important matters: .chiprow sets display:flex, which outranks the
+   browser's own [hidden] rule, so without this both headers show at once. */
+[hidden]{display:none!important}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  background:#fff;color:var(--navy);border:0;border-radius:99px;
+  padding:8px 15px;font-family:var(--body);font-weight:700;font-size:13px;
+  text-decoration:none
+}
+.chip:hover{background:var(--navy-tint)}
+.chip-back{background:#C9A14A;color:var(--navy);border:2px solid #C9A14A;padding:7px 15px}
+.chip-back:hover{background:#B8924A;border-color:#B8924A}
+.masthead{background:var(--terra);color:#fff;padding:34px max(20px,4vw) 32px}
+.masthead .wrap{max-width:1180px;margin:0 auto}
+.masthead .eyebrow{
+  font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.3em;
+  text-transform:uppercase;color:#fff;opacity:.92;margin:0 0 10px
+}
+.masthead h1{font-size:clamp(26px,4.2vw,40px);font-weight:800;color:#fff;letter-spacing:-.01em}
+.masthead p{margin:12px 0 0;max-width:64ch;color:#fff;font-size:16px}
+
+/* START HERE and the week list. Plain rows, because this page is a list of
+   places to go and anything fancier gets in the way of reading it. */
+.modhead{
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  margin:30px 0 12px
+}
+.modhead h2{
+  font-family:var(--display);font-size:13px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);margin:0
+}
+.modhead .sub{margin:0;font-size:14px;color:var(--navy-72)}
+.rows{list-style:none;margin:0;padding:0;background:var(--white);border-radius:14px;
+      box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}
+.rows > li{border-top:1px solid var(--navy-15)}
+.rows > li:first-child{border-top:0}
+.row{
+  display:flex;align-items:center;gap:16px;min-height:64px;
+  padding:15px 20px;text-decoration:none;color:var(--navy)
+}
+a.row:hover{background:var(--navy-tint)}
+.row .txt{flex:1 1 auto;min-width:0}
+.row .t{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.01em;
+        display:block;line-height:1.25}
+.row .d{display:block;font-size:14px;color:var(--navy-72);margin-top:3px;line-height:1.45}
+.row .go{flex:none;color:var(--terra)}
+.row.locked{color:var(--navy-72)}
+.row.locked .t{color:var(--navy-72)}
+.row .when{
+  flex:none;font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--navy-72);text-align:right
+}
+.row .now{
+  flex:none;font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:#fff;background:var(--terra);border-radius:99px;padding:5px 11px
+}
+.partline{
+  font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy-72);margin:26px 0 8px
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the page</a>
+<div class="brandbar">
+  <div class="wrap">
+    <svg class="mark" width="34" height="34" viewBox="0 0 34 34" role="img" aria-label="Course mark">
+      <circle cx="8" cy="8" r="4.2" fill="#0B1530"></circle>
+      <circle cx="17" cy="8" r="4.2" fill="#8B3A2E"></circle>
+      <circle cx="26" cy="8" r="4.2" fill="#C9A14A"></circle>
+      <rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"></rect>
+      <rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"></rect>
+      <rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"></rect>
+    </svg>
+    <div class="coursemeta">
+      <span class="code">BIO 005</span>
+      <span class="name">Human Physiology</span>
+    </div>
+  </div>
+</div>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">BIO 005 · Human Physiology · Fall 2026</p>
+    <h1>Your course, start to finish</h1>
+    <p>Start here reading, then the weeks in order. Week 1 and Weeks 2 and 3 are open now.</p>
+    <div class="chiprow" id="navSite">
+      
+      <a class="chip" href="https://yccd.instructure.com/courses/42616/modules" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.5 2.5H2.5v11h11v-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Open this in Canvas<span class="vh"> (opens in a new tab)</span></a>
+    </div>
+    <div class="chiprow" id="navFrame" hidden>
+      <a class="chip chip-back" href="https://yccd.instructure.com/courses/42616/modules" target="_top"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Back to Canvas modules</a>
+    </div>
+  </div>
+</header>
+
+<script>
+/* Pick the header before paint. Inside a Canvas iframe the site links are
+   wrong, because Canvas already wraps the page in its own navigation and two
+   sets of menus in one screen is what sent students in circles. Opened
+   directly the Canvas chip is the right one to hide. If this never runs the
+   site header stays, which is the safer failure: a student on the open web
+   with no way back is worse than one extra link inside Canvas. */
+(function(){
+  var framed = false;
+  try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+  if(!framed) return;
+  document.getElementById("navSite").hidden = true;
+  document.getElementById("navFrame").hidden = false;
+}());
+</script>
+
+<main id="main" class="wide">
+<p class="lede">This is the whole course as a list. It is the same material as Canvas, in the same order, under the same names. Work wherever you like, and you can switch at any point without losing your place.</p>
+<div class="modhead"><h2>Start here</h2><p class="sub">Read these once, before Week 1 work is due.</p></div>
+<ul class="rows" role="list"><li><a class="row" href="how-grading-works.html"><span class="txt"><span class="t">How grading works</span><span class="d">The four categories, what is not graded, and the scale.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="access-pearson.html"><span class="txt"><span class="t">Textbook, Mastering A&amp;P, Pearson</span><span class="d">What you are buying, the whole path through Canvas, and what to do when it goes wrong.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="syllabus-fall2026.html"><span class="txt"><span class="t">Syllabus and course policies</span><span class="d">The full syllabus, including attendance, late work and accommodations.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="course-schedule.html"><span class="txt"><span class="t">Weekly schedule</span><span class="d">All fifteen weeks with their dates and what each one covers.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="ai-in-this-course.html"><span class="txt"><span class="t">AI use in this course</span><span class="d">Where you can use it, where you cannot, and how to log it.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="assignment-discussion-01-visionboard.html"><span class="txt"><span class="t">Week 1 discussion: your digital vision board</span><span class="d">Your introduction to the class. Graded, 10 points.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="how-every-week-works.html"><span class="txt"><span class="t">How every week works</span><span class="d">The eight steps, in order, the same every week whatever the topic.</span></span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li></ul>
+<p class="partline">Part 1, Foundations</p>
+<ul class="rows" role="list"><li><a class="row" href="w01-overview.html"><span class="txt"><span class="t">Week 1. How physiology works and what keeps you steady</span><span class="d">September 8 to 13</span></span><span class="now">Open</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li><li><a class="row" href="w02-overview.html"><span class="txt"><span class="t">Weeks 2 and 3. The cell: structure, transport and signaling</span><span class="d">September 14 to 27. Two weeks on one set of material. Everything is due September 27.</span></span><span class="now">Open</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li></ul>
+<p class="partline">Part 2, Control systems</p>
+<ul class="rows" role="list"><li><div class="row locked"><span class="txt"><span class="t">Week 4. Membrane potential, neurons and synapses</span><span class="d">September 28 to October 4</span></span><span class="when">Opens September 28</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 5. Reflexes, and sensing the world</span><span class="d">October 5 to 11</span></span><span class="when">Opens October 5</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 6. Muscle, and how movement gets commanded</span><span class="d">October 12 to 18</span></span><span class="when">Opens October 12</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 7. Hormones, the autonomic system, and reproduction</span><span class="d">October 19 to 25</span></span><span class="when">Opens October 19</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 8. Midterm 1</span><span class="d">October 26 to November 1</span></span><span class="when">Opens October 26</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li></ul>
+<p class="partline">Part 3, Systems in action</p>
+<ul class="rows" role="list"><li><div class="row locked"><span class="txt"><span class="t">Week 9. The heart as a pump</span><span class="d">November 2 to 8</span></span><span class="when">Opens November 2</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 10. Pressure, flow, and holding blood pressure steady</span><span class="d">November 9 to 15</span></span><span class="when">Opens November 9</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 11. Blood and how the body defends itself</span><span class="d">November 16 to 22</span></span><span class="when">Opens November 16</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 12. Digestion, and how you use food for fuel</span><span class="d">November 23 to 29</span></span><span class="when">Opens November 23</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 13. Breathing, gas transport, and the fast pH lever</span><span class="d">November 30 to December 6</span></span><span class="when">Opens November 30</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 14. The kidney and body fluid balance</span><span class="d">December 7 to 13</span></span><span class="when">Opens December 7</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li><li><div class="row locked"><span class="txt"><span class="t">Week 15. The slow pH lever, putting it together, and the final</span><span class="d">December 14 to 16</span></span><span class="when">Opens December 14</span><span class="go"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3.2" y="7" width="9.6" height="7" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></div></li></ul>
+<section class="card" style="margin-top:26px">
+  <h2>Everything in Canvas too</h2>
+  <p>Every page on this list is also a Canvas module item, with the same name.
+    Assignments are turned in through Canvas either way, so if a step here ends
+    in an upload it will hand you off to Canvas for that one thing and bring you
+    straight back.</p>
+  <div class="btns">
+    <a class="btn sec" href="https://yccd.instructure.com/courses/42616/modules" target="_blank" rel="noopener">Open the course in Canvas<span class="vh"> (opens in a new tab)</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="who">Dr. Sharilyn Rennie</p>
+    <p class="role">BIO 005 Human Physiology</p>
+  </div>
+</footer>
+<script>
+/* Iframe height sender. Canvas strips script tags from a pasted page, so the
+   Canvas iframe carries a measured height and nothing listens for this. It
+   stays for the course site and Kajabi, where a listener does exist. */
+(function(){
+  var FRAME_ID = "bio005-course-home";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){
+    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
+  }
+  setTimeout(sendHeight, 400);
+  setTimeout(sendHeight, 1500);
+}());
+</script>
+</body>
+</html>
