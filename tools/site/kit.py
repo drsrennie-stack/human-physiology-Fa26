@@ -194,8 +194,11 @@ main{padding:0 0 10px}
 
    Two colors, and the color says which kind of thing it is. Darker terra
    cotta is the action the page was built for. Very dark navy is everything
-   else. Cream on maroon-dark is 9.03 to 1 and cream on navy-deep is 17.5 to
-   1, both past AAA at this size. */
+   else. Cream on maroon-dark is 9.03 to 1 and cream on navy is 16.0 to 1,
+   both past AAA at this size.
+
+   Navy here is #0B1530, not navy-deep #060A18. Navy-deep reads as black on a
+   screen, which was her note, so it is kept for ink on gold and nothing else. */
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
 .btn{
   display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:13px 22px;
@@ -209,8 +212,8 @@ a.btn:hover,a.btn:focus-visible{
   background:#5C2520;color:var(--bone);transform:translateY(-2px);
   box-shadow:0 14px 26px -8px rgba(11,21,48,.46),0 4px 9px -3px rgba(11,21,48,.30)
 }
-.btn.sec{background:var(--navy-deep);color:var(--bone)}
-a.btn.sec:hover,a.btn.sec:focus-visible{background:#12203F;color:var(--bone)}
+.btn.sec{background:var(--navy);color:var(--bone)}
+a.btn.sec:hover,a.btn.sec:focus-visible{background:#1A2A4E;color:var(--bone)}
 
 /* ---------- the graded strip ---------- */
 .graded{
@@ -220,7 +223,7 @@ a.btn.sec:hover,a.btn.sec:focus-visible{background:#12203F;color:var(--bone)}
 .graded b{color:var(--maroon-dark)}
 
 /* ---------- footer, the dark band ---------- */
-footer{background:var(--navy-deep);color:var(--bone);padding:30px 0 36px;margin-top:40px}
+footer{background:var(--navy);color:var(--bone);padding:30px 0 36px;margin-top:40px}
 footer a{color:var(--bone);text-decoration:underline}
 footer a:hover{color:var(--gold)}
 footer :focus-visible{outline-color:var(--gold)}

@@ -152,7 +152,7 @@ CARD = (
      MODULES, "Go to the modules",
      btn_bg="#FFFFFF", btn_ink=MAROON, btn_border="#FFFFFF",
      tiny="You are already here. Nothing new opens."),
-  web=door(NAVY_DEEP, arrow(GOLD), True,
+  web=door(NAVY, arrow(GOLD), True,
      "Use the course website",
      "The same course as a plain website, outside Canvas. Cleaner pages and fewer "
      "menus. If the Canvas navigation gets in your way, this is the one to pick.",

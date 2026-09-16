@@ -271,9 +271,9 @@ nav.jump{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px soli
   padding:11px 0}
 nav.jump .wrap{display:flex;flex-wrap:wrap;gap:8px}
 nav.jump a{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;
-  border-radius:999px;background:var(--navy-deep);color:var(--bone);text-decoration:none;
+  border-radius:999px;background:var(--navy);color:var(--bone);text-decoration:none;
   font-weight:800;font-size:13px;box-shadow:0 3px 8px -3px rgba(11,21,48,.40)}
-nav.jump a:hover{background:#12203F;color:var(--bone)}
+nav.jump a:hover{background:#1A2A4E;color:var(--bone)}
 
 main{padding:8px 0 40px}
 .sec{margin:34px 0 0}
@@ -294,7 +294,7 @@ main{padding:8px 0 40px}
   transition:background 140ms ease,transform 200ms ease,box-shadow 200ms ease}
 .copy:hover{background:#5C2520;transform:translateY(-2px);
   box-shadow:0 14px 26px -8px rgba(11,21,48,.46),0 4px 9px -3px rgba(11,21,48,.30)}
-.copy.done{background:var(--navy-deep)}
+.copy.done{background:var(--navy)}
 pre{margin:12px 0 0;background:var(--navy-deep);color:#E6EAF1;border-radius:10px;
   padding:14px 16px;overflow-x:auto;max-height:230px;overflow-y:auto}
 pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;

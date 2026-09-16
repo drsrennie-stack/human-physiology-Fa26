@@ -265,32 +265,45 @@ def build_home():
 
 
 # ------------------------------------------------------------------- the door
+ARROW_SVG = ('<svg viewBox="0 0 64 40" width="64" height="40" aria-hidden="true" '
+             'focusable="false"%(flip)s>'
+             '<path d="M6 20 H44" fill="none" stroke="%(c)s" stroke-width="9" '
+             'stroke-linecap="round"/>'
+             '<path d="M38 7 L56 20 L38 33" fill="none" stroke="%(c)s" stroke-width="9" '
+             'stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+
+def arrow(color, left=False):
+    """The big friendly arrow. Left points at the Canvas menu, which sits down
+    the left of the screen; right points off the page at the website."""
+    return ARROW_SVG % dict(c=color, flip=' style="transform:scaleX(-1)"' if left else "")
+
+
 DOOR = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BIO 005 Human Physiology &middot; Yuba College, Fall 2026</title>
+<title>Welcome &middot; BIO 005 Human Physiology</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brand.css">
-<meta name="description" content="BIO 005 Human Physiology, Yuba College, Fall 2026. The course runs in Canvas and on this website, with the same material in both. Pick whichever one you prefer.">
+<meta name="description" content="Welcome to BIO 005 Human Physiology, Yuba College, Fall 2026. Take the course in Canvas or on the course website. Same material in both.">
 <style>
 %(tokens)s
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0}
 body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
   font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
-h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
 em,i{font-style:normal;color:var(--maroon)}
 a{color:var(--maroon);text-underline-offset:3px}
 :focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
 [hidden]{display:none!important}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
 
-/* brand bar, the same one every page carries */
 .brandbar{background:#fff;border-bottom:1px solid var(--line);padding:13px 0}
 .brandbar .wrap{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
 .mark{display:flex;align-items:center;gap:9px;text-decoration:none}
@@ -302,45 +315,70 @@ a{color:var(--maroon);text-underline-offset:3px}
 .course{margin-left:auto;font-family:var(--body);font-size:9.5px;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
 
-.door{padding:58px 0 20px;text-align:center}
-.door .bigmark{margin:0 0 24px}
+.hero{padding:40px 0 10px;text-align:center}
+.hero .bigmark{margin:0 0 20px}
 .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
   color:var(--maroon);margin:0 0 12px}
-.door h1{font-size:clamp(32px,6vw,52px);line-height:1.08;margin:0 auto;max-width:14ch}
-.door h1 span{color:var(--maroon)}
-.door .term{margin:16px auto 0;font-size:17px;color:var(--ink-soft);max-width:52ch}
-.enter{
-  display:inline-flex;align-items:center;gap:11px;min-height:60px;margin:32px 0 0;
-  padding:17px 34px;border-radius:8px;background:var(--maroon);
-  border:2px solid var(--maroon);color:#fff;text-decoration:none;
-  font-family:var(--body);font-weight:800;font-size:17px;letter-spacing:.01em;
+.hero h1{font-size:clamp(28px,5.2vw,44px);line-height:1.1;margin:0 auto;max-width:17ch}
+.hero h1 span{color:var(--maroon)}
+.hero .lede{margin:16px auto 0;font-size:17.5px;color:var(--ink-soft);max-width:56ch}
+.hero .term{margin:10px auto 0;font-size:15.5px;color:var(--navy);max-width:56ch}
+
+/* ---- the two doors ----
+   Terra cotta on the left for Canvas, navy on the right for the website, both
+   lifted off the page with a shadow and no border. The arrows are decorative:
+   the heading of each box says the same thing, so a screen reader is not
+   missing anything. The left arrow points at the Canvas menu, which runs down
+   the left of the screen; the right one points off the page. */
+.doors{display:grid;gap:20px;margin:34px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%%,320px),1fr))}
+.door{
+  border-radius:16px;padding:28px 26px 26px;color:#fff;
+  box-shadow:0 10px 24px -8px rgba(11,21,48,.35),0 3px 8px -3px rgba(11,21,48,.25);
+  display:flex;flex-direction:column
+}
+.door.canvas{background:var(--maroon)}
+.door.site{background:var(--navy)}
+.door .arw{margin:0 0 14px;line-height:0}
+.door.site .arw{text-align:right}
+.door h2{color:#fff;font-size:clamp(21px,2.8vw,26px);line-height:1.15;margin:0 0 10px}
+.door p{margin:0 0 18px;font-size:15.5px;line-height:1.6}
+.door.canvas p{color:var(--bone)}
+.door.site p{color:#D7DEE9}
+.door .go{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:52px;padding:14px 24px;border-radius:8px;text-decoration:none;
+  font-family:var(--body);font-weight:800;font-size:16px;margin-top:auto;
   transition:background 160ms ease
 }
-a.enter:hover{background:var(--maroon-dark);border-color:var(--maroon-dark);color:#fff}
-.newtab{margin:12px 0 0;font-size:14px;color:var(--ink-soft)}
+.door.canvas .go{background:#fff;color:var(--maroon);border:2px solid #fff}
+.door.canvas a.go:hover{background:var(--bone);border-color:var(--bone);color:var(--maroon-dark)}
+.door.site .go{background:var(--gold);color:var(--gold-ink);border:2px solid var(--gold)}
+.door.site a.go:hover{background:#E0BC6C;border-color:#E0BC6C;color:var(--gold-ink)}
+.door :focus-visible{outline:3px solid #fff;outline-offset:3px}
+.door .tiny{margin:12px 0 0;font-size:13px;line-height:1.5}
+.door.canvas .tiny{color:var(--bone);opacity:.92}
+.door.site .tiny{color:#AEB8C6}
 
-/* the dark band, the same signature panel the site uses */
-.panel{background:var(--navy-deep);color:var(--bone);padding:40px 0 44px;margin:44px 0 0}
-.panel .eyebrow{color:var(--gold)}
-.panel h2{color:#fff;font-size:clamp(21px,3vw,27px);margin:0 0 12px}
-.panel p{color:var(--bone);margin:0 0 14px;max-width:62ch}
-.panel .canvas{
-  display:inline-flex;align-items:center;gap:9px;min-height:48px;margin:8px 0 0;
-  padding:13px 24px;border-radius:8px;background:transparent;border:2px solid var(--gold);
-  color:var(--gold);text-decoration:none;font-weight:800;font-size:14px;
-  letter-spacing:.02em;transition:background 160ms ease
+/* ---- the small print ---- */
+.note{
+  margin:30px auto 0;max-width:74ch;background:#fff;border-radius:12px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);padding:20px 22px
 }
-.panel a.canvas:hover{background:var(--gold);color:var(--gold-ink)}
-.panel :focus-visible{outline-color:var(--gold)}
+.note h3{font-family:var(--display);font-size:14px;font-weight:800;color:var(--navy);
+  margin:0 0 8px}
+.note p{margin:0 0 9px;font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
+.note p:last-child{margin:0}
+.note b{color:var(--maroon-dark);font-weight:800}
 
-footer{background:var(--navy-deep);color:var(--bone);padding:0 0 36px}
-footer .fleg{margin:0;font-size:13px;color:var(--bone);opacity:.86}
+footer{background:var(--navy-deep);color:var(--bone);padding:26px 0 34px;margin-top:44px}
 footer .who{font-family:var(--display);font-weight:800;color:#fff;margin:0 0 4px;font-size:15px}
+footer .fleg{margin:0;font-size:13px;color:var(--bone);opacity:.86}
 footer a{color:var(--bone)}
 footer a:hover{color:var(--gold)}
 
-@media (max-width:620px){.course{margin-left:0;flex-basis:100%%}.door{padding:40px 0 16px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:620px){.course{margin-left:0;flex-basis:100%%}.hero{padding:28px 0 6px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -352,34 +390,65 @@ footer a:hover{color:var(--gold)}
   <span class="course">Yuba College &middot; Fall 2026</span>
 </div></div>
 
-<main class="door" id="main"><div class="wrap">
+<main id="main"><div class="wrap">
 
-  <div class="bigmark">%(bigmark)s</div>
+  <header class="hero">
+    <div class="bigmark">%(bigmark)s</div>
+    <p class="eyebrow">Yuba College &middot; Fall 2026</p>
+    <h1>Welcome to <span>Human Physiology.</span></h1>
+    <p class="lede">You can navigate this course two ways, and they hold the same
+      material in the same order under the same names. Pick whichever one suits
+      how you like to work.</p>
+    <p class="term">%(term)s</p>
+  </header>
 
-  <p class="eyebrow">Yuba College &middot; Fall 2026</p>
-  <h1>BIO 005 <span>Human Physiology.</span></h1>
-  <p class="term">%(term)s</p>
+  <div class="doors">
 
-  <a class="enter" id="enter" href="course.html">
-    <span id="enterLabel">Enter the course</span>
-    <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
-  <p class="newtab" id="enterNote" hidden>This leaves Canvas and opens the course website, with its own navigation. Your browser Back button brings you back to Canvas.</p>
+    <section class="door canvas">
+      <div class="arw">%(arrow_left)s</div>
+      <h2>Stay in Canvas</h2>
+      <p>Everything is here in the modules, down the left side of your screen.
+        Work through the list in order, top to bottom. If you like Canvas or you
+        are used to it, this is the one to pick.</p>
+      <a class="go" href="%(modules)s" target="_top">Go to the modules</a>
+      <p class="tiny">You are already here. Nothing new opens.</p>
+    </section>
+
+    <section class="door site">
+      <div class="arw">%(arrow_right)s</div>
+      <h2>Use the course website</h2>
+      <p>The same course as a plain website, outside Canvas. Cleaner pages and
+        fewer menus. If the Canvas navigation gets in your way, this is the one
+        to pick.</p>
+      <a class="go" id="enter" href="course.html"><span id="enterLabel">Open the course website</span></a>
+      <p class="tiny" id="enterNote" hidden>This leaves Canvas. Your browser Back
+        button brings you right back.</p>
+    </section>
+
+  </div>
+
+  <div class="note">
+    <h3>Why there are two of them</h3>
+    <p>Last spring Canvas went down for a week and students lost access to
+      everything in it. This is my answer to that. The course website is a
+      complete copy that does not depend on Canvas at all, so <b>if Canvas goes
+      down again you will still have your course</b>. I would send you the link
+      and we would carry on, with nothing to rebuild and nothing lost.</p>
+    <p>You are not required to use it. Most of you probably never will. It is
+      there so that a bad week for Canvas is not a bad week for you.</p>
+    <p>Assignments are turned in through Canvas whichever side you work on, so if
+      a step ends in an upload it hands you over for that one thing.</p>
+  </div>
 
 </div></main>
 
 <script>
-/* THE DOOR BREAKS OUT OF THE FRAME, PROPERLY.
-   A plain relative link loads course.html inside the Canvas frame, so the
-   student is still on a Canvas page and it looks like the button did nothing.
-   Sep 15 2026: Scrubs hit that. Sep 16: she is right that a framed page can
-   leave, and this is how. target="_top" navigates the whole browser window,
-   not the frame, so one click takes the student out of Canvas entirely and
-   onto the course website, where the site's own navigation takes over. Back
-   returns them to Canvas whenever they want it.
-
-   _top rather than _blank on purpose: she asked for the alternate route to
-   live outside Canvas, and a new tab leaves them straddling both. */
+/* LEAVING CANVAS PROPERLY.
+   Framed, a plain relative link loads course.html inside the Canvas frame, so
+   the student never leaves and it looks like the button did nothing. target
+   _top navigates the whole browser window instead, which is the point of a
+   door marked "outside Canvas". Opened directly on the site, the relative link
+   is already right and nothing changes. */
 (function(){
   var framed = false;
   try { framed = (window.top !== window.self); } catch(e){ framed = true; }
@@ -387,20 +456,9 @@ footer a:hover{color:var(--gold)}
   var a = document.getElementById("enter");
   a.setAttribute("href", "%(site)scourse.html");
   a.setAttribute("target", "_top");
-  document.getElementById("enterLabel").textContent = "Enter the course website";
   document.getElementById("enterNote").hidden = false;
 }());
 </script>
-
-<section class="panel"><div class="wrap">
-  <p class="eyebrow">If you would rather use Canvas</p>
-  <h2>You can. It is the same course.</h2>
-  <p>The material is identical in both places, in the same order, under the same
-    names. Nothing here is extra credit and nothing there is hidden from this side.</p>
-  <p>Assignments are turned in through Canvas whichever one you use, so if a step
-    ends in an upload it hands you to Canvas for that one thing.</p>
-  <p><a class="canvas" href="%(modules)s" target="_blank" rel="noopener">Go to the Canvas modules<span class="vh"> (opens in a new tab)</span></a></p>
-</div></section>
 
 <footer><div class="wrap">
   <p class="who">Dr. Sharilyn Rennie</p>
@@ -414,9 +472,11 @@ footer a:hover{color:var(--gold)}
 
 def build_door():
     term = "Week 1 and Weeks 2 and 3 are open. Week 4 opens Monday, September 28."
-    bigmark = kit.MARK.replace('width="22" height="26"', 'width="52" height="62"')
+    bigmark = kit.MARK.replace('width="22" height="26"', 'width="56" height="66"')
     s = DOOR % dict(tokens=kit.TOKENS, modules=MODULES, term=term, site=SITE,
-                    mark=kit.MARK, bigmark=bigmark)
+                    mark=kit.MARK, bigmark=bigmark,
+                    arrow_left=arrow("#E0BC6C", left=True),
+                    arrow_right=arrow("#C9A14A"))
     io.open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     print("index.html             %6d bytes" % len(s))
 
