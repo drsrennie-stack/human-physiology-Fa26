@@ -430,6 +430,25 @@ var PARTS = [ {n:1, title:'Part 1, Foundations', weeks:[1,2,3]}, {n:2, title:'Pa
 
 var COMP = {}; BANK.competencies.forEach(function(c){ COMP[c.id] = c; });
 var WEEK = {}; BANK.weeks.forEach(function(w){ WEEK[w.n] = w; });
+/* Sep 16 2026. Week 3 teaches no new competencies, it is the catch up week on
+   Week 2, and Week 8 is Midterm 1. Left alone they would each offer an exam of
+   nothing. So a catch up week draws on the weeks it is catching up on, both in
+   the count shown here and in the pool the exam is built from. Edit this map,
+   not the bank, if a week's job changes. */
+var CATCHUP = { 3:[2], 8:[1,2,4,5,6,7] };
+function weekSources(n){ return CATCHUP[n] || [n]; }
+function weekPhrase(list){
+  if (list.length === 1) return 'Week ' + list[0];
+  var last = list[list.length - 1];
+  return 'Weeks ' + list.slice(0, -1).join(', ') + ' and ' + last;
+}
+function expandWeeks(list){
+  var out=[];
+  list.forEach(function(n){
+    weekSources(n).forEach(function(m){ if(out.indexOf(m)<0) out.push(m); });
+  });
+  return out;
+}
 var compCountByWeek = {}; BANK.competencies.forEach(function(c){ compCountByWeek[c.week] = (compCountByWeek[c.week]||0)+1; });
 
 /* ---------------- utilities ---------------- */
@@ -504,7 +523,7 @@ function generate(n, weeks, compWeight){
   assignWeeks(slots, weeks, weekWeight);
   var seen=load(KEY_SEEN, []); var seenSet={}; seen.forEach(function(id){ seenSet[id]=1; });
   var used={}, usedComp={}, out=[];
-  var pool=BANK.items.filter(function(it){ return weeks.indexOf(it.week)>=0; });
+  var srcWeeks=expandWeeks(weeks); var pool=BANK.items.filter(function(it){ return srcWeeks.indexOf(it.week)>=0; });
   function score(it){ var w=(compWeight?(compWeight[it.competencyId]||0.5):1); if(seenSet[it.id]) w*=0.25; if(usedComp[it.competencyId]) w*=0.4; return w*(0.5+Math.random()); }
   function pick(filter){ var best=null, bs=-1; for(var i=0;i<pool.length;i++){ var it=pool[i]; if(used[it.id]) continue; if(!filter(it)) continue; var s=score(it); if(s>bs){ bs=s; best=it; } } return best; }
   slots.forEach(function(s){
@@ -546,7 +565,7 @@ var setup = {
       p.weeks.forEach(function(n){
         var w=WEEK[n];
         var lab=el('label',{class:'chk'});
-        lab.innerHTML='<input type="checkbox" name="week" value="'+n+'"><span class="wn">Week '+n+'</span><span class="wt">'+esc(w.title)+' <span class="cnt">('+(compCountByWeek[n]||0)+' competencies)</span></span>';
+        lab.innerHTML='<input type="checkbox" name="week" value="'+n+'"><span class="wn">Week '+n+'</span><span class="wt">'+esc(w.title)+' <span class="cnt">('+(weekSources(n).reduce(function(t,m){return t+(compCountByWeek[m]||0);},0))+' competencies'+(CATCHUP[n]?', from '+weekPhrase(weekSources(n)):'')+')</span></span>';
         wk.appendChild(lab);
       });
     });
