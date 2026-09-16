@@ -42,18 +42,7 @@ I = {
 }
 
 MARK = ('<svg viewBox="40 10 125 148" width="26" height="31" role="img" '
-        'aria-label="BIO 005 Human Physiology">'
-        '<g transform="translate(0,18)">'
-        '<g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#7E93B8"/>'
-        '<path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 '
-        'L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#7E93B8"/></g>'
-        '<g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#C06A58"/>'
-        '<path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 '
-        'L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#C06A58"/></g>'
-        '<g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/>'
-        '<path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 '
-        'L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g>'
-        '</g></svg>')
+        'aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#7E93B8"/><circle cx="17" cy="8" r="4.2" fill="#C06A58"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#7E93B8"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#C06A58"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>')
 
 
 def tool(name, sub, url, icon, tone, ext=False):
