@@ -1,0 +1,77 @@
+PUSH THESE, September 16 2026
+Repo: drsrennie-stack/human-physiology-Fa26
+Built against commit 3dfd51d. I checked, and the sweep you just uploaded is on
+GitHub: the frame escape, the drawing canvas fix, the 38 dead Slides buttons
+and the Study With Me changes are all live. Nothing in this drop touches them.
+
+WHAT THIS FIXES
+The Week 2 and Week 3 note sheet upload button pointed at the Canvas
+assignments index, not at the assignment. A student clicking it landed on a
+list of everything in the course and had to find the right one. Week 1 already
+had its specific assignment, 1241504. Weeks 2 and 3 did not.
+
+All seven now point at:
+  https://yccd.instructure.com/courses/42616/assignments/1241524
+
+Week 3 has no upload page of its own, since it is the catch up week running on
+Week 2 material, so this one assignment covers both weeks.
+
+THE FILES
+
+  Repo root, six files:
+
+  w02-step-03-upload-note-sheets.html
+      Week 2, Step 3. This is the one iframed into Canvas, so it is the one
+      students actually click.
+  w02-03-upload-note-sheets.html
+      Earlier generation of the same page, still published.
+  w02-04-upload-note-sheet.html
+      Earlier generation, singular note sheet version, still published.
+  week-02.html
+      The Week 2 page. The "Upload in Canvas" tool tile under Note sheet
+      assignment.
+  week2-learn-block.html
+      The learn block that carries the same tile.
+  compliance-notes-sep16-notesheet-link.md
+      The accessibility record for this change.
+
+  Goes in _canvas/pages/, two files:
+
+  _canvas/pages/w02-03-upload-note-sheets.html
+  _canvas/pages/w02-04-upload-note-sheet.html
+      Paste sources. Not published, so no student sees these, but they are
+      where a future rebuild would copy from, so they should not carry the
+      old link.
+
+  The zip keeps that folder structure, so dragging the whole thing into the
+  GitHub uploader puts every file where it belongs.
+
+WHAT I DID NOT TOUCH
+Several other buttons also point at the bare assignments index, because I do
+not have their assignment IDs and I am not going to guess one. Send me the IDs
+and I will wire them the same way:
+
+  Turn the lab in                 w02-step-05-lab.html, w02-05-lab.html,
+                                  w02-06-lab.html
+  Turn in your chart entry        w01-step-06-patient.html, w01-07-patient.html,
+                                  w02-step-06-patient.html, w02-06-patient.html,
+                                  w02-07-patient.html
+  Upload the report in Canvas     w02-08-mastery-check.html,
+                                  w02-09-mastery-check.html
+
+HOW TO CHECK IT WORKED
+Week 2 is still gated until Wednesday September 16 at 8:00 PM Pacific, which is
+correct and is the page doing its job. To see the real page before then, add
+?preview=1 to the address:
+
+  https://drsrennie-stack.github.io/human-physiology-Fa26/week-02.html?preview=1
+
+Then open Week 2, Step 3 in Canvas and click the upload button. It should land
+on the note sheet assignment itself, with the submission box, not on the
+assignments list.
+
+WHAT WAS TESTED
+All five published pages rendered in headless Chromium. No JavaScript errors,
+no failed requests, no skipped heading levels. The new link is present and
+carries its button text on every one of them. Each file differs from the
+version on GitHub by exactly one line.
