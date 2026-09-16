@@ -80,10 +80,10 @@ stretch with nothing due in between.
 
 ## Week 1, Step 4 | Study it for several days
 
-`w01-step-04-study-it.html`, height 1400
+`w01-step-04-study-it.html`, height 1300
 
 ```html
-<p><iframe style="width: 100%; min-height: 1400px; border: 1px solid #d9dde3; border-radius: 8px;" src="https://drsrennie-stack.github.io/human-physiology-Fa26/w01-step-04-study-it.html" width="100%" height="1400" title="BIO 005 Week 1, Step 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>
+<p><iframe style="width: 100%; min-height: 1300px; border: 1px solid #d9dde3; border-radius: 8px;" src="https://drsrennie-stack.github.io/human-physiology-Fa26/w01-step-04-study-it.html" width="100%" height="1300" title="BIO 005 Week 1, Step 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>
 <p><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/w01-step-04-study-it.html" target="_blank" rel="noopener">Open this page in a new tab<span class="screenreader-only"> (opens in a new tab)</span></a> if the frame above does not load on your device.</p>
 ```
 
@@ -161,10 +161,10 @@ stretch with nothing due in between.
 
 ## Week 2, Step 4 | Study it for several days
 
-`w02-step-04-study-it.html`, height 1500
+`w02-step-04-study-it.html`, height 1450
 
 ```html
-<p><iframe style="width: 100%; min-height: 1500px; border: 1px solid #d9dde3; border-radius: 8px;" src="https://drsrennie-stack.github.io/human-physiology-Fa26/w02-step-04-study-it.html" width="100%" height="1500" title="BIO 005 Week 2, Step 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>
+<p><iframe style="width: 100%; min-height: 1450px; border: 1px solid #d9dde3; border-radius: 8px;" src="https://drsrennie-stack.github.io/human-physiology-Fa26/w02-step-04-study-it.html" width="100%" height="1450" title="BIO 005 Week 2, Step 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>
 <p><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/w02-step-04-study-it.html" target="_blank" rel="noopener">Open this page in a new tab<span class="screenreader-only"> (opens in a new tab)</span></a> if the frame above does not load on your device.</p>
 ```
 
@@ -206,6 +206,18 @@ stretch with nothing due in between.
 
 ---
 
+## Sep 15 update
+
+Step 4 in both weeks lost a button. Draw it from memory and Brain dump practice
+were two buttons pointing at two pages, and those are now one tool, Brain Dump,
+so Step 4 lists four tools rather than five. The heights above are remeasured.
+
+Nothing else in this guide changed. The other sixteen iframes are as they were.
+
+The five tools that keep score do not get an iframe at all. They are in
+CANVAS-LAUNCH-BLOCKS.md as launch cards, because a tool that remembers a term of
+work cannot do it inside a Canvas frame.
+
 ## Still to wire
 
 Seven buttons across the two weeks point at the Canvas Assignments index rather
@@ -215,8 +227,10 @@ always land somewhere useful, but swap each for the direct link once you make it
 - Week 2 Step 3, Upload your Week 2 note sheets
 - Week 2 Step 5, Turn the lab in
 - Week 2 Step 6, Turn in your chart entry
-- Week 2 Step 8, Upload the report in Canvas
 - Week 1 Step 6, Turn in your chart entry
+
+Wired: Week 2 Step 8, Upload the report in Canvas, to assignment 1241526 on
+September 15.
 
 Week 1's note sheet, lab and Mastery Check assignments are already wired to their
 real Canvas IDs.

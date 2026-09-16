@@ -129,35 +129,44 @@ window.BIO005_CHART = {
   },
 
   /* ---------------------------------------------------------- 2 */
+  /* Sep 15 2026. Rewritten. The old entry was an enzyme and insulin case,
+     which was Week 2 back when Week 2 was the chemistry. Week 2 is now the
+     cell, transport and signaling, and the center of that week is osmosis,
+     osmolarity, tonicity and cell volume. This case is built on those, and it
+     puts her own red cells under a microscope in three solutions so the
+     tonicity competency is something she looks at rather than recites. */
   2: {
-    title:'Molecules, Water &amp; Energy',
-    date:'September 1 to 20', when:'The three weeks before she came in',
-    encounter:'Student health visit, September 18',
-    arc:'She has been thirsty, tired and losing weight while eating more than usual. She puts it down to preseason. This is the part of the story where the fuel switches over, and it happens at the level of enzymes and their regulation.',
+    title:'The Cell, Transport and Water',
+    date:'September 18', when:'Five weeks after her preseason physical',
+    encounter:'Athletic training room, then the emergency department',
+    arc:'She did the right thing as she understood it. Two sessions in the heat, and she drank water at every break, about five liters across the day, because she had been told not to get dehydrated. She finished the second session confused and vomiting. Her weight is up, not down. Everything in this entry turns on one idea: water follows solute, and it is the solute that cannot cross that decides where the water goes.',
     chart:[
-      ['History','Six kilograms (13 lb) lost in three weeks despite eating more. Drinking 4 to 5 L a day and still thirsty. Getting up twice a night to urinate. Tired in a way that rest does not fix.'],
-      ['Vitals','HR 88, BP 104/66, weight 55 kg (121 lb).'],
-      ['Point of care testing','Random capillary glucose 318 mg/dL. Urine dipstick: glucose 4+, ketones 3+, no nitrites, no leukocytes.'],
-      ['Note','Advised to go to the emergency department. She goes home instead, because she has a match on Saturday.']
+      ['History','Two practices, 31 &deg;C (88 &deg;F), heavy sweating through both. She drank plain water at every break, roughly 5 L across the day, and ate nothing between sessions. Headache from mid afternoon. Vomited twice. Confused and unsteady walking off the field.'],
+      ['Vitals','HR 96, BP 118/70, RR 18, temperature 37.4 &deg;C (99.3 &deg;F), SpO<sub>2</sub> 98% on room air.'],
+      ['Measurements','Weight 63.5 kg (140 lb). Her preseason weight was 61 kg (134 lb). She has gained 2.5 kg across a day of heavy sweating.'],
+      ['Labs','Sodium 124 mEq/L, potassium 4.0, chloride 89, bicarbonate 23, glucose 90 mg/dL, BUN 9 mg/dL, creatinine 0.7 mg/dL. Measured serum osmolality 256 mOsm/kg.'],
+      ['Urine','Urine osmolality 380 mOsm/kg, urine sodium 52 mEq/L. She has passed very little urine since morning.'],
+      ['Microscopy','The lab ran her smear and, as a teaching slide, put her red cells in three solutions and photographed each. Slide A: 0.9% NaCl, cells biconcave and even. Slide B: 3% NaCl, cells shrunken with spiky margins. Slide C: distilled water, cells round and swollen, several burst, with pale ghosts in the background.'],
+      ['Note','Given 100 mL of 3% saline over 10 minutes and admitted. She asks why she is being given salt water when she has been drinking water all day.']
     ],
     five:[
-      'Name the fuel her cells are actually burning and the fuel they cannot get to, and name the single molecule missing between the two.',
-      'Predict what is happening to her ATP production and to her body mass, separately, and say why those two answers are not the same answer.',
-      'Explain the mechanism: what insulin normally does at the membrane and inside the cell, and what happens to stored fat and to muscle protein when it is absent.',
-      'Interpret the dipstick. Say what glucose in the urine tells you, what ketones in the urine tell you, and what neither of them can tell you.',
-      'Name the one measurement that would separate this from the other things that cause a 19 year old to lose 6 kg in three weeks.'
+      'Draw her three fluid compartments before practice and after, with volumes and with osmolarity marked on each. Show the water movement between them with arrows, and say which compartment her 2.5 kg went into and which one made her confused.',
+      'She drank only water and her sodium fell to 124. Explain the mechanism in terms of what she lost in sweat, what she replaced it with, and why replacing water alone lowers a concentration rather than restoring it.',
+      'Look at the three microscopy slides. Name the tonicity of each solution relative to the cell, say which way water moved and why, and name the one property of the solute that decides the answer in every case.',
+      'She is given 3% saline, not normal saline and not free water. Predict what each of those three fluids would do to her cell volume, and say why the one chosen is the one that helps.',
+      'Her urine osmolality is 380 mOsm/kg while her serum is 256. Say what a healthy kidney would be doing with a serum osmolality that low, say what hers is doing instead, and name the one measurement that would tell you whether her kidney is the problem or is being told to do this.'
     ],
     tracks:{
-      nursing:{ data:'She reports drinking constantly and still waking thirsty. Intake by her own estimate is 4 to 5 L a day. She has not weighed the output but describes it as large and frequent, including twice overnight.',
-        go:'thirst is the end of a loop, not the start of one. Trace it: name what is being sensed, where, and what the sensed variable actually is. Then explain why her intake of 5 L a day has not corrected it, and what that failure tells you about which compartment is losing water.' },
-      medicine:{ data:'The relevant regulator is not insulin alone but the ratio of insulin to glucagon. As that ratio falls, hormone sensitive lipase is disinhibited, fatty acids reach the liver, and hepatic ketogenesis is switched on. Beta-hydroxybutyrate and acetoacetate are both acids at body pH.',
-        go:'name the enzyme steps that the insulin to glucagon ratio is switching, and say for each whether the switch is on or off in her. Then explain why the products of that pathway are acids, and say what you would expect her bicarbonate to be doing on September 18 even though nobody measured it.' },
-      radiology:{ data:'She had no imaging during this period. Her preseason DEXA showed 22% fat and 45.1 kg of lean soft tissue.',
-        go:'she has lost 6 kg. Predict how that loss is divided between fat, lean tissue and water, and justify each part from the physiology rather than from a guess. Then say what a repeat DEXA would show and what it would still not be able to separate.' },
-      rt:{ data:'No blood gas was drawn. Carbonic anhydrase, present in red cells and in renal tubular cells, catalyzes the hydration of carbon dioxide to carbonic acid. Uncatalyzed, that reaction is far too slow to be useful on a circulation time.',
-        go:'this is an enzyme case and it is your enzyme. Say what carbonic anhydrase does to the rate of a reaction that would happen anyway, and why speed is the entire point in a red cell that spends about a second in a capillary. Then say which two of her problems, the acid load being built right now and the breathing you will meet in Week 13, both run through this one enzyme.' },
-      exercise:{ data:'Her coach notes she has been unable to finish sessions she completed easily in August. Sprint repeat times have fallen off by about 8 percent.',
-        go:'she is eating more than usual and performing worse. Explain that contradiction in terms of what her working muscle can and cannot take up, and name the transporter involved. Then say why the fuel she is burning instead produces adequate ATP at rest and inadequate power at high intensity.' }
+      nursing:{ data:'Intake across the day was roughly 5 L of plain water by her own count. Output was not measured, but she has voided once since morning and describes it as a small amount. Her weight is up 2.5 kg from a documented preseason weight taken five weeks ago.',
+        go:'weight is the most useful number on this page and nobody ordered it. Say what 2.5 kg of gain represents in liters, show the arithmetic, and then explain why a weight gain during a day of heavy sweating is a red flag rather than a reassurance. Then say what you would chart hourly overnight and what number would make you call someone.' },
+      medicine:{ data:'Sweat sodium in an unacclimatized athlete runs roughly 40 to 60 mEq/L. Measured serum osmolality is 256 mOsm/kg. Calculated osmolarity from her labs is close to the measured value, so there is no osmolal gap. Urine osmolality is 380 mOsm/kg with a urine sodium of 52 mEq/L.',
+        go:'calculate her serum osmolarity from the labs and compare it with the measured 256. Then explain why a urine osmolality of 380 is the abnormal number here, not the sodium. Say what should be happening to ADH at a serum osmolality of 256, what is evidently happening instead, and why exercise plus vomiting explains it. Then say why correcting her sodium too quickly is its own danger, and name what you would be watching.' },
+      radiology:{ data:'No imaging was ordered on arrival. Her preseason DEXA showed 22% fat and 45.1 kg of lean soft tissue.',
+        go:'her brain sits in a fixed box. Say what a head CT would be looking for in a patient who is confused with a sodium of 124, say what it would physically be measuring, and then say why the CT can be normal while the cell level problem is real. Then explain which compartment DEXA can and cannot see her 2.5 kg in.' },
+      rt:{ data:'She is breathing 18 times a minute with a normal saturation. Her bicarbonate is 23. Red cells spend roughly one second in a capillary.',
+        go:'her red cells are the cells you can actually see in this case. Using Slide C, say what happens to gas carriage when a red cell swells and bursts, and say what is released into the plasma when it does. Then explain why the biconcave shape on Slide A is not decorative: name two things that shape buys a cell that has one second to finish its work.' },
+      exercise:{ data:'Two sessions at 31 &deg;C (88 &deg;F) with heavy sweating through both. She was told to drink at every break and did. She ate nothing between sessions.',
+        go:'she followed the advice she was given and it harmed her. Write the advice you would have given instead, in two sentences a seventeen year old would act on, and justify each sentence from the physiology rather than from a rule. Then say what you would weigh, and when, to catch this in the next athlete before anyone is confused on the field.' }
     }
   },
 

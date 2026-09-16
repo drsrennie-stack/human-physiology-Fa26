@@ -1,73 +1,93 @@
-# Accessibility compliance notes: Weekly Path (Learn, Practice, Apply, Check)
+# Accessibility compliance notes: Your weekly path through physiology
 
 ## 1. Project, files, date
 
-BIO 004 Human Anatomy, Fall 2026. The "Your Path This Week" walkthrough on every week page.
+BIO 005 Human Physiology, Yuba College, Fall 2026. A one screen overview of the seven
+steps every week of the course follows, built to be embedded as an iframe in Canvas and
+to print on one landscape page.
 
-Files covered: bio004-path.js (renderer and styles), bio004-path-data.js (per-week checklist data), week-1.html through week-17.html (rewired to the renderer; the old pre-work and lab-extras cards were replaced, the class-days block was kept and moved into stage 3), bio004-dock.js (tiles regrouped into This week, 1 Learn, 2 Practice, 3 Apply, 4 Check, About the course, plus a This week's path tile), bio004-launchpad.html and bio004-launchpad-overlay.js (a four-stage path row above the doors), mastery-canvas.html (the BIO 004 drawing canvas restored from the Aug 21 version after the Sept 7 upload replaced it with the physiology copy).
+File covered: `weekly-path.html`.
 
-Date: September 13, 2026.
+Date: September 14, 2026.
 
 ## 2. WCAG version and level
 
-WCAG 2.2. Target AA everywhere, AAA reached for text contrast on every pair listed below.
+Target: WCAG 2.2 AA as the floor, AAA where achievable.
 
-1.3.1 Info and relationships: pass. Each stage is a section with a numbered h2; sub-blocks are h3. The four-stage strip is an ordered list. The "You're Ready When" list uses real checkboxes with for and id labels.
-1.4.3 and 1.4.6 Contrast: pass at AAA, see section 3.
-1.4.10 Reflow: pass. The strip goes from four columns to two to one; tiles become compact rows at phone width. No horizontal scroll at 400 px.
-2.1.1 Keyboard: pass, see section 4.
-2.4.3 Focus order: pass. Reading order is strip, then stages 1 to 4, then the graded card.
-2.4.4 Link purpose: pass. Every link has visible text plus a one-line subtitle; external links open in a new tab and carry rel noopener.
-2.4.6 Headings and labels: pass. Stage headings carry the number and stage name for screen readers and for the site's reading format fold, so a folded row reads "2. Practice. Can I produce this without looking at the answer?".
-2.4.7 Focus visible: pass. The week pages already define a 3 px terra focus ring on :focus-visible; nothing in the path overrides it.
-2.3.3 Animation from interactions: pass. Tile lift is disabled under prefers-reduced-motion.
-4.1.2 Name, role, value: pass. Decorative icons are aria-hidden and focusable false. The Looking / Retrieving comparison is a role img with an aria-label. The Atlas, Loops, Check pill row is aria-hidden and the triage list below it carries the same information as text.
+| Criterion | Level reached | How |
+|---|---|---|
+| 1.3.1 Info and relationships | AA | One h1, one h2 for the path, one h3 per step and per note. The seven steps are a real `ol`, the three notes a real `ul`, and each step's detail is a real `ul` inside its card. No layout tables. |
+| 1.3.2 Meaningful sequence | AA | DOM order is the step order, one through seven, then the three notes, then the closing line. The visual left-to-right order matches it at every breakpoint. |
+| 1.4.1 Use of colour | AA | Each step carries its number as text in a circle and its name as a heading. The chevrons between cards are CSS pseudo-elements and decorative; remove every one and the sequence still reads from the numbers and the reading order. |
+| 1.4.3 / 1.4.6 Contrast | AAA | See section 3. Every pair is above 7:1. |
+| 1.4.4 Resize text | AA | No fixed heights on text; cards grow with content and equalize by grid stretch. |
+| 1.4.10 Reflow | AA | Checked at 1320, 1100, 800 and 400px: seven columns, then four, then two, then one. No horizontal scroll at any width. |
+| 1.4.12 Text spacing | AA | Line height 1.35 to 1.6 throughout, no clipped text containers. |
+| 2.1.1 Keyboard | AA | Two focusable elements, both native links: the skip link and Back to Canvas modules. Nothing needs a mouse. |
+| 2.4.1 Bypass blocks | A | Skip link to `#main` is the first focusable element. |
+| 2.4.4 Link purpose | AAA | Both links name their destination. |
+| 2.4.7 Focus visible | AA | 3px terra focus ring, offset 3px. No outline is removed. |
+| 2.5.5 / 2.5.8 Target size | AAA | The Back to Canvas modules chip is 44px tall. |
+| 3.1.5 Reading level | AAA where practical | Short sentences, plain language, one idea per bullet. |
+| 3.2.5 Change on request | AAA | Nothing moves, opens or refreshes on its own. The card lift on hover is a transform only, and it is disabled under `prefers-reduced-motion`. |
 
-## 3. Color contrast audit
+Not applicable: no images beyond decorative SVG, no forms, no media, no timed content.
 
-| Text | Background | Ratio | Result |
-|---|---|---|---|
-| Navy #08101F | White #FFFFFF | 19.0:1 | AAA |
-| Navy #08101F | Off-white #FAFAF9 | 18.2:1 | AAA |
-| White #FFFFFF | Maroon #7A2A22 (stage 2 chip, icon, pills) | 9.6:1 | AAA |
-| Maroon #7A2A22 (stage names, eyebrow) | White #FFFFFF | 9.6:1 | AAA |
-| Maroon #7A2A22 | Off-white #FAFAF9 | 9.2:1 | AAA |
-| Navy #08101F | Gold #DCB45C (stage 3 chip, icon, pills) | 9.7:1 | AAA |
-| Muted gray #4B5262 ("Looking", struck through) | White #FFFFFF | 7.8:1 | AAA |
-| Navy #08101F (stage 4 chip, outlined) | White #FFFFFF | 19.0:1 | AAA |
-| Launchpad path row: same four chip pairs as above on white | | | AAA |
-| Dock group headers (existing dock styles, unchanged) | | | as before |
+## 3. Colour contrast audit
 
-Stage colors are not the only signal. Each stage also carries its number, its name in text, and a distinct icon.
+Measured with the WCAG relative luminance formula.
 
-## 4. Keyboard navigation flow verified
+| Text | Background | Ratio | AA | AAA |
+|---|---|---|---|---|
+| Navy `#0B1530` body and bullets | White `#FFFFFF` | 18.04:1 | pass | pass |
+| Navy on the page ground | Off-white `#FAFAF9` | 17.45:1 | pass | pass |
+| Muted `#4A5265` supporting text | Off-white | 8.05:1 | pass | pass |
+| Terra dark `#6E2D24` step subtitle | White | 10.18:1 | pass | pass |
+| Terra `#8B3A2E` in the section heading | Off-white | 7.41:1 | pass | pass |
+| White numeral | Terra `#8B3A2E` circle | 7.66:1 | pass | pass |
+| White masthead text | Navy `#0B1530` | 18.04:1 | pass | pass |
+| Gold `#C9A14A` eyebrow | Navy `#0B1530` | 7.46:1 | pass | pass |
+| Navy on the back chip | Gold `#C9A14A` | 7.46:1 | pass | pass |
+| White closing line | Navy `#0B1530` | 18.04:1 | pass | pass |
+| White Submit mark | Navy `#0B1530` | 18.04:1 | pass | pass |
 
-Tab reaches, in order: the four stage tiles (each an anchor to its stage), every link inside stage 1, every link inside stage 2, the class-day section buttons already on the page, links in stage 3, links and the two triage links in stage 4, then the five checkboxes. Enter follows links; Space toggles checkboxes. A stage tile opens its folded section, because the site's reading format honours hash navigation. No keyboard trap. Verified in headless Chromium with a scripted tab walk: 50 stops inside the path, in document order, then out to the graded card. Not yet walked by hand on a real device.
+The 1px `rgba(11,21,48,.15)` card borders and the payoff rule are separators carrying no
+meaning, so they fall outside 1.4.11.
+
+## 4. Keyboard navigation
+
+Two tab stops, both native links, in reading order. No focus traps, no positive tabindex.
+Canvas supplies its own skip link, landmarks and navigation around the iframe.
 
 ## 5. Screen reader testing
 
-Verified against the accessibility tree in Chromium (headless, Playwright). Landmarks: banner, main, contentinfo already on the page. Each stage announces as "region, 1. Learn. What do I need to understand and recognize?" via aria-labelledby. Each link announces its title and subtitle. Checkboxes announce their label text and state. Icon-only elements announce nothing. Not yet run through VoiceOver or NVDA on a real device.
+Checked with the Chromium accessibility tree:
 
-## 6. Known limitations and remediation plan
+- The h1 names the page, and the h2 names the list that follows it.
+- The seven steps announce as an ordered list with seven items, and each item opens with
+  its step name as an h3, so heading navigation walks the sequence.
+- Each step's bullets announce as a nested list with a count.
+- The number circles, the step icons, the chevrons between cards and the course mark all
+  carry `aria-hidden="true"`, so nothing decorative is read out. The step numbers are
+  also carried by the ordered list itself.
+- The Submit mark on step 6 is real text, not an icon alone, so it is announced.
 
-The old numbered card counter on the graded card was hidden by the path stylesheet, since the stages now carry their own numbers. The graded card keeps its eyebrow.
+A live test with VoiceOver in Safari inside Canvas is still to be done by the reviewer.
 
-Checkbox state is stored in localStorage on the student's own device. It is a convenience, not a record, and the page says so.
+## 6. Known limitations and remediation
 
-Text "Learn to See It", "Now Retrieve It" and the six lab steps are English only.
-
-The reading format's folded-row label concatenates the eyebrow and the title on the graded card ("Counts toward your gradeGraded this week"). That is a pre-existing behavior in bio004-reading-mode.js, not introduced here, and is worth a one-line fix in that file.
+- Canvas strips `<script>` from a pasted page, so the Canvas iframe carries a fixed height
+  and the page's own height sender has no listener there. The sender stays in the file for
+  the course site and Kajabi.
+- The print stylesheet sets Letter landscape and is tuned to fit one page at the current
+  wording. Adding more than about four bullets to a step, or a fifth line to a note, will
+  push it to a second page. Check the print preview after any copy change.
+- The chevrons between cards are dropped in print and at phone width, where the cards
+  stack and the numbers do the work on their own.
+- The page states the course's general weekly shape. It is not a substitute for a given
+  week's own step pages, which carry the actual due dates and submission links.
 
 ## 7. Reviewer
 
-Dr. Sharilyn Rennie
-
-## Addendum, Sept 13 2026 (later the same day): Recall Rx as its own app, and the evidence fix
-
-Files: recall-rx.html (new), bio004-spaced-recall.html (redirect retargeted), mastery-evidence.js and mastery-os-fall-2026.html (card-level competency attribution), recall-cards.html (untouched; it is the personal build-your-own deck and stays as it was).
-
-recall-rx.html mounts the same recall engine (recall-view.js) on the same card bank and the same maps Mastery OS uses, so nothing is duplicated. Page chrome matches the week pages: skip link to the cards, one h1, landmarks (banner, main, contentinfo), 3 px terra focus ring, the engine's own controls restyled as real buttons and selects with visible focus. Contrast pairs are the ones in section 3. Verified headless: the engine mounts (4,674 cards), a scripted answer lands in localStorage bio004-recall-v2, and Mastery OS opened in the same browser context reads it as evidence on exactly the competencies that card is tagged to.
-
-Evidence accuracy: before this change a single card credited every competency in its topic (t-tissues holds seven). Both mastery-evidence.js and the repair-run counter in Mastery OS now look up the card-level entry (topicId:cardId from card-competency-fine.js) first and fall back to the topic only when a card has no per-card tag. Simulated in Node: one answered card in t-tissues now produces entries on 2 competencies, not 7.
-
-Known: the engine's own "sure and wrong" note carries a left accent rule from its Mastery OS styling. It is inside recall-view.js and shared with Mastery OS, so it was left alone.
+Built and checked by Claude for Dr. Sharilyn Rennie, September 14, 2026. Final in-Canvas
+review with a screen reader: Dr. Sharilyn Rennie.

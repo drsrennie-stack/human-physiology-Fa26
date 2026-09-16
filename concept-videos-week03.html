@@ -915,34 +915,5 @@ document.addEventListener("DOMContentLoaded", function(){
      is the Back to Canvas modules button in the header, which targets _top so
      it breaks the iframe rather than loading Canvas inside itself.
      Do not add the site scripts back to this file. -->
-<script>
-/* Sep 16 2026. Opening a file from inside the Canvas frame.
-
-   Canvas embeds this page in an iframe that does not carry allow-popups, so
-   the browser ignores target="_blank" and loads the file inside the frame.
-   The student ends up reading a PDF in a narrow box with no way back.
-
-   So handle the click ourselves: ask for a real new tab first, and if the
-   browser refuses one, send the whole Canvas tab to the file instead. Either
-   way the file opens above the frame and the browser Back button still works.
-
-   The markup keeps target="_blank" and rel="noopener", so this still behaves
-   correctly with JavaScript turned off. */
-(function () {
-  var links = document.querySelectorAll('a[target="_blank"][href]');
-  for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener('click', function (e) {
-      var url = this.href;
-      if (!url) return;
-      e.preventDefault();
-      var w = null;
-      try { w = window.open(url, '_blank', 'noopener'); } catch (err) { w = null; }
-      if (w) return;
-      try { window.top.location.href = url; }
-      catch (err) { window.location.href = url; }
-    });
-  }
-})();
-</script>
 </body>
 </html>
