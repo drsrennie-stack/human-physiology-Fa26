@@ -32,7 +32,7 @@ section 6.
 | 1.3.5 Identify input purpose | AA | Pass. `autocomplete="name"` and `autocomplete="email"` on the host and sign-up fields. |
 | 1.4.3 Contrast (minimum) | AA | Pass. Lowest text pair on the page is 6.66:1. |
 | 1.4.6 Contrast (enhanced) | AAA | Pass on every pair except the gold emphasis inside the dark note, 6.66:1. See section 6. |
-| 1.4.11 Non-text contrast | AA | Pass. Button surfaces against the page: maroon-dark 9.74:1, navy-deep 18.89:1. Day cells carry a shadow, and today carries a 2px terra cotta ring at 7.66:1. |
+| 1.4.11 Non-text contrast | AA | Pass. Button surfaces against the page: maroon-dark 9.74:1, navy 17.27:1. Day cells carry a shadow, and today carries a 2px terra cotta ring at 7.66:1. |
 | 1.4.12 Text spacing | AA | Pass. No fixed heights on text containers, line-height 1.55 on body. |
 | 2.1.1 Keyboard | A | Pass. Every control is a real `button`, `a`, `select` or `input`. Hidden form blocks are `disabled` as well as `hidden`, so nothing unreachable is focusable. |
 | 2.1.2 No keyboard trap | A | Pass. Native `<dialog>` with `showModal`, Escape closes. |
@@ -60,8 +60,8 @@ Measured, not estimated. Sign-up calendar page:
 | Secondary body text `#414B5C` | white | 8.80:1 | AAA |
 | Cream `#F5F1E8` on the primary button `#6E2D24` | button | 9.03:1 | AAA |
 | Cream on the primary button, hover `#5C2520` | button | 10.70:1 | AAA |
-| Cream on the navy button `#060A18` | button | 17.50:1 | AAA |
-| Cream on the navy button, hover `#12203F` | button | 14.29:1 | AAA |
+| Cream on the navy button `#0B1530` | button | 16.00:1 | AAA |
+| Cream on the navy button, hover `#1A2A4E` | button | 12.54:1 | AAA |
 | Active view toggle, white | navy `#0B1530` | 18.04:1 | AAA |
 | "Dr. Rennie" legend chip, white | maroon `#8B3A2E` | 7.66:1 | AAA |
 | "Student" legend chip `#0B1530` | white | 18.04:1 | AAA |
@@ -73,7 +73,7 @@ Non-text, for 1.4.11:
 | Element | Against | Ratio |
 |---|---|---|
 | Primary button surface `#6E2D24` | page `#FAFAF9` | 9.74:1 |
-| Secondary button surface `#060A18` | page `#FAFAF9` | 18.89:1 |
+| Secondary button surface `#0B1530` | page `#FAFAF9` | 17.27:1 |
 | Today's ring `#8B3A2E` | white cell | 7.66:1 |
 | Focus ring `#8B3A2E` | white | 7.66:1 |
 
@@ -120,3 +120,12 @@ as color alone.
 ## 7. Reviewer
 
 Dr. Sharilyn Rennie
+
+## 8. Revision, same day
+
+Her note after seeing it: the dark blocks read as black. They did. `#060A18` is
+RGB 6, 10, 24, which is navy in a swatch and black on a screen. Every dark
+surface, the secondary buttons, the page footers, the website door on the
+welcome page, moved to the real navy `#0B1530`, with `#1A2A4E` as the hover so
+the state change is still visible. `#060A18` is kept only as ink on gold, where
+looking like ink is the point. Cream on `#0B1530` is 16.0:1, still AAA.
