@@ -11,13 +11,13 @@ Paste each block into the Canvas HTML editor for that page.
 **The iframe.** The door detects that it is framed and switches its button to `target="_top"` with the full GitHub Pages address, so one click navigates the whole browser window out of Canvas and onto the course website, where the site's own navigation takes over. Back brings them to Canvas.
 
 ```html
-<p><iframe style="width: 100%; min-height: 1100px; border: 1px solid #d9dde3; border-radius: 8px;" src="https://drsrennie-stack.github.io/human-physiology-Fa26/index.html" width="100%" height="1100" title="BIO 005 Human Physiology, enter the course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>
+<p><iframe style="width: 100%; min-height: 1300px; border: 1px solid #d9dde3; border-radius: 8px;" src="https://drsrennie-stack.github.io/human-physiology-Fa26/index.html" width="100%" height="1300" title="BIO 005 Human Physiology, enter the course" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>
 ```
 
 **Or the card, no iframe.** Same page without a frame, if you would rather not fight the height: Canvas rewrites iframe attributes when a page is saved from the rich editor, which is why it keeps reverting. Two buttons, stay in Canvas or leave for the website.
 
 ```html
-<div style="max-width:860px;margin:0 auto;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0B1530"><div style="display:flex;align-items:center;gap:10px;margin:0 0 6px"><svg viewBox="40 10 125 148" width="34" height="40" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg><span><span style="display:block;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:17px;font-weight:800;letter-spacing:-.02em;color:#0B1530;line-height:1.05">BIO <b style="color:#8B3A2E">005</b></span><span style="display:block;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:8px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#414B5C;margin-top:3px">Human Physiology</span></span></div><h2 style="margin:14px 0 8px;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:30px;font-weight:800;letter-spacing:-.022em;color:#0B1530;line-height:1.12">Two ways to take this course. <span style="color:#8B3A2E">Pick either one.</span></h2><p style="margin:0 0 6px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6;color:#414B5C;max-width:62ch">The material is identical in both places, in the same order, under the same names. Nothing is hidden on one side. You can switch whenever you like, and you will not lose your place.</p><p style="margin:0 0 22px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.6;color:#0B1530;max-width:62ch">Assignments are turned in through Canvas whichever one you use, so if a step ends in an upload it will hand you back here for that one thing.</p><div style="display:flex;flex-wrap:wrap;gap:18px;align-items:stretch"><div style="flex:1 1 300px;min-width:280px;background:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:24px 24px 22px"><p style="margin:0 0 8px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8B3A2E">Option 1</p><h3 style="margin:0 0 10px;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:21px;font-weight:800;letter-spacing:-.022em;color:#0B1530;line-height:1.15">Stay in Canvas</h3><p style="margin:0 0 18px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.6;color:#0B1530">Everything is here in the modules. Work down the list in order, top to bottom. This is the one to pick if you like Canvas or you are used to it.</p><p style="margin:0"><a href="https://yccd.instructure.com/courses/42616/modules" target="_top" style="display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:13px 24px;border-radius:8px;background:#FFFFFF;border:2px solid #0B1530;color:#0B1530;text-decoration:none;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:800;font-size:15px">Go to the modules</a></p><p style="margin:12px 0 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;color:#414B5C">You are already here. Nothing new opens.</p></div><div style="flex:1 1 300px;min-width:280px;background:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:24px 24px 22px"><p style="margin:0 0 8px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8B3A2E">Option 2</p><h3 style="margin:0 0 10px;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:21px;font-weight:800;letter-spacing:-.022em;color:#0B1530;line-height:1.15">Use the course website</h3><p style="margin:0 0 18px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.6;color:#0B1530">The same course as a plain website, outside Canvas. Cleaner pages and fewer menus. This is the one to pick if the Canvas navigation gets in your way.</p><p style="margin:0"><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/course.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:13px 24px;border-radius:8px;background:#8B3A2E;border:2px solid #8B3A2E;color:#FFFFFF;text-decoration:none;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:800;font-size:15px">Open the course website</a></p><p style="margin:12px 0 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;color:#414B5C">Opens in a new tab. Canvas stays open behind it.</p></div></div><p style="margin:22px 0 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.6;color:#414B5C">Not sure? Start in Canvas. If the navigation gets in your way, come back and open the website instead.</p></div>
+<div style="max-width:900px;margin:0 auto;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0B1530"><div style="text-align:center;padding:6px 0 0"><p style="margin:0 0 14px;line-height:0"><svg viewBox="40 10 125 148" width="54" height="64" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg></p><p style="margin:0 0 12px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8B3A2E">BIO 005 &middot; Yuba College &middot; Fall 2026</p><h2 style="margin:0 auto;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:34px;font-weight:800;letter-spacing:-.025em;color:#0B1530;line-height:1.1;max-width:16ch">Welcome to <span style="color:#8B3A2E">Human Physiology.</span></h2><p style="margin:16px auto 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:17px;line-height:1.6;color:#414B5C;max-width:54ch">You are in the right place. This is the course home, and everything for the term starts from here.</p><p style="margin:14px auto 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.6;color:#0B1530;max-width:54ch">You can navigate this course two ways, and they hold the same material in the same order under the same names. Pick whichever one suits how you like to work.</p></div><div style="display:flex;flex-wrap:wrap;gap:20px;align-items:stretch;margin:30px 0 0"><div style="flex:1 1 300px;min-width:270px;background:#8B3A2E;border-radius:16px;padding:26px 24px 24px;box-shadow:0 10px 24px -8px rgba(11,21,48,.35),0 3px 8px -3px rgba(11,21,48,.25)"><p style="margin:0 0 12px;line-height:0;text-align:left"><svg viewBox="0 0 64 40" width="58" height="36" aria-hidden="true" focusable="false" style="transform:scaleX(-1)"><path d="M6 20 H44" fill="none" stroke="#E0BC6C" stroke-width="9" stroke-linecap="round"/><path d="M38 7 L56 20 L38 33" fill="none" stroke="#E0BC6C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg></p><h3 style="margin:0 0 10px;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:23px;font-weight:800;letter-spacing:-.022em;color:#FFFFFF;line-height:1.15">Stay in Canvas</h3><p style="margin:0 0 18px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.6;color:#F5F1E8">Everything is here in the modules, down the left side of your screen. Work through the list in order, top to bottom. If you like Canvas or you are used to it, this is the one to pick.</p><p style="margin:0"><a href="https://yccd.instructure.com/courses/42616/modules" target="_top" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:8px;background:#FFFFFF;border:2px solid #FFFFFF;color:#8B3A2E;text-decoration:none;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:800;font-size:16px">Go to the modules</a></p><p style="margin:12px 0 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#F5F1E8">You are already here. Nothing new opens.</p></div><div style="flex:1 1 300px;min-width:270px;background:#060A18;border-radius:16px;padding:26px 24px 24px;box-shadow:0 10px 24px -8px rgba(11,21,48,.35),0 3px 8px -3px rgba(11,21,48,.25)"><p style="margin:0 0 12px;line-height:0;text-align:right"><svg viewBox="0 0 64 40" width="58" height="36" aria-hidden="true" focusable="false"><path d="M6 20 H44" fill="none" stroke="#C9A14A" stroke-width="9" stroke-linecap="round"/><path d="M38 7 L56 20 L38 33" fill="none" stroke="#C9A14A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg></p><h3 style="margin:0 0 10px;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:23px;font-weight:800;letter-spacing:-.022em;color:#FFFFFF;line-height:1.15">Use the course website</h3><p style="margin:0 0 18px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.6;color:#F5F1E8">The same course as a plain website, outside Canvas. Cleaner pages and fewer menus. If the Canvas navigation gets in your way, this is the one to pick.</p><p style="margin:0"><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/course.html" target="_top" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:8px;background:#C9A14A;border:2px solid #C9A14A;color:#060A18;text-decoration:none;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-weight:800;font-size:16px">Open the course website</a></p><p style="margin:12px 0 0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#F5F1E8">This leaves Canvas. Your browser Back button brings you right back.</p></div></div><div style="max-width:74ch;margin:26px auto 0;background:#FFFFFF;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:18px 20px"><p style="margin:0 0 8px;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;color:#0B1530">Why there are two of them</p><p style="margin:0 0 9px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.6;color:#414B5C">Last spring Canvas went down for a week and students lost access to everything in it. This is my answer to that. The course website is a complete copy that does not depend on Canvas at all, so <b style="color:#6E2D24">if Canvas goes down again you will still have your course</b>. I would send you the link and we would carry on, with nothing to rebuild and nothing lost.</p><p style="margin:0 0 9px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.6;color:#414B5C">You are not required to use it. Most of you probably never will. It is there so that a bad week for Canvas is not a bad week for you.</p><p style="margin:0;font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.6;color:#414B5C">Assignments are turned in through Canvas whichever side you work on, so if a step ends in an upload it hands you back here for that one thing.</p></div></div>
 ```
 
 ---
@@ -65,12 +65,38 @@ File: `access-pearson.html`
 
 ```html
 <iframe id="bio005-access-pearson" src="https://drsrennie-stack.github.io/human-physiology-Fa26/access-pearson.html"
-        title="Textbook/Mastering A&P/Pearson" width="100%" height="4120"
+        title="Textbook/Mastering A&P/Pearson" width="100%" height="5700"
         style="width:100%;border:0;overflow:hidden" scrolling="no"
         loading="lazy"></iframe>
 ```
 
-## 5. Scholar Points
+## 5. Study With Me
+
+Short on purpose. One button opens the calendar.
+
+File: `study-with-me.html`
+
+```html
+<iframe id="bio005-study-with-me" src="https://drsrennie-stack.github.io/human-physiology-Fa26/study-with-me.html"
+        title="Study With Me" width="100%" height="1900"
+        style="width:100%;border:0;overflow:hidden" scrolling="no"
+        loading="lazy"></iframe>
+```
+
+## 6. Study With Me calendar
+
+The live sign-up calendar, same app as the anatomy one with the tutors, the paid tier and the lab taken out. Students post sessions and sign up here themselves, so nothing needs pushing to add one. It needs its own Apps Script URL pasted into the file first, see the CONFIG block at the top.
+
+File: `study-with-me-calendar.html`
+
+```html
+<iframe id="bio005-study-with-me-calendar" src="https://drsrennie-stack.github.io/human-physiology-Fa26/study-with-me-calendar.html"
+        title="Study With Me calendar" width="100%" height="2170"
+        style="width:100%;border:0;overflow:hidden" scrolling="no"
+        loading="lazy"></iframe>
+```
+
+## 7. Scholar Points
 
 Up to 2.5 percent for studying with other people, and why it is not extra credit.
 
@@ -78,12 +104,12 @@ File: `scholar-points.html`
 
 ```html
 <iframe id="bio005-scholar-points" src="https://drsrennie-stack.github.io/human-physiology-Fa26/scholar-points.html"
-        title="Scholar Points" width="100%" height="4810"
+        title="Scholar Points" width="100%" height="6150"
         style="width:100%;border:0;overflow:hidden" scrolling="no"
         loading="lazy"></iframe>
 ```
 
-## 6. Syllabus & Course Policies
+## 8. Syllabus & Course Policies
 
 Long page. It has its own contents list at the top that jumps down the page.
 
@@ -96,7 +122,7 @@ File: `syllabus-fall2026.html`
         loading="lazy"></iframe>
 ```
 
-## 7. Weekly Schedule
+## 9. Weekly Schedule
 
 Weeks 2 and 3 are one row. Week 4 opens September 28.
 
@@ -109,7 +135,7 @@ File: `course-schedule.html`
         loading="lazy"></iframe>
 ```
 
-## 8. AI Use in this Course
+## 10. AI Use in this Course
 
 File: `ai-in-this-course.html`
 
@@ -120,7 +146,7 @@ File: `ai-in-this-course.html`
         loading="lazy"></iframe>
 ```
 
-## 9. Week 1 Discussion: Digital Vision Board/Introduction
+## 11. Week 1 Discussion: Digital Vision Board/Introduction
 
 The instructions page. The discussion itself is still the Canvas discussion, and the page links to it.
 
@@ -133,7 +159,7 @@ File: `assignment-discussion-01-visionboard.html`
         loading="lazy"></iframe>
 ```
 
-## 10. How Every Week Works
+## 12. How Every Week Works
 
 The eight steps, topic free, with the big numbers. This is the one to point a lost student at.
 

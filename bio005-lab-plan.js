@@ -49,7 +49,7 @@ window.BIO005_LAB = {
     dry:{ name:'Standards and ranges: where a reference range comes from',
       steps:[
         'Read the three lab reports on the worksheet. Two are printed with the reference range beside each value; one is printed without it. Work the third one anyway and say what you cannot conclude.',
-        'For each value, mark it in range, above range or below range, and write the distance from the nearest limit in the units of the test, not as a judgement.',
+        'For each value, mark it in range, above range or below range, and write the distance from the nearest limit in the units of the test, not as a judgment.',
         'One patient has three results for the same test taken a week apart. Plot them by hand on the axis provided, using the reference limits as horizontal lines.'
       ]},
     record:[

@@ -114,7 +114,7 @@ Checked by parsing the built files:
 | No duplicate ids | Pass |
 | Every table has a caption and scoped headers | Pass, 8 of 8 |
 | Every checkbox has a programmatic label | Pass |
-| Landmarks present, navigation labelled | Pass |
+| Landmarks present, navigation labeled | Pass |
 | Status regions wired to slide change, reset, pen, sorting feedback and the review tally | Pass |
 | Internal links `target="_top"`, external links `target="_blank" rel="noopener"` | Pass, 0 exceptions |
 | No em dashes, no italic markup or CSS, Lora not referenced, no sage, DM Sans removed, no Google Fonts request | Pass, 0 occurrences of each |

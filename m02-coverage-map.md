@@ -27,7 +27,7 @@ The chemistry that Week 2 assumes is no longer taught in the lecture. It moved t
 
 **Mission framing removed.** All three files now read as Week 2 rather than Mission 2. The topic title "Build the Molecular Toolkit" stays as the page heading. The slide that explained what a mission is has been replaced with a plain opening, and every "this mission" now reads "this week."
 
-The beat labels are off the slides entirely. Nothing on a slide names a beat, and the control bar no longer shows one. The underlying order still runs problem, conditions, mechanism, response, predict, perturb, it just is not labelled on screen any more.
+The beat labels are off the slides entirely. Nothing on a slide names a beat, and the control bar no longer shows one. The underlying order still runs problem, conditions, mechanism, response, predict, perturb, it just is not labeled on screen any more.
 
 Filenames stay `m02-*`. Renaming them would leave the old files stranded in the repo, and the GitHub web upload you use can overwrite but not delete, so you would have to clear them by hand. The `m02` prefix is now just a file prefix, and it appears nowhere a student can see.
 
@@ -80,7 +80,7 @@ Recommended addition, DOK 3, est 27, facets lecture:
 
 If you add it, the count goes 268 to 269 and three places need the number updated: index.html, the syllabus table, and the competency map. No ids move. Week 2 competency time goes from 129 to 156 minutes, still under the term average.
 
-The slide deck closes with this as an unnumbered box, labelled as not yet a listed competency, so students practice it either way and nothing is claimed that the file does not carry.
+The slide deck closes with this as an unnumbered box, labeled as not yet a listed competency, so students practice it either way and nothing is claimed that the file does not carry.
 
 ---
 

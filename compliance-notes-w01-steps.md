@@ -34,7 +34,7 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable.
 |---|---|---|
 | 1.3.1 Info and relationships | AA | One h1 per page (the step title), h2 per card, h3 for subsections inside a card. Real `ol` for every sequence, real `ul` for every unordered set. No layout tables. |
 | 1.3.2 Meaningful sequence | AA | DOM order is reading order is working order: what it is, how long it takes, the exit, the lead, the cards in the order they are done, then what comes next. |
-| 1.4.1 Use of colour | AA | The stage is spelled out in the eyebrow ("STEP 1 OF 9 · LEARN"). Graded items say "Graded." in words. Due dates are written out. Nothing is carried by colour alone. |
+| 1.4.1 Use of color | AA | The stage is spelled out in the eyebrow ("STEP 1 OF 9 · LEARN"). Graded items say "Graded." in words. Due dates are written out. Nothing is carried by color alone. |
 | 1.4.3 / 1.4.6 Contrast | AAA | See section 3. Every pair is above 7:1. |
 | 1.4.4 Resize text | AA | No fixed heights on text containers; cards grow with their content. |
 | 1.4.10 Reflow | AA | Checked at 400px in Chromium on all eight pages: no horizontal scroll, buttons wrap, the numbered grid collapses to one column. |
@@ -53,10 +53,10 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable.
 | 3.2.5 New windows | AAA | A link opens a new tab only when it leaves for a PDF, Canvas, or a course site tool, and says so in the accessible name. |
 | 3.3.2 Labels or instructions | AA | Each page states its job and its time before asking for anything. |
 
-Not applicable: no images (the brandbar mark is a labelled decorative SVG), no forms,
+Not applicable: no images (the brandbar mark is a labeled decorative SVG), no forms,
 no media embedded on these pages, no motion.
 
-## 3. Colour contrast audit
+## 3. Color contrast audit
 
 Measured with the WCAG relative luminance formula. Tokens are the shared site set.
 

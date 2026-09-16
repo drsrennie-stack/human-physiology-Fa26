@@ -60,7 +60,7 @@ input[type=color]{width:36px;height:36px;border:1.5px solid var(--line);border-r
 /* THE PROMPT CARD.
    This carried a 1px border and a 4px terra bar down its left edge, and
    the control row under it was three different shapes: an outlined
-   circle, a navy pill, a browser-default select with its own grey
+   circle, a navy pill, a browser-default select with its own gray
    border, and another outlined pill. Four borders, three heights, two
    idioms.
 
@@ -165,32 +165,7 @@ input[type=color]{width:36px;height:36px;border:1.5px solid var(--line);border-r
     <input type="color" id="customColor" value="#1E3D4C" title="Custom color">
   </div>
 </nav>
-<script src="os/draw-checklists.js"></script>
-<script>
-/* Sep 16 2026. This page came over from BIO 004 and asked for a file called
-   draw-checklists.js at the root, which does not exist here, so the canvas
-   opened with no prompt in it. The physiology prompt set does exist, at
-   os/draw-checklists.js, but it publishes window.BIO005_DRAW in its own
-   shape. This maps that set onto the field names this page reads, so the
-   prompt walker and the checklist panel both fill. Edit the prompts in
-   os/draw-checklists.js, never here. */
-(function () {
-  var src = window.BIO005_DRAW || [];
-  if (!src.length || (window.BIO004_DRAW || []).length) return;
-  window.BIO004_DRAW = src.map(function (d) {
-    return {
-      code: d.id,
-      week: d.week,
-      name: d.name,
-      brainDump: d.prompt || "",
-      standard: d.system || "",
-      youKnowItWhen: "",
-      items: d.checklist || [],
-      comps: [d.id]
-    };
-  });
-})();
-</script>
+<script src="draw-checklists.js"></script>
 <section class="dp" id="dp" hidden aria-labelledby="dp-h">
   <p class="dp-eyebrow" id="dp-h">Drawing <span id="dp-code"></span> &middot; <span id="dp-wk"></span></p>
   <h2 class="dp-name" id="dp-name"></h2>
@@ -361,10 +336,10 @@ input[type=color]{width:36px;height:36px;border:1.5px solid var(--line);border-r
   var host = document.getElementById('dp');
   if (!host || !D.length) return;
 
-  var TERM_START = new Date(2026, 8, 8);   /* Sep 16 2026: was Aug 17, BIO 004's start, which put every prompt three weeks ahead. BIO 005 week 1 begins Monday September 8 2026. */
+  var TERM_START = new Date(2026, 7, 17);
   function currentWeek() {
     var w = Math.floor((new Date() - TERM_START) / 604800000) + 1;
-    return w < 1 ? 1 : (w > 15 ? 15 : w);
+    return w < 1 ? 1 : (w > 17 ? 17 : w);
   }
   var wkNow = currentWeek();
   var pool = D.filter(function (d) { return d.week <= wkNow; });

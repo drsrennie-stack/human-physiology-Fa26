@@ -31,7 +31,7 @@ Still open: BIO005-patient-file.html and its instructions describe a different p
 
 assignment-patient-chart.html is the student instruction page for the Dec 16 Canvas assignment: what the PDF must contain and in what order (face sheet, both vitals flowsheet pages, both lab flowsheet pages, problem list, medication log, the fifteen week pages, AI disclosure), how to scan it, the file name, what a strong chart looks like, and what to do if they fall behind. It is a fork of assignment-apply.html so the two look the same in Canvas. The iframe snippet for the assignment description is at the bottom of CANVAS-IFRAME.txt. Set the Canvas assignment to File upload, PDF only, due Wed Dec 16 10:00 pm, worth 5 percent under Use It. Linked from the chart book, the weekly case page, and how-grading-works.
 
-The chart book already uses the brand of record (navy #0B1530, maroon #8B3A2E, gold #C9A14A, no italics), so no colour change was needed.
+The chart book already uses the brand of record (navy #0B1530, maroon #8B3A2E, gold #C9A14A, no italics), so no color change was needed.
 
 ## Site navigation: the four stages, Sep 13 2026
 
@@ -45,4 +45,4 @@ The dock header carries a Week picker (weeks that have opened so far, current we
 
 ## Learn stage order, Sep 13 2026 (her correction)
 
-The Learn stage on all fifteen week pages now runs in the order of record: First, from the book (Competencies, then Note sheet pass 1 filled from Silverthorn), then the Learn It With Dr. Rennie lectures, then After the lectures (Note sheet pass 2 in a second colour, Notes, OpenStax). The stage's purpose line, the "Dr. Rennie" strip line under the four-stage path, the course home's "What to do next" list (which still showed the old seven stages), doors.html (the Canvas entry page, regenerated), how-this-course-works.html and the dock's 1 Learn group all say the same thing. The generator carries the change. The coloured top bar on the week page cards is gone; cards are white and lifted by shadow only.
+The Learn stage on all fifteen week pages now runs in the order of record: First, from the book (Competencies, then Note sheet pass 1 filled from Silverthorn), then the Learn It With Dr. Rennie lectures, then After the lectures (Note sheet pass 2 in a second color, Notes, OpenStax). The stage's purpose line, the "Dr. Rennie" strip line under the four-stage path, the course home's "What to do next" list (which still showed the old seven stages), doors.html (the Canvas entry page, regenerated), how-this-course-works.html and the dock's 1 Learn group all say the same thing. The generator carries the change. The colored top bar on the week page cards is gone; cards are white and lifted by shadow only.

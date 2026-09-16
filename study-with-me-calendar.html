@@ -1,319 +1,1529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Study With Me calendar &middot; BIO 005 Human Physiology</title>
-<link rel="icon" type="image/svg+xml" href="icon.svg">
-<link rel="stylesheet" href="assets/fonts-site.css">
-<link rel="stylesheet" href="assets/brand.css">
-<meta name="description" content="Every Study With Me session coming up in BIO 005 Human Physiology. Sign up, show up, and the hours count toward Scholar Points.">
-<script>
-/* Pick the chrome before paint. Inside a Canvas iframe the site bar and the
-   dark footer are wrong, because Canvas already wraps the page in its own
-   navigation. Opened directly they are right. */
-(function(){
-  var framed = false;
-  try { framed = (window.top !== window.self); } catch(e){ framed = true; }
-  if(framed) document.documentElement.className += " framed";
-}());
-</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study With Me, BIO 005 Human Physiology</title>
+<!-- Add-to-home-screen / app config -->
+<meta name="theme-color" content="#0B1530">
+<meta name="description" content="Post a study session or sign up for one. BIO 005 Human Physiology, Yuba College, Fall 2026.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Study With Me">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
-  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
-  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
-  --white:#FFFFFF; --offwhite:#FAFAF9; --bone:#F5F1E8;
-  --ink-soft:#414B5C; --line:rgba(11,21,48,0.16);
-  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
-  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box}
-html,body{margin:0}
-body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
-  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
-em,i{font-style:normal;color:var(--maroon)}
-p{margin:0 0 14px}
-a{color:var(--maroon);text-underline-offset:3px}
-:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
-[hidden]{display:none!important}
-.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
-  clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);
-  color:#fff;padding:12px 18px;font-weight:700;text-decoration:none}
-.skip:focus{left:0;top:0}
-.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+  :root{
+    --bg:#FFFFFF;                                  /* white page */
+    --card:#12203F; --card-2:#1A2A4E;              /* dark navy cards */
+    --ink:#F5F7FB; --ink-soft:#B7C0D4;             /* light text on navy cards */
+    --page-ink:#0B1530; --page-soft:#414B5C;       /* dark text on white page */
+    --navy:#0B1530; --navy-deep:#060A18;
+    --terra-cta:#8B3A2E; --terra-cta-dark:#6E2D24; /* your dark red terracotta */
+    --gold:#C9A14A;
+    --red:#8B3A2E; --red-dark:#6E2D24; --red-lt:#E09B8C;
+    --white:#FFFFFF; --bone:#F5F1E8;
+    --card-soft:rgba(255,255,255,.12);             /* chips/pills on navy */
+    --slate:#060A18; --slate-hover:#12203F;
+    --line:rgba(11,21,48,.12);
+    /* legacy aliases, kept so nothing breaks */
+    --terra:#8B3A2E; --terra-bright:#6E2D24; --accent-d:#6E2D24; --ink-d:#0B1530; --ink-d-soft:#414B5C; --panel:#12203F; --gold-bright:#C9A14A;
+    --radius:10px;
+    --shadow-rest:0 1px 3px rgba(11,21,48,0.10);
+    --shadow-hover:0 12px 26px rgba(11,21,48,0.18);
+    --t:transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease, color 200ms ease;
+    --font-display:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-body:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-eyebrow:'Plus Jakarta Sans',-apple-system,sans-serif;
+    --font-head:'Open Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;color-scheme:light;}
+  body{margin:0;font-family:var(--font-body);color:var(--page-ink);background:var(--bg);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1040px;margin:0 auto;padding:30px 20px 56px;}
+  .skip{position:absolute;left:-9999px;top:auto;background:var(--terra-cta);color:#fff;padding:10px 16px;border-radius:8px;font-weight:700;z-index:50;text-decoration:none;}
+  .skip:focus{left:16px;top:16px;}
+  :focus-visible{outline:3px solid var(--terra-cta);outline-offset:3px;border-radius:6px;}
 
-.framed #siteBar,.framed #siteBack,.framed #siteFoot{display:none}
-.framed #frameHead{display:block}
-#frameHead{display:none}
-.framehead{padding:20px 0 6px}
-.chip-back{display:inline-flex;align-items:center;gap:8px;min-height:46px;
-  background:var(--gold);border:2px solid var(--gold);color:var(--gold-ink);
-  border-radius:999px;padding:9px 18px;text-decoration:none;font-weight:800;font-size:13.5px}
-.chip-back:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:#fff}
+  /* ---------- COURSE LOGO HEADER ---------- */
+  .site-header{background:#FFFFFF;padding:22px max(20px,4vw);box-shadow:0 2px 12px rgba(11,21,48,.07);}
+  .site-header-inner{max-width:1040px;margin:0 auto;}
+  .site-logo{display:inline-flex;align-items:center;gap:16px;text-decoration:none;}
+  .site-logo svg{height:54px;width:auto;display:block;}
+  .logo-text{display:flex;flex-direction:column;gap:3px;}
+  .logo-title{font-family:var(--font-head);font-size:1.68rem;font-weight:800;letter-spacing:-.02em;color:var(--page-ink);line-height:1;}
+  .logo-title .logo-accent{color:var(--red);}
+  .logo-sub{font-family:var(--font-eyebrow);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--page-ink);opacity:.7;}
 
-.brandbar{position:sticky;top:0;z-index:60;background:#fff;
-  border-bottom:1px solid var(--line);padding:13px 0}
-.brandbar .wrap{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
-.mark{display:flex;align-items:center;gap:9px;text-decoration:none}
-.wm{display:block;font-family:var(--display);font-size:16px;font-weight:800;
-  color:var(--navy);letter-spacing:-.02em;line-height:1.05}
-.wm b{color:var(--maroon);font-weight:800}
-.wmsub{display:block;font-family:var(--body);font-size:8px;font-weight:700;
-  letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
-.course{margin-left:auto;font-family:var(--body);font-size:9.5px;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
-.back{display:inline-block;margin:22px 0 0;font-size:10.5px;font-weight:700;
-  letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
-.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--maroon);margin:0 0 10px}
-.hero{padding:14px 0 26px}
-.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.12;max-width:18ch}
-.hero h1 span{color:var(--maroon)}
-.lede{margin-top:14px;color:var(--ink-soft);max-width:60ch;font-size:17px}
+  .eyebrow{font-family:var(--font-eyebrow);font-weight:700;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-cta);margin:0 0 .8rem;}
+  h1{font-family:var(--font-head);font-weight:800;font-size:clamp(2rem,5vw,3rem);line-height:1.05;letter-spacing:-.025em;color:var(--page-ink);margin:0 0 .9rem;}
+  h1 .h1-terra{color:var(--terra-cta);}
+  .rule{width:3.2rem;height:3px;background:var(--terra-cta);border-radius:2px;margin:0 0 1.1rem;}
+  .subhead{font-family:var(--font-display);font-weight:600;color:#33415c;font-size:clamp(1.05rem,2.4vw,1.3rem);margin:0;}
+  .usage{font-family:var(--font-body);color:var(--page-soft);margin:.9rem 0 0;font-size:1.02rem;max-width:50rem;}
 
-.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
-.btn{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:13px 22px;
-  border-radius:8px;text-decoration:none;font-weight:800;font-size:14.5px;
-  background:var(--maroon);border:2px solid var(--maroon);color:#fff}
-a.btn:hover{background:var(--maroon-dark);border-color:var(--maroon-dark);color:#fff}
-.btn.sec{background:#fff;border-color:var(--navy);color:var(--navy)}
-a.btn.sec:hover{background:var(--navy-tint);color:var(--navy)}
+  h2{font-family:var(--font-head);font-weight:600;color:var(--terra-cta);font-size:1.3rem;margin:0 0 4px;letter-spacing:-.01em;}
+  .section-sub{font-family:var(--font-body);color:var(--page-soft);margin:0 0 18px;font-size:.98rem;}
 
-/* ---------- the calendar ---------- */
-main{padding:0 0 10px}
-.daygroup{margin:0 0 26px}
-.dayhead{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
-.ses{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.ses > li{margin:0}
-.scard{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.08);
-  padding:18px 20px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
-.when{flex:0 0 auto;min-width:108px}
-.when .t{display:block;font-family:var(--display);font-weight:800;font-size:17px;
-  letter-spacing:-.02em;color:var(--navy);line-height:1.15}
-.when .d{display:block;font-size:13px;color:var(--ink-soft);margin-top:3px}
-.what{flex:1 1 280px;min-width:0}
-.what h3{font-size:17px;margin:0 0 5px;line-height:1.25}
-.meta{margin:0;font-size:14px;color:var(--ink-soft)}
-.who{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:800;
-  letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:5px 11px;
-  margin:0 0 8px}
-.who.ins{background:var(--maroon);color:#fff}
-.who.stu{background:var(--navy-tint);color:var(--navy)}
-.note{margin:9px 0 0;font-size:14.5px;line-height:1.55;color:var(--navy)}
-.join{flex:0 0 auto}
-.join .btn{min-height:44px;padding:11px 18px;font-size:14px}
-.soonish{font-size:13.5px;color:var(--ink-soft);margin:0}
+  /* ---------- TOOLBAR ---------- */
+  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:26px 0 6px;}
+  /* Solid color, cream text, lifted off the page at rest. There are no
+     outline buttons on this site: a button that reads as an empty box does
+     not read as a button. Two colors only, darker terra cotta for the thing
+     you came to do, very dark navy for everything else. */
+  .btn{font-family:var(--font-display);font-weight:800;font-size:.95rem;border-radius:9px;padding:11px 20px;cursor:pointer;border:none;transition:var(--t);display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+       box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30);}
+  .btn:hover,.btn:focus-visible{transform:translateY(-2px);box-shadow:0 14px 26px -8px rgba(11,21,48,.46),0 4px 9px -3px rgba(11,21,48,.30);outline:none;}
+  /* darker terra cotta, the main action. Cream on it is 9.03 to 1. */
+  .btn-primary{background:var(--terra-cta-dark);color:var(--bone);}
+  .btn-primary:hover,.btn-primary:focus-visible{background:#5C2520;}
+  /* very dark navy, join and everything secondary. Cream on it is 17.5 to 1. */
+  .btn-navy{background:var(--navy-deep);color:var(--bone);}
+  .btn-navy:hover,.btn-navy:focus-visible{background:#12203F;}
+  .btn-danger{background:var(--terra-cta-dark);color:var(--bone);}
+  .btn-danger:hover,.btn-danger:focus-visible{background:#5C2520;}
+  .btn-ghost{background:var(--navy-deep);color:var(--bone);}
+  .btn-ghost:hover,.btn-ghost:focus-visible{background:#12203F;}
+  .btn-sm{font-size:.86rem;padding:9px 15px;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
 
-.empty{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.08);
-  padding:26px 24px}
-.empty h2{font-size:20px;margin:0 0 8px}
-.empty p{margin:0 0 12px;color:var(--ink-soft);max-width:62ch}
+  /* ---------- VIEW TOGGLE ---------- */
+  .viewbar{display:inline-flex;gap:6px;margin:18px 0 0;background:#eef1f6;border-radius:10px;padding:4px;}
+  .seg{font-family:var(--font-display);font-weight:700;font-size:.9rem;border:none;background:transparent;color:var(--page-ink);padding:8px 16px;border-radius:8px;cursor:pointer;transition:var(--t);}
+  .seg:hover{background:#e1e6ee;}
+  .seg-on{background:var(--navy);color:#fff;}
+  .seg-on:hover{background:#060A18;}
 
-.band{background:var(--navy-deep);color:var(--bone);border-radius:14px;
-  padding:26px 28px 28px;margin:28px 0 0}
-.band .eyebrow{color:var(--gold);margin:0 0 9px}
-.band h2{color:#fff;font-size:clamp(19px,2.6vw,24px);margin:0 0 10px}
-.band p{color:var(--bone);margin:0 0 14px;max-width:62ch}
-.band .b{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:13px 22px;
-  border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;
-  background:var(--gold);border:2px solid var(--gold);color:var(--gold-ink)}
-.band a.b:hover{background:#E0BC6C;border-color:#E0BC6C;color:var(--gold-ink)}
-.band .b.sec{background:transparent;border-color:var(--gold);color:var(--gold)}
-.band a.b.sec:hover{background:var(--gold);color:var(--gold-ink)}
-.band .btns{margin:0}
-.band :focus-visible{outline-color:var(--gold)}
+  /* ---------- ROLE LEGEND ---------- */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0 0;}
+  .legend .lg-label{font-family:var(--font-eyebrow);font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--page-soft);}
+  .lg{font-family:var(--font-eyebrow);font-weight:700;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .62rem;border-radius:999px;}
+  .lg-faculty{background:#8B3A2E;color:#fff;}
+  .lg-student{background:#fff;color:#0B1530;box-shadow:0 1px 3px rgba(11,21,48,.20);}
+  .phonetip{font-family:var(--font-body);font-size:.85rem;color:var(--page-soft);margin:14px 0 0;}
+  .phonetip strong{color:var(--terra-cta);font-weight:800;}
 
-footer{background:var(--navy-deep);color:var(--bone);padding:30px 0 36px;margin-top:40px}
-footer a{color:var(--bone);text-decoration:underline}
-footer a:hover{color:var(--gold)}
-.flinks{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;font-size:14px}
-.dot{color:var(--gold)}
-.fleg{margin:16px 0 0;font-size:13px;color:var(--bone);max-width:74ch;opacity:.86}
+  /* ---------- WEEK CALENDAR ---------- */
+  .weeknav{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:24px 0 16px;}
+  .weeknav-label{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--page-ink);margin-right:auto;}
+  .weekgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;}
+  @media (max-width:920px){ .weekgrid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+  @media (max-width:560px){ .weekgrid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media (max-width:380px){ .weekgrid{grid-template-columns:1fr;} }
+  /* White cards on the off-white page, lifted on a shadow, which is what
+     every other card on this site does. The gold hairline the anatomy
+     version used is 1.79 to 1 against white, close to invisible. */
+  .weekday{background:#FFFFFF;border:none;border-radius:var(--radius);padding:10px;min-height:96px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-rest);}
+  .weekday.is-today{box-shadow:0 0 0 2px var(--terra-cta),var(--shadow-rest);}
+  .weekday-head{display:flex;align-items:baseline;justify-content:space-between;gap:6px;padding-bottom:4px;}
+  .weekday-name{font-family:var(--font-eyebrow);font-weight:700;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-cta);}
+  .weekday-num{font-family:var(--font-display);font-weight:800;font-size:1rem;color:var(--page-ink);}
+  .weekday-empty{font-family:var(--font-body);font-size:.8rem;color:var(--page-soft);}
+  /* ---- host-role color tokens (applied to .card and .chip) ---- */
+  .card,.chip{--cbg:#FFFFFF;--cink:#0B1530;--csoft:#414B5C;--caccent:#8B3A2E;--cchip:#eef1f6;--cchipink:#0B1530;}
+  .role-faculty{--cbg:#8B3A2E;--cink:#FFFFFF;--csoft:#F5F1E8;--caccent:#F5F1E8;--cchip:#0B1530;--cchipink:#FFFFFF;}
 
-@media (max-width:620px){.course{margin-left:0;flex-basis:100%}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  .chip{text-align:left;width:100%;background:var(--cbg);border:none;border-radius:8px;padding:8px 9px;cursor:pointer;transition:var(--t);display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow-rest);}
+  .chip:hover,.chip:focus-visible{transform:translateY(-1px);box-shadow:var(--shadow-hover);outline:none;}
+  .chip.full{opacity:.55;cursor:default;}
+  .chip-time{font-family:var(--font-display);font-weight:800;font-size:.82rem;color:var(--cink);}
+  .chip-topic{font-family:var(--font-display);font-weight:600;font-size:.82rem;color:var(--caccent);line-height:1.25;}
+  .chip-meta{font-family:var(--font-eyebrow);font-weight:700;font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;color:var(--csoft);}
+  .chip-live-tag{color:var(--caccent);}
+
+  /* labeled signup list on each card */
+  .roster-label{font-family:var(--font-eyebrow);font-weight:700;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:2px 0 0;}
+
+  .status{min-height:1.3em;margin:14px 0 0;font-family:var(--font-display);font-weight:700;font-size:.9rem;color:var(--terra-cta);}
+  .status.ok{color:#1f7a4d;}
+  .status.err{color:#8B3A2E;}
+
+  /* ---------- DAY GROUPS ---------- */
+  .day-group{margin-top:30px;}
+  .day-head{display:flex;align-items:baseline;gap:12px;padding-bottom:8px;margin-bottom:16px;}
+  .day-name{font-family:var(--font-display);font-weight:800;font-size:1.15rem;color:var(--page-ink);}
+  .day-date{font-family:var(--font-eyebrow);font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-cta);}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+  .card{background:var(--cbg);color:var(--cink);border:none;border-radius:var(--radius);padding:18px 18px 16px;box-shadow:var(--shadow-rest);transition:var(--t);display:flex;flex-direction:column;gap:8px;}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover);}
+  .card.full{opacity:.62;}
+  .card .ctime{font-family:var(--font-display);font-weight:800;font-size:1.12rem;color:var(--cink);letter-spacing:-.01em;}
+  .card .ctopic{font-family:var(--font-display);font-weight:600;color:var(--caccent);font-size:1rem;}
+  .card .chost{font-family:var(--font-eyebrow);font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--csoft);}
+  .card .cseats{font-family:var(--font-display);font-weight:700;font-size:.9rem;color:var(--cink);}
+  .cloc{font-family:var(--font-display);font-weight:700;font-size:.92rem;color:var(--caccent);}
+  .cloc span{color:var(--csoft);font-weight:700;}
+  .cpass{font-family:var(--font-display);font-weight:800;font-size:.92rem;color:var(--cink);letter-spacing:.02em;}
+  .cpass span{color:var(--csoft);font-weight:700;letter-spacing:0;}
+  .pill-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .pill{display:inline-block;font-family:var(--font-eyebrow);font-weight:700;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.26rem .62rem;border-radius:999px;background:var(--cchip);color:var(--cchipink);}
+  .pill.role{background:#0B1530;color:#fff;}
+  .pill.full{background:#414B5C;color:#fff;}
+  .pill.live{background:#1f7a4d;color:#fff;}
+  .pill.done{background:#0B1530;color:#C9A14A;}
+  .pill.inperson{background:#0B1530;color:#fff;}
+  .card-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;align-items:center;}
+  .hostlink{background:none;border:none;padding:4px 0 0;font-family:var(--font-eyebrow);font-weight:700;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--csoft);cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+  .hostlink:hover,.hostlink:focus-visible{color:var(--caccent);}
+  .hostlink.danger{color:#fff;background:var(--red);padding:5px 10px;border-radius:7px;text-decoration:none;}
+  .hostlink.danger:hover,.hostlink.danger:focus-visible{background:var(--red-dark);color:#fff;}
+
+  .room-row{display:flex;align-items:center;gap:12px;justify-content:space-between;text-decoration:none;background:var(--card);border:none;border-radius:var(--radius);padding:13px 15px;margin-bottom:10px;transition:var(--t);box-shadow:var(--shadow-rest);}
+  .room-row:hover,.room-row:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow-hover);outline:none;}
+  .rr-main{display:flex;flex-direction:column;gap:2px;}
+  .rr-topic{font-family:var(--font-display);font-weight:800;color:var(--ink);font-size:1rem;}
+  .rr-host{font-family:var(--font-eyebrow);font-weight:700;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);}
+  .rr-go{font-family:var(--font-display);font-weight:800;color:var(--gold);font-size:.92rem;white-space:nowrap;}
+  .card-actions{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px;padding-top:6px;}
+  .roster{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;}
+  .roster li{font-family:var(--font-eyebrow);font-weight:700;font-size:.64rem;letter-spacing:.04em;text-transform:uppercase;color:var(--cchipink);background:var(--cchip);border-radius:999px;padding:.2rem .55rem;}
+
+  .empty{background:transparent;border:none;border-radius:var(--radius);padding:30px 24px;text-align:center;color:var(--page-soft);font-family:var(--font-display);font-weight:600;}
+
+  .warn{background:var(--card);border:none;border-radius:var(--radius);padding:14px 18px;margin:18px 0 0;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--shadow-rest);}
+  .warn .warn-ic{flex:0 0 auto;font-family:var(--font-display);font-weight:800;color:#fff;background:var(--red);width:26px;height:26px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.95rem;}
+  .warn .warn-tx{font-size:.95rem;color:var(--ink);}
+  .warn .warn-tx strong{color:var(--gold);}
+  .warn .warn-tx ul{margin:7px 0 0;padding-left:1.05rem;}
+  .warn .warn-tx li{margin:5px 0;}
+  .warn .warn-more{margin:9px 0 0;}
+  .warn .warn-tx a{color:var(--gold);text-decoration:underline;text-underline-offset:2px;}
+  .warn .warn-tx a:hover{color:#fff;}
+  .usage a{color:var(--terra-cta-dark);font-weight:700;text-decoration:underline;text-underline-offset:2px;}
+  .usage a:hover{color:var(--navy-deep);}
+  .notice{background:var(--card);border:none;border-radius:var(--radius);padding:16px 18px;margin:22px 0 0;font-size:.94rem;color:var(--ink);box-shadow:var(--shadow-rest);}
+  .notice strong{color:var(--gold);}
+  .notice ul{margin:8px 0 0;padding-left:1.1rem;}
+  .notice li{margin:4px 0;}
+
+  /* ---------- DIALOG ---------- */
+  dialog{border:none;border-radius:14px;padding:0;max-width:440px;width:92vw;background:#fff;color:var(--page-ink);box-shadow:0 24px 60px rgba(11,21,48,.4);}
+  dialog::backdrop{background:rgba(11,21,48,.5);}
+  .dlg-inner{padding:26px 24px 22px;}
+  .dlg-eyebrow{font-family:var(--font-eyebrow);font-weight:700;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-cta);margin:0 0 6px;}
+  .dlg-title{font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:var(--page-ink);margin:0 0 4px;}
+  .dlg-sub{font-family:var(--font-body);color:var(--page-soft);margin:0 0 18px;font-size:.95rem;}
+  .field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+  .field label{font-family:var(--font-eyebrow);font-weight:700;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--terra-cta);}
+  .field .req{color:var(--red);}
+  .field input,.field select,.field textarea{font:inherit;font-family:var(--font-display);font-weight:600;color:var(--page-ink);background:#f1f3f7;border:2px solid transparent;border-radius:9px;padding:10px 12px;color-scheme:light;}
+  .field input::placeholder,.field textarea::placeholder{color:#8a93a3;}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--terra-cta);background:#fff;}
+  .field .hint{font-family:var(--font-body);font-size:.82rem;color:var(--page-soft);font-weight:400;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .dlg-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;}
+  .dlg-err{color:var(--red);font-family:var(--font-display);font-weight:700;font-size:.86rem;min-height:1.1em;margin:0 0 8px;}
+  .cf-line{font-family:var(--font-body);font-size:.95rem;color:var(--page-ink);margin:3px 0;}
+  .cf-line strong{color:var(--terra-cta);}
+  .cf-note{font-family:var(--font-body);font-size:.85rem;color:var(--page-soft);margin:8px 0 0;line-height:1.45;}
+
+  footer{background:transparent;color:var(--page-soft);text-align:center;padding:1.9rem 1.5rem 1.7rem;margin-top:40px;}
+  footer .by{font-family:var(--font-display);font-weight:700;color:var(--page-ink);font-size:1rem;margin-bottom:.15rem;}
+  footer .role{font-size:.82rem;color:var(--page-soft);}
+  footer .foot-nav{margin:0 0 1rem;font-size:.9rem;font-weight:700;color:var(--page-soft);}
+  footer .foot-nav a{color:var(--terra-cta-dark);text-decoration:underline;text-underline-offset:3px;}
+  footer .foot-nav a:hover{color:var(--navy-deep);}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;scroll-behavior:auto !important;}
+    .card:hover,.btn:hover{transform:none;}
+  }
+
+/* HOST FORM, the role-dependent bits */
+.checkline{display:flex;align-items:flex-start;gap:10px;font-weight:600;cursor:pointer;line-height:1.45}
+.checkline input{margin-top:3px;width:18px;height:18px;flex:0 0 auto;accent-color:#8B3A2E}
+.grouplabel{display:block;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8B3A2E;margin:0 0 8px}
+.radio-row{display:flex;gap:10px;flex-wrap:wrap}
+.radio{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;min-height:44px;border:1px solid rgba(11,21,48,.22);
+  border-radius:999px;cursor:pointer;font-weight:700;background:#fff}
+.radio input{width:17px;height:17px;accent-color:#8B3A2E}
+.radio:has(input:checked){border-color:#8B3A2E;background:#FBF6F5}
+.radio:focus-within{outline:3px solid #8B3A2E;outline-offset:2px}
+/* CARD BADGES
+   Every badge carries a word, never a color or a glyph on its own, which
+   is 1.4.1. */
+.pill.act{background:#0B1530;color:#fff}
+/* Nearly gone. Terra cotta rather than the full-house gray, because this one
+   is still actionable, and the number rides in the text, not in the color. */
+.pill.last{background:#8B3A2E;color:#fff}
+/* THE DOOR
+   A session nobody can get into is a session that did not happen. Every
+   session now carries one contact the host has promised to watch, and the
+   card writes the message for the student so the ask takes one tap. */
+.cdoor{font-family:var(--font-display);font-weight:700;font-size:.86rem;color:var(--cink);}
+.cdoor span{color:var(--csoft);font-weight:700;}
+.door-box{background:#FAFAF9;border-radius:12px;padding:14px 16px;margin:4px 0 12px;box-shadow:var(--shadow-rest);}
+.door-box p{margin:0;font-family:var(--font-body);font-size:.92rem;color:var(--page-ink);line-height:1.5;}
+.door-box .door-who{font-family:var(--font-display);font-weight:800;color:var(--page-ink);display:block;margin-bottom:2px;}
+.door-box .door-how{font-family:var(--font-body);font-size:.86rem;color:var(--page-soft);}
+.door-msg{width:100%;min-height:96px;font-family:var(--font-body);font-size:.92rem;line-height:1.5;padding:10px 12px;border-radius:10px;border:1px solid #C9CFD8;background:#fff;color:var(--page-ink);resize:vertical;}
+.linkrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to the sessions</a>
+<a class="skip" href="#main">Skip to main content</a>
 
-<div class="brandbar" id="siteBar"><div class="wrap">
-  <a class="mark" href="course.html"><svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
-    <span><span class="wm">BIO <b>005</b></span><span class="wmsub">Human Physiology</span></span>
-  </a>
-  <span class="course">BIO 005 &middot; Fall 2026</span>
-</div></div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="course.html" class="site-logo" target="_top" aria-label="BIO 005 Human Physiology, course home">
+      <svg viewBox="40 10 125 148" role="img" aria-hidden="true" focusable="false">
+        <g transform="translate(0, 18)">
+          <g transform="translate(60, 0) rotate(8 0 130)">
+            <circle cx="0" cy="20" r="10" fill="#0B1530"/>
+            <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/>
+          </g>
+          <g transform="translate(100, 0)">
+            <circle cx="0" cy="10" r="11" fill="#8B3A2E"/>
+            <path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/>
+          </g>
+          <g transform="translate(140, 0) rotate(-8 0 130)">
+            <circle cx="0" cy="20" r="10" fill="#C9A14A"/>
+            <path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/>
+          </g>
+        </g>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-title">Human <span class="logo-accent">Physiology</span></span>
+        <span class="logo-sub">BIO 005 &middot; Yuba College</span>
+      </span>
+    </a>
+  </div>
+</header>
 
-<div id="siteBack"><div class="wrap">
-  <a class="back" href="study-with-me.html">&larr; Study With Me</a>
-</div></div>
+<div class="wrap">
+  <main id="main">
 
-<div class="framehead" id="frameHead"><div class="wrap">
-  <a class="chip-back" href="https://yccd.instructure.com/courses/42616/modules" target="_top">
-    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to Canvas modules</a>
-</div></div>
+    <p class="eyebrow">BIO 005 &middot; Human Physiology &middot; Yuba College</p>
+    <h1>Study <span class="h1-terra">With Me</span></h1>
+    <p class="subhead">Host a session or take a seat in one.</p>
+    <p class="usage">Pick a session below and sign up, or post one of your own. Hosting is easier than it sounds: build a Kahoot and play it, quiz each other on the week's competencies, work the book problems and compare what you got, or do brain dumps side by side and hold them up. Sessions are online and recorded, so anyone who missed it can catch up afterward. Nothing posted for a day you are free? Post one and let your classmates come to you. Every hour you spend here counts toward your <a href="scholar-points.html">Scholar Points</a>.</p>
 
-<header class="hero"><div class="wrap">
-  <p class="eyebrow">Study With Me</p>
-  <h1>What is coming <span>up.</span></h1>
-  <p class="lede">Every session on the calendar is open to the whole class. Sign up,
-    show up, and the time counts toward your Scholar Points.</p>
-</div></header>
+    <div class="toolbar">
+      <button type="button" class="btn btn-primary" id="hostBtn">Offer to host a session</button>
+      <button type="button" class="btn btn-navy" id="zoomBtn">Join a live study room</button>
+      <a class="btn btn-ghost btn-sm" href="scholar-points.html">Scholar Points and logging</a>
+      <button type="button" class="btn btn-ghost btn-sm" id="refreshBtn">Refresh</button>
+    </div>
 
-<main id="main"><div class="wrap">
-  <div id="cal" role="region" aria-live="polite" aria-label="Upcoming Study With Me sessions"></div>
+    <div class="viewbar" role="group" aria-label="Choose how to view sessions">
+      <button type="button" class="seg seg-on" id="weekViewBtn" aria-pressed="true">Weekly calendar</button>
+      <button type="button" class="seg" id="listViewBtn" aria-pressed="false">List</button>
+    </div>
 
-  <section class="band">
-    <p class="eyebrow">Want to run one</p>
-    <h2>Post a session and people can sign up.</h2>
-    <p>Pick a time, say what you want to work on, and put it here so the whole
-      class can see it. Hosting adds an hour to your Scholar Points log.</p>
-    <div class="btns" id="hostBtns"></div>
-  </section>
-</div></main>
+    <p class="legend" aria-label="Card colors by who is hosting">
+      <span class="lg-label">Hosted by:</span>
+      <span class="lg lg-faculty">Dr. Rennie</span>
+      <span class="lg lg-student">Student</span>
+    </p>
 
-<div id="siteFoot"><footer><div class="wrap">
-  <nav class="flinks" aria-label="Course links">
-    <a href="course.html">Course home</a><span class="dot" aria-hidden="true">&middot;</span>
-    <a href="study-with-me.html">Study With Me</a><span class="dot" aria-hidden="true">&middot;</span>
-    <a href="scholar-points.html">Scholar Points</a><span class="dot" aria-hidden="true">&middot;</span>
-    <a href="course-tools.html">Course tools</a><span class="dot" aria-hidden="true">&middot;</span>
-    <a href="https://yccd.instructure.com/courses/42616/" target="_blank" rel="noopener">Canvas<span class="vh"> (opens in a new tab)</span></a>
-  </nav>
-  <p class="fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie</p>
-</div></footer></div>
+    <p class="phonetip">On your phone? Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>, to keep this one tap away.</p>
 
-<script src="bio005-study-sessions.js"></script>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <div class="warn" role="note">
+      <span class="warn-ic" aria-hidden="true">!</span>
+      <div class="warn-tx">
+        <strong>For the hours to count</strong>
+        <ul>
+          <li><strong>It has to be posted here and open to everyone.</strong> A private session with two friends is a fine thing to do, it just does not earn points.</li>
+          <li><strong>Sign up before you come,</strong> so the host knows who to expect and there is a record of who was there.</li>
+          <li><strong>Online, recorded, cameras on the whole time.</strong> A room of black squares is not something I can count.</li>
+          <li><strong>Log the time you were actually there,</strong> not the time the meeting was open. Late or early is fine.</li>
+          <li><strong>Hosting adds an hour to your log,</strong> whatever the length of the session, and hosts keep the recording and the sign-up list.</li>
+        </ul>
+        <p class="warn-more">All of it is in <a href="scholar-points.html">Scholar Points</a>, along with what the hours are worth.</p>
+      </div>
+    </div>
+
+    <section id="sessions" aria-label="Upcoming study sessions">
+      <div class="empty" id="loading">Loading sessions...</div>
+
+      <div id="weekView">
+        <div class="weeknav">
+          <button type="button" class="btn btn-primary btn-sm" id="prevWeek">&larr; Previous</button>
+          <span class="weeknav-label" id="weekLabel" aria-live="polite"></span>
+          <button type="button" class="btn btn-primary btn-sm" id="nextWeek">Next &rarr;</button>
+          <button type="button" class="btn btn-primary btn-sm" id="thisWeek">This week</button>
+        </div>
+        <div class="weekgrid" id="weekGrid"></div>
+      </div>
+
+      <div id="listView" hidden>
+        <div id="dayGroups"></div>
+      </div>
+    </section>
+
+    <div class="notice">
+      <strong>How hosting works.</strong>
+      <ul>
+        <li>Host on your own Zoom, Meet or Discord. Record it. That recording is what earns your host hour.</li>
+        <li>After the session, tap "Host? Add recording and attendance" and paste your recording link and Zoom attendance report.</li>
+        <li><strong>Post a door contact and watch it.</strong> Every session carries one contact for people who cannot get in. Keep it open on your phone or your screen from 10 minutes before the start until the session ends, and answer it. If somebody took the time to show up, they get in.</li>
+        <li><strong>Bring a cohost for anything big.</strong> One of you runs the room, the other watches the door and the messages, so nobody sits outside waiting while you are mid-sentence. On Zoom, make them a cohost so they can admit people themselves.</li>
+        <li><strong>Test your meeting link before you post it,</strong> using the test button in the form. A dead link is the one thing that wastes everybody's hour.</li>
+        <li>Sign up with the name on the roster, and use it in the meeting, so hosts can match you.</li>
+        <li>Your sign-up email stays private to Dr. Rennie. The only thing posted publicly is the door contact you choose when you host, and <strong>a phone number is never required.</strong> Email or Discord is fine if you would rather not give out your number.</li>
+        <li>If you sign up, show up, or cancel your seat so someone else can take it.</li>
+      </ul>
+    </div>
+
+  </main>
+</div>
+
+<!-- HOST DIALOG -->
+<dialog id="hostDialog" aria-labelledby="hostDlgTitle">
+  <form method="dialog" class="dlg-inner" id="hostForm">
+    <p class="dlg-eyebrow">Offer to host</p>
+    <h2 class="dlg-title" id="hostDlgTitle">Start a study session</h2>
+    <p class="dlg-sub">About a minute. You lead it, classmates join.</p>
+    <p class="dlg-err" id="hostErr" role="alert"></p>
+
+    <div class="field">
+      <label for="h-topic" id="h-topic-label">What are you studying? <span class="req" aria-hidden="true">*</span></label>
+      <input id="h-topic" name="topic" type="text" required maxlength="60" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="e.g. Action potentials, week 2 competencies">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="h-date">Date <span class="req" aria-hidden="true">*</span></label>
+        <input id="h-date" name="date" type="date" required>
+      </div>
+      <div class="field">
+        <label for="h-time">Start time <span class="req" aria-hidden="true">*</span></label>
+        <input id="h-time" name="time" type="time" required>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="h-name">Your name <span class="req" aria-hidden="true">*</span></label>
+        <input id="h-name" name="hostName" type="text" autocomplete="name" required maxlength="60">
+      </div>
+      <div class="field">
+        <label for="h-email">Your email <span class="req" aria-hidden="true">*</span></label>
+        <input id="h-email" name="hostEmail" type="email" autocomplete="email" required maxlength="120">
+      </div>
+    </div>
+    <div class="field">
+      <label for="h-role">Hosting as <span class="req" aria-hidden="true">*</span></label>
+      <select id="h-role" name="role" required>
+        <option value="Student" selected>Student</option>
+        <option value="Faculty">Instructor</option>
+      </select>
+    </div>
+    <div class="field" id="wrap-activity" hidden>
+                <label for="h-act">What will you run <span class="req" aria-hidden="true">*</span></label>
+                <select id="h-act" name="activity">
+                  <option value="" selected>Pick one</option>
+                  <option>Games</option>
+                  <option>Kahoot</option>
+                  <option>Strategy session</option>
+                  <option>Teach each other</option>
+                  <option>Draw the mechanism</option>
+                  <option>Quiz each other</option>
+                  <option>Book problems</option>
+                  <option>Brain dump</option>
+                  <option>Other</option>
+                </select>
+                <p class="hint">Say what the hour will actually be, then put the topic in the box above. People pick a session on both.</p>
+              </div>
+
+
+
+
+              <div class="field">
+      <label for="h-zoom">Online meeting link <span class="req" aria-hidden="true">*</span></label>
+      <input id="h-zoom" name="zoomLink" type="url" maxlength="400" placeholder="https://zoom.us/j/...">
+      <span class="hint">Required. Every session in this course is online and recorded, so it needs a link. Paste the whole thing, then test it here before you post it.</span>
+      <div class="linkrow">
+        <button type="button" class="btn btn-ghost btn-sm" id="h-testlink">Test this link</button>
+        <span class="hint" id="h-testhint">Opens in a new tab. If it does not open your meeting, fix it now, not at 7pm.</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="grouplabel" id="doorlabel">If somebody cannot get in</span>
+      <p class="hint" style="margin:-4px 0 10px;">Somebody who showed up needs a way to tell you the link is dead, or that they are stuck in the waiting room, or standing outside the wrong room. Pick the one you will actually have open.</p>
+      <p class="hint" style="margin:-4px 0 10px;"><strong>A phone number is never required.</strong> Email and Discord work just as well, so if you would rather not give out your number, use one of those instead.</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="h-doorkind">How they reach you <span class="req" aria-hidden="true">*</span></label>
+          <select id="h-doorkind" name="doorKind" required>
+            <option value="email" selected>Email</option>
+            <option value="discord">Discord</option>
+            <option value="text">Text message, only if you want to</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="h-door">Door contact <span class="req" aria-hidden="true">*</span></label>
+          <input id="h-door" name="doorContact" type="text" required maxlength="80" autocomplete="off" placeholder="you@solano.edu">
+          <span class="hint" id="doorHint">This one is posted on the session card, so classmates can reach you. Everything else you enter stays private.</span>
+        </div>
+      </div>
+      <label class="checkline" for="h-doorack">
+        <input type="checkbox" id="h-doorack" name="doorAck" required>
+        <span>I will keep this open on my phone or my screen from 10 minutes before the start until the session ends, and I will answer it and let people in.</span>
+      </label>
+    </div>
+
+    <div class="field">
+      <span class="grouplabel" id="colabel">Cohost, optional and recommended</span>
+      <p class="hint" style="margin:-4px 0 10px;">One person runs the room, the other watches the door and the messages. Nobody sits outside while you are mid-sentence. On Zoom, make them a cohost so they can admit people.</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="h-coname">Cohost name</label>
+          <input id="h-coname" name="cohostName" type="text" maxlength="60" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="h-cocontact">Cohost email or number</label>
+          <input id="h-cocontact" name="cohostContact" type="text" maxlength="80" autocomplete="off">
+          <span class="hint">Posted as a second door, so there are two ways in.</span>
+        </div>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="h-cap">Seats</label>
+        <input id="h-cap" name="capacity" type="number" min="1" max="100" placeholder="No limit">
+        <p class="hint">Leave it blank for no limit. Cap it and students see how many seats are left, which moves them.</p>
+      </div>
+      <div class="field">
+        <label for="h-dur">Length (min)</label>
+        <input id="h-dur" name="duration" type="number" min="15" max="480" placeholder="90">
+      </div>
+    </div>
+    <div class="field">
+      <label for="h-pass">Passcode</label>
+      <input id="h-pass" name="passcode" type="text" maxlength="16" placeholder="Only if your Zoom needs one">
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-close>Cancel</button>
+      <button type="submit" class="btn btn-primary btn-sm" id="hostSubmit">Post session</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- SIGNUP DIALOG -->
+<dialog id="signupDialog" aria-labelledby="suDlgTitle">
+  <form method="dialog" class="dlg-inner" id="signupForm">
+    <p class="dlg-eyebrow">Reserve a seat</p>
+    <h2 class="dlg-title" id="suDlgTitle">Sign up for this session</h2>
+    <p class="dlg-sub" id="suDlgSub"></p>
+    <p class="dlg-err" id="suErr" role="alert"></p>
+    <div class="field">
+      <label for="s-name">Your name <span class="req" aria-hidden="true">*</span></label>
+      <input id="s-name" name="name" type="text" autocomplete="name" required maxlength="60">
+      <span class="hint">Use your full name exactly as it appears on the class roster, and use the same name in Zoom, so your host can match you in the attendance report.</span>
+    </div>
+    <div class="field">
+      <label for="s-email">Your email <span class="req" aria-hidden="true">*</span></label>
+      <input id="s-email" name="email" type="email" autocomplete="email" required maxlength="120">
+      <span class="hint">Used to confirm your seat and share the recording.</span>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-close>Cancel</button>
+      <button type="submit" class="btn btn-primary btn-sm" id="suSubmit">Confirm seat</button>
+    </div>
+    <p style="margin:14px 0 0;text-align:center;"><button type="button" class="hostlink danger" id="suHostCancel">Are you the host? Cancel this session</button></p>
+  </form>
+</dialog>
+
+<!-- SIGNUP CONFIRMATION DIALOG -->
+<dialog id="confirmDialog" aria-labelledby="cfTitle">
+  <div class="dlg-inner">
+    <p class="dlg-eyebrow">You're in</p>
+    <h2 class="dlg-title" id="cfTitle">See you there</h2>
+    <p class="dlg-sub" id="cfSub"></p>
+    <div id="cfDetails"></div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-primary btn-sm" data-close>Got it</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- HOST WRAP-UP DIALOG -->
+<dialog id="wrapDialog" aria-labelledby="wrapTitle">
+  <form method="dialog" class="dlg-inner" id="wrapForm">
+    <p class="dlg-eyebrow">Host wrap-up</p>
+    <h2 class="dlg-title" id="wrapTitle">Submit recording and attendance</h2>
+    <p class="dlg-sub" id="wrapSub">Hosts: you ran it, you recorded it, you get the credit. Add your recording link and paste your Zoom attendance report so everyone gets tracked.</p>
+    <p class="dlg-err" id="wrapErr" role="alert"></p>
+    <div class="field">
+      <label for="w-email">Your host email <span class="req" aria-hidden="true">*</span></label>
+      <input id="w-email" name="hostEmail" type="email" autocomplete="email" required maxlength="120">
+      <span class="hint">Use the same email you hosted with, so we can verify it is you.</span>
+    </div>
+    <div class="field">
+      <label for="w-rec">Recording link</label>
+      <input id="w-rec" name="recordingLink" type="url" maxlength="400" placeholder="https://...">
+      <span class="hint">The share link for your recording so classmates can watch the replay.</span>
+    </div>
+    <div class="field">
+      <label for="w-rpt">Attendance report</label>
+      <textarea id="w-rpt" name="attendanceReport" rows="5" placeholder="Paste the participant list from your Zoom usage report (names and join times)."></textarea>
+      <span class="hint">In Zoom: Reports, then Usage, then click the participant count, and copy the list. Only Dr. Rennie sees this.</span>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-close>Cancel</button>
+      <button type="submit" class="btn btn-primary btn-sm" id="wrapSubmit">Submit</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- CANCEL DIALOG (student spot or host session) -->
+<dialog id="cancelDialog" aria-labelledby="cancelTitle">
+  <form method="dialog" class="dlg-inner" id="cancelForm">
+    <p class="dlg-eyebrow" id="cancelEyebrow">Cancel</p>
+    <h2 class="dlg-title" id="cancelTitle">Cancel</h2>
+    <p class="dlg-sub" id="cancelSub"></p>
+    <p class="dlg-err" id="cancelErr" role="alert"></p>
+    <div class="field">
+      <label for="c-email" id="cancelLabel">Your email <span class="req" aria-hidden="true">*</span></label>
+      <input id="c-email" name="email" type="email" autocomplete="email" required maxlength="120">
+      <span class="hint" id="cancelHint">Enter the email you used, so we can confirm it is you.</span>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-close>Keep it</button>
+      <button type="submit" class="btn btn-danger btn-sm" id="cancelSubmit">Confirm</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- DOOR DIALOG: reaching the host when the link fails -->
+<dialog id="doorDialog" aria-labelledby="doorTitle">
+  <div class="dlg-inner">
+    <p class="dlg-eyebrow">Cannot get in</p>
+    <h2 class="dlg-title" id="doorTitle">Message the host</h2>
+    <p class="dlg-sub" id="doorSub"></p>
+    <div class="door-box" id="doorBox"></div>
+    <div class="field">
+      <label for="door-why">What is happening</label>
+      <select id="door-why">
+        <option value="link">The meeting link does not work</option>
+        <option value="wait">I am stuck in the waiting room</option>
+        <option value="pass">The passcode is not being accepted</option>
+        <option value="room">I am here in person and cannot find the room</option>
+        <option value="other">Something else</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="door-msg">Your message</label>
+      <textarea id="door-msg" class="door-msg" maxlength="600"></textarea>
+      <span class="hint">Edit it if you want. Sending opens your own email or messages app.</span>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-close>Close</button>
+      <button type="button" class="btn btn-navy btn-sm" id="doorCopy">Copy message</button>
+      <a class="btn btn-primary btn-sm" id="doorGo" href="#">Send it</a>
+    </div>
+  </div>
+</dialog>
+
+<!-- LIVE ROOMS DIALOG -->
+<dialog id="roomsDialog" aria-labelledby="roomsTitle">
+  <div class="dlg-inner">
+    <p class="dlg-eyebrow">Live now</p>
+    <h2 class="dlg-title" id="roomsTitle">Join a study room</h2>
+    <p class="dlg-sub" id="roomsSub">Pick the room you want to join.</p>
+    <div id="roomsList"></div>
+    <div class="warn" role="note" style="margin-top:14px">
+      <span class="warn-ic" aria-hidden="true">!</span>
+      <span class="warn-tx"><strong>Stay put for credit.</strong> Choose one room and stay the whole time. Hopping between sessions means it will not count.</span>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-close>Close</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="wrap">
+  <footer>
+    <p class="foot-nav"><a href="study-with-me.html">Study With Me</a> <span aria-hidden="true">&middot;</span>
+      <a href="scholar-points.html">Scholar Points</a> <span aria-hidden="true">&middot;</span>
+      <a href="course.html">Course home</a></p>
+    <div class="by">Dr. Sharilyn Rennie</div>
+    <div class="role">BIO 005 Human Physiology &middot; Yuba College</div>
+  </footer>
+</div>
+
 <script>
-(function(){
-  var SIGNUP = (typeof window.BIO005_SWM_SIGNUP === "string") ? window.BIO005_SWM_SIGNUP : "";
-  var LIST = Array.isArray(window.BIO005_SESSIONS) ? window.BIO005_SESSIONS.slice() : [];
-  var DISCUSSION = "https://yccd.instructure.com/courses/42616/discussion_topics/711800";
+/* ============================================================
+   CONFIG  ->  two links, and this page is live
 
-  var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-  var MONTHS = ["January","February","March","April","May","June","July","August",
-                "September","October","November","December"];
+   API_URL is the Apps Script web app that stores the sessions. This course
+   needs ITS OWN, separate from the anatomy one, or physiology sessions land
+   in the anatomy sheet and both classes see each other's calendar. To make
+   it: open the BIO 004 signup spreadsheet, File > Make a copy, name the copy
+   for BIO 005, clear the rows out of the copy, then in the copy open
+   Extensions > Apps Script, Deploy > New deployment, type Web app, execute
+   as you, access Anyone. Paste the /exec URL it hands back below.
 
-  function esc(t){
-    return String(t == null ? "" : t).replace(/[&<>"]/g, function(c){
-      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
+   Until that URL is in, the page loads and reads correctly and says setup is
+   needed instead of showing sessions. Nothing here touches anatomy.
+
+   ZOOM_LINK is optional: a standing room students can drop into when nothing
+   is posted. Leave the placeholder and that row simply does not appear.
+   ============================================================ */
+const API_URL   = "PASTE_YOUR_BIO005_APPS_SCRIPT_EXEC_URL_HERE";
+const ZOOM_LINK = "PASTE_YOUR_STANDING_STUDY_ROOM_LINK_HERE";
+/* ============================================================ */
+
+const $ = (s, r=document) => r.querySelector(s);
+const statusEl = $("#status");
+const loadingEl = $("#loading");
+const groupsEl = $("#dayGroups");
+const hostDialog = $("#hostDialog");
+const signupDialog = $("#signupDialog");
+const roomsDialog = $("#roomsDialog");
+const wrapDialog = $("#wrapDialog");
+const cancelDialog = $("#cancelDialog");
+const confirmDialog = $("#confirmDialog");
+let cancelMode = null;
+let pollTimer = null;
+let activeSessionId = null;
+let allSessions = [];   // upcoming only, for list view
+let rawSessions = [];   // everything from the server, for week view
+let currentView = "week";
+let weekStart = startOfWeek(new Date());
+
+function startOfWeek(d){
+  const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  x.setDate(x.getDate() - x.getDay()); // back to Sunday
+  return x;
+}
+function ymd(d){
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+
+function defaultRoom(){
+  return (ZOOM_LINK && ZOOM_LINK.indexOf("PASTE") === -1) ? ZOOM_LINK : "";
+}
+function joinLink(s){
+  if(s && s.zoomLink && /^https?:\/\//i.test(s.zoomLink)) return s.zoomLink;
+  return defaultRoom();
+}
+function liveState(s){
+  if(!s || !s.date || !s.time) return {live:false};
+  const start = new Date(s.date + "T" + s.time + ":00");
+  const dur = Number(s.duration) || 90;
+  const end = new Date(start.getTime() + dur * 60000);
+  const open = new Date(start.getTime() - 15 * 60000); // joinable 15 min early
+  const now = new Date();
+  return {live: now >= open && now <= end, start, end, open};
+}
+function joinState(s){
+  const ls = liveState(s);
+  if(!ls.start) return {kind:"none"};
+  const now = new Date();
+  if(now < ls.open) return {kind:"before"};
+  if(ls.live) return {kind:"live", link: joinLink(s)};
+  return {kind:"ended"};
+}
+function recLink(s){
+  return (s && s.recordingLink && /^https?:\/\//i.test(s.recordingLink)) ? s.recordingLink : "";
+}
+/* In-person location rides inside the topic field (no backend change needed),
+   separated by a rare delimiter, and is split back out for display. */
+const LOC_DELIM = " ::@:: ";
+const PASS_DELIM = " ::#:: ";
+const ROLE_DELIM = " ::r:: ";
+/* The backend stores one topic string, so everything else rides inside it
+   behind a delimiter. Same trick the role, room and passcode already use. */
+const ACT_DELIM  = " ::a:: ";
+/* The door: how a student reaches the host when the link fails. Stored as
+   kind|contact. The cohost is a second door, stored as name|contact. */
+const DOOR_DELIM = " ::d:: ";
+const CO_DELIM   = " ::2:: ";
+function normRole(r){
+  r = String(r || "").trim().toLowerCase();
+  return (r === "faculty") ? r : "student";
+}
+function splitExtras(t){
+  let raw = String(t || "");
+  let passcode = "", location = "", role = "", activity = "";
+  let doorKind = "", doorContact = "", cohostName = "", cohostContact = "";
+  /* Peel in reverse of the order they were appended. */
+  let c2 = raw.indexOf(CO_DELIM);
+  if(c2 >= 0){
+    const co = raw.slice(c2 + CO_DELIM.length).split("|");
+    cohostName = (co[0] || "").trim(); cohostContact = (co[1] || "").trim();
+    raw = raw.slice(0, c2);
+  }
+  let d = raw.indexOf(DOOR_DELIM);
+  if(d >= 0){
+    const dr = raw.slice(d + DOOR_DELIM.length).split("|");
+    doorKind = normDoorKind(dr[0]); doorContact = (dr[1] || "").trim();
+    raw = raw.slice(0, d);
+  }
+  let a = raw.indexOf(ACT_DELIM);
+  if(a >= 0){ activity = raw.slice(a + ACT_DELIM.length); raw = raw.slice(0, a); }
+  let i = raw.indexOf(PASS_DELIM);
+  if(i >= 0){ passcode = raw.slice(i + PASS_DELIM.length); raw = raw.slice(0, i); }
+  let j = raw.indexOf(LOC_DELIM);
+  if(j >= 0){ location = raw.slice(j + LOC_DELIM.length); raw = raw.slice(0, j); }
+  let k = raw.indexOf(ROLE_DELIM);
+  if(k >= 0){ role = raw.slice(k + ROLE_DELIM.length); raw = raw.slice(0, k); }
+  return { topic: raw, location: location, passcode: passcode, role: normRole(role),
+           activity: activity,
+           doorKind: doorKind, doorContact: doorContact,
+           cohostName: cohostName, cohostContact: cohostContact };
+}
+function normDoorKind(k){
+  k = String(k || "").trim().toLowerCase();
+  return (k === "text" || k === "discord") ? k : "email";
+}
+function doorWord(kind){
+  return kind === "text" ? "text message" : (kind === "discord" ? "Discord" : "email");
+}
+function hasDoor(s){ return !!(s && s.doorContact); }
+/* mailto and sms are the only two routes that work on a locked-down phone in
+   a hallway with no app installed. Discord has no reliable deep link to a
+   handle, so that one is copy-and-paste with the handle shown. */
+function doorHref(s, body){
+  const kind = normDoorKind(s.doorKind);
+  const to = String(s.doorContact || "").trim();
+  if(!to) return "";
+  if(kind === "text"){
+    const num = to.replace(/[^\d+]/g, "");
+    if(!num) return "";
+    return "sms:" + num + "?&body=" + encodeURIComponent(body);
+  }
+  if(kind === "discord") return "";
+  const subject = "Cannot get in: " + (s.topic || "study session");
+  let href = "mailto:" + encodeURIComponent(to).replace(/%40/g, "@");
+  const co = String(s.cohostContact || "").trim();
+  href += "?subject=" + encodeURIComponent(subject);
+  if(co && co.indexOf("@") > 0) href += "&cc=" + encodeURIComponent(co).replace(/%40/g, "@");
+  href += "&body=" + encodeURIComponent(body);
+  return href;
+}
+function saveIdentity(name, email){
+  try{ localStorage.setItem("ssg_identity_v1", JSON.stringify({name:name, email:email})); }catch(e){}
+}
+function getIdentity(){
+  try{ return JSON.parse(localStorage.getItem("ssg_identity_v1")) || {}; }catch(e){ return {}; }
+}
+function logJoin(id){
+  if(!configured() || !id) return;
+  const me = getIdentity();
+  try{
+    fetch(API_URL, {
+      method: "POST",
+      keepalive: true,
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify({ action: "logJoin", id: id, name: me.name || "", email: me.email || "" })
     });
-  }
+  }catch(e){}
+}
 
-  /* Parse the date as local rather than letting new Date("2026-09-16") treat it
-     as UTC, which shifts the day backwards for anyone west of Greenwich, which
-     is everybody in this class. */
-  function localDate(iso){
-    var p = String(iso || "").split("-");
-    if(p.length !== 3) return null;
-    var d = new Date(+p[0], +p[1] - 1, +p[2]);
-    return isNaN(d.getTime()) ? null : d;
-  }
+function setStatus(msg, kind){
+  statusEl.textContent = msg || "";
+  statusEl.className = "status" + (kind ? " " + kind : "");
+}
+function configured(){
+  return API_URL && API_URL.indexOf("PASTE") === -1;
+}
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => (
+    {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]
+  ));
+}
+function fmtDay(dateStr){
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString(undefined, {weekday:"long"});
+}
+function fmtDate(dateStr){
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"});
+}
+function fmtTime(t){
+  if(!t) return "";
+  const [h, m] = t.split(":").map(Number);
+  const ap = h >= 12 ? "PM" : "AM";
+  const hr = ((h + 11) % 12) + 1;
+  return hr + ":" + String(m).padStart(2,"0") + " " + ap;
+}
 
-  function clock(hhmm){
-    var p = String(hhmm || "").split(":");
-    if(p.length < 2) return "";
-    var h = +p[0], m = p[1];
-    var ap = h >= 12 ? "pm" : "am";
-    h = h % 12; if(h === 0) h = 12;
-    return h + ":" + m + " " + ap;
-  }
-
-  function when(s){
-    var a = clock(s.start), b = clock(s.end);
-    return b ? (a + " to " + b) : a;
-  }
-
-  var today = new Date(); today.setHours(0,0,0,0);
-
-  var upcoming = LIST.filter(function(s){
-    var d = localDate(s.date);
-    return d && d >= today && s.title;
-  }).sort(function(x, y){
-    if(x.date !== y.date) return x.date < y.date ? -1 : 1;
-    return String(x.start) < String(y.start) ? -1 : 1;
+async function api(payload){
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: {"Content-Type": "text/plain;charset=utf-8"},
+    body: JSON.stringify(payload)
   });
+  const data = await res.json();
+  if(!data.ok) throw new Error(data.error || "Something went wrong.");
+  return data;
+}
 
-  function card(s){
-    var d = localDate(s.date);
-    var ins = String(s.lead || "").toLowerCase() === "instructor";
-    var who = esc(s.who || (ins ? "Dr. Rennie" : "A classmate"));
-    var where = s.where ? esc(s.where) : "";
-    var join = s.link
-      ? '<a class="btn" href="' + esc(s.link) + '" target="_blank" rel="noopener">Join<span class="vh"> (opens in a new tab)</span></a>'
-      : '<p class="soonish">Join link posted in Canvas</p>';
-    var signup = SIGNUP
-      ? '<a class="btn sec" href="' + esc(SIGNUP) + '" target="_blank" rel="noopener">Sign up<span class="vh"> (opens in a new tab)</span></a>'
-      : "";
-    return '<li><div class="scard">'
-      + '<div class="when"><span class="t">' + esc(when(s)) + '</span>'
-      + '<span class="d">' + DAYS[d.getDay()] + '</span></div>'
-      + '<div class="what">'
-      + '<span class="who ' + (ins ? "ins" : "stu") + '">' + who + '</span>'
-      + '<h3>' + esc(s.title) + '</h3>'
-      + '<p class="meta">' + (where ? "On " + where : "Online") + '</p>'
-      + (s.note ? '<p class="note">' + esc(s.note) + '</p>' : "")
-      + '</div>'
-      + '<div class="join">' + signup + join + '</div>'
-      + '</div></li>';
+async function load(){
+  if(!configured()){
+    /* Draw the empty week anyway. An empty calendar is still a calendar and
+       it shows the page is working, which a bare line of text does not. The
+       setup note goes in the status line, where it is for the instructor. */
+    render([]);
+    setStatus("Setup needed: paste the BIO 005 Apps Script URL into this file before the term opens.", "err");
+    return;
+  }
+  try{
+    const res = await fetch(API_URL + "?action=list", {method:"GET"});
+    const data = await res.json();
+    if(!data.ok) throw new Error(data.error || "Could not load sessions.");
+    render(data.sessions || []);
+  }catch(err){
+    loadingEl.style.display = "block";
+    loadingEl.textContent = "Could not load sessions. Check your connection or the setup, then Refresh.";
+    setStatus(err.message, "err");
+  }
+}
+
+function render(sessions){
+  loadingEl.style.display = "none";
+  (sessions || []).forEach(s => { const p = splitExtras(s.topic); s.topic = p.topic; s.location = p.location;
+    s.passcode = p.passcode; s.role = p.role; s.activity = p.activity;
+    s.doorKind = p.doorKind; s.doorContact = p.doorContact;
+    s.cohostName = p.cohostName; s.cohostContact = p.cohostContact; });
+  rawSessions = (sessions || []).slice().sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
+  const todayStr = ymd(new Date());
+  allSessions = rawSessions.filter(s => s.date >= todayStr);
+  if(currentView === "week") renderWeek(); else renderList();
+}
+
+function attachSignup(scope){
+  scope.querySelectorAll("[data-signup]").forEach(b =>
+    b.addEventListener("click", () => openSignup(b.getAttribute("data-signup"))));
+  scope.querySelectorAll("[data-wrap]").forEach(b =>
+    b.addEventListener("click", () => openWrap(b.getAttribute("data-wrap"))));
+  scope.querySelectorAll("[data-cancel-spot]").forEach(b =>
+    b.addEventListener("click", () => openCancel(b.getAttribute("data-cancel-spot"), "spot")));
+  scope.querySelectorAll("[data-cancel-session]").forEach(b =>
+    b.addEventListener("click", () => openCancel(b.getAttribute("data-cancel-session"), "session")));
+  scope.querySelectorAll("[data-join]").forEach(b =>
+    b.addEventListener("click", () => logJoin(b.getAttribute("data-join"))));
+  scope.querySelectorAll("[data-door]").forEach(b =>
+    b.addEventListener("click", () => openDoor(b.getAttribute("data-door"))));
+}
+
+function renderList(){
+  if(allSessions.length === 0){
+    groupsEl.innerHTML = '<div class="empty">No upcoming sessions yet. Be the first, click "Offer to host a session".</div>';
+    return;
+  }
+  const byDay = {};
+  allSessions.forEach(s => { (byDay[s.date] = byDay[s.date] || []).push(s); });
+
+  let html = "";
+  Object.keys(byDay).sort().forEach(date => {
+    html += '<div class="day-group"><div class="day-head">' +
+            '<span class="day-name">' + esc(fmtDay(date)) + '</span>' +
+            '<span class="day-date">' + esc(fmtDate(date)) + '</span></div><div class="cards">';
+    byDay[date].forEach(s => { html += card(s); });
+    html += '</div></div>';
+  });
+  groupsEl.innerHTML = html;
+  attachSignup(groupsEl);
+}
+
+const DAYNAMES = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function renderWeek(){
+  const grid = $("#weekGrid");
+  const end = new Date(weekStart); end.setDate(end.getDate()+6);
+  $("#weekLabel").textContent =
+    weekStart.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + " to " +
+    end.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+
+  const todayStr = ymd(new Date());
+  let html = "";
+  for(let i=0;i<7;i++){
+    const d = new Date(weekStart); d.setDate(d.getDate()+i);
+    const key = ymd(d);
+    const todays = rawSessions.filter(s => s.date === key);
+    html += '<div class="weekday' + (key===todayStr ? ' is-today' : '') + '">' +
+      '<div class="weekday-head"><span class="weekday-name">' + DAYNAMES[i] + '</span>' +
+      '<span class="weekday-num">' + d.getDate() + '</span></div>';
+    if(todays.length === 0){
+      html += '<span class="weekday-empty">No sessions</span>';
+    } else {
+      todays.forEach(s => { html += weekChip(s); });
+    }
+    html += '</div>';
+  }
+  grid.innerHTML = html;
+  attachSignup(grid);
+}
+
+function weekChip(s){
+  const att = Array.isArray(s.attendees) ? s.attendees : [];
+  const cap = Number(s.capacity) || 0;
+  const full = cap > 0 && att.length >= cap;
+  const live = liveState(s).live;
+  const seats = cap > 0 ? (att.length + "/" + cap) : (att.length + " in");
+  const role = s.role || "student";
+  /* The stored value is still "faculty" so old sessions keep working. Only
+     the word a student reads changed. */
+  const roleLabel = role === "faculty" ? "Instructor" : (role.charAt(0).toUpperCase() + role.slice(1));
+  const inner =
+    '<span class="chip-time">' + esc(fmtTime(s.time)) + (live ? ' <span class="chip-live-tag">&bull; Live</span>' : '') + '</span>' +
+    '<span class="chip-topic">' + esc(s.topic) + '</span>' +
+    '<span class="chip-meta">' + esc(roleLabel) + ' &middot; ' + esc(s.hostName || "TBD") + ' &middot; ' + esc(seats) + (full ? ' &middot; Full' : '') + (s.location ? ' &middot; ' + esc(s.location) : '') + '</span>';
+  if(full){
+    return '<div class="chip role-' + role + ' full" aria-label="' + esc(s.topic + ', full') + '">' + inner + '</div>';
+  }
+  return '<button type="button" class="chip role-' + role + (live ? ' live' : '') + '" data-signup="' + esc(s.id) + '">' + inner + '</button>';
+}
+
+function setView(view){
+  currentView = view;
+  const isList = view === "list";
+  $("#listView").hidden = !isList;
+  $("#weekView").hidden = isList;
+  $("#listViewBtn").classList.toggle("seg-on", isList);
+  $("#weekViewBtn").classList.toggle("seg-on", !isList);
+  $("#listViewBtn").setAttribute("aria-pressed", String(isList));
+  $("#weekViewBtn").setAttribute("aria-pressed", String(!isList));
+  if(isList) renderList(); else renderWeek();
+}
+
+$("#listViewBtn").addEventListener("click", () => setView("list"));
+$("#weekViewBtn").addEventListener("click", () => setView("week"));
+$("#prevWeek").addEventListener("click", () => { weekStart.setDate(weekStart.getDate()-7); renderWeek(); });
+$("#nextWeek").addEventListener("click", () => { weekStart.setDate(weekStart.getDate()+7); renderWeek(); });
+$("#thisWeek").addEventListener("click", () => { weekStart = startOfWeek(new Date()); renderWeek(); });
+
+
+
+
+function card(s){
+  const att = Array.isArray(s.attendees) ? s.attendees : [];
+  const cap = Number(s.capacity) || 0;
+  const full = cap > 0 && att.length >= cap;
+  /* "3 of 8 seats" makes a student do arithmetic. "5 seats left" is the number
+     they are actually deciding on, and it counts down, which the other does not. */
+  const left = cap > 0 ? Math.max(0, cap - att.length) : 0;
+  const seats = cap > 0
+    ? (left === 0 ? "Full, " + cap + " seats taken"
+                  : left + (left === 1 ? " seat left of " : " seats left of ") + cap)
+    : (att.length + " signed up");
+  const roster = att.map(a => '<li>' + esc((a.name||"").split(" ")[0] || "Student") + '</li>').join("");
+  const js = joinState(s);
+  const rec = recLink(s);
+  const reportIn = !!s.reportSubmitted;
+  const loc = s.location || "";
+  const hasLink = !!joinLink(s);
+  const inPerson = !!loc && !hasLink;
+
+  let joinBtn = "";
+  if(hasLink){
+    if(js.kind === "live"){
+      joinBtn = '<a class="btn btn-navy btn-sm" data-join="' + esc(s.id) + '" href="' + esc(joinLink(s)) + '" target="_blank" rel="noopener">Join now</a>';
+    } else if(js.kind === "before"){
+      joinBtn = '<button type="button" class="btn btn-ghost btn-sm" disabled>Opens ' + esc(fmtTime(s.time)) + '</button>';
+    }
+  } else if(!loc){
+    if(js.kind === "live"){
+      /* A live session with no link used to end here, at a disabled button.
+         Now it ends at the host. */
+      joinBtn = '<button type="button" class="btn btn-navy btn-sm" data-door="' + esc(s.id) + '">No link yet, message the host</button>';
+    } else if(js.kind === "before"){
+      joinBtn = '<button type="button" class="btn btn-ghost btn-sm" disabled>Opens ' + esc(fmtTime(s.time)) + '</button>';
+    }
   }
 
-  var out = "";
-  if(!upcoming.length){
-    out = '<div class="empty"><h2>Nothing on the calendar yet</h2>'
-      + '<p>No sessions are posted for the next few days. If you want one, post it '
-      + 'yourself, or say so in the Virtual Office and I will put one up.</p>'
-      + '<p><a class="btn sec" href="' + DISCUSSION + '" target="_blank" rel="noopener">'
-      + 'Ask in the Virtual Office<span class="vh"> (opens in a new tab)</span></a></p></div>';
+  const role = s.role || "student";
+  const roleLabel = role === "faculty" ? "Instructor" : (role.charAt(0).toUpperCase() + role.slice(1));
+  return '<article class="card role-' + role + (full ? ' full' : '') + (js.kind === "live" ? ' live' : '') + '">' +
+    '<div class="pill-row">' +
+      '<span class="pill role">' + esc(roleLabel) + '</span>' +
+      (s.activity ? '<span class="pill act">' + esc(s.activity) + '</span>' : '') +
+      (full ? '<span class="pill full">Full</span>' : '') +
+      (!full && cap > 0 && (cap - att.length) <= 3
+        ? '<span class="pill last">' + (cap - att.length) + ' left</span>' : '') +
+      (js.kind === "live" ? '<span class="pill live">Live now</span>' : '') +
+      (inPerson ? '<span class="pill inperson">In person</span>' : '') +
+      (reportIn ? '<span class="pill done">Attendance in</span>' : '') +
+    '</div>' +
+    '<div class="ctime">' + esc(fmtTime(s.time)) + '</div>' +
+    '<div class="ctopic">' + esc(s.topic) + '</div>' +
+    '<div class="chost">Host: ' + esc(s.hostName || "TBD") +
+      (s.cohostName ? ' &middot; Cohost: ' + esc(s.cohostName) : '') + '</div>' +
+    (hasDoor(s)
+      ? '<div class="cdoor"><span>Cannot get in?</span> ' + esc(s.hostName ? s.hostName.split(" ")[0] : "The host") +
+        ' is watching ' + esc(doorWord(s.doorKind)) + ' during this session</div>'
+      : '') +
+    (loc ? '<div class="cloc"><span>In person:</span> ' + esc(loc) + '</div>' : '') +
+    (s.passcode ? '<div class="cpass"><span>Passcode:</span> ' + esc(s.passcode) + '</div>' : '') +
+    '<div class="cseats">' + esc(seats) + '</div>' +
+    '<div class="roster-label">' + (att.length ? 'Signed up (' + att.length + ')' : 'No signups yet, be the first') + '</div>' +
+    (roster ? '<ul class="roster" aria-label="Students signed up">' + roster + '</ul>' : '') +
+    '<div class="card-actions">' +
+      (full
+        ? '<button type="button" class="btn btn-ghost btn-sm" disabled>Session full</button>'
+        : '<button type="button" class="btn btn-primary btn-sm" data-signup="' + esc(s.id) + '">Sign up</button>') +
+      joinBtn +
+      (js.kind === "live" && hasLink
+        ? '<button type="button" class="btn btn-ghost btn-sm" data-door="' + esc(s.id) + '">Cannot get in?</button>' : '') +
+      (rec ? '<a class="btn btn-navy btn-sm" href="' + esc(rec) + '" target="_blank" rel="noopener">Watch recording</a>' : '') +
+    '</div>' +
+    '<div class="card-links">' +
+      (js.kind === "ended" ? '' : '<button type="button" class="hostlink" data-door="' + esc(s.id) + '">Cannot get in? Message the host</button>') +
+      (att.length ? '<button type="button" class="hostlink" data-cancel-spot="' + esc(s.id) + '">Cancel my spot</button>' : '') +
+      '<button type="button" class="hostlink" data-wrap="' + esc(s.id) + '">Host? Add recording and attendance</button>' +
+      '<button type="button" class="hostlink danger" data-cancel-session="' + esc(s.id) + '">Cancel session (host)</button>' +
+    '</div>' +
+  '</article>';
+}
+
+/* ---------- HOST ---------- */
+$("#hostBtn").addEventListener("click", () => {
+  if(!configured()){ setStatus("Setup needed before hosting. See the setup guide.", "err"); return; }
+  $("#hostErr").textContent = "";
+  $("#hostForm").reset();
+  $("#h-date").min = new Date().toISOString().slice(0,10);
+  $("#h-topic").placeholder = "e.g. Action potentials, week 2 competencies";
+  hostDialog.showModal();
+});
+/* Most dead links are dead before the session starts: a half-copied URL, a
+   Zoom invitation pasted whole, or the meeting id typed without the domain.
+   Catching that here costs the host ten seconds and saves somebody an hour. */
+function badMeetingLink(link){
+  const v = String(link || "").trim();
+  if(!v) return "";
+  if(!/^https?:\/\//i.test(v)) return "A meeting link has to start with https://. Copy the whole link from your meeting app.";
+  if(/\s/.test(v)) return "That link has a space in it, so it will break. Paste just the link, nothing around it.";
+  if(/zoom\.us/i.test(v) && !/\/(j|my|s|w)\//i.test(v)) return "That looks like a Zoom page rather than a join link. The join link has /j/ and the meeting number in it.";
+  return "";
+}
+$("#h-testlink").addEventListener("click", () => {
+  const v = $("#h-zoom").value.trim();
+  const hint = $("#h-testhint");
+  if(!v){ hint.textContent = "Paste your meeting link first, then test it."; $("#h-zoom").focus(); return; }
+  const problem = badMeetingLink(v);
+  if(problem){ hint.textContent = problem; return; }
+  hint.textContent = "Opened in a new tab. If your meeting did not come up, fix the link before you post.";
+  window.open(v, "_blank", "noopener");
+});
+$("#h-doorkind").addEventListener("change", function(){
+  const inp = $("#h-door");
+  const hint = $("#doorHint");
+  if(this.value === "text"){
+    inp.placeholder = "707 555 0134";
+    hint.textContent = "Posted on the session card, so only do this if you are happy for classmates to have your number. Email and Discord work just as well.";
+  } else if(this.value === "discord"){
+    inp.placeholder = "yourname#0000 or your handle";
+    hint.textContent = "Posted on the session card. Classmates copy their message and send it to you in Discord.";
   } else {
-    var lastDay = null;
-    upcoming.forEach(function(s, i){
-      if(s.date !== lastDay){
-        if(lastDay !== null) out += '</ul></section>';
-        var d = localDate(s.date);
-        out += '<section class="daygroup"><h2 class="dayhead">'
-            + DAYS[d.getDay()] + ", " + MONTHS[d.getMonth()] + " " + d.getDate()
-            + '</h2><ul class="ses" role="list">';
-        lastDay = s.date;
-      }
-      out += card(s);
-      if(i === upcoming.length - 1) out += '</ul></section>';
-    });
+    inp.placeholder = "you@solano.edu";
+    hint.textContent = "This one is posted on the session card, so classmates can reach you. Everything else you enter stays private.";
   }
-  document.getElementById("cal").innerHTML = out;
+});
+/* The host email is almost always the right door, so offer it. */
+$("#h-email").addEventListener("blur", function(){
+  const d = $("#h-door");
+  if(!d.value.trim() && $("#h-doorkind").value === "email") d.value = this.value.trim();
+});
+$("#h-role").addEventListener("change", function(){
+  $("#h-topic").placeholder = (this.value === "Faculty")
+    ? "Topics you'll cover, e.g. Midterm 1 review: membrane transport"
+    : "e.g. Action potentials, week 2 competencies";
+});
 
-  /* The host buttons. No dead links: while the signup page does not exist, the
-     Canvas discussion is the honest place to send someone. */
-  var hb = SIGNUP
-    ? '<a class="b" href="' + esc(SIGNUP) + '" target="_blank" rel="noopener">Post a session<span class="vh"> (opens in a new tab)</span></a>'
-      + '<a class="b sec" href="scholar-points.html">How Scholar Points work</a>'
-    : '<a class="b" href="' + DISCUSSION + '" target="_blank" rel="noopener">Post it in the Virtual Office<span class="vh"> (opens in a new tab)</span></a>'
-      + '<a class="b sec" href="scholar-points.html">How Scholar Points work</a>';
-  document.getElementById("hostBtns").innerHTML = hb;
-}());
+$("#hostForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const el = n => f.elements[n];
+  const baseTopic = el("topic").value.trim();
+  const role = el("role").value || "Student";
+  const campus = "Online";   // every session in this course is online and recorded
+  const roomText = "";
+  const pass = el("passcode").value.trim();
+  const locParts = [];
+  if(campus && campus !== "Online") locParts.push(campus);
+  if(roomText) locParts.push(roomText);
+  const loc = locParts.join(" · ");        // e.g. "Fairfield · Room 812"
+  let topicPayload = baseTopic;
+  if(normRole(role) !== "student") topicPayload += ROLE_DELIM + role;
+  if(loc) topicPayload += LOC_DELIM + loc;
+  if(pass) topicPayload += PASS_DELIM + pass;
+  /* Order matters: splitExtras peels these off from the end backwards. */
+  var actVal  = (document.getElementById("h-act")  || {}).value || "";
+  if(normRole(role) === "student" && actVal) topicPayload += ACT_DELIM + actVal;
+  /* The door rides last, so splitExtras can peel it first. Pipes and the
+     delimiter itself are stripped, because either would split the field. */
+  const clean = v => String(v || "").replace(/\|/g, " ").replace(/::/g, "").trim();
+  const doorKind = normDoorKind(el("doorKind").value);
+  const doorContact = clean(el("doorContact").value);
+  const coName = clean(el("cohostName").value);
+  const coContact = clean(el("cohostContact").value);
+  if(doorContact) topicPayload += DOOR_DELIM + doorKind + "|" + doorContact;
+  if(coName || coContact) topicPayload += CO_DELIM + coName + "|" + coContact;
+  const payload = {
+    action: "create",
+    hostName: el("hostName").value.trim(),
+    hostEmail: el("hostEmail").value.trim(),
+    topic: topicPayload,
+    date: el("date").value,
+    time: el("time").value,
+    capacity: el("capacity").value ? Number(el("capacity").value) : 0,
+    duration: el("duration").value ? Number(el("duration").value) : 0,
+    zoomLink: el("zoomLink").value.trim()
+  };
+  if(!payload.hostName || !payload.hostEmail || !baseTopic || !payload.date || !payload.time){
+    $("#hostErr").textContent = "Please fill in all required fields."; return;
+  }
+  if(!doorContact){
+    $("#hostErr").textContent = "Add a door contact. Somebody who cannot get in has to be able to reach you."; return;
+  }
+  if(doorKind === "email" && doorContact.indexOf("@") < 1){
+    $("#hostErr").textContent = "That door contact is not an email address. Change the method, or fix the address."; return;
+  }
+  if(doorKind === "text" && doorContact.replace(/[^\d]/g, "").length < 7){
+    $("#hostErr").textContent = "That does not look like a phone number a classmate could text."; return;
+  }
+  if(!(document.getElementById("h-doorack") || {}).checked){
+    $("#hostErr").textContent = "Please agree to watch your door contact during the session."; return;
+  }
+  const linkProblem = badMeetingLink(payload.zoomLink);
+  if(linkProblem){ $("#hostErr").textContent = linkProblem; return; }
+  if(!payload.zoomLink){
+    $("#hostErr").textContent = "Add your meeting link. Every session in this course is online and recorded."; return;
+  }
+  $("#hostSubmit").disabled = true;
+  try{
+    await api(payload);
+    saveIdentity(payload.hostName, payload.hostEmail);
+    hostDialog.close();
+    setStatus("Your session is posted. Keep your door contact open from 10 minutes before the start, so anyone who cannot get in can reach you.", "ok");
+    await load();
+  }catch(err){
+    $("#hostErr").textContent = err.message;
+  }finally{
+    $("#hostSubmit").disabled = false;
+  }
+});
+
+/* ---------- SIGN UP ---------- */
+function openSignup(id){
+  activeSessionId = id;
+  $("#suErr").textContent = "";
+  $("#signupForm").reset();
+  const s = rawSessions.find(x => x.id === id);
+  $("#suDlgSub").textContent = s ? (s.topic + " at " + fmtTime(s.time)) : "";
+  signupDialog.showModal();
+}
+
+$("#signupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const payload = {
+    action: "signup",
+    id: activeSessionId,
+    name: f.elements["name"].value.trim(),
+    email: f.elements["email"].value.trim()
+  };
+  if(!payload.name || !payload.email){
+    $("#suErr").textContent = "Please add your name and email."; return;
+  }
+  const sessId = activeSessionId;
+  $("#suSubmit").disabled = true;
+  try{
+    await api(payload);
+    saveIdentity(payload.name, payload.email);
+    signupDialog.close();
+    setStatus("You're signed up.", "ok");
+    await load();
+    openConfirm(rawSessions.find(x => x.id === sessId), payload.email);
+  }catch(err){
+    $("#suErr").textContent = err.message;
+  }finally{
+    $("#suSubmit").disabled = false;
+  }
+});
+
+/* ---------- CANCEL (student spot or host session) ---------- */
+function openCancel(id, mode){
+  activeSessionId = id;
+  cancelMode = mode;
+  $("#cancelErr").textContent = "";
+  $("#cancelForm").reset();
+  const s = rawSessions.find(x => x.id === id);
+  const where = s ? ('"' + s.topic + '" on ' + fmtDate(s.date)) : "this session";
+  if(mode === "session"){
+    $("#cancelEyebrow").textContent = "Host";
+    $("#cancelTitle").textContent = "Cancel this session";
+    $("#cancelSub").textContent = "This removes " + where + " for everyone. Enter your host email to confirm.";
+    $("#cancelLabel").innerHTML = 'Your host email <span class="req" aria-hidden="true">*</span>';
+    $("#cancelHint").textContent = "Use the email you hosted with.";
+    $("#cancelSubmit").textContent = "Cancel session";
+  } else {
+    $("#cancelEyebrow").textContent = "Cancel";
+    $("#cancelTitle").textContent = "Cancel my spot";
+    $("#cancelSub").textContent = "This gives up your seat in " + where + " so someone else can take it.";
+    $("#cancelLabel").innerHTML = 'Your email <span class="req" aria-hidden="true">*</span>';
+    $("#cancelHint").textContent = "Enter the email you signed up with.";
+    $("#cancelSubmit").textContent = "Give up my spot";
+  }
+  cancelDialog.showModal();
+}
+
+$("#cancelForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = e.target.email.value.trim();
+  if(!email){ $("#cancelErr").textContent = "Enter your email."; return; }
+  const payload = cancelMode === "session"
+    ? { action: "remove", id: activeSessionId, hostEmail: email }
+    : { action: "cancel", id: activeSessionId, email: email };
+  $("#cancelSubmit").disabled = true;
+  try{
+    await api(payload);
+    cancelDialog.close();
+    setStatus(cancelMode === "session" ? "Session canceled." : "Your spot was canceled.", "ok");
+    await load();
+  }catch(err){
+    $("#cancelErr").textContent = err.message;
+  }finally{
+    $("#cancelSubmit").disabled = false;
+  }
+});
+
+/* ---------- HOST WRAP-UP (recording + attendance) ---------- */
+function openWrap(id){
+  activeSessionId = id;
+  $("#wrapErr").textContent = "";
+  $("#wrapForm").reset();
+  const s = rawSessions.find(x => x.id === id);
+  $("#wrapSub").textContent = s
+    ? ('For "' + s.topic + '" on ' + fmtDate(s.date) + '. You ran it and recorded it, so you get the credit. Add the recording link and paste your Zoom attendance report.')
+    : "Add the recording link and paste your Zoom attendance report.";
+  wrapDialog.showModal();
+}
+
+$("#wrapForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const payload = {
+    action: "wrapup",
+    id: activeSessionId,
+    hostEmail: f.hostEmail.value.trim(),
+    recordingLink: f.recordingLink.value.trim(),
+    attendanceReport: f.attendanceReport.value.trim()
+  };
+  if(!payload.hostEmail){ $("#wrapErr").textContent = "Enter the email you hosted with."; return; }
+  if(!payload.recordingLink && !payload.attendanceReport){
+    $("#wrapErr").textContent = "Add a recording link or paste the attendance report (or both)."; return;
+  }
+  $("#wrapSubmit").disabled = true;
+  try{
+    await api(payload);
+    wrapDialog.close();
+    setStatus("Thanks. Your recording and attendance are saved.", "ok");
+    await load();
+  }catch(err){
+    $("#wrapErr").textContent = err.message;
+  }finally{
+    $("#wrapSubmit").disabled = false;
+  }
+});
+
+/* ---------- JOIN A LIVE ROOM ---------- */
+$("#zoomBtn").addEventListener("click", () => {
+  const liveOnes = allSessions.filter(s => liveState(s).live && joinLink(s));
+  if(liveOnes.length === 1){
+    logJoin(liveOnes[0].id);
+    window.open(joinLink(liveOnes[0]), "_blank", "noopener");
+    return;
+  }
+  openRooms(liveOnes);
+});
+
+function openRooms(list){
+  const body = $("#roomsList");
+  if(!list || list.length === 0){
+    const dflt = defaultRoom();
+    $("#roomsSub").textContent = "No student rooms are live right now.";
+    body.innerHTML = dflt
+      ? '<a class="room-row" href="' + esc(dflt) + '" target="_blank" rel="noopener">' +
+          '<span class="rr-main"><span class="rr-topic">Shared course room</span>' +
+          '<span class="rr-host">Open the standing BIO 005 study room</span></span>' +
+          '<span class="rr-go" aria-hidden="true">Join &rarr;</span></a>'
+      : '<p class="empty">No rooms are live. Check the schedule below and sign up for the next session.</p>';
+  } else {
+    $("#roomsSub").textContent = list.length + (list.length > 1 ? " rooms are live. Pick one." : " room is live. Pick one.");
+    body.innerHTML = list.map(s =>
+      '<a class="room-row" data-join="' + esc(s.id) + '" href="' + esc(joinLink(s)) + '" target="_blank" rel="noopener">' +
+        '<span class="rr-main"><span class="rr-topic">' + esc(s.topic) + '</span>' +
+        '<span class="rr-host">Host: ' + esc(s.hostName || "TBD") + ' &middot; ' + esc(fmtTime(s.time)) + '</span></span>' +
+        '<span class="rr-go" aria-hidden="true">Join &rarr;</span></a>'
+    ).join("");
+  }
+  body.querySelectorAll("[data-join]").forEach(a =>
+    a.addEventListener("click", () => logJoin(a.getAttribute("data-join"))));
+  roomsDialog.showModal();
+}
+
+/* host cancel reachable from the signup popup (used by calendar chips) */
+$("#suHostCancel").addEventListener("click", () => {
+  const id = activeSessionId;
+  signupDialog.close();
+  openCancel(id, "session");
+});
+
+/* ---------- dialog close buttons + backdrop ---------- */
+document.querySelectorAll("[data-close]").forEach(b =>
+  b.addEventListener("click", () => b.closest("dialog").close()));
+[hostDialog, signupDialog, roomsDialog, wrapDialog, cancelDialog, confirmDialog, document.getElementById("doorDialog")].forEach(d =>
+  d.addEventListener("click", e => { if(e.target === d) d.close(); }));
+
+/* ---------- THE DOOR ---------- */
+const doorDialog = $("#doorDialog");
+let doorSession = null;
+const DOOR_LINES = {
+  link: "The meeting link on the card is not working for me.",
+  wait: "I am sitting in the waiting room and have not been let in.",
+  pass: "The passcode is not being accepted.",
+  room: "I am here in person and I cannot find the room.",
+  other: "I am having trouble getting in."
+};
+function doorMessage(s, why){
+  const me = getIdentity();
+  const who = (me.name || "").trim();
+  return (who ? who + " here. " : "Hi. ") +
+    "I am trying to join " + (s.topic || "your study session") +
+    " at " + fmtTime(s.time) + " on " + fmtDate(s.date) + ". " +
+    (DOOR_LINES[why] || DOOR_LINES.other) +
+    " Can you let me in?" +
+    (me.email ? " You can reach me at " + me.email + "." : "");
+}
+function openDoor(id){
+  const s = rawSessions.find(x => x.id === id);
+  if(!s) return;
+  doorSession = s;
+  $("#doorSub").textContent = '"' + s.topic + '" at ' + fmtTime(s.time) + ", hosted by " + (s.hostName || "TBD") + ".";
+  $("#door-why").value = (!joinLink(s) && s.location) ? "room" : "link";
+  renderDoor();
+  doorDialog.showModal();
+}
+function renderDoor(){
+  const s = doorSession;
+  if(!s) return;
+  const msg = doorMessage(s, $("#door-why").value);
+  $("#door-msg").value = msg;
+  const go = $("#doorGo");
+  const box = $("#doorBox");
+  const kind = normDoorKind(s.doorKind);
+  if(hasDoor(s)){
+    const second = (s.cohostName || s.cohostContact)
+      ? '<span class="door-how">Cohost' + (s.cohostName ? ' ' + esc(s.cohostName) : '') +
+        (s.cohostContact ? ', ' + esc(s.cohostContact) : '') + ', is a second way in.</span>'
+      : '';
+    box.innerHTML =
+      '<p><span class="door-who">' + esc(s.hostName || "The host") + ' &middot; ' + esc(doorWord(kind)) + '</span>' +
+      '<span class="door-how">' + esc(s.doorContact) + '</span>' +
+      '<span class="door-how">Watched from 10 minutes before the start until the session ends.</span>' +
+      second + '</p>';
+    const href = doorHref(s, msg);
+    if(href){
+      go.setAttribute("href", href);
+      go.hidden = false;
+      go.textContent = kind === "text" ? "Text the host" : "Email the host";
+      go.removeAttribute("target");
+    } else {
+      /* Discord, or a number we cannot dial. Copy is the route. */
+      go.hidden = true;
+    }
+    $("#doorCopy").textContent = (kind === "discord") ? "Copy my message" : "Copy it instead";
+  } else {
+    /* Older sessions, posted before the door existed, and any host who left
+       it blank. Never leave a student standing outside with nothing. */
+    box.innerHTML = '<p><span class="door-who">This host did not post a door contact</span>' +
+      '<span class="door-how">Post in your section Discord, or in the Virtual Office board, and email Dr. Rennie at srennie@solano.edu so the session can be credited even if you could not get in.</span></p>';
+    go.setAttribute("href", "mailto:srennie@solano.edu?subject=" +
+      encodeURIComponent("Could not get into a Study With Me session") + "&body=" + encodeURIComponent(msg));
+    go.hidden = false;
+    go.textContent = "Email Dr. Rennie";
+    $("#doorCopy").textContent = "Copy my message";
+  }
+}
+$("#door-why").addEventListener("change", renderDoor);
+$("#doorCopy").addEventListener("click", async () => {
+  const box = $("#door-msg");
+  try{
+    await navigator.clipboard.writeText(box.value);
+    setStatus("Message copied. Paste it wherever you can reach your host.", "ok");
+  }catch(e){
+    box.focus(); box.select();
+    setStatus("Press copy on your keyboard, the message is selected.", "");
+  }
+});
+$("#doorGo").addEventListener("click", () => { doorDialog.close(); });
+
+function openConfirm(s, email){
+  if(!s){ return; }
+  $("#cfSub").textContent = '"' + s.topic + '" on ' + fmtDate(s.date) + ' at ' + fmtTime(s.time) + ', hosted by ' + (s.hostName || "TBD") + '.';
+  const link = joinLink(s);
+  let html = "";
+  if(link){
+    html += '<a class="btn btn-navy btn-sm" href="' + esc(link) + '" target="_blank" rel="noopener" style="margin:2px 0 12px;">Open the meeting link</a>';
+    html += '<p class="cf-note">Tip: the same link is on this session’s card, and it lights up when the session starts.</p>';
+  } else if(s.location){
+    html += '<p class="cf-line"><strong>In person:</strong> ' + esc(s.location) + '</p>';
+  } else {
+    html += '<p class="cf-note">The host has not added a meeting link yet. Check back on the card, or watch your email.</p>';
+  }
+  if(s.passcode){ html += '<p class="cf-line"><strong>Passcode:</strong> ' + esc(s.passcode) + '</p>'; }
+  /* Save this before they need it. Nobody hunts for a contact while standing
+     outside a locked room with two minutes gone. */
+  if(hasDoor(s)){
+    html += '<div class="door-box" style="margin-top:12px;"><p>' +
+      '<span class="door-who">If you cannot get in</span>' +
+      '<span class="door-how">Message ' + esc(s.hostName || "the host") + ' by ' + esc(doorWord(s.doorKind)) +
+      ': <strong>' + esc(s.doorContact) + '</strong>. They are watching it during the session.' +
+      (s.cohostName || s.cohostContact
+        ? ' Cohost' + (s.cohostName ? ' ' + esc(s.cohostName) : '') + (s.cohostContact ? ', ' + esc(s.cohostContact) : '') + ', can also let you in.'
+        : '') +
+      '</span></p></div>';
+  } else {
+    html += '<p class="cf-note">This host has not posted a contact for problems getting in. If you get stuck, post in your section Discord and email Dr. Rennie at srennie@solano.edu.</p>';
+  }
+  if(email){ html += '<p class="cf-note">We also emailed these details to <strong>' + esc(email) + '</strong>.</p>'; }
+  $("#cfDetails").innerHTML = html;
+  confirmDialog.showModal();
+}
+
+$("#refreshBtn").addEventListener("click", () => { setStatus("Refreshing..."); load().then(()=>setStatus("")); });
+
+/* ---------- init + light polling for "real time" feel ---------- */
+load();
+pollTimer = setInterval(() => { if(!document.hidden) load(); }, 25000);
+document.addEventListener("visibilitychange", () => { if(!document.hidden) load(); });
 </script>
 
+<!-- iframe height-sender (Kajabi / Canvas / GitHub Pages embeds) -->
 <script>
-/* Iframe height sender. Canvas strips script tags from a pasted page, so the
-   Canvas iframe carries a measured height and nothing listens for this. */
 (function(){
-  var FRAME_ID = "bio005-swm-calendar";
   function sendHeight(){
-    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+    var h = (window.BIO004_CONTENT_HEIGHT ? window.BIO004_CONTENT_HEIGHT() : document.body.scrollHeight);
+    parent.postMessage({ type: "setHeight", id: "study-session-signup", height: h }, "*");
   }
   window.addEventListener("load", sendHeight);
   window.addEventListener("resize", sendHeight);
-  if(typeof ResizeObserver !== "undefined"){
-    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
-  }
-  setTimeout(sendHeight, 400); setTimeout(sendHeight, 1500);
-}());
+  if (window.ResizeObserver){ new ResizeObserver(sendHeight).observe(document.body); }
+})();
+</script>
+
+<script>
+/* WHAT WILL YOU RUN
+   There are two kinds of host here, a student and me, and both answer the
+   same question, because "Thursday, 7pm" tells nobody whether to come. The
+   field is shown for both. It is kept as its own block rather than folded
+   into the markup so that the form still works with this script blocked. */
+(function () {
+  var wrap = document.getElementById('wrap-activity');
+  if (!wrap) return;
+  wrap.hidden = false;
+  wrap.querySelectorAll('input,select,textarea').forEach(function (c) { c.disabled = false; });
+})();
 </script>
 </body>
 </html>

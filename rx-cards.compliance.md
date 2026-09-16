@@ -11,7 +11,7 @@ WCAG 2.2. Level AA is the floor on every criterion. AAA is met on contrast for a
 | Criterion | Level reached | How |
 |---|---|---|
 | 1.1.1 Non-text content | AA | The three-figure mark carries role="img" and a label. Option numbers and the graded marker symbol are aria-hidden because the accessible name carries the same information in words. |
-| 1.3.1 Info and relationships | AA | One h1, h2 per section, landmarks (header, main, nav from bio005-nav.js, footer). Answer choices are a list of buttons. Rating buttons sit in a labelled group. |
+| 1.3.1 Info and relationships | AA | One h1, h2 per section, landmarks (header, main, nav from bio005-nav.js, footer). Answer choices are a list of buttons. Rating buttons sit in a labeled group. |
 | 1.3.2 Meaningful sequence | AA | DOM order is reading order on all three screens. |
 | 1.4.1 Use of color | AA | Right and wrong are shown by color plus a numbered key, plus the text "Right." or "Not this one. The answer is N". The intro page marks graded stages with a symbol as well as color. |
 | 1.4.3 / 1.4.6 Contrast | AAA | Measured below. Lowest text pair is 7.33:1. |
@@ -27,7 +27,7 @@ WCAG 2.2. Level AA is the floor on every criterion. AAA is met on contrast for a
 | 3.3.2 Labels | AA | The week select has a visible label with for/id; the segment has aria-labelledby; rating buttons name the interval each would give. |
 | 4.1.2 Name, role, value | AA | Segment buttons use aria-pressed. Tabs on the intro page use role=tab with aria-selected and roving tabindex. |
 | 4.1.3 Status messages | AA | The verdict block is aria-live="polite" so the result is announced without moving focus. |
-| Weak spots list | AA | Each Drill button carries an aria-label naming its competency, so a screen reader user hears "Drill Osmosis and cell volume" rather than twelve identical buttons. The seven day strip is a labelled group with a text value per day. |
+| Weak spots list | AA | Each Drill button carries an aria-label naming its competency, so a screen reader user hears "Drill Osmosis and cell volume" rather than twelve identical buttons. The seven day strip is a labeled group with a text value per day. |
 
 ## Color contrast audit
 

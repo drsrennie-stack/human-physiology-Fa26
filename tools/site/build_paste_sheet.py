@@ -50,7 +50,7 @@ SECTIONS = [
 
  ("start", "START HERE", "Read once, before Week 1 work is due.", [
    blk("Enter the Course Here -->, the iframe",
-       frame("index.html", 1100, "BIO 005 Human Physiology, enter the course"),
+       frame("index.html", 1300, "BIO 005 Human Physiology, enter the course"),
        "Canvas page: Enter the Course Here -->",
        "The door, framed. Its Enter button carries target=_top when it detects "
        "it is in a frame, so one click navigates the whole browser window out "
@@ -73,9 +73,16 @@ SECTIONS = [
    blk("How Grading Works", frame("how-grading-works.html", 3200, "How grading works"),
        "Canvas page: How Grading Works"),
    blk("Textbook/Mastering A&P/Pearson",
-       frame("access-pearson.html", 4200, "Textbook, Mastering A and P, Pearson"),
+       frame("access-pearson.html", 5700, "Textbook, Mastering A and P, Pearson"),
        "Canvas page: Textbook/Mastering A&P/Pearson"),
-   blk("Scholar Points", frame("scholar-points.html", 4900, "Scholar Points"),
+   blk("Study With Me", frame("study-with-me.html", 1900, "Study With Me"),
+       "Canvas page: Study With Me",
+       "Short on purpose. One button opens the calendar."),
+   blk("Study With Me calendar",
+       frame("study-with-me-calendar.html", 2170, "Study With Me calendar"),
+       "Canvas page: Study With Me calendar",
+       'The live sign-up calendar, same app as the anatomy one with the tutors, the paid tier and the lab taken out. Students post sessions and sign up here themselves, so nothing needs pushing to add one. It needs its own Apps Script URL pasted into the file first, see the CONFIG block at the top.'),
+   blk("Scholar Points", frame("scholar-points.html", 6150, "Scholar Points"),
        "Canvas page: Scholar Points"),
    blk("Syllabus & Course Policies",
        frame("syllabus-fall2026.html", 18800, "Syllabus and course policies"),
@@ -238,7 +245,7 @@ PAGE = """<!DOCTYPE html>
   --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
   --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
   --maroon:#8B3A2E; --maroon-dark:#6E2D24;
-  --offwhite:#FAFAF9; --ink-soft:#414B5C; --line:rgba(11,21,48,0.16);
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C; --line:rgba(11,21,48,0.16);
   --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
   --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
 }
@@ -264,9 +271,9 @@ nav.jump{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px soli
   padding:11px 0}
 nav.jump .wrap{display:flex;flex-wrap:wrap;gap:8px}
 nav.jump a{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;
-  border-radius:999px;background:var(--navy-tint);color:var(--navy);text-decoration:none;
-  font-weight:800;font-size:13px}
-nav.jump a:hover{background:var(--navy);color:#fff}
+  border-radius:999px;background:var(--navy-deep);color:var(--bone);text-decoration:none;
+  font-weight:800;font-size:13px;box-shadow:0 3px 8px -3px rgba(11,21,48,.40)}
+nav.jump a:hover{background:#12203F;color:var(--bone)}
 
 main{padding:8px 0 40px}
 .sec{margin:34px 0 0}
@@ -281,11 +288,13 @@ main{padding:8px 0 40px}
 .where{margin:4px 0 0;font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--maroon)}
 .note{margin:10px 0 0;font-size:14.5px;line-height:1.55;color:var(--ink-soft);max-width:70ch}
 .copy{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;min-height:44px;
-  padding:10px 18px;border-radius:8px;border:2px solid var(--maroon);background:var(--maroon);
-  color:#fff;font-family:var(--body);font-weight:800;font-size:14px;cursor:pointer;
-  transition:background 140ms ease,border-color 140ms ease}
-.copy:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
-.copy.done{background:var(--navy);border-color:var(--navy)}
+  padding:10px 18px;border-radius:8px;border:none;background:var(--maroon-dark);
+  color:var(--bone);font-family:var(--body);font-weight:800;font-size:14px;cursor:pointer;
+  box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30);
+  transition:background 140ms ease,transform 200ms ease,box-shadow 200ms ease}
+.copy:hover{background:#5C2520;transform:translateY(-2px);
+  box-shadow:0 14px 26px -8px rgba(11,21,48,.46),0 4px 9px -3px rgba(11,21,48,.30)}
+.copy.done{background:var(--navy-deep)}
 pre{margin:12px 0 0;background:var(--navy-deep);color:#E6EAF1;border-radius:10px;
   padding:14px 16px;overflow-x:auto;max-height:230px;overflow-y:auto}
 pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;

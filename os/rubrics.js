@@ -124,7 +124,7 @@ window.BIO005_RUBRICS = {
     "Showed a pressure in mmHg in a context where that unit is the one used",
     "Showed a flow in liters per minute",
     "Turned a percent solution into grams, and then into moles",
-    "Carried the units down every line and cancelled them",
+    "Carried the units down every line and canceled them",
     "Checked at the end that the units left over are the units the question asked for"
   ],
 

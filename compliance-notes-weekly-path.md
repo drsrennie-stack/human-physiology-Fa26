@@ -18,7 +18,7 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable.
 |---|---|---|
 | 1.3.1 Info and relationships | AA | One h1, one h2 for the path, one h3 per step and per note. The seven steps are a real `ol`, the three notes a real `ul`, and each step's detail is a real `ul` inside its card. No layout tables. |
 | 1.3.2 Meaningful sequence | AA | DOM order is the step order, one through seven, then the three notes, then the closing line. The visual left-to-right order matches it at every breakpoint. |
-| 1.4.1 Use of colour | AA | Each step carries its number as text in a circle and its name as a heading. The chevrons between cards are CSS pseudo-elements and decorative; remove every one and the sequence still reads from the numbers and the reading order. |
+| 1.4.1 Use of color | AA | Each step carries its number as text in a circle and its name as a heading. The chevrons between cards are CSS pseudo-elements and decorative; remove every one and the sequence still reads from the numbers and the reading order. |
 | 1.4.3 / 1.4.6 Contrast | AAA | See section 3. Every pair is above 7:1. |
 | 1.4.4 Resize text | AA | No fixed heights on text; cards grow with content and equalize by grid stretch. |
 | 1.4.10 Reflow | AA | Checked at 1320, 1100, 800 and 400px: seven columns, then four, then two, then one. No horizontal scroll at any width. |
@@ -33,7 +33,7 @@ Target: WCAG 2.2 AA as the floor, AAA where achievable.
 
 Not applicable: no images beyond decorative SVG, no forms, no media, no timed content.
 
-## 3. Colour contrast audit
+## 3. Color contrast audit
 
 Measured with the WCAG relative luminance formula.
 

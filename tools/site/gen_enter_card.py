@@ -10,12 +10,21 @@ page is saved from the rich editor, so her edit kept reverting.
 Both problems have the same fix: there is no iframe. This is a plain block of
 inline styled HTML pasted straight onto the Canvas page. Canvas strips <script>
 and <style> but keeps inline style attributes, so it survives the editor. There
-is no height to set and nothing to revert, and the website button carries
-target="_blank" with the full GitHub Pages address, so it genuinely leaves
-Canvas.
+is no height to set and nothing to revert.
 
-TWO DOORS, SAID PLAINLY. A student picks one. Canvas keeps them here. The
-website opens in its own tab. Same material either way.
+Sep 16 2026: made it a welcome rather than a menu. Her note was that a student
+landing here should be able to tell at a glance they are in the right place and
+have not missed anything, so it now opens with the course mark, the course
+number and the course name before it asks them to choose anything.
+
+The two doors match index.html: terra cotta for Canvas on the left with a big
+gold arrow pointing at the Canvas menu, navy for the website on the right with
+an arrow pointing off the page. No hover states, because Canvas keeps inline
+styles and nothing else.
+
+Contrast on the dark blocks: white on maroon 7.66:1, white on navy-deep
+19.73:1, the gold arrow 4.22:1 on maroon and 8.16:1 on navy, the white button's
+maroon text 7.66:1, the gold button's near black ink 8.16:1.
 """
 import io, os
 
@@ -24,12 +33,13 @@ MODULES = "https://yccd.instructure.com/courses/42616/modules"
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(os.path.dirname(HERE))
 
-NAVY, MAROON, MAROON_D, GOLD, INK, LINE = (
-    "#0B1530", "#8B3A2E", "#6E2D24", "#C9A14A", "#414B5C", "rgba(11,21,48,0.16)")
+NAVY, NAVY_DEEP, MAROON, GOLD, GOLD_HI, GOLD_INK, INK, BONE = (
+    "#0B1530", "#060A18", "#8B3A2E", "#C9A14A", "#E0BC6C", "#060A18",
+    "#414B5C", "#F5F1E8")
 DISPLAY = "'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
 BODY = "'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
 
-MARK = ('<svg viewBox="40 10 125 148" width="34" height="40" role="img" '
+MARK = ('<svg viewBox="40 10 125 148" width="54" height="64" role="img" '
         'aria-label="BIO 005 Human Physiology">'
         '<g transform="translate(0,18)">'
         '<g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/>'
@@ -44,73 +54,111 @@ MARK = ('<svg viewBox="40 10 125 148" width="34" height="40" role="img" '
         '</g></svg>')
 
 
-def choice(title, sub, body_text, href, label, newtab, primary):
-    """One of the two doors."""
-    if newtab:
-        tail = ' target="_blank" rel="noopener"'
-        note = ('<p style="margin:12px 0 0;font-family:%s;font-size:13.5px;color:%s">'
-                'Opens in a new tab. Canvas stays open behind it.</p>' % (BODY, INK))
-    else:
-        tail = ' target="_top"'
-        note = ('<p style="margin:12px 0 0;font-family:%s;font-size:13.5px;color:%s">'
-                'You are already here. Nothing new opens.</p>' % (BODY, INK))
-    btn = ("background:%s;border:2px solid %s;color:#FFFFFF"
-           % (MAROON, MAROON)) if primary else (
-           "background:#FFFFFF;border:2px solid %s;color:%s" % (NAVY, NAVY))
+def arrow(color, left=False):
+    """The big friendly arrow. Left points at the Canvas menu, which runs down
+    the left of the screen. Right points off the page at the website.
+
+    Sep 16 2026: this used to be a drawn SVG and Canvas ate it. Canvas strips
+    <svg> on save even though it keeps inline style attributes, so the arrows
+    were there in the file and gone on the page. These are characters now, at
+    54px in the page font. Nothing can strip a character."""
+    glyph = "&#8592;" if left else "&#8594;"   # left arrow, right arrow
+    return ('<span aria-hidden="true" style="display:inline-block;'
+            'font-family:%s;font-size:54px;line-height:1;font-weight:700;'
+            'color:%s">%s</span>' % (BODY, color, glyph))
+
+
+def door(bg, arrow_svg, arrow_right, title, body, href, label, btn_bg, btn_ink,
+         btn_border, tiny):
+    align = "right" if arrow_right else "left"
+    tail = ' target="_top"' if href.startswith("http") and "instructure" in href \
+           else ' target="_top"'
     return (
-'<div style="flex:1 1 300px;min-width:280px;background:#FFFFFF;border-radius:12px;'
-'box-shadow:0 1px 3px rgba(11,21,48,.08);padding:24px 24px 22px">'
-'<p style="margin:0 0 8px;font-family:%(body)s;font-size:10.5px;font-weight:700;'
-'letter-spacing:.26em;text-transform:uppercase;color:%(maroon)s">%(sub)s</p>'
-'<h3 style="margin:0 0 10px;font-family:%(display)s;font-size:21px;font-weight:800;'
-'letter-spacing:-.022em;color:%(navy)s;line-height:1.15">%(title)s</h3>'
+'<div style="flex:1 1 300px;min-width:270px;background:%(bg)s;border-radius:16px;'
+'padding:26px 24px 24px;box-shadow:0 10px 24px -8px rgba(11,21,48,.35),'
+'0 3px 8px -3px rgba(11,21,48,.25)">'
+'<p style="margin:0 0 12px;line-height:0;text-align:%(align)s">%(arrow)s</p>'
+'<h3 style="margin:0 0 10px;font-family:%(display)s;font-size:23px;font-weight:800;'
+'letter-spacing:-.022em;color:#FFFFFF;line-height:1.15">%(title)s</h3>'
 '<p style="margin:0 0 18px;font-family:%(body)s;font-size:15.5px;line-height:1.6;'
-'color:%(navy)s">%(text)s</p>'
+'color:%(bone)s">%(text)s</p>'
 '<p style="margin:0"><a href="%(href)s"%(tail)s style="display:inline-flex;'
-'align-items:center;gap:9px;min-height:48px;padding:13px 24px;border-radius:8px;'
-'%(btn)s;text-decoration:none;font-family:%(body)s;font-weight:800;font-size:15px">'
-'%(label)s</a></p>%(note)s</div>'
-    ) % dict(body=BODY, display=DISPLAY, maroon=MAROON, navy=NAVY, sub=sub,
-             title=title, text=body_text, href=href, tail=tail, btn=btn,
-             label=label, note=note)
+'align-items:center;justify-content:center;min-height:52px;padding:14px 24px;'
+'border-radius:8px;background:%(bbg)s;border:2px solid %(bbd)s;color:%(bink)s;'
+'text-decoration:none;font-family:%(body)s;font-weight:800;font-size:16px">'
+'%(label)s</a></p>'
+'<p style="margin:12px 0 0;font-family:%(body)s;font-size:13px;line-height:1.5;'
+'color:%(bone)s">%(tiny)s</p>'
+'</div>'
+    ) % dict(bg=bg, align=align, arrow=arrow_svg, display=DISPLAY, body=BODY,
+             title=title, text=body, bone=BONE, href=href, tail=tail,
+             bbg=btn_bg, bbd=btn_border, bink=btn_ink, label=label, tiny=tiny)
 
 
 CARD = (
-'<div style="max-width:860px;margin:0 auto;font-family:%(body)s;color:%(navy)s">'
+'<div style="max-width:900px;margin:0 auto;font-family:%(body)s;color:%(navy)s">'
 
-'<div style="display:flex;align-items:center;gap:10px;margin:0 0 6px">%(mark)s'
-'<span><span style="display:block;font-family:%(display)s;font-size:17px;font-weight:800;'
-'letter-spacing:-.02em;color:%(navy)s;line-height:1.05">BIO <b style="color:%(maroon)s">005</b></span>'
-'<span style="display:block;font-family:%(body)s;font-size:8px;font-weight:700;'
-'letter-spacing:.3em;text-transform:uppercase;color:%(ink)s;margin-top:3px">Human Physiology</span>'
-'</span></div>'
-
-'<h2 style="margin:14px 0 8px;font-family:%(display)s;font-size:30px;font-weight:800;'
-'letter-spacing:-.022em;color:%(navy)s;line-height:1.12">Two ways to take this course. '
-'<span style="color:%(maroon)s">Pick either one.</span></h2>'
-'<p style="margin:0 0 6px;font-family:%(body)s;font-size:17px;line-height:1.6;color:%(ink)s;'
-'max-width:62ch">The material is identical in both places, in the same order, under the '
-'same names. Nothing is hidden on one side. You can switch whenever you like, and you will '
-'not lose your place.</p>'
-'<p style="margin:0 0 22px;font-family:%(body)s;font-size:15.5px;line-height:1.6;color:%(navy)s;'
-'max-width:62ch">Assignments are turned in through Canvas whichever one you use, so if a step '
-'ends in an upload it will hand you back here for that one thing.</p>'
-
-'<div style="display:flex;flex-wrap:wrap;gap:18px;align-items:stretch">%(canvas)s%(web)s</div>'
-
-'<p style="margin:22px 0 0;font-family:%(body)s;font-size:14.5px;line-height:1.6;color:%(ink)s">'
-'Not sure? Start in Canvas. If the navigation gets in your way, come back and open the '
-'website instead.</p>'
+# ---- the welcome, so a student can tell at a glance they are in the right place
+'<div style="text-align:center;padding:6px 0 0">'
+'<p style="margin:0 0 14px;line-height:0">'
+'<img src="%(site)sicon.svg" width="54" height="64" alt="" '
+'style="display:inline-block;height:64px;width:auto;border:0">'
+'</p>'
+'<p style="margin:0 0 12px;font-family:%(body)s;font-size:11px;font-weight:700;'
+'letter-spacing:.26em;text-transform:uppercase;color:%(maroon)s">'
+'BIO 005 &middot; Yuba College &middot; Fall 2026</p>'
+'<h2 style="margin:0 auto;font-family:%(display)s;font-size:34px;font-weight:800;'
+'letter-spacing:-.025em;color:%(navy)s;line-height:1.1;max-width:16ch">'
+'Welcome to <span style="color:%(maroon)s">Human Physiology.</span></h2>'
+'<p style="margin:16px auto 0;font-family:%(body)s;font-size:17px;line-height:1.6;'
+'color:%(ink)s;max-width:54ch">You are in the right place. This is the course '
+'home, and everything for the term starts from here.</p>'
+'<p style="margin:14px auto 0;font-family:%(body)s;font-size:15.5px;line-height:1.6;'
+'color:%(navy)s;max-width:54ch">You can navigate this course two ways, and they hold the same '
+'material in the same order under the same names. Pick whichever one suits how '
+'you like to work.</p>'
 '</div>'
-) % dict(body=BODY, display=DISPLAY, navy=NAVY, maroon=MAROON, ink=INK, mark=MARK,
-  canvas=choice("Stay in Canvas", "Option 1",
-     "Everything is here in the modules. Work down the list in order, top to bottom. "
-     "This is the one to pick if you like Canvas or you are used to it.",
-     MODULES, "Go to the modules", newtab=False, primary=False),
-  web=choice("Use the course website", "Option 2",
-     "The same course as a plain website, outside Canvas. Cleaner pages and fewer menus. "
-     "This is the one to pick if the Canvas navigation gets in your way.",
-     SITE + "course.html", "Open the course website", newtab=True, primary=True))
+
+# ---- the two doors
+'<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:stretch;margin:30px 0 0">'
+'%(canvas)s%(web)s'
+'</div>'
+
+# ---- the small print
+'<div style="max-width:74ch;margin:26px auto 0;background:#FFFFFF;border-radius:12px;'
+'box-shadow:0 1px 3px rgba(11,21,48,.08);padding:18px 20px">'
+'<p style="margin:0 0 8px;font-family:%(display)s;font-size:14px;font-weight:800;'
+'color:%(navy)s">Why there are two of them</p>'
+'<p style="margin:0 0 9px;font-family:%(body)s;font-size:13.5px;line-height:1.6;'
+'color:%(ink)s">Last spring Canvas went down for a week and students lost access '
+'to everything in it. This is my answer to that. The course website is a complete '
+'copy that does not depend on Canvas at all, so <b style="color:#6E2D24">if Canvas '
+'goes down again you will still have your course</b>. I would send you the link and '
+'we would carry on, with nothing to rebuild and nothing lost.</p>'
+'<p style="margin:0 0 9px;font-family:%(body)s;font-size:13.5px;line-height:1.6;'
+'color:%(ink)s">You are not required to use it. Most of you probably never will. It '
+'is there so that a bad week for Canvas is not a bad week for you.</p>'
+'<p style="margin:0;font-family:%(body)s;font-size:13.5px;line-height:1.6;'
+'color:%(ink)s">Assignments are turned in through Canvas whichever side you work '
+'on, so if a step ends in an upload it hands you back here for that one thing.</p>'
+'</div>'
+'</div>'
+) % dict(body=BODY, display=DISPLAY, navy=NAVY, maroon=MAROON, ink=INK, site=SITE,
+  canvas=door(MAROON, arrow(GOLD_HI, left=True), False,
+     "Stay in Canvas",
+     "Everything is here in the modules, down the left side of your screen. Work "
+     "through the list in order, top to bottom. If you like Canvas or you are used "
+     "to it, this is the one to pick.",
+     MODULES, "Go to the modules",
+     btn_bg="#FFFFFF", btn_ink=MAROON, btn_border="#FFFFFF",
+     tiny="You are already here. Nothing new opens."),
+  web=door(NAVY_DEEP, arrow(GOLD), True,
+     "Use the course website",
+     "The same course as a plain website, outside Canvas. Cleaner pages and fewer "
+     "menus. If the Canvas navigation gets in your way, this is the one to pick.",
+     SITE + "course.html", "Open the course website",
+     btn_bg=GOLD, btn_ink=GOLD_INK, btn_border=GOLD,
+     tiny="This leaves Canvas. Your browser Back button brings you right back."))
 
 io.open(os.path.join(HERE, "enter-card.html"), "w", encoding="utf-8").write(CARD)
 print("enter-card.html %d bytes" % len(CARD))

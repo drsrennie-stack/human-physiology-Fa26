@@ -149,18 +149,33 @@ main{padding:0 0 10px}
 .steps > li h3{font-size:16px;margin:0 0 5px;padding-top:9px}
 .steps > li h3 + p{margin-top:0}
 
-/* ---------- buttons ---------- */
+/* ---------- buttons ----------
+   Sep 16 2026. The secondary button used to be an outline: white fill, navy
+   border, navy text. Her note was that it does not read as a button, and she
+   is right, an empty box on a near-white page is a box. There are no clear
+   buttons on this site now. Every button is a solid block of color with cream
+   text, lifted off the page on a shadow at rest and lifting further on hover,
+   which is what the cards already do.
+
+   Two colors, and the color says which kind of thing it is. Darker terra
+   cotta is the action the page was built for. Very dark navy is everything
+   else. Cream on maroon-dark is 9.03 to 1 and cream on navy-deep is 17.5 to
+   1, both past AAA at this size. */
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
 .btn{
   display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:13px 22px;
   border-radius:8px;text-decoration:none;font-family:var(--body);
   font-weight:800;font-size:14px;letter-spacing:.02em;
-  background:var(--maroon);border:2px solid var(--maroon);color:#fff;
-  transition:background 160ms ease
+  background:var(--maroon-dark);border:none;color:var(--bone);
+  box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30);
+  transition:background 160ms ease,transform 200ms ease,box-shadow 200ms ease
 }
-a.btn:hover{background:var(--maroon-dark);border-color:var(--maroon-dark);color:#fff}
-.btn.sec{background:#fff;border-color:var(--navy);color:var(--navy)}
-a.btn.sec:hover{background:var(--navy-tint);border-color:var(--navy);color:var(--navy)}
+a.btn:hover,a.btn:focus-visible{
+  background:#5C2520;color:var(--bone);transform:translateY(-2px);
+  box-shadow:0 14px 26px -8px rgba(11,21,48,.46),0 4px 9px -3px rgba(11,21,48,.30)
+}
+.btn.sec{background:var(--navy-deep);color:var(--bone)}
+a.btn.sec:hover,a.btn.sec:focus-visible{background:#12203F;color:var(--bone)}
 
 /* ---------- the graded strip ---------- */
 .graded{

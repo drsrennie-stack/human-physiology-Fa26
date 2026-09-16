@@ -21,8 +21,12 @@ PAGES = [
  ("Course home, the whole course as a list", "course.html", 3750,
   "The off Canvas mirror of this modules page. Same order, same names."),
  ("How Grading Works", "how-grading-works.html", 3150, ""),
- ("Textbook/Mastering A&P/Pearson", "access-pearson.html", 4120, ""),
- ("Scholar Points", "scholar-points.html", 4810,
+ ("Textbook/Mastering A&P/Pearson", "access-pearson.html", 5700, ""),
+ ("Study With Me", "study-with-me.html", 1900,
+  "Short on purpose. One button opens the calendar."),
+ ("Study With Me calendar", "study-with-me-calendar.html", 2170,
+  'The live sign-up calendar, same app as the anatomy one with the tutors, the paid tier and the lab taken out. Students post sessions and sign up here themselves, so nothing needs pushing to add one. It needs its own Apps Script URL pasted into the file first, see the CONFIG block at the top.'),
+ ("Scholar Points", "scholar-points.html", 6150,
   "Up to 2.5 percent for studying with other people, and why it is not extra credit."),
  ("Syllabus & Course Policies", "syllabus-fall2026.html", 18580,
   "Long page. It has its own contents list at the top that jumps down the page."),
@@ -64,8 +68,8 @@ w("navigates the whole browser window out of Canvas and onto the course ")
 w("website, where the site's own navigation takes over. Back brings them to ")
 w("Canvas.\n\n")
 w("```html\n")
-w('<p><iframe style="width: 100%%; min-height: 1100px; border: 1px solid #d9dde3; '
-  'border-radius: 8px;" src="%sindex.html" width="100%%" height="1100" '
+w('<p><iframe style="width: 100%%; min-height: 1300px; border: 1px solid #d9dde3; '
+  'border-radius: 8px;" src="%sindex.html" width="100%%" height="1300" '
   'title="BIO 005 Human Physiology, enter the course" allow="accelerometer; autoplay; '
   'clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
   'allowfullscreen="allowfullscreen" loading="lazy"></iframe></p>\n' % SITE)
