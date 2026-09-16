@@ -2,495 +2,315 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Study With Me &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brand.css">
+<meta name="description" content="Work through the physiology with other people from the class. Optional, and it earns Scholar Points.">
+<script>
+/* Pick the chrome before paint, from the head, so nothing flickers and so the
+   footer is covered even though it has not been parsed yet. Inside a Canvas
+   iframe the sticky brand bar, the Course home link and the dark footer are
+   all wrong, because Canvas already wraps the page in its own navigation, and
+   two sets of menus in one screen is what sent students in circles. Opened
+   directly they are exactly right. If this never runs the site chrome stays,
+   which is the safer failure: a student stranded on the open web is worse
+   than one extra link inside Canvas. */
+(function(){
+  var framed = false;
+  try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+  if(framed) document.documentElement.className += " framed";
+}());
+</script>
 <style>
-/* The font stylesheet link used to sit inside this block. A browser
-   reads the whole block as CSS, so it took that link tag for the
-   start of a selector, kept reading until the next brace, and
-   swallowed the entire :root rule along with it. Every custom
-   property on the page went with it, which is why this page rendered
-   as unstyled black text in a narrow column. Fixed Sep 13 2026. */
 :root{
-  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15);
-  --terra:#8B3A2E; --terra-dark:#6B2A20;
-  --gold:#C9A14A;
-  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
-  --r-card:8px; --r-btn:4px; --r-pill:99px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
-  background:var(--page);color:var(--navy);font-size:16px;line-height:1.6;font-style:normal}
-em,i,cite,dfn,var,address{font-style:normal}
-button{font-family:inherit}
-a{color:var(--terra)}
-a:hover{color:var(--terra-dark)}
-:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
-.skip{position:absolute;left:-9999px}
-.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
-
-.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
-.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
-.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
-.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
-.logo-title .logo-accent{color:var(--terra)}
-.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
-
-.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
-.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
-.eyebrow.navy{color:var(--navy-72)}
-.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
-  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
-.hero h1 .hl{color:var(--terra)}
-.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
-.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
-.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
-  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
-  padding:7px 14px;border-radius:var(--r-pill)}
-.pill.navy{background:var(--navy)}
-.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
-
-h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
-  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
-h2:first-of-type{border-top:0;padding-top:0}
-h2 .hl{color:var(--terra)}
-h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
-h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
-p{margin:0 0 13px}
-.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
-
-.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
-.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
-.card.navy .eyebrow{color:var(--gold)}
-.card.navy a{color:var(--gold)}
-.card.feature{border:2px solid var(--terra)}
-.grid{display:grid;gap:14px}
-.g2{grid-template-columns:repeat(2,1fr)}
-@media(max-width:860px){.g2{grid-template-columns:1fr}}
-
-ul.bul{margin:0 0 14px;padding:0;list-style:none}
-ul.bul>li{padding:5px 0 5px 20px;position:relative}
-ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
-
-.steps{list-style:none;margin:0;padding:0;counter-reset:s}
-.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
-  padding:20px 0;border-top:.5px solid var(--navy-15)}
-.steps>li:first-child{border-top:0;padding-top:6px}
-.steps>li::before{content:counter(s,decimal-leading-zero);
-  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
-  color:var(--terra);line-height:1;letter-spacing:-.03em}
-.steps h4{margin:0 0 6px}
-.steps p{margin:0 0 8px}
-.steps p:last-child{margin-bottom:0}
-
-.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
-.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
-.key p:last-child,.key ul:last-child{margin-bottom:0}
-
-.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px}
-.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
-  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
-.band .em{color:var(--gold)}
-
-.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
-.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
-.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
-.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
-.tbl tbody th{font-weight:800}
-.tblscroll{overflow-x:auto}
-
-/* the label pattern, shown the way it looks on the competency list */
-.lbdemo{display:flex;flex-wrap:wrap;gap:14px;margin:14px 0 0}
-.lbx{position:relative;border-radius:8px;padding:15px 16px 13px;flex:1 1 260px;min-width:240px}
-.lbx p{margin:0;font-size:14.5px}
-.lbx.a{border:1.6px solid var(--terra)}
-.lbx.b{border:1.6px solid var(--navy)}
-.lbx .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
-  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;letter-spacing:.16em}
-.lbx.a .pl{color:var(--terra)}
-.lbx.b .pl{color:var(--navy)}
-
-.spin .go{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
-  background:var(--gold);color:var(--navy);border:1px solid var(--gold);border-radius:var(--r-pill);
-  padding:13px 24px;min-height:44px}
-.spin .go:hover{filter:brightness(.94)}
-.spin .go:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.spin .again{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
-.spin .again:hover{background:rgba(255,255,255,.10);filter:none}
-.sp-out{background:#fff;color:var(--navy);border-radius:var(--r-card);padding:22px 22px;min-height:132px}
-.sp-out .wk{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
-.sp-out h3{font-size:clamp(19px,2.4vw,24px);margin:0 0 8px;line-height:1.22}
-.sp-out .task{font-size:16.5px;margin:0;max-width:64ch}
-.sp-out .idle{color:var(--navy-72);margin:0}
-.sp-out .count{font-size:12.5px;color:var(--navy-72);margin:14px 0 0}
-.sp-list{margin:16px 0 0;padding:16px 0 0;border-top:.5px solid var(--navy-15)}
-.sp-list p.tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 9px}
-.sp-list ul{margin:0;padding-left:20px}
-.sp-list li{margin:0 0 7px}
-.sp-reveal{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
-  background:transparent;color:var(--terra);border:1px solid var(--navy-15);border-radius:var(--r-pill);
-  padding:10px 16px;min-height:44px;margin:16px 0 0}
-.sp-reveal:hover{border-color:var(--terra)}
-@media (prefers-reduced-motion:no-preference){
-  .sp-out.rolling h3,.sp-out.rolling .task{opacity:.25;transition:opacity 90ms linear}
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --white:#FFFFFF; --offwhite:#FAFAF9; --bone:#F5F1E8;
+  --ink-soft:#414B5C; --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
 }
 
-.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
-.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
-  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
-  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark);color:#fff}
-.btn.ghost{background:transparent;color:var(--navy);border-color:var(--navy-15)}
-.btn.ghost:hover{background:var(--wash);border-color:var(--navy);color:var(--navy)}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  font-variant-numeric:lining-nums
+}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn,var,address{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);
+  color:#fff;padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.wrap.wide{max-width:1160px}
 
-/* ---------- Study With Me ---------- */
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px;margin:18px 0 0}
-.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;margin:18px 0 0;padding:0;list-style:none}
-.ideas li{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 18px}
-.ideas h3{font-size:16.5px;margin:0 0 6px}
-.ideas p{margin:0;font-size:14.5px;color:var(--navy-72)}
-.run{counter-reset:r;list-style:none;padding:0;margin:18px 0 0}
-.run li{counter-increment:r;display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;
-  align-items:start;padding:0 0 14px}
-.run li::before{content:counter(r,decimal-leading-zero);font-weight:800;font-size:19px;color:var(--gold);line-height:1.2}
+/* ---------- brand bar ---------- */
+.brandbar{position:sticky;top:0;z-index:60;background:#fff;
+  border-bottom:1px solid var(--line);padding:13px 0}
+.brandbar .wrap{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.mark{display:flex;align-items:center;gap:9px;text-decoration:none}
+.wm{display:block;font-family:var(--display);font-size:16px;font-weight:800;
+  color:var(--navy);letter-spacing:-.02em;line-height:1.05}
+.wm b{color:var(--maroon);font-weight:800}
+.wmsub{display:block;font-family:var(--body);font-size:8px;font-weight:700;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.course{margin-left:auto;font-family:var(--body);font-size:9.5px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
 
-.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+/* ---------- hero ---------- */
+.back{display:inline-block;margin:22px 0 0;font-size:10.5px;font-weight:700;
+  letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.back:hover{text-decoration:underline}
+.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 10px}
+.hero{padding:14px 0 30px}
+.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.12;max-width:18ch}
+.hero h1 span{color:var(--maroon)}
+.lede{margin-top:14px;color:var(--ink-soft);max-width:60ch;font-size:17px}
 
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ---------- framed inside Canvas ----------
+   One class on <html>, set before paint, switches the whole chrome. It has to
+   be a class rather than the hidden attribute on each element: the script runs
+   in the middle of the document, so the footer is not parsed yet and setting
+   .hidden on it silently did nothing. A class on the root element applies to
+   everything, whenever it gets parsed. */
+.framed #siteBar,.framed #siteBack,.framed #siteFoot{display:none}
+.framed #frameHead{display:block}
+#frameHead{display:none}
+.framehead{padding:20px 0 6px}
+.chip-back{
+  display:inline-flex;align-items:center;gap:8px;min-height:46px;
+  background:var(--gold);border:2px solid var(--gold);color:var(--gold-ink);
+  border-radius:999px;padding:9px 18px;text-decoration:none;
+  font-family:var(--body);font-weight:800;font-size:13.5px
+}
+.chip-back:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:#fff}
+
+/* ---------- cards ---------- */
+main{padding:0 0 10px}
+.card{
+  background:#fff;border:0;border-radius:12px;padding:24px 26px;margin:0 0 18px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);
+  transition:transform 200ms ease,box-shadow 200ms ease
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card > :first-child{margin-top:0}
+.card > :last-child{margin-bottom:0}
+.card h2{font-size:clamp(19px,2.4vw,23px);margin:0 0 8px}
+.card h3{font-size:17px;margin:22px 0 6px}
+.card p{margin:0 0 13px;max-width:68ch}
+.card p.lede{margin:0 0 16px}
+.card b{color:var(--maroon-dark);font-weight:800}
+.card ul,.card ol{margin:0 0 14px;padding-left:20px}
+.card li{margin:0 0 9px;max-width:66ch}
+.card table{border-collapse:collapse;width:100%;margin:0 0 6px;font-size:15px}
+.card th,.card td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+  vertical-align:top}
+.card th{font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.tablewrap{overflow-x:auto;margin:0 0 14px}
+
+/* ---------- numbered steps: big numbers, Plus Jakarta Sans ----------
+   Her note, Sep 15 2026: a numbered list gets big numbers and Jakarta. The
+   numeral is the body face at 800, not the headline face, and the circle is
+   44px so it reads as a step marker across the room rather than a bullet.
+   Gold ground with near black ink is 7.6:1, which clears AAA. */
+.steps{list-style:none;margin:18px 0 6px;padding:0;counter-reset:hstep;
+  display:grid;gap:20px}
+.steps.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px 32px}
+/* The number is positioned, not a flex item. A flex li turns every inline
+   child into its own column, which broke a step written as "<b>Label.</b>
+   then the sentence" into two ragged columns. Absolute keeps the text flowing
+   as ordinary text however the step is written. */
+.steps > li{position:relative;padding-left:62px;min-height:46px;margin:0;max-width:74ch}
+.steps > li::before{
+  content:counter(hstep);counter-increment:hstep;
+  position:absolute;left:0;top:0;
+  width:44px;height:44px;border-radius:999px;
+  background:var(--gold);color:var(--gold-ink);
+  font-family:var(--body);font-weight:800;font-size:20px;line-height:44px;
+  text-align:center
+}
+.steps > li > :first-child{margin-top:0}
+.steps > li > :last-child{margin-bottom:0}
+.steps > li h3{font-size:16px;margin:0 0 5px;padding-top:9px}
+.steps > li h3 + p{margin-top:0}
+
+/* ---------- buttons ---------- */
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:13px 22px;
+  border-radius:8px;text-decoration:none;font-family:var(--body);
+  font-weight:800;font-size:14px;letter-spacing:.02em;
+  background:var(--maroon);border:2px solid var(--maroon);color:#fff;
+  transition:background 160ms ease
+}
+a.btn:hover{background:var(--maroon-dark);border-color:var(--maroon-dark);color:#fff}
+.btn.sec{background:#fff;border-color:var(--navy);color:var(--navy)}
+a.btn.sec:hover{background:var(--navy-tint);border-color:var(--navy);color:var(--navy)}
+
+/* ---------- the graded strip ---------- */
+.graded{
+  margin:18px 0 0;padding:13px 16px;border-radius:8px;background:var(--navy-tint);
+  color:var(--navy);font-size:14.5px;line-height:1.55;max-width:none
+}
+.graded b{color:var(--maroon-dark)}
+
+/* ---------- footer, the dark band ---------- */
+footer{background:var(--navy-deep);color:var(--bone);padding:30px 0 36px;margin-top:40px}
+footer a{color:var(--bone);text-decoration:underline}
+footer a:hover{color:var(--gold)}
+footer :focus-visible{outline-color:var(--gold)}
+.flinks{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;font-size:14px}
+.dot{color:var(--gold)}
+.fleg{margin:16px 0 0;font-size:13px;color:var(--bone);max-width:74ch;opacity:.86}
+
+@media (max-width:620px){
+  .course{margin-left:0;flex-basis:100%}
+  .card{padding:20px 20px}
+  .steps > li{padding-left:54px}
+  .steps > li::before{width:38px;height:38px;font-size:18px;line-height:38px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .card:hover{transform:none}
+}
 @media print{
-  @page{margin:13mm}
-  body{font-size:10.5pt}
-  .skip,.btnrow{display:none!important}
-  h2{break-after:avoid;page-break-after:avoid}
-  .card,.key,.lbx,.band{break-inside:avoid;page-break-inside:avoid}
-  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
-  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+  .skip,.brandbar,.back,.framehead,footer{display:none}
+  body{background:#fff;font-size:10pt}
+  .card{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  .steps > li::before{background:#fff;color:#000;border:1px solid #000}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
 }
+
+
 </style>
 </head>
 <body>
-<!-- STANDALONE ON PURPOSE. Sep 15 2026. This page sits in a Canvas module as
-     an iframe, so the site chrome is off it: no nav bar, no course tools dock, no
-     Hootie, no floating back widget. This bar is the only way off the page.
-     Do not add the site scripts back to this file. -->
-<div style="background:#0B1530;padding:10px max(20px,4vw)">
-  <a href="https://yccd.instructure.com/courses/42616/modules" target="_top"
-     style="display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 17px;
-            border-radius:99px;background:#C9A14A;border:2px solid #C9A14A;color:#0B1530;
-            font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
-            font-weight:700;font-size:13.5px;text-decoration:none">
+<a class="skip" href="#main">Skip to main content</a>
+
+<div class="brandbar" id="siteBar"><div class="wrap">
+  <a class="mark" href="course.html"><svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
+    <span><span class="wm">BIO <b>005</b></span><span class="wmsub">Human Physiology</span></span>
+  </a>
+  <span class="course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<div id="siteBack"><div class="wrap"><a class="back" href="course.html">&larr; Course home</a></div></div>
+
+<div class="framehead" id="frameHead"><div class="wrap">
+  <a class="chip-back" href="https://yccd.instructure.com/courses/42616/modules" target="_top">
     <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Back to Canvas modules</a>
-</div>
-<a class="skip" href="#main">Skip to the content</a>
-<header class="site-header">
-  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIO 005 Human Physiology, course home">
-    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(0,18)"><g transform="translate(60,0) rotate(8 0 130)"><circle cx="0" cy="20" r="10" fill="#0B1530"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#0B1530"/></g><g transform="translate(100,0)"><circle cx="0" cy="10" r="11" fill="#8B3A2E"/><path d="M 0,22 C -11,22 -17,26 -17,34 C -17,52 -14,70 -12,86 C -11,108 -13,122 -15,132 L 15,132 C 13,122 11,108 12,86 C 14,70 17,52 17,34 C 17,26 11,22 0,22 Z" fill="#8B3A2E"/></g><g transform="translate(140,0) rotate(-8 0 130)"><circle cx="0" cy="20" r="10" fill="#C9A14A"/><path d="M 0,32 C -10,32 -16,36 -16,42 C -16,55 -13,68 -11,82 C -10,100 -12,118 -14,130 L 14,130 C 12,118 10,100 11,82 C 13,68 16,55 16,42 C 16,36 10,32 0,32 Z" fill="#C9A14A"/></g></g></svg>
-    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Study With Me</span></span>
-  </a>
-</header>
-<main class="wrap" id="main">
+</div></div>
 
-<div class="hero">
-  <p class="eyebrow">Optional &middot; Any week</p>
-  <h1>Study <span class="hl">With Me</span></h1>
-  <p class="lede">A standing invitation to work through this material with other people instead of alone. I will post my own drop-in times here, and you can set up your own sessions whenever you want one. Nothing about it is required and none of it is worth points.</p>
-  <div class="metarow">
-    <span class="pill">Optional</span>
-    <span class="pill navy">No points, ever</span>
-    <span class="pill ghost">Instructor or student led</span>
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Practice with other people</p>
+  <h1>Study <span>With Me.</span></h1>
+  <p class="lede">Work through the physiology with other people from the class. Optional, and it earns Scholar Points.</p>
+</div></header>
+
+<main id="main"><div class="wrap">
+<section class="card">
+  <p class="lede">Work through the physiology with other people from the class, online. It is optional, it is the best hour you will spend on this course, and it earns <a href="scholar-points.html">Scholar Points</a>.</p>
+  <div class="btns">
+    <a class="btn" href="study-with-me-calendar.html">Open the calendar and sign up</a>
   </div>
-</div>
+</section>
 
-<h2>What this <span class="hl">is</span></h2>
-<p>Physiology online can get quiet. You watch the lectures on your own, you work the note sheet on your own, and it is easy to go a whole week without saying any of it out loud to another human being. That works for some people and it wears other people down, and the ones it wears down are usually the ones who were doing everything right.</p>
-<p>So this is the room where you do the practice parts together. Somebody runs a Kahoot on the week's competencies. Two of you work the Silverthorn problems side by side and argue about step three. Four of you do a brain dump on the same competency and then compare what each of you left out, which is the fastest way to find out that your gap is not the gap you assumed. Somebody teaches a pathway at a whiteboard while everyone else holds the checklist.</p>
-<p>There is also a quieter reason it works, and it is worth saying plainly: teaching somebody else is one of the strongest ways to learn something yourself. When you host a session you are not doing anyone a favor. You are getting the best study hour of your week.</p>
+<section class="card">
+  <h2>How it works</h2>
+  <ol class="steps" role="list">
+    <li><b>Open the calendar.</b> Every session posted there is open to the whole class, mine and other students'.</li>
+    <li><b>Sign up for one.</b> So the host knows who is coming.</li>
+    <li><b>Show up on camera</b> for as much of it as you can, and log your hours afterward.</li>
+  </ol>
+  <p>Want to run one instead? Post it on the calendar so anyone can join, and hosting adds an hour to your log.</p>
+</section>
 
-<div class="key">
-  <p class="tag">What this is not</p>
-  <p>This is not where graded work gets done together. Your lab write-up, your patient chart entry and your discussion posts are yours, done by you, in your own words. Practicing the same competency in a group and then going away and writing your own answer is exactly right. Sitting in a call filling in the same worksheet together is not, and it is the one line here that matters.</p>
-</div>
-
-<h2>Two ways a session <span class="hl">happens</span></h2>
-<div class="two">
-  <div class="card">
-    <p class="eyebrow navy">Led by me</p>
-    <h3>Drop-ins and review sessions</h3>
-    <p>When I hold one, it goes on this page and in the Canvas announcements. Drop in, stay for ten minutes or the whole hour, bring a question or bring nothing. There is no sign-up and no attendance.</p>
+<section class="card">
+  <h2>What people do</h2>
+  <ul>
+    <li>Quiz each other on the week's competencies</li>
+    <li>Run a Kahoot or another learning game</li>
+    <li>Work the book problems, everyone tries first, then compare</li>
+    <li>Brain dumps side by side, then hold them up and see what you each left out</li>
+    <li>One person teaches a mechanism with no notes while everyone else asks awkward questions</li>
+  </ul>
+  <p><b>Not graded work.</b> Your labs, chart entries and Mastery Checks are yours alone.</p>
+  <div class="btns">
+    <a class="btn sec" href="competency-brain-dump.html">Brain Dump</a>
+    <a class="btn sec" href="rx-cards.html">Rx Cards</a>
+    <a class="btn sec" href="assignment-bookproblems.html">Book problems</a>
   </div>
-  <div class="card">
-    <p class="eyebrow navy">Led by you</p>
-    <h3>Your own session</h3>
-    <p>Post in the Study With Me thread in Canvas saying when you are meeting and what you want to work on, and let people join you. Your own Zoom, a study room on campus, a coffee shop, whatever suits. You do not need my permission and you do not need to tell me how it went.</p>
+</section>
+
+<section class="card">
+  <h2>For the hours to count</h2>
+  <ul>
+    <li>Posted on the calendar and open to everyone</li>
+    <li>Signed up for</li>
+    <li>Online and recorded</li>
+    <li>Everybody on camera the whole time</li>
+    <li>Log only the time you were actually there</li>
+  </ul>
+  <p>Cameras a problem for you? Come and talk to me rather than skipping it.</p>
+  <div class="btns">
+    <a class="btn sec" href="scholar-points.html">Scholar Points, in full</a>
   </div>
-</div>
+</section>
+</div></main>
 
-<h2>Pick <span class="hl">one thing</span> to do</h2>
-<p>The sessions that work are the ones where everybody is producing physiology out loud, not watching one person talk. Pick a single activity and actually do it rather than planning a syllabus for the hour.</p>
-<ul class="ideas">
-  <li><h3>Brain dump the same competency</h3><p>Everyone writes on blank paper for five minutes, then you read each other's and find what you all missed. The overlap is the real gap.</p></li>
-  <li><h3>Teach it at a whiteboard</h3><p>One person talks and draws at the same time, the way the midterm asks for. Everyone else holds the checklist and ticks what actually got covered.</p></li>
-  <li><h3>Run a Kahoot</h3><p>Somebody builds a quick one on this week's competencies before the session and you play it together. Fast, loud, and it surfaces the things nobody knew.</p></li>
-  <li><h3>Work the book problems together</h3><p>Everyone tries the same Silverthorn problem cold, then you compare routes. Two people getting the same answer different ways teaches more than either answer.</p></li>
-  <li><h3>Quiz from the recall cards</h3><p>Open the Mastery OS, read a card out, and let the group answer before anyone looks. Say why the wrong options are wrong, not just which one is right.</p></li>
-  <li><h3>Trace a pathway out loud</h3><p>Pick a loop or a mechanism and hand it round, one step per person, each saying what happens next and why. Whoever stalls has found their own repair target.</p></li>
-</ul>
-
-<h2>A simple <span class="hl">run of show</span></h2>
-<ol class="run">
-  <li><div><b>Warm up, five minutes.</b> Everyone names three things from last week without looking. It gets people talking before anything hard starts.</div></li>
-  <li><div><b>Do your one thing.</b> Spend the bulk of the time on it and take turns, so nobody hides and nobody carries the whole hour.</div></li>
-  <li><div><b>Go back to the misses.</b> Whatever the group got wrong is the most useful thing in the room. Re-do those before you finish.</div></li>
-  <li><div><b>Close it out.</b> Each person says one thing they are going to review on their own tonight, then you stop on time.</div></li>
-</ol>
-
-<h2>Making one <span class="hl">happen</span></h2>
-<ul class="bul">
-  <li><b>Post it before you need it.</b> A session announced the night before gets one person. Two or three days ahead gets a group.</li>
-  <li><b>Say what you are working on.</b> "Week 4 membrane potential, brain dump and Kahoot" pulls people in. "Studying, anyone want to join" does not.</li>
-  <li><b>Start on time and end on time.</b> An hour that ends when it said it would is one people come back to.</li>
-  <li><b>Small is fine.</b> Two people quizzing each other is a real session. You are not failing if it is not eight.</li>
-  <li><b>Nobody has to be the expert.</b> The person who understands it least often asks the question that fixes it for everyone.</li>
-</ul>
-
-<div class="btnrow">
-  <!-- =========================================================
-       THE STUDY WITH ME THREAD.
-       Replace the # with the Canvas discussion URL once the thread
-       exists, so students land straight in it. Everything else on
-       this page works without it.
-       ========================================================= -->
-  <a class="btn" href="#" target="_blank" rel="noopener">Open the Study With Me thread in Canvas</a>
-  <a class="btn ghost" href="competency-brain-dump.html" target="_top">The brain dump</a>
-  <a class="btn ghost" href="rx-cards.html" target="_top">Rx Cards</a>
-</div>
-
-<h2>Questions people <span class="hl">ask</span></h2>
-
-<h4>Does any of this count toward my grade?</h4>
-<p>No. Not attendance, not hosting, not hours. There are no points attached to it anywhere in this course, and that is on purpose. The moment it is worth something, people show up for the points rather than the physiology.</p>
-
-<h4>Do I have to go?</h4>
-<p>No. Plenty of people study better alone and there is nothing wrong with that. If that is you, skip this page entirely and nothing in your grade notices.</p>
-
-<h4>Can we work on the lab or the patient chart together?</h4>
-<p>You can talk about the physiology behind them as much as you like. What you turn in has to be yours, written by you, in your own words. Practice the competency together, then go away and write your own answer.</p>
-
-<h4>What if I host and nobody comes?</h4>
-<p>Then you got an hour of quiet study you had already committed to, which is not a bad outcome. Post it again the following week. The first few are always small.</p>
-
-<h4>Do I need Zoom?</h4>
-<p>No. In person works, and so does any call you already use. Zoom is just the one most people already have through the college.</p>
-
-<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Yuba College</p>
-</main>
+<div id="siteFoot"><footer><div class="wrap">
+  <nav class="flinks" aria-label="Course links">
+    <a href="course.html">Course home</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html">Schedule</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html">Syllabus</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="how-every-week-works.html">How every week works</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="course-tools.html">Course tools</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html">AI in this course</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html">Accessibility</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="virtual-office.html">Virtual Office</a><span class="dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616/" target="_blank" rel="noopener">Canvas<span class="vh"> (opens in a new tab)</span></a>
+  </nav>
+  <p class="fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer></div>
 
 <script>
-(function(){ "use strict";
-  var PAGE_ID='bio005-competency-brain-dump';
-  function sendHeight(){
-    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
-  }
-  window.addEventListener('load',sendHeight);
-  window.addEventListener('resize',sendHeight);
-  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
-})();
-</script>
-<!-- The spinner reads the real competency list and, where one exists,
-     the written checklist for that competency. -->
-<script src="bio005-competencies.js"></script>
-<script src="os/rubrics.js"></script>
-<script src="os/draw-checklists.js"></script>
-
-<script>
-/* ============================================================
-   THE BRAIN DUMP SPINNER
-
-   Reads the real competency list rather than carrying a copy, so
-   all 268 are in the pool and nothing here needs rewriting when a
-   competency changes.
-
-   IT DOES NOT REPEAT UNTIL IT HAS TO. A spinner that can hand you
-   the same prompt twice in a row feels broken and, worse, lets a
-   student stay on the one they already did. Each week keeps its
-   own bag: prompts come out of it until it is empty, then the bag
-   refills. The bag lives in this browser, so closing the page and
-   coming back does not hand you the same three all over again.
-
-   THE CHECKLIST IS BEHIND A PRESS. Seeing what should be on the
-   page before you have written anything turns a recall exercise
-   into a copying exercise, so it stays shut until you ask for it.
-   ============================================================ */
+/* Iframe height sender. Canvas strips script tags from a pasted page, so the
+   Canvas iframe carries a measured height and nothing listens for this. It
+   stays for the course site and Kajabi, where a listener does exist. */
 (function(){
-  "use strict";
-  var chips=document.getElementById('spChips'), presets=document.getElementById('spPresets'),
-      note=document.getElementById('spNote'), go=document.getElementById('spGo'),
-      again=document.getElementById('spAgain'), out=document.getElementById('spOut');
-  if(!chips||!go||!out) return;
-
-  var COMPS=(window.BIO005_COMPETENCIES||[]).filter(function(c){return c&&c.id&&c.name;});
-  if(!COMPS.length){
-    chips.innerHTML='<p class="sp-loading">The competency list did not load, so there is nothing to spin. '
-      +'The week competency pages still have every prompt on them.</p>';
-    go.disabled=true;
-    return;
+  var FRAME_ID = "bio005-study-with-me";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
   }
-
-  /* Which week is it, from the same term start the rest of the site uses. */
-  var TERM_START=new Date(2026,8,8);
-  var thisWeek=Math.max(1,Math.min(15,Math.floor((new Date()-TERM_START)/(7*864e5))+1));
-
-  /* ONLY WEEKS THAT HAVE OPENED.
-
-     A spinner that can hand out week 11 in week 2 is handing out material
-     nobody has been taught, which is discouraging rather than useful. The
-     pool is capped at the current week, and later weeks appear on their
-     own as the term moves. */
-  var weeks=[];
-  COMPS.forEach(function(c){
-    if(c.week && c.week<=thisWeek && weeks.indexOf(c.week)<0) weeks.push(c.week);
-  });
-  weeks.sort(function(a,b){return a-b;});
-
-  var picked={};
-  picked[thisWeek]=true;
-  if(weeks.indexOf(thisWeek)<0 && weeks.length) picked[weeks[weeks.length-1]]=true;
-
-  function selected(){
-    var out=[];
-    weeks.forEach(function(w){ if(picked[w]) out.push(w); });
-    return out;
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){
+    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
   }
-
-  function pool(){
-    var ws=selected();
-    return COMPS.filter(function(c){ return ws.indexOf(c.week)>-1; });
-  }
-
-  /* The bag is keyed to the exact set of weeks chosen, so switching to a
-     midterm-sized pool does not inherit the history of a one-week pool. */
-  function bagKey(){ return 'bio005-bd-bag-'+selected().join('-'); }
-  function readBag(){ try{ return JSON.parse(localStorage.getItem(bagKey())||'[]')||[]; }catch(e){ return []; } }
-  function writeBag(a){ try{ localStorage.setItem(bagKey(),JSON.stringify(a)); }catch(e){} }
-
-  function drawChips(){
-    chips.innerHTML=weeks.map(function(w){
-      return '<button type="button" class="sp-chip" data-wk="'+w+'" aria-pressed="'+(picked[w]?'true':'false')+'">'
-        +'Week '+w+'</button>';
-    }).join('');
-    [].forEach.call(chips.querySelectorAll('.sp-chip'),function(b){
-      b.onclick=function(){
-        var w=+b.getAttribute('data-wk');
-        picked[w]=!picked[w];
-        /* never leave the pool empty: the last one stays on */
-        if(!selected().length){ picked[w]=true; }
-        b.setAttribute('aria-pressed',picked[w]?'true':'false');
-        afterChange();
-      };
-    });
-  }
-
-  var PRESETS=[
-    {label:'This week only', pick:function(){ return [thisWeek]; }},
-    {label:'Everything so far', pick:function(){ return weeks.slice(); }},
-    {label:'Midterm 1, weeks 1 to 7', pick:function(){ return weeks.filter(function(w){return w<=7;}); }},
-    {label:'Midterm 2, weeks 8 to 14', pick:function(){ return weeks.filter(function(w){return w>=8&&w<=14;}); }}
-  ];
-
-  function drawPresets(){
-    presets.innerHTML=PRESETS.map(function(p,i){
-      var got=p.pick();
-      if(!got.length) return '';
-      return '<button type="button" class="sp-preset" data-pre="'+i+'">'+p.label+'</button>';
-    }).join('');
-    [].forEach.call(presets.querySelectorAll('.sp-preset'),function(b){
-      b.onclick=function(){
-        var got=PRESETS[+b.getAttribute('data-pre')].pick();
-        if(!got.length) return;
-        picked={};
-        got.forEach(function(w){ picked[w]=true; });
-        drawChips(); afterChange();
-      };
-    });
-  }
-
-  function afterChange(){
-    var ws=selected(), n=pool().length;
-    note.textContent=ws.length===1
-      ? ('Week '+ws[0]+', '+n+' competenc'+(n===1?'y':'ies')+' in the pool.')
-      : (ws.length+' weeks selected, '+n+' competencies in the pool.');
-    out.innerHTML='<p class="idle">Press Spin it for a prompt from that set.</p>';
-    again.hidden=true;
-  }
-
-  function pick(){
-    var p=pool();
-    if(!p.length) return null;
-    var used=readBag();
-    var left=p.filter(function(c){ return used.indexOf(c.id)<0; });
-    if(!left.length){ used=[]; left=p; }          /* bag empty, refill it */
-    var c=left[Math.floor(Math.random()*left.length)];
-    used.push(c.id); writeBag(used);
-    return {comp:c, left:left.length-1, total:p.length};
-  }
-
-  function rubricFor(c){
-    var R=window.BIO005_RUBRICS;
-    if(R && R[c.id] && R[c.id].length) return R[c.id];
-    var D=window.BIO005_DRAW||[];
-    for(var i=0;i<D.length;i++){
-      var d=D[i]; if(!d) continue;
-      if(d.id===c.id && (d.checklist||d.items)) return d.checklist||d.items;
-    }
-    return null;
-  }
-
-  function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(ch){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]; }); }
-
-  function show(r){
-    if(!r){ out.innerHTML='<p class="idle">No competencies in the weeks you picked.</p>'; return; }
-    var c=r.comp;
-    var h='<p class="wk">Week '+c.week+(c.general?' &middot; '+esc(c.general):'')+'</p>';
-    h+='<h3>'+esc(c.name)+'</h3>';
-    h+='<p class="task">Blank paper, nothing open. '+esc(c.can||('Write everything you can produce about '+c.name+'.'))+'</p>';
-    h+='<p class="count">'+r.left+' more in this set before it comes round again.</p>';
-    if(rubricFor(c)) h+='<button type="button" class="sp-reveal" id="spShow">Show what should be on the page</button>';
-    out.innerHTML=h;
-    var btn=document.getElementById('spShow');
-    if(btn) btn.onclick=function(){
-      var list=rubricFor(c)||[];
-      var d=document.createElement('div');
-      d.className='sp-list';
-      d.innerHTML='<p class="tag">Tick what you actually produced</p><ul>'
-        + list.map(function(x){return '<li>'+esc(x)+'</li>';}).join('') + '</ul>';
-      btn.replaceWith(d);
-    };
-    again.hidden=false;
-  }
-
-  function roll(){
-    var r=pick();
-    if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      out.classList.add('rolling');
-      setTimeout(function(){ out.classList.remove('rolling'); show(r); },160);
-    } else { show(r); }
-  }
-
-  go.onclick=roll;
-  again.onclick=roll;
-
-  drawPresets(); drawChips(); afterChange();
+  setTimeout(sendHeight, 400);
+  setTimeout(sendHeight, 1500);
 }());
 </script>
-
-<!-- Ask Hootie, on every page. -->
-<!-- A way back, on every page. -->
 </body>
 </html>
