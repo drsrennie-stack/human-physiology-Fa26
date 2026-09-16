@@ -172,7 +172,7 @@ A(prob(4,
 
 A(sec("Transepithelial transport"))
 A(p("Everything above crossed one membrane. Absorbing a nutrient means crossing a whole sheet of cells, in one side and out the other."))
-A(ul(["An epithelial cell is <b>polarised</b>: the apical membrane facing the lumen carries different proteins from the basolateral membrane facing the blood.",
+A(ul(["An epithelial cell is <b>polarized</b>: the apical membrane facing the lumen carries different proteins from the basolateral membrane facing the blood.",
       "<b>Tight junctions</b> are what keep the two sets from mixing. This is where the anatomy of the first half and the physiology of this half meet.",
       "There are two routes across: <b>transcellular</b>, through the cells, and <b>paracellular</b>, between them."]))
 A(seq("Glucose from the gut into the blood, three proteins on two membranes",
@@ -195,5 +195,5 @@ A(prob(5,
   "SGLT1 runs on the sodium gradient across the apical membrane. As intracellular sodium rises, that gradient shrinks.",
   "With a small gradient there is little energy to spend, so SGLT1 can no longer drag glucose in against its gradient. Apical uptake falls.",
   "Nothing is wrong with SGLT1. Its fuel supply was cut off two steps upstream.",
-  "<b>Draw:</b> the polarised cell again, the pump crossed out, rising sodium written inside, the arrow through SGLT1 getting thinner.",
+  "<b>Draw:</b> the polarized cell again, the pump crossed out, rising sodium written inside, the arrow through SGLT1 getting thinner.",
   "<b>Carry:</b> this is what secondary means. Every secondary transporter is one pump failure away from stopping."]))

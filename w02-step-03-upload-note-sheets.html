@@ -203,7 +203,7 @@ main{max-width:860px;margin:0 auto;padding:30px max(20px,4vw) 10px}
 
 <main id="main">
 <p class="lede">Both halves, both colors, photographed and uploaded.</p>
-<section class="card"><h2>What I am looking for</h2><p>I am not grading the sheets. I mark them complete or not complete, and I read enough to see how the week went for you. Turning them in is how you show you are participating, and participating is a condition of staying enrolled.</p><p>One file is fine if you can combine them. Two files is fine too.</p><p><b>Handwritten and on paper, in your two colors.</b> A typed sheet closes the gap between the passes, and that gap is the whole point.</p></section><section class="card"><h2>How to photograph them</h2><ol class="steps"><li>One page at a time, flat on the table, in good light, straight down rather than at an angle.</li><li>Check that both colors are readable. If the second color is pale, take it again nearer a window.</li><li>Keep the two halves in order, the cell and tissues first, then transport and signaling, so I can follow your week.</li><li>Combine the pages into one file, or upload two, and turn it in.</li></ol><p>Photograph each page as you finish it rather than all of them on the last night. Losing a sheet costs you no points and a great deal of work.</p><div class="btns"><a class="btn" href="https://yccd.instructure.com/courses/42616/assignments/1241524" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4.6 5.6 8 2.2l3.4 3.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.4 13.5h11.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Upload your Week 2 note sheets<span class="vh"> (opens in a new tab)</span></a></div><p class="graded"><b>Graded.</b> Complete or not complete, for participation. Due Sunday, September 27, 10:00 pm Pacific.</p></section>
+<section class="card"><h2>What I am looking for</h2><p>I am not grading the sheets. I mark them complete or not complete, and I read enough to see how the week went for you. Turning them in is how you show you are participating, and participating is a condition of staying enrolled.</p><p>One file is fine if you can combine them. Two files is fine too.</p><p><b>Handwritten and on paper, in your two colors.</b> A typed sheet closes the gap between the passes, and that gap is the whole point.</p></section><section class="card"><h2>How to photograph them</h2><ol class="steps"><li>One page at a time, flat on the table, in good light, straight down rather than at an angle.</li><li>Check that both colors are readable. If the second color is pale, take it again nearer a window.</li><li>Keep the two halves in order, the cell and tissues first, then transport and signaling, so I can follow your week.</li><li>Combine the pages into one file, or upload two, and turn it in.</li></ol><p>Photograph each page as you finish it rather than all of them on the last night. Losing a sheet costs you no points and a great deal of work.</p><div class="btns"><a class="btn" href="https://yccd.instructure.com/courses/42616/assignments" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4.6 5.6 8 2.2l3.4 3.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.4 13.5h11.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Upload your Week 2 note sheets<span class="vh"> (opens in a new tab)</span></a></div><p class="graded"><b>Graded.</b> Complete or not complete, for participation. Due Sunday, September 27, 10:00 pm Pacific.</p></section>
   <p class="next"><b>When this is done:</b> go to Step 4, study it for several days.</p>
 </main>
 
@@ -237,35 +237,6 @@ main{max-width:860px;margin:0 auto;padding:30px max(20px,4vw) 10px}
   }
   setTimeout(sendHeight, 400);
   setTimeout(sendHeight, 1500);
-})();
-</script>
-<script>
-/* Sep 16 2026. Opening a file from inside the Canvas frame.
-
-   Canvas embeds this page in an iframe that does not carry allow-popups, so
-   the browser ignores target="_blank" and loads the file inside the frame.
-   The student ends up reading a PDF in a narrow box with no way back.
-
-   So handle the click ourselves: ask for a real new tab first, and if the
-   browser refuses one, send the whole Canvas tab to the file instead. Either
-   way the file opens above the frame and the browser Back button still works.
-
-   The markup keeps target="_blank" and rel="noopener", so this still behaves
-   correctly with JavaScript turned off. */
-(function () {
-  var links = document.querySelectorAll('a[target="_blank"][href]');
-  for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener('click', function (e) {
-      var url = this.href;
-      if (!url) return;
-      e.preventDefault();
-      var w = null;
-      try { w = window.open(url, '_blank', 'noopener'); } catch (err) { w = null; }
-      if (w) return;
-      try { window.top.location.href = url; }
-      catch (err) { window.location.href = url; }
-    });
-  }
 })();
 </script>
 </body>

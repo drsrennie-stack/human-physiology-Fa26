@@ -22,7 +22,7 @@ CH = [
         "Describe the fluid mosaic membrane and say what each component contributes.",
         "Name the major organelles and the three cytoskeletal filaments, and say what each one does.",
         "Tell the junction types apart by the job each one does, and predict what fails when one fails.",
-        "Explain why an epithelium is polarised and why that matters for everything in Chapter 2."]),
+        "Explain why an epithelium is polarized and why that matters for everything in Part 2."]),
  dict(n=2, title="Transport Across the Membrane", sub="Cellular physiology", src=ch2,
    lede="What crosses the membrane and how. Diffusion and osmosis, the carriers and the pumps, "
         "endocytosis and exocytosis, and how a sheet of cells moves something from the gut into the blood.",
@@ -44,7 +44,7 @@ CH = [
 ]
 
 def opener(c):
-    return ('<p class="partno">Chapter %d</p><h2 class="ch">%s</h2>'
+    return ('<p class="partno">Part %d</p><h2 class="ch">%s</h2>'
             '<p class="chsub">%s</p><p class="lede">%s</p>'
             '<div class="bte"><p class="lab">By the end</p><ol>%s</ol></div>'
             % (c['n'], esc(c['title']), esc(c['sub']), esc(c['lede']),
@@ -67,19 +67,20 @@ cover = ('<section class="page cover"><div class="logo">%s</div>'
 howto = ('<section class="page">'
  '<p class="partno">How to use this</p><h1 class="big">Read it once, then close it<span class="dot">.</span></h1>'
  '<div class="rule"></div>'
- + p("Three chapters, in the order the week teaches them. Chapter 1 is the structure, Chapter 2 is what crosses it, "
-     "Chapter 3 is how cells send messages. Read a chapter, then close this and put what you can into the boxes on "
+ + p("Three parts, in the order the week teaches them. Part 1 is the structure, Part 2 is what crosses it, "
+     "Part 3 is how cells send messages. Read a part, then close this and put what you can into the boxes on "
      "your note sheet. What you cannot recall is the gap, and the gap is what the videos are for.")
- + tbl("What is in each chapter, and what it is for", ["Element","What it is","How to use it"],
-   [["<b>By the end</b>","The competencies that chapter covers","Read them first. They are what the exam asks"],
++ p("<b>Part 1, 2 and 3 are this packet's own parts, not Silverthorn's chapters.</b> In the book, the compartments and the membrane are Chapter 3, everything that crosses the membrane is Chapter 5, and the signaling is Chapter 6.")
+ + tbl("What is in each part, and what it is for", ["Element","What it is","How to use it"],
+   [["<b>By the end</b>","The competencies that part covers","Read them first. They are what the exam asks"],
     ["Tables","Comparisons, side by side","Cover a column and recite it from memory"],
     ["Sequences","A numbered process, step by step","Redraw the chain on blank paper without looking"],
     ["Concept maps","A question with its branching answers","The question at the top is the one to ask yourself"],
     ["Hold onto this","The idea the section turns on","If you remember one thing per section, this is it"],
     ["Worked problems","A question, then the work in steps","Try it before you read the work. Getting it wrong first is the point"]])
  + hold("Two colors",
-     "Work through the first pass in one colour, before the videos. Then switch colours and add what the videos gave "
-     "you that the reading did not. The gap between the two colours is the most useful thing on the page, so do not "
+     "Work through the first pass in one color, before the videos. Then switch colors and add what the videos gave "
+     "you that the reading did not. The gap between the two colors is the most useful thing on the page, so do not "
      "erase the first pass.")
  + '</section>')
 

@@ -20,7 +20,7 @@ PDF, and the two Week 1 PDFs that did not exist were built for this drop.
 """
 
 import io, os
-from kit import (page, card, btn, btns, steps, ul, p, graded, pending, esc)
+from kit import (page, card, btn, btns, steps, ul, p, graded, pending, esc, deck)
 
 OUT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://drsrennie-stack.github.io/human-physiology-Fa26/"
@@ -81,24 +81,9 @@ PAGES.append(dict(
     '<h2>Little and often, not one long night</h2>',
     p("Four short sessions beat one long one, because the forgetting in between is what makes the memory "
       "stick. Pick from these and try more than one. None of it is graded."),
-    '<h3>Rx Cards</h3>',
-    p("Spaced recall cards for this week. Rate your confidence honestly. A confident wrong answer is the "
-      "one the cards will chase."),
-    '<h3>Draw it from memory</h3>',
-    p("Redraw one note sheet box on a blank canvas with nothing open, then check it against the sheet."),
-    '<h3>Brain dump</h3>',
-    p("Take a competency prompt cold, on paper. This is what the midterm feels like."),
-    '<h3>Book problems</h3>',
-    p("Work them forward before you look, then backward from the answer to see how the author got there."),
-    '<h3>Study With Me</h3>',
-    p("Do any of the above with other people and quiz each other."),
-    btns(btn("Rx Cards", SITE + "rx-cards.html", "tool"),
-         btn("Draw it from memory", SITE + "competency-brain-dump.html", "tool", primary=False),
-         btn("Brain dump practice", SITE + "braindump-week01.html", "tool", primary=False),
-         btn("Book problems", SITE + "assignment-bookproblems.html", "tool", primary=False),
-         btn("Study With Me", SITE + "study-with-me.html", "tool", primary=False)),
-    p("Those five are interactive tools, so they live on the course website rather than in Canvas. They "
-      "open in a new tab. Close that tab and you are back here."),
+    deck(SITE, 1),
+    p("These open in a new browser tab, because Rx Cards and Brain Dump both keep track of your "
+      "progress and can only do that properly in their own tab. Close the tab and you are back here."),
   )),
  next="<b>When this is done:</b> go to Step 5, the Reference Range Lab."))
 

@@ -86,7 +86,7 @@ A(tbl("What happens when a junction fails", ["Junction","Failure","What a person
   ["Gap junction","Cells stop coupling electrically","In the heart, conduction slows and arrhythmia becomes likely"]]))
 
 A(sec("Epithelia: the sheets that decide what enters"))
-A(ul(["An epithelium is <b>polarised</b>: an apical face toward the lumen, a basolateral face toward the blood, and different proteins on each.",
+A(ul(["An epithelium is <b>polarized</b>: an apical face toward the lumen, a basolateral face toward the blood, and different proteins on each.",
       "It sits on a <b>basement membrane</b>.",
       "It has no blood vessels of its own, so it is fed by diffusion from below. That limits how thick it can be.",
       "It is the interface where the transport chapter happens."]))

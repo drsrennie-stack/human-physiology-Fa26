@@ -16,7 +16,7 @@ A(tbl("Sorted by distance, which sets speed and reach", ["Type","How it travels"
  [["Gap junctional","Directly cell to cell through connexon pores","Touching cells","Fastest. Nothing enters the extracellular fluid at all"],
   ["Contact dependent","A membrane molecule binds a receptor on the cell it touches","Touching cells","Immune cells checking each other"],
   ["Autocrine","Released and acts on the cell that released it","Itself","Common in immune signalling and growth control"],
-  ["Paracrine","Into the interstitial fluid, onto neighbours","Short. Broken down before it travels","Histamine in an allergic response"],
+  ["Paracrine","Into the interstitial fluid, onto neighbors","Short. Broken down before it travels","Histamine in an allergic response"],
   ["Neurotransmitter","Across a synaptic cleft onto one target","Very short","Very fast, very precise"],
   ["Hormone","Into the blood","Everywhere","Slow to arrive, long lasting, reaches every cell"]]))
 A(hold("No receptor, no response",
@@ -109,7 +109,7 @@ A(ol(["The hormone crosses the membrane on its own.",
       "It binds its receptor in the cytosol or the nucleus.",
       "The complex binds DNA at a response element.",
       "Transcription of specific genes changes, so the cell makes different proteins.",
-      "The cell's behaviour changes for as long as those proteins last."]))
+      "The cell's behavior changes for as long as those proteins last."]))
 A(p("Cortisol and the sex steroids work this way. So does thyroid hormone, which is not a steroid but is lipophilic and behaves like one here."))
 
 A(sec("Turning the volume up and down"))

@@ -15,7 +15,7 @@ course site.
 """
 
 import io, os
-from kit import (page, card, btn, btns, steps, ul, p, graded, esc)
+from kit import (page, card, btn, btns, steps, ul, p, graded, esc, deck)
 
 OUT = "/home/claude/rebase"
 SITE = "https://drsrennie-stack.github.io/human-physiology-Fa26/"
@@ -66,22 +66,9 @@ PAGES.append(dict(
     '<h2>Little and often, not one long night</h2>',
     p("Four short sessions beat one long one, because the forgetting in between is what makes the "
       "memory stick. Pick from these and try more than one. None of it is graded."),
-    '<h3>Rx Cards</h3>',
-    p("Spaced recall cards for this week. Rate your confidence honestly. A confident wrong answer "
-      "is the one the cards will chase."),
-    '<h3>Draw it from memory</h3>',
-    p("Redraw one note sheet box on a blank canvas with nothing open, then check it against the sheet."),
-    '<h3>Brain dump</h3>',
-    p("Take a competency prompt cold, on paper. This is what the midterm feels like."),
-    '<h3>Book problems</h3>',
-    p("Work them forward before you look, then backward from the answer to see how the author got there."),
-    '<h3>Study With Me</h3>',
-    p("Do any of the above with other people and quiz each other."),
-    btns(btn("Rx Cards", SITE + "rx-cards.html", "tool"),
-         btn("Draw it from memory", SITE + "mastery-canvas.html", "tool", primary=False),
-         btn("Brain dump practice", SITE + "competency-brain-dump.html", "tool", primary=False),
-         btn("Book problems", SITE + "assignment-bookproblems.html?week=2", "tool", primary=False),
-         btn("Study With Me", SITE + "study-with-me.html", "tool", primary=False)),
+    deck(SITE, 2),
+    p("These open in a new browser tab, because Rx Cards and Brain Dump both keep track of your "
+      "progress and can only do that properly in their own tab. Close the tab and you are back here."),
   )
   + card(
     '<h2>One thing worth doing this week specifically</h2>',
@@ -118,21 +105,25 @@ PAGES.append(dict(
 
 # ============================================================ STEP 6
 PAGES.append(dict(
- step=6, stage="Apply", title="Your patient, the student health visit",
+ step=6, stage="Apply", title="Your patient, the water that made her worse",
  when="About 90 minutes",
- lead=p("Your patient is back, thirsty, tired, and losing weight while eating more.", "lede"),
+ lead=p("Your athlete from Week 1 is back. Two practices in the heat, five liters of plain water, "
+        "and she came off the field confused with her weight up rather than down.", "lede"),
  body=(
   card(
     '<h2>What this entry asks</h2>',
-    p("Follow what the insulin to glucagon ratio switches on and off inside her cells. Insulin "
-      "acts through a receptor enzyme on the cell surface, which is one of this week's "
-      "competencies, so <b>the pathway you drew in Step 1 is where this case starts</b>."),
+    p("Her sodium is 124 and her serum osmolality is 256. Everything in this case turns on one "
+      "idea from this week: <b>water follows solute, and it is the solute that cannot cross that "
+      "decides where the water goes.</b>"),
+    p("The lab also put her own red cells in three solutions and photographed each one. You read "
+      "those three slides, name the tonicity of each, and say which way water moved and why."),
     steps([
-      "Draw the loop by hand.",
+      "Draw her three fluid compartments before and after, with volumes and osmolarity on each, "
+      "and arrows for the water.",
+      "Read the three microscopy slides and name the tonicity of each.",
       "Answer the written questions on the case page.",
       "Log any AI you used, and what you used it for.",
-      "Add the entry to your chart behind the Week 1 one.",
-      "Upload the entry in Canvas.",
+      "Add the entry to your chart behind the Week 1 one, and upload it in Canvas.",
     ]),
     btns(btn("Open the Week 2 case", SITE + "assignment-apply.html?week=2", "tool"),
          btn("Your patient chart, all term", SITE + "patient-chart-book.html", "tool", primary=False),
@@ -245,7 +236,7 @@ PAGES.append(dict(
       "before the deadline."),
     p("The report is tracked complete or not complete. <b>The score is for you, not for a grade.</b>"),
     btns(btn("Take a Week 2 Mastery Check", SITE + "practice-exam.html?week=2", "tool"),
-         btn("Upload the report in Canvas", CANVAS + "assignments", "canvas", primary=False)),
+         btn("Upload the report in Canvas", CANVAS + "assignments/1241526", "canvas", primary=False)),
     graded("<b>Graded.</b> Complete or not complete. Due " + DUE + "."),
   )),
  next="<b>That is the last step of Week 2.</b> Everything is due by " + DUE + ". Week 3 adds no new "
@@ -259,7 +250,7 @@ if __name__ == "__main__":
         out = page(step=d["step"], total=8, title=d["title"], stage=d["stage"],
                    when=d["when"], lead=d["lead"], body=d["body"], nextline=d["next"])
         out = out.replace("bio005-w1-step-", "bio005-w2-step-").replace("Week 1 &middot;", "Week 2 &middot;")
-        out = out.replace("Week 1, Step %d:" % d["step"], "Week 2, Step %d:" % d["step"])
+        out = out.replace("Week 1, Step %d" % d["step"], "Week 2, Step %d" % d["step"])
         name = "w02-step-%02d-%s.html" % (d["step"], NAMES[d["step"]])
         io.open(os.path.join(OUT, name), "w", encoding="utf-8").write(out)
         print("%-36s %6d bytes" % (name, len(out)))

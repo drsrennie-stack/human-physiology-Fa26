@@ -353,7 +353,7 @@ WEEKS.append(dict(
   title="The cell, and how cells talk",
   nsteps="Nine",
   steps=W2_STEPS,
-  reading_short="Chapter 3",
+  reading_short="Chapter 3 for the cell, Chapter 5 for transport",
   runs="Week 2 opens Wednesday, September 16 at 8:00 pm Pacific and runs for two weeks. Week 3 "
        "adds nothing new, so this is one long stretch with the material and everything in it is "
        "due together on Sunday, September 27 at 10:00 pm.",
@@ -373,9 +373,11 @@ WEEKS.append(dict(
   lab_when="Wednesday to Sunday, about 3 hours",
   lab_what="Run the simulation, record what the lab asks for, and turn the analysis sheet in as "
            "one file.",
-  case="the student health visit",
-  case_what="The second entry in the chart you keep all term. Draw this week's mechanism by hand, "
-            "answer the written questions, and log any AI you used.",
+  case="the water that made her worse",
+  case_what="Your Week 1 athlete is back, confused after two practices in the heat and five liters "
+            "of plain water, with her weight up rather than down. Sodium 124. Draw her fluid "
+            "compartments before and after, then read three microscopy slides of her own red cells "
+            "in three solutions and name the tonicity of each.",
   discussion="Discussion 2, predict then check",
   discussion_when="Post by Friday, September 25; two replies by Sunday, September 27",
   due=[("Discussion 2",
@@ -384,7 +386,7 @@ WEEKS.append(dict(
         "Sunday, September 27, 10:00 pm. Complete or not complete."),
        ("Lab, PhysioEx Exercise 8, amylase",
         "Sunday, September 27, 10:00 pm."),
-       ("Application, your patient's student health visit",
+       ("Application, your patient and the IV fluid decision",
         "Sunday, September 27, 10:00 pm."),
        ("Mastery Check report",
         "Sunday, September 27, 10:00 pm. Complete or not complete.")],

@@ -23,6 +23,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TOKENS = io.open(os.path.join(HERE, "_tokens.css"), encoding="utf-8").read()
 BRANDBAR = io.open(os.path.join(HERE, "_brandbar.html"), encoding="utf-8").read()
 FOOTER = io.open(os.path.join(HERE, "_footer.html"), encoding="utf-8").read()
+# Only the study it step uses the four dark activity cards, so its CSS is
+# appended per page rather than carried by every step page that does not.
+DECK_CSS = io.open(os.path.join(HERE, "_deck.css"), encoding="utf-8").read()
 
 CANVAS_MODULES = "https://yccd.instructure.com/courses/42616/modules"
 
@@ -175,6 +178,59 @@ def card(*blocks):
     return '<section class="card">%s</section>' % "".join(blocks)
 
 
+# --- The four study activity buttons -------------------------------------
+# Same four cards as study-buttons.html, dropped straight into a step page so
+# a student picking an activity sees the choice rather than a row of links.
+# Nothing here reads state from anywhere, which is why there are no badges and
+# no live competency count on them.
+DECK_ICON = {
+ "rx": '<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7 9.5h8M7 13h5"/>',
+ "bd": '<path d="M13.5 3.5 20.5 10.5 9 22H3v-6z"/><path d="M11.5 5.5 18.5 12.5"/>',
+ "bp": ('<path d="M3.5 4.5h6a3 3 0 0 1 2.5 1.4A3 3 0 0 1 14.5 4.5h6v13h-6a3 3 0 0 0-2.5 '
+        '1.4A3 3 0 0 0 9.5 17.5h-6z"/><path d="M12 5.9v13"/>'),
+ "swm": ('<circle cx="8.5" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/>'
+         '<path d="M3 19.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M15 14.8c3 .2 5 2.1 5 4.7"/>'),
+}
+
+
+def act(key, href, title, what, why, mins, steel=False):
+    """One dark study activity card."""
+    return (
+'<li><a class="act%(first)s" href="%(href)s" target="_blank" rel="noopener">'
+'<span class="tile%(tilecls)s" aria-hidden="true">'
+'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false">'
+'%(icon)s</svg></span>'
+'<span class="h">%(title)s</span>'
+'<span class="what">%(what)s</span>'
+'<span class="why">%(why)s</span>'
+'<span class="mins">%(mins)s<span class="vh">, opens in a new tab</span></span>'
+'</a></li>'
+    ) % dict(first=" first" if steel else "", tilecls=" steel" if steel else "",
+             href=href, icon=DECK_ICON[key], title=esc(title), what=esc(what),
+             why=esc(why), mins=esc(mins))
+
+
+def deck(site, week):
+    """The four study activities as buttons, for the study it step."""
+    return '<ul class="deck" role="list">%s</ul>' % "".join([
+      act("rx", site + "rx-cards.html", "Rx Cards", "Spaced cards",
+          "The ones you miss come back tomorrow. The ones you know come back later.",
+          "12 min", steel=True),
+      act("bd", site + "competency-brain-dump.html", "Brain Dump",
+          "From memory, then check",
+          "Spin a prompt, draw it on paper with nothing open, then tick off what you left out.",
+          "20 min"),
+      act("bp", site + "assignment-bookproblems.html?week=%d" % week, "Book Problems",
+          "Work it, then work it backward",
+          "Try it before you look. Then start from the answer and see how the author got there.",
+          "15 min"),
+      act("swm", site + "study-with-me.html", "Study With Me", "Out loud, no notes",
+          "Saying it to another person is the fastest way to find what is still missing.",
+          "8 min"),
+    ])
+
+
 def graded(t):
     return '<p class="graded">%s</p>' % t
 
@@ -245,6 +301,7 @@ def page(step, total, title, stage, when, lead, body, nextline):
 </body>
 </html>
 """ % dict(step=step, total=total, title=esc(title), stage=stage.upper(), when=esc(when),
-           lead=lead, body=body, nextline=nextline, tokens=TOKENS, css=PAGE_CSS,
+           lead=lead, body=body, nextline=nextline, tokens=TOKENS,
+           css=PAGE_CSS + (DECK_CSS if 'class="deck"' in body else ""),
            brandbar=BRANDBAR, footer=FOOTER, modules=CANVAS_MODULES, backsvg=BACK_SVG,
            frame=frame_id, desc=esc("Week 1, Step %d of %d: %s. %s" % (step, total, title, when)))

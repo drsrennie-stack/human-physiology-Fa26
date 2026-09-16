@@ -1,0 +1,33 @@
+/* The four study activity buttons on the study it step. Dark cards on the
+   white page, so the choice reads as a choice rather than a row of links.
+   role=list is not needed here because the UL keeps its bullets removed but
+   the LI children are still list items with list-style none; Safari drops
+   list semantics, so the markup carries role="list" from the builder. */
+.deck{
+  list-style:none;margin:20px 0 6px;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px
+}
+.deck > li{display:flex;margin:0}
+.act{
+  display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;
+  background:#101B35;border:2px solid #101B35;border-radius:20px;
+  padding:26px 20px 22px;text-decoration:none;
+  transition:transform 200ms ease,box-shadow 200ms ease,border-color 200ms ease
+}
+.act:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(11,21,48,.22);border-color:#C9A14A}
+.act .tile{
+  width:66px;height:66px;border-radius:17px;display:flex;align-items:center;
+  justify-content:center;margin:0 0 17px;flex:none;background:#C9A14A;color:#0B1530
+}
+.act .tile.steel{background:#7E93B8}
+.act .h{
+  font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.01em;
+  color:#E3C87E;line-height:1.15;margin:0 0 8px
+}
+.act.first .h{color:#7E93B8}
+.act .what{color:#FFFFFF;font-size:15px;line-height:1.45;margin:0 0 10px}
+.act .why{color:#D9DEE8;font-size:14px;line-height:1.5;margin:0 0 16px}
+.act .mins{
+  margin:auto 0 0;font-family:var(--display);font-size:12.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:#C9A14A
+}
