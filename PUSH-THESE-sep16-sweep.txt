@@ -1,0 +1,132 @@
+PUSH THESE, September 16 2026
+Repo: drsrennie-stack/human-physiology-Fa26
+Built against commit b8d8d4c, which is what was on GitHub when this was made.
+19 files, all go in the repo root, flat. Nothing else changes.
+
+=======================================================================
+WHY THE FIRST AUDIT SAID CLEAN AND YOUR PAGES STILL DID NOT WORK
+=======================================================================
+The first pass checked whether a linked file exists. That catches a 404 and
+nothing else, and none of what you were actually hitting was a 404:
+
+  - A button with href="#" resolves fine. It just goes nowhere.
+  - A PDF link inside a Canvas frame resolves fine. Canvas strips the
+    permission to open a new tab, so the file loads inside the frame.
+  - A script that fails to load leaves a page blank without erroring.
+  - A page whose term start date is wrong shows the wrong week's content.
+
+So this round I rendered all 302 pages in a real browser and recorded what
+actually happened on load, and then tested the Canvas frame with the same
+sandbox Canvas uses. That is where the real faults were.
+
+=======================================================================
+1. PDFs OPENING INSIDE THE CANVAS FRAME  (16 files)
+=======================================================================
+Canvas embeds these pages in an iframe without allow-popups, so the browser
+ignores target="_blank" and loads the PDF inside the narrow frame with no way
+back out. Every one of these pages now handles the click itself: it asks for a
+real new tab, and if the browser refuses, it sends the whole Canvas tab to the
+file instead. Either way the file opens above the frame and Back still works.
+The markup keeps target="_blank" so it still behaves with JavaScript off.
+
+41 links across these 16 pages were affected:
+
+  concept-videos-week01.html
+  concept-videos-week03.html
+  w01-step-01-first-pass.html
+  w01-step-03-upload-note-sheet.html
+  w01-step-04-study-it.html
+  w01-step-05-lab.html
+  w01-step-06-patient.html
+  w01-step-07-discussions.html
+  w01-step-08-mastery-check.html
+  w02-step-01-first-pass.html
+  w02-step-03-upload-note-sheets.html
+  w02-step-04-study-it.html
+  w02-step-05-lab.html
+  w02-step-06-patient.html
+  w02-step-07-discussion.html
+  w02-step-08-mastery-check.html
+
+No Canvas re-paste needed. These are iframed, so the moment the files are up,
+Canvas picks them up.
+
+=======================================================================
+2. mastery-canvas.html, the drawing canvas, was opening blank
+=======================================================================
+This page came over from BIO 004 and still had BIO 004 wiring. Three faults,
+all fixed:
+
+  a. It asked for draw-checklists.js at the root. That file does not exist
+     here. The physiology set does exist, at os/draw-checklists.js, in a
+     different shape. The page now loads that file and maps it onto the field
+     names it reads. 128 prompts now load where zero loaded before.
+     Edit prompts in os/draw-checklists.js, never in the page.
+
+  b. Its term start was August 17, which is BIO 004's. Every prompt was
+     therefore three weeks ahead of where the class actually is. It is now
+     September 8, which is your Week 1.
+
+  c. It capped the term at 17 weeks. This course is 15.
+
+This page is linked from every week page, so it was blank for everyone.
+
+=======================================================================
+3. lecture-week.html, 38 dead Slides buttons on Week 2
+=======================================================================
+Week 2 lists 63 concept videos. The 18 cell decks and the 7 signaling decks
+exist. The 38 transport decks do not. Those 38 rows now show Watch only, with
+no Slides button, so nothing on the page leads to the 404 page. The Watch link
+on every one of those rows is untouched and still works.
+
+If you build the transport decks later, put the file name back into the fourth
+slot of that row in the VIDEOS list and the button returns by itself.
+
+=======================================================================
+4. study-with-me.html
+=======================================================================
+  - The "Open the Study With Me thread in Canvas" button was href="#", a
+    button that goes nowhere. It now opens the course discussions list, which
+    exists. TO DO: when you create a dedicated Study With Me thread, swap that
+    one URL for its discussion_topics address. It is marked with a comment.
+  - Added: "Course calendar, all fifteen weeks", pointing at
+    course-schedule.html.
+  - Cut the prose. "What this is" was three paragraphs and is now one line
+    plus four bullets. The boundary box is one line plus a Fine / Not fine
+    pair. Both session cards are bullets instead of paragraphs. The run of
+    show keeps its numbers, the tips keep their bullets.
+  - The Questions people ask headings were h4 under an h2, which skips a
+    level for a screen reader. They are h3 now and look identical.
+
+=======================================================================
+HOW TO CHECK IT WORKED
+=======================================================================
+Give Pages a minute, then hard refresh Canvas, Cmd+Shift+R, because the old
+frame is cached in your browser.
+
+  1. Week 1 Step 1 in Canvas. Click the competency list button. The PDF should
+     take over the screen, not sit inside the frame.
+  2. Open mastery-canvas.html. It should show a Week 1 prompt with a ticklist,
+     not an empty canvas.
+  3. Open lecture-week.html?week=2 and scroll to the transport videos. Watch
+     only, no Slides button, no 404.
+  4. Open study-with-me.html. Every button goes somewhere real.
+
+=======================================================================
+STILL OPEN, NOT IN THIS DROP
+=======================================================================
+  1. math-review.html does not exist and is linked from both Week 2 notes
+     pages, which are open right now. Needs either the page built or the two
+     links removed. Say which and I will do it.
+  2. The old /site/ folder is still published. It is a pre-August copy of the
+     course with about 20 dead links inside it. Nothing links to it, but it is
+     live and indexed. Deleting it, or renaming it to _site so Jekyll skips
+     it, is a GitHub-side job since an upload cannot remove files.
+  3. These are published and are BIO 004 leftovers that throw 404s on load:
+     mastery-os-fall-2026.html, recall-rx.html,
+     note-sheet-w02cell-preview.html. Safe to delete in GitHub.
+  4. mastery-canvas.html still fires one silent 404 for bio004-reading-mode.js,
+     requested from inside bio004-dock.js. Nothing a student sees, and fixing
+     it means editing a shared BIO 004 file, so I left it alone.
+  5. notesheet-directions.html does not exist and is linked from m02-notes.html
+     and m02-slides.html, which are the week 0 optional review set.
