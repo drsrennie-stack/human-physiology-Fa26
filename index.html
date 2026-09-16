@@ -105,27 +105,30 @@ footer a:hover{color:var(--gold)}
     <span id="enterLabel">Enter the course</span>
     <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 2 12 8l-6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
-  <p class="newtab" id="enterNote" hidden>Opens the course website in a new tab. Canvas stays where it is.</p>
+  <p class="newtab" id="enterNote" hidden>This leaves Canvas and opens the course website, with its own navigation. Your browser Back button brings you back to Canvas.</p>
 
 </div></main>
 
 <script>
-/* THE DOOR HAS TO BREAK OUT OF THE FRAME.
-   If this page is pasted into Canvas as an iframe, a plain relative link
-   loads course.html inside that frame, so the student is still sitting on a
-   Canvas page and it looks like the button did nothing. Sep 15 2026: Scrubs
-   hit exactly that. Framed, the button now points at the real site address
-   and opens it in its own tab, which is the whole point of a door that says
-   "off Canvas". Canvas stays open behind it. */
+/* THE DOOR BREAKS OUT OF THE FRAME, PROPERLY.
+   A plain relative link loads course.html inside the Canvas frame, so the
+   student is still on a Canvas page and it looks like the button did nothing.
+   Sep 15 2026: Scrubs hit that. Sep 16: she is right that a framed page can
+   leave, and this is how. target="_top" navigates the whole browser window,
+   not the frame, so one click takes the student out of Canvas entirely and
+   onto the course website, where the site's own navigation takes over. Back
+   returns them to Canvas whenever they want it.
+
+   _top rather than _blank on purpose: she asked for the alternate route to
+   live outside Canvas, and a new tab leaves them straddling both. */
 (function(){
   var framed = false;
   try { framed = (window.top !== window.self); } catch(e){ framed = true; }
   if(!framed) return;
   var a = document.getElementById("enter");
   a.setAttribute("href", "https://drsrennie-stack.github.io/human-physiology-Fa26/course.html");
-  a.setAttribute("target", "_blank");
-  a.setAttribute("rel", "noopener");
-  document.getElementById("enterLabel").textContent = "Open the course website";
+  a.setAttribute("target", "_top");
+  document.getElementById("enterLabel").textContent = "Enter the course website";
   document.getElementById("enterNote").hidden = false;
 }());
 </script>
