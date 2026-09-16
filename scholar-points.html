@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brand.css">
-<meta name="description" content="Up to 2.5 percent on your final grade for studying with other people, and why it is not extra credit.">
+<meta name="description" content="Up to 2.5 percent on your final grade for studying the physiology with other people. Optional, and the one thing I would most recommend.">
 <script>
 /* Pick the chrome before paint, from the head, so nothing flickers and so the
    footer is covered even though it has not been parsed yet. Inside a Canvas
@@ -198,6 +198,43 @@ footer :focus-visible{outline-color:var(--gold)}
   a{color:#000;text-decoration:none}
 }
 
+/* ---- the quick facts row ----
+   A KPI row rather than a chart: four headline numbers with no relationship
+   between them, so bars would invent one. */
+.facts{list-style:none;margin:20px 0 4px;padding:0;display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.facts > li{margin:0;background:var(--navy-tint);border-radius:12px;padding:16px 18px}
+.facts .fv{display:block;font-family:var(--display);font-weight:800;
+  font-size:clamp(24px,3.4vw,30px);letter-spacing:-.03em;color:var(--maroon);
+  line-height:1.05}
+.facts .fl{display:block;margin-top:7px;font-size:13.5px;line-height:1.45;
+  color:var(--ink-soft)}
+
+/* ---- hours to percent ----
+   One series, so one hue for every bar and no legend: the caption says what is
+   plotted. The bar length carries the magnitude, so coloring each bar
+   differently would double-encode it and burn the only free channel.
+   Bars are 20px, under the 24px cap, with a 4px rounded data end and a square
+   start at the baseline. Rows are 12px apart, well past the 2px surface gap.
+   Every value is also in the table underneath, so nothing is gated behind the
+   picture. No script: Canvas strips them, and this needs none. */
+.hchart{margin:22px 0 18px;padding:0}
+.hchart figcaption{font-family:var(--display);font-size:13px;font-weight:800;
+  letter-spacing:.02em;color:var(--navy);margin:0 0 14px}
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.bars > li{margin:0;display:grid;grid-template-columns:78px 1fr 56px;
+  align-items:center;gap:12px}
+.bars .bl{font-size:13.5px;font-weight:700;color:var(--navy);text-align:right}
+.bars .track{display:block;height:20px;background:var(--navy-tint);
+  border-radius:0 4px 4px 0}
+.bars .fill{display:block;height:100%;background:var(--maroon);
+  border-radius:0 4px 4px 0}
+.bars .bv{font-family:var(--display);font-size:13.5px;font-weight:800;
+  color:var(--maroon-dark)}
+@media (max-width:560px){
+  .bars > li{grid-template-columns:68px 1fr 50px;gap:9px}
+  .bars .bl,.bars .bv{font-size:12.5px}
+}
 
 </style>
 </head>
@@ -222,109 +259,169 @@ footer :focus-visible{outline-color:var(--gold)}
 <header class="hero"><div class="wrap">
   <p class="eyebrow">Start here</p>
   <h1>Scholar <span>Points.</span></h1>
-  <p class="lede">Up to 2.5 percent on your final grade for studying with other people, and why it is not extra credit.</p>
+  <p class="lede">Up to 2.5 percent on your final grade for studying the physiology with other people. Optional, and the one thing I would most recommend.</p>
 </div></header>
 
 <main id="main"><div class="wrap">
 <section class="card">
-  <h2>Why this is not extra credit</h2>
-  <p class="lede">Up to a <b>2.5 percent</b> bump on your final course grade, earned by putting real hours into practicing this material with other people. Thirty hours earns the full bump. Three hours a week is the most that can count.</p>
-  <p>I do not offer extra credit. Extra credit is a back end fix: something bolted on at the end of the term so a grade that went badly can be pulled up, usually by work that has little to do with the course. It rewards whoever is most behind and it teaches nobody anything.</p>
-  <p>Scholar Points work from the front end. They are not a rescue and they are not a second chance. They are what happens when you put the hours into the practice that makes this course easier while you are still taking it: saying the physiology out loud, teaching it to somebody, being quizzed by somebody who will not let you off. Students who do that tend to have a better grade before any bump is applied, and the bump is on top of that.</p>
-  <p>Which is the honest sales pitch for it. The 2.5 percent is real and I will apply it, but it is the smaller half of what you get. The larger half is that the exams get easier because you spent the term producing this material out loud instead of rereading it.</p>
+  <p class="lede">Study the physiology with other people, log the hours, and get up to <b>2.5 percent</b> added to your final grade. It is optional. It is also the single thing I would most recommend if you want this course to go well.</p>
+
+  <ul class="facts" role="list">
+    <li><span class="fv">2.5%</span><span class="fl">The most it can add to your final grade</span></li>
+    <li><span class="fv">30</span><span class="fl">Hours over the term for the full amount</span></li>
+    <li><span class="fv">3</span><span class="fl">Hours a week is the most that counts</span></li>
+    <li><span class="fv">Optional</span><span class="fl">Skipping it costs you nothing</span></li>
+  </ul>
+
+  <div class="btns">
+    <a class="btn" href="study-with-me.html">Go to Study With Me and sign up</a>
+    <a class="btn sec" href="#qualifies">What qualifies</a>
+  </div>
 </section>
 
 <section class="card">
-  <h2>How it works</h2>
-  <ul>
-    <li><b>Thirty hours over the semester earns the full 2.5 percent.</b> Fewer hours earn a proportion of it. Nothing is all or nothing.</li>
-    <li><b>Three hours a week is the most that counts.</b> You can do more and you are welcome to, but a single marathon weekend cannot substitute for showing up across the term. Spacing is the whole reason this works.</li>
-    <li><b>Hosts get one extra hour.</b> Running a session means preparing it and facilitating it, and that work is real. A two hour session you hosted logs as three. Not double, just the one extra hour on top, however long the session ran. Attendees log the time they were there.</li>
-    <li><b>The three hour weekly cap is applied after the host hour.</b> So a two hour session you hosted fills the week on its own. Anything past that still goes on your log, it just does not add to the total.</li>
-    <li><b>It is applied at the end of the semester</b>, to your final course percentage, after everything else is in.</li>
-    <li><b>It can only help you.</b> There is no version of this that costs you anything, and choosing not to do it is a perfectly reasonable choice that leaves your grade exactly where your work put it.</li>
-  </ul>
+  <h2>Online classes get lonely, and this is the fix</h2>
+  <p>An online class can be an isolating way to learn something hard, and physiology is hard. You are reading on your own, drawing on your own, and sitting an exam on your own, and it is easy to go a whole term without ever hearing another student say any of this out loud.</p>
+  <p>Scholar Points exist to give you a reason to fix that. If your schedule allows it and you would like to, you can work through this material with your classmates, teach each other, quiz each other, and find out that the thing you thought only you found confusing is confusing to everybody.</p>
+  <p><b>It is optional, not required.</b> Nothing here is held against you if you never do it. But it is highly recommended, because the students who talk this material through with somebody tend to do better, and they tend to enjoy the term more.</p>
+</section>
+
+<section class="card">
+  <h2>What the hours are worth</h2>
+  <p>Thirty hours across the term earns the full 2.5 percent. Fewer hours earn the same share of it, at the same rate. <b>Nothing here is all or nothing</b>, so six hours is worth doing and so is sixteen.</p>
+
+  <figure class="hchart">
+    <figcaption>Hours you log, and what they add to your final course percentage</figcaption>
+    <ul class="bars" role="list">
+      <li><span class="bl">30 hours</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="bv">2.5%</span></li>
+      <li><span class="bl">20 hours</span><span class="track"><span class="fill" style="width:66.7%"></span></span><span class="bv">1.67%</span></li>
+      <li><span class="bl">15 hours</span><span class="track"><span class="fill" style="width:50%"></span></span><span class="bv">1.25%</span></li>
+      <li><span class="bl">10 hours</span><span class="track"><span class="fill" style="width:33.3%"></span></span><span class="bv">0.83%</span></li>
+      <li><span class="bl">6 hours</span><span class="track"><span class="fill" style="width:20%"></span></span><span class="bv">0.5%</span></li>
+    </ul>
+  </figure>
+
   <div class="tablewrap">
     <table>
-      <tr><th>Hours that count</th><th>Bump on your final percentage</th></tr>
-      <tr><td>30 hours</td><td>2.5 percent, the full bump</td></tr>
-      <tr><td>15 hours</td><td>1.25 percent</td></tr>
-      <tr><td>10 hours</td><td>About 0.83 percent</td></tr>
-      <tr><td>6 hours</td><td>0.5 percent</td></tr>
+      <caption class="vh">Hours logged and the percentage added to your final grade</caption>
+      <thead><tr><th scope="col">Hours that count</th><th scope="col">Added to your final percentage</th></tr></thead>
+      <tbody>
+        <tr><td>30 hours</td><td>2.5 percent, the full amount</td></tr>
+        <tr><td>20 hours</td><td>About 1.67 percent</td></tr>
+        <tr><td>15 hours</td><td>1.25 percent</td></tr>
+        <tr><td>10 hours</td><td>About 0.83 percent</td></tr>
+        <tr><td>6 hours</td><td>0.5 percent</td></tr>
+      </tbody>
     </table>
   </div>
-  <h3>What counts as an hour</h3>
-  <p>Time spent working the physiology online with at least one other person: a Study With Me session, a study group you set up yourself, quizzing each other, teaching a competency at a whiteboard on camera, doing brain dumps together, running a Kahoot, working the book problems together. It does not include time you spent alone, and it does not include doing graded work together, which is not allowed anyway.</p>
+
+  <p>It is applied at the very end of the term, to your final course percentage, after everything else is in. It can only help you, and it is never subtracted.</p>
+</section>
+
+<section class="card" id="qualifies">
+  <h2>What qualifies</h2>
+  <p class="lede">Five things. All five have to be true for a session to count.</p>
+  <ol class="steps" role="list">
+    <li><b>It is posted on the Study With Me page and open to everyone.</b> This is the one people miss. A private session with your two friends does not count. If you want to host, you post it so any student in the class can see it and join. Closed groups are welcome to exist, they just do not earn points.</li>
+    <li><b>People sign up.</b> Sessions are signed up for on the Study With Me page, so the host knows who is coming and there is a record of who was there.</li>
+    <li><b>It happens online and it is recorded.</b> Zoom, Google Meet, Discord, anything that records. Whoever hosts records it and keeps the link.</li>
+    <li><b>Everybody is on camera, the whole time.</b> All of you, for the whole session. A room of black squares is not what this is for and I cannot count it.</li>
+    <li><b>You log what you were actually there for.</b> Arriving late or leaving early is fine. Log the time you were present and working, not the time the meeting was open.</li>
+  </ol>
+  <p>If any of this is a problem for you, cameras especially, come and talk to me instead of skipping the whole thing. There is almost always a way to sort it out.</p>
+  <div class="btns">
+    <a class="btn" href="study-with-me.html">Post a session or sign up for one</a>
+  </div>
 </section>
 
 <section class="card">
-  <h2>What a session has to do to count</h2>
-  <p>None of this is here to be difficult. It is here because I am putting a percentage on your grade, and a percentage on a grade has to rest on something I can actually see.</p>
+  <h2>What you can actually do together</h2>
+  <p>Anything where you are producing this material out loud with other people. Some things that work well:</p>
   <ul>
-    <li><b>Online, not in person.</b> Zoom, Google Meet, Discord, anything you like that records. An in person study session is still worth doing, it just cannot be verified, so it does not go on the log.</li>
-    <li><b>Record it.</b> Whoever hosts records the session and keeps the link. That is what shows me it happened and that people were working, not just signed in.</li>
-    <li><b>Cameras on.</b> Everybody, for the whole session. A black square is not attendance, and a session where half the squares are black is not the thing this is trying to build.</li>
-    <li><b>Stay the whole time.</b> Log the time you were actually present. Arriving late or leaving early is fine, log what you were there for. Do not log an hour you spent in another tab.</li>
-    <li><b>One session at a time.</b> Sitting in two rooms at once means neither can be verified, so neither counts.</li>
-    <li><b>Hosts keep the recording and the attendance list.</b> If you ran it, you are the one who can show who was there and for how long.</li>
+    <li><b>Play a learning game.</b> Run a Kahoot, quiz each other on competencies, race through the structures. Games are on the list because they work, not as a consolation prize.</li>
+    <li><b>Work the book problems together.</b> Everybody tries the problem first, then you compare what you got and argue about it.</li>
+    <li><b>Do brain dumps side by side.</b> Same prompt, everyone draws or writes it from memory with nothing open, then you hold them up and see what each person left out.</li>
+    <li><b>Teach a competency.</b> One person explains a mechanism on camera with no notes while everybody else asks the awkward questions.</li>
+    <li><b>Go through Rx Cards together</b> and say the answers out loud before you flip them.</li>
   </ul>
-  <p>If something about this is a problem for you, cameras especially, come and talk to me rather than skipping the whole thing. There is almost always a way to sort it out.</p>
+  <p><b>What does not count:</b> time you spent studying alone, and doing graded work together, which is not allowed anyway. Your labs, chart entries and Mastery Checks are yours.</p>
   <div class="btns">
-    <a class="btn sec" href="study-with-me.html">Study With Me</a>
+    <a class="btn sec" href="course-tools.html">The study tools</a>
+    <a class="btn sec" href="competency-brain-dump.html">Brain Dump</a>
+    <a class="btn sec" href="rx-cards.html">Rx Cards</a>
   </div>
 </section>
 
 <section class="card">
-  <h2>Submitting it every week</h2>
-  <p>There is an assignment in Canvas for your hours. Log your sessions as you do them, then at the end of each block turn in your log for that block, along with your running total, so we both know where you are.</p>
-  <p>Weeks 2 and 3 are one combined block, September 14 to 27. You submit your hours once for the whole block, by Sunday September 27. The three hour cap is still counted week by week inside that block, so up to six hours can count across the two weeks, three in each. Week 4 opens Monday September 28 and goes back to one submission at the end of that week.</p>
-  <p class="graded">Weeks 2 and 3 hours are due <b>Sunday, September 27</b>. After that, hours are due at the end of each week.</p>
+  <h2>My sessions count too</h2>
+  <p>I will put sessions of my own on the Study With Me page through the term. Sign up the same way you would for anyone else's, and the time you spend in one counts toward your Scholar Points exactly like a session with your classmates.</p>
+  <p>They are not office hours and they are not lecture. They are the same thing I am asking you to do with each other, with me in the room.</p>
   <div class="btns">
-    <a class="btn" href="https://yccd.instructure.com/courses/42616/" target="_blank" rel="noopener">Open Canvas and find the Scholar Points assignment<span class="vh"> (opens in a new tab)</span></a>
+    <a class="btn" href="study-with-me.html">See what is posted</a>
   </div>
 </section>
 
 <section class="card">
-  <h2>Keeping track</h2>
-  <p>Log each session as you do it, right after it ends, while you still remember who was there and what you worked on. Keep the log yourself, on paper or in a document you own. Nothing about it is uploaded anywhere except what you turn in to Canvas.</p>
-  <h3>What every entry needs</h3>
+  <h2>If you host, you get an extra hour</h2>
   <ul>
-    <li>The date.</li>
-    <li>What it was: Study With Me attended, Study With Me hosted, a study group you set up, or quizzing and teaching with a classmate.</li>
-    <li>Hours, to the quarter hour. Twenty minutes is 0.33 hours.</li>
-    <li>What you worked on, for example the week and the competency.</li>
-    <li>Who was there. First names are fine.</li>
-    <li>The recording link.</li>
-    <li>Your confirmation that cameras were on and you were present for the time you are logging.</li>
+    <li><b>Hosting adds one hour to your log</b>, whatever the length of the session. A two hour session you hosted logs as three. It is one extra hour, not double.</li>
+    <li><b>Why:</b> preparing a session is real work that happens before anyone shows up. Building the Kahoot, picking the competency, keeping four people on track.</li>
+    <li><b>The three hour weekly cap is applied after the host hour.</b> So a two hour session you hosted fills that week on its own.</li>
+    <li><b>Hosts keep the recording and the sign-up list.</b> If you ran it, you are the one who can show who was there and for how long.</li>
   </ul>
-  <p>At the end of the semester, send me the whole log and I will apply the bump.</p>
 </section>
 
 <section class="card">
-  <h2>Where you are</h2>
-  <p>Your running total is the one you keep on your own log, and it is the number you carry over each time you submit. Add each block's counted hours to the total from the block before, so the number you turn in is always the term total to date.</p>
-  <p>Your submitted hours and any feedback on them show up in Canvas with the rest of your work. The bump itself is not in the gradebook during the term. I apply it at the end, to your final course percentage.</p>
+  <h2>Logging and turning it in</h2>
+  <p>Keep your own log and write each session down right after it ends, while you still remember who was there. Every entry needs:</p>
+  <ul>
+    <li>The date</li>
+    <li>Whether you hosted or attended</li>
+    <li>Hours, to the quarter hour. Twenty minutes is 0.33 hours</li>
+    <li>What you worked on, for example the week and the competency</li>
+    <li>Who was there. First names are fine</li>
+    <li>The recording link</li>
+    <li>Your confirmation that cameras were on and you were there for the time you logged</li>
+  </ul>
+  <p>Turn your hours in through Canvas at the end of each week, with your running total, so we both know where you are. At the end of the term send me the whole log and I apply the bump.</p>
+  <p class="graded"><b>Weeks 2 and 3 are one block.</b> Submit those hours once, by Sunday, September 27. The three hour cap still counts week by week inside the block, so up to six hours can count across the two weeks. Week 4 opens September 28 and goes back to one submission a week.</p>
   <div class="btns">
-    <a class="btn sec" href="https://yccd.instructure.com/courses/42616/" target="_blank" rel="noopener">Check your submissions in Canvas<span class="vh"> (opens in a new tab)</span></a>
+    <a class="btn" href="https://yccd.instructure.com/courses/42616/" target="_blank" rel="noopener">Turn in your hours in Canvas<span class="vh"> (opens in a new tab)</span></a>
   </div>
+</section>
+
+<section class="card">
+  <h2>Why this is not extra credit</h2>
+  <p>I do not offer extra credit. Extra credit is a fix bolted on at the end of a term so a grade that went badly can be pulled up, usually with work that has little to do with the course. It rewards whoever is furthest behind and it teaches nobody anything.</p>
+  <p>Scholar Points work from the other end. They are not a rescue. They are what happens when you put hours into the practice that makes this course easier while you are still taking it. Students who do that tend to have a better grade before any bump is applied, and the bump goes on top of that.</p>
+  <p>Which is the honest pitch. The 2.5 percent is real and I will apply it, but it is the smaller half of what you get. The larger half is that the exams get easier, because you spent the term saying this material out loud instead of rereading it.</p>
 </section>
 
 <section class="card">
   <h2>Questions people ask</h2>
   <h3>Is 2.5 percent enough to change my letter grade?</h3>
-  <p>Sometimes, at a boundary. An 87.5 becomes a 90. It is not enough to rescue a grade that is well down, and it was never designed to, which is the difference between this and extra credit.</p>
+  <p>Sometimes, at a boundary. An 87.5 becomes a 90. It is not enough to rescue a grade that is well down, and it was never meant to be, which is the difference between this and extra credit.</p>
+
   <h3>What if I can only manage ten hours?</h3>
-  <p>Then you earn a third of it, which is roughly 0.83 percent, and you also spent ten hours practicing physiology out loud. Both of those are worth having. There is no threshold you have to clear before anything counts.</p>
+  <p>Then you earn about 0.83 percent, and you also spent ten hours practicing physiology out loud. Both are worth having. There is no threshold you have to clear before anything counts.</p>
+
   <h3>Can I log time I studied alone?</h3>
-  <p>No. Studying alone is most of what this course asks of you and it is already reflected in your grade through the work itself. This is specifically for the hours you spend working it with other people, because that is the part nobody does unless something nudges them.</p>
-  <h3>Why does the host get an extra hour?</h3>
-  <p>Because preparing a session and running it is work that happens outside the session. Building a Kahoot, picking the competency, keeping four people on track for an hour. One extra hour, whatever the length. It is not doubled.</p>
+  <p>No. Studying alone is most of what this course asks of you and it already shows up in your grade through the work itself. This is for the hours you spend working it with other people, because that is the part almost nobody does unless something nudges them.</p>
+
+  <h3>Can I just study with my roommate and log it?</h3>
+  <p>Not for points. Study with your roommate all you like, it is good for you. To count, a session has to be posted on the Study With Me page where anyone in the class can sign up for it. That is what keeps this from turning into a private club.</p>
+
+  <h3>What if I post a session and nobody comes?</h3>
+  <p>Post it again for another time and tell me. If a session is not getting takers it is usually the time slot, not you, and I can help you find a better one or put the word out.</p>
+
   <h3>What if somebody cannot have their camera on?</h3>
   <p>Come and talk to me. There are real reasons, and none of them should cost you the hours. What I cannot do is take a room full of black squares as evidence that a session happened.</p>
+
   <h3>Do you check?</h3>
-  <p>I read the logs. I am not auditing timestamps, and an honor system that somebody games mostly cheats them out of the hours, which were the actual point. Put down what you did.</p>
+  <p>I read the logs. I am not auditing timestamps. An honor system that somebody games mostly cheats them out of the hours, which were the actual point. Put down what you did.</p>
+
   <h3>What if I host and two people come for twenty minutes?</h3>
-  <p>Log the time you were there working. Twenty minutes is 0.33 hours, and small sessions are real sessions.</p>
+  <p>Log the time you were there working. Twenty minutes is 0.33 hours, plus your host hour. Small sessions are real sessions.</p>
 </section>
 </div></main>
 
