@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The chemical synapse: the story &middot; Recording script &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:#0B1530;color:#F5F1E8;border-color:#0B1530;box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- notes page ---------- */
+.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
+.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
+.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
+  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
+.hero h1 .hl{color:var(--terra)}
+.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
+  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
+h2:first-of-type{border-top:0;padding-top:0}
+h2 .hl{color:var(--terra)}
+h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
+h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+p{margin:0 0 13px}
+.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
+
+/* term blocks, boxed so each definition reads as its own card */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+@media(max-width:760px){.terms{grid-template-columns:1fr}}
+.term{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:14px 16px}
+.term dt{font-weight:800;font-size:15.5px;margin:0 0 4px}
+.term dd{margin:0;font-size:14.5px;color:var(--navy-72)}
+.term dd b{color:var(--navy)}
+
+/* compartment color key: the same three codes are used in the figure,
+   in this legend, and on each group box, so a student can match them by eye */
+.ckey{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ckitem{display:inline-flex;align-items:center;gap:9px;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.sw{width:22px;height:22px;border-radius:5px;flex:0 0 auto}
+.sw.ext{background:var(--wash);border:1.6px dashed var(--navy-72)}
+.sw.int{background:#fff;border:2.4px solid var(--terra)}
+.sw.icf{background:var(--navy);border:1.6px solid var(--navy)}
+.ckitem .lb{line-height:1.2}
+.ckitem .sub{font-weight:600;color:var(--navy-72);font-size:12.5px;line-height:1.2}
+body.present .ckitem{font-size:clamp(13px,1.3vw,18px)}
+body.present .sw{width:26px;height:26px}
+
+/* grouped compartments: the group border shows what contains what */
+.tgroup{border-radius:var(--r-card);padding:16px 18px 18px;margin:0 0 14px}
+.tgroup .glab{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.tgroup .glab .sw{width:16px;height:16px;border-radius:4px}
+.tgroup .gnote{font-size:14px;color:var(--navy-72);margin:0 0 6px}
+.tgroup.ext{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.tgroup.ext .glab{color:var(--navy-72)}
+.tgroup.int{border:2px solid var(--terra)}
+.tgroup.int .glab{color:var(--terra)}
+.tgroup.icf{border:1.8px solid var(--navy)}
+.tgroup.icf .glab{color:var(--navy)}
+
+/* causal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.chain .lk{flex:1 1 130px;min-width:120px;background:#fff;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 13px}
+.chain .lk .k{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0 0 4px}
+.chain .lk p{margin:0;font-size:14px;line-height:1.4}
+.chain .ar{display:flex;align-items:center;justify-content:center;color:var(--terra);
+  font-size:20px;font-weight:800;padding:0 8px;flex:0 0 auto}
+@media(max-width:700px){.chain{flex-direction:column}.chain .ar{transform:rotate(90deg);padding:5px 0}}
+
+/* key box */
+.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
+.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
+.key p:last-child,.key ul:last-child{margin-bottom:0}
+
+/* equation */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:14px 0}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+
+.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+
+@media print{
+  @page{margin:13mm}
+  .site-header .site-logo svg{height:32px}
+  .wb,.wb-launch,.lightbox,.skip{display:none!important}
+  body{font-size:10.5pt}
+  h2{break-after:avoid;page-break-after:avoid}
+  .card,.key,.eq,figure,.chain,.term,.tgroup,.cprof{break-inside:avoid;page-break-inside:avoid}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* transcript blocks and worked problems */
+.sl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:0 0 10px}
+.sl b{color:var(--terra)}
+.tx p{max-width:70ch}
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+.prob{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:18px 0}
+.prob .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.prob .q{font-weight:800;margin:0 0 12px;font-size:16px}
+.prob .q+ul{margin-bottom:14px}
+.prob h5{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:14px 0 8px}
+sup,sub{font-size:.72em;line-height:0}
+img.fig{object-fit:contain}
+@media print{.prob,.work>li{break-inside:avoid;page-break-inside:avoid}}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+
+.prereq .card{padding:18px 20px}
+.prereq .eyebrow{margin-bottom:8px}
+.prereq ul.bul{margin-bottom:6px}
+.prereq ul.bul>li{padding:3px 0 3px 18px;font-size:14.5px}
+.prereq ul.bul>li::before{top:12px;width:5px;height:5px}
+.prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
+.prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
+@media(max-width:860px){.prereq{grid-template-columns:1fr}}
+
+/* ---------- recording script ---------- */
+.wrap{max-width:1040px}
+.sc{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 20px;margin:0 0 14px}
+.sc.beatchange{border-left:4px solid var(--terra)}
+.schead{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:baseline;margin:0 0 12px}
+.scn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra)}
+.sct{margin:0;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.scbeat{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);white-space:nowrap}
+.say{margin:0}
+.say p{margin:0 0 10px;font-size:16px;line-height:1.65;max-width:70ch}
+.say p:last-child{margin-bottom:0}
+.cue{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;padding:10px 12px;
+  border:.5px solid var(--navy-15);border-radius:6px;font-size:14px;color:var(--navy-72)}
+.cue b{color:var(--terra);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  white-space:nowrap;padding-top:3px}
+.cue span{line-height:1.5}
+.beatbar{display:flex;align-items:baseline;gap:14px;margin:34px 0 14px;padding:0 0 10px;
+  border-bottom:1.5px solid var(--terra)}
+.beatbar h2{border:0;padding:0;margin:0}
+.beatbar .mins{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--navy-72)}
+.runsheet{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0 0}
+.runsheet th,.runsheet td{text-align:left;padding:8px 10px;border-bottom:.5px solid var(--navy-15)}
+.runsheet thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72)}
+.runsheet td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{padding:9px 0 9px 34px;position:relative;border-top:.5px solid var(--navy-15);font-size:15.5px}
+.checklist li:first-child{border-top:0}
+.checklist li::before{content:"";position:absolute;left:2px;top:14px;width:15px;height:15px;
+  border:1.6px solid var(--navy-72);border-radius:3px}
+sub,sup{font-size:.72em;line-height:0}
+@media print{
+  @page{margin:14mm}
+  .sc{break-inside:avoid;page-break-inside:avoid}
+  .beatbar{break-after:avoid;page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Recording script</span></span>
+  </a>
+</header>
+<main class="wrap" id="main">
+
+<div class="hero">
+  <p class="eyebrow">BIO 005 &middot; Week 4 &middot; Instructor only</p>
+  <h1>Recording <span class="hl">script</span></h1>
+  <p class="lede">One entry per slide for The chemical synapse: the story. Say lines are what you talk through, in your own voice. Do and Draw lines are the cues for clicking and for the pen. Timings are a guide to pacing.</p>
+  <div class="metarow"><span class="pill">16 slides</span><span class="pill navy">talking time 15 min 50 sec, recorded about 20 minutes</span><span class="pill ghost">Not student facing</span></div>
+</div>
+<h2>The whole idea in a few <span class="hl">sentences</span></h2>
+<p class="sub">Read this before you record. If these sentences make sense, the rest is detail.</p>
+<ol style="margin:0 0 8px;padding-left:24px;font-size:15.5px;line-height:1.65;max-width:74ch"><li>The action potential travels along a membrane, so it stops at the end of the axon, where there is a gap of fluid before the next cell.</li><li>The cell sends a chemical across. The neurotransmitter waits in synaptic vesicles parked at the axon terminal.</li><li>The arriving action potential opens voltage gated calcium channels, and Ca<sup>2+</sup> comes in for two reasons: there is far more of it outside, and the inside is negative.</li><li>Ca<sup>2+</sup> is the signal that makes the parked vesicles join the membrane and empty into the cleft, which is exocytosis, and the neurotransmitter then spreads across the cleft by diffusion.</li><li>On the postsynaptic cell the neurotransmitter is the key for a receptor. When that receptor is a ligand gated channel, ions move and the cell gets a small, local change, a graded potential. The message goes one way because only one side has vesicles and only the other has receptors, and the receptor decides the response.</li><li>The signal ends when the neurotransmitter is cleared by an enzyme, by reuptake or by diffusion, so blocking release gives less signal and blocking the clean-up gives more signal that does not switch off.</li></ol>
+<h2>Where students get <span class="hl">lost</span></h2>
+<table class="runsheet"><thead><tr><th scope="col">What they think</th><th scope="col">What to say</th><th scope="col">Slide</th></tr></thead>
+<tbody><tr><td>The electrical message jumps across the gap.</td><td>Go back to the river. The action potential needs a membrane to travel along, and there is none across the gap. What crosses is a chemical.</td><td class="num">3</td></tr><tr><td>Calcium enters because the action potential pushes it in.</td><td>The two reasons for Ca<sup>2+</sup> to enter are there all the time. The action potential only opens the door. If a student asks about the peak, when the inside is briefly positive: for that moment only the concentration reason acts, and it is large enough by itself.</td><td class="num">5</td></tr><tr><td>The neurotransmitter goes into cell 2.</td><td>It does not enter. It sits in the key hole on the outside of the door, the door opens, and ions are what go in. Then the key comes out again.</td><td class="num">8, 12</td></tr><tr><td>Acetylcholine is an excitatory chemical, so it always excites.</td><td>Use the fire alarm. The chemical only says a message has arrived. The receptor that the cell built decides what happens: the muscle contracts and the heart slows.</td><td class="num">10, 11</td></tr><tr><td>If the clean-up is blocked, the synapse works better.</td><td>More signal is not a better signal. Cell 2 needs on and then off. A doorbell with a stuck button tells you nothing.</td><td class="num">12, 14</td></tr></tbody></table>
+<h2>Before you press <span class="hl">record</span></h2>
+<ul class="checklist"><li>Open the deck and press <b>Reset boxes</b> so no answer is showing.</li><li>Press <b>Present full screen</b>, then <b>W</b> to check the pen layer opens.</li><li>Pen colours for this whole story: <b>rust</b> for calcium, for the neurotransmitter and for every concentration push. <b>Navy</b> for the electrical message, for sodium, for every electrical pull and for the plus and minus signs. Say the code out loud on slide 1.</li><li>Every part has a blank drawing on the slide. The finished drawing is inside Show the answer, so draw first and open the answer second.</li><li>The gap is drawn far wider than it really is, to leave room for the pen. Say so once, on Part 2.</li><li>Have the draw along sheet printed beside you so you can hold it up once at the start.</li></ul>
+<p class="sub" style="margin-top:12px">This is the baseline story, to teach before the full lecture on the chemical synapse. There are no numbers in it on purpose. If you are short of time, Part 10 (the families) can be left to the full lecture without breaking the chain.</p>
+<div class="beatbar"><h2>The slides</h2><span class="mins">1 to 16</span></div>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">01</span>
+    <h3 class="sct">The chemical synapse, told as a story</h3>
+    <span class="scbeat">40 sec</span></div>
+  <div class="say"><p>In the last story the action potential travelled the whole axon and arrived at the far end, full size. Today we find out how that message gets to the next cell, one small piece at a time.</p><p>It works the same way as before. I add one piece, I ask a question, and you can answer it from what you already have. The names come after the idea. There are no numbers today.</p><p>Get out your draw along sheet, or blank paper, and two colours.</p></div><div class="cue"><b>Do</b><span>Show the link to the draw along sheet. Give them a moment to get paper and two colours.</span></div><div class="cue"><b>Draw</b><span>Nothing yet. Say your pen code out loud: rust for calcium, for the neurotransmitter and for every concentration push. Navy for the electrical message, for sodium, for every electrical pull and for the plus and minus signs.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">02</span>
+    <h3 class="sct">Part 1. A message, a river and no bridge</h3>
+    <span class="scbeat">40 sec</span></div>
+  <div class="say"><p>Two people are standing on opposite sides of a wide river. There is no bridge. This person has a message for that person. She shouts, and the sound does not carry across.</p><p>How could the message get across?</p><p>Put the message into something that can cross. Write a note, wrap it around a ball, and send the ball over. Notice that the spoken words never crossed the river. The message changed its form for the crossing, and the other person reads it on the far side.</p></div><div class="cue"><b>Do</b><span>Ask the question, take two or three suggestions, then open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In navy, draw two or three sound curves from the first person's mouth and stop them at the water with an X. In rust, draw a small ball with the note on it and one long curved arrow from the left bank to the right bank. Write: put the message INTO something that can cross.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">03</span>
+    <h3 class="sct">Part 2. The end of the axon, and a gap</h3>
+    <span class="scbeat">65 sec</span></div>
+  <div class="say"><p>Now turn the river into our cell. This is the far end of our neuron's axon. I am calling it cell 1. Down here is the next cell, cell 2. Between them is a narrow gap of fluid. The two cells do not touch. I have drawn the gap much wider than it really is so that we have room to draw.</p><p>Remember how the action potential travels. It moves along a membrane, because it is made by doors in that membrane opening one after another. At the end of the axon, that membrane stops.</p><p>So what happens to the electrical message when it reaches the gap?</p><p>It stops. There is no membrane across the gap for it to travel along. That is our river. So the cell puts the message into something that can cross a gap of fluid, and that something is a chemical.</p></div><div class="cue"><b>Do</b><span>Ask the question, wait, then open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In navy, draw one arrow down the axon to the end and write: electrical message arrives. Put a navy X in the gap and write: cannot cross. In rust, in the empty space at the right, write: send a chemical across.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">04</span>
+    <h3 class="sct">Part 3. The chemical is ready and waiting</h3>
+    <span class="scbeat">65 sec</span></div>
+  <div class="say"><p>The chemical has to be ready before the message gets there. The cell makes it ahead of time and packs it into little bags made of membrane. The bags are parked at the end of the axon. Look at these three: they sit right against the membrane that faces the gap.</p><p>Here is the problem. If these bags emptied at any moment, cell 2 could not trust what it received. So what should tell the bags to empty, and only then?</p><p>The arrival of the electrical message, and nothing else. So the end of the axon needs a part that can sense an electrical change. And you already own one: the voltage sensing door.</p><p>Now the names. The bag is a synaptic vesicle. The chemical is a neurotransmitter. And the end of the axon is the axon terminal.</p></div><div class="cue"><b>Do</b><span>Ask the question, wait, then open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In navy, draw a line from one bag to the right margin and write: bag = synaptic vesicle. Under it write: chemical = neurotransmitter. In rust, write: must empty ONLY when a message arrives.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">05</span>
+    <h3 class="sct">Part 4. Back to the nucleus: a voltage sensing door for calcium</h3>
+    <span class="scbeat">75 sec</span></div>
+  <div class="say"><p>Back to the nucleus. Gene, protein, membrane. The nucleus of cell 1 is a long way back, in the cell body, so this protein is built there and carried down the axon. It is a voltage sensing door that lets only calcium through. Calcium is the gold diamond.</p><p>Three facts before my question. There is lots of calcium outside the cell and almost none inside. Calcium is positive. And the inside of the cell is negative. At rest this door is shut, so the calcium waits outside.</p><p>When the action potential arrives and opens this door, which way does calcium go, and how many reasons does it have?</p><p>In, and it has two reasons, just like sodium. Concentration pushes it in, because there is lots outside and almost none inside. And the negative inside pulls it in, because calcium is positive. Both reasons were there the whole time. The only thing missing was an open door.</p><p>Its name is the voltage gated calcium channel.</p></div><div class="cue"><b>Do</b><span>Point to the inset at the right and say: gene, protein, membrane. Ask the question, wait, then open Show the answer.</span></div><div class="cue"><b>Draw</b><span>At each calcium door: in rust, a short arrow from outside up to the door, and write 1, lots outside, pushed IN. In navy, a short arrow from the door into the cell, and write 2, negative inside pulls it IN. Then write the name under the inset: voltage gated calcium channel.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">06</span>
+    <h3 class="sct">Part 5. Calcium comes in and the bags empty</h3>
+    <span class="scbeat">60 sec</span></div>
+  <div class="say"><p>Calcium coming in is the signal the bags have been waiting for. The bags parked against the membrane carry a sensor for calcium. When calcium reaches them, the membrane of the bag joins the membrane of the cell. They become one membrane.</p><p>When the bag's membrane joins the cell's membrane, where does the chemical end up?</p><p>Outside the cell, in the gap. This was covered in Week 2, and it has a name: exocytosis.</p><p>Here is a second question. What would happen if there were no calcium outside the cell at all?</p><p>The message still arrives. The door still opens, because it responds to voltage and not to calcium. But nothing comes in. So nothing is released, and cell 2 receives nothing. Calcium is the link between the electrical message and the chemical one.</p></div><div class="cue"><b>Do</b><span>Ask the first question, wait, open Show the answer, then ask the second question before you read its answer.</span></div><div class="cue"><b>Draw</b><span>In rust, draw two calcium diamonds just inside each door, next to the parked bags. Redraw each parked bag as an open cup joined to the membrane, and draw its dots falling into the gap. Write: calcium in, bags join the membrane, chemical OUTSIDE. In navy write the name: exocytosis.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">07</span>
+    <h3 class="sct">Part 6. The chemical crosses the gap</h3>
+    <span class="scbeat">50 sec</span></div>
+  <div class="say"><p>Now the neurotransmitter is in the gap, and all of it is up here, next to cell 1. This is where my river comparison stops working. Nobody throws anything. Nothing carries the chemical and nothing aims it.</p><p>So use what you know. There is lots of it next to cell 1 and none next to cell 2. Which way does it spread, and which rule from the balloon tells you?</p><p>Toward cell 2. Lots here, fewer there, movement toward fewer. That is diffusion. Each molecule moves at random, and the real gap is so narrow that spreading across it takes almost no time.</p><p>And the gap gets its name now: the synaptic cleft.</p></div><div class="cue"><b>Do</b><span>Ask the question, wait, then open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In rust, dot the neurotransmitter all the way across the gap and draw two arrows from cell 1 down to cell 2. Write: LOTS up here, none down there, it spreads. Nothing carries it. In navy write: the gap = synaptic cleft.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">08</span>
+    <h3 class="sct">Part 7. Back to the nucleus of cell 2: a door with a key hole</h3>
+    <span class="scbeat">80 sec</span></div>
+  <div class="say"><p>Now cell 2 has to be able to read the message. So back to the nucleus, and this time it is the nucleus of cell 2. Gene, protein, membrane. Cell 2 has built doors with a key hole and put them in the membrane that faces the cleft. You know this door from the first story. It stays shut until the right key sits in the key hole.</p><p>So what is the key?</p><p>The neurotransmitter. Key fits, door opens, ions move through. At this door mostly Na<sup>+</sup> comes in, and you know why: two reasons. So the inside of cell 2 becomes a little less negative, right at this spot.</p><p>Is that the large, full size signal, or the small, local one?</p><p>The small, local one. More neurotransmitter opens more doors and gives a bigger change, and it fades with distance. You know its name: a graded potential. Whether it becomes an action potential is the next story. And this door with a key hole is called a receptor.</p></div><div class="cue"><b>Do</b><span>Point to the inset: gene, protein, membrane, in cell 2 this time. Ask the two questions one at a time.</span></div><div class="cue"><b>Draw</b><span>In rust, draw a dot in each key hole. In navy, open each gate and draw an arrow through each door into cell 2. Write: key fits, door opens, Na<sup>+</sup> comes IN. Under it write: small, local change = graded potential. Write receptor under the inset.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">09</span>
+    <h3 class="sct">Part 8. Why the message goes one way only</h3>
+    <span class="scbeat">45 sec</span></div>
+  <div class="say"><p>Stand back and look at the whole thing at rest. Compare the two sides of the cleft.</p><p>Which side has the bags? Which side has the key holes? So which way can a message go?</p><p>Only cell 1 has bags parked at the cleft. Only cell 2 has the key holes facing them. So the message goes from cell 1 to cell 2, and it cannot go back.</p><p>Now the names. The whole connection is a synapse. Pre means before and post means after. So cell 1 is the presynaptic cell and cell 2 is the postsynaptic cell.</p></div><div class="cue"><b>Do</b><span>Ask the three short questions in a row and let them answer each one.</span></div><div class="cue"><b>Draw</b><span>In rust, bracket the bags and write: only on this side. Bracket the key holes and write: only on this side. Draw one thick rust arrow from cell 1 down to cell 2. In navy, cross out Cell 1 and write presynaptic, cross out Cell 2 and write postsynaptic, and write synapse beside the arrow.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">10</span>
+    <h3 class="sct">Part 9. The same key can open different doors</h3>
+    <span class="scbeat">85 sec</span></div>
+  <div class="say"><p>A fire alarm rings in a building. The students walk out and the firefighters walk in. It is the same alarm. What happens depends on who hears it.</p><p>Here is one neurotransmitter, acetylcholine, arriving at two different cells. On the skeletal muscle cell, the receptor is the door itself, the one we just drew. On a pacemaker cell of the heart, the receptor is not a door. It is a solid protein with the same key hole. When the key fits, it passes the message on inside the cell, and a potassium door opens.</p><p>So Na<sup>+</sup> comes into the muscle cell, and K<sup>+</sup> leaves the heart cell. What does the same chemical do to each cell?</p><p>Muscle cell: positive comes in, the inside becomes less negative, the cell fires, the muscle contracts. Heart cell: K<sup>+</sup> leaves, positive leaves, the inside becomes more negative, the pacemaker cell fires less often, and the heart slows down.</p><p>Same key, opposite results. Each cell went back to its own nucleus and built its own receptor. The receptor decides the response.</p></div><div class="cue"><b>Do</b><span>Tell the fire alarm comparison first, then point to the left cell, then the right cell. Ask the question and open Show the answer.</span></div><div class="cue"><b>Draw</b><span>Left cell: rust dot in the key hole, navy arrow in through the door, write Na<sup>+</sup> IN, fires, CONTRACTS. Right cell: rust dot in the key hole, a grey or navy arrow inside the cell from the receptor to the potassium door, a rust arrow out through the potassium door, write K<sup>+</sup> OUT, more negative, heart SLOWS. Across the top write: the receptor decides.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">11</span>
+    <h3 class="sct">Part 10. Families of keys</h3>
+    <span class="scbeat">85 sec</span></div>
+  <div class="say"><p>There are many neurotransmitters, and they come in families. Fill in the boxes with me. One: acetylcholine, a family of one. Two: the amines, such as dopamine, norepinephrine and serotonin. Three: the amino acids, glutamate, GABA and glycine. Four: the peptides, which are short chains of amino acids. Five: a gas, nitric oxide, which is made when it is needed and is not kept in bags.</p><p>Glutamate is the main go signal in the brain, and GABA is the main stop signal. From the last part, what makes one a go and the other a stop?</p><p>The receptors. Glutamate's receptors are doors for positive ions, so the cell moves toward firing. GABA's main receptor is a door for chloride, which is negative, and that holds the cell away from firing.</p><p>Two more names, and you have already seen both. When the receptor is the door itself, the response is fast and brief. That is an ionotropic receptor. When the receptor is not a door and passes the message on inside the cell, the response is slower and lasts longer. That is a metabotropic receptor.</p></div><div class="cue"><b>Do</b><span>Fill in the five boxes first, then ask the question. Keep this part light. The full lecture has the detail.</span></div><div class="cue"><b>Draw</b><span>In navy, write one family name in the top strip of each box and the members underneath. In rust, under the boxes, write: the receptor makes it a go or a stop.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">12</span>
+    <h3 class="sct">Part 11. A doorbell with a stuck button</h3>
+    <span class="scbeat">50 sec</span></div>
+  <div class="say"><p>A doorbell with a stuck button rings and rings. It cannot tell you whether one visitor came or ten.</p><p>Now look at our cleft. The neurotransmitter is still there. The keys are still in the key holes. The doors are still open.</p><p>What has to happen to the neurotransmitter in the cleft for the next message to mean anything?</p><p>It has to be cleared out of the cleft, and quickly. A key does not stay in its key hole for long. It comes out again, and if the cleft has been cleared, no new key takes its place. The doors shut, and cell 2 can receive the next message as a new message.</p></div><div class="cue"><b>Do</b><span>Ask the question, wait, then open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In navy, circle the three open doors and write: still open. In rust, write in the empty space at the right: has to be CLEARED before the next message.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">13</span>
+    <h3 class="sct">Part 12. Three ways to clear the cleft</h3>
+    <span class="scbeat">80 sec</span></div>
+  <div class="say"><p>There are three new things in this drawing: a grey shape fixed in the cleft, a box in the presynaptic membrane, and a glial cell with a box of its own. They are proteins, so back to the nucleus. Gene, protein, membrane. The box is a machine and not a door, like the pump.</p><p>Follow one molecule of neurotransmitter. What are the three things that can happen to it?</p><p>One. The grey shape is an enzyme, and it chops the neurotransmitter up. The pieces no longer fit the key hole. For acetylcholine that enzyme is acetylcholinesterase. Two. The machine, which is called a transporter, carries it back into the cell that released it, where it can be packed into bags again, or into the glial cell. That is reuptake. Three. It spreads out of the open edges of the cleft. That is diffusion again.</p><p>One note about the transporter. It is powered by the sodium difference across the membrane, and you know what maintains that difference: the pump.</p></div><div class="cue"><b>Do</b><span>Point to the inset: gene, protein, membrane. Ask the question and let them find the three routes before you open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In rust: 1, an arrow from a dot into the mouth of the grey shape and two small pieces coming out, write enzyme. 2, an arrow up through the box into the presynaptic cell and an arrow through the box into the glial cell, write reuptake. 3, an arrow out of the left edge of the cleft, write diffusion. In navy, write transporter under the inset.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">14</span>
+    <h3 class="sct">Part 13. Break one step</h3>
+    <span class="scbeat">55 sec</span></div>
+  <div class="say"><p>Every step in this story causes the next one. So if I tell you which step has failed, you can predict what cell 2 receives: more signal or less.</p><p>A: the bags cannot fuse. B: the key holes are plugged. C: the clean-up enzyme is blocked.</p><p>A is less. No neurotransmitter reaches the cleft. B is less. The neurotransmitter is released, but it cannot open the doors. C is more, and it does not switch off, because the neurotransmitter stays in the cleft.</p><p>And more is not better. Cell 2 needs a signal that turns on and then turns off. The full lecture gives you a real toxin or drug for each of these.</p></div><div class="cue"><b>Do</b><span>Take A, B and C one at a time and have them call out more or less before you open Show the answer.</span></div><div class="cue"><b>Draw</b><span>In rust, write LESS beside A, LESS beside B, and MORE, does not switch off beside C. At C, draw extra dots filling the cleft.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">15</span>
+    <h3 class="sct">Tell the whole story from memory</h3>
+    <span class="scbeat">30 sec</span></div>
+  <div class="say"><p>Now it is your turn. Close your notes. I want the whole story in nine boxes, from the action potential arriving to the cleft being cleared. Pause the video here and do it on paper.</p><p>Then open the answer and check the order. Your words can be different from mine. The order should not be. These are the same nine steps the full lecture uses.</p></div><div class="cue"><b>Do</b><span>Pause for a long moment on the empty chain. Then open Show the whole story and read down each column.</span></div><div class="cue"><b>Draw</b><span>In navy, bracket boxes 1 to 5 and write presynaptic cell. In rust, mark box 6 and write the cleft. In navy, bracket boxes 7 and 8 and write postsynaptic cell. In rust, mark box 9 and write clearing.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">16</span>
+    <h3 class="sct">The same synapse, one level up</h3>
+    <span class="scbeat">45 sec</span></div>
+  <div class="say"><p>That was the baseline. The full lecture tells the same story with the same nine steps, and adds the harder layer: a baby who becomes weak after honey, the calcium calculation, the receptors and neurotransmitter classes in detail, the toxins and drugs that each block one step, and a moving model where you run one synapse yourself.</p><p>And after that, the next story. One synapse gives cell 2 one small, local change. A real neuron has thousands of synapses on it. Next we find out how cell 2 adds them all up and decides whether to fire.</p></div><div class="cue"><b>Do</b><span>Point to the two links to the full lecture.</span></div><div class="cue"><b>Draw</b><span>Nothing on this slide.</span></div>
+</section>
+<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; The chemical synapse: the story &middot; recording script. Not student facing.</p>
+</main>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+
+
+
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='biol005-w04-synapse-story-transcript';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  document.querySelectorAll('.clin-btn').forEach(function(b){
+    if(b.dataset.wired) return; b.dataset.wired='1';
+    var box=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      if(box)box.hidden=open;
+    });
+  });
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
