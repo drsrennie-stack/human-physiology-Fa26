@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The chemical synapse &middot; Recording script &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:#0B1530;color:#F5F1E8;border-color:#0B1530;box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- notes page ---------- */
+.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
+.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
+.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
+  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
+.hero h1 .hl{color:var(--terra)}
+.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
+  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
+h2:first-of-type{border-top:0;padding-top:0}
+h2 .hl{color:var(--terra)}
+h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
+h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+p{margin:0 0 13px}
+.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
+
+/* term blocks, boxed so each definition reads as its own card */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+@media(max-width:760px){.terms{grid-template-columns:1fr}}
+.term{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:14px 16px}
+.term dt{font-weight:800;font-size:15.5px;margin:0 0 4px}
+.term dd{margin:0;font-size:14.5px;color:var(--navy-72)}
+.term dd b{color:var(--navy)}
+
+/* compartment color key: the same three codes are used in the figure,
+   in this legend, and on each group box, so a student can match them by eye */
+.ckey{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ckitem{display:inline-flex;align-items:center;gap:9px;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.sw{width:22px;height:22px;border-radius:5px;flex:0 0 auto}
+.sw.ext{background:var(--wash);border:1.6px dashed var(--navy-72)}
+.sw.int{background:#fff;border:2.4px solid var(--terra)}
+.sw.icf{background:var(--navy);border:1.6px solid var(--navy)}
+.ckitem .lb{line-height:1.2}
+.ckitem .sub{font-weight:600;color:var(--navy-72);font-size:12.5px;line-height:1.2}
+body.present .ckitem{font-size:clamp(13px,1.3vw,18px)}
+body.present .sw{width:26px;height:26px}
+
+/* grouped compartments: the group border shows what contains what */
+.tgroup{border-radius:var(--r-card);padding:16px 18px 18px;margin:0 0 14px}
+.tgroup .glab{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.tgroup .glab .sw{width:16px;height:16px;border-radius:4px}
+.tgroup .gnote{font-size:14px;color:var(--navy-72);margin:0 0 6px}
+.tgroup.ext{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.tgroup.ext .glab{color:var(--navy-72)}
+.tgroup.int{border:2px solid var(--terra)}
+.tgroup.int .glab{color:var(--terra)}
+.tgroup.icf{border:1.8px solid var(--navy)}
+.tgroup.icf .glab{color:var(--navy)}
+
+/* causal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.chain .lk{flex:1 1 130px;min-width:120px;background:#fff;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 13px}
+.chain .lk .k{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0 0 4px}
+.chain .lk p{margin:0;font-size:14px;line-height:1.4}
+.chain .ar{display:flex;align-items:center;justify-content:center;color:var(--terra);
+  font-size:20px;font-weight:800;padding:0 8px;flex:0 0 auto}
+@media(max-width:700px){.chain{flex-direction:column}.chain .ar{transform:rotate(90deg);padding:5px 0}}
+
+/* key box */
+.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
+.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
+.key p:last-child,.key ul:last-child{margin-bottom:0}
+
+/* equation */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:14px 0}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+
+.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+
+@media print{
+  @page{margin:13mm}
+  .site-header .site-logo svg{height:32px}
+  .wb,.wb-launch,.lightbox,.skip{display:none!important}
+  body{font-size:10.5pt}
+  h2{break-after:avoid;page-break-after:avoid}
+  .card,.key,.eq,figure,.chain,.term,.tgroup,.cprof{break-inside:avoid;page-break-inside:avoid}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* transcript blocks and worked problems */
+.sl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:0 0 10px}
+.sl b{color:var(--terra)}
+.tx p{max-width:70ch}
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+.prob{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:18px 0}
+.prob .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.prob .q{font-weight:800;margin:0 0 12px;font-size:16px}
+.prob .q+ul{margin-bottom:14px}
+.prob h5{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:14px 0 8px}
+sup,sub{font-size:.72em;line-height:0}
+img.fig{object-fit:contain}
+@media print{.prob,.work>li{break-inside:avoid;page-break-inside:avoid}}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+
+.prereq .card{padding:18px 20px}
+.prereq .eyebrow{margin-bottom:8px}
+.prereq ul.bul{margin-bottom:6px}
+.prereq ul.bul>li{padding:3px 0 3px 18px;font-size:14.5px}
+.prereq ul.bul>li::before{top:12px;width:5px;height:5px}
+.prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
+.prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
+@media(max-width:860px){.prereq{grid-template-columns:1fr}}
+
+/* ---------- recording script ---------- */
+.wrap{max-width:1040px}
+.sc{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 20px;margin:0 0 14px}
+.sc.beatchange{border-left:4px solid var(--terra)}
+.schead{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:baseline;margin:0 0 12px}
+.scn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra)}
+.sct{margin:0;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.scbeat{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);white-space:nowrap}
+.say{margin:0}
+.say p{margin:0 0 10px;font-size:16px;line-height:1.65;max-width:70ch}
+.say p:last-child{margin-bottom:0}
+.cue{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;padding:10px 12px;
+  border:.5px solid var(--navy-15);border-radius:6px;font-size:14px;color:var(--navy-72)}
+.cue b{color:var(--terra);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  white-space:nowrap;padding-top:3px}
+.cue span{line-height:1.5}
+.beatbar{display:flex;align-items:baseline;gap:14px;margin:34px 0 14px;padding:0 0 10px;
+  border-bottom:1.5px solid var(--terra)}
+.beatbar h2{border:0;padding:0;margin:0}
+.beatbar .mins{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--navy-72)}
+.runsheet{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0 0}
+.runsheet th,.runsheet td{text-align:left;padding:8px 10px;border-bottom:.5px solid var(--navy-15)}
+.runsheet thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72)}
+.runsheet td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{padding:9px 0 9px 34px;position:relative;border-top:.5px solid var(--navy-15);font-size:15.5px}
+.checklist li:first-child{border-top:0}
+.checklist li::before{content:"";position:absolute;left:2px;top:14px;width:15px;height:15px;
+  border:1.6px solid var(--navy-72);border-radius:3px}
+sub,sup{font-size:.72em;line-height:0}
+@media print{
+  @page{margin:14mm}
+  .sc{break-inside:avoid;page-break-inside:avoid}
+  .beatbar{break-after:avoid;page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Recording script</span></span>
+  </a>
+</header>
+<main class="wrap" id="main">
+
+<div class="hero">
+  <p class="eyebrow">BIO 005 &middot; Week 4 &middot; Instructor only</p>
+  <h1>Recording <span class="hl">script</span></h1>
+  <p class="lede">One entry per slide for The chemical synapse. Say lines are what you talk through, in your own voice. Do and Draw lines are the cues for clicking and for the pen. Timings are a guide to pacing.</p>
+  <div class="metarow"><span class="pill">20 slides</span><span class="pill navy">talking time 27 min 20 sec, recorded about 34 minutes</span><span class="pill ghost">Not student facing</span></div>
+</div>
+<h2>The whole idea in a few <span class="hl">sentences</span></h2>
+<p class="sub">Read this before you record. If these sentences make sense, the rest is detail.</p>
+<ol style="margin:0 0 8px;padding-left:24px;font-size:15.5px;line-height:1.65;max-width:74ch"><li>An action potential cannot cross the gap between two cells, so the neuron turns it into a chemical signal and the next cell turns it back into an electrical one.</li><li>The order is fixed because each step causes the next: the action potential opens voltage gated calcium channels, calcium enters, calcium binds the sensor on docked vesicles, the vesicles fuse and release transmitter, the transmitter diffuses across and binds receptors, the postsynaptic cell responds with a graded potential, and the transmitter is removed.</li><li>Calcium is the link between the electrical signal and the chemical one. It enters because its equilibrium potential is +123 mV, far above anything the membrane reaches.</li><li>The receptor decides the response, not the transmitter. Ionotropic receptors are channels and are fast. Metabotropic receptors use G proteins and are slower and longer lasting. Acetylcholine excites skeletal muscle and slows the heart.</li><li>Removal ends the signal by three routes: an enzyme, reuptake, and diffusion. Blocking removal is the only block that gives the next cell more signal.</li><li>Botulinum toxin blocks release and an organophosphate blocks removal, so they give opposite signs at the same synapses. The baby's nerves and muscles tested normal because the step that failed was vesicle fusion.</li></ol>
+<h2>Where students get <span class="hl">lost</span></h2>
+<table class="runsheet"><thead><tr><th scope="col">What they think</th><th scope="col">What to say</th><th scope="col">Slide</th></tr></thead>
+<tbody><tr><td>Acetylcholine is excitatory, so every transmitter is either excitatory or inhibitory.</td><td>The transmitter is only the message. The receptor on the receiving cell decides what happens. Use the whistle comparison, and show the two acetylcholine panels side by side.</td><td class="num">9, 11</td></tr><tr><td>The action potential jumps across the synapse.</td><td>It stops at the terminal. What crosses is a chemical, and the postsynaptic cell makes a new, small, graded potential, not an action potential.</td><td class="num">3, 6</td></tr><tr><td>Sodium entering the terminal causes release.</td><td>Calcium does. Sodium carried the action potential there. The calcium free bath experiment shows that without calcium entry nothing is released.</td><td class="num">4, 5</td></tr><tr><td>The synaptic delay is the transmitter crossing the cleft.</td><td>Crossing takes about a microsecond. Most of the delay is the calcium channels opening and calcium triggering fusion.</td><td class="num">7</td></tr><tr><td>Blocking any step of a synapse reduces the signal.</td><td>True for steps 1 to 8. Blocking step 9, removal, increases the signal and makes it last longer.</td><td class="num">14, 16, 17</td></tr><tr><td>More acetylcholine always means stronger muscle.</td><td>A muscle needs the signal to turn off as well as on. Continuous acetylcholine holds the membrane depolarized, sodium channels stay inactivated, and the muscle becomes weak.</td><td class="num">18</td></tr></tbody></table>
+<h2>Before you press <span class="hl">record</span></h2>
+<ul class="checklist"><li>Open the deck and press <b>Reset boxes</b> so no answer is showing.</li><li>Press <b>Present full screen</b>, then <b>W</b> to check the pen layer opens.</li><li>Open slide 15 and press Send one action potential once, so you have seen the timing of the animation before you narrate it.</li><li>Decide in advance which clinical bars you will open. All three are optional, and each adds about a minute.</li><li>The sorters on slides 2 and 16 reset with the Reset boxes button.</li></ul>
+<p class="sub" style="margin-top:12px">If you run short of time, the second reveal box on slides 7 and 17 and all three clinical bars can be left for students to open on their own without losing the thread.</p>
+<div class="beatbar"><h2>The slides</h2><span class="mins">1 to 20</span></div>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">01</span>
+    <h3 class="sct">The chemical synapse</h3>
+    <span class="scbeat">95 sec</span></div>
+  <div class="say"><p>Welcome back. So far this week we have built a resting potential, fired an action potential, and sent it down an axon. Today the action potential reaches the end of the axon, and it stops. The next cell is across a gap, and an electrical signal cannot cross that gap. So the neuron has to change the signal into a chemical, send the chemical across, and let the next cell turn it back into an electrical signal. That is a chemical synapse.</p><p>We are going to take it as a sequence of nine steps, in strict order. The order matters because each step causes the next one. If you know the order, you can predict what happens when any one step is blocked, and that is exactly how toxins and many drugs work.</p><p>Here is the patient. A five month old girl has been constipated for days. Now she feeds poorly, her cry is weak, her eyelids droop, and she cannot hold her head up. Within two days she needs a ventilator. She is alert, and she feels everything. Her nerves conduct normally and her muscles are healthy. A week ago her pacifier was dipped in honey. If the nerves work and the muscles work, what failed?</p></div><div class="cue"><b>Do</b><span>Read the navy card slowly. Pause after the last question.</span></div><div class="cue"><b>Draw</b><span>In rust, underline: nerves conduct normally, and muscles are healthy. Then circle the final question.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">02</span>
+    <h3 class="sct">Work out what still works</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>Before any biology, let us reason it out. These are five findings in a baby with this illness. For each one, decide whether that part of the pathway is working. Pause the video and sort them. Everything you need is in the middle column.</p><p>Let us go through them. She is awake and she grimaces when her foot is pinched, so sensation and the brain are working. Action potentials travel down her motor axons at normal speed, so the axon is working. But when the nerve is stimulated, the muscle's response is far smaller than normal, so something between nerve and muscle is not working. In the laboratory, acetylcholine put straight onto a muscle poisoned like this still makes it contract, so the muscle and its receptors are working. And her gut, which is also driven by neurons that release acetylcholine, is barely moving.</p><p>So the signal gets all the way down the axon. And the muscle responds if acetylcholine reaches it. The failure has to be in between. Today we split that in between into nine steps. Your job as we go is to decide which step failed in her.</p></div><div class="cue"><b>Do</b><span>Click the correct answer on each row after you have given them time, reading the result aloud. Then open the reveal box.</span></div><div class="cue"><b>Draw</b><span>In navy, write beside row 2: axon OK. Beside row 4: muscle OK. Then in rust draw a bracket between them and write: the failure is here.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">03</span>
+    <h3 class="sct">A chemical synapse has three parts</h3>
+    <span class="scbeat">75 sec</span></div>
+  <div class="say"><p>Here are the parts. At the top is the axon terminal. This is the output zone from the lecture on neurons. The cell that sends the signal is called the presynaptic cell. Inside the terminal you can see synaptic vesicles. Those are small membrane sacs, and the grey dots inside them are neurotransmitter molecules. Some vesicles are docked right against the bottom membrane, ready to go. Others are in reserve farther back.</p><p>In the membrane of the terminal there are voltage gated calcium channels. They are closed right now. The gold diamonds outside are calcium ions, waiting.</p><p>Below the terminal is the synaptic cleft. It is a gap filled with extracellular fluid, about 20 to 40 nanometers wide. That is tiny, but the two cells do not touch, and that is why the action potential cannot simply keep going. Below the cleft is the postsynaptic membrane, and in it are receptors, which are proteins that bind the transmitter. Here they are drawn as channels that are closed.</p></div><div class="cue"><b>Draw</b><span>In navy, trace the outline of the terminal and write PRE. Trace the postsynaptic membrane and write POST. In rust, draw a double headed arrow across the cleft and write 20 to 40 nm.</span></div><div class="cue"><b>Draw</b><span>Circle one docked vesicle and one calcium channel in rust.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">04</span>
+    <h3 class="sct">Steps 1 to 5: what happens inside the axon terminal</h3>
+    <span class="scbeat">2 min 10</span></div>
+  <div class="say"><p>This slide and the next one are the center of the lecture, so I am going to go slowly. Follow the numbers on the figure.</p><p>Step one. The action potential comes down the axon and depolarizes the terminal. The inside of the terminal goes from minus 70 up toward plus 30, just as it did everywhere else along the axon.</p><p>Step two. The terminal has a channel the rest of the axon does not rely on: voltage gated calcium channels. Depolarization opens them. So the action potential is the cause, and open calcium channels are the effect.</p><p>Step three. Calcium enters. There is ten thousand times more calcium outside than inside, and the inside is negative, so calcium has every reason to come in the moment a channel opens. We will put numbers on that on the next slide.</p><p>Step four. The calcium that comes in binds to a sensor protein on the docked vesicles. The sensor is called synaptotagmin. Think about what that means: the vesicle was sitting there, ready, and calcium is the signal that says release now.</p><p>Step five. Once calcium has bound, a set of proteins called SNARE proteins pull the vesicle membrane and the terminal membrane together until they fuse into one membrane. Now the inside of the vesicle is open to the cleft, and the transmitter empties out. That is exocytosis, which you saw in Week 3.</p><p>Say the chain with me: action potential, calcium channels open, calcium enters, calcium binds the sensor, vesicles fuse. Calcium is the link between the electrical signal and the chemical one. And remember the frequency code from last time. More action potentials per second means more calcium, more vesicles, and more transmitter.</p></div><div class="cue"><b>Draw</b><span>With the navy pen, touch each numbered circle on the figure in order, 1 to 5, as you say the step.</span></div><div class="cue"><b>Draw</b><span>In rust, write down the side: AP, then Ca channels open, then Ca in, then sensor, then fusion, with an arrow between each pair. Circle the word Ca in the middle.</span></div><div class="cue"><b>Do</b><span>Do not hurry this slide. If students get this chain, the toxins later are easy.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">05</span>
+    <h3 class="sct">Why calcium enters whenever its channels open</h3>
+    <span class="scbeat">105 sec</span></div>
+  <div class="say"><p>Let us check step three with numbers, using the Nernst equation from the resting potential lecture. Free calcium is about 1 millimolar outside and one ten thousandth of a millimolar inside. Pause and try it.</p><p>The ratio is 1 over 0.0001, which is ten thousand. The log of ten thousand is 4. Calcium has two positive charges, so we divide 61.5 by 2, which is 30.75, and multiply by 4. The equilibrium potential for calcium is plus 123 millivolts.</p><p>Now the driving force, which is just the membrane potential minus the equilibrium potential. At rest that is minus 70 minus 123, which is minus 193 millivolts. At the peak of the action potential it is plus 30 minus 123, which is minus 93. Both are negative, and for a positive ion a negative driving force means inward. So at every moment of an action potential, calcium is driven in. The only thing that was stopping it at rest was that the channels were closed.</p><p>Now the question in the second box, which is one of your competency prompts. Put the terminal in a bath with no calcium and send an action potential. Where does the chain stop? Steps one and two still happen, because those channels open in response to voltage. Step three fails, because there is no calcium to enter. And everything after it fails too.</p></div><div class="cue"><b>Do</b><span>Open Show the work after they have had time. Then read the second question aloud, pause, and open it.</span></div><div class="cue"><b>Draw</b><span>Beside the work, write in rust: at rest minus 193, at the peak minus 93, both inward.</span></div><div class="cue"><b>Draw</b><span>For the calcium free bath, write 1 and 2 with check marks in navy and 3 with an X in rust.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">06</span>
+    <h3 class="sct">Steps 6 to 9: the cleft and the postsynaptic cell</h3>
+    <span class="scbeat">100 sec</span></div>
+  <div class="say"><p>Now the second half. The transmitter is in the cleft. Step six: it diffuses across. Nothing carries it and nothing aims it. It is only 20 to 40 nanometers, and over a distance that short, diffusion takes about a microsecond.</p><p>Step seven: the transmitter binds its receptor on the postsynaptic membrane. A receptor fits one transmitter the way a lock fits one key. And the binding is reversible. The transmitter sits in the receptor for a moment and then comes off again. That matters later.</p><p>Step eight: the postsynaptic cell responds. In this drawing the receptor is a ligand gated channel, which was covered in the resting potential lecture. Transmitter binds, the channel opens, sodium comes in, and the membrane depolarizes a little. Look at the small tracing. That is a graded potential. It is small, its size depends on how much transmitter was released, and it does not have a threshold of its own. Whether it ends up causing an action potential in this cell is the next lecture.</p><p>Step nine: the transmitter is removed from the cleft. As it goes, the receptors empty, the channels close, and the signal ends. We will spend two slides on how that happens, because a signal that does not end is not a signal.</p></div><div class="cue"><b>Draw</b><span>Touch the numbered circles 6 to 9 in order with the navy pen as you say each step.</span></div><div class="cue"><b>Draw</b><span>Circle the small tracing in rust and write: graded potential, not an action potential.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">07</span>
+    <h3 class="sct">A chemical synapse is slow, and it works in one direction only</h3>
+    <span class="scbeat">80 sec</span></div>
+  <div class="say"><p>All nine steps take time. Look at the two tracings. On top is the action potential in the terminal. Below is the postsynaptic cell. Nothing happens in the postsynaptic cell for about half a millisecond to one millisecond. That gap is the synaptic delay.</p><p>What is happening during the gap? Students usually guess that the delay is the transmitter crossing the cleft. It is not. That takes about a microsecond. Most of the delay is in the terminal: the calcium channels take time to open, and then calcium has to trigger fusion.</p><p>The second point is direction. The signal only goes one way, from the side that has the vesicles to the side that has the receptors.</p><p>The worked problem makes the delay concrete. One meter of axon at 50 meters per second takes 20 milliseconds. One synapse adds about one more. Five synapses add about five. So each synapse costs as much time as five centimeters of axon. That is why your fastest reflexes have only one synapse in them.</p></div><div class="cue"><b>Draw</b><span>In rust, trace the double headed arrow for the delay and shade the flat part of the lower tracing under it. Write: steps 2 to 8 happen here.</span></div><div class="cue"><b>Do</b><span>Open worked problem 2 and talk through the first four lines. Open the second box only if time allows.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">08</span>
+    <h3 class="sct">Two families of receptor: one fast, one slow</h3>
+    <span class="scbeat">80 sec</span></div>
+  <div class="say"><p>Step eight said the postsynaptic cell responds. How it responds depends on the kind of receptor, and there are two families.</p><p>On the left is an ionotropic receptor. The receptor is the channel. Transmitter binds, the pore opens, ions cross. It is fast, it starts within a millisecond, and it is over in milliseconds.</p><p>On the right is a metabotropic receptor. This receptor has no pore. When transmitter binds, the receptor activates a G protein on the inside of the membrane. The G protein can go to a nearby channel and open it or close it. Or it can switch on an enzyme that makes a second messenger, such as cyclic AMP, and the second messenger goes on to change channels or other proteins.</p><p>More steps means slower. A metabotropic response takes longer to start and can last seconds or minutes. It also amplifies, because one receptor activates many G proteins. So a neuron uses ionotropic receptors when timing matters, and metabotropic receptors when it wants a longer lasting change.</p></div><div class="cue"><b>Draw</b><span>On the left panel, write FAST in navy. On the right, number the chain in rust: receptor 1, G protein 2, channel or enzyme 3. Write SLOW, LASTS LONGER.</span></div><div class="cue"><b>Do</b><span>Point out the examples under each panel. Students will need nicotinic and muscarinic on the next slide.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">09</span>
+    <h3 class="sct">The receptor, and not the transmitter, decides the response</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>This is the idea students most often get wrong, so let us be careful. People want to say acetylcholine is excitatory. It is not that simple. The transmitter does not decide the response. The receptor does.</p><p>Look at the left panel. Acetylcholine arrives at a skeletal muscle fiber. The receptor there is the nicotinic receptor, which is ionotropic. Its channel passes both sodium and potassium. But much more sodium comes in than potassium goes out, because at minus 90 millivolts sodium is driven far harder. So the muscle fiber depolarizes, fires, and contracts. Excitatory.</p><p>Now the right panel. The same acetylcholine arrives at a pacemaker cell in the heart. The receptor there is the muscarinic receptor, which is metabotropic. Its G protein opens potassium channels. Potassium leaves, the cell moves away from threshold, the pacemaker fires less often, and the heart slows down. Inhibitory.</p><p>Same molecule, opposite results. Here is a comparison that may help. At a sports field, one whistle can tell one team to start running and the other team to stop. The whistle is the same sound. The meaning is in whoever hears it. The transmitter is the whistle, and the receptor is the listener.</p></div><div class="cue"><b>Draw</b><span>In navy, circle acetylcholine in both panels and write SAME. In rust, circle the two receptors and write DIFFERENT.</span></div><div class="cue"><b>Draw</b><span>Trace the left tracing upward and write excited. Trace the right tracing downward and write slowed.</span></div><div class="cue"><b>Do</b><span>Open the reveal box. The clinical bar is optional here. If you open it, the respiratory therapy and radiologic technology cards are the quickest.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">10</span>
+    <h3 class="sct">Seven classes of neurotransmitter</h3>
+    <span class="scbeat">70 sec</span></div>
+  <div class="say"><p>Now, what are the transmitters? Your book sorts them into seven classes by their chemistry. Read this map from the top down.</p><p>Acetylcholine is a class by itself. The amines are each made from one amino acid: dopamine, norepinephrine and epinephrine from tyrosine, and those three are the catecholamines, then serotonin and histamine. The amino acids are glutamate, GABA and glycine, and they do most of the fast work in the brain and spinal cord. The purines are ATP and adenosine.</p><p>Then peptides, which are short chains of amino acids, such as substance P and the endorphins. And two unusual classes: gases, such as nitric oxide, and lipids. Those last two are not stored in vesicles at all. They are made when they are needed and they diffuse straight through the membrane.</p><p>Look at the brackets along the bottom, because they tell you where each class is made. We will use that in a moment.</p></div><div class="cue"><b>Draw</b><span>Run the navy pen from the top box down to each class in turn. In rust, underline the three brackets at the bottom.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">11</span>
+    <h3 class="sct">Each transmitter, its usual effect, and one place it acts</h3>
+    <span class="scbeat">60 sec</span></div>
+  <div class="say"><p>This table is what your competency asks for: each transmitter, its usual effect, and a real place where it acts. I will not read every line. Here is how to learn it.</p><p>Start with the three amino acids, because they are the simplest. Glutamate is the main excitatory transmitter of the central nervous system. GABA is the main inhibitory transmitter of the brain. Glycine is the main inhibitory transmitter of the spinal cord. Their common receptors are channels, so their effect is dependable.</p><p>Then look at the ones that say either. Acetylcholine, norepinephrine, dopamine and serotonin can excite or inhibit, because different cells carry different receptors for them. That is the idea from the last slide again.</p><p>Neuropeptides depend on the peptide. Substance P excites pain pathways, and the endorphins and enkephalins inhibit them.</p></div><div class="cue"><b>Draw</b><span>In navy, write E beside glutamate and I beside GABA and glycine. In rust, bracket the four rows that say either and write: depends on the receptor.</span></div><div class="cue"><b>Do</b><span>Open the reveal box and read the first two sentences.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">12</span>
+    <h3 class="sct">Where each transmitter is made, and why that matters</h3>
+    <span class="scbeat">75 sec</span></div>
+  <div class="say"><p>Where a transmitter is made has a consequence. Small transmitters such as acetylcholine are made right in the axon terminal and loaded into vesicles there. Peptides cannot be made in the terminal, because they are made on ribosomes like any protein. They are made in the cell body, packed into vesicles, and shipped down the axon by fast axonal transport, which was covered in the lecture on neurons.</p><p>So try the problem. A motor neuron runs from the spinal cord to the foot, about one meter. Fast axonal transport moves at up to about 400 millimeters per day. One meter is 1,000 millimeters. 1,000 divided by 400 is two and a half days.</p><p>Compare that with acetylcholine, which the terminal can remake in about a minute, using choline it recovers from the cleft. So if a neuron fires hard for a long time, which supply runs low first? The peptide, because its replacement is two and a half days away.</p></div><div class="cue"><b>Do</b><span>Give them fifteen seconds with the problem before you open the work.</span></div><div class="cue"><b>Draw</b><span>Write in navy: 1,000 mm divided by 400 mm per day = 2.5 days. Underneath in rust: acetylcholine, about a minute.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">13</span>
+    <h3 class="sct">Three routes remove transmitter from the cleft</h3>
+    <span class="scbeat">75 sec</span></div>
+  <div class="say"><p>Back to step nine. The transmitter has done its job and now it has to go. There are three routes, and they are numbered on the figure.</p><p>Route one is an enzyme in the cleft. The best example is acetylcholinesterase. It splits acetylcholine into choline and acetate within milliseconds, and neither piece can activate the receptor. The choline is carried back into the terminal, the dashed arrow, and used to make new acetylcholine.</p><p>Route two is reuptake. A transporter in the presynaptic membrane carries the whole transmitter molecule back into the terminal, where it is reloaded or broken down. Serotonin, norepinephrine and dopamine are cleared mainly this way. Glutamate and GABA are also taken up by astrocytes, which you heard about in the lecture on glia.</p><p>Route three is plain diffusion out of the edges of the cleft. Every transmitter does some of that, and peptides depend on it.</p><p>Each synapse leans mainly on one route. That matters, because it is the route a drug can target.</p></div><div class="cue"><b>Draw</b><span>Touch 1, 2 and 3 on the figure with the navy pen as you name them. In rust, trace the dashed choline arrow and write: recycled.</span></div><div class="cue"><b>Draw</b><span>Write beside each number one example: 1 acetylcholine, 2 serotonin, 3 peptides.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">14</span>
+    <h3 class="sct">Why removal matters as much as release</h3>
+    <span class="scbeat">65 sec</span></div>
+  <div class="say"><p>Why does removal deserve two slides? Because a signal only means something if it ends. Picture a doorbell whose button sticks. It rings and keeps ringing. You cannot tell whether one visitor came or ten. If transmitter stayed in the cleft, the receptors would stay bound, and the next cell could not tell one action potential from the next.</p><p>Look at the graph. The navy line is the normal response to one action potential. The other lines show the same single action potential with a removal route blocked. The same amount of transmitter was released every time. It simply stays longer, keeps binding receptors, and so the response gets taller and also wider.</p><p>These curves come from the model on the next slide, and the exact sizes are illustrative. The direction is what you need: block removal, and the postsynaptic cell receives more signal, for longer.</p></div><div class="cue"><b>Draw</b><span>In navy, trace the normal curve. In rust, trace the enzyme blocked curve, then draw a vertical arrow labeled taller and a horizontal arrow labeled wider.</span></div><div class="cue"><b>Do</b><span>Open the reveal box. The clinical bar is optional. If you open it, read the nursing card about SSRIs.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">15</span>
+    <h3 class="sct">Run one synapse yourself</h3>
+    <span class="scbeat">2 min</span></div>
+  <div class="say"><p>Here is a model of everything so far. I will press Send one action potential. Watch the step named under the picture. The action potential arrives. The calcium channels open and the gold diamonds come in. The vesicles fuse and the grey dots come out. They spread across the cleft and bind the receptors, the channels open, and sodium, the navy squares, goes in. Then the dots are removed: some are split by the enzyme, some are taken back up, some drift out of the sides.</p><p>Now look at the table. Calcium enters, yes. Three vesicles released. The response peaks at 1. We are calling this normal response 1, so everything else can be compared with it.</p><p>Now I block one step. Botulinum toxin. I send another action potential. The calcium still comes in. But the vesicles do not fuse. Nothing is released, and the response is zero. Compare that with blocking the calcium channels. The postsynaptic cell is just as silent, but this time calcium entry says no. So the readouts upstream tell you where the chain stopped.</p><p>Last, I clear the blocks, send a steady train, and raise the frequency. More action potentials per second, more transmitter per second, and a larger average response. Then I block the removal enzyme, and the response stops coming back down. That is what an organophosphate does.</p><p>The note under the model tells you what is real and what is illustrative. The order of the steps and the direction of each effect are real. The sizes are relative units from a simple model.</p></div><div class="cue"><b>Do</b><span>Press Send one action potential and narrate the steps as they are named. Wait for the cleft to clear.</span></div><div class="cue"><b>Do</b><span>Turn on Botulinum toxin, send again, and point at the table. Turn it off, turn on Block Ca channels, and point at the calcium row.</span></div><div class="cue"><b>Do</b><span>Clear the blocks, press Send a steady train, move the slider from 10 to 100, then turn on Block the removal enzyme.</span></div><div class="cue"><b>Draw</b><span>No pen on this slide. Use the pointer on the table rows.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">16</span>
+    <h3 class="sct">Six toxins and drugs, each blocking one step</h3>
+    <span class="scbeat">60 sec</span></div>
+  <div class="say"><p>Now you do it. Here are six toxins and drugs. The middle column tells you what each one does to its target protein. For each one, decide whether the postsynaptic cell gets more signal or less, and name the step. Pause and sort them.</p><p>Here are the answers. Cone snail toxin blocks the calcium channels, step two, so less signal. Botulinum toxin cuts the SNARE proteins, step five, less signal. Curare sits on nicotinic receptors without opening them, step seven, less signal. The organophosphates inhibit acetylcholinesterase, step nine, so acetylcholine stays, and that is more signal. An SSRI blocks serotonin reuptake, step nine, more signal. Cocaine blocks dopamine reuptake, step nine, more signal.</p><p>Notice the pattern. Everything that gave more signal was acting on removal.</p></div><div class="cue"><b>Do</b><span>Click through the rows after the pause, reading each result line aloud.</span></div><div class="cue"><b>Draw</b><span>In rust, write the step number beside each row: 2, 5, 7, 9, 9, 9.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">17</span>
+    <h3 class="sct">Each toxin or drug is an experiment on one step</h3>
+    <span class="scbeat">60 sec</span></div>
+  <div class="say"><p>Here is the same information as a map, from the top down. The nine steps run down the left, and each agent is marked at the step it blocks.</p><p>Here is the rule. Block anything from step one to step eight and the next cell gets less. Block step nine and it gets more, because step nine is the only step whose job is to end the signal.</p><p>Scientists worked out much of this sequence by using these toxins as tools. Each one is an experiment that removes a single step. The first question in the box asks you to tell curare from botulinum toxin. Both paralyze. The difference is that with curare the acetylcholine is still being released, and with botulinum toxin it is not.</p></div><div class="cue"><b>Draw</b><span>In navy, bracket steps 1 to 8 and write LESS. In rust, circle step 9 and write MORE.</span></div><div class="cue"><b>Do</b><span>Open the first reveal box. Leave the SSRI box for students to read themselves.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">18</span>
+    <h3 class="sct">Two poisons, opposite steps, opposite signs</h3>
+    <span class="scbeat">75 sec</span></div>
+  <div class="say"><p>Let us put two of these side by side, because they are opposites. Botulinum toxin blocks release, so there is almost no acetylcholine in the cleft. An organophosphate blocks removal, so there is too much, for too long. Both act at every synapse that uses acetylcholine.</p><p>Go down the table. Glands and gut: with botulinum, a dry mouth and constipation. With an organophosphate, saliva, tears, sweat and an overactive gut. Pupils: wide with one, very small with the other. Heart rate: slow with the organophosphate, because of the muscarinic receptor you saw earlier. Opposite step, opposite signs.</p><p>Skeletal muscle is the surprise. With botulinum the muscle is weak from the start. With an organophosphate it twitches first, and then it also becomes weak. Why? Remember sodium channel inactivation from the action potential lecture. A membrane that is held depolarized keeps its sodium channels inactivated, so the fiber cannot fire again. A muscle needs a signal that turns on and then turns off.</p></div><div class="cue"><b>Draw</b><span>In rust, draw a double headed arrow between the two columns on the glands row and on the pupils row and write OPPOSITE.</span></div><div class="cue"><b>Draw</b><span>On the skeletal muscle row, write in navy: both end weak. Then: needs on AND off.</span></div><div class="cue"><b>Do</b><span>Open Show the work and read lines 5 and 6.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">19</span>
+    <h3 class="sct">Which step failed in the baby</h3>
+    <span class="scbeat">100 sec</span></div>
+  <div class="say"><p>Back to our patient. By now you have probably worked it out. She has infant botulism.</p><p>Honey can carry spores of a bacterium called Clostridium botulinum. In an older child or an adult, the normal gut bacteria keep those spores from growing. A young infant does not have that protection yet. The spores grew in her intestine, and the bacteria made botulinum toxin.</p><p>The toxin was absorbed and taken up by nerve terminals that release acetylcholine. Inside the terminal it cuts the SNARE proteins. So go through the steps. Action potential arrives: yes. Calcium channels open: yes. Calcium enters: yes. Vesicles fuse: no. Step five failed. That is why her nerves tested normal and her muscles tested normal. The gut went quiet first, then the muscles of her face and neck, and then the diaphragm.</p><p>Now treat it as an experiment. An antibody against the toxin can bind the toxin that is still in her blood. Can it fix the terminals that already have toxin inside? No, because it cannot get in. So it stops things getting worse and does not reverse what has happened. She recovers because her neurons make new SNARE proteins and grow new terminals, which takes weeks to months, and a ventilator breathes for her until then. Babies who are supported through that time usually recover fully.</p></div><div class="cue"><b>Draw</b><span>Beside the four numbered steps, write in navy: 1 yes, 2 yes, 3 yes. Then in rust: 5 NO.</span></div><div class="cue"><b>Do</b><span>Read the predict box, pause, then open the reveal box.</span></div><div class="cue"><b>Do</b><span>The clinical bar is optional. If you open it, read the nursing card about honey.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">20</span>
+    <h3 class="sct">Close the page and produce it</h3>
+    <span class="scbeat">35 sec</span></div>
+  <div class="say"><p>That is the chemical synapse. If you can say the nine steps in order, name the two families of receptor, explain why the receptor decides the response, and name the three routes of removal with a drug that blocks one of them, you have today's three competencies.</p><p>Close the page, take a blank sheet, and choose one prompt for each competency. Next time we put thousands of these synapses onto one neuron and ask how the cell adds them all up.</p></div><div class="cue"><b>Do</b><span>Point to the three competency names, then to the Coming next card.</span></div>
+</section>
+<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; The chemical synapse &middot; recording script. Not student facing.</p>
+</main>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+
+
+
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='biol005-w04-synapse-transcript';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  document.querySelectorAll('.clin-btn').forEach(function(b){
+    if(b.dataset.wired) return; b.dataset.wired='1';
+    var box=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      if(box)box.hidden=open;
+    });
+  });
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>

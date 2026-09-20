@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graded potentials and the action potential &middot; Recording script &middot; BIO 005</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-72:#4F576A; --navy-15:rgba(11,21,48,.15); --navy-08:rgba(11,21,48,.08);
+  --terra:#8B3A2E; --terra-dark:#6B2A20;
+  --gold:#C9A14A;
+  --white:#FFFFFF; --page:#FFFFFF; --wash:#FAFAF9;
+  --r-card:8px; --r-btn:4px; --r-pill:99px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--page); color:var(--navy); font-size:16px; line-height:1.6; font-style:normal;
+}
+em,i,cite,dfn,var,address{font-style:normal}
+button{font-family:inherit}
+a{color:var(--terra)}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;position:fixed;background:var(--navy);color:#fff;padding:10px 14px;border-radius:4px;z-index:400}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- editorial type ---------- */
+.disp{font-family:'Open Sans','Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.disp .hl{color:var(--terra)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);margin:0 0 10px}
+.eyebrow.navy{color:var(--navy-72)}
+.lede{font-size:18px;color:var(--navy-72);max-width:64ch;margin:0 0 22px}
+.muted{color:var(--navy-72)}
+
+/* ---------- chrome ---------- */
+.site-header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px max(16px,3vw);background:#fff;border-bottom:.5px solid var(--navy-15)}
+.site-logo{display:inline-flex;align-items:center;gap:13px;text-decoration:none;flex:1;min-width:250px}
+.site-logo svg{height:42px;width:auto;display:block;flex:0 0 auto}
+.logo-title{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--navy);display:block}
+.logo-title .logo-accent{color:var(--terra)}
+.logo-sub{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--navy-72);margin-top:3px}
+
+/* ---------- cards ---------- */
+.card{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:24px 22px}
+.card.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card.navy .eyebrow{color:var(--gold)}
+.card.navy a{color:var(--gold)}
+.card.feature{border:2px solid var(--terra)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* badge pill overlapping a card top */
+.badged{position:relative;margin-top:14px}
+.badged>.pill{position:absolute;top:-13px;left:20px}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--terra);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 14px;border-radius:var(--r-pill)}
+.pill.navy{background:var(--navy)}
+.pill.ghost{background:#fff;color:var(--navy);border:.5px solid var(--navy-15)}
+
+/* statement band */
+.band{background:var(--navy);color:#fff;border-radius:var(--r-card);padding:26px 26px}
+.band p{margin:0;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:700;
+  font-size:clamp(18px,2.2vw,25px);line-height:1.32;letter-spacing:-.01em}
+.band .em{color:var(--gold)}
+
+/* oversized step numerals */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-top:.5px solid var(--navy-15)}
+.steps>li:first-child{border-top:0;padding-top:6px}
+.steps>li::before{content:counter(s,decimal-leading-zero);
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:34px;
+  color:var(--terra);line-height:1;letter-spacing:-.03em}
+.steps h3,.steps h4{margin:0 0 6px;font-size:17.5px;font-weight:800;letter-spacing:-.01em;
+  text-transform:none;color:var(--navy)}
+.steps p{margin:0 0 8px}
+.steps p:last-child{margin-bottom:0}
+
+/* buttons */
+.btn{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;
+  border-radius:var(--r-btn);padding:13px 20px;border:1px solid var(--terra);background:var(--terra);
+  color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:var(--terra-dark);border-color:var(--terra-dark)}
+.btn.ghost{background:#0B1530;color:#F5F1E8;border-color:#0B1530;box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30)}
+.btn.ghost:hover{background:var(--wash);border-color:var(--navy)}
+.btn.navy{background:var(--navy);border-color:var(--navy)}
+.btn.navy:hover{background:#16213d}
+
+/* lists */
+ul.bul{margin:0 0 14px;padding:0;list-style:none}
+ul.bul>li{padding:5px 0 5px 20px;position:relative}
+ul.bul>li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--terra);border-radius:50%}
+ul.bul>li>ul{margin:6px 0 2px}
+ul.bul>li>ul>li::before{background:var(--navy-72);width:5px;height:5px}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.tbl caption{caption-side:top;text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--terra);padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:.5px solid var(--navy-15);vertical-align:top}
+.tbl thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72);font-weight:700}
+.tbl tbody th{font-weight:800}
+.tbl td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.num .alt{font-size:.86em;color:var(--navy-72)}
+
+/* figures */
+figure{margin:0}
+.fig{width:100%;height:auto;display:block;background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);cursor:zoom-in}
+figcaption{font-size:13px;color:var(--navy-72);margin:9px 0 0}
+figcaption b{color:var(--terra)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- notes page ---------- */
+.wrap{max-width:940px;margin:0 auto;padding:26px max(16px,4vw) 60px}
+.hero{padding:8px 0 26px;border-bottom:.5px solid var(--navy-15);margin-bottom:26px}
+.hero h1{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(30px,5vw,50px);
+  font-weight:800;letter-spacing:-.03em;line-height:1.06;margin:0 0 14px}
+.hero h1 .hl{color:var(--terra)}
+.metarow{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+h2{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-size:clamp(21px,2.7vw,28px);
+  font-weight:800;letter-spacing:-.02em;margin:40px 0 8px;padding-top:22px;border-top:.5px solid var(--navy-15)}
+h2:first-of-type{border-top:0;padding-top:0}
+h2 .hl{color:var(--terra)}
+h3{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin:26px 0 10px}
+h4{font-size:16.5px;font-weight:800;letter-spacing:-.01em;margin:18px 0 6px;color:var(--navy)}
+p{margin:0 0 13px}
+.sub{color:var(--navy-72);margin:0 0 18px;max-width:66ch}
+
+/* term blocks, boxed so each definition reads as its own card */
+.terms{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:8px 0 0}
+@media(max-width:760px){.terms{grid-template-columns:1fr}}
+.term{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:14px 16px}
+.term dt{font-weight:800;font-size:15.5px;margin:0 0 4px}
+.term dd{margin:0;font-size:14.5px;color:var(--navy-72)}
+.term dd b{color:var(--navy)}
+
+/* compartment color key: the same three codes are used in the figure,
+   in this legend, and on each group box, so a student can match them by eye */
+.ckey{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+.ckitem{display:inline-flex;align-items:center;gap:9px;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.sw{width:22px;height:22px;border-radius:5px;flex:0 0 auto}
+.sw.ext{background:var(--wash);border:1.6px dashed var(--navy-72)}
+.sw.int{background:#fff;border:2.4px solid var(--terra)}
+.sw.icf{background:var(--navy);border:1.6px solid var(--navy)}
+.ckitem .lb{line-height:1.2}
+.ckitem .sub{font-weight:600;color:var(--navy-72);font-size:12.5px;line-height:1.2}
+body.present .ckitem{font-size:clamp(13px,1.3vw,18px)}
+body.present .sw{width:26px;height:26px}
+
+/* grouped compartments: the group border shows what contains what */
+.tgroup{border-radius:var(--r-card);padding:16px 18px 18px;margin:0 0 14px}
+.tgroup .glab{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  margin:0 0 4px;display:flex;align-items:center;gap:9px}
+.tgroup .glab .sw{width:16px;height:16px;border-radius:4px}
+.tgroup .gnote{font-size:14px;color:var(--navy-72);margin:0 0 6px}
+.tgroup.ext{border:1.4px dashed var(--navy-72);background:var(--wash)}
+.tgroup.ext .glab{color:var(--navy-72)}
+.tgroup.int{border:2px solid var(--terra)}
+.tgroup.int .glab{color:var(--terra)}
+.tgroup.icf{border:1.8px solid var(--navy)}
+.tgroup.icf .glab{color:var(--navy)}
+
+/* causal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:8px 0 6px}
+.chain .lk{flex:1 1 130px;min-width:120px;background:#fff;border:.5px solid var(--navy-15);
+  border-radius:var(--r-card);padding:12px 13px}
+.chain .lk .k{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin:0 0 4px}
+.chain .lk p{margin:0;font-size:14px;line-height:1.4}
+.chain .ar{display:flex;align-items:center;justify-content:center;color:var(--terra);
+  font-size:20px;font-weight:800;padding:0 8px;flex:0 0 auto}
+@media(max-width:700px){.chain{flex-direction:column}.chain .ar{transform:rotate(90deg);padding:5px 0}}
+
+/* key box */
+.key{border:2px solid var(--terra);border-radius:var(--r-card);padding:16px 18px;margin:18px 0}
+.key .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 7px}
+.key p:last-child,.key ul:last-child{margin-bottom:0}
+
+/* equation */
+.eq{background:var(--wash);border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px;margin:14px 0}
+.eq .f{font-size:19px;font-weight:800;letter-spacing:.01em;margin:0 0 9px;font-variant-numeric:tabular-nums}
+.eq .k{font-size:13.5px;color:var(--navy-72);margin:0 0 6px}
+.eq .k b{color:var(--navy)}
+.eq .says{font-size:14px;margin:0}
+.eq .says b{color:var(--terra)}
+
+.page-foot{margin-top:44px;border-top:.5px solid var(--navy-15);padding-top:16px;font-size:13px;color:var(--navy-72)}
+
+@media print{
+  @page{margin:13mm}
+  .site-header .site-logo svg{height:32px}
+  .wb,.wb-launch,.lightbox,.skip{display:none!important}
+  body{font-size:10.5pt}
+  h2{break-after:avoid;page-break-after:avoid}
+  .card,.key,.eq,figure,.chain,.term,.tgroup,.cprof{break-inside:avoid;page-break-inside:avoid}
+  .clin-body[hidden]{display:block!important}
+  .clin-btn{display:none!important}
+  .clin-grid{grid-template-columns:repeat(2,1fr)}
+  .card.navy,.band{background:#fff!important;color:#0B1530!important;border:1px solid #bbb!important}
+  .card.navy .eyebrow,.band .em{color:#6B2A20!important}
+}
+
+/* transcript blocks and worked problems */
+.sl{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:0 0 10px}
+.sl b{color:var(--terra)}
+.tx p{max-width:70ch}
+.work{list-style:none;margin:0;padding:0;counter-reset:w}
+.work>li{counter-increment:w;position:relative;padding:9px 0 9px 42px;border-top:.5px solid var(--navy-15);font-size:15px;line-height:1.5}
+.work>li:first-child{border-top:0;padding-top:0}
+.work>li::before{content:counter(w);position:absolute;left:0;top:9px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:var(--terra);line-height:1.1}
+.work>li:first-child::before{top:0}
+.prob{border:2px solid var(--terra);border-radius:var(--r-card);padding:18px 20px;margin:18px 0}
+.prob .tag{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.prob .q{font-weight:800;margin:0 0 12px;font-size:16px}
+.prob .q+ul{margin-bottom:14px}
+.prob h5{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);margin:14px 0 8px}
+sup,sub{font-size:.72em;line-height:0}
+img.fig{object-fit:contain}
+@media print{.prob,.work>li{break-inside:avoid;page-break-inside:avoid}}
+
+/* collapsible clinical bar: what this means in medicine, nursing, respiratory therapy */
+.clin{margin:18px 0 0}
+.clin-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  background:#fff;color:var(--navy);border:1px solid var(--navy-15);border-radius:var(--r-btn);
+  padding:14px 18px;cursor:pointer;text-align:left}
+.clin-btn:hover{border-color:var(--navy);background:var(--wash)}
+.clin-btn[aria-expanded="true"]{border:2px solid var(--navy);
+  box-shadow:0 6px 16px rgba(11,21,48,.10),0 3px 6px rgba(11,21,48,.06)}
+.clin-btn .chev{font-size:15px;color:var(--terra);transition:transform .18s ease}
+.clin-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.clin-body{margin:12px 0 0}
+.clin-body[hidden]{display:none}
+.clin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1180px){.clin-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.clin-grid{grid-template-columns:1fr}}
+.cprof{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:15px 16px}
+.cprof .who{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px;margin:0 0 10px}
+.cprof.n .who{background:var(--terra)}
+/* "Radiologic technology" is the longest label of the four; tighten its tracking
+   so the pill stays on one line and all four card texts start on the same line. */
+.cprof.x .who{background:#6B5017;letter-spacing:.07em;white-space:nowrap}
+.cprof.r .who,.cprof.n .who,.cprof.m .who{white-space:nowrap}
+.cprof.r .who{background:#2C4A70}
+.cprof .means{margin:0 0 9px;font-size:14.5px;line-height:1.45}
+.cprof .eg{margin:0;font-size:14px;color:var(--navy-72);line-height:1.45}
+.cprof .eg b{color:var(--terra)}
+body.present .clin-btn{font-size:clamp(11px,1.05vw,15px);padding:15px 20px}
+body.present .cprof .means{font-size:clamp(14px,1.4vw,20px)}
+body.present .cprof .eg{font-size:clamp(13px,1.3vw,18px)}
+body.present .cprof .who{font-size:clamp(10px,1vw,13px)}
+/* While recording, an open clinical bar owns the slide. Four professions side by
+   side need the full width; scaled down to fit around the slide content they are
+   unreadable on camera. Closing the bar brings the slide straight back. */
+body.present .slide.clinopen .slide-body>*:not(.clin){display:none}
+body.present .slide.clinopen .clin{margin-top:4px}
+body.present .slide.clinopen .cprof{padding:18px 20px}
+
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(11,21,48,.92);display:flex;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+.lightbox[hidden]{display:none}
+.lightbox .lb-inner{max-width:96vw;max-height:92vh;overflow:auto;background:#fff;border-radius:var(--r-card);padding:14px}
+.mapcard{cursor:zoom-in}
+.mapcard .mc-hit{transition:fill .15s ease}
+.mapcard:hover .mc-hit{fill:#FAFAF9;stroke-width:2.6}
+.mapcard:focus{outline:none}
+.mapcard:focus-visible .mc-hit{stroke:#8B3A2E;stroke-width:3.4}
+.lb-card{max-width:min(80vw,880px)}
+.lb-card .lb-h{background:var(--terra);color:#fff;border-radius:var(--r-card) var(--r-card) 0 0;
+  padding:20px 26px;font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;margin:0}
+.lb-card ul{list-style:none;margin:0;padding:22px 26px 26px;border:1.5px solid var(--navy);
+  border-top:0;border-radius:0 0 var(--r-card) var(--r-card)}
+.lb-card li{position:relative;padding:10px 0 10px 30px;font-size:clamp(18px,2vw,26px);line-height:1.4}
+.lb-card li::before{content:"";position:absolute;left:4px;top:22px;width:9px;height:9px;
+  background:var(--terra);border-radius:50%}
+.lightbox .lb-close{position:absolute;top:16px;right:18px;background:var(--terra);color:#fff;border:0;
+  border-radius:var(--r-btn);padding:12px 18px;font-weight:800;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;cursor:pointer}
+
+/* ---------- competency close-out, shared by the notes and the decks ---------- */
+.cmpwrap{margin:10px 0 0}
+.cmp{background:#fff;border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:16px 18px 18px}
+.cmp .cn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra);margin:0 0 6px}
+.cmp h4{margin:0 0 4px;font-size:16.5px;font-weight:800;letter-spacing:-.01em;color:var(--navy)}
+.cmp .ccan{margin:0;font-size:14px;color:var(--navy-72)}
+.cmp .pick{margin:13px 0 0;font-size:12.5px;font-weight:700;color:var(--navy-72)}
+.pr{position:relative;border-radius:8px;padding:13px 15px 12px;margin:14px 0 0}
+.pr p{margin:0;font-size:14.5px;line-height:1.5}
+.pr.a{border:1.6px solid var(--terra)}
+.pr.b{border:1.6px solid var(--navy)}
+.pr .pl{position:absolute;top:-10px;left:13px;background:#fff;padding:0 7px;
+  font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;
+  letter-spacing:.16em}
+.pr.a .pl{color:var(--terra)}
+.pr.b .pl{color:var(--navy)}
+.cmplist{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}
+.cmplist li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:baseline;
+  padding:7px 0;border-top:.5px solid var(--navy-15);font-size:15px}
+.cmplist li .k{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;
+  color:var(--terra);font-variant-numeric:tabular-nums}
+@media(max-width:760px){.cmplist{grid-template-columns:1fr}.cmpwrap .grid{grid-template-columns:1fr}}
+@media print{.cmp,.pr{break-inside:avoid;page-break-inside:avoid}}
+
+.prereq .card{padding:18px 20px}
+.prereq .eyebrow{margin-bottom:8px}
+.prereq ul.bul{margin-bottom:6px}
+.prereq ul.bul>li{padding:3px 0 3px 18px;font-size:14.5px}
+.prereq ul.bul>li::before{top:12px;width:5px;height:5px}
+.prereq .pqnote{font-size:13.5px;color:var(--navy-72);margin:10px 0 0}
+.prereq .pqlink{margin:12px 0 0;font-size:13.5px;font-weight:700}
+@media(max-width:860px){.prereq{grid-template-columns:1fr}}
+
+/* ---------- recording script ---------- */
+.wrap{max-width:1040px}
+.sc{border:.5px solid var(--navy-15);border-radius:var(--r-card);padding:18px 20px;margin:0 0 14px}
+.sc.beatchange{border-left:4px solid var(--terra)}
+.schead{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:baseline;margin:0 0 12px}
+.scn{font-family:'Open Sans','Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;
+  line-height:1;letter-spacing:-.03em;color:var(--terra)}
+.sct{margin:0;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.scbeat{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-72);white-space:nowrap}
+.say{margin:0}
+.say p{margin:0 0 10px;font-size:16px;line-height:1.65;max-width:70ch}
+.say p:last-child{margin-bottom:0}
+.cue{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;padding:10px 12px;
+  border:.5px solid var(--navy-15);border-radius:6px;font-size:14px;color:var(--navy-72)}
+.cue b{color:var(--terra);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  white-space:nowrap;padding-top:3px}
+.cue span{line-height:1.5}
+.beatbar{display:flex;align-items:baseline;gap:14px;margin:34px 0 14px;padding:0 0 10px;
+  border-bottom:1.5px solid var(--terra)}
+.beatbar h2{border:0;padding:0;margin:0}
+.beatbar .mins{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--navy-72)}
+.runsheet{width:100%;border-collapse:collapse;font-size:14.5px;margin:10px 0 0}
+.runsheet th,.runsheet td{text-align:left;padding:8px 10px;border-bottom:.5px solid var(--navy-15)}
+.runsheet thead th{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-72)}
+.runsheet td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{padding:9px 0 9px 34px;position:relative;border-top:.5px solid var(--navy-15);font-size:15.5px}
+.checklist li:first-child{border-top:0}
+.checklist li::before{content:"";position:absolute;left:2px;top:14px;width:15px;height:15px;
+  border:1.6px solid var(--navy-72);border-radius:3px}
+sub,sup{font-size:.72em;line-height:0}
+@media print{
+  @page{margin:14mm}
+  .sc{break-inside:avoid;page-break-inside:avoid}
+  .beatbar{break-after:avoid;page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header">
+  <a class="site-logo" href="welcome.html" target="_top" aria-label="BIOL 005 Human Physiology, course home">
+    <svg viewBox="40 10 125 148" aria-hidden="true" focusable="false"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="logo-title">Human <span class="logo-accent">Physiology</span></span><span class="logo-sub">BIO 005 &middot; Recording script</span></span>
+  </a>
+</header>
+<main class="wrap" id="main">
+
+<div class="hero">
+  <p class="eyebrow">BIO 005 &middot; Week 4 &middot; Instructor only</p>
+  <h1>Recording <span class="hl">script</span></h1>
+  <p class="lede">One entry per slide for Graded potentials and the action potential. Say lines are what you talk through, in your own voice. Do and Draw lines are the cues for clicking and for the pen. Timings are a guide to pacing.</p>
+  <div class="metarow"><span class="pill">23 slides</span><span class="pill navy">talking time 31 min 10 sec, recorded about 39 minutes</span><span class="pill ghost">Not student facing</span></div>
+</div>
+<h2>The whole idea in a few <span class="hl">sentences</span></h2>
+<p class="sub">Read this before you record. If these sentences make sense, the rest is detail.</p>
+<ol style="margin:0 0 8px;padding-left:24px;font-size:15.5px;line-height:1.65;max-width:74ch"><li>A neuron has two electrical signals. A graded potential is small, its size matches the stimulus, and it fades as it spreads because charge leaks out through the membrane and the cytoplasm resists its flow. An action potential is large, always the same size, and does not fade.</li><li>Graded potentials add together at the trigger zone. If the total reaches threshold, the neuron fires. If it does not, nothing else happens.</li><li>The voltage gated sodium channel has two gates. Depolarization opens the fast activation gate and, about half a millisecond later, closes the slow inactivation gate. So the channel opens briefly and then shuts itself, and it cannot reopen until the membrane has repolarized.</li><li>Threshold is the potential where sodium entry through these channels becomes larger than potassium leaving through leak channels. Past it, depolarization opens more sodium channels, which causes more depolarization. That positive feedback is the rising phase.</li><li>The peak stops near plus 30 because sodium channels inactivate and slow voltage gated potassium channels open. Potassium leaving is the falling phase. The potassium channels are slow to close, which gives the after-hyperpolarization. Leak channels, not the pump, return the membrane to rest.</li><li>The action potential is all or none because the stimulus only has to reach threshold. After that, its size is set by the ion gradients and the channel properties. So few ions cross that the concentrations do not change.</li></ol>
+<h2>Where students get <span class="hl">lost</span></h2>
+<table class="runsheet"><thead><tr><th scope="col">What they think</th><th scope="col">What to say</th><th scope="col">Slide</th></tr></thead>
+<tbody><tr><td>A bigger stimulus makes a bigger action potential.</td><td>A bigger stimulus makes a bigger graded potential. Once that reaches threshold, the action potential runs on the sodium gradient and is always the same size. Use the match comparison.</td><td class="num">4, 17</td></tr><tr><td>The inactivated state is the same as the resting closed state.</td><td>Both stop sodium, but a different gate is closed. The resting channel can be opened by depolarization. The inactivated channel cannot, because depolarization is what closed that gate. Point to panels 1 and 3 side by side.</td><td class="num">9, 10</td></tr><tr><td>The sodium potassium pump repolarizes the membrane.</td><td>Potassium leaving through voltage gated potassium channels repolarizes it, and leak channels bring it back to rest. The pump is too slow, and so few ions crossed that there is nothing to fix. Show the count in worked problem 3.</td><td class="num">15, 18</td></tr><tr><td>Threshold is just a number to memorize.</td><td>Threshold is where sodium coming in becomes larger than potassium going out. The number, about minus 55, is where that happens in many neurons, and it can move.</td><td class="num">12</td></tr><tr><td>The peak should reach the sodium equilibrium potential, plus 61.</td><td>It would if the sodium channels stayed open. They inactivate after about half a millisecond, and potassium channels open. Worked problem 2 shows plus 50 for channels that stay open and plus 30 for the real peak.</td><td class="num">14, 15, 16</td></tr><tr><td>Tetrodotoxin must change the resting potential, since the nerve stops working.</td><td>The resting potential is set by leak channels and the gradients, and the toxin touches neither. The nerve is resting normally. It just cannot fire.</td><td class="num">2, 22</td></tr></tbody></table>
+<h2>Before you press <span class="hl">record</span></h2>
+<ul class="checklist"><li>Open the deck and press <b>Reset boxes</b> so no answer is showing.</li><li>Press <b>Present full screen</b>, then <b>W</b> to check the pen layer opens.</li><li>Go to slide 20 and check that the model runs: set the slider to 25 mV, press <b>Stimulate</b>, and watch one full action potential. Then turn the tetrodotoxin and potassium block buttons off again.</li><li>Have a rust pen and a navy pen ready in the whiteboard toolbar.</li><li>Slides 7 to 10 are one drawing built in four steps. Keep your pace even across them and do not skip ahead to the finished figure.</li></ul>
+<p class="sub" style="margin-top:12px">If you need to shorten the recording, slide 19 (the comparison table) and the clinical bars on slides 10 and 17 can be left for students to read, without losing the thread of the lecture.</p>
+<div class="beatbar"><h2>The slides</h2><span class="mins">1 to 23</span></div>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">01</span>
+    <h3 class="sct">Graded potentials and the action potential</h3>
+    <span class="scbeat">85 sec</span></div>
+  <div class="say"><p>Last lecture we built the resting membrane potential. Today we make it move. A neuron uses two kinds of electrical signal. One is small and local and comes in different sizes, and it is called a graded potential. The other is large, it is always the same size, and it can travel the whole length of an axon. That one is the action potential.</p><p>We will take them in that order. After graded potentials, I am going to build the voltage gated sodium channel for you one gate at a time, because that one protein explains most of the action potential.</p><p>Here is the problem for today. A man eats pufferfish that was not prepared correctly. Within an hour his lips and tongue go numb. Then his arms and legs get weak, and a few hours later he cannot breathe without help. He is awake and aware the whole time. The toxin is called tetrodotoxin, and it does exactly one thing. It plugs voltage gated sodium channels from the outside. His resting potentials are completely normal. So why have his nerves and muscles gone silent?</p></div><div class="cue"><b>Do</b><span>Read the navy card slowly. Pause after the last question.</span></div><div class="cue"><b>Draw</b><span>In rust, underline the words: it plugs voltage gated sodium channels from the outside. Then underline: His resting membrane potentials are normal.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">02</span>
+    <h3 class="sct">What tetrodotoxin changes in a nerve, and what it leaves alone</h3>
+    <span class="scbeat">80 sec</span></div>
+  <div class="say"><p>Before any new biology, look at some data. These are measurements from one axon, before the toxin and after the toxin. Everything you need is in the table. Pause the video and decide for each row: is it the same, or is it different?</p><p>Resting potential, minus 70 both times. Same. Potassium inside, the same. Sodium outside, the same. A weak stimulus gives a little 5 millivolt bump that fades, and that is the same too. The only row that changed is the last one. Normally a strong stimulus makes the membrane rise to plus 30 in less than a millisecond. With the toxin, you get a bump of about 20 millivolts and then it fades.</p><p>So everything from last lecture is fine. The pump works, the gradients are there, the resting potential is normal. What is missing is that one big, fast response. Today is about what that response is and which channel makes it. Write down a guess for why losing it would stop someone from breathing.</p></div><div class="cue"><b>Do</b><span>Click the correct answer on each row on camera after giving them time. Then open the reveal box.</span></div><div class="cue"><b>Draw</b><span>In rust, circle the bottom right cell, rises about 20 mV then fades. In navy, put a check beside each of the four rows that are the same.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">03</span>
+    <h3 class="sct">A neuron uses two kinds of electrical signal</h3>
+    <span class="scbeat">65 sec</span></div>
+  <div class="say"><p>Here is the map for today. Electrical signals in a neuron come in two kinds. On the left, the graded potential. It is a short distance signal, its size depends on the stimulus, and it fades as it spreads. On the right, the action potential. It is a long distance signal, it is always the same size, and it does not fade.</p><p>Now look at the neuron underneath. You saw these four zones in the neurons and glia lecture. Graded potentials happen in the input zone, the dendrites and the cell body. Action potentials start at the trigger zone, which is the first part of the axon, and then travel down the conducting zone to the terminals.</p><p>So the two signals work together. Graded potentials bring information in to the trigger zone. The trigger zone decides whether to send an action potential out.</p></div><div class="cue"><b>Draw</b><span>In navy, circle the input zone bracket and write GRADED above the dendrites. In rust, circle the trigger zone and draw an arrow along the axon to the terminals, and write AP along it.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">04</span>
+    <h3 class="sct">A graded potential is as large as the stimulus that caused it</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>Let us start with the graded potential. It begins when a stimulus opens some gated channels. At a synapse, the stimulus is a neurotransmitter, and it opens ligand gated channels. In a touch receptor in your skin, the stimulus is stretch, and it opens mechanically gated channels. These are the channel types from the end of last lecture.</p><p>What happens next is last lecture's rule. If the channels let sodium in, the membrane moves toward the sodium equilibrium potential, so it depolarizes. If the channels let potassium out, or chloride in, the membrane hyperpolarizes. That is the fourth trace in the figure, the one that dips down.</p><p>Now, why is it called graded? Look at the first three traces. A weak stimulus opens a few channels, a little sodium comes in, and you get a 3 millivolt bump. A stronger stimulus opens more channels, or holds them open longer, more sodium comes in, and the bump is bigger. The size of the graded potential reports the size of the stimulus. There is no threshold for a graded potential, and there is no standard size. Any stimulus that opens channels makes one.</p></div><div class="cue"><b>Draw</b><span>In rust, trace each of the three depolarizing bumps and then tap the stimulus bar under it, saying: bigger stimulus, bigger response. In navy, trace the fourth one and write: hyperpolarizing.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">05</span>
+    <h3 class="sct">A graded potential gets smaller as it spreads</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>Graded potentials have one big weakness. They fade. Here is a dendrite drawn as a long tube. The channels opened at the left end, and sodium came in there. That sodium is positive charge, and it spreads along the inside of the tube. We call that local current flow.</p><p>Two things make it shrink as it goes. The first is current leak. The membrane has leak channels open all along its length, the same leak channels that set the resting potential. As the positive charge moves along, some of it leaves through those channels. Picture a garden hose with small holes all along it. The farther you go from the tap, the less water is left.</p><p>The second is cytoplasmic resistance. The cytoplasm is not a perfect conductor. It resists the flow of charge, the way a narrow pipe resists flow more than a wide one.</p><p>So look at the four recordings across the top. Twenty millivolts right beside the channels, then 12, then 7, then 4. Same graded potential, measured farther and farther away. Which of those two losses could you reduce by making the tube wider? Decide, and then open the box.</p></div><div class="cue"><b>Draw</b><span>In rust, draw down each of the leak arrows along the bottom and write: current leak. In navy, trace the three arrows inside the tube from thick to thin and write: cytoplasmic resistance.</span></div><div class="cue"><b>Draw</b><span>In navy, write 20, 12, 7, 4 above the four boxes as you say them.</span></div><div class="cue"><b>Do</b><span>Ask the reveal question aloud, pause, then open it.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">06</span>
+    <h3 class="sct">What reaches the trigger zone decides whether the neuron fires</h3>
+    <span class="scbeat">95 sec</span></div>
+  <div class="say"><p>If graded potentials fade, then what matters is how big the graded potential still is when it arrives at the trigger zone. If it is still big enough to reach threshold, we call it suprathreshold, and the neuron fires. If it has faded too much, it is subthreshold, and nothing else happens.</p><p>Graded potentials have one more property, and it is a useful one. They add. If two arrive at about the same time, the trigger zone sees the sum. That is called summation. Look at the right hand panel. Each dashed line alone stays under threshold. Together they cross it, and you get an action potential.</p><p>Let us put numbers on it. This is worked problem 1. The neuron rests at minus 70, and threshold is minus 55, so it needs 15 millivolts. One synapse makes 20 millivolts out at the dendrite, but only 8 of it survives to the trigger zone. Minus 70 plus 8 is minus 62. Not enough. Two of those synapses together: 8 plus 8 is 16. Minus 70 plus 16 is minus 54. That crosses threshold, so the neuron fires. Pause here and do the third case yourself, with the inhibitory synapse, before you open the work.</p></div><div class="cue"><b>Draw</b><span>On the left panel write in navy: minus 70 plus 8 equals minus 62, NO. On the right panel write in rust: minus 70 plus 16 equals minus 54, FIRES.</span></div><div class="cue"><b>Do</b><span>Open Show the work after the pause and point to step 4.</span></div><div class="cue"><b>Do</b><span>This is a good place to end Part 1 if you record in two parts.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">07</span>
+    <h3 class="sct">A voltage gated sodium channel has two gates</h3>
+    <span class="scbeat">95 sec</span></div>
+  <div class="say"><p>Now the most important protein of the day, the voltage gated sodium channel. I am going to draw it four times, and each drawing adds one step. If you understand this one channel, the action potential is easy.</p><p>It is a pore that only sodium fits through, and part of the protein can sense the voltage across the membrane. The new idea is that it has two gates, one after the other. Picture a hallway with a door at each end. You can only walk through if both doors are open at the same time. If either door is shut, nobody gets through.</p><p>The first door is called the activation gate. In my drawing it is the bar across the pore. At rest, it is closed. The second door is called the inactivation gate. In my drawing it is the ball hanging on a chain on the inside of the cell. At rest, it is open, hanging out of the way.</p><p>So at rest: activation gate closed, inactivation gate open. One closed door is enough, so no sodium gets in. But notice that this channel is ready. It is closed, and it is able to open. In two slides you will see a different kind of closed.</p></div><div class="cue"><b>Draw</b><span>In navy, trace the bar and write ACTIVATION, closed. In rust, circle the ball and write INACTIVATION, open.</span></div><div class="cue"><b>Draw</b><span>Under the panel write: closed, but ABLE to open.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">08</span>
+    <h3 class="sct">Depolarization opens the activation gate within a fraction of a millisecond</h3>
+    <span class="scbeat">55 sec</span></div>
+  <div class="say"><p>Step 2. Something depolarizes the membrane. The voltage sensor feels that change and the activation gate opens. It is very fast, a small fraction of a millisecond.</p><p>Now look at both doors. The activation gate has just opened. The inactivation gate was already open. Both doors are open, so sodium comes in. And it comes in with a lot of force behind it. Remember from last lecture that sodium has both its concentration gradient and the negative inside pulling it inward, and it is more than 100 millivolts away from its equilibrium potential.</p><p>One more thing to notice, because we need it in a few slides. The more the membrane depolarizes, the more of these channels open.</p></div><div class="cue"><b>Draw</b><span>In navy, trace the opened bar in panel 2 and write: opens FAST. Trace the sodium arrow down through the pore.</span></div><div class="cue"><b>Draw</b><span>Between panel 1 and panel 2, circle the words then: depolarization.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">09</span>
+    <h3 class="sct">The same depolarization closes the inactivation gate about half a millisecond later</h3>
+    <span class="scbeat">2 min</span></div>
+  <div class="say"><p>Step 3 is the one students find hardest, so let us take it carefully. The depolarization that opened the activation gate was also felt by the inactivation gate. Both gates got the same message at the same moment. The difference is speed, and direction. The activation gate is fast, and its response is to open. The inactivation gate is slow, and its response is to close.</p><p>So what happens? The fast door opens first. For about half a millisecond both doors are open, and sodium comes in. Then the slow door finishes closing, the ball moves into the pore, and sodium stops. The channel opened itself and then shut itself, and the membrane is still depolarized. Nothing had to tell it to stop.</p><p>Here is an everyday version. Picture a door with an automatic closer at a store entrance. You push it open, and the closer starts working the moment you push. It is just slower than you are. There is a short time when the door is open, and then it shuts again by itself.</p><p>Now look carefully at panel 3 and compare it with panel 1. Both channels are closed. No sodium passes in either one. But they are not the same. In panel 1 the bar is closed and the ball is open. In panel 3 the bar is open and the ball is plugging the pore. We call panel 3 inactivated. And an inactivated channel cannot be opened by depolarizing it again, because depolarizing is what closed that gate in the first place.</p></div><div class="cue"><b>Draw</b><span>In rust, circle the ball sitting in the pore in panel 3 and write: closes SLOW, about half a millisecond.</span></div><div class="cue"><b>Draw</b><span>In navy, draw a double headed arrow between panel 1 and panel 3 and write: both closed, NOT the same.</span></div><div class="cue"><b>Do</b><span>Go slowly. If you only have energy for one careful explanation in this recording, spend it on this slide.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">10</span>
+    <h3 class="sct">Only repolarization returns the channel to its resting state</h3>
+    <span class="scbeat">70 sec</span></div>
+  <div class="say"><p>Step 4. How does the channel get back to the start? Only one way. The membrane has to repolarize, back down near minus 70. When it does, both gates go back to their resting positions. The bar closes, and the ball swings back out of the pore.</p><p>So panel 4 looks exactly like panel 1, and that is the point. The channel has three states, and it goes through them in order: closed and able to open, then open, then inactivated, and then back to closed and able to open. It cannot skip from inactivated straight back to open.</p><p>Open the box and read the question with me. Both closed states stop sodium, so why do we care which gate is closed? Because one of them can be opened by a stimulus and the other cannot. Keep this distinction for next lecture, because it is the whole explanation for the refractory period.</p></div><div class="cue"><b>Draw</b><span>In rust, number the states under the panels: 1 closed, 2 open, 3 inactivated, then an arrow from panel 4 back around to panel 1.</span></div><div class="cue"><b>Do</b><span>Open the reveal. The clinical bar is optional here. If you open it, talk through nursing and respiratory therapy only.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">11</span>
+    <h3 class="sct">The voltage gated potassium channel has one gate, and it is slow</h3>
+    <span class="scbeat">85 sec</span></div>
+  <div class="say"><p>The second channel is simpler. The voltage gated potassium channel has just one gate. It is closed at rest, and it opens when the membrane depolarizes. It is not the potassium leak channel from last lecture, which is always open.</p><p>The important thing about it is that it is slow. Look at the timing bars on the right. At time zero the membrane reaches threshold. The sodium activation gate opens right away. About half a millisecond later two things happen at nearly the same time: the sodium inactivation gate closes, and the potassium gate finally opens. And then the potassium gate is slow to close as well. It stays open even after the membrane is back near rest.</p><p>When it opens, potassium leaves the cell, because the membrane is far above minus 95, the potassium equilibrium potential.</p><p>Ask yourself what would happen if potassium channels were as fast as sodium channels. Sodium coming in and potassium going out at the same time would cancel, and the membrane would barely move. The delay is what makes an action potential possible.</p></div><div class="cue"><b>Draw</b><span>In navy, trace the top bar and say: fast. In rust, trace the bottom bar and say: slow to open, slow to close. Draw a vertical line at 0.5 ms through the start of the lower two bars.</span></div><div class="cue"><b>Do</b><span>Ask the reveal question aloud before opening it.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">12</span>
+    <h3 class="sct">Threshold is the potential where sodium entry becomes larger than potassium leak</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>Now we can say what threshold really is. A lot of students learn threshold as a number, minus 55. It is better to understand it as a contest between two currents.</p><p>Look at the left panel. A small graded potential has depolarized the trigger zone to minus 62. A few sodium channels have opened, so a little sodium is coming in. But potassium is still leaving through the leak channels, and because we moved away from the potassium equilibrium potential, that outward current is a bit bigger than it was at rest. Potassium out is larger than sodium in. So the membrane drifts back down to rest. That is all a subthreshold graded potential does.</p><p>Middle panel. A bigger depolarization, more sodium channels open, and now sodium in exactly equals potassium out. That balance point is threshold.</p><p>Right panel. Just past that point, sodium in is larger than potassium out. The membrane depolarizes a little more by itself, and that opens more sodium channels. So threshold is the membrane potential where sodium entry becomes larger than potassium exit. It happens to be near minus 55 in many neurons. Books give anything from minus 50 to minus 55.</p></div><div class="cue"><b>Draw</b><span>In each panel, trace the sodium arrow in navy and the potassium arrow in rust, and write under them: K bigger, equal, Na bigger.</span></div><div class="cue"><b>Draw</b><span>Under the middle panel write: THRESHOLD = Na in just beats K out.</span></div><div class="cue"><b>Do</b><span>Open the reveal and read the definition aloud.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">13</span>
+    <h3 class="sct">Past threshold, depolarization sustains itself until the channels inactivate</h3>
+    <span class="scbeat">70 sec</span></div>
+  <div class="say"><p>Here is what happens past threshold. Follow the loop with me. Activation gates open. Sodium enters. The membrane depolarizes further. And further depolarization opens more activation gates. The loop keeps going around, and each turn makes the next turn bigger. That is positive feedback, and you saw it in Week 1 with homeostasis. It is rare in the body because it cannot stop itself.</p><p>This loop is the rising phase of the action potential. It is why the rise is so steep, and why an action potential cannot stop halfway up.</p><p>So what stops it? Look at the bottom of the figure. Two slower events were started by that same depolarization. The inactivation gates close, so sodium entry stops and the loop is broken. And the potassium channels open, so potassium leaves and the membrane comes back down. Both of those are slow, which is why the loop gets about half a millisecond to run.</p></div><div class="cue"><b>Draw</b><span>In rust, trace around the loop twice with the pen, faster the second time. Write POSITIVE FEEDBACK in the middle.</span></div><div class="cue"><b>Draw</b><span>In navy, circle the two boxes at the bottom and write: these end it.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">14</span>
+    <h3 class="sct">Rest, threshold, rising phase and peak</h3>
+    <span class="scbeat">75 sec</span></div>
+  <div class="say"><p>Now let us put it all on one tracing. The top graph is membrane potential. The bottom graph shows the permeability to sodium and to potassium, lined up in time. Try to read them together.</p><p>Point 1 is rest. Only leak channels are open, and the membrane is near minus 70. Point 2, a graded potential has brought the trigger zone up to threshold. Point 3 is the rising phase. Look at the bottom graph: sodium permeability rises steeply. Sodium enters, and the membrane moves toward the sodium equilibrium potential. It crosses zero, so for a moment the inside of the cell is positive. That part above zero is the overshoot from last lecture.</p><p>Point 4 is the peak, at about plus 30. Now a question before I move on. The sodium equilibrium potential is plus 61, and the membrane was on its way there. Why does it stop at plus 30? You already know both reasons. Say them to yourself before the next slide.</p></div><div class="cue"><b>Draw</b><span>In rust, trace the curve from 1 to 4. In navy, draw a vertical line from the steep part of the rising phase down to the sodium permeability spike, to show they line up.</span></div><div class="cue"><b>Do</b><span>Read the predict box aloud and pause for three seconds.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">15</span>
+    <h3 class="sct">Falling phase, after-hyperpolarization and the return to rest</h3>
+    <span class="scbeat">95 sec</span></div>
+  <div class="say"><p>Here are the two reasons. First, the sodium channels inactivate about half a millisecond after they open, so sodium entry is ending. Second, the potassium channels are now opening. Look at the bottom graph at the time of the peak. Sodium permeability is already falling and potassium permeability is rising.</p><p>Point 5, the falling phase. Sodium channels are inactivated. Potassium channels are open. Potassium leaves the cell, positive charge goes out, and the membrane repolarizes.</p><p>Point 6, the after-hyperpolarization. The membrane does not stop at minus 70. It goes below it. Why? Because the potassium channels are slow to close. For a few milliseconds the membrane has more potassium permeability than it has at rest, so it moves even closer to the potassium equilibrium potential, minus 95. On the bottom graph you can see potassium permeability is still raised.</p><p>Point 7, back to rest. The potassium channels finish closing, only the leak channels are left, and they bring the membrane back to minus 70. Notice what I did not say. I did not say the pump. A very common wrong answer on exams is that the sodium potassium pump repolarizes the membrane. It does not. Open the box and we will read why.</p></div><div class="cue"><b>Draw</b><span>In rust, trace the curve from 4 down through 5 and 6 to 7. In navy, draw a vertical line from point 6 down to the potassium permeability curve and write: K channels still open.</span></div><div class="cue"><b>Draw</b><span>Beside point 7 write: leak channels, NOT the pump.</span></div><div class="cue"><b>Do</b><span>Open the reveal box and read both answers.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">16</span>
+    <h3 class="sct">The Goldman equation gives the potential at each phase</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>Worked problem 2 uses the equation you already know. The Goldman equation says the membrane potential depends on the concentrations and on the permeabilities. During an action potential the concentrations do not change. Only the permeabilities do. So we can calculate where the membrane is at each phase.</p><p>At rest, the ratio of sodium permeability to potassium permeability is 0.04 to 1, and you got minus 71 last time. Now suppose every voltage gated sodium channel is open, and the ratio is 20 to 1. Put 20 and 1 into the equation and you get plus 50. The arithmetic is in the box. That is where the membrane would go if the sodium channels stayed open.</p><p>They do not stay open. At the real peak the ratio is only about 4.3 to 1, and that gives plus 30. And in the after-hyperpolarization, sodium permeability is back to 0.04 and potassium permeability is about three times normal. That gives minus 84.</p><p>So read those four answers in a row: minus 71, toward plus 50, plus 30, minus 84. That is the shape of the action potential, and we got it without changing a single concentration.</p></div><div class="cue"><b>Do</b><span>Give them time to try at least the 20 to 1 case, then open Show the work.</span></div><div class="cue"><b>Draw</b><span>In navy, write the four answers in a column beside the work: minus 71, plus 50, plus 30, minus 84. In rust, write beside them: only P changed.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">17</span>
+    <h3 class="sct">Once threshold is crossed, every action potential is the same size</h3>
+    <span class="scbeat">95 sec</span></div>
+  <div class="say"><p>Here are four stimuli, each one stronger than the last. Look at the responses. Stimulus 1 gives a small graded potential. Stimulus 2 gives a bigger one, but it still does not reach threshold, so it fades. Stimulus 3 reaches threshold, and you get a full action potential with a peak of plus 30. Stimulus 4 is a lot stronger than stimulus 3. And the action potential is exactly the same.</p><p>That is what all or none means.</p><p>Why does the size not depend on the stimulus? Because the stimulus only has one job, which is to get the membrane to threshold. After that, the positive feedback loop runs by itself, using the energy stored in the sodium gradient. The height of the peak is set by the sodium equilibrium potential and by how fast the channels inactivate, and none of that knows anything about the stimulus. It is like striking a match. Once it lights, it burns with its own fuel, and striking harder does not give a bigger flame.</p><p>That leaves a puzzle. If every action potential is identical, how does your brain tell a light touch from a hard one? That is the first thing we do next lecture.</p></div><div class="cue"><b>Draw</b><span>In rust, draw a horizontal line across the tops of the two action potentials and write: same peak. In navy, circle stimulus bars 3 and 4 and write: very different.</span></div><div class="cue"><b>Do</b><span>Open the reveal. The clinical bar is optional. If you open it, the rad tech and nursing cards are the most direct examples of threshold.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">18</span>
+    <h3 class="sct">How many ions cross during one action potential</h3>
+    <span class="scbeat">80 sec</span></div>
+  <div class="say"><p>Last lecture I told you that almost no ions have to move to make the resting potential. The same is true here, and this time we will count them.</p><p>Here is what you are given. It takes about 6,000 charges per square micrometer of membrane to change the potential by 100 millivolts. That is a measured property of cell membranes. Our cell body is a sphere 20 micrometers across. The surface area comes to about 1,257 square micrometers. Multiply by 6,000 and you get about seven and a half million sodium ions.</p><p>That sounds like a lot. Now count the sodium ions already inside the cell at 15 millimolar. It is about 38 billion. So the sodium that came in is about 1 part in 5,000. Sodium inside went from 15 millimolar to 15.003. You could not measure it.</p><p>This is why the pump is not part of the action potential. After one action potential there is essentially nothing to fix. The pump matters in the long run, over thousands of action potentials, and that is all.</p></div><div class="cue"><b>Do</b><span>Open Show the work and walk down the steps.</span></div><div class="cue"><b>Draw</b><span>In navy, write: 7.5 million in, 38 billion already there. In rust, write: 15 becomes 15.003 mM.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">19</span>
+    <h3 class="sct">Graded potential and action potential compared</h3>
+    <span class="scbeat">60 sec</span></div>
+  <div class="say"><p>Here are the two signals side by side. You do not need to memorize this table as a list. Try to explain each row from what you now know about the channels.</p><p>Graded potentials come from ligand gated or mechanically gated channels, so their size depends on how many of those channels the stimulus opened. They fade because of current leak and cytoplasmic resistance. They have no threshold, and they add. Action potentials come from voltage gated sodium and potassium channels. They need a threshold because of the contest between sodium and potassium currents, and they are all or none because of positive feedback.</p><p>The last row is the one to remember. The graded potential measures the input. The action potential carries the result over a distance.</p></div><div class="cue"><b>Draw</b><span>In rust, put a star beside the rows Size and Over distance. In navy, underline the last row.</span></div><div class="cue"><b>Do</b><span>Open the reveal only if you have time.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">20</span>
+    <h3 class="sct">Fire an action potential yourself</h3>
+    <span class="scbeat">95 sec</span></div>
+  <div class="say"><p>This is a model you can run yourself, and it is also at the top of your notes. On the left it draws the membrane potential. On the right is a patch of membrane with two sodium channels and two potassium channels, and you can watch the gates.</p><p>I will set the stimulus to 8 millivolts and press Stimulate. You get a small bump, a graded potential, and it fades. No gates moved. Now 25 millivolts. This time it reaches threshold. Watch the sodium channels: the bars open, sodium comes in, and the trace rises steeply. Now the balls move in, the sodium channels are inactivated, the potassium gates open, potassium leaves, and the trace comes down and goes below rest.</p><p>Now I will use the Step button so it stops at each phase. At the peak, look at the readouts on the right. Sodium permeability is only about four times potassium permeability, and the Goldman value is plus 30. At the bottom of the after-hyperpolarization, potassium permeability is 3, and the Goldman value is minus 84. Those are the numbers from worked problem 2.</p><p>Last, I will turn on tetrodotoxin and stimulate at 25. You get a graded potential, it crosses minus 55, and nothing happens. That is our patient.</p></div><div class="cue"><b>Do</b><span>Set the slider to 8 and press Stimulate. Wait for the trace to finish. Then set it to 25 and press Stimulate.</span></div><div class="cue"><b>Do</b><span>Press Step to the next phase repeatedly, pausing at the peak and at the after-hyperpolarization to read out the permeabilities and the Goldman value.</span></div><div class="cue"><b>Do</b><span>Press the tetrodotoxin button. It stimulates again by itself. Point to the phase readout, which says graded potential only. Turn the toxin off before leaving the slide.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">21</span>
+    <h3 class="sct">Block one channel at a time and predict the tracing</h3>
+    <span class="scbeat">60 sec</span></div>
+  <div class="say"><p>Now that you know the mechanism, you can predict what happens when part of it is removed. Three experiments. Pause and sketch what you expect for each one.</p><p>Experiment A, the voltage gated potassium channels are blocked. The rise is normal, because that is sodium. The fall is slow, because the only way for potassium to leave now is through leak channels. And there is no after-hyperpolarization, because that came from the slow potassium channels.</p><p>Experiment B, the inactivation gate cannot close. The membrane goes up and stays up. Sodium keeps coming in. That tells you what inactivation is for.</p><p>Experiment C is tetrodotoxin. The graded potential is still there, because it is made by different channels. But there is no rising phase, at any stimulus strength.</p></div><div class="cue"><b>Do</b><span>Open the three reveal boxes one at a time, after giving your own sketch for each with the pen.</span></div><div class="cue"><b>Draw</b><span>On the whiteboard layer, sketch in rust: A, a normal rise with a long slow fall. B, a rise and a long flat plateau. C, a small bump only.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">22</span>
+    <h3 class="sct">Why the diner could not breathe</h3>
+    <span class="scbeat">90 sec</span></div>
+  <div class="say"><p>Back to the man who ate the pufferfish. You can explain him now. Tetrodotoxin plugs the outside of the voltage gated sodium channel. It does not affect leak channels or the pump, so his resting potentials are normal. It does not affect ligand gated channels, so his graded potentials are normal. What he has lost is the rising phase. His neurons reach threshold, and nothing opens.</p><p>Without action potentials, sensory axons cannot report to the brain, so his lips and tongue go numb. Motor axons cannot carry commands, and skeletal muscle cannot fire either, so he becomes weak. When no action potentials reach the diaphragm, he stops breathing. His heart keeps beating because heart muscle has a different version of the sodium channel that the toxin barely affects, and he is awake because very little of the toxin gets into the brain.</p><p>Look at it as an experiment. What failed is the delivery of action potentials to the breathing muscles. A ventilator replaces that one missing output. It moves the air. It does nothing to the toxin. The toxin comes off the channels as the body clears it, and the channels were never damaged, so function returns.</p></div><div class="cue"><b>Draw</b><span>In rust, number the four steps as you say them. Beside step 2 write: no rising phase.</span></div><div class="cue"><b>Do</b><span>Read the predict box, pause, then open the reveal.</span></div><div class="cue"><b>Draw</b><span>In navy, write: same channel as lidocaine.</span></div>
+</section>
+<section class="sc">
+  <div class="schead"><span class="scn" aria-hidden="true">23</span>
+    <h3 class="sct">Close the page and produce it</h3>
+    <span class="scbeat">40 sec</span></div>
+  <div class="say"><p>That is the action potential. This lecture covers Week 4 competencies 12, 13 and 14: graded potentials, the phases of the action potential, and threshold and all or none. Each has two prompts, and they are printed in your notes. Close everything, take blank paper, and produce one prompt for each.</p><p>Next time we ask what the inactivated sodium channel does to the timing of the next action potential, how a neuron signals strength when every action potential is the same size, and what makes an axon conduct fast or slowly.</p></div><div class="cue"><b>Do</b><span>Point to the three competency names as you read them. End the recording on this slide.</span></div>
+</section>
+<p class="page-foot">Dr. Sharilyn Rennie &middot; BIO 005 Human Physiology &middot; Graded potentials and the action potential &middot; recording script. Not student facing.</p>
+</main>
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged figure">
+  <button type="button" class="lb-close" aria-label="Close the enlarged figure">&#10005; Close</button>
+  <div class="lb-inner"></div>
+</div>
+
+
+
+<!-- ===================================================================
+     WHITEBOARD OVERLAY
+     Draw over the lecture while you teach. Works with a stylus, a mouse,
+     or a finger. Records normally in Loom, and the toolbar drags out of
+     the way of Loom's own controls.
+     Keyboard: W opens and closes, P pen, H highlighter, E eraser,
+     1 to 8 colors, [ and ] size, Ctrl+Z undo, T hides the toolbar,
+     Escape closes.
+     =================================================================== -->
+<style>
+.wb-launch{position:fixed;right:18px;bottom:18px;z-index:2147482000;
+  background:var(--terra,#8B3A2E);color:#fff;border:0;border-radius:99px;
+  padding:12px 18px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 18px rgba(11,21,48,.28);display:inline-flex;align-items:center;gap:8px}
+.wb-launch:hover{background:#6B2A20}
+.wb-launch:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}
+.wb-launch .wb-key{font-weight:700;font-size:11px;opacity:.8;letter-spacing:.06em}
+
+.wb{position:fixed;inset:0;z-index:2147483000}
+body.wb-on .wb-launch{display:none}
+body.wb-on .present-bar,body.wb-on .present-exit-top,body.wb-on .strip-bar{display:none!important}
+.wb[hidden]{display:none}
+.wb.bg-white{background:#FFFFFF}
+.wb.bg-dark{background:#0B1530}
+.wb.bg-grid{background:#FFFFFF;background-image:
+  repeating-linear-gradient(to right,#E3E7ED 0 1px,transparent 1px 32px),
+  repeating-linear-gradient(to bottom,#E3E7ED 0 1px,transparent 1px 32px)}
+.wb-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;
+  cursor:crosshair;display:block}
+
+.wb-bar{position:absolute;top:12px;right:14px;transform:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  background:rgba(11,21,48,.96);border-radius:14px;padding:7px 9px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:min(97vw,1240px)}
+.wb-bar.dragging{opacity:.9}
+.wb.bar-hidden .wb-bar{display:none}
+.wb-grip{cursor:grab;background:transparent;border:0;color:#9FB0C6;font-size:18px;
+  padding:6px 4px;line-height:1;touch-action:none}
+.wb-grip:active{cursor:grabbing}
+.wb-sep{width:1px;height:24px;background:rgba(255,255,255,.2);margin:0 2px}
+.wb-b{font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;background:transparent;
+  border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:7px 9px;cursor:pointer;
+  min-height:36px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;
+  gap:5px;white-space:nowrap}
+.wb-b.icon{padding:7px 10px;font-size:15px}
+.wb-b:hover{background:rgba(255,255,255,.14)}
+.wb-b[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-b:focus-visible,.wb-grip:focus-visible,.wb-sw:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+.wb-b.danger[aria-pressed]{}
+.wb-count{color:#DCE4EE;font-weight:800;font-size:12px;padding:0 3px;
+  font-variant-numeric:tabular-nums;min-width:66px;text-align:center}
+.wb-sw{width:28px;height:28px;border-radius:8px;border:2px solid rgba(255,255,255,.35);
+  cursor:pointer;padding:0}
+.wb-sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(201,161,74,.85)}
+.wb-size{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,.28);
+  background:transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.wb-size[aria-pressed="true"]{background:#8B3A2E;border-color:#8B3A2E}
+.wb-size i{display:block;background:var(--wb-ink,#fff);border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.wb-size.s i{width:5px;height:5px}
+.wb-size.m i{width:9px;height:9px}
+.wb-size.l i{width:15px;height:15px}
+.wb-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(11,21,48,.9);color:#DCE4EE;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.wb-hint.show{opacity:1}
+@media(prefers-reduced-motion:reduce){.wb-hint{transition:none}}
+@media(max-width:700px){
+  .wb-bar{left:8px;right:8px;top:8px;transform:none;max-width:none;justify-content:center}
+  .wb-b .wb-lbl{display:none}
+}
+@media print{.wb,.wb-launch{display:none!important}}
+</style>
+
+<button type="button" id="wbLaunch" class="wb-launch" aria-label="Open the pen layer to draw over these slides">
+  <span aria-hidden="true">&#9998;</span> Pen <span class="wb-key" aria-hidden="true">W</span>
+</button>
+
+<div id="wb" class="wb bg-clear" hidden role="application" aria-label="Whiteboard overlay for drawing over the lecture">
+  <canvas id="wbCanvas" class="wb-canvas" aria-label="Drawing surface. Use a stylus, mouse, or finger to draw."></canvas>
+
+  <div id="wbBar" class="wb-bar" role="toolbar" aria-label="Whiteboard tools">
+    <button type="button" class="wb-grip" id="wbGrip" aria-label="Drag to move this toolbar">&#10495;</button>
+
+    <button type="button" class="wb-b wb-tool" data-tool="pen" aria-pressed="true" aria-label="Pen">
+      <span aria-hidden="true">&#9998;</span><span class="wb-lbl">Pen</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="marker" aria-pressed="false" aria-label="Highlighter">
+      <span aria-hidden="true">&#9646;</span><span class="wb-lbl">Marker</span></button>
+    <button type="button" class="wb-b wb-tool" data-tool="eraser" aria-pressed="false" aria-label="Eraser">
+      <span aria-hidden="true">&#9633;</span><span class="wb-lbl">Erase</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-sw" data-color="#8B3A2E" aria-pressed="true"  aria-label="Rust" style="background:#8B3A2E"></button>
+    <button type="button" class="wb-sw" data-color="#0B1530" aria-pressed="false" aria-label="Navy" style="background:#0B1530"></button>
+    <button type="button" class="wb-sw" data-color="#6E5018" aria-pressed="false" aria-label="Dark gold" style="background:#6E5018"></button>
+    <button type="button" class="wb-sw" data-color="#1D6FB8" aria-pressed="false" aria-label="Blue" style="background:#1D6FB8"></button>
+    <button type="button" class="wb-sw" data-color="#12795A" aria-pressed="false" aria-label="Green" style="background:#12795A"></button>
+    <button type="button" class="wb-sw" data-color="#8E2F73" aria-pressed="false" aria-label="Magenta" style="background:#8E2F73"></button>
+    <button type="button" class="wb-sw" data-color="#111111" aria-pressed="false" aria-label="Black" style="background:#111111"></button>
+    <button type="button" class="wb-sw" data-color="#FFFFFF" aria-pressed="false" aria-label="White" style="background:#FFFFFF"></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-size s" data-size="3"  aria-pressed="false" aria-label="Thin"><i></i></button>
+    <button type="button" class="wb-size m" data-size="6"  aria-pressed="true"  aria-label="Medium"><i></i></button>
+    <button type="button" class="wb-size l" data-size="13" aria-pressed="false" aria-label="Thick"><i></i></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbUndo" aria-label="Undo the last stroke"><span aria-hidden="true">&#8630;</span></button>
+    <button type="button" class="wb-b" id="wbClear" aria-label="Clear this board">Clear</button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbBg" aria-label="Change the board background: overlay, white, grid, or dark">
+      <span class="wb-lbl">Overlay</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b" id="wbPrev" aria-label="Previous board">&#8249;</button>
+    <span class="wb-count" id="wbCount" role="status" aria-live="polite">Board 1 of 1</span>
+    <button type="button" class="wb-b" id="wbNext" aria-label="Next board, or add a new one">&#8250;</button>
+
+    <span class="wb-sep wb-slidenav" aria-hidden="true"></span>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlidePrev" aria-label="Previous slide, on a fresh board">
+      <span aria-hidden="true">&#8592;</span><span class="wb-lbl">Slide</span></button>
+    <button type="button" class="wb-b wb-slidenav" id="wbSlideNext" aria-label="Next slide, on a fresh board">
+      <span class="wb-lbl">Slide</span><span aria-hidden="true">&#8594;</span></button>
+
+    <span class="wb-sep" aria-hidden="true"></span>
+
+    <button type="button" class="wb-b icon" id="wbSave" aria-label="Save this board as a PNG image"><span aria-hidden="true">&#8615;</span></button>
+    <button type="button" class="wb-b icon" id="wbClose" aria-label="Close the whiteboard"><span aria-hidden="true">&#10005;</span></button>
+  </div>
+
+  <p class="wb-hint" id="wbHint" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var wb=document.getElementById('wb'), cv=document.getElementById('wbCanvas'),
+      bar=document.getElementById('wbBar'), grip=document.getElementById('wbGrip'),
+      launch=document.getElementById('wbLaunch'), hint=document.getElementById('wbHint'),
+      countEl=document.getElementById('wbCount');
+  if(!wb||!cv) return;
+  var ctx=cv.getContext('2d');
+
+  var tool='pen', color='#8B3A2E', size=6, penSeen=false, drawing=false, cur=null;
+  var boards=[[]], page=0;
+  var BGS=['clear','white','grid','dark'];
+  var BG_LABEL={clear:'Overlay',white:'White',grid:'Grid',dark:'Dark'};
+  var BG_SAY={clear:'Drawing over the slide',white:'White board',grid:'Grid board',dark:'Dark board'};
+  var bgIndex=0;
+  var lastFocus=null;
+
+  function strokes(){ return boards[page]; }
+
+  function say(msg){
+    hint.textContent=msg; hint.classList.add('show');
+    clearTimeout(say._t); say._t=setTimeout(function(){hint.classList.remove('show');},1600);
+  }
+  function updateCount(){ countEl.textContent='Board '+(page+1)+' of '+boards.length; }
+
+  /* ---------- sizing ---------- */
+  function sizeCanvas(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=wb.clientWidth||window.innerWidth, h=wb.clientHeight||window.innerHeight;
+    cv.width=Math.max(1,Math.round(w*dpr)); cv.height=Math.max(1,Math.round(h*dpr));
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    redraw();
+  }
+
+  /* ---------- drawing ---------- */
+  function paintStroke(s){
+    var pts=s.pts; if(!pts.length) return;
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    if(s.tool==='eraser'){
+      ctx.globalCompositeOperation='destination-out';
+      ctx.strokeStyle='rgba(0,0,0,1)';
+      ctx.globalAlpha=1;
+    } else {
+      ctx.globalCompositeOperation='source-over';
+      ctx.strokeStyle=s.color;
+      ctx.globalAlpha=(s.tool==='marker')?0.34:1;
+    }
+    if(pts.length===1){
+      var r=(s.tool==='marker'?s.size*2.6:s.size*(0.55+pts[0].p))/2;
+      ctx.globalCompositeOperation=(s.tool==='eraser')?'destination-out':'source-over';
+      ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,Math.max(0.6,r),0,Math.PI*2);
+      ctx.fillStyle=(s.tool==='eraser')?'rgba(0,0,0,1)':s.color; ctx.fill();
+      ctx.restore(); return;
+    }
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1], b=pts[i];
+      var w;
+      if(s.tool==='marker') w=s.size*2.6;
+      else if(s.tool==='eraser') w=s.size*3.4;
+      else w=s.size*(0.55+b.p);
+      ctx.lineWidth=Math.max(0.7,w);
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      var mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      ctx.quadraticCurveTo(a.x,a.y,mx,my);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function redraw(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,cv.width,cv.height); ctx.restore();
+    strokes().forEach(paintStroke);
+  }
+
+  function point(e){
+    var r=cv.getBoundingClientRect();
+    var p=(typeof e.pressure==='number'&&e.pressure>0)?e.pressure:0.5;
+    if(e.pointerType==='mouse') p=0.5;
+    return {x:e.clientX-r.left, y:e.clientY-r.top, p:p};
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='pen') penSeen=true;
+    if(e.pointerType==='touch'&&penSeen) return;      /* palm rejection once a stylus is in use */
+    if(e.pointerType==='mouse'&&e.button!==0) return;
+    e.preventDefault();
+    try{cv.setPointerCapture(e.pointerId);}catch(err){}
+    drawing=true;
+    cur={tool:tool,color:color,size:size,pts:[point(e)]};
+    strokes().push(cur);
+    paintStroke(cur);
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!drawing||!cur) return;
+    if(e.pointerType==='touch'&&penSeen) return;
+    e.preventDefault();
+    var evs=(e.getCoalescedEvents?e.getCoalescedEvents():null)||[e];
+    for(var i=0;i<evs.length;i++){
+      var p=point(evs[i]);
+      var last=cur.pts[cur.pts.length-1];
+      if(Math.abs(p.x-last.x)<0.4&&Math.abs(p.y-last.y)<0.4) continue;
+      cur.pts.push(p);
+      paintStroke({tool:cur.tool,color:cur.color,size:cur.size,pts:[last,p]});
+    }
+  });
+  function endStroke(e){
+    if(!drawing) return;
+    drawing=false; cur=null;
+    try{cv.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  cv.addEventListener('pointerup',endStroke);
+  cv.addEventListener('pointercancel',endStroke);
+  cv.addEventListener('pointerleave',function(e){ if(drawing) endStroke(e); });
+
+  /* ---------- toolbar ---------- */
+  function setPressed(nodes,match){
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', match(n)?'true':'false'); });
+  }
+  var toolBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-tool')),
+      swBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-sw')),
+      sizeBtns=Array.prototype.slice.call(document.querySelectorAll('.wb-size'));
+
+  function setTool(t){
+    tool=t; setPressed(toolBtns,function(n){return n.getAttribute('data-tool')===t;});
+    cv.style.cursor=(t==='eraser')?'cell':'crosshair';
+  }
+  function setColor(c){
+    color=c; if(tool==='eraser') setTool('pen');
+    bar.style.setProperty('--wb-ink',c);
+    setPressed(swBtns,function(n){return n.getAttribute('data-color').toUpperCase()===c.toUpperCase();});
+  }
+  function setSize(s){
+    size=s; setPressed(sizeBtns,function(n){return +n.getAttribute('data-size')===s;});
+  }
+  toolBtns.forEach(function(b){b.addEventListener('click',function(){setTool(b.getAttribute('data-tool'));});});
+  swBtns.forEach(function(b){b.addEventListener('click',function(){setColor(b.getAttribute('data-color'));});});
+  sizeBtns.forEach(function(b){b.addEventListener('click',function(){setSize(+b.getAttribute('data-size'));});});
+
+  document.getElementById('wbUndo').addEventListener('click',function(){
+    if(strokes().length){ strokes().pop(); redraw(); } else say('Nothing to undo');
+  });
+  document.getElementById('wbClear').addEventListener('click',function(){
+    boards[page]=[]; redraw(); say('Board cleared');
+  });
+  var bgBtn=document.getElementById('wbBg');
+  function applyBg(){
+    BGS.forEach(function(b){ wb.classList.remove('bg-'+b); });
+    wb.classList.add('bg-'+BGS[bgIndex]);
+    bgBtn.querySelector('.wb-lbl').textContent=BG_LABEL[BGS[bgIndex]];
+  }
+  bgBtn.addEventListener('click',function(){
+    bgIndex=(bgIndex+1)%BGS.length; applyBg();
+    if(BGS[bgIndex]==='dark'&&color==='#0B1530') setColor('#FFFFFF');
+    if(BGS[bgIndex]!=='dark'&&color==='#FFFFFF') setColor('#8B3A2E');
+    say(BG_SAY[BGS[bgIndex]]);
+  });
+
+  function goPage(i){ page=Math.max(0,Math.min(boards.length-1,i)); updateCount(); redraw(); }
+  document.getElementById('wbPrev').addEventListener('click',function(){
+    if(page===0){ say('First board'); return; } goPage(page-1);
+  });
+  document.getElementById('wbNext').addEventListener('click',function(){
+    if(page===boards.length-1){ boards.push([]); say('New board'); }
+    goPage(page+1);
+  });
+
+  /* slide stepping, only when the host page has a deck */
+  var slideNav=Array.prototype.slice.call(document.querySelectorAll('.wb-slidenav'));
+  function haveDeck(){ return typeof window.__deckStep==='function'; }
+  if(!haveDeck()) slideNav.forEach(function(n){ n.style.display='none'; });
+  function stepSlide(d){
+    if(!haveDeck()) return;
+    window.__deckStep(d);
+    boards.push([]); goPage(boards.length-1);
+    say(d>0?'Next slide, fresh board':'Previous slide, fresh board');
+  }
+  var sp=document.getElementById('wbSlidePrev'), sn=document.getElementById('wbSlideNext');
+  if(sp) sp.addEventListener('click',function(){stepSlide(-1);});
+  if(sn) sn.addEventListener('click',function(){stepSlide(1);});
+
+  document.getElementById('wbSave').addEventListener('click',function(){
+    var out=document.createElement('canvas'); out.width=cv.width; out.height=cv.height;
+    var o=out.getContext('2d');
+    o.fillStyle=(BGS[bgIndex]==='dark')?'#0B1530':'#FFFFFF';
+    o.fillRect(0,0,out.width,out.height);
+    o.drawImage(cv,0,0);
+    try{
+      out.toBlob(function(blob){
+        if(!blob){ say('Could not save'); return; }
+        var url=URL.createObjectURL(blob), a=document.createElement('a');
+        a.href=url; a.download='whiteboard-board-'+(page+1)+'.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){URL.revokeObjectURL(url);},2000);
+        say('Saved as PNG');
+      },'image/png');
+    }catch(err){ say('Could not save'); }
+  });
+
+  /* drag the toolbar out of the way of Loom's controls, and remember where it lands */
+  var BAR_KEY='wb-bar-pos';
+  function placeBar(x,y){
+    bar.style.transform='none'; bar.style.right='auto';
+    bar.style.left=x+'px'; bar.style.top=y+'px';
+  }
+  function restoreBar(){
+    try{
+      var v=JSON.parse(localStorage.getItem(BAR_KEY)||'null');
+      if(v&&typeof v.x==='number'){
+        var w=bar.offsetWidth||420,h=bar.offsetHeight||90;
+        placeBar(Math.max(4,Math.min(window.innerWidth-w-4,v.x)),
+                 Math.max(4,Math.min(window.innerHeight-h-4,v.y)));
+      }
+    }catch(err){}
+  }
+  (function(){
+    var dragging=false,ox=0,oy=0;
+    grip.addEventListener('pointerdown',function(e){
+      dragging=true; bar.classList.add('dragging');
+      var r=bar.getBoundingClientRect();
+      ox=e.clientX-r.left; oy=e.clientY-r.top;
+      placeBar(r.left,r.top);
+      try{grip.setPointerCapture(e.pointerId);}catch(err){}
+      e.preventDefault();
+    });
+    grip.addEventListener('pointermove',function(e){
+      if(!dragging) return;
+      var w=bar.offsetWidth,h=bar.offsetHeight;
+      var x=Math.max(4,Math.min(window.innerWidth-w-4,e.clientX-ox));
+      var y=Math.max(4,Math.min(window.innerHeight-h-4,e.clientY-oy));
+      placeBar(x,y);
+    });
+    function stop(e){ if(!dragging) return; dragging=false; bar.classList.remove('dragging');
+      try{localStorage.setItem(BAR_KEY,JSON.stringify({x:bar.offsetLeft,y:bar.offsetTop}));}catch(err){}
+      try{grip.releasePointerCapture(e.pointerId);}catch(err){} }
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+  })();
+
+  /* ---------- open and close ---------- */
+  function open(){
+    lastFocus=document.activeElement;
+    wb.hidden=false; document.body.classList.add('wb-on');
+    launch.setAttribute('aria-expanded','true');
+    sizeCanvas(); updateCount(); restoreBar();
+    document.getElementById('wbClose').focus();
+    say('Whiteboard on. W closes it, T hides the toolbar.');
+  }
+  function close(){
+    wb.hidden=true; document.body.classList.remove('wb-on');
+    launch.setAttribute('aria-expanded','false');
+    if(lastFocus&&lastFocus.focus) lastFocus.focus(); else launch.focus();
+  }
+  function toggle(){ wb.hidden?open():close(); }
+  launch.setAttribute('aria-expanded','false');
+  launch.addEventListener('click',toggle);
+  document.getElementById('wbClose').addEventListener('click',close);
+
+  window.addEventListener('resize',function(){ if(!wb.hidden) sizeCanvas(); });
+  document.addEventListener('fullscreenchange',function(){ if(!wb.hidden) setTimeout(sizeCanvas,60); });
+
+  /* ---------- keyboard ---------- */
+  var COLOR_KEYS=['#8B3A2E','#0B1530','#6E5018','#1D6FB8','#12795A','#8E2F73','#111111','#FFFFFF'];
+  var SIZES=[3,6,13];
+  document.addEventListener('keydown',function(e){
+    var t=e.target, tag=(t&&t.tagName?t.tagName:'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select'||(t&&t.isContentEditable)) return;
+    var k=e.key.toLowerCase();
+    if(k==='w'&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggle(); return; }
+    if(wb.hidden) return;
+    /* while the board is open it owns the keyboard, so slide keys do not fire underneath */
+    if(k==='escape'){ e.preventDefault(); close(); return; }
+    if(k==='t'){ e.preventDefault(); wb.classList.toggle('bar-hidden');
+      say(wb.classList.contains('bar-hidden')?'Toolbar hidden, press T to bring it back':'Toolbar shown'); return; }
+    if(k==='z'&&(e.ctrlKey||e.metaKey)){ e.preventDefault();
+      if(strokes().length){strokes().pop();redraw();} return; }
+    if(k==='p'){ e.preventDefault(); setTool('pen'); say('Pen'); return; }
+    if(k==='h'){ e.preventDefault(); setTool('marker'); say('Highlighter'); return; }
+    if(k==='e'){ e.preventDefault(); setTool('eraser'); say('Eraser'); return; }
+    if(k==='c'){ e.preventDefault(); boards[page]=[]; redraw(); say('Board cleared'); return; }
+    if(k==='['){ e.preventDefault(); setSize(SIZES[Math.max(0,SIZES.indexOf(size)-1)]); return; }
+    if(k===']'){ e.preventDefault(); setSize(SIZES[Math.min(SIZES.length-1,SIZES.indexOf(size)+1)]); return; }
+    if(k>='1'&&k<='8'){ e.preventDefault(); setColor(COLOR_KEYS[+k-1]); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault(); e.stopPropagation();
+      if(haveDeck()) stepSlide(e.key==='ArrowRight'?1:-1);
+      return;
+    }
+  },true);
+
+  applyBg(); setTool('pen'); setColor('#8B3A2E'); setSize(6); updateCount();
+})();
+</script>
+
+<script>
+(function(){ "use strict";
+var PAGE_ID='biol005-w04-action-potential-transcript';
+
+(function(){
+  var lb=document.getElementById('lightbox'); if(!lb) return;
+  var inner=lb.querySelector('.lb-inner'),close=lb.querySelector('.lb-close'),last=null;
+  function shut(){lb.hidden=true;inner.innerHTML='';if(last)last.focus();}
+  /* a single branch card of a top-down map enlarges on its own */
+  document.querySelectorAll('.mapcard').forEach(function(card){
+    function openCard(e){
+      e.preventDefault(); e.stopPropagation();
+      last=card;
+      var b=card.getAttribute('data-b')||'';
+      var leaves=(card.getAttribute('data-l')||'').split('|').filter(Boolean);
+      inner.innerHTML='<div class="lb-card"><p class="lb-h"></p><ul></ul></div>';
+      inner.querySelector('.lb-h').textContent=b;
+      var ul=inner.querySelector('ul');
+      leaves.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+      lb.hidden=false; close.focus();
+    }
+    card.addEventListener('click',openCard);
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')openCard(e);});
+  });
+
+  document.querySelectorAll('.fig').forEach(function(f){
+    /* A map whose branches are themselves buttons is a group, not a single
+       image. Giving it a tab stop of its own nests one control inside another,
+       which is a real problem for anyone moving by keyboard. */
+    if (f.querySelector('[tabindex],button,a')) { f.setAttribute('role','group'); return; }
+    f.setAttribute('tabindex','0'); f.setAttribute('role','img');
+    function open(e){
+      if(document.body.classList.contains('wb-on'))return;
+      e.preventDefault(); e.stopPropagation();
+      last=f; inner.innerHTML=f.outerHTML;
+      var big=inner.querySelector('svg,img');
+      if(big){big.removeAttribute('tabindex');big.style.width='min(94vw,1500px)';big.style.cursor='default';}
+      lb.hidden=false; close.focus();
+    }
+    f.addEventListener('click',open);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')open(e);});
+  });
+  close.addEventListener('click',shut);
+  lb.addEventListener('click',function(e){if(e.target===lb)shut();});
+  document.addEventListener('keydown',function(e){if(!lb.hidden&&e.key==='Escape')shut();});
+})();
+
+(function(){
+  document.querySelectorAll('.clin-btn').forEach(function(b){
+    if(b.dataset.wired) return; b.dataset.wired='1';
+    var box=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',open?'false':'true');
+      if(box)box.hidden=open;
+    });
+  });
+})();
+
+
+  function sendHeight(){
+    try{parent.postMessage({type:'resize',id:PAGE_ID,height:document.documentElement.scrollHeight},'*');}catch(e){}
+  }
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);
+
+})();
+</script>
+<script src="bio005-nav.js" defer></script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
