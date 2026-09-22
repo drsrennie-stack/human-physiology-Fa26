@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The patient analysis &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="BIO 005 capstone: one analysis covering both patients, Camila Reyes and Dale Whitcomb, written from your own chart book and turned in with it on Wednesday December 16.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Fall 2026, Yuba College
+  assignment-patient-analysis.html
+
+  Sep 21 2026. New. The end of term capstone inside Use It.
+
+  WHERE IT SITS IN THE GRADE. Use It is 25 percent: 20 percent is
+  the weekly application case, and 5 percent is the patient chart,
+  kept by hand all term and turned in once. This page is the
+  written half of that 5 percent. The chart book and this analysis
+  are handed in together on Wednesday December 16, the same day the
+  second midterm closes. See bio005-schedule-fall2026.js, the
+  assessment model block.
+
+  WHY IT IS SHAPED THIS WAY. Scrubs' constraint: a student must not
+  be able to hand this to a chatbot. Every section below is
+  answerable only from the student's own chart book. Section 2 and
+  Section 3 require numbers they transcribed themselves, with the
+  week and the flowsheet row they came from. Section 6 requires
+  them to point at a week where they were wrong, which exists only
+  in their own file and is worth 20 of the 100 points. A tool that
+  never read their handwriting cannot supply any of it, and a
+  student who did not keep the chart cannot either.
+
+  STANDALONE ON PURPOSE. This page sits in a Canvas module as an
+  iframe, so the site chrome is off it. The bar at the top is the
+  only way off the page.
+  ============================================================
+-->
+<style>
+/* Page-specific only. Palette values are PRIMARY, per palettes.md. */
+:root{
+  --navy:#1E3D4C; --navy-deep:#142a36; --navy-tint:#EDF1F3;
+  --gold:#B8924A; --terra:#C2734D; --terra-dark:#A0522D;
+  --page:#FAFAF9; --card:#FFFFFF; --ink:#1E3D4C; --muted:#35505E;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lift:0 8px 16px rgba(0,0,0,.10);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--page);color:var(--ink);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+em,i,cite,dfn,var{font-style:normal;font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;margin:0;line-height:1.16}
+p{margin:0 0 14px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:6px 0}
+a{color:var(--terra-dark);text-underline-offset:3px}
+a:hover{color:var(--navy-deep)}
+:focus-visible{outline:3px solid var(--terra-dark);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+.top{background:var(--navy);color:#fff;padding:36px 0 30px}
+.top .eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#F0E4CC;margin:0 0 10px}
+.top h1{font-size:clamp(28px,4.4vw,42px)}
+.top .lede{font-size:17.5px;color:#E6ECEF;margin:12px 0 0}
+.top .meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin:18px 0 0;font-size:14px;color:#E6ECEF}
+.top .meta b{color:#fff}
+
+h2{font-size:23px;color:var(--navy);margin:34px 0 10px}
+h3{font-size:16px;color:var(--navy);margin:20px 0 6px}
+.label{font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 8px}
+
+.card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:20px 24px;margin:0 0 16px;
+  transition:transform 200ms ease,box-shadow 200ms ease}
+.card:last-child{margin-bottom:0}
+.card p:last-child,.card ul:last-child,.card ol:last-child{margin-bottom:0}
+@media (hover:hover){.card.lift:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}}
+
+.sec{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:20px 24px;margin:0 0 14px}
+.sec .hd{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin:0 0 8px}
+.sec .num{font-family:var(--display);font-weight:800;font-size:26px;color:var(--terra-dark);line-height:1}
+.sec h3{margin:0;font-size:18px}
+.sec .pts{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sec .ask{margin:0 0 10px}
+.sec .from{font-size:14.5px;color:var(--muted);margin:0}
+.sec .from b{color:var(--navy)}
+
+table.rub{border-collapse:collapse;width:100%;font-size:15px;background:var(--card)}
+table.rub caption{text-align:left;font-size:14.5px;color:var(--muted);padding:0 0 10px}
+table.rub th,table.rub td{border:1px solid var(--navy-tint);padding:9px 12px;text-align:left;vertical-align:top}
+table.rub thead th{background:var(--navy-tint);font-family:var(--display);font-size:12px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+table.rub td.n{white-space:nowrap;font-weight:800}
+.tblwrap{overflow-x:auto;background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px;margin:0 0 16px}
+
+.checks{list-style:none;padding:0;margin:0}
+.checks li{display:flex;gap:10px;align-items:flex-start;margin:9px 0}
+.checks i{flex:0 0 auto;width:16px;height:16px;margin-top:4px;border:1.5px solid var(--navy);border-radius:3px;display:inline-block;font-weight:400}
+
+.foot{font-size:14.5px;color:var(--muted);margin:30px 0 46px}
+.foot .sig{font-weight:800;color:var(--navy);display:block;margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (forced-colors:active){.card,.sec,.tblwrap{border:1px solid CanvasText}}
+@media print{
+  @page{size:letter portrait;margin:.6in}
+  body{background:#fff;font-size:11pt;color:#000}
+  .top{background:#fff;color:#000;padding:0 0 12px;border-bottom:2px solid #000}
+  .top .eyebrow,.top .lede,.top .meta{color:#000}
+  .top .meta b{color:#000}
+  .skip,.backbar,.noprint{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .card,.sec,.tblwrap{box-shadow:none;border:1px solid #000;break-inside:avoid}
+  h2{break-after:avoid}
+  .sec .num,.label,.sec h3{color:#000}
+  table.rub thead th{background:#eee;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000}
+}
+</style>
+</head>
+<body>
+<nav class="backbar" aria-label="Leave this page" style="background:#1E3D4C;padding:10px max(20px,4vw)">
+  <a class="skip" href="#main">Skip to the assignment</a>
+  <a href="https://yccd.instructure.com/courses/42616/modules" target="_top"
+     style="display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 17px;
+            border-radius:99px;background:#FFFFFF;border:2px solid #FFFFFF;color:#1E3D4C;
+            font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+            font-weight:700;font-size:13.5px;text-decoration:none">
+    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Canvas modules</a>
+</nav>
+
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 &middot; Use It &middot; the capstone</p>
+  <h1>The patient analysis</h1>
+  <p class="lede">One analysis. Both patients. Written from the chart you have been keeping by hand since September, and from nothing else.</p>
+  <p class="meta">
+    <span><b>Due</b> Wednesday, December 16, 10:00 pm</span>
+    <span><b>Worth</b> 100 points, the 5 percent capstone inside Use It</span>
+    <span><b>Length</b> 1,500 to 2,000 words, plus one drawing</span>
+    <span><b>Hand in with</b> your chart book, photographed or scanned</span>
+  </p>
+</div></header>
+
+<main class="wrap" id="main" tabindex="-1">
+
+<h2>What this is</h2>
+<div class="card">
+  <p>You have followed two people this term. Camila Reyes was nineteen, well in August, and had one system in trouble at a time. Dale Whitcomb was sixty-eight, already carrying a bad heart and a damaged kidney, and had four systems in trouble at once. You read fifteen entries between them, and you copied every number into your own flowsheets by hand.</p>
+  <p>This is where you say what all of that added up to. Not a summary of what happened to them, which is the thing I am least interested in. An argument about physiology, with their numbers as the evidence.</p>
+  <p>There are eight sections. Each one tells you what it is asking for and where in your chart book the material comes from. Write them in order, use the headings, and keep the whole thing between 1,500 and 2,000 words.</p>
+</div>
+
+<h2>The one rule about sources</h2>
+<div class="card">
+  <p>Every number you use has to come out of your own chart book, and you have to say where: the week, and the flowsheet row or the results table it came from. A number with no source does not count as evidence, and a number that does not match what the chart actually says costs you the point twice, once for the error and once for not checking.</p>
+  <p>You may use anything you like to look up a mechanism, check a definition, or work through an explanation you did not follow the first time. What you cannot do is ask something else to make the argument for you, because the argument is built out of fifteen weeks of your own decisions and there is no version of it sitting anywhere to be found. Log what you used in Section 8, the way you have logged it all term.</p>
+</div>
+
+<h2>The eight sections</h2>
+
+<section class="sec" aria-labelledby="s1">
+  <div class="hd"><span class="num" aria-hidden="true">1</span><h3 id="s1">Your claim</h3><span class="pts">10 points</span></div>
+  <p class="ask">Write one idea that is true of both patients, in two or three sentences. It has to be a claim about physiology, not a claim about either person. "Both patients got very sick" is not a claim. "In both patients, the number that looked reassuring was the one that was concentration rather than content" is a claim, and it is one you can argue.</p>
+  <p class="from"><b>Comes from:</b> the closing sheet at the back of your chart book, where you drafted this.</p>
+</section>
+
+<section class="sec" aria-labelledby="s2">
+  <div class="hd"><span class="num" aria-hidden="true">2</span><h3 id="s2">Camila, traced</h3><span class="pts">15 points</span></div>
+  <p class="ask">Take your claim and trace it through her file. Use three numbers from three different weeks, give the week and the row each one came from, and say what each is evidence of. Then name the one system in her file that was never actually the problem, even though its numbers moved, and say how you know.</p>
+  <p class="from"><b>Comes from:</b> your Camila flowsheets and your Week 1 to Week 8 pages.</p>
+</section>
+
+<section class="sec" aria-labelledby="s3">
+  <div class="hd"><span class="num" aria-hidden="true">3</span><h3 id="s3">Dale, traced</h3><span class="pts">15 points</span></div>
+  <p class="ask">Do the same through his file, with three numbers from three different weeks, sourced the same way. Then pick any one of his problems and show it talking to another one: name both, name the direction, and say which of his numbers records the conversation.</p>
+  <p class="from"><b>Comes from:</b> your Dale flowsheets, your problem list, and your Week 9 to Week 15 pages.</p>
+</section>
+
+<section class="sec" aria-labelledby="s4">
+  <div class="hd"><span class="num" aria-hidden="true">4</span><h3 id="s4">Where they are different, and why</h3><span class="pts">10 points</span></div>
+  <p class="ask">Both patients had a low bicarbonate, a raised heart rate and a kidney that was not doing its job. One of them walked out and went back to playing soccer. Name the physiological reason the two outcomes were different, and be specific: reserve, age and severity are labels, not reasons. Say what reserve actually is in the organ you choose, and point at the number in each file that measures it.</p>
+  <p class="from"><b>Comes from:</b> both baseline columns, and any week where you recorded a capacity rather than a level.</p>
+</section>
+
+<section class="sec" aria-labelledby="s5">
+  <div class="hd"><span class="num" aria-hidden="true">5</span><h3 id="s5">Where the treatment did the harm</h3><span class="pts">15 points</span></div>
+  <p class="ask">In both files, something that was given to help created a new problem. Name one in each patient. For each, say what was given, what it was meant to change, the exact mechanism by which it caused the new problem, and the number in your flowsheet that caught it. Then say what you would have done instead, and what that alternative would have cost.</p>
+  <p class="from"><b>Comes from:</b> your medication and intervention log, and the last column you filled in for each patient.</p>
+</section>
+
+<section class="sec" aria-labelledby="s6">
+  <div class="hd"><span class="num" aria-hidden="true">6</span><h3 id="s6">Where you changed your mind</h3><span class="pts">20 points</span></div>
+  <p class="ask">Point at a week where you got it wrong. Say what you thought at the time and quote your own page. Say which week you noticed, and what specifically changed it: a number, a question, a conversation, a drawing that would not come out right. Then say what you would write on the earlier page now.</p>
+  <p class="ask">This is the largest section in the assignment and it is the one I read first. Real reasoning has wrong turns in it. An analysis that was never wrong anywhere is either not looking or not telling me, and both of those score below one that says plainly where it went off.</p>
+  <p class="from"><b>Comes from:</b> your own handwriting, on a page you filled in weeks before you knew how it turned out.</p>
+</section>
+
+<section class="sec" aria-labelledby="s7">
+  <div class="hd"><span class="num" aria-hidden="true">7</span><h3 id="s7">The drawing</h3><span class="pts">10 points</span></div>
+  <p class="ask">One drawing, by hand, that holds both patients. A control loop, a compartment diagram, a curve with both of them marked on it, a pathway with the break shown in two places. Label it fully and write a short paragraph describing it in words, because the description is graded with the drawing and because a drawing you cannot describe is a drawing you did not understand.</p>
+  <p class="from"><b>Comes from:</b> the fifteen loops you drew during the term. This one is allowed to be a redrawing of one of them, done better.</p>
+</section>
+
+<section class="sec" aria-labelledby="s8">
+  <div class="hd"><span class="num" aria-hidden="true">8</span><h3 id="s8">The measurement nobody took, and your AI log</h3><span class="pts">5 points</span></div>
+  <p class="ask">Name one measurement that was never taken in either file and that you now think should have been, and say what question it would have answered and when. Then log your AI use for this assignment the way you have all term: what you asked, what you got, and what you did with it.</p>
+  <p class="from"><b>Comes from:</b> Question 5 on several of your week pages, which asked this every week for a reason.</p>
+</section>
+
+<h2>How it is graded</h2>
+<div class="tblwrap">
+<table class="rub">
+  <caption>Every section is scored on the same three things: is the physiology right, is it evidenced from your own chart, and does it explain rather than assert. A correct number with no explanation earns half credit, the same rule as every week this term.</caption>
+  <thead>
+    <tr><th scope="col">Section</th><th scope="col">Points</th><th scope="col">Full marks look like</th><th scope="col">Half marks look like</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">1. Your claim</th><td class="n">10</td><td>A claim about physiology that both files can be read against, stated in a way that could be wrong.</td><td>A true statement that nothing could contradict.</td></tr>
+    <tr><th scope="row">2. Camila, traced</th><td class="n">15</td><td>Three sourced numbers from three weeks, each doing work in the argument, plus the system that was never the problem.</td><td>Three correct numbers listed without being used.</td></tr>
+    <tr><th scope="row">3. Dale, traced</th><td class="n">15</td><td>Three sourced numbers, plus one problem shown acting on another with the direction named.</td><td>Two problems named side by side with no mechanism between them.</td></tr>
+    <tr><th scope="row">4. Where they differ</th><td class="n">10</td><td>Reserve defined in a named organ and measured by a number from each baseline column.</td><td>Age, severity or comorbidity named as the reason.</td></tr>
+    <tr><th scope="row">5. Treatment harm</th><td class="n">15</td><td>One per patient, with the mechanism and the flowsheet number that caught it, and a costed alternative.</td><td>The harm identified with the mechanism left as "too much fluid".</td></tr>
+    <tr><th scope="row">6. Changing your mind</th><td class="n">20</td><td>A quoted earlier page, the week you noticed, what changed it, and what you would write now.</td><td>A general statement that your understanding deepened.</td></tr>
+    <tr><th scope="row">7. The drawing</th><td class="n">10</td><td>Fully labeled, holds both patients, and the written description matches what is on the page.</td><td>A clear drawing with a description that describes something else.</td></tr>
+    <tr><th scope="row">8. Measurement and log</th><td class="n">5</td><td>A specific measurement with the question it answers and the week it was needed, and an honest log.</td><td>A measurement named with no question attached.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Before you hand it in</h2>
+<div class="card lift">
+  <p class="label">Check every one of these</p>
+  <ul class="checks">
+    <li><i aria-hidden="true"></i><span>Every number carries its week and the row or table it came from.</span></li>
+    <li><i aria-hidden="true"></i><span>You have checked at least five of your numbers back against the chart book, not against memory.</span></li>
+    <li><i aria-hidden="true"></i><span>Both patients appear in Sections 1, 4, 5 and 7, not only in the two sections named after them.</span></li>
+    <li><i aria-hidden="true"></i><span>Section 6 points at a specific page, not at a feeling.</span></li>
+    <li><i aria-hidden="true"></i><span>The drawing is labeled and the description matches it.</span></li>
+    <li><i aria-hidden="true"></i><span>You are between 1,500 and 2,000 words.</span></li>
+    <li><i aria-hidden="true"></i><span>Your chart book is photographed or scanned, all pages, in order, and uploaded with the analysis.</span></li>
+    <li><i aria-hidden="true"></i><span>Your AI log is honest. It is 5 points and it has never once cost anyone more than that.</span></li>
+  </ul>
+</div>
+
+<h2>How to hand it in</h2>
+<div class="card">
+  <p>Two files in the Week 15 assignment: the analysis as a PDF or a Word document, and the chart book as a single PDF. If you photograph the chart book, put the pages in order in one file rather than uploading twenty images. Both are due Wednesday, December 16 at 10:00 pm, which is the same day the second midterm closes, so do not leave them for that morning.</p>
+  <p>If something has gone wrong with your chart book, a lost binder, a flooded bag, a semester that got away from you, tell me before December 10 and we will work out what you can still hand in. Tell me on December 16 and there is much less I can do.</p>
+</div>
+
+<p class="foot">This is the last thing you write for me in this course, and it is the one I will remember. Take the two people seriously and say what you actually think.
+<span class="sig">Dr. Sharilyn Rennie</span></p>
+
+</main>
+
+<script>
+/* Canvas iframe height sender. */
+(function () {
+  var id = 'bio005-patient-analysis';
+  function post() {
+    try { parent.postMessage({ frame:id, id:id, height:document.documentElement.scrollHeight }, '*'); } catch (e) {}
+  }
+  if ('ResizeObserver' in window) { new ResizeObserver(post).observe(document.documentElement); }
+  window.addEventListener('load', post);
+  window.addEventListener('resize', post);
+  post();
+}());
+</script>
+</body>
+</html>

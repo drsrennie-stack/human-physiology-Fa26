@@ -19,12 +19,15 @@
      ========================================================== -->
 <style>
 :root{
-  --navy:#0B1530; --navy-tint:#ECEFF4;
-  --rust:#8B3A2E; --rust-dark:#6E2D24;
-  --gold-text:#624612;
+  --navy:#1E3D4C; --navy-tint:#EDF1F3;
+  --rust:#A0522D; --rust-dark:#142a36;
+  --gold-text:#A0522D;
   --page:#FAFAF9;
 }
 *{box-sizing:border-box}
+em,i,cite,dfn,var{font-style:normal;font-weight:700}
+body{overflow-wrap:break-word}
+.card li strong{overflow-wrap:anywhere}
 html,body{margin:0}
 body{font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;
   color:var(--navy);background:var(--page);line-height:1.65;font-size:15.5px;
@@ -36,17 +39,17 @@ a{color:var(--rust)}
 :focus-visible{outline:3px solid var(--rust);outline-offset:3px}
 
 header.brand{display:flex;align-items:center;gap:12px;padding:18px max(28px,4vw);
-  border-bottom:1px solid rgba(11,21,48,.14);margin:-40px max(-28px,-4vw) 28px;background:#fff}
+  border-bottom:1px solid rgba(30,61,76,.14);margin:-40px max(-28px,-4vw) 28px;background:#fff}
 header.brand .bwm{font-weight:800;font-size:16px;letter-spacing:-.01em;color:var(--navy)}
 header.brand .bwm b{color:var(--rust)}
-header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#4F5468}
+header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#35505E}
 
 .homebar{margin:0 0 18px}
 .homebtn{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;
   letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--rust);
-  background:#fff;border:1px solid rgba(11,21,48,.16);border-radius:8px;padding:10px 16px;
+  background:#fff;border:1px solid rgba(30,61,76,.16);border-radius:8px;padding:10px 16px;
   transition:transform 160ms ease,box-shadow 160ms ease}
-.homebtn:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.homebtn:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(30,61,76,.10)}
 @media print{.homebar,.picker{display:none}}
 
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--rust);margin:0 0 12px}
@@ -59,7 +62,7 @@ h2{font-size:19px;font-weight:800;margin:32px 0 8px;letter-spacing:-.01em}
 h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
 
 .card{background:#fff;border-radius:12px;padding:18px 20px 16px;
-  box-shadow:0 1px 3px rgba(11,21,48,.10);margin:12px 0 4px}
+  box-shadow:0 1px 3px rgba(30,61,76,.10);margin:12px 0 4px}
 .card .label{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin:0 0 10px}
 .card ol,.card ul{margin:0;padding-left:22px}
 .card li{margin:0 0 9px;max-width:66ch}
@@ -68,12 +71,12 @@ h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
 .card p:last-child{margin-bottom:0}
 
 /* The patient, stated once at the top. */
-.who{background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 1px 3px rgba(11,21,48,.10);margin:0 0 6px}
+.who{background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:0 0 6px}
 .who .nm{font-weight:800;font-size:17px;margin:0 0 4px}
-.who p{margin:0;font-size:14.5px;color:#2A3448}
+.who p{margin:0;font-size:14.5px;color:#1E3D4C}
 
 /* The chart itself: label and value rows, no rules, no bars. */
-.chart{background:#fff;border-radius:12px;padding:6px 20px 10px;box-shadow:0 1px 3px rgba(11,21,48,.10);margin:12px 0 4px}
+.chart{background:#fff;border-radius:12px;padding:6px 20px 10px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:12px 0 4px}
 .chart dl{margin:0}
 .chart dt{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin:16px 0 4px}
 .chart dd{margin:0 0 4px;max-width:70ch}
@@ -83,24 +86,24 @@ h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
 .picker fieldset{border:0;margin:0;padding:0}
 .picker legend{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);padding:0;margin:0 0 10px}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.opt{position:relative;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(11,21,48,.10);
+.opt{position:relative;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(30,61,76,.10);
   transition:transform 160ms ease,box-shadow 160ms ease}
-.opt:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.opt:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(30,61,76,.10)}
 .opt input{position:absolute;opacity:0;width:1px;height:1px}
 .opt label{display:block;padding:14px 16px;cursor:pointer;border-radius:10px}
 .opt .nmm{display:block;font-weight:800;font-size:15px;margin:0 0 2px}
-.opt .dk{display:block;font-size:13px;color:#414B5C;line-height:1.5}
+.opt .dk{display:block;font-size:13px;color:#35505E;line-height:1.5}
 .opt input:focus-visible + label{outline:3px solid var(--rust);outline-offset:2px}
 .opt input:checked + label{background:var(--navy-tint)}
 .opt input:checked + label .nmm::after{content:" \2713";color:var(--rust)}
 
-.t-nursing  .nmm{color:#8B3A2E}
-.t-medicine .nmm{color:#0B1530}
-.t-radiology .nmm{color:#624612}
-.t-rt       .nmm{color:#6E2D24}
-.t-exercise .nmm{color:#2A3448}
+.t-nursing  .nmm{color:#A0522D}
+.t-medicine .nmm{color:#1E3D4C}
+.t-radiology .nmm{color:#A0522D}
+.t-rt       .nmm{color:#142a36}
+.t-exercise .nmm{color:#1E3D4C}
 
-details{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.10);margin:14px 0 4px;overflow:hidden}
+details{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:14px 0 4px;overflow:hidden}
 details>summary{cursor:pointer;padding:14px 20px;font-weight:800;list-style:none}
 details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"+ ";color:var(--rust);font-weight:800}
@@ -117,12 +120,12 @@ details .body p{margin:0 0 8px;font-size:14.5px}
 .btn{display:inline-block;font-weight:800;text-decoration:none;border-radius:10px;padding:13px 20px;letter-spacing:.03em}
 .btn.solid{background:var(--rust);color:#fff;border:1.5px solid var(--rust)}
 .btn.solid:hover{background:var(--rust-dark);border-color:var(--rust-dark)}
-.btn.line{background:#6E2D24;color:#F5F1E8;border:1.5px solid #6E2D24;box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30)}
+.btn.line{background:#142a36;color:#FFFFFF;border:1.5px solid #142a36;box-shadow:0 6px 14px -5px rgba(30,61,76,.45),0 2px 5px -2px rgba(30,61,76,.30)}
 .btn.line:hover{color:var(--rust-dark);border-color:var(--rust-dark)}
 
-.note{font-size:14px;color:#414B5C;max-width:66ch}
+.note{font-size:14px;color:#35505E;max-width:66ch}
 #tools li{margin-bottom:14px}
-.later{display:block;margin-top:4px;font-size:13.5px;font-weight:700;color:#8B3A2E}
+.later{display:block;margin-top:4px;font-size:13.5px;font-weight:700;color:#A0522D}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media(max-width:620px){.opts{grid-template-columns:1fr}}
 </style>
@@ -130,7 +133,7 @@ details .body p{margin:0 0 8px;font-size:14.5px}
 <body>
 <a class="skip" href="#main">Skip to the assignment</a>
 <header class="brand">
-  <svg width="30" height="36" viewBox="40 10 125 148" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+  <svg width="30" height="36" viewBox="40 10 125 148" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#1E3D4C"/><circle cx="17" cy="8" r="4.2" fill="#A0522D"/><circle cx="26" cy="8" r="4.2" fill="#B8924A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#1E3D4C"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#A0522D"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#B8924A"/></g></svg>
   <span><span class="bwm">BIO <b>005</b></span><span class="bsub">Human Physiology &middot; Fall 2026</span></span>
 </header>
 
@@ -139,33 +142,44 @@ details .body p{margin:0 0 8px;font-size:14.5px}
 
   <p class="eyebrow">Assignment &middot; graded &middot; Use It, 5% of your grade &middot; the capstone</p>
   <h1>Your patient chart, <span class="two">all term.</span></h1>
-  <p class="sub">One patient. One chart. Fifteen weeks of your own reasoning, turned in once.</p>
-  <p class="due">Due Wednesday, December 16, 10:00 pm Pacific. One PDF, uploaded here.</p>
+  <p class="sub">Two patients. Two charts. Fifteen weeks of your own reasoning, turned in once, with the analysis that reads both of them.</p>
+  <p class="due">Due Wednesday, December 16, 10:00 pm Pacific. Two files, uploaded here.</p>
 
   <div class="who">
-    <p class="nm">Camila Reyes, 19</p>
-    <p>Second year kinesiology student and a midfielder on the college soccer team. No prior medical history, no medications. You have followed her since her preseason physical in Week 1.</p>
+    <p class="nm">Camila Reyes, 19 &middot; Weeks 1 to 8</p>
+    <p>Second year kinesiology student and a midfielder on the college soccer team. No prior medical history, no medications. You followed her from her preseason physical in Week 1 to the clinic visit that closed her file in Week 8.</p>
+  </div>
+  <div class="who">
+    <p class="nm">Dale Whitcomb, 68 &middot; Weeks 9 to 15</p>
+    <p>Retired long haul driver with a failing heart, a damaged kidney and type 2 diabetes, who arrives already carrying all three and then gets an infection on top of them. You picked him up in Week 9 and you have him to the end.</p>
   </div>
 
   <h2 id="what-h">What this is</h2>
   <div class="card" aria-labelledby="what-h">
-    <p>Every week this term you opened that week's case, wrote the new numbers into your paper chart, added to her problem list, drew the control loop, and answered the week's questions. None of that was collected. This is where it all comes in, as one document, and it is graded as one piece.</p>
-    <p>The weekly Use It cases you turned in each Sunday were graded on that week's reasoning. The chart is graded on the trend: whether you can read fifteen columns side by side and tell her whole story, and whether your thinking about her changed as the evidence did. Say when you changed your mind. A chart that was never wrong scores lower than one that was wrong in Week 4, noticed it in Week 7, and said so.</p>
+    <p>Every week this term you opened that week's case, wrote the new numbers into your paper chart, added to the problem list, drew the control loop, and answered the week's questions. None of that was collected. This is where it all comes in, and it is graded as one piece.</p>
+    <p>The weekly Use It cases you turned in each Sunday were graded on that week's reasoning. The chart is graded on the trend: whether you can read a row of columns side by side and tell a whole story, and whether your thinking changed as the evidence did. Say when you changed your mind. A chart that was never wrong scores lower than one that was wrong in Week 4, noticed it in Week 7, and said so.</p>
+    <p>There are two files this year, because there are two patients. The chart is the evidence. <a href="assignment-patient-analysis.html" target="_top">The analysis</a> is the argument you build out of it, and it has its own page, its own eight sections and its own rubric. Read that page before December.</p>
   </div>
 
   <h2 id="upload-h">Exactly what you upload</h2>
   <div class="card" aria-labelledby="upload-h">
-    <p class="label">One PDF, in this order</p>
+    <p class="label">File one: the chart, as one PDF, in this order</p>
     <ol>
-      <li><strong>Face sheet.</strong> Her name, your name, your entry point (the same one you used all term), and the Week 1 baseline.</li>
-      <li><strong>Vitals flowsheet</strong>, both pages, all fifteen columns filled in with units.</li>
-      <li><strong>Lab flowsheet</strong>, both pages, all fifteen columns, units written the first time each test appears.</li>
-      <li><strong>Problem list</strong>, numbered, with the week each problem was found, the numbers that were your evidence, and the week it resolved if it did.</li>
-      <li><strong>Medication and intervention log.</strong></li>
-      <li><strong>The fifteen week pages</strong>, Week 1 through Week 15, each one with the control loop drawn, the five questions answered, and your entry point question answered.</li>
+      <li><strong>Camila's face sheet.</strong> Her name, your name, your entry point (the same one you used all term), and the August baseline.</li>
+      <li><strong>Camila's vitals flowsheet</strong>, with every week from 1 to 8 filled in, with units.</li>
+      <li><strong>Camila's intake and output flowsheet.</strong></li>
+      <li><strong>Camila's lab flowsheet</strong>, units written the first time each test appears.</li>
+      <li><strong>Camila's problem list</strong>, numbered, with the week each problem was found, the numbers that were your evidence, and the week it resolved if it did.</li>
+      <li><strong>Camila's medication and intervention log.</strong></li>
+      <li><strong>Her eight week pages</strong>, Week 1 through Week 8, each with the control loop drawn, the five questions answered, and your entry point question answered.</li>
+      <li><strong>Dale's face sheet</strong>, then his four flowsheets in the same order, with the hemodynamic sheet last.</li>
+      <li><strong>Dale's problem list and medication log.</strong></li>
+      <li><strong>His seven week pages</strong>, Week 9 through Week 15, filled in the same way.</li>
       <li><strong>Your AI disclosure</strong> on the last page, even if it is one line saying you used none.</li>
     </ol>
-    <p>That is about twenty pages. Everything on it is handwritten, on the chart you printed in Week 1. If you lost a page along the way, print that page again from <a href="patient-chart-book.html" target="_top">the chart</a> and fill it in; do not type it.</p>
+    <p>That is about forty pages. Everything on it is handwritten, on the chart you printed in September. If you lost a page along the way, print that page again from <a href="patient-chart-book.html" target="_top">the chart</a> and fill it in; do not type it.</p>
+    <p class="label">File two: the analysis</p>
+    <p>One document, 1,500 to 2,000 words, eight sections, both patients. <a href="assignment-patient-analysis.html" target="_top">The analysis page</a> has the sections and the rubric. It is written from the chart in file one, and every number in it names the week and the row it came from.</p>
   </div>
 
   <h2 id="how-h">How to make the PDF</h2>
@@ -174,18 +188,18 @@ details .body p{margin:0 0 8px;font-size:14.5px}
       <li>Put the pages in the order above and check that every page has your name on it. The chart prints your name line on every page; fill it in if you have not.</li>
       <li>Scan or photograph every page in good light, straight on, one page per image. A phone scanning app (Notes on iPhone, Google Drive or Adobe Scan on Android) will make one PDF from all of them.</li>
       <li>Open the PDF and page through it once. Every number on the flowsheets must be readable. If a column is blurry, rescan that page. I cannot grade what I cannot read, and a blurry column counts as a blank one.</li>
-      <li>Name the file <strong>LastName_FirstName_PatientChart.pdf</strong>.</li>
-      <li>Upload it here and wait for the Canvas confirmation screen. One file. If you upload twice, the later one is the one I grade.</li>
+      <li>Name the chart file <strong>LastName_FirstName_PatientChart.pdf</strong> and the analysis <strong>LastName_FirstName_Analysis.pdf</strong>.</li>
+      <li>Upload both here and wait for the Canvas confirmation screen. If you upload the same file twice, the later one is the one I grade.</li>
     </ol>
   </div>
 
   <h2 id="strong-h">What a strong chart looks like</h2>
   <div class="card" aria-labelledby="strong-h">
     <ul>
-      <li><strong>The flowsheets are complete.</strong> Fifteen columns, every value that week gave you, with units. A trend you cannot see is a trend you cannot reason about.</li>
+      <li><strong>The flowsheets are complete.</strong> Every week, every value that week gave you, with units. A trend you cannot see is a trend you cannot reason about.</li>
       <li><strong>The problem list grew and changed.</strong> Problems appear the week you could name them, with the numbers that made you name them, and some of them resolve.</li>
       <li><strong>Each loop names its parts.</strong> The regulated variable, the sensor, the integrating center, the effector, and the direction of the response, drawn for that week's physiology, in your hand.</li>
-      <li><strong>The week pages read as one person thinking about one patient.</strong> Week 9 refers back to Week 3. Week 15 reads September 22 again with everything you learned after it.</li>
+      <li><strong>The week pages read as one person thinking.</strong> Week 8 reads the seven entries before it as one file. Week 15 reads both patients' first blood gases again with everything the term taught you.</li>
       <li><strong>Your thinking changed where the evidence did</strong>, and you said so on the page.</li>
     </ul>
     <p>A correct number with no explanation earns half credit. That was true every week, and it is true here.</p>
@@ -193,12 +207,12 @@ details .body p{margin:0 0 8px;font-size:14.5px}
 
   <h2 id="ai-h">Using AI on this one</h2>
   <div class="card" aria-labelledby="ai-h">
-    <p>Open, with disclosure, the same as the weekly cases. Use it to check a mechanism or push back on your own reasoning. What you upload is handwritten and it is your reading of her chart, which is very visible when it is missing. Say what you used it for on the last page. Undisclosed use is the only version of this that is a problem.</p>
+    <p>Open, with disclosure, the same as the weekly cases. Use it to check a mechanism or push back on your own reasoning. What you upload is handwritten and it is your reading of two charts, which is very visible when it is missing. Say what you used it for on the last page. Undisclosed use is the only version of this that is a problem.</p>
   </div>
 
   <h2 id="late-h">If you fall behind on the chart during the term</h2>
   <div class="card" aria-labelledby="late-h">
-    <p>Nothing is collected week to week, which means nobody will notice a gap until December except you. Catch a missed week the following week while the case is still fresh. Do not leave fifteen weeks of flowsheets for the last weekend; the point of the chart is that you were watching her all term, and a chart filled in from memory in December reads exactly like one.</p>
+    <p>Nothing is collected week to week, which means nobody will notice a gap until December except you. Catch a missed week the following week while the case is still fresh. Do not leave fifteen weeks of flowsheets for the last weekend; the point of the chart is that you were watching these two people all term, and a chart filled in from memory in December reads exactly like one.</p>
   </div>
 
   <div class="btns">

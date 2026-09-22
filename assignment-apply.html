@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Use It &middot; the patient chart &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <!-- ==========================================================
      USE IT, THE WEEKLY PATIENT CHART. One file, fifteen weeks.
@@ -17,14 +18,27 @@
      localStorage is scoped by origin, not by path.
 
      No accent bars anywhere: cards are white, lifted by shadow only.
-     Entry point color lives in the label text, which is where it can
-     also be read by someone who cannot see the color.
+     Entry points are told apart by their names, not by color, so
+     nothing here depends on seeing a hue.
+
+     Sep 21 2026.
+       - Two patients. Weeks 1 to 8 are Camila Reyes and Weeks 9 to 15
+         are Dale Whitcomb, so the patient block reads
+         C.patientFor(week) rather than C.patient.
+       - The week's released results now render under the chart as a
+         hospital-style table: test, result, units, reference range,
+         and a flag written out in words. A student should never be
+         asked whether a value is in range without the limits being
+         beside it.
+       - Repainted onto the PRIMARY palette. This file was carrying
+         MCAS navy, rust, gold and cream, and cream is out of the
+         teaching system. See BRAND-MIGRATION.md.
      ========================================================== -->
 <style>
 :root{
-  --navy:#0B1530; --navy-tint:#ECEFF4;
-  --rust:#8B3A2E; --rust-dark:#6E2D24;
-  --gold-text:#624612;
+  --navy:#1E3D4C; --navy-tint:#EDF1F3;
+  --rust:#A0522D; --rust-dark:#142a36;
+  --gold-text:#A0522D;
   --page:#FAFAF9;
 }
 *{box-sizing:border-box}
@@ -39,17 +53,17 @@ a{color:var(--rust)}
 :focus-visible{outline:3px solid var(--rust);outline-offset:3px}
 
 header.brand{display:flex;align-items:center;gap:12px;padding:18px max(28px,4vw);
-  border-bottom:1px solid rgba(11,21,48,.14);margin:-40px max(-28px,-4vw) 28px;background:#fff}
+  border-bottom:1px solid rgba(30,61,76,.14);margin:-40px max(-28px,-4vw) 28px;background:#fff}
 header.brand .bwm{font-weight:800;font-size:16px;letter-spacing:-.01em;color:var(--navy)}
 header.brand .bwm b{color:var(--rust)}
-header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#4F5468}
+header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#35505E}
 
 .homebar{margin:0 0 18px}
 .homebtn{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;
   letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--rust);
-  background:#fff;border:1px solid rgba(11,21,48,.16);border-radius:8px;padding:10px 16px;
+  background:#fff;border:1px solid rgba(30,61,76,.16);border-radius:8px;padding:10px 16px;
   transition:transform 160ms ease,box-shadow 160ms ease}
-.homebtn:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.homebtn:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(30,61,76,.10)}
 @media print{.homebar,.picker{display:none}}
 
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--rust);margin:0 0 12px}
@@ -62,7 +76,7 @@ h2{font-size:19px;font-weight:800;margin:32px 0 8px;letter-spacing:-.01em}
 h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
 
 .card{background:#fff;border-radius:12px;padding:18px 20px 16px;
-  box-shadow:0 1px 3px rgba(11,21,48,.10);margin:12px 0 4px}
+  box-shadow:0 1px 3px rgba(30,61,76,.10);margin:12px 0 4px}
 .card .label{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin:0 0 10px}
 .card ol,.card ul{margin:0;padding-left:22px}
 .card li{margin:0 0 9px;max-width:66ch}
@@ -71,39 +85,68 @@ h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
 .card p:last-child{margin-bottom:0}
 
 /* The patient, stated once at the top. */
-.who{background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 1px 3px rgba(11,21,48,.10);margin:0 0 6px}
+.who{background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:0 0 6px}
 .who .nm{font-weight:800;font-size:17px;margin:0 0 4px}
-.who p{margin:0;font-size:14.5px;color:#2A3448}
+.who p{margin:0;font-size:14.5px;color:#1E3D4C}
 
 /* The chart itself: label and value rows, no rules, no bars. */
-.chart{background:#fff;border-radius:12px;padding:6px 20px 10px;box-shadow:0 1px 3px rgba(11,21,48,.10);margin:12px 0 4px}
+.chart{background:#fff;border-radius:12px;padding:6px 20px 10px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:12px 0 4px}
 .chart dl{margin:0}
 .chart dt{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin:16px 0 4px}
 .chart dd{margin:0 0 4px;max-width:70ch}
+
+/* No italics anywhere in this course. */
+em,i,cite,dfn,var{font-style:normal;font-weight:700}
+
+/* Released results, laid out the way a hospital results screen lays them.
+   The flag is a word, never a color on its own. */
+.results{margin:12px 0 4px}
+.reswrap{overflow-x:auto;margin:0 0 14px;border-radius:12px;box-shadow:0 1px 3px rgba(30,61,76,.10)}
+table.res{border-collapse:collapse;width:100%;min-width:32rem;font-size:14px;background:#fff;margin:0}
+table.res caption{text-align:left;font-size:11px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rust);padding:14px 16px 6px}
+table.res caption span{display:block;font-weight:600;letter-spacing:0;text-transform:none;
+  font-size:13px;color:#35505E;margin-top:3px}
+table.res th,table.res td{padding:7px 16px;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--navy-tint)}
+table.res thead th{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--navy);background:var(--navy-tint);border-bottom:0}
+table.res tbody th{font-weight:600}
+table.res td.val{font-weight:800;white-space:nowrap}
+table.res td.ref{color:#35505E;font-size:13px}
+table.res td.flg{white-space:nowrap;font-weight:800;font-size:13px;color:var(--rust)}
+table.res tr.abn td.val{color:var(--rust)}
+table.res tbody tr:last-child th,table.res tbody tr:last-child td{border-bottom:0}
+@media (max-width:640px){
+  table.res{font-size:13px}
+  table.res th,table.res td{padding:6px 10px}
+  table.res caption{padding:12px 10px 6px}
+}
+@media (forced-colors:active){table.res{border:1px solid CanvasText}}
 
 /* Entry point picker. Real radios, visually styled, keyboard operable. */
 .picker{margin:10px 0 4px}
 .picker fieldset{border:0;margin:0;padding:0}
 .picker legend{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);padding:0;margin:0 0 10px}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.opt{position:relative;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(11,21,48,.10);
+.opt{position:relative;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(30,61,76,.10);
   transition:transform 160ms ease,box-shadow 160ms ease}
-.opt:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.opt:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(30,61,76,.10)}
 .opt input{position:absolute;opacity:0;width:1px;height:1px}
 .opt label{display:block;padding:14px 16px;cursor:pointer;border-radius:10px}
 .opt .nmm{display:block;font-weight:800;font-size:15px;margin:0 0 2px}
-.opt .dk{display:block;font-size:13px;color:#414B5C;line-height:1.5}
+.opt .dk{display:block;font-size:13px;color:#35505E;line-height:1.5}
 .opt input:focus-visible + label{outline:3px solid var(--rust);outline-offset:2px}
 .opt input:checked + label{background:var(--navy-tint)}
 .opt input:checked + label .nmm::after{content:" \2713";color:var(--rust)}
 
-.t-nursing  .nmm{color:#8B3A2E}
-.t-medicine .nmm{color:#0B1530}
-.t-radiology .nmm{color:#624612}
-.t-rt       .nmm{color:#6E2D24}
-.t-exercise .nmm{color:#2A3448}
+.t-nursing .nmm{color:var(--navy)}
+.t-medicine .nmm{color:var(--navy)}
+.t-radiology .nmm{color:var(--navy)}
+.t-rt .nmm{color:var(--navy)}
+.t-exercise .nmm{color:var(--navy)}
 
-details{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(11,21,48,.10);margin:14px 0 4px;overflow:hidden}
+details{background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:14px 0 4px;overflow:hidden}
 details>summary{cursor:pointer;padding:14px 20px;font-weight:800;list-style:none}
 details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"+ ";color:var(--rust);font-weight:800}
@@ -120,12 +163,12 @@ details .body p{margin:0 0 8px;font-size:14.5px}
 .btn{display:inline-block;font-weight:800;text-decoration:none;border-radius:10px;padding:13px 20px;letter-spacing:.03em}
 .btn.solid{background:var(--rust);color:#fff;border:1.5px solid var(--rust)}
 .btn.solid:hover{background:var(--rust-dark);border-color:var(--rust-dark)}
-.btn.line{background:#6E2D24;color:#F5F1E8;border:1.5px solid #6E2D24;box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30)}
+.btn.line{background:#142a36;color:#FFFFFF;border:1.5px solid #142a36;box-shadow:0 6px 14px -5px rgba(30,61,76,.45),0 2px 5px -2px rgba(30,61,76,.30)}
 .btn.line:hover{color:var(--rust-dark);border-color:var(--rust-dark)}
 
-.note{font-size:14px;color:#414B5C;max-width:66ch}
+.note{font-size:14px;color:#35505E;max-width:66ch}
 #tools li{margin-bottom:14px}
-.later{display:block;margin-top:4px;font-size:13.5px;font-weight:700;color:#8B3A2E}
+.later{display:block;margin-top:4px;font-size:13.5px;font-weight:700;color:#A0522D}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media(max-width:620px){.opts{grid-template-columns:1fr}}
 </style>
@@ -135,18 +178,18 @@ details .body p{margin:0 0 8px;font-size:14.5px}
      an iframe, so the site chrome is off it: no nav bar, no course tools dock, no
      Hootie, no floating back widget. This bar is the only way off the page.
      Do not add the site scripts back to this file. -->
-<div style="background:#0B1530;padding:10px max(20px,4vw)">
+<nav aria-label="Leave this page" style="background:#1E3D4C;padding:10px max(20px,4vw)">
+  <a class="skip" href="#main">Skip to the assignment</a>
   <a href="https://yccd.instructure.com/courses/42616/modules" target="_top"
      style="display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 17px;
-            border-radius:99px;background:#C9A14A;border:2px solid #C9A14A;color:#0B1530;
+            border-radius:99px;background:#FFFFFF;border:2px solid #FFFFFF;color:#1E3D4C;
             font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
             font-weight:700;font-size:13.5px;text-decoration:none">
     <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Back to Canvas modules</a>
-</div>
-<a class="skip" href="#main">Skip to the assignment</a>
+</nav>
 <header class="brand">
-  <svg width="30" height="36" viewBox="40 10 125 148" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+  <svg width="30" height="36" viewBox="40 10 125 148" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#1E3D4C"/><circle cx="17" cy="8" r="4.2" fill="#A0522D"/><circle cx="26" cy="8" r="4.2" fill="#B8924A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#1E3D4C"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#A0522D"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#B8924A"/></g></svg>
   <span><span class="bwm">BIO <b>005</b></span><span class="bsub">Human Physiology &middot; Fall 2026</span></span>
 </header>
 
@@ -176,6 +219,7 @@ details .body p{margin:0 0 8px;font-size:14.5px}
   <h2 id="chart-h">The chart</h2>
   <p class="note">Everyone reads this, whichever entry point you chose.</p>
   <div class="chart" aria-labelledby="chart-h"><dl id="chart"></dl></div>
+  <div class="results" id="results"></div>
 
   <h2 id="pick-h">Your entry point</h2>
   <p>Pick one in Week 1 and stay in it all term. Every entry point assesses the same physiology and none of them is the easier one. Pick the room you are heading for, or the one you know least about, whichever you would rather spend an hour in.</p>
@@ -269,8 +313,10 @@ details .body p{margin:0 0 8px;font-size:14.5px}
   document.getElementById('hwk').textContent = 'week ' + w;
   document.getElementById('wkline').innerHTML = 'Week ' + w + ' · ' + wk.title;
   document.getElementById('dueline').textContent = 'Due ' + DUE[w-1] + ' at 10:00 pm';
-  document.getElementById('pname').textContent = C.patient.name + ', ' + C.patient.line.split('.')[0].replace(/^\s+/,'') + '.';
-  document.getElementById('pline').textContent = C.patient.line.split('. ').slice(1).join('. ') + ' ' + C.patient.why;
+  /* Weeks 1 to 8 are Patient A, Weeks 9 to 15 are Patient B. */
+  var P = (C.patientFor ? C.patientFor(w) : C.patient);
+  document.getElementById('pname').textContent = P.name + ', ' + P.line.split('.')[0].replace(/^\s+/,'') + '.';
+  document.getElementById('pline').textContent = P.line.split('. ').slice(1).join('. ') + ' ' + P.why;
   document.getElementById('arc').innerHTML = wk.arc;
   document.getElementById('dateline').textContent = wk.encounter + ' · ' + wk.date + ' · ' + wk.when + '.';
 
@@ -285,6 +331,27 @@ details .body p{margin:0 0 8px;font-size:14.5px}
   document.getElementById('chart').innerHTML = wk.chart.map(function(row){
     return '<dt>' + row[0] + '</dt><dd>' + row[1] + '</dd>';
   }).join('');
+
+  /* Released results. Flags are words, so nothing here depends on color,
+     and every value carries the limits it is being read against. */
+  var FLAG = { H:'High', L:'Low', HH:'Critical high', LL:'Critical low' };
+  document.getElementById('results').innerHTML = !wk.panels ? '' :
+    wk.panels.map(function(p){
+      return '<div class="reswrap"><table class="res"><caption>' + p.name +
+             (p.when ? '<span>Collected ' + p.when + '</span>' : '') + '</caption>' +
+             '<thead><tr><th scope="col">Test</th><th scope="col">Result</th>' +
+             '<th scope="col">Units</th><th scope="col">Reference range</th>' +
+             '<th scope="col">Flag</th></tr></thead><tbody>' +
+             p.rows.map(function(r){
+               var f = FLAG[r[4]] || '';
+               return '<tr' + (f ? ' class="abn"' : '') + '>' +
+                      '<th scope="row">' + r[0] + '</th>' +
+                      '<td class="val">' + r[1] + '</td>' +
+                      '<td>' + (r[2] || '') + '</td>' +
+                      '<td class="ref">' + (r[3] || '') + '</td>' +
+                      '<td class="flg">' + f + '</td></tr>';
+             }).join('') + '</tbody></table></div>';
+    }).join('');
 
   document.getElementById('five').innerHTML =
     wk.five.map(function(q){ return '<li>' + q + '</li>'; }).join('');

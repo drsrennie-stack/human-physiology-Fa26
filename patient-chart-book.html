@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your patient chart, all term &middot; BIO 005 Human Physiology</title>
-<meta name="description" content="BIO 005: the running patient chart for Camila Reyes. Print it once, add to it by hand every week: vitals and lab flowsheets, problem list, medication log, and a page for each week's entry.">
+<meta name="description" content="BIO 005: the running patient chart for Camila Reyes and Dale Whitcomb. Print it once, add to it by hand every week: vitals, intake and output and lab flowsheets, problem list, medication log, the results released each week, and a page for every week's entry.">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brandbar.css">
@@ -13,132 +13,207 @@
   BIO 005 Human Physiology, Fall 2026, Yuba College
   patient-chart-book.html, THE RUNNING PATIENT CHART
 
-  Sep 12 2026. Scrubs: one case all the way through (Camila Reyes,
-  the same patient for everyone), each student keeps ONE chart on
-  paper and adds to it by hand every week, the way a chart on a
-  ward grows. Vitals flowsheet, lab flowsheet, problem list,
-  medication and intervention log, then one page per week for the
-  control loop drawing, the five questions and the entry point
-  question. Week 1 is already filled in as the baseline column,
-  because that assignment is done.
+  Sep 12 2026. Scrubs: each student keeps ONE chart on paper and
+  adds to it by hand every week, the way a chart on a ward grows.
 
-  Data comes from bio005-patient-chart.js (the same file
-  assignment-apply.html reads), so the dates, the encounter names
-  and the five questions cannot drift between the two pages.
-  Nothing typed here is saved; it is a printing page.
+  Sep 21 2026. Rebuilt for the Fall 2026 schedule.
+    - Two patients now. Camila Reyes carries Weeks 1 to 8 and Dale
+      Whitcomb carries Weeks 9 to 15, so the book is built in two
+      halves with a divider between them. Each half has its own face
+      sheet, its own flowsheets, its own problem list and its own
+      medication log, because they are two charts.
+    - Each patient's flowsheets open with a baseline column that is
+      already filled in: Camila's August physical and Dale's March
+      clinic visit. Everything after it gets compared to it.
+    - Intake and output is now its own flowsheet. It was inside the
+      vitals sheet and there was never enough room.
+    - Every week page now carries the results that were released that
+      week, laid out the way a hospital results screen lays them out:
+      test, result, units, reference range, and a flag in words. The
+      flag is written out rather than colored, so it survives being
+      photocopied and it reaches a screen reader.
+    - Repainted onto the PRIMARY palette. This file was built after
+      the Aug 17 brand migration and was missed by it: it was still
+      carrying MCAS navy, rust, gold and cream. See BRAND-MIGRATION.md.
+
+  Data comes from bio005-patient-chart.js, the same file that
+  assignment-apply.html and patient-sheet.html read, so dates,
+  encounter names, released results and the five questions cannot
+  drift between the pages. Nothing typed here is saved; this is a
+  printing page. That is deliberate: the chart is meant to be
+  written on by hand.
   ============================================================
 -->
 <style>
-:root{--navy:#0B1530;--maroon:#8B3A2E;--gold:#C9A14A;--gold-deep:#8A6D33;--page:#FAFAF9;--card:#fff;--ink:#0B1530;--muted:#414B5C;--faint:#5A6675;--rule:rgba(11,21,48,.14);
---shadow:0 1px 3px rgba(0,0,0,.08);--display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
-*,*::before,*::after{box-sizing:border-box}html,body{margin:0}
+/* Page-specific only. Palette values below are PRIMARY, per palettes.md.
+   This page does not link assets/brand.css because it is served standalone
+   inside a Canvas iframe and is kept to two network requests. */
+:root{
+  --navy:#1E3D4C;          /* primary text, headers, borders */
+  --navy-deep:#142a36;     /* hover state on navy elements */
+  --navy-tint:#EDF1F3;     /* completed-state fill only */
+  --gold:#B8924A;          /* accents and borders, never text */
+  --terra:#C2734D;
+  --terra-dark:#A0522D;    /* eyebrows, emphasis, focus ring */
+  --page:#FAFAF9;          /* page background only */
+  --card:#FFFFFF;          /* cards only */
+  --ink:#1E3D4C;
+  --muted:#35505E;         /* 8.1:1 on the page background */
+  --rule:rgba(30,61,76,.22);
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lift:0 8px 16px rgba(0,0,0,.10);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
 body{font-family:var(--body);background:var(--page);color:var(--ink);font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
-em,i{font-style:normal;font-weight:700}
+/* No italics anywhere in this course. Anything that would render slanted
+   renders bold instead. */
+em,i,cite,address,dfn,var{font-style:normal;font-weight:700}
 h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;margin:0;line-height:1.15}
 p{margin:0}
-a{color:var(--maroon);text-underline-offset:3px}
-:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
-.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}.skip:focus{left:0;top:0}
+a{color:var(--terra-dark);text-underline-offset:3px}
+a:hover{color:var(--navy-deep)}
+:focus-visible{outline:3px solid var(--terra-dark);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
 
 /* the screen top */
 .top{background:var(--navy);color:#fff;padding:34px 0 28px}
-.top .eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.top .eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#F0E4CC;margin:0 0 10px}
 .top h1{font-size:clamp(28px,4.4vw,42px)}
-.top .lede{font-size:17px;color:#E6E9F0;max-width:66ch;margin:10px 0 0}
+.top .lede{font-size:17px;color:#E6ECEF;max-width:66ch;margin:10px 0 0}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
 .btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;font-family:inherit;border:1.5px solid #fff;color:#fff;background:transparent}
-.btn.pri{background:#0B1530;color:#F5F1E8;box-shadow:0 6px 14px -5px rgba(11,21,48,.45),0 2px 5px -2px rgba(11,21,48,.30)}
-.btn:hover{background:rgba(255,255,255,.14)}.btn.pri:hover{background:#F3F4F7}
+.btn.pri{background:#fff;color:var(--navy);border-color:#fff}
+.btn:hover{background:rgba(255,255,255,.16);color:#fff}
+.btn.pri:hover{background:var(--navy-tint);color:var(--navy)}
 .howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin:22px auto 0}
 .hcard{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px}
-.hcard h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px}
+.hcard h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 8px}
 .hcard ol,.hcard ul{margin:0;padding-left:20px;font-size:15.5px;color:var(--muted)}
 .hcard li{margin:4px 0}
 .hcard b{color:var(--navy)}
 
 /* the chart itself */
 .book{margin:26px auto 40px}
-.sheet{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:0 0 18px}
+.sheet{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px;margin:0 0 18px}
 .sheet h2{font-size:20px;color:var(--navy)}
-.sheet .sub{font-size:14px;color:var(--faint);margin:2px 0 12px}
-.runner{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+.sheet h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-dark);margin:16px 0 6px}
+.sheet .sub{font-size:14px;color:var(--muted);margin:2px 0 12px}
+.runner{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 10px}
 .runner .name{color:var(--navy)}
+
+/* patient divider */
+.divider{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:30px 26px;margin:0 0 18px}
+.divider .kicker{font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 8px}
+.divider h2{font-size:26px}
+.divider .who{font-size:15.5px;color:var(--muted);margin:10px 0 0;max-width:72ch}
+.divider .why{font-size:15.5px;color:var(--navy);font-weight:700;margin:12px 0 0;max-width:72ch}
+
 /* face sheet */
 .face{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px 22px}
 .fld{border-bottom:1.2px solid var(--navy);padding:6px 0 4px;min-height:44px;display:flex;flex-direction:column;justify-content:flex-end}
-.fld .l{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.fld .l{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .fld .v{font-size:15.5px}
 .fld.tall{min-height:76px}
 .ep{display:flex;flex-wrap:wrap;gap:8px 16px;margin:6px 0 0;font-size:14.5px}
 .ep span{display:inline-flex;align-items:center;gap:6px}
-.ep i{width:14px;height:14px;border:1.5px solid var(--navy);border-radius:3px;display:inline-block}
+.ep i{width:14px;height:14px;border:1.5px solid var(--navy);border-radius:3px;display:inline-block;font-weight:400}
+
 /* flowsheets */
 .tblwrap{overflow-x:auto}
 table.flow{border-collapse:collapse;width:100%;font-size:12.5px}
+table.flow caption{text-align:left;font-size:12.5px;color:var(--muted);padding:0 0 8px}
 table.flow th,table.flow td{border:1px solid var(--navy);padding:4px 6px;vertical-align:top;text-align:left}
-table.flow th{background:#ECEFF4;font-family:var(--display);font-weight:800;font-size:11px;line-height:1.2}
+table.flow th{background:var(--navy-tint);font-family:var(--display);font-weight:800;font-size:11px;line-height:1.2;color:var(--navy)}
 table.flow th.wk{text-align:center}
-table.flow th.wk small{display:block;font-weight:600;color:var(--faint);letter-spacing:0;text-transform:none;font-size:10px;margin-top:2px}
+table.flow th.wk small{display:block;font-weight:600;color:var(--muted);letter-spacing:0;text-transform:none;font-size:10px;margin-top:2px}
 table.flow td{height:34px}
-table.flow td.lab{font-weight:700;white-space:nowrap;background:#fff}
-table.flow td.base{background:#FBF7EE;font-weight:600}
+table.flow td.lab{font-weight:700;white-space:nowrap;background:var(--card)}
+table.flow td.base{background:var(--navy-tint);font-weight:600}
 table.flow tr.blank td.lab{color:transparent}
+table.flow tr.rule td{border-top-width:2px}
+
+/* results, the hospital-style release */
+table.res{border-collapse:collapse;width:100%;font-size:12.5px;margin:0 0 10px}
+table.res caption{text-align:left;font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);padding:0 0 5px}
+table.res caption span{display:block;font-family:var(--body);font-weight:600;letter-spacing:0;text-transform:none;font-size:12px;color:var(--muted);margin-top:2px}
+table.res th,table.res td{border:1px solid var(--navy);padding:4px 7px;text-align:left;vertical-align:top}
+table.res thead th{background:var(--navy-tint);font-family:var(--display);font-size:10.5px;font-weight:800;color:var(--navy)}
+table.res td.val{font-weight:700;white-space:nowrap}
+table.res td.ref{color:var(--muted);font-size:11.5px}
+table.res td.flg{white-space:nowrap;font-weight:800;font-size:11.5px;color:var(--terra-dark)}
+table.res tr.abn td.val{color:var(--terra-dark)}
+
 /* lists */
 table.list{border-collapse:collapse;width:100%;font-size:13px}
 table.list th,table.list td{border:1px solid var(--navy);padding:6px 8px;text-align:left;vertical-align:top}
-table.list th{background:#ECEFF4;font-family:var(--display);font-size:11px;font-weight:800}
+table.list th{background:var(--navy-tint);font-family:var(--display);font-size:11px;font-weight:800;color:var(--navy)}
 table.list td{height:36px}
+
 /* week pages */
 .wkpage .head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;border-bottom:2px solid var(--navy);padding:0 0 8px;margin:0 0 12px}
-.wkpage .n{font-family:var(--display);font-weight:800;font-size:30px;color:var(--maroon);line-height:1}
+.wkpage .n{font-family:var(--display);font-weight:800;font-size:30px;color:var(--terra-dark);line-height:1}
 .wkpage .head h2{font-size:19px}
-.wkpage .head .when{font-size:13.5px;color:var(--faint);width:100%}
+.wkpage .head .when{font-size:13.5px;color:var(--muted);width:100%}
+.arc{font-size:13.5px;color:var(--muted);margin:0 0 12px;max-width:80ch}
 .box{border:1.2px solid var(--navy);border-radius:8px;padding:8px 10px;position:relative;margin:0 0 12px}
-.box .bl{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon);display:block;margin:0 0 4px}
-.box .hint{font-size:12px;color:var(--faint)}
+.box .bl{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-dark);display:block;margin:0 0 4px}
+.box .hint{font-size:12px;color:var(--muted)}
 .box.lines{min-height:110px}
 .box.draw{min-height:300px}
 .box.draw .hint{position:absolute;right:10px;bottom:6px}
 .qs{margin:0;padding:0;list-style:none}
 .qs li{border:1.2px solid var(--navy);border-radius:8px;padding:8px 10px;margin:0 0 10px;min-height:92px}
 .qs li .q{font-size:13px;color:var(--ink);display:block;margin:0 0 4px}
-.qs li .q b{color:var(--maroon);margin-right:6px}
-.desk{background:#FBF7EE}
+.qs li .q b{color:var(--terra-dark);margin-right:6px}
+.desk{border-color:var(--terra-dark)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:700px){.two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (forced-colors:active){.sheet,.divider,.box,.qs li{border:1px solid CanvasText}}
 
-@media (forced-colors:active){.sheet,.box,.qs li{border:1px solid CanvasText}}
 @media print{
   @page{size:letter portrait;margin:.5in}
   body{background:#fff;font-size:10.5pt;color:#000}
-  .top,.howto,.skip,.mm-brandbar,.b5site,.mm-foot,.b5back,.hootie-fab,[class*="hootie"]{display:none!important}
+  .top,.howto,.skip,.mm-brandbar,.b5site,.mm-foot,.b5back,.hootie-fab,.backbar,[class*="hootie"]{display:none!important}
   .wrap{max-width:none;padding:0}
   .book{margin:0}
-  .sheet{box-shadow:none;border:0;border-radius:0;padding:0;margin:0;break-after:page;page-break-after:always}
+  .sheet,.divider{box-shadow:none;border:0;border-radius:0;padding:0;margin:0;break-after:page;page-break-after:always}
   .sheet:last-child{break-after:auto;page-break-after:auto}
+  .divider{padding-top:2.2in}
   .runner{color:#000}
-  table.flow th{background:#eee;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  table.flow th,table.res thead th{background:#eee;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#000}
   table.flow{table-layout:fixed;font-size:8.6pt}
   table.flow th{font-size:7.6pt;padding:3px 3px}
   table.flow th:first-child{width:1.25in}
   table.flow th.wk small{font-size:6.6pt}
   table.flow td{height:.34in;padding:2px 4px}
-  table.flow td.base{background:#f4f0e6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  table.flow td.base{background:#e8edef;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  table.res{font-size:8.4pt}
+  table.res td,table.res th{padding:2px 5px}
+  table.res td.ref{font-size:7.8pt}
+  table.res td.flg,table.res tr.abn td.val{color:#000}
+  table.res caption{font-size:9pt;color:#000}
   table.list td{height:.34in}
+  .tblwrap{overflow:visible}
   .box,.qs li{border-color:#000;break-inside:avoid}
   .box.draw{min-height:2.9in;margin-bottom:6px}
   .box.lines{min-height:.72in;margin-bottom:6px}
   .qs li{min-height:.68in;margin-bottom:5px;padding:4px 8px}
   .qs li .q{font-size:8.6pt;line-height:1.25}
   .box .hint{font-size:8pt}
+  .arc{font-size:8.6pt;color:#000}
   .wkpage .head{margin-bottom:8px;padding-bottom:5px}
   .wkpage .n{font-size:22pt}
   .two{gap:8px}
-  .desk{background:#f4f0e6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .wkpage .n,.box .bl,.qs li .q b{color:#000}
+  .wkpage .n,.box .bl,.qs li .q b,.divider .kicker,.sheet h3{color:#000}
   .fld{border-bottom-color:#000}
+  .desk{border-color:#000}
 }
 </style>
 </head>
@@ -147,147 +222,300 @@ table.list td{height:36px}
      an iframe, so the site chrome is off it: no nav bar, no course tools dock, no
      Hootie, no floating back widget. This bar is the only way off the page.
      Do not add the site scripts back to this file. -->
-<div style="background:#0B1530;padding:10px max(20px,4vw)">
+<nav class="backbar" aria-label="Leave this page" style="background:#1E3D4C;padding:10px max(20px,4vw)">
+  <a class="skip" href="#main">Skip to the chart</a>
   <a href="https://yccd.instructure.com/courses/42616/modules" target="_top"
      style="display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 17px;
-            border-radius:99px;background:#C9A14A;border:2px solid #C9A14A;color:#0B1530;
+            border-radius:99px;background:#FFFFFF;border:2px solid #FFFFFF;color:#1E3D4C;
             font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
             font-weight:700;font-size:13.5px;text-decoration:none">
     <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Back to Canvas modules</a>
+</nav>
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 &middot; Use It &middot; the whole term</p>
+  <h1>Your patient chart, all term.</h1>
+  <p class="lede">Two patients and two charts that you keep by hand. Camila Reyes runs from Week 1 to Week 8. Dale Whitcomb runs from Week 9 to Week 15. Print the book once. Every week, copy that week's released results into the flowsheets, add to the problem list, draw the control loop on that week's page, and answer the questions. By December you will be able to run a finger along one row and read a whole admission.</p>
+  <div class="btnrow">
+    <button class="btn pri" type="button" onclick="window.print()">Print or save as PDF</button>
+    <a class="btn" href="assignment-apply.html" target="_top">This week's entry, on screen</a>
+    <a class="btn" href="assignment-patient-analysis.html" target="_top">The end of term analysis</a>
+  </div>
+</div></header>
+
+<main class="wrap" id="main" tabindex="-1">
+<div class="howto">
+  <section class="hcard" aria-labelledby="h-how"><h2 id="h-how">How to use it</h2>
+    <ol>
+      <li><b>Print the whole book once</b>, in September, and put it in a binder. Do not reprint it.</li>
+      <li>Each week, open <b>this week's entry</b> on screen. It gives you the released results.</li>
+      <li><b>Copy the numbers into the flowsheets first.</b> That transcription is where you notice a trend. Do not skip it.</li>
+      <li>Then fill in that week's page: what changed, the problem list, the drawing, the five questions, and your entry point's question.</li>
+      <li>Photograph or scan the week's page and upload it to the week's assignment.</li>
+    </ol>
+  </section>
+  <section class="hcard" aria-labelledby="h-why"><h2 id="h-why">Why on paper, and why two charts</h2>
+    <ul>
+      <li>A chart on a ward <b>grows</b>. It is not rewritten each week, and neither is this one.</li>
+      <li>Trends live in columns. A number you type into a box and never see again cannot show you a trend.</li>
+      <li>Camila has <b>one thing wrong at a time</b>, so you can see a single system clearly. Dale has four at once, which is what Weeks 9 to 15 are about.</li>
+      <li>Nothing on this page is saved. Write on it.</li>
+    </ul>
+  </section>
+  <section class="hcard" aria-labelledby="h-read"><h2 id="h-read">Reading a results table</h2>
+    <ul>
+      <li>Every released result carries its <b>units</b> and its <b>reference range</b>, the way a hospital result screen does.</li>
+      <li>A value outside the range is flagged in <b>words</b>, not in color, so it survives photocopying and reaches a screen reader.</li>
+      <li>A reference range is not a health range. Week 1 asks you what it is a range of.</li>
+    </ul>
+  </section>
 </div>
-<a class="skip" href="#main">Skip to the chart</a>
 
-<main id="main">
-  <header class="top"><div class="wrap">
-    <p class="eyebrow">BIO 005 &middot; Use It &middot; the whole term</p>
-    <h1>Your patient chart, all term.</h1>
-    <p class="lede">One patient, Camila Reyes, and one chart that you keep by hand. Print it once. Every week, add that week's numbers to the flowsheets, add to the problem list, draw the control loop on that week's page, and answer the questions. By November you will be able to run a finger along one row and read her whole story.</p>
-    <div class="btnrow">
-      <button class="btn pri" type="button" onclick="window.print()">Print or save as PDF</button>
-      <a class="btn" href="sheets/BIO005-patient-chart.pdf" target="_blank" rel="noopener">Tagged PDF<span class="vh"> (opens in a new tab)</span></a>
-      <a class="btn" href="assignment-apply.html" target="_top">This week's entry, on screen</a>
-    </div>
-  </div></header>
-
-  <div class="wrap">
-  <div class="howto">
-    <section class="hcard" aria-labelledby="h-how"><h2 id="h-how">How to use it</h2>
-      <ol>
-        <li><b>Print the whole chart once</b>, about twenty pages, and keep it in a folder. All portrait, so any printer will do.</li>
-        <li><b>Each week</b>, open that week's chart entry on the site, then write the new numbers into the flowsheets in the column for that week. Dates are on the column heads.</li>
-        <li><b>On that week's page</b>, draw the control loop, answer the five questions, then the one from your entry point.</li>
-        <li><b>Keep it. Nothing from the chart is turned in week to week.</b> The chart is your capstone, worth 5 percent of the course. You turn in the whole thing once, as one PDF, on Wednesday, December 16 (<a href="assignment-patient-chart.html" target="_top">exactly what to upload</a>), and it is graded as one piece: the trends, the problem list, the loops, and your thinking across all fifteen weeks. What you do turn in each Sunday is that week's Use It case.</li>
-      </ol>
-    </section>
-    <section class="hcard" aria-labelledby="h-why"><h2 id="h-why">Why on paper, and why one chart</h2>
-      <ul>
-        <li>Nobody on a ward reads one day of a chart. The trend is the finding. Fifteen columns side by side is the point.</li>
-        <li>Writing a number into a column next to last week's number makes you compare them. Typing it into a box does not.</li>
-        <li>Week 1 is already filled in as the baseline column, because you have done it. Everything from Week 2 on gets compared to that column.</li>
-        <li>Your entry point (nursing, medicine, radiology, respiratory therapy, exercise) does not change the chart. It changes the last question on each week's page.</li>
-      </ul>
-    </section>
-  </div>
-
-  <div class="book" id="book" aria-live="polite"></div>
-  </div>
+<div class="book" id="book"></div>
 </main>
 
 <script src="bio005-patient-chart.js"></script>
 <script>
 (function () {
-  var C = window.BIO005_CHART; if (!C) return;
-  var W = C.weeks, ids = Object.keys(W).map(Number).sort(function (a, b) { return a - b; });
-  var esc = function (s) { return String(s); };
-  var runner = '<p class="runner"><span class="name">Camila Reyes &middot; 19 &middot; BIO 005 patient chart</span><span>Student: ____________________ &nbsp; Entry point: ____________________</span></p>';
+  var C = window.BIO005_CHART;
+  var book = document.getElementById('book');
+  if (!C || !book) { return; }
 
-  function wkHead(n) {
-    var w = W[n];
-    return '<th class="wk" scope="col">Wk ' + n + '<small>' + esc(w.date) + '</small><small>' + esc(w.encounter) + '</small></th>';
+  var W = C.weeks;
+  var ids = Object.keys(W).map(Number).sort(function (a, b) { return a - b; });
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+
+  /* Flags are written out. Color is never the only carrier. */
+  var FLAG = { 'H':'High', 'L':'Low', 'HH':'Critical high', 'LL':'Critical low' };
+
+  function runner(p) {
+    return '<p class="runner"><span class="name">' + p.name + ' &middot; ' + p.age
+      + ' &middot; BIO 005 patient chart</span><span>Student: ____________________ &nbsp; Entry point: ____________________</span></p>';
   }
-  function flow(title, sub, rows, base, from, to) {
-    var h = '<section class="sheet wide" aria-labelledby="fs-' + from + '-' + title.replace(/\W+/g, '') + '">' + runner
-      + '<h2 id="fs-' + from + '-' + title.replace(/\W+/g, '') + '">' + title + ' <span style="font-weight:600;color:#5A6675;font-size:14px">weeks ' + from + ' to ' + to + '</span></h2><p class="sub">' + sub + '</p>'
+
+  /* ---------- flowsheets: one column per week, plus a filled baseline ---------- */
+  function flow(p, title, sub, rows, weekNums, baseline) {
+    var id = 'fs-' + p.id + '-' + slug(title) + '-' + weekNums[0];
+    var h = '<section class="sheet wide" aria-labelledby="' + id + '">' + runner(p)
+      + '<h2 id="' + id + '">' + title + '<span class="vh">, ' + p.name + '</span></h2>'
+      + '<p class="sub">' + sub + '</p>'
       + '<div class="tblwrap"><table class="flow"><thead><tr><th scope="col">Measure</th>';
-    for (var n = from; n <= to; n++) h += wkHead(n);
+    if (baseline) {
+      h += '<th class="wk" scope="col">Baseline<small>' + baseline.date + '</small><small>' + baseline.what + '</small></th>';
+    }
+    weekNums.forEach(function (n) {
+      var w = W[n];
+      h += '<th class="wk" scope="col">Wk ' + n + '<small>' + w.date + '</small><small>' + w.encounter + '</small></th>';
+    });
     h += '</tr></thead><tbody>';
     rows.forEach(function (r) {
       var blank = !r;
-      h += '<tr' + (blank ? ' class="blank"' : '') + '><td class="lab">' + (blank ? 'blank' : r) + '</td>';
-      for (var n = from; n <= to; n++) {
-        var v = (n === 1 && !blank && base[r]) ? base[r] : '';
+      h += '<tr' + (blank ? ' class="blank"' : '') + '><th scope="row" class="lab">'
+        + (blank ? '<span class="vh">Blank row, for a test this week adds that is not listed</span>' : r) + '</th>';
+      if (baseline) {
+        var v = (!blank && baseline.values[r]) ? baseline.values[r] : '';
         h += '<td' + (v ? ' class="base"' : '') + '>' + v + '</td>';
       }
+      weekNums.forEach(function () { h += '<td></td>'; });
       h += '</tr>';
     });
     return h + '</tbody></table></div></section>';
   }
 
-  /* Week 1 baseline, the preseason physical. Already done, so it is printed in. */
-  var VBASE = { 'HR': '52', 'BP': '108/64', 'RR': '12', 'Temp °C (°F)': '36.8 (98.2)', 'SpO₂': '99% RA', 'Weight kg (lb)': '61 (134)' };
-  var LBASE = { 'Sodium mEq/L': '139', 'Potassium': '4.2', 'Chloride': '103', 'Bicarbonate': '25', 'Glucose mg/dL': '88', 'Creatinine mg/dL': '0.8', 'Hemoglobin g/dL': '13.4', 'Hematocrit %': '40' };
-  var VROWS = ['HR', 'BP', 'RR', 'Temp °C (°F)', 'SpO₂', 'Weight kg (lb)', 'Urine output', 'Intake', null, null];
-  var LROWS = ['Sodium mEq/L', 'Potassium', 'Chloride', 'Bicarbonate', 'Glucose mg/dL', 'BUN mg/dL', 'Creatinine mg/dL', 'Osmolality mOsm/kg', 'Anion gap', 'pH', 'PCO₂ mmHg', 'PO₂ mmHg', 'Lactate', 'Hemoglobin g/dL', 'Hematocrit %', 'WBC', 'HbA1c %', null, null, null];
-
-  var out = '';
-
-  /* face sheet */
-  out += '<section class="sheet" aria-labelledby="face-h">' + runner + '<h2 id="face-h">Face sheet</h2><p class="sub">Who she is, and the two things about you that stay the same all term.</p>'
-    + '<div class="face">'
-    + '<div class="fld"><span class="l">Patient</span><span class="v">' + esc(C.patient.name) + ', 19</span></div>'
-    + '<div class="fld"><span class="l">Your name</span><span class="v">&nbsp;</span></div>'
-    + '<div class="fld tall" style="grid-column:1/-1"><span class="l">History</span><span class="v">' + esc(C.patient.line) + '</span></div>'
-    + '<div class="fld"><span class="l">Allergies</span><span class="v">&nbsp;</span></div>'
-    + '<div class="fld"><span class="l">Medications at baseline</span><span class="v">None</span></div>'
-    + '<div class="fld tall" style="grid-column:1/-1"><span class="l">Your entry point, pick one in Week 1 and keep it</span><span class="v ep">'
-    + C.tracks.map(function (t) { return '<span><i aria-hidden="true"></i>' + t.name + '</span>'; }).join('')
-    + '</span></div>'
-    + '<div class="fld tall" style="grid-column:1/-1"><span class="l">Baseline, August 12, preseason physical (Week 1, done)</span><span class="v">'
-    + W[1].chart.map(function (c) { return '<b>' + c[0] + '.</b> ' + c[1]; }).join(' ') + '</span></div>'
-    + '</div></section>';
-
-  /* flowsheets, two pages each */
-  out += flow('Vitals flowsheet', 'One column per week, in course order. The date under each week is when that chart entry happened in her story; they are not in date order on purpose.', VROWS, VBASE, 1, 8);
-  out += flow('Vitals flowsheet', 'Continued.', VROWS, VBASE, 9, 15);
-  out += flow('Lab flowsheet', 'Write the units the first time a test appears. A blank row is for a test the week introduces that is not listed.', LROWS, LBASE, 1, 8);
-  out += flow('Lab flowsheet', 'Continued.', LROWS, LBASE, 9, 15);
-
-  /* problem list and med log */
-  function listTable(id, title, sub, cols, n) {
-    var h = '<section class="sheet" aria-labelledby="' + id + '">' + runner + '<h2 id="' + id + '">' + title + '</h2><p class="sub">' + sub + '</p><table class="list"><thead><tr>';
+  function listTable(p, id, title, sub, cols, n) {
+    var h = '<section class="sheet" aria-labelledby="' + id + '">' + runner(p)
+      + '<h2 id="' + id + '">' + title + '<span class="vh">, ' + p.name + '</span></h2>'
+      + '<p class="sub">' + sub + '</p>'
+      + '<div class="tblwrap"><table class="list"><thead><tr>';
     cols.forEach(function (c) { h += '<th scope="col">' + c + '</th>'; });
     h += '</tr></thead><tbody>';
     for (var i = 0; i < n; i++) { h += '<tr>' + cols.map(function () { return '<td></td>'; }).join('') + '</tr>'; }
-    return h + '</tbody></table></section>';
+    return h + '</tbody></table></div></section>';
   }
-  out += listTable('prob-h', 'Problem list', 'A problem goes on the day you can name it. Write the week you found it, and the week it resolved if it does. Number them; the numbers are how you will refer to them on the week pages.', ['#', 'Problem, in your words', 'Week found', 'Evidence (which numbers)', 'Resolved'], 14);
-  out += listTable('med-h', 'Medication and intervention log', 'Fluids, drugs, oxygen, procedures. What was given, when in her story, and what it was meant to change.', ['Week', 'What was given or done', 'Date in her story', 'What it was meant to change', 'Did it?'], 14);
 
-  /* one page per week, 2 to 15 */
-  ids.forEach(function (n) {
-    if (n < 2) return;
+  /* ---------- the released results, laid out the way a results screen lays them ---------- */
+  function panels(w) {
+    if (!w.panels || !w.panels.length) { return ''; }
+    return w.panels.map(function (p) {
+      var h = '<div class="tblwrap"><table class="res"><caption>' + p.name
+        + (p.when ? '<span>Collected ' + p.when + '</span>' : '') + '</caption>'
+        + '<thead><tr><th scope="col">Test</th><th scope="col">Result</th><th scope="col">Units</th>'
+        + '<th scope="col">Reference range</th><th scope="col">Flag</th></tr></thead><tbody>';
+      p.rows.forEach(function (r) {
+        var flag = FLAG[r[4]] || '';
+        h += '<tr' + (flag ? ' class="abn"' : '') + '>'
+          + '<th scope="row">' + r[0] + '</th>'
+          + '<td class="val">' + r[1] + '</td>'
+          + '<td>' + (r[2] || '') + '</td>'
+          + '<td class="ref">' + (r[3] || '') + '</td>'
+          + '<td class="flg">' + flag + '</td></tr>';
+      });
+      return h + '</tbody></table></div>';
+    }).join('');
+  }
+
+  function weekPage(p, n) {
     var w = W[n];
-    out += '<section class="sheet wkpage" aria-labelledby="w' + n + '-h">' + runner
-      + '<div class="head"><span class="n">' + (n < 10 ? '0' : '') + n + '</span><h2 id="w' + n + '-h">' + esc(w.encounter) + '</h2><span class="when">' + esc(w.date) + ' &middot; ' + esc(w.when) + ' &middot; ' + esc(w.title) + '</span></div>'
+    var id = 'w' + n + '-h';
+    var h = '<section class="sheet wkpage" aria-labelledby="' + id + '">' + runner(p)
+      + '<div class="head"><span class="n" aria-hidden="true">' + pad(n) + '</span>'
+      + '<h2 id="' + id + '"><span class="vh">Week ' + n + '. </span>' + w.encounter + '</h2>'
+      + '<span class="when">' + w.date + ' &middot; ' + w.when + ' &middot; ' + w.title + '</span></div>'
+      + '<p class="arc">' + w.arc + '</p>';
+
+    var res = panels(w);
+    if (res) { h += '<h3>Results released this week</h3>' + res; }
+
+    h += '<h3>Your entries</h3>'
       + '<div class="two">'
       + '<div class="box lines"><span class="bl">New on the chart this week</span><span class="hint">Copy the numbers into the flowsheets first, then list here what changed since the last column.</span></div>'
-      + '<div class="box lines"><span class="bl">Problem list, additions and changes</span><span class="hint">Use the numbers from your problem list.</span></div>'
+      + '<div class="box lines"><span class="bl">Problem list, additions and changes</span><span class="hint">Refer to problems by the numbers you gave them on the problem list.</span></div>'
       + '</div>'
       + '<div class="box draw"><span class="bl">Draw the control loop</span><span class="hint">Regulated variable, sensor, integrator, effector, and where this week it is failing or being pushed.</span></div>'
-      + '<ol class="qs" aria-label="The five questions">'
-      + w.five.map(function (q, i) { return '<li><span class="q"><b>' + (i + 1) + '.</b>' + esc(q) + '</span></li>'; }).join('')
+      + '<h3>The five questions</h3><ol class="qs">'
+      + w.five.map(function (q, i) { return '<li><span class="q"><b>' + (i + 1) + '.</b>' + q + '</span></li>'; }).join('')
       + '</ol>'
       + '<div class="box lines desk"><span class="bl">From your desk</span><span class="hint">Your entry point’s data and question are on this week’s entry page. Answer it here.</span></div>'
       + '</section>';
-  });
+    return h;
+  }
 
-  document.getElementById('book').innerHTML = out;
+  /* ---------- baselines, already filled in ---------- */
+  var BASE_A = {
+    date:'August 12', what:'Preseason physical',
+    values:{
+      'Heart rate':'52', 'Blood pressure':'108/64', 'Mean arterial pressure':'79',
+      'Respiratory rate':'12', 'Temperature °C (°F)':'36.8 (98.2)',
+      'Oxygen saturation':'99% RA', 'Weight kg (lb)':'61 (134)',
+      'Sodium mEq/L':'139', 'Potassium mEq/L':'4.2', 'Chloride mEq/L':'103',
+      'Bicarbonate mEq/L':'25', 'Glucose mg/dL':'88', 'Creatinine mg/dL':'0.8',
+      'Hemoglobin g/dL':'13.4', 'Hematocrit %':'40'
+    }
+  };
+  var BASE_B = {
+    date:'March 10', what:'Clinic visit, well',
+    values:{
+      'Heart rate':'64', 'Blood pressure':'118/70', 'Mean arterial pressure':'86',
+      'Respiratory rate':'16', 'Temperature °C (°F)':'36.8 (98.2)',
+      'Oxygen saturation':'96% RA', 'Weight kg (lb)':'88 (194)',
+      'Sodium mEq/L':'138', 'Potassium mEq/L':'4.4', 'Chloride mEq/L':'104',
+      'Bicarbonate mEq/L':'26', 'Glucose mg/dL':'142', 'Creatinine mg/dL':'1.5',
+      'Blood urea nitrogen mg/dL':'28', 'Albumin g/dL':'3.8',
+      'Hemoglobin g/dL':'12.6', 'Hematocrit %':'38', 'White cells ×10⁹/L':'7.2',
+      'Platelets ×10⁹/L':'220', 'Lactate mmol/L':'1.1'
+    }
+  };
+
+  var VROWS = ['Heart rate', 'Blood pressure', 'Mean arterial pressure', 'Respiratory rate',
+               'Temperature °C (°F)', 'Oxygen saturation', 'Oxygen delivered',
+               'Weight kg (lb)', 'Conscious level', null, null];
+
+  var IOROWS = ['Oral or enteral in', 'Intravenous in', 'TOTAL IN', 'Urine out',
+                'Other measured out', 'TOTAL OUT', 'Net for the period',
+                'Running total since admission', 'Losses not on this chart', null];
+
+  var LROWS_A = ['Sodium mEq/L', 'Potassium mEq/L', 'Chloride mEq/L', 'Bicarbonate mEq/L',
+                 'Anion gap', 'Glucose mg/dL', 'Blood urea nitrogen mg/dL', 'Creatinine mg/dL',
+                 'Osmolality mOsm/kg', 'pH', 'PaCO₂ mmHg', 'PaO₂ mmHg',
+                 'Hemoglobin g/dL', 'Hematocrit %', 'Calcium mg/dL', 'Phosphate mg/dL',
+                 'Magnesium mg/dL', null, null, null];
+
+  var LROWS_B = ['Sodium mEq/L', 'Potassium mEq/L', 'Chloride mEq/L', 'Bicarbonate mEq/L',
+                 'Anion gap', 'Anion gap corrected for albumin', 'Glucose mg/dL',
+                 'Blood urea nitrogen mg/dL', 'Creatinine mg/dL', 'Albumin g/dL',
+                 'Lactate mmol/L', 'pH', 'PaCO₂ mmHg', 'PaO₂ mmHg',
+                 'PaO₂ to inspired oxygen ratio', 'Hemoglobin g/dL', 'Hematocrit %',
+                 'White cells ×10⁹/L', 'Platelets ×10⁹/L',
+                 'Phosphate mg/dL', 'Magnesium mg/dL', null, null, null];
+
+  var HEMO = ['Cardiac output L/min', 'Stroke volume mL', 'Central venous pressure mmHg',
+              'Systemic vascular resistance', 'Central venous O₂ saturation %',
+              'Ejection fraction %', 'Urine output mL/h', null, null];
+
+  /* ---------- assemble ---------- */
+  var out = '';
+
+  function half(key, weekNums, baseline, labRows, extraFlow, introWhy) {
+    var p = C.patients[key];
+    var h = '<section class="divider" aria-labelledby="div-' + key + '">'
+      + '<p class="kicker">Patient ' + key + ' &middot; Weeks ' + p.weeks + '</p>'
+      + '<h2 id="div-' + key + '">' + p.name + ', ' + p.age + '</h2>'
+      + '<p class="who">' + p.line + '</p>'
+      + '<p class="why">' + (introWhy || p.why) + '</p></section>';
+
+    /* face sheet */
+    h += '<section class="sheet" aria-labelledby="face-' + key + '">' + runner(p)
+      + '<h2 id="face-' + key + '">Face sheet<span class="vh">, ' + p.name + '</span></h2>'
+      + '<p class="sub">Who the patient is, and the two things about you that stay the same all term.</p>'
+      + '<div class="face">'
+      + '<div class="fld"><span class="l">Patient</span><span class="v">' + p.name + ', ' + p.age + '</span></div>'
+      + '<div class="fld"><span class="l">Your name</span><span class="v">&nbsp;</span></div>'
+      + '<div class="fld tall" style="grid-column:1/-1"><span class="l">History</span><span class="v">' + p.line + '</span></div>'
+      + '<div class="fld"><span class="l">Allergies</span><span class="v">' + p.allergies + '</span></div>'
+      + '<div class="fld tall" style="grid-column:1/-1"><span class="l">Medications before this chart starts</span><span class="v">' + p.meds + '</span></div>'
+      + '<div class="fld tall" style="grid-column:1/-1"><span class="l">Your entry point, picked in Week 1 and kept</span><span class="v ep">'
+      + C.tracks.map(function (t) { return '<span><i aria-hidden="true"></i>' + t.name + '</span>'; }).join('')
+      + '</span></div>'
+      + '<div class="fld tall" style="grid-column:1/-1"><span class="l">Baseline, ' + baseline.date + ', ' + baseline.what + '</span><span class="v">'
+      + Object.keys(baseline.values).map(function (k) { return '<b>' + k.replace(/ (mEq\/L|mg\/dL|g\/dL|mmol\/L|%|×10⁹\/L|°C \(°F\))$/, '') + '</b> ' + baseline.values[k]; }).join(' &middot; ')
+      + '</span></div>'
+      + '</div></section>';
+
+    /* flowsheets */
+    h += flow(p, 'Vitals flowsheet', 'One column per week, in course order. The date under each week is when that entry happened in the story; the weeks are not in date order, and that is on purpose. The baseline column is filled in for you.', VROWS, weekNums, baseline);
+    h += flow(p, 'Intake and output flowsheet', 'Record what the chart gives you, and use the last two rows to record what it does not. Weight is on the vitals sheet; when the two disagree, say which you believe.', IOROWS, weekNums, null);
+    h += flow(p, 'Lab flowsheet', 'Write the units the first time a test appears. Blank rows are for a test a week introduces that is not listed.', labRows, weekNums, baseline);
+    if (extraFlow) {
+      h += flow(p, 'Hemodynamic and monitoring flowsheet', 'Numbers that come from a monitor or an echocardiogram rather than from a tube of blood.', HEMO, weekNums, null);
+    }
+
+    h += listTable(p, 'prob-' + key, 'Problem list',
+      'A problem goes on the list the day you can name it. Write the week you found it and the week it resolved, if it does. Number them; the numbers are how you refer to them on the week pages.',
+      ['#', 'Problem, in your words', 'Week found', 'Evidence (which numbers)', 'Resolved'], 16);
+
+    h += listTable(p, 'med-' + key, 'Medication and intervention log',
+      'Fluids, drugs, oxygen, procedures. What was given, when in the story, what it was meant to change, and whether it did.',
+      ['Week', 'What was given or done', 'Date in the story', 'What it was meant to change', 'Did it?'], 16);
+
+    weekNums.forEach(function (n) { h += weekPage(p, n); });
+    return h;
+  }
+
+  out += half('A', ids.filter(function (n) { return C.patientByWeek[n] === 'A'; }), BASE_A, LROWS_A, false);
+  out += half('B', ids.filter(function (n) { return C.patientByWeek[n] === 'B'; }), BASE_B, LROWS_B, true);
+
+  /* closing sheet */
+  out += '<section class="sheet" aria-labelledby="close-h">'
+    + '<p class="runner"><span class="name">Both patients &middot; BIO 005 patient chart</span><span>Student: ____________________ &nbsp; Entry point: ____________________</span></p>'
+    + '<h2 id="close-h">The end of term analysis</h2>'
+    + '<p class="sub">One analysis, both patients, due in Week 15. It is written from this book. Nothing else is needed and nothing else is allowed as the source of a number.</p>'
+    + '<div class="box lines"><span class="bl">The one idea that reads both files</span><span class="hint">Draft it here. It has to be a claim about physiology, not about either patient.</span></div>'
+    + '<div class="two">'
+    + '<div class="box lines"><span class="bl">Three numbers from Camila that support it</span><span class="hint">Week, value, and what it is evidence of.</span></div>'
+    + '<div class="box lines"><span class="bl">Three numbers from Dale that support it</span><span class="hint">Week, value, and what it is evidence of.</span></div>'
+    + '</div>'
+    + '<div class="box lines"><span class="bl">Where you changed your mind</span><span class="hint">Which week you were wrong, which week you noticed, and what changed it. This is graded and it is worth real marks.</span></div>'
+    + '<p class="sub">The full assignment, the structure and the rubric are on the analysis page.</p>'
+    + '</section>';
+
+  book.innerHTML = out;
 }());
-(function(){var id='bio005-patient-chart-book';
-function post(){try{parent.postMessage({frame:id,id:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
-if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
-window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<script>
+/* Canvas iframe height sender. */
+(function () {
+  var id = 'bio005-patient-chart-book';
+  function post() {
+    try { parent.postMessage({ frame:id, id:id, height:document.documentElement.scrollHeight }, '*'); } catch (e) {}
+  }
+  if ('ResizeObserver' in window) { new ResizeObserver(post).observe(document.documentElement); }
+  window.addEventListener('load', post);
+  window.addEventListener('resize', post);
+  post();
+}());
 </script>
 </body>
 </html>

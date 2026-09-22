@@ -1,57 +1,135 @@
-BIO 005 HUMAN PHYSIOLOGY
-Drop for Sep 13 2026
+PUSH THESE, September 21 2026
+BIO 005 Human Physiology, drsrennie-stack/human-physiology-Fa26
 
-18 files. All 18 go in the ROOT of human-physiology-Fa26, same as always.
-Nothing goes in a subfolder. Drag the whole set in and commit.
+THE PATIENT CHART REBUILD. Two patients, fifteen weeks, realigned to the
+Fall 2026 schedule, plus the end of term analysis.
 
-Checked against what is on GitHub right now, so this is only what is
-actually missing there. Everything else you have already pushed.
+Drag all eight files into the GitHub web uploader at the repo root. The
+folder structure is already right: patient-chart-key.md goes inside
+instructor/, everything else sits at the root.
 
------------------------------------------------------------------
-THE THREE NEW PAGES
------------------------------------------------------------------
-study-with-me.html
-scholar-points.html
-study-with-me-invite.html          the QR invitation for Canvas
+I did not push anything. Nothing was committed to your repo.
 
------------------------------------------------------------------
-PAGES THAT HAD TO CHANGE BECAUSE SCHOLAR POINTS CAME BACK
------------------------------------------------------------------
-syllabus-fall2026.html             section 11 now explains the
-                                   difference from extra credit
-door-study.html                    Study With Me tile is back
-how-this-course-works.html         Study With Me in the Retrieve stage
-what-you-do.html                   a written Scholar Points section
-course-questions.html              the FAQ answer
-hootie.js                          she was telling students it was retired
-bio005-faq.js                      same answer, plus grading fixes below
-bio005-credit-model.js             the record of the numbers
-mastery-physio-os-standalone.html  carries its own copy of Hootie
-unit-05-standalone.html            carries its own copy of Hootie
+----------------------------------------------------------------------
+WHAT IS IN THE ZIP
+----------------------------------------------------------------------
 
------------------------------------------------------------------
-BUG FIXES
------------------------------------------------------------------
-course-schedule.html               was throwing a JS error on every load
-pulmonary-function-lab.html        same, when the week gate takes the page
-bio005-nav.js                      dead collapse loader removed
-bio005-collapse.js                 now catches pages that build themselves
-accessibility.html                 gains the collapse script
+bio005-patient-chart.js
+  The case content. Rewritten. Weeks 1 and 2 are byte for byte the file
+  you already have, checked by diff and again by comparing the parsed
+  objects. Weeks 3 to 8 are Camila, realigned to the new schedule.
+  Weeks 9 to 15 are a new patient, Dale Whitcomb. Every week now also
+  carries a "panels" block, which is the week's results laid out the way
+  a hospital results screen lays them out.
+  -> repo root, replaces the existing file
 
------------------------------------------------------------------
-CANVAS IFRAME FOR THE STUDY WITH ME INVITATION
------------------------------------------------------------------
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/study-with-me-invite.html"
-        title="Human Physiology Study With Me"
-        style="width:100%;border:0;min-height:1250px"
+patient-chart-book.html
+  The printable chart. Rebuilt for two patients: a divider and a full
+  set of sheets for each, a filled baseline column, intake and output
+  as its own flowsheet, a hemodynamic flowsheet for Dale, and the
+  week's released results printed on every week page.
+  -> repo root, replaces the existing file
+
+assignment-apply.html
+  The weekly entry page. Now shows the right patient for the week and
+  renders the released results under the chart.
+  -> repo root, replaces the existing file
+
+patient-sheet.html
+  The one page weekly sheet. Now shows the right patient for the week.
+  -> repo root, replaces the existing file
+
+assignment-patient-chart.html
+  The capstone upload page. Updated for two patients, and it now asks
+  for two files rather than one.
+  -> repo root, replaces the existing file
+
+assignment-patient-analysis.html
+  NEW. The end of term analysis: eight sections, a rubric, and a
+  pre-submission checklist. This is the piece that did not exist yet.
+  -> repo root, new file
+
+instructor/patient-chart-key.md
+  NEW. The instructor key. Every calculable number worked out, plus the
+  intended answer to all 65 questions in Weeks 3 to 15, plus the common
+  wrong turn for each week. Not student facing. It sits in instructor/
+  alongside teaching-notes.html.
+  -> instructor/, new file
+
+compliance-notes-patient-chart.md
+  NEW. The accessibility compliance notes for this drop.
+  -> repo root, new file
+
+----------------------------------------------------------------------
+CANVAS
+----------------------------------------------------------------------
+
+ONE NEW PAGE TO ADD. Everything else is already framed in Canvas and
+keeps working, because the file names did not change.
+
+Week 15 module, or wherever the capstone lives. Paste into the HTML
+editor:
+
+<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/assignment-patient-analysis.html"
+        title="The patient analysis: what to write"
+        width="100%" height="2600" style="border:0;display:block"
         loading="lazy"></iframe>
 
------------------------------------------------------------------
-TWO FILES TO DELETE BY HAND ON GITHUB
------------------------------------------------------------------
-bio005-gate.js      retired, nothing loads it
-os/hootie.js        an exact copy of the old root hootie.js with no
-                    consumers at all. Deleting it means there is one
-                    Hootie to keep current instead of two.
+The page sends its own height, so the frame resizes once it loads.
 
-Dr. Sharilyn Rennie
+THE CAPSTONE ASSIGNMENT NOW TAKES TWO FILES. The submission type in
+Canvas is currently File upload, PDF only, one file. Change it to allow
+two: the chart PDF and the analysis. The page tells students to name
+them LastName_FirstName_PatientChart.pdf and LastName_FirstName_
+Analysis.pdf.
+
+----------------------------------------------------------------------
+THREE THINGS TO LOOK AT
+----------------------------------------------------------------------
+
+1. WEEK 7 OF THE SCHEDULE HAS A STALE NOTE. In
+   bio005-schedule-fall2026.js, Week 7 carries a note saying it is
+   Midterm 1 week and that the exam covers Weeks 1 to 6. Week 8 carries
+   the same note with the right dates, and the exams array agrees with
+   Week 8. Week 7's note looks like a leftover from the resequence. I
+   did not touch the schedule file, so it is still there.
+
+2. THE CHART BOOK IS NOW ABOUT FORTY SHEETS. It was twenty. That is
+   what two patients with their own flowsheets costs. Print one copy of
+   the Camila half before you release it and check that the vitals
+   flowsheet fits its columns on a letter page.
+
+3. THE INSTRUCTOR KEY HAS NOT BEEN READ BY ANOTHER PHYSIOLOGIST. Every
+   number in it was computed rather than recalled, and the working is
+   shown beside each one so you can check any line in a few seconds.
+   The reasoning in section 3 is mine and it is the part worth your eye.
+
+----------------------------------------------------------------------
+WHAT I CHECKED BEFORE SENDING
+----------------------------------------------------------------------
+
+Clone was current: git fetch, and the only files differing from
+origin/main were the ones I edited. Nothing of yours was adopted or
+overwritten.
+
+Weeks 1 and 2 unchanged: byte identical by diff, and identical again as
+parsed objects.
+
+Arithmetic: every blood gas satisfies Henderson-Hasselbalch, every
+respiratory compensation checked against Winter's formula, every anion
+gap and albumin correction, every mean arterial pressure and vascular
+resistance, the fractional excretions, the oxygen contents, the
+compliance, the dead space, the nitrogen balance and the energy
+availability. All of it is in the key with the working shown.
+
+Pages: all six render with no JavaScript errors and no 404s, served over
+http. Zero axe-core violations against WCAG 2.2 AA. No horizontal scroll
+at 320 px. Focus ring visible on every focusable element. No italics
+anywhere, no em dashes anywhere, target="_top" on every internal link,
+and the iframe height sender is on every standalone page.
+
+One real accessibility failure was found and fixed on the way: the
+Canvas back button on two pages was navy on gold at 3.93 to 1, which
+fails AA. It is white on navy now, 11.4 to 1.
+
+Cream was still in four of these files. It is out.
