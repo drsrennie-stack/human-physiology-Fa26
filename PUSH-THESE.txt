@@ -110,3 +110,44 @@ CANVAS: make a Week 4 pre-read assignment (file upload, complete or incomplete, 
 <iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/week-04-preread.html"
         title="Week 4 pre-read" width="100%" height="5950" style="border:0;display:block"
         loading="lazy"></iframe>
+
+MASTERY CHECK AND RECALL CARD TAGGING (fixed Sep 24)
+bio005-exam-bank.js     rebuilt with tools/build_exam_bank.js. It was built Sep 13, before the later
+                        week changes, so 2,770 of 5,610 questions carried an old week. Examples: the
+                        resting membrane potential questions sat in Week 3, not 4, so a Week 4 Mastery
+                        Check had none; heart questions sat in Week 8 (Midterm 1 week), so a Weeks 1 to 6
+                        midterm draw could pull heart questions. Now every question carries its
+                        competency's current week (0 mismatches), and Week 4 has all 29 competencies
+                        (593 questions).
+os/bio005-card-bank.js  985 cards carried an old week. Each card's week now equals its competency's week,
+                        which is exactly what tools/assemble_bank.py sets. The assembler needs your local
+                        out/ folder, so it could not run here; rerunning it later will produce the same
+                        weeks. 25 chapter summary lines that named an old week were corrected too.
+Second pass             weekly-loop.html, week-04-entry.html and the template now say the second pass is
+                        the same interactive slides again, added in a second color.
+
+WEEK 4 COMPETENCIES, CARDS AND MASTERY CHECK MATCHED TO SILVERTHORN 5.7 AND CHAPTER 9 (Sep 24)
+Still 268 competencies, no id changed (Aug 24 decision kept). Six statements widened in
+bio005-competencies.csv (the source) and in every generated file that carried the old wording:
+  w4-neuron-classes         now starts with mapping the nervous system: CNS, sensory and efferent
+                            divisions, somatic motor and autonomic, and the enteric nervous system
+  w4-graded-potentials      adds Ohm's law and conductance
+  w5-neurotransmitters      adds the seven chemical classes of neurocrines
+  w5-postsynaptic-potentials adds fast versus slow responses, ionotropic versus metabotropic
+                            receptors, and neurotransmitter versus neuromodulator
+  w2-resting-potential      names the Goldman equation (cards already tested it)
+  w5-synaptic-plasticity    names AMPA, NMDA, the magnesium block and calcium (cards already tested it)
+31 new recall cards, added at the END of their chapter files so every existing card id is unchanged:
+  t-neurons-and-neuroglia +9 (organization map), t-electrical-signaling +6 (Ohm's law, conductance),
+  t-synaptic-transmission +16 (seven classes, fast and slow responses, neuromodulators).
+  DOK 15 / 10 / 6, answer positions 9 / 8 / 7 / 7.
+cards/exam/week-04.json  +4 brain dump items with rubrics and +4 true or false items, one of each per topic.
+Note sheet and brain dump prompts (assets/bio005-sheet-data.js, tools/prompts/week05.json): box B for
+  neuron classes is now the nervous system map; graded potentials, neurotransmitter classes and
+  EPSP/IPSP prompts now include the new material.
+Rebuilt with your tools: os/bio005-card-bank.js and os/card-competency-map.js (tools/assemble_bank.py,
+  5,011 cards, all 268 competencies reached), bio005-exam-bank.js (tools/build_exam_bank.js). Week 4 now
+  has 560 recall cards and 632 Mastery Check items. The rebuild also picked up 7 question, 12 explanation
+  and 2 option edits already in your cards/ files that the old bank had never been rebuilt with.
+NOTE: assemble_bank.py reads an out/ folder. I rebuilt out/topics.json from the bank's own chapter list
+  so it could run; that folder is not in this drop.

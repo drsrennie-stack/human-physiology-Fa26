@@ -158,7 +158,7 @@ window.BIO005_DRAW = [
   "checklist": [
    "Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes"
   ],
-  "prompt": "From memory, on paper: Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes."
+  "prompt": "From memory, on paper: Explain why the resting membrane potential sits near the potassium equilibrium potential, explain in words how the Goldman equation combines each ion's concentration gradient and permeability, and predict how the potential shifts when membrane permeability to potassium or sodium changes."
  },
  {
   "id": "w2-potential-terms",

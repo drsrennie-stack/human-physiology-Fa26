@@ -23,7 +23,7 @@ N='#0B1530'; M='#8B3A2E'; G='#414B5C'; GOLD='#C9A14A'; INK='#060A18'; O='#F28C28
 STEPS = [
  ('preread','Pre-read','Figures, bold terms, pre-read worksheet','30 min max','prev',('W','S')),
  ('first','First pass','Interactive slides, then fill your note sheet','3 to 4 hours','learn',('W',)),
- ('second','Second pass','Videos you need, added in a second color','30 to 60 min','learn',()),
+ ('second','Second pass','Same slides again, in a second color','30 to 60 min','learn',()),
  ('upload','Upload your note sheet','One photo file, both colors showing','10 min','learn',('S',)),
  ('study','Study it','Cards and brain dumps','4 sessions of 30 to 45 min','retr',()),
  ('check','Mastery Check','Which competencies are solid?','20 to 30 min per try','check',('S',)),

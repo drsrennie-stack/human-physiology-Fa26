@@ -283,7 +283,7 @@ window.BIO005_SHEET = {
    {
     "n": 16,
     "name": "Resting membrane potential",
-    "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential and predict how it shifts when membrane permeability to potassium or sodium changes.",
+    "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential, explain in words how the Goldman equation combines each ion's concentration gradient and permeability, and predict how the potential shifts when membrane permeability to potassium or sodium changes.",
     "a": "Draw a cell at rest with minus 70 mV written inside. On its membrane draw potassium leak channels as many, sodium leak channels as few, and the sodium potassium pump. Beside the cell draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60, and mark where minus 70 sits between them. One line: the resting potential sits close to one of those two and nowhere near halfway, so say what makes it lean.",
     "b": "Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked, then draw four labeled arrows off it showing where the potential moves when you open more potassium channels, open sodium channels, block the potassium leak, and stop the sodium potassium pump. One line: one of those four shifts the potential only a few mV even though it eventually ruins the cell, so name it and say why the immediate effect is so small."
    },
@@ -401,9 +401,9 @@ window.BIO005_SHEET = {
    {
     "n": 1,
     "name": "Neuron structural and functional classes",
-    "can": "Classify a neuron as multipolar, bipolar, or pseudounipolar by structure and as sensory, motor, or interneuron by function, and match each class to a location in the nervous system.",
+    "can": "Map the organization of the nervous system into the central nervous system, the sensory and efferent divisions of the peripheral nervous system, the somatic motor and autonomic branches, and the enteric nervous system, then classify a neuron as multipolar, bipolar, or pseudounipolar by structure and as sensory, motor, or interneuron by function, and match each class to a location in the nervous system.",
     "a": "Draw a multipolar, a bipolar, and a pseudounipolar neuron side by side, each with its dendrites, cell body, and axon in the right arrangement and the cell body in the right position relative to the signal path. Under each write one real location in the body where you would find it. One line: one of the three has its cell body off to the side of the signal path, so say what advantage that gives a sensory neuron.",
-    "b": "Draw a reflex arc across your box, from a receptor in the skin to a skeletal muscle, with three neurons in it. Label every neuron twice, once by structure and once by function, and mark whether each cell body sits inside or outside the CNS. One line: name the functional class that outnumbers the other two enormously in a human, and say what that tells you about what the CNS mostly does."
+    "b": "Draw the nervous system as a branching map. Start with the central nervous system and the peripheral nervous system, split the peripheral system into its sensory and efferent divisions, split the efferent division into somatic motor and autonomic, split autonomic into sympathetic and parasympathetic, and add the enteric nervous system in the gut wall. Put an arrow on each peripheral branch showing which way information travels, and write one target under each efferent branch. One line: which of your three neurons from box A belongs on which branch of this map."
    },
    {
     "n": 2,
@@ -436,8 +436,8 @@ window.BIO005_SHEET = {
    {
     "n": 6,
     "name": "Graded potentials",
-    "can": "Describe how a graded potential is produced and explain why it varies with stimulus strength and decays with distance, using the terms current leak and cytoplasmic resistance.",
-    "a": "Draw a dendrite as a long tube with a stimulus at one end. At four points along it, draw the membrane potential as a small trace, showing the signal shrinking as you move away. Draw current leaking out through channels along the way and label the cytoplasmic resistance inside the tube. One line: name the two reasons the signal shrank, and say which one you could reduce by making the tube wider.",
+    "can": "Describe how a graded potential is produced and explain why it varies with stimulus strength and decays with distance, using the terms current leak and cytoplasmic resistance, and relate current, voltage, and resistance with Ohm's law, including how opening channels raises conductance.",
+    "a": "Draw a dendrite as a long tube with a stimulus at one end. At four points along it, draw the membrane potential as a small trace, showing the signal shrinking as you move away. Draw current leaking out through channels along the way and label the cytoplasmic resistance inside the tube. One line: name the two reasons the signal shrank, use Ohm's law to say why more open leak channels let more current escape, and say which reason you could reduce by making the tube wider.",
     "b": "Draw one set of axes, membrane potential against time, and plot three graded potentials from the same spot produced by a weak, a medium, and a strong stimulus. Then plot two of them arriving close together and summing. Mark threshold as a dashed line. One line: a graded potential changes size with stimulus strength and an action potential does not, so say what the graded potential's actual job is."
    },
    {
@@ -506,8 +506,8 @@ window.BIO005_SHEET = {
    {
     "n": 16,
     "name": "Neurotransmitter classes",
-    "can": "Match acetylcholine, the catecholamines, serotonin, glutamate, GABA, glycine, and the neuropeptides to their usual excitatory or inhibitory effect and to a site of action.",
-    "a": "Draw a rough brain, a spinal cord, and one peripheral effector, side by side. Place acetylcholine, a catecholamine, serotonin, glutamate, GABA, glycine, and a neuropeptide at a real site of action on your drawing. Flag each one excitatory or inhibitory with an up or down arrow drawn on the postsynaptic membrane. One line: name the one you had to flag both ways, and say what forced that.",
+    "can": "Group neurocrines into their seven chemical classes, acetylcholine, amines, amino acids, peptides, purines, gases, and lipids, and match acetylcholine, the catecholamines, serotonin, glutamate, GABA, glycine, and the neuropeptides to their usual excitatory or inhibitory effect and to a site of action.",
+    "a": "Draw a rough brain, a spinal cord, and one peripheral effector, side by side. Place acetylcholine, a catecholamine, serotonin, glutamate, GABA, glycine, and a neuropeptide at a real site of action on your drawing. Flag each one excitatory or inhibitory with an up or down arrow drawn on the postsynaptic membrane. Around the edge of the box, list the seven chemical classes of neurocrines with one example of each. One line: name the one you had to flag both ways, and say what forced that.",
     "b": "Draw acetylcholine arriving at two postsynaptic membranes side by side, a skeletal muscle fiber with nicotinic receptors and a cardiac pacemaker cell with muscarinic receptors. Show the ion moving at each and draw the membrane potential trace under each. Same transmitter, opposite result. One line: given both drawings, state what actually decides whether a synapse is excitatory or inhibitory."
    },
    {
@@ -520,9 +520,9 @@ window.BIO005_SHEET = {
    {
     "n": 18,
     "name": "Excitatory and inhibitory postsynaptic potentials",
-    "can": "Distinguish an EPSP from an IPSP by the ion channel opened and the direction of the membrane potential change.",
+    "can": "Distinguish an EPSP from an IPSP by the ion channel opened and the direction of the membrane potential change, and contrast fast responses through ionotropic receptor-channels with slow responses through metabotropic G protein coupled receptors, including how a neuromodulator differs from a neurotransmitter.",
     "a": "Draw a postsynaptic neuron with two synapses on one dendrite, one excitatory and one inhibitory. At each, draw the channel that opened and the ion moving through it with an arrow for direction. Under each synapse draw its own trace starting from about -70 mV and label the peak value. One line: how an inhibitory input can still be inhibitory even when the membrane potential barely moves.",
-    "b": "Draw three recorded traces from the same neuron on shared axes, all starting near -70 mV, one rising 3 mV, one falling 4 mV, and one staying flat. For each trace, work backwards and draw the channel and the ion that would produce it. Give the flat trace two different explanations. One line: which explanation a second recording could rule out, and what that recording would be."
+    "b": "Draw the same neurotransmitter reaching two receptors on one postsynaptic cell, a receptor-channel and a G protein coupled receptor. Under each, draw the membrane potential trace on a time axis so it shows how fast each response starts and how long it lasts, and draw one longer lasting change the G protein pathway can make inside the cell. One line: say which receptor type a neuromodulator usually uses, and why that fits its slower job."
    },
    {
     "n": 19,
@@ -541,7 +541,7 @@ window.BIO005_SHEET = {
    {
     "n": 21,
     "name": "Synaptic plasticity",
-    "can": "Explain long term potentiation as a mechanism of learning and identify the roles of repeated stimulation and receptor insertion.",
+    "can": "Explain long term potentiation as a mechanism of learning, tracing how glutamate acts on AMPA and NMDA receptors, how strong depolarization removes the magnesium block, how calcium entry starts second messenger pathways, and how repeated stimulation leads to insertion of new AMPA receptors.",
     "a": "Draw a glutamate synapse with both AMPA and NMDA receptors in the postsynaptic membrane. Show the magnesium sitting in the NMDA channel at rest. In a second panel, draw the same synapse during repeated high frequency stimulation with the magnesium displaced and calcium entering. In a third, draw what the membrane looks like an hour later. One line: why one presynaptic action potential on its own cannot do this.",
     "b": "Draw a graph of postsynaptic response size against time, with a burst of high frequency stimulation marked on the time axis, and plot the response before, during, and long after the burst. On the same axes, draw a second curve for the identical experiment with NMDA receptors blocked. One line: which receptor carries the ordinary moment to moment signal, and which one carries the signal that something should change."
    },
