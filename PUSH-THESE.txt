@@ -1,135 +1,112 @@
-PUSH THESE, September 21 2026
-BIO 005 Human Physiology, drsrennie-stack/human-physiology-Fa26
+BIO 005 drop, Sep 23 2026: the weekly loop page and the Week 4 entry page
 
-THE PATIENT CHART REBUILD. Two patients, fifteen weeks, realigned to the
-Fall 2026 schedule, plus the end of term analysis.
+Upload every file at the same path. Nothing is renamed or deleted.
 
-Drag all eight files into the GitHub web uploader at the repo root. The
-folder structure is already right: patient-chart-key.md goes inside
-instructor/, everything else sits at the root.
+weekly-loop.html                   the general "Your week is a loop" page, repo root
+week-04-entry.html                 Week 4 start page: the loop with every step linked to Week 4, repo root
+compliance-notes-weekly-loop.md    accessibility notes for both pages, repo root
+tools/build_week_entry.py          builds week-NN-entry.html from the data file
+tools/week-entry-data.json         one block per week: title, dates, and the link for each step
 
-I did not push anything. Nothing was committed to your repo.
+TO MAKE ANOTHER WEEK
+Copy the Week 4 block in tools/week-entry-data.json, change the number, title, dates, and links,
+then run: python3 tools/build_week_entry.py 5
+A link left as null shows that step as "Not posted yet" and makes it unclickable.
 
-----------------------------------------------------------------------
-WHAT IS IN THE ZIP
-----------------------------------------------------------------------
-
-bio005-patient-chart.js
-  The case content. Rewritten. Weeks 1 and 2 are byte for byte the file
-  you already have, checked by diff and again by comparing the parsed
-  objects. Weeks 3 to 8 are Camila, realigned to the new schedule.
-  Weeks 9 to 15 are a new patient, Dale Whitcomb. Every week now also
-  carries a "panels" block, which is the week's results laid out the way
-  a hospital results screen lays them out.
-  -> repo root, replaces the existing file
-
-patient-chart-book.html
-  The printable chart. Rebuilt for two patients: a divider and a full
-  set of sheets for each, a filled baseline column, intake and output
-  as its own flowsheet, a hemodynamic flowsheet for Dale, and the
-  week's released results printed on every week page.
-  -> repo root, replaces the existing file
-
-assignment-apply.html
-  The weekly entry page. Now shows the right patient for the week and
-  renders the released results under the chart.
-  -> repo root, replaces the existing file
-
-patient-sheet.html
-  The one page weekly sheet. Now shows the right patient for the week.
-  -> repo root, replaces the existing file
-
-assignment-patient-chart.html
-  The capstone upload page. Updated for two patients, and it now asks
-  for two files rather than one.
-  -> repo root, replaces the existing file
-
-assignment-patient-analysis.html
-  NEW. The end of term analysis: eight sections, a rubric, and a
-  pre-submission checklist. This is the piece that did not exist yet.
-  -> repo root, new file
-
-instructor/patient-chart-key.md
-  NEW. The instructor key. Every calculable number worked out, plus the
-  intended answer to all 65 questions in Weeks 3 to 15, plus the common
-  wrong turn for each week. Not student facing. It sits in instructor/
-  alongside teaching-notes.html.
-  -> instructor/, new file
-
-compliance-notes-patient-chart.md
-  NEW. The accessibility compliance notes for this drop.
-  -> repo root, new file
-
-----------------------------------------------------------------------
 CANVAS
-----------------------------------------------------------------------
+1. Week 4 module, top item: a Page named "Week 4: Start here". HTML editor, paste:
 
-ONE NEW PAGE TO ADD. Everything else is already framed in Canvas and
-keeps working, because the file names did not change.
-
-Week 15 module, or wherever the capstone lives. Paste into the HTML
-editor:
-
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/assignment-patient-analysis.html"
-        title="The patient analysis: what to write"
-        width="100%" height="2600" style="border:0;display:block"
+<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/week-04-entry.html"
+        title="Week 4: start here"
+        width="100%" height="1950" style="border:0;display:block"
         loading="lazy"></iframe>
 
-The page sends its own height, so the frame resizes once it loads.
+2. The loop page, for Start Here or course info. HTML editor, paste:
 
-THE CAPSTONE ASSIGNMENT NOW TAKES TWO FILES. The submission type in
-Canvas is currently File upload, PDF only, one file. Change it to allow
-two: the chart PDF and the analysis. The page tells students to name
-them LastName_FirstName_PatientChart.pdf and LastName_FirstName_
-Analysis.pdf.
+<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/weekly-loop.html"
+        title="Your week is a loop"
+        width="100%" height="4000" style="border:0;display:block"
+        loading="lazy"></iframe>
 
-----------------------------------------------------------------------
-THREE THINGS TO LOOK AT
-----------------------------------------------------------------------
+Heights were measured at Canvas page width. Canvas strips scripts, so the iframe keeps the fixed height.
 
-1. WEEK 7 OF THE SCHEDULE HAS A STALE NOTE. In
-   bio005-schedule-fall2026.js, Week 7 carries a note saying it is
-   Midterm 1 week and that the exam covers Weeks 1 to 6. Week 8 carries
-   the same note with the right dates, and the exams array agrees with
-   Week 8. Week 7's note looks like a leftover from the resequence. I
-   did not touch the schedule file, so it is still there.
+ALSO IN THIS DROP: every week's reading, matched to the schedule and the 9th edition, with no section numbers
+Each reading names the chapter number, the chapter title (from the 9th edition table of contents), and the topic.
+A note under each reading tells students other editions number things differently, so go by title and topic.
 
-2. THE CHART BOOK IS NOW ABOUT FORTY SHEETS. It was twenty. That is
-   what two patients with their own flowsheets costs. Print one copy of
-   the Camila half before you release it and check that the vitals
-   flowsheet fits its columns on a letter page.
+week-01.html to week-15.html   the Reading line, plus the edition note (not on no-reading weeks)
+lecture-week.html              the same readings and the edition note
+biol005-w04-*-notes.html and biol005-w04-*-slides.html (12 files)   chapter 9, and chapter 5 for the resting potential
 
-3. THE INSTRUCTOR KEY HAS NOT BEEN READ BY ANOTHER PHYSIOLOGIST. Every
-   number in it was computed rather than recalled, and the working is
-   shown beside each one so you can check any line in a few seconds.
-   The reasoning in section 3 is mine and it is the part worth your eye.
+BOOK PROBLEMS REMOVED FROM WEEK 4 ON (they were optional and ungraded)
+week-04.html to week-15.html                        the Book problems card is gone from Practice
+week-04-competencies.html to week-15-competencies.html   the P (problems) link is gone from the week bar
+door-assignments.html                               Week 4 to 15 book problem links removed; Weeks 1 to 3 stay
+weekly-loop.html, week-04-entry.html, tools/*       Study it now says cards and brain dumps
+Weeks 1 to 3 keep their book problems, since those weeks have passed.
 
-----------------------------------------------------------------------
-WHAT I CHECKED BEFORE SENDING
-----------------------------------------------------------------------
+STILL MENTION BOOK PROBLEMS IN GENERAL WORDING (not changed; update when we write the final announcement)
+  ai-in-this-course.html
+  assignment-bookproblems.html
+  bio005-dock.js
+  bio005-faq.js
+  bio005-nav.js
+  bio005-question-bank.js
+  bio005-schedule-fall2026.js
+  bio005-ungraded.js
+  canvas-kit.html
+  canvas-steps.html
+  course-materials.html
+  course-questions.html
+  course-tools.html
+  door-assignments.html
+  doors.html
+  home.html
+  hootie.js
+  how-every-week-works.html
+  how-grading-works.html
+  how-this-course-works.html
+  mastery-physio-os-standalone.html
+  os/bio005-dock.js
+  os/hootie.js
+  scholar-points.html
+  sitemap.html
+  study-buttons.html
+  study-with-me-calendar.html
+  study-with-me-invite.html
+  study-with-me.html
+  syllabus-fall2026.html
+  ungraded-sheet.html
+  unit-05-standalone.html
+  w01-00-overview.html
+  w01-05-study-it.html
+  w01-overview.html
+  w01-step-04-study-it.html
+  w01-step-05-study-it.html
+  w02-00-overview.html
+  w02-04-study-it.html
+  w02-05-study-it.html
+  w02-overview.html
+  w02-overview_1.html
+  w02-step-04-study-it.html
+  week-01-competencies.html
+  week-01.html
+  week-02.html
+  week-03.html
+  welcome-tour.html
+  welcome.html
 
-Clone was current: git fetch, and the only files differing from
-origin/main were the ones I edited. Nothing of yours was adopted or
-overwritten.
+HEADS UP
+tools/week-data.json still holds the week plan from before the Sep 13 resequence. Do not rebuild the
+week pages from it (gen_week_pages_v2.py or v3), or it will undo the resequence and these readings.
 
-Weeks 1 and 2 unchanged: byte identical by diff, and identical again as
-parsed objects.
+WEEK 4 PRE-READ (READY)
+week-04-preread.html   the Week 4 pre-read worksheet: the resting membrane potential from Chapter 5,
+                       then a skim of Chapter 9. Students save it as a PDF or photograph a paper copy.
+                       The Pre-read box on week-04-entry.html now links to it.
+CANVAS: make a Week 4 pre-read assignment (file upload, complete or incomplete, due Sunday, October 4 at
+10:00 pm) and put the page in it with this iframe:
 
-Arithmetic: every blood gas satisfies Henderson-Hasselbalch, every
-respiratory compensation checked against Winter's formula, every anion
-gap and albumin correction, every mean arterial pressure and vascular
-resistance, the fractional excretions, the oxygen contents, the
-compliance, the dead space, the nitrogen balance and the energy
-availability. All of it is in the key with the working shown.
-
-Pages: all six render with no JavaScript errors and no 404s, served over
-http. Zero axe-core violations against WCAG 2.2 AA. No horizontal scroll
-at 320 px. Focus ring visible on every focusable element. No italics
-anywhere, no em dashes anywhere, target="_top" on every internal link,
-and the iframe height sender is on every standalone page.
-
-One real accessibility failure was found and fixed on the way: the
-Canvas back button on two pages was navy on gold at 3.93 to 1, which
-fails AA. It is white on navy now, 11.4 to 1.
-
-Cream was still in four of these files. It is out.
+<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/week-04-preread.html"
+        title="Week 4 pre-read" width="100%" height="5950" style="border:0;display:block"
+        loading="lazy"></iframe>
