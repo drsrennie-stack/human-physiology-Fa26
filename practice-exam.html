@@ -103,6 +103,8 @@ legend{font-family:var(--display);font-weight:800;font-size:16px;padding:0;margi
 .blueprint dt{color:var(--ink-soft)}
 .blueprint dd{margin:0;font-weight:700;text-align:right}
 .note{font-size:14px;color:var(--ink-soft)}
+.std{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:12px 14px;margin:0 0 14px;font-size:14.5px;line-height:1.5}.std p{margin:0}
+.mstd{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:14px 16px;margin:14px 0}.mstd h3{margin:0 0 8px}.mstd ul{margin:0;padding-left:0;list-style:none}.mstd li{margin:0 0 6px}.mstd .ok{color:#0B1530;font-weight:700}.mstd .no{color:#8B3A2E;font-weight:700}
 
 /* history table */
 table{border-collapse:collapse;width:100%;font-size:14.5px}
@@ -315,8 +317,13 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
             <button type="button" class="pill" data-n="20" aria-pressed="false">20</button>
             <button type="button" class="pill" data-n="30" aria-pressed="true">30</button>
             <button type="button" class="pill" data-n="50" aria-pressed="false">50</button>
+            <button type="button" class="pill" data-n="60" aria-pressed="false">60</button>
+            <button type="button" class="pill" data-n="75" aria-pressed="false">75</button>
           </div>
         </fieldset>
+        <div class="std" id="stdnote">
+          <p><strong>When an attempt counts as your Mastery Check.</strong> Pick one week, answer at least 50 questions, and score 80 percent or higher. At 50 questions or more, every competency for that week gets at least one question. Shorter attempts are good practice, and the report tells you plainly whether an attempt meets the standard.</p>
+        </div>
         <fieldset>
           <legend>What a 30 question exam is made of</legend>
           <dl class="blueprint" id="blueprint"></dl>
@@ -418,6 +425,41 @@ var KEY_HIST = 'bio005-exam-history-v1';
 var KEY_SEEN = 'bio005-exam-seen-v1';
 var KEY_PENDING = 'bio005-exam-pending-v1';
 var BLUEPRINT = { mc:14, ma:5, tf:4, bd:3, app:4 };  /* per 30 */
+/* Sep 24 2026. The Mastery Check standard. An attempt counts when it covers
+   ONE week, has at least minQ questions, reaches pass (80 percent), and
+   gives every competency of that week at least perComp questions. The
+   numbers live here so a unit can be raised later without touching the
+   rest of the page: set MASTERY.byWeek[5] = {minQ:75} to give Week 5 its
+   own minimum. */
+var MASTERY = { minQ:50, pass:0.80, perComp:1, byWeek:{} };
+function masteryRule(w){ var r=MASTERY.byWeek[w]||{}; return { minQ:r.minQ||MASTERY.minQ, pass:r.pass||MASTERY.pass, perComp:r.perComp||MASTERY.perComp }; }
+function masteryStatus(a){
+  if(!a || !a.byComp || a.weeks.length!==1 || a.mode==='gaps') return null;
+  var w=a.weeks[0], rule=masteryRule(w);
+  var comps=BANK.competencies.filter(function(c){ return c.week===w; });
+  if(!comps.length) return null;
+  var covered=comps.filter(function(c){ var v=a.byComp[c.id]; return v && v[1]>=rule.perComp; }).length;
+  var okN=a.n>=rule.minQ, okScore=a.score>=rule.pass-1e-9, okCover=covered===comps.length;
+  return { week:w, rule:rule, n:a.n, score:a.score, covered:covered, total:comps.length, okN:okN, okScore:okScore, okCover:okCover, ok:okN&&okScore&&okCover, comps:comps };
+}
+function masteryBlockHTML(a, tag){
+  var m=masteryStatus(a); if(!m) return '';
+  function row(ok, text){ return '<li><span class="'+(ok?'ok':'no')+'">'+(ok?'Met':'Not yet')+':</span> '+text+'</li>'; }
+  var head = m.ok ? 'This attempt meets the Week '+m.week+' Mastery Check standard.' : 'This attempt is practice. It does not meet the Week '+m.week+' Mastery Check standard yet.';
+  return '<div class="mstd"><'+tag+'>'+esc(head)+'</'+tag+'><ul>'+
+    row(m.okN, m.n+' questions answered. The minimum is '+m.rule.minQ+'.')+
+    row(m.okScore, (Math.floor(m.score*1000)/10)+' percent. The standard is '+Math.round(m.rule.pass*100)+' percent or higher.')+
+    row(m.okCover, m.covered+' of '+m.total+' competencies tested at least '+(m.rule.perComp===1?'once':m.rule.perComp+' times')+'.')+
+    '</ul></div>';
+}
+function compTableHTML(a){
+  var m=masteryStatus(a); var ids;
+  if(m){ ids=m.comps.map(function(c){ return c.id; }); }
+  else { ids=Object.keys(a.byComp||{}).filter(function(id){ return COMP[id]; }).sort(function(x,y){ return COMP[x].week-COMP[y].week; }); }
+  var rows=ids.map(function(id){ var c=COMP[id], v=(a.byComp||{})[id]||[0,0]; var p=v[1]?v[0]/v[1]:null;
+    return '<tr><td>'+esc(c.name)+(m?'':' <small>(Week '+c.week+')</small>')+'</td><td class="n">'+v[1]+'</td><td class="n">'+(Math.round(v[0]*10)/10)+'</td><td class="n">'+(p==null?'not tested':pct(p)+'%')+'</td></tr>'; }).join('');
+  return '<table><caption class="vh">Questions and score for each competency</caption><thead><tr><th scope="col">Competency</th><th scope="col" class="n">Questions</th><th scope="col" class="n">Points earned</th><th scope="col" class="n">Score</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
 var TYPE_NAME = { mc:'Multiple choice', ma:'Multiple answer', tf:'True or false, then fix it', bd:'Brain dump', app:'Application' };
 var DOK_NAME = { 1:'Recall', 2:'Apply', 3:'Analyze and predict' };
 var PARTS = [ {n:1, title:'Part 1, Foundations', weeks:[1,2,3]}, {n:2, title:'Part 2, Control systems', weeks:[4,5,6,7,8]}, {n:3, title:'Part 3, Systems in action', weeks:[9,10,11,12,13,14,15]} ];
@@ -499,7 +541,7 @@ function generate(n, weeks, compWeight){
   var seen=load(KEY_SEEN, []); var seenSet={}; seen.forEach(function(id){ seenSet[id]=1; });
   var used={}, usedComp={}, out=[];
   var pool=BANK.items.filter(function(it){ return weeks.indexOf(it.week)>=0; });
-  function score(it){ var w=(compWeight?(compWeight[it.competencyId]||0.5):1); if(seenSet[it.id]) w*=0.25; if(usedComp[it.competencyId]) w*=0.4; return w*(0.5+Math.random()); }
+  function score(it){ var w=(compWeight?(compWeight[it.competencyId]||0.5):1); if(seenSet[it.id]) w*=0.25; if(usedComp[it.competencyId]) w*=Math.pow(0.12, usedComp[it.competencyId]); return w*(0.5+Math.random()); }
   function pick(filter){ var best=null, bs=-1; for(var i=0;i<pool.length;i++){ var it=pool[i]; if(used[it.id]) continue; if(!filter(it)) continue; var s=score(it); if(s>bs){ bs=s; best=it; } } return best; }
   slots.forEach(function(s){
     var it =
@@ -510,8 +552,26 @@ function generate(n, weeks, compWeight){
       pick(function(it){ return it.type===s.type; }) ||
       pick(function(it){ return it.week===s.week && it.dok===s.dok && (it.type==='mc'||it.type==='ma'); }) ||
       pick(function(){ return true; });
-    if(it){ used[it.id]=1; usedComp[it.competencyId]=1; out.push(it); }
+    if(it){ used[it.id]=1; usedComp[it.competencyId]=(usedComp[it.competencyId]||0)+1; out.push(it); }
   });
+  /* Coverage pass (Sep 24 2026). When the exam is long enough to reach every
+     competency in the chosen weeks, make sure it does: swap an item from the
+     most repeated competency for an item from each one left out, keeping the
+     question type where the bank allows it. */
+  var wanted=BANK.competencies.filter(function(c){ return weeks.indexOf(c.week)>=0; });
+  if(out.length>=wanted.length){
+    wanted.forEach(function(c){
+      if(usedComp[c.id]) return;
+      var cand=pool.filter(function(it){ return !used[it.id] && it.competencyId===c.id; });
+      if(!cand.length) return;
+      var donors=out.map(function(it,i){ return {i:i, it:it, k:usedComp[it.competencyId]}; }).filter(function(d){ return d.k>1; }).sort(function(x,y){ return y.k-x.k; });
+      if(!donors.length) return;
+      var old=donors[0].it;
+      var same=cand.filter(function(it){ return it.type===old.type; });
+      var pickIt=shuffle((same.length?same:cand).slice())[0];
+      out[donors[0].i]=pickIt; used[pickIt.id]=1; usedComp[old.competencyId]--; usedComp[c.id]=1;
+    });
+  }
   /* order: mix, but never open with a brain dump */
   shuffle(out);
   var firstObj=out.findIndex(function(it){ return it.type!=='bd'; });
@@ -715,6 +775,7 @@ var runner = {
     var h='<div class="finish"><p class="eyebrow">Your Gap Finder</p><h2>'+pct(a.score)+' percent on <span>'+esc(weeksLabel(a.weeks))+'</span>.</h2>';
     h+='<div class="score"><div><span class="big">'+pct(a.score)+'%</span><small>Overall, all question types</small></div><div><span class="big">'+(a.conf?a.conf.toFixed(1):'n/a')+'</span><small>Average confidence, 1 to 5</small></div><div><span class="big">'+a.n+'</span><small>Questions in '+Math.max(1,Math.round(a.minutes))+' minutes</small></div></div>';
     var prev=previousSame(a); if(prev){ var pts=pct(a.score)-pct(prev.score); h+='<p class="improve"><strong>Compared with your last attempt on these weeks ('+esc(fmtDate(prev.date))+'):</strong> '+(pts>=0?'+':'')+pts+' percentage points.</p>'; }
+    h+=masteryBlockHTML(a,'h3');
     h+='<h3>Score by week</h3>'+gapsHTML(a,false);
     h+='<p class="note" style="margin-top:12px">A word on honesty. Nothing here is graded, and the list above is only as good as your answers. Guess when you are guessing, mark low confidence when you feel it, and tick only the brain dump components you really wrote. That is what makes the list point at the right things.</p>';
     if(a.miscon && a.miscon.length){ h+='<h3>Watch these: wrong while confident</h3><ul>'+a.miscon.map(function(id){ return '<li><strong>'+esc(COMP[id].name)+'</strong> <span class="note">(Week '+COMP[id].week+')</span></li>'; }).join('')+'</ul><p class="note">A confident wrong answer usually means a misconception rather than a blank. Those are worth fixing first because they will not go away on their own.</p>'; }
@@ -863,7 +924,9 @@ var report = {
       '<dl class="meta"><dt>Weeks</dt><dd>'+esc(weeksLabel(a.weeks))+'</dd><dt>Mode</dt><dd>'+esc(a.label||{one:'One week',multi:'Multiple weeks, Gap Finder',cumulative:'Cumulative exam',gaps:'Practice my gaps'}[a.mode]||a.mode)+'</dd><dt>Questions</dt><dd>'+a.n+' ('+esc(types)+')</dd><dt>Time</dt><dd>'+Math.max(1,Math.round(a.minutes))+' minutes</dd></dl>'+
       '<div class="score"><div><b>'+pct(a.score)+'%</b><small>Overall score</small></div><div><b>'+(a.conf?a.conf.toFixed(1):'n/a')+'</b><small>Average confidence (1 to 5)</small></div><div><b>'+solid+'</b><small>Competencies with every item right</small></div><div><b>'+review.length+'</b><small>Competencies to review</small></div></div>'+
       (a.quad?'<h2>Confidence check</h2><p>Right and confident: '+a.quad.mastered+'. Right but unsure: '+a.quad.shaky+'. Wrong and unsure: '+a.quad.gap+'. Wrong and confident: '+a.quad.misconception+'.</p>':'')+
+      (masteryStatus(a)?'<h2>Mastery Check standard</h2>'+masteryBlockHTML(a,'p'):'')+
       '<h2>Score by week</h2><table><thead><tr><th>Week</th><th class="n">Items</th><th class="n">Score</th></tr></thead><tbody>'+weeksRows+'</tbody></table>'+
+      '<h2>Every competency on this attempt</h2><p>How many questions each competency got and how you did on them.'+(masteryStatus(a)?' Every competency for the week is listed, so one that was never tested still shows up here.':'')+'</p>'+compTableHTML(a)+
       '<h2>Competencies to review</h2><p>These are the competencies with at least one missed item, weakest first. Questions and answers are deliberately not listed. Rebuild each idea from the note sheet and the recall cards, then test it again.</p>'+(review.length?'<ol>'+reviewRows+'</ol>':'<p>None. Every competency on this attempt was fully correct.</p>')+
       '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder. Attempt '+esc(a.id)+', stamp '+esc(a.stamp)+'. Practice results carry no points. The value is in what you do next.</p></div></body></html>';
   },
@@ -900,7 +963,7 @@ var report = {
       '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder on this device. Log stamp '+esc(stamp)+'. Practice results carry no points; the log is so I can reach out before an exam if it would help.</p></div></body></html>';
   },
   openLog:function(attempts, name){ report.show(report.logHtml(attempts, name), 'bio005-log', 'bio005-practice-log-'+new Date().toISOString().slice(0,10)+'.html'); },
-  css:function(){ return 'body{font-family:Arial,Helvetica,sans-serif;color:#0B1530;margin:0;background:#fff}.wrap{max-width:820px;margin:0 auto;padding:28px 24px}h1{font-size:26px;margin:0 0 4px}h2{font-size:17px;color:#6E2D24;margin:26px 0 8px}p{margin:0 0 10px;line-height:1.55}.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8B3A2E;font-weight:700;margin:0 0 6px}.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:14px;margin:12px 0 0}.meta dt{font-weight:700;color:#414B5C}.meta dd{margin:0}.score{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.score div{border:1px solid #0B1530;border-radius:10px;padding:10px 14px;min-width:130px}.score b{display:block;font-size:26px}.score small{color:#414B5C}.box{border:1px solid #0B1530;border-radius:10px;padding:12px 14px;margin:8px 0 4px}.box p{margin:0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid #ccc;vertical-align:top}th{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#414B5C}td.n,th.n{text-align:right;white-space:nowrap}.bar{display:inline-block;height:10px;background:#0B1530;vertical-align:middle;margin-right:6px}.bar.low{background:#8B3A2E}ol{padding-left:20px}li{margin:0 0 8px;line-height:1.45}li small{display:block;color:#414B5C}.btns{margin:0 0 18px;display:flex;gap:10px;flex-wrap:wrap}button{font:inherit;font-weight:700;padding:10px 16px;border-radius:8px;border:2px solid #0B1530;background:#fff;cursor:pointer}button.p{background:#8B3A2E;color:#fff;border-color:#8B3A2E}.stamp{margin-top:28px;font-size:12px;color:#414B5C;border-top:1px solid #ccc;padding-top:10px}@media print{.btns{display:none}body{font-size:10.5pt}.bar{border:1px solid #000}tr{break-inside:avoid}}'; },
+  css:function(){ return 'body{font-family:Arial,Helvetica,sans-serif;color:#0B1530;margin:0;background:#fff}.wrap{max-width:820px;margin:0 auto;padding:28px 24px}h1{font-size:26px;margin:0 0 4px}h2{font-size:17px;color:#6E2D24;margin:26px 0 8px}p{margin:0 0 10px;line-height:1.55}.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8B3A2E;font-weight:700;margin:0 0 6px}.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:14px;margin:12px 0 0}.meta dt{font-weight:700;color:#414B5C}.meta dd{margin:0}.score{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.score div{border:1px solid #0B1530;border-radius:10px;padding:10px 14px;min-width:130px}.score b{display:block;font-size:26px}.score small{color:#414B5C}.box{border:1px solid #0B1530;border-radius:10px;padding:12px 14px;margin:8px 0 4px}.box p{margin:0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid #ccc;vertical-align:top}th{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#414B5C}td.n,th.n{text-align:right;white-space:nowrap}.bar{display:inline-block;height:10px;background:#0B1530;vertical-align:middle;margin-right:6px}.bar.low{background:#8B3A2E}ol{padding-left:20px}li{margin:0 0 8px;line-height:1.45}li small{display:block;color:#414B5C}.btns{margin:0 0 18px;display:flex;gap:10px;flex-wrap:wrap}button{font:inherit;font-weight:700;padding:10px 16px;border-radius:8px;border:2px solid #0B1530;background:#fff;cursor:pointer}button.p{background:#8B3A2E;color:#fff;border-color:#8B3A2E}.stamp{margin-top:28px;font-size:12px;color:#414B5C;border-top:1px solid #ccc;padding-top:10px}.mstd{border:1px solid #0B1530;border-radius:10px;padding:12px 14px;margin:8px 0}.mstd p{font-weight:700;margin:0 0 6px}.mstd ul{margin:0;padding:0;list-style:none}.mstd li{margin:0 0 4px}.mstd .ok{color:#0B1530;font-weight:700}.mstd .no{color:#8B3A2E;font-weight:700}.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}@media print{.btns{display:none}body{font-size:10.5pt}.bar{border:1px solid #000}tr{break-inside:avoid}}'; },
   show:function(html, winName, fileName){
     var w=null; try{ w=window.open('', winName, 'width=900,height=900'); }catch(e){}
     if(w){ w.document.open(); w.document.write(html); w.document.close(); try{ w.focus(); }catch(e){} }
@@ -929,7 +992,7 @@ function applyDeepLink(){
       $$('#weeks input').forEach(function(c){ c.checked = (Number(c.value)===w); });
     }
   }
-  var q = /[?&]n=(10|20|30|50)/.exec(location.search);
+  var q = /[?&]n=(10|20|30|50|60|75)/.exec(location.search);
   if(q){
     var btn = document.querySelector('#counts .pill[data-n="'+q[1]+'"]');
     if(btn) btn.click();

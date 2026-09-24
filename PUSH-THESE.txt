@@ -1,175 +1,55 @@
-BIO 005 drop, Sep 23 2026: the weekly loop page and the Week 4 entry page
+BIO 005 drop, Sep 24 2026 (afternoon): Mastery Check standard, Week 4 fixes, competency counts
 
-Upload every file at the same path. Nothing is renamed or deleted.
+Upload every file at the same path. Nothing is renamed. Built on the repo as of your 09:53 upload today.
 
-weekly-loop.html                   the general "Your week is a loop" page, repo root
-week-04-entry.html                 Week 4 start page: the loop with every step linked to Week 4, repo root
-compliance-notes-weekly-loop.md    accessibility notes for both pages, repo root
-tools/build_week_entry.py          builds week-NN-entry.html from the data file
-tools/week-entry-data.json         one block per week: title, dates, and the link for each step
+MASTERY CHECK STANDARD (the part the assessment chat did not finish)
+practice-exam.html        An attempt now counts as the week's Mastery Check when it covers one week,
+                          has at least 50 questions, tests every competency for that week at least once,
+                          and scores 80 percent or higher. The setup page says so, and so do the
+                          finish screen and the report: "Met" or "Not yet" on each of the three.
+                          The report now lists EVERY competency for the week with its question count,
+                          points earned and score, so you can see per-competency coverage on each upload.
+                          New lengths: 60 and 75. At 50 or more, the exam covers every competency
+                          (tested 30 times on every week, 100 percent coverage every time).
+                          To raise one unit's minimum later, one line near the top of the script:
+                          MASTERY.byWeek[5] = {minQ:75}.
+weekly-loop.html          States the standard. Time per try is now 35 to 50 minutes (was 20 to 30,
+                          which fit 30 questions, not 50).
+tools/build_week_entry.py Same standard and time in the step list, for every week you build from now on.
+tools/week-entry-data.json  Week 4 Mastery Check link opens at 50 questions.
+week-04-entry.html        Rebuilt with the tool, so the three changes above show on it.
 
-TO MAKE ANOTHER WEEK
-Copy the Week 4 block in tools/week-entry-data.json, change the number, title, dates, and links,
-then run: python3 tools/build_week_entry.py 5
-A link left as null shows that step as "Not posted yet" and makes it unclickable.
+WEEK 4 START PAGE (week-04.html)
+The walkthrough cards were lost. The guided walkthrough chat and the assessment chat both uploaded
+week-04.html today, and the second upload wiped out the first one's cards. This version has both:
+  - the three "Walk through it" cards and the drawing sheet are back under After the lectures
+  - Pre-read card added first under Before the lectures (it was only on week-04-entry.html)
+  - 29 competencies (the page said 23 in one place and 20 in two others; the data has 29)
+  - Lab now links the Week 4 lab worksheet, Discussion links discussion-week04.html, matching the
+    entry page (they still pointed to the old generic pages)
+  - Mastery Check card describes the 50 questions and 80 percent standard
+lecture-week.html         Week 4 now lists the three walkthroughs and the drawing sheet at the top.
+                          The entry page sends students here, so before this they never reached them.
+bio005-nav.js             Week 4 released from HOLD. It still opens on the normal rule, Monday
+                          September 28 at 8:00 am Pacific. Without this it would have stayed locked.
+                          If you want it held longer, skip this one file.
+
+COMPETENCY COUNTS, WEEKS 5 TO 15
+week-05.html to week-15.html  The number of competencies on each week page was off. The counts came
+                          from an old sequence (Week 6 said 20 in one spot and 24 in another, Week 10
+                          said 19 and 13). All now match the data. Week 8 now says no new competencies
+                          and that Midterm 1 covers Weeks 1 to 7 (it said 1 to 6; the syllabus says 1 to 7).
+week-15.html              Also adds the optional cover-to-cover read-through, for after every
+                          competency is solid (from your to-do list).
+
+DELETE BY HAND (numbered duplicates and previews uploaded today; nothing links to any of them)
+  weekly-loop_1.html
+  weekly-loop_2.html
+  w02-overview_1.html              (identical to w02-overview.html)
+  BIO005-Week2-Packet_2.pdf        (identical to BIO005-Week2-Packet.pdf)
+  week-04-entry-preview.html
+  discussion-week04-preview.html
+  lab-worksheet-week04-preview.html
 
 CANVAS
-1. Week 4 module, top item: a Page named "Week 4: Start here". HTML editor, paste:
-
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/week-04-entry.html"
-        title="Week 4: start here"
-        width="100%" height="1950" style="border:0;display:block"
-        loading="lazy"></iframe>
-
-2. The loop page, for Start Here or course info. HTML editor, paste:
-
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/weekly-loop.html"
-        title="Your week is a loop"
-        width="100%" height="4000" style="border:0;display:block"
-        loading="lazy"></iframe>
-
-Heights were measured at Canvas page width. Canvas strips scripts, so the iframe keeps the fixed height.
-
-ALSO IN THIS DROP: every week's reading, matched to the schedule and the 9th edition, with no section numbers
-Each reading names the chapter number, the chapter title (from the 9th edition table of contents), and the topic.
-A note under each reading tells students other editions number things differently, so go by title and topic.
-
-week-01.html to week-15.html   the Reading line, plus the edition note (not on no-reading weeks)
-lecture-week.html              the same readings and the edition note
-biol005-w04-*-notes.html and biol005-w04-*-slides.html (12 files)   chapter 9, and chapter 5 for the resting potential
-
-BOOK PROBLEMS REMOVED FROM WEEK 4 ON (they were optional and ungraded)
-week-04.html to week-15.html                        the Book problems card is gone from Practice
-week-04-competencies.html to week-15-competencies.html   the P (problems) link is gone from the week bar
-door-assignments.html                               Week 4 to 15 book problem links removed; Weeks 1 to 3 stay
-weekly-loop.html, week-04-entry.html, tools/*       Study it now says cards and brain dumps
-Weeks 1 to 3 keep their book problems, since those weeks have passed.
-
-STILL MENTION BOOK PROBLEMS IN GENERAL WORDING (not changed; update when we write the final announcement)
-  ai-in-this-course.html
-  assignment-bookproblems.html
-  bio005-dock.js
-  bio005-faq.js
-  bio005-nav.js
-  bio005-question-bank.js
-  bio005-schedule-fall2026.js
-  bio005-ungraded.js
-  canvas-kit.html
-  canvas-steps.html
-  course-materials.html
-  course-questions.html
-  course-tools.html
-  door-assignments.html
-  doors.html
-  home.html
-  hootie.js
-  how-every-week-works.html
-  how-grading-works.html
-  how-this-course-works.html
-  mastery-physio-os-standalone.html
-  os/bio005-dock.js
-  os/hootie.js
-  scholar-points.html
-  sitemap.html
-  study-buttons.html
-  study-with-me-calendar.html
-  study-with-me-invite.html
-  study-with-me.html
-  syllabus-fall2026.html
-  ungraded-sheet.html
-  unit-05-standalone.html
-  w01-00-overview.html
-  w01-05-study-it.html
-  w01-overview.html
-  w01-step-04-study-it.html
-  w01-step-05-study-it.html
-  w02-00-overview.html
-  w02-04-study-it.html
-  w02-05-study-it.html
-  w02-overview.html
-  w02-overview_1.html
-  w02-step-04-study-it.html
-  week-01-competencies.html
-  week-01.html
-  week-02.html
-  week-03.html
-  welcome-tour.html
-  welcome.html
-
-HEADS UP
-tools/week-data.json still holds the week plan from before the Sep 13 resequence. Do not rebuild the
-week pages from it (gen_week_pages_v2.py or v3), or it will undo the resequence and these readings.
-
-WEEK 4 PRE-READ (READY)
-week-04-preread.html   the Week 4 pre-read worksheet: the resting membrane potential from Chapter 5,
-                       then a skim of Chapter 9. Students save it as a PDF or photograph a paper copy.
-                       The Pre-read box on week-04-entry.html now links to it.
-CANVAS: make a Week 4 pre-read assignment (file upload, complete or incomplete, due Sunday, October 4 at
-10:00 pm) and put the page in it with this iframe:
-
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/week-04-preread.html"
-        title="Week 4 pre-read" width="100%" height="5950" style="border:0;display:block"
-        loading="lazy"></iframe>
-
-MASTERY CHECK AND RECALL CARD TAGGING (fixed Sep 24)
-bio005-exam-bank.js     rebuilt with tools/build_exam_bank.js. It was built Sep 13, before the later
-                        week changes, so 2,770 of 5,610 questions carried an old week. Examples: the
-                        resting membrane potential questions sat in Week 3, not 4, so a Week 4 Mastery
-                        Check had none; heart questions sat in Week 8 (Midterm 1 week), so a Weeks 1 to 6
-                        midterm draw could pull heart questions. Now every question carries its
-                        competency's current week (0 mismatches), and Week 4 has all 29 competencies
-                        (593 questions).
-os/bio005-card-bank.js  985 cards carried an old week. Each card's week now equals its competency's week,
-                        which is exactly what tools/assemble_bank.py sets. The assembler needs your local
-                        out/ folder, so it could not run here; rerunning it later will produce the same
-                        weeks. 25 chapter summary lines that named an old week were corrected too.
-Second pass             weekly-loop.html, week-04-entry.html and the template now say the second pass is
-                        the same interactive slides again, added in a second color.
-
-WEEK 4 COMPETENCIES, CARDS AND MASTERY CHECK MATCHED TO SILVERTHORN 5.7 AND CHAPTER 9 (Sep 24)
-Still 268 competencies, no id changed (Aug 24 decision kept). Six statements widened in
-bio005-competencies.csv (the source) and in every generated file that carried the old wording:
-  w4-neuron-classes         now starts with mapping the nervous system: CNS, sensory and efferent
-                            divisions, somatic motor and autonomic, and the enteric nervous system
-  w4-graded-potentials      adds Ohm's law and conductance
-  w5-neurotransmitters      adds the seven chemical classes of neurocrines
-  w5-postsynaptic-potentials adds fast versus slow responses, ionotropic versus metabotropic
-                            receptors, and neurotransmitter versus neuromodulator
-  w2-resting-potential      names the Goldman equation (cards already tested it)
-  w5-synaptic-plasticity    names AMPA, NMDA, the magnesium block and calcium (cards already tested it)
-31 new recall cards, added at the END of their chapter files so every existing card id is unchanged:
-  t-neurons-and-neuroglia +9 (organization map), t-electrical-signaling +6 (Ohm's law, conductance),
-  t-synaptic-transmission +16 (seven classes, fast and slow responses, neuromodulators).
-  DOK 15 / 10 / 6, answer positions 9 / 8 / 7 / 7.
-cards/exam/week-04.json  +4 brain dump items with rubrics and +4 true or false items, one of each per topic.
-Note sheet and brain dump prompts (assets/bio005-sheet-data.js, tools/prompts/week05.json): box B for
-  neuron classes is now the nervous system map; graded potentials, neurotransmitter classes and
-  EPSP/IPSP prompts now include the new material.
-Rebuilt with your tools: os/bio005-card-bank.js and os/card-competency-map.js (tools/assemble_bank.py,
-  5,011 cards, all 268 competencies reached), bio005-exam-bank.js (tools/build_exam_bank.js). Week 4 now
-  has 560 recall cards and 632 Mastery Check items. The rebuild also picked up 7 question, 12 explanation
-  and 2 option edits already in your cards/ files that the old bank had never been rebuilt with.
-NOTE: assemble_bank.py reads an out/ folder. I rebuilt out/topics.json from the bank's own chapter list
-  so it could run; that folder is not in this drop.
-
-WEEK 4 LAB, DISCUSSION, CASE AND PATIENT (Sep 24)
-lab-worksheet-week04.html   PhysioEx Exercise 3, Activities 1 to 9 (titles checked against Pearson lab
-                            reports). Three boxes per activity: What did you measure? What were your
-                            findings? What did you learn? Plus two whole-lab questions at the end.
-                            Linked from the Lab box on the Week 4 start page (replaces the old
-                            lab analysis sheet link for this week).
-discussion-week04.html      Practice the exam format on Week 2 cell transport: two brain dumps with
-                            rubrics (from your existing Week 2 bank items), one hard multiple choice
-                            question (the ouabain and SGLT card), design a model, record a 2 to 3 minute
-                            teaching demo, check it against a question-specific rubric, then the three
-                            reflection questions. Replies: one point done well, one point to add.
-                            Linked from the Discussion box on the Week 4 start page.
-weekly-loop.html, template  Application case now reads "Work the case using the physiology"; your
-                            patient reads "Document this week's findings".
-CANVAS iframes (heights measured at Canvas width):
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/lab-worksheet-week04.html"
-        title="Week 4 lab worksheet" width="100%" height="6450" style="border:0;display:block"
-        loading="lazy"></iframe>
-<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/discussion-week04.html"
-        title="Week 4 discussion" width="100%" height="4800" style="border:0;display:block"
-        loading="lazy"></iframe>
+Nothing new to paste. The Week 4 iframes from the morning drop still apply.

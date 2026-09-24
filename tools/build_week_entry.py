@@ -26,7 +26,7 @@ STEPS = [
  ('second','Second pass','Same slides again, in a second color','30 to 60 min','learn',()),
  ('upload','Upload your note sheet','One photo file, both colors showing','10 min','learn',('S',)),
  ('study','Study it','Cards and brain dumps','4 sessions of 30 to 45 min','retr',()),
- ('check','Mastery Check','Which competencies are solid?','20 to 30 min per try','check',('S',)),
+ ('check','Mastery Check','Which competencies are solid?','35 to 50 min per try','check',('S',)),
  ('lab','The lab','PhysioEx, then your lab worksheet','2 to 3 hours','assess',('S',)),
  ('case','Application case','Work the case using the physiology','About 1 hour','assess',('S',)),
  ('patient','Your patient',"Document this week's findings",'About 30 min','assess',('T',)),
@@ -121,6 +121,7 @@ def steplist(week):
         st=week['steps'][key]; link=st['link']
         tags=[]
         if 'W' in letters: tags.append('has a worksheet: your note sheet, which you submit at the upload step' if key=='first' else 'has a worksheet')
+        if key=='check': tags.append('it counts when an attempt has at least 50 questions and scores 80 percent or higher')
         if 'S' in letters: tags.append('you submit it in Canvas')
         if 'T' in letters: tags.append('you track this all term')
         t=f'. {time}'+(f', {", ".join(tags)}' if tags else '')+'.'

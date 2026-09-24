@@ -112,7 +112,7 @@ footer .inner{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:14px}
 (function(){
   /* ----------------------------------------------------------
      THE MANIFEST. This is the only thing you edit.
-     kind: "video" | "notes" | "slides" | "reading"
+     kind: "video" | "notes" | "slides" | "reading" | "guided"
      Add a line, upload this file, and the week shows it.
      ---------------------------------------------------------- */
   var LECTURES = {
@@ -137,6 +137,12 @@ footer .inner{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:14px}
          Week 3 material and has not said what this week carries yet. */
     ],
     4: [
+      /* Sep 24 2026: the guided walkthroughs built this week, linked here so the
+         Week 4 start page (which sends students to this page) reaches them. */
+      { kind:"guided", href:"biol005-w04-neurons-glia-guided.html", title:"Walk through it: neurons and neuroglia", blurb:"One idea per screen. You predict what happens before you see it, and the worksheet beside the lesson saves what you write. Do this one first, since it comes before the electrical work." },
+      { kind:"guided", href:"biol005-w04-rmp-guided.html", title:"Walk through it: the resting membrane potential", blurb:"The same format. Build the resting potential from a balloon of ions up to the Nernst and Goldman equations, then read three patients with it." },
+      { kind:"guided", href:"biol005-w04-channel-gating-guided.html", title:"Walk through it: ion channel gating", blurb:"What opens a gate, and why the sodium channel has two of them. Build the resting, open and inactivated states, then read a dental patient and a channelopathy with them." },
+      { kind:"reading", href:"biol005-w04-drawing-sheet.html", title:"Draw it: the Week 4 paper sheet", blurb:"The paper half of the three walkthroughs. Print it, draw each thing from memory with the walkthrough closed, then correct it in a second color." },
       { kind:"slides", href:"biol005-w04-membrane-potential-story-slides.html", title:"Start here, the story: The resting membrane potential", blurb:"The easy first pass. It starts from a balloon full of little balls and builds the idea one small step at a time, with one question per step and no numbers. Draw along on your own sheet." },
       { kind:"reading", href:"biol005-w04-membrane-potential-story-drawalong.html", title:"Draw along sheet: The resting membrane potential", blurb:"The same drawings as the story, blank, for you to add the arrows and labels, with the whole story to fill in from memory at the end. Print it or copy it onto your own paper." },
       { kind:"notes",  href:"biol005-w04-membrane-potential-notes.html", title:"Notes: The resting membrane potential", blurb:"Build the voltage from an empty cell: the pump, potassium leak channels, the Nernst and Goldman equations, and what blood potassium does to every cell. Includes a moving model of the ions and four worked problems. Week 4 competencies 1 to 5." },
@@ -174,8 +180,8 @@ footer .inner{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:14px}
   var PART   = [1,1,1,2,2,2,2,2,3,3,3,3,3,3,3];
   var PARTNAME = {1:"Part 1 · Foundations", 2:"Part 2 · Control systems", 3:"Part 3 · Systems in action"};
   var READING = ["Silverthorn Chapter 1, Introduction to Physiology, and Chapter 6, Communication, Integration, and Homeostasis. In Chapter 6, read about homeostasis and control pathways.", "Silverthorn Chapter 3, Compartmentation: Cells and Tissues; Chapter 5, Membrane Dynamics, stopping when you reach the resting membrane potential; and Chapter 6, Communication, Integration, and Homeostasis, the parts on cell signaling.", "No new reading. Go back to Chapters 3, 5 and 6 wherever your note sheets still have gaps.", "Silverthorn Chapter 5, Membrane Dynamics, only the part on the resting membrane potential. Then Chapter 9, Neurons: Cellular and Network Properties, on the neuron, the action potential and the synapse.", "Silverthorn Chapter 10, The Central Nervous System, the parts on the spinal cord and reflexes, and Chapter 11, Sensory Physiology.", "Silverthorn Chapter 13, Muscles, and Chapter 14, Integrative Physiology I: Control of Body Movement.", "Silverthorn Chapter 12, Efferent Division: Autonomic and Somatic Motor Control; Chapter 8, Introduction to the Endocrine System; and Chapter 26, Reproduction and Development.", "No new reading. Midterm 1 covers Weeks 1 through 6.", "Silverthorn Chapter 15, Cardiovascular Physiology.", "Silverthorn Chapter 16, Blood Flow and the Control of Blood Pressure.", "Silverthorn Chapter 17, Blood, and Chapter 7, The Immune System.", "Silverthorn Chapter 22, The Digestive System, and skim Chapter 23, Metabolism and Energy Balance.", "Silverthorn Chapter 18, Mechanics of Breathing, and Chapter 19, Gas Exchange and Transport.", "Silverthorn Chapter 20, The Kidneys.", "Silverthorn Chapter 21, Integrative Physiology II: Fluid and Electrolyte Balance, and Chapter 25, Integrative Physiology III: Exercise. Then catch up and prepare the final case conference."];
-  var KIND = {video:"Watch", notes:"Read", slides:"Slides", reading:"Reading"};
-  var GO   = {video:"Watch the videos →", notes:"Open the notes →", slides:"Open the slides →", reading:"Open →"};
+  var KIND = {video:"Watch", notes:"Read", slides:"Slides", reading:"Reading", guided:"Walk through"};
+  var GO   = {video:"Watch the videos →", notes:"Open the notes →", slides:"Open the slides →", reading:"Open →", guided:"Start the walkthrough →"};
 
   var m = /[?&]week=(\d{1,2})/.exec(location.search);
   var w = m ? Math.max(1, Math.min(15, parseInt(m[1],10))) : 1;

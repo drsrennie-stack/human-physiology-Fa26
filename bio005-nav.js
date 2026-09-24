@@ -870,7 +870,9 @@
      ========================================================= */
   /* Sep 14 2026: Weeks 2 and 3 released from HOLD. Week 3 is the catch up
      week on the cell, so it opens with Week 2 rather than after it. */
-  var HOLD = window.BIO005_SITE.held = { 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+  /* Sep 24 2026: Week 4 released from HOLD. Its pages still open on the normal
+     rule, Monday September 28 at 8:00 am Pacific. */
+  var HOLD = window.BIO005_SITE.held = { 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
 
   var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
   var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 7,
