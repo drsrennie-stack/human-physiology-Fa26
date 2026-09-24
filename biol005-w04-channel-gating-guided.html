@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ion channel gating, step by step | BIOL 005 Week 4</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:#C9CED8; --page:#FAFAF9; --card:#FFFFFF;
+  --shadow:0 1px 3px rgba(0,0,0,0.08); --shadow2:0 8px 16px rgba(0,0,0,0.10);
+  --head:"Open Sans","Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.top{background:#fff;box-shadow:var(--shadow);position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.45rem);margin:0;flex:1 1 320px;line-height:1.2}
+.top .course{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink2)}
+.jump{position:relative}
+.tbtn{font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.tbtn.primary{background:var(--navy);color:#fff}
+.tbtn.primary:hover{background:var(--navy-deep)}
+.tbtn:disabled{opacity:.45;cursor:not-allowed}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:12px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:8px;padding:10px 12px;font:600 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:var(--navy-tint)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:var(--navy-tint)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:12px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:12px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:.9rem;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:10px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:1rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;font-size:1.25rem;margin:0 0 4px}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:10px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:.85rem;color:var(--maroon);margin:0 0 3px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Ion channel gating, step by step</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=4" target="_top">Week 4 lectures</a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn">Show me</button>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Write each prediction here before you click Show me. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 4: Ion channel gating, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+markers();
+var REG={};
+function G(n,p){var g=el("g",{},p||svg);REG[n]=g;return g;}
+function only(l){for(var k in REG)REG[k].setAttribute("display","none");l.forEach(function(k){if(REG[k])REG[k].setAttribute("display","");});}
+
+/* ---- membrane band ---- */
+var MY=250,MH=84;
+var gMem=G("mem");
+el("rect",{x:40,y:MY,width:820,height:MH,fill:TINT,stroke:NAVY,"stroke-width":4},gMem);
+tx(gMem,54,MY-18,"Outside the cell","t",17,"start");
+tx(gMem,54,MY+MH+26,"Inside the cell","t",17,"start");
+
+/* ---- generic gated channel ---- */
+function chan(x,label){
+  var g=el("g",{},svg);
+  el("rect",{x:x-40,y:MY-6,width:26,height:MH+12,rx:10,fill:"#fff",stroke:NAVY,"stroke-width":4},g);
+  el("rect",{x:x+14,y:MY-6,width:26,height:MH+12,rx:10,fill:"#fff",stroke:NAVY,"stroke-width":4},g);
+  var bar=el("rect",{x:x-16,y:MY+30,width:32,height:12,rx:5,fill:GDEEP},g);
+  var lab=tx(g,x,MY+MH+62,label,"t",15,"middle");
+  return {g:g,bar:bar,lab:lab,x:x};
+}
+var CH={};
+CH.leak=chan(150,"Leak channel");
+CH.volt=chan(370,"Voltage gated");
+CH.lig=chan(590,"Chemically gated");
+CH.mech=chan(790,"Mechanically gated");
+for(var k in CH)REG["ch_"+k]=CH[k].g;
+function openCh(name,on){CH[name].bar.setAttribute("display",on?"none":"");}
+function labCh(on){for(var k in CH)CH[k].lab.setAttribute("display",on?"":"none");}
+
+/* ---- triggers above the gated channels ---- */
+var gTrig=G("trig");
+var TRIG={};
+TRIG.volt=(function(){var g=el("g",{},gTrig);
+  tx(g,370,150,"Voltage changes","tm",16,"middle");
+  arrow(g,370,166,370,MY-14,MAROON,5);return g;})();
+TRIG.lig=(function(){var g=el("g",{},gTrig);
+  el("circle",{cx:590,cy:150,r:16,fill:MAROON},g);
+  tx(g,590,120,"A chemical binds","tm",16,"middle");
+  arrow(g,590,172,590,MY-14,MAROON,5);return g;})();
+TRIG.mech=(function(){var g=el("g",{},gTrig);
+  tx(g,790,150,"Stretch or pressure","tm",16,"middle");
+  arrow(g,742,176,790,MY-14,MAROON,5);return g;})();
+function trig(keys){for(var k in TRIG)TRIG[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(TRIG[k])TRIG[k].setAttribute("display","");});}
+
+/* ---- the big sodium channel with two gates ---- */
+var BX=450;
+var gBig=G("big");
+el("rect",{x:BX-96,y:MY-10,width:56,height:MH+20,rx:16,fill:"#fff",stroke:NAVY,"stroke-width":5},gBig);
+el("rect",{x:BX+40,y:MY-10,width:56,height:MH+20,rx:16,fill:"#fff",stroke:NAVY,"stroke-width":5},gBig);
+var actGate=el("rect",{x:BX-40,y:MY-2,width:80,height:16,rx:7,fill:GDEEP},gBig);
+var inactBall=el("g",{},gBig);
+el("line",{x1:BX+34,y1:MY+MH+2,x2:BX+6,y2:MY+MH+2,stroke:MAROON,"stroke-width":5},inactBall);
+el("circle",{cx:BX-4,cy:MY+MH+2,r:18,fill:MAROON},inactBall);
+var gBigLab=G("biglab");
+tx(gBigLab,BX,MY-40,"Activation gate","tm",16,"middle");
+tx(gBigLab,BX-130,MY+MH+66,"Inactivation gate","tm",16,"start");
+function actOpen(on){actGate.setAttribute("display",on?"none":"");}
+function inactBlock(on){
+  if(on){place(inactBall,0,-18);}else{place(inactBall,0,0);}
+}
+place(inactBall,0,0);
+
+/* ---- sodium ions ---- */
+var gIons=G("ions");
+var IONS=[];
+for(var i=0;i<4;i++){var gi=ionNa(gIons);place(gi,BX-60+i*44,140);IONS.push(gi);}
+function ionsHome(){IONS.forEach(function(g,i){place(g,BX-60+i*44,140);});}
+
+/* ---- voltage meter ---- */
+var gMeter=G("meter");
+el("rect",{x:70,y:400,width:200,height:74,rx:12,fill:"#fff",stroke:NAVY,"stroke-width":3},gMeter);
+var MV=tx(gMeter,170,448,"\u221270 mV","tn",30,"middle");
+tx(gMeter,170,420,"Membrane voltage","t",14,"middle");
+function mv(v){MV.textContent=(v<0?"\u2212":"")+Math.abs(Math.round(v))+" mV";}
+
+/* ---- drug block ---- */
+var gDrug=G("drug");
+el("rect",{x:BX-30,y:MY+22,width:60,height:34,rx:12,fill:INK2},gDrug);
+tx(gDrug,BX,MY+45,"drug","iw",15,"middle");
+
+/* ---- caption ---- */
+var gCap=G("cap");
+var CAP=tx(gCap,392,528,"","tn",18,"middle");
+function cap(s){CAP.textContent=s||"";}
+
+function resetAll(){
+  for(var k in CH)openCh(k,false);
+  openCh("leak",true);
+  labCh(false);trig([]);actOpen(false);inactBlock(false);ionsHome();mv(-70);cap("");
+}
+/* ======================= steps ======================= */
+var ALLCH=["mem","ch_leak","ch_volt","ch_lig","ch_mech","cap"];
+function S(l){only(l);resetAll();}
+
+var STEPS=[
+/* ---- 1. two kinds of doors ---- */
+{sec:"Doors that open and doors that stay open",comp:"Ion channel gating",
+ title:"Some doors never close",
+ text:["You already know that potassium sits on the inside of a resting cell and leaks out through doors that stay open all the time. Those doors have no gate. Whatever can fit through them goes through, all day, without anything switching them on.","They are the reason a resting cell has a voltage at all."],
+ name:"leak channels",
+ auto:true,
+ desc:"A membrane runs across the screen with one open channel. Ions pass through it steadily with nothing blocking the way.",
+ pre:function(){S(["mem","ch_leak","cap"]);openCh("leak",true);labCh(true);},
+ play:function(a){return wait(500,a).then(function(){cap("Always open, nothing switches it on.");});},
+ post:function(){only(["mem","ch_leak","cap"]);resetAll();openCh("leak",true);labCh(true);cap("Always open, nothing switches it on.");}},
+
+{title:"Most doors have a gate",
+ text:["Leak channels are the exception. Most channels in a membrane have a moving part that sits in the pore and blocks it until something specific tells it to move."],
+ ask:"A cell has to fire a signal at one moment and stay quiet the next. Why would a gate that opens only when told be more useful than a door that is always open?",
+ ans:["Because the cell needs to control when ions move, not just whether they can. A gate lets the cell hold still and then act.","Always-open leak channels set the resting voltage. Gated channels are what let the cell do something, at a moment of its choosing."],
+ name:"gated ion channels",
+ desc:"Three more channels appear in the membrane, each with a gold bar blocking the pore.",
+ pre:function(){S(ALLCH);labCh(true);},
+ play:function(a){return wait(500,a).then(function(){cap("Blocked until something moves the gate.");});},
+ post:function(){only(ALLCH);resetAll();labCh(true);cap("Blocked until something moves the gate.");}},
+
+/* ---- 2. what opens a gate ---- */
+{sec:"What opens a gate",comp:"Ion channel gating",
+ title:"Three different triggers",
+ text:["Gated channels are sorted by what makes them open. One kind responds to a change in the voltage across the membrane. One kind opens when a specific chemical binds to it. One kind opens when the membrane is physically stretched or pressed."],
+ name:"voltage gated, ligand gated, and mechanically gated channels",
+ auto:true,
+ desc:"Each gated channel gets a labelled trigger above it: a voltage change, a chemical binding, and stretch or pressure.",
+ pre:function(){S(ALLCH);labCh(true);trig([]);},
+ play:function(a){trig(["volt"]);return wait(650,a).then(function(){trig(["volt","lig"]);return wait(650,a);}).then(function(){trig(["volt","lig","mech"]);only(ALLCH.concat(["trig"]));cap("Three triggers, three kinds of gate.");});},
+ post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["volt","lig","mech"]);cap("Three triggers, three kinds of gate.");}},
+
+{title:"The one that answers to voltage",
+ text:["A voltage-gated channel has charged parts built into it that sit in the electric field across the membrane. When that field changes, those parts physically move, and the gate swings with them."],
+ ask:"Voltage-gated channels open when the membrane becomes less negative. Once they open and let positive ions in, the membrane becomes less negative still. What does that do to the neighboring voltage-gated channels?",
+ ans:["It opens them too. Each channel that opens makes the conditions that open the next one.","This runaway loop is what makes an action potential go all the way once it starts. You will build the whole thing in the action potential section."],
+ name:"positive feedback",
+ desc:"The voltage-gated channel opens as the voltage reading climbs.",
+ pre:function(){S(ALLCH.concat(["trig","meter"]));labCh(true);trig(["volt"]);mv(-70);},
+ play:function(a){return tweenVal(-70,-45,900,a,function(v){mv(v);}).then(function(){openCh("volt",true);cap("The field changes, the gate swings open.");});},
+ post:function(){only(ALLCH.concat(["trig","meter"]));resetAll();labCh(true);trig(["volt"]);openCh("volt",true);mv(-45);cap("The field changes, the gate swings open.");}},
+
+{title:"The one that waits for a chemical",
+ text:["A chemically gated channel stays shut until a particular molecule binds to a receptor site on it. The molecule fits the site the way a key fits a lock, and the gate opens while it is bound.","This is how one cell talks to the next one. The message crosses the gap as a chemical, and the chemical opens gates on the far side."],
+ ask:"At the junction between a motor neuron and a muscle fiber, the neuron releases acetylcholine and the muscle's channels open. What would happen at that junction if a drug sat in those binding sites without opening them?",
+ ans:["Acetylcholine would have nowhere to bind, the channels would stay shut, and the muscle would not be told to contract. The result is weakness or paralysis.","Several paralytic drugs used in surgery work this way, and so does the antibody attack in myasthenia gravis, which destroys these receptors and causes muscle weakness that worsens with use."],
+ name:"ligand gated channels",
+ desc:"A chemical binds to the chemically gated channel and its gate opens.",
+ pre:function(){S(ALLCH.concat(["trig"]));labCh(true);trig(["lig"]);},
+ play:function(a){return wait(600,a).then(function(){openCh("lig",true);cap("Bound, so the gate is open.");});},
+ post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["lig"]);openCh("lig",true);cap("Bound, so the gate is open.");}},
+
+{title:"The one that answers to touch",
+ text:["A mechanically gated channel opens when the membrane it sits in is bent, stretched, or pressed. No voltage change and no chemical is needed, only physical deformation."],
+ ask:"These channels sit in the sensory endings in your skin, in the hair cells of your inner ear, and in the walls of your blood vessels. What do those three places have in common?",
+ ans:["In all three, something physical has to be turned into an electrical signal. Pressure on the skin, sound vibration in the ear, and stretch in a vessel wall are all mechanical events.","These channels are where sensation actually begins. Pressure opens the gate, ions move, and the membrane voltage changes, which is the first electrical step in feeling anything."],
+ name:"mechanically gated channels",
+ desc:"Pressure on the membrane opens the mechanically gated channel.",
+ pre:function(){S(ALLCH.concat(["trig"]));labCh(true);trig(["mech"]);},
+ play:function(a){return wait(600,a).then(function(){openCh("mech",true);cap("Bent or pressed, so it opens.");});},
+ post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["mech"]);openCh("mech",true);cap("Bent or pressed, so it opens.");}},
+
+/* ---- 3. the sodium channel has two gates ---- */
+{sec:"The sodium channel has two gates",comp:"Ion channel gating",
+ title:"Not one gate, two",
+ text:["Now zoom in on the voltage-gated sodium channel, because it is built differently from the others and that difference runs the whole action potential.","It has two gates on the same pore. One sits at the outer end, and one sits at the inner end. Both have to be out of the way for sodium to get through."],
+ ask:"Two gates on one pore, and both must be open for anything to pass. How many different states can that channel be in?",
+ ans:["Three that matter. Outer gate shut with the inner one open, both open, and the outer one open with the inner one now blocking.","Those three states are called resting, open, and inactivated, and they happen in that order every time the channel fires."],
+ name:"the activation gate and the inactivation gate",
+ desc:"A large sodium channel with a gold gate across the outer end and a red ball on a chain hanging at the inner end.",
+ pre:function(){S(["mem","big","biglab","cap"]);actOpen(false);inactBlock(false);},
+ play:function(a){return wait(600,a).then(function(){cap("Two gates, one pore.");});},
+ post:function(){only(["mem","big","biglab","cap"]);resetAll();actOpen(false);inactBlock(false);cap("Two gates, one pore.");}},
+
+{title:"At rest, waiting",
+ text:["When the cell is sitting at its resting voltage, the outer gate is closed and the inner one is open and out of the way. Nothing gets through, but the channel is ready."],
+ name:"the resting state",
+ auto:true,
+ desc:"The outer gate is closed, the inner ball hangs clear of the pore, and the voltage reads negative seventy millivolts.",
+ pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(false);inactBlock(false);mv(-70);ionsHome();},
+ play:function(a){return wait(500,a).then(function(){cap("Closed, but ready to open.");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Closed, but ready to open.");}},
+
+{title:"Threshold, and it opens",
+ text:["When the membrane depolarizes to about negative fifty-five millivolts, the outer gate swings open. The inner one is still out of the way, so the pore is clear and sodium pours in."],
+ ask:"Sodium is far more concentrated outside the cell, and the inside is negative. Both of those push sodium the same direction. What happens to the voltage once the pore is clear?",
+ ans:["Sodium rushes in fast and the inside becomes rapidly less negative, then positive. The voltage shoots upward.","This is the upstroke of the action potential. Both the chemical gradient and the electrical gradient drive sodium inward, so once the gate opens, the movement is quick and large."],
+ name:"threshold and the activation gate opening",
+ desc:"The outer gate opens, sodium ions move through the pore into the cell, and the voltage reading climbs from negative fifty-five toward positive thirty.",
+ pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(false);inactBlock(false);mv(-55);ionsHome();},
+ play:function(a){actOpen(true);
+   var moves=IONS.map(function(g,i){return tweenPath(g,[[BX-20+i*14,MY+40],[BX+70+i*42,MY+MH+38]],900+i*120,a);});
+   return Promise.all(moves.concat([tweenVal(-55,30,1300,a,function(v){mv(v);})])).then(function(){cap("Pore clear. Sodium floods in.");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(true);inactBlock(false);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});cap("Pore clear. Sodium floods in.");}},
+
+{title:"The second gate swings shut",
+ text:["The inner gate also responds to the same voltage change that opened the outer one, but it moves slowly. By the time it finishes moving, the outer gate has already been open for about a millisecond. The inner gate then plugs the pore from the inside."],
+ ask:"The outer gate is still open at this moment, but the pore is blocked from the inside. Can sodium get through, and can the cell open this channel again right now?",
+ ans:["No to both. The pore is blocked, so sodium stops, and opening the outer gate further does nothing because the block is at the other end.","This is inactivation, and it is different from simply being closed. A closed channel can open. An inactivated channel cannot, no matter how strong the stimulus."],
+ name:"inactivation",
+ desc:"The red ball swings up into the pore and blocks it from the inside while the outer gate is still open. The ions stop moving.",
+ pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(true);inactBlock(false);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});},
+ play:function(a){return wait(500,a).then(function(){inactBlock(true);return wait(400,a);}).then(function(){cap("Blocked from the inside. Sodium stops.");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(true);inactBlock(true);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});cap("Blocked from the inside. Sodium stops.");}},
+
+{title:"Why that matters so much",
+ text:["Inactivation does two things the cell could not do without it. It stops the sodium flood on its own, without needing anything to switch it off, and it makes the cell briefly unable to fire again."],
+ ask:"For a short period after firing, most sodium channels in that patch of membrane are inactivated and cannot reopen. What does that do to a second signal arriving right behind the first one?",
+ ans:["It cannot produce another action potential there. The membrane is temporarily unresponsive, no matter how strong the second stimulus is.","That period is the absolute refractory period. It sets the top speed a neuron can fire, and it is also why an action potential travels in one direction only, since the membrane behind it is still inactivated."],
+ name:"the absolute refractory period",
+ desc:"The sodium channel stays inactivated with the inner gate blocking the pore, and the voltage begins to fall.",
+ pre:function(){S(["mem","big","biglab","meter","cap"]);actOpen(true);inactBlock(true);mv(30);},
+ play:function(a){return tweenVal(30,-60,1100,a,function(v){mv(v);}).then(function(){cap("Cannot fire again yet.");});},
+ post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(true);inactBlock(true);mv(-60);cap("Cannot fire again yet.");}},
+
+{title:"Resetting the channel",
+ text:["The channel does not reset when the cell wants it to. It resets when the membrane voltage goes back down toward rest. Only then does the outer gate close again and the inner gate swing back out of the pore, in that order."],
+ ask:"A channel resets only when the membrane repolarizes. What would happen to a neuron sitting in a fluid that kept it permanently depolarized, never letting it return toward its resting voltage?",
+ ans:["Its sodium channels would stay inactivated and never reset, so the neuron could not fire at all.","This is what happens in severe hyperkalemia. High potassium outside the cell holds the membrane depolarized, sodium channels stay inactivated, and excitable tissue stops responding. In cardiac muscle that is life threatening."],
+ name:"repolarization and channel reset",
+ desc:"As the voltage returns to negative seventy, the outer gate closes and the inner ball swings back out of the pore.",
+ pre:function(){S(["mem","big","biglab","meter","cap"]);actOpen(true);inactBlock(true);mv(-60);},
+ play:function(a){return tweenVal(-60,-70,700,a,function(v){mv(v);}).then(function(){actOpen(false);return wait(350,a);}).then(function(){inactBlock(false);cap("Back to resting. Ready again.");});},
+ post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Back to resting. Ready again.");}},
+
+/* ---- 4. the slow potassium gate ---- */
+{sec:"The slow potassium gate",comp:"Ion channel gating",
+ title:"Late to open, late to close",
+ text:["Voltage-gated potassium channels answer to the same voltage change as the sodium ones, but they have only one gate and they are slow. They are still opening while sodium is already shutting down."],
+ ask:"Potassium channels open late and stay open a little too long, letting potassium keep leaving after the voltage has already come back down to rest. What does the voltage do in that moment?",
+ ans:["It dips below the resting value, more negative than where it started, until those channels finally close.","That undershoot is the after-hyperpolarization. It is also part of why a neuron is harder to fire for a short time after an action potential, since the membrane is sitting further from threshold than usual."],
+ name:"after-hyperpolarization",
+ desc:"The voltage falls past negative seventy to about negative eighty before returning.",
+ pre:function(){S(["mem","ch_leak","ch_volt","meter","cap"]);labCh(true);mv(-70);},
+ play:function(a){openCh("volt",true);return tweenVal(-70,-82,900,a,function(v){mv(v);}).then(function(){return wait(400,a);}).then(function(){openCh("volt",false);return tweenVal(-82,-70,700,a,function(v){mv(v);});}).then(function(){cap("It dips below rest, then comes back.");});},
+ post:function(){only(["mem","ch_leak","ch_volt","meter","cap"]);resetAll();labCh(true);mv(-70);cap("It dips below rest, then comes back.");}},
+
+/* ---- 5. clinical ---- */
+{sec:"Reading patients with it",comp:"Ion channel gating",
+ title:"Patient: the dentist's injection",
+ text:["A patient gets lidocaine before a dental procedure. Within a few minutes the area is numb, but the patient can still move the muscles of that side of the face. Lidocaine works by sitting inside voltage-gated sodium channels and blocking the pore."],
+ ask:"Lidocaine blocks the sodium channel pore. Using the three states you just built, explain why the patient stops feeling pain in that area.",
+ ans:["Blocking the pore means sodium cannot enter even when the outer gate opens, so the membrane never depolarizes far enough to fire. Without an action potential, the pain signal never reaches the brain.","Lidocaine binds best to channels that are open or inactivated, which is why it works fastest on nerves that are firing frequently. Small pain fibers are affected before the larger motor fibers, which is why sensation goes before movement does."],
+ name:"local anesthetic action",
+ desc:"A drug molecule sits inside the sodium channel pore, blocking it while the gates are still in place.",
+ pre:function(){S(["mem","big","biglab","drug","meter","cap"]);actOpen(true);inactBlock(false);mv(-70);},
+ play:function(a){return wait(600,a).then(function(){cap("The pore is plugged. No signal.");});},
+ post:function(){only(["mem","big","biglab","drug","meter","cap"]);resetAll();actOpen(true);inactBlock(false);mv(-70);cap("The pore is plugged. No signal.");}},
+
+{title:"Patient: weakness after a big meal",
+ text:["A 24 year old reports episodes of severe muscle weakness, sometimes after resting following exercise and sometimes after a large meal. During an episode his blood potassium is high. Between episodes he is completely normal. He has an inherited fault in a muscle sodium channel that makes it slow to inactivate."],
+ ask:"His sodium channels are slow to inactivate, which leaves the muscle membrane depolarized for longer than it should be. Why would that cause weakness rather than extra contraction?",
+ ans:["Because a membrane held depolarized keeps its sodium channels inactivated, and inactivated channels cannot reopen. The muscle cannot fire, so it cannot contract.","This is hyperkalemic periodic paralysis. It is a useful case because it shows that too much depolarization does not mean more activity. Past a point, it means no activity at all, which is exactly what happens in severe hyperkalemia."],
+ name:"a sodium channelopathy",
+ desc:"The sodium channel stays inactivated with the membrane held depolarized.",
+ pre:function(){S(["mem","big","biglab","meter","cap"]);actOpen(true);inactBlock(true);mv(-50);},
+ play:function(a){return wait(600,a).then(function(){cap("Held depolarized, so it cannot reset.");});},
+ post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(true);inactBlock(true);mv(-50);cap("Held depolarized, so it cannot reset.");}},
+
+/* ---- 6. story check ---- */
+{sec:"Tell the story back",comp:"Ion channel gating",
+ title:"The whole story, with the science names",
+ text:["Leak channels have no gate and set the resting voltage. Gated channels open to a specific trigger: a voltage change, a chemical binding, or physical stretch. The voltage-gated sodium channel carries two gates, so it moves through three states, resting, open, and inactivated, and it can only reset once the membrane repolarizes.","Inactivation stops the sodium flood on its own and creates the absolute refractory period. Voltage-gated potassium channels are slower, and their late closing produces the dip below rest."],
+ ask:"Without scrolling back, name the three states of a voltage-gated sodium channel, say what each gate is doing in each state, and say what has to happen before the channel can fire again.",
+ ans:["Resting: outer activation gate closed, inner inactivation gate open, nothing passes but the channel is ready. Open: both gates clear, sodium floods in. Inactivated: activation gate still open, inactivation gate blocking the pore, nothing passes and the channel cannot be reopened. The membrane has to repolarize before it resets.","If any part of that was hard to recall, go back over it before starting graded potentials. The action potential section is built entirely on these three states."],
+ desc:"The sodium channel is shown cycling through resting, open, and inactivated with the voltage trace beside it.",
+ pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(false);inactBlock(false);mv(-70);ionsHome();},
+ play:function(a){return wait(400,a).then(function(){actOpen(true);return tweenVal(-70,30,800,a,function(v){mv(v);});}).then(function(){inactBlock(true);return tweenVal(30,-70,900,a,function(v){mv(v);});}).then(function(){actOpen(false);inactBlock(false);cap("Resting, open, inactivated, reset.");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Resting, open, inactivated, reset.");}}
+];
+/* ======================= support videos ======================= */
+var V={
+  lig:{u:"https://www.khanacademy.org/test-prep/nclex-rn/nervous-system-phy/rn-biosignaling/v/ligand-gated-ion-channels",n:"Ligand gated ion channels"}
+};
+var SUP={
+  "The one that waits for a chemical":[["How does a chemical open a channel?","lig","Listen for the molecule binding to the channel itself and the gate opening while it is bound."]]
+};
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w04-channel-gating-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Write your prediction in the worksheet, then click Show me.':'Write your prediction in the worksheet, then click Show me. Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  renderCurrent();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+playBtn.addEventListener("click",function(){runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, doors that never close</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished)unlockJump(false);
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w04-channel-gating-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+</body>
+</html>

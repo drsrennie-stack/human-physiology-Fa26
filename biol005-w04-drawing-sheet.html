@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Draw it, Week 4 | BIOL 005 Human Physiology</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --gold-deep:#8A6D33; --ink2:#414B5C; --line:#C9CED8;
+  --page:#FAFAF9; --card:#FFFFFF;
+  --shadow:0 1px 3px rgba(0,0,0,0.08);
+  --head:"Open Sans","Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:16px;line-height:1.5}
+em,i,cite,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.top{background:var(--card);box-shadow:var(--shadow)}
+.top-in{max-width:960px;margin:0 auto;padding:14px 22px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.15rem,2.4vw,1.5rem);margin:0;flex:1 1 320px;line-height:1.2}
+.top .course{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink2)}
+.btn{font:700 .95rem var(--body);min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer}
+.btn:hover{background:var(--navy-deep)}
+.btn.ghost{background:var(--card);color:var(--navy)}
+
+main{max-width:960px;margin:0 auto;padding:22px}
+.intro{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px}
+.intro h2{font-family:var(--head);font-weight:800;font-size:1.1rem;margin:0 0 8px}
+.intro p{margin:0 0 10px}
+.intro ol{margin:0;padding-left:20px}
+.intro li{margin:0 0 6px}
+
+.nameline{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0 0;background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:18px 22px}
+.nameline .f{flex:1 1 240px}
+.nameline label{display:block;font-weight:700;font-size:.9rem;margin:0 0 6px}
+.nameline .rule{border-bottom:1px solid var(--ink2);height:30px}
+
+section.topic{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:22px;margin:22px 0 0}
+section.topic > h2{font-family:var(--head);font-weight:800;font-size:1.2rem;margin:0 0 4px}
+section.topic > p.sub{margin:0 0 16px;color:var(--ink2);font-size:.95rem}
+
+.task{margin:0 0 22px}
+.task h3{font-family:var(--body);font-weight:700;font-size:1rem;margin:0 0 4px}
+.task p.ask{margin:0 0 10px;color:var(--navy)}
+.task p.tip{margin:0 0 10px;color:var(--ink2);font-size:.9rem}
+
+.draw{border:1px solid var(--ink2);border-radius:10px;background:#fff;min-height:230px;position:relative;overflow:hidden}
+.draw.short{min-height:150px}
+.draw.tall{min-height:320px}
+.draw svg{display:block;width:100%;height:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.cellcap{font-weight:700;font-size:.9rem;margin:0 0 6px}
+.write{border:1px solid var(--ink2);border-radius:10px;background:#fff;margin:10px 0 0}
+.checkbox{display:flex;gap:10px;align-items:flex-start;margin:6px 0 0;font-size:.95rem}
+.checkbox .box{flex:0 0 auto;width:16px;height:16px;border:1px solid var(--ink2);border-radius:3px;margin-top:4px}
+
+@media (max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
+
+@media print{
+  @page{margin:14mm}
+  body{background:#fff;font-size:11.5pt}
+  .top,.noprint{display:none !important}
+  main{max-width:none;padding:0}
+  .write{border:1px solid #000}
+  .intro,.nameline,section.topic{box-shadow:none;border-radius:0;padding:0;background:#fff}
+  .nameline{border-bottom:1px solid #000;padding-bottom:10px;margin-bottom:14px}
+  section.topic{page-break-before:always;padding-top:4px}
+  section.topic:first-of-type{page-break-before:avoid}
+  .task{page-break-inside:avoid}
+  .draw{border:1px solid #000}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the worksheet</a>
+
+<header class="top noprint">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Draw it: neurons, resting potential, and channel gating</h1>
+    <button class="btn" id="printBtn" type="button">Print this sheet</button>
+    <a class="btn ghost" href="week-04.html" target="_top" style="display:inline-flex;align-items:center;text-decoration:none">Back to Week 4</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="intro noprint">
+    <h2>How to use this</h2>
+    <p>This is the paper half of the Week 4 walkthroughs. Print it, then work through it by hand. Drawing something from memory is a different kind of work than clicking through it, and it is the part that shows you what you actually know.</p>
+    <ol>
+      <li>Do each page after you finish the matching walkthrough, not during it.</li>
+      <li>Draw first, from memory, with the walkthrough closed. Use pencil.</li>
+      <li>Then reopen the walkthrough and correct your drawing in a second color. What you had to fix is what to study.</li>
+      <li>Bring the finished pages to class, or photograph them and upload to Canvas.</li>
+    </ol>
+    <p>If handwriting or drawing is difficult for you, type your answers in the worksheet built into each walkthrough and save the PDF instead. Both routes are accepted.</p>
+  </div>
+
+  <div class="nameline">
+    <div class="f"><label for="nm">Name</label><div class="rule" id="nm"></div></div>
+    <div class="f"><label for="dt">Date</label><div class="rule" id="dt"></div></div>
+  </div>
+
+  <!-- ============ 1. NEURONS ============ -->
+  <section class="topic" aria-labelledby="t1">
+    <h2 id="t1">Part 1. The neuron, region by region</h2>
+    <p class="sub">Do this after the neurons and neuroglia walkthrough.</p>
+
+    <div class="task">
+      <h3>1. Draw a multipolar neuron and label its four regions</h3>
+      <p class="ask">Draw it from memory. Label the dendrites, the cell body, the trigger zone, and the axon with its terminals. Then draw an arrow showing which way a signal travels through the cell.</p>
+      <p class="tip">Beside each label, write in a few words what that region does.</p>
+      <div class="draw tall"></div>
+    </div>
+
+    <div class="task">
+      <h3>2. Write what happens at each stop</h3>
+      <p class="ask">Fill in one sentence for each region, in the order a signal passes through them.</p>
+      <div class="write" style="min-height:168px"></div>
+    </div>
+
+    <div class="task">
+      <h3>3. Three shapes</h3>
+      <p class="ask">Draw a multipolar, a bipolar, and a pseudounipolar neuron. Under each one, write where in the body you would find it.</p>
+      <div class="grid3">
+        <div><p class="cellcap">Multipolar</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Bipolar</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Pseudounipolar</p><div class="draw short"></div></div>
+      </div>
+      <div class="write" style="min-height:110px"></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. GLIA ============ -->
+  <section class="topic" aria-labelledby="t2">
+    <h2 id="t2">Part 2. The support cells</h2>
+    <p class="sub">Do this after the neurons and neuroglia walkthrough.</p>
+
+    <div class="task">
+      <h3>1. Draw each glial cell and write its job</h3>
+      <p class="ask">One cell per box, drawn from memory. Under each drawing write what that cell does, and whether it lives in the central nervous system or outside it.</p>
+      <div class="grid3">
+        <div><p class="cellcap">Astrocyte</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Oligodendrocyte</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Microglia</p><div class="draw short"></div></div>
+      </div>
+      <div class="grid3" style="margin-top:14px">
+        <div><p class="cellcap">Ependymal cell</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Schwann cell</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Satellite cell</p><div class="draw short"></div></div>
+      </div>
+    </div>
+
+    <div class="task">
+      <h3>2. Myelin, and what happens without it</h3>
+      <p class="ask">On the left, draw a myelinated axon. Show the covered stretches, the bare gaps, and draw how the signal moves along it. On the right, draw the same axon with two stretches of myelin destroyed, and show what happens to the signal.</p>
+      <div class="grid2">
+        <div><p class="cellcap">Healthy</p><div class="draw"></div></div>
+        <div><p class="cellcap">Myelin stripped</p><div class="draw"></div></div>
+      </div>
+      <p class="tip" style="margin-top:10px">Then answer: why do the symptoms of multiple sclerosis show up in so many unrelated places?</p>
+      <div class="write" style="min-height:110px"></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. RESTING MEMBRANE POTENTIAL ============ -->
+  <section class="topic" aria-labelledby="t3">
+    <h2 id="t3">Part 3. The resting membrane potential</h2>
+    <p class="sub">Do this after the resting membrane potential walkthrough.</p>
+
+    <div class="task">
+      <h3>1. Set up the cell</h3>
+      <p class="ask">The membrane is drawn for you. Put potassium, sodium, and the large negative proteins where they actually sit in a resting cell, using more symbols where there is more of that ion. Draw in the potassium leak channels and the few sodium channels. Mark the inside and the outside.</p>
+      <div class="draw">
+        <svg viewBox="0 0 900 300" role="img" aria-label="A blank membrane drawn as two horizontal lines across the page, with empty space above and below for you to draw ions.">
+          <rect x="0" y="0" width="900" height="300" fill="#fff"></rect>
+          <line x1="40" y1="130" x2="860" y2="130" stroke="#414B5C" stroke-width="3"></line>
+          <line x1="40" y1="170" x2="860" y2="170" stroke="#414B5C" stroke-width="3"></line>
+        </svg>
+      </div>
+      <p class="tip" style="margin-top:10px">Write the approximate concentration of potassium and sodium on each side, with units.</p>
+      <div class="write" style="min-height:110px"></div>
+    </div>
+
+    <div class="task">
+      <h3>2. Draw the two forces on potassium</h3>
+      <p class="ask">Pick one potassium ion sitting in a leak channel. Draw an arrow for the chemical force on it and a different arrow for the electrical force. Label which is which, and mark which arrow is winning at rest.</p>
+      <div class="draw short"></div>
+    </div>
+
+    <div class="task">
+      <h3>3. Explain the number</h3>
+      <p class="ask">A resting neuron reads about negative seventy millivolts. In your own words, say why it is negative, why it is closer to potassium's balance point than to sodium's, and what the pump is and is not doing.</p>
+      <div class="write" style="min-height:204px"></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. CHANNEL GATING ============ -->
+  <section class="topic" aria-labelledby="t4">
+    <h2 id="t4">Part 4. Channel gating</h2>
+    <p class="sub">Do this after the ion channel gating walkthrough.</p>
+
+    <div class="task">
+      <h3>1. Four channels, four behaviors</h3>
+      <p class="ask">Draw a leak channel, a voltage-gated channel, a chemically gated channel, and a mechanically gated channel. Under each, write what opens it.</p>
+      <div class="grid2">
+        <div><p class="cellcap">Leak</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Voltage gated</p><div class="draw short"></div></div>
+      </div>
+      <div class="grid2" style="margin-top:14px">
+        <div><p class="cellcap">Chemically gated</p><div class="draw short"></div></div>
+        <div><p class="cellcap">Mechanically gated</p><div class="draw short"></div></div>
+      </div>
+    </div>
+
+    <div class="task">
+      <h3>2. The sodium channel in all three states</h3>
+      <p class="ask">Draw the same voltage-gated sodium channel three times. Show both gates in each drawing. Under each one, write the name of the state, the membrane voltage at that moment, and whether sodium is moving.</p>
+      <div class="grid3">
+        <div><p class="cellcap">State 1</p><div class="draw short"></div></div>
+        <div><p class="cellcap">State 2</p><div class="draw short"></div></div>
+        <div><p class="cellcap">State 3</p><div class="draw short"></div></div>
+      </div>
+      <p class="tip" style="margin-top:10px">Then answer: what has to happen before the channel can fire again, and why can a stronger stimulus not force it?</p>
+      <div class="write" style="min-height:110px"></div>
+    </div>
+
+    <div class="task">
+      <h3>3. Read a patient</h3>
+      <p class="ask">A patient's blood potassium is 7.0 mmol/L (normal range 3.5 to 5.0 mmol/L). Explain, in the order the events happen, why this makes excitable tissue stop responding rather than fire more. Use the three channel states in your answer.</p>
+      <div class="write" style="min-height:204px"></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. PUT IT TOGETHER ============ -->
+  <section class="topic" aria-labelledby="t5">
+    <h2 id="t5">Part 5. Put it together</h2>
+    <p class="sub">Do this once all three walkthroughs are finished. Nothing open.</p>
+
+    <div class="task">
+      <h3>1. One page, whole story</h3>
+      <p class="ask">On this page, draw the path from a neuron sitting at rest to the moment sodium is flooding in. Start with the resting cell and its ions, show what sets the resting voltage, then show what changes when the membrane reaches threshold. Label everything you can name.</p>
+      <div class="draw tall"></div>
+    </div>
+
+    <div class="task">
+      <h3>2. What did you have to look up?</h3>
+      <p class="ask">List the parts you could not produce from memory. These are your study list for this week.</p>
+      <div class="write" style="min-height:132px"></div>
+    </div>
+
+    <div class="task">
+      <h3>3. What surprised you?</h3>
+      <div class="write" style="min-height:110px"></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var b=document.getElementById("printBtn");
+  if(b)b.addEventListener("click",function(){window.print();});
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w04-drawing-sheet";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+</body>
+</html>

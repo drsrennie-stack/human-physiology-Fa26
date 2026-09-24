@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The resting membrane potential, step by step | BIOL 005 Week 4</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:#C9CED8; --page:#FAFAF9; --card:#FFFFFF;
+  --shadow:0 1px 3px rgba(0,0,0,0.08); --shadow2:0 8px 16px rgba(0,0,0,0.10);
+  --head:"Open Sans","Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.top{background:#fff;box-shadow:var(--shadow);position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.45rem);margin:0;flex:1 1 320px;line-height:1.2}
+.top .course{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink2)}
+.jump{position:relative}
+.tbtn{font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.tbtn.primary{background:var(--navy);color:#fff}
+.tbtn.primary:hover{background:var(--navy-deep)}
+.tbtn:disabled{opacity:.45;cursor:not-allowed}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:12px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:8px;padding:10px 12px;font:600 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:var(--navy-tint)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:var(--navy-tint)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:12px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:12px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:.9rem;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:10px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:1rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;font-size:1.25rem;margin:0 0 4px}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:10px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:.85rem;color:var(--maroon);margin:0 0 3px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>The resting membrane potential, step by step</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=4" target="_top">Week 4 lectures</a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn">Show me</button>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Write each prediction here before you click Show me. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 4: The resting membrane potential, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+var L={};
+function layer(id,parent){var g=el("g",{"class":"layer off",id:"L-"+id},parent||svg);L[id]=g;return g;}
+markers();
+el("rect",{width:900,height:560,fill:"#fff"},svg);
+
+/* --- balloon --- */
+var gB=layer("balloon");
+el("ellipse",{cx:310,cy:272,rx:292,ry:256,fill:"#fff",stroke:NAVY,"stroke-width":7},gB);
+el("path",{d:"M296 528 L324 528 L330 550 L290 550 Z",fill:"#fff",stroke:NAVY,"stroke-width":5},gB);
+tx(gB,640,40,"Outside the balloon","t",18);
+
+/* --- cell --- */
+var gC=layer("cell");
+el("rect",{x:60,y:50,width:500,height:460,rx:50,fill:TINT,stroke:NAVY,"stroke-width":7},gC);
+tx(gC,80,36,"Inside the cell","t",18);tx(gC,640,36,"Outside the cell","t",18);
+
+var gNuc=layer("nucleus");
+el("circle",{cx:190,cy:300,r:58,fill:"#fff",stroke:INK2,"stroke-width":4},gNuc);
+tx(gNuc,190,306,"nucleus","t",16,"middle");
+
+var gFac=layer("factory");
+el("path",{d:"M168 318 q8 -14 16 0 t16 0 t16 0",fill:"none",stroke:MAROON,"stroke-width":4},gFac);
+tx(gFac,190,346,"gene","tm",15,"middle");
+el("ellipse",{cx:330,cy:160,rx:58,ry:24,fill:"#fff",stroke:INK2,"stroke-width":3},gFac);tx(gFac,330,166,"rough ER","t",15,"middle");
+el("path",{d:"M380 390 q40 -16 80 0 M374 412 q46 -16 92 0 M380 434 q40 -16 80 0",fill:"none",stroke:INK2,"stroke-width":4},gFac);tx(gFac,420,468,"Golgi","t",15,"middle");
+var carrier=el("g",{},gFac);el("circle",{r:11,fill:"#fff",stroke:MAROON,"stroke-width":4},carrier);place(carrier,190,300);
+var facLabel=tx(gFac,300,230,"","tm",16,"middle");
+
+/* doors on the right membrane (x=560) */
+function door(id,y,col,label){
+  var g=layer(id,gC.parentNode);
+  el("rect",{x:551,y:y-24,width:18,height:48,fill:"#fff"},g);
+  el("rect",{x:544,y:y-38,width:32,height:13,rx:3,fill:col},g);
+  el("rect",{x:544,y:y+25,width:32,height:13,rx:3,fill:col},g);
+  if(label){tx(g,586,y-42,label,col===MAROON?"tm":"tn",14);}
+  return g;
+}
+door("kdoor",290,MAROON,"potassium door");
+door("kdoor2",200,MAROON,"");
+door("kdoor3",380,MAROON,"");
+door("nadoor",110,NAVY,"sodium door");
+var gPump=layer("pump");
+el("rect",{x:551,y:432,width:18,height:56,fill:"#fff"},gPump);
+el("circle",{cx:560,cy:460,r:27,fill:"#fff",stroke:NAVY,"stroke-width":5},gPump);tx(gPump,560,466,"pump","tn",14,"middle");
+
+/* anions */
+var gAn=layer("anions");
+[[140,180],[255,185],[370,265],[255,410],[470,315],[380,385]].forEach(function(p){anion(gAn,p[0],p[1]);});
+
+/* charge signs */
+var gSig=layer("signs");
+var signIn=[],signOut=[];
+[250,320,390,460].forEach(function(x){signIn.push(tx(gSig,x,82,M,"tn",24,"middle"));signOut.push(tx(gSig,x,32,"+","tn",24,"middle"));});
+[140,220,300,380,460].forEach(function(x){signIn.push(tx(gSig,x,496,M,"tn",24,"middle"));signOut.push(tx(gSig,x,540,"+","tn",24,"middle"));});
+[150,260,380].forEach(function(y){signIn.push(tx(gSig,86,y,M,"tn",24,"middle"));signOut.push(tx(gSig,36,y,"+","tn",24,"middle"));});
+
+/* potassium ions */
+var gK=layer("kions");
+var KPOS=[[120,110],[210,100],[300,112],[400,100],[480,150],[330,210],[430,215],[505,250],[300,300],[400,320],[490,390],[320,445],[420,455],[150,450]];
+var KOUT=[[640,210],[700,315],[770,240],[830,300],[650,375],[740,420],[815,175],[700,180]];
+var KFIX=[[790,480],[860,110],[620,480]];
+var K=KPOS.map(function(){return ionK(gK);});
+KFIX.forEach(function(p){place(ionK(gK),p[0],p[1]);});
+var tugK=ionK(layer("tugk"));place(tugK,560,290);
+
+/* sodium */
+var gNa=layer("naions");
+var NAPOS=[[630,95],[705,70],[780,110],[860,70],[650,160],[850,200],[760,500],[860,440]];
+var NA=NAPOS.map(function(p){var g=ionNa(gNa);place(g,p[0],p[1]);return g;});
+
+/* arrows: tug of war */
+var gTug=layer("tug");
+arrow(gTug,585,290,700,290,MAROON,8);tx(gTug,600,332,"crowding pushes out","tm",16);
+arrow(gTug,535,290,420,290,NAVY,8);tx(gTug,300,242,"negative inside pulls back","tn",16);
+var gTugBig=layer("tugbig");
+arrow(gTugBig,585,290,760,290,MAROON,10);tx(gTugBig,600,332,"crowding pushes out","tm",16);
+arrow(gTugBig,535,290,480,290,NAVY,4);tx(gTugBig,360,242,"weak pull back","tn",16);
+
+/* arrows: sodium both inward */
+var gNaArr=layer("naarrows");
+arrow(gNaArr,720,95,600,105,NAVY,7);tx(gNaArr,640,60,"crowding pushes in","tn",15);
+arrow(gNaArr,720,140,600,122,INK2,7);tx(gNaArr,640,170,"negative inside pulls in","t",15);
+
+/* electrode */
+var gEl=layer("electrode");
+var probe=el("g",{},gEl);
+el("line",{x1:0,y1:0,x2:0,y2:-170,stroke:INK2,"stroke-width":5},probe);
+el("polygon",{points:"-5,0 5,0 0,18",fill:INK2},probe);
+place(probe,400,-10);
+el("rect",{x:640,y:380,width:210,height:110,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":4},gEl);
+tx(gEl,745,412,"inside compared with outside","t",13,"middle");
+var meter=tx(gEl,745,462,"","tn",36,"middle");
+el("line",{x1:790,y1:500,x2:840,y2:500,stroke:INK2,"stroke-width":5},gEl);tx(gEl,735,530,"reference outside","t",13,"start");
+
+/* gates scene */
+var gG=layer("gates");
+el("line",{x1:40,y1:260,x2:860,y2:260,stroke:NAVY,"stroke-width":8},gG);
+tx(gG,40,40,"Outside","t",18);tx(gG,40,530,"Inside","t",18);
+var GATES=[{x:130,lab:"Leak",open:true},{x:340,lab:"Voltage-gated"},{x:560,lab:"Ligand-gated"},{x:770,lab:"Mechanically gated"}];
+GATES.forEach(function(G){
+  var g=el("g",{},gG);
+  el("rect",{x:G.x-40,y:246,width:80,height:28,fill:"#fff"},g);
+  G.l=el("rect",{y:238,width:16,height:44,rx:3,fill:G.x===130?MAROON:NAVY},g);
+  G.r=el("rect",{y:238,width:16,height:44,rx:3,fill:G.x===130?MAROON:NAVY},g);
+  tx(g,G.x,330,G.lab,"tn",17,"middle");
+  G.cap=tx(g,G.x,356,"","t",14,"middle");
+  G.cap2=tx(g,G.x,376,"","t",14,"middle");
+});
+function setGate(G,open){G.l.setAttribute("x",open?G.x-34:G.x-17);G.r.setAttribute("x",open?G.x+18:G.x+1);}
+var gTrig=el("g",{},gG);
+var trigV=el("g",{"class":"layer off"},gTrig);tx(trigV,340,215,"+  +  +","tn",24,"middle");tx(trigV,340,196,"charge changes","t",14,"middle");
+var lig=el("g",{"class":"layer off"},gTrig);el("polygon",{points:"-14,0 14,0 0,-22",fill:GDEEP},lig);var ligT=tx(lig,22,-6,"chemical","t",14);place(lig,560,120);
+var trigM=el("g",{"class":"layer off"},gTrig);arrow(trigM,730,200,670,200,INK2,5);arrow(trigM,810,200,870,200,INK2,5);tx(trigM,770,188,"stretch","t",14,"middle");
+var lido=el("g",{"class":"layer off"},gTrig);el("rect",{x:318,y:250,width:44,height:20,rx:5,fill:GDEEP},lido);tx(lido,340,236,"lidocaine","t",15,"middle");
+var noAP=el("g",{"class":"layer off"},gTrig);tx(noAP,340,440,"door stays shut, no signal","tm",17,"middle");
+
+/* graph scene */
+var gGr=layer("graph");
+function gy(mv){return 250-mv*2.7;}
+el("line",{x1:90,y1:70,x2:90,y2:520,stroke:NAVY,"stroke-width":4},gGr);
+el("line",{x1:90,y1:520,x2:860,y2:520,stroke:NAVY,"stroke-width":4},gGr);
+tx(gGr,475,550,"time","t",16,"middle");
+el("line",{x1:90,y1:gy(0),x2:860,y2:gy(0),stroke:INK2,"stroke-width":2,"stroke-dasharray":"8 8"},gGr);
+el("line",{x1:90,y1:gy(-70),x2:860,y2:gy(-70),stroke:INK2,"stroke-width":2,"stroke-dasharray":"8 8"},gGr);
+var gWords=el("g",{"class":"layer"},gGr);
+tx(gWords,856,gy(0)-10,"zero: inside equals outside","t",14,"end");tx(gWords,856,gy(-70)+26,"resting value","t",14,"end");
+tx(gWords,40,120,"up =","t",14);tx(gWords,40,138,"less","t",14);tx(gWords,40,156,"negative","t",14);
+var gNums=el("g",{"class":"layer off"},gGr);
+tx(gNums,82,gy(0)+5,"0","t",14,"end");tx(gNums,82,gy(-70)+5,M+"70","t",14,"end");tx(gNums,82,gy(30)+5,"+30","t",14,"end");
+var SEGS=[
+  [[100,-70],[300,-70]],
+  [[300,-70],[340,-60],[390,30]],
+  [[390,30],[440,-40],[468,-70]],
+  [[468,-70],[482,-82],[560,-80],[680,-70]],
+  [[680,-70],[850,-70]]
+];
+var segP=SEGS.map(function(pts){var d="M"+pts.map(function(q){return q[0]+" "+gy(q[1]);}).join(" L");var p=el("path",{d:d,fill:"none",stroke:MAROON,"stroke-width":6,"stroke-linejoin":"round","stroke-linecap":"round"},gGr);return p;});
+var GLAB=[
+  tx(gGr,236,gy(-20),"depolarization","tn",17),
+  tx(gGr,400,gy(30)-10,"overshoot (inside positive)","tn",17),
+  tx(gGr,456,gy(-30),"repolarization","tn",17),
+  tx(gGr,500,gy(-86)+30,"hyperpolarization","tn",17)
+];
+function segDraw(i,f){var p=segP[i],len=p.getTotalLength();p.style.strokeDasharray=len;p.style.strokeDashoffset=len*(1-f);}
+function drawSeg(i,anim,dur){return tweenVal(0,1,dur||900,anim,function(v){segDraw(i,v);});}
+
+/* number line scene */
+var gNL=layer("nline");
+function nx(mv){return 80+(mv+110)*3.1;}
+el("line",{x1:nx(-110),y1:300,x2:nx(130),y2:300,stroke:NAVY,"stroke-width":5},gNL);
+for(var mv=-110;mv<=130;mv+=10){el("line",{x1:nx(mv),y1:mv%50===0?288:294,x2:nx(mv),y2:mv%50===0?312:306,stroke:NAVY,"stroke-width":2},gNL);}
+[-100,-50,0,50,100].forEach(function(v){tx(gNL,nx(v),340,(v>0?"+":(v<0?M:""))+Math.abs(v)+(v===0?" mV":""),"t",14,"middle");});
+tx(gNL,nx(-110),380,"more negative inside","t",14,"start");tx(gNL,nx(130),380,"more positive inside","t",14,"end");
+function emark(id,mv,label,col,up){
+  var g=layer(id,gNL);g._mv=mv;
+  g._line=el("line",{x1:0,y1:300,x2:0,y2:up?190:420,stroke:col,"stroke-width":4},g);
+  g._t1=tx(g,0,up?170:446,label,col===MAROON?"tm":"tn",16,"middle");
+  g._t2=tx(g,0,up?148:468,"","t",14,"middle");
+  setMark(g,mv);return g;
+}
+function setMark(g,mv){g._mv=mv;var x=nx(mv);g._line.setAttribute("x1",x);g._line.setAttribute("x2",x);g._t1.setAttribute("x",x);g._t2.setAttribute("x",x);g._t2.textContent="about "+(mv>0?"+":(mv<0?M:""))+Math.abs(Math.round(mv))+" mV";}
+var mK=emark("mK",-90,"potassium balance point",MAROON,true);
+var mNa=emark("mNa",60,"sodium balance point",NAVY,true);
+var mCl=emark("mCl",-65,"chloride",INK2,false);
+var mCa=emark("mCa",120,"calcium",INK2,false);
+var gRest=layer("rest",gNL);
+var restDot=el("circle",{cy:300,r:14,fill:MAROON,stroke:"#fff","stroke-width":3},gRest);
+var restLab=tx(gRest,0,262,"","tm",18,"middle");
+var restCap=tx(gRest,0,240,"membrane","t",14,"middle");
+function setRest(mv){var x=nx(mv);restDot.setAttribute("cx",x);restLab.setAttribute("x",x);restCap.setAttribute("x",x);restLab.textContent=(mv>0.5?"+":(mv<-0.5?M:""))+Math.abs(Math.round(mv))+" mV";gRest._mv=mv;}
+setRest(-70);
+var gPull=layer("pull",gNL);
+var pullStem=el("line",{x1:0,y1:316,x2:0,y2:470,stroke:INK2,"stroke-width":2,"stroke-dasharray":"5 5"},gPull);
+var pullK=arrow(gPull,0,300,0,300,MAROON,10),pullNa=arrow(gPull,0,300,0,300,NAVY,4);
+var pullKT=tx(gPull,0,440,"","tm",15,"middle"),pullNaT=tx(gPull,0,440,"","tn",15,"middle");
+function setPull(k,na,kt,nat){
+  var x=nx(gRest._mv),y=470;
+  pullStem.setAttribute("x1",x);pullStem.setAttribute("x2",x);
+  pullK.setAttribute("x1",x-6);pullK.setAttribute("y1",y);pullK.setAttribute("x2",x-6-k);pullK.setAttribute("y2",y);
+  pullNa.setAttribute("x1",x+6);pullNa.setAttribute("y1",y);pullNa.setAttribute("x2",x+6+na);pullNa.setAttribute("y2",y);
+  pullKT.setAttribute("x",x-12);pullKT.setAttribute("y",y+42);pullKT.setAttribute("text-anchor","end");pullKT.textContent=kt||"";
+  pullNaT.setAttribute("x",x+12);pullNaT.setAttribute("y",y+42);pullNaT.setAttribute("text-anchor","start");pullNaT.textContent=nat||"";
+}
+var gMove=layer("move",gNL);
+var moveArr=arrow(gMove,0,0,0,0,NAVY,7),moveT=tx(gMove,0,0,"","tn",16,"middle");
+function setMove(from,to,text,col){
+  var y=210;moveArr.setAttribute("x1",nx(from));moveArr.setAttribute("x2",nx(from)+(nx(to)-nx(from))*0.85);moveArr.setAttribute("y1",y);moveArr.setAttribute("y2",y);
+  moveArr.setAttribute("stroke",col);moveArr.setAttribute("marker-end","url(#"+(col===MAROON?"am":"an")+")");
+  moveT.setAttribute("x",(nx(from)+nx(to))/2);moveT.setAttribute("y",y-18);moveT.textContent=text;moveT.setAttribute("class",col===MAROON?"tm":"tn");
+}
+var gLab=layer("labcard",gNL);
+el("rect",{x:560,y:420,width:320,height:120,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":3},gLab);
+var labT1=tx(gLab,580,452,"","tn",17),labT2=tx(gLab,580,486,"","tm",24),labT3=tx(gLab,580,518,"","t",15);
+var hoursT=tx(layer("hours",gNL),nx(-40),120,"several hours later","tm",18,"middle");
+
+/* concentration scene */
+var gCo=layer("conc");
+el("rect",{x:60,y:40,width:380,height:490,rx:24,fill:TINT},gCo);
+el("line",{x1:450,y1:40,x2:450,y2:530,stroke:NAVY,"stroke-width":8},gCo);
+tx(gCo,250,74,"Inside (mM)","tn",18,"middle");tx(gCo,660,74,"Outside (mM)","tn",18,"middle");
+var ROWS=[["K+","150","5",MAROON],["Na+","15","145",NAVY],["Cl"+M,"10","108",INK2],["Ca2+","0.0001","1",GDEEP],["large anions","many","almost none",INK2]];
+ROWS.forEach(function(r,i){var y=130+i*82;tx(gCo,90,y,r[0],"tn",20);tx(gCo,360,y,r[1],"tn",22,"end");tx(gCo,620,y,r[2],"tn",22,"end");});
+var gCoArr=layer("concarr",gCo.parentNode);
+arrow(gCoArr,480,124,590,124,INK2,5);tx(gCoArr,700,112,"K: crowding pushes out","t",14);
+arrow(gCoArr,590,146,480,146,NAVY,5);tx(gCoArr,700,160,"charge pulls in","tn",14);
+arrow(gCoArr,590,206,480,206,INK2,5);tx(gCoArr,700,194,"Na: crowding pushes in","t",14);
+arrow(gCoArr,590,228,480,228,NAVY,5);tx(gCoArr,700,242,"charge pulls in","tn",14);
+
+/* equation scene */
+var gEq=layer("eq");
+var eqParts=[];
+(function(){
+  var t=el("text",{x:450,y:200,"class":"tn","font-size":34,"text-anchor":"middle"},gEq);
+  [["E",""],["ion","sub"],[" = ( 61 mV ",""],["\u00f7 z",""],[" ) \u00d7 log ( ",""],["[out] \u00f7 [in]",""],[" )",""]].forEach(function(pr){
+    var s=el("tspan",{},t);s.textContent=pr[0];if(pr[1]==="sub"){s.setAttribute("font-size","20");s.setAttribute("dy","8");}
+    eqParts.push(s);
+  });
+  eqParts[2].setAttribute("dy","-8");
+})();
+var eqNote=tx(gEq,450,300,"","tm",22,"middle");
+var eqNote2=tx(gEq,450,340,"","t",18,"middle");
+var eqNote3=tx(gEq,450,380,"","t",18,"middle");
+var eqK=tx(gEq,450,460,"","tn",26,"middle");
+
+/* excitability scene */
+var gEx=layer("excite");
+function ey(mv){return 120+(-40-mv)*7;}
+el("line",{x1:80,y1:ey(-55),x2:860,y2:ey(-55),stroke:MAROON,"stroke-width":3,"stroke-dasharray":"10 8"},gEx);
+tx(gEx,856,ey(-55)-10,"threshold, "+M+"55 mV","tm",16,"end");
+var EXC=[["Cell A",-70,240],["Cell B",-80,470],["Cell C",-62,700]];
+var gExArr=layer("exarr",gEx.parentNode);
+EXC.forEach(function(c){
+  el("line",{x1:c[2]-60,y1:ey(c[1]),x2:c[2]+60,y2:ey(c[1]),stroke:NAVY,"stroke-width":6},gEx);
+  tx(gEx,c[2],ey(c[1])+34,c[0]+" rests at "+M+Math.abs(c[1])+" mV","tn",16,"middle");
+  arrow(gExArr,c[2],ey(c[1])-6,c[2],ey(-55)+8,MAROON,5);
+  tx(gExArr,c[2]+12,(ey(c[1])+ey(-55))/2+5,"needs "+(c[1]*-1-55)+" mV","tm",16);
+});
+
+/* ======================= scene helpers ======================= */
+var ALL=Object.keys(L);
+function only(ids){ALL.forEach(function(k){L[k].classList.toggle("off",ids.indexOf(k)<0);});}
+function kState(left,door){K.forEach(function(g,i){var p=i<left?KOUT[i]:KPOS[i];place(g,p[0],p[1]);});}
+function signs(mode){
+  signIn.forEach(function(t,i){t.style.opacity=mode==="none"?0:(mode==="weak"&&i%2?0:1);});
+  signOut.forEach(function(t,i){t.style.opacity=mode==="none"?0:(mode==="weak"&&i%2?0:1);});
+}
+function naState(inCount){NA.forEach(function(g,i){var p=NAPOS[i];place(g,p[0],p[1]);});for(var i=0;i<inCount;i++){place(NA[i],[500,82][0]-i*34,[500,82][1]+i*6);}}
+function leaveK(from,to,anim,doorY){doorY=doorY||290;var ps=[];for(var i=from;i<to;i++){(function(i){ps.push(wait((i-from)*260,anim).then(function(){return tweenPath(K[i],[[520,doorY],[600,doorY],KOUT[i]],1100,anim);}));})(i);}return Promise.all(ps);}
+function gatesReset(){GATES.forEach(function(G,i){setGate(G,i===0);G.cap.textContent="";G.cap2.textContent="";});[trigV,lig,trigM,lido,noAP].forEach(function(g){g.classList.add("off");});place(lig,560,120);}
+function show(g){g.classList.remove("off");}
+
+/* ======================= steps ======================= */
+var STEPS=[
+/* ---------- Section 1: the story ---------- */
+{sec:"A balloon full of balls",comp:"Competency 1",title:"Start with a balloon",
+ text:["Here is a balloon. Inside it there are lots of little balls. Outside there are only a few."],
+ ask:"If these balls could pass through the balloon, which way would they tend to move?",
+ ans:["Out. Each ball moves at random, but there are far more balls inside, so more of them happen to cross outward than inward. The overall movement is toward the side with fewer."],
+ name:"diffusion down a concentration gradient",
+ desc:"A balloon with fourteen maroon balls inside and three outside.",
+ pre:function(){only(["balloon","kions"]);kState(0);},
+ play:function(a){return leaveK(0,3,a,290);}},
+{title:"The balloon becomes a cell",
+ text:["Now the balloon becomes a cell, with a membrane and a nucleus. The balls are still inside.","A real membrane is different from a balloon. The balls cannot slip through it whenever they like."],
+ desc:"The balloon changes into a cell outline with a nucleus. The balls stay inside.",
+ auto:true,
+ pre:function(){only(["balloon","kions"]);kState(0);},
+ play:function(a){show(L.cell);L.balloon.classList.add("off");return wait(500,a).then(function(){show(L.nucleus);});},
+ post:function(){only(["cell","nucleus","kions"]);kState(0);}},
+{title:"The membrane blocks them",
+ text:["Watch one ball run into the membrane."],
+ ask:"If the membrane stops the balls, what would they need in order to cross?",
+ ans:["A door, a way through the membrane made for that kind of ball. The cell is not handed its doors. It has to build them."],
+ name:"channel protein",
+ desc:"A ball near the right side of the cell moves to the membrane and bounces back.",
+ pre:function(){only(["cell","nucleus","kions"]);kState(0);},
+ play:function(a){var g=K[7];return tweenPath(g,[[540,270],KPOS[7]],1200,a).then(function(){show(L.kdoor);});},
+ post:function(){only(["cell","nucleus","kions","kdoor"]);kState(0);}},
+{title:"Doors come from genes",
+ text:["A door is a protein, and every protein is built from the instructions in a gene. Watch the trip from the gene in the nucleus to the membrane."],
+ desc:"A small circle travels from the gene in the nucleus to the rough ER, then the Golgi, then to the membrane, where a door appears.",
+ auto:true,
+ pre:function(){only(["cell","nucleus","factory"]);place(carrier,190,300);facLabel.textContent="";},
+ play:function(a){
+   facLabel.textContent="the gene is copied as mRNA";
+   return tweenPath(carrier,[[330,160]],1200,a).then(function(){facLabel.textContent="ribosomes on the rough ER build the door";return wait(700,a);})
+   .then(function(){return tweenPath(carrier,[[420,410]],1200,a);}).then(function(){facLabel.textContent="the Golgi finishes and packages it";return wait(700,a);})
+   .then(function(){return tweenPath(carrier,[[540,290]],1100,a);}).then(function(){facLabel.textContent="a vesicle delivers it to the membrane";show(L.kdoor);});
+ },
+ post:function(){only(["cell","nucleus","factory","kdoor"]);place(carrier,540,290);facLabel.textContent="a vesicle delivers it to the membrane";}},
+{title:"A door for potassium",
+ text:["Let's name our balls. They are potassium, and the cell is packed with it.","The cell builds a door that fits only potassium, and this door stays open all the time."],
+ ask:"The door is open. What will the potassium do?",
+ ans:["It leaves. There is much more potassium inside than outside, so potassium moves out through the open door."],
+ name:"potassium leak channel",
+ desc:"The cell is full of maroon potassium balls labeled K. One potassium door on the right is open. Potassium balls leave through it.",
+ pre:function(){only(["cell","kions","kdoor"]);kState(0);},
+ play:function(a){return leaveK(0,4,a);}},
+{title:"Every ball carries a charge",
+ text:["Here is the new piece of information. Each potassium carries one positive charge.","The cell is also full of large proteins with negative charges. They are far too big to fit through any door."],
+ ask:"Potassium is leaving and taking its positive charge with it. The negative proteins stay. What happens to the charge inside the cell?",
+ ans:["The inside becomes negative. Each potassium that leaves carries a plus away and leaves an unmatched minus behind.","The extra charge gathers in a very thin layer at the membrane: minuses on the inside face and pluses on the outside face. Only a tiny fraction of the potassium has to leave to do this."],
+ name:"charge separation across the membrane",
+ desc:"Gray negative proteins appear inside the cell. As more potassium leaves, minus signs appear along the inside of the membrane and plus signs along the outside.",
+ pre:function(){only(["cell","kions","kdoor","anions","signs"]);kState(4);signs("none");},
+ play:function(a){return leaveK(4,6,a).then(function(){signs("all");});}},
+{title:"A tug of war at the door",
+ text:["Now picture one potassium standing in the open door. Two things are pulling on it."],
+ ask:"What are the two pulls, which way does each one go, and will all of the potassium eventually leave?",
+ ans:["The crowding pushes potassium out, because there is still far more inside. The negative inside pulls it back in, because opposite charges attract.","Every potassium that leaves makes the inside more negative, so the pull back grows until the two pulls are equal. Then potassium moves in and out equally, with no net movement, long before the potassium runs out."],
+ name:"equilibrium potential",
+ desc:"One potassium sits in the door. A big maroon arrow pushing out is shown first with a small navy arrow pulling in. The navy arrow grows until both arrows are the same size.",
+ pre:function(){only(["cell","anions","signs","kdoor","tugk","tugbig"]);signs("weak");place(tugK,560,290);},
+ play:function(a){
+   return wait(900,a).then(function(){L.tugbig.classList.add("off");show(L.tug);signs("all");return tweenPath(tugK,[[600,290],[520,290],[590,290],[530,290],[560,290]],2400,a);});
+ },
+ post:function(){only(["cell","anions","signs","kdoor","tugk","tug"]);signs("all");place(tugK,560,290);}},
+{sec:"Sodium, and why potassium has the most say",comp:"Competencies 1 and 3",title:"Meet sodium",
+ text:["The cell has a second kind of ball: sodium. Sodium is the opposite of potassium. It is crowded outside and scarce inside, and it also carries one positive charge."],
+ ask:"Look at a sodium ball outside the cell. Which way does the crowding push it, and which way does the negative inside pull it?",
+ ans:["Both point in. The crowding pushes sodium in, and the negative inside pulls this positive ion in too. Sodium is pushed in from both directions."],
+ desc:"Navy sodium balls labeled Na crowd the outside. Two arrows at the top right both point into the cell.",
+ pre:function(){only(["cell","anions","signs","kdoor","kions","naions"]);kState(6);signs("all");naState(0);},
+ play:function(a){show(L.naarrows);return Promise.resolve();},
+ post:function(){only(["cell","anions","signs","kdoor","kions","naions","naarrows"]);kState(6);signs("all");naState(0);}},
+{title:"Only a few sodium doors",
+ text:["Back to the nucleus: the cell builds a door for sodium, but only a few of them. Potassium has many open doors."],
+ ask:"A little sodium trickles in through the sodium door. What does that do to the charge inside the cell?",
+ ans:["The inside becomes a bit less negative, because each sodium brings a plus in.","The effect is small because there are so few sodium doors. The ion with more open doors has more say over the charge."],
+ name:"membrane permeability",
+ desc:"A sodium door appears near the top of the membrane. Two sodium balls move into the cell. Some of the minus signs fade.",
+ pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("all");naState(0);},
+ play:function(a){return tweenPath(NA[0],[[600,110],[560,110],[500,140]],1100,a).then(function(){return tweenPath(NA[1],[[600,110],[560,110],[440,150]],1100,a);}).then(function(){signs("weak");});},
+ post:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("weak");naState(2);}},
+{title:"Potassium has the most say",
+ text:["Count the doors: three for potassium and one for sodium. Potassium can cross far more easily than sodium, so potassium sets most of the charge.","Sodium's small leak is the only reason the inside is not even more negative."],
+ ask:"A drug blocks every potassium door. Does the inside stay just as negative?",
+ ans:["No. With potassium unable to leave, nothing keeps carrying positive charge out, but sodium keeps trickling in. The inside becomes less negative.","That shows the potassium leak doors are the main reason the inside is negative at all."],
+ desc:"The cell shows three potassium doors and one sodium door. When the potassium doors are blocked, sodium keeps entering and the minus signs fade.",
+ pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("weak");naState(2);},
+ play:function(a){L.kdoor.classList.add("off");L.kdoor2.classList.add("off");L.kdoor3.classList.add("off");return tweenPath(NA[2],[[600,110],[560,110],[470,160]],1100,a).then(function(){signs("none");});}},
+{sec:"The pump",comp:"Competency 7",title:"The leaks never stop",
+ text:["Sodium keeps leaking in and potassium keeps leaking out, a little at a time, all day long."],
+ ask:"If nothing stopped the leaks, what would happen to the crowding on each side over many hours?",
+ ans:["The crowding would slowly even out. With no crowding there would be no push to separate the charge, and the inside would lose its negative charge."],
+ desc:"The cell with its potassium and sodium doors. Ions keep leaking in both directions.",
+ pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("weak");naState(2);},
+ play:function(a){return Promise.all([leaveK(6,8,a,200),tweenPath(NA[2],[[600,110],[560,110],[470,160]],1300,a)]).then(function(){signs("none");});}},
+{title:"Build a machine",
+ text:["So the cell reads one more gene and builds a machine for the membrane. It uses energy from ATP to carry ions back uphill: three sodium out and two potassium in, every cycle.","Its job is to keep the crowding in place. Because it moves three pluses out for every two in, it also adds a little negative charge by itself, but only a few millivolts' worth."],
+ name:"sodium potassium pump",
+ desc:"A round pump appears low on the membrane. Three sodium balls move out through it and two potassium balls move in.",
+ auto:true,
+ pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump"]);kState(6);signs("weak");naState(3);},
+ play:function(a){
+   var t=[ionNa(svg),ionNa(svg),ionNa(svg),ionK(svg),ionK(svg)];
+   place(t[0],500,440);place(t[1],500,478);place(t[2],470,460);place(t[3],660,440);place(t[4],690,490);
+   return Promise.all([tweenPath(t[0],[[560,460],[650,440]],1300,a),tweenPath(t[1],[[560,460],[660,500]],1300,a),tweenPath(t[2],[[560,460],[630,520]],1300,a)])
+   .then(function(){return Promise.all([tweenPath(t[3],[[560,460],[500,430]],1200,a),tweenPath(t[4],[[560,460],[505,490]],1200,a)]);})
+   .then(function(){return wait(600,a);}).then(function(){t.forEach(function(g){g.remove();});signs("all");});
+ },
+ post:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump"]);kState(6);signs("all");naState(3);}},
+{title:"Tell the story so far",comp:"Check",
+ text:["Before you go on, write the story so far in your own words, from the balloon to the pump. Use the worksheet box."],
+ ask:"Tell the whole story so far: why does the inside of a resting cell end up negative, and what keeps it that way?",
+ ans:["Potassium is crowded inside and has many open doors, so it leaks out. It carries plus charge away and leaves the large negative proteins behind, so the inside turns negative. The negative inside pulls potassium back until the push out and the pull in balance. A few sodium doors let a little sodium in, making the inside a bit less negative. The pump spends ATP to keep sodium crowded outside and potassium crowded inside, so the whole arrangement lasts."],
+ desc:"The finished cell with potassium doors, a sodium door, the pump, and charge along the membrane.",
+ pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump"]);kState(6);signs("all");naState(3);},
+ play:function(){return Promise.resolve();}},
+/* ---------- Section: doors ---------- */
+{sec:"Kinds of doors",comp:"Competency 8",title:"Most doors have gates",
+ text:["The potassium leak door is always open. Most other channels are gated: something opens them and something closes them again."],
+ ask:"Think about what a cell might need to respond to. What kinds of things could open a door?",
+ ans:["A voltage-gated door opens when the charge across the membrane changes, and it closes again, for a sodium channel through a built-in plug.","A ligand-gated door opens when a chemical such as a neurotransmitter binds, and closes when the chemical comes off.","A mechanically gated door opens when the membrane is stretched or pressed, and closes when the force is removed.","The leak door has no gate at all."],
+ desc:"Four doors sit in a membrane. The leak door is open. In turn, a change in charge opens the voltage-gated door, a chemical lands on and opens the ligand-gated door, and stretching opens the mechanically gated door.",
+ pre:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="always open";},
+ play:function(a){
+   show(trigV);return wait(700,a).then(function(){setGate(GATES[1],true);GATES[1].cap.textContent="opens when";GATES[1].cap2.textContent="the charge changes";show(lig);return tweenPath(lig,[[560,236]],1000,a);})
+   .then(function(){setGate(GATES[2],true);GATES[2].cap.textContent="opens when";GATES[2].cap2.textContent="a chemical binds";show(trigM);return wait(800,a);})
+   .then(function(){setGate(GATES[3],true);GATES[3].cap.textContent="opens when";GATES[3].cap2.textContent="it is stretched";});
+ }},
+/* ---------- Section: reading a trace ---------- */
+{sec:"Words for changes",comp:"Competency 10",title:"Watching the charge over time",
+ text:["We can record the charge inside a cell as a line over time. Up means the inside is less negative. Down means it is more negative.","Right now the cell is at rest, so the line is flat."],
+ desc:"A graph with a dashed line for zero and a dashed line for the resting value. A maroon line is drawn flat along the resting value.",
+ auto:true,
+ pre:function(){only(["graph"]);segP.forEach(function(p,i){segDraw(i,0);});GLAB.forEach(function(t){t.style.opacity=0;});gNums.classList.add("off");},
+ play:function(a){return drawSeg(0,a,1200);},
+ post:function(){only(["graph"]);segDraw(0,1);[1,2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t){t.style.opacity=0;});}},
+{title:"The line starts to rise",
+ text:["Something makes the line start to climb toward zero."],
+ ask:"As the line rises toward zero, is the inside becoming more negative or less negative?",
+ ans:["Less negative. Moving from the resting value toward zero means the membrane is less polarized than it was."],
+ name:"depolarization",
+ desc:"The maroon line rises from the resting value up past zero.",
+ pre:function(){only(["graph"]);segDraw(0,1);[1,2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t){t.style.opacity=0;});},
+ play:function(a){return drawSeg(1,a,1100).then(function(){GLAB[0].style.opacity=1;});},
+ post:function(){only(["graph"]);segDraw(0,1);segDraw(1,1);[2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t,i){t.style.opacity=i===0?1:0;});}},
+{title:"Up, back down, and below",
+ text:["Watch the rest of the trace. Each part has its own word."],
+ desc:"Labels appear in turn: overshoot above zero, repolarization on the way down, hyperpolarization below the resting value, and then the line returns to rest.",
+ auto:true,
+ pre:function(){only(["graph"]);segDraw(0,1);segDraw(1,1);[2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t,i){t.style.opacity=i===0?1:0;});},
+ play:function(a){GLAB[1].style.opacity=1;return wait(700,a).then(function(){return drawSeg(2,a,900);}).then(function(){GLAB[2].style.opacity=1;return drawSeg(3,a,1100);}).then(function(){GLAB[3].style.opacity=1;return drawSeg(4,a,700);});},
+ post:function(){only(["graph"]);[0,1,2,3,4].forEach(function(i){segDraw(i,1);});GLAB.forEach(function(t){t.style.opacity=1;});}},
+{title:"The words describe the change",
+ text:["These words describe which way the line moved compared with rest, not whether the inside is positive or negative."],
+ ask:"At the peak the inside is positive, and then it starts moving back toward zero while it is still positive. Which word describes that change?",
+ ans:["Repolarization. The inside is still positive, but the membrane is heading back toward its resting value.","In the same way, a change from the resting value to a value that is still negative but closer to zero is a depolarization."],
+ desc:"The full trace with all four labels.",
+ pre:function(){only(["graph"]);[0,1,2,3,4].forEach(function(i){segDraw(i,1);});GLAB.forEach(function(t){t.style.opacity=1;});},
+ play:function(){return Promise.resolve();}},
+/* ---------- Section: the numbers ---------- */
+{sec:"Now the numbers",comp:"Competency 2",title:"How much of each ion",
+ text:["Everything so far works without numbers. Now here are the real ones, in millimoles per liter (mM). Textbooks differ a little, but the pattern is the same."],
+ ask:"Which ion is the odd one out in this table, and what else inside the cell carries charge but can never leave?",
+ ans:["Potassium is the odd one out. It is the only ion crowded inside. Sodium, chloride and calcium are all crowded outside.","The large anions, negatively charged proteins and molecules such as ATP, stay inside because they are too big to cross. They are the negative charge left behind when potassium leaves."],
+ desc:"A table drawn as a cell membrane with inside and outside values: potassium 150 inside and 5 outside, sodium 15 inside and 145 outside, chloride 10 inside and 108 outside, calcium 0.0001 inside and 1 outside, and many large anions inside with almost none outside.",
+ pre:function(){only(["conc"]);},play:function(){return Promise.resolve();}},
+{comp:"Competency 4",title:"Two pushes, one total",
+ text:["Each ion feels two pushes. The concentration push comes from crowding and ignores charge. The electrical push comes from charge and ignores crowding. Added together, they are the electrochemical gradient."],
+ ask:"The inside is negative. For potassium and for sodium, which way does the crowding push, and which way does the charge pull?",
+ ans:["Potassium: crowding pushes it out, charge pulls it in. They oppose each other, and at rest there is a small net push out.","Sodium: crowding pushes it in and charge pulls it in. Both point the same way, so sodium is pushed in hard."],
+ desc:"Arrows appear beside the potassium row pointing out for crowding and in for charge, and beside the sodium row both pointing in.",
+ pre:function(){only(["conc"]);},play:function(){show(L.concarr);return Promise.resolve();},post:function(){only(["conc","concarr"]);}},
+{title:"The number for the charge",
+ text:["The charge across the membrane is measured with a very fine electrode inside the cell and a reference outside. The number compares the inside with the outside."],
+ desc:"An electrode slides into the cell. The meter reads minus 70 millivolts.",
+ auto:true,
+ pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump","electrode"]);kState(6);signs("all");naState(3);place(probe,400,-10);meter.textContent="";},
+ play:function(a){return tweenPath(probe,[[400,230]],1300,a).then(function(){meter.textContent=M+"70 mV";});},
+ post:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump","electrode"]);kState(6);signs("all");naState(3);place(probe,400,230);meter.textContent=M+"70 mV";}},
+{sec:"Balance points",comp:"Competency 5",title:"Potassium's balance point",
+ text:["In the tug of war, potassium stopped moving on net when the charge pull matched the crowding push. The voltage where that happens is potassium's balance point."],
+ ask:"The resting cell is at "+M+"70 mV. If potassium were the only ion that could cross, would its balance point be more negative or less negative than "+M+"70?",
+ ans:["More negative: about "+M+"90 mV. Without sodium's small leak pulling the other way, the inside would get as negative as potassium alone can make it."],
+ name:"equilibrium potential for potassium, E\u2096",
+ desc:"A voltage line from minus 110 to plus 130 millivolts, with the membrane at minus 70. Potassium's balance point appears at about minus 90.",
+ pre:function(){only(["nline","rest"]);setRest(-70);},play:function(){show(L.mK);return Promise.resolve();},post:function(){only(["nline","rest","mK"]);setRest(-70);}},
+{title:"Every ion has one",
+ text:["Every ion has its own balance point: the voltage inside that would exactly cancel its crowding. Sodium's is about +60 mV. Chloride's is about "+M+"65 mV and calcium's is about +120 mV.","At "+M+"70 mV, potassium is 20 mV from its balance point, and sodium is 130 mV from its. That is why sodium's push is so much stronger."],
+ desc:"The balance points for sodium, chloride and calcium appear on the voltage line.",
+ auto:true,
+ pre:function(){only(["nline","rest","mK"]);setRest(-70);},
+ play:function(a){show(L.mNa);return wait(600,a).then(function(){show(L.mCl);return wait(600,a);}).then(function(){show(L.mCa);});},
+ post:function(){only(["nline","rest","mK","mNa","mCl","mCa"]);setRest(-70);}},
+{title:"The Nernst equation, read in plain words",
+ text:["This equation turns an ion's crowding into its balance point. You will learn to read it, not calculate with it. Watch each part light up."],
+ desc:"The Nernst equation appears. Each part is highlighted in turn with a plain explanation below it.",
+ auto:true,
+ pre:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="";eqNote2.textContent="";eqNote3.textContent="";eqK.textContent="";},
+ play:function(a){
+   function hi(idx,t1,t2,t3){eqParts.forEach(function(s,i){s.setAttribute("fill",idx.indexOf(i)>=0?MAROON:NAVY);});eqNote.textContent=t1;eqNote2.textContent=t2;eqNote3.textContent=t3||"";}
+   hi([0,1],"E is the balance point","the voltage inside compared with outside");
+   return wait(2200,a).then(function(){hi([5],"[out] \u00f7 [in] is the crowding","every tenfold difference is worth about 61 mV");return wait(2600,a);})
+   .then(function(){hi([3],"z is the ion's charge","+1 for K and Na, "+M+"1 for Cl, +2 for Ca");return wait(2600,a);})
+   .then(function(){hi([2],"61 mV packs in constants","and body temperature, 37 \u00b0C (98.6 \u00b0F)");return wait(2600,a);})
+   .then(function(){hi([],"What it says:","it turns a concentration ratio into","the voltage that would exactly cancel it");});
+ },
+ post:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="What it says:";eqNote2.textContent="it turns a concentration ratio into";eqNote3.textContent="the voltage that would exactly cancel it";eqK.textContent="";}},
+{title:"Reading the equation",
+ text:["Potassium is 150 mM inside and 5 mM outside, which gives about "+M+"90 mV."],
+ ask:"Outside potassium rises from 5 to 10 mM. Does potassium's balance point get more negative or less negative?",
+ ans:["Less negative, about "+M+"72 mV. With more potassium outside, the crowding push out is weaker, so less negative charge inside is needed to balance it. This is the whole story of high blood potassium, which comes up in the patients at the end."],
+ desc:"The equation stays on screen. The value for potassium changes from about minus 90 to about minus 72 millivolts.",
+ pre:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="";eqNote2.textContent="";eqNote3.textContent="";eqK.textContent="E for K with 5 mM outside: about "+M+"90 mV";},
+ play:function(a){return wait(300,a).then(function(){eqK.textContent="E for K with 10 mM outside: about "+M+"72 mV";});},
+ post:function(){only(["eq"]);eqK.textContent="E for K with 10 mM outside: about "+M+"72 mV";}},
+{sec:"Which way will it move?",comp:"Competency 6",title:"The rule",
+ text:["If an ion's door is open, the ion moves toward its own balance point, and it drags the membrane with it. If the door is closed, nothing moves, however strong the pull."],
+ ask:"The membrane is at "+M+"70 mV and sodium doors open. Which way does sodium move, and which way does the membrane go?",
+ ans:["Sodium moves in, because "+M+"70 is far below sodium's balance point of +60. Each sodium brings a plus in, so the membrane moves up toward +60."],
+ desc:"On the voltage line, an arrow runs from the membrane at minus 70 toward sodium's balance point at plus 60.",
+ pre:function(){only(["nline","rest","mNa","mK"]);setRest(-70);},
+ play:function(){setMove(-70,60,"sodium moves in",NAVY);show(L.move);return Promise.resolve();},
+ post:function(){only(["nline","rest","mNa","mK","move"]);setRest(-70);setMove(-70,60,"sodium moves in",NAVY);}},
+{title:"Same rule, new starting point",
+ text:["Now the membrane has been pushed up to +30 mV."],
+ ask:"At +30 mV, potassium doors open. Which way does potassium move, and how hard?",
+ ans:["Out, and hard. At +30 mV, potassium is 120 mV from its balance point, far more than at rest. Potassium rushes out and pulls the membrane back down. This is how a cell recovers after an action potential."],
+ desc:"The membrane marker sits at plus 30. An arrow runs from it toward potassium's balance point at minus 90.",
+ pre:function(){only(["nline","rest","mNa","mK"]);setRest(30);},
+ play:function(){setMove(30,-90,"potassium moves out",MAROON);show(L.move);return Promise.resolve();},
+ post:function(){only(["nline","rest","mNa","mK","move"]);setRest(30);setMove(30,-90,"potassium moves out",MAROON);}},
+{sec:"Why rest is "+M+"70",comp:"Competencies 3 and 9",title:"A tug of war on the whole membrane",
+ text:["Every ion pulls the membrane toward its own balance point, and the ion with the most open doors pulls hardest. At rest, a neuron is roughly 25 times more permeable to potassium than to sodium.","Watch what happens with only potassium doors, and then with a few sodium doors added."],
+ desc:"The membrane marker starts at zero. With only potassium doors it slides to minus 90. When a few sodium doors are added, it settles at minus 70, with a big potassium arrow and a small sodium arrow.",
+ auto:true,
+ pre:function(){only(["nline","rest","mK","mNa"]);setRest(0);setPull(0,0);},
+ play:function(a){
+   return tweenVal(0,-90,1600,a,setRest).then(function(){return wait(700,a);})
+   .then(function(){return tweenVal(-90,-70,1300,a,setRest);}).then(function(){show(L.pull);setPull(120,40,"potassium: many doors","sodium: few doors");});
+ },
+ post:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"potassium: many doors","sodium: few doors");}},
+{title:"The Goldman equation",
+ text:["The Goldman equation is the same tug of war written as math. It is a weighted average of the balance points, where each ion's weight is how many open doors it has. Potassium's weight is biggest, so rest sits near "+M+"90, and sodium's small weight drags it to about "+M+"70."],
+ ask:"A drug opens extra potassium leak doors. Where does the membrane go?",
+ ans:["Closer to "+M+"90 mV. Potassium's team gets more players, so it pulls the membrane further toward its own balance point. The cell hyperpolarizes."],
+ desc:"The membrane marker slides from minus 70 toward minus 90 as the potassium arrow grows.",
+ pre:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"potassium: many doors","sodium: few doors");},
+ play:function(a){return tweenVal(-70,-82,1300,a,function(v){setRest(v);setPull(150,30,"potassium: more doors","sodium: few doors");});}},
+{title:"Open the sodium doors instead",
+ text:["Back at rest. Now imagine many sodium doors opening all at once."],
+ ask:"Many sodium doors open at once. Where does the membrane go?",
+ ans:["Up toward +60 mV. Suddenly sodium's team outnumbers potassium's, so the membrane swings toward sodium's balance point. That swing is how an action potential begins, which is the next lecture."],
+ desc:"The membrane marker races from minus 70 toward plus 60 as the sodium arrow grows.",
+ pre:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"potassium: many doors","sodium: few doors");},
+ play:function(a){return tweenVal(-70,30,1300,a,function(v){setRest(v);setPull(30,150,"potassium","sodium: many doors open");});}},
+{comp:"Competency 7",title:"What the pump does, and what it does not",
+ text:["The pump keeps the crowding steady over minutes to hours and adds a few millivolts directly. It does not set the "+M+"70 mV from moment to moment. The leak doors do that."],
+ ask:"A poison stops the pump completely. Does the membrane potential collapse right away? What happens if you wait several hours?",
+ ans:["Not right away. The membrane moves only a few millivolts at first, because the leak doors are still working with the crowding that is already there.","Over hours it drifts toward 0 mV. The leaks keep running with nothing to carry ions back, the crowding evens out, and without crowding nothing holds the charge apart. The pump is not the battery. It keeps the battery charged."],
+ desc:"The membrane marker moves only slightly at first, from minus 70 to about minus 66. A label reads several hours later, and the marker drifts toward zero.",
+ pre:function(){only(["nline","rest","mK","mNa"]);setRest(-70);},
+ play:function(a){return tweenVal(-70,-66,900,a,setRest).then(function(){return wait(900,a);}).then(function(){show(L.hours);return tweenVal(-66,-8,2400,a,setRest);});},
+ post:function(){only(["nline","rest","mK","mNa","hours"]);setRest(-8);}},
+/* ---------- excitability and patients ---------- */
+{sec:"Why it matters",comp:"Competency 11",title:"Rest is the starting line",
+ text:["A neuron fires when its membrane is pushed up to threshold, about "+M+"55 mV. The gap between rest and threshold is how big a push the cell needs. That is what excitability means."],
+ ask:"Three neurons share a threshold of "+M+"55 mV. Cell A rests at "+M+"70, cell B at "+M+"80 and cell C at "+M+"62. Rank them from easiest to hardest to fire.",
+ ans:["C, then A, then B. Cell C needs only 7 mV to reach threshold, A needs 15 and B needs 25.","A depolarized cell is usually more excitable. The catch: if a cell stays depolarized for a long time, its sodium channels get stuck with their plugs in, and it becomes less excitable. The first patient shows this."],
+ desc:"Three resting lines at minus 70, minus 80 and minus 62 below a dashed threshold line at minus 55. Arrows show the gap for each: 15, 25 and 7 millivolts.",
+ pre:function(){only(["excite"]);},play:function(){show(L.exarr);return Promise.resolve();},post:function(){only(["excite","exarr"]);}},
+{sec:"Patients",title:"Patient 1: missed dialysis",
+ text:["Mr. T is 67 and has kidney failure. He missed two dialysis sessions and comes in weak, with a slow, irregular pulse."],
+ ask:"His kidneys are not removing potassium, so his blood potassium is 7.0 mM (normal 3.5 to 5.0). What happens to potassium's balance point, and then to his resting membrane potential?",
+ ans:["More potassium outside weakens the crowding push, so potassium's balance point rises from about "+M+"90 to about "+M+"81 mV. Rest follows it up to about "+M+"65 mV, and his cells depolarize.","At first that brings them closer to threshold. If it lasts, the sodium channels stay plugged and the cells can barely fire. In the heart that means slow, disorganized conduction and a risk of cardiac arrest."],
+ desc:"A lab card shows plasma potassium 7.0 millimolar with a normal range of 3.5 to 5.0. Potassium's balance point slides from minus 90 to minus 81, and the membrane marker slides from minus 70 to about minus 65.",
+ pre:function(){only(["nline","rest","mK","mNa","labcard"]);setRest(-70);setMark(mK,-90);labT1.textContent="Plasma potassium";labT2.textContent="7.0 mM";labT3.textContent="normal range 3.5 to 5.0 mM";},
+ play:function(a){return tweenVal(-90,-81,1300,a,function(v){setMark(mK,v);}).then(function(){return tweenVal(-70,-65,1100,a,setRest);});},
+ post:function(){only(["nline","rest","mK","mNa","labcard"]);setMark(mK,-81);setRest(-65);labT1.textContent="Plasma potassium";labT2.textContent="7.0 mM";labT3.textContent="normal range 3.5 to 5.0 mM";}},
+{title:"Patient 1: the treatments",
+ text:["The team gives three treatments: IV calcium gluconate, IV insulin with glucose, and emergency dialysis."],
+ ask:"For each treatment, decide whether it protects the heart, lowers the potassium in his blood, or removes potassium from his body.",
+ ans:["Calcium gluconate protects the heart. It does not change potassium at all. It raises the threshold of heart cells, which restores some distance between rest and threshold and buys time.","Insulin lowers the blood level by speeding up the pump, which moves potassium into cells. Glucose keeps his blood sugar from falling. The potassium is still in his body, so this lasts only hours.","Dialysis removes the potassium. It is the only one of the three that fixes the problem."],
+ desc:"The lab card for Mr. T stays on screen beside the voltage line.",
+ pre:function(){only(["nline","rest","mK","mNa","labcard"]);setMark(mK,-81);setRest(-65);labT1.textContent="Plasma potassium";labT2.textContent="7.0 mM";labT3.textContent="normal range 3.5 to 5.0 mM";},
+ play:function(){return Promise.resolve();}},
+{title:"Patient 2: the water pill",
+ text:["Ms. R is 45 and takes furosemide, a diuretic, for heart failure. It makes her kidneys lose potassium. She has leg cramps and her legs feel weak."],
+ ask:"Her blood potassium is 2.8 mM (normal 3.5 to 5.0). Predict what happens to potassium's balance point, to her resting membrane potential and to how easily her muscles fire.",
+ ans:["Less potassium outside strengthens the crowding push, so potassium's balance point drops to about "+M+"105 mV, and rest follows it down to about "+M+"76 mV. Her muscle cells hyperpolarize.","A hyperpolarized cell is farther from threshold, so it needs a bigger push to fire. That is why her muscles feel weak. She needs potassium replacement, and if she takes digoxin, low potassium makes digoxin toxicity more likely."],
+ desc:"A lab card shows plasma potassium 2.8 millimolar with a normal range of 3.5 to 5.0. Potassium's balance point slides to minus 105 and the membrane marker slides to about minus 76.",
+ pre:function(){only(["nline","rest","mK","mNa","labcard"]);setRest(-70);setMark(mK,-90);labT1.textContent="Plasma potassium";labT2.textContent="2.8 mM";labT3.textContent="normal range 3.5 to 5.0 mM";},
+ play:function(a){return tweenVal(-90,-105,1300,a,function(v){setMark(mK,v);}).then(function(){return tweenVal(-70,-76,1100,a,setRest);});},
+ post:function(){only(["nline","rest","mK","mNa","labcard"]);setMark(mK,-105);setRest(-76);labT1.textContent="Plasma potassium";labT2.textContent="2.8 mM";labT3.textContent="normal range 3.5 to 5.0 mM";}},
+{title:"Patient 3: the numbed skin",
+ text:["Before a femoral artery puncture in interventional radiology, the physician injects lidocaine into the skin. Lidocaine blocks voltage-gated sodium channels."],
+ ask:"Does lidocaine change the resting membrane potential of the pain nerves in that skin? Why does the patient feel no pain from the needle?",
+ ans:["The resting potential barely changes, because rest is set by the leak doors and lidocaine does not block them.","What lidocaine blocks is the door that turns a stimulus into a signal. The needle still nudges the membrane, but the voltage-gated sodium doors cannot open, so no pain signal is sent. A normal resting potential is necessary for a nerve to work, but it is not enough on its own."],
+ desc:"The voltage-gated door is shown with a lidocaine block in it. A change in charge arrives, but the door stays shut and no signal is sent.",
+ pre:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="leak door still open";show(lido);},
+ play:function(a){show(trigV);return wait(900,a).then(function(){show(noAP);});},
+ post:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="leak door still open";show(lido);show(trigV);show(noAP);}},
+{sec:"Put it together",comp:"Review",title:"The whole story, with the real names",
+ text:["Last one. Use the worksheet box to tell the whole story, this time with the science words and the numbers."],
+ ask:"Explain the resting membrane potential from start to finish: where the ions are, why the inside is negative, why rest is about "+M+"70 mV, and what the pump does.",
+ ans:["Potassium is concentrated inside and sodium, chloride and calcium outside, and the sodium potassium pump keeps it that way using ATP. At rest the membrane has many open potassium leak channels and few open sodium channels. Potassium diffuses out, leaving the large negative anions behind, so the inside becomes negative. The negative charge pulls potassium back until the forces balance at its equilibrium potential, about "+M+"90 mV. A small sodium leak pulls the membrane toward sodium's equilibrium potential of about +60 mV, so rest settles at about "+M+"70 mV. Raising outside potassium depolarizes the cell, lowering it hyperpolarizes the cell, and opening many sodium channels swings the membrane toward +60 mV, which is where the action potential begins."],
+ desc:"The voltage line with every balance point and the membrane at minus 70.",
+ pre:function(){only(["nline","rest","mK","mNa","mCl","mCa"]);setRest(-70);setMark(mK,-90);},
+ play:function(){return Promise.resolve();}}
+];
+
+/* ======================= support videos ======================= */
+var KA="https://www.khanacademy.org/science/health-and-medicine/nervous-system-and-sensory-infor/neuron-membrane-potentials-topic/v/";
+var V={
+  desc:{u:KA+"neuron-resting-potential-description",n:"Neuron resting potential description"},
+  mech:{u:KA+"neuron-resting-potential-mechanism",n:"Neuron resting potential mechanism"},
+  lig:{u:"https://www.khanacademy.org/test-prep/nclex-rn/nervous-system-phy/rn-biosignaling/v/ligand-gated-ion-channels",n:"Ligand gated ion channels"},
+  graded:{u:"https://www.khanacademy.org/science/mcat/organ-systems/neuron-membrane-potentials/v/neuron-graded-potential-description",n:"Neuron graded potential description"}
+};
+var SUP={
+  "A door for potassium":[["Why does K\u207a want to leave?","mech","Listen for potassium moving from where it is crowded to where there is less of it."],["How does K\u207a cross at rest?","mech","Listen for the leak channels that stay open at rest."]],
+  "Every ball carries a charge":[["Why is there voltage across a cell membrane?","desc","Listen for charge separated across the membrane, with the inside negative compared with the outside."]],
+  "A tug of war at the door":[["Why is K\u207a pulled back in?","mech","Listen for opposite charges attracting."]],
+  "Only a few sodium doors":[["Why can some ions cross more easily?","mech","Listen for how the number of open channels sets permeability."]],
+  "Potassium has the most say":[["If Na\u207a wants in, why isn't the inside positive?","mech","Listen for how few sodium channels are open at rest."]],
+  "Build a machine":[["What is the pump actually doing?","mech","Listen for the pump keeping the gradients in place, not setting the voltage moment to moment."]],
+  "Most doors have gates":[["What makes a channel open?","lig","This one covers ligand-gated channels, where a chemical binding opens the door."]],
+  "The line starts to rise":[["What does depolarization mean?","graded","Listen for the membrane becoming less negative."]],
+  "Up, back down, and below":[["What does hyperpolarization mean?","graded","Listen for the membrane becoming more negative than rest."]],
+  "How much of each ion":[["Where are Na\u207a and K\u207a?","mech","Listen for potassium high inside, sodium high outside, and the anions trapped inside."]],
+  "Two pushes, one total":[["Which way will the ion actually move?","mech","Listen for the chemical and electrical forces added together."]],
+  "Potassium's balance point":[["Why doesn't K\u207a keep leaving?","mech","Listen for the chemical and electrical forces balancing."]],
+  "A tug of war on the whole membrane":[["Why is the resting potential close to potassium's balance point?","mech","Listen for how relative permeability decides where the membrane sits."]],
+  "Patient 1: missed dialysis":[["What happens if the potassium outside changes?","mech","The video sets up the potassium gradient. Use it to reason through Mr. T: a changed gradient changes potassium's balance point, which changes the resting potential."]]
+};
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w04-rmp-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Write your prediction in the worksheet, then click Show me.':'Write your prediction in the worksheet, then click Show me. Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];gK.classList.toggle("nolab",i<4);
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  renderCurrent();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+playBtn.addEventListener("click",function(){runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, the balloon</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished)unlockJump(false);
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w04-rmp-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+</body>
+</html>

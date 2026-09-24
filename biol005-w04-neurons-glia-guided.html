@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neurons and neuroglia, step by step | BIOL 005 Week 4</title>
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:#C9CED8; --page:#FAFAF9; --card:#FFFFFF;
+  --shadow:0 1px 3px rgba(0,0,0,0.08); --shadow2:0 8px 16px rgba(0,0,0,0.10);
+  --head:"Open Sans","Segoe UI",Arial,sans-serif;
+  --body:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.top{background:#fff;box-shadow:var(--shadow);position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.45rem);margin:0;flex:1 1 320px;line-height:1.2}
+.top .course{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink2)}
+.jump{position:relative}
+.tbtn{font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.tbtn.primary{background:var(--navy);color:#fff}
+.tbtn.primary:hover{background:var(--navy-deep)}
+.tbtn:disabled{opacity:.45;cursor:not-allowed}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:12px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:8px;padding:10px 12px;font:600 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:var(--navy-tint)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:var(--navy-tint)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:12px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:12px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:.9rem;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:10px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:1rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;font-size:1.25rem;margin:0 0 4px}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:10px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:.85rem;color:var(--maroon);margin:0 0 3px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Neurons and neuroglia, step by step</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=4" target="_top">Week 4 lectures</a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn">Show me</button>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Write each prediction here before you click Show me. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 4: Neurons and neuroglia, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+markers();
+var REG={};
+function G(name,p){var g=el("g",{},p||svg);REG[name]=g;return g;}
+function only(list){for(var k in REG)REG[k].setAttribute("display","none");list.forEach(function(k){if(REG[k])REG[k].setAttribute("display","");});}
+function fade(g,o){g.setAttribute("opacity",o);}
+
+/* ---- soma + dendrites + axon skeleton ---- */
+var gDend=G("dend");
+[[[230,290],[150,215],[92,168]],[[230,290],[142,262],[70,246]],[[230,290],[155,352],[88,392]],[[230,290],[198,214],[172,140]]].forEach(function(p){
+  var d="M"+p[0][0]+" "+p[0][1]+" Q"+p[1][0]+" "+p[1][1]+" "+p[2][0]+" "+p[2][1];
+  el("path",{d:d,fill:"none",stroke:NAVY,"stroke-width":9,"stroke-linecap":"round"},gDend);
+  el("path",{d:"M"+p[2][0]+" "+p[2][1]+" l-26 -16 M"+p[2][0]+" "+p[2][1]+" l-26 18",fill:"none",stroke:NAVY,"stroke-width":6,"stroke-linecap":"round"},gDend);
+});
+
+var gSoma=G("soma");
+el("circle",{cx:230,cy:290,r:66,fill:"#fff",stroke:NAVY,"stroke-width":5},gSoma);
+el("circle",{cx:230,cy:290,r:24,fill:TINT,stroke:NAVY,"stroke-width":3},gSoma);
+el("circle",{cx:230,cy:290,r:7,fill:NAVY},gSoma);
+
+var gHill=G("hill");
+el("path",{d:"M292 268 L330 280 L330 300 L292 312 Z",fill:GDEEP,stroke:GDEEP,"stroke-width":2},gHill);
+
+var gAxon=G("axon");
+el("line",{x1:330,y1:290,x2:742,y2:290,stroke:NAVY,"stroke-width":11,"stroke-linecap":"round"},gAxon);
+
+var gTerm=G("term");
+[[-52],[0],[52]].forEach(function(o){
+  el("path",{d:"M742 290 Q784 290 806 "+(290+o[0]),fill:"none",stroke:NAVY,"stroke-width":8,"stroke-linecap":"round"},gTerm);
+  el("circle",{cx:812,cy:290+o[0],r:15,fill:NAVY},gTerm);
+});
+
+/* ---- myelin ---- */
+var gMy=G("myelin");
+var MYS=[[352,86],[470,86],[588,86]];
+var mySegs=MYS.map(function(m){return el("rect",{x:m[0],y:262,width:m[1],height:56,rx:26,fill:"#fff",stroke:GDEEP,"stroke-width":5},gMy);});
+var gNode=G("nodes");
+[446,564,682].forEach(function(x){el("circle",{cx:x,cy:290,r:9,fill:MAROON},gNode);});
+
+/* ---- labels ---- */
+var gLab=G("labels");
+function lab(x,y,s,cls,anchor){return tx(gLab,x,y,s,cls||"t",17,anchor||"middle");}
+var L={};
+L.dend=lab(96,140,"Dendrites","tn");
+L.soma=lab(230,206,"Cell body","tn");
+L.hill=lab(322,246,"Trigger zone","tm");
+L.axon=lab(530,236,"Axon","tn");
+L.term=lab(812,212,"Axon terminals","tn");
+L.my=lab(470,346,"Myelin","t");
+L.node=lab(564,346,"Node","tm");
+function labs(keys){for(var k in L)L[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(L[k])L[k].setAttribute("display","");});}
+
+/* ---- job words ---- */
+var gJob=G("job");
+tx(gJob,140,436,"Receive","tm",22,"middle");
+tx(gJob,370,436,"Decide","tm",22,"middle");
+tx(gJob,596,436,"Send","tm",22,"middle");
+var jobItems=Array.prototype.slice.call(gJob.childNodes);
+function jobs(n){jobItems.forEach(function(t,i){t.setAttribute("display",i<n?"":"none");});}
+
+/* ---- travelling signal ---- */
+var gSig=G("sig");
+var SIG=el("circle",{cx:0,cy:0,r:13,fill:MAROON},gSig);
+function sigAt(x,y){place(gSig,x,y);}
+place(gSig,92,168);
+
+/* ---- glia ---- */
+var gGlia=G("glia");
+function star(p,x,y,col,label){
+  var g=el("g",{},p);
+  for(var i=0;i<8;i++){var a=i*Math.PI/4;el("line",{x1:x,y1:y,x2:x+Math.cos(a)*40,y2:y+Math.sin(a)*40,stroke:col,"stroke-width":7,"stroke-linecap":"round"},g);}
+  el("circle",{cx:x,cy:y,r:22,fill:"#fff",stroke:col,"stroke-width":5},g);
+  tx(g,x,y+70,label,"t",16,"middle");
+  return g;
+}
+var GL={};
+GL.astro=star(gGlia,150,180,MAROON,"Astrocyte");
+GL.oligo=(function(){var g=el("g",{},gGlia);
+  el("circle",{cx:450,cy:170,r:26,fill:"#fff",stroke:GDEEP,"stroke-width":5},g);
+  [[-70,60],[0,78],[70,60]].forEach(function(o){el("line",{x1:450,y1:196,x2:450+o[0],y2:170+o[1],stroke:GDEEP,"stroke-width":7,"stroke-linecap":"round"},g);
+    el("rect",{x:450+o[0]-20,y:170+o[1],width:40,height:22,rx:10,fill:"#fff",stroke:GDEEP,"stroke-width":4},g);});
+  tx(g,450,128,"Oligodendrocyte","t",16,"middle");return g;})();
+GL.micro=(function(){var g=el("g",{},gGlia);
+  el("circle",{cx:730,cy:180,r:24,fill:NAVY},g);
+  for(var i=0;i<10;i++){var a=i*Math.PI/5;el("line",{x1:730+Math.cos(a)*24,y1:180+Math.sin(a)*24,x2:730+Math.cos(a)*44,y2:180+Math.sin(a)*44,stroke:NAVY,"stroke-width":5,"stroke-linecap":"round"},g);}
+  tx(g,730,250,"Microglia","t",16,"middle");return g;})();
+GL.epend=(function(){var g=el("g",{},gGlia);
+  for(var i=0;i<5;i++){el("rect",{x:120+i*46,y:392,width:42,height:52,rx:8,fill:"#fff",stroke:INK2,"stroke-width":4},g);
+    el("path",{d:"M"+(141+i*46)+" 392 l0 -20 M"+(131+i*46)+" 392 l-8 -18 M"+(151+i*46)+" 392 l8 -18",stroke:INK2,"stroke-width":3,fill:"none"},g);}
+  tx(g,235,470,"Ependymal cells","t",16,"middle");return g;})();
+GL.schwann=(function(){var g=el("g",{},gGlia);
+  el("rect",{x:520,y:392,width:96,height:54,rx:26,fill:"#fff",stroke:GDEEP,"stroke-width":5},g);
+  el("circle",{cx:568,cy:378,r:14,fill:"#fff",stroke:GDEEP,"stroke-width":4},g);
+  el("line",{x1:470,y1:419,x2:680,y2:419,stroke:NAVY,"stroke-width":9,"stroke-linecap":"round"},g);
+  tx(g,575,470,"Schwann cell","t",16,"middle");return g;})();
+GL.satellite=(function(){var g=el("g",{},gGlia);
+  el("circle",{cx:790,cy:410,r:30,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
+  for(var i=0;i<8;i++){var a=i*Math.PI/4;el("circle",{cx:790+Math.cos(a)*46,cy:410+Math.sin(a)*46,r:11,fill:"#fff",stroke:MAROON,"stroke-width":4},g);}
+  tx(g,790,336,"Satellite cells","t",16,"middle");return g;})();
+function glia(keys){for(var k in GL)GL[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(GL[k])GL[k].setAttribute("display","");});}
+
+/* ---- neuron shape classes ---- */
+var gCls=G("classes");
+var CL={};
+CL.multi=(function(){var g=el("g",{},gCls);
+  el("circle",{cx:170,cy:300,r:40,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
+  [[-1,-1],[-1,0],[-1,1],[0,-1]].forEach(function(d){el("line",{x1:170,y1:300,x2:170+d[0]*70,y2:300+d[1]*62,stroke:NAVY,"stroke-width":7,"stroke-linecap":"round"},g);});
+  el("line",{x1:210,y1:300,x2:330,y2:300,stroke:NAVY,"stroke-width":9,"stroke-linecap":"round"},g);
+  tx(g,170,392,"Multipolar","tn",18,"middle");tx(g,170,416,"Many dendrites, one axon","t",15,"middle");return g;})();
+CL.bi=(function(){var g=el("g",{},gCls);
+  el("circle",{cx:450,cy:300,r:34,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
+  el("line",{x1:416,y1:300,x2:346,y2:300,stroke:NAVY,"stroke-width":8,"stroke-linecap":"round"},g);
+  el("line",{x1:484,y1:300,x2:560,y2:300,stroke:NAVY,"stroke-width":8,"stroke-linecap":"round"},g);
+  tx(g,450,392,"Bipolar","tn",18,"middle");tx(g,450,416,"One dendrite, one axon","t",15,"middle");return g;})();
+CL.pseudo=(function(){var g=el("g",{},gCls);
+  el("circle",{cx:730,cy:344,r:30,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
+  el("line",{x1:730,y1:314,x2:730,y2:268,stroke:NAVY,"stroke-width":8,"stroke-linecap":"round"},g);
+  el("line",{x1:640,y1:268,x2:830,y2:268,stroke:NAVY,"stroke-width":8,"stroke-linecap":"round"},g);
+  tx(g,730,392,"Pseudounipolar","tn",18,"middle");tx(g,730,416,"One stalk that splits","t",15,"middle");return g;})();
+function classes(keys){for(var k in CL)CL[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(CL[k])CL[k].setAttribute("display","");});}
+
+/* ---- functional classes ---- */
+var gFun=G("funclass");
+(function(){var g=gFun;
+  tx(g,120,120,"Sensory","tm",19,"middle");tx(g,120,146,"skin to spinal cord","t",15,"middle");
+  arrow(g,120,170,120,232,MAROON,6);
+  tx(g,450,120,"Interneuron","tm",19,"middle");tx(g,450,146,"inside the CNS","t",15,"middle");
+  arrow(g,380,252,520,252,MAROON,6);
+  tx(g,780,120,"Motor","tm",19,"middle");tx(g,780,146,"spinal cord to muscle","t",15,"middle");
+  arrow(g,780,232,780,170,MAROON,6);
+})();
+
+/* ---- transport ---- */
+var gTrack=G("track");
+el("line",{x1:330,y1:302,x2:742,y2:302,stroke:INK2,"stroke-width":3,"stroke-dasharray":"12 8"},gTrack);
+var gVes=G("vesicle");
+var VES=el("g",{},gVes);el("circle",{r:16,fill:GDEEP},VES);
+var VES2=el("g",{},gVes);el("circle",{r:16,fill:MAROON},VES2);
+place(VES,330,266);place(VES2,742,266);
+
+/* ---- damage marks ---- */
+var gDmg=G("damage");
+[386,504].forEach(function(x){
+  el("path",{d:"M"+(x-18)+" 250 l36 36 M"+(x+18)+" 250 l-36 36",stroke:MAROON,"stroke-width":7,"stroke-linecap":"round"},gDmg);
+});
+
+/* ---- caption ---- */
+var gCap=G("caption");
+var CAP=tx(gCap,392,526,"","tn",18,"middle");
+function cap(s){CAP.textContent=s||"";}
+
+function myelin(on){mySegs.forEach(function(r,i){r.setAttribute("display",on&&(on===true||on.indexOf(i)>=0)?"":"none");});}
+function resetAll(){labs([]);jobs(0);glia([]);classes([]);cap("");myelin(true);fade(gMy,1);}
+/* ======================= steps ======================= */
+var BASE=["soma","dend","hill","axon","term","labels","caption"];
+function S(list){only(list);resetAll();}
+
+var STEPS=[
+/* ---- 1. what a neuron does ---- */
+{sec:"What a neuron does",comp:"Functional regions of a neuron",
+ title:"One cell with three jobs",
+ text:["Think about touching something hot. Information has to get from your fingertip to your spinal cord, and a decision has to come back out to the muscle that pulls your hand away.","A neuron is built to do that. It takes in a signal at one end, decides whether the signal is worth passing on, and sends it out the other end."],
+ desc:"A neuron is shown with branches on the left, a round cell body, and a long fiber running to the right.",
+ auto:true,
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","caption","job"]);jobs(0);},
+ play:function(a){return wait(300,a).then(function(){jobs(1);return wait(600,a);}).then(function(){jobs(2);return wait(600,a);}).then(function(){jobs(3);cap("Receive, decide, send.");});},
+ post:function(){only(["soma","dend","hill","axon","term","caption","job"]);jobs(3);cap("Receive, decide, send.");}},
+
+{title:"Where the signal comes in",
+ text:["The branches on the left are where other cells make contact. There are a lot of them, because one neuron may be listening to thousands of others at the same time."],
+ ask:"If the branches are where signals arrive, what do you think happens to a signal that arrives at the far tip of a branch?",
+ ans:["It travels along the branch toward the cell body. Signals that come in here spread inward, toward the middle of the cell.","Notice the signal gets weaker as it goes. These incoming signals fade with distance, which matters a lot once we get to graded potentials."],
+ name:"dendrites",
+ desc:"A red dot appears at the tip of a branch and travels inward along the branch toward the cell body, getting smaller as it goes.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend"]);place(gSig,92,168);SIG.setAttribute("r",13);},
+ play:function(a){SIG.setAttribute("r",13);return tweenPath(gSig,[[150,215],[230,290]],1200,a).then(function(){SIG.setAttribute("r",8);cap("It spreads inward and fades.");});},
+ post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend"]);place(gSig,230,290);SIG.setAttribute("r",8);cap("It spreads inward and fades.");}},
+
+{title:"The cell body adds it all up",
+ text:["The round part in the middle holds the nucleus and keeps the cell alive, but it also does something more interesting. Every signal arriving on every branch arrives here at roughly the same time, and they add together."],
+ name:"cell body, or soma",
+ auto:true,
+ desc:"Three red dots travel down three different branches and meet at the cell body.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma"]);place(gSig,92,168);SIG.setAttribute("r",13);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){cap("Many branches add together here.");});},
+ post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma"]);place(gSig,230,290);cap("Many branches add together here.");}},
+
+{title:"The decision point",
+ text:["Right where the cell body narrows into the long fiber, there is a small patch that acts as the decision point. This is the spot that decides whether everything the neuron just heard is enough to send a signal onward.","The gold wedge marks it."],
+ ask:"Why would it make sense for the decision point to sit right there, between the incoming branches and the outgoing fiber, rather than somewhere out on a branch?",
+ ans:["Because everything has to pass through that spot on the way out. Putting the decision there means the cell can add up all the incoming signals first, then decide once.","This patch is unusually sensitive. It has the highest density of voltage-gated sodium channels in the neuron, which is why it reaches threshold before anywhere else does."],
+ name:"axon hillock, also called the trigger zone",
+ desc:"A gold wedge between the cell body and the long fiber is highlighted, with signals arriving at it from the branches.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["soma","hill"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290],[310,290]],1400,a).then(function(){cap("Everything out passes through here.");});},
+ post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["soma","hill"]);place(gSig,310,290);cap("Everything out passes through here.");}},
+
+{title:"The long fiber out",
+ text:["Past the decision point, the cell sends out one long fiber. There is only ever one, and it can be very long. A motor neuron running from the base of your spine to your foot has a fiber close to a meter long, all part of one cell."],
+ name:"axon",
+ auto:true,
+ desc:"A red dot travels the length of the long fiber from left to right without shrinking.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["axon"]);place(gSig,330,290);},
+ play:function(a){return tweenPath(gSig,[[742,290]],1400,a).then(function(){cap("One fiber out, and it does not fade.");});},
+ post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["axon"]);place(gSig,742,290);cap("One fiber out, and it does not fade.");}},
+
+{title:"The end of the line",
+ text:["At the far end, the fiber splits into small swellings that sit against the next cell, whether that is another neuron, a muscle fiber, or a gland."],
+ ask:"The signal coming down the fiber is electrical. The swellings at the end do not touch the next cell directly, there is a tiny gap. What do you think has to happen for the message to cross?",
+ ans:["The electrical signal has to be converted into something that can cross a gap, which turns out to be a chemical the terminal releases.","That is the whole reason chemical messengers exist at synapses. You will build this in detail later in the chapter."],
+ name:"axon terminals",
+ desc:"The fiber splits into three branches ending in filled knobs.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["term"]);place(gSig,330,290);},
+ play:function(a){return tweenPath(gSig,[[742,290],[790,290]],1200,a).then(function(){cap("Now it has to cross a gap.");});},
+ post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["term"]);place(gSig,790,290);cap("Now it has to cross a gap.");}},
+
+{title:"The whole route, once through",
+ text:["Put the four regions together and you have the path a signal takes through a single neuron: in at the branches, added up at the cell body, decided at the trigger zone, out along the fiber to the terminals."],
+ name:"the functional regions of a neuron",
+ auto:true,
+ desc:"A red dot travels the full route from a branch tip through the cell body, the trigger zone, along the fiber, to the terminals.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma","hill","axon","term"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],500,a);}).then(function(){return tweenPath(gSig,[[742,290],[790,290]],1300,a);}).then(function(){cap("Receive, add, decide, send.");});},
+ post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma","hill","axon","term"]);place(gSig,790,290);cap("Receive, add, decide, send.");}},
+
+/* ---- 2. classes ---- */
+{sec:"Kinds of neurons",comp:"Neuron structural and functional classes",
+ title:"Sorted by shape",
+ text:["Neurons do not all look like the one you just walked through. They get sorted by how many processes come off the cell body.","Most neurons in your brain and spinal cord are the first kind, with many branches and one long fiber."],
+ name:"multipolar, bipolar, and pseudounipolar neurons",
+ auto:true,
+ desc:"Three neuron shapes appear side by side: one with many branches, one with a branch on each side, and one with a single stalk that splits in two.",
+ pre:function(){S(["classes","caption"]);classes([]);},
+ play:function(a){classes(["multi"]);return wait(700,a).then(function(){classes(["multi","bi"]);return wait(700,a);}).then(function(){classes(["multi","bi","pseudo"]);cap("Shape follows the job.");});},
+ post:function(){only(["classes","caption"]);classes(["multi","bi","pseudo"]);cap("Shape follows the job.");}},
+
+{title:"Shape follows the job",
+ text:["Bipolar neurons sit in places where a signal only needs to go straight through, like the retina and the olfactory epithelium. Pseudounipolar neurons carry sensation from your skin, and their one stalk splits so the signal can run from the skin straight past the cell body toward the spinal cord."],
+ ask:"You step on something sharp. That sensory signal is carried by a pseudounipolar neuron whose cell body sits off to the side, not in the signal's path. Why is that useful?",
+ ans:["The signal does not have to detour through the cell body. It runs straight from the skin to the spinal cord, which is faster.","This is why pain and touch from your skin get to the spinal cord so quickly. The cell body sits in a ganglion just off the main road."],
+ desc:"The pseudounipolar neuron is highlighted, showing a signal running along the stalk past the cell body without entering it.",
+ pre:function(){S(["classes","caption"]);classes(["pseudo"]);},
+ play:function(a){return wait(500,a).then(function(){cap("The signal bypasses the cell body entirely.");});},
+ post:function(){only(["classes","caption"]);classes(["pseudo"]);cap("The signal bypasses the cell body entirely.");}},
+
+{title:"Sorted by direction instead",
+ text:["There is a second way to sort neurons, and it has nothing to do with shape. It is about which way the information is traveling.","Sensory neurons carry information toward the central nervous system. Motor neurons carry commands away from it. Interneurons sit entirely inside the central nervous system and connect the other two."],
+ ask:"Roughly 99 percent of the neurons in your body are interneurons. Why would that be?",
+ ans:["Because most of what your nervous system does is process, compare, and decide, not just detect and act. All of that work happens between the incoming and outgoing signals.","Sensory and motor neurons are the ends of the path. Everything in between, which is almost all of it, is interneurons."],
+ name:"sensory (afferent), motor (efferent), and interneurons",
+ desc:"Three labels with arrows: sensory pointing toward the center, motor pointing away, interneuron connecting across.",
+ pre:function(){S(["funclass","caption"]);},
+ play:function(a){return wait(500,a).then(function(){cap("Toward, away, and in between.");});},
+ post:function(){only(["funclass","caption"]);cap("Toward, away, and in between.");}},
+
+/* ---- 3. glia ---- */
+{sec:"The support cells",comp:"Glial cell functions",
+ title:"Neurons are outnumbered",
+ text:["Neurons get the attention, but they are not alone. A large population of support cells surrounds them, and these cells do not fire signals themselves. They keep the neurons working.","There are six main kinds. Four live in the brain and spinal cord, two live outside it."],
+ name:"neuroglia, or glial cells",
+ auto:true,
+ desc:"Several different support cell shapes appear around the scene.",
+ pre:function(){S(["glia","caption"]);glia([]);},
+ play:function(a){var ks=["astro","oligo","micro","epend","schwann","satellite"],shown=[];
+   return ks.reduce(function(p,k){return p.then(function(){shown.push(k);glia(shown.slice());return wait(320,a);});},Promise.resolve()).then(function(){cap("Six kinds, each with a job.");});},
+ post:function(){only(["glia","caption"]);glia(["astro","oligo","micro","epend","schwann","satellite"]);cap("Six kinds, each with a job.");}},
+
+{title:"The one that controls what gets in",
+ text:["Astrocytes are the most common glial cell in the brain. They wrap around blood vessels and around synapses, and they control what passes from the blood into brain tissue.","They also mop up extra potassium and leftover neurotransmitter after neurons fire."],
+ ask:"Astrocytes clear extra potassium out of the fluid around neurons. Based on the resting membrane potential work you already did, what would happen if they stopped doing that?",
+ ans:["Potassium would build up outside the cells. That raises the outside potassium concentration, which makes the resting membrane potential less negative and leaves neurons closer to firing.","This is exactly why astrocyte dysfunction shows up in seizure disorders. Neurons sitting closer to threshold fire more easily."],
+ name:"astrocytes",
+ desc:"The star-shaped astrocyte is shown alone and highlighted.",
+ pre:function(){S(["glia","caption"]);glia(["astro"]);},
+ play:function(a){return wait(500,a).then(function(){cap("Controls the environment around neurons.");});},
+ post:function(){only(["glia","caption"]);glia(["astro"]);cap("Controls the environment around neurons.");}},
+
+{title:"The ones that wrap",
+ text:["Two glial cells make the insulating wrap around fibers. Oligodendrocytes do it in the brain and spinal cord, and each one reaches out and wraps segments of several different fibers at once.","Schwann cells do the same job outside the brain and spinal cord, but each Schwann cell wraps only one segment of one fiber."],
+ ask:"One oligodendrocyte wraps many fibers. One Schwann cell wraps one segment of one fiber. If a disease destroys these wrapping cells, which setting would lose more function from the same number of cells dying?",
+ ans:["The brain and spinal cord, because each oligodendrocyte that dies takes out insulation on many different fibers at once.","This is part of why multiple sclerosis, which affects the central nervous system, causes such widespread and scattered symptoms."],
+ name:"oligodendrocytes and Schwann cells",
+ desc:"The oligodendrocyte reaching several fiber segments, and a Schwann cell wrapped around a single fiber.",
+ pre:function(){S(["glia","caption"]);glia(["oligo","schwann"]);},
+ play:function(a){return wait(500,a).then(function(){cap("One wraps many. One wraps a single segment.");});},
+ post:function(){only(["glia","caption"]);glia(["oligo","schwann"]);cap("One wraps many. One wraps a single segment.");}},
+
+{title:"Cleanup and fluid",
+ text:["Microglia are the immune cells of the nervous system. They patrol, and when they find damage or debris they clear it.","Ependymal cells line the fluid-filled spaces in the brain and spinal cord, and the tiny hairs on their surface keep cerebrospinal fluid moving.","Satellite cells surround the cell bodies of sensory neurons sitting outside the brain and spinal cord, and regulate their environment."],
+ name:"microglia, ependymal cells, and satellite cells",
+ desc:"The microglial cell, the lining ependymal cells with their hair-like projections, and the satellite cells surrounding a cell body.",
+ pre:function(){S(["glia","caption"]);glia(["micro","epend","satellite"]);},
+ play:function(a){return wait(400,a).then(function(){cap("Clean up, move fluid, support cell bodies.");});},
+ post:function(){only(["glia","caption"]);glia(["micro","epend","satellite"]);cap("Clean up, move fluid, support cell bodies.");}},
+
+/* ---- 4. myelin ---- */
+{sec:"Myelin and what happens when it is lost",comp:"Myelin and its loss",
+ title:"Wrapping the fiber",
+ text:["Now put the wrapping back on the neuron you started with. The insulation covers the long fiber in segments, with small bare gaps between them."],
+ name:"myelin sheath and nodes of Ranvier",
+ auto:true,
+ desc:"Insulating segments appear along the long fiber, with small bare gaps between them.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption"]);labs([]);myelin([]);},
+ play:function(a){myelin([0]);return wait(400,a).then(function(){myelin([0,1]);return wait(400,a);}).then(function(){myelin([0,1,2]);labs(["my","node"]);cap("Insulated segments, bare gaps between.");});},
+ post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption"]);myelin(true);labs(["my","node"]);cap("Insulated segments, bare gaps between.");}},
+
+{title:"Why the gaps matter",
+ text:["The insulation stops charge from leaking out through the covered stretches. The signal can only be regenerated at the bare gaps, so it effectively jumps from gap to gap instead of crawling along every inch of the fiber."],
+ ask:"Jumping from gap to gap instead of traveling along every part of the fiber. What does that do to the speed of the signal?",
+ ans:["It makes it much faster. A myelinated fiber can carry a signal well over a hundred times faster than a bare one of the same diameter.","The science name for this jumping is saltatory conduction, from the Latin for leaping. You will build the mechanism in the conduction section."],
+ name:"saltatory conduction",
+ desc:"A red dot jumps along the fiber from one bare gap to the next rather than sliding continuously.",
+ pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","caption","sig"]);myelin(true);place(gSig,330,290);},
+ play:function(a){return tweenPath(gSig,[[446,290]],260,a).then(function(){return wait(120,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return wait(120,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],260,a);}).then(function(){cap("It jumps gap to gap. Fast.");});},
+ post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","caption","sig"]);myelin(true);place(gSig,790,290);cap("It jumps gap to gap. Fast.");}},
+
+{title:"When the wrapping is stripped",
+ text:["In multiple sclerosis, the immune system attacks the insulation on fibers in the brain and spinal cord. Patches of insulation are destroyed and the bare fiber underneath is exposed."],
+ ask:"Charge leaks out of bare fiber. If a signal now has to cross a long stripped stretch instead of jumping a short gap, what happens to it?",
+ ans:["It weakens as it crosses, and it slows down. If the stretch is long enough, the signal fades out before it can be regenerated and the message never arrives.","That is why multiple sclerosis symptoms depend on which fibers lose insulation. Vision, balance, sensation, and strength can all be affected, and symptoms come and go as areas become inflamed and then partly recover."],
+ name:"demyelination",
+ desc:"Two segments of insulation disappear and are marked with crosses. The travelling dot slows across the bare stretch and fades before reaching the end.",
+ pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption","sig"]);myelin([2]);place(gSig,330,290);SIG.setAttribute("r",13);},
+ play:function(a){SIG.setAttribute("r",13);
+   return tweenPath(gSig,[[446,290]],900,a).then(function(){SIG.setAttribute("r",9);return tweenPath(gSig,[[564,290]],1500,a);}).then(function(){SIG.setAttribute("r",4);return tweenPath(gSig,[[600,290]],900,a);}).then(function(){SIG.setAttribute("r",0);cap("The signal fades before it arrives.");});},
+ post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption","sig"]);myelin([2]);place(gSig,600,290);SIG.setAttribute("r",0);cap("The signal fades before it arrives.");}},
+
+{title:"Patient: numbness and a dropped foot",
+ text:["A 31 year old comes in describing numbness down one leg that started three days ago, and says her foot catches on stairs. Six months ago she had a period of blurred vision in one eye that resolved on its own. An MRI shows scattered patches of damage in the white matter of her brain and spinal cord."],
+ ask:"Her symptoms are scattered across vision, sensation, and movement, and they come and go. Using what you just built, explain why one disease process produces such a mixed and changing picture.",
+ ans:["The disease strips insulation from fibers, and which symptom appears depends entirely on which fibers lost their insulation. Vision, sensation, and motor fibers all run through the central nervous system, so patches in different places produce unrelated-looking symptoms.","Symptoms ease when inflammation settles and some conduction recovers, and return when new patches form. Slowed or blocked conduction, not dead neurons, explains the pattern early in the disease."],
+ name:"multiple sclerosis",
+ desc:"The fiber with missing insulation segments and crosses marking the damaged patches.",
+ pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption"]);myelin([2]);},
+ play:function(a){return wait(400,a).then(function(){cap("Symptoms follow the damaged fibers.");});},
+ post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption"]);myelin([2]);cap("Symptoms follow the damaged fibers.");}},
+
+/* ---- 5. axonal transport ---- */
+{sec:"Supplies down a long fiber",comp:"Axonal transport",
+ title:"Nothing is made out there",
+ text:["Here is a problem the neuron has to solve. Proteins are made in the cell body, but the terminals may be most of a meter away, and they constantly need new enzymes, new membrane, and new vesicles.","Nothing gets built at the far end. Everything has to be shipped."],
+ ask:"The terminal needs a steady supply of proteins that are only made back in the cell body. What does the cell need in order to get them there?",
+ ans:["A transport system that moves material along the fiber, and energy to run it.","The fiber contains protein tracks running its whole length, and motor proteins walk along them carrying cargo."],
+ name:"axonal transport",
+ desc:"A dashed track appears running the length of the fiber.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","track","caption"]);},
+ play:function(a){return wait(500,a).then(function(){cap("Tracks run the whole length of the fiber.");});},
+ post:function(){only(["soma","dend","hill","axon","term","track","caption"]);cap("Tracks run the whole length of the fiber.");}},
+
+{title:"Both directions at once",
+ text:["Traffic runs both ways. Material moves outward from the cell body to the terminals, and other material moves back from the terminals to the cell body, including worn-out components and signals about what is happening at the far end."],
+ name:"anterograde and retrograde transport",
+ auto:true,
+ desc:"A gold package travels outward along the fiber while a red package travels back toward the cell body.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,330,266);place(VES2,742,266);},
+ play:function(a){var p1=tweenPath(VES,[[742,266]],1800,a),p2=tweenPath(VES2,[[330,266]],1800,a);
+   return Promise.all([p1,p2]).then(function(){cap("Outward and back, on the same tracks.");});},
+ post:function(){only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,330,266);cap("Outward and back, on the same tracks.");}},
+
+{title:"The system has a weak point",
+ text:["Transport back toward the cell body is useful to the neuron, but it is also a way in. Some viruses and toxins are taken up at the terminals and carried along that same route into the cell body."],
+ ask:"Rabies virus enters at a bite, gets taken up at nerve terminals in the muscle, and travels back along the fiber. Where does it end up, and why does that explain why rabies affects the brain?",
+ ans:["It ends up in the cell body, and because those neurons connect into the central nervous system, the virus is delivered straight into the nervous system.","Tetanus toxin and herpes simplex use the same backward route. The transport system that keeps the neuron supplied is also the road in."],
+ desc:"A red package travels from the terminals back along the fiber into the cell body.",
+ pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,806,266);},
+ play:function(a){return tweenPath(VES2,[[742,266],[330,266],[250,276]],2000,a).then(function(){cap("The road out is also the road in.");});},
+ post:function(){only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,250,276);cap("The road out is also the road in.");}},
+
+/* ---- 6. story check ---- */
+{sec:"Tell the story back",comp:"Neurons and neuroglia",
+ title:"The whole story, with the science names",
+ text:["A neuron receives at its dendrites, adds the signals at the soma, decides at the axon hillock, and sends along the axon to the axon terminals. Shape sorts neurons into multipolar, bipolar, and pseudounipolar. Direction sorts them into sensory, motor, and interneurons.","Astrocytes control the environment, oligodendrocytes and Schwann cells build myelin, microglia clean up, ependymal cells move cerebrospinal fluid, and satellite cells support sensory cell bodies. Myelin speeds conduction by letting the signal jump between nodes, and losing it slows or blocks the signal. Axonal transport keeps the far end supplied, in both directions."],
+ ask:"Without scrolling back, name the four regions of a neuron in the order a signal passes through them, and say what each one does.",
+ ans:["Dendrites receive incoming signals. The soma adds them together and keeps the cell alive. The axon hillock decides whether to fire. The axon carries the signal to the terminals, which pass it to the next cell.","If any of those were hard to recall, that is the part to go back over before you start graded potentials. The next section depends on this one."],
+ desc:"The full neuron with all regions labelled and a signal travelling the complete route.",
+ pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);myelin(true);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,92,168);SIG.setAttribute("r",13);},
+ play:function(a){SIG.setAttribute("r",13);return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],400,a);}).then(function(){return tweenPath(gSig,[[446,290]],260,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],300,a);}).then(function(){cap("Receive, add, decide, send.");});},
+ post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);myelin(true);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,790,290);SIG.setAttribute("r",13);cap("Receive, add, decide, send.");}}
+];
+/* ======================= support videos ======================= */
+var V={
+  neuron:{u:"https://www.khanacademy.org/science/health-and-medicine/nervous-system-and-sensory-infor/nervous-system-introduction-ddp/v/overview-of-neuron-structure",n:"Overview of neuron structure"}
+};
+var SUP={
+  "Where the signal comes in":[["What are the parts of a neuron?","neuron","Listen for the dendrites, the cell body, and the axon, and which end takes signals in."]],
+  "The long fiber out":[["What does the axon do?","neuron","Listen for the single long fiber that carries the signal away from the cell body."]]
+};
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w04-neurons-glia-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Write your prediction in the worksheet, then click Show me.':'Write your prediction in the worksheet, then click Show me. Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  renderCurrent();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+playBtn.addEventListener("click",function(){runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, what a neuron does</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished)unlockJump(false);
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w04-neurons-glia-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+</body>
+</html>
