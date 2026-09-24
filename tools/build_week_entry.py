@@ -28,8 +28,8 @@ STEPS = [
  ('study','Study it','Cards and brain dumps','4 sessions of 30 to 45 min','retr',()),
  ('check','Mastery Check','Which competencies are solid?','20 to 30 min per try','check',('S',)),
  ('lab','The lab','PhysioEx, then your lab worksheet','2 to 3 hours','assess',('S',)),
- ('case','Application case','Pick one case and use the physiology','About 1 hour','assess',('S',)),
- ('patient','Your patient',"Add this week's numbers to the chart",'About 30 min','assess',('T',)),
+ ('case','Application case','Work the case using the physiology','About 1 hour','assess',('S',)),
+ ('patient','Your patient',"Document this week's findings",'About 30 min','assess',('T',)),
  ('discussion','The discussion','What your check showed, what you changed','About 1 hour','assess',('S',)),
 ]
 PHASE = {'prev':'Preview','learn':'Learning','retr':'Retrieval','check':'Checking','assess':'Use it'}
