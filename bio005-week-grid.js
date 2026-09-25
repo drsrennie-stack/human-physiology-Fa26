@@ -134,6 +134,6 @@ window.BIO005_WEEK_GRID = {
       lab:'Acid-base and ABG interpretation', labNote:'PhysioEx Ex 10',
       due:['check','lab','log'],
       extra:['Case conference recording', 'Final patient file'],
-      exam:{ n:2, covers:'Weeks 8 to 14', window:'Mon Dec 14 to Wed Dec 16' } }
+      exam:{ n:2, covers:'Weeks 9 to 14', window:'Mon Dec 14 to Wed Dec 16' } }
   ]
 };

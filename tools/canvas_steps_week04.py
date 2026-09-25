@@ -43,7 +43,7 @@ STEPS = [
   status="Not turned in yet. You upload it in Step 4.",
   intro="This is where you learn the week. You work through the lessons and fill in your Competency Study Guide "
         "in one color as you go.",
-  todo=["Print your Week 4 Competency Study Guide, or open it on a tablet. Pick two pens you can tell apart.",
+  todo=["Choose one: print your Week 4 Competency Study Guide, or open the Week 4 competency list and work the same prompts on your own paper. Pick two pens you can tell apart.",
         "Read the Week 4 competencies first, so you know what you are looking for.",
         "Open the Week 4 lessons and work through them in order. Start with the three walkthroughs: neurons and "
         "neuroglia, then the resting membrane potential, then ion channel gating. Then the lessons on graded "
@@ -53,9 +53,9 @@ STEPS = [
         "<strong>Stuck? Watch a short explanation</strong> button on the steps where a video helps.",
         "For each competency, pick prompt A or prompt B and draw it in the box in your first color.",
         "After the three walkthroughs, do the drawing sheet from memory, with the walkthrough closed."],
-  links=[("Your Week 4 Competency Study Guide, to print (PDF)", "sheets/BIO005-note-sheet-week-04.pdf"),
+  links=[("Choice 1: your Week 4 Competency Study Guide, to print (PDF)", "sheets/BIO005-note-sheet-week-04.pdf"),
+         ("Choice 2: the Week 4 competency list, with the same prompts, for your own paper", "week-04-competencies.html"),
          ("Your Week 4 Competency Study Guide, on screen", "note-sheet.html?week=4"),
-         ("The Week 4 competencies", "week-04-competencies.html"),
          ("The Week 4 lessons, in order", "lecture-week.html?week=4"),
          ("The Week 4 drawing sheet", "biol005-w04-drawing-sheet.html")],
   turnin=None),
@@ -149,15 +149,15 @@ STEPS = [
   turnin=None),
 
  dict(title="Your patient, this week's findings", time="About 30 minutes",
-  status="Not turned in this week. The whole chart is turned in once, on Wednesday, December 16.",
-  intro="You keep Camila's chart by hand all term. Each week you add that week's numbers and your thinking, "
+  status="Not turned in this week. Camila's chart and analysis are turned in on Sunday, November 1, with Midterm 1.",
+  intro="You keep Camila's chart by hand through Week 8. Each week you add that week's numbers and your thinking, "
         "including what you worked out in the case in Step 8.",
   todo=["Open your patient chart and this week's released results.",
         "Copy this week's numbers into your flowsheets first. Copying them by hand is how you notice a trend.",
         "Fill in this week's page: what changed, the problem list, the drawing, and your thinking.",
         "Keep the chart. Do not upload it this week."],
   links=[("Your patient chart", "patient-chart-book.html"),
-         ("What you turn in on December 16", "assignment-patient-chart.html")],
+         ("What you turn in, and when", "assignment-patient-chart.html")],
   turnin=None),
 
  dict(title="Exam practice part 1, your videos", time="About 1 hour 30 minutes",

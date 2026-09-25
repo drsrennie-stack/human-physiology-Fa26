@@ -438,7 +438,7 @@ def page(n, opens, closes, title, part, solid=False):
     <div class="head"><span class="sico" aria-hidden="true">{ICON['check']}</span>
       <div><h2 id="done-h">You're done with Week {n} when&hellip;</h2><p class="lede">Everything goes in through Canvas. Times are Pacific.</p></div></div>
     <ul>{done}</ul>
-    <p class="fine">The dashed ones are not due this week. The practice report carries no points; it is the one thing I ask for so I can see how you are doing and reach out if I should. The chart is your capstone, worth 5 percent of the course, turned in once on Wednesday, December 16.</p>
+    <p class="fine">The dashed ones are not due this week. The practice report carries no points; it is the one thing I ask for so I can see how you are doing and reach out if I should. The chart is your capstone, worth 5 percent of the course. You work on one patient at a time: Camila&rsquo;s chart and analysis come in on Sunday, November 1, with Midterm 1, and Dale&rsquo;s on Wednesday, December 16.</p>
   </section>
 
   <nav class="nextrow" aria-label="Other weeks">

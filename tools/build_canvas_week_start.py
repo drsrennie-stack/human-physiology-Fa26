@@ -38,6 +38,8 @@ PHASE = {'prev': 'Preview', 'learn': 'Learn', 'retr': 'Retrieve', 'check': 'Chec
 
 def e(s): return html.escape(s, quote=True)
 
+def _cap(t): return t[:1].upper() + t[1:]
+
 def printables(W, n):
     """Every PDF the week's steps link to, in one place, so students can print the week at once."""
     if W is None: return ""
@@ -50,7 +52,7 @@ def printables(W, n):
                 rows.append('<li style="margin:0 0 8px 0;"><a href="%s%s" target="_blank" rel="noopener" '
                             'style="color:%s;font-weight:700;text-decoration:underline;">%s</a> '
                             '<span style="color:%s;">(Step %d. PDF, opens the course site in a new tab)</span></li>'
-                            % (SITE, e(path), MAROON, e(_re.sub(r"\s*\(PDF\)$", "", _re.sub(r"</?strong>", "", label))), INK_SOFT, i))
+                            % (SITE, e(path), MAROON, e(_cap(_re.sub(r"^Choice \d: ", "", _re.sub(r"\s*\(PDF\)$", "", _re.sub(r"</?strong>", "", label))))), INK_SOFT, i))
     if not rows: return ""
     return ('<div style="%s"><p style="%s">Printables for Week %d</p>' % (CARD, EYEBROW, n) +
             '<p style="margin:0 0 12px 0;line-height:1.6;color:%s;">You do not have to print anything. If you like '

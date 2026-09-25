@@ -151,7 +151,7 @@ window.BIO005_WEEKS = [
     title:"Midterm 1",
     exam:true,
     note:"Midterm 1 week. No new competencies, no Competency Study Guide, no discussion. The exam covers Weeks 1 to 7 and runs Thursday October 29 to Sunday November 1. Monday to Wednesday is review and unlimited practice exams.",
-    extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, multiple choice plus a model you present on video, Oct 29 to Nov 1"],
+    extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, multiple choice plus a model you present on video, Oct 29 to Nov 1", "Camila's patient chart and analysis, due Sun Nov 1"],
     competencies:[] },
 
   { wk:9, opens:"2026-11-02", closes:"2026-11-08",
@@ -183,8 +183,8 @@ window.BIO005_WEEKS = [
 
   { wk:15, opens:"2026-12-14", closes:"2026-12-16", short:true,
     title:"The slow pH lever, putting it together, and the final",
-    note:"Midterm 2 and the final. No new competencies. The exam covers Weeks 9 to 14 and runs Monday December 14 to Wednesday December 16, when the patient chart and the case conference are also due.",
-    extras:["Review the competency lists for Weeks 9 to 14", "Practice exams, unlimited attempts", "Midterm 2, Dec 14 to 16", "Patient chart, turned in once, due Wed Dec 16", "Final case conference"],
+    note:"Midterm 2 and the final. No new competencies. The exam covers Weeks 9 to 14 and runs Monday December 14 to Wednesday December 16, when Dale\'s patient chart and analysis and the case conference are also due.",
+    extras:["Review the competency lists for Weeks 9 to 14", "Practice exams, unlimited attempts", "Midterm 2, Dec 14 to 16", "Dale's patient chart and analysis, due Wed Dec 16", "Final case conference"],
     competencies:["w13-renal-ph-control", "w13-acid-base-disorders", "w13-acid-base-compensation", "w13-lab-abg-interpretation", "w15-integration-case", "w15-exercise-integration", "w15-drawing-synthesis"] }
 ];
 
@@ -243,8 +243,8 @@ window.BIO005_GRADING = {
           'what they do not know, and grading them rewards looking finished over being honest.',
   categories: [
     { key:'exams',       name:'Show Me What You Know', weight:35, n:2,
-      ai:'closed', note:'Two midterms, 17.5 percent each. Each question is multiple choice: 10 minutes to prepare a ' +
-                        'physiological model from memory, present it on video with no notes, then give your answer.' },
+      ai:'closed', note:'Two midterms, 17.5 percent each. Three multiple choice questions each: build a physiological ' +
+                        'model on a whiteboard from memory in 10 minutes, teach it in 5, then give your answer, all on video.' },
     { key:'lab',         name:'Investigate It', weight:25, n:15,
       ai:'open for setup, closed for interpretation',
       note:'The weekly labs, written up as question, prediction, evidence, interpretation, conclusion. ' +

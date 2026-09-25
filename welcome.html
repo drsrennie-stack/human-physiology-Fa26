@@ -849,7 +849,7 @@
         <p class="hg-eyebrow">Your weekly hubs</p>
         <p class="hg-now" id="hgNow"></p>
       </div>
-      <p class="hg-instr">Grouped by which midterm covers them. Two weeks are open at any time: the one you are in and the one after it, so you can work a week ahead if you need to. Weeks you have finished stay open for the rest of the term, so you can always go back to one.</p>
+      <p class="hg-instr">Grouped by which midterm covers them. Each week opens on its own Monday at 8:00 am Pacific, and you work the week you are in, with no working ahead. Weeks you have finished stay open for the rest of the term, so you can always go back to one.</p>
       <div class="hg-modtabs" id="hgModtabs" role="tablist" aria-label="Modules"></div>
       <div class="hg-weeks" id="hgWeeks"></div>
     </section>
@@ -954,7 +954,7 @@
        say:'The syllabus is the whole agreement in one document. How the course works, how your grade is built, the Sunday deadline, the two exam windows, and every date that matters this term.'},
       {key:'weeks', name:'Your weekly hubs', icon:iconHome, internal:true, frame:true, url:'week-navigator.html',
        desc:'All 15 weeks, with the current one marked. Each hub holds that week in order.',
-       say:'This is the way into every week of the term. The week you are in is marked, and two weeks are open at any time: the one you are in and the one after it, so you can work a week ahead if you need to. Inside a hub you get that week in order: the videos, your Competency Study Guide, the retrieval work, the Mastery Check, the lab, the application case, and the discussion. Finished weeks stay open, so you can always go back.'},
+       say:'This is the way into every week of the term. The week you are in is marked. Each week opens on its own Monday at 8:00 am, and you work the week you are in, with no working ahead. Inside a hub you get that week in order: the videos, your Competency Study Guide, the retrieval work, the Mastery Check, the lab, the application case, and the discussion. Finished weeks stay open, so you can always go back.'},
       {key:'packet', name:'Competency Packet', icon:iconDoc, internal:true, frame:true, url:'competency-packet-fall2026.html',
        desc:'All 268 things this course asks of you. Nothing else is graded.',
        say:'The Competency Packet is the whole course on one list: 268 specific things you will be able to do, grouped by midterm and by week. Every exam question traces back to this list, and nothing is graded that is not on it. It is also where you check the anatomy, chemistry, and math the course assumes you arrive with.'},
@@ -1270,7 +1270,8 @@
     return 'Open hub';
   }
 
-  /* Two weeks open at a time. A week unlocks when the previous week
+  /* SUPERSEDED Sep 25 2026: no working ahead, each week opens its own Monday.
+     Two weeks open at a time. A week unlocks when the previous week
      opens, at the start of that day, so the moment Week 2 opens Week 3
      unlocks with it. Week 1 is the exception, opening at noon on the
      Saturday before the term. Finished weeks stay open all term.
@@ -1288,8 +1289,9 @@
   function hgUnlock(wk){
     var u;
     if (wk > 1) {
-      var prev = hgDate(HG_OPENS[wk-2]);
-      u = new Date(prev.getFullYear(), prev.getMonth(), prev.getDate(), 0, 0, 0, 0);
+      /* Sep 25 2026: no working ahead. A week opens on its own Monday at 8:00 am. */
+      var own = hgDate(HG_OPENS[wk-1]);
+      u = new Date(own.getFullYear(), own.getMonth(), own.getDate(), 8, 0, 0, 0);
     } else {
       var o = hgDate(HG_OPENS[0]);
       var back = (o.getDay() - 6 + 7) % 7 || 7;
@@ -1618,13 +1620,13 @@
            saying otherwise on the welcome page contradicted both the
            syllabus and how-grading-works.html. */
         case 'grades': return '<p>Four categories:</p><ol class="steps">'+
-          '<li><strong>Show Me What You Know, 35%.</strong> Two exams, 17.5% each. Each question is multiple choice: 10 minutes to prepare a physiological model from memory, then you present it on video, no notes, and give your answer. Model 75 percent, answer 25 percent.</li>'+
+          '<li><strong>Show Me What You Know, 35%.</strong> Two exams, 17.5% each. Three multiple choice questions each. For each one, on video, you build a physiological model on a whiteboard from memory in 10 minutes, teach it in 5, then give your answer. Model and teaching 75 percent, answer 25 percent.</li>'+
           '<li><strong>Investigate It, 25%.</strong> The weekly labs, written up as question, prediction, evidence, interpretation, conclusion.</li>'+
           '<li><strong>Use It, 25%.</strong> Your weekly application case (20%), plus your patient chart, kept all term and turned in once at the end (5%).</li>'+
           '<li><strong>Think About It, 15%.</strong> One discussion a week, physiology and your thinking about it together.</li></ol>'+
           '<p>Your Competency Study Guide, the retrieval work, the practice items, the book problems and the Mastery Check carry no points at all. That is deliberate: they are where you find out what you do not know, and grading them would push you to make them look finished instead of honest.</p>'+
           '<p>There is no curve, and no back-end extra credit. There is a front-end version: '+link('scholar-points.html','Scholar Points',true)+', up to a 2.5% bump earned across the term by practicing with other people. Full detail in '+link('how-grading-works.html','how you are graded',true)+' and in your '+link(l.syllabus,'syllabus',true)+'.</p>';
-        case 'exams': return '<p>Two exams, 17.5% each. Each midterm question is multiple choice. You get 10 minutes to prepare a physiological model from memory, then on video, out loud with no notes, you present the model and finish by giving your answer. The model and how you present it are worth 75 percent of the points for that question, and your answer is worth 25 percent.</p>'+
+        case 'exams': return '<p>Two exams, 17.5% each. Each midterm has three multiple choice questions, and you record yourself for the whole of each one. You get 10 minutes to plan and build a physiological model on a whiteboard, from memory with no notes, then 5 minutes to teach it out loud, and you finish by giving your answer. The model and your teaching are worth 75 percent of the points for that question, and your answer is worth 25 percent.</p>'+
           '<p><strong>Midterm 1</strong> covers Weeks 1 to 7. Window: October 29 to November 1.<br><strong>Midterm 2</strong> covers Weeks 9 to 14. Window: December 14 to 16.</p>'+
           '<p>Each one is a window of several days, not an hour, so you pick your time inside it. Every week includes a short ungraded practice round in exactly this format, so nothing about the exam will be new to you. Details in your '+link(l.syllabus,'syllabus',true)+'.</p>';
         case 'notesheets': return '<p>The Competency Study Guide is your weekly pre-work: one prompt for each competency, worked in a specific order. Read the questions first, preview the text, organize your notes, answer from what you know in your first color, then watch the videos and add what you did not know in a second color. Color two is your commit to memory list.</p>'+

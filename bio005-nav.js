@@ -739,9 +739,9 @@
                 + tool('assignment-discussion-01-metacognition.html', 'Discussion 1B', 'What the evidence told you about how you learned', 'Think About It &middot; 15%')
               : wn === 8 ? '' : tool('assignment-discussion.html?week=' + wn, 'Discussion ' + wn, 'Post by Friday, two replies by Sunday', 'Think About It &middot; 15%'))
           + tool('how-grading-works.html', 'How grading works', 'What counts, what it is worth')
-          + '</ul><h2>Patient file, the capstone</h2><p class="b5-lead">One patient you keep track of all semester. Each week you add that week\'s numbers and your thinking by hand. <b>Nothing is turned in weekly.</b> The whole chart comes in once, on December 16.</p><ul>'
+          + '</ul><h2>Patient file, the capstone</h2><p class="b5-lead">Two patients, one at a time: Camila in Weeks 1 to 8 and Dale in Weeks 9 to 15. Each week you add that week\'s numbers and your thinking by hand. <b>Nothing is turned in weekly.</b> Camila\'s chart and analysis come in on November 1, with Midterm 1, and Dale\'s on December 16.</p><ul>'
           + tool('patient-chart-book.html', 'Your patient chart', 'One patient, all term. Add this week by hand', 'Use It &middot; 5%')
-          + tool('assignment-patient-chart.html', 'What you turn in on Dec 16', 'Exactly what the PDF must contain, in order')
+          + tool('assignment-patient-chart.html', 'What you turn in, and when', 'Camila on Nov 1 with Midterm 1, Dale on Dec 16')
           + '</ul>' },
       check: { n: 4, name: 'Check', tag: 'No points',
         lead: 'Find the gaps before they cost you points. <b>A low score is information.</b>',
@@ -917,6 +917,15 @@
       + '.b5gate ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}'
       + '.b5gate ul a{display:inline-flex;align-items:center;min-height:44px;padding:9px 16px;border-radius:10px;border:1.5px solid #0B1530;color:#0B1530;text-decoration:none;font-weight:700;font-size:15px;background:#fff}'
       + '.b5gate ul a:hover{background:#0B1530;color:#fff}'
+      /* Sep 25 2026: the two ways to do the guide, side by side, so students pick one */
+      + '.b5gate .pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:0 0 6px}'
+      + '.b5gate .pick a{display:block;background:#fff;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 6px 16px rgba(11,21,48,.08);padding:18px 20px;color:#0B1530;text-decoration:none;transition:transform 200ms ease,box-shadow 200ms ease}'
+      + '.b5gate .pick a:hover,.b5gate .pick a:focus-visible{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.10)}'
+      + '.b5gate .pick .k{display:block;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8B3A2E;margin:0 0 6px}'
+      + '.b5gate .pick .t{display:block;font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:18px;line-height:1.3;margin:0 0 6px;text-decoration:underline;text-underline-offset:3px}'
+      + '.b5gate .pick .d{display:block;font-size:15px;line-height:1.55;color:#414B5C}'
+      + '.b5gate .or{font-size:15px;color:#414B5C;margin:0 0 4px}'
+      + '@media (prefers-reduced-motion:reduce){.b5gate .pick a{transition:none}.b5gate .pick a:hover{transform:none}}'
       + '.b5gate ul a.main{background:#8B3A2E;border-color:#8B3A2E;color:#fff}.b5gate ul a.main:hover{background:#6E2D24}';
     document.head.appendChild(css);
   }
@@ -977,14 +986,20 @@
     main.innerHTML = '<div class="b5gate"><p class="eb">' + PARTS[w.part] + ' · Week ' + n + ' of 15</p>'
       + '<h1>' + w.title + '</h1>'
       + '<div class="card"><p style="margin:0">' + line + '</p></div>'
-      + '<h2>Until then</h2><ul>'
-      + '<li><a class="main" href="' + B + cur.file + '" target="_top">This week, Week ' + cur.n + '</a></li>'
-      + (n === 8 ? '<li><a href="' + B + 'practice-exam.html" target="_top">Midterm 1 practice exam</a></li>' :
-        '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
-      + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' Competency Study Guide (PDF)</a></li>')
-      + '<li><a href="' + B + 'rx-cards.html" target="_top">Rx Cards</a></li>'
-      + '<li><a href="' + B + 'course-schedule.html" target="_top">The schedule</a></li>'
-      + '</ul></div>';
+      /* Sep 25 2026, Scrubs: before a week opens, this page holds only the
+         directions and the two ways to do the guide. Nothing else. */
+      + (n === 8
+        ? '<h2>Until then</h2><p class="or">Keep working the week you are in. The Midterm 1 practice exam is in Course tools, under Study tools.</p></div>'
+        : '<h2>Get ready for Week ' + n + '</h2>'
+      + '<p class="or">The week opens Monday. To be ready, choose how you will do your Competency Study Guide: print the worksheet, or set up your own paper from the competency list. Both have the same competencies and the same prompts.</p>'
+      + '<div class="pick">'
+      + '<a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_blank" rel="noopener"><span class="k">Choice 1: print it</span>'
+      + '<span class="t">Week ' + n + ' Competency Study Guide (PDF)</span>'
+      + '<span class="d">The ready-made worksheet, with a box for each competency to draw in. Print it and fill it in. Opens in a new tab.</span></a>'
+      + '<a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top"><span class="k">Choice 2: use your own paper</span>'
+      + '<span class="t">Week ' + n + ' competency list</span>'
+      + '<span class="d">Every competency with the same prompts. Work them on your own paper or in a notebook.</span></a>'
+      + '</div></div>');
     var h = main.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); }
   }
 

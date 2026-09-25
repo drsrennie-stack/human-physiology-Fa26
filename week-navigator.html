@@ -126,7 +126,7 @@ a.wk.exam:hover,a.wk.exam:focus-visible{background:rgba(201,161,74,.14)}
     <p class="eyebrow" id="navh">Your weekly hubs</p>
     <p class="now" id="now"></p>
   </div>
-  <p class="instr">Grouped by which midterm covers them. Two weeks are open at any time: the one you are in and the one after it, so you can work a week ahead if you need to. Weeks you have finished stay open for the rest of the term, so you can always go back.</p>
+  <p class="instr">Grouped by which midterm covers them. Each week opens on its own Monday at 8:00 am Pacific, and you work the week you are in, with no working ahead. Weeks you have finished stay open for the rest of the term, so you can always go back.</p>
 
   <div class="tabs" role="tablist" aria-label="Which half of the term" id="tabs"></div>
   <ul class="weeks" id="weeks"></ul>
@@ -169,7 +169,7 @@ a.wk.exam:hover,a.wk.exam:focus-visible{background:rgba(201,161,74,.14)}
     { name:'Weeks 1 to 8',  weeks:[1,2,3,4,5,6,7,8],
       exam:{ n:1, window:'Oct 29 to Nov 1', covers:'Weeks 1 to 7' } },
     { name:'Weeks 9 to 15', weeks:[9,10,11,12,13,14,15],
-      exam:{ n:2, window:'Dec 14 to 16', covers:'Weeks 8 to 14' } }
+      exam:{ n:2, window:'Dec 14 to 16', covers:'Weeks 9 to 14' } }
   ];
   var EXAM_WEEK = { 8:1, 15:2 };
 
@@ -177,6 +177,9 @@ a.wk.exam:hover,a.wk.exam:focus-visible{background:rgba(201,161,74,.14)}
   function pad(n){ return (n < 10 ? '0' : '') + n; }
 
   /* WHEN A WEEK UNLOCKS.
+     SUPERSEDED Sep 25 2026: no working ahead. Each week unlocks on its own
+     Monday at 8:00 am; the rule described below is the old one.
+
      Scrubs' rule, Sep 7 2026 (third revision).
 
      THE RULE. A week unlocks when the previous week opens, at the start
@@ -207,9 +210,9 @@ a.wk.exam:hover,a.wk.exam:focus-visible{background:rgba(201,161,74,.14)}
     var o = d(openISO);
     var u;
     if (wkNum > 1) {
-      /* start of the day the previous week opens */
-      var prev = d(OPENS[wkNum - 2]);
-      u = new Date(prev.getFullYear(), prev.getMonth(), prev.getDate(), 0, 0, 0, 0);
+      /* Sep 25 2026, Scrubs: no working ahead. A week opens on its own
+         Monday at 8:00 am, the same moment bio005-nav.js opens its page. */
+      u = new Date(o.getFullYear(), o.getMonth(), o.getDate(), 8, 0, 0, 0);
     } else {
       /* Week 1 only: noon on the Saturday before it starts. Weeks open
          Monday except Week 1, which opens Tuesday Sep 8, so walk back to

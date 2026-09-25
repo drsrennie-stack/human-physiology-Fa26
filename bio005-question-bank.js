@@ -6,7 +6,7 @@
    course-questions.html. Do not hand edit: edit the page and
    re-run the script.
 
-   248 questions with their answers, so Hootie answers from
+   254 questions with their answers, so Hootie answers from
    the same bank the students read rather than saying it does not
    know something that is already written down.
    ============================================================ */
@@ -14,13 +14,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q1",
   "q": "Where do I start?",
-  "a": "<p>If you know the week, start its Competency Study Guide. If you truly do not know what to do, there is an exact order, and it always works: read the questions, preview the text, organize your notes, answer from what you know in one color, watch the concept's video, add what you learned in a second color, turn it in. The full method is under the question I do not know what to do on this page.</p>",
+  "a": "<p>Open the week's <b>Start here</b> page in Canvas, or the week page on the course site, and follow the steps in order. Every week runs the same loop:</p><ol><li>The pre-read: a quick look at the headings and figures, with a few short questions. Turned in.</li><li>First pass, in your first color: work through the week's lessons and videos in order, filling each box of your Competency Study Guide as you go.</li><li>Second pass, in your second color: go back through the same lessons and add what you missed and fix what was wrong. Do not erase the first color.</li><li>Upload your Competency Study Guide with both colors on it.</li><li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li><li>The Mastery Check, and upload the report.</li><li>The lab: PhysioEx, then the worksheet.</li><li>Your application case, worked into your patient chart.</li><li>Your patient chart: this week's numbers and your thinking.</li><li>The discussion: post by Friday, replies by Sunday.</li></ol><p>Everything is due Sunday at 10:00 pm, except the first discussion post, which is due Friday.</p>",
   "topic": "Getting started"
  },
  {
   "id": "q2",
   "q": "What should I do on the very first day?",
-  "a": "<p>Read the <a href=\"syllabus-fall2026.html\" target=\"_top\">syllabus</a>, buy Pearson access through Access Pearson in Canvas, post your introduce yourself discussion, and start the Week 1 Competency Study Guide. That is a full first day.</p>",
+  "a": "<p>Read the <a href=\"syllabus-fall2026.html\" target=\"_top\">syllabus</a>, buy Pearson access through Access Pearson in Canvas, post your Week 1 vision board discussion, and start the Week 1 Competency Study Guide. That is a full first day.</p>",
   "topic": "Getting started"
  },
  {
@@ -68,7 +68,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q10",
   "q": "How do I know what to do each week?",
-  "a": "<p>Open the week's page from the <a href=\"course-schedule.html\" target=\"_top\">schedule</a> or the <a href=\"home.html\" target=\"_top\">course home</a>. Every week is the same six steps in the same order: prepare, watch, discuss, practice, lab, prove.</p>",
+  "a": "<p>Open the week's <b>Start here</b> page in Canvas. It lists the week's steps in order with every due date, and it lets you choose how to work: stay in Canvas and press Next through the module, or open the interactive week page on the course site. Both have the same steps and the same due dates, and you turn everything in through Canvas either way.</p>",
   "topic": "Getting started"
  },
  {
@@ -116,19 +116,19 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q18",
   "q": "I do not know what to do. What is the exact order?",
-  "a": "<p>Start with the pre-work, in this exact order. One: read the Competency Study Guide questions first, before anything else. Two: preview the text with those questions in your head. Three: organize your notes so you know where to find things. Do not make flashcards; organize. Four: practice answering the questions the best you can, from what you already know, in your first color, on the master Competency Study Guide you will draw and create from. Five: now watch the video for that concept; the concept name and number are at the top of the prompt. Six: as you watch, add what you did not know in a second color, from the video or any other digging you do. Your first color is your baseline, what you already had, especially if you wrote it from memory. The second color is exactly what you need to commit to memory. Then turn it in. For lab: run PhysioEx first, then complete the worksheet, then the clinical correlations. And if a step genuinely does not work for the way you learn, see the next question; the method bends, the course requirements do not.</p>",
+  "a": "<p>Every week is the same ten steps, in this order:</p><ol><li>The pre-read: a quick look at the headings and figures, with a few short questions. Turned in.</li><li>First pass, in your first color: work through the week's lessons and videos in order, filling each box of your Competency Study Guide as you go.</li><li>Second pass, in your second color: go back through the same lessons and add what you missed and fix what was wrong. Do not erase the first color.</li><li>Upload your Competency Study Guide with both colors on it.</li><li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li><li>The Mastery Check, and upload the report.</li><li>The lab: PhysioEx, then the worksheet.</li><li>Your application case, worked into your patient chart.</li><li>Your patient chart: this week's numbers and your thinking.</li><li>The discussion: post by Friday, replies by Sunday.</li></ol><p>For the lab, run PhysioEx first, then complete the worksheet. If a step does not work for the way you learn, see the next question: the method bends, the course requirements do not.</p>",
   "topic": "Getting started"
  },
  {
   "id": "q19",
   "q": "What if that order does not work for me?",
-  "a": "<p>Then adjust it; the order is the default because it works for most people, not a rule you can fail. Adapt it to how you learn: if reading first truly stalls you, watch the concept video first, then close the loop by answering the prompt from memory afterward, in your first color, and add what you still had to look up in the second. If writing is slow for you, talk your answer out loud first, then write it. What has to survive any adaptation, because it is how this course is built: at some point you answer from memory rather than while looking, your two colors stay honest about what was baseline and what was new, PhysioEx runs before the worksheet, and the Sunday deadline does not move. Inside those walls, build the version that fits you, and if you want help designing it, bring it to office hours; that is a great use of them.</p>",
+  "a": "<p>Then adjust it. The order is the default because it works for most people, not a rule you can fail. If the lessons stall you, start with the videos. If writing is slow for you, talk your answer out loud first, then write it. What has to survive any change, because it is how this course is built: at some point you answer from memory rather than while looking, your two colors stay honest about what came from your first pass and what came from your second, PhysioEx runs before the worksheet, and the Sunday deadline does not move. If you want help designing your version, bring it to office hours.</p>",
   "topic": "Getting started"
  },
  {
   "id": "q20",
   "q": "How is the course organized?",
-  "a": "<p>Fifteen weeks in three Parts, each Part closed by a midterm. Every week has its own page with the same six steps. The <a href=\"course-schedule.html\" target=\"_top\">schedule</a> shows the whole term at a glance.</p>",
+  "a": "<p>Fourteen weeks plus a finals week, with two midterms. Midterm 1 comes at the end of Week 8 and covers Weeks 1 to 7. Midterm 2 runs in Week 15, the three-day finals week, and covers Weeks 9 to 14. Weeks 2 and 3 run as one combined block, and Week 8 has no new teaching. Every week has its own page with the same steps, and the <a href=\"course-schedule.html\" target=\"_top\">schedule</a> shows the whole term.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -140,7 +140,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q22",
   "q": "What is on a week page?",
-  "a": "<p>The week's title, how many competencies it carries, the six steps in order with links, the due day, and on some weeks the clinical correlation videos. Nothing else, on purpose.</p>",
+  "a": "<p>The week's title, its competencies, the steps in order with links, and what is due and when. On some weeks it also carries the clinical correlation videos.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -181,20 +181,20 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q29",
-  "q": "I clicked a week that has not started. Why is it quiet?",
-  "a": "<p>Future weeks show one line, the date they open, and let you read ahead calmly. Nothing on a future week is due, so nothing on it nags you.</p>",
+  "q": "I clicked a week that has not started. What do I see?",
+  "a": "<p>A page that says when the week opens, plus the two ways to do its Competency Study Guide: the printable PDF, or the competency list for your own paper. The week's lessons and work open on its Monday at 8:00 am Pacific.</p>",
   "topic": "Navigating the course"
  },
  {
   "id": "q30",
   "q": "Can I work ahead?",
-  "a": "<p>Yes, one week. Two weeks are open at any time: the week you are in and the week after it. So if you know a hard week is coming at work, you can get the next week done early.</p><p>You cannot open more than that. It is a deliberate limit, not a technical one. Working several weeks ahead in physiology tends to mean covering material fast and retaining very little of it, and the whole design of this course assumes you meet each week once and then keep meeting it in retrieval. Weeks you have finished stay open all term, so you can always go back.</p>",
+  "a": "<p>No. Each week opens on its own Monday at 8:00 am Pacific, and you work the week you are in. Before a week opens you can print its Competency Study Guide or set up your paper from its competency list, and that is all. Weeks you have finished stay open all term, so you can always go back. The limit is deliberate: physiology covered fast is physiology forgotten, and this course is built for you to meet each week once and then keep meeting it in retrieval.</p>",
   "topic": "Navigating the course"
  },
  {
   "id": "q31",
   "q": "What is Hootie?",
-  "a": "<p>The course helper on the welcome page, the little owl in the corner. Ask it where things are, what is due, or how something works, in plain words. It answers the way I would.</p>",
+  "a": "<p>Hootie the Knowfish, the Ask Hootie button in the bottom right corner of the course pages. Ask where things are, what is due, or how something works, in plain words. Hootie does not answer physiology questions, because those are what you are examined on.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -235,8 +235,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q38",
-  "q": "What is the course tools button?",
-  "a": "<p>On pages that carry it, the button in the bottom left corner opens everything: this week, your Competency Study Guide, Rx Cards, labs, the schedule, the syllabus.</p>",
+  "q": "What is the Course tools button?",
+  "a": "<p>The button in the bottom left corner of the course pages. It opens with your study tools on top: <a href=\"rx-cards.html\" target=\"_top\">Rx Cards</a>, the <a href=\"competency-brain-dump.html\" target=\"_top\">Brain Dump</a>, <a href=\"study-with-me.html\" target=\"_top\">Study With Me</a>, the <a href=\"practice-exam.html\" target=\"_top\">Mastery Check</a> and <a href=\"mastery-physio-os-standalone.html?open=drawknow\" target=\"_top\">Draw It to Know It</a>. Below those are this week, your Competency Study Guide, the labs, the schedule and the syllabus. Type a few letters to find a tool.</p>",
   "topic": "Navigating the course"
  },
  {
@@ -260,7 +260,19 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q42",
   "q": "How is my grade calculated?",
-  "a": "<p>Four categories. Show Me What You Know, the two exams, 35 percent. Investigate It, the labs, 25 percent. Use It, your application cases and patient file, 25 percent. Think About It, the discussions, 15 percent. Competency Study Guides, practice and the Mastery Checks carry no points on purpose. Full detail in <a href=\"syllabus-fall2026.html#s07\" target=\"_top\">syllabus section 07</a>.</p>",
+  "a": "<p>Four categories. Show Me What You Know, the two exams, 35 percent. Investigate It, the labs, 25 percent. Use It, your application cases and patient chart, 25 percent. Think About It, the discussions, 15 percent. The pre-read, the Competency Study Guide and the Mastery Check carry no points on purpose; you still turn them in each week and they are marked complete or not complete. Full detail in the <a href=\"syllabus-fall2026.html\" target=\"_top\">syllabus</a>.</p>",
+  "topic": "Grading"
+ },
+ {
+  "id": "q256",
+  "q": "What is the patient chart?",
+  "a": "<p>Two patients you follow by hand, one at a time. Camila Reyes carries Weeks 1 to 8 and Dale Whitcomb carries Weeks 9 to 15. Each week you copy that week&rsquo;s numbers into the patient&rsquo;s flowsheets and add what changed, your problem list, a drawing and your thinking, including what you worked out in that week&rsquo;s application case. Nothing is uploaded weekly.</p><p>Each patient&rsquo;s analysis is a recorded chart walk: you on camera with only your handwritten chart, reasoning out loud from your own numbers for 10 to 15 minutes. Camila&rsquo;s chart and chart walk are turned in on Sunday, November 1, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. Dale&rsquo;s chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent. See <a href=\"assignment-patient-chart.html\" target=\"_top\">what you turn in, and when</a>.</p>",
+  "topic": "Grading"
+ },
+ {
+  "id": "q251",
+  "q": "What is the Mastery Check, and when does it count?",
+  "a": "<p>A practice exam you build yourself in the <a href=\"practice-exam.html\" target=\"_top\">Mastery Check</a>. An attempt counts when it covers one week, has at least 50 questions, tests every competency that week, and you score 80 percent or higher. The report says Met or Not yet for each of those. Take it as many times as you like; each try is a fresh set of questions. When an attempt meets the standard, save the report as a PDF and upload it. It carries no points, and it is marked complete or not complete.</p>",
   "topic": "Grading"
  },
  {
@@ -290,13 +302,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q47",
   "q": "How are Competency Study Guides graded?",
-  "a": "<p>You submit the whole sheet. I pick five prompts and grade those for accuracy, and you will not know which five ahead of time, so every prompt has to be real. The rest is checked for completion.</p>",
+  "a": "<p>They are not graded for content. You upload the guide each week with both colors on it, and it is marked complete or not complete. What matters is that both passes are there and honest, because the gap between your two colors is what tells you what to study.</p>",
   "topic": "Grading"
  },
  {
   "id": "q48",
   "q": "How are discussions graded?",
-  "a": "<p>One post a week that does two jobs: works through something from that week's physiology, and says something honest about your own thinking on it. Initial post Friday 10:00 pm, peer replies Sunday 10:00 pm.</p>",
+  "a": "<p>One post a week, due Friday at 10:00 pm, and replies due Sunday at 10:00 pm. Most weeks the post asks what your Mastery Check showed you, what you did about it, and what happened when you tried again, plus one question about the physiology. Weeks 4 and 5 are an exam practice instead: see the question about the exam practice. The Canvas discussion states the details each week.</p>",
   "topic": "Grading"
  },
  {
@@ -308,7 +320,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q50",
   "q": "Are the book problems graded?",
-  "a": "<p>They are not. Book problems carry no points and nothing is submitted. They sit in Learn and Retrieve on the weekly page as practice, and there are two ways to use them: work them forwards if you have a way in, or work them backwards by reading a solution and writing why each step is there, then reproducing it from blank paper. The second is for when you open a problem and have no idea where to start, and it is not a lesser option. Problem numbers are on each week's page.</p>",
+  "a": "<p>No. Book problems carry no points and nothing is submitted. They are listed on the Week 1 to 3 pages as practice, and there are two ways to use them: work them forwards if you have a way in, or work them backwards by reading a solution and writing why each step is there, then reproducing it from blank paper.</p>",
   "topic": "Grading"
  },
  {
@@ -338,7 +350,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q55",
   "q": "What happens if I bomb one midterm?",
-  "a": "<p>One midterm is about 13 percent of the grade. Come to office hours, find the gap with a Mastery Check, and fix it before the next block, because physiology compounds.</p>",
+  "a": "<p>One midterm is 17.5 percent of the grade, and there is a lot of the grade left. Find the gap with the Mastery Check, come to office hours, and fix it before the next block, because physiology compounds.</p>",
   "topic": "Grading"
  },
  {
@@ -349,8 +361,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q57",
-  "q": "Why are Competency Study Guides worth so much?",
-  "a": "<p>Twenty percent because they are the pre work that makes everything else possible, and they double as your midterm study guide, so the points pay you twice.</p>",
+  "q": "Why do the Competency Study Guides carry no points?",
+  "a": "<p>Because they are where you find out what you do not know, and that only works if the guide is honest rather than tidy. They are what makes everything else possible, and they double as your midterm study guide, so the payoff comes on the exam, not on the sheet. You still upload it each week, marked complete or not complete.</p>",
   "topic": "Grading"
  },
  {
@@ -386,13 +398,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q63",
   "q": "Where does participation show up in the grade?",
-  "a": "<p>Participation in an online course is submitted work, and what I can certify is the <strong>graded work</strong>: your weekly discussion post, your lab, and your application case. The Competency Study Guide, the practice items and the Mastery Check carry no points, so as much as they drive your learning, they are not what attendance is measured from.</p>",
+  "a": "<p>Participation in an online course is submitted work. Each week that means the pre-read, your Competency Study Guide, your Mastery Check report, your lab, your application case and your discussion. Census is September 27, and I certify who is actively participating from what has been turned in.</p>",
   "topic": "Grading"
  },
  {
   "id": "q64",
   "q": "Are the weights ever adjusted during the term?",
-  "a": "<p>No. The five components and their weights are fixed for the term: 20, 40, 15, 15, 10. What you see in <a href=\"syllabus-fall2026.html#s07\" target=\"_top\">section 07</a> is the whole deal.</p>",
+  "a": "<p>No. The four categories and their weights are fixed for the term: 35, 25, 25 and 15. What you see in the <a href=\"syllabus-fall2026.html\" target=\"_top\">syllabus</a> is the whole deal.</p>",
   "topic": "Grading"
  },
  {
@@ -404,7 +416,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q66",
   "q": "What is a Competency Study Guide?",
-  "a": "<p>A weekly sheet with one prompt for each competency you must be able to do that week. You complete it from the reading and the videos before anything else. It is the first step of every week.</p>",
+  "a": "<p>A weekly guide with one box for each competency you must be able to do that week, and two prompts for each box to choose from. You fill it in two passes, one color each, as you work through the week's lessons, then upload it. It is your study guide for the rest of the week and for the midterm.</p>",
+  "topic": "Competency Study Guides"
+ },
+ {
+  "id": "q252",
+  "q": "What is the pre-read?",
+  "a": "<p>The first step of every week, about 30 minutes. A quick look ahead, not a full read: you look at the headings and figures in that week's chapters and answer a few short questions, so the lessons make more sense when you get to them. Fill it in on screen or on the printable copy, then upload it. It is marked complete or not complete.</p>",
   "topic": "Competency Study Guides"
  },
  {
@@ -415,8 +433,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q68",
-  "q": "Which five prompts get graded?",
-  "a": "<p>You will not know ahead of time. That is the point: every prompt has to be real.</p>",
+  "q": "Is my Competency Study Guide graded for accuracy?",
+  "a": "<p>No. It is marked complete or not complete. What counts is that both passes are there, in two colors, from your own work.</p>",
   "topic": "Competency Study Guides"
  },
  {
@@ -428,13 +446,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q70",
   "q": "What does a good Competency Study Guide answer look like?",
-  "a": "<p>Two colors telling the truth. First color: your best answer from memory and the text preview. Second color: what the video and your digging added. A drawing or worked explanation you could teach from, not a copied sentence. If your sheet can carry you through the practice round without the book, it is good.</p>",
+  "a": "<p>Two colors telling the truth. First color: what you built on your first pass through the lessons. Second color: what you added or fixed on your second pass. A drawing or a sequence you could teach from, not a copied sentence. If your guide can carry you through a brain dump without the book, it is good.</p>",
   "topic": "Competency Study Guides"
  },
  {
   "id": "q71",
   "q": "Where do I find each week&#x27;s Competency Study Guide?",
-  "a": "<p>On the week's page, step 1, posted when the week opens.</p>",
+  "a": "<p>On the week's page and in the week's Canvas module, as a printable PDF and on screen, posted when the week opens. The printable one says Competency Study Guide at the top.</p>",
   "topic": "Competency Study Guides"
  },
  {
@@ -446,7 +464,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q73",
   "q": "What if I cannot finish every prompt?",
-  "a": "<p>Turn in what you have by Sunday 10:00 pm. A partially complete sheet earns partial completion credit; a late sheet costs half; after 24 hours it is a zero.</p>",
+  "a": "<p>Upload what you have by Sunday at 10:00 pm. Partial beats nothing, and the late policy applies after the deadline.</p>",
   "topic": "Competency Study Guides"
  },
  {
@@ -458,13 +476,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q75",
   "q": "How long should a Competency Study Guide take?",
-  "a": "<p>Plan on several focused hours across the week. It is most of your prepare and watch time, which is why it comes first.</p>",
+  "a": "<p>Plan on three to four hours for the first pass and 30 to 60 minutes for the second, spread across a few sittings early in the week.</p>",
   "topic": "Competency Study Guides"
  },
  {
   "id": "q76",
   "q": "What is the two color rule?",
-  "a": "<p>Your first color is your baseline: what you can answer from memory and the text preview, before the video. The second color is everything you add from the video or your own digging afterward. The result reads at a glance: color one is what you already had, color two is exactly what you still need to commit to memory. Your studying aims at the second color.</p>",
+  "a": "<p>Your first color is your first pass through the week's lessons and videos. Your second color is everything you add or fix on the second pass. Never erase the first color. The result reads at a glance: the second color is exactly what you still need to commit to memory, and that is where your studying goes.</p>",
   "topic": "Competency Study Guides"
  },
  {
@@ -481,8 +499,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q79",
-  "q": "Do I submit the Competency Study Guide even on a midterm window week?",
-  "a": "<p>Yes. Weeks 6 and 11 run their own full week while the window is open. The Competency Study Guide is due Sunday 10:00 pm as always.</p>",
+  "q": "Is there a Competency Study Guide in a midterm week?",
+  "a": "<p>Week 8 has no new material, so there is no guide that week. Monday to Wednesday is for review, and Midterm 1 runs Thursday to Sunday. Week 15 is only three days, and Midterm 2 runs during it.</p>",
   "topic": "Competency Study Guides"
  },
  {
@@ -578,7 +596,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q95",
   "q": "How do the midterms work?",
-  "a": "<p>Each midterm question is multiple choice. You get 10 minutes to prepare a physiological model from memory, then on video, out loud with no notes, you present the model and finish by giving your answer. The model and how you present it are worth 75 percent of the points for that question, and your answer is worth 25 percent. The model shows the mechanism: label it, explain each step and say why it happens.</p>",
+  "a": "<p>Each midterm has three multiple choice questions, and you record yourself for the whole of each one. You get 10 minutes to plan and build a physiological model on a whiteboard, from memory with no notes, then 5 minutes to teach it out loud, and you finish by giving your answer. The model and your teaching are worth 75 percent of the points for that question, and your answer is worth 25 percent. The model shows the mechanism: label it, explain each step and say why it happens.</p>",
   "topic": "Midterms"
  },
  {
@@ -596,25 +614,25 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q99",
   "q": "Is the midterm at a set time?",
-  "a": "<p>No. Each midterm is a window, not an hour. It opens Monday at 8:00 am and closes at 10:00 pm on its closing day. You pick when inside the window.</p>",
+  "a": "<p>No. Each midterm is a window, not an hour. Midterm 1 opens Thursday, October 29 at 8:00 am and closes Sunday, November 1 at 10:00 pm. Midterm 2 opens Monday, December 14 at 8:00 am and closes Wednesday, December 16 at 10:00 pm. You pick when inside the window.</p>",
   "topic": "Midterms"
  },
  {
   "id": "q100",
   "q": "Can I use notes on the midterm?",
-  "a": "<p>No notes, no book, no screen beyond the recording. You, a pen, paper, and your own head. That is the point of the format.</p>",
+  "a": "<p>No notes, no book, nothing open, including during the 10 minutes you spend building your model. You, a whiteboard and your own head, on camera the whole time. That is the point of the format.</p>",
   "topic": "Midterms"
  },
  {
   "id": "q101",
   "q": "How do I record my video?",
-  "a": "<p>A phone propped up works fine. Show your paper, draw as you talk, and speak like you are teaching a classmate. Submission instructions are on the exam in Canvas.</p>",
+  "a": "<p>A phone propped up so it sees you and the whole whiteboard works fine. Keep recording for the whole question: the 10 minutes of building your model and the 5 minutes of teaching it. Submission instructions are on the exam in Canvas.</p>",
   "topic": "Midterms"
  },
  {
   "id": "q102",
   "q": "How long should my video be?",
-  "a": "<p>Long enough to draw and teach the pathway completely. The exam instructions give the range. Rambling does not earn points; complete teaching does.</p>",
+  "a": "<p>About 15 minutes for each question: 10 minutes to build your model and 5 minutes to teach it, ending with your answer. There are three questions on each midterm.</p>",
   "topic": "Midterms"
  },
  {
@@ -626,13 +644,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q104",
   "q": "What gets asked on a midterm?",
-  "a": "<p>Pathways drawn from that block's competencies in the <a href=\"competency-packet-fall2026.html\" target=\"_top\">packet</a>. If you can teach every pathway your Competency Study Guides built, you are ready.</p>",
+  "a": "<p>Three multiple choice questions built from that block's competencies in the <a href=\"competency-packet.html\" target=\"_top\">packet</a>. If you can build and teach the model behind each competency from memory, you are ready.</p>",
   "topic": "Midterms"
  },
  {
   "id": "q105",
   "q": "How do I know the format before it counts?",
-  "a": "<p>Every single week includes a five minute ungraded practice round in exactly the midterm format. By Midterm 1 the format is familiar.</p>",
+  "a": "<p>Weeks 4 and 5 are a full practice run of the format before it counts. And every week's study step practices the model part: building a mechanism from memory and explaining it out loud.</p>",
   "topic": "Midterms"
  },
  {
@@ -644,7 +662,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q107",
   "q": "What if my internet dies during the window?",
-  "a": "<p>The window is a full week precisely so a bad day cannot sink you. Record early; submit early. A video submitted Tuesday cannot be lost on Sunday.</p>",
+  "a": "<p>Each window is several days long so a bad day cannot sink you. Record early and submit early.</p>",
   "topic": "Midterms"
  },
  {
@@ -697,20 +715,20 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q116",
-  "q": "What happens during exam weeks to regular work?",
-  "a": "<p>The weeks keep running. Weeks 6 and 11 carry their own work while a window is open, so plan the exam around the week, not instead of it.</p>",
+  "q": "What happens to regular work during the midterm weeks?",
+  "a": "<p>Week 8 has no new teaching: Monday to Wednesday is yours to review, and Midterm 1 runs Thursday to Sunday. Midterm 2 runs during the three days of Week 15.</p>",
   "topic": "Midterms"
  },
  {
   "id": "q117",
-  "q": "Can I choose which pathway I teach?",
-  "a": "<p>The exam tells you what to draw and teach. The weekly practice rounds sample the same competencies, so nothing on the exam is a stranger.</p>",
+  "q": "Can I choose which question I get?",
+  "a": "<p>No. The exam gives you the questions. Your model is how you work out each answer, and every question comes from the competencies you have already studied.</p>",
   "topic": "Midterms"
  },
  {
   "id": "q118",
   "q": "What supplies do I need for the exam video?",
-  "a": "<p>Blank paper, two pen colors, decent light, and a propped phone. Set them out before you press record.</p>",
+  "a": "<p>A whiteboard and markers, decent light, and a phone propped where it sees you and the whole board. Set them up before you press record.</p>",
   "topic": "Midterms"
  },
  {
@@ -806,7 +824,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q134",
   "q": "Can I do the lab before the week opens?",
-  "a": "<p>The Pearson assignment opens with the week. Read ahead on the week page any time.</p>",
+  "a": "<p>No. The week's work opens on its Monday at 8:00 am Pacific, and the Pearson assignment opens with it.</p>",
   "topic": "Labs and PhysioEx"
  },
  {
@@ -926,7 +944,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q155",
   "q": "Does the late policy apply to midterms?",
-  "a": "<p>Midterms have their own windows, a full week each. Inside the window, any time. After it closes, it is closed.</p>",
+  "a": "<p>Midterms have their own windows of several days. Inside the window, any time. After it closes, it is closed.</p>",
   "topic": "Deadlines and late work"
  },
  {
@@ -956,19 +974,19 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q160",
   "q": "How should I split my hours across the week?",
-  "a": "<p>A workable shape: Competency Study Guide and videos across two or three sittings early in the week, discussion by Friday, lab and problems by Saturday, review and the practice round Sunday. Never all of it Sunday.</p>",
+  "a": "<p>A workable shape: the pre-read first, your first pass in two or three sittings early in the week, the second pass and the upload, study sessions spread over several days, your discussion post by Friday, and the Mastery Check, lab and case by Sunday. Never all of it on Sunday.</p>",
   "topic": "Time and workload"
  },
  {
   "id": "q161",
   "q": "How do I plan a week when I know a busy stretch is coming?",
-  "a": "<p>Work ahead the week before. The material posts weeks ahead precisely so a trip or a work crunch never has to collide with a deadline.</p>",
+  "a": "<p>There is no working ahead, so plan inside the week: each week is open for all seven days, so on a week you know will be busy, do the work early in the week and submit it before the busy stretch.</p>",
   "topic": "Time and workload"
  },
  {
   "id": "q162",
   "q": "What is the busiest week of the term?",
-  "a": "<p>Exam window weeks, 6 and 11, because the window overlaps a normal week. Front load those weeks and record your exam early in the window.</p>",
+  "a": "<p>The last teaching week before each midterm, Week 7 and Week 14, usually asks the most, because new material and review overlap. Week 8 itself has no new teaching.</p>",
   "topic": "Time and workload"
  },
  {
@@ -992,7 +1010,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q166",
   "q": "Can I finish the whole course early?",
-  "a": "<p>No, the weeks open on schedule, and the rhythm is the pedagogy. You can read ahead as far as you like.</p>",
+  "a": "<p>No. The weeks open on schedule, one at a time, and the rhythm is how the course works.</p>",
   "topic": "Time and workload"
  },
  {
@@ -1011,6 +1029,24 @@ window.BIO005_QUESTIONS = [
   "id": "q169",
   "q": "How do I use Rx Cards?",
   "a": "<p>Open <a href=\"rx-cards.html\" target=\"_top\">Rx Cards</a> every day and clear what is due. Reviews are never capped, only new cards are, so the pile stays a size you can carry. Little and often beats big and rare, because a card cannot move forward twice in one day.</p>",
+  "topic": "Studying"
+ },
+ {
+  "id": "q253",
+  "q": "What is the Brain Dump tool?",
+  "a": "<p>The <a href=\"competency-brain-dump.html\" target=\"_top\">Brain Dump</a> picks a random competency and prompt for you. Pick a week and press Spin. Do the prompt on paper, from memory, with everything closed. Then press Check my work and tick only what is actually on your paper against the list of what the prompt asked for. The competencies you keep leaving pieces out of collect in a weakest list, so you know what to drill next.</p>",
+  "topic": "Studying"
+ },
+ {
+  "id": "q254",
+  "q": "What is Draw It to Know It?",
+  "a": "<p>A drawing exercise in the <a href=\"mastery-physio-os-standalone.html?open=drawknow\" target=\"_top\">Mastery OS</a>. It asks how sure you feel about a competency, then gives you a prompt: draw the mechanism or build a small map from memory on the canvas, then open the self check list and mark what you covered. When you went in confident and came out patchy, it moves that competency up your weak spot list.</p>",
+  "topic": "Studying"
+ },
+ {
+  "id": "q255",
+  "q": "Where are all the study tools in one place?",
+  "a": "<p>Press <b>Course tools</b> in the bottom left corner of any course page. Your study tools are at the top: <a href=\"rx-cards.html\" target=\"_top\">Rx Cards</a>, the <a href=\"competency-brain-dump.html\" target=\"_top\">Brain Dump</a>, <a href=\"study-with-me.html\" target=\"_top\">Study With Me</a>, the <a href=\"practice-exam.html\" target=\"_top\">Mastery Check</a> and <a href=\"mastery-physio-os-standalone.html?open=drawknow\" target=\"_top\">Draw It to Know It</a>.</p>",
   "topic": "Studying"
  },
  {
@@ -1058,13 +1094,13 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q177",
   "q": "How do I study with the videos?",
-  "a": "<p>Answer the prompt first, in your first color, from what you already know. Then watch that concept's video, name and number at the top of the prompt, and add what you did not know in your second color. The video lands differently when it is answering questions you already tried; watching first wastes the attempt.</p>",
+  "a": "<p>Watch each concept's video during your first pass, alongside its lesson, and again whenever a part is still unclear. In the walkthroughs, look for the Stuck? Watch a short explanation button. Fill that competency's box in your first color as you go, then add and fix in your second color on your second pass.</p>",
   "topic": "Studying"
  },
  {
   "id": "q178",
   "q": "What should Sunday review look like?",
-  "a": "<p>Clear the weakness dashboard, retry this week's error log rows cold, do the five minute practice round, and skim next week's page so Monday starts warm.</p>",
+  "a": "<p>Clear your Rx Cards, retry this week's error log rows cold, do a brain dump or two, and skim next week's Start here page so Monday starts warm.</p>",
   "topic": "Studying"
  },
  {
@@ -1093,8 +1129,8 @@ window.BIO005_QUESTIONS = [
  },
  {
   "id": "q183",
-  "q": "What is the practice round for?",
-  "a": "<p>Five ungraded minutes each week in exactly the midterm format, so the format costs you nothing by the time it counts. Do it every week; it is the cheapest insurance in the course.</p>",
+  "q": "What is the exam practice in Weeks 4 and 5?",
+  "a": "<p>A full practice run of the midterm format before it counts, on material from Week 2.</p><p><b>Week 4.</b> Two multiple choice questions, one at a time, one video each: 15 minutes preparing your answer on camera by building a model from memory, then 5 minutes presenting it and giving your answer. The videos go to me only, through an assignment. Then you post in Discussion 4 about how it went, where you got stuck, and what you will do about it, and you help each other with solutions.</p><p><b>Week 5.</b> The rubrics and the answer key come out. You score your own models, answers and presenting, and analyze what it shows you in Discussion 5.</p>",
   "topic": "Studying"
  },
  {
@@ -1316,7 +1352,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q220",
   "q": "Should I drop if I bombed Midterm 1?",
-  "a": "<p>Not reflexively. One midterm is about 13 percent. Look at the math, come talk to me, and remember Midterm 2 closes the day after the W deadline so you will have real information in hand.</p>",
+  "a": "<p>Not reflexively. One midterm is 17.5 percent, and there is a lot of the grade left. Look at the math and come talk to me before the last day to drop with a W, Saturday, November 21.</p>",
   "topic": "Enrollment and transfer"
  },
  {

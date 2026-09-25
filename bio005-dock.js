@@ -372,6 +372,27 @@
          About         syllabus, schedule, help
        ============================================================ */
 
+    /* ---------- STUDY TOOLS. Sep 25 2026, Scrubs: the five study tools
+       sit on top, open by default, so none of them is ever two groups
+       deep. They moved here from This week, Practice and Check rather
+       than being copied, so nothing appears twice. ---------- */
+    var ST = 'Study tools';
+    t.push({ g: ST, name: 'Rx Cards', sub: 'Spaced recall that gets harder as you prove it',
+             url: BASE + 'rx-cards.html?week=' + wn, icon: 'cards', tone: 'gold', qr: 'recall',
+             kw: 'cards recall rx flashcards spaced repetition quiz retrieval practice anki study tools' });
+    t.push({ g: ST, name: 'Brain Dump', sub: 'Spin a random competency, do it from memory, then check it against its list',
+             url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
+             kw: 'brain dump braindump randomizer random spin rubric check memory blank page retrieve recall write study tools' });
+    t.push({ g: ST, name: 'Study With Me', sub: 'Study with other people. Optional, and it earns Scholar Points',
+             url: BASE + 'study-with-me.html', icon: 'people', tone: 'terra', qr: 'study',
+             kw: 'study with me session group together live partner scholar points kahoot study tools' });
+    t.push({ g: ST, name: 'Mastery Check', sub: 'At least 50 questions and 80 percent to count, nothing open, and a report you upload',
+             url: BASE + 'practice-exam.html?week=' + wn + (wn === 8 ? '' : '&n=50'), icon: 'target', tone: 'gold', qr: 'mastery',
+             kw: 'mastery check practice exam gap finder test questions score report study tools' });
+    t.push({ g: ST, name: 'Draw It to Know It', sub: 'Draw a mechanism from memory, then check what you covered',
+             url: BASE + 'mastery-physio-os-standalone.html?week=' + wn + '&open=drawknow', icon: 'pencil', tone: 'terra',
+             kw: 'draw it to know it drawing canvas memory mechanism sketch diagram map study tools' });
+
     /* ---------- THIS WEEK. Open by default, on purpose. ---------- */
     t.push({ g: TW, name: 'Week ' + wn + (chosenWeek ? '' : ', this week'), sub: wt || 'The week page: all four stages, in order',
              url: BASE + 'week-' + nn + '.html', icon: 'target', tone: 'gold', qr: 'today',
@@ -379,18 +400,15 @@
     t.push({ g: TW, name: 'Course calendar', sub: 'Every week, every due date, every exam window',
              url: BASE + 'course-schedule.html', icon: 'cal', tone: 'navy', qr: 'calendar',
              kw: 'calendar schedule dates due deadlines weeks exam window when' });
-    t.push({ g: TW, name: 'Study With Me', sub: 'Practice with other people. Optional, and it earns Scholar Points',
-             url: BASE + 'study-with-me.html', icon: 'people', tone: 'terra', qr: 'study',
-             kw: 'study with me session group together live partner scholar points kahoot' });
 
     /* ---------- 1 LEARN, in the order of record: book first, then the lectures ---------- */
     t.push({ g: '1 Learn', name: 'Competencies', sub: 'What you have to be able to do this week',
              url: BASE + 'week-' + nn + '-competencies.html', icon: 'target', tone: 'navy',
              kw: 'competencies competency list objectives what to know checklist' });
-    t.push({ g: '1 Learn', name: 'Competency Study Guide', sub: 'Pass 1 from the book before the lectures, pass 2 after in a second color',
+    t.push({ g: '1 Learn', name: 'Competency Study Guide', sub: 'Pass 1 in your first color with the lessons, pass 2 in a second color',
              url: BASE + 'note-sheet.html?week=' + wn, icon: 'pencil', tone: 'gold',
              kw: 'Competency Study Guide notesheet boxes competency print handwritten journal' });
-    t.push({ g: '1 Learn', name: 'Learn It With Dr. Rennie', sub: 'After your first pass: this week\'s lectures, short and in order',
+    t.push({ g: '1 Learn', name: 'Learn It With Dr. Rennie', sub: 'This week\'s lessons and videos, in order',
              url: BASE + 'lecture-week.html?week=' + wn, icon: 'play', tone: 'terra',
              kw: 'lecture lectures video watch slides teach week' });
     t.push({ g: '1 Learn', name: 'Notes', sub: 'The written version of what I teach, for reading and rereading',
@@ -410,15 +428,6 @@
              kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
 
     /* ---------- 2 PRACTICE ---------- */
-    t.push({ g: '2 Practice', name: 'Try It From Memory', sub: 'A brain dump, then the self check',
-             url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
-             kw: 'brain dump braindump memory blank page retrieve recall write' });
-    t.push({ g: '2 Practice', name: 'Draw it, then teach it', sub: 'Draw the mechanism from nothing, then explain it out loud with no notes',
-             url: BASE + 'mastery-canvas.html', icon: 'pencil', tone: 'terra',
-             kw: 'draw drawing canvas memory loop mechanism sketch diagram teach out loud' });
-    t.push({ g: '2 Practice', name: 'Rx Cards', sub: 'Spaced recall that gets harder as you prove it',
-             url: BASE + 'rx-cards.html?week=' + wn, icon: 'cards', tone: 'gold', qr: 'recall',
-             kw: 'cards recall rx flashcards spaced repetition quiz retrieval practice anki' });
     /* Sep 24 2026: book problems were dropped from Week 4 on; Weeks 1 to 3 keep them. */
     if (wn < 4) t.push({ g: '2 Practice', name: 'Book problems', sub: 'Problems you have not seen. Predict, commit, then check',
              url: BASE + 'assignment-bookproblems.html?week=' + wn, icon: 'doc', tone: 'navy',
@@ -458,17 +467,14 @@
              kw: 'grading grades points worth weight categories' });
 
     /* ---------- PATIENT FILE ---------- */
-    t.push({ g: 'Patient file, the capstone', name: 'Your patient chart', sub: 'One patient you keep track of all semester, by hand. Nothing turned in weekly. Use It, 5%',
+    t.push({ g: 'Patient file, the capstone', name: 'Your patient chart', sub: 'Two patients, one at a time, by hand. Nothing turned in weekly. Use It, 5%',
              url: BASE + 'patient-chart-book.html', icon: 'doc', tone: 'terra',
              kw: 'patient chart file capstone camila flowsheet problem list all term' });
-    t.push({ g: 'Patient file, the capstone', name: 'What you turn in on Dec 16', sub: 'Exactly what the PDF must contain, in order',
+    t.push({ g: 'Patient file, the capstone', name: 'What you turn in, and when', sub: 'Camila on Nov 1 with Midterm 1, Dale on Dec 16',
              url: BASE + 'assignment-patient-chart.html', icon: 'target', tone: 'gold',
              kw: 'patient chart upload december capstone pdf turn in instructions' });
 
     /* ---------- 4 CHECK ---------- */
-    t.push({ g: '4 Check', name: 'Mastery Check', sub: 'At least 50 questions and 80 percent to count, nothing open, and a report you can upload',
-             url: BASE + 'practice-exam.html?week=' + wn + (wn === 8 ? '' : '&n=50'), icon: 'target', tone: 'gold', qr: 'mastery',
-             kw: 'mastery check practice exam gap finder test questions score report' });
     t.push({ g: '4 Check', name: 'Competency checklist', sub: 'Tick what you can do from memory',
              url: BASE + 'week-' + nn + '-competencies.html', icon: 'doc', tone: 'navy',
              kw: 'checklist competencies tick ready' });
@@ -765,7 +771,8 @@
   }
   function groupOpen(g, i) {
     var st = groupState();
-    return Object.prototype.hasOwnProperty.call(st, g) ? !!st[g] : (i === 0);
+    /* Study tools and This week are the first two groups, and both start open. */
+    return Object.prototype.hasOwnProperty.call(st, g) ? !!st[g] : (i <= 1);
   }
   function setGroupOpen(g, on) {
     var st = groupState(); st[g] = !!on;
