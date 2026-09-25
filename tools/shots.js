@@ -58,7 +58,7 @@ const URL = 'file://' + path.resolve(__dirname, '../repo/os/mastery-physio-os.ht
   await page.waitForTimeout(600);
   await page.screenshot({ path: path.resolve(__dirname, '../shots/5-card-sure-and-wrong.png') });
 
-  /* Build up a few more entries so the note sheet has something on it. */
+  /* Build up a few more entries so the Competency Study Guide has something on it. */
   await page.evaluate(() => {
     document.getElementById('rv-flagbtn') && document.getElementById('rv-flagbtn').click();
   });

@@ -33,14 +33,14 @@ JOBS = {
     'The running chart for Camila Reyes: face sheet, vitals and lab flowsheets, problem list, medication log, and one page per week',
     '#book'),
  'BIO005-Week1-NoteSheet.pdf':
-   ('note-sheet.html?week=1&per=2', 'BIO 005 Week 1 note sheet',
+   ('note-sheet.html?week=1&per=2', 'BIO 005 Week 1 Competency Study Guide',
     'One open drawing box per competency, Week 1',
     # the printed sheet is the sheet pages. The instructions, the worked
     # template and the on screen h1 are the web page around it, and leaving
     # them in gave the PDF a second H1.
     '.sheetpage'),
  'BIO005-Week1-NoteSheet-Tall.pdf':
-   ('note-sheet.html?week=1&per=1', 'BIO 005 Week 1 note sheet, one per page',
+   ('note-sheet.html?week=1&per=1', 'BIO 005 Week 1 Competency Study Guide, one per page',
     'One competency to a page, so the drawing box is taller than it is wide',
     '.sheetpage'),
  'BIO005-Week1-Patient-Sheet.pdf':
@@ -111,7 +111,7 @@ async def render(page_url: str, keep: str = None, title: str = '') -> str:
              printed document. Playwright is in print emulation here, so this
              is the page's real print view. Dropping these nodes rather than
              leaving them hidden keeps them out of the structure tree, which is
-             what stopped the note sheet shipping two H1s: the on screen intro
+             what stopped the Competency Study Guide shipping two H1s: the on screen intro
              heading is display:none on paper but was still being tagged. */
           [].slice.call(document.body.querySelectorAll('*')).forEach(n => {
             if (!n.isConnected) return;

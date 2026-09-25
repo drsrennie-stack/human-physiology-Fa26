@@ -49,18 +49,18 @@ def esc(t):
 SEQUENCE = [
  dict(n="1", stage="learn", title="Print your week",
       when="{print_when}",
-      what="Everything you work from this week, on paper: the note sheet, the competency "
+      what="Everything you work from this week, on paper: the Competency Study Guide, the competency "
            "list and the written notes. Print it before you start, so you are working with "
            "paper in front of you instead of switching windows."),
 
  dict(n="2", stage="learn", title="Read it, then watch it",
       when="{read_when}",
       what="First pass in one color, from {reading_short} or the written notes, filling each "
-           "box on the note sheet as you go. Then switch colors, watch the concept videos, "
+           "box on the Competency Study Guide as you go. Then switch colors, watch the concept videos, "
            "and add what the video gave you that the reading did not. Leave the gaps. The "
            "gaps are what tell you where to go back."),
 
- dict(n="3", stage="learn", title="Upload your note sheet",
+ dict(n="3", stage="learn", title="Upload your Competency Study Guide",
       when="After your second pass, by Sunday",
       what="Photograph every page with both colors on it and upload it in Canvas. I am not "
            "grading it. Turning it in is how you show you are participating.",
@@ -68,7 +68,7 @@ SEQUENCE = [
 
  dict(n="4", stage="practice", title="Study it for several days",
       when="{study_when}",
-      what="Now the note sheet closes and the material has to come back out of your head. "
+      what="Now the Competency Study Guide closes and the material has to come back out of your head. "
            "Brain dumps, drawing from memory, recall cards, book problems. Pick more than "
            "one. Four short sessions beat one long one, because the forgetting in between "
            "is what makes it stick.",
@@ -305,7 +305,7 @@ WEEKS.append(dict(
         "Post Friday, September 11, 10:00 pm. Replies Sunday, September 13, 10:00 pm."),
        ("Discussion 2, what the evidence told you",
         "Sunday, September 13, 10:00 pm."),
-       ("Your note sheet, both passes",
+       ("Your Competency Study Guide, both passes",
         "Sunday, September 13, 10:00 pm. Complete or not complete."),
        ("Lab, the Reference Range Lab",
         "Sunday, September 13, 10:00 pm."),
@@ -313,7 +313,7 @@ WEEKS.append(dict(
         "Sunday, September 13, 10:00 pm."),
        ("Mastery Check report",
         "Sunday, September 13, 10:00 pm. Complete or not complete.")],
-  done=["Your note sheet has two colors on it, you can say which boxes are still thin, and it is uploaded.",
+  done=["Your Competency Study Guide has two colors on it, you can say which boxes are still thin, and it is uploaded.",
         "You can draw a negative feedback loop from memory and label all five parts.",
         "You can say what makes homeostasis different from equilibrium, in your own words.",
         "You have done at least one Mastery Check and uploaded the report.",
@@ -341,7 +341,7 @@ W2_STEPS = [
            "half, so give it the extra day. Two things are worth drawing rather than writing: "
            "which way a substance moves relative to its gradient, and whether the cell is "
            "spending energy to move it."),
- dict(n="3", stage="learn", title="Upload both note sheets",
+ dict(n="3", stage="learn", title="Upload both Competency Study Guides",
       when="After your second pass, by Sunday",
       what="Photograph every page of both sheets with both colors on them and upload them in "
            "Canvas. I am not grading them. Turning them in is how you show you are participating.",
@@ -382,7 +382,7 @@ WEEKS.append(dict(
   discussion_when="Post by Friday, September 25; two replies by Sunday, September 27",
   due=[("Discussion 2",
         "Post Friday, September 25, 10:00 pm. Replies Sunday, September 27, 10:00 pm."),
-       ("Both note sheets, both passes",
+       ("Both Competency Study Guides, both passes",
         "Sunday, September 27, 10:00 pm. Complete or not complete."),
        ("Lab, PhysioEx Exercise 8, amylase",
         "Sunday, September 27, 10:00 pm."),
@@ -390,7 +390,7 @@ WEEKS.append(dict(
         "Sunday, September 27, 10:00 pm."),
        ("Mastery Check report",
         "Sunday, September 27, 10:00 pm. Complete or not complete.")],
-  done=["Both note sheets have two colors on them, you can say which boxes are still thin, and both are uploaded.",
+  done=["Both Competency Study Guides have two colors on them, you can say which boxes are still thin, and both are uploaded.",
         "You can draw one full signal pathway, ligand to response, from memory.",
         "You can take one substance and say whether it crosses the membrane with the gradient or against it, and whether the cell pays for the trip.",
         "You have done at least one Mastery Check and uploaded the report.",

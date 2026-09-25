@@ -60,7 +60,7 @@ howto = ('<section class="page">'
  '<div class="rule"></div>'
  + p("Three parts, in the order the week teaches them. Part 1 is the structure, Part 2 is what crosses it, "
      "Part 3 is how cells send messages. Read a part, then close this and put what you can into the boxes on "
-     "your note sheet. What you cannot recall is the gap, and the gap is what the videos are for.")
+     "your Competency Study Guide. What you cannot recall is the gap, and the gap is what the videos are for.")
 + p("<b>Part 1, 2 and 3 are this packet's own parts, not Silverthorn's chapters.</b> In the book, the compartments and the membrane are Chapter 3, everything that crosses the membrane is Chapter 5, and the signaling is Chapter 6.")
  + tbl("What is in each part, and what it is for", ["Element","What it is","How to use it"],
    [["<b>By the end</b>","The competencies that part covers","Read them first. They are what the exam asks"],

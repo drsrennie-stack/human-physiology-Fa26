@@ -47,7 +47,7 @@ def longdate(iso):
 def esc(t):
     return html.escape(t, quote=False)
 
-JUMPS = [('N','j-note','note-sheet.html?week=','note sheet'),
+JUMPS = [('N','j-note','note-sheet.html?week=','Competency Study Guide'),
          ('P','j-prob','assignment-bookproblems.html?week=','problems'),
          ('L','j-lab','assignment-physioex.html?week=','lab'),
          ('D','j-disc','assignment-discussion.html?week=','discussion'),
@@ -205,10 +205,10 @@ def competencies_page(n):
     body = '''<section>
   <div class="notice">
     <p class="t">What is here, and what is coming</p>
-    <p>Every competency for this week is listed below, in full, and this list is final. What is not here yet are the two brain dump prompts under each one. Those post when the week opens. Until then you can still build your note sheet from this list: one box per competency, one page each.</p>
+    <p>Every competency for this week is listed below, in full, and this list is final. What is not here yet are the two brain dump prompts under each one. Those post when the week opens. Until then you can still build your Competency Study Guide from this list: one box per competency, one page each.</p>
   </div>
   <h2>The %d competencies for Week %d</h2>
-  <p>Each one is a single thing you will be able to do by Sunday. Print your sheet from the note sheet page and give each competency its own box.</p>
+  <p>Each one is a single thing you will be able to do by Sunday. Print your sheet from the Competency Study Guide page and give each competency its own box.</p>
 %s
 </section>''' % (len(items), n, '\n'.join(cards))
     return page('Week %d competencies · BIO 005 Human Physiology' % n, n,
@@ -238,7 +238,7 @@ def notes_page(n):
 <section>
   <h2>What to do while the notes are being written</h2>
   <ol class="plain">
-    <li>Print your note sheet and do the first pass from the textbook and your own notes, in your first color. That pass does not need my notes to be useful.</li>
+    <li>Print your Competency Study Guide and do the first pass from the textbook and your own notes, in your first color. That pass does not need my notes to be useful.</li>
     <li>Run this week's recall cards in the Mastery OS. They are already built for all fifteen weeks.</li>
     <li>Bring whatever will not come together to the Virtual Office. Questions asked while I am writing a week often change what I write.</li>
   </ol>

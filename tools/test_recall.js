@@ -72,7 +72,7 @@ function parse(s) {
   const statTxt = await mount.locator('.rv-stats').innerText();
   ok('stats show the bank size', statTxt.includes('4980'), statTxt.replace(/\n/g, ' ').slice(0, 70));
   ok('gate toggle present', await page.locator('#rv-ungated').count() === 1);
-  ok('note sheet button present', await page.locator('#rv-notes').count() === 1);
+  ok('Competency Study Guide button present', await page.locator('#rv-notes').count() === 1);
 
   console.log('\n3. THE FOCUS STAGE');
   await page.click('#rv-start');
@@ -263,7 +263,7 @@ function parse(s) {
   await page.keyboard.press('Escape');
   await page.waitForTimeout(200);
 
-  console.log('\n11. THE NOTE SHEET');
+  console.log('\n11. THE COMPETENCY STUDY GUIDE');
   await page.click('#rv-notes');
   await page.waitForTimeout(350);
   const sheet = await page.evaluate(() => {

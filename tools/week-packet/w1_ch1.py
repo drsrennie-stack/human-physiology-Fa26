@@ -115,7 +115,7 @@ A(prob(2,
   "<b>Carry:</b> steady is not still, and it is not free."]))
 
 A(sec("The six themes"))
-A(cmap("Use this as the spine of your Week 1 note sheet, one box per branch", "Physiology, six themes", [
+A(cmap("Use this as the spine of your Week 1 Competency Study Guide, one box per branch", "Physiology, six themes", [
  ("Structure and function", ["Form sets what it can do",
                              "Walls decide what mixes",
                              "Surface area sets exchange"]),

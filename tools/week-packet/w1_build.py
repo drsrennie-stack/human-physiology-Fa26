@@ -68,7 +68,7 @@ howto = ('<section class="page">'
  '<div class="rule"></div>'
  + p("Three parts, in the order the week teaches them. Part 1 is what the subject is and what it defends. "
      "Part 2 is the machinery that does the defending. Part 3 is the arithmetic and the evidence underneath "
-     "both. Read a part, then close this and put what you can into the boxes on your note sheet. What you "
+     "both. Read a part, then close this and put what you can into the boxes on your Competency Study Guide. What you "
      "cannot recall is the gap, and the gap is what the videos are for.")
  + p("<b>Part 1, 2 and 3 are this packet's own parts, not Silverthorn's chapters.</b> In the book, Week 1 is Chapter 1 plus the homeostasis and control pathway sections of Chapter 6. Where ATP comes up here it is being spent, not taught; the energy chemistry is Chapter 4, in the optional review week.")
 + tbl("What is in each part, and what it is for", ["Element","What it is","How to use it"],

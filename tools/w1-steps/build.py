@@ -41,7 +41,7 @@ PAGES = []
 
 # ============================================================ STEP 3
 PAGES.append(dict(
- step=3, stage="Learn", title="Upload your note sheet",
+ step=3, stage="Learn", title="Upload your Competency Study Guide",
  when="After your second pass, by Sunday",
  lead=p("Both colors on the page, photographed and uploaded as one file.", "lede"),
  body=(
@@ -66,7 +66,7 @@ PAGES.append(dict(
     ]),
     p("Photograph each page as you finish it rather than all six on Sunday night. Losing the sheet costs "
       "you no points and a great deal of work."),
-    btns(btn("Upload your Week 1 note sheet", CANVAS + "assignments/1241504", "canvas")),
+    btns(btn("Upload your Week 1 Competency Study Guide", CANVAS + "assignments/1241504", "canvas")),
     graded("<b>Graded.</b> Complete or not complete, for participation. Due " + DUE + "."),
   )),
  next="<b>When this is done:</b> go to Step 4, study it for several days."))
@@ -75,7 +75,7 @@ PAGES.append(dict(
 PAGES.append(dict(
  step=4, stage="Practice", title="Study it for several days",
  when="Every day from Thursday, about an hour a day",
- lead=p("Now the note sheet closes and the material has to come back out of your head.", "lede"),
+ lead=p("Now the Competency Study Guide closes and the material has to come back out of your head.", "lede"),
  body=(
   card(
     '<h2>Little and often, not one long night</h2>',

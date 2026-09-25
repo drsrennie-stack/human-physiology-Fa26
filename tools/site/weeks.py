@@ -89,7 +89,7 @@ STEPS = {
  "w01": [
    ("1", "Your first pass",                        "w01-step-01-first-pass.html"),
    ("2", "Concept videos, second pass",            "concept-videos-week01.html"),
-   ("3", "Upload your note sheet",                 "w01-step-03-upload-note-sheet.html"),
+   ("3", "Upload your Competency Study Guide",                 "w01-step-03-upload-note-sheet.html"),
    ("4", "Study it for several days",              "w01-step-04-study-it.html"),
    ("5", "Lab, the Reference Range Lab",           "w01-step-05-lab.html"),
    ("6", "Your patient, the preseason physical",   "w01-step-06-patient.html"),
@@ -99,7 +99,7 @@ STEPS = {
  "w02": [
    ("1", "Your first pass",                        "w02-step-01-first-pass.html"),
    ("2", "Concept videos, second pass",            "concept-videos-week03.html"),
-   ("3", "Upload both note sheets",                "w02-step-03-upload-note-sheets.html"),
+   ("3", "Upload both Competency Study Guides",                "w02-step-03-upload-note-sheets.html"),
    ("4", "Study it for several days",              "w02-step-04-study-it.html"),
    ("5", "Lab, PhysioEx Exercise 8, amylase",      "w02-step-05-lab.html"),
    ("6", "Your patient, the IV fluids case",       "w02-step-06-patient.html"),

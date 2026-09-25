@@ -31,9 +31,9 @@ N='#0B1530'; M='#8B3A2E'; G='#414B5C'; GOLD='#C9A14A'; INK='#060A18'; TINT='#ECE
 # key, title, subline, time, kind, badges
 STEPS = [
  ('preread','Pre-read','Figures, bold terms, pre-read worksheet','30 min max','prev',('W','S')),
- ('first','First pass','Interactive slides, then fill your note sheet','3 to 4 hours','learn',('W',)),
+ ('first','First pass','Slides, then your Competency Study Guide','3 to 4 hours','learn',('W',)),
  ('second','Second pass','Same slides again, in a second color','30 to 60 min','learn',()),
- ('upload','Upload your note sheet','One photo file, both colors showing','10 min','learn',('S',)),
+ ('upload','Upload your guide','Competency Study Guide, both colors','10 min','learn',('S',)),
  ('study','Study it','Cards and brain dumps','4 sessions of 30 to 45 min','retr',()),
  ('check','Mastery Check','Which competencies are solid?','35 to 50 min per try','check',('S',)),
  ('lab','The lab','PhysioEx, then your lab worksheet','2 to 3 hours','assess',('S',)),
@@ -132,7 +132,7 @@ def steplist(week):
     for key,title,sub,time,kind,letters in STEPS:
         st=week['steps'][key]; link=st['link']
         tags=[]
-        if 'W' in letters: tags.append('has a worksheet: your note sheet, which you submit at the upload step' if key=='first' else 'has a worksheet')
+        if 'W' in letters: tags.append('has a worksheet: your Competency Study Guide, which you submit at the upload step' if key=='first' else 'has a worksheet')
         if key=='check': tags.append('it counts when an attempt has at least 50 questions and scores 80 percent or higher')
         if 'S' in letters: tags.append('you submit it in Canvas')
         if 'T' in letters: tags.append('you track this all term')

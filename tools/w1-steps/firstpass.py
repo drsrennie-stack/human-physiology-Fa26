@@ -7,7 +7,7 @@ pass), which were two pages doing one job. The course introduction video came
 off it at the same time: the Canvas module format makes it obsolete.
 
 WHAT THE PAGE SAYS, in order:
-  1. Print the prework packet: note sheet, competency list, reference notes.
+  1. Print the prework packet: Competency Study Guide, competency list, reference notes.
   2. Read the competencies first, so you know what you are looking for.
   3. Work through the reading, Silverthorn or OpenStax, filling the boxes.
   4. Or take your own handwritten notes and drawings against the competencies.
@@ -66,7 +66,7 @@ def build(w):
       '<p class="lede">Three things, and you want all of them on paper before you open the '
       'book. Working from paper is the point; it is what makes the second pass work.</p>'
       '<ol class="steps one">'
-      '<li><b>The note sheet.</b> A box for every competency, with the prompts already printed '
+      '<li><b>The Competency Study Guide.</b> A box for every competency, with the prompts already printed '
       'on it. You are not building anything, just filling it in.</li>'
       '<li><b>The competency list.</b> The %s things you have to be able to do this week, each '
       'with three checkboxes: read it, drew it, did it from memory.</li>'
@@ -97,7 +97,7 @@ def build(w):
       '<div class="route">'
       '<p class="rlab">The easier route</p>'
       '<h3>Use the prework packet</h3>'
-      '<p>Work through %s, or the reference notes, and fill each box on the note sheet as you '
+      '<p>Work through %s, or the reference notes, and fill each box on the Competency Study Guide as you '
       'go. Draw the idea, label it, put the steps in order. Short lists, arrows and pictures '
       'beat sentences running across the page.</p>'
       '<p><b>Pick one pen color and stay in it.</b> Leave every gap you cannot fill. The gaps '
@@ -226,7 +226,7 @@ WEEKS = [
    ncomp="twelve", ncomp_words="twelve",
    reading_phrase="Silverthorn Chapter 1 and the control sections of Chapter 6",
    print_btns='<div class="btns">'
-     + btn("Week 1 note sheet (PDF)",
+     + btn("Week 1 Competency Study Guide (PDF)",
            "https://drive.google.com/file/d/1AN276f3jUYM9HcV9QqHa2HYSLy0_YcNs/view", "pdf")
      + btn("Week 1 competency list (PDF)", SITE + "print/BIO005-Week1-Competency-List.pdf", "pdf")
      + btn("Week 1 reference notes (PDF)", SITE + "print/BIO005-Week1-Packet.pdf", "pdf", primary=False)
@@ -240,11 +240,11 @@ WEEKS = [
    ncomp="twenty five", ncomp_words="twenty five",
    reading_phrase="Silverthorn Chapter 3 and Chapter 5, plus the signaling half of Chapter 6",
    print_btns='<p style="margin:0 0 6px;font-size:14.5px;color:var(--navy-72)">'
-     'Week 2 comes in two halves, so there are two note sheets and two competency lists. '
+     'Week 2 comes in two halves, so there are two Competency Study Guides and two competency lists. '
      'Print all of it.</p><div class="btns">'
-     + btn("Note sheet: the cell and tissues (PDF)",
+     + btn("Competency Study Guide: the cell and tissues (PDF)",
            "https://drive.google.com/file/d/1JQPur4khec-RYzhiA7gD-n1R9Oc0fC2b/view", "pdf")
-     + btn("Note sheet: transport and signaling (PDF)",
+     + btn("Competency Study Guide: transport and signaling (PDF)",
            "https://drive.google.com/file/d/1w_M1mYyA4z94RlEG_zdNERRoLAbnbiwZ/view", "pdf")
      + btn("Competency list, all 25 (PDF)", SITE + "print/BIO005-Week2-Competency-List.pdf", "pdf", primary=False)
      + btn("Week 2 reference notes (PDF)", SITE + "print/BIO005-Week2-Packet.pdf", "pdf", primary=False)

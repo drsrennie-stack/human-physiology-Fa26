@@ -73,7 +73,7 @@ GROUPS = [
         "concept-videos-week01.html", "play", "navy"),
    tool("Weeks 2 and 3 concept videos", "All 63 videos for the cell block",
         "concept-videos-week03.html", "play", "terra"),
-   tool("Note sheet", "The sheet you fill in both passes",
+   tool("Competency Study Guide", "The sheet you fill in both passes",
         "note-sheet.html", "pencil", "gold"),
  ]),
  ("Labs", "Work the page top to bottom. It is built to be worked, not skimmed.", [

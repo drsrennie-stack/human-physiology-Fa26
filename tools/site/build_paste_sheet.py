@@ -116,7 +116,7 @@ SECTIONS = [
        "This one is tall because the whole concept list is on the page. If you "
        "would rather it scrolled inside a shorter frame, change both the "
        "min-height and the height to 1500."),
-   blk("Step 3, Upload your note sheet",
+   blk("Step 3, Upload your Competency Study Guide",
        frame("w01-step-03-upload-note-sheet.html", 1450, "BIO 005 Week 1, Step 3"),
        "Canvas page: Week 1, Step 3"),
    blk("Step 4, Study it for several days",
@@ -151,7 +151,7 @@ SECTIONS = [
        "All 63 videos are on this page, so the index makes it tall. For a "
        "shorter frame that scrolls inside itself, change both the min-height "
        "and the height to 1500."),
-   blk("Step 3, Upload both note sheets",
+   blk("Step 3, Upload both Competency Study Guides",
        frame("w02-step-03-upload-note-sheets.html", 1400, "BIO 005 Weeks 2 and 3, Step 3"),
        "Canvas page: Week 2, Step 3"),
    blk("Step 4, Study it for several days",
