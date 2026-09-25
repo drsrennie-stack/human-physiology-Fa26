@@ -160,94 +160,127 @@ STEPS = [
          ("What you turn in on December 16", "assignment-patient-chart.html")],
   turnin=None),
 
- dict(title="Discussion 4, practice the exam format", time="About 1 hour",
-  status="Graded. Think About It, 15 percent of your grade across the term.",
-  intro="This discussion is a practice run of your exam format, done on cell transport from Week 2. The material "
-        "is familiar, so you can put your attention on the format itself.",
-  todo=["Open the Week 4 discussion page and do Parts 1 and 2 with your notes, the slides and the book closed.",
-        "Do the two brain dumps, about 10 minutes each, then check each one against its rubric.",
-        "Answer the hard question, design a model that answers it, and record a 2 to 3 minute teaching video.",
-        "Check your video against the rubric, then answer the three reflection questions.",
-        "Post in the Week 4 discussion in Canvas."],
-  links=[("The Week 4 discussion page", "discussion-week04.html")],
-  turnin=["Your post goes in the <strong>Week 4 discussion</strong> in Canvas by Friday, October 2 at 10:00 pm.",
-          "Two replies by " + DUE + ". In each reply, name one point they explained clearly and one point you "
-          "would add, with a sentence on why it matters."]),
+ dict(title="Discussion 4, exam practice part 1", time="About 1 hour",
+  status="Turned in to me only. Think About It, 15 percent of your grade across the term. Part 2 is Discussion 5, next week.",
+  intro="", todo=[], links=[],
+  submit_here=["Upload everything here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>. Only I see it.",
+               "Due " + DUE + "."],
+  turnin=None),
 ]
 
-# The discussion carries everything in Canvas itself: the prompts, the rubrics
-# (folded, so students open them only after they finish a part), the question,
-# the reflection and what to post. Sep 25 2026, Scrubs: one page, not two.
-DISCUSSION = dict(
- intro="This week's discussion is a practice run of your exam format. It uses only material you have already "
-       "learned: every prompt comes from the Week 2 competencies on primary active transport, secondary active "
-       "transport and transepithelial transport, including the pump, SGLT, GLUT2, the sodium calcium exchanger and "
-       "ouabain. Nothing here needs Week 4, so you can put your attention on the format itself: brain dumps from memory, "
-       "then one multiple choice question you work out with a physiological model, present on video, and then answer. Doing it "
-       "once now means the exam will not be the first time.",
- how=["Close your notes, the slides, and the book for Parts 1 and 2. The point is to find out what you can do from memory.",
-      "Give each brain dump about 10 minutes. Write or draw everything you can on paper, then stop.",
-      "Open a rubric only after you finish that part. Check honestly: a point counts only if you clearly said it."],
- dumps=[
-  ("Brain dump 1: the pump that powers another transporter",
-   "Trace how the Na+/K+ ATPase powers calcium removal by the Na+/Ca2+ exchanger in a heart muscle cell. Then "
-   "predict what happens to intracellular Ca2+ and to contraction strength if the pump is partly inhibited, and explain why.",
+
+# Discussion 4 and 5 are one exam practice in two parts. Sep 25 2026, Scrubs:
+# Week 4, part 1: for each multiple choice question, build the model with a
+# brain dump, choose the answer, then teach it on video; turned in to me only,
+# so it is a Canvas assignment. Week 5, part 2: the rubrics come out, students
+# score their own work and analyze it, and that is the Week 5 discussion.
+# The rubrics are NOT on the part 1 page on purpose.
+SOURCES = ("Everything in this practice comes from the Week 2 competencies on primary active transport, secondary "
+           "active transport and transepithelial transport: the Na+/K+ ATPase, the Na+/Ca2+ exchanger, SGLT, GLUT2 "
+           "and ouabain. Nothing here needs Week 4.")
+
+PRACTICE = dict(
+ intro="This is part 1 of a two-week practice run of your exam format. This week you work two multiple choice "
+       "questions the way the exam asks you to: you build a model from memory with a brain dump, use it to choose "
+       "your answer, and then teach it on video. Next week, in Discussion 5, you check your work against the real "
+       "rubrics and analyze what it shows you.",
+ how=["Close your notes, the slides and the book, and keep them closed until you have turned everything in. The point is to find out what you can do from memory.",
+      "Work one question all the way through before you start the next: read it, brain dump the model, then choose your answer.",
+      "There are no rubrics this week. You will see them next week, so do your honest best now and do not look anything up.",
+      "Keep your brain dumps and your videos. You need them for part 2."],
+ questions=[
+  dict(q="A drug partly inhibits the Na+/K+ ATPase in a heart muscle cell. Trace the effect on intracellular Na+, "
+         "on calcium removal by the Na+/Ca2+ exchanger, and on the strength of contraction.",
+       options=["A. Intracellular Na+ falls, the exchanger removes more Ca2+, and contraction weakens",
+                "B. Intracellular Ca2+ is unchanged, because the exchanger runs on ATP and does not depend on the pump",
+                "C. Intracellular Na+ rises, the exchanger removes less Ca2+, and contraction strengthens",
+                "D. Intracellular Na+ rises, the exchanger removes more Ca2+, and contraction weakens"],
+       key="C",
+       dump="Build the model that answers question 1, on blank paper, in about 10 minutes. Draw a heart muscle cell "
+            "membrane with the Na+/K+ ATPase and the Na+/Ca2+ exchanger in it. Show which way Na+, K+ and Ca2+ move "
+            "through each one and what powers each. Then trace what partly inhibiting the pump does, step by step, "
+            "until you reach the strength of contraction."),
+  dict(q="Ouabain is added to an intestinal epithelial cell. Trace the effect on intracellular Na+ and then on "
+         "glucose uptake through SGLT at the apical membrane.",
+       options=["A. Intracellular Na+ is unchanged, because SGLT keeps it low",
+                "B. Intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls",
+                "C. Intracellular Na+ rises, the Na+ gradient steepens, and SGLT glucose uptake rises",
+                "D. Intracellular Na+ falls, and SGLT glucose uptake rises"],
+       key="B",
+       dump="Build the model that answers question 2, on blank paper, in about 10 minutes. Draw an intestinal "
+            "epithelial cell with the lumen on the apical side and the blood on the basolateral side. Trace one glucose "
+            "molecule from the lumen to the blood: name the transporter at each membrane, which membrane it sits on, "
+            "and whether each step is uphill or downhill for glucose. Add the Na+/K+ ATPase, then trace what ouabain "
+            "changes, step by step, until you reach glucose uptake."),
+ ],
+ choose="Now choose your answer, and write down how sure you are: sure, fairly sure, or guessing.",
+ teach="Record one video for each question, 5 minutes or less each. Teach from your brain dump as if to a classmate "
+       "who missed class: walk through your model in order, explain why each wrong answer cannot be right, and "
+       "finish by giving your answer. Keep your notes closed. A phone video is fine.",
+ turnin=["Photos of your two brain dumps.",
+         "Your answer to each question, and how sure you were.",
+         "Your two teaching videos."],
+)
+
+PART2 = dict(
+ week=5, title="Discussion 5, exam practice part 2", time="About 1 hour",
+ first_post="Friday, October 9 at 10:00 pm", due="Sunday, October 11 at 10:00 pm",
+ status="Graded. Think About It, 15 percent of your grade across the term.",
+ intro="Last week you worked two exam questions: you built a model for each with a brain dump, chose your answer, "
+       "and taught it on video. This week you check that work against the rubrics I use on the exam, then look "
+       "closely at what it shows you about how you learn.",
+ how=["Open your brain dumps, your answers and your videos from last week.",
+      "Check each brain dump against its rubric. A point counts only if you clearly said or drew it.",
+      "Check your two answers against the key.",
+      "Watch each video once and count the teaching points you clearly made.",
+      "Answer the analysis questions, then post."],
+ scoring="On the exam, each question is scored the same way: your model and your teaching are worth 75 percent of "
+         "the points for that question, and your answer is worth 25 percent.",
+ dump_rubrics=[
+  ("Brain dump 1, the pump and the exchanger (6 points)",
    ["The pump uses ATP to keep intracellular Na+ low, storing energy in the inward Na+ gradient",
     "The exchanger is an antiporter that moves Na+ in and Ca2+ out",
     "Na+ flowing downhill into the cell provides the energy to push Ca2+ out against its gradient",
     "Pump inhibition lets intracellular Na+ rise and flattens the Na+ gradient",
     "The exchanger has less driving force, so Ca2+ removal slows",
     "Intracellular Ca2+ rises and contraction becomes stronger"]),
-  ("Brain dump 2: glucose from the gut to the blood",
-   "Trace one glucose molecule from the lumen of the small intestine to the blood. Name the transporter at each "
-   "membrane, say which membrane it sits on, state whether each step is uphill or downhill for glucose, and explain "
-   "why the Na+/K+ ATPase is essential even though it never touches glucose.",
+  ("Brain dump 2, glucose from the gut to the blood (6 points)",
    ["SGLT on the apical membrane moves glucose into the cell with Na+",
     "The apical step is uphill for glucose, powered by Na+ moving downhill",
     "Glucose accumulates inside the cell to a high concentration",
     "GLUT2 on the basolateral membrane moves glucose out by facilitated diffusion, downhill",
     "Glucose then diffuses into the capillary",
     "The Na+/K+ ATPase on the basolateral membrane keeps intracellular Na+ low, which is what makes the apical Na+ step downhill"])],
- question="Ouabain is added to an intestinal epithelial cell. Trace the effect on intracellular Na+ and then on "
-          "glucose uptake through SGLT at the apical membrane.",
- options=["A. Intracellular Na+ is unchanged, because SGLT keeps it low",
-          "B. Intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls",
-          "C. Intracellular Na+ rises, the Na+ gradient steepens, and SGLT glucose uptake rises",
-          "D. Intracellular Na+ falls, and SGLT glucose uptake rises"],
- scoring="This is the exam question format, in the same order as the exam. You read the question and its four "
-         "choices, take 10 minutes to prepare a physiological model from memory, present the model on video, and finish by giving "
-         "your answer. The model and how you present it are worth 75 percent of the question's points, and your answer "
-         "is worth 25 percent.",
- model="Set a timer for 10 minutes. With your notes, the slides and the book closed, design a physiological model that works out the answer. Draw an "
-       "intestinal epithelial cell with its apical side facing the lumen and its basolateral side facing the blood. Put "
-       "the Na+/K+ ATPase and SGLT on the correct membranes. Use arrows to show where Na+ and glucose move normally, and "
-       "label which steps are uphill and which are downhill. Then mark what ouabain changes, step by step, until you "
-       "reach glucose uptake. Photograph your model.",
- teach="Record a video of 2 to 3 minutes, with no notes. Present your model first: walk through it in order, from "
-       "ouabain to the pump to Na+ to SGLT to glucose, and use it to explain why each wrong answer cannot be right. "
-       "Finish by giving your answer, the letter and what it says. A phone video is fine.",
- answer_rubric=["I finished with B: intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls"],
- model_rubric=["My model is an intestinal epithelial cell with the lumen on the apical side and the blood on the basolateral side",
-    "It puts SGLT on the apical membrane and the Na+/K+ ATPase on the basolateral membrane",
-    "Arrows show Na+ and glucose moving normally, labeled uphill or downhill: glucose moves uphill through SGLT, powered by Na+ moving downhill",
-    "It marks ouabain blocking the Na+/K+ ATPase, so Na+ is no longer pumped out",
-    "It shows intracellular Na+ rising and the Na+ gradient across the apical membrane flattening",
-    "It shows SGLT losing its energy source, so glucose uptake falls",
-    "In my video I presented the model in order, from ouabain to glucose uptake, before I gave my answer",
+ keys=["Question 1: C. Intracellular Na+ rises, the exchanger removes less Ca2+, and contraction strengthens.",
+       "Question 2: B. Intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls."],
+ teach_rubrics=[
+  ("Teaching question 1 (9 points)",
+   ["I explained that the Na+/K+ ATPase uses ATP to pump Na+ out, keeping intracellular Na+ low",
+    "I explained that the exchanger is an antiporter that lets Na+ in and pushes Ca2+ out, powered by Na+ moving downhill",
+    "I explained that partly inhibiting the pump lets intracellular Na+ rise and flattens the Na+ gradient",
+    "I explained that the exchanger then has less driving force, so less Ca2+ is removed and intracellular Ca2+ rises",
+    "I explained that more Ca2+ inside the cell makes contraction stronger",
+    "I explained why A is wrong: Na+ cannot fall when the pump that removes it is slowed",
+    "I explained why B is wrong: the exchanger does not use ATP, it runs on the Na+ gradient, so it depends on the pump",
+    "I explained why D is wrong: a flatter Na+ gradient means the exchanger removes less Ca2+, not more",
+    "I taught from my model in order, with arrows for Na+, K+ and Ca2+, before I gave my answer"]),
+  ("Teaching question 2 (9 points)",
+   ["I explained that ouabain blocks the Na+/K+ ATPase, so Na+ is no longer pumped out",
+    "I explained that SGLT sits on the apical membrane and the pump on the basolateral membrane",
+    "I explained that SGLT uses the energy of Na+ moving downhill into the cell to pull glucose in uphill",
+    "I explained that when Na+ builds up inside, the gradient across the apical membrane flattens",
+    "I explained that SGLT loses its energy source, so glucose uptake falls",
+    "I explained why A is wrong: SGLT brings Na+ into the cell, so it cannot be what keeps Na+ low",
     "I explained why C is wrong: the gradient cannot steepen when Na+ is rising inside",
     "I explained why D is wrong: Na+ cannot fall when its only exit, the pump, is blocked",
-    "I explained why A is wrong: SGLT brings Na+ into the cell, so it cannot be what keeps Na+ low"],
- reflect=["Before you started, how confident were you, and was that confidence right?",
-          "What did you get right, and what did you miss? Use your rubric checks.",
-          "What will you do differently before the midterm because of this?"],
- post=["Photos of your two brain dumps and your physiological model.",
-       "The letter you gave as your answer.",
-       "Your video presenting your model. Use the media button in the reply box to record or upload it.",
-       "Your rubric results: points for each brain dump (for example 5 of 6), whether your letter was right, and your model points (for example 8 of 10).",
-       "Your three answers from Part 3."],
- replies="Watch two classmates' model videos. In each reply, name one step their model explained clearly and "
-         "one thing you would add to the model, with a sentence on why it matters.",
- first_post="Friday, October 2 at 10:00 pm",
- onscreen=("If you would rather type your answers and tick the rubrics on screen, the same worksheet is on the "
-           "course site. It is optional; everything you need is on this page.", "discussion-week04.html"),
+    "I taught from my model in order, with arrows for Na+ and glucose, before I gave my answer"])],
+ analysis=["For each question, were you right, and how sure were you beforehand? Say whether each one was sure and right, sure and wrong, unsure and right, or unsure and wrong.",
+           "Where did your model first go wrong or leave something out? Name the exact step.",
+           "Was that a gap, something you did not know, or a misconception, something you were sure of that is not true? How can you tell?",
+           "Compare your brain dump score with your teaching score for the same question. Did teaching it out loud show you anything the brain dump did not?",
+           "What will you do differently before the midterm because of this?"],
+ post=["Your scores: each brain dump (for example 5 of 6), each answer (right or not), and each teaching video (for example 7 of 9).",
+       "Your answers to the five analysis questions."],
+ replies="Read two classmates' posts. In each reply, name one thing in their analysis that you noticed in your own "
+         "work too, and suggest one study move that could help, with a sentence on why.",
 )

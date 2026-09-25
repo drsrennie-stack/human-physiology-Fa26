@@ -184,7 +184,7 @@ __STYLE__
 <header class="loop-head"><div class="loop-wrap">
   <p class="mm-eyebrow">Week {n}, start here</p>
   <h1 class="mm-display"><span>Week {n}</span>: {title}.</h1>
-  <p class="entry-meta">Opens {opens}. Your first discussion post is due {disc} at 10:00 pm, and everything else is due {closes} at 10:00 pm.</p>
+  <p class="entry-meta">{meta}</p>
   <p class="entry-how">Start at the top and work your way down. Click any step to open it. Your patient this week is {patient}. <a href="weekly-loop.html" target="_top">How the weekly loop works</a></p>
 </div></header>
 
@@ -247,7 +247,7 @@ __LIST__
 def build(n):
     w=dict(DATA['weeks'][str(n)]); w['n']=n
     page=PAGE.format(n=n, nn=f'{n:02d}', title=esc(w['title']), opens=esc(w['opens']), closes=esc(w['closes']),
-                     disc=esc(w['discussion_first_post']), patient=esc(w['patient_label']))
+                     meta=(('Opens %s. Your first discussion post is due %s at 10:00 pm, and everything else is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['discussion_first_post']), esc(w['closes']))) if w.get('discussion_first_post') else ('Opens %s. Everything is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['closes'])))), patient=esc(w['patient_label']))
     page=page.replace('__STYLE__',STYLE).replace('__KEY__',KEY).replace('__SVG__',svg(w)).replace('__LIST__',steplist(w))
     out=ROOT/f'week-{n:02d}-entry.html'; out.write_text(page,encoding='utf-8')
     missing=[title for key,title,*_ in STEPS if not w['steps'][key]['link']]

@@ -88,8 +88,10 @@ def build(n):
       '<p style="%s">BIO 005 Human Physiology &middot; %s</p>' % (EYEBROW, e(data["n_of"])) +
       '<h2 style="margin:0 0 12px 0;font-size:2em;line-height:1.15;font-weight:800;color:%s;">'
       '<span style="color:%s;">Week %d</span>: %s.</h2>' % (NAVY, MAROON, n, e(data["title"])) +
-      p('Opens %s. Everything is due %s at 10:00 pm Pacific, except your first discussion post, '
-        'which is due %s at 10:00 pm.' % (e(data["opens"]), e(data["closes"]), e(data["discussion_first_post"]))) +
+      p(('Opens %s. Everything is due %s at 10:00 pm Pacific, except your first discussion post, '
+         'which is due %s at 10:00 pm.' % (e(data["opens"]), e(data["closes"]), e(data["discussion_first_post"])))
+        if data.get("discussion_first_post") else
+        'Opens %s. Everything is due %s at 10:00 pm Pacific.' % (e(data["opens"]), e(data["closes"]))) +
       '<h3 style="margin:26px 0 6px 0;font-size:1.35em;color:%s;">Choose how you want to work this week</h3>' % MDARK +
       p('Both ways have the same steps, in the same order, with the same due dates, and you turn in '
         'everything in Canvas either way. Pick the one that feels easier. You can switch at any time.', INK_SOFT) +

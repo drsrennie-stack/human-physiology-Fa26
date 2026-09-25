@@ -10,4 +10,6 @@ Week 4, Step 6 | Mastery Check, and upload your report   ->  w04-06-mastery-chec
 Week 4, Step 7 | Lab, PhysioEx Exercise 3   ->  w04-07-lab-physioex-exercise-3-ASSIGNMENT.html  (Canvas ASSIGNMENT: paste into its description)
 Week 4, Step 8 | Your application case   ->  w04-08-your-application-case.html  (Canvas PAGE)
 Week 4, Step 9 | Your patient, this week's findings   ->  w04-09-your-patient-this-week-s-findings.html  (Canvas PAGE)
-Week 4, Step 10 | Discussion 4, practice the exam format   ->  w04-10-discussion-prompt.html  (Canvas DISCUSSION: paste into its description)
+Week 4, Step 10 | Discussion 4, exam practice part 1   ->  w04-10-discussion-4-exam-practice-part-1-ASSIGNMENT.html  (Canvas ASSIGNMENT, turned in to me only: paste into its description)
+
+NEXT WEEK: Week 5, Step 10 | Discussion 5, exam practice part 2   ->  w05-10-discussion-5-exam-practice-part-2.html  (Canvas DISCUSSION: paste into its description)
