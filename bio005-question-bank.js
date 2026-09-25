@@ -266,7 +266,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q256",
   "q": "What is the patient chart?",
-  "a": "<p>Two patients you follow by hand, one at a time. Camila Reyes carries Weeks 1 to 8 and Dale Whitcomb carries Weeks 9 to 15. Each week you copy that week&rsquo;s numbers into the patient&rsquo;s flowsheets and add what changed, your problem list, a drawing and your thinking, including what you worked out in that week&rsquo;s application case. Nothing is uploaded weekly.</p><p>Each patient&rsquo;s analysis is a recorded chart walk: you on camera with only your handwritten chart, reasoning out loud from your own numbers for 10 to 15 minutes. Camila&rsquo;s chart and chart walk are turned in on Sunday, November 1, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. Dale&rsquo;s chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent. See <a href=\"assignment-patient-chart.html\" target=\"_top\">what you turn in, and when</a>.</p>",
+  "a": "<p>Two patients you follow by hand, one at a time. Camila Reyes carries Weeks 1 to 8 and Dale Whitcomb carries Weeks 9 to 15. Each week you copy that week&rsquo;s numbers into the patient&rsquo;s flowsheets and add what changed, your problem list, a drawing and your thinking, including what you worked out in that week&rsquo;s application case. Nothing is uploaded weekly.</p><p>Each patient&rsquo;s analysis is a recorded chart walk: you on camera with only your handwritten chart, reasoning out loud from your own numbers for 10 to 15 minutes, recorded in Canvas Studio and turned in with its transcript. Camila&rsquo;s chart and chart walk are turned in on Sunday, November 1, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. Dale&rsquo;s chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent. See <a href=\"assignment-patient-chart.html\" target=\"_top\">what you turn in, and when</a>.</p>",
   "topic": "Grading"
  },
  {
@@ -626,7 +626,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q101",
   "q": "How do I record my video?",
-  "a": "<p>A phone propped up so it sees you and the whole whiteboard works fine. Keep recording for the whole question: the 10 minutes of building your model and the 5 minutes of teaching it. Submission instructions are on the exam in Canvas.</p>",
+  "a": "<p>Record in Canvas Studio, with your phone or laptop camera set where it sees you and the whole whiteboard. Keep recording for the whole question: the 10 minutes of building your model and the 5 minutes of teaching it.</p><p>Then turn in the transcript with each video. In Canvas Studio, open the video, go to the Captions tab and choose Request, with English as the language. When the captions are ready, use Review and Publish, fix only the words the machine got wrong, such as drug names and physiology terms, and Download the caption file. Do not reword what you said; the transcript has to match the video.</p>",
   "topic": "Midterms"
  },
  {

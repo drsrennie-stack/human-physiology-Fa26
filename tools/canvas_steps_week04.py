@@ -213,13 +213,14 @@ PRACTICE = dict(
             "and whether each step is uphill or downhill for glucose. Add the Na+/K+ ATPase, then trace what ouabain "
             "changes, step by step, until you reach glucose uptake."),
  ],
- prep="Start recording before you begin, and set a timer for 15 minutes. Prepare your answer on camera: build your "
+ prep="Start recording in Canvas Studio before you begin, and set a timer for 15 minutes. Prepare your answer on camera: build your "
       "model from memory as a brain dump, on a whiteboard or on paper, and think out loud as you go. I want to see you "
       "working it out, so keep the camera on you and on what you are drawing the whole time. A phone video is fine.",
  teach="Keep recording. Set a timer for 5 minutes and present your answer as if to a classmate who missed class: walk "
        "through your model in order, explain why each wrong answer cannot be right, and finish by giving your answer.",
  choose="Write down the answer you gave at the end of your video, and how sure you are: sure, fairly sure, or guessing.",
- turnin=["Your two videos, one for each question, each with the 15 minutes of preparing and the 5 minutes of presenting.",
+ turnin=["Your two videos from Canvas Studio, one for each question, each with the 15 minutes of preparing and the 5 minutes of presenting.",
+         "The transcript of each video. In Canvas Studio, open the video, go to the Captions tab and choose Request, with English as the language. When the captions are ready, use Review and Publish, fix only the words the machine got wrong, then Download the caption file. Do not reword what you said.",
          "Your answer to each question, and how sure you were.",
          "A photo of each finished model."],
 )
