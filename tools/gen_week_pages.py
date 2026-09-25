@@ -256,6 +256,9 @@ def main():
         for fn, gen in (('week-%02d-competencies.html' % n, competencies_page),
                         ('week-%02d-notes.html' % n, notes_page)):
             p = os.path.join(ROOT, fn)
+            # Never overwrite a notes page that has real notes in it (Weeks 2 to 4 so far).
+            if fn.endswith('-notes.html') and os.path.exists(p) and 'Being written' not in open(p, encoding='utf-8').read():
+                continue
             open(p, 'w', encoding='utf-8').write(gen(n))
             made.append(fn)
     print('generated %d pages' % len(made))
