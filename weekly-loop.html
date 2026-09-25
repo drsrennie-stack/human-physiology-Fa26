@@ -7,6 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/brandbar.css">
 <meta name="description" content="The whole week on one page, including the loop you go around until the Mastery Check says every competency is solid.">
 <script>
 /* Inside a Canvas iframe, show the Canvas back chip. Opened directly, show Course home. */
@@ -17,70 +18,85 @@
 }());
 </script>
 <style>
-/* Page-specific rules only. Every token comes from assets/brand.css. */
+/* Page-specific rules only. Palette tokens come from assets/brand.css,
+   the brand bar, footer, back link, eyebrow, display headline and
+   primary button from assets/brandbar.css.
+   Brand restyle Sep 24 2026: MedMasters editorial look, forked from
+   virtual-office.html. White cards on off-white with a shadow, radius
+   8px, no borders. Headings Open Sans 800. No italics. */
+em,i{font-style:normal}
 .loop-wrap{max-width:44rem;margin:0 auto;padding:0 20px}
-.topnav{padding:16px 0 0}
-.topnav a{font-weight:600;text-decoration:none;color:var(--maroon-dark)}
-.topnav a:hover{text-decoration:underline}
+.topnav{padding:6px 0 0}
 #chipBack{display:none}
-.framed #chipBack{display:inline}
+.framed #chipBack{display:inline-flex}
 .framed #siteBack{display:none}
-.loop-head{padding:28px 0 8px}
-.loop-head .lede{margin-top:6px}
+.loop-head{padding:14px 0 8px}
+.loop-head .lede{margin-top:14px;color:var(--ink-soft);font-size:17px}
 .loop-head .lede + .lede{margin-top:12px}
-h2{margin-top:40px}
-.keybox{margin:20px 0 0;background:var(--white);border:1px solid var(--navy-tint);border-radius:var(--r);box-shadow:var(--shadow)}
+.loop-head .lede strong{color:var(--navy)}
+h2,h3{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.018em;color:var(--maroon-dark)}
+h2{margin-top:40px;font-size:clamp(21px,3vw,27px);line-height:1.2}
+h3{font-size:17px}
+.card{border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.card:hover{box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card-static:hover{box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.keybox{margin:20px 0 0;background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
 .keybox summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 16px;font-weight:700;color:var(--navy)}
 .keybox summary::-webkit-details-marker{display:none}
-.keybox summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.keybox summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
 .keybox[open] summary::before{transform:rotate(45deg)}
-.keybox summary:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.keybox summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
 .keybox .legend{margin:0;padding:4px 16px 16px}
 @media (prefers-reduced-motion:reduce){.keybox summary::before{transition:none}}
 .legend{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;font-weight:600}
 .legend li{display:flex;align-items:center;gap:8px}
-.sw{width:18px;height:18px;border-radius:var(--r-sm);display:inline-block}
-.sw-prev{background:var(--ink-soft)}
+/* Swatches. Preview was slate gray, which is not a brand color; it is
+   now navy-tint with a navy edge so it still reads apart from the white
+   Use it boxes and the solid navy Learn boxes. */
+.sw{width:18px;height:18px;border-radius:var(--r-sm);display:inline-block;flex:none}
+.sw-prev{background:var(--navy-tint);box-shadow:inset 0 0 0 1.5px var(--navy)}
 .sw-learn{background:var(--navy)}
 .sw-retr{background:var(--maroon)}
-.sw-check{background:var(--gold);border:1px solid var(--navy)}
-.sw-assess{background:var(--white);border:1px solid var(--navy)}
-.wbadge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#F28C28;color:var(--navy);font-size:12px;font-weight:800}
+.sw-check{background:var(--gold);box-shadow:inset 0 0 0 1px var(--navy)}
+.sw-assess{background:var(--white);box-shadow:inset 0 0 0 1px var(--navy)}
+/* Badges. W was orange, off brand. Now W navy, S maroon,
+   T gold with a navy-deep letter and a navy ring, because gold on a
+   white card is only 2.42:1 and the ring is what edges it.
+   White on navy 18.04:1, white on maroon 7.66:1, navy-deep on gold 8.16:1. */
+.wbadge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:var(--white);font-size:12px;font-weight:800;flex:none}
 .abadge{background:var(--maroon);color:var(--white)}
-.tbadge{background:var(--navy);color:var(--white)}
+.tbadge{background:var(--gold);color:var(--navy-deep);box-shadow:inset 0 0 0 1.5px var(--navy)}
 .diagram{margin:24px 0 0;padding:0}
 .diagram svg{display:block;width:100%;max-width:30rem;height:auto;margin:0 auto}
 .timenote{margin:12px auto 0;max-width:30rem;font-size:15px;color:var(--ink-soft);text-align:center}
 .reentry{display:grid;gap:16px;margin:0;padding:0;list-style:none}
 .reentry .card{margin:0}
 .fix{padding:0}
-.fix summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:44px;padding:14px 20px;font-family:var(--disp);font-weight:600;font-size:17px;color:var(--maroon-dark)}
+.fix summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:44px;padding:14px 20px;font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:17px;color:var(--maroon-dark)}
 .fix summary::-webkit-details-marker{display:none}
 .fix summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon-dark);border-bottom:2px solid var(--maroon-dark);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
 .fix[open] summary::before{transform:rotate(45deg)}
-.fix summary:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.fix summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
 .fix-body{padding:0 20px 18px 40px}
 @media (prefers-reduced-motion:reduce){.fix summary::before{transition:none}}
 .reentry > li{list-style:none}
 
 .reentry p{margin:0}
-.chip{display:inline-block;font-size:13px;font-weight:700;color:var(--white);border-radius:999px;padding:2px 11px;margin:2px 0 9px}
+.chip{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--white);border-radius:4px;padding:4px 10px;margin:2px 0 10px}
 .chip-learn{background:var(--navy)}
 .chip-retr{background:var(--maroon)}
 .note{margin:20px 0 0}
 .words ol{margin:0;padding-left:22px}
 .words li{margin:6px 0}
 .words .t{color:var(--maroon-dark);font-weight:700}
-.site-foot{margin:48px 0 32px;color:var(--ink-soft);font-size:15px}
 @media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
-.printbtn{margin:14px 0 0;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px;border:1px solid var(--navy);border-radius:var(--r);background:var(--white);color:var(--navy);font:700 15px/1.2 var(--body);cursor:pointer;box-shadow:var(--shadow)}
-.printbtn:hover{background:var(--navy);color:var(--white)}
-.printbtn:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+.printbtn{margin:18px 0 0}
 @media print{
   @page{size:letter;margin:0.5in}
   html,body{background:#fff!important}
+  body{padding-bottom:0!important} /* bio005-back.js pads the body for its floating button; not on paper */
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .skip,.topnav,.printbtn,.site-foot{display:none!important}
+  .skip,.topnav,.printbtn,.mm-brandbar,.mm-foot{display:none!important}
   .card,.keybox,.fix{box-shadow:none!important;transform:none!important}
   .keybox summary::before,.fix summary::before{display:none}
   .diagram{break-before:page;break-inside:avoid}
@@ -95,24 +111,33 @@ h2{margin-top:40px}
 <body>
 <a class="skip" href="#main">Skip to the loop</a>
 
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
 <nav class="topnav" aria-label="Back"><div class="loop-wrap">
-  <a id="siteBack" href="course.html" target="_top">&larr; Course home</a>
-  <a id="chipBack" href="https://yccd.instructure.com/courses/42616/modules" target="_top">&larr; Back to Canvas modules</a>
+  <a class="mm-back" id="siteBack" href="course.html" target="_top">&larr; Course home</a>
+  <a class="mm-back" id="chipBack" href="https://yccd.instructure.com/courses/42616/modules" target="_top">&larr; Back to Canvas modules</a>
 </div></nav>
 
 <main id="main">
 <header class="loop-head"><div class="loop-wrap">
-  <h1>Your week is a loop</h1>
+  <p class="mm-eyebrow">How every week works</p>
+  <h1 class="mm-display">Your week is a <span>loop</span>.</h1>
   <p class="lede">Several of you weren't sure how to approach each week's material or in what order, so I have simplified the whole week into one page that shows exactly what to do and when.</p>
   <p class="lede">Two things matter most. <strong>First,</strong> do every step, in the order it appears. Each step sets up the one after it, so skipping ahead is usually what makes a week feel confusing. <strong>Second,</strong> this is not a task list you finish from top to bottom. It is a cycle: you start with a preview, build your understanding, test yourself with the Mastery Check, and then go back and refine whatever needs more work. Most weeks you will go around the loop more than once, and that is exactly how it is meant to work.</p>
-  <button type="button" class="printbtn" id="printBtn">Print this page</button>
+  <button type="button" class="mm-btn printbtn" id="printBtn">Print this page</button>
 </div></header>
 
 <div class="loop-wrap">
 <details class="keybox">
 <summary>What the colors and letters mean</summary>
 <ul class="legend">
-  <li><span class="sw sw-prev" aria-hidden="true"></span>Slate: previewing the chapter</li>
+  <li><span class="sw sw-prev" aria-hidden="true"></span>Light navy: previewing the chapter</li>
   <li><span class="sw sw-learn" aria-hidden="true"></span>Navy: learning it</li>
   <li><span class="sw sw-retr" aria-hidden="true"></span>Maroon: pulling it back out of memory</li>
   <li><span class="sw sw-check" aria-hidden="true"></span>Gold: checking what is solid</li>
@@ -125,46 +150,46 @@ h2{margin-top:40px}
 <figure class="diagram" aria-labelledby="loopTitle">
 <svg viewBox="-10 0 372 1080" role="img" aria-labelledby="loopTitle loopDesc" xmlns="http://www.w3.org/2000/svg">
   <title id="loopTitle">The weekly loop</title>
-  <desc id="loopDesc">First, the preview, shown in slate: the pre-read. Look through the figures and bold terms and fill in the pre-read worksheet, 30 minutes at most. It has a worksheet and you submit it. Then the learning steps, shown in navy. The first pass: work through the interactive slides and fill in your note sheet, 3 to 4 hours. Its worksheet is your note sheet, which you submit at the upload step. The second pass: go through the same interactive slides again and add to the same note sheet in a second color, 30 to 60 minutes. Then upload your note sheet, about 10 minutes, and submit it. Then a loop. Retrieval, shown in maroon: study it with cards and brain dumps, in 4 sessions of 30 to 45 minutes. Then the Mastery Check, shown in gold, 35 to 50 minutes per try, and you submit the report. If a competency is not solid yet, go back around to retrieval for that competency. If you could not start it at all, go back to the second pass for it. When every competency is solid, move on to the work shown in white. The lab: PhysioEx, then your lab worksheet, 2 to 3 hours, submitted. Your application case, about 1 hour, submitted. Your patient, about 30 minutes, tracked all term. The discussion, about 1 hour, submitted.</desc>
+  <desc id="loopDesc">First, the preview, shown in light navy: the pre-read. Look through the figures and bold terms and fill in the pre-read worksheet, 30 minutes at most. It has a worksheet and you submit it. Then the learning steps, shown in navy. The first pass: work through the interactive slides and fill in your note sheet, 3 to 4 hours. Its worksheet is your note sheet, which you submit at the upload step. The second pass: go through the same interactive slides again and add to the same note sheet in a second color, 30 to 60 minutes. Then upload your note sheet, about 10 minutes, and submit it. Then a loop. Retrieval, shown in maroon: study it with cards and brain dumps, in 4 sessions of 30 to 45 minutes. Then the Mastery Check, shown in gold, 35 to 50 minutes per try, and you submit the report. If a competency is not solid yet, go back around to retrieval for that competency. If you could not start it at all, go back to the second pass for it. When every competency is solid, move on to the work shown in white. The lab: PhysioEx, then your lab worksheet, 2 to 3 hours, submitted. Your application case, about 1 hour, submitted. Your patient, about 30 minutes, tracked all term. The discussion, about 1 hour, submitted.</desc>
   <defs>
     <filter id="lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity="0.12"/></filter>
-    <marker id="ahGray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#414B5C"/></marker>
+    <marker id="ahGray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0B1530"/></marker>
     <marker id="ahMaroon" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8B3A2E"/></marker>
     <marker id="ahNavy" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0B1530"/></marker>
   </defs>
   <g font-family="'Plus Jakarta Sans',system-ui,sans-serif" fill="#0B1530">
     <text x="40" y="30" font-size="13" font-weight="700" fill="#414B5C">Preview</text>
-    <rect x="40" y="42" width="280" height="58" rx="10" fill="#414B5C" filter="url(#lift)"/>
-    <text x="56" y="66" font-size="15" font-weight="700" fill="#fff">Pre-read</text>
-    <text x="304" y="66" font-size="12" font-weight="700" fill="#fff" text-anchor="end">30 min max</text>
-    <text x="56" y="85" font-size="12" fill="#fff">Figures, bold terms, pre-read worksheet</text>
+    <rect x="40" y="42" width="280" height="58" rx="10" fill="#ECEFF4" stroke="#0B1530" stroke-width="1.5" filter="url(#lift)"/>
+    <text x="56" y="66" font-size="15" font-weight="700" fill="#0B1530">Pre-read</text>
+    <text x="304" y="66" font-size="12" font-weight="700" fill="#0B1530" text-anchor="end">30 min max</text>
+    <text x="56" y="85" font-size="12" fill="#0B1530">Figures, bold terms, pre-read worksheet</text>
     <g aria-hidden="true"><circle cx="316" cy="44" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="48.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    <g aria-hidden="true"><circle cx="290" cy="44" r="11.5" fill="#F28C28" stroke="#fff" stroke-width="2"/><text x="290" y="48.5" font-size="12" font-weight="800" fill="#0B1530" text-anchor="middle">W</text></g>
-    <line x1="180" y1="100" x2="180" y2="134" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <g aria-hidden="true"><circle cx="290" cy="44" r="11.5" fill="#0B1530" stroke="#fff" stroke-width="2"/><text x="290" y="48.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">W</text></g>
+    <line x1="180" y1="100" x2="180" y2="134" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <text x="40" y="124" font-size="13" font-weight="700" fill="#0B1530">Learn</text>
     <rect x="40" y="136" width="280" height="58" rx="10" fill="#0B1530" filter="url(#lift)"/>
     <text x="56" y="160" font-size="15" font-weight="700" fill="#fff">First pass</text>
     <text x="304" y="160" font-size="12" font-weight="700" fill="#fff" text-anchor="end">3 to 4 hours</text>
     <text x="56" y="179" font-size="12" fill="#fff">Interactive slides, then fill your note sheet</text>
-    <g aria-hidden="true"><circle cx="316" cy="138" r="11.5" fill="#F28C28" stroke="#fff" stroke-width="2"/><text x="316" y="142.5" font-size="12" font-weight="800" fill="#0B1530" text-anchor="middle">W</text></g>
-    <line x1="180" y1="194" x2="180" y2="212" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <g aria-hidden="true"><circle cx="316" cy="138" r="11.5" fill="#0B1530" stroke="#fff" stroke-width="2"/><text x="316" y="142.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">W</text></g>
+    <line x1="180" y1="194" x2="180" y2="212" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <rect x="40" y="214" width="280" height="58" rx="10" fill="#0B1530" filter="url(#lift)"/>
     <text x="56" y="238" font-size="15" font-weight="700" fill="#fff">Second pass</text>
     <text x="304" y="238" font-size="12" font-weight="700" fill="#fff" text-anchor="end">30 to 60 min</text>
     <text x="56" y="257" font-size="12" fill="#fff">Same slides again, in a second color</text>
-    <line x1="180" y1="272" x2="180" y2="290" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <line x1="180" y1="272" x2="180" y2="290" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <rect x="40" y="292" width="280" height="58" rx="10" fill="#0B1530" filter="url(#lift)"/>
     <text x="56" y="316" font-size="15" font-weight="700" fill="#fff">Upload your note sheet</text>
     <text x="304" y="316" font-size="12" font-weight="700" fill="#fff" text-anchor="end">10 min</text>
     <text x="56" y="335" font-size="12" fill="#fff">One photo file, both colors showing</text>
     <g aria-hidden="true"><circle cx="316" cy="294" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="298.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    <line x1="180" y1="350" x2="180" y2="408" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <line x1="180" y1="350" x2="180" y2="408" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <text x="196" y="386" font-size="13" font-weight="700" fill="#8B3A2E">Retrieve and check</text>
     <rect x="82" y="410" width="196" height="66" rx="10" fill="#8B3A2E" filter="url(#lift)"/>
     <text x="180" y="432" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Study it</text>
     <text x="180" y="450" font-size="12" fill="#fff" text-anchor="middle">Cards and brain dumps</text>
     <text x="180" y="467" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">4 sessions of 30 to 45 min</text>
-    <path d="M278 443 C350 443 350 653 278 653" fill="none" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <path d="M278 443 C350 443 350 653 278 653" fill="none" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <path d="M82 653 C18 653 18 443 82 443" fill="none" stroke="#8B3A2E" stroke-width="2.5" marker-end="url(#ahMaroon)"/>
     <text x="180" y="530" font-size="14" font-weight="700" fill="#8B3A2E" text-anchor="middle">Not yet?</text>
     <text x="180" y="550" font-size="12" fill="#414B5C" text-anchor="middle">Go back around for the</text>
@@ -176,7 +201,7 @@ h2{margin-top:40px}
     <g aria-hidden="true"><circle cx="274" cy="622" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="274" y="626.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
     <path d="M82 676 H10 V243 H36" fill="none" stroke="#0B1530" stroke-width="1.75" stroke-dasharray="5 4" marker-end="url(#ahNavy)"/>
     <text transform="translate(5 470) rotate(-90)" font-size="11" fill="#0B1530" text-anchor="middle">Could not start it? Back to second pass</text>
-    <line x1="180" y1="686" x2="180" y2="742" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <line x1="180" y1="686" x2="180" y2="742" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <text x="192" y="718" font-size="13" font-weight="700">All solid</text>
     <text x="40" y="762" font-size="13" font-weight="700" fill="#414B5C">Use it</text>
     <rect x="40" y="772" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
@@ -184,19 +209,19 @@ h2{margin-top:40px}
     <text x="304" y="796" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">2 to 3 hours</text>
     <text x="56" y="815" font-size="12" fill="#414B5C">PhysioEx, then your lab worksheet</text>
     <g aria-hidden="true"><circle cx="316" cy="774" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="778.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    <line x1="180" y1="830" x2="180" y2="848" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <line x1="180" y1="830" x2="180" y2="848" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <rect x="40" y="850" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
     <text x="56" y="874" font-size="15" font-weight="700" fill="#0B1530">Application case</text>
     <text x="304" y="874" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">About 1 hour</text>
     <text x="56" y="893" font-size="12" fill="#414B5C">Work the case using the physiology</text>
     <g aria-hidden="true"><circle cx="316" cy="852" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="856.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    <line x1="180" y1="908" x2="180" y2="926" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <line x1="180" y1="908" x2="180" y2="926" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <rect x="40" y="928" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
     <text x="56" y="952" font-size="15" font-weight="700" fill="#0B1530">Your patient</text>
     <text x="304" y="952" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">About 30 min</text>
     <text x="56" y="971" font-size="12" fill="#414B5C">Document this week's findings</text>
-    <g aria-hidden="true"><circle cx="316" cy="930" r="11.5" fill="#0B1530" stroke="#fff" stroke-width="2"/><text x="316" y="934.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">T</text></g>
-    <line x1="180" y1="986" x2="180" y2="1004" stroke="#414B5C" stroke-width="2" marker-end="url(#ahGray)"/>
+    <g aria-hidden="true"><circle cx="316" cy="930" r="11.5" fill="#C9A14A" stroke="#0B1530" stroke-width="1.5"/><text x="316" y="934.5" font-size="12" font-weight="800" fill="#060A18" text-anchor="middle">T</text></g>
+    <line x1="180" y1="986" x2="180" y2="1004" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
     <rect x="40" y="1006" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
     <text x="56" y="1030" font-size="15" font-weight="700" fill="#0B1530">The discussion</text>
     <text x="304" y="1030" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">About 1 hour</text>
@@ -272,8 +297,18 @@ h2{margin-top:40px}
 </div>
 </main>
 
-<footer class="site-foot"><div class="loop-wrap">
-  <p>BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie</p>
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
 </div></footer>
 
 <script>
@@ -288,6 +323,11 @@ h2{margin-top:40px}
   if(b) b.addEventListener('click',function(){ openAll(); window.print(); });
 }());
 </script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
 <script>
 /* Iframe height sender for the course site and Kajabi listeners. */
 (function(){
