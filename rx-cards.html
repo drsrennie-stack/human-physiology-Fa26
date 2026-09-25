@@ -25,12 +25,25 @@
    rated higher.
 
    Difficulty rises on its own. Level 2 cards for a competency open
-   once three of its level 1 cards are proved (in review with an
-   interval of four days or more). Level 3 opens the same way off
-   level 2. So a student who keeps showing up meets harder questions
-   without choosing to.
+   once two of its level 1 cards have been answered right on two
+   different days. Level 3 opens the same way off level 2. While a
+   competency sits at a level, at most three of that level's cards are
+   in play (plus one more for each card missed), so a student is not
+   walked through every level 1 card before seeing a harder one. Once a
+   level opens, the unseen cards below it are skipped. New cards go to
+   the competencies the student has seen least, so a whole week moves
+   up together instead of a few competencies racing ahead.
 
-   Reviews are never capped. Only new cards a day is limited.
+   Sep 25 2026, built for five days a week: a new card answered Good
+   comes back in 2 days, not 1. A session is 20, 30 or 40 cards, or
+   all; 20 is the floor, and when fewer than 20 are due the session
+   is topped up with new cards past the daily limit. Students are
+   required to do at least 60 cards a week (Monday to Sunday), and
+   the page counts it for them. Simulated on Week 4 (29
+   competencies) with 25-card sessions, five days a week, 80 percent
+   right: 24 of 29 competencies at level 2 or higher after one week,
+   28 after two. The old rule (three cards at a 4 day interval) had
+   about 7 after one week.
 
    Storage key bio005-rx-v1, deliberately separate from the older
    engines so it starts clean. Everything is per browser; nothing
@@ -75,6 +88,7 @@ main{padding:10px 0 70px}
 section{padding:26px 0 0}
 h2{font-size:clamp(21px,3vw,27px);color:var(--maroon);margin-bottom:8px}
 .sub{color:var(--ink-soft);margin:0 0 16px;max-width:60ch}
+.sub.goal{color:var(--navy);font-weight:700}
 .label{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px}
 .card{background:var(--white);border-radius:14px;padding:22px 24px;margin:0 0 16px;box-shadow:var(--shadow)}
 .card p:last-child{margin-bottom:0}
@@ -268,6 +282,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   <section aria-labelledby="due-h">
     <h2 id="due-h">Due now</h2>
     <p class="sub" id="dueline">Loading your cards.</p>
+    <p class="sub goal" id="goalline"></p>
     <div class="counts" role="group" aria-label="Cards waiting">
       <div class="count new"><div class="n" id="nNew">0</div><div class="t">New</div><div class="d">Cards you have not seen, up to today's limit</div></div>
       <div class="count"><div class="n" id="nLearn">0</div><div class="t">Relearning</div><div class="d">Missed recently, back for another try</div></div>
@@ -275,7 +290,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     </div>
     <div class="btnrow">
       <button type="button" class="btn big" id="start">Start reviewing</button>
-      <button type="button" class="btn ghost" id="extra" hidden>Nothing is due. Study 10 new cards anyway</button>
+      <button type="button" class="btn ghost" id="extra" hidden>Nothing is due. Study 20 new cards anyway</button>
     </div>
   </section>
 
@@ -288,7 +303,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   <section aria-labelledby="wk-h">
     <h2 id="wk-h">What you did this week</h2>
-    <p class="sub">Cards answered each day, and how many you got right first time.</p>
+    <p class="sub" id="wkline">Cards answered each day, and how many you got right first time. Five days a week is the goal.</p>
     <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
   </section>
 
@@ -301,16 +316,25 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
           <select id="weeks"></select>
         </div>
         <div class="field">
+          <span class="lbl" id="size-l">Cards per session</span>
+          <div class="seg" role="group" aria-labelledby="size-l" id="size">
+            <button type="button" data-v="20" aria-pressed="false">20</button>
+            <button type="button" data-v="30" aria-pressed="false">30</button>
+            <button type="button" data-v="40" aria-pressed="false">40</button>
+            <button type="button" data-v="0" aria-pressed="false">All</button>
+          </div>
+        </div>
+        <div class="field">
           <span class="lbl" id="npd-l">New cards a day</span>
           <div class="seg" role="group" aria-labelledby="npd-l" id="npd">
-            <button type="button" data-v="5" aria-pressed="false">5</button>
-            <button type="button" data-v="12" aria-pressed="false">12</button>
-            <button type="button" data-v="25" aria-pressed="false">25</button>
+            <button type="button" data-v="10" aria-pressed="false">10</button>
+            <button type="button" data-v="20" aria-pressed="false">20</button>
+            <button type="button" data-v="30" aria-pressed="false">30</button>
             <button type="button" data-v="50" aria-pressed="false">50</button>
           </div>
         </div>
       </div>
-      <p style="margin-top:14px">Reviews are never limited. Only new cards are, so the pile stays the size you can carry. The week list follows the course calendar: earlier weeks stay in, because their cards keep coming back until you have proved them.</p>
+      <p style="margin-top:14px">A session is at least 20 cards and stops at the number you pick, so you can do one and come back later. The cards that were due and did not fit wait for next time, most overdue first. New cards a day stops the pile from growing faster than you can carry it. The week list follows the course calendar. Choose "Weeks 1 to" for your daily review, because earlier weeks keep coming back until you have proved them. Choose "only" when you want to focus on one week, such as the week you are in or a week you are weak on. Your cards and progress stay the same either way.</p>
     </div>
   </section>
 
@@ -322,14 +346,15 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   <section aria-labelledby="lad-h">
     <h2 id="lad-h">How far up the ladder you are</h2>
-    <p class="sub">Every competency has three levels of card. Level 2 opens once you have proved three level 1 cards; level 3 opens the same way. You do not choose the level. It rises when you have earned it.</p>
+    <p class="sub">Every competency has three levels of card. Level 2 opens once you get two level 1 cards right on two different days, and level 3 opens the same way off level 2. You will not see every level 1 card. Once level 2 opens, you move on. You do not choose the level. It rises when you have earned it.</p>
     <div class="ladder" id="ladder"></div>
   </section>
 
   <section aria-labelledby="cover-h">
     <h2 id="cover-h">Covering the course, not sampling it</h2>
     <div class="card">
-      <p>Getting every competency to level 1 by the end of the term takes about 60 cards and 25 minutes a day, seven days a week. Days a week matter more than session length, because a card cannot move forward twice in one day. Five long sessions do less than seven short ones.</p>
+      <p>You are required to do at least 60 cards a week, Monday to Sunday. That is the minimum. The more cards you do, the better you will do. A session is at least 20 cards, about 8 minutes, so three sessions on three different days meets the minimum. Five days a week is better, and missing a day does not reset anything. The cards simply wait for you.</p>
+      <p>What matters most is coming back on different days, because a level only opens when you get cards right on two different days. Three sessions on one night count as one day.</p>
       <p>Going back to earlier weeks is automatic. There is no chapter menu to manage; a card from Week 3 simply shows up in Week 9 when it is due.</p>
     </div>
   </section>
@@ -370,6 +395,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   <section aria-labelledby="fin-h">
     <h2 id="fin-h">That is the pile for now</h2>
     <p class="sub" id="finline"></p>
+    <p class="sub goal" id="fingoal"></p>
     <div class="counts" role="group" aria-label="This session">
       <div class="count"><div class="n" id="fSeen">0</div><div class="t">Cards</div><div class="d">Answered this session</div></div>
       <div class="count"><div class="n" id="fRight">0</div><div class="t">Right first time</div><div class="d">Before seeing the answer</div></div>
@@ -442,7 +468,13 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   S.cards = S.cards || {};      /* key -> {st, iv, ease, due, reps, lapses} */
   S.log = S.log || {};          /* yyyy-mm-dd -> {seen, right, newc} */
   S.set = S.set || {};
-  if (!S.set.npd) S.set.npd = 12;
+  if (!S.set.npd) S.set.npd = 20;
+  if (S.set.size === undefined) S.set.size = 20;
+  if (S.set.size === 25) S.set.size = 30;
+  if (S.set.size && S.set.size < 20) S.set.size = 20;
+  /* Sep 25 2026: the choices moved from 5/12/25/50 to 10/20/30/50. Anyone
+     still on the old default of 12 moves to the new default of 20. */
+  if (S.set.v !== 2) { if (S.set.npd === 12) S.set.npd = 20; if (S.set.npd === 5) S.set.npd = 10; if (S.set.npd === 25) S.set.npd = 30; S.set.v = 2; }
 
   function today(){ var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
   function startOfToday(){ var d = new Date(); d.setHours(0,0,0,0); return d.getTime(); }
@@ -483,27 +515,42 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   var qs = new URLSearchParams(location.search);
   var qWeek = parseInt(qs.get('week'), 10);
   var maxWeek = (qWeek >= 1 && qWeek <= 15) ? qWeek : (S.set.maxWeek || currentWeek());
-  var onlyWeek = qs.get('only') === '1';
+  var onlyWeek = qs.has('only') ? qs.get('only') === '1' : !!S.set.onlyWeek;
 
   function inPlay(c){ return onlyWeek ? c.week === maxWeek : c.week <= maxWeek; }
 
   /* ---------- the ladder ----------
-     Level 2 of a competency opens when 3 of its level 1 cards are proved,
-     meaning in review with an interval of at least 4 days. Level 3 opens
-     off level 2 the same way. */
-  function proved(rec){ return rec && rec.st === 'rev' && rec.iv >= 4; }
-  var openLevel = {};
+     A level opens for a competency when two of its cards at the level below
+     have been answered right (Good or Easy), on at least two different days
+     between them, and neither has been missed since. rec.rd holds the days a
+     card was answered right; a miss clears it. Cards reviewed before Sep 25
+     2026 have no rec.rd, so a card already in review with a right last answer
+     counts once, on the day it was last seen. */
+  function rightDays(rec){
+    if (!rec || rec.st !== 'rev') return [];
+    if (rec.rd) return rec.rd;
+    if ((rec.lastRating || 0) >= 2 && rec.last) { var d = new Date(rec.last); return [d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0')]; }
+    return [];
+  }
+  function proved(rec){ return rightDays(rec).length > 0; }
+  var openLevel = {}, atLevel = {};
   function computeLadder(){
-    var cnt = {};
+    var info = {};
     CARDS.forEach(function(c){
-      var r = S.cards[c.key]; if (!proved(r)) return;
-      cnt[c.comp.id] = cnt[c.comp.id] || {1:0,2:0,3:0}; cnt[c.comp.id][c.dok]++;
+      var r = S.cards[c.key]; if (!r) return;
+      var k = info[c.comp.id] = info[c.comp.id] || {1:{n:0,days:{},seen:0,lapsed:0},2:{n:0,days:{},seen:0,lapsed:0},3:{n:0,days:{},seen:0,lapsed:0}};
+      var L = k[c.dok]; L.seen++;
+      if ((r.lapses || 0) > 0) L.lapsed++;
+      var ds = rightDays(r);
+      if (ds.length) { L.n++; ds.forEach(function(d){ L.days[d] = 1; }); }
     });
+    function passed(L){ return L.n >= 2 && Object.keys(L.days).length >= 2; }
     COMPS.forEach(function(comp){
-      var k = cnt[comp.id] || {1:0,2:0,3:0};
-      openLevel[comp.id] = k[2] >= 3 ? 3 : (k[1] >= 3 ? 2 : 1);
+      var k = info[comp.id];
+      openLevel[comp.id] = !k ? 1 : passed(k[1]) ? (passed(k[2]) ? 3 : 2) : 1;
+      atLevel[comp.id] = k ? k[openLevel[comp.id]] : {n:0,days:{},seen:0,lapsed:0};
     });
-    return cnt;
+    return info;
   }
 
   /* ---------- SM-2 ---------- */
@@ -512,7 +559,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     if (rating === 0) return { iv: 1, ease: Math.max(1.3, ease - 0.2), st: 'learn' };
     if (st === 'new' || st === 'learn') {
       if (rating === 1) return { iv: 1, ease: Math.max(1.3, ease - 0.15), st: 'rev' };
-      if (rating === 2) return { iv: st === 'learn' ? Math.max(1, Math.round(iv)) : 1, ease: ease, st: 'rev' };
+      if (rating === 2) return { iv: st === 'learn' ? Math.max(1, Math.round(iv)) : 2, ease: ease, st: 'rev' };
       return { iv: 4, ease: ease + 0.15, st: 'rev' };
     }
     var f = rating === 1 ? 1.2 : rating === 2 ? ease : ease * 1.3;
@@ -529,11 +576,12 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var now = Date.now(), t0 = startOfToday();
     var learn = [], rev = [], fresh = [];
     var newLeft = Math.max(0, S.set.npd - dayLog().newc);
-    if (forceNew) newLeft = 10;
+    if (typeof forceNew === 'number') newLeft = Math.max(newLeft, forceNew);
+    else if (forceNew) newLeft = 20;
     CARDS.forEach(function(c){
       if (!inPlay(c)) return;
       var r = S.cards[c.key];
-      if (!r) { if (c.dok <= openLevel[c.comp.id]) fresh.push(c); return; }
+      if (!r) { if (c.dok === openLevel[c.comp.id]) fresh.push(c); return; }
       if (r.due <= now || r.due < t0 + DAY) {
         if (r.st === 'learn') learn.push(c); else rev.push(c);
       }
@@ -542,23 +590,36 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     function overdue(c){ return S.cards[c.key].due; }
     rev.sort(function(a,b){ return overdue(a) - overdue(b); });
     learn.sort(function(a,b){ return overdue(a) - overdue(b); });
-    /* new cards: the newest open level first so the ladder is used,
-       then the week you are in, then earlier weeks, in a stable order */
+    /* new cards: the competencies you have seen least go first, so a whole
+       week climbs together; then the week you are in, then earlier weeks.
+       At levels 1 and 2 only three cards of the open level are in play at
+       a time, plus one for each that has been missed. */
+    var seenBy = {};
+    CARDS.forEach(function(c){ if (S.cards[c.key]) seenBy[c.comp.id] = (seenBy[c.comp.id] || 0) + 1; });
     fresh.sort(function(a,b){
-      var la = (a.dok === openLevel[a.comp.id] && a.dok > 1) ? 0 : 1;
-      var lb = (b.dok === openLevel[b.comp.id] && b.dok > 1) ? 0 : 1;
-      if (la !== lb) return la - lb;
+      var sa = seenBy[a.comp.id] || 0, sb = seenBy[b.comp.id] || 0;
+      if (sa !== sb) return sa - sb;
       var wa = a.week === maxWeek ? 0 : 1, wb = b.week === maxWeek ? 0 : 1;
       if (wa !== wb) return wa - wb;
       if (a.week !== b.week) return a.week - b.week;
-      return a.dok - b.dok;
+      return 0;
     });
-    /* one new card per competency per day where possible, so a session
-       samples the week rather than draining one competency */
+    var inFlight = {};
+    function room(c){
+      var id = c.comp.id, L = atLevel[id];
+      if (openLevel[id] === 3) return true;
+      return (L.seen + (inFlight[id] || 0)) < 3 + L.lapsed;
+    }
     var picked = [], seenComp = {}, rest = [];
-    fresh.forEach(function(c){ if (picked.length < newLeft && !seenComp[c.comp.id]) { picked.push(c); seenComp[c.comp.id] = 1; } else rest.push(c); });
-    while (picked.length < newLeft && rest.length) picked.push(rest.shift());
-    return { learn: learn, rev: rev, fresh: picked, freshTotal: fresh.length };
+    fresh.forEach(function(c){
+      if (picked.length < newLeft && !seenComp[c.comp.id] && room(c)) { picked.push(c); seenComp[c.comp.id] = 1; inFlight[c.comp.id] = (inFlight[c.comp.id] || 0) + 1; }
+      else rest.push(c);
+    });
+    rest.forEach(function(c){
+      if (picked.length < newLeft && room(c)) { picked.push(c); inFlight[c.comp.id] = (inFlight[c.comp.id] || 0) + 1; }
+    });
+    var eligible = fresh.filter(function(c){ return openLevel[c.comp.id] === 3 || atLevel[c.comp.id].seen < 3 + atLevel[c.comp.id].lapsed; }).length;
+    return { learn: learn, rev: rev, fresh: picked, freshTotal: eligible };
   }
 
   /* ---------- home screen ---------- */
@@ -567,30 +628,37 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   function fillWeeks(){
     var sel = $('weeks'); sel.innerHTML = '';
-    for (var n = 1; n <= 15; n++) {
-      var o = document.createElement('option'); o.value = n;
-      var t = weekTitle(n);
-      o.textContent = (n === 1 ? 'Week 1' : 'Weeks 1 to ' + n) + (t ? ': ' + t : '');
-      if (n === maxWeek) o.selected = true;
-      sel.appendChild(o);
-    }
-    if (onlyWeek) {
-      var only = document.createElement('option'); only.value = 'only'; only.selected = true;
-      only.textContent = 'Week ' + maxWeek + ' only'; sel.appendChild(only);
-    }
+    var groups = [
+      ['c', 'All weeks so far (earlier weeks keep coming back)', function(n, t){ return (n === 1 ? 'Week 1' : 'Weeks 1 to ' + n) + (t ? ': ' + t : ''); }],
+      ['o', 'One week at a time', function(n, t){ return 'Week ' + n + ' only' + (t ? ': ' + t : ''); }]
+    ];
+    groups.forEach(function(g){
+      var og = document.createElement('optgroup'); og.label = g[1];
+      for (var n = 1; n <= 15; n++) {
+        var o = document.createElement('option'); o.value = g[0] + n;
+        o.textContent = g[2](n, weekTitle(n));
+        if (n === maxWeek && (g[0] === 'o') === onlyWeek) o.selected = true;
+        og.appendChild(o);
+      }
+      sel.appendChild(og);
+    });
   }
   $('weeks').addEventListener('change', function(){
     var v = this.value;
-    if (v === 'only') return;
-    onlyWeek = false; maxWeek = parseInt(v, 10); S.set.maxWeek = maxWeek; save(); renderHome();
+    onlyWeek = v.charAt(0) === 'o'; maxWeek = parseInt(v.slice(1), 10);
+    S.set.maxWeek = maxWeek; S.set.onlyWeek = onlyWeek; save(); renderHome();
   });
   [].forEach.call($('npd').querySelectorAll('button'), function(b){
     b.addEventListener('click', function(){ S.set.npd = parseInt(b.dataset.v, 10); save(); renderHome(); });
+  });
+  [].forEach.call($('size').querySelectorAll('button'), function(b){
+    b.addEventListener('click', function(){ S.set.size = parseInt(b.dataset.v, 10); save(); renderHome(); });
   });
 
   function renderHome(){
     fillWeeks();
     [].forEach.call($('npd').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === S.set.npd)); });
+    [].forEach.call($('size').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === (S.set.size || 0))); });
     pile = buildPile(false);
     $('nNew').textContent = pile.fresh.length;
     $('nLearn').textContent = pile.learn.length;
@@ -599,10 +667,15 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var inplay = CARDS.filter(inPlay).length;
     var seen = CARDS.filter(function(c){ return inPlay(c) && S.cards[c.key]; }).length;
     $('dueline').textContent = total
-      ? total + ' card' + (total === 1 ? '' : 's') + ' waiting, about ' + Math.max(1, Math.round(total * 0.4)) + ' minutes. ' + seen + ' of ' + inplay + ' cards in play have been started.'
+      ? (S.set.size && total > S.set.size
+          ? total + ' cards waiting. This session is ' + S.set.size + ' of them, about ' + Math.max(1, Math.round(S.set.size * 0.4)) + ' minutes. The rest wait for your next session. '
+          : total + ' card' + (total === 1 ? '' : 's') + ' waiting, about ' + Math.max(1, Math.round(total * 0.4)) + ' minutes. ')
+        + seen + ' of ' + inplay + ' cards in play have been started.'
       : 'Nothing is due. ' + seen + ' of ' + inplay + ' cards in play have been started. Come back tomorrow, or pull some new ones now.';
     $('start').disabled = !total;
+    $('start').textContent = S.set.size && total > S.set.size ? 'Start a ' + S.set.size + ' card session' : 'Start reviewing';
     $('extra').hidden = !!total || pile.freshTotal === 0;
+    renderGoal();
     renderWeak(); renderWeek();
     /* forecast */
     var fc = $('forecast'); fc.innerHTML = '';
@@ -620,7 +693,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var counts = {1:0,2:0,3:0};
     COMPS.forEach(function(comp){ if (!onlyWeek ? comp.week <= maxWeek : comp.week === maxWeek) counts[openLevel[comp.id]]++; });
     var total3 = counts[1] + counts[2] + counts[3];
-    [[1,'At level 1','Recall. Working on the basics.'],[2,'Level 2 open','Apply. Three level 1 cards proved.'],[3,'Level 3 open','Analyze. Three level 2 cards proved.']].forEach(function(r){
+    [[1,'At level 1','Recall. Working on the basics.'],[2,'Level 2 open','Apply. Two level 1 cards right on two different days.'],[3,'Level 3 open','Analyze. Two level 2 cards right on two different days.']].forEach(function(r){
       var el = document.createElement('div');
       el.innerHTML = '<div class="t">' + r[1] + '</div><div class="n">' + counts[r[0]] + '<span class="s"> of ' + total3 + ' competencies</span></div><div class="s">' + r[2] + '</div>';
       lad.appendChild(el);
@@ -629,256 +702,4 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   /* ---------- reviewer ---------- */
   var queue = [], done = 0, total = 0, cur = null, answered = false, firstRight = false, drill = false;
-  var sess = { seen:0, right:0, missed:{} };
-
-  /* ---------- weak spots ----------
-     A card is weak when it has ever been missed, has been rated Hard,
-     or its ease has fallen below 2.2 (which only happens by missing or
-     rating Hard). The score per competency is 2 per miss plus 1 per
-     Hard, across its cards. Missing is the strongest signal; Hard is
-     the low-confidence signal, a right answer the student was unsure of. */
-  function weakCard(r){ return r && ((r.lapses || 0) > 0 || (r.hard || 0) > 0 || (r.ease || 2.5) < 2.2); }
-  function weakSpots(){
-    var byComp = {};
-    CARDS.forEach(function(c){
-      var r = S.cards[c.key]; if (!inPlay(c) || !weakCard(r)) return;
-      var w = byComp[c.comp.id] = byComp[c.comp.id] || { comp: c.comp, score: 0, cards: 0, misses: 0, hard: 0 };
-      w.score += 2 * (r.lapses || 0) + (r.hard || 0) + ((r.ease || 2.5) < 2.2 ? 1 : 0);
-      w.cards++; w.misses += (r.lapses || 0); w.hard += (r.hard || 0);
-    });
-    return Object.keys(byComp).map(function(k){ return byComp[k]; }).sort(function(a,b){ return b.score - a.score; });
-  }
-  function renderWeak(){
-    var list = weakSpots(), ul = $('weak'); ul.innerHTML = '';
-    $('weakrow').hidden = !list.length;
-    if (!list.length) {
-      $('weakline').textContent = S.log && Object.keys(S.log).length
-        ? 'Nothing here yet. A competency lands on this list when you miss one of its cards or rate one Hard.'
-        : 'This fills in as you review. A competency lands here when you miss one of its cards or rate one Hard, and a drill button lets you go straight at it.';
-      return;
-    }
-    $('weakline').textContent = list.length + ' competenc' + (list.length === 1 ? 'y' : 'ies') + ' with cards you have missed or rated Hard, worst first. Drill one, or drill them all. A drill ignores the schedule and pulls only the cards you have struggled with.';
-    list.slice(0, 12).forEach(function(w){
-      var li = document.createElement('li');
-      var t = document.createElement('div'); t.className = 'wt';
-      var b = document.createElement('b'); b.textContent = w.comp.name + ' (Week ' + w.comp.week + ')';
-      var sp = document.createElement('span'); sp.textContent = w.cards + ' weak card' + (w.cards === 1 ? '' : 's') + ': ' + w.misses + ' missed, ' + w.hard + ' rated Hard';
-      t.appendChild(b); t.appendChild(sp);
-      var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn';
-      btn.textContent = 'Drill'; btn.setAttribute('aria-label', 'Drill ' + w.comp.name);
-      btn.addEventListener('click', function(){ startDrill([w.comp.id]); });
-      li.appendChild(t); li.appendChild(btn); ul.appendChild(li);
-    });
-  }
-  function renderWeek(){
-    var el = $('week'); el.innerHTML = '';
-    var names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], t0 = startOfToday();
-    for (var d = 6; d >= 0; d--) {
-      var dt = new Date(t0 - d*DAY);
-      var k = dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
-      var L = S.log[k] || { seen:0, right:0 };
-      var div = document.createElement('div');
-      div.innerHTML = '<div class="d">' + (d === 0 ? 'Today' : names[dt.getDay()]) + '</div><div class="n">' + L.seen + '</div><div class="r">' + (L.seen ? L.right + ' right' : 'no cards') + '</div>';
-      el.appendChild(div);
-    }
-  }
-  function startDrill(compIds){
-    var want = {}; compIds.forEach(function(id){ want[id] = 1; });
-    var cards = CARDS.filter(function(c){ return inPlay(c) && want[c.comp.id] && weakCard(S.cards[c.key]); });
-    if (!cards.length) return;
-    /* worst first, then shuffle lightly within the same score so the order is not memorized */
-    cards.sort(function(a,b){ var ra = S.cards[a.key], rb = S.cards[b.key]; return (2*(rb.lapses||0) + (rb.hard||0)) - (2*(ra.lapses||0) + (ra.hard||0)) || Math.random() - 0.5; });
-    queue = cards.slice(0, 40); drill = true;
-    done = 0; total = queue.length; sess = { seen:0, right:0, missed:{} };
-    $('mode').hidden = false;
-    $('home').hidden = true; $('finish').hidden = true; $('review').hidden = false;
-    next();
-  }
-  $('drillall').addEventListener('click', function(){ startDrill(weakSpots().map(function(w){ return w.comp.id; })); });
-
-  function startSession(forceNew){
-    drill = false; $('mode').hidden = true;
-    pile = buildPile(forceNew);
-    queue = pile.learn.concat(pile.rev);
-    /* interleave new cards through the reviews rather than stacking them at the end */
-    var step = pile.fresh.length ? Math.max(1, Math.floor((queue.length + pile.fresh.length) / pile.fresh.length)) : 0;
-    pile.fresh.forEach(function(c, i){ queue.splice(Math.min(queue.length, (i+1)*step - 1), 0, c); });
-    if (!queue.length) return;
-    done = 0; total = queue.length; sess = { seen:0, right:0, missed:{} };
-    $('home').hidden = true; $('finish').hidden = true; $('review').hidden = false;
-    next();
-  }
-
-  function next(){
-    if (!queue.length) return finishSession();
-    cur = queue.shift(); answered = false; firstRight = false;
-    var r = S.cards[cur.key] || { st:'new' };
-    $('prog').textContent = (done + 1) + ' of ' + total;
-    $('meterfill').style.width = Math.round(100 * done / total) + '%';
-    $('mWeek').textContent = 'Week ' + cur.week;
-    $('mTopic').textContent = cur.topic;
-    $('mLevel').textContent = 'Level ' + cur.dok;
-    $('mState').textContent = r.st === 'new' ? 'New card' : r.st === 'learn' ? 'Relearning' : 'Review';
-    $('stem').textContent = cur.q;
-    var ul = $('opts'); ul.innerHTML = '';
-    cur.options.forEach(function(o, i){
-      var li = document.createElement('li');
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'opt';
-      b.innerHTML = '<span class="k" aria-hidden="true">' + (i+1) + '</span><span></span>';
-      b.lastChild.textContent = o;
-      b.setAttribute('aria-label', 'Choice ' + (i+1) + ': ' + o);
-      b.addEventListener('click', function(){ answer(i); });
-      li.appendChild(b); ul.appendChild(li);
-    });
-    $('verdict').hidden = true; $('rate').hidden = true;
-    $('qcard').setAttribute('aria-busy', 'false');
-    var first = ul.querySelector('button'); if (first) first.focus();
-  }
-
-  function answer(i){
-    if (answered) return;
-    answered = true; firstRight = (i === cur.ci);
-    var btns = $('opts').querySelectorAll('button');
-    [].forEach.call(btns, function(b, k){
-      b.disabled = true;
-      if (k === cur.ci) b.classList.add('right');
-      else if (k === i) b.classList.add('wrong');
-      else b.classList.add('dim');
-    });
-    var v = $('verdict');
-    v.className = 'verdict ' + (firstRight ? 'right' : 'wrong');
-    $('vh').textContent = firstRight ? 'Right.' : 'Not this one. The answer is ' + (cur.ci + 1) + ': ' + cur.options[cur.ci];
-    $('vx').textContent = cur.x;
-    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (Week ' + cur.comp.week + ')';
-    v.hidden = false;
-    /* rating buttons, with what each would do */
-    var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5 };
-    for (var r = 0; r < 4; r++) {
-      var nx = nextInterval(rec, r);
-      $('iv' + r).textContent = ivLabel(nx.iv);
-      var b = $('rate').querySelectorAll('button')[r];
-      b.disabled = (!firstRight && r > 0);
-    }
-    $('rate').hidden = false;
-    sess.seen++; dayLog().seen++;
-    if (firstRight) { sess.right++; dayLog().right++; }
-    else { var id = cur.comp.id; sess.missed[id] = (sess.missed[id] || 0) + 1; }
-    if (!S.cards[cur.key]) dayLog().newc++;
-    save();
-    $('rate').querySelector('button' + (firstRight ? ':nth-child(3)' : ':first-child')).focus();
-  }
-
-  function rate(r){
-    if (!answered) return;
-    if (!firstRight) r = 0;
-    var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5, reps:0, lapses:0 };
-    var nx = nextInterval(rec, r);
-    var due = startOfToday() + nx.iv * DAY + 8*3600000; /* 8 am local on the due day */
-    if (r === 0) rec.lapses = (rec.lapses || 0) + 1;
-    if (r === 1) rec.hard = (rec.hard || 0) + 1;
-    if (r >= 2 && drill && rec.last && rec.last >= startOfToday()) {
-      /* a drill does not move a card forward twice in one day; a right
-         answer in a drill keeps the schedule it already has */
-      rec.reps = (rec.reps || 0) + 1; rec.lastRating = r; S.cards[cur.key] = rec; save(); done++; next(); return;
-    }
-    rec.reps = (rec.reps || 0) + 1; rec.lastRating = r;
-    rec.st = nx.st; rec.iv = nx.iv; rec.ease = Math.round(nx.ease * 100) / 100; rec.due = due; rec.last = Date.now();
-    S.cards[cur.key] = rec;
-    /* a missed card comes back later in this same session */
-    if (r === 0) { queue.push(cur); total++; }
-    save();
-    done++;
-    next();
-  }
-  [].forEach.call($('rate').querySelectorAll('button'), function(b){ b.addEventListener('click', function(){ rate(parseInt(b.dataset.r, 10)); }); });
-
-  document.addEventListener('keydown', function(e){
-    if ($('review').hidden) return;
-    if (e.key === 'Escape') { finishSession(); return; }
-    var n = parseInt(e.key, 10);
-    if (!(n >= 1 && n <= 4)) return;
-    if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
-    e.preventDefault();
-    if (!answered) { if (n <= cur.options.length) answer(n - 1); }
-    else { var b = $('rate').querySelectorAll('button')[n - 1]; if (b && !b.disabled) rate(n - 1); }
-  });
-
-  function finishSession(){
-    $('review').hidden = true; $('finish').hidden = false;
-    $('fSeen').textContent = sess.seen;
-    $('fRight').textContent = sess.right;
-    var t0 = startOfToday(), n = 0;
-    CARDS.forEach(function(c){ var r = S.cards[c.key]; if (r && inPlay(c) && r.due >= t0 + DAY && r.due < t0 + 2*DAY) n++; });
-    $('fTomorrow').textContent = n;
-    $('finline').textContent = drill && sess.seen
-      ? 'That was a drill. Cards you got right keep the schedule they had; cards you missed come back tomorrow.'
-      : sess.seen
-      ? (sess.right === sess.seen ? 'Every card right first time. The ones you rated Hard will be back sooner than the rest.' : 'Missed cards come back tomorrow, and again until they hold.')
-      : 'You stopped before answering anything. The pile is still waiting.';
-    var ids = Object.keys(sess.missed).sort(function(a,b){ return sess.missed[b] - sess.missed[a]; });
-    $('gapsec').hidden = !ids.length;
-    var ul = $('gaps'); ul.innerHTML = '';
-    ids.forEach(function(id){
-      var c = compById[id]; var li = document.createElement('li');
-      li.innerHTML = '<b></b><span></span>';
-      li.firstChild.textContent = c.name + ' (Week ' + c.week + ', missed ' + sess.missed[id] + ')';
-      li.lastChild.textContent = c.can;
-      ul.appendChild(li);
-    });
-    $('fin-h').setAttribute('tabindex', '-1'); $('fin-h').focus();
-  }
-
-  $('start').addEventListener('click', function(){ startSession(false); });
-  $('extra').addEventListener('click', function(){ startSession(true); });
-  $('quit').addEventListener('click', finishSession);
-  $('again').addEventListener('click', function(){ $('finish').hidden = true; $('home').hidden = false; renderHome(); $('due-h').setAttribute('tabindex','-1'); $('due-h').focus(); });
-
-  function boot(){
-    if (!STORAGE_OK) { $('noStore').hidden = false; }
-    if (!CARDS.length) { $('dueline').textContent = 'The card bank did not load. Reload the page, and if it happens again tell Dr. Rennie which browser you are using.'; $('start').disabled = true; return; }
-    SITE = window.BIO005_SITE;
-    if (!(qWeek >= 1) && !S.set.maxWeek) maxWeek = currentWeek();
-    renderHome();
-  }
-  /* The card bank is a big deferred file; wait for load before building. */
-  if (document.readyState === 'complete') boot(); else window.addEventListener('load', boot);
-
-  /* ---------- Running inside a frame? -------------------------------------
-     In a Canvas module this page is a third party iframe. Safari refuses to
-     let it store anything at all, and Chrome and Firefox give it a separate
-     store from the same page opened directly, so a student's progress splits
-     in two without them ever knowing. Either way the honest move is the same:
-     hand them a real button that opens this page in its own tab. */
-  (function(){
-    var framed = false;
-    try { framed = (window.top !== window.self); } catch(e){ framed = true; }
-    if (!framed) return;
-    var el = document.getElementById('framed');
-    if (!el) return;
-    document.getElementById('framedGo').setAttribute('href', location.href);
-    document.getElementById('framedWhy').textContent = STORAGE_OK
-      ? 'You are looking at this inside Canvas. It works here, but Canvas keeps a separate copy of your progress from the one you get opening it directly, so pick one and stay with it. Its own tab is the one that always works.'
-      : 'This browser will not let the page save anything while it is inside Canvas, so nothing you do here will be remembered. Open it in its own tab and it works properly.';
-    el.hidden = false;
-  }());
-
-  window.BIO005_RX = { weak: weakSpots, drill: startDrill, pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
-}());
-</script>
-<!-- STANDALONE ON PURPOSE. Sep 15 2026.
-     Rx Cards sits in a Canvas module as an iframe, so it carries no site
-     chrome: no bio005-nav.js sticky bar or course tools dock, no Hootie, no
-     floating back widget. Canvas's own navigation is already around the frame.
-     Back to Canvas modules, target _top, is the only way off the page.
-     bio005-competencies.js and os/bio005-card-bank.js stay: they are the card
-     data, not navigation. Do not add the site scripts back to this file. -->
-<script>
-/* iframe height sender, for Canvas */
-(function(){
-  function post(){ try { parent.postMessage({ frame:'bio005-rx-cards', id:'bio005-rx-cards', height: document.documentElement.scrollHeight }, '*'); } catch(e) {} }
-  if ('ResizeObserver' in window) new ResizeObserver(post).observe(document.documentElement);
-  window.addEventListener('load', post); window.addEventListener('resize', post); post();
-}());
-</script>
-</body>
-</html>
+  var sess = { seen:0, right:0,
