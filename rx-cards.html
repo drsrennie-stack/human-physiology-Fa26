@@ -702,4 +702,294 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   /* ---------- reviewer ---------- */
   var queue = [], done = 0, total = 0, cur = null, answered = false, firstRight = false, drill = false;
-  var sess = { seen:0, right:0,
+  var sess = { seen:0, right:0, missed:{} };
+
+  /* ---------- weak spots ----------
+     A card is weak when it has ever been missed, has been rated Hard,
+     or its ease has fallen below 2.2 (which only happens by missing or
+     rating Hard). The score per competency is 2 per miss plus 1 per
+     Hard, across its cards. Missing is the strongest signal; Hard is
+     the low-confidence signal, a right answer the student was unsure of. */
+  function weakCard(r){ return r && ((r.lapses || 0) > 0 || (r.hard || 0) > 0 || (r.ease || 2.5) < 2.2); }
+  function weakSpots(){
+    var byComp = {};
+    CARDS.forEach(function(c){
+      var r = S.cards[c.key]; if (!inPlay(c) || !weakCard(r)) return;
+      var w = byComp[c.comp.id] = byComp[c.comp.id] || { comp: c.comp, score: 0, cards: 0, misses: 0, hard: 0 };
+      w.score += 2 * (r.lapses || 0) + (r.hard || 0) + ((r.ease || 2.5) < 2.2 ? 1 : 0);
+      w.cards++; w.misses += (r.lapses || 0); w.hard += (r.hard || 0);
+    });
+    return Object.keys(byComp).map(function(k){ return byComp[k]; }).sort(function(a,b){ return b.score - a.score; });
+  }
+  function renderWeak(){
+    var list = weakSpots(), ul = $('weak'); ul.innerHTML = '';
+    $('weakrow').hidden = !list.length;
+    if (!list.length) {
+      $('weakline').textContent = S.log && Object.keys(S.log).length
+        ? 'Nothing here yet. A competency lands on this list when you miss one of its cards or rate one Hard.'
+        : 'This fills in as you review. A competency lands here when you miss one of its cards or rate one Hard, and a drill button lets you go straight at it.';
+      return;
+    }
+    $('weakline').textContent = list.length + ' competenc' + (list.length === 1 ? 'y' : 'ies') + ' with cards you have missed or rated Hard, worst first. Drill one, or drill them all. A drill ignores the schedule and pulls only the cards you have struggled with.';
+    list.slice(0, 12).forEach(function(w){
+      var li = document.createElement('li');
+      var t = document.createElement('div'); t.className = 'wt';
+      var b = document.createElement('b'); b.textContent = w.comp.name + ' (Week ' + w.comp.week + ')';
+      var sp = document.createElement('span'); sp.textContent = w.cards + ' weak card' + (w.cards === 1 ? '' : 's') + ': ' + w.misses + ' missed, ' + w.hard + ' rated Hard';
+      t.appendChild(b); t.appendChild(sp);
+      var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn';
+      btn.textContent = 'Drill'; btn.setAttribute('aria-label', 'Drill ' + w.comp.name);
+      btn.addEventListener('click', function(){ startDrill([w.comp.id]); });
+      li.appendChild(t); li.appendChild(btn); ul.appendChild(li);
+    });
+  }
+  /* ---------- the weekly minimum ----------
+     60 cards a week is required, Monday to Sunday. Every answer counts,
+     including a missed card seen again. */
+  var WEEK_MIN = 60;
+  function weekCount(){
+    var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    var n = 0;
+    for (var i = 0; i < 7; i++) {
+      var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() + i);
+      var k = x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0');
+      if (S.log[k]) n += S.log[k].seen || 0;
+    }
+    return n;
+  }
+  function goalText(){
+    var n = weekCount();
+    return n >= WEEK_MIN
+      ? 'This week: ' + n + ' cards. You have met the required minimum of ' + WEEK_MIN + '. Keep going, because the more cards you do, the better you will do.'
+      : 'This week: ' + n + ' of the required ' + WEEK_MIN + ' cards (Monday to Sunday). ' + WEEK_MIN + ' is the minimum. The more cards you do, the better you will do.';
+  }
+  function renderGoal(){ $('goalline').textContent = goalText(); }
+  function renderWeek(){
+    var el = $('week'), studied = 0; el.innerHTML = '';
+    var names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], t0 = startOfToday();
+    for (var d = 6; d >= 0; d--) {
+      var dt = new Date(t0 - d*DAY);
+      var k = dt.getFullYear() + '-' + String(dt.getMonth()+1).padStart(2,'0') + '-' + String(dt.getDate()).padStart(2,'0');
+      var L = S.log[k] || { seen:0, right:0 };
+      if (L.seen) studied++;
+      var div = document.createElement('div');
+      div.innerHTML = '<div class="d">' + (d === 0 ? 'Today' : names[dt.getDay()]) + '</div><div class="n">' + L.seen + '</div><div class="r">' + (L.seen ? L.right + ' right' : 'no cards') + '</div>';
+      el.appendChild(div);
+    }
+    $('wkline').textContent = 'Cards answered each day, and how many you got right first time. You studied on ' + studied + ' of the last 7 days. Five days a week is the goal.';
+  }
+  function startDrill(compIds){
+    var want = {}; compIds.forEach(function(id){ want[id] = 1; });
+    var cards = CARDS.filter(function(c){ return inPlay(c) && want[c.comp.id] && weakCard(S.cards[c.key]); });
+    if (!cards.length) return;
+    /* worst first, then shuffle lightly within the same score so the order is not memorized */
+    cards.sort(function(a,b){ var ra = S.cards[a.key], rb = S.cards[b.key]; return (2*(rb.lapses||0) + (rb.hard||0)) - (2*(ra.lapses||0) + (ra.hard||0)) || Math.random() - 0.5; });
+    queue = cards.slice(0, 40); drill = true;
+    done = 0; total = queue.length; sess = { seen:0, right:0, missed:{} };
+    $('mode').hidden = false;
+    $('home').hidden = true; $('finish').hidden = true; $('review').hidden = false;
+    next();
+  }
+  $('drillall').addEventListener('click', function(){ startDrill(weakSpots().map(function(w){ return w.comp.id; })); });
+
+  function startSession(forceNew){
+    drill = false; $('mode').hidden = true;
+    pile = buildPile(forceNew);
+    queue = pile.learn.concat(pile.rev);
+    /* a session stops at the size picked in settings; overdue cards first,
+       and about a third of it kept for new cards so progress never stalls */
+    var size = S.set.size || 0;
+    /* 20 cards is the floor for a session: when fewer are due, top up with
+       new cards past the daily limit */
+    if (size && !forceNew && queue.length + pile.fresh.length < size) pile.fresh = buildPile(size - queue.length).fresh;
+    if (size && !forceNew) {
+      var nNew = Math.min(pile.fresh.length, Math.max(Math.ceil(size * 0.3), size - queue.length));
+      queue = queue.slice(0, size - nNew);
+      pile.fresh = pile.fresh.slice(0, nNew);
+    }
+    /* interleave new cards through the reviews rather than stacking them at the end */
+    var step = pile.fresh.length ? Math.max(1, Math.floor((queue.length + pile.fresh.length) / pile.fresh.length)) : 0;
+    pile.fresh.forEach(function(c, i){ queue.splice(Math.min(queue.length, (i+1)*step - 1), 0, c); });
+    if (!queue.length) return;
+    done = 0; total = queue.length; sess = { seen:0, right:0, missed:{} };
+    $('home').hidden = true; $('finish').hidden = true; $('review').hidden = false;
+    next();
+  }
+
+  function next(){
+    if (!queue.length) return finishSession();
+    cur = queue.shift(); answered = false; firstRight = false;
+    var r = S.cards[cur.key] || { st:'new' };
+    $('prog').textContent = (done + 1) + ' of ' + total;
+    $('meterfill').style.width = Math.round(100 * done / total) + '%';
+    $('mWeek').textContent = 'Week ' + cur.week;
+    $('mTopic').textContent = cur.topic;
+    $('mLevel').textContent = 'Level ' + cur.dok;
+    $('mState').textContent = r.st === 'new' ? 'New card' : r.st === 'learn' ? 'Relearning' : 'Review';
+    $('stem').textContent = cur.q;
+    var ul = $('opts'); ul.innerHTML = '';
+    cur.options.forEach(function(o, i){
+      var li = document.createElement('li');
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'opt';
+      b.innerHTML = '<span class="k" aria-hidden="true">' + (i+1) + '</span><span></span>';
+      b.lastChild.textContent = o;
+      b.setAttribute('aria-label', 'Choice ' + (i+1) + ': ' + o);
+      b.addEventListener('click', function(){ answer(i); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    $('verdict').hidden = true; $('rate').hidden = true;
+    $('qcard').setAttribute('aria-busy', 'false');
+    var first = ul.querySelector('button'); if (first) first.focus();
+  }
+
+  function answer(i){
+    if (answered) return;
+    answered = true; firstRight = (i === cur.ci);
+    var btns = $('opts').querySelectorAll('button');
+    [].forEach.call(btns, function(b, k){
+      b.disabled = true;
+      if (k === cur.ci) b.classList.add('right');
+      else if (k === i) b.classList.add('wrong');
+      else b.classList.add('dim');
+    });
+    var v = $('verdict');
+    v.className = 'verdict ' + (firstRight ? 'right' : 'wrong');
+    $('vh').textContent = firstRight ? 'Right.' : 'Not this one. The answer is ' + (cur.ci + 1) + ': ' + cur.options[cur.ci];
+    $('vx').textContent = cur.x;
+    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (Week ' + cur.comp.week + ')';
+    v.hidden = false;
+    /* rating buttons, with what each would do */
+    var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5 };
+    for (var r = 0; r < 4; r++) {
+      var nx = nextInterval(rec, r);
+      $('iv' + r).textContent = ivLabel(nx.iv);
+      var b = $('rate').querySelectorAll('button')[r];
+      b.disabled = (!firstRight && r > 0);
+    }
+    $('rate').hidden = false;
+    sess.seen++; dayLog().seen++;
+    if (firstRight) { sess.right++; dayLog().right++; }
+    else { var id = cur.comp.id; sess.missed[id] = (sess.missed[id] || 0) + 1; }
+    if (!S.cards[cur.key]) dayLog().newc++;
+    save();
+    $('rate').querySelector('button' + (firstRight ? ':nth-child(3)' : ':first-child')).focus();
+  }
+
+  function rate(r){
+    if (!answered) return;
+    if (!firstRight) r = 0;
+    var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5, reps:0, lapses:0 };
+    var nx = nextInterval(rec, r);
+    var due = startOfToday() + nx.iv * DAY + 8*3600000; /* 8 am local on the due day */
+    if (r === 0) rec.lapses = (rec.lapses || 0) + 1;
+    if (r === 1) rec.hard = (rec.hard || 0) + 1;
+    if (r >= 2 && drill && rec.last && rec.last >= startOfToday()) {
+      /* a drill does not move a card forward twice in one day; a right
+         answer in a drill keeps the schedule it already has */
+      rec.reps = (rec.reps || 0) + 1; rec.lastRating = r; S.cards[cur.key] = rec; save(); done++; next(); return;
+    }
+    rec.reps = (rec.reps || 0) + 1; rec.lastRating = r;
+    /* days this card was answered right, for the ladder; a miss clears them */
+    if (r === 0) rec.rd = [];
+    else if (r >= 2) { rec.rd = rightDays(rec).slice(); if (rec.rd.indexOf(today()) < 0) rec.rd.push(today()); if (rec.rd.length > 4) rec.rd = rec.rd.slice(-4); }
+    rec.st = nx.st; rec.iv = nx.iv; rec.ease = Math.round(nx.ease * 100) / 100; rec.due = due; rec.last = Date.now();
+    S.cards[cur.key] = rec;
+    /* a missed card comes back later in this same session */
+    if (r === 0) { queue.push(cur); total++; }
+    save();
+    done++;
+    next();
+  }
+  [].forEach.call($('rate').querySelectorAll('button'), function(b){ b.addEventListener('click', function(){ rate(parseInt(b.dataset.r, 10)); }); });
+
+  document.addEventListener('keydown', function(e){
+    if ($('review').hidden) return;
+    if (e.key === 'Escape') { finishSession(); return; }
+    var n = parseInt(e.key, 10);
+    if (!(n >= 1 && n <= 4)) return;
+    if (e.target && /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+    e.preventDefault();
+    if (!answered) { if (n <= cur.options.length) answer(n - 1); }
+    else { var b = $('rate').querySelectorAll('button')[n - 1]; if (b && !b.disabled) rate(n - 1); }
+  });
+
+  function finishSession(){
+    $('review').hidden = true; $('finish').hidden = false;
+    $('fSeen').textContent = sess.seen;
+    $('fRight').textContent = sess.right;
+    var t0 = startOfToday(), n = 0;
+    CARDS.forEach(function(c){ var r = S.cards[c.key]; if (r && inPlay(c) && r.due >= t0 + DAY && r.due < t0 + 2*DAY) n++; });
+    $('fTomorrow').textContent = n;
+    $('fingoal').textContent = goalText();
+    $('finline').textContent = drill && sess.seen
+      ? 'That was a drill. Cards you got right keep the schedule they had; cards you missed come back tomorrow.'
+      : sess.seen
+      ? (sess.right === sess.seen ? 'Every card right first time. The ones you rated Hard will be back sooner than the rest.' : 'Missed cards come back tomorrow, and again until they hold.')
+      : 'You stopped before answering anything. The pile is still waiting.';
+    var ids = Object.keys(sess.missed).sort(function(a,b){ return sess.missed[b] - sess.missed[a]; });
+    $('gapsec').hidden = !ids.length;
+    var ul = $('gaps'); ul.innerHTML = '';
+    ids.forEach(function(id){
+      var c = compById[id]; var li = document.createElement('li');
+      li.innerHTML = '<b></b><span></span>';
+      li.firstChild.textContent = c.name + ' (Week ' + c.week + ', missed ' + sess.missed[id] + ')';
+      li.lastChild.textContent = c.can;
+      ul.appendChild(li);
+    });
+    $('fin-h').setAttribute('tabindex', '-1'); $('fin-h').focus();
+  }
+
+  $('start').addEventListener('click', function(){ startSession(false); });
+  $('extra').addEventListener('click', function(){ startSession(true); });
+  $('quit').addEventListener('click', finishSession);
+  $('again').addEventListener('click', function(){ $('finish').hidden = true; $('home').hidden = false; renderHome(); $('due-h').setAttribute('tabindex','-1'); $('due-h').focus(); });
+
+  function boot(){
+    if (!STORAGE_OK) { $('noStore').hidden = false; }
+    if (!CARDS.length) { $('dueline').textContent = 'The card bank did not load. Reload the page, and if it happens again tell Dr. Rennie which browser you are using.'; $('start').disabled = true; return; }
+    SITE = window.BIO005_SITE;
+    if (!(qWeek >= 1) && !S.set.maxWeek) maxWeek = currentWeek();
+    renderHome();
+  }
+  /* The card bank is a big deferred file; wait for load before building. */
+  if (document.readyState === 'complete') boot(); else window.addEventListener('load', boot);
+
+  /* ---------- Running inside a frame? -------------------------------------
+     In a Canvas module this page is a third party iframe. Safari refuses to
+     let it store anything at all, and Chrome and Firefox give it a separate
+     store from the same page opened directly, so a student's progress splits
+     in two without them ever knowing. Either way the honest move is the same:
+     hand them a real button that opens this page in its own tab. */
+  (function(){
+    var framed = false;
+    try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+    if (!framed) return;
+    var el = document.getElementById('framed');
+    if (!el) return;
+    document.getElementById('framedGo').setAttribute('href', location.href);
+    document.getElementById('framedWhy').textContent = STORAGE_OK
+      ? 'You are looking at this inside Canvas. It works here, but Canvas keeps a separate copy of your progress from the one you get opening it directly, so pick one and stay with it. Its own tab is the one that always works.'
+      : 'This browser will not let the page save anything while it is inside Canvas, so nothing you do here will be remembered. Open it in its own tab and it works properly.';
+    el.hidden = false;
+  }());
+
+  window.BIO005_RX = { weak: weakSpots, drill: startDrill, pile: function(){ return buildPile(false); }, next: nextInterval, cards: CARDS, state: S, start: startSession, answer: answer, rate: rate };
+}());
+</script>
+<!-- STANDALONE ON PURPOSE. Sep 15 2026.
+     Rx Cards sits in a Canvas module as an iframe, so it carries no site
+     chrome: no bio005-nav.js sticky bar or course tools dock, no Hootie, no
+     floating back widget. Canvas's own navigation is already around the frame.
+     Back to Canvas modules, target _top, is the only way off the page.
+     bio005-competencies.js and os/bio005-card-bank.js stay: they are the card
+     data, not navigation. Do not add the site scripts back to this file. -->
+<script>
+/* iframe height sender, for Canvas */
+(function(){
+  function post(){ try { parent.postMessage({ frame:'bio005-rx-cards', id:'bio005-rx-cards', height: document.documentElement.scrollHeight }, '*'); } catch(e) {} }
+  if ('ResizeObserver' in window) new ResizeObserver(post).observe(document.documentElement);
+  window.addEventListener('load', post); window.addEventListener('resize', post); post();
+}());
+</script>
+</body>
+</html>
