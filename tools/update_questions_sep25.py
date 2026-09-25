@@ -42,7 +42,7 @@ LOOP = ("<ol><li>The pre-read: a quick look at the headings and figures, with a 
         "<li>Second pass, in your second color: go back through the same lessons and add what you missed and fix what "
         "was wrong. Do not erase the first color.</li>"
         "<li>Upload your Competency Study Guide with both colors on it.</li>"
-        "<li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li>"
+        "<li>Study it for several days: Rx Cards, brain dumps, and drawing from memory.</li>"
         "<li>The Mastery Check, and upload the report.</li>"
         "<li>The lab: PhysioEx, then the worksheet.</li>"
         "<li>Your application case, worked into your patient chart.</li>"
@@ -81,8 +81,8 @@ EDIT = {
          "questions, because those are what you are examined on.</p>"),
  "q38": ("What is the Course tools button?",
          "<p>The button in the bottom left corner of the course pages. It opens with your study tools on top: "
-         + L("rx-cards.html", "Rx Cards") + ", the " + L("competency-brain-dump.html", "Brain Dump") + ", "
-         + L("study-with-me.html", "Study With Me") + ", the " + L("practice-exam.html", "Mastery Check") + " and "
+         + L("rx-cards.html", "Rx Cards") + ", the " + L("competency-brain-dump.html", "Brain Dump") + ", the "
+         + L("practice-exam.html", "Mastery Check") + " and "
          + L("mastery-physio-os-standalone.html?open=drawknow", "Draw It to Know It") + ". Below those are this week, "
          "your Competency Study Guide, the labs, the schedule and the syllabus. Type a few letters to find a tool.</p>"),
  "q42": (None, "<p>Four categories. Show Me What You Know, the two exams, 35 percent. Investigate It, the labs, 25 "
@@ -212,8 +212,8 @@ NEW = [  # (after_id, entry)
        "confident and came out patchy, it moves that competency up your weak spot list.</p>"}),
  ("q254", {"id": "q255", "q": "Where are all the study tools in one place?",
   "a": "<p>Press <b>Course tools</b> in the bottom left corner of any course page. Your study tools are at the top: "
-       + L("rx-cards.html", "Rx Cards") + ", the " + L("competency-brain-dump.html", "Brain Dump") + ", "
-       + L("study-with-me.html", "Study With Me") + ", the " + L("practice-exam.html", "Mastery Check") + " and "
+       + L("rx-cards.html", "Rx Cards") + ", the " + L("competency-brain-dump.html", "Brain Dump") + ", the "
+       + L("practice-exam.html", "Mastery Check") + " and "
        + L("mastery-physio-os-standalone.html?open=drawknow", "Draw It to Know It") + ".</p>"}),
  ("q42", {"id": "q256", "q": "What is the patient chart?",
   "a": "<p>One patient you follow all term, by hand. Each week you copy that week's numbers into your flowsheets and "

@@ -94,6 +94,7 @@ html.embedded::-webkit-scrollbar-thumb{background:rgba(11,21,48,.32);border-radi
   a{color:#000;text-decoration:none}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.pr .pq{font-weight:800;margin:0 0 6px}.pr .pdo{margin:0;padding-left:1.2em}.pr .pdo li{margin:0 0 4px}.pr .pdo ul{margin:4px 0 0;padding-left:1.2em;list-style:disc}.pr .pdo .pone{list-style:none;margin-left:-1.2em;margin-top:6px}
 </style>
 </head>
 <body>
@@ -154,6 +155,7 @@ html.embedded::-webkit-scrollbar-thumb{background:rgba(11,21,48,.32);border-radi
 </main>
 
 <script src="assets/bio005-sheet-data.js"></script>
+<script src="assets/bio005-prompts.js"></script>
 <script src="bio005-ungraded.js"></script>
 <script>
 (function(){
@@ -207,12 +209,17 @@ html.embedded::-webkit-scrollbar-thumb{background:rgba(11,21,48,.32);border-radi
       '</div>';
   }).join('') || '<div class="card"><p>No competencies are listed for this week yet.</p></div>';
 
+  /* a structured prompt (Week 4 on) draws as a bold question and bullets */
+  function upr(it, side){
+    var px = window.BIO005_PROMPT && BIO005_PROMPT.get(it, side);
+    return px ? '<div class="pr"><span class="lt">' + side.toUpperCase() + '</span>' + BIO005_PROMPT.html(px) + '</div>'
+              : '<p class="pr"><span class="lt">' + side.toUpperCase() + '</span>' + it[side] + '</p>';
+  }
   document.getElementById('draws').innerHTML = items.map(function(it){
     return '<div class="comp">' +
       '<p class="cn">' + it.n + ' &middot; ' + it.name +
         (it.lab ? '<span class="tag">Lab</span>' : '') + '</p>' +
-      '<p class="pr"><span class="lt">A</span>' + it.a + '</p>' +
-      '<p class="pr"><span class="lt">B</span>' + it.b + '</p>' +
+      upr(it, 'a') + upr(it, 'b') +
       '</div>';
   }).join('') || '<div class="card"><p>No drawing prompts are listed for this week yet.</p></div>';
 

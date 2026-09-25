@@ -142,6 +142,9 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
 
 @media (max-width:560px){.card{padding:18px 18px 20px}.masthead{padding:24px 0 22px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+#promptText .pq{font-size:1.08em}
+#promptText .pdo{margin:0 0 14px;padding-left:1.2em}#promptText .pdo li{margin:0 0 6px}
+#promptText .pdo ul{margin:6px 0 0;padding-left:1.2em;list-style:disc}#promptText .pdo .pone{list-style:none;margin-left:-1.2em;margin-top:10px}
 </style>
 </head>
 <body>
@@ -214,7 +217,7 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
     </div>
     <div class="card">
       <h2>Do this on paper</h2>
-      <p class="prompt" id="promptText"></p>
+      <div class="prompt" id="promptText"></div>
       <p class="sub">Nothing open. Drawings, labels, arrows, short lists. When you cannot go any
         further, stop and come back.</p>
       <div class="row">
@@ -235,6 +238,15 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
         <button type="button" class="btn" id="score">Score it</button>
         <button type="button" class="btn ghost" id="backPrompt">Back to the prompt</button>
       </div>
+    </div>
+    <div class="card" id="aiCard">
+      <h2>Want a second check on your drawing?</h2>
+      <p class="sub">Only after you have drawn it from memory. This copies the prompt with instructions for ChatGPT. Open ChatGPT, paste it, and attach a photo of your drawing. ChatGPT describes what an accurate drawing shows and checks yours against it. It does not draw the answer for you, because AI pictures of physiology graphs often get labels and values wrong. AI can still be wrong in words too, so if it disagrees with your notes, go with your notes and ask me in the Virtual Office.</p>
+      <div class="row">
+        <button type="button" class="btn" id="aiCopy">Copy for ChatGPT</button>
+        <a class="btn ghost" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT<span class="vh"> (opens in a new tab)</span></a>
+      </div>
+      <p class="sub" id="aiNote" aria-live="polite"></p>
     </div>
   </section>
 
@@ -281,6 +293,7 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
      back widget. Back to Canvas modules, target _top, is the only way off it.
      assets/bio005-sheet-data.js stays: it is the prompt data, not navigation. -->
 <script src="assets/bio005-sheet-data.js"></script>
+<script src="assets/bio005-prompts.js"></script>
 <script>
 (function(){
   "use strict";
@@ -326,11 +339,12 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
     (w.items || []).forEach(function(it){
       ['a','b'].forEach(function(side){
         if (!it[side]) return;
-        var list = checklist(it[side]);
+        var px = window.BIO005_PROMPT && BIO005_PROMPT.get(it, side);
+        var list = px ? BIO005_PROMPT.steps(px) : checklist(it[side]);
         if (!list.length) return;
         POOL.push({ id: wk + ':' + it.n + ':' + side, week: parseInt(wk,10),
                     wtitle: w.title || ('Week ' + wk), name: it.name, can: it.can,
-                    side: side.toUpperCase(), prompt: it[side], list: list });
+                    side: side.toUpperCase(), prompt: it[side], px: px, list: list, it: it, s: side });
       });
     });
   });
@@ -399,11 +413,19 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
         $('cName').textContent = pick.name;
         $('cWeek').textContent = (pick.week === 0 ? 'Optional review' : 'Week ' + pick.week)
                                  + ' · Prompt ' + pick.side;
-        $('promptText').textContent = pick.prompt;
+        if (pick.px) $('promptText').innerHTML = BIO005_PROMPT.html(pick.px);
+        else $('promptText').textContent = pick.prompt;
         $('spinLbl').textContent = forced ? 'Drilling your weak spot' : 'Your prompt';
       }
     })();
   }
+
+  /* ---------- Copy for ChatGPT ---------- */
+  document.getElementById('aiCopy').addEventListener('click', function(){
+    if (!current || !window.BIO005_PROMPT) return;
+    BIO005_PROMPT.copy(BIO005_PROMPT.aiText(current.it, current.s, current.week), this);
+    document.getElementById('aiNote').textContent = 'Copied. Open ChatGPT, paste, and attach a photo of your drawing.';
+  });
 
   /* ---------- Check screen ---------- */
   function buildCheck(){

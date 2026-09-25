@@ -372,7 +372,7 @@
          About         syllabus, schedule, help
        ============================================================ */
 
-    /* ---------- STUDY TOOLS. Sep 25 2026, Scrubs: the five study tools
+    /* ---------- STUDY TOOLS. Sep 25 2026, Scrubs: the study tools
        sit on top, open by default, so none of them is ever two groups
        deep. They moved here from This week, Practice and Check rather
        than being copied, so nothing appears twice. ---------- */
@@ -383,9 +383,6 @@
     t.push({ g: ST, name: 'Brain Dump', sub: 'Spin a random competency, do it from memory, then check it against its list',
              url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
              kw: 'brain dump braindump randomizer random spin rubric check memory blank page retrieve recall write study tools' });
-    t.push({ g: ST, name: 'Study With Me', sub: 'Study with other people. Optional, and it earns Scholar Points',
-             url: BASE + 'study-with-me.html', icon: 'people', tone: 'terra', qr: 'study',
-             kw: 'study with me session group together live partner scholar points kahoot study tools' });
     t.push({ g: ST, name: 'Mastery Check', sub: 'At least 50 questions and 80 percent to count, nothing open, and a report you upload',
              url: BASE + 'practice-exam.html?week=' + wn + (wn === 8 ? '' : '&n=50'), icon: 'target', tone: 'gold', qr: 'mastery',
              kw: 'mastery check practice exam gap finder test questions score report study tools' });

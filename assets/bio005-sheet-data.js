@@ -365,204 +365,827 @@ window.BIO005_SHEET = {
     "n": 1,
     "name": "Ion distribution and electrochemical gradients",
     "can": "State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.",
-    "a": "Draw a cell and give each ion a pair of bars, inside and outside, height for concentration: sodium 145 mM out against 15 mM in, potassium 4 out against 140 in, chloride 110 out against 10 in, calcium about 1 out against 0.0001 free in. Mark the membrane inside negative. On each ion draw two separate arrows, chemical force and electrical force. One line: two ions have arrows pointing opposite ways, so name both and say which force wins.",
-    "b": "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride near minus 65. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest."
+    "a": "Which way do the chemical and electrical forces push each ion, and which force wins? Draw a cell and give each ion a pair of bars, inside and outside, with bar height for concentration: sodium: 145 mM out, 15 mM in, potassium: 4 mM out, 140 mM in, chloride: 110 mM out, 10 mM in, calcium: about 1 mM out, 0.0001 mM free in. Mark the inside of the membrane negative. On each ion, draw two separate arrows: the chemical force and the electrical force. In one line: two ions have arrows pointing opposite ways. Name both and say which force wins.",
+    "b": "Which ion has the largest driving force at rest, and what keeps it from moving? Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90 mV, sodium near plus 60 mV, calcium near plus 120 mV, chloride near minus 65 mV. Draw one horizontal line at minus 70 mV across all four. Each gap from that line is a driving force. In one line: name the ion with the largest gap and say what stops it moving at rest.",
+    "ax": {
+     "q": "Which way do the chemical and electrical forces push each ion, and which force wins?",
+     "do": [
+      "Draw a cell and give each ion a pair of bars, inside and outside, with bar height for concentration:",
+      {
+       "sub": [
+        "sodium: 145 mM out, 15 mM in",
+        "potassium: 4 mM out, 140 mM in",
+        "chloride: 110 mM out, 10 mM in",
+        "calcium: about 1 mM out, 0.0001 mM free in"
+       ]
+      },
+      "Mark the inside of the membrane negative.",
+      "On each ion, draw two separate arrows: the chemical force and the electrical force."
+     ],
+     "one": "Two ions have arrows pointing opposite ways. Name both and say which force wins."
+    },
+    "bx": {
+     "q": "Which ion has the largest driving force at rest, and what keeps it from moving?",
+     "do": [
+      "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV.",
+      "Mark each ion's equilibrium potential:",
+      {
+       "sub": [
+        "potassium near minus 90 mV",
+        "sodium near plus 60 mV",
+        "calcium near plus 120 mV",
+        "chloride near minus 65 mV"
+       ]
+      },
+      "Draw one horizontal line at minus 70 mV across all four. Each gap from that line is a driving force."
+     ],
+     "one": "Name the ion with the largest gap and say what stops it moving at rest."
+    }
    },
    {
     "n": 2,
     "name": "Nernst equation",
     "can": "Explain what an ion's equilibrium potential means, predict its sign from the direction of the ion's concentration gradient and its charge, and use it to predict which way that ion will move when its channels open.",
-    "a": "Draw a cell with potassium high inside and sodium high outside. For each ion, draw the chemical arrow (down its concentration gradient) and the electrical arrow that would balance it. Beside each ion, write its equilibrium potential and whether the sign is positive or negative, and one line on why the sign comes out that way.",
-    "b": "Draw a vertical voltage scale from minus 100 to plus 70 mV. Mark E_K, E_Na and a resting potential of minus 70 mV. Now open potassium channels, then sodium channels: for each, draw an arrow showing which way the ion moves and which way the membrane potential moves, and label which one has the bigger driving force and why."
+    "a": "Why is one equilibrium potential negative and the other positive? Draw a cell with potassium high inside and sodium high outside. For each ion, draw the chemical arrow (down its concentration gradient) and the electrical arrow that would balance it. Beside each ion, write its equilibrium potential and whether the sign is positive or negative. In one line: for each ion, say why the sign comes out that way.",
+    "b": "When a channel opens, which way does the ion move, and which way does the membrane potential go? Draw a vertical voltage scale from minus 100 to plus 70 mV. Mark E_K, E_Na, and a resting potential of minus 70 mV. Open potassium channels. Draw an arrow for which way potassium moves and which way the membrane potential moves. Now open sodium channels and do the same. In one line: label which ion has the bigger driving force and say why.",
+    "ax": {
+     "q": "Why is one equilibrium potential negative and the other positive?",
+     "do": [
+      "Draw a cell with potassium high inside and sodium high outside.",
+      "For each ion, draw the chemical arrow (down its concentration gradient) and the electrical arrow that would balance it.",
+      "Beside each ion, write its equilibrium potential and whether the sign is positive or negative."
+     ],
+     "one": "For each ion, say why the sign comes out that way."
+    },
+    "bx": {
+     "q": "When a channel opens, which way does the ion move, and which way does the membrane potential go?",
+     "do": [
+      "Draw a vertical voltage scale from minus 100 to plus 70 mV.",
+      "Mark E_K, E_Na, and a resting potential of minus 70 mV.",
+      "Open potassium channels. Draw an arrow for which way potassium moves and which way the membrane potential moves.",
+      "Now open sodium channels and do the same."
+     ],
+     "one": "Label which ion has the bigger driving force and say why."
+    }
    },
    {
     "n": 3,
     "name": "Resting membrane potential",
     "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential, explain in words how the Goldman equation combines each ion's concentration gradient and permeability, and predict how the potential shifts when membrane permeability to potassium or sodium changes.",
-    "a": "Draw a cell at rest with minus 70 mV written inside. On its membrane draw potassium leak channels as many, sodium leak channels as few, and the sodium potassium pump. Beside the cell draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60, and mark where minus 70 sits between them. One line: the resting potential sits close to one of those two and nowhere near halfway, so say what makes it lean.",
-    "b": "Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked, then draw four labeled arrows off it showing where the potential moves when you open more potassium channels, open sodium channels, block the potassium leak, and stop the sodium potassium pump. One line: one of those four shifts the potential only a few mV even though it eventually ruins the cell, so name it and say why the immediate effect is so small."
+    "a": "Why does the resting potential sit so close to potassium's equilibrium potential? Draw a cell at rest with minus 70 mV written inside. On its membrane, draw many potassium leak channels, a few sodium leak channels, and the sodium potassium pump. Beside the cell, draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60. Mark where minus 70 sits between them. In one line: the resting potential sits close to one of those two and nowhere near halfway. Say what makes it lean.",
+    "b": "Which changes move the resting potential a lot, and which barely move it at first? Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked. Draw four labeled arrows off it showing where the potential moves when you: open more potassium channels, open sodium channels, block the potassium leak, stop the sodium potassium pump. In one line: one of those four shifts the potential only a few mV even though it eventually ruins the cell. Name it and say why the immediate effect is so small.",
+    "ax": {
+     "q": "Why does the resting potential sit so close to potassium's equilibrium potential?",
+     "do": [
+      "Draw a cell at rest with minus 70 mV written inside.",
+      "On its membrane, draw many potassium leak channels, a few sodium leak channels, and the sodium potassium pump.",
+      "Beside the cell, draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60.",
+      "Mark where minus 70 sits between them."
+     ],
+     "one": "The resting potential sits close to one of those two and nowhere near halfway. Say what makes it lean."
+    },
+    "bx": {
+     "q": "Which changes move the resting potential a lot, and which barely move it at first?",
+     "do": [
+      "Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked.",
+      "Draw four labeled arrows off it showing where the potential moves when you:",
+      {
+       "sub": [
+        "open more potassium channels",
+        "open sodium channels",
+        "block the potassium leak",
+        "stop the sodium potassium pump"
+       ]
+      }
+     ],
+     "one": "One of those four shifts the potential only a few mV even though it eventually ruins the cell. Name it and say why the immediate effect is so small."
+    }
    },
    {
     "n": 4,
     "name": "Ion channel gating",
     "can": "Compare leak, voltage gated, ligand gated, and mechanically gated channels by what opens each one and give a physiological location for each.",
-    "a": "Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated. Draw each one twice, closed and open, and draw whatever opens it right beside it, a voltage change, a bound molecule, a stretch or a bend. Under each write one real place in the body it is found. One line: only one of the four is open at rest, so say what job that gives it.",
-    "b": "Draw one neuron stretched across the whole width of your box. Along it place each channel type where it actually works: ligand gated on the dendrites, voltage gated sodium and potassium along the axon, leak channels everywhere, voltage gated calcium at the terminal. Add a mechanically gated channel on a sensory ending drawn off to the side. One line: number the order these open during one real signal and say which one starts it."
+    "a": "What opens each type of channel, and where in the body does each one work? Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated. Draw each one twice, closed and open. Beside each, draw whatever opens it: a voltage change, a bound molecule, a stretch or a bend. Under each, write one real place in the body where it is found. In one line: only one of the four is open at rest. Say what job that gives it.",
+    "b": "Where along one neuron does each channel type work, and in what order do they open? Draw one neuron stretched across the whole width of your box. Place each channel type where it actually works: ligand gated on the dendrites, voltage gated sodium and potassium along the axon, leak channels everywhere, voltage gated calcium at the terminal. Add a mechanically gated channel on a sensory ending drawn off to the side. In one line: number the order these open during one real signal and say which one starts it.",
+    "ax": {
+     "q": "What opens each type of channel, and where in the body does each one work?",
+     "do": [
+      "Draw four channels in a row in a strip of membrane: leak, voltage gated, ligand gated, and mechanically gated.",
+      "Draw each one twice, closed and open.",
+      "Beside each, draw whatever opens it: a voltage change, a bound molecule, a stretch or a bend.",
+      "Under each, write one real place in the body where it is found."
+     ],
+     "one": "Only one of the four is open at rest. Say what job that gives it."
+    },
+    "bx": {
+     "q": "Where along one neuron does each channel type work, and in what order do they open?",
+     "do": [
+      "Draw one neuron stretched across the whole width of your box.",
+      "Place each channel type where it actually works:",
+      {
+       "sub": [
+        "ligand gated on the dendrites",
+        "voltage gated sodium and potassium along the axon",
+        "leak channels everywhere",
+        "voltage gated calcium at the terminal"
+       ]
+      },
+      "Add a mechanically gated channel on a sensory ending drawn off to the side."
+     ],
+     "one": "Number the order these open during one real signal and say which one starts it."
+    }
    },
    {
     "n": 5,
     "name": "Depolarization and hyperpolarization",
     "can": "Define depolarization, repolarization, hyperpolarization, and overshoot and label each on a membrane potential tracing.",
-    "a": "Draw a membrane potential tracing with time on the x and mV on the y, starting at minus 70. Take it up past zero to about plus 30 and back down below minus 70 before it returns. Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest. Draw zero mV as a dashed line. One line: define overshoot using that dashed line, not using the peak.",
-    "b": "Draw one set of axes with a dashed line at minus 70 mV and another at zero. Plot four traces from rest: a small depolarization that fades away, a hyperpolarization, a depolarization that crosses threshold, and a repolarization from plus 30 back down. Label each with its correct term. One line: say which of your traces make the cell easier to fire and which make it harder, and how you can tell from direction alone."
+    "a": "Where does each named phase sit on a membrane potential tracing? Draw a tracing with time on the x axis and mV on the y axis, starting at minus 70. Take it up past zero to about plus 30, then back down below minus 70 before it returns to rest. Draw zero mV as a dashed line. Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest. In one line: define overshoot using the dashed line, not using the peak.",
+    "b": "Which changes in membrane potential make a cell easier to fire, and which make it harder? Draw one set of axes with a dashed line at minus 70 mV and another at zero. Plot four traces starting from rest: a small depolarization that fades away, a hyperpolarization, a depolarization that crosses threshold, a repolarization from plus 30 back down. Label each with its correct term. In one line: say which traces make the cell easier to fire and which make it harder, and how you can tell from direction alone.",
+    "ax": {
+     "q": "Where does each named phase sit on a membrane potential tracing?",
+     "do": [
+      "Draw a tracing with time on the x axis and mV on the y axis, starting at minus 70.",
+      "Take it up past zero to about plus 30, then back down below minus 70 before it returns to rest.",
+      "Draw zero mV as a dashed line.",
+      "Bracket and label depolarization, overshoot, repolarization, hyperpolarization, and the return to rest."
+     ],
+     "one": "Define overshoot using the dashed line, not using the peak."
+    },
+    "bx": {
+     "q": "Which changes in membrane potential make a cell easier to fire, and which make it harder?",
+     "do": [
+      "Draw one set of axes with a dashed line at minus 70 mV and another at zero.",
+      "Plot four traces starting from rest:",
+      {
+       "sub": [
+        "a small depolarization that fades away",
+        "a hyperpolarization",
+        "a depolarization that crosses threshold",
+        "a repolarization from plus 30 back down"
+       ]
+      },
+      "Label each with its correct term."
+     ],
+     "one": "Say which traces make the cell easier to fire and which make it harder, and how you can tell from direction alone."
+    }
    },
    {
     "n": 6,
     "name": "Membrane potential simulation",
     "can": "Manipulate extracellular potassium and sodium in a simulation, record the resulting change in resting membrane potential, and explain why changing potassium moves it far more than changing sodium.",
-    "a": "Before you touch the simulation, sketch the graph you predict: resting membrane potential on the y and extracellular potassium on the x, showing which way the line should go as potassium rises. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: say which way the resting potential moved as potassium rose, and why potassium has such a strong effect at rest.",
-    "b": "Draw two panels side by side using the same y axis. On the left, plot resting membrane potential against extracellular potassium from your runs. On the right, plot resting membrane potential against extracellular sodium over a comparable range. One line: one plot is nearly flat and one is not, so say what that comparison tells you about the relative permeability of the resting membrane."
+    "a": "What happens to the resting potential as extracellular potassium rises? Before you touch the simulation, sketch the graph you predict: resting membrane potential on the y axis, extracellular potassium on the x axis. Show which way the line should go as potassium rises. Run the simulation at several potassium values. Plot the measured points on the same axes in a second color. In one line: say which way the resting potential moved as potassium rose, and why potassium has such a strong effect at rest.",
+    "b": "Why does changing potassium move the resting potential so much more than changing sodium? Draw two panels side by side that share the same y axis. Left panel: plot resting membrane potential against extracellular potassium from your runs. Right panel: plot resting membrane potential against extracellular sodium over a comparable range. In one line: one plot is nearly flat and one is not. Say what that tells you about how permeable the resting membrane is to each ion.",
+    "ax": {
+     "q": "What happens to the resting potential as extracellular potassium rises?",
+     "do": [
+      "Before you touch the simulation, sketch the graph you predict: resting membrane potential on the y axis, extracellular potassium on the x axis.",
+      "Show which way the line should go as potassium rises.",
+      "Run the simulation at several potassium values.",
+      "Plot the measured points on the same axes in a second color."
+     ],
+     "one": "Say which way the resting potential moved as potassium rose, and why potassium has such a strong effect at rest."
+    },
+    "bx": {
+     "q": "Why does changing potassium move the resting potential so much more than changing sodium?",
+     "do": [
+      "Draw two panels side by side that share the same y axis.",
+      "Left panel: plot resting membrane potential against extracellular potassium from your runs.",
+      "Right panel: plot resting membrane potential against extracellular sodium over a comparable range."
+     ],
+     "one": "One plot is nearly flat and one is not. Say what that tells you about how permeable the resting membrane is to each ion."
+    }
    },
    {
     "n": 7,
     "name": "Neuron structural and functional classes",
     "can": "Map the organization of the nervous system into the central nervous system, the sensory and efferent divisions of the peripheral nervous system, the somatic motor and autonomic branches, and the enteric nervous system, then classify a neuron as multipolar, bipolar, or pseudounipolar by structure and as sensory, motor, or interneuron by function, and match each class to a location in the nervous system.",
-    "a": "Draw a multipolar, a bipolar, and a pseudounipolar neuron side by side, each with its dendrites, cell body, and axon in the right arrangement and the cell body in the right position relative to the signal path. Under each write one real location in the body where you would find it. One line: one of the three has its cell body off to the side of the signal path, so say what advantage that gives a sensory neuron.",
-    "b": "Draw the nervous system as a branching map. Start with the central nervous system and the peripheral nervous system, split the peripheral system into its sensory and efferent divisions, split the efferent division into somatic motor and autonomic, split autonomic into sympathetic and parasympathetic, and add the enteric nervous system in the gut wall. Put an arrow on each peripheral branch showing which way information travels, and write one target under each efferent branch. One line: which of your three neurons from box A belongs on which branch of this map."
+    "a": "How do the three neuron shapes differ, and where do you find each one? Draw a multipolar, a bipolar, and a pseudounipolar neuron side by side. Give each its dendrites, cell body, and axon in the right arrangement, with the cell body in the right position relative to the signal path. Under each, write one real location in the body where you would find it. In one line: one of the three has its cell body off to the side of the signal path. Say what advantage that gives a sensory neuron.",
+    "b": "How is the nervous system organized, and where does each kind of neuron fit? Draw the nervous system as a branching map: start with the central and peripheral nervous systems, split the peripheral system into sensory and efferent divisions, split the efferent division into somatic motor and autonomic, split autonomic into sympathetic and parasympathetic, add the enteric nervous system in the gut wall. Put an arrow on each peripheral branch showing which way information travels. Write one target under each efferent branch. In one line: say which of your three neurons from prompt A belongs on which branch of this map.",
+    "ax": {
+     "q": "How do the three neuron shapes differ, and where do you find each one?",
+     "do": [
+      "Draw a multipolar, a bipolar, and a pseudounipolar neuron side by side.",
+      "Give each its dendrites, cell body, and axon in the right arrangement, with the cell body in the right position relative to the signal path.",
+      "Under each, write one real location in the body where you would find it."
+     ],
+     "one": "One of the three has its cell body off to the side of the signal path. Say what advantage that gives a sensory neuron."
+    },
+    "bx": {
+     "q": "How is the nervous system organized, and where does each kind of neuron fit?",
+     "do": [
+      "Draw the nervous system as a branching map:",
+      {
+       "sub": [
+        "start with the central and peripheral nervous systems",
+        "split the peripheral system into sensory and efferent divisions",
+        "split the efferent division into somatic motor and autonomic",
+        "split autonomic into sympathetic and parasympathetic",
+        "add the enteric nervous system in the gut wall"
+       ]
+      },
+      "Put an arrow on each peripheral branch showing which way information travels.",
+      "Write one target under each efferent branch."
+     ],
+     "one": "Say which of your three neurons from prompt A belongs on which branch of this map."
+    }
    },
    {
     "n": 8,
     "name": "Functional regions of a neuron",
     "can": "Label the dendrites, cell body, axon hillock, trigger zone, axon, and axon terminal and state which signal type each region carries.",
-    "a": "Draw one motor neuron big, across the whole width of your box. Label the dendrites, cell body, axon hillock, trigger zone, axon, myelin, nodes, and axon terminal. Above each region write the signal type it carries, graded or all or none, and sketch the shape of that signal there. One line: mark the spot where graded becomes all or none and say what has to be true at that spot for the change to happen.",
-    "b": "Draw the same neuron three times as three narrow strips stacked up. In the first, shade every region where graded potentials happen. In the second, shade every region with a high density of voltage gated sodium channels. In the third, shade where chemical signaling takes over from electrical. One line: name the region that appears in more than one strip and say why that makes it the decision point."
+    "a": "What kind of signal does each region of a neuron carry, and where does it change? Draw one motor neuron big, across the whole width of your box. Label the dendrites, cell body, axon hillock, trigger zone, axon, myelin, nodes, and axon terminal. Above each region, write the signal type it carries (graded or all or none) and sketch the shape of that signal there. In one line: mark the spot where graded becomes all or none and say what has to be true at that spot for the change to happen.",
+    "b": "Which region of the neuron is the decision point, and why? Draw the same neuron three times as three narrow strips stacked on top of each other. Strip 1: shade every region where graded potentials happen. Strip 2: shade every region with a high density of voltage gated sodium channels. Strip 3: shade where chemical signaling takes over from electrical. In one line: name the region that appears in more than one strip and say why that makes it the decision point.",
+    "ax": {
+     "q": "What kind of signal does each region of a neuron carry, and where does it change?",
+     "do": [
+      "Draw one motor neuron big, across the whole width of your box.",
+      "Label the dendrites, cell body, axon hillock, trigger zone, axon, myelin, nodes, and axon terminal.",
+      "Above each region, write the signal type it carries (graded or all or none) and sketch the shape of that signal there."
+     ],
+     "one": "Mark the spot where graded becomes all or none and say what has to be true at that spot for the change to happen."
+    },
+    "bx": {
+     "q": "Which region of the neuron is the decision point, and why?",
+     "do": [
+      "Draw the same neuron three times as three narrow strips stacked on top of each other.",
+      "Strip 1: shade every region where graded potentials happen.",
+      "Strip 2: shade every region with a high density of voltage gated sodium channels.",
+      "Strip 3: shade where chemical signaling takes over from electrical."
+     ],
+     "one": "Name the region that appears in more than one strip and say why that makes it the decision point."
+    }
    },
    {
     "n": 9,
     "name": "Glial cell functions",
     "can": "Match astrocytes, oligodendrocytes, microglia, ependymal cells, satellite cells, and Schwann cells to their physiological roles.",
-    "a": "Draw a CNS scene and a PNS scene side by side. In the CNS scene put an astrocyte touching both a capillary and a neuron, an oligodendrocyte myelinating more than one axon, a microglial cell, and ependymal cells lining a fluid space. In the PNS scene put a Schwann cell on one axon segment and satellite cells wrapped around a cell body. One line: two of these six make myelin, so say the one structural difference in how they do it.",
-    "b": "Draw one neuron in the middle of your box with six arrows pointing at it, one from each glial type. On each arrow write the single job that glia does for the neuron or its surroundings. Then cross out one arrow of your own choosing and draw what goes wrong. One line: name the glial cell you removed and the first symptom you would expect, not the last."
+    "a": "Which glial cells work in the CNS, which work in the PNS, and what does each one do? Draw a CNS scene and a PNS scene side by side. In the CNS scene, draw: an astrocyte touching both a capillary and a neuron, an oligodendrocyte myelinating more than one axon, a microglial cell, ependymal cells lining a fluid space. In the PNS scene, draw a Schwann cell on one axon segment and satellite cells wrapped around a cell body. In one line: two of these six make myelin. Say the one structural difference in how they do it.",
+    "b": "What does each glial cell do for a neuron, and what goes wrong without one? Draw one neuron in the middle of your box with six arrows pointing at it, one from each glial type. On each arrow, write the single job that glial cell does for the neuron or its surroundings. Cross out one arrow of your choice and draw what goes wrong. In one line: name the glial cell you removed and the first symptom you would expect, not the last.",
+    "ax": {
+     "q": "Which glial cells work in the CNS, which work in the PNS, and what does each one do?",
+     "do": [
+      "Draw a CNS scene and a PNS scene side by side.",
+      "In the CNS scene, draw:",
+      {
+       "sub": [
+        "an astrocyte touching both a capillary and a neuron",
+        "an oligodendrocyte myelinating more than one axon",
+        "a microglial cell",
+        "ependymal cells lining a fluid space"
+       ]
+      },
+      "In the PNS scene, draw a Schwann cell on one axon segment and satellite cells wrapped around a cell body."
+     ],
+     "one": "Two of these six make myelin. Say the one structural difference in how they do it."
+    },
+    "bx": {
+     "q": "What does each glial cell do for a neuron, and what goes wrong without one?",
+     "do": [
+      "Draw one neuron in the middle of your box with six arrows pointing at it, one from each glial type.",
+      "On each arrow, write the single job that glial cell does for the neuron or its surroundings.",
+      "Cross out one arrow of your choice and draw what goes wrong."
+     ],
+     "one": "Name the glial cell you removed and the first symptom you would expect, not the last."
+    }
    },
    {
     "n": 10,
     "name": "Myelin and its loss",
     "can": "Explain how myelin and the nodes of Ranvier speed conduction and predict the functional consequence of demyelination.",
-    "a": "Draw two axons the same length side by side, one bare and one myelinated with nodes of Ranvier. On each, mark with dots every place the action potential has to be regenerated. Put a clock reading beside each showing which signal arrives first. One line: myelin is an insulator and does nothing electrical itself, so say in one sentence how adding insulation makes a signal faster.",
-    "b": "Draw a myelinated axon with three intact internodes, then draw the same axon with the middle internode stripped bare. Show the action potential traveling along it and mark where it slows or fails. On both, draw the sodium channel distribution, dense at the nodes and sparse under the myelin. One line: the demyelinated stretch has few sodium channels, so say why conduction fails there rather than simply slowing down."
+    "a": "How does myelin make a signal travel faster? Draw two axons of the same length side by side, one bare and one myelinated with nodes of Ranvier. On each, mark with dots every place the action potential has to be regenerated. Put a clock reading beside each showing which signal arrives first. In one line: myelin is an insulator and does nothing electrical itself. Say how adding insulation makes a signal faster.",
+    "b": "What happens to conduction when a stretch of axon loses its myelin? Draw a myelinated axon with three intact internodes. Draw the same axon again with the middle internode stripped bare. On both, draw the sodium channel distribution: dense at the nodes, sparse under the myelin. Show the action potential traveling along each and mark where it slows or fails. In one line: the demyelinated stretch has few sodium channels. Say why conduction fails there rather than simply slowing down.",
+    "ax": {
+     "q": "How does myelin make a signal travel faster?",
+     "do": [
+      "Draw two axons of the same length side by side, one bare and one myelinated with nodes of Ranvier.",
+      "On each, mark with dots every place the action potential has to be regenerated.",
+      "Put a clock reading beside each showing which signal arrives first."
+     ],
+     "one": "Myelin is an insulator and does nothing electrical itself. Say how adding insulation makes a signal faster."
+    },
+    "bx": {
+     "q": "What happens to conduction when a stretch of axon loses its myelin?",
+     "do": [
+      "Draw a myelinated axon with three intact internodes.",
+      "Draw the same axon again with the middle internode stripped bare.",
+      "On both, draw the sodium channel distribution: dense at the nodes, sparse under the myelin.",
+      "Show the action potential traveling along each and mark where it slows or fails."
+     ],
+     "one": "The demyelinated stretch has few sodium channels. Say why conduction fails there rather than simply slowing down."
+    }
    },
    {
     "n": 11,
     "name": "Axonal transport",
     "can": "Distinguish fast anterograde and retrograde axonal transport from slow transport and state what each carries.",
-    "a": "Draw a long neuron with the cell body on the left and the terminal on the right, and run a microtubule track down the axon. On the track draw fast anterograde transport with kinesin and fast retrograde transport with dynein, arrows in opposite directions, with the cargo written beside each. One line: the cell body makes everything, so say what the retrograde direction is even for.",
-    "b": "Draw the same axon and add slow transport as a third, much slower stream with its cargo written beside it. Draw a scale bar showing the real speed difference, hundreds of mm per day for fast transport against a few mm per day for slow. Then draw a virus entering at the terminal and mark the route it takes to the cell body. One line: say which transport system it hijacked and why that is bad news for the neuron."
+    "a": "What moves each way along the axon, and why does the retrograde direction exist? Draw a long neuron with the cell body on the left and the terminal on the right. Run a microtubule track down the axon. On the track, draw fast anterograde transport with kinesin and fast retrograde transport with dynein, arrows pointing in opposite directions. Write the cargo beside each. In one line: the cell body makes everything. Say what the retrograde direction is even for.",
+    "b": "How fast is fast transport compared with slow transport, and how can a virus use it? Draw the same axon and add slow transport as a third, much slower stream, with its cargo written beside it. Draw a scale bar showing the real speed difference: hundreds of mm per day for fast transport, a few mm per day for slow. Draw a virus entering at the terminal and mark the route it takes to the cell body. In one line: say which transport system the virus hijacked and why that is bad news for the neuron.",
+    "ax": {
+     "q": "What moves each way along the axon, and why does the retrograde direction exist?",
+     "do": [
+      "Draw a long neuron with the cell body on the left and the terminal on the right.",
+      "Run a microtubule track down the axon.",
+      "On the track, draw fast anterograde transport with kinesin and fast retrograde transport with dynein, arrows pointing in opposite directions.",
+      "Write the cargo beside each."
+     ],
+     "one": "The cell body makes everything. Say what the retrograde direction is even for."
+    },
+    "bx": {
+     "q": "How fast is fast transport compared with slow transport, and how can a virus use it?",
+     "do": [
+      "Draw the same axon and add slow transport as a third, much slower stream, with its cargo written beside it.",
+      "Draw a scale bar showing the real speed difference: hundreds of mm per day for fast transport, a few mm per day for slow.",
+      "Draw a virus entering at the terminal and mark the route it takes to the cell body."
+     ],
+     "one": "Say which transport system the virus hijacked and why that is bad news for the neuron."
+    }
    },
    {
     "n": 12,
     "name": "Graded potentials",
     "can": "Describe how a graded potential is produced and explain why it varies with stimulus strength and decays with distance, using the terms current leak and cytoplasmic resistance, and relate current, voltage, and resistance with Ohm's law, including how opening channels raises conductance.",
-    "a": "Draw a dendrite as a long tube with a stimulus at one end. At four points along it, draw the membrane potential as a small trace, showing the signal shrinking as you move away. Draw current leaking out through channels along the way and label the cytoplasmic resistance inside the tube. One line: name the two reasons the signal shrank, use Ohm's law to say why more open leak channels let more current escape, and say which reason you could reduce by making the tube wider.",
-    "b": "Draw one set of axes, membrane potential against time, and plot three graded potentials from the same spot produced by a weak, a medium, and a strong stimulus. Then plot two of them arriving close together and summing. Mark threshold as a dashed line. One line: a graded potential changes size with stimulus strength and an action potential does not, so say what the graded potential's actual job is."
+    "a": "Why does a graded potential shrink as it travels along a dendrite? Draw a dendrite as a long tube with a stimulus at one end. At four points along it, draw the membrane potential as a small trace, showing the signal shrinking as you move away. Draw current leaking out through channels along the way. Label the cytoplasmic resistance inside the tube. In one line: name the two reasons the signal shrank. Use Ohm's law to say why more open leak channels let more current escape, and say which reason a wider tube would reduce.",
+    "b": "How does a graded potential change with stimulus strength, and what is its job? Draw one set of axes, membrane potential against time, with threshold marked as a dashed line. From the same spot, plot three graded potentials produced by a weak, a medium, and a strong stimulus. Then plot two of them arriving close together and summing. In one line: a graded potential changes size with stimulus strength and an action potential does not. Say what the graded potential's actual job is.",
+    "ax": {
+     "q": "Why does a graded potential shrink as it travels along a dendrite?",
+     "do": [
+      "Draw a dendrite as a long tube with a stimulus at one end.",
+      "At four points along it, draw the membrane potential as a small trace, showing the signal shrinking as you move away.",
+      "Draw current leaking out through channels along the way.",
+      "Label the cytoplasmic resistance inside the tube."
+     ],
+     "one": "Name the two reasons the signal shrank. Use Ohm's law to say why more open leak channels let more current escape, and say which reason a wider tube would reduce."
+    },
+    "bx": {
+     "q": "How does a graded potential change with stimulus strength, and what is its job?",
+     "do": [
+      "Draw one set of axes, membrane potential against time, with threshold marked as a dashed line.",
+      "From the same spot, plot three graded potentials produced by a weak, a medium, and a strong stimulus.",
+      "Then plot two of them arriving close together and summing."
+     ],
+     "one": "A graded potential changes size with stimulus strength and an action potential does not. Say what the graded potential's actual job is."
+    }
    },
    {
     "n": 13,
     "name": "Action potential phases",
     "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and afterhyperpolarization.",
-    "a": "Draw an action potential tracing, mV on the y and ms on the x, from minus 70 up to about plus 30 and back down through an afterhyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. One line: say what closes at the peak and what is still open during the afterhyperpolarization.",
-    "b": "Draw a voltage gated sodium channel four times across the top of your box, in its resting, activated, inactivated, and recovered states, with both of its gates drawn separately every time. Under each, write the membrane voltage at which that state occurs. Beneath that row, draw a voltage gated potassium channel in its two states with its timing. One line: both open on depolarization, so say what makes potassium arrive late and why the cell needs that delay."
+    "a": "Which channels cause each phase of the action potential? Draw an action potential tracing, mV on the y axis and ms on the x axis: from minus 70 up to about plus 30, then down through an afterhyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. In one line: say what closes at the peak and what is still open during the afterhyperpolarization.",
+    "b": "How do the gates of the sodium and potassium channels time the action potential? Across the top of your box, draw a voltage gated sodium channel four times: resting, activated, inactivated, and recovered. Draw both of its gates separately every time. Under each state, write the membrane voltage at which it occurs. Beneath that row, draw a voltage gated potassium channel in its two states, with its timing. In one line: both channels open on depolarization. Say what makes potassium arrive late and why the cell needs that delay.",
+    "ax": {
+     "q": "Which channels cause each phase of the action potential?",
+     "do": [
+      "Draw an action potential tracing, mV on the y axis and ms on the x axis: from minus 70 up to about plus 30, then down through an afterhyperpolarization near minus 80.",
+      "Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve.",
+      "Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium."
+     ],
+     "one": "Say what closes at the peak and what is still open during the afterhyperpolarization."
+    },
+    "bx": {
+     "q": "How do the gates of the sodium and potassium channels time the action potential?",
+     "do": [
+      "Across the top of your box, draw a voltage gated sodium channel four times: resting, activated, inactivated, and recovered. Draw both of its gates separately every time.",
+      "Under each state, write the membrane voltage at which it occurs.",
+      "Beneath that row, draw a voltage gated potassium channel in its two states, with its timing."
+     ],
+     "one": "Both channels open on depolarization. Say what makes potassium arrive late and why the cell needs that delay."
+    }
    },
    {
     "n": 14,
     "name": "Threshold and all or none",
     "can": "Explain what threshold represents at the trigger zone and why action potential amplitude does not change with a stronger stimulus.",
-    "a": "Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over: below threshold with a few channels open and the leak winning, exactly at threshold with the two currents balanced, and above threshold with the positive feedback running away. Draw the current arrows in and out in every panel. One line: define threshold from your three drawings in terms of two currents, not a number.",
-    "b": "Draw one set of axes with four stimuli of increasing strength as bars on a bottom trace and the resulting membrane potential plotted above them. Show the first two failing to reach threshold and the last two producing identical full sized action potentials. Mark threshold. One line: the fourth stimulus was far stronger than the third and the spike came out the same size, so say what actually fixes the amplitude."
+    "a": "What is threshold, in terms of the currents at the trigger zone? Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over: below threshold: a few channels open and the leak winning, exactly at threshold: the two currents balanced, above threshold: the positive feedback running away. Draw the current arrows in and out in every panel. In one line: define threshold from your three drawings in terms of two currents, not a number.",
+    "b": "Why is every action potential the same size, no matter how strong the stimulus? Draw one set of axes. Along a bottom trace, draw four stimuli of increasing strength as bars. Above them, plot the membrane potential each one produces, and mark threshold. Show the first two failing to reach threshold and the last two producing identical full sized action potentials. In one line: the fourth stimulus was far stronger than the third and the spike came out the same size. Say what actually fixes the amplitude.",
+    "ax": {
+     "q": "What is threshold, in terms of the currents at the trigger zone?",
+     "do": [
+      "Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over:",
+      {
+       "sub": [
+        "below threshold: a few channels open and the leak winning",
+        "exactly at threshold: the two currents balanced",
+        "above threshold: the positive feedback running away"
+       ]
+      },
+      "Draw the current arrows in and out in every panel."
+     ],
+     "one": "Define threshold from your three drawings in terms of two currents, not a number."
+    },
+    "bx": {
+     "q": "Why is every action potential the same size, no matter how strong the stimulus?",
+     "do": [
+      "Draw one set of axes. Along a bottom trace, draw four stimuli of increasing strength as bars.",
+      "Above them, plot the membrane potential each one produces, and mark threshold.",
+      "Show the first two failing to reach threshold and the last two producing identical full sized action potentials."
+     ],
+     "one": "The fourth stimulus was far stronger than the third and the spike came out the same size. Say what actually fixes the amplitude."
+    }
    },
    {
     "n": 15,
     "name": "Coding of stimulus intensity",
     "can": "Explain how the nervous system encodes stimulus strength when action potential amplitude is fixed.",
-    "a": "Draw three stimulus bars of increasing strength across the bottom of your box, weak, medium, and strong. Above each, draw the spike train one sensory neuron sends, as vertical marks on a time line. Keep every spike exactly the same height. One line: say precisely what changed between your three trains, and what could not have changed.",
-    "b": "Draw a patch of skin with a stimulus pressed into it, gentle on the left and hard on the right. In each, draw how many receptors and how many axons get recruited, and draw the spike train on one of those axons underneath. One line: the nervous system has two ways to say louder, so name both from your drawing and say which one a single axon can do on its own."
+    "a": "If every spike is the same size, how does one neuron signal a stronger stimulus? Draw three stimulus bars of increasing strength across the bottom of your box: weak, medium, and strong. Above each, draw the spike train one sensory neuron sends, as vertical marks on a time line. Keep every spike exactly the same height. In one line: say precisely what changed between your three trains, and what could not have changed.",
+    "b": "What are the two ways the nervous system signals a stronger stimulus? Draw a patch of skin with a stimulus pressed into it, gentle on the left and hard on the right. In each, draw how many receptors and how many axons get recruited. Underneath, draw the spike train on one of those axons. In one line: name both ways from your drawing and say which one a single axon can do on its own.",
+    "ax": {
+     "q": "If every spike is the same size, how does one neuron signal a stronger stimulus?",
+     "do": [
+      "Draw three stimulus bars of increasing strength across the bottom of your box: weak, medium, and strong.",
+      "Above each, draw the spike train one sensory neuron sends, as vertical marks on a time line.",
+      "Keep every spike exactly the same height."
+     ],
+     "one": "Say precisely what changed between your three trains, and what could not have changed."
+    },
+    "bx": {
+     "q": "What are the two ways the nervous system signals a stronger stimulus?",
+     "do": [
+      "Draw a patch of skin with a stimulus pressed into it, gentle on the left and hard on the right.",
+      "In each, draw how many receptors and how many axons get recruited.",
+      "Underneath, draw the spike train on one of those axons."
+     ],
+     "one": "Name both ways from your drawing and say which one a single axon can do on its own."
+    }
    },
    {
     "n": 16,
     "name": "Refractory periods",
     "can": "Distinguish the absolute from the relative refractory period by channel state and explain how the refractory period sets maximum firing frequency and prevents backward conduction.",
-    "a": "Draw an action potential tracing and bracket the absolute and relative refractory periods underneath it. Along each bracket, draw the state of the voltage gated sodium channels, inactivated and then recovering, and show whether the potassium channels are still open. Then draw a second stimulus arriving inside each period and show the result. One line: say why no stimulus at all, however large, works during the absolute period.",
-    "b": "Draw an axon with an action potential halfway along it and an arrow for the direction it is traveling. Shade the membrane behind it and mark what state its sodium channels are in. Draw the local current spreading both forward and backward, and show why only one direction succeeds. One line: an absolute refractory period of about 1 to 2 ms sets a ceiling on firing rate, so work out that ceiling in spikes per second."
+    "a": "Why can't any stimulus trigger a second action potential during the absolute refractory period? Draw an action potential tracing and bracket the absolute and relative refractory periods underneath it. Along each bracket, draw the state of the voltage gated sodium channels (inactivated, then recovering) and show whether the potassium channels are still open. Draw a second stimulus arriving inside each period and show the result. In one line: say why no stimulus at all, however large, works during the absolute period.",
+    "b": "How does the refractory period keep the signal moving one way and cap how fast a neuron can fire? Draw an axon with an action potential halfway along it and an arrow for the direction it is traveling. Shade the membrane behind it and mark what state its sodium channels are in. Draw the local current spreading both forward and backward, and show why only one direction succeeds. In one line: an absolute refractory period of about 1 to 2 ms sets a ceiling on firing rate. Work out that ceiling in spikes per second.",
+    "ax": {
+     "q": "Why can't any stimulus trigger a second action potential during the absolute refractory period?",
+     "do": [
+      "Draw an action potential tracing and bracket the absolute and relative refractory periods underneath it.",
+      "Along each bracket, draw the state of the voltage gated sodium channels (inactivated, then recovering) and show whether the potassium channels are still open.",
+      "Draw a second stimulus arriving inside each period and show the result."
+     ],
+     "one": "Say why no stimulus at all, however large, works during the absolute period."
+    },
+    "bx": {
+     "q": "How does the refractory period keep the signal moving one way and cap how fast a neuron can fire?",
+     "do": [
+      "Draw an axon with an action potential halfway along it and an arrow for the direction it is traveling.",
+      "Shade the membrane behind it and mark what state its sodium channels are in.",
+      "Draw the local current spreading both forward and backward, and show why only one direction succeeds."
+     ],
+     "one": "An absolute refractory period of about 1 to 2 ms sets a ceiling on firing rate. Work out that ceiling in spikes per second."
+    }
    },
    {
     "n": 17,
     "name": "Conduction velocity",
     "can": "Rank axons by conduction velocity using diameter and myelination and contrast continuous with saltatory conduction.",
-    "a": "Draw four axons stacked vertically: large myelinated, small myelinated, large unmyelinated, and small unmyelinated. Rank them fastest to slowest and write a rough velocity beside each, using the real range of about 0.5 up to about 120 m per second. One line: say which buys more speed per unit of space taken up, diameter or myelin, and why that matters for a nerve running down a limb.",
-    "b": "Draw one myelinated and one unmyelinated axon of similar diameter side by side, the same length. On each, shade where the membrane actually depolarizes, continuously along one and node to node on the other. Draw the local current loops on both. One line: saltatory means jumping, but the action potential does not really jump, so say what is actually moving between the nodes."
+    "a": "Which axons conduct fastest, and which buys more speed: diameter or myelin? Draw four axons stacked vertically: large myelinated, small myelinated, large unmyelinated, and small unmyelinated. Rank them fastest to slowest. Write a rough velocity beside each, using the real range of about 0.5 up to about 120 m per second. In one line: say which buys more speed for the space it takes up, diameter or myelin, and why that matters for a nerve running down a limb.",
+    "b": "How is saltatory conduction different from continuous conduction? Draw one myelinated and one unmyelinated axon of similar diameter and the same length, side by side. On each, shade where the membrane actually depolarizes: continuously along one, node to node on the other. Draw the local current loops on both. In one line: saltatory means jumping, but the action potential does not really jump. Say what is actually moving between the nodes.",
+    "ax": {
+     "q": "Which axons conduct fastest, and which buys more speed: diameter or myelin?",
+     "do": [
+      "Draw four axons stacked vertically: large myelinated, small myelinated, large unmyelinated, and small unmyelinated.",
+      "Rank them fastest to slowest.",
+      "Write a rough velocity beside each, using the real range of about 0.5 up to about 120 m per second."
+     ],
+     "one": "Say which buys more speed for the space it takes up, diameter or myelin, and why that matters for a nerve running down a limb."
+    },
+    "bx": {
+     "q": "How is saltatory conduction different from continuous conduction?",
+     "do": [
+      "Draw one myelinated and one unmyelinated axon of similar diameter and the same length, side by side.",
+      "On each, shade where the membrane actually depolarizes: continuously along one, node to node on the other.",
+      "Draw the local current loops on both."
+     ],
+     "one": "Saltatory means jumping, but the action potential does not really jump. Say what is actually moving between the nodes."
+    }
    },
    {
     "n": 18,
     "name": "Effects of altered extracellular ions",
     "can": "Predict the effect of hyperkalemia and hypokalemia on resting potential and excitability and explain why local anesthetics that block sodium channels abolish the action potential.",
-    "a": "Draw a voltage scale from minus 100 to plus 30 mV with the resting potential at minus 70 and threshold at about minus 55 marked on it. Using the Nernst logic for potassium, draw where the resting potential moves in hyperkalemia and in hypokalemia, and show the remaining gap to threshold in each. One line: hyperkalemia first makes the cell more excitable and then less, so say what happens to the sodium channels in between.",
-    "b": "Draw a normal action potential tracing, then draw the same axon after a local anesthetic such as lidocaine has blocked its voltage gated sodium channels, and show what is left of the trace. Beside it, draw the axon in low extracellular sodium and show what changes about the peak, not about the resting level. One line: say why blocking the channel abolishes the signal while low extracellular sodium only shrinks it."
+    "a": "How do high and low blood potassium change the resting potential and excitability? Draw a voltage scale from minus 100 to plus 30 mV. Mark the resting potential at minus 70 and threshold at about minus 55. Using the Nernst logic for potassium, draw where the resting potential moves in hyperkalemia and in hypokalemia. Show the remaining gap to threshold in each. In one line: hyperkalemia first makes the cell more excitable and then less. Say what happens to the sodium channels in between.",
+    "b": "Why does a local anesthetic abolish the action potential when low extracellular sodium only shrinks it? Draw a normal action potential tracing. Draw the same axon after a local anesthetic such as lidocaine has blocked its voltage gated sodium channels, and show what is left of the trace. Beside it, draw the axon in low extracellular sodium and show what changes about the peak, not about the resting level. In one line: say why blocking the channel abolishes the signal while low extracellular sodium only shrinks it.",
+    "ax": {
+     "q": "How do high and low blood potassium change the resting potential and excitability?",
+     "do": [
+      "Draw a voltage scale from minus 100 to plus 30 mV. Mark the resting potential at minus 70 and threshold at about minus 55.",
+      "Using the Nernst logic for potassium, draw where the resting potential moves in hyperkalemia and in hypokalemia.",
+      "Show the remaining gap to threshold in each."
+     ],
+     "one": "Hyperkalemia first makes the cell more excitable and then less. Say what happens to the sodium channels in between."
+    },
+    "bx": {
+     "q": "Why does a local anesthetic abolish the action potential when low extracellular sodium only shrinks it?",
+     "do": [
+      "Draw a normal action potential tracing.",
+      "Draw the same axon after a local anesthetic such as lidocaine has blocked its voltage gated sodium channels, and show what is left of the trace.",
+      "Beside it, draw the axon in low extracellular sodium and show what changes about the peak, not about the resting level."
+     ],
+     "one": "Say why blocking the channel abolishes the signal while low extracellular sodium only shrinks it."
+    }
    },
    {
     "n": 19,
     "name": "Action potential simulation",
     "can": "Run a neuron simulation with sodium and potassium channel blockers and interpret the resulting change in the action potential tracing.",
-    "a": "Before you run it, draw three predicted tracings on one set of axes: a normal action potential, one with the sodium channels blocked, and one with the potassium channels blocked. Run the simulation and draw the actual tracings underneath in a second color. One line: name the phase that changed most under the potassium blocker, and say what that tells you about which channel ends the spike.",
-    "b": "Draw one set of axes and plot your normal action potential, then overlay the tracing you got with a partial sodium blocker rather than a full one. Mark exactly where the two curves separate and where they rejoin. Beside the plot, sketch the sodium and potassium channel populations at the moment of separation. One line: say what a partial block did to threshold in your run, and whether the spikes that still happened came out smaller."
+    "a": "What happens to the action potential when you block sodium channels, and when you block potassium channels? Before you run it, draw three predicted tracings on one set of axes: a normal action potential, sodium channels blocked, potassium channels blocked. Run the simulation. Draw the actual tracings underneath in a second color. In one line: name the phase that changed most under the potassium blocker, and say what that tells you about which channel ends the spike.",
+    "b": "What does a partial sodium channel block do to the action potential? Draw one set of axes and plot your normal action potential. Overlay the tracing you got with a partial sodium blocker rather than a full one. Mark exactly where the two curves separate and where they rejoin. Beside the plot, sketch the sodium and potassium channel populations at the moment the curves separate. In one line: say what the partial block did to threshold in your run, and whether the spikes that still happened came out smaller.",
+    "ax": {
+     "q": "What happens to the action potential when you block sodium channels, and when you block potassium channels?",
+     "do": [
+      "Before you run it, draw three predicted tracings on one set of axes:",
+      {
+       "sub": [
+        "a normal action potential",
+        "sodium channels blocked",
+        "potassium channels blocked"
+       ]
+      },
+      "Run the simulation.",
+      "Draw the actual tracings underneath in a second color."
+     ],
+     "one": "Name the phase that changed most under the potassium blocker, and say what that tells you about which channel ends the spike."
+    },
+    "bx": {
+     "q": "What does a partial sodium channel block do to the action potential?",
+     "do": [
+      "Draw one set of axes and plot your normal action potential.",
+      "Overlay the tracing you got with a partial sodium blocker rather than a full one.",
+      "Mark exactly where the two curves separate and where they rejoin.",
+      "Beside the plot, sketch the sodium and potassium channel populations at the moment the curves separate."
+     ],
+     "one": "Say what the partial block did to threshold in your run, and whether the spikes that still happened came out smaller."
+    }
    },
    {
     "n": 20,
     "name": "Nerve conduction measurement",
     "can": "Measure conduction velocity from a recorded compound action potential and account for the difference between the fastest and slowest fibers.",
-    "a": "Draw the nerve with a stimulating electrode at one end and a recording electrode a measured distance away. Draw the trace you record, marking the stimulus artifact, the latency, and the compound action potential. Write your distance and your latency on the drawing and show the division that gives velocity in m per second. One line: say what would have to go wrong in your setup to make the measured velocity come out too high.",
-    "b": "Draw the compound action potential recorded close to the stimulus and again recorded much further along, one above the other on the same time base, the second lower and wider. Underneath, draw several individual fibers of different diameters arriving at different times to account for that shape. One line: say which fibers set the leading edge of the wave and which fibers make it broaden with distance."
+    "a": "How do you get conduction velocity from a recording? Draw the nerve with a stimulating electrode at one end and a recording electrode a measured distance away. Draw the trace you record, marking the stimulus artifact, the latency, and the compound action potential. Write your distance and your latency on the drawing. Show the division that gives velocity in m per second. In one line: say what would have to go wrong in your setup to make the measured velocity come out too high.",
+    "b": "Why does the compound action potential get lower and wider the farther you record from the stimulus? On the same time base, draw the compound action potential recorded close to the stimulus. Below it, draw the one recorded much farther along: lower and wider. Underneath, draw several individual fibers of different diameters arriving at different times to account for that shape. In one line: say which fibers set the leading edge of the wave and which fibers make it broaden with distance.",
+    "ax": {
+     "q": "How do you get conduction velocity from a recording?",
+     "do": [
+      "Draw the nerve with a stimulating electrode at one end and a recording electrode a measured distance away.",
+      "Draw the trace you record, marking the stimulus artifact, the latency, and the compound action potential.",
+      "Write your distance and your latency on the drawing.",
+      "Show the division that gives velocity in m per second."
+     ],
+     "one": "Say what would have to go wrong in your setup to make the measured velocity come out too high."
+    },
+    "bx": {
+     "q": "Why does the compound action potential get lower and wider the farther you record from the stimulus?",
+     "do": [
+      "On the same time base, draw the compound action potential recorded close to the stimulus.",
+      "Below it, draw the one recorded much farther along: lower and wider.",
+      "Underneath, draw several individual fibers of different diameters arriving at different times to account for that shape."
+     ],
+     "one": "Say which fibers set the leading edge of the wave and which fibers make it broaden with distance."
+    }
    },
    {
     "n": 21,
     "name": "Sequence at a chemical synapse",
     "can": "Order the events of chemical synaptic transmission from action potential arrival through calcium entry and vesicle fusion to receptor binding and postsynaptic response.",
-    "a": "Draw one axon terminal big enough to fill half your space, with the cleft and a patch of postsynaptic membrane. Number the events in order from the action potential arriving to the postsynaptic channel opening, one arrow per step, and show where calcium enters and what it does once inside. Then redraw the terminal sitting in a calcium free bath. One line: name the step where the chain stops, and say what still happens normally upstream of it.",
-    "b": "Draw two traces stacked on one shared time axis in milliseconds, the presynaptic action potential on top and the postsynaptic membrane potential below. Mark the synaptic delay between them, about 0.5 ms. In the gap under that delay, draw the events that are happening while nothing shows on either trace. One line: which single step you think eats most of that delay, and why."
+    "a": "What happens, step by step, from the action potential arriving to the postsynaptic channel opening? Draw one axon terminal big enough to fill half your space, with the cleft and a patch of postsynaptic membrane. Number the events in order, one arrow per step. Show where calcium enters and what it does once inside. Redraw the terminal sitting in a calcium free bath. In one line: name the step where the chain stops, and say what still happens normally before it.",
+    "b": "What is happening during the synaptic delay, when nothing shows on either trace? Draw two traces stacked on one shared time axis in milliseconds: the presynaptic action potential on top, the postsynaptic membrane potential below. Mark the synaptic delay between them, about 0.5 ms. In the gap under that delay, draw the events that are happening. In one line: say which single step you think takes up most of that delay, and why.",
+    "ax": {
+     "q": "What happens, step by step, from the action potential arriving to the postsynaptic channel opening?",
+     "do": [
+      "Draw one axon terminal big enough to fill half your space, with the cleft and a patch of postsynaptic membrane.",
+      "Number the events in order, one arrow per step.",
+      "Show where calcium enters and what it does once inside.",
+      "Redraw the terminal sitting in a calcium free bath."
+     ],
+     "one": "Name the step where the chain stops, and say what still happens normally before it."
+    },
+    "bx": {
+     "q": "What is happening during the synaptic delay, when nothing shows on either trace?",
+     "do": [
+      "Draw two traces stacked on one shared time axis in milliseconds: the presynaptic action potential on top, the postsynaptic membrane potential below.",
+      "Mark the synaptic delay between them, about 0.5 ms.",
+      "In the gap under that delay, draw the events that are happening."
+     ],
+     "one": "Say which single step you think takes up most of that delay, and why."
+    }
    },
    {
     "n": 22,
     "name": "Neurotransmitter classes",
     "can": "Group neurocrines into their seven chemical classes, acetylcholine, amines, amino acids, peptides, purines, gases, and lipids, and match acetylcholine, the catecholamines, serotonin, glutamate, GABA, glycine, and the neuropeptides to their usual excitatory or inhibitory effect and to a site of action.",
-    "a": "Draw a rough brain, a spinal cord, and one peripheral effector, side by side. Place acetylcholine, a catecholamine, serotonin, glutamate, GABA, glycine, and a neuropeptide at a real site of action on your drawing. Flag each one excitatory or inhibitory with an up or down arrow drawn on the postsynaptic membrane. Around the edge of the box, list the seven chemical classes of neurocrines with one example of each. One line: name the one you had to flag both ways, and say what forced that.",
-    "b": "Draw acetylcholine arriving at two postsynaptic membranes side by side, a skeletal muscle fiber with nicotinic receptors and a cardiac pacemaker cell with muscarinic receptors. Show the ion moving at each and draw the membrane potential trace under each. Same transmitter, opposite result. One line: given both drawings, state what actually decides whether a synapse is excitatory or inhibitory."
+    "a": "Where does each major neurotransmitter act, and is it usually excitatory or inhibitory? Draw a rough brain, a spinal cord, and one peripheral effector, side by side. Place acetylcholine, a catecholamine, serotonin, glutamate, GABA, glycine, and a neuropeptide at a real site of action on your drawing. Flag each one excitatory or inhibitory with an up or down arrow on the postsynaptic membrane. Around the edge of the box, list the seven chemical classes of neurocrines with one example of each. In one line: name the one you had to flag both ways, and say what forced that.",
+    "b": "How can the same neurotransmitter excite one cell and inhibit another? Draw acetylcholine arriving at two postsynaptic membranes side by side: a skeletal muscle fiber with nicotinic receptors, a cardiac pacemaker cell with muscarinic receptors. Show the ion moving at each. Draw the membrane potential trace under each. In one line: using both drawings, state what actually decides whether a synapse is excitatory or inhibitory.",
+    "ax": {
+     "q": "Where does each major neurotransmitter act, and is it usually excitatory or inhibitory?",
+     "do": [
+      "Draw a rough brain, a spinal cord, and one peripheral effector, side by side.",
+      "Place acetylcholine, a catecholamine, serotonin, glutamate, GABA, glycine, and a neuropeptide at a real site of action on your drawing.",
+      "Flag each one excitatory or inhibitory with an up or down arrow on the postsynaptic membrane.",
+      "Around the edge of the box, list the seven chemical classes of neurocrines with one example of each."
+     ],
+     "one": "Name the one you had to flag both ways, and say what forced that."
+    },
+    "bx": {
+     "q": "How can the same neurotransmitter excite one cell and inhibit another?",
+     "do": [
+      "Draw acetylcholine arriving at two postsynaptic membranes side by side:",
+      {
+       "sub": [
+        "a skeletal muscle fiber with nicotinic receptors",
+        "a cardiac pacemaker cell with muscarinic receptors"
+       ]
+      },
+      "Show the ion moving at each.",
+      "Draw the membrane potential trace under each."
+     ],
+     "one": "Using both drawings, state what actually decides whether a synapse is excitatory or inhibitory."
+    }
    },
    {
     "n": 23,
     "name": "Neurotransmitter removal",
     "can": "Name the three routes that clear a neurotransmitter from the synaptic cleft, degradation, reuptake, and diffusion, and give a drug that blocks one of them.",
-    "a": "Draw a synaptic cleft with transmitter still in it, then draw all three exit routes off that cleft, enzymatic breakdown, reuptake, and simple diffusion. Show where each one physically happens, on the postsynaptic side, on the presynaptic side, or out the edges. Name the transmitter you picked and put a real drug on the route it blocks. One line: what the postsynaptic cell experiences once that route is shut.",
-    "b": "Draw the postsynaptic potential from one normal release event, membrane potential on the y axis and time on the x. On the same axes draw that trace again under two drugs, one that blocks degradation and one that blocks reuptake. Show what changes, the height, the width, or both. One line: which drug you expect to change the trace more, and what you would need to measure to be sure."
+    "a": "How does a neurotransmitter get cleared out of the cleft, and what happens if one route is blocked? Draw a synaptic cleft with transmitter still in it. Draw all three exit routes off the cleft: enzymatic breakdown, reuptake, and simple diffusion. Show where each one physically happens: the postsynaptic side, the presynaptic side, or out the edges. Name the transmitter you picked and put a real drug on the route it blocks. In one line: say what the postsynaptic cell experiences once that route is shut.",
+    "b": "How does blocking removal change the postsynaptic potential? Draw the postsynaptic potential from one normal release event, membrane potential on the y axis and time on the x axis. On the same axes, draw that trace again under two drugs: one that blocks degradation and one that blocks reuptake. Show what changes: the height, the width, or both. In one line: say which drug you expect to change the trace more, and what you would need to measure to be sure.",
+    "ax": {
+     "q": "How does a neurotransmitter get cleared out of the cleft, and what happens if one route is blocked?",
+     "do": [
+      "Draw a synaptic cleft with transmitter still in it.",
+      "Draw all three exit routes off the cleft: enzymatic breakdown, reuptake, and simple diffusion.",
+      "Show where each one physically happens: the postsynaptic side, the presynaptic side, or out the edges.",
+      "Name the transmitter you picked and put a real drug on the route it blocks."
+     ],
+     "one": "Say what the postsynaptic cell experiences once that route is shut."
+    },
+    "bx": {
+     "q": "How does blocking removal change the postsynaptic potential?",
+     "do": [
+      "Draw the postsynaptic potential from one normal release event, membrane potential on the y axis and time on the x axis.",
+      "On the same axes, draw that trace again under two drugs: one that blocks degradation and one that blocks reuptake.",
+      "Show what changes: the height, the width, or both."
+     ],
+     "one": "Say which drug you expect to change the trace more, and what you would need to measure to be sure."
+    }
    },
    {
     "n": 24,
     "name": "Excitatory and inhibitory postsynaptic potentials",
     "can": "Distinguish an EPSP from an IPSP by the ion channel opened and the direction of the membrane potential change, and contrast fast responses through ionotropic receptor-channels with slow responses through metabotropic G protein coupled receptors, including how a neuromodulator differs from a neurotransmitter.",
-    "a": "Draw a postsynaptic neuron with two synapses on one dendrite, one excitatory and one inhibitory. At each, draw the channel that opened and the ion moving through it with an arrow for direction. Under each synapse draw its own trace starting from about -70 mV and label the peak value. One line: how an inhibitory input can still be inhibitory even when the membrane potential barely moves.",
-    "b": "Draw the same neurotransmitter reaching two receptors on one postsynaptic cell, a receptor-channel and a G protein coupled receptor. Under each, draw the membrane potential trace on a time axis so it shows how fast each response starts and how long it lasts, and draw one longer lasting change the G protein pathway can make inside the cell. One line: say which receptor type a neuromodulator usually uses, and why that fits its slower job."
+    "a": "What makes a postsynaptic potential excitatory or inhibitory? Draw a postsynaptic neuron with two synapses on one dendrite, one excitatory and one inhibitory. At each synapse, draw the channel that opened and the ion moving through it, with an arrow for direction. Under each synapse, draw its own trace starting from about minus 70 mV and label the peak value. In one line: say how an inhibitory input can still be inhibitory even when the membrane potential barely moves.",
+    "b": "How is a fast response through a receptor-channel different from a slow response through a G protein coupled receptor? Draw the same neurotransmitter reaching two receptors on one postsynaptic cell: a receptor-channel and a G protein coupled receptor. Under each, draw the membrane potential trace on a time axis, showing how fast each response starts and how long it lasts. Draw one longer lasting change the G protein pathway can make inside the cell. In one line: say which receptor type a neuromodulator usually uses, and why that fits its slower job.",
+    "ax": {
+     "q": "What makes a postsynaptic potential excitatory or inhibitory?",
+     "do": [
+      "Draw a postsynaptic neuron with two synapses on one dendrite, one excitatory and one inhibitory.",
+      "At each synapse, draw the channel that opened and the ion moving through it, with an arrow for direction.",
+      "Under each synapse, draw its own trace starting from about minus 70 mV and label the peak value."
+     ],
+     "one": "Say how an inhibitory input can still be inhibitory even when the membrane potential barely moves."
+    },
+    "bx": {
+     "q": "How is a fast response through a receptor-channel different from a slow response through a G protein coupled receptor?",
+     "do": [
+      "Draw the same neurotransmitter reaching two receptors on one postsynaptic cell: a receptor-channel and a G protein coupled receptor.",
+      "Under each, draw the membrane potential trace on a time axis, showing how fast each response starts and how long it lasts.",
+      "Draw one longer lasting change the G protein pathway can make inside the cell."
+     ],
+     "one": "Say which receptor type a neuromodulator usually uses, and why that fits its slower job."
+    }
    },
    {
     "n": 25,
     "name": "Summation and integration",
     "can": "Distinguish temporal from spatial summation and determine whether a stated combination of EPSPs and IPSPs will bring the trigger zone to threshold.",
-    "a": "Draw the same neuron twice. On the first, one presynaptic neuron fires four times in quick succession. On the second, four separate presynaptic neurons fire at the same moment. Under each, draw the trace at the trigger zone with a resting line near -70 mV and a dashed threshold line near -55 mV. Label which is temporal and which is spatial. One line: what has to be true about timing for the first one to work at all.",
-    "b": "Draw a neuron with five inputs, three excitatory worth about 4 mV each and two inhibitory worth about 5 mV each. Choose which fire and in what order, then draw the trace at the trigger zone against a threshold line near -55 mV, writing your running total along the trace. Now change one input, its timing or its sign, so the outcome flips. Write which change you made and why it was enough."
+    "a": "How are temporal and spatial summation different? Draw the same neuron twice. First drawing: one presynaptic neuron fires four times in quick succession. Second drawing: four separate presynaptic neurons fire at the same moment. Under each, draw the trace at the trigger zone, with a resting line near minus 70 mV and a dashed threshold line near minus 55 mV. Label which is temporal and which is spatial. In one line: say what has to be true about timing for the first one to work at all.",
+    "b": "Will this combination of inputs reach threshold, and what change would flip the outcome? Draw a neuron with five inputs: three excitatory worth about 4 mV each and two inhibitory worth about 5 mV each. Choose which inputs fire and in what order. Draw the trace at the trigger zone against a threshold line near minus 55 mV, writing your running total along the trace. Change one input, its timing or its sign, so the outcome flips. In one line: say which change you made and why it was enough.",
+    "ax": {
+     "q": "How are temporal and spatial summation different?",
+     "do": [
+      "Draw the same neuron twice.",
+      "First drawing: one presynaptic neuron fires four times in quick succession.",
+      "Second drawing: four separate presynaptic neurons fire at the same moment.",
+      "Under each, draw the trace at the trigger zone, with a resting line near minus 70 mV and a dashed threshold line near minus 55 mV.",
+      "Label which is temporal and which is spatial."
+     ],
+     "one": "Say what has to be true about timing for the first one to work at all."
+    },
+    "bx": {
+     "q": "Will this combination of inputs reach threshold, and what change would flip the outcome?",
+     "do": [
+      "Draw a neuron with five inputs: three excitatory worth about 4 mV each and two inhibitory worth about 5 mV each.",
+      "Choose which inputs fire and in what order.",
+      "Draw the trace at the trigger zone against a threshold line near minus 55 mV, writing your running total along the trace.",
+      "Change one input, its timing or its sign, so the outcome flips."
+     ],
+     "one": "Say which change you made and why it was enough."
+    }
    },
    {
     "n": 26,
     "name": "Presynaptic modulation",
     "can": "Compare presynaptic inhibition and facilitation with postsynaptic modulation and state the advantage of presynaptic control at a single input, which is selectivity.",
-    "a": "Draw a neuron with three excitatory inputs converging on it. Add a modulatory neuron that synapses on one input's terminal, not on the cell body. Show what it does to calcium entry and to transmitter release at that terminal only. Draw the postsynaptic response to all three inputs before and after. One line: what postsynaptic inhibition would have done to the other two inputs.",
-    "b": "You need to cut one input's effect by half and leave the other inputs untouched. Draw two attempts side by side, one acting on that input's presynaptic terminal and one acting on the postsynaptic membrane. On each drawing, shade every synapse the attempt affected. Mark the attempt that failed the requirement. One line: name the property that makes presynaptic control the right tool for this job."
+    "a": "How can one input be turned down without affecting the others? Draw a neuron with three excitatory inputs converging on it. Add a modulatory neuron that synapses on one input's terminal, not on the cell body. Show what it does to calcium entry and to transmitter release at that terminal only. Draw the postsynaptic response to all three inputs, before and after. In one line: say what postsynaptic inhibition would have done to the other two inputs.",
+    "b": "Why is presynaptic control the right tool when you need to change just one input? Your job: cut one input's effect by half and leave the other inputs untouched. Draw two attempts side by side: one acting on that input's presynaptic terminal, one acting on the postsynaptic membrane. On each drawing, shade every synapse the attempt affected. Mark the attempt that failed the job. In one line: name the property that makes presynaptic control the right tool for this job.",
+    "ax": {
+     "q": "How can one input be turned down without affecting the others?",
+     "do": [
+      "Draw a neuron with three excitatory inputs converging on it.",
+      "Add a modulatory neuron that synapses on one input's terminal, not on the cell body.",
+      "Show what it does to calcium entry and to transmitter release at that terminal only.",
+      "Draw the postsynaptic response to all three inputs, before and after."
+     ],
+     "one": "Say what postsynaptic inhibition would have done to the other two inputs."
+    },
+    "bx": {
+     "q": "Why is presynaptic control the right tool when you need to change just one input?",
+     "do": [
+      "Your job: cut one input's effect by half and leave the other inputs untouched.",
+      "Draw two attempts side by side: one acting on that input's presynaptic terminal, one acting on the postsynaptic membrane.",
+      "On each drawing, shade every synapse the attempt affected.",
+      "Mark the attempt that failed the job."
+     ],
+     "one": "Name the property that makes presynaptic control the right tool for this job."
+    }
    },
    {
     "n": 27,
     "name": "Synaptic plasticity",
     "can": "Explain long term potentiation as a mechanism of learning, tracing how glutamate acts on AMPA and NMDA receptors, how strong depolarization removes the magnesium block, how calcium entry starts second messenger pathways, and how repeated stimulation leads to insertion of new AMPA receptors.",
-    "a": "Draw a glutamate synapse with both AMPA and NMDA receptors in the postsynaptic membrane. Show the magnesium sitting in the NMDA channel at rest. In a second panel, draw the same synapse during repeated high frequency stimulation with the magnesium displaced and calcium entering. In a third, draw what the membrane looks like an hour later. One line: why one presynaptic action potential on its own cannot do this.",
-    "b": "Draw a graph of postsynaptic response size against time, with a burst of high frequency stimulation marked on the time axis, and plot the response before, during, and long after the burst. On the same axes, draw a second curve for the identical experiment with NMDA receptors blocked. One line: which receptor carries the ordinary moment to moment signal, and which one carries the signal that something should change."
+    "a": "How does repeated stimulation make a synapse stronger? Panel 1: draw a glutamate synapse with both AMPA and NMDA receptors in the postsynaptic membrane. Show the magnesium sitting in the NMDA channel at rest. Panel 2: draw the same synapse during repeated high frequency stimulation, with the magnesium displaced and calcium entering. Panel 3: draw what the membrane looks like an hour later. In one line: say why one presynaptic action potential on its own cannot do this.",
+    "b": "What does long term potentiation look like on a graph, and which receptor is needed to start it? Draw a graph of postsynaptic response size against time, with a burst of high frequency stimulation marked on the time axis. Plot the response before, during, and long after the burst. On the same axes, draw a second curve for the identical experiment with NMDA receptors blocked. In one line: say which receptor carries the ordinary moment to moment signal, and which one carries the signal that something should change.",
+    "ax": {
+     "q": "How does repeated stimulation make a synapse stronger?",
+     "do": [
+      "Panel 1: draw a glutamate synapse with both AMPA and NMDA receptors in the postsynaptic membrane. Show the magnesium sitting in the NMDA channel at rest.",
+      "Panel 2: draw the same synapse during repeated high frequency stimulation, with the magnesium displaced and calcium entering.",
+      "Panel 3: draw what the membrane looks like an hour later."
+     ],
+     "one": "Say why one presynaptic action potential on its own cannot do this."
+    },
+    "bx": {
+     "q": "What does long term potentiation look like on a graph, and which receptor is needed to start it?",
+     "do": [
+      "Draw a graph of postsynaptic response size against time, with a burst of high frequency stimulation marked on the time axis.",
+      "Plot the response before, during, and long after the burst.",
+      "On the same axes, draw a second curve for the identical experiment with NMDA receptors blocked."
+     ],
+     "one": "Say which receptor carries the ordinary moment to moment signal, and which one carries the signal that something should change."
+    }
    },
    {
     "n": 28,
     "name": "Electrical synapses",
     "can": "Compare an electrical synapse at a gap junction with a chemical synapse by speed and by capacity for modulation.",
-    "a": "Draw two synapses side by side in cross section at the same scale, an electrical one at a gap junction and a chemical one. Show what physically crosses at each and make clear which gap is wider. Underneath both, draw one shared time axis and mark when the postsynaptic response begins for each. One line: what the chemical synapse buys with the delay it pays.",
-    "b": "Pick two real jobs, one where many cells must fire as a single unit and one where a signal must be turned up, turned down, or blocked outright. Draw the synapse you would build for each and label it electrical or chemical. On each drawing, circle the feature that made it right for that job. One line: what fails if you swap the two."
+    "a": "How do electrical and chemical synapses compare in speed, and what does the slower one gain? Draw two synapses side by side in cross section at the same scale: an electrical one at a gap junction and a chemical one. Show what physically crosses at each, and make clear which gap is wider. Underneath both, draw one shared time axis and mark when the postsynaptic response begins for each. In one line: say what the chemical synapse gains in exchange for its delay.",
+    "b": "When is an electrical synapse the right choice, and when is a chemical one? Pick two real jobs: one where many cells must fire as a single unit, and one where a signal must be turned up, turned down, or blocked outright. Draw the synapse you would build for each and label it electrical or chemical. On each drawing, circle the feature that made it right for that job. In one line: say what fails if you swap the two.",
+    "ax": {
+     "q": "How do electrical and chemical synapses compare in speed, and what does the slower one gain?",
+     "do": [
+      "Draw two synapses side by side in cross section at the same scale: an electrical one at a gap junction and a chemical one.",
+      "Show what physically crosses at each, and make clear which gap is wider.",
+      "Underneath both, draw one shared time axis and mark when the postsynaptic response begins for each."
+     ],
+     "one": "Say what the chemical synapse gains in exchange for its delay."
+    },
+    "bx": {
+     "q": "When is an electrical synapse the right choice, and when is a chemical one?",
+     "do": [
+      "Pick two real jobs: one where many cells must fire as a single unit, and one where a signal must be turned up, turned down, or blocked outright.",
+      "Draw the synapse you would build for each and label it electrical or chemical.",
+      "On each drawing, circle the feature that made it right for that job."
+     ],
+     "one": "Say what fails if you swap the two."
+    }
    },
    {
     "n": 29,
     "name": "Synapse simulation",
     "can": "Alter neurotransmitter release and receptor availability in a synapse simulation and interpret the resulting postsynaptic recording.",
-    "a": "Before you run anything, draw the postsynaptic recording you predict under three conditions on shared axes, normal, reduced transmitter release, and reduced receptor availability. Label the amplitude you expect on each. Run the simulation, then draw the real traces over your prediction in a second color. One line: which of the two manipulations your prediction got wrong, and what you had assumed that turned out to be false.",
-    "b": "Draw four postsynaptic recordings from your simulation on one shared time axis, the control run and three altered runs. Under each altered trace, draw the synapse and mark the single thing you changed, presynaptic or postsynaptic. One line: point to a trace that two different manipulations could both have produced, and name the extra run you would need to tell them apart."
+    "a": "What do you predict happens to the postsynaptic signal when you reduce transmitter release, and when you reduce receptors? Before you run anything, draw the recording you predict for three conditions on the same axes: normal, less transmitter released, fewer receptors available. Label the height (amplitude) you expect on each. Run the simulation. Draw the real traces over your prediction in a second color. In one line: say where your prediction was off, if it was, and what you had assumed.",
+    "b": "Can you tell from the recording alone whether a change was presynaptic or postsynaptic? On one shared time axis, draw four postsynaptic recordings from your simulation: the control run and three altered runs. Under each altered trace, draw the synapse and mark the single thing you changed, presynaptic or postsynaptic. In one line: point to a trace that two different changes could both have produced, and name the extra run you would need to tell them apart.",
+    "ax": {
+     "q": "What do you predict happens to the postsynaptic signal when you reduce transmitter release, and when you reduce receptors?",
+     "do": [
+      "Before you run anything, draw the recording you predict for three conditions on the same axes:",
+      {
+       "sub": [
+        "normal",
+        "less transmitter released",
+        "fewer receptors available"
+       ]
+      },
+      "Label the height (amplitude) you expect on each.",
+      "Run the simulation.",
+      "Draw the real traces over your prediction in a second color."
+     ],
+     "one": "Say where your prediction was off, if it was, and what you had assumed."
+    },
+    "bx": {
+     "q": "Can you tell from the recording alone whether a change was presynaptic or postsynaptic?",
+     "do": [
+      "On one shared time axis, draw four postsynaptic recordings from your simulation: the control run and three altered runs.",
+      "Under each altered trace, draw the synapse and mark the single thing you changed, presynaptic or postsynaptic."
+     ],
+     "one": "Point to a trace that two different changes could both have produced, and name the extra run you would need to tell them apart."
+    }
    }
   ]
  },

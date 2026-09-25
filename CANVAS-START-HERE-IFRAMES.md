@@ -70,33 +70,7 @@ File: `access-pearson.html`
         loading="lazy"></iframe>
 ```
 
-## 5. Study With Me
-
-Short on purpose. One button opens the calendar.
-
-File: `study-with-me.html`
-
-```html
-<iframe id="bio005-study-with-me" src="https://drsrennie-stack.github.io/human-physiology-Fa26/study-with-me.html"
-        title="Study With Me" width="100%" height="1900"
-        style="width:100%;border:0;overflow:hidden" scrolling="no"
-        loading="lazy"></iframe>
-```
-
-## 6. Study With Me calendar
-
-The live sign-up calendar, same app as the anatomy one with the tutors, the paid tier and the lab taken out. Students post sessions and sign up here themselves, so nothing needs pushing to add one. It needs its own Apps Script URL pasted into the file first, see the CONFIG block at the top.
-
-File: `study-with-me-calendar.html`
-
-```html
-<iframe id="bio005-study-with-me-calendar" src="https://drsrennie-stack.github.io/human-physiology-Fa26/study-with-me-calendar.html"
-        title="Study With Me calendar" width="100%" height="2170"
-        style="width:100%;border:0;overflow:hidden" scrolling="no"
-        loading="lazy"></iframe>
-```
-
-## 7. Scholar Points
+## 5. Scholar Points
 
 Up to 2.5 percent for studying with other people, and why it is not extra credit.
 
@@ -109,7 +83,7 @@ File: `scholar-points.html`
         loading="lazy"></iframe>
 ```
 
-## 8. Syllabus & Course Policies
+## 6. Syllabus & Course Policies
 
 Long page. It has its own contents list at the top that jumps down the page.
 
@@ -122,7 +96,7 @@ File: `syllabus-fall2026.html`
         loading="lazy"></iframe>
 ```
 
-## 9. Weekly Schedule
+## 7. Weekly Schedule
 
 Weeks 2 and 3 are one row. Week 4 opens September 28.
 
@@ -135,7 +109,7 @@ File: `course-schedule.html`
         loading="lazy"></iframe>
 ```
 
-## 10. AI Use in this Course
+## 8. AI Use in this Course
 
 File: `ai-in-this-course.html`
 
@@ -146,7 +120,7 @@ File: `ai-in-this-course.html`
         loading="lazy"></iframe>
 ```
 
-## 11. Week 1 Discussion: Digital Vision Board/Introduction
+## 9. Week 1 Discussion: Digital Vision Board/Introduction
 
 The instructions page. The discussion itself is still the Canvas discussion, and the page links to it.
 
@@ -159,7 +133,7 @@ File: `assignment-discussion-01-visionboard.html`
         loading="lazy"></iframe>
 ```
 
-## 12. How Every Week Works
+## 10. How Every Week Works
 
 The eight steps, topic free, with the big numbers. This is the one to point a lost student at.
 

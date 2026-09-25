@@ -25,15 +25,15 @@ STEPS = [
   status="Turned in. Complete or not complete.",
   intro="A quick look ahead, not a full read. You look at the headings and figures and answer a few short questions, "
         "so the lessons make more sense when you get to them.",
-  todo=["Open the Week 4 pre-read on screen, or download the printable copy if you would rather work on paper.",
+  todo=["Choose one: Choice 1, fill in the pre-read on screen, or Choice 2, print it and do it on paper. Both links are below.",
         "In Silverthorn Chapter 5, Membrane Dynamics, read the part near the end on the resting membrane potential. "
         "Then skim Chapter 9, Neurons: Cellular and Network Properties, looking at the headings and the figures.",
         "Answer the questions on the pre-read in a few words each. Short answers are fine.",
         "Save the page as a PDF with the button at the bottom, or photograph your paper copy."],
   note="Chapter numbers are for the 9th edition. Other editions number things differently, so go by the chapter "
        "title and the topic, and use the search in your eText.",
-  links=[("The Week 4 pre-read, to fill in on screen", "week-04-preread.html"),
-         ("The Week 4 pre-read, to print and do on paper (PDF)", "sheets/BIO005-Week4-Preread.pdf")],
+  links=[("Choice 1: the Week 4 pre-read, to fill in on screen and save as a PDF", "week-04-preread.html"),
+         ("Choice 2: the Week 4 pre-read, to print and do on paper (PDF)", "sheets/BIO005-Week4-Preread.pdf")],
   submit_here=["Upload your PDF or photo here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
           "Due " + DUE + ". Complete or not complete."],
   turnin=["Upload the PDF or photo to the <strong>Week 4 pre-read</strong> assignment in Canvas.",
@@ -43,8 +43,9 @@ STEPS = [
   status="Not turned in yet. You upload it in Step 4.",
   intro="This is where you learn the week. You work through the lessons and fill in your Competency Study Guide "
         "in one color as you go.",
-  todo=["Choose one: print your Week 4 Competency Study Guide, or open the Week 4 competency list and work the same prompts on your own paper. Pick two pens you can tell apart.",
+  todo=["Choose one: Choice 1, print your Week 4 Competency Study Guide (two to a page, or one to a page for bigger boxes), or Choice 2, open the Week 4 competency list and work the same prompts on your own paper. Pick two pens you can tell apart.",
         "Read the Week 4 competencies first, so you know what you are looking for.",
+        "The lessons, videos and notes open Monday, September 28 at 8:00 am. Before then the lessons link shows a Get ready page.",
         "Open the Week 4 lessons and work through them in order. Start with the three walkthroughs: neurons and "
         "neuroglia, then the resting membrane potential, then ion channel gating. Then the lessons on graded "
         "potentials and the action potential, how action potentials carry information, the chemical synapse, "
@@ -53,11 +54,12 @@ STEPS = [
         "<strong>Stuck? Watch a short explanation</strong> button on the steps where a video helps.",
         "For each competency, pick prompt A or prompt B and draw it in the box in your first color.",
         "After the three walkthroughs, do the drawing sheet from memory, with the walkthrough closed."],
-  links=[("Choice 1: your Week 4 Competency Study Guide, to print (PDF)", "sheets/BIO005-note-sheet-week-04.pdf"),
+  links=[("Choice 1: your Week 4 Competency Study Guide, to print (PDF, two competencies to a page)", "sheets/BIO005-note-sheet-week-04.pdf"),
+         ("Choice 1, bigger boxes: the same guide with one competency to a page (PDF)", "sheets/BIO005-note-sheet-week-04-tall.pdf"),
          ("Choice 2: the Week 4 competency list, with the same prompts, for your own paper", "week-04-competencies.html"),
-         ("Your Week 4 Competency Study Guide, on screen", "note-sheet.html?week=4"),
-         ("The Week 4 lessons, in order", "lecture-week.html?week=4"),
-         ("The Week 4 drawing sheet", "biol005-w04-drawing-sheet.html")],
+         ("The Week 4 lessons and videos, in order (opens Monday, September 28 at 8:00 am)", "lecture-week.html?week=4"),
+         ("The Week 4 written notes, one page per lesson (opens Monday, September 28 at 8:00 am)", "week-04-notes.html"),
+         ("The Week 4 drawing sheet, for after the three walkthroughs (print it, or open it and draw on your own paper)", "biol005-w04-drawing-sheet.html")],
   turnin=None),
 
  dict(title="Second pass, in your second color", time="30 to 60 minutes",
@@ -69,8 +71,8 @@ STEPS = [
         "Go back through the same Week 4 lessons. Watch a video again any time a part is still unclear.",
         "Add what you missed, fix what was wrong, and add anything that clicked this time, in the same boxes.",
         "Do not erase your first color. The gap between the two colors is the most useful thing on the page."],
-  links=[("The Week 4 lessons, in order", "lecture-week.html?week=4"),
-         ("Your Week 4 Competency Study Guide, on screen", "note-sheet.html?week=4")],
+  links=[("The Week 4 lessons and videos, in order", "lecture-week.html?week=4"),
+         ("The Week 4 written notes, one page per lesson", "week-04-notes.html")],
   turnin=None),
 
  dict(title="Upload your Competency Study Guide", time="About 10 minutes",
@@ -96,8 +98,7 @@ STEPS = [
         "Watch a video again when a brain dump shows a gap you cannot fill from your guide."],
   links=[("Rx Cards", "rx-cards.html"),
          ("Try It From Memory, the brain dump", "competency-brain-dump.html"),
-         ("Draw it, the drawing canvas", "mastery-canvas.html"),
-         ("Study With Me, optional group study", "study-with-me.html")],
+         ("Draw it, the drawing canvas", "mastery-canvas.html")],
   turnin=None),
 
  dict(title="Mastery Check, and upload your report", time="35 to 50 minutes per try",
@@ -123,13 +124,13 @@ STEPS = [
         "on the Week 4 lab worksheet.",
   todo=["Open PhysioEx through <strong>Access Pearson</strong> in the Canvas menu on the left, and run Exercise 3, "
         "Activities 1 to 9.",
-        "Fill in the lab worksheet as you go, on screen or on the printable copy. For each activity it asks what you "
+        "Fill in the lab worksheet as you go. Choose one: Choice 1, on screen, or Choice 2, the printed copy. For each activity it asks what you "
         "measured, what you found, and what you learned.",
         "Answer the two questions at the end of the worksheet.",
         "Save the worksheet as a PDF with the button at the bottom, or photograph your paper copy."],
   note="The exercise has to show complete in Pearson, and the points are on your worksheet. You need both.",
-  links=[("The Week 4 lab worksheet, to fill in on screen", "lab-worksheet-week04.html"),
-         ("The Week 4 lab worksheet, to print and do on paper (PDF)", "sheets/BIO005-Week4-Lab-Worksheet.pdf"),
+  links=[("Choice 1: the Week 4 lab worksheet, to fill in on screen and save as a PDF", "lab-worksheet-week04.html"),
+         ("Choice 2: the Week 4 lab worksheet, to print and do on paper (PDF)", "sheets/BIO005-Week4-Lab-Worksheet.pdf"),
          ("What to run and record in PhysioEx this week", "assignment-physioex.html?week=4")],
   submit_here=["Upload your worksheet here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
           "Due " + DUE + ". PhysioEx Exercise 3 also has to show complete in Pearson."],

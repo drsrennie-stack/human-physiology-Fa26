@@ -57,9 +57,7 @@ GROUPS = [
         "competency-brain-dump.html", "brain", "navy"),
    tool("Book problems", "Work them forward, then backward from the answer",
         "assignment-bookproblems.html", "doc", "navy"),
-   tool("Study With Me", "Say it out loud to another person. Earns Scholar Points",
-        "study-with-me.html", "people", "terra"),
-   tool("Four ways to practice", "All four on one page, if you cannot decide",
+   tool("Three ways to practice", "All three on one page, if you cannot decide",
         "study-buttons.html", "target", "gold"),
  ]),
  ("Check yourself", "Find out what you cannot do yet, while it is still cheap.", [

@@ -723,7 +723,6 @@
           + tool('mastery-canvas.html', 'Draw it, then teach it', 'Draw the mechanism from nothing, then explain it out loud with no notes')
           + tool('rx-cards.html?week=' + wn, 'Rx Cards', 'Spaced recall that gets harder as you prove it')
           + (wn < 4 ? tool('assignment-bookproblems.html?week=' + wn, 'Book problems', 'Problems you have not seen. Predict, commit, check') : '')
-          + tool('study-with-me.html', 'Study With Me', 'Quiz each other, teach it to someone. Optional, earns Scholar Points')
           + tool('https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', 'Kahoot library', 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term', '', true)
           + tool('ungraded-sheet.html?week=' + wn, 'All of it on one sheet', 'Every practice item for the week, printable')
           + '<li><span class="b5-soon"><span class="b5-t">Physiology games</span><span class="b5-d">Opens later this term</span></span></li>'

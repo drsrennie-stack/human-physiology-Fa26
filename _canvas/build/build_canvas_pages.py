@@ -794,7 +794,7 @@ def how_every_week_works():
                   ("First pass, in your first color", "Read the book chapters or my notes and fill in the Competency Study Guide boxes with drawings, labels and short lists. Try the competency prompts. Leave the gaps."),
                   ("Second pass, in your second color", "Watch the week's videos in order and add what they gave you that the reading did not. The second color shows you exactly where your reading was thin."),
                   ("Upload your Competency Study Guide", "Photograph or scan the sheet with both colors on it and upload it. Marked complete or not complete, never graded for a score. It is how you show you are participating.")],
-        "Practice": [("Study it for several days", "About an hour a day: recall cards, draw it from memory, brain dumps, book problems, Study With Me. Spacing is the whole trick, because the forgetting in between is what makes it stick.")],
+        "Practice": [("Study it for several days", "About an hour a day: recall cards, draw it from memory, brain dumps, and book problems. Spacing is the whole trick, because the forgetting in between is what makes it stick.")],
         "Apply": [("Lab", "The week's lab, with a sheet you fill in by hand and turn in. Graded, Investigation."),
                   ("Your patient", "One entry in your patient's chart each week: draw the loop, answer the questions, log your AI use. Graded, Application."),
                   ("Discussion", "One post carrying some physiology from the week and what you learned about your own thinking. Post Friday, replies Sunday. Graded, Thinking.")],

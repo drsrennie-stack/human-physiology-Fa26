@@ -38,10 +38,6 @@ CARDS = [
       title="Book Problems", what="Work it, then work it backward", tile=GOLD, head=GOLDS,
       why="Try it before you look. Then start from the answer and see how the author got there.",
       mins="15 min", png="button-book-problems.png"),
- dict(key="swm", slug="study-with-me", file="study-with-me.html",
-      title="Study With Me", what="Out loud, no notes", tile=GOLD, head=GOLDS,
-      why="Saying it to another person is the fastest way to find what is still missing.",
-      mins="8 min", png="button-study-with-me.png"),
 ]
 
 
@@ -98,7 +94,7 @@ w = out.write
 
 w("# Canvas paste blocks: study activity buttons\n\n")
 w("Built %s. Source page: `study-buttons.html`.\n\n" % "September 15, 2026")
-w("Four practice activities, renamed for physiology. Nothing connects to Mastery OS, ")
+w("Three practice activities, renamed for physiology. Nothing connects to Mastery OS, ")
 w("nothing reads state, and none of them is graded, so a card can sit on any page ")
 w("in any module without breaking.\n\n")
 w("Every card opens in a new browser tab. Rx Cards and Brain Dump keep score, and ")
@@ -107,10 +103,10 @@ w("their progress survives.\n\n")
 w("---\n\n")
 
 w("## Option A. The whole page as an iframe\n\n")
-w("Use this when you want all four on one Canvas page. Paste in the HTML editor.\n\n")
+w("Use this when you want all three on one Canvas page. Paste in the HTML editor.\n\n")
 w("```html\n")
 w('<iframe id="bio005-study-buttons" src="%sstudy-buttons.html"\n' % BASE)
-w('        title="Four ways to practice" width="100%" height="1420"\n')
+w('        title="Three ways to practice" width="100%" height="1420"\n')
 w('        style="width:100%;border:0;overflow:hidden" scrolling="no"\n')
 w('        loading="lazy"></iframe>\n')
 w("```\n\n")
@@ -129,7 +125,7 @@ for c in CARDS:
     w("```html\n%s\n```\n\n" % card(c))
 
 w("---\n\n")
-w("## Option C. All four in a row, no iframe\n\n")
+w("## Option C. All three in a row, no iframe\n\n")
 w("Wraps to two, then one, as the screen narrows.\n\n")
 w("```html\n%s\n```\n\n" % row(CARDS))
 
@@ -146,7 +142,7 @@ for c in CARDS:
 w("PNG files in the drop:\n\n")
 for c in CARDS:
     w("- `%s`, the %s card on its own\n" % (c["png"], c["title"]))
-w("- `button-all-four.png`, all four together\n\n")
+w("- `button-all-four.png`, the old four card image. It still shows Study With Me, so do not use it until it is re-rendered with three cards\n\n")
 
 w("---\n\n")
 w("## Back to modules\n\n")

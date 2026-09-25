@@ -60,6 +60,19 @@ function page(w) {
       const rows = ['a', 'b'].map(L => {
         const txt = (it[L] || '').trim();
         if (!txt) return '';
+        /* Sep 25 2026: a structured prompt (Week 4 on) is a bold question in
+           the label, then its steps as bullets under it */
+        const px = it[L + 'x'];
+        if (px) {
+          const grp = [];
+          px.do.forEach(s => { if (typeof s === 'string') grp.push({ t: s, sub: [] }); else grp[grp.length - 1].sub = s.sub; });
+          return '\n      <div class="prompt px" data-c="' + esc(id) + '" data-l="' + L + '">'
+               + '<input type="checkbox" id="' + esc(id) + '-' + L + '">'
+               + '<div class="pbody"><label for="' + esc(id) + '-' + L + '">'
+               + '<span class="plet">' + L.toUpperCase() + '</span><span class="pq">' + esc(px.q) + '</span></label>'
+               + '<ul class="pdo">' + grp.map(g => '<li>' + esc(g.t) + (g.sub.length ? '<ul>' + g.sub.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') + '</li>').join('')
+               + '<li class="pone"><b>In one line:</b> ' + esc(px.one.charAt(0).toLowerCase() + px.one.slice(1)) + '</li></ul></div></div>';
+        }
         return '\n      <div class="prompt" data-c="' + esc(id) + '" data-l="' + L + '">'
              + '<input type="checkbox" id="' + esc(id) + '-' + L + '">'
              + '<label for="' + esc(id) + '-' + L + '">'
@@ -169,6 +182,11 @@ main{padding:8px 0 60px}
   accent-color:var(--maroon);cursor:pointer}
 .prompt label{cursor:pointer;margin:0;font-size:14.5px}
 .prompt.checked{background:var(--tint);border-color:var(--maroon)}
+.prompt .pbody{flex:1;min-width:0;font-size:14.5px}
+.prompt .pq{font-weight:800;color:var(--navy)}
+.prompt .pdo{margin:6px 0 0;padding-left:1.2em}.prompt .pdo li{margin:0 0 4px}
+.prompt .pdo ul{margin:4px 0 0;padding-left:1.2em;list-style:disc}
+.prompt .pdo .pone{list-style:none;margin-left:-1.2em;margin-top:6px}
 .plet{font-family:var(--display);font-weight:800;color:var(--maroon-dk);margin-right:7px}
 
 .foot{margin:40px 0 0;padding-top:18px;border-top:1px solid var(--rule);

@@ -313,6 +313,10 @@ a{color:var(--maroon-dark);font-weight:700}
   border:1.2px solid var(--navy);border-radius:2px;display:inline-block}
 .pk .lt{position:absolute;left:31px;top:7px;font-weight:800;color:var(--rust,#8B3A2E);font-size:11.5px}
 .pk .tx{display:block}
+.pk .pq{font-weight:800;margin:0 0 4px}
+.pk .pdo{margin:0;padding-left:1.1em}.pk .pdo li{margin:0 0 2px}
+.pk .pdo ul{margin:2px 0 0;padding-left:1.1em;list-style:disc}
+.pk .pdo .pone{list-style:none;margin-left:-1.1em;margin-top:4px}
 @media (max-width:820px){.prompts{grid-template-columns:1fr}}
 @media print{
   .picklab{font-size:7.6pt;margin:0.07in 0 0.04in}
@@ -368,7 +372,7 @@ a{color:var(--maroon-dark);font-weight:700}
 @media print{.pdflinks{display:none}}
 </style>
 </head>
-<body>
+<body data-collapse="off" data-no-reading-mode>
 <a class="skip" href="#sheets">Skip to the sheet</a>
 
 <div class="mm-brandbar"><div class="mm-wrap">
@@ -446,6 +450,7 @@ a{color:var(--maroon-dark);font-weight:700}
 </div></div>
 
 <script src="assets/bio005-sheet-data.js"></script>
+<script src="assets/bio005-prompts.js"></script>
 <script>
 (function(){
   "use strict";
@@ -475,6 +480,12 @@ a{color:var(--maroon-dark);font-weight:700}
   function qs(k){
     var m = new RegExp("[?&]" + k + "=([^&]*)").exec(window.location.search);
     return m ? decodeURIComponent(m[1].replace(/\+/g," ")) : null;
+  }
+  /* a structured prompt (Week 4 on) draws as a bold question and bullets;
+     earlier weeks keep their paragraph */
+  function ptx(it, side){
+    var px = window.BIO005_PROMPT && BIO005_PROMPT.get(it, side);
+    return px ? '<div class="tx">' + BIO005_PROMPT.html(px) + '</div>' : '<span class="tx">' + esc(it[side]) + '</span>';
   }
   function esc(s){
     return String(s == null ? "" : s)
@@ -556,9 +567,9 @@ a{color:var(--maroon-dark);font-weight:700}
         '<p class="picklab">Pick one and do that one</p>' +
         '<div class="prompts">' +
           '<div class="pk"><span class="tick" aria-hidden="true"></span>' +
-            '<span class="lt">A</span><span class="tx">' + esc(it.a) + '</span></div>' +
+            '<span class="lt">A</span>' + ptx(it, 'a') + '</div>' +
           '<div class="pk"><span class="tick" aria-hidden="true"></span>' +
-            '<span class="lt">B</span><span class="tx">' + esc(it.b) + '</span></div>' +
+            '<span class="lt">B</span>' + ptx(it, 'b') + '</div>' +
         '</div>') +
 
       '<div class="meta">' +

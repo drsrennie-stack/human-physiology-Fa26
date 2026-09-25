@@ -302,7 +302,6 @@
   var LINKS = {
     masteryOS: ['mastery-physio-os-standalone.html', 'the Mastery OS'],
     calendar:  ['course-schedule.html', 'course calendar'],
-    study:     ['study-with-me.html', 'Study With Me'],
     rx:        ['rx-cards.html', 'Rx Cards'],
     dump:      ['competency-brain-dump.html', 'Brain Dump'],
     draw:      ['mastery-physio-os-standalone.html?open=drawknow', 'Draw It to Know It'],
@@ -340,7 +339,7 @@
       + '<br>2. <b>First pass, in your first color.</b> Work through the week\'s lessons and videos in order, filling each box of your ' + a('guide') + '.'
       + '<br>3. <b>Second pass, in your second color</b>, on the same guide you started, printed or on your own paper. Go back through the same lessons. Add what you missed and fix what was wrong. Do not erase the first color.'
       + '<br>4. <b>Upload your Competency Study Guide</b> with both colors on it.'
-      + '<br>5. <b>Study it for several days.</b> ' + a('rx') + ', the ' + a('dump') + ', ' + a('draw') + ', ' + a('study') + '.'
+      + '<br>5. <b>Study it for several days.</b> ' + a('rx') + ', the ' + a('dump') + ', and ' + a('draw') + '.'
       + '<br>6. <b>The ' + a('check') + '</b>, and upload the report.'
       + '<br>7. <b>The lab.</b> PhysioEx first, then the worksheet.'
       + '<br>8. <b>Your application case</b>, worked into your patient chart.'
@@ -376,7 +375,7 @@
         return '<p>This is normal and it is fixable. Try this, in order:</p>'
           + '1. Take a ' + a('check') + ' on the week. The report names the competencies that are not solid yet.'
           + '<br>2. Work those with ' + a('rx') + ' and the ' + a('dump') + ', a little every day.'
-          + '<br>3. Join a ' + a('study') + ' session, or set one up.'
+          + '<br>3. Study with a classmate. Quiz each other and teach it out loud.'
           + '<br>4. Come to office hours, Wednesdays 9:00 to 10:00 am on Zoom, or book free tutoring at (530) 751-5558.'
           + '<br><br>Reach out early. Do not wait for the next exam, and do not wait until you feel you have earned the right to ask.'
           + (ctx.nextExam ? '<br><br>' + examLine(ctx, ctx.nextExam) : '');
@@ -416,7 +415,6 @@
         return '<p>Press <b>Course tools</b> in the bottom left corner of any course page. Your study tools are at the top:</p>'
           + a('rx', 'Rx Cards') + ': spaced recall that gets harder as you prove it.'
           + '<br>The ' + a('dump', 'Brain Dump') + ': a random competency and prompt, done on paper from memory, then checked against what the prompt asked for.'
-          + '<br>' + a('study', 'Study With Me') + ': study with other people. Optional, and it earns Scholar Points.'
           + '<br>The ' + a('check', 'Mastery Check') + ': at least 50 questions and 80 percent to count, and a report you upload.'
           + '<br>' + a('draw', 'Draw It to Know It') + ': draw a mechanism from memory, then check it.';
 
@@ -453,7 +451,7 @@
           + '<p>The weekly case itself is not uploaded; your thinking goes into the chart. ' + ilink('assignment-patient-chart.html', 'What you turn in, and when') + '.</p>';
 
       case 'study':
-        return '<p>' + a('study') + ' is the room for this. I post my own drop-in times, and you can set up your own session any week you want one. Nothing about it is required.</p>'
+        return '<p>You can study with classmates any week you want. Set up a study group, quiz each other, or teach a competency out loud. Nothing about it is required.</p>'
           + '<p>The hours do earn <a href="scholar-points.html" target="_top">Scholar Points</a>: up to a 2.5 percent bump on your final course percentage, thirty hours for the full amount, three hours a week that can count. Sessions have to be recorded with cameras on, and whoever hosts gets one extra hour on top of the time the session ran. You log your hours on the Scholar Points page and upload the week in Canvas.</p>'
           + '<p>Office hours are Wednesdays 9:00 to 10:00 am on Zoom, drop in.</p>';
 
