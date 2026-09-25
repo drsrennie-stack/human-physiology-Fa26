@@ -46,6 +46,40 @@ def txt(s):
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:48].rstrip("-")
 
+OPT = ('<span style="display:inline-block;background:#ECEFF4;color:%s;font-weight:700;font-size:0.85em;'
+       'padding:1px 8px;border-radius:4px;margin:0 6px 0 0;">Optional</span>' % NAVY)
+NOTE = '<span style="color:%s;">(opens the course site in a new tab)</span>' % INK_SOFT
+
+def a_link(label, path):
+    return ('<a href="%s%s" target="_blank" rel="noopener" style="%s">%s</a> %s'
+            % (SITE, html.escape(path, quote=True), LINK, txt(label), NOTE))
+
+def links_card(items):
+    """Sep 25 2026, Scrubs: every item is numbered, so students know they do all of
+    them, in order. An either-or is its own box inside the list, Choose one, with
+    Choice 1 and Choice 2 kept apart. Anything optional says Optional."""
+    lis = []
+    for it in items:
+        if isinstance(it, dict):
+            opts = "".join(
+                '<div style="border:1px solid #D9DDE3;border-radius:6px;padding:12px 16px;margin:10px 0 0 0;">'
+                '<p style="margin:0 0 4px 0;font-weight:700;color:%s;">Choice %d: %s</p>'
+                '<p style="margin:0 0 8px 0;line-height:1.55;color:%s;">%s</p>'
+                '<ul style="margin:0;padding-left:1.2em;">%s</ul></div>'
+                % (NAVY, k, txt(o["name"]), INK_SOFT, txt(o["text"]),
+                   "".join('<li style="margin:0 0 6px 0;line-height:1.55;">%s</li>' % a_link(l, p) for l, p in o["links"]))
+                for k, o in enumerate(it["options"], 1))
+            lis.append('<li style="%s"><strong>%s.</strong> Pick one of these two.%s</li>' % (LI, txt(it["title"]), opts))
+        else:
+            label, path = it[0], it[1]
+            lis.append('<li style="%s">%s%s</li>' % (LI, OPT if len(it) > 2 else "", a_link(label, path)))
+    anyopt = any(not isinstance(it, dict) and len(it) > 2 for it in items)
+    lead = ("Do these in order. Each link opens the course site in a new tab, and Canvas stays open in this tab."
+            + (" Anything marked Optional is up to you." if anyopt else ""))
+    return ('<div style="%s"><h3 style="%s">What you need for this step</h3>'
+            '<p style="%s">%s</p><ol style="margin:0;padding-left:1.4em;color:%s;">%s</ol></div>'
+            % (CARD, H3, P % INK_SOFT, lead, NAVY, "".join(lis)))
+
 def page(W, i, st, prev_t, next_t, as_assignment=False):
     n, total = W.WEEK, len(W.STEPS)
     out = ['<div style="font-family:%s;color:%s;max-width:900px;">' % (FONT, NAVY)]
@@ -64,15 +98,8 @@ def page(W, i, st, prev_t, next_t, as_assignment=False):
         out.append('<p style="margin:12px 0 0 0;line-height:1.6;color:%s;">%s</p>' % (INK_SOFT, txt(st["note"])))
     out.append('</div>')
 
-    out.append('<div style="%s"><h3 style="%s">Links</h3>' % (CARD, H3))
-    out.append('<p style="%s">Each link opens the course site in a new tab. Canvas stays open in this tab.</p>'
-               % (P % INK_SOFT))
-    out.append('<ul style="margin:0;padding-left:1.2em;color:%s;">%s</ul>' % (NAVY, "".join(
-        '<li style="%s"><a href="%s%s" target="_blank" rel="noopener" style="%s">%s</a> '
-        '<span style="color:%s;">(opens the course site in a new tab)</span></li>'
-        % (LI, SITE, html.escape(path, quote=True), LINK, txt(label), INK_SOFT)
-        for label, path in st["links"])))
-    out.append('</div>')
+    if st["links"]:
+        out.append(links_card(st["links"]))
 
     if as_assignment:
         out.append('<div style="%s"><h3 style="%s">Turn it in here</h3>' % (CARD, H3))

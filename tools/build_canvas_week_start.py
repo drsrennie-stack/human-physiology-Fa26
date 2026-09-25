@@ -46,7 +46,12 @@ def printables(W, n):
     import re as _re
     seen, rows = set(), []
     for i, st in enumerate(W.STEPS, 1):
-        for label, path in st["links"]:
+        flat = []
+        for it in st["links"]:
+            if isinstance(it, dict):
+                for o in it["options"]: flat += [(l, pth) for l, pth in o["links"]]
+            else: flat.append((it[0], it[1]))
+        for label, path in flat:
             if path.endswith(".pdf") and path not in seen:
                 seen.add(path)
                 rows.append('<li style="margin:0 0 8px 0;"><a href="%s%s" target="_blank" rel="noopener" '
