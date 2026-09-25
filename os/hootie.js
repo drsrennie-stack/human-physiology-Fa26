@@ -338,7 +338,7 @@
     return '<p>Every week is the same ten steps, in this order. The week\'s <b>Start here</b> page in Canvas lists them with every due date.</p>'
       + '1. <b>The pre-read.</b> About 30 minutes: skim the headings and figures and answer a few short questions. Upload it.'
       + '<br>2. <b>First pass, in your first color.</b> Work through the week\'s lessons and videos in order, filling each box of your ' + a('guide') + '.'
-      + '<br>3. <b>Second pass, in your second color.</b> Go back through the same lessons. Add what you missed and fix what was wrong. Do not erase the first color.'
+      + '<br>3. <b>Second pass, in your second color</b>, on the same guide you started, printed or on your own paper. Go back through the same lessons. Add what you missed and fix what was wrong. Do not erase the first color.'
       + '<br>4. <b>Upload your Competency Study Guide</b> with both colors on it.'
       + '<br>5. <b>Study it for several days.</b> ' + a('rx') + ', the ' + a('dump') + ', ' + a('draw') + ', ' + a('study') + '.'
       + '<br>6. <b>The ' + a('check') + '</b>, and upload the report.'
@@ -439,7 +439,7 @@
 
       case 'studyguide':
         return '<p>Your ' + a('guide', 'Competency Study Guide') + ' has one box for each competency that week, with two prompts to choose from. You draw in the box. Words go in little boxes with arrows between them, in the order things happen.</p>'
-          + '<p><b>First pass, first color:</b> work through the week\'s lessons and videos, filling each box as you go. <b>Second pass, second color:</b> go back through, add what you missed and fix what was wrong. Never erase the first color; the second color is exactly what you still need to commit to memory.</p>'
+          + '<p><b>First pass, first color:</b> work through the week\'s lessons and videos, filling each box as you go. <b>Second pass, second color:</b> on the same pages you started, printed worksheet or your own paper, go back through, add what you missed and fix what was wrong. Never erase the first color; the second color is exactly what you still need to commit to memory.</p>'
           + '<p>Upload it each week with both colors on it. It is marked complete or not complete, not graded for content. The printable PDF for each week is linked on the guide page and on the week\'s Start here page.</p>'
           + (wk ? '<p>' + ilink(wq('note-sheet.html', wk), 'Your Week ' + wk + ' Competency Study Guide') + '.</p>' : '');
 

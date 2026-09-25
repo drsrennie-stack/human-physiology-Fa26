@@ -62,9 +62,10 @@ STEPS = [
 
  dict(title="Second pass, in your second color", time="30 to 60 minutes",
   status="Not turned in yet. You upload it in Step 4.",
-  intro="You go back through the same lessons and add to the same boxes in your second color. The difference "
-        "between your two colors shows you what you learned the second time through.",
-  todo=["Switch to your second pen.",
+  intro="You keep working on the same guide you started in your first pass, whichever way you chose: the printed "
+        "worksheet or your own paper. Nothing new to print. You go back through the same lessons and add to the same "
+        "boxes in your second color. The difference between your two colors shows you what you learned the second time through.",
+  todo=["Pick up the guide you started in Step 2, the printed worksheet or your own pages, and switch to your second pen.",
         "Go back through the same Week 4 lessons. Watch a video again any time a part is still unclear.",
         "Add what you missed, fix what was wrong, and add anything that clicked this time, in the same boxes.",
         "Do not erase your first color. The gap between the two colors is the most useful thing on the page."],

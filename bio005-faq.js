@@ -3,7 +3,7 @@ var BIO005_FAQ = [
  {
   "cat": "Getting started",
   "q": "Where do I start?",
-  "a": "Open the week's <b>Start here</b> page in Canvas, or the week page on the course site, and follow the steps in order. Every week runs the same loop:</p><ol><li>The pre-read: a quick look at the headings and figures, with a few short questions. Turned in.</li><li>First pass, in your first color: work through the week's lessons and videos in order, filling each box of your Competency Study Guide as you go.</li><li>Second pass, in your second color: go back through the same lessons and add what you missed and fix what was wrong. Do not erase the first color.</li><li>Upload your Competency Study Guide with both colors on it.</li><li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li><li>The Mastery Check, and upload the report.</li><li>The lab: PhysioEx, then the worksheet.</li><li>Your application case, worked into your patient chart.</li><li>Your patient chart: this week's numbers and your thinking.</li><li>The discussion: post by Friday, replies by Sunday.</li></ol><p>Everything is due Sunday at 10:00 pm, except the first discussion post, which is due Friday."
+  "a": "Open the week's <b>Start here</b> page in Canvas, or the week page on the course site, and follow the steps in order. Every week runs the same loop:</p><ol><li>The pre-read: a quick look at the headings and figures, with a few short questions. Turned in.</li><li>First pass, in your first color: work through the week's lessons and videos in order, filling each box of your Competency Study Guide as you go.</li><li>Second pass, in your second color, on the same guide you started, printed or on your own paper: go back through the same lessons and add what you missed and fix what was wrong. Do not erase the first color.</li><li>Upload your Competency Study Guide with both colors on it.</li><li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li><li>The Mastery Check, and upload the report.</li><li>The lab: PhysioEx, then the worksheet.</li><li>Your application case, worked into your patient chart.</li><li>Your patient chart: this week's numbers and your thinking.</li><li>The discussion: post by Friday, replies by Sunday.</li></ol><p>Everything is due Sunday at 10:00 pm, except the first discussion post, which is due Friday."
  },
  {
   "cat": "Getting started",
@@ -88,7 +88,7 @@ var BIO005_FAQ = [
  {
   "cat": "Getting started",
   "q": "I do not know what to do. What is the exact order?",
-  "a": "Every week is the same ten steps, in this order:</p><ol><li>The pre-read: a quick look at the headings and figures, with a few short questions. Turned in.</li><li>First pass, in your first color: work through the week's lessons and videos in order, filling each box of your Competency Study Guide as you go.</li><li>Second pass, in your second color: go back through the same lessons and add what you missed and fix what was wrong. Do not erase the first color.</li><li>Upload your Competency Study Guide with both colors on it.</li><li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li><li>The Mastery Check, and upload the report.</li><li>The lab: PhysioEx, then the worksheet.</li><li>Your application case, worked into your patient chart.</li><li>Your patient chart: this week's numbers and your thinking.</li><li>The discussion: post by Friday, replies by Sunday.</li></ol><p>For the lab, run PhysioEx first, then complete the worksheet. If a step does not work for the way you learn, see the next question: the method bends, the course requirements do not."
+  "a": "Every week is the same ten steps, in this order:</p><ol><li>The pre-read: a quick look at the headings and figures, with a few short questions. Turned in.</li><li>First pass, in your first color: work through the week's lessons and videos in order, filling each box of your Competency Study Guide as you go.</li><li>Second pass, in your second color, on the same guide you started, printed or on your own paper: go back through the same lessons and add what you missed and fix what was wrong. Do not erase the first color.</li><li>Upload your Competency Study Guide with both colors on it.</li><li>Study it for several days: Rx Cards, brain dumps, drawing from memory, Study With Me.</li><li>The Mastery Check, and upload the report.</li><li>The lab: PhysioEx, then the worksheet.</li><li>Your application case, worked into your patient chart.</li><li>Your patient chart: this week's numbers and your thinking.</li><li>The discussion: post by Friday, replies by Sunday.</li></ol><p>For the lab, run PhysioEx first, then complete the worksheet. If a step does not work for the way you learn, see the next question: the method bends, the course requirements do not."
  },
  {
   "cat": "Getting started",
@@ -338,7 +338,7 @@ var BIO005_FAQ = [
  {
   "cat": "Competency Study Guides",
   "q": "What is a Competency Study Guide?",
-  "a": "A weekly guide with one box for each competency you must be able to do that week, and two prompts for each box to choose from. You fill it in two passes, one color each, as you work through the week's lessons, then upload it. It is your study guide for the rest of the week and for the midterm."
+  "a": "A weekly guide with one box for each competency you must be able to do that week, and two prompts for each box to choose from. You choose how to do it: print the ready-made worksheet, or work the same prompts from the competency list on your own paper. You fill it in two passes on those same pages, one color each, as you work through the week's lessons, then upload it. It is your study guide for the rest of the week and for the midterm."
  },
  {
   "cat": "Competency Study Guides",
@@ -393,7 +393,7 @@ var BIO005_FAQ = [
  {
   "cat": "Competency Study Guides",
   "q": "What is the two color rule?",
-  "a": "Your first color is your first pass through the week's lessons and videos. Your second color is everything you add or fix on the second pass. Never erase the first color. The result reads at a glance: the second color is exactly what you still need to commit to memory, and that is where your studying goes."
+  "a": "Your first color is your first pass through the week's lessons and videos. Your second color is everything you add or fix on the second pass, on the same pages, whether you started on the printed worksheet or on your own paper. Never erase the first color. The result reads at a glance: the second color is exactly what you still need to commit to memory, and that is where your studying goes."
  },
  {
   "cat": "Competency Study Guides",
