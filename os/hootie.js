@@ -335,7 +335,7 @@
   /* The weekly loop, the same ten steps every week, in the order the
      Canvas module and the Start here page list them. */
   function prework(ctx, wk) {
-    return '<p>Every week is the same ten steps, in this order. The week\'s <b>Start here</b> page in Canvas lists them with every due date.</p>'
+    return '<p>From Week 4 on, every week is the same ten steps, in this order. The week\'s <b>Start here</b> page in Canvas lists them with every due date. Weeks 1 to 3 keep the steps on their own pages.</p>'
       + '1. <b>The pre-read.</b> About 30 minutes: skim the headings and figures and answer a few short questions. Upload it.'
       + '<br>2. <b>First pass, in your first color.</b> Work through the week\'s lessons and videos in order, filling each box of your ' + a('guide') + '.'
       + '<br>3. <b>Second pass, in your second color</b>, on the same guide you started, printed or on your own paper. Go back through the same lessons. Add what you missed and fix what was wrong. Do not erase the first color.'

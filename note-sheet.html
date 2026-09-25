@@ -495,11 +495,12 @@ a{color:var(--maroon-dark);font-weight:700}
     var stem = BLANK ? "sheets/BIO005-note-sheet-BLANK" : "sheets/BIO005-note-sheet-week-" + nn;
     if (a2) a2.href = stem + ".pdf";
     if (a1) a1.href = stem + "-tall.pdf";
-    /* a week with no competencies of its own (Week 3, Week 8) has no PDF */
-    var d = (window.BIO005_SHEET || {})[week];
-    if (!BLANK && !(d && d.items && d.items.length)) {
+    /* Week 8 has no guide, so no PDF. Week 3 keeps the PDF students already
+       have; it has no one-to-a-page version. */
+    if (!BLANK && week === 8) {
       var pl = document.querySelector(".pdflinks"); if (pl) pl.hidden = true;
     }
+    if (!BLANK && week === 3 && a1) { a1.hidden = true; var dot = a1.previousSibling; if (dot && dot.nodeType === 3) dot.nodeValue = " "; }
   })();
   var per = parseInt(qs("per"), 10);
   if (!(per === 1 || per === 2 || per === 3)) per = 2;

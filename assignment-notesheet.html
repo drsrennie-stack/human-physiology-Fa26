@@ -60,6 +60,22 @@ header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing
   <p class="sub" id="wkline">Week 1 &middot; How physiology works and what keeps you steady</p>
   <p class="due" id="dueline">Work it alongside the Week 1 videos</p>
 
+  <!-- Sep 25 2026, Scrubs: Weeks 1 to 3 keep the instructions students already
+       worked from. The choose-one, two-pass, one-PDF version starts in Week 4. -->
+<div class="v1">
+  <ol class="how">
+    <li><strong>Print your sheet.</strong> One page per competency, spaces already labeled. You do not build anything.</li>
+    <li><strong>Open the competencies.</strong> Read the prompts first, preview the text, then answer the best you can from what you already know, in your <strong>first color</strong>.</li>
+    <li><strong>Watch the videos</strong> for each concept and add what you did not know in your <strong>second color</strong>. Do not erase the first pass; the gap between the colors is the point.</li>
+  </ol>
+
+  <div class="btns">
+    <a class="btn solid" id="sheetBtn" href="note-sheet.html?week=1" target="_top">Print your sheet</a>
+    <a class="btn line" id="compBtn" href="week-01-competencies.html" target="_top">Open the competencies</a>
+  </div>
+
+</div>
+<div class="v4" hidden>
   <ol class="how">
     <li><strong>Choose one.</strong> Print the ready-made worksheet, with a box for each competency already labeled, or open the competency list and work the same prompts on your own paper. If you use your own paper, write the competency number and name at the top of each box.</li>
     <li><strong>First pass, in your first color.</strong> Work through the week&rsquo;s lessons and videos in order, filling each box as you go.</li>
@@ -68,11 +84,24 @@ header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing
   </ol>
 
   <div class="btns">
-    <a class="btn solid" id="sheetBtn" href="note-sheet.html?week=1" target="_top">Print your sheet</a>
-    <a class="btn line" id="compBtn" href="week-01-competencies.html" target="_top">Use the competency list on your own paper</a>
+    <a class="btn solid" id="sheetBtn4" href="note-sheet.html?week=1" target="_top">Print your sheet</a>
+    <a class="btn line" id="compBtn4" href="week-01-competencies.html" target="_top">Use the competency list on your own paper</a>
   </div>
 
+</div>
   <h2>What happens to it</h2>
+<div class="v1">
+  <div class="upload">
+    <p>Nothing is scored. The sheet is yours, and it is what your recall cards, your lab work and your exam review are built from. You do upload it: once both passes are on it, photograph or scan every page and turn it in as one file in the Canvas Competency Study Guide assignment for the week, by Sunday at 10:00 pm Pacific. I mark it complete or not complete and read enough to see how the week went for you. Turning it in every week is how you show you are participating in the class, and participating is a condition of staying enrolled.</p>
+    <ol>
+      <li>Handwritten, on paper, in your two colors, because the gap between the colors is the whole point and it disappears the moment you type it.</li>
+      <li>Label every box with the competency number and name, so you can find something in week 12 without reading all fourteen pages.</li>
+      <li>Photograph each page as you finish it, in good light, flat on the table, so the writing in both colors can be read. Losing the sheet costs you no points and a great deal of work.</li>
+      <li>Bring it to office hours any time you want me to look at it with you. It is a good use of the hour.</li>
+    </ol>
+  </div>
+</div>
+<div class="v4" hidden>
   <div class="upload">
     <p>Nothing is scored. The sheet is yours, and it is what your recall cards, your lab work and your exam review are built from. You do upload it: once both passes are on it, photograph or scan every page, put the pages in order, and turn them in as one PDF in the Canvas Competency Study Guide assignment for the week, by Sunday at 10:00 pm Pacific. Canvas takes only one document, so a second upload replaces the first. I mark it complete or not complete and read enough to see how the week went for you. Turning it in every week is how you show you are participating in the class, and participating is a condition of staying enrolled.</p>
     <ol>
@@ -82,6 +111,7 @@ header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing
       <li>Bring it to office hours any time you want me to look at it with you. It is a good use of the hour.</li>
     </ol>
   </div>
+</div>
 </main>
 <script>
 (function(){
@@ -93,6 +123,14 @@ header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing
   document.title = "Competency Study Guide \u00b7 Week " + w + " \u00b7 BIO 005 Human Physiology";
   document.getElementById("wkline").textContent = "Week " + w + " \u00b7 " + TITLES[w-1];
   document.getElementById("dueline").textContent = "Due " + DUE[w-1] + " at 10:00 pm";
+  /* Weeks 1 to 3 keep their original instructions; Week 4 on gets the new ones */
+  if (w >= 4) {
+    [].forEach.call(document.querySelectorAll(".v1"), function(e){ e.hidden = true; });
+    [].forEach.call(document.querySelectorAll(".v4"), function(e){ e.hidden = false; });
+  }
+  var sb4 = document.getElementById("sheetBtn4"), cb4 = document.getElementById("compBtn4");
+  if (sb4) sb4.href = "note-sheet.html?week=" + w;
+  if (cb4) cb4.href = "week-" + pad + "-competencies.html";
   document.getElementById("sheetBtn").href = "note-sheet.html?week=" + w;
   document.getElementById("compBtn").href = "week-" + pad + "-competencies.html";
   var id = "ns" + pad + "-" + Math.random().toString(36).slice(2,8);
