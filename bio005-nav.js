@@ -722,7 +722,7 @@
           + tool('competency-brain-dump.html', 'Try It From Memory', 'A brain dump, then the self check')
           + tool('mastery-canvas.html', 'Draw it, then teach it', 'Draw the mechanism from nothing, then explain it out loud with no notes')
           + tool('rx-cards.html?week=' + wn, 'Rx Cards', 'Spaced recall that gets harder as you prove it')
-          + tool('assignment-bookproblems.html?week=' + wn, 'Book problems', 'Problems you have not seen. Predict, commit, check')
+          + (wn < 4 ? tool('assignment-bookproblems.html?week=' + wn, 'Book problems', 'Problems you have not seen. Predict, commit, check') : '')
           + tool('study-with-me.html', 'Study With Me', 'Quiz each other, teach it to someone. Optional, earns Scholar Points')
           + tool('https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', 'Kahoot library', 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term', '', true)
           + tool('ungraded-sheet.html?week=' + wn, 'All of it on one sheet', 'Every practice item for the week, printable')
@@ -731,12 +731,13 @@
       apply: { n: 3, name: 'Apply', tag: 'Graded',
         lead: 'Use what you learned on a patient, a lab result, a decision. <b>These are graded and due Sunday 10 pm.</b>',
         html: '<ul>'
-          + tool('week-' + nn + '.html#apply', 'This week\'s lab', 'What to run, what to record, and how to turn it in', 'Investigate It &middot; 25%')
-          + tool('assignment-apply.html?week=' + wn, 'Use It case', 'This week\'s case on your patient, five questions', 'Use It &middot; 20%')
+          + (wn === 8 ? tool('week-08.html#apply', 'Midterm 1', 'In Canvas, Thursday Oct 29 8:00 am to Sunday Nov 1 10:00 pm', 'Show Me What You Know &middot; 17.5%') : '')
+          + (wn === 8 ? '' : tool('week-' + nn + '.html#apply', 'This week\'s lab', 'What to run, what to record, and how to turn it in', 'Investigate It &middot; 25%')
+          + tool('assignment-apply.html?week=' + wn, 'Use It case', 'This week\'s case on your patient, five questions', 'Use It &middot; 20%'))
           + (wn === 1
               ? tool('assignment-discussion-01-visionboard.html', 'Discussion 1A', 'Digital vision board and video introduction', 'Think About It &middot; 15%')
                 + tool('assignment-discussion-01-metacognition.html', 'Discussion 1B', 'What the evidence told you about how you learned', 'Think About It &middot; 15%')
-              : tool('assignment-discussion.html?week=' + wn, 'Discussion ' + wn, 'Post by Friday, two replies by Sunday', 'Think About It &middot; 15%'))
+              : wn === 8 ? '' : tool('assignment-discussion.html?week=' + wn, 'Discussion ' + wn, 'Post by Friday, two replies by Sunday', 'Think About It &middot; 15%'))
           + tool('how-grading-works.html', 'How grading works', 'What counts, what it is worth')
           + '</ul><h2>Patient file, the capstone</h2><p class="b5-lead">One patient you keep track of all semester. Each week you add that week\'s numbers and your thinking by hand. <b>Nothing is turned in weekly.</b> The whole chart comes in once, on December 16.</p><ul>'
           + tool('patient-chart-book.html', 'Your patient chart', 'One patient, all term. Add this week by hand', 'Use It &middot; 5%')
@@ -745,7 +746,7 @@
       check: { n: 4, name: 'Check', tag: 'No points',
         lead: 'Find the gaps before they cost you points. <b>A low score is information.</b>',
         html: '<ul>'
-          + tool('practice-exam.html?week=' + wn, 'Mastery Check', 'Thirty questions, nothing open, a report you can upload')
+          + tool('practice-exam.html?week=' + wn + (wn === 8 ? '' : '&n=50'), 'Mastery Check', 'At least 50 questions and 80 percent to count, a report you can upload')
           + tool('week-' + nn + '-competencies.html', 'Competency checklist', 'Tick what you can do from memory')
           + tool('assignment-practice-log.html', 'Upload your report', 'No points, and I read every one')
           + '</ul>' }
@@ -978,8 +979,9 @@
       + '<div class="card"><p style="margin:0">' + line + '</p></div>'
       + '<h2>Until then</h2><ul>'
       + '<li><a class="main" href="' + B + cur.file + '" target="_top">This week, Week ' + cur.n + '</a></li>'
-      + '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
-      + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' note sheet (PDF)</a></li>'
+      + (n === 8 ? '<li><a href="' + B + 'practice-exam.html" target="_top">Midterm 1 practice exam</a></li>' :
+        '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
+      + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' note sheet (PDF)</a></li>')
       + '<li><a href="' + B + 'rx-cards.html" target="_top">Rx Cards</a></li>'
       + '<li><a href="' + B + 'course-schedule.html" target="_top">The schedule</a></li>'
       + '</ul></div>';

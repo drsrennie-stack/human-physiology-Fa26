@@ -584,7 +584,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q96",
   "q": "When is Midterm 1?",
-  "a": "<p>The window runs Monday, October 26 at 8:00 am to Wednesday, October 28 at 10:00 pm. It covers Weeks 1 to 7. It sits at the front of Week 8 on purpose: Week 7 is finished by then, and the rest of Week 8 is still open to you afterwards.</p>",
+  "a": "<p>The window runs Thursday, October 29 at 8:00 am to Sunday, November 1 at 10:00 pm. It covers Weeks 1 to 7. Week 8 has no new teaching, so Monday to Wednesday is yours to review before the window opens.</p>",
   "topic": "Midterms"
  },
  {

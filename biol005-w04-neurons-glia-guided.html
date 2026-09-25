@@ -4,16 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Neurons and neuroglia, step by step | BIOL 005 Week 4</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
 <style>
 :root{
   --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
   --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
-  --ink2:#414B5C; --line:#C9CED8; --page:#FAFAF9; --card:#FFFFFF;
-  --shadow:0 1px 3px rgba(0,0,0,0.08); --shadow2:0 8px 16px rgba(0,0,0,0.10);
-  --head:"Open Sans","Segoe UI",Arial,sans-serif;
-  --body:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+  --ink2:#414B5C; --line:rgba(11,21,48,0.16); --page:#FAFAF9; --card:#FFFFFF;
+  --locked:#454B58;
+  --shadow:0 1px 3px rgba(11,21,48,0.08); --shadow2:0 8px 16px rgba(11,21,48,0.10);
+  --head:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,sans-serif;
 }
+/* Brand restyle Sep 24 2026. The shared brand bar and dark footer from
+   assets/brandbar.css, the virtual-office.html editorial type (tracked
+   maroon eyebrows, two-tone Open Sans 800 headline, maroon-dark
+   headings, uppercase maroon primary buttons at 4px radius) and cards
+   at 8px. Layout, animation, gating and the worksheet logic are
+   untouched. The brand bar is static here, not sticky, because the
+   figure column and the worksheet are already sticky and would slide
+   under it. */
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
@@ -24,67 +35,77 @@ a{color:var(--maroon);text-underline-offset:3px}
 .skip:focus{top:12px;color:#fff}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 button{font-family:var(--body)}
-.top{background:#fff;box-shadow:var(--shadow);position:relative;z-index:5}
-.top-in{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
-.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.45rem);margin:0;flex:1 1 320px;line-height:1.2}
-.top .course{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink2)}
+.mm-brandbar{position:relative}
+.mm-brandbar .mm-wrap,.mm-foot .mm-wrap{max-width:1400px}
+.top{background:transparent;position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:16px 20px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.9vw,2rem);letter-spacing:-.022em;margin:0;flex:1 1 320px;line-height:1.15;color:var(--navy)}
+.top h1 .tone{color:var(--maroon)}
+.top .course{display:block;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px;line-height:1.4}
+.top-in > a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.top-in > a:hover{text-decoration:underline;color:var(--maroon-dark)}
 .jump{position:relative}
-.tbtn{font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
-.tbtn.primary{background:var(--navy);color:#fff}
-.tbtn.primary:hover{background:var(--navy-deep)}
-.tbtn:disabled{opacity:.45;cursor:not-allowed}
-.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:12px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.tbtn{font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,background 160ms ease}
+.tbtn:not(:disabled):hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
+.tbtn.primary{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.tbtn.primary:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+/* Locked: gray dashed, still white inside. #454B58 on white is 8.75:1.
+   The disabled attribute carries the state; the dash is the picture of it. */
+.tbtn:disabled,.tbtn.primary:disabled{opacity:1;background:#fff;color:var(--locked);border:1.5px dashed var(--locked);cursor:not-allowed;box-shadow:none;transform:none}
+/* Unlocked jump menu: gold-deep edge, the gold that works on a light page, 4.87:1. */
+#jumpBtn:not(:disabled){border-color:var(--gold-deep)}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:8px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
 .jump-menu ol{list-style:none;margin:0;padding:0}
-.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:8px;padding:10px 12px;font:600 .95rem var(--body);color:var(--navy);cursor:pointer}
-.jump-menu button:hover,.jump-menu button:focus-visible{background:var(--navy-tint)}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:4px;padding:10px 12px;font:700 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:#fff;box-shadow:inset 0 0 0 1.5px var(--navy)}
 .jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
 .layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
-.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
 .stage{padding:18px}
 .progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
 .bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
 .bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
 .count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
-.scene-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+.scene-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
 #scene{display:block;width:100%;height:auto;max-height:62vh}
 .stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
 .scene-col{position:sticky;top:12px}
-.watch{position:absolute;right:10px;bottom:10px;font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
-.watch:hover{background:var(--navy-tint)}
+.watch{position:absolute;right:10px;bottom:10px;font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:#fff;box-shadow:var(--shadow2)}
 @media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
 .nolab text{opacity:0}
 .narr{padding:0 4px;min-height:120px}
-.narr .sec{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
-.narr h2{font-family:var(--head);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2}
+.narr .sec{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2;color:var(--maroon-dark)}
 .narr p{margin:0 0 10px;max-width:72ch}
 .fadein{animation:fin .45s ease both}
 @keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ask{background:#fff;border:1px solid var(--maroon);border-radius:12px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
-.ask .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:8px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon)}
 .ask p{margin:0;font-weight:700;font-size:1.08rem}
 .ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
-.answer{border-radius:12px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
-.answer .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--navy)}
+.answer{border-radius:8px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy)}
 .answer p:last-child{margin-bottom:0}
 .name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
 .support{margin:4px 0 12px;max-width:72ch}
-.support .lab{margin:0 0 6px;font-weight:700;font-size:.9rem;color:var(--ink2)}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
 .support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:10px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:8px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
 .support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
 .support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
-.controls .tbtn{min-height:48px;padding:0 22px;font-size:1rem}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:.82rem}
 .ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
-.ws h2{font-family:var(--head);font-weight:800;font-size:1.25rem;margin:0 0 4px}
+.ws h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:1.25rem;margin:0 0 4px;color:var(--maroon-dark)}
 .ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
 .field{margin:0 0 14px}
 .field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
-.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:10px;padding:9px 11px;background:#fff}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:4px;padding:9px 11px;background:#fff}
 .field textarea{min-height:110px;resize:vertical;line-height:1.45}
-.entry{border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry{border-radius:8px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
 .entry .q{margin:0 0 10px;font-weight:600}
-.entry .num{display:block;font-weight:700;font-size:.85rem;color:var(--maroon);margin:0 0 3px}
+.entry .num{display:block;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 5px}
 .ws-empty{color:var(--ink2);margin:0 0 14px}
 .ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .ws-actions .tbtn{width:100%}
@@ -99,7 +120,7 @@ button{font-family:var(--body)}
   .ws-toggle{display:inline-flex;align-items:center}
   .ws.collapsed .ws-body{display:none}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tbtn:not(:disabled):hover{transform:none}}
 .layer{transition:opacity .45s ease}
 .off{opacity:0;pointer-events:none}
 /* svg text */
@@ -124,9 +145,17 @@ button{font-family:var(--body)}
 <body>
 <a class="skip" href="#narr">Skip to the lesson</a>
 
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
 <header class="top">
   <div class="top-in">
-    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Neurons and neuroglia, step by step</h1>
+    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Neurons and <span class="tone">neuroglia</span>, step by step.</h1>
     <div class="jump">
       <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
       <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
@@ -184,6 +213,20 @@ button{font-family:var(--body)}
   </aside>
 </div>
 
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
 <script>
 (function(){
 "use strict";
@@ -275,8 +318,8 @@ var gLab=G("labels");
 function lab(x,y,s,cls,anchor){return tx(gLab,x,y,s,cls||"t",17,anchor||"middle");}
 var L={};
 L.dend=lab(96,140,"Dendrites","tn");
-L.soma=lab(230,206,"Cell body","tn");
-L.hill=lab(322,246,"Trigger zone","tm");
+L.soma=lab(236,386,"Cell body","tn");
+L.hill=lab(345,238,"Trigger zone","tm");
 L.axon=lab(530,236,"Axon","tn");
 L.term=lab(812,212,"Axon terminals","tn");
 L.my=lab(470,346,"Myelin","t");
@@ -318,26 +361,26 @@ GL.micro=(function(){var g=el("g",{},gGlia);
   for(var i=0;i<10;i++){var a=i*Math.PI/5;el("line",{x1:730+Math.cos(a)*24,y1:180+Math.sin(a)*24,x2:730+Math.cos(a)*44,y2:180+Math.sin(a)*44,stroke:NAVY,"stroke-width":5,"stroke-linecap":"round"},g);}
   tx(g,730,250,"Microglia","t",16,"middle");return g;})();
 GL.epend=(function(){var g=el("g",{},gGlia);
-  for(var i=0;i<5;i++){el("rect",{x:120+i*46,y:392,width:42,height:52,rx:8,fill:"#fff",stroke:INK2,"stroke-width":4},g);
-    el("path",{d:"M"+(141+i*46)+" 392 l0 -20 M"+(131+i*46)+" 392 l-8 -18 M"+(151+i*46)+" 392 l8 -18",stroke:INK2,"stroke-width":3,fill:"none"},g);}
-  tx(g,235,470,"Ependymal cells","t",16,"middle");return g;})();
+  for(var i=0;i<5;i++){el("rect",{x:120+i*46,y:342,width:42,height:52,rx:8,fill:"#fff",stroke:INK2,"stroke-width":4},g);
+    el("path",{d:"M"+(141+i*46)+" 342 l0 -20 M"+(131+i*46)+" 342 l-8 -18 M"+(151+i*46)+" 342 l8 -18",stroke:INK2,"stroke-width":3,fill:"none"},g);}
+  tx(g,235,420,"Ependymal cells","t",16,"middle");return g;})();
 GL.schwann=(function(){var g=el("g",{},gGlia);
-  el("rect",{x:520,y:392,width:96,height:54,rx:26,fill:"#fff",stroke:GDEEP,"stroke-width":5},g);
-  el("circle",{cx:568,cy:378,r:14,fill:"#fff",stroke:GDEEP,"stroke-width":4},g);
-  el("line",{x1:470,y1:419,x2:680,y2:419,stroke:NAVY,"stroke-width":9,"stroke-linecap":"round"},g);
-  tx(g,575,470,"Schwann cell","t",16,"middle");return g;})();
+  el("rect",{x:520,y:342,width:96,height:54,rx:26,fill:"#fff",stroke:GDEEP,"stroke-width":5},g);
+  el("circle",{cx:568,cy:328,r:14,fill:"#fff",stroke:GDEEP,"stroke-width":4},g);
+  el("line",{x1:470,y1:369,x2:680,y2:369,stroke:NAVY,"stroke-width":9,"stroke-linecap":"round"},g);
+  tx(g,575,420,"Schwann cell","t",16,"middle");return g;})();
 GL.satellite=(function(){var g=el("g",{},gGlia);
-  el("circle",{cx:790,cy:410,r:30,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
-  for(var i=0;i<8;i++){var a=i*Math.PI/4;el("circle",{cx:790+Math.cos(a)*46,cy:410+Math.sin(a)*46,r:11,fill:"#fff",stroke:MAROON,"stroke-width":4},g);}
-  tx(g,790,336,"Satellite cells","t",16,"middle");return g;})();
+  el("circle",{cx:790,cy:360,r:30,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
+  for(var i=0;i<8;i++){var a=i*Math.PI/4;el("circle",{cx:790+Math.cos(a)*46,cy:360+Math.sin(a)*46,r:11,fill:"#fff",stroke:MAROON,"stroke-width":4},g);}
+  tx(g,790,290,"Satellite cells","t",16,"middle");return g;})();
 function glia(keys){for(var k in GL)GL[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(GL[k])GL[k].setAttribute("display","");});}
 
 /* ---- neuron shape classes ---- */
 var gCls=G("classes");
 var CL={};
 CL.multi=(function(){var g=el("g",{},gCls);
-  el("circle",{cx:170,cy:300,r:40,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
   [[-1,-1],[-1,0],[-1,1],[0,-1]].forEach(function(d){el("line",{x1:170,y1:300,x2:170+d[0]*70,y2:300+d[1]*62,stroke:NAVY,"stroke-width":7,"stroke-linecap":"round"},g);});
+  el("circle",{cx:170,cy:300,r:40,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
   el("line",{x1:210,y1:300,x2:330,y2:300,stroke:NAVY,"stroke-width":9,"stroke-linecap":"round"},g);
   tx(g,170,392,"Multipolar","tn",18,"middle");tx(g,170,416,"Many dendrites, one axon","t",15,"middle");return g;})();
 CL.bi=(function(){var g=el("g",{},gCls);
@@ -352,16 +395,124 @@ CL.pseudo=(function(){var g=el("g",{},gCls);
   tx(g,730,392,"Pseudounipolar","tn",18,"middle");tx(g,730,416,"One stalk that splits","t",15,"middle");return g;})();
 function classes(keys){for(var k in CL)CL[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(CL[k])CL[k].setAttribute("display","");});}
 
-/* ---- functional classes ---- */
-var gFun=G("funclass");
-(function(){var g=gFun;
-  tx(g,120,120,"Sensory","tm",19,"middle");tx(g,120,146,"skin to spinal cord","t",15,"middle");
-  arrow(g,120,170,120,232,MAROON,6);
-  tx(g,450,120,"Interneuron","tm",19,"middle");tx(g,450,146,"inside the CNS","t",15,"middle");
-  arrow(g,380,252,520,252,MAROON,6);
-  tx(g,780,120,"Motor","tm",19,"middle");tx(g,780,146,"spinal cord to muscle","t",15,"middle");
-  arrow(g,780,232,780,170,MAROON,6);
+/* ---- where each shape lives ---- */
+var gClsLoc=G("clsloc");
+tx(gClsLoc,170,196,"CNS and motor neurons","tm",16,"middle");
+tx(gClsLoc,450,196,"Retina, olfactory epithelium","tm",16,"middle");
+tx(gClsLoc,730,196,"Dorsal root ganglion","tm",16,"middle");
+
+/* ---- map of the nervous system ---- */
+var gMap=G("map");
+var MP={};
+function box(g,x,y,w,h,dash){var a={x:x,y:y,width:w,height:h,rx:12,fill:"#fff",stroke:NAVY,"stroke-width":3};if(dash)a["stroke-dasharray"]=dash;return el("rect",a,g);}
+MP.cns=(function(){var g=el("g",{},gMap);box(g,300,18,300,66);
+  tx(g,450,46,"Central nervous system","tn",20,"middle");tx(g,450,70,"brain and spinal cord","t",15,"middle");return g;})();
+MP.pns=(function(){var g=el("g",{},gMap);
+  tx(g,450,118,"Everything outside it is the peripheral nervous system (PNS)","t",16,"middle");return g;})();
+MP.aff=(function(){var g=el("g",{},gMap);box(g,40,136,220,58);
+  tx(g,150,160,"Sensory (afferent)","tn",18,"middle");tx(g,150,182,"toward the CNS","t",15,"middle");
+  arrow(g,205,134,308,90,MAROON,5);
+  tx(g,150,216,"receptors in skin, muscles,","t",15,"middle");tx(g,150,234,"eyes, ears, and organs","t",15,"middle");return g;})();
+MP.eff=(function(){var g=el("g",{},gMap);box(g,500,136,220,58);
+  tx(g,610,160,"Efferent","tn",18,"middle");tx(g,610,182,"away from the CNS","t",15,"middle");
+  arrow(g,560,88,596,130,MAROON,5);return g;})();
+MP.som=(function(){var g=el("g",{},gMap);box(g,380,232,190,50);
+  tx(g,475,263,"Somatic motor","tn",18,"middle");arrow(g,570,196,502,228,MAROON,5);
+  tx(g,475,306,"skeletal muscle","t",15,"middle");return g;})();
+MP.aut=(function(){var g=el("g",{},gMap);box(g,646,232,180,50);
+  tx(g,736,263,"Autonomic","tn",18,"middle");arrow(g,650,196,708,228,MAROON,5);
+  tx(g,740,380,"smooth muscle, cardiac muscle,","t",15,"middle");tx(g,740,398,"glands, some adipose tissue","t",15,"middle");return g;})();
+MP.split=(function(){var g=el("g",{},gMap);box(g,590,312,140,44);box(g,740,312,150,44);
+  tx(g,660,339,"Sympathetic","tn",16,"middle");tx(g,815,339,"Parasympathetic","tn",16,"middle");
+  arrow(g,716,284,678,308,MAROON,4);arrow(g,756,284,796,308,MAROON,4);return g;})();
+MP.ent=(function(){var g=el("g",{},gMap);box(g,40,262,250,58,"8 6");
+  tx(g,165,286,"Enteric nervous system","tn",17,"middle");tx(g,165,308,"in the wall of the gut","t",15,"middle");
+  tx(g,165,342,"runs the digestive tract","t",15,"middle");return g;})();
+MP.tags=(function(){var g=el("g",{},gMap);
+  tx(g,236,104,"sensory neurons","tm",16,"end");
+  tx(g,418,114,"interneurons, inside the CNS","tm",16,"middle");
+  tx(g,606,104,"efferent neurons","tm",16,"start");return g;})();
+function mapShow(keys){for(var k in MP)MP[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(MP[k])MP[k].setAttribute("display","");});}
+var MAPALL=["cns","aff","eff","som","aut","split","ent"];
+var gMapSig=G("mapsig");
+var MSIG=el("circle",{cx:0,cy:0,r:10,fill:MAROON},gMapSig);
+place(gMapSig,200,137);
+
+/* ---- two inputs, near and far ---- */
+var gSig2=G("sig2");
+var SIG2=el("circle",{cx:0,cy:0,r:13,fill:MAROON},gSig2);
+place(gSig2,262,252);
+
+/* ---- a train of identical action potentials ---- */
+var gTrain=G("train");
+var TR=[0,1,2].map(function(){var g=el("g",{},gTrain);el("circle",{r:13,fill:MAROON},g);place(g,330,290);return g;});
+
+/* ---- calcium entry and transmitter release ---- */
+var gCa=G("calcium");
+function ionCa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Ca";return g;}
+var CA1=ionCa(gCa),CA2=ionCa(gCa);
+var NT=[238,290,342].map(function(y){var g=el("g",{},gCa);el("circle",{r:7,fill:GDEEP},g);place(g,834,y);g._y0=y;return g;});
+function caStart(){place(CA1,812,156);place(CA2,812,424);NT.forEach(function(g){place(g,834,g._y0);g.setAttribute("display","none");});}
+function caEnd(){place(CA1,812,200);place(CA2,812,380);NT.forEach(function(g){place(g,870,g._y0);g.setAttribute("display","");});}
+caStart();
+
+/* ---- which signal each region carries ---- */
+var gStype=G("stype");
+var STY=[tx(gStype,170,420,"Graded","tm",20,"middle"),tx(gStype,352,346,"Threshold here","t",15,"middle"),tx(gStype,540,420,"All or none","tm",20,"middle"),tx(gStype,812,410,"Chemical","tm",20,"middle")];
+function stype(n){STY.forEach(function(t,i){t.setAttribute("display",i<n?"":"none");});}
+
+/* ---- glia sorted by location ---- */
+var gSort=G("gsort");
+el("line",{x1:450,y1:70,x2:450,y2:440,stroke:INK2,"stroke-width":3},gSort);
+tx(gSort,225,96,"Central nervous system","tn",20,"middle");
+tx(gSort,675,96,"Peripheral nervous system","tn",20,"middle");
+var SORTL=["Astrocytes","Oligodendrocytes","Microglia","Ependymal cells"].map(function(s,i){return tx(gSort,225,170+i*62,s,"tm",20,"middle");});
+var SORTR=["Schwann cells","Satellite cells"].map(function(s,i){return tx(gSort,675,170+i*62,s,"tm",20,"middle");});
+function sortShow(l,r){SORTL.forEach(function(t,i){t.setAttribute("display",i<l?"":"none");});SORTR.forEach(function(t,i){t.setAttribute("display",i<r?"":"none");});}
+
+/* ---- blood-brain barrier ---- */
+var gBBB=G("bbb");
+(function(){var g=gBBB;
+  el("line",{x1:450,y1:170,x2:726,y2:156,stroke:MAROON,"stroke-width":7,"stroke-linecap":"round"},g);
+  el("circle",{cx:760,cy:150,r:30,fill:"#fff",stroke:NAVY,"stroke-width":5},g);
+  [[-1,-1],[1,-1],[1,1]].forEach(function(d){el("line",{x1:760+d[0]*30,y1:150+d[1]*22,x2:760+d[0]*62,y2:150+d[1]*52,stroke:NAVY,"stroke-width":6,"stroke-linecap":"round"},g);});
+  tx(g,760,236,"Neuron","t",16,"middle");
+  [330,450,570].forEach(function(x){el("line",{x1:450,y1:170,x2:x,y2:312,stroke:MAROON,"stroke-width":7,"stroke-linecap":"round"},g);
+    el("rect",{x:x-30,y:306,width:60,height:16,rx:8,fill:"#fff",stroke:MAROON,"stroke-width":4},g);});
+  for(var i=0;i<8;i++){var a=Math.PI+i*Math.PI/7;el("line",{x1:450,y1:170,x2:450+Math.cos(a)*40,y2:170+Math.sin(a)*40,stroke:MAROON,"stroke-width":6,"stroke-linecap":"round"},g);}
+  el("circle",{cx:450,cy:170,r:22,fill:"#fff",stroke:MAROON,"stroke-width":5},g);
+  tx(g,450,112,"Astrocyte","t",16,"middle");tx(g,290,319,"End feet","t",15,"end");
+  el("rect",{x:100,y:330,width:700,height:90,rx:45,fill:TINT,stroke:NAVY,"stroke-width":4},g);
+  [250,450,650].forEach(function(x){el("line",{x1:x,y1:322,x2:x,y2:338,stroke:NAVY,"stroke-width":4},g);});
+  tx(g,662,316,"Tight junction","t",15,"start");
+  tx(g,230,386,"Blood in a capillary","t",16,"middle");
 })();
+var LIP=el("g",{},gBBB);el("circle",{r:10,fill:INK2},LIP);
+var WAT=el("g",{},gBBB);el("circle",{r:10,fill:GDEEP},WAT);
+var BBBL=[tx(gBBB,160,250,"lipid-soluble","t",15,"middle"),tx(gBBB,520,402,"water-soluble","t",15,"middle")];
+function bbbStart(){place(LIP,160,375);place(WAT,520,375);BBBL.forEach(function(t){t.setAttribute("display","none");});}
+function bbbEnd(){place(LIP,160,270);place(WAT,520,346);BBBL.forEach(function(t){t.setAttribute("display","");});}
+bbbStart();
+
+/* ---- current flowing node to node ---- */
+var gCur=G("current");
+var CUR=[[338,440],[456,558],[574,676]].map(function(s){return arrow(gCur,s[0],240,s[1],240,MAROON,5);});
+function curShow(n){CUR.forEach(function(a,i){a.setAttribute("display",i<n?"":"none");});}
+
+/* ---- sodium channel density along a myelinated axon ---- */
+var gNa=G("nadens");
+tx(gNa,330,376,"Sodium channels along the axon","t",15,"start");
+el("line",{x1:330,y1:432,x2:742,y2:432,stroke:INK2,"stroke-width":2},gNa);
+[372,410,490,528,608,646,714].forEach(function(x){el("rect",{x:x-5,y:426,width:10,height:6,fill:INK2},gNa);});
+var NAB=[446,564,682].map(function(x){return el("rect",{x:x-9,y:432,width:18,height:0,fill:MAROON},gNa);});
+function naH(h){NAB.forEach(function(r){r.setAttribute("y",432-h);r.setAttribute("height",h);});}
+
+/* ---- fast and slow transport ---- */
+var gSpd=G("speed");
+var VES3=el("g",{},gSpd);el("rect",{x:-18,y:-12,width:36,height:24,rx:6,fill:INK2},VES3);
+tx(gSpd,330,392,"Fast: up to about 400 mm per day","t",16,"start");
+tx(gSpd,330,420,"Slow: about 0.2 to 2.5 mm per day","t",16,"start");
+place(VES3,330,332);
 
 /* ---- transport ---- */
 var gTrack=G("track");
@@ -369,6 +520,8 @@ el("line",{x1:330,y1:302,x2:742,y2:302,stroke:INK2,"stroke-width":3,"stroke-dash
 var gVes=G("vesicle");
 var VES=el("g",{},gVes);el("circle",{r:16,fill:GDEEP},VES);
 var VES2=el("g",{},gVes);el("circle",{r:16,fill:MAROON},VES2);
+var MOTL=[tx(VES,0,-26,"kinesin","tn",15,"middle"),tx(VES2,0,-26,"dynein","tn",15,"middle")];
+function motorLabs(on){MOTL.forEach(function(t){t.setAttribute("display",on?"":"none");});}
 place(VES,330,266);place(VES2,742,266);
 
 /* ---- damage marks ---- */
@@ -383,130 +536,264 @@ var CAP=tx(gCap,392,526,"","tn",18,"middle");
 function cap(s){CAP.textContent=s||"";}
 
 function myelin(on){mySegs.forEach(function(r,i){r.setAttribute("display",on&&(on===true||on.indexOf(i)>=0)?"":"none");});}
-function resetAll(){labs([]);jobs(0);glia([]);classes([]);cap("");myelin(true);fade(gMy,1);}
+function resetAll(){labs([]);jobs(0);glia([]);classes([]);cap("");myelin(true);fade(gMy,1);
+  SIG.setAttribute("r",13);SIG2.setAttribute("r",13);mapShow([]);place(gMapSig,200,137);motorLabs(false);
+  TR.forEach(function(g){place(g,330,290);g.setAttribute("display","none");});
+  caStart();stype(0);sortShow(0,0);bbbStart();curShow(0);naH(0);place(VES3,330,332);}
 /* ======================= steps ======================= */
-var BASE=["soma","dend","hill","axon","term","labels","caption"];
 function S(list){only(list);resetAll();}
 
 var STEPS=[
-/* ---- 1. what a neuron does ---- */
-{sec:"What a neuron does",comp:"Functional regions of a neuron",
- title:"One cell with three jobs",
- text:["Think about touching something hot. Information has to get from your fingertip to your spinal cord, and a decision has to come back out to the muscle that pulls your hand away.","A neuron is built to do that. It takes in a signal at one end, decides whether the signal is worth passing on, and sends it out the other end."],
- desc:"A neuron is shown with branches on the left, a round cell body, and a long fiber running to the right.",
+/* ---- 1. map of the nervous system ---- */
+{sec:"The map of the nervous system",comp:"Neuron structural and functional classes",
+ title:"Where the decisions get made",
+ text:["Before you meet a single neuron, it helps to see the whole system it belongs to. Picture reaching for a pan and pulling your hand back the instant you feel how hot it is. Information came in from your skin, something decided what to do, and a command went out to the muscles of your arm.","The deciding happens in the brain and spinal cord. Everything else, every nerve running out to your skin, muscles, and organs, is the wiring that carries information in and commands out."],
+ name:"central nervous system (CNS) and peripheral nervous system (PNS)",
  auto:true,
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","caption","job"]);jobs(0);},
- play:function(a){return wait(300,a).then(function(){jobs(1);return wait(600,a);}).then(function(){jobs(2);return wait(600,a);}).then(function(){jobs(3);cap("Receive, decide, send.");});},
- post:function(){only(["soma","dend","hill","axon","term","caption","job"]);jobs(3);cap("Receive, decide, send.");}},
+ desc:"A box at the top of the map is labelled central nervous system, brain and spinal cord. A line of text beneath it says everything outside it is the peripheral nervous system.",
+ pre:function(){S(["map","caption"]);mapShow([]);},
+ play:function(a){mapShow(["cns"]);return wait(700,a).then(function(){mapShow(["cns","pns"]);cap("The brain and spinal cord decide.");});},
+ post:function(){mapShow(["cns","pns"]);cap("The brain and spinal cord decide.");}},
 
-{title:"Where the signal comes in",
- text:["The branches on the left are where other cells make contact. There are a lot of them, because one neuron may be listening to thousands of others at the same time."],
- ask:"If the branches are where signals arrive, what do you think happens to a signal that arrives at the far tip of a branch?",
- ans:["It travels along the branch toward the cell body. Signals that come in here spread inward, toward the middle of the cell.","Notice the signal gets weaker as it goes. These incoming signals fade with distance, which matters a lot once we get to graded potentials."],
- name:"dendrites",
- desc:"A red dot appears at the tip of a branch and travels inward along the branch toward the cell body, getting smaller as it goes.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend"]);place(gSig,92,168);SIG.setAttribute("r",13);},
- play:function(a){SIG.setAttribute("r",13);return tweenPath(gSig,[[150,215],[230,290]],1200,a).then(function(){SIG.setAttribute("r",8);cap("It spreads inward and fades.");});},
- post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend"]);place(gSig,230,290);SIG.setAttribute("r",8);cap("It spreads inward and fades.");}},
+{title:"Information coming in",
+ text:["Information reaches the central nervous system from sensory receptors all over the body. Some sit in your skin and muscles, some are in your eyes and ears, and many sit inside your organs, reporting on things like blood pressure and how full your stomach is.","All of that incoming traffic travels on one half of the peripheral wiring."],
+ ask:"After a big meal, stretch receptors in your stomach wall send a signal. Which way is that signal traveling, toward the central nervous system or away from it?",
+ ans:["Toward it. Every signal that reports on the body, whether it starts in the skin, a muscle, an eye, or an organ, travels inward to the brain and spinal cord.","This inward half of the peripheral nervous system is the sensory division, also called the afferent division. Afferent means carrying toward. A signal does not have to reach your awareness to count, and most of the signals from your organs never do."],
+ name:"sensory, or afferent, division",
+ desc:"A box labelled sensory, afferent, sits at the left of the map with an arrow pointing up into the central nervous system. A red dot travels along the arrow toward the central nervous system.",
+ pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","aff"]);place(gMapSig,200,137);},
+ play:function(a){return tweenPath(gMapSig,[[298,94]],1000,a).then(function(){cap("Sensory signals travel in.");});},
+ post:function(){place(gMapSig,298,94);cap("Sensory signals travel in.");}},
 
-{title:"The cell body adds it all up",
- text:["The round part in the middle holds the nucleus and keeps the cell alive, but it also does something more interesting. Every signal arriving on every branch arrives here at roughly the same time, and they add together."],
- name:"cell body, or soma",
+{title:"Commands going out",
+ text:["The other half of the peripheral wiring carries commands outward, from the central nervous system to the tissues that actually carry them out. Those tissues are called effectors, and they are muscles and glands."],
+ name:"efferent division",
  auto:true,
- desc:"Three red dots travel down three different branches and meet at the cell body.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma"]);place(gSig,92,168);SIG.setAttribute("r",13);},
- play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){cap("Many branches add together here.");});},
- post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma"]);place(gSig,230,290);cap("Many branches add together here.");}},
+ desc:"An arrow leaves the central nervous system and points down to a box labelled efferent, away from the CNS. A red dot travels down the arrow.",
+ pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","aff","eff"]);place(gMapSig,562,91);},
+ play:function(a){return tweenPath(gMapSig,[[592,126]],800,a).then(function(){cap("Commands travel away from the CNS.");});},
+ post:function(){place(gMapSig,592,126);cap("Commands travel away from the CNS.");}},
 
-{title:"The decision point",
- text:["Right where the cell body narrows into the long fiber, there is a small patch that acts as the decision point. This is the spot that decides whether everything the neuron just heard is enough to send a signal onward.","The gold wedge marks it."],
- ask:"Why would it make sense for the decision point to sit right there, between the incoming branches and the outgoing fiber, rather than somewhere out on a branch?",
- ans:["Because everything has to pass through that spot on the way out. Putting the decision there means the cell can add up all the incoming signals first, then decide once.","This patch is unusually sensitive. It has the highest density of voltage-gated sodium channels in the neuron, which is why it reaches threshold before anywhere else does."],
- name:"axon hillock, also called the trigger zone",
- desc:"A gold wedge between the cell body and the long fiber is highlighted, with signals arriving at it from the branches.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["soma","hill"]);place(gSig,92,168);},
- play:function(a){return tweenPath(gSig,[[150,215],[230,290],[310,290]],1400,a).then(function(){cap("Everything out passes through here.");});},
- post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["soma","hill"]);place(gSig,310,290);cap("Everything out passes through here.");}},
+{title:"Two kinds of targets",
+ text:["The efferent division splits by what it controls. One branch runs your skeletal muscles, the ones that move your bones. The other runs smooth muscle, cardiac muscle, glands, and some adipose tissue, which is most of the quiet work that keeps your organs running."],
+ ask:"Picking up a pencil and speeding up your heart are both commands leaving the central nervous system. Which one can you do on purpose, and which branch do you think carries each command?",
+ ans:["You pick up the pencil on purpose, and that command travels on the branch to skeletal muscle. Your heart speeds up without your deciding it, and that command travels on the branch to cardiac muscle, smooth muscle, and glands.","The branch to skeletal muscle is the somatic motor division. The branch to everything else is the autonomic division, sometimes called the visceral nervous system because it controls the internal organs. Reflexes can also use the somatic motor pathway without any decision on your part."],
+ name:"somatic motor division and autonomic division",
+ desc:"The efferent box splits into two boxes: somatic motor, above the words skeletal muscle, and autonomic, above the words smooth muscle, cardiac muscle, glands, some adipose tissue.",
+ pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff"]);},
+ play:function(a){return wait(300,a).then(function(){mapShow(["cns","aff","eff","som"]);return wait(700,a);}).then(function(){mapShow(["cns","aff","eff","som","aut"]);cap("Skeletal muscle, or everything else.");});},
+ post:function(){mapShow(["cns","aff","eff","som","aut"]);cap("Skeletal muscle, or everything else.");}},
 
-{title:"The long fiber out",
- text:["Past the decision point, the cell sends out one long fiber. There is only ever one, and it can be very long. A motor neuron running from the base of your spine to your foot has a fiber close to a meter long, all part of one cell."],
- name:"axon",
- auto:true,
- desc:"A red dot travels the length of the long fiber from left to right without shrinking.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["axon"]);place(gSig,330,290);},
- play:function(a){return tweenPath(gSig,[[742,290]],1400,a).then(function(){cap("One fiber out, and it does not fade.");});},
- post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["axon"]);place(gSig,742,290);cap("One fiber out, and it does not fade.");}},
+{title:"The autonomic branch splits in two",
+ text:["The autonomic division has two branches of its own. One prepares the body for stress and effort, raising heart rate and sending more blood to working muscles. The other runs the body's maintenance, such as digestion, and slows the heart when you are calm."],
+ ask:"Many organs, including the heart, receive input from both autonomic branches. If one branch speeds the heart up, what would you predict the other one does to it?",
+ ans:["It slows the heart down. The two branches often have opposite effects on the same organ, so the organ's activity at any moment reflects the balance between them.","The branch for stress and effort is the sympathetic branch, often called fight-or-flight. The maintenance branch is the parasympathetic branch, often called rest-and-digest. You will build the autonomic division in detail later in the course."],
+ name:"sympathetic and parasympathetic branches",
+ desc:"The autonomic box splits into two smaller boxes, sympathetic and parasympathetic.",
+ pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff","som","aut"]);},
+ play:function(a){return wait(400,a).then(function(){mapShow(["cns","aff","eff","som","aut","split"]);cap("Two branches, often opposite effects.");});},
+ post:function(){mapShow(["cns","aff","eff","som","aut","split"]);cap("Two branches, often opposite effects.");}},
 
-{title:"The end of the line",
- text:["At the far end, the fiber splits into small swellings that sit against the next cell, whether that is another neuron, a muscle fiber, or a gland."],
- ask:"The signal coming down the fiber is electrical. The swellings at the end do not touch the next cell directly, there is a tiny gap. What do you think has to happen for the message to cross?",
- ans:["The electrical signal has to be converted into something that can cross a gap, which turns out to be a chemical the terminal releases.","That is the whole reason chemical messengers exist at synapses. You will build this in detail later in the chapter."],
- name:"axon terminals",
- desc:"The fiber splits into three branches ending in filled knobs.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["term"]);place(gSig,330,290);},
- play:function(a){return tweenPath(gSig,[[742,290],[790,290]],1200,a).then(function(){cap("Now it has to cross a gap.");});},
- post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["term"]);place(gSig,790,290);cap("Now it has to cross a gap.");}},
+{title:"A nervous system in the gut wall",
+ text:["One more part completes the map. The wall of your digestive tract contains its own dense network of neurons along its whole length, and that network controls how the gut moves and what it secretes."],
+ ask:"When food stretches a section of intestine, the smooth muscle there contracts to push the food along. This still happens in a piece of intestine whose connections to the brain and spinal cord have been cut. What does that tell you about the network in the gut wall?",
+ ans:["It can sense, decide, and command on its own. The network acts as its own integrating center, so simple gut reflexes do not need the brain or spinal cord at all.","This is the enteric nervous system. It can work independently, but the autonomic division normally adjusts it, speeding digestion during rest and slowing it during stress."],
+ name:"enteric nervous system",
+ desc:"A dashed box appears at the lower left of the map, labelled enteric nervous system, in the wall of the gut, runs the digestive tract.",
+ pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff","som","aut","split"]);},
+ play:function(a){return wait(400,a).then(function(){mapShow(MAPALL);cap("The gut has its own network.");});},
+ post:function(){mapShow(MAPALL);cap("The gut has its own network.");}},
 
-{title:"The whole route, once through",
- text:["Put the four regions together and you have the path a signal takes through a single neuron: in at the branches, added up at the cell body, decided at the trigger zone, out along the fiber to the terminals."],
- name:"the functional regions of a neuron",
- auto:true,
- desc:"A red dot travels the full route from a branch tip through the cell body, the trigger zone, along the fiber, to the terminals.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma","hill","axon","term"]);place(gSig,92,168);},
- play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],500,a);}).then(function(){return tweenPath(gSig,[[742,290],[790,290]],1300,a);}).then(function(){cap("Receive, add, decide, send.");});},
- post:function(){only(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma","hill","axon","term"]);place(gSig,790,290);cap("Receive, add, decide, send.");}},
+{title:"Neurons sorted by direction",
+ text:["Now put individual neurons onto the map. The simplest way to sort them is by which way they carry information.","Sensory neurons carry information toward the central nervous system. Efferent neurons, often called motor neurons, carry commands away from it. Interneurons sit entirely inside the central nervous system and connect the other two."],
+ ask:"Roughly 99 percent of the neurons in your body are interneurons. Why would that be?",
+ ans:["Because most of what your nervous system does is process, compare, and decide, not just detect and act. All of that work happens between the incoming and outgoing signals, inside the brain and spinal cord.","You can see this when you sit still and work through a problem in your head. Nothing new comes in and nothing goes out, yet your central nervous system is busy, and the neurons doing that work are interneurons."],
+ name:"sensory (afferent) neurons, efferent (motor) neurons, and interneurons",
+ desc:"The full map, with labels showing sensory neurons on the incoming arrow, interneurons inside the central nervous system, and efferent neurons on the outgoing arrow.",
+ pre:function(){S(["map","caption"]);mapShow(MAPALL);},
+ play:function(a){return wait(400,a).then(function(){mapShow(MAPALL.concat(["tags"]));cap("Toward, away, and in between.");});},
+ post:function(){mapShow(MAPALL.concat(["tags"]));cap("Toward, away, and in between.");}},
 
-/* ---- 2. classes ---- */
-{sec:"Kinds of neurons",comp:"Neuron structural and functional classes",
+/* ---- 2. shapes ---- */
+{sec:"Neuron shapes",comp:"Neuron structural and functional classes",
  title:"Sorted by shape",
- text:["Neurons do not all look like the one you just walked through. They get sorted by how many processes come off the cell body.","Most neurons in your brain and spinal cord are the first kind, with many branches and one long fiber."],
+ text:["Neurons also come in different shapes. Every neuron has short branches that receive signals, called dendrites, and one long fiber that carries the signal away, called the axon. You will follow a signal through each of those parts in the next section.","For now, count how many of these extensions, or processes, leave the cell body. That count sorts neurons into three main shapes. Most neurons in your brain and spinal cord are the first kind, with many dendrites and one axon."],
  name:"multipolar, bipolar, and pseudounipolar neurons",
  auto:true,
  desc:"Three neuron shapes appear side by side: one with many branches, one with a branch on each side, and one with a single stalk that splits in two.",
  pre:function(){S(["classes","caption"]);classes([]);},
  play:function(a){classes(["multi"]);return wait(700,a).then(function(){classes(["multi","bi"]);return wait(700,a);}).then(function(){classes(["multi","bi","pseudo"]);cap("Shape follows the job.");});},
- post:function(){only(["classes","caption"]);classes(["multi","bi","pseudo"]);cap("Shape follows the job.");}},
+ post:function(){classes(["multi","bi","pseudo"]);cap("Shape follows the job.");}},
 
 {title:"Shape follows the job",
  text:["Bipolar neurons sit in places where a signal only needs to go straight through, like the retina and the olfactory epithelium. Pseudounipolar neurons carry sensation from your skin, and their one stalk splits so the signal can run from the skin straight past the cell body toward the spinal cord."],
  ask:"You step on something sharp. That sensory signal is carried by a pseudounipolar neuron whose cell body sits off to the side, not in the signal's path. Why is that useful?",
- ans:["The signal does not have to detour through the cell body. It runs straight from the skin to the spinal cord, which is faster.","This is why pain and touch from your skin get to the spinal cord so quickly. The cell body sits in a ganglion just off the main road."],
+ ans:["The signal does not have to detour through the cell body. It runs as one continuous signal along a single fiber from the skin to the spinal cord, and it never has to spread across the cell body, where it could fade.","The cell body still makes the proteins the neuron needs. It sits off the main road in a dorsal root ganglion, a cluster of sensory cell bodies just outside the spinal cord."],
  desc:"The pseudounipolar neuron is highlighted, showing a signal running along the stalk past the cell body without entering it.",
  pre:function(){S(["classes","caption"]);classes(["pseudo"]);},
- play:function(a){return wait(500,a).then(function(){cap("The signal bypasses the cell body entirely.");});},
- post:function(){only(["classes","caption"]);classes(["pseudo"]);cap("The signal bypasses the cell body entirely.");}},
+ play:function(a){return wait(500,a).then(function(){cap("The signal bypasses the cell body.");});},
+ post:function(){classes(["pseudo"]);cap("The signal bypasses the cell body.");}},
 
-{title:"Sorted by direction instead",
- text:["There is a second way to sort neurons, and it has nothing to do with shape. It is about which way the information is traveling.","Sensory neurons carry information toward the central nervous system. Motor neurons carry commands away from it. Interneurons sit entirely inside the central nervous system and connect the other two."],
- ask:"Roughly 99 percent of the neurons in your body are interneurons. Why would that be?",
- ans:["Because most of what your nervous system does is process, compare, and decide, not just detect and act. All of that work happens between the incoming and outgoing signals.","Sensory and motor neurons are the ends of the path. Everything in between, which is almost all of it, is interneurons."],
- name:"sensory (afferent), motor (efferent), and interneurons",
- desc:"Three labels with arrows: sensory pointing toward the center, motor pointing away, interneuron connecting across.",
- pre:function(){S(["funclass","caption"]);},
- play:function(a){return wait(500,a).then(function(){cap("Toward, away, and in between.");});},
- post:function(){only(["funclass","caption"]);cap("Toward, away, and in between.");}},
+{title:"Each shape has a home",
+ text:["Each shape turns up in predictable places. Multipolar neurons are the interneurons of the brain and spinal cord and the efferent neurons, including the somatic motor neurons whose cell bodies sit in the ventral horn of the spinal cord.","Bipolar neurons are found in the retina and the olfactory epithelium. Pseudounipolar neurons are the sensory neurons for touch, pain, and stretch, with their cell bodies in the dorsal root ganglia."],
+ ask:"Sensory fibers enter the spinal cord through the dorsal root, and efferent fibers leave through a separate ventral root. If one dorsal root is cut, what would the person lose in the area it serves, and what would they keep?",
+ ans:["They would lose sensation, because the pseudounipolar sensory fibers pass through that root. They would keep the ability to move, because the multipolar motor neurons send their axons out through the ventral root, which is intact.","Shape and direction pair up in a regular way. Most sensory neurons are pseudounipolar, the sensory neurons for vision and smell are bipolar, and interneurons and efferent neurons are multipolar."],
+ desc:"The three neuron shapes, each with its location written beneath it: multipolar in the CNS and motor neurons, bipolar in the retina and olfactory epithelium, pseudounipolar in the dorsal root ganglion.",
+ pre:function(){S(["classes","clsloc","caption"]);classes(["multi","bi","pseudo"]);gClsLoc.setAttribute("display","none");},
+ play:function(a){return wait(500,a).then(function(){gClsLoc.setAttribute("display","");cap("Each shape has its own address.");});},
+ post:function(){gClsLoc.setAttribute("display","");cap("Each shape has its own address.");}},
 
-/* ---- 3. glia ---- */
+/* ---- 3. regions ---- */
+{sec:"What a neuron does",comp:"Functional regions of a neuron",
+ title:"One cell with three jobs",
+ text:["Now zoom in on a single neuron and follow a signal through it. Think back to pulling your hand away from the hot pan. Information has to get from your fingertip to your spinal cord, and a decision has to come back out to the muscle that pulls your hand away.","A neuron is built to do that. It takes in a signal at one end, decides whether the signal is worth passing on, and sends it out the other end."],
+ desc:"A neuron is shown with branches on the left, a round cell body, and a long fiber running to the right. The words receive, decide, and send appear beneath the three parts.",
+ auto:true,
+ pre:function(){S(["soma","dend","hill","axon","term","caption","job"]);jobs(0);},
+ play:function(a){return wait(300,a).then(function(){jobs(1);return wait(600,a);}).then(function(){jobs(2);return wait(600,a);}).then(function(){jobs(3);cap("Receive, decide, send.");});},
+ post:function(){jobs(3);cap("Receive, decide, send.");}},
+
+{title:"Where the signal comes in",
+ text:["The branches on the left are where other cells make contact. There are a lot of them, because one neuron may be listening to thousands of others at the same time."],
+ ask:"If the branches are where signals arrive, what do you think happens to a signal that arrives at the far tip of a branch?",
+ ans:["It travels along the branch toward the cell body. Signals that come in here spread inward, toward the middle of the cell.","Notice the signal gets weaker as it goes. These incoming signals fade with distance, and two steps from now you will see why that matters."],
+ name:"dendrites",
+ desc:"A red dot appears at the tip of a branch and travels inward along the branch toward the cell body, getting smaller as it goes.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],1200,a).then(function(){SIG.setAttribute("r",8);cap("It spreads inward and fades.");});},
+ post:function(){place(gSig,230,290);SIG.setAttribute("r",8);cap("It spreads inward and fades.");}},
+
+{title:"The cell body adds it all up",
+ text:["The round part in the middle holds the nucleus and makes the proteins the whole cell needs, but it also does something more interesting. Signals arriving on every branch spread into it, and their effects add together here."],
+ name:"cell body, or soma",
+ auto:true,
+ desc:"A red dot travels down a branch into the cell body, where signals from every branch meet.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){cap("Many branches add together here.");});},
+ post:function(){place(gSig,230,290);cap("Many branches add together here.");}},
+
+{title:"Signals that change size",
+ text:["The signals arriving on the dendrites and cell body are small, local changes in the membrane's voltage. A stronger input makes a bigger change and a weaker input makes a smaller one. Some push the cell toward firing and some push it away.","Every one of them fades as it spreads, so an input that starts far out on a dendrite has shrunk by the time it reaches the middle of the cell."],
+ ask:"Two identical inputs arrive at the same moment, one at the far tip of a dendrite and one on the cell body right next to the decision point. Which one will have the bigger effect at the decision point?",
+ ans:["The one on the cell body. It starts the same size, but it has almost no distance to travel, so it has barely faded when it arrives. The distant one shrinks along the way.","These small signals are graded potentials, graded because their size varies with the strength of the input. When several arrive together, their effects add up, which is called summation, and the total that reaches the decision point is what counts."],
+ name:"graded potentials",
+ desc:"Two red dots start the same size. One travels from the far tip of a branch and shrinks as it goes. The other starts on the cell body near the decision point and arrives almost full size.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig","sig2"]);labs(["dend","soma","hill"]);place(gSig,92,168);place(gSig2,262,252);},
+ play:function(a){var p1=tweenPath(gSig,[[150,215],[230,290],[284,300]],1400,a),
+   p2=tweenVal(13,5,1400,a,function(v){SIG.setAttribute("r",v);}),
+   p3=tweenPath(gSig2,[[300,280]],1400,a),
+   p4=tweenVal(13,11,1400,a,function(v){SIG2.setAttribute("r",v);});
+   return Promise.all([p1,p2,p3,p4]).then(function(){cap("Near input strong, far input faded.");});},
+ post:function(){place(gSig,284,300);SIG.setAttribute("r",5);place(gSig2,300,280);SIG2.setAttribute("r",11);cap("Near input strong, far input faded.");}},
+
+{title:"The decision point",
+ text:["Right where the cell body tapers into a cone and the long fiber begins, there is a small region that acts as the decision point. It includes that cone and the first stretch of the fiber. This is the spot that decides whether everything the neuron just heard is enough to send a signal onward.","The gold wedge marks it."],
+ ask:"Why would it make sense for the decision point to sit right there, between the incoming branches and the outgoing fiber, rather than somewhere out on a branch?",
+ ans:["Because everything has to pass through that spot on the way out. Putting the decision there means the cell can add up all the incoming signals first, then decide once.","This region is unusually sensitive. It has the highest density of voltage-gated sodium channels in the neuron, which is why it reaches threshold before anywhere else does. In a sensory neuron the trigger zone sits out near the receptor endings instead, but its job is the same."],
+ name:"axon hillock and initial segment, together called the trigger zone",
+ desc:"A gold wedge between the cell body and the long fiber is highlighted, and a signal arrives at it from the branches.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["soma","hill"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290],[310,290]],1400,a).then(function(){cap("Everything out passes through here.");});},
+ post:function(){place(gSig,310,290);cap("Everything out passes through here.");}},
+
+{title:"The long fiber out",
+ text:["Past the decision point, the cell sends out one long fiber. There is only ever one, although it can branch along the way, and it can be very long. A motor neuron running from the base of your spine to your foot has a fiber close to a meter long, all part of one cell."],
+ name:"axon",
+ auto:true,
+ desc:"A red dot travels the length of the long fiber from left to right without shrinking.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["axon"]);place(gSig,330,290);},
+ play:function(a){return tweenPath(gSig,[[742,290]],1400,a).then(function(){cap("One fiber out, and it does not fade.");});},
+ post:function(){place(gSig,742,290);cap("One fiber out, and it does not fade.");}},
+
+{title:"Same size, every time",
+ text:["The signal on the axon behaves completely differently from the signals on the dendrites. Once the trigger zone fires, the signal is rebuilt at full strength over and over as it travels, so it arrives at the far end exactly as big as it started."],
+ ask:"You press on your skin twice as hard. The signal on each sensory axon cannot get any bigger. How do you think the nervous system tells your brain the pressure went up?",
+ ans:["It sends the same-sized signals more often. A stronger stimulus produces a faster train of identical signals, and more neurons join in, but each individual signal stays exactly the same size.","This fixed-size signal is the action potential. It is all or none: either the trigger zone reaches threshold and a full action potential runs the length of the axon, or nothing is sent at all."],
+ name:"action potential, all or none",
+ desc:"Three red dots of identical size leave the trigger zone one after another and travel the length of the fiber without shrinking.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","train"]);labs(["hill","axon"]);},
+ play:function(a){TR.forEach(function(g){g.setAttribute("display","");});
+   return Promise.all(TR.map(function(g,i){return wait(i*350,a).then(function(){return tweenPath(g,[[790-i*70,290]],1100,a);});})).then(function(){cap("Same size, just more often.");});},
+ post:function(){TR.forEach(function(g,i){g.setAttribute("display","");place(g,790-i*70,290);});cap("Same size, just more often.");}},
+
+{title:"The end of the line",
+ text:["At the far end, the fiber splits into small swellings that sit against the next cell, whether that is another neuron, a muscle fiber, or a gland."],
+ ask:"The signal coming down the fiber is electrical. The swellings at the end do not touch the next cell directly, there is a tiny gap. What do you think has to happen for the message to cross?",
+ ans:["The electrical signal has to be converted into something that can cross a gap, which turns out to be a chemical the terminal releases, called a neurotransmitter.","The junction between a terminal and the next cell is called a synapse. The next step shows what triggers the release, and you will build the full sequence later in the chapter."],
+ name:"axon terminals",
+ desc:"The fiber splits into three branches ending in filled knobs.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["term"]);place(gSig,330,290);},
+ play:function(a){return tweenPath(gSig,[[742,290],[790,290]],1200,a).then(function(){cap("Now it has to cross a gap.");});},
+ post:function(){place(gSig,790,290);cap("Now it has to cross a gap.");}},
+
+{title:"Calcium opens the door",
+ text:["The membrane of the terminal is packed with a kind of channel you have not needed until now: voltage-gated calcium channels. Calcium is far more concentrated outside the cell than inside, so when these channels open, calcium rushes in.","The rise in calcium inside the terminal makes vesicles filled with neurotransmitter fuse with the membrane and release their contents into the gap."],
+ ask:"A drug blocks the voltage-gated calcium channels in the axon terminal and nowhere else. An action potential arrives at the terminal. What happens?",
+ ans:["The action potential arrives completely normally, because the channels along the axon are untouched. But no calcium enters, so the vesicles never fuse and no neurotransmitter is released. The message stops at the terminal.","This is where the electrical signal becomes a chemical one, and calcium entry is the link between the two."],
+ name:"voltage-gated calcium channels and neurotransmitter release",
+ desc:"A signal arrives at the terminals. Two navy calcium ions move in toward the terminal knobs, and small gold dots of neurotransmitter are released out the far side of the knobs.",
+ pre:function(){S(["soma","dend","hill","axon","term","caption","sig","calcium"]);place(gSig,600,290);caStart();},
+ play:function(a){return tweenPath(gSig,[[742,290],[790,290]],700,a).then(function(){return Promise.all([tweenPath(CA1,[[812,200]],700,a),tweenPath(CA2,[[812,380]],700,a)]);}).then(function(){NT.forEach(function(g){g.setAttribute("display","");});return Promise.all(NT.map(function(g){return tweenPath(g,[[870,g._y0]],700,a);}));}).then(function(){cap("Calcium in, transmitter out.");});},
+ post:function(){place(gSig,790,290);caEnd();cap("Calcium in, transmitter out.");}},
+
+{title:"The whole route, once through",
+ text:["Put the regions together and you have the path a signal takes through a single neuron: in at the dendrites, added up at the cell body, decided at the trigger zone, and out along the axon to the terminals."],
+ name:"the functional regions of a neuron",
+ auto:true,
+ desc:"A red dot travels the full route from a branch tip through the cell body, the trigger zone, along the fiber, to the terminals.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma","hill","axon","term"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],500,a);}).then(function(){return tweenPath(gSig,[[742,290],[790,290]],1300,a);}).then(function(){cap("Receive, add, decide, send.");});},
+ post:function(){place(gSig,790,290);cap("Receive, add, decide, send.");}},
+
+{title:"Which signal each region carries",
+ text:["You have now seen three kinds of signal in one cell: small signals that change size and fade, a fixed-size signal that travels without fading, and a chemical released at the end."],
+ ask:"Before you look, sort the regions. Which ones carry signals that change size and fade, which one carries the fixed-size signal, and where does the signal stop being electrical?",
+ ans:["The dendrites and cell body carry graded potentials. The trigger zone is where a graded potential becomes an action potential, if it reaches threshold. The axon carries action potentials, and the axon terminal turns the electrical signal into a chemical one.","Notice that the trigger zone is the one place where the graded signals end and the voltage-gated sodium channels are densest. That overlap is exactly what makes it the decision point."],
+ desc:"The labelled neuron, with the word graded under the dendrites and cell body, threshold here under the trigger zone, all or none under the axon, and chemical under the terminals.",
+ pre:function(){S(["soma","dend","hill","axon","term","labels","caption","stype"]);labs(["dend","soma","hill","axon","term"]);stype(0);},
+ play:function(a){return [1,2,3,4].reduce(function(p,n){return p.then(function(){stype(n);return wait(450,a);});},Promise.resolve()).then(function(){cap("Graded, then all or none, then chemical.");});},
+ post:function(){stype(4);cap("Graded, then all or none, then chemical.");}},
+
+/* ---- 4. glia ---- */
 {sec:"The support cells",comp:"Glial cell functions",
- title:"Neurons are outnumbered",
- text:["Neurons get the attention, but they are not alone. A large population of support cells surrounds them, and these cells do not fire signals themselves. They keep the neurons working.","There are six main kinds. Four live in the brain and spinal cord, two live outside it."],
+ title:"Neurons are not alone",
+ text:["Neurons get the attention, but they are not alone. A large population of support cells surrounds them. Most of these cells do not carry signals themselves, but the neurons could not work without them.","There are six main kinds, and each one has its own job."],
  name:"neuroglia, or glial cells",
  auto:true,
- desc:"Several different support cell shapes appear around the scene.",
+ desc:"Six different support cell shapes appear around the scene: an astrocyte, an oligodendrocyte, a microglial cell, a row of ependymal cells, a Schwann cell, and satellite cells.",
  pre:function(){S(["glia","caption"]);glia([]);},
  play:function(a){var ks=["astro","oligo","micro","epend","schwann","satellite"],shown=[];
    return ks.reduce(function(p,k){return p.then(function(){shown.push(k);glia(shown.slice());return wait(320,a);});},Promise.resolve()).then(function(){cap("Six kinds, each with a job.");});},
- post:function(){only(["glia","caption"]);glia(["astro","oligo","micro","epend","schwann","satellite"]);cap("Six kinds, each with a job.");}},
+ post:function(){glia(["astro","oligo","micro","epend","schwann","satellite"]);cap("Six kinds, each with a job.");}},
+
+{title:"Inside or outside the CNS",
+ text:["The six kinds you just saw are astrocytes, oligodendrocytes, microglia, ependymal cells, Schwann cells, and satellite cells. Four of them work in the central nervous system, and two work out in the peripheral nervous system, in the nerves and ganglia."],
+ ask:"Which two of the six do you think work outside the brain and spinal cord? Give a reason for your guess.",
+ ans:["Schwann cells and satellite cells work in the peripheral nervous system. Astrocytes, oligodendrocytes, microglia, and ependymal cells work in the central nervous system.","A useful anchor is that each side has its own myelin maker. Oligodendrocytes make myelin in the central nervous system, and Schwann cells make it in the peripheral nervous system."],
+ desc:"A line divides the figure into two columns. The left column, central nervous system, lists astrocytes, oligodendrocytes, microglia, and ependymal cells. The right column, peripheral nervous system, lists Schwann cells and satellite cells.",
+ pre:function(){S(["gsort","caption"]);sortShow(0,0);},
+ play:function(a){return [1,2,3,4].reduce(function(p,n){return p.then(function(){sortShow(n,0);return wait(300,a);});},Promise.resolve()).then(function(){sortShow(4,1);return wait(300,a);}).then(function(){sortShow(4,2);cap("Four inside, two outside.");});},
+ post:function(){sortShow(4,2);cap("Four inside, two outside.");}},
 
 {title:"The one that controls what gets in",
- text:["Astrocytes are the most common glial cell in the brain. They wrap around blood vessels and around synapses, and they control what passes from the blood into brain tissue.","They also mop up extra potassium and leftover neurotransmitter after neurons fire."],
- ask:"Astrocytes clear extra potassium out of the fluid around neurons. Based on the resting membrane potential work you already did, what would happen if they stopped doing that?",
- ans:["Potassium would build up outside the cells. That raises the outside potassium concentration, which makes the resting membrane potential less negative and leaves neurons closer to firing.","This is exactly why astrocyte dysfunction shows up in seizure disorders. Neurons sitting closer to threshold fire more easily."],
+ text:["Astrocytes are the most common glial cell in the central nervous system. Their processes reach both blood vessels and neurons, and they control the fluid that surrounds the neurons.","They take up extra potassium after neurons fire, clear leftover neurotransmitter such as glutamate from synapses, and pass fuel from the blood to the neurons."],
+ ask:"Every time a neuron fires, a little potassium leaks out into the narrow space around it. If astrocytes stopped clearing it, what would happen to the potassium outside, and how do you think that might change how easily the neurons fire?",
+ ans:["Potassium would build up outside the cells. A higher outside potassium concentration makes the resting membrane potential less negative, which leaves neurons closer to firing. You will see exactly why in the resting membrane potential walkthrough.","This is why astrocyte dysfunction shows up in seizure disorders. Neurons sitting closer to threshold fire more easily, and activity can spread to their neighbors."],
  name:"astrocytes",
  desc:"The star-shaped astrocyte is shown alone and highlighted.",
  pre:function(){S(["glia","caption"]);glia(["astro"]);},
- play:function(a){return wait(500,a).then(function(){cap("Controls the environment around neurons.");});},
- post:function(){only(["glia","caption"]);glia(["astro"]);cap("Controls the environment around neurons.");}},
+ play:function(a){return wait(500,a).then(function(){cap("Controls the fluid around neurons.");});},
+ post:function(){glia(["astro"]);cap("Controls the fluid around neurons.");}},
+
+{title:"A wall around the brain's blood supply",
+ text:["Brain capillaries are sealed far more tightly than capillaries anywhere else. The cells of the capillary wall are joined by tight junctions, and the end feet of astrocytes, pressed against the outside of the capillary, signal those cells to form and keep those junctions."],
+ ask:"With the gaps between capillary cells sealed, a substance can only reach the brain by crossing the cells themselves, through their lipid membranes. Which kinds of molecules do you predict get through easily, and which get stuck?",
+ ans:["Small lipid-soluble molecules, such as oxygen, carbon dioxide, and alcohol, dissolve through the membranes and cross easily. Water-soluble molecules, such as glucose and amino acids, cannot, so they need transport proteins to carry them across.","This sealed boundary is the blood-brain barrier. It protects the brain from many toxins, but it also keeps out many drugs, which is a real problem when treating brain diseases."],
+ name:"blood-brain barrier",
+ desc:"An astrocyte sits above a capillary with its end feet pressed against the capillary wall and one process reaching a neuron. A gray lipid-soluble molecule passes up out of the blood through the wall, while a gold water-soluble molecule stops at the wall.",
+ pre:function(){S(["bbb","caption"]);bbbStart();},
+ play:function(a){return Promise.all([tweenPath(LIP,[[160,270]],1300,a),tweenPath(WAT,[[520,346]],700,a)]).then(function(){BBBL.forEach(function(t){t.setAttribute("display","");});cap("Lipid-soluble in, water-soluble held.");});},
+ post:function(){bbbEnd();cap("Lipid-soluble in, water-soluble held.");}},
 
 {title:"The ones that wrap",
  text:["Two glial cells make the insulating wrap around fibers. Oligodendrocytes do it in the brain and spinal cord, and each one reaches out and wraps segments of several different fibers at once.","Schwann cells do the same job outside the brain and spinal cord, but each Schwann cell wraps only one segment of one fiber."],
@@ -515,108 +802,198 @@ var STEPS=[
  name:"oligodendrocytes and Schwann cells",
  desc:"The oligodendrocyte reaching several fiber segments, and a Schwann cell wrapped around a single fiber.",
  pre:function(){S(["glia","caption"]);glia(["oligo","schwann"]);},
- play:function(a){return wait(500,a).then(function(){cap("One wraps many. One wraps a single segment.");});},
- post:function(){only(["glia","caption"]);glia(["oligo","schwann"]);cap("One wraps many. One wraps a single segment.");}},
+ play:function(a){return wait(500,a).then(function(){cap("One wraps many. One wraps one.");});},
+ post:function(){glia(["oligo","schwann"]);cap("One wraps many. One wraps one.");}},
 
-{title:"Cleanup and fluid",
- text:["Microglia are the immune cells of the nervous system. They patrol, and when they find damage or debris they clear it.","Ependymal cells line the fluid-filled spaces in the brain and spinal cord, and the tiny hairs on their surface keep cerebrospinal fluid moving.","Satellite cells surround the cell bodies of sensory neurons sitting outside the brain and spinal cord, and regulate their environment."],
- name:"microglia, ependymal cells, and satellite cells",
- desc:"The microglial cell, the lining ependymal cells with their hair-like projections, and the satellite cells surrounding a cell body.",
- pre:function(){S(["glia","caption"]);glia(["micro","epend","satellite"]);},
- play:function(a){return wait(400,a).then(function(){cap("Clean up, move fluid, support cell bodies.");});},
- post:function(){only(["glia","caption"]);glia(["micro","epend","satellite"]);cap("Clean up, move fluid, support cell bodies.");}},
+{title:"The cleanup crew",
+ text:["Microglia are specialized immune cells that live in the brain and spinal cord. In healthy tissue they patrol quietly, and when they find damage, debris, or invaders, they switch into an active state and clear it."],
+ ask:"Bacteria get into brain tissue. The blood-brain barrier keeps most of the body's circulating immune cells out. Which cells do you predict respond first?",
+ ans:["The microglia, because they are already there. They multiply and engulf the invaders, damaged cells, and debris, much as macrophages do elsewhere in the body.","Because they are the resident defenders of the central nervous system, microglia are involved in nearly every kind of brain injury and infection."],
+ name:"microglia",
+ desc:"The microglial cell, a small dark cell with many short branches, is shown alone.",
+ pre:function(){S(["glia","caption"]);glia(["micro"]);},
+ play:function(a){return wait(400,a).then(function(){cap("The immune cells of the CNS.");});},
+ post:function(){glia(["micro"]);cap("The immune cells of the CNS.");}},
 
-/* ---- 4. myelin ---- */
+{title:"Lining the fluid spaces",
+ text:["The brain and spinal cord contain connected, fluid-filled spaces: the ventricles of the brain and the central canal of the spinal cord. Ependymal cells line them and form a layer that separates the fluid from the brain tissue.","Specialized ependymal cells produce cerebrospinal fluid, and the tiny hair-like cilia on ependymal cells help keep it moving."],
+ ask:"Cerebrospinal fluid is made continuously and drains out through narrow passages. If one of those passages is blocked while the fluid keeps being made, what happens upstream of the block?",
+ ans:["Fluid builds up behind the blockage, the ventricle swells, and the rising pressure presses on the surrounding brain tissue.","This buildup is called hydrocephalus. It is a mass balance problem like the ones from Week 1: the fluid only stays steady when production and drainage match."],
+ name:"ependymal cells and cerebrospinal fluid",
+ desc:"A row of ependymal cells with hair-like cilia on their surface is shown alone.",
+ pre:function(){S(["glia","caption"]);glia(["epend"]);},
+ play:function(a){return wait(400,a).then(function(){cap("They line the fluid spaces.");});},
+ post:function(){glia(["epend"]);cap("They line the fluid spaces.");}},
+
+{title:"Support for cell bodies in ganglia",
+ text:["Satellite cells work outside the central nervous system. They form a capsule around each neuron cell body in a ganglion, such as the dorsal root ganglia beside the spinal cord, and they regulate the fluid around those cell bodies much as astrocytes do in the brain.","They are a kind of Schwann cell that does not make myelin."],
+ name:"satellite cells",
+ auto:true,
+ desc:"A neuron cell body surrounded by a ring of small satellite cells.",
+ pre:function(){S(["glia","caption"]);glia(["satellite"]);},
+ play:function(a){return wait(400,a).then(function(){cap("A capsule around each cell body.");});},
+ post:function(){glia(["satellite"]);cap("A capsule around each cell body.");}},
+
+{title:"Why a cut nerve in your arm can heal",
+ text:["When an axon is cut, the part separated from the cell body dies, because it is no longer being supplied. What happens next depends on which glial cells surround it."],
+ ask:"A person cuts a nerve in the forearm and also damages a tract in the spinal cord. Months later the forearm has recovered much of its function, but the spinal cord damage has not. Using the glial cells you have met, what might explain the difference?",
+ ans:["In the peripheral nervous system, Schwann cells survive the injury, clear debris, line up into a tube, and release growth factors, so the cut axon can regrow along the path they form. In the central nervous system, oligodendrocytes and astrocytes release molecules that block regrowth, and astrocytes form a scar.","Peripheral axons regrow slowly, at roughly a millimeter a day, so recovery takes months. You will see why that pace is so slow in the axonal transport section."],
+ desc:"The Schwann cell on a single fiber and the oligodendrocyte reaching several fibers, shown side by side.",
+ pre:function(){S(["glia","caption"]);glia(["oligo","schwann"]);},
+ play:function(a){return wait(400,a).then(function(){cap("Schwann cells guide regrowth.");});},
+ post:function(){glia(["oligo","schwann"]);cap("Schwann cells guide regrowth.");}},
+
+/* ---- 5. myelin ---- */
 {sec:"Myelin and what happens when it is lost",comp:"Myelin and its loss",
  title:"Wrapping the fiber",
- text:["Now put the wrapping back on the neuron you started with. The insulation covers the long fiber in segments, with small bare gaps between them."],
+ text:["Now put the wrapping back on the neuron you followed earlier. Each segment of insulation is a glial cell's own membrane, wound around the fiber many times. Membrane is mostly lipid, and ions cannot cross lipid, so these layers act as electrical insulation.","The insulation covers the fiber in segments, with small bare gaps between them."],
  name:"myelin sheath and nodes of Ranvier",
  auto:true,
  desc:"Insulating segments appear along the long fiber, with small bare gaps between them.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption"]);labs([]);myelin([]);},
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","labels","caption"]);myelin([]);},
  play:function(a){myelin([0]);return wait(400,a).then(function(){myelin([0,1]);return wait(400,a);}).then(function(){myelin([0,1,2]);labs(["my","node"]);cap("Insulated segments, bare gaps between.");});},
- post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption"]);myelin(true);labs(["my","node"]);cap("Insulated segments, bare gaps between.");}},
+ post:function(){myelin(true);labs(["my","node"]);cap("Insulated segments, bare gaps between.");}},
 
 {title:"Why the gaps matter",
- text:["The insulation stops charge from leaking out through the covered stretches. The signal can only be regenerated at the bare gaps, so it effectively jumps from gap to gap instead of crawling along every inch of the fiber."],
- ask:"Jumping from gap to gap instead of traveling along every part of the fiber. What does that do to the speed of the signal?",
- ans:["It makes it much faster. A myelinated fiber can carry a signal well over a hundred times faster than a bare one of the same diameter.","The science name for this jumping is saltatory conduction, from the Latin for leaping. You will build the mechanism in the conduction section."],
+ text:["The insulation stops charge from leaking out through the covered stretches. The signal can only be regenerated at the bare gaps, so it effectively jumps from gap to gap instead of being rebuilt along every bit of the fiber."],
+ ask:"If the signal jumps from gap to gap instead of being rebuilt along every part of the fiber, what do you think that does to its speed?",
+ ans:["It makes it much faster. A large myelinated fiber carries a signal at up to about 120 meters per second, while a thin unmyelinated fiber manages only about 0.5 to 2 meters per second. Over the one meter from your toe to your spinal cord, that is about 20 milliseconds at 50 meters per second, against a full second at 1 meter per second.","The science name for this jumping is saltatory conduction, from the Latin for leaping. You will build the mechanism in the conduction section."],
  name:"saltatory conduction",
  desc:"A red dot jumps along the fiber from one bare gap to the next rather than sliding continuously.",
- pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","caption","sig"]);myelin(true);place(gSig,330,290);},
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","caption","sig"]);place(gSig,330,290);},
  play:function(a){return tweenPath(gSig,[[446,290]],260,a).then(function(){return wait(120,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return wait(120,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],260,a);}).then(function(){cap("It jumps gap to gap. Fast.");});},
- post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","caption","sig"]);myelin(true);place(gSig,790,290);cap("It jumps gap to gap. Fast.");}},
+ post:function(){place(gSig,790,290);cap("It jumps gap to gap. Fast.");}},
+
+{title:"How insulation buys speed",
+ text:["The slow part of conduction is not current moving along the inside of the fiber, which is fast. The slow part is the membrane opening its channels to rebuild the signal. A bare fiber has to rebuild it at every patch of membrane, because current leaks out and fades within a short distance.","Myelin stops the leak. Current from one gap flows along the inside of the fiber, under the insulation, and reaches the next gap still strong enough to rebuild the signal there."],
+ ask:"Imagine a fiber with normal myelin but with the gaps placed much closer together, so there are many more of them over the same distance. Would that fiber conduct faster or slower?",
+ ans:["Slower. Every gap is another place the signal has to be rebuilt, and rebuilding is the slow step, so more gaps means more delay over the same distance.","In electrical terms, myelin raises the resistance of the membrane, so less current leaks out, and lowers its capacitance, so less charge is needed to change the voltage of the covered membrane. A wider fiber helps too, because it offers less resistance to current flowing along the inside."],
+ name:"membrane resistance and capacitance",
+ desc:"Red arrows above the myelinated fiber show current passing from the trigger zone to the first gap, then from gap to gap under the insulation.",
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","current"]);labs(["my","node"]);curShow(0);},
+ play:function(a){return [1,2,3].reduce(function(p,n){return p.then(function(){curShow(n);return wait(500,a);});},Promise.resolve()).then(function(){cap("Current reaches the next gap.");});},
+ post:function(){labs(["my","node"]);curShow(3);cap("Current reaches the next gap.");}},
+
+{title:"Sodium channels crowd at the nodes",
+ text:["If the signal is only rebuilt at the gaps, the neuron does not need the equipment for rebuilding it anywhere else."],
+ ask:"Rebuilding the signal takes voltage-gated sodium channels. Along a myelinated fiber, where would you expect most of those channels to be?",
+ ans:["Packed into the gaps. Voltage-gated sodium channels are densely clustered at the nodes of Ranvier, and there are very few in the membrane under the myelin.","That arrangement is efficient, but it has a cost you will see next. Membrane that has always been covered is not equipped to rebuild a signal on its own."],
+ name:"sodium channels clustered at the nodes of Ranvier",
+ desc:"A small graph under the fiber shows sodium channel density along the axon: tall bars at each gap and only tiny bars under the myelin.",
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","nadens"]);labs(["my","node"]);naH(0);},
+ play:function(a){return tweenVal(0,50,900,a,naH).then(function(){cap("Crowded at gaps, sparse under myelin.");});},
+ post:function(){labs(["my","node"]);naH(50);cap("Crowded at gaps, sparse under myelin.");}},
 
 {title:"When the wrapping is stripped",
- text:["In multiple sclerosis, the immune system attacks the insulation on fibers in the brain and spinal cord. Patches of insulation are destroyed and the bare fiber underneath is exposed."],
+ text:["In multiple sclerosis, the immune system attacks the myelin made by oligodendrocytes on fibers in the brain and spinal cord. Patches of insulation are destroyed and the bare fiber underneath is exposed."],
  ask:"Charge leaks out of bare fiber. If a signal now has to cross a long stripped stretch instead of jumping a short gap, what happens to it?",
- ans:["It weakens as it crosses, and it slows down. If the stretch is long enough, the signal fades out before it can be regenerated and the message never arrives.","That is why multiple sclerosis symptoms depend on which fibers lose insulation. Vision, balance, sensation, and strength can all be affected, and symptoms come and go as areas become inflamed and then partly recover."],
+ ans:["It weakens as it crosses. The bare stretch leaks current, and because it used to be covered, it has very few sodium channels to rebuild the signal. If the stretch is long enough, the signal fades before the next node reaches threshold and the message never arrives, which is called conduction block.","That is why multiple sclerosis symptoms depend on which fibers lose insulation. Vision, balance, sensation, and strength can all be affected, and symptoms come and go as areas become inflamed and then partly recover."],
  name:"demyelination",
  desc:"Two segments of insulation disappear and are marked with crosses. The travelling dot slows across the bare stretch and fades before reaching the end.",
- pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption","sig"]);myelin([2]);place(gSig,330,290);SIG.setAttribute("r",13);},
- play:function(a){SIG.setAttribute("r",13);
-   return tweenPath(gSig,[[446,290]],900,a).then(function(){SIG.setAttribute("r",9);return tweenPath(gSig,[[564,290]],1500,a);}).then(function(){SIG.setAttribute("r",4);return tweenPath(gSig,[[600,290]],900,a);}).then(function(){SIG.setAttribute("r",0);cap("The signal fades before it arrives.");});},
- post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption","sig"]);myelin([2]);place(gSig,600,290);SIG.setAttribute("r",0);cap("The signal fades before it arrives.");}},
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","damage","caption","sig"]);myelin([2]);place(gSig,330,290);},
+ play:function(a){return tweenPath(gSig,[[446,290]],900,a).then(function(){SIG.setAttribute("r",9);return tweenPath(gSig,[[564,290]],1500,a);}).then(function(){SIG.setAttribute("r",4);return tweenPath(gSig,[[600,290]],900,a);}).then(function(){SIG.setAttribute("r",0);cap("The signal fades before it arrives.");});},
+ post:function(){myelin([2]);place(gSig,600,290);SIG.setAttribute("r",0);cap("The signal fades before it arrives.");}},
 
 {title:"Patient: numbness and a dropped foot",
  text:["A 31 year old comes in describing numbness down one leg that started three days ago, and says her foot catches on stairs. Six months ago she had a period of blurred vision in one eye that resolved on its own. An MRI shows scattered patches of damage in the white matter of her brain and spinal cord."],
  ask:"Her symptoms are scattered across vision, sensation, and movement, and they come and go. Using what you just built, explain why one disease process produces such a mixed and changing picture.",
- ans:["The disease strips insulation from fibers, and which symptom appears depends entirely on which fibers lost their insulation. Vision, sensation, and motor fibers all run through the central nervous system, so patches in different places produce unrelated-looking symptoms.","Symptoms ease when inflammation settles and some conduction recovers, and return when new patches form. Slowed or blocked conduction, not dead neurons, explains the pattern early in the disease."],
+ ans:["The disease strips insulation from fibers, and which symptom appears depends entirely on which fibers lost their insulation. Vision, sensation, and motor fibers all run through the central nervous system, so patches in different places produce unrelated-looking symptoms.","Symptoms ease when inflammation settles and some conduction recovers, and return when new patches form. Warmth, such as a hot shower, can bring symptoms back briefly, because fibers that are barely conducting tip into block with a small change. Early in the disease, slowed or blocked conduction, not dead neurons, explains the pattern."],
  name:"multiple sclerosis",
  desc:"The fiber with missing insulation segments and crosses marking the damaged patches.",
- pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption"]);myelin([2]);},
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","damage","caption"]);myelin([2]);},
  play:function(a){return wait(400,a).then(function(){cap("Symptoms follow the damaged fibers.");});},
- post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","damage","caption"]);myelin([2]);cap("Symptoms follow the damaged fibers.");}},
+ post:function(){myelin([2]);cap("Symptoms follow the damaged fibers.");}},
 
-/* ---- 5. axonal transport ---- */
+{title:"Patient: weakness climbing the legs",
+ text:["A 45 year old comes in with tingling in his feet and weakness that has climbed from his ankles to his thighs over four days. Two weeks ago he had a stomach infection. His knee and ankle reflexes are absent, and an MRI of his brain and spinal cord is normal.","A nerve conduction study shows signals traveling far more slowly than normal in his leg nerves, but the size of the response is close to normal."],
+ ask:"Which glial cell's myelin is under attack, and what does the near-normal response size tell you about his axons?",
+ ans:["The myelin made by Schwann cells, in the peripheral nerves. The slow conduction points to lost myelin, and the near-normal response size says the axons themselves are still largely intact.","This is Guillain-Barré syndrome, an immune attack on peripheral myelin that often follows an infection. Because Schwann cells remyelinate well, most people recover over weeks to months, unlike the patchy, recurring course of multiple sclerosis."],
+ name:"Guillain-Barré syndrome",
+ desc:"The same fiber with missing insulation segments, now standing for a peripheral nerve.",
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","damage","caption"]);myelin([2]);},
+ play:function(a){return wait(400,a).then(function(){cap("Same problem, peripheral nerves.");});},
+ post:function(){myelin([2]);cap("Same problem, peripheral nerves.");}},
+
+/* ---- 6. axonal transport ---- */
 {sec:"Supplies down a long fiber",comp:"Axonal transport",
  title:"Nothing is made out there",
  text:["Here is a problem the neuron has to solve. Proteins are made in the cell body, but the terminals may be most of a meter away, and they constantly need new enzymes, new membrane, and new vesicles.","Nothing gets built at the far end. Everything has to be shipped."],
  ask:"The terminal needs a steady supply of proteins that are only made back in the cell body. What does the cell need in order to get them there?",
- ans:["A transport system that moves material along the fiber, and energy to run it.","The fiber contains protein tracks running its whole length, and motor proteins walk along them carrying cargo."],
+ ans:["A transport system that moves material along the fiber, and energy to run it.","The fiber contains protein tracks called microtubules running its whole length, and motor proteins walk along them carrying cargo, splitting ATP with every step."],
  name:"axonal transport",
  desc:"A dashed track appears running the length of the fiber.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","track","caption"]);},
- play:function(a){return wait(500,a).then(function(){cap("Tracks run the whole length of the fiber.");});},
- post:function(){only(["soma","dend","hill","axon","term","track","caption"]);cap("Tracks run the whole length of the fiber.");}},
+ pre:function(){S(["soma","dend","hill","axon","term","track","caption"]);},
+ play:function(a){return wait(500,a).then(function(){cap("Tracks run the length of the fiber.");});},
+ post:function(){cap("Tracks run the length of the fiber.");}},
 
 {title:"Both directions at once",
- text:["Traffic runs both ways. Material moves outward from the cell body to the terminals, and other material moves back from the terminals to the cell body, including worn-out components and signals about what is happening at the far end."],
+ text:["Traffic runs both ways. Moving outward from the cell body to the terminals are synaptic vesicles, new membrane proteins such as channels, and mitochondria.","Moving back from the terminals to the cell body are worn-out membrane and organelles, which are broken down and recycled, and growth factor signals from the target cell that tell the neuron its connection is alive."],
  name:"anterograde and retrograde transport",
  auto:true,
  desc:"A gold package travels outward along the fiber while a red package travels back toward the cell body.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,330,266);place(VES2,742,266);},
+ pre:function(){S(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,330,266);place(VES2,742,266);},
  play:function(a){var p1=tweenPath(VES,[[742,266]],1800,a),p2=tweenPath(VES2,[[330,266]],1800,a);
    return Promise.all([p1,p2]).then(function(){cap("Outward and back, on the same tracks.");});},
- post:function(){only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,330,266);cap("Outward and back, on the same tracks.");}},
+ post:function(){place(VES,742,266);place(VES2,330,266);cap("Outward and back, on the same tracks.");}},
+
+{title:"Two motor proteins",
+ text:["Two different motor proteins do the walking, and each one walks in only one direction along the microtubules. One carries cargo outward toward the terminals, and the other carries cargo back toward the cell body.","Both need ATP, and both need the microtubule tracks. If the tracks are taken apart, traffic stops in both directions."],
+ ask:"Suppose you block only the outward motor at the middle of a long axon. Where would its cargo pile up, on the cell body side of the block or on the terminal side?",
+ ans:["On the cell body side. Outward cargo is still being sent from the cell body, but it cannot get past the block, so it collects just before it. If you blocked the inward motor instead, returning cargo would pile up on the terminal side.","The outward motor is kinesin, which carries anterograde cargo. The inward motor is dynein, which carries retrograde cargo. If dynein fails, supplies still arrive, but debris and survival signals stop coming back, and over time the neuron degenerates."],
+ name:"kinesin (anterograde) and dynein (retrograde)",
+ desc:"A gold package labelled kinesin travels outward along the fiber, and a red package labelled dynein travels back toward the cell body.",
+ pre:function(){S(["soma","dend","hill","axon","term","track","vesicle","caption"]);motorLabs(true);place(VES,330,266);place(VES2,742,266);},
+ play:function(a){return Promise.all([tweenPath(VES,[[742,266]],1600,a),tweenPath(VES2,[[330,266]],1600,a)]).then(function(){cap("Kinesin out, dynein back.");});},
+ post:function(){motorLabs(true);place(VES,742,266);place(VES2,330,266);cap("Kinesin out, dynein back.");}},
+
+{title:"Fast and slow",
+ text:["Vesicles and mitochondria ride the fast system, which moves cargo at up to about 400 millimeters per day. A second, much slower stream carries the proteins of the cytoskeleton, along with dissolved enzymes, at only about 0.2 to 2.5 millimeters per day."],
+ ask:"A new vesicle protein has to travel about 1,000 millimeters, one meter, from a motor neuron's cell body in the spinal cord to its terminal in the foot. At about 400 millimeters per day, roughly how long does the trip take?",
+ ans:["About two and a half days, because 1,000 divided by 400 is 2.5. That is fast enough to resupply even the longest axon in the body within a few days.","Slow transport would need more than a year to cover the same meter, even at its fastest. That slow pace is why a cut peripheral axon regrows only about a millimeter a day: the new axon is built from cytoskeleton proteins that arrive by slow transport."],
+ name:"fast and slow axonal transport",
+ desc:"A gold package races the full length of the fiber while a gray block, the slow stream, creeps only a short way. Text beneath reads fast, up to about 400 millimeters per day, and slow, about 0.2 to 2.5 millimeters per day.",
+ pre:function(){S(["soma","dend","hill","axon","term","track","vesicle","speed","caption"]);place(VES,330,266);place(VES2,-100,-100);place(VES3,330,332);},
+ play:function(a){return Promise.all([tweenPath(VES,[[742,266]],1600,a),tweenPath(VES3,[[362,332]],1600,a)]).then(function(){cap("Fast for vesicles, slow for structure.");});},
+ post:function(){place(VES,742,266);place(VES2,-100,-100);place(VES3,362,332);cap("Fast for vesicles, slow for structure.");}},
 
 {title:"The system has a weak point",
  text:["Transport back toward the cell body is useful to the neuron, but it is also a way in. Some viruses and toxins are taken up at the terminals and carried along that same route into the cell body."],
  ask:"Rabies virus enters at a bite, gets taken up at nerve terminals in the muscle, and travels back along the fiber. Where does it end up, and why does that explain why rabies affects the brain?",
- ans:["It ends up in the cell body, and because those neurons connect into the central nervous system, the virus is delivered straight into the nervous system.","Tetanus toxin and herpes simplex use the same backward route. The transport system that keeps the neuron supplied is also the road in."],
+ ans:["It rides dynein back to the cell body, and because those neurons connect into the central nervous system, the virus is delivered straight into the nervous system.","Tetanus toxin uses the same backward route. Herpes viruses use both directions: they ride retrograde transport in to hide in a sensory cell body, and years later ride anterograde transport back out along the same axon, which is why a cold sore returns in the same spot."],
  desc:"A red package travels from the terminals back along the fiber into the cell body.",
- pre:function(){S(BASE);myelin(false);only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,806,266);},
+ pre:function(){S(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,806,266);},
  play:function(a){return tweenPath(VES2,[[742,266],[330,266],[250,276]],2000,a).then(function(){cap("The road out is also the road in.");});},
- post:function(){only(["soma","dend","hill","axon","term","track","vesicle","caption"]);place(VES,742,266);place(VES2,250,276);cap("The road out is also the road in.");}},
+ post:function(){place(VES,742,266);place(VES2,250,276);cap("The road out is also the road in.");}},
 
-/* ---- 6. story check ---- */
+/* ---- 7. story check ---- */
 {sec:"Tell the story back",comp:"Neurons and neuroglia",
  title:"The whole story, with the science names",
- text:["A neuron receives at its dendrites, adds the signals at the soma, decides at the axon hillock, and sends along the axon to the axon terminals. Shape sorts neurons into multipolar, bipolar, and pseudounipolar. Direction sorts them into sensory, motor, and interneurons.","Astrocytes control the environment, oligodendrocytes and Schwann cells build myelin, microglia clean up, ependymal cells move cerebrospinal fluid, and satellite cells support sensory cell bodies. Myelin speeds conduction by letting the signal jump between nodes, and losing it slows or blocks the signal. Axonal transport keeps the far end supplied, in both directions."],
- ask:"Without scrolling back, name the four regions of a neuron in the order a signal passes through them, and say what each one does.",
- ans:["Dendrites receive incoming signals. The soma adds them together and keeps the cell alive. The axon hillock decides whether to fire. The axon carries the signal to the terminals, which pass it to the next cell.","If any of those were hard to recall, that is the part to go back over before you start graded potentials. The next section depends on this one."],
+ text:["The brain and spinal cord form the central nervous system. The sensory, or afferent, division carries information in, and the efferent division carries commands out through somatic motor and autonomic branches, with the autonomic split into sympathetic and parasympathetic. The enteric nervous system runs the gut. Neurons are sorted by shape into multipolar, bipolar, and pseudounipolar, and by direction into sensory, efferent, and interneurons.","A neuron receives graded potentials at its dendrites and soma, decides at the trigger zone, sends all-or-none action potentials along the axon, and releases neurotransmitter at the axon terminals when calcium enters. Astrocytes control the fluid around neurons and help form the blood-brain barrier, oligodendrocytes and Schwann cells build myelin, microglia clean up, ependymal cells line the fluid spaces, and satellite cells support cell bodies in ganglia.","Myelin speeds conduction by letting the signal be rebuilt only at the nodes, where the sodium channels are, and losing it slows or blocks the signal. Axonal transport keeps the far end supplied: fast transport by kinesin outward and dynein back, and slow transport for the cytoskeleton."],
+ ask:"Without scrolling back, name the regions of a neuron in the order a signal passes through them, and say what each one does and what kind of signal it carries.",
+ ans:["Dendrites receive incoming signals as graded potentials. The soma adds them together and makes the cell's proteins. The trigger zone, the axon hillock and initial segment, decides whether to fire. The axon carries all-or-none action potentials to the terminals, which pass the message to the next cell as a chemical.","If any of those were hard to recall, that is the part to go back over. The resting membrane potential walkthrough, which comes next, builds on this one."],
  desc:"The full neuron with all regions labelled and a signal travelling the complete route.",
- pre:function(){S(BASE);only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);myelin(true);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,92,168);SIG.setAttribute("r",13);},
- play:function(a){SIG.setAttribute("r",13);return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],400,a);}).then(function(){return tweenPath(gSig,[[446,290]],260,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],300,a);}).then(function(){cap("Receive, add, decide, send.");});},
- post:function(){only(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);myelin(true);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,790,290);SIG.setAttribute("r",13);cap("Receive, add, decide, send.");}}
+ pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,92,168);},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],400,a);}).then(function(){return tweenPath(gSig,[[446,290]],260,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],300,a);}).then(function(){cap("Receive, add, decide, send.");});},
+ post:function(){labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,790,290);cap("Receive, add, decide, send.");}},
+
+{title:"The map, from memory",
+ text:["One more retrieval before you move on. The map of the nervous system is the frame that the rest of this course hangs on, so it is worth being able to rebuild it without looking."],
+ ask:"Without scrolling back, rebuild the map in your worksheet. Start with the central nervous system, then name each division and branch, say which way information travels on each, and give one target for each efferent branch.",
+ ans:["The central nervous system is the brain and spinal cord. The sensory, or afferent, division carries information toward it. The efferent division carries commands away and splits into the somatic motor division, which controls skeletal muscle, and the autonomic division, which controls smooth muscle, cardiac muscle, glands, and some adipose tissue. The autonomic division splits into sympathetic and parasympathetic branches, and the enteric nervous system in the gut wall can run the digestive tract on its own.","Check your version against the figure. Anything you left out is the first thing to review before you start the resting membrane potential walkthrough."],
+ desc:"The full map of the nervous system builds piece by piece: the central nervous system, the sensory and efferent divisions, somatic motor and autonomic, sympathetic and parasympathetic, and the enteric nervous system.",
+ pre:function(){S(["map","caption"]);mapShow([]);},
+ play:function(a){var shown=[];return MAPALL.reduce(function(p,k){return p.then(function(){shown.push(k);mapShow(shown.slice());return wait(380,a);});},Promise.resolve()).then(function(){cap("The whole map, in one picture.");});},
+ post:function(){mapShow(MAPALL);cap("The whole map, in one picture.");}}
 ];
 /* ======================= support videos ======================= */
 var V={
-  neuron:{u:"https://www.khanacademy.org/science/health-and-medicine/nervous-system-and-sensory-infor/nervous-system-introduction-ddp/v/overview-of-neuron-structure",n:"Overview of neuron structure"}
+  neuron:{u:"https://www.khanacademy.org/science/health-and-medicine/nervous-system-and-sensory-infor/nervous-system-introduction-ddp/v/overview-of-neuron-structure",n:"Overview of neuron structure"},
+  graded:{u:"https://www.khanacademy.org/science/mcat/organ-systems/neuron-membrane-potentials/v/neuron-graded-potential-description",n:"Neuron graded potential description"}
 };
 var SUP={
   "Where the signal comes in":[["What are the parts of a neuron?","neuron","Listen for the dendrites, the cell body, and the axon, and which end takes signals in."]],
-  "The long fiber out":[["What does the axon do?","neuron","Listen for the single long fiber that carries the signal away from the cell body."]]
+  "The long fiber out":[["What does the axon do?","neuron","Listen for the single long fiber that carries the signal away from the cell body."]],
+  "Signals that change size":[["What is a graded potential?","graded","Listen for a change in voltage whose size depends on the strength of the stimulus."]]
 };
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
@@ -689,7 +1066,7 @@ function renderNarr(i,revealed){
 }
 function setScene(i,revealed){
   runId++;var s=STEPS[i];
-  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+  s.pre();if(revealed){if(s.post)s.post();else s.play(false);}
 }
 function goTo(i,focus){
   cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
@@ -730,7 +1107,7 @@ var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn")
 STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
   b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
   b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
-var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, what a neuron does</span>';
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, the map of the nervous system</span>';
 b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
 function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
 window.__unlock=unlockJump;

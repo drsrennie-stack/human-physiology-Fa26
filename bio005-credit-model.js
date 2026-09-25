@@ -51,7 +51,7 @@ window.BIO005_CREDIT = {
       name:"Show Me What You Know",
       short:"Exams",
       category:"Show Me What You Know",
-      count:2, cadence:"Midterm 1 window Oct 26 to 28. Midterm 2 window Dec 14 to 16.",
+      count:2, cadence:"Midterm 1 window Oct 29 to Nov 1. Midterm 2 window Dec 14 to 16.",
       suggestedWeight:35,
       ai:"closed",
       aiNote:"No notes, no AI. Draw and teach on video.",

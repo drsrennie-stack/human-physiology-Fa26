@@ -366,14 +366,14 @@ window.BIO005_SHEET = {
     "name": "Ion distribution and electrochemical gradients",
     "can": "State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.",
     "a": "Draw a cell and give each ion a pair of bars, inside and outside, height for concentration: sodium 145 mM out against 15 mM in, potassium 4 out against 140 in, chloride 110 out against 10 in, calcium about 1 out against 0.0001 free in. Mark the membrane inside negative. On each ion draw two separate arrows, chemical force and electrical force. One line: two ions have arrows pointing opposite ways, so name both and say which force wins.",
-    "b": "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride wherever your own numbers put it. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest."
+    "b": "Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90, sodium near plus 60, calcium near plus 120, chloride near minus 65. Draw one horizontal line at minus 70 mV across all four. One line: each gap from that line is a driving force, so name the ion with the largest gap and say what stops it moving at rest."
    },
    {
     "n": 2,
     "name": "Nernst equation",
-    "can": "Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move.",
-    "a": "Write the Nernst equation at the top of your box, then work potassium through by hand at body temperature, 4 mM outside against 140 mM inside, every step shown, to an answer in mV. Do sodium underneath, 145 mM out against 15 mM in. Draw a voltage scale beside your working and place both answers on it. One line: an equilibrium potential is where that ion stops moving, so say which way potassium moves at minus 70 mV.",
-    "b": "Draw one set of axes, equilibrium potential in mV on the y and extracellular potassium on the x. Plot the Nernst prediction for potassium at 2, 4, 10, and 20 mM outside with 140 mM held inside, calculating at least two of the points yourself. Draw a horizontal dashed line at threshold, about minus 55 mV. One line: say what happens to the cell as the curve climbs toward that line, and whether the cell gets easier or harder to excite."
+    "can": "Explain what an ion's equilibrium potential means, predict its sign from the direction of the ion's concentration gradient and its charge, and use it to predict which way that ion will move when its channels open.",
+    "a": "Draw a cell with potassium high inside and sodium high outside. For each ion, draw the chemical arrow (down its concentration gradient) and the electrical arrow that would balance it. Beside each ion, write its equilibrium potential and whether the sign is positive or negative, and one line on why the sign comes out that way.",
+    "b": "Draw a vertical voltage scale from minus 100 to plus 70 mV. Mark E_K, E_Na and a resting potential of minus 70 mV. Now open potassium channels, then sodium channels: for each, draw an arrow showing which way the ion moves and which way the membrane potential moves, and label which one has the bigger driving force and why."
    },
    {
     "n": 3,
@@ -399,8 +399,8 @@ window.BIO005_SHEET = {
    {
     "n": 6,
     "name": "Membrane potential simulation",
-    "can": "Manipulate extracellular potassium and sodium in a simulation and record the resulting change in resting membrane potential against the Nernst prediction.",
-    "a": "Before you touch the simulation, draw your predicted graph: resting membrane potential on the y and extracellular potassium on the x, with the Nernst prediction drawn as one line. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: the measured points sit above the Nernst line at low potassium, so name the other ion whose permeability accounts for that gap.",
+    "can": "Manipulate extracellular potassium and sodium in a simulation, record the resulting change in resting membrane potential, and explain why changing potassium moves it far more than changing sodium.",
+    "a": "Before you touch the simulation, sketch the graph you predict: resting membrane potential on the y and extracellular potassium on the x, showing which way the line should go as potassium rises. Run the simulation at several potassium values and plot the measured points on the same axes in a second color. One line: say which way the resting potential moved as potassium rose, and why potassium has such a strong effect at rest.",
     "b": "Draw two panels side by side using the same y axis. On the left, plot resting membrane potential against extracellular potassium from your runs. On the right, plot resting membrane potential against extracellular sodium over a comparable range. One line: one plot is nearly flat and one is not, so say what that comparison tells you about the relative permeability of the resting membrane."
    },
    {

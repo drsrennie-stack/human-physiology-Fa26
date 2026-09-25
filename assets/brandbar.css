@@ -122,3 +122,62 @@
    ------------------------------------------------------------ */
 body:has(.mm-brandbar) .brandbar,
 body:has(.mm-brandbar) #brandbar{ display:none !important; }
+
+
+/* ============================================================
+   EDITORIAL KIT
+   Sep 24 2026. The pieces of virtual-office.html that make a page
+   read as hers, pulled out so a new page can link one file and get
+   them: the uppercase back link, the eyebrow, the two-tone display
+   headline and the primary button. Namespaced like the rest of this
+   file, so nothing here can change a page that does not use these
+   class names.
+
+     <a class="mm-back" href="course-start.html" target="_top">&larr; Course home</a>
+     <p class="mm-eyebrow">How every week works</p>
+     <h1 class="mm-display">Your week is a <span>loop</span>.</h1>
+     <button class="mm-btn" type="button">Print this page</button>
+
+   Measured pairs, all AAA:
+     maroon #8B3A2E on white 7.66:1, on off-white #FAFAF9 7.33:1
+     maroon-dark #6E2D24 on white 10.18:1, on off-white 9.74:1
+     white on maroon 7.66:1, white on maroon-dark 10.18:1
+     navy #0B1530 on off-white 17.27:1
+   ============================================================ */
+.mm-back{
+  display:inline-flex;align-items:center;min-height:44px;margin:10px 0 0;
+  font-family:var(--body,'Plus Jakarta Sans',system-ui,sans-serif);
+  font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  text-decoration:none;color:var(--maroon,#8B3A2E);
+}
+.mm-back:hover{text-decoration:underline;text-underline-offset:3px;color:var(--maroon-dark,#6E2D24)}
+.mm-back:focus-visible{outline:3px solid var(--maroon,#8B3A2E);outline-offset:3px;border-radius:3px}
+.mm-eyebrow{
+  font-family:var(--body,'Plus Jakarta Sans',system-ui,sans-serif);
+  font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--maroon,#8B3A2E);margin:0 0 10px;
+}
+.mm-display{
+  font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  font-weight:800;font-size:clamp(28px,5vw,42px);line-height:1.12;letter-spacing:-.022em;
+  color:var(--navy,#0B1530);margin:0;
+}
+.mm-display span{color:var(--maroon,#8B3A2E)}
+.mm-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:46px;padding:14px 24px;border:0;border-radius:4px;
+  background:var(--maroon,#8B3A2E);color:#fff;
+  font-family:var(--body,'Plus Jakarta Sans',system-ui,sans-serif);
+  font-size:12px;font-weight:800;line-height:1.2;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);
+  transition:background 160ms ease,transform 200ms ease,box-shadow 200ms ease;
+}
+.mm-btn:hover{background:var(--maroon-dark,#6E2D24);color:#fff;transform:translateY(-2px);
+  box-shadow:0 8px 16px rgba(11,21,48,.14)}
+.mm-btn:focus-visible{outline:3px solid var(--navy,#0B1530);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  .mm-btn{transition:none}
+  .mm-btn:hover{transform:none}
+}
+@media print{.mm-back,.mm-btn{display:none!important}}

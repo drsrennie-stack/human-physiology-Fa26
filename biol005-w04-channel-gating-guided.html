@@ -4,16 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ion channel gating, step by step | BIOL 005 Week 4</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
 <style>
 :root{
   --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
   --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
-  --ink2:#414B5C; --line:#C9CED8; --page:#FAFAF9; --card:#FFFFFF;
-  --shadow:0 1px 3px rgba(0,0,0,0.08); --shadow2:0 8px 16px rgba(0,0,0,0.10);
-  --head:"Open Sans","Segoe UI",Arial,sans-serif;
-  --body:"Plus Jakarta Sans","Segoe UI",Arial,sans-serif;
+  --ink2:#414B5C; --line:rgba(11,21,48,0.16); --page:#FAFAF9; --card:#FFFFFF;
+  --locked:#454B58;
+  --shadow:0 1px 3px rgba(11,21,48,0.08); --shadow2:0 8px 16px rgba(11,21,48,0.10);
+  --head:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,sans-serif;
 }
+/* Brand restyle Sep 24 2026. The shared brand bar and dark footer from
+   assets/brandbar.css, the virtual-office.html editorial type (tracked
+   maroon eyebrows, two-tone Open Sans 800 headline, maroon-dark
+   headings, uppercase maroon primary buttons at 4px radius) and cards
+   at 8px. Layout, animation, gating and the worksheet logic are
+   untouched. The brand bar is static here, not sticky, because the
+   figure column and the worksheet are already sticky and would slide
+   under it. */
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
@@ -24,67 +35,77 @@ a{color:var(--maroon);text-underline-offset:3px}
 .skip:focus{top:12px;color:#fff}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 button{font-family:var(--body)}
-.top{background:#fff;box-shadow:var(--shadow);position:relative;z-index:5}
-.top-in{max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
-.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.1rem,2.2vw,1.45rem);margin:0;flex:1 1 320px;line-height:1.2}
-.top .course{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--ink2)}
+.mm-brandbar{position:relative}
+.mm-brandbar .mm-wrap,.mm-foot .mm-wrap{max-width:1400px}
+.top{background:transparent;position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:16px 20px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.9vw,2rem);letter-spacing:-.022em;margin:0;flex:1 1 320px;line-height:1.15;color:var(--navy)}
+.top h1 .tone{color:var(--maroon)}
+.top .course{display:block;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px;line-height:1.4}
+.top-in > a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.top-in > a:hover{text-decoration:underline;color:var(--maroon-dark)}
 .jump{position:relative}
-.tbtn{font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
-.tbtn.primary{background:var(--navy);color:#fff}
-.tbtn.primary:hover{background:var(--navy-deep)}
-.tbtn:disabled{opacity:.45;cursor:not-allowed}
-.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:12px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.tbtn{font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,background 160ms ease}
+.tbtn:not(:disabled):hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
+.tbtn.primary{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.tbtn.primary:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+/* Locked: gray dashed, still white inside. #454B58 on white is 8.75:1.
+   The disabled attribute carries the state; the dash is the picture of it. */
+.tbtn:disabled,.tbtn.primary:disabled{opacity:1;background:#fff;color:var(--locked);border:1.5px dashed var(--locked);cursor:not-allowed;box-shadow:none;transform:none}
+/* Unlocked jump menu: gold-deep edge, the gold that works on a light page, 4.87:1. */
+#jumpBtn:not(:disabled){border-color:var(--gold-deep)}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:8px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
 .jump-menu ol{list-style:none;margin:0;padding:0}
-.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:8px;padding:10px 12px;font:600 .95rem var(--body);color:var(--navy);cursor:pointer}
-.jump-menu button:hover,.jump-menu button:focus-visible{background:var(--navy-tint)}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:4px;padding:10px 12px;font:700 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:#fff;box-shadow:inset 0 0 0 1.5px var(--navy)}
 .jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
 .layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
-.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
 .stage{padding:18px}
 .progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
 .bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
 .bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
 .count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
-.scene-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+.scene-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
 #scene{display:block;width:100%;height:auto;max-height:62vh}
 .stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
 .scene-col{position:sticky;top:12px}
-.watch{position:absolute;right:10px;bottom:10px;font:700 .95rem var(--body);min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
-.watch:hover{background:var(--navy-tint)}
+.watch{position:absolute;right:10px;bottom:10px;font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:#fff;box-shadow:var(--shadow2)}
 @media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
 .nolab text{opacity:0}
 .narr{padding:0 4px;min-height:120px}
-.narr .sec{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
-.narr h2{font-family:var(--head);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2}
+.narr .sec{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2;color:var(--maroon-dark)}
 .narr p{margin:0 0 10px;max-width:72ch}
 .fadein{animation:fin .45s ease both}
 @keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ask{background:#fff;border:1px solid var(--maroon);border-radius:12px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
-.ask .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--maroon)}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:8px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon)}
 .ask p{margin:0;font-weight:700;font-size:1.08rem}
 .ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
-.answer{border-radius:12px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
-.answer .lab{margin:0 0 4px;font-weight:700;font-size:.85rem;color:var(--navy)}
+.answer{border-radius:8px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy)}
 .answer p:last-child{margin-bottom:0}
 .name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
 .support{margin:4px 0 12px;max-width:72ch}
-.support .lab{margin:0 0 6px;font-weight:700;font-size:.9rem;color:var(--ink2)}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
 .support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:10px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:8px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
 .support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
 .support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
-.controls .tbtn{min-height:48px;padding:0 22px;font-size:1rem}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:.82rem}
 .ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
-.ws h2{font-family:var(--head);font-weight:800;font-size:1.25rem;margin:0 0 4px}
+.ws h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:1.25rem;margin:0 0 4px;color:var(--maroon-dark)}
 .ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
 .field{margin:0 0 14px}
 .field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
-.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:10px;padding:9px 11px;background:#fff}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:4px;padding:9px 11px;background:#fff}
 .field textarea{min-height:110px;resize:vertical;line-height:1.45}
-.entry{border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry{border-radius:8px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
 .entry .q{margin:0 0 10px;font-weight:600}
-.entry .num{display:block;font-weight:700;font-size:.85rem;color:var(--maroon);margin:0 0 3px}
+.entry .num{display:block;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 5px}
 .ws-empty{color:var(--ink2);margin:0 0 14px}
 .ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .ws-actions .tbtn{width:100%}
@@ -99,7 +120,7 @@ button{font-family:var(--body)}
   .ws-toggle{display:inline-flex;align-items:center}
   .ws.collapsed .ws-body{display:none}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tbtn:not(:disabled):hover{transform:none}}
 .layer{transition:opacity .45s ease}
 .off{opacity:0;pointer-events:none}
 /* svg text */
@@ -124,9 +145,17 @@ button{font-family:var(--body)}
 <body>
 <a class="skip" href="#narr">Skip to the lesson</a>
 
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
 <header class="top">
   <div class="top-in">
-    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Ion channel gating, step by step</h1>
+    <h1><span class="course">BIOL 005 Human Physiology, Week 4</span>Ion channel <span class="tone">gating</span>, step by step.</h1>
     <div class="jump">
       <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
       <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
@@ -184,6 +213,20 @@ button{font-family:var(--body)}
   </aside>
 </div>
 
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
 <script>
 (function(){
 "use strict";

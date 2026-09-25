@@ -15,7 +15,7 @@ PDF export, and Khan support buttons.
 
 | File | Steps | Predictions | Topics | Support buttons | Size |
 |---|---|---|---|---|---|
-| biol005-w04-neurons-glia-guided.html | 22 | 13 | 6 | 2 steps | 59 KB |
+| biol005-w04-neurons-glia-guided.html | 44 | 33 | 7 | 3 steps | 100 KB |
 | biol005-w04-rmp-guided.html | 35 | 28 | 12 | 14 steps | 78 KB |
 | biol005-w04-channel-gating-guided.html | 16 | 13 | 6 | 1 step | 48 KB |
 
@@ -29,6 +29,13 @@ What was verified on each, by running them headlessly:
 - No console errors.
 - Key scenes screenshotted and inspected, not just passed by the automated run.
 
+Update, September 24, 2026: the neurons and glia walkthrough is now the only
+student-facing lesson for that topic, so it was extended from 22 steps to 44 to
+teach every element of Week 4 competencies 7 to 11, the note sheet prompts, and
+the recall cards. It now opens with the map of the nervous system. All checks
+above were repeated on the 44-step version, plus a reduced motion pass and a
+keyboard-only pass.
+
 Fixes made after visual inspection: sodium was bouncing off the membrane instead
 of passing through the channel in the resting potential file; dendrites were
 drawing on top of the cell body; labels and captions were running under the Watch
@@ -36,9 +43,11 @@ again button; the inactivation gate was blocking at the wrong end of the pore.
 
 ## 2. Drawing sheet, built
 
-biol005-w04-drawing-sheet.html. Five parts, 22 drawing boxes, 9 open writing
-blocks with no ruled lines. Prints to nine pages with a page break before each
-part. Covers the three guided walkthroughs above and nothing else yet.
+biol005-w04-drawing-sheet.html. Five parts, 24 drawing boxes, 10 open writing
+blocks with no ruled lines. Prints to eleven pages with a page break before each
+part. Covers the three guided walkthroughs above and nothing else yet. On
+September 24, Part 1 gained a nervous system map box and Part 2 gained an axonal
+transport box.
 
 ## 3. Documentation, written
 
@@ -63,7 +72,7 @@ slides, story slides, a draw-along page, and transcripts.
 
 | Topic | Formats present | Guided walkthrough? |
 |---|---|---|
-| neurons-glia | notes, slides, story slides, story draw-along, transcripts | Yes, new |
+| neurons-glia | notes, slides, story slides, story draw-along, transcripts, all retired September 24 | Yes, now the only student-facing lesson |
 | membrane-potential | notes, slides, story slides, story draw-along, transcripts | Yes, as rmp-guided |
 | channel-gating | none | Yes, new |
 | action-potential | notes, slides, story slides, story draw-along, transcripts | No |
@@ -90,6 +99,11 @@ the older format. Before more walkthroughs get built, worth deciding:
 3. If they sit alongside, week-04.html needs to say plainly which is which and when
    to use each.
 
+Decided for neurons and glia on September 24, 2026: the guided walkthrough
+replaces the older format. The notes, slides, story slides, draw-along, and
+transcripts for that topic are retired and are being unlinked. The other topics
+are still open.
+
 Right now week-04.html links the three new walkthroughs and the drawing sheet.
 It does not link the older story files, so students currently see the new route
 only.
@@ -103,7 +117,9 @@ only.
 2. Khan support buttons are thin outside the resting potential walkthrough. The
    mapping table supplied earlier covered resting potential, graded potentials,
    action potentials, and propagation, so neurons and glia and channel gating have
-   only the URLs that could be verified independently.
+   only the URLs that could be verified independently. Khan Academy could not be
+   reached from the build environment on September 24, so the new neurons and
+   glia steps (map, glia, myelin, transport) have no support buttons yet.
 3. The drawing sheet covers three topics, not the chapter.
 4. Competency mismatches flagged earlier are unresolved: the eleven stated
    objectives do not line up with bio005-competencies.js, and the Nernst competency

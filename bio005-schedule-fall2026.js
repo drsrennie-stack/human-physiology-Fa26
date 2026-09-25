@@ -145,15 +145,13 @@ window.BIO005_WEEKS = [
 
   { wk:7, opens:"2026-10-19", closes:"2026-10-25",
     title:"Hormones, the autonomic system, and reproduction",
-    note:"Midterm 1 week. No new competencies, no note sheet, no discussion. The exam covers Weeks 1 to 6 and runs in a three day window, Monday October 19 to Wednesday October 21. The rest of the week is review and unlimited practice exams.",
-    extras:["Review the competency lists for Weeks 1 to 6", "Practice exams, unlimited attempts", "Midterm 1, drawn and taught out loud on video, Oct 19 to 21"],
     competencies:["w8-ans-organization", "w8-ans-divisions", "w8-ans-receptors", "w8-ans-tone", "w8-ans-pharmacology", "w8-lab-autonomic-testing", "w9-hormone-classes", "w9-hormone-transport", "w9-hormone-receptors", "w9-hormone-interactions", "w9-hormone-release", "w9-hypothalamic-pituitary", "w9-endocrine-pathology", "w9-posterior-pituitary", "w9-lab-hormone-assay", "w15-hpg-axis", "w15-male-reproductive", "w15-ovarian-cycle", "w15-uterine-cycle", "w15-pregnancy-hormones", "w15-parturition-lactation", "w15-lab-cycle-graphs"] },
 
   { wk:8, opens:"2026-10-26", closes:"2026-11-01",
     title:"Midterm 1",
     exam:true,
-    note:"Midterm 1 week. No new competencies, no note sheet, no discussion. The exam covers Weeks 1 to 7 and runs Monday October 26 to Wednesday October 28. The rest of the week is review and unlimited practice exams.",
-    extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, drawn and taught out loud on video, Oct 26 to 28"],
+    note:"Midterm 1 week. No new competencies, no note sheet, no discussion. The exam covers Weeks 1 to 7 and runs Thursday October 29 to Sunday November 1. Monday to Wednesday is review and unlimited practice exams.",
+    extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, drawn and taught out loud on video, Oct 29 to Nov 1"],
     competencies:[] },
 
   { wk:9, opens:"2026-11-02", closes:"2026-11-08",
