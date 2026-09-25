@@ -160,8 +160,8 @@ STEPS = [
          ("What you turn in on December 16", "assignment-patient-chart.html")],
   turnin=None),
 
- dict(title="Discussion 4, exam practice part 1", time="About 1 hour",
-  status="Turned in to me only. Think About It, 15 percent of your grade across the term. Part 2 is Discussion 5, next week.",
+ dict(title="Exam practice part 1, your videos", time="About 1 hour 30 minutes",
+  status="Your videos go to me only. Then you post about how it went in the discussion. Think About It, 15 percent of your grade across the term. Part 2 is Discussion 5, next week.",
   intro="", todo=[], links=[],
   submit_here=["Upload everything here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>. Only I see it.",
                "Due " + DUE + "."],
@@ -181,13 +181,13 @@ SOURCES = ("Everything in this practice comes from the Week 2 competencies on pr
 
 PRACTICE = dict(
  intro="This is part 1 of a two-week practice run of your exam format. This week you work two multiple choice "
-       "questions the way the exam asks you to: you build a model from memory with a brain dump, use it to choose "
-       "your answer, and then teach it on video. Next week, in Discussion 5, you check your work against the real "
+       "questions the way the exam asks you to, one at a time, on video: 15 minutes preparing your answer by building a model from memory, "
+       "then 5 minutes presenting it and giving your answer. Next week, in Discussion 5, you check your work against the real "
        "rubrics and analyze what it shows you.",
  how=["Close your notes, the slides and the book, and keep them closed until you have turned everything in. The point is to find out what you can do from memory.",
-      "Work one question all the way through before you start the next: read it, brain dump the model, then choose your answer.",
+      "Do one question at a time. Each question is one video: 15 minutes preparing your answer on camera, then 5 minutes presenting it. Finish question 1 completely before you read question 2.",
       "There are no rubrics this week. You will see them next week, so do your honest best now and do not look anything up.",
-      "Keep your brain dumps and your videos. You need them for part 2."],
+      "Keep your models and your videos. You need them for part 2."],
  questions=[
   dict(q="A drug partly inhibits the Na+/K+ ATPase in a heart muscle cell. Trace the effect on intracellular Na+, "
          "on calcium removal by the Na+/Ca2+ exchanger, and on the strength of contraction.",
@@ -196,7 +196,7 @@ PRACTICE = dict(
                 "C. Intracellular Na+ rises, the exchanger removes less Ca2+, and contraction strengthens",
                 "D. Intracellular Na+ rises, the exchanger removes more Ca2+, and contraction weakens"],
        key="C",
-       dump="Build the model that answers question 1, on blank paper, in about 10 minutes. Draw a heart muscle cell "
+       dump="Build the model that answers question 1. Draw a heart muscle cell "
             "membrane with the Na+/K+ ATPase and the Na+/Ca2+ exchanger in it. Show which way Na+, K+ and Ca2+ move "
             "through each one and what powers each. Then trace what partly inhibiting the pump does, step by step, "
             "until you reach the strength of contraction."),
@@ -207,44 +207,66 @@ PRACTICE = dict(
                 "C. Intracellular Na+ rises, the Na+ gradient steepens, and SGLT glucose uptake rises",
                 "D. Intracellular Na+ falls, and SGLT glucose uptake rises"],
        key="B",
-       dump="Build the model that answers question 2, on blank paper, in about 10 minutes. Draw an intestinal "
+       dump="Build the model that answers question 2. Draw an intestinal "
             "epithelial cell with the lumen on the apical side and the blood on the basolateral side. Trace one glucose "
             "molecule from the lumen to the blood: name the transporter at each membrane, which membrane it sits on, "
             "and whether each step is uphill or downhill for glucose. Add the Na+/K+ ATPase, then trace what ouabain "
             "changes, step by step, until you reach glucose uptake."),
  ],
- choose="Now choose your answer, and write down how sure you are: sure, fairly sure, or guessing.",
- teach="Record one video for each question, 5 minutes or less each. Teach from your brain dump as if to a classmate "
-       "who missed class: walk through your model in order, explain why each wrong answer cannot be right, and "
-       "finish by giving your answer. Keep your notes closed. A phone video is fine.",
- turnin=["Photos of your two brain dumps.",
+ prep="Start recording before you begin, and set a timer for 15 minutes. Prepare your answer on camera: build your "
+      "model from memory as a brain dump, on a whiteboard or on paper, and think out loud as you go. I want to see you "
+      "working it out, so keep the camera on you and on what you are drawing the whole time. A phone video is fine.",
+ teach="Keep recording. Set a timer for 5 minutes and present your answer as if to a classmate who missed class: walk "
+       "through your model in order, explain why each wrong answer cannot be right, and finish by giving your answer.",
+ choose="Write down the answer you gave at the end of your video, and how sure you are: sure, fairly sure, or guessing.",
+ turnin=["Your two videos, one for each question, each with the 15 minutes of preparing and the 5 minutes of presenting.",
          "Your answer to each question, and how sure you were.",
-         "Your two teaching videos."],
+         "A photo of each finished model."],
+)
+
+# Week 4 has two Canvas items for step 10: the assignment above (videos, to me
+# only) and this discussion, where students talk about how it went and help each
+# other with the gaps. No answers and no rubrics until Week 5.
+DISC4 = dict(
+ title="Discussion 4, how your exam practice went",
+ first_post="Friday, October 2 at 10:00 pm", due=DUE,
+ intro="Once your two videos are uploaded to the assignment, come to the discussion and talk about the experience. This is not "
+       "about the right answers. You will check those next week. It is about how working from memory felt, where it "
+       "broke down, and what you can do about it, and about helping each other find ways to fix the gaps.",
+ rule="Do not post which answers you chose. Everyone checks their answers against the key next week, and seeing "
+      "someone else's letter first would take that away from them.",
+ post=["What was it like to prepare on camera, from memory, for 15 minutes? How did it feel, and what surprised you?",
+       "How sure were you of each answer, and what was that confidence based on?",
+       "Where did you get stuck, or reach for something you could not pull from memory? Name the exact step.",
+       "What will you do to fill that gap so you can do it from memory next time? Be specific: what you will do, when, and how you will know it worked.",
+       "What is one thing that helped you think out loud on camera that someone else could try?"],
+ replies="Read two classmates' posts. In each reply, offer a solution for a gap they named: a study move, a way to "
+         "think about that step, or a way to remember it, with a sentence on why you think it would work.",
 )
 
 PART2 = dict(
  week=5, title="Discussion 5, exam practice part 2", time="About 1 hour",
  first_post="Friday, October 9 at 10:00 pm", due="Sunday, October 11 at 10:00 pm",
  status="Graded. Think About It, 15 percent of your grade across the term.",
- intro="Last week you worked two exam questions: you built a model for each with a brain dump, chose your answer, "
-       "and taught it on video. This week you check that work against the rubrics I use on the exam, then look "
+ intro="Last week you worked two exam questions on video: for each one you spent 15 minutes building a model to "
+       "prepare your answer, then 5 minutes presenting it. This week you check that work against the rubrics I use on the exam, then look "
        "closely at what it shows you about how you learn.",
- how=["Open your brain dumps, your answers and your videos from last week.",
-      "Check each brain dump against its rubric. A point counts only if you clearly said or drew it.",
+ how=["Open your two videos, the photos of your models and your answers from last week.",
+      "Watch the 15 minutes of preparing in each video and check the model you built against its rubric. A point counts only if you clearly said or drew it.",
       "Check your two answers against the key.",
-      "Watch each video once and count the teaching points you clearly made.",
+      "Watch the 5 minutes of presenting in each video and count the points you clearly made.",
       "Answer the analysis questions, then post."],
  scoring="On the exam, each question is scored the same way: your model and your teaching are worth 75 percent of "
          "the points for that question, and your answer is worth 25 percent.",
  dump_rubrics=[
-  ("Brain dump 1, the pump and the exchanger (6 points)",
+  ("Model 1, the pump and the exchanger (6 points)",
    ["The pump uses ATP to keep intracellular Na+ low, storing energy in the inward Na+ gradient",
     "The exchanger is an antiporter that moves Na+ in and Ca2+ out",
     "Na+ flowing downhill into the cell provides the energy to push Ca2+ out against its gradient",
     "Pump inhibition lets intracellular Na+ rise and flattens the Na+ gradient",
     "The exchanger has less driving force, so Ca2+ removal slows",
     "Intracellular Ca2+ rises and contraction becomes stronger"]),
-  ("Brain dump 2, glucose from the gut to the blood (6 points)",
+  ("Model 2, glucose from the gut to the blood (6 points)",
    ["SGLT on the apical membrane moves glucose into the cell with Na+",
     "The apical step is uphill for glucose, powered by Na+ moving downhill",
     "Glucose accumulates inside the cell to a high concentration",
@@ -254,7 +276,7 @@ PART2 = dict(
  keys=["Question 1: C. Intracellular Na+ rises, the exchanger removes less Ca2+, and contraction strengthens.",
        "Question 2: B. Intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls."],
  teach_rubrics=[
-  ("Teaching question 1 (9 points)",
+  ("Presenting question 1 (9 points)",
    ["I explained that the Na+/K+ ATPase uses ATP to pump Na+ out, keeping intracellular Na+ low",
     "I explained that the exchanger is an antiporter that lets Na+ in and pushes Ca2+ out, powered by Na+ moving downhill",
     "I explained that partly inhibiting the pump lets intracellular Na+ rise and flattens the Na+ gradient",
@@ -263,8 +285,8 @@ PART2 = dict(
     "I explained why A is wrong: Na+ cannot fall when the pump that removes it is slowed",
     "I explained why B is wrong: the exchanger does not use ATP, it runs on the Na+ gradient, so it depends on the pump",
     "I explained why D is wrong: a flatter Na+ gradient means the exchanger removes less Ca2+, not more",
-    "I taught from my model in order, with arrows for Na+, K+ and Ca2+, before I gave my answer"]),
-  ("Teaching question 2 (9 points)",
+    "I presented my model in order, with arrows for Na+, K+ and Ca2+, before I gave my answer"]),
+  ("Presenting question 2 (9 points)",
    ["I explained that ouabain blocks the Na+/K+ ATPase, so Na+ is no longer pumped out",
     "I explained that SGLT sits on the apical membrane and the pump on the basolateral membrane",
     "I explained that SGLT uses the energy of Na+ moving downhill into the cell to pull glucose in uphill",
@@ -273,13 +295,13 @@ PART2 = dict(
     "I explained why A is wrong: SGLT brings Na+ into the cell, so it cannot be what keeps Na+ low",
     "I explained why C is wrong: the gradient cannot steepen when Na+ is rising inside",
     "I explained why D is wrong: Na+ cannot fall when its only exit, the pump, is blocked",
-    "I taught from my model in order, with arrows for Na+ and glucose, before I gave my answer"])],
- analysis=["For each question, were you right, and how sure were you beforehand? Say whether each one was sure and right, sure and wrong, unsure and right, or unsure and wrong.",
+    "I presented my model in order, with arrows for Na+ and glucose, before I gave my answer"])],
+ analysis=["For each question, were you right, and how sure were you when you answered? Say whether each one was sure and right, sure and wrong, unsure and right, or unsure and wrong.",
            "Where did your model first go wrong or leave something out? Name the exact step.",
            "Was that a gap, something you did not know, or a misconception, something you were sure of that is not true? How can you tell?",
-           "Compare your brain dump score with your teaching score for the same question. Did teaching it out loud show you anything the brain dump did not?",
+           "Compare your model score with your presenting score for the same question. Did presenting it out loud show you anything that building the model did not?",
            "What will you do differently before the midterm because of this?"],
- post=["Your scores: each brain dump (for example 5 of 6), each answer (right or not), and each teaching video (for example 7 of 9).",
+ post=["Your scores: each model (for example 5 of 6), each answer (right or not), and each presentation (for example 7 of 9).",
        "Your answers to the five analysis questions."],
  replies="Read two classmates' posts. In each reply, name one thing in their analysis that you noticed in your own "
          "work too, and suggest one study move that could help, with a sentence on why.",

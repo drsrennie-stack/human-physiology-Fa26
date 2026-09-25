@@ -134,13 +134,30 @@ def practice1(W, i, st):
     o.append(card(h3("How to do it") + ol(D["how"])))
     for k, q in enumerate(D["questions"], 1):
         o.append(card(h3("Question %d" % k) + p("<strong>" + q["q"] + "</strong>") + opts(q["options"]) +
-                      h4("Brain dump: build your model") + p(q["dump"]) +
-                      h4("Choose your answer") + p(D["choose"])))
-    o.append(card(h3("Teach it on video") + p(D["teach"])))
+                      h4("Step 1. Prepare your answer on camera, 15 minutes") + p(D["prep"]) + p(q["dump"]) +
+                      h4("Step 2. Present your answer, 5 minutes") + p(D["teach"]) +
+                      h4("Step 3. Write down your answer") + p(D["choose"]) +
+                      (p("<strong>Now go on to question 2.</strong>") if k < len(D["questions"]) else "")))
     o.append(card(h3("Turn it in here") + p("Upload all of this to this assignment. Only I see it.") + ul(D["turnin"]) +
                   ul(st["submit_here"])))
-    o.append(p("<strong>Next week:</strong> Discussion 5 is part 2. You get the rubrics, score your own work, and "
-               "write about what it shows you."))
+    o.append(p("<strong>Then:</strong> post about how it went in <strong>" + W.DISC4["title"] + "</strong>, the next "
+               "item in this module. <strong>Next week:</strong> Discussion 5 is part 2. You get the rubrics, score your "
+               "own work, and write about what it shows you."))
+    o.append('<p style="margin:6px 0 0 0;font-size:0.85em;color:%s;">Dr. Sharilyn Rennie</p></div>' % INK_SOFT)
+    return "".join(o) + "\n"
+
+def disc4(W, i):
+    """Week 4 discussion: how the practice went, no answers, solutions for each other."""
+    D, n, total = W.DISC4, W.WEEK, len(W.STEPS)
+    ul, ol, opts, p, h3, h4, card = _kit()
+    o = [_head(n, i, total, D["title"], "About 30 minutes", "Graded. Think About It, 15 percent of your grade across the term.")]
+    o.append(p("<strong>Your post is due " + D["first_post"] + ".</strong> Two replies are due " + D["due"] + "."))
+    o.append(p(D["intro"]))
+    o.append(card(h3("Before you post") + p(D["rule"])))
+    o.append(card(h3("What to write in your post") + p("Answer each one in two or three sentences.") + ol(D["post"])))
+    o.append(card(h3("Replies") + p(D["replies"])))
+    o.append(p("<strong>Next week:</strong> Discussion 5 is part 2. You get the rubrics and the key, score your own "
+               "work, and write about what it shows you."))
     o.append('<p style="margin:6px 0 0 0;font-size:0.85em;color:%s;">Dr. Sharilyn Rennie</p></div>' % INK_SOFT)
     return "".join(o) + "\n"
 
@@ -152,12 +169,12 @@ def practice2(W):
     o.append(p("<strong>Your post is due " + D["first_post"] + ".</strong> Two replies are due " + D["due"] + "."))
     o.append(p(D["intro"]))
     o.append(card(h3("How to do it") + ol(D["how"])))
-    body = h3("Check your brain dumps")
+    body = h3("Check your models")
     for t, pts in D["dump_rubrics"]:
         body += h4(t) + ul(pts)
     o.append(card(body))
     o.append(card(h3("Check your answers") + ul(D["keys"])))
-    body = h3("Check your teaching") + p(D["scoring"])
+    body = h3("Check your presenting") + p(D["scoring"])
     for t, pts in D["teach_rubrics"]:
         body += h4(t) + ul(pts)
     o.append(card(body))
@@ -184,6 +201,10 @@ def build(n):
             name = name.replace(".html", "-ASSIGNMENT.html")
             (pages_dir / name).write_text(practice1(W, i, st), encoding="utf-8")
             readme.append("Week %d, Step %d | %s   ->  %s  (Canvas ASSIGNMENT, turned in to me only: paste into its description)" % (n, i, t, name))
+            if hasattr(W, "DISC4"):
+                nd = "w%02d-10b-%s.html" % (n, slug(W.DISC4["title"]))
+                (pages_dir / nd).write_text(disc4(W, i), encoding="utf-8")
+                readme.append("Week %d, Step %d | %s   ->  %s  (Canvas DISCUSSION: paste into its description)" % (n, i, W.DISC4["title"], nd))
             if hasattr(W, "PART2"):
                 P2 = W.PART2
                 n2 = "w%02d-10-%s.html" % (P2["week"], slug(P2["title"]))
