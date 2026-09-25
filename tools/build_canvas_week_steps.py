@@ -46,7 +46,7 @@ def txt(s):
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:48].rstrip("-")
 
-def page(W, i, st, prev_t, next_t):
+def page(W, i, st, prev_t, next_t, as_assignment=False):
     n, total = W.WEEK, len(W.STEPS)
     out = ['<div style="font-family:%s;color:%s;max-width:900px;">' % (FONT, NAVY)]
     out.append('<p style="%s">BIO 005 Human Physiology &middot; Week %d &middot; Step %d of %d</p>'
@@ -74,13 +74,22 @@ def page(W, i, st, prev_t, next_t):
         for label, path in st["links"])))
     out.append('</div>')
 
-    out.append('<div style="%s"><h3 style="%s">What you turn in</h3>' % (CARD, H3))
-    if st["turnin"]:
+    if as_assignment:
+        out.append('<div style="%s"><h3 style="%s">Turn it in here</h3>' % (CARD, H3))
+        out.append('<ul style="margin:0;padding-left:1.2em;color:%s;">%s</ul>'
+                   % (NAVY, "".join('<li style="%s">%s</li>' % (LI, txt(t)) for t in st["submit_here"])))
+        out.append('</div>')
+    else:
+        out.append('<div style="%s"><h3 style="%s">What you turn in</h3>' % (CARD, H3))
+    if as_assignment:
+        pass
+    elif st["turnin"]:
         out.append('<ul style="margin:0;padding-left:1.2em;color:%s;">%s</ul>'
                    % (NAVY, "".join('<li style="%s">%s</li>' % (LI, txt(t)) for t in st["turnin"])))
     else:
         out.append('<p style="margin:0;line-height:1.6;color:%s;">Nothing is turned in for this step.</p>' % NAVY)
-    out.append('</div>')
+    if not as_assignment:
+        out.append('</div>')
 
     nav = []
     if next_t:
@@ -97,17 +106,25 @@ def page(W, i, st, prev_t, next_t):
 def build(n):
     W = importlib.import_module("canvas_steps_week%02d" % n)
     pages_dir = ROOT / "_canvas" / "pages"
-    readme = ["Week %d Canvas module, top to bottom. Paste each file into the page with that title "
-              "(HTML editor). Put each step's Canvas assignment right after its page if you want the "
-              "Next button to land on it." % n, "",
+    readme = ["Week %d Canvas module, top to bottom. Title each module item exactly as below, and paste "
+              "the file into its body or description in the HTML editor." % n, "",
               "Week %d | Start here: %s   ->  w%02d-00-start-here.html  (built by build_canvas_week_start.py)"
               % (n, W.TITLE, n)]
     for i, st in enumerate(W.STEPS, 1):
         prev_t = W.STEPS[i - 2]["title"] if i > 1 else None
         next_t = W.STEPS[i]["title"] if i < len(W.STEPS) else None
         name = "w%02d-%02d-%s.html" % (n, i, slug(st["title"]))
-        (pages_dir / name).write_text(page(W, i, st, prev_t, next_t), encoding="utf-8")
-        readme.append("Week %d, Step %d | %s   ->  %s" % (n, i, re.sub(r"</?strong>", "", st["title"]), name))
+        t = re.sub(r"</?strong>", "", st["title"])
+        if st.get("submit_here"):
+            name = name.replace(".html", "-ASSIGNMENT.html")
+            (pages_dir / name).write_text(page(W, i, st, prev_t, next_t, True), encoding="utf-8")
+            readme.append("Week %d, Step %d | %s   ->  %s  (Canvas ASSIGNMENT: paste into its description)" % (n, i, t, name))
+        elif i == len(W.STEPS):
+            readme.append("Week %d, Step %d | %s   ->  w%02d-10-discussion-prompt.html  (Canvas DISCUSSION: paste into its description)" % (n, i, t, n))
+            continue
+        else:
+            (pages_dir / name).write_text(page(W, i, st, prev_t, next_t), encoding="utf-8")
+            readme.append("Week %d, Step %d | %s   ->  %s  (Canvas PAGE)" % (n, i, t, name))
     (pages_dir / ("w%02d-README.txt" % n)).write_text("\n".join(readme) + "\n", encoding="utf-8")
     print("\n".join(readme))
 

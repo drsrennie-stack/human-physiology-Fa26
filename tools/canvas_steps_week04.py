@@ -33,6 +33,8 @@ STEPS = [
   note="Chapter numbers are for the 9th edition. Other editions number things differently, so go by the chapter "
        "title and the topic, and use the search in your eText.",
   links=[("The Week 4 pre-read", "week-04-preread.html")],
+  submit_here=["Upload your PDF or photo here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
+          "Due " + DUE + ". Complete or not complete."],
   turnin=["Upload the PDF or photo to the <strong>Week 4 pre-read</strong> assignment in Canvas.",
           "Due " + DUE + ". Complete or not complete."]),
 
@@ -76,6 +78,8 @@ STEPS = [
         "Photograph or scan every page, in order.",
         "Put all the pages into one file, a PDF if you can."],
   links=[("How the Competency Study Guide works", "assignment-notesheet.html")],
+  submit_here=["Upload the one file here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
+          "Due " + DUE + ". Complete or not complete."],
   turnin=["Upload the one file to the <strong>Week 4 Competency Study Guide</strong> assignment in Canvas.",
           "Due " + DUE + ". Complete or not complete."]),
 
@@ -106,6 +110,8 @@ STEPS = [
         "When an attempt meets the standard, open the report and save it as a PDF."],
   links=[("The Week 4 Mastery Check", "practice-exam.html?week=4&n=50"),
          ("How to save and upload your report", "assignment-practice-log.html")],
+  submit_here=["Upload your report here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
+          "Due " + DUE + ". Upload the attempt that meets the standard."],
   turnin=["Upload the report to the <strong>Week 4 Mastery Check</strong> assignment in Canvas.",
           "Due " + DUE + ". Upload the attempt that meets the standard."]),
 
@@ -122,27 +128,28 @@ STEPS = [
   note="The exercise has to show complete in Pearson, and the points are on your worksheet. You need both.",
   links=[("The Week 4 lab worksheet", "lab-worksheet-week04.html"),
          ("What to run and record in PhysioEx this week", "assignment-physioex.html?week=4")],
+  submit_here=["Upload your worksheet here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
+          "Due " + DUE + ". PhysioEx Exercise 3 also has to show complete in Pearson."],
   turnin=["Upload the worksheet to the <strong>Week 4 lab</strong> assignment in Canvas.",
           "Due " + DUE + "."]),
 
  dict(title="Your application case", time="About 1 hour",
-  status="Graded. Use It, 20 percent of your grade across the term.",
+  status="Not turned in this week. Your work goes into your patient chart.",
   intro="This week's case is Camila Reyes, the first four hours of her treatment. You use the week's physiology "
-        "to explain what is happening to her.",
+        "to explain what is happening to her, and that thinking goes into your patient chart, which is how you "
+        "track her across the term.",
   todo=["Open this week's case and read the chart.",
-        "Put your entry point at the top of your page. Use the same one every week.",
-        "Answer all five questions in order and numbered, then the prompt for your entry point. About a page in "
-        "total. Handwritten is fine.",
-        "Add your AI disclosure at the end, even if it is one line saying you used none.",
-        "Photograph or scan it into one PDF, in order."],
-  links=[("This week's case: resuscitation, hours 0 to 4", "assignment-apply.html?week=4")],
-  turnin=["Upload the PDF to the <strong>Week 4 application case</strong> assignment in Canvas and wait for the "
-          "confirmation screen.",
-          "Due " + DUE + "."]),
+        "Work through the five questions, using the physiology from this week, and the prompt for your entry point.",
+        "Write your answers on this week's page of your patient chart, so they stay with her numbers.",
+        "Keep your chart. Nothing from the case is uploaded this week."],
+  links=[("This week's case: resuscitation, hours 0 to 4", "assignment-apply.html?week=4"),
+         ("Your patient chart", "patient-chart-book.html")],
+  turnin=None),
 
  dict(title="Your patient, this week's findings", time="About 30 minutes",
   status="Not turned in this week. The whole chart is turned in once, on Wednesday, December 16.",
-  intro="You keep Camila's chart by hand all term. Each week you add that week's numbers and your thinking.",
+  intro="You keep Camila's chart by hand all term. Each week you add that week's numbers and your thinking, "
+        "including what you worked out in the case in Step 8.",
   todo=["Open your patient chart and this week's released results.",
         "Copy this week's numbers into your flowsheets first. Copying them by hand is how you notice a trend.",
         "Fill in this week's page: what changed, the problem list, the drawing, and your thinking.",
