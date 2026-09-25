@@ -290,9 +290,9 @@
    1,
    2
   ],
-  "why": "A lower extracellular K+ makes the K+ gradient steeper, so the Nernst equation gives a more negative equilibrium potential. Because the resting membrane is mostly permeable to K+, the resting potential follows it downward. The gap to threshold widens, and the cell is harder to fire. This is why hypokalemia causes weakness.",
+  "why": "A lower extracellular K+ makes the K+ gradient steeper, so the K+ equilibrium potential becomes more negative. Because the resting membrane is mostly permeable to K+, the resting potential follows it downward. The gap to threshold widens, and the cell is harder to fire. This is why hypokalemia causes weakness.",
   "whyNot": [
-   "Belongs. The ratio of outside to inside K+ shrinks, so the log term is more negative and the equilibrium potential is more negative.",
+   "Belongs. With less K+ outside, the gradient pushing K+ out is steeper, so a more negative interior is needed to hold it in and the equilibrium potential becomes more negative.",
    "Belongs. The resting potential tracks the K+ equilibrium potential because K+ permeability dominates at rest.",
    "Belongs. A more negative resting potential sits farther from threshold, so a stronger stimulus is required.",
    "Does not belong. Inactivation happens when the membrane is held depolarized, which is the hyperkalemia story. A hyperpolarized membrane keeps Na+ channels closed but ready.",
@@ -343,8 +343,8 @@
   "dok": 2,
   "statement": "If a neuron's membrane were permeable only to Na+, its membrane potential would settle near +60 mV.",
   "truth": true,
-  "correction": "True, because with a single permeant ion the membrane potential equals that ion's Nernst equilibrium potential, and for Na+ (about 145 mmol/L outside, 15 mmol/L inside) that is about +60 mV.",
-  "why": "The Nernst equation gives the potential at which the electrical force exactly balances the chemical force on one ion. For Na+ the ratio outside to inside is about 10, the log of 10 is 1, and 61 times 1 gives about +61 mV. Na+ would enter until the inside was positive enough to stop further net entry. A real neuron never gets there because K+ leak channels stay open, but the peak of the action potential does approach this value, which is why the overshoot exists."
+  "correction": "True, because with a single permeant ion the membrane potential settles at that ion's equilibrium potential, and for Na+, which is about ten times more concentrated outside than inside, that is about +60 mV.",
+  "why": "An equilibrium potential is the voltage at which the electrical force exactly balances the concentration force on one ion. Na+ is crowded outside, so it would keep entering until the inside became positive enough, about +60 mV, to stop further net entry. A real neuron never gets there because K+ leak channels stay open, but the peak of the action potential does approach this value, which is why the overshoot exists."
  },
  {
   "id": "w04-tf-03",
@@ -431,14 +431,14 @@
   "type": "bd",
   "competencyId": "w2-nernst",
   "dok": 3,
-  "prompt": "Without notes, explain how you would use the Nernst equation to find the equilibrium potential for K+ when extracellular K+ is 5 mmol/L and intracellular K+ is 150 mmol/L at 37 C (98.6 F). Give the approximate answer and explain what the sign tells you about K+ movement.",
+  "prompt": "Without notes, explain what the equilibrium potential for K+ means. Use the fact that K+ is about 30 times more concentrated inside the cell than outside to predict whether E_K is positive or negative, give its approximate value, and explain which way K+ moves when its channels open in a neuron resting at -70 mV.",
   "rubric": [
-   "equilibrium potential equals 61 mV times the log of outside over inside concentration (for a +1 ion at body temperature)",
-   "the ratio is 5 over 150, about 1 over 30",
-   "the log of 1 over 30 is about -1.5, so the answer is about -90 mV",
-   "the negative sign means the inside must be negative to balance the chemical gradient pushing K+ out",
-   "at exactly -90 mV there is no net K+ movement",
-   "at any potential less negative than -90 mV (such as -70 mV), K+ moves out of the cell"
+   "the equilibrium potential is the membrane potential at which the electrical force on K+ exactly balances its concentration gradient, so there is no net K+ movement",
+   "K+ is high inside, so its concentration gradient pushes it out of the cell",
+   "to hold a positive ion in, the inside must be negative, so E_K is negative",
+   "E_K is about -90 mV",
+   "at -70 mV the inside is not negative enough to hold K+ in, so K+ leaves when its channels open",
+   "K+ leaving pulls the membrane potential toward -90 mV, which hyperpolarizes the cell"
   ]
  },
  {
@@ -461,14 +461,14 @@
   "type": "bd",
   "competencyId": "w2-lab-membrane-potential",
   "dok": 3,
-  "prompt": "In the membrane potential simulation you raise extracellular K+ from 5 to 20 mmol/L with intracellular K+ fixed at 150 mmol/L. Without notes, explain what the Nernst equation predicts, what you expect the simulated resting potential to do, and why raising extracellular Na+ by the same factor would barely change the resting potential.",
+  "prompt": "In the membrane potential simulation you raise extracellular K+ from 5 to 20 mmol/L with intracellular K+ fixed at 150 mmol/L. Without notes, predict which way the K+ equilibrium potential moves, what you expect the simulated resting potential to do, and why raising extracellular Na+ by the same factor would barely change the resting potential.",
   "rubric": [
-   "the outside to inside ratio for K+ rises from 1 over 30 to about 1 over 7.5",
-   "the predicted K+ equilibrium potential moves from about -90 mV to about -53 mV, a less negative value",
-   "the measured resting potential depolarizes in the same direction and lands within a few mV of the prediction",
+   "more K+ outside means a smaller gradient pushing K+ out of the cell",
+   "the K+ equilibrium potential becomes less negative",
+   "the resting potential depolarizes in the same direction as E_K",
    "the resting potential follows K+ because the resting membrane is highly permeable to K+",
    "changing extracellular Na+ shifts the Na+ equilibrium potential, but resting Na+ permeability is so low that the membrane barely responds",
-   "the Nernst equation predicts the membrane potential well only for an ion the membrane is actually permeable to"
+   "an ion's equilibrium potential only moves the membrane when the membrane is permeable to that ion"
   ]
  },
  {
@@ -551,21 +551,21 @@
   "type": "app",
   "competencyId": "w2-nernst",
   "dok": 3,
-  "case": "A researcher measures Cl- in a neuron at 37 C (98.6 F): intracellular Cl- is 5 mmol/L and extracellular Cl- is 110 mmol/L. The neuron's resting potential is -70 mV. A neurotransmitter then opens Cl- channels on the cell.",
-  "stem": "What is the approximate equilibrium potential for Cl-, and what happens when the Cl- channels open at -70 mV?",
+  "case": "A researcher studies a neuron at 37 C (98.6 F). Cl- is about 20 times more concentrated outside the cell than inside, and the equilibrium potential for Cl- in this neuron is about -82 mV. The neuron's resting potential is -70 mV. A neurotransmitter then opens Cl- channels on the cell.",
+  "stem": "Why is E_Cl negative, and what happens when the Cl- channels open at -70 mV?",
   "options": [
-   "About -82 mV; Cl- enters the cell and the membrane hyperpolarizes toward -82 mV",
-   "About +82 mV; Cl- leaves the cell and the membrane depolarizes",
-   "About -82 mV; Cl- leaves the cell and the membrane depolarizes toward threshold",
-   "About 0 mV; there is no net Cl- movement because Cl- is not a signaling ion"
+   "Because Cl- is a negative ion that is high outside; Cl- enters the cell and the membrane hyperpolarizes toward -82 mV",
+   "Because Cl- is high outside; Cl- leaves the cell and the membrane depolarizes",
+   "Because Cl- is a negative ion that is high outside; Cl- leaves the cell and the membrane depolarizes toward threshold",
+   "Because Cl- is high inside; there is no net Cl- movement because Cl- is not a signaling ion"
   ],
   "correct": 0,
-  "why": "The ratio outside to inside is 110 over 5, or 22, and the log of 22 is about 1.34. For a -1 ion the sign flips, so the equilibrium potential is about -61 times 1.34, or about -82 mV. At -70 mV the cell is less negative than -82 mV, so the electrical force pushing Cl- out is weaker than the chemical force pushing it in. Cl- enters, carrying negative charge in, and the membrane moves toward -82 mV. That is an inhibitory response.",
+  "why": "Cl- is crowded outside, so its gradient pushes it in. Because Cl- is negative, only a negative interior can repel it enough to stop that entry, which is why E_Cl is negative. At -70 mV the cell is less negative than -82 mV, so the electrical force pushing Cl- out is weaker than the concentration force pushing it in. Cl- enters, carrying negative charge in, and the membrane moves toward -82 mV. That is an inhibitory response.",
   "whyNot": [
-   "Correct. The negative sign for an anion with a higher outside concentration, and movement toward its equilibrium potential, are both predicted by the Nernst equation.",
-   "The magnitude is right but the sign is wrong. For an anion that is high outside, the inside must be negative to keep Cl- from entering, so the equilibrium potential is negative.",
-   "The equilibrium potential is right but the direction is wrong. An ion moves so as to bring the membrane toward its own equilibrium potential. From -70 mV toward -82 mV means negative charge must enter, so Cl- goes in.",
-   "Zero would require equal concentrations on both sides. Cl- has a 22 fold gradient, and Cl- channels are the basis of most fast inhibition in the CNS."
+   "Correct. The sign comes from a negative ion that is high outside, and an open channel always moves the membrane toward that ion's equilibrium potential.",
+   "The gradient is right, but Cl- does not leave here. An ion moves so as to bring the membrane toward its own equilibrium potential, and from -70 mV toward -82 mV negative charge must enter.",
+   "The reason for the sign is right but the direction is wrong. Moving from -70 mV toward -82 mV means negative charge must enter, so Cl- goes in and the cell moves away from threshold.",
+   "Cl- is high outside, not inside, and the membrane is not at E_Cl, so there is net movement. Cl- channels are the basis of most fast inhibition in the CNS."
   ]
  },
  {

@@ -7,77 +7,108 @@
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/brandbar.css">
 <meta name="description" content="Week 4 discussion for BIO 005: practice the exam format on cell transport.">
 <style>
 :root{--slate:#414B5C}
+/* Brand restyle Sep 24 2026: MedMasters editorial look, forked from
+   virtual-office.html. Chrome, back link, eyebrow, display headline and
+   primary button come from assets/brandbar.css. White cards on the
+   off-white page, radius 8px, lifted on a shadow, no borders. Headings
+   Open Sans 800 in maroon-dark. A chosen answer stays white and gets a
+   navy outline and a lift, never a tinted fill. No italics. */
 body{background:var(--offwhite);color:var(--navy);font-family:var(--body);margin:0}
+em,i{font-style:normal}
 .wrap{max-width:46rem;margin:0 auto;padding:0 20px}
 .skip{position:absolute;left:-9999px}
-.skip:focus{left:12px;top:12px;background:var(--white);padding:8px 12px;z-index:10;outline:3px solid var(--navy)}
-.topnav{padding:16px 0 0}
-.topnav a{color:var(--maroon-dark);font-weight:700;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
-.topnav a:hover{text-decoration:underline}
-header{padding:12px 0 8px}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,40px);line-height:1.15;margin:0 0 10px;color:var(--navy)}
+.skip:focus{left:12px;top:12px;background:var(--white);padding:8px 12px;z-index:90;outline:3px solid var(--navy)}
+.topnav{padding:6px 0 0}
+.pagehead{padding:14px 0 8px}
+.pagehead .mm-display{margin:0 0 14px}
 .meta{font-size:17px;margin:0 0 12px;color:var(--slate)}
 .meta strong{color:var(--navy)}
 p{font-size:17px;line-height:1.6;margin:0 0 12px}
-.card{background:var(--white);border-radius:12px;box-shadow:var(--shadow);padding:22px 24px;margin:22px 0}
-h2{font-family:var(--display);font-weight:700;font-size:22px;margin:0 0 6px;color:var(--navy)}
-.sub{font-family:var(--display);font-weight:700;font-size:18px;color:var(--maroon-dark);margin:22px 0 10px}
+.card{background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:22px 24px;margin:22px 0}
+.card:hover{transform:none;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+h2{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.018em;font-size:clamp(21px,3vw,25px);line-height:1.2;margin:0 0 8px;color:var(--maroon-dark)}
+.sub{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:18px;color:var(--maroon-dark);margin:24px 0 10px}
 .lead{color:var(--slate);margin:0 0 16px}
 .note{font-size:15px;color:var(--slate);margin:10px 0 0}
 fieldset{border:0;padding:0;margin:0 0 18px}
 legend{font-weight:700;font-size:17px;line-height:1.5;margin:0 0 8px;padding:0}
-.choices{display:flex;flex-wrap:wrap;gap:8px 18px}
-.choices label{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:16px;cursor:pointer}
+.choices{display:flex;flex-wrap:wrap;gap:8px 10px;margin-left:-10px}
+.choices label{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:16px;cursor:pointer;
+  padding:4px 14px 4px 10px;background:var(--white);border:1.5px solid transparent;border-radius:8px;
+  transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease}
 .choices input{width:20px;height:20px;accent-color:var(--navy)}
 .q{margin:0 0 20px}
 .q label{display:block;font-weight:700;font-size:17px;line-height:1.5;margin:0 0 4px}
 .q .where{display:block;font-size:15px;color:var(--slate);margin:0 0 8px}
-textarea{display:block;width:100%;box-sizing:border-box;min-height:5.5em;padding:10px 12px;border:1px solid var(--line-control);border-radius:8px;font:16px/1.5 var(--body);color:var(--navy);background:var(--white);resize:vertical}
-textarea:focus-visible,input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+textarea{display:block;width:100%;box-sizing:border-box;min-height:5.5em;padding:10px 12px;border:1px solid var(--line-control);border-radius:4px;font:16px/1.5 var(--body);color:var(--navy);background:var(--white);resize:vertical}
+textarea:focus-visible,input:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
 .term{font-weight:800}
-.act{font-family:var(--display);font-weight:700;font-size:18px;color:var(--maroon-dark);margin:0 0 12px}
+.act{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:18px;color:var(--maroon-dark);margin:0 0 12px}
 .opts{margin:6px 0 0;padding:0;list-style:none}
-.opts li{margin:0}
-.opts label{display:flex;gap:10px;align-items:flex-start;min-height:44px;font-size:16px;line-height:1.5;cursor:pointer;padding:6px 0}
+.opts li{margin:0 0 4px}
+.opts label{display:flex;gap:10px;align-items:flex-start;min-height:44px;font-size:16px;line-height:1.5;cursor:pointer;
+  padding:6px 12px;margin:0 -12px;background:var(--white);border:1.5px solid transparent;border-radius:8px;
+  transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease}
 .opts input,.checks input{width:20px;height:20px;margin-top:3px;accent-color:var(--navy);flex:none}
 .checks{list-style:none;margin:8px 0 0;padding:0}
-.checks label{display:flex;gap:10px;align-items:flex-start;min-height:40px;font-size:16px;line-height:1.5;cursor:pointer;padding:4px 0}
-details.rub{margin:12px 0 0;border:1px solid var(--navy-tint);border-radius:10px;padding:0 14px}
-details.rub summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--navy)}
+.checks li{margin:0 0 2px}
+.checks label{display:flex;gap:10px;align-items:flex-start;min-height:40px;font-size:16px;line-height:1.5;cursor:pointer;
+  padding:4px 10px;margin:0 -10px;background:var(--white);border:1.5px solid transparent;border-radius:8px;
+  transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease}
+/* Chosen: white inside, navy outline, lifted. Navy on white is 18.04:1. */
+.choices label:has(input:checked),
+.opts label:has(input:checked),
+.checks label:has(input:checked){border-color:var(--navy);box-shadow:0 6px 14px rgba(11,21,48,.14);transform:translateY(-1px)}
+details.rub{margin:12px 0 0;border:1px solid var(--line);border-radius:8px;padding:0 14px}
+details.rub summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:10px;list-style:none;font-weight:700;color:var(--maroon-dark)}
+details.rub summary::-webkit-details-marker{display:none}
+details.rub summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+details.rub[open] summary::before{transform:rotate(45deg)}
 .steps{margin:0 0 12px;padding-left:22px}
 .steps li{font-size:17px;line-height:1.6;margin:6px 0}
+.steps li::marker{color:var(--maroon);font-weight:800}
 .prompt{font-size:17px;line-height:1.6;font-weight:600;margin:0 0 10px}
-@media print{details.rub{border:1px solid #9aa3b2}}
+@media print{details.rub{border:1px solid #414B5C}}
 .printcopy{display:none}
-.btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border:1px solid var(--navy);border-radius:8px;background:var(--navy);color:var(--white);font:700 16px/1.2 var(--body);cursor:pointer}
-.btn:hover{background:var(--navy-deep)}
 #saved{font-size:15px;color:var(--slate);margin:10px 0 0}
-footer{padding:10px 0 40px;font-size:14px;color:var(--slate)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.mm-btn{margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}
+  .choices label:has(input:checked),.opts label:has(input:checked),.checks label:has(input:checked){transform:none}}
 @media print{
   @page{size:letter;margin:0.6in}
   body{background:#fff}
-  .skip,.topnav,.btn,#saved,footer{display:none!important}
-  .card{box-shadow:none;border:1px solid #9aa3b2;break-inside:avoid;margin:14px 0;padding:14px 16px}
+  body{padding-bottom:0!important} /* bio005-back.js pads the body for its floating button; not on paper */
+  .skip,.topnav,.mm-btn,#saved,.mm-brandbar,.mm-foot{display:none!important}
+  .card{box-shadow:none;border:1px solid #414B5C;break-inside:avoid;margin:14px 0;padding:14px 16px}
+  .choices label,.opts label,.checks label{box-shadow:none!important;transform:none!important}
   textarea{display:none}
-  .printcopy{display:block;border:1px solid #9aa3b2;border-radius:6px;min-height:4.5em;padding:8px 10px;white-space:pre-wrap;font-size:14px;line-height:1.5}
+  .printcopy{display:block;border:1px solid #414B5C;border-radius:6px;min-height:4.5em;padding:8px 10px;white-space:pre-wrap;font-size:14px;line-height:1.5}
   .q{break-inside:avoid}
   p,legend,.q label{font-size:14px}
-  h1{font-size:26px}
+  .mm-display{font-size:26px}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the worksheet</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
 <nav class="topnav" aria-label="Back"><div class="wrap">
-  <a href="week-04-entry.html" target="_top">&larr; Week 4 start page</a>
+  <a class="mm-back" href="week-04-entry.html" target="_top">&larr; Week 4 start page</a>
 </div></nav>
 <main id="main"><div class="wrap">
-<header>
-  <h1>Week 4 discussion: practice the exam format</h1>
+<header class="pagehead">
+  <p class="mm-eyebrow">Week 4, a practice run</p>
+  <h1 class="mm-display">Week 4 discussion: practice the <span>exam format</span>.</h1>
   <p class="meta"><strong>First post due Friday, October 2 at 10:00 pm. Two replies due Sunday, October 4 at 10:00 pm.</strong></p>
   <p>This week's discussion is a practice run of your exam format, done on cell transport from Week 2. The material is familiar, so you can put your attention on the format itself: brain dumps from memory, then one hard multiple choice question you answer, model, teach, and check against a rubric. Doing it once now means the exam will not be the first time.</p>
 </header>
@@ -188,11 +219,23 @@ footer{padding:10px 0 40px;font-size:14px;color:var(--slate)}
 <section class="card" aria-labelledby="h-turn">
   <h2 id="h-turn">Turn it in</h2>
   <p>Save this page as a PDF with the button below if you want a copy of your answers and checks. Your post itself goes in the Week 4 discussion in Canvas.</p>
-  <button type="button" class="btn" id="printBtn">Print or save as PDF</button>
+  <button type="button" class="mm-btn" id="printBtn">Print or save as PDF</button>
   <p id="saved" aria-live="polite">Your answers save on this device as you type.</p>
 </section>
 </div></main>
-<footer><div class="wrap"><p>BIO 005 Human Physiology, Fall 2026. Dr. Sharilyn Rennie.</p></div></footer>
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
 <script>
 (function(){
   var KEY = "bio005-w04-discussion";
@@ -234,6 +277,11 @@ footer{padding:10px 0 40px;font-size:14px;color:var(--slate)}
   document.getElementById("printBtn").addEventListener("click", function(){ fillPrintCopies(); window.print(); });
 }());
 </script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
 <script>
 (function(){
   var FRAME_ID = "bio005-week-04-discussion";

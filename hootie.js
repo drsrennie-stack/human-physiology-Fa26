@@ -352,7 +352,7 @@
 
       case 'exams':
         return examLine(ctx, ctx.nextExam)
-          + '<br><br>Two exams, not five. Midterm 1 covers Weeks 1 to 7 and its window is Oct 26 to 28. Midterm 2 covers Weeks 8 to 14, Dec 14 to 16. Each is a window of three days, not an hour, and each is worth 17.5 percent.'
+          + '<br><br>Two exams, not five. Midterm 1 covers Weeks 1 to 7 and its window is Oct 29 to Nov 1. Midterm 2 covers Weeks 8 to 14, Dec 14 to 16. Each is a window of several days, not an hour, and each is worth 17.5 percent.'
           + '<br><br>Neither is multiple choice. You draw a physiological pathway and teach it out loud on video with no notes. Every week\'s Retrieve step is that same task in miniature, ungraded, so the format is familiar long before it counts. Dates are on the ' + a('calendar') + ' and in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       /* Rewritten Sep 7 2026. This answer used to describe "weekly

@@ -41,3 +41,64 @@ Structure checked in the accessibility tree: landmarks (nav, main, footer), one 
 ## Reviewer
 
 Built and machine-checked by Claude for Dr. Sharilyn Rennie. Final review: Dr. Sharilyn Rennie.
+
+---
+
+## Brand restyle, September 24, 2026
+
+Files: weekly-loop.html, tools/build_week_entry.py, week-04-entry.html (regenerated
+with `python3 tools/build_week_entry.py 4`, never hand-edited; the data file
+tools/week-entry-data.json is unchanged). Also covers the three Week 4 pages the
+entry page links to that have no compliance notes of their own:
+week-04-preread.html, lab-worksheet-week04.html, discussion-week04.html.
+
+What changed:
+
+- Both loop pages now carry the shared MedMasters chrome from assets/brandbar.css,
+  forked from virtual-office.html: the sticky white brand bar with the three-figure
+  mark, the uppercase tracked back link, a maroon eyebrow ("How every week works",
+  "Week 4, start here"), a two-tone Open Sans 800 headline with a closing period,
+  maroon-dark section headings, the uppercase maroon Print button at 4px radius, and
+  the dark dot-separated footer. Hootie and the floating Back button load as they do
+  on virtual-office.html. bio005-collapse.js is not loaded, because it would fold the
+  page's sections and change how it behaves.
+- Off-brand hues removed. The preview step was slate gray and is now navy-tint with a
+  navy edge; its label in the key now reads "Light navy", and the loop diagram's text
+  description says "shown in light navy". Arrows are navy instead of gray. The orange
+  W badge (known limitation 2 above) is now navy, at the instructor's direction on
+  Sep 24. S stays maroon. T is now gold with a navy-deep letter and a navy ring,
+  where it used to be navy, so W and T no longer share a color.
+- Cards and the key are white at 8px radius on a shadow, with no borders.
+- On the week entry page, linked diagram boxes lift on a shadow on hover and take a
+  3px maroon focus outline around the whole step. The old gold hover and focus edge
+  was 2.32:1 on the page, under the 3:1 non-text floor.
+- The pre-read, lab worksheet and discussion pages get the same chrome and type. A
+  chosen radio or checkbox answer now stays white, gets a navy outline and lifts on a
+  shadow. The rubric disclosures get the same chevron as the key.
+- Print: every one of these pages prints the same number of pages as before (loop 5,
+  entry 3, pre-read 7, lab 6, discussion 6). The brand bar, footer and floating
+  buttons do not print.
+- No italics, no em or en dashes, target="_top" and target="_blank" rel="noopener"
+  unchanged, iframe height sender still the last script before </body>.
+
+New or changed contrast pairs, measured:
+
+| Pair | Ratio | Level |
+|---|---|---|
+| Navy #0B1530 text on navy-tint #ECEFF4, Pre-read box | 15.65:1 | AAA |
+| Navy #0B1530 edge of the Pre-read box and arrows on off-white #FAFAF9 (non-text) | 17.27:1 | Passes 3:1 |
+| White on navy #0B1530, W badge | 18.04:1 | AAA |
+| White on maroon #8B3A2E, S badge, primary buttons | 7.66:1 | AAA |
+| Navy-deep #060A18 letter on gold #C9A14A, T badge | 8.16:1 | AAA |
+| Navy #0B1530 ring of the T badge on a white box (non-text) | 18.04:1 | Passes 3:1 |
+| Maroon #8B3A2E eyebrow, back link, headline words on off-white #FAFAF9 | 7.33:1 | AAA |
+| Maroon-dark #6E2D24 headings on off-white #FAFAF9 | 9.74:1 | AAA |
+| Maroon-dark #6E2D24 headings and rubric summaries on white | 10.18:1 | AAA |
+| White on maroon-dark #6E2D24, button hover | 10.18:1 | AAA |
+| Maroon #8B3A2E focus outline on off-white, diagram links (non-text) | 7.33:1 | Passes 3:1 |
+| Navy #0B1530 outline on white, chosen answer (non-text) | 18.04:1 | Passes 3:1 |
+| Ink-soft #414B5C lede and meta text on off-white | 8.43:1 | AAA |
+| Bone #F5F1E8 footer text on navy-deep #060A18 | 17.50:1 | AAA |
+
+The rows above for slate and orange are retired. Known limitation 2 is closed.
+Limitation 1, the live screen reader pass, is still open.

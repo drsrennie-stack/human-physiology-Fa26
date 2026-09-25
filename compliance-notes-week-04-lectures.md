@@ -12,6 +12,7 @@
   - biol005-w04-synapse (20 slides, 10 figures, model: run one synapse)
   - biol005-w04-synaptic-integration (23 slides, 11 figures, model: will it fire)
 - Two existing pages edited: lecture-week.html (a Week 4 entry added to the manifest, nothing else changed) and week-04-notes.html (the placeholder text inside main replaced with links to the six lectures, page chrome unchanged).
+- September 24, 2026: Nernst and Goldman calculation removed from the course. In biol005-w04-membrane-potential (slides, notes, script) the four worked problems keep their slides (15, 16, 18, 23) and numbering but are now prediction and explanation problems (sign of an equilibrium potential from gradient and charge, direction of ion movement and driving force, Goldman read as a permeability weighted blend, direction of shifts with plasma potassium). The equations are still shown and read, never computed. Calculator and log prerequisites removed, competency 2 text and prompts 2-1 and 2-2 replaced, slide titles 14, 15 and 23 renamed in deck and script. In biol005-w04-action-potential notes and slides, only the Goldman arithmetic in worked problem 2 and the log-button prerequisite were removed. Reveal buttons, headings, ids and aria attributes unchanged; rechecked in headless Chromium.
 - Decks and notes are forks of the Week 3 compartments deck and notes. Scripts are forks of the Week 2 chemistry script with its periodic table widget removed. The deck engine, pen layer, lightbox, print styles and site chrome are unchanged.
 
 ## 2. WCAG version and level

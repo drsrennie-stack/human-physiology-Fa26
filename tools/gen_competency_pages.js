@@ -27,7 +27,9 @@ const esc = s => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-const PART = { 1: 'Part 1', 2: 'Part 2', 3: 'Part 3' };
+const PART = { 1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action' };
+/* Sep 24 2026: the week data has no module field, so the part comes from the week number. */
+const partOf = w => PART[w <= 3 ? 1 : w <= 8 ? 2 : 3];
 const LONG = d => {
   const [y, m, dd] = d.split('-').map(Number);
   return new Date(Date.UTC(y, m - 1, dd)).toLocaleDateString('en-US',
@@ -210,7 +212,7 @@ ${jumps}
 </div>
 
 <header class="top"><div class="wrap">
-  <p class="eyebrow">BIO 005 &middot; Week ${w} &middot; ${PART[wk.module]}</p>
+  <p class="eyebrow">BIO 005 &middot; Week ${w} &middot; ${partOf(w)}</p>
   <h1>Everything Week ${w} <b>asks you to be able to do.</b></h1>
   <p class="sub">${esc(wk.title)}. ${n} ${n === 1 ? 'competency' : 'competencies'}, each one a single thing you will be able to do by ${LONG(wk.closes)}.</p>
 </div></header>

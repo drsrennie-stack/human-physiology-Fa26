@@ -1,55 +1,88 @@
-BIO 005 drop, Sep 24 2026 (afternoon): Mastery Check standard, Week 4 fixes, competency counts
+BIO 005 drop, Sep 24 2026 (evening): Nernst without calculation, neurons and glia walkthrough only,
+Week 8 as the Midterm 1 week, MedMasters branding on the new Week 4 pages
 
-Upload every file at the same path. Nothing is renamed. Built on the repo as of your 09:53 upload today.
+Built on the repo as of your 4:19 pm upload (the afternoon drop). Upload every file at the same path.
+83 files plus this one. Nothing is renamed.
 
-MASTERY CHECK STANDARD (the part the assessment chat did not finish)
-practice-exam.html        An attempt now counts as the week's Mastery Check when it covers one week,
-                          has at least 50 questions, tests every competency for that week at least once,
-                          and scores 80 percent or higher. The setup page says so, and so do the
-                          finish screen and the report: "Met" or "Not yet" on each of the three.
-                          The report now lists EVERY competency for the week with its question count,
-                          points earned and score, so you can see per-competency coverage on each upload.
-                          New lengths: 60 and 75. At 50 or more, the exam covers every competency
-                          (tested 30 times on every week, 100 percent coverage every time).
-                          To raise one unit's minimum later, one line near the top of the script:
-                          MASTERY.byWeek[5] = {minQ:75}.
-weekly-loop.html          States the standard. Time per try is now 35 to 50 minutes (was 20 to 30,
-                          which fit 30 questions, not 50).
-tools/build_week_entry.py Same standard and time in the step list, for every week you build from now on.
-tools/week-entry-data.json  Week 4 Mastery Check link opens at 50 questions.
-week-04-entry.html        Rebuilt with the tool, so the three changes above show on it.
+1. NERNST: CALCULATION OUT, UNDERSTANDING DIRECTION IN
+Competency text (w2-nernst) now reads: "Explain what an ion's equilibrium potential means, predict its
+sign from the direction of the ion's concentration gradient and its charge, and use it to predict which
+way that ion will move when its channels open." The lab competency (w2-lab-membrane-potential) now ends
+"...and explain why changing potassium moves it far more than changing sodium" instead of "against the
+Nernst prediction". Changed in the CSV and in every file that carries the text (competency pages,
+packets, study guide, print pack, sheet data, Mastery OS checklists, standalone exports).
+  cards/t-membrane-potential.json   18 cards rewritten in place, same ids so no student history breaks:
+                                    12 Nernst cards now ask for sign, meaning, direction and driving force;
+                                    6 lab cards now ask for direction of change. 3 explanations cleaned.
+  cards/exam/week-04.json           5 Mastery Check items rewritten the same way (1 brain dump now asks
+                                    for meaning, sign and direction, with a new rubric).
+  os/bio005-card-bank.js, bio005-exam-bank.js   rebuilt with your tools. Checked: exactly the 22 cards
+                                    and 5 items above changed, nothing else.
+  Note sheet and brain dump prompts 2A and 2B (Nernst) and 6A (lab) rewritten, in assets/bio005-sheet-data.js,
+  bio005-sheet-data.js, tools/prompts/week04.json, week-04-competencies.html, week-print-pack.html.
+  biol005-w04-membrane-potential-notes / -slides / -transcript.html   the four worked problems are now
+                                    predict and explain. Calculator and log math removed. The equations are
+                                    still shown, read in plain words.
+  biol005-w04-action-potential-notes / -slides / -transcript.html   worked problem 2 is now a prediction;
+                                    log line removed.
 
-WEEK 4 START PAGE (week-04.html)
-The walkthrough cards were lost. The guided walkthrough chat and the assessment chat both uploaded
-week-04.html today, and the second upload wiped out the first one's cards. This version has both:
-  - the three "Walk through it" cards and the drawing sheet are back under After the lectures
-  - Pre-read card added first under Before the lectures (it was only on week-04-entry.html)
-  - 29 competencies (the page said 23 in one place and 20 in two others; the data has 29)
-  - Lab now links the Week 4 lab worksheet, Discussion links discussion-week04.html, matching the
-    entry page (they still pointed to the old generic pages)
-  - Mastery Check card describes the 50 questions and 80 percent standard
-lecture-week.html         Week 4 now lists the three walkthroughs and the drawing sheet at the top.
-                          The entry page sends students here, so before this they never reached them.
-bio005-nav.js             Week 4 released from HOLD. It still opens on the normal rule, Monday
-                          September 28 at 8:00 am Pacific. Without this it would have stayed locked.
-                          If you want it held longer, skip this one file.
+2. NEURONS AND GLIA: THE WALKTHROUGH IS THE ONLY LESSON
+  biol005-w04-neurons-glia-guided.html   completed. 22 to 44 steps. It now teaches everything in
+                                    competencies 7 to 11: the nervous system map (CNS, PNS, sensory and
+                                    efferent, somatic and autonomic, sympathetic and parasympathetic,
+                                    enteric), where each neuron shape is found, graded vs all-or-none
+                                    signals, calcium and release, the blood-brain barrier, each glial cell,
+                                    Schwann cells and regrowth, how myelin buys speed, nodes, MS and
+                                    Guillain-Barre, kinesin and dynein, fast and slow transport.
+                                    Three accuracy fixes to old steps (trigger zone, conduction speed,
+                                    cell body position).
+  biol005-w04-drawing-sheet.html    adds a nervous system map box and an axonal transport box. 11 pages.
+  lecture-week.html, week-04-notes.html   the old story, draw-along, notes and slides are unlinked.
 
-COMPETENCY COUNTS, WEEKS 5 TO 15
-week-05.html to week-15.html  The number of competencies on each week page was off. The counts came
-                          from an old sequence (Week 6 said 20 in one spot and 24 in another, Week 10
-                          said 19 and 13). All now match the data. Week 8 now says no new competencies
-                          and that Midterm 1 covers Weeks 1 to 7 (it said 1 to 6; the syllabus says 1 to 7).
-week-15.html              Also adds the optional cover-to-cover read-through, for after every
-                          competency is solid (from your to-do list).
+3. WEEK 8 IS THE MIDTERM 1 WEEK, EXAM THURSDAY TO SUNDAY
+  week-08.html                      rebuilt: no lab, case, discussion, note sheet or competencies.
+                                    Monday to Wednesday review (practice exam, competency lists, brain dumps,
+                                    drawing, cards), then Midterm 1 in Canvas, Thursday October 29 at 8:00 am
+                                    to Sunday November 1 at 10:00 pm Pacific.
+  New window everywhere it was stated: syllabus, schedule, how grading works, course home, course map,
+  welcome, course questions, Hootie, week grid, week navigator, credit model, schedule data, and the
+  tools/site/body copies. "Three day window" is now "window of several days", since Midterm 2 is still
+  Monday to Wednesday, December 14 to 16.
+  bio005-schedule-fall2026.js       also removes a stale note on Week 7 that called it the Midterm 1 week.
+  bio005-nav.js, bio005-dock.js, os/bio005-dock.js   in Week 8 the menu shows Midterm 1 instead of lab,
+                                    case and discussion. Also: book problems no longer show from Week 4 on,
+                                    and the Mastery Check item states the 50 question, 80 percent standard.
 
-DELETE BY HAND (numbered duplicates and previews uploaded today; nothing links to any of them)
-  weekly-loop_1.html
-  weekly-loop_2.html
-  w02-overview_1.html              (identical to w02-overview.html)
-  BIO005-Week2-Packet_2.pdf        (identical to BIO005-Week2-Packet.pdf)
-  week-04-entry-preview.html
-  discussion-week04-preview.html
-  lab-worksheet-week04-preview.html
+4. BRANDING
+  weekly-loop.html, week-04-entry.html (rebuilt with tools/build_week_entry.py), week-04-preread.html,
+  lab-worksheet-week04.html, discussion-week04.html, the three walkthroughs and the drawing sheet now use
+  the MedMasters brand: brand bar, footer, maroon eyebrow, two-tone Open Sans headline, white cards, uppercase
+  maroon buttons, navy/maroon/gold only (the orange and slate in the loop diagram are gone).
+  assets/brandbar.css               adds the shared .mm- eyebrow, headline, back link and button styles.
+  guided-walkthrough-specs.md       updated so future walkthroughs are built on brand.
+
+5. SMALL FIXES
+  week-02 to week-15-competencies.html   the eyebrow read "Week N · undefined". Now names the part.
+  tools/gen_competency_pages.js     fixed at the source so it stays fixed.
+  Week 4 prompt 1B said "chloride wherever your own numbers put it"; now "chloride near minus 65".
 
 CANVAS
-Nothing new to paste. The Week 4 iframes from the morning drop still apply.
+_canvas/pages/how-grading-works.html has the new Midterm 1 window. If that page is pasted into Canvas,
+paste it again. In Canvas, set the Midterm 1 availability to Thursday October 29, 8:00 am to Sunday
+November 1, 10:00 pm.
+
+DELETE BY HAND (nothing links to any of these)
+  From this drop, the retired neurons and glia lesson:
+    biol005-w04-neurons-glia-story-slides.html
+    biol005-w04-neurons-glia-story-drawalong.html
+    biol005-w04-neurons-glia-story-transcript.html
+    biol005-w04-neurons-glia-notes.html
+    biol005-w04-neurons-glia-slides.html
+    biol005-w04-neurons-glia-transcript.html
+  Still waiting from the afternoon drop:
+    weekly-loop_1.html, weekly-loop_2.html, w02-overview_1.html, BIO005-Week2-Packet_2.pdf,
+    week-04-entry-preview.html, discussion-week04-preview.html, lab-worksheet-week04-preview.html
+
+NOT CHANGED, FOR LATER
+  slides-p-membrane-potential.html (an older deck, linked only from the sitemap) still teaches the calculation.
+  Week 8 competencies, notes and lecture list pages still exist and show nothing for an exam week.

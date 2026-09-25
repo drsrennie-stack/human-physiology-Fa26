@@ -145,9 +145,9 @@ window.BIO005_DRAW = [
   "week": 2,
   "system": "Membrane Potential",
   "checklist": [
-   "Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move"
+   "Explain what an ion's equilibrium potential means, predict its sign from the direction of the ion's concentration gradient and its charge, and use it to predict which way that ion will move when its channels open"
   ],
-  "prompt": "From memory, on paper: Calculate the equilibrium potential for an ion with the Nernst equation and explain what the sign of the result means for the direction that ion will move."
+  "prompt": "From memory, on paper: Explain what an ion's equilibrium potential means, predict its sign from the direction of the ion's concentration gradient and its charge, and use it to predict which way that ion will move when its channels open."
  },
  {
   "id": "w2-resting-potential",

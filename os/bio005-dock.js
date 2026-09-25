@@ -419,7 +419,8 @@
     t.push({ g: '2 Practice', name: 'Rx Cards', sub: 'Spaced recall that gets harder as you prove it',
              url: BASE + 'rx-cards.html?week=' + wn, icon: 'cards', tone: 'gold', qr: 'recall',
              kw: 'cards recall rx flashcards spaced repetition quiz retrieval practice anki' });
-    t.push({ g: '2 Practice', name: 'Book problems', sub: 'Problems you have not seen. Predict, commit, then check',
+    /* Sep 24 2026: book problems were dropped from Week 4 on; Weeks 1 to 3 keep them. */
+    if (wn < 4) t.push({ g: '2 Practice', name: 'Book problems', sub: 'Problems you have not seen. Predict, commit, then check',
              url: BASE + 'assignment-bookproblems.html?week=' + wn, icon: 'doc', tone: 'navy',
              kw: 'book problems textbook silverthorn questions chapter' });
     t.push({ g: '2 Practice', name: 'Kahoot library', sub: 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term',
@@ -433,13 +434,17 @@
              kw: 'games game play taboo memory match team' });
 
     /* ---------- 3 APPLY ---------- */
-    t.push({ g: '3 Apply', name: 'This week\'s lab', sub: 'What to run, what to record, and how to turn it in. Investigate It, 25%',
+    /* Sep 24 2026: Week 8 is the Midterm 1 week, no teaching, no lab, case or discussion. */
+    if (wn === 8) t.push({ g: '3 Apply', name: 'Midterm 1', sub: 'In Canvas, Thursday Oct 29 8:00 am to Sunday Nov 1 10:00 pm. Show Me What You Know, 17.5%',
+             url: BASE + 'week-08.html#apply', icon: 'target', tone: 'gold',
+             kw: 'midterm exam test draw teach video window' });
+    if (wn !== 8) t.push({ g: '3 Apply', name: 'This week\'s lab', sub: 'What to run, what to record, and how to turn it in. Investigate It, 25%',
              url: BASE + 'week-' + nn + '.html#apply', icon: 'flask', tone: 'gold',
              kw: 'lab physioex worksheet investigate data record turn in' });
-    t.push({ g: '3 Apply', name: 'Use It case', sub: 'This week\'s case on your patient, five questions. Use It, 20%',
+    if (wn !== 8) t.push({ g: '3 Apply', name: 'Use It case', sub: 'This week\'s case on your patient, five questions. Use It, 20%',
              url: BASE + 'assignment-apply.html?week=' + wn, icon: 'target', tone: 'terra',
              kw: 'use it case apply patient questions entry point weekly' });
-    t.push({ g: '3 Apply', name: 'Discussion', sub: 'Post by Friday, two replies by Sunday. Think About It, 15%',
+    if (wn !== 8) t.push({ g: '3 Apply', name: 'Discussion', sub: 'Post by Friday, two replies by Sunday. Think About It, 15%',
              url: BASE + (wn === 1 ? 'assignment-discussion-01-metacognition.html' : 'assignment-discussion.html?week=' + wn), icon: 'people', tone: 'navy',
              kw: 'discussion post reply metacognition think about it' });
     t.push({ g: '3 Apply', name: 'Every lab', sub: 'All fifteen weeks of labs, and the lab manual',
@@ -461,8 +466,8 @@
              kw: 'patient chart upload december capstone pdf turn in instructions' });
 
     /* ---------- 4 CHECK ---------- */
-    t.push({ g: '4 Check', name: 'Mastery Check', sub: 'Thirty questions, nothing open, and a report you can upload',
-             url: BASE + 'practice-exam.html?week=' + wn, icon: 'target', tone: 'gold', qr: 'mastery',
+    t.push({ g: '4 Check', name: 'Mastery Check', sub: 'At least 50 questions and 80 percent to count, nothing open, and a report you can upload',
+             url: BASE + 'practice-exam.html?week=' + wn + (wn === 8 ? '' : '&n=50'), icon: 'target', tone: 'gold', qr: 'mastery',
              kw: 'mastery check practice exam gap finder test questions score report' });
     t.push({ g: '4 Check', name: 'Competency checklist', sub: 'Tick what you can do from memory',
              url: BASE + 'week-' + nn + '-competencies.html', icon: 'doc', tone: 'navy',

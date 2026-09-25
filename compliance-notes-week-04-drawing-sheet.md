@@ -63,9 +63,37 @@ An important limitation is stated plainly in section 6 rather than treated as so
    task text and then nothing. The task text is written to fully describe what
    goes in the box for that reason.
 3. Hand screen reader pass with NVDA and VoiceOver not yet performed.
-4. Print output runs to nine physical pages. Part headings are numbered as Parts,
+4. Print output runs to eleven physical pages (nine before the September 24, 2026
+   map and axonal transport boxes were added). Part headings are numbered as Parts,
    not pages, so the numbering does not contradict the printed page count.
 
-## 7. Reviewer
+## 7. Brand restyle, September 24, 2026
 
+Covers biol005-w04-drawing-sheet.html. On screen only; the printout is unchanged.
+
+- Added the shared brand bar and dark footer, the tracked maroon eyebrow, a two-tone
+  Open Sans 800 headline, maroon-dark section headings, an uppercase maroon Print
+  button at 4px radius, the Back to Week 4 link in the site's back link style, and
+  8px card radius. Added the site favicon link.
+- Loads Hootie and the floating Back button like the rest of the site. Both hide
+  themselves in print.
+- Print checked with emulated print media in headless Chromium against the previous
+  version: 11 pages both times, identical text on every page, one part per page. Two
+  print rules were needed to hold that: the part headings print at their old 1.2rem
+  in black, and body padding is zeroed in print, because bio005-back.js pads the body
+  76px for its floating button and that pushed a blank twelfth page.
+- No italics, no em or en dashes, link targets unchanged, height sender still last
+  before </body>.
+
+New or changed contrast pairs, measured:
+
+| Pair | Ratio | Level |
+|---|---|---|
+| Maroon #8B3A2E eyebrow, headline words and back link on off-white #FAFAF9 | 7.33:1 | AAA |
+| Maroon-dark #6E2D24 section headings on white | 10.18:1 | AAA |
+| White on maroon #8B3A2E, Print this sheet button | 7.66:1 | AAA |
+| White on maroon-dark #6E2D24, button hover | 10.18:1 | AAA |
+| Bone #F5F1E8 footer text on navy-deep #060A18 | 17.50:1 | AAA |
+
+## 8. Reviewer
 Dr. Sharilyn Rennie

@@ -180,7 +180,7 @@ window.BIO005_SESSIONS = {
    "closes": "2026-11-08",
    "title": "Hormones: your body's slower control system",
    "exam": null,
-   "note": "The last day to drop is Nov 21. Midterm 1 closed Oct 28, so students have that grade in hand before the drop decision."
+   "note": "The last day to drop is Nov 21. Midterm 1 closed Nov 1, so students have that grade in hand before the drop decision."
   },
   {
    "wk": 10,

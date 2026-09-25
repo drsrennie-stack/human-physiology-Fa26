@@ -12,12 +12,21 @@ Run:   python3 tools/build_week_entry.py 4        builds week-04-entry.html
 A step whose link is null shows "Not posted yet" and is not clickable.
 Colors come from assets/brand.css. The diagram uses the same hex values
 because SVG attributes cannot read CSS variables.
+
+Brand restyle Sep 24 2026: the page now carries the shared MedMasters
+chrome from assets/brandbar.css (brand bar, back link, eyebrow, two-tone
+headline, dark footer) and the site scripts virtual-office.html loads.
+Only brand colors appear in the diagram: the preview box is navy-tint
+with a navy edge (it was slate gray), arrows are navy, and the badges
+are W navy, S maroon, T gold with a navy ring (W was orange).
+The data format in tools/week-entry-data.json is unchanged.
 """
 import json, sys, html, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT/'tools'/'week-entry-data.json').read_text(encoding='utf-8'))
 
-N='#0B1530'; M='#8B3A2E'; G='#414B5C'; GOLD='#C9A14A'; INK='#060A18'; O='#F28C28'
+N='#0B1530'; M='#8B3A2E'; G='#414B5C'; GOLD='#C9A14A'; INK='#060A18'; TINT='#ECEFF4'
+# G is ink-soft, used for secondary TEXT only. Fills and arrows are brand colors.
 
 # key, title, subline, time, kind, badges
 STEPS = [
@@ -37,8 +46,10 @@ PHASE = {'prev':'Preview','learn':'Learning','retr':'Retrieval','check':'Checkin
 def esc(s): return html.escape(s, quote=True)
 
 def badge(cx,cy,letter):
-    fill,tc={'W':(O,N),'S':(M,'#fff'),'T':(N,'#fff')}[letter]
-    return (f'<g aria-hidden="true"><circle cx="{cx}" cy="{cy}" r="11.5" fill="{fill}" stroke="#fff" stroke-width="2"/>'
+    # white on navy 18.04:1, white on maroon 7.66:1, navy-deep on gold 8.16:1.
+    # Gold gets a navy ring because gold against a white box is only 2.42:1.
+    fill,tc,ring,rw={'W':(N,'#fff','#fff','2'),'S':(M,'#fff','#fff','2'),'T':(GOLD,INK,N,'1.5')}[letter]
+    return (f'<g aria-hidden="true"><circle cx="{cx}" cy="{cy}" r="11.5" fill="{fill}" stroke="{ring}" stroke-width="{rw}"/>'
             f'<text x="{cx}" y="{cy+4.5}" font-size="12" font-weight="800" fill="{tc}" text-anchor="middle">{letter}</text></g>')
 def badges(right,top,letters):
     return ''.join('\n    '+badge(right-26*i,top+2,l) for i,l in enumerate(reversed(letters)))
@@ -49,8 +60,9 @@ def wrap(inner, link, label):
 
 def wide(y,step,link):
     key,title,sub,time,kind,letters=step
-    fill={'prev':G,'learn':N,'assess':'#fff'}[kind]; st=' stroke="#0B1530" stroke-width="1"' if kind=='assess' else ''
-    tc='#fff' if kind!='assess' else N; sc='#fff' if kind!='assess' else G
+    fill={'prev':TINT,'learn':N,'assess':'#fff'}[kind]
+    st={'prev':' stroke="#0B1530" stroke-width="1.5"','assess':' stroke="#0B1530" stroke-width="1"'}.get(kind,'')
+    tc={'learn':'#fff'}.get(kind,N); sc={'learn':'#fff','prev':N}.get(kind,G)
     shown=time if link else 'Not posted yet'
     inner=(f'<rect x="40" y="{y}" width="280" height="58" rx="10" fill="{fill}"{st} filter="url(#lift)"/>\n'
       f'    <text x="56" y="{y+24}" font-size="15" font-weight="700" fill="{tc}">{esc(title)}</text>\n'
@@ -68,7 +80,7 @@ def loopbox(y,step,link):
       f'    <text x="180" y="{y+57}" font-size="12" font-weight="700" fill="{sc}" text-anchor="middle">{esc(shown)}</text>'+badges(274,y,letters))
     return wrap(inner, link, f'{title}, opens this week\'s page')
 
-def down(y1,y2): return f'<line x1="180" y1="{y1}" x2="180" y2="{y2}" stroke="{G}" stroke-width="2" marker-end="url(#ahGray)"/>'
+def down(y1,y2): return f'<line x1="180" y1="{y1}" x2="180" y2="{y2}" stroke="{N}" stroke-width="2" marker-end="url(#ahGray)"/>'
 def mk(i,c): return f'<marker id="{i}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="{c}"/></marker>'
 
 def svg(week):
@@ -77,7 +89,7 @@ def svg(week):
   <title id="loopTitle">Week {week['n']} loop. Each step is a link to this week's page.</title>
   <defs>
     <filter id="lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity="0.12"/></filter>
-    {mk('ahGray',G)}
+    {mk('ahGray',N)}
     {mk('ahMaroon',M)}
     {mk('ahNavy',N)}
   </defs>
@@ -94,7 +106,7 @@ def svg(week):
     {down(350,408)}
     <text x="196" y="386" font-size="13" font-weight="700" fill="{M}" aria-hidden="true">Retrieve and check</text>
     {loopbox(410,S['study'],L['study'])}
-    <path d="M278 443 C350 443 350 653 278 653" fill="none" stroke="{G}" stroke-width="2" marker-end="url(#ahGray)"/>
+    <path d="M278 443 C350 443 350 653 278 653" fill="none" stroke="{N}" stroke-width="2" marker-end="url(#ahGray)"/>
     <path d="M82 653 C18 653 18 443 82 443" fill="none" stroke="{M}" stroke-width="2.5" marker-end="url(#ahMaroon)"/>
     <text x="180" y="530" font-size="14" font-weight="700" fill="{M}" text-anchor="middle" aria-hidden="true">Not yet?</text>
     <text x="180" y="550" font-size="12" fill="{G}" text-anchor="middle" aria-hidden="true">Go back around for the</text>
@@ -141,6 +153,7 @@ PAGE = """<!DOCTYPE html>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/brandbar.css">
 <meta name="description" content="Week {n} of BIO 005 on one page. Every step of the weekly loop, linked to this week's material.">
 <script>
 (function(){{
@@ -154,14 +167,23 @@ __STYLE__
 <body>
 <a class="skip" href="#main">Skip to this week's steps</a>
 
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
 <nav class="topnav" aria-label="Back"><div class="loop-wrap">
-  <a id="siteBack" href="course.html" target="_top">&larr; Course home</a>
-  <a id="chipBack" href="https://yccd.instructure.com/courses/42616/modules" target="_top">&larr; Back to Canvas modules</a>
+  <a class="mm-back" id="siteBack" href="course.html" target="_top">&larr; Course home</a>
+  <a class="mm-back" id="chipBack" href="https://yccd.instructure.com/courses/42616/modules" target="_top">&larr; Back to Canvas modules</a>
 </div></nav>
 
 <main id="main">
 <header class="loop-head"><div class="loop-wrap">
-  <h1>Week {n}: {title}</h1>
+  <p class="mm-eyebrow">Week {n}, start here</p>
+  <h1 class="mm-display"><span>Week {n}</span>: {title}.</h1>
   <p class="entry-meta">Opens {opens}. Your first discussion post is due {disc} at 10:00 pm, and everything else is due {closes} at 10:00 pm.</p>
   <p class="entry-how">Start at the top and work your way down. Click any step to open it. Your patient this week is {patient}. <a href="weekly-loop.html" target="_top">How the weekly loop works</a></p>
 </div></header>
@@ -182,10 +204,25 @@ __LIST__
 </div>
 </main>
 
-<footer class="site-foot"><div class="loop-wrap">
-  <p>BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie</p>
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
 </div></footer>
 
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
 <script>
 (function(){{
   var FRAME_ID = "bio005-week-{nn}-entry";
@@ -217,84 +254,116 @@ def build(n):
     print(f'built {out.name}' + (f'  NOT POSTED YET: {", ".join(missing)}' if missing else ''))
 
 STYLE = r"""<style>
-/* Page-specific rules only. Every token comes from assets/brand.css. */
+/* Page-specific rules only. Palette tokens come from assets/brand.css,
+   the brand bar, footer, back link, eyebrow, display headline and
+   primary button from assets/brandbar.css.
+   Brand restyle Sep 24 2026: MedMasters editorial look, forked from
+   virtual-office.html. White cards on off-white with a shadow, radius
+   8px, no borders. Headings Open Sans 800. No italics. */
+em,i{font-style:normal}
 .loop-wrap{max-width:44rem;margin:0 auto;padding:0 20px}
-.topnav{padding:16px 0 0}
-.topnav a{font-weight:600;text-decoration:none;color:var(--maroon-dark)}
-.topnav a:hover{text-decoration:underline}
+.topnav{padding:6px 0 0}
 #chipBack{display:none}
-.framed #chipBack{display:inline}
+.framed #chipBack{display:inline-flex}
 .framed #siteBack{display:none}
-.loop-head{padding:28px 0 8px}
-.loop-head .lede{margin-top:6px}
+.loop-head{padding:14px 0 8px}
+.loop-head .lede{margin-top:14px;color:var(--ink-soft);font-size:17px}
 .loop-head .lede + .lede{margin-top:12px}
-h2{margin-top:40px}
-.keybox{margin:20px 0 0;background:var(--white);border:1px solid var(--navy-tint);border-radius:var(--r);box-shadow:var(--shadow)}
+.loop-head .lede strong{color:var(--navy)}
+h2,h3{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.018em;color:var(--maroon-dark)}
+h2{margin-top:40px;font-size:clamp(21px,3vw,27px);line-height:1.2}
+h3{font-size:17px}
+.card{border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.card:hover{box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card-static:hover{box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.keybox{margin:20px 0 0;background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
 .keybox summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 16px;font-weight:700;color:var(--navy)}
 .keybox summary::-webkit-details-marker{display:none}
-.keybox summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.keybox summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
 .keybox[open] summary::before{transform:rotate(45deg)}
-.keybox summary:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.keybox summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
 .keybox .legend{margin:0;padding:4px 16px 16px}
 @media (prefers-reduced-motion:reduce){.keybox summary::before{transition:none}}
 .legend{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;font-weight:600}
 .legend li{display:flex;align-items:center;gap:8px}
-.sw{width:18px;height:18px;border-radius:var(--r-sm);display:inline-block}
-.sw-prev{background:var(--ink-soft)}
+/* Swatches. Preview was slate gray, which is not a brand color; it is
+   now navy-tint with a navy edge so it still reads apart from the white
+   Use it boxes and the solid navy Learn boxes. */
+.sw{width:18px;height:18px;border-radius:var(--r-sm);display:inline-block;flex:none}
+.sw-prev{background:var(--navy-tint);box-shadow:inset 0 0 0 1.5px var(--navy)}
 .sw-learn{background:var(--navy)}
 .sw-retr{background:var(--maroon)}
-.sw-check{background:var(--gold);border:1px solid var(--navy)}
-.sw-assess{background:var(--white);border:1px solid var(--navy)}
-.wbadge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#F28C28;color:var(--navy);font-size:12px;font-weight:800}
+.sw-check{background:var(--gold);box-shadow:inset 0 0 0 1px var(--navy)}
+.sw-assess{background:var(--white);box-shadow:inset 0 0 0 1px var(--navy)}
+/* Badges. W was orange, off brand. Now W navy, S maroon,
+   T gold with a navy-deep letter and a navy ring, because gold on a
+   white card is only 2.42:1 and the ring is what edges it.
+   White on navy 18.04:1, white on maroon 7.66:1, navy-deep on gold 8.16:1. */
+.wbadge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:var(--white);font-size:12px;font-weight:800;flex:none}
 .abadge{background:var(--maroon);color:var(--white)}
-.tbadge{background:var(--navy);color:var(--white)}
+.tbadge{background:var(--gold);color:var(--navy-deep);box-shadow:inset 0 0 0 1.5px var(--navy)}
 .diagram{margin:24px 0 0;padding:0}
 .diagram svg{display:block;width:100%;max-width:30rem;height:auto;margin:0 auto}
 .timenote{margin:12px auto 0;max-width:30rem;font-size:15px;color:var(--ink-soft);text-align:center}
 .reentry{display:grid;gap:16px;margin:0;padding:0;list-style:none}
 .reentry .card{margin:0}
 .fix{padding:0}
-.fix summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:44px;padding:14px 20px;font-family:var(--disp);font-weight:600;font-size:17px;color:var(--maroon-dark)}
+.fix summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:44px;padding:14px 20px;font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:17px;color:var(--maroon-dark)}
 .fix summary::-webkit-details-marker{display:none}
 .fix summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon-dark);border-bottom:2px solid var(--maroon-dark);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
 .fix[open] summary::before{transform:rotate(45deg)}
-.fix summary:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.fix summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
 .fix-body{padding:0 20px 18px 40px}
 @media (prefers-reduced-motion:reduce){.fix summary::before{transition:none}}
 .reentry > li{list-style:none}
 
 .reentry p{margin:0}
-.chip{display:inline-block;font-size:13px;font-weight:700;color:var(--white);border-radius:999px;padding:2px 11px;margin:2px 0 9px}
+.chip{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--white);border-radius:4px;padding:4px 10px;margin:2px 0 10px}
 .chip-learn{background:var(--navy)}
 .chip-retr{background:var(--maroon)}
 .note{margin:20px 0 0}
 .words ol{margin:0;padding-left:22px}
 .words li{margin:6px 0}
 .words .t{color:var(--maroon-dark);font-weight:700}
-.site-foot{margin:48px 0 32px;color:var(--ink-soft);font-size:15px}
 @media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
+.printbtn{margin:18px 0 0}
 
-.entry-meta{font-size:16px;margin:8px 0 0}
-.entry-how{margin:10px 0 0;font-size:16px}
-.diagram svg a{cursor:pointer;text-decoration:none}
+.entry-meta{font-size:17px;margin:14px 0 0;color:var(--ink-soft)}
+.entry-how{margin:10px 0 0;font-size:17px;color:var(--ink-soft)}
+.entry-how a{font-weight:700;color:var(--maroon)}
+.entry-how a:hover{color:var(--maroon-dark)}
+/* Linked diagram boxes. Hover lifts the box on a shadow, the way the
+   cards do. Focus is a 3px maroon outline around the whole step, badges
+   included: maroon on the off-white page is 7.33:1. Gold used to be the
+   hover and focus edge, and gold on a light page is 2.32:1. */
+.diagram svg a{cursor:pointer;text-decoration:none;transition:filter 200ms ease}
+.diagram svg a:hover{filter:drop-shadow(0 6px 8px rgba(11,21,48,.28))}
 .diagram svg a:focus{outline:none}
-.diagram svg a:focus-visible rect{stroke:#C9A14A;stroke-width:4}
-.diagram svg a:hover rect{stroke:#C9A14A;stroke-width:3}
-.steplist{background:var(--white);border:1px solid var(--navy-tint);border-radius:var(--r);box-shadow:var(--shadow);margin:24px 0 0}
+.diagram svg a:focus-visible{outline:3px solid #8B3A2E;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.diagram svg a{transition:none}}
+.steplist{background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);margin:24px 0 0}
 .steplist summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 16px;font-weight:700;color:var(--navy)}
 .steplist summary::-webkit-details-marker{display:none}
-.steplist summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.steplist summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.steplist summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
 .steplist[open] summary::before{transform:rotate(45deg)}
 .steplist ol{margin:0;padding:4px 20px 18px 40px}
 .steplist li{margin:8px 0}
 .steplist .soon{color:var(--ink-soft);font-weight:600}
 .steplist ul{margin:4px 0 0;padding-left:20px}
 @media (prefers-reduced-motion:reduce){.steplist summary::before{transition:none}}
+@media print{
+  html,body{background:#fff!important}
+  body{padding-bottom:0!important} /* bio005-back.js pads the body for its floating button; not on paper */
+  .skip,.topnav,.mm-brandbar,.mm-foot{display:none!important}
+  .keybox,.steplist{box-shadow:none!important}
+  a{color:inherit;text-decoration:none}
+}
 </style>"""
 KEY = r"""<details class="keybox">
 <summary>What the colors and letters mean</summary>
 <ul class="legend">
-  <li><span class="sw sw-prev" aria-hidden="true"></span>Slate: previewing the chapter</li>
+  <li><span class="sw sw-prev" aria-hidden="true"></span>Light navy: previewing the chapter</li>
   <li><span class="sw sw-learn" aria-hidden="true"></span>Navy: learning it</li>
   <li><span class="sw sw-retr" aria-hidden="true"></span>Maroon: pulling it back out of memory</li>
   <li><span class="sw sw-check" aria-hidden="true"></span>Gold: checking what is solid</li>
