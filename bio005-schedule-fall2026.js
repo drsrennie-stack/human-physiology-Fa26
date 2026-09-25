@@ -260,7 +260,7 @@ window.BIO005_GRADING = {
            'Friday 10:00 pm, replies Sunday 10:00 pm.' }
   ],
   ungraded: [
-    'Competency Competency Study Guides', 'Retrieval practice', 'Practice items',
+    'Competency Study Guides', 'Retrieval practice', 'Practice items',
     'Book problems', 'Mastery Check', 'Weekly practice log'
   ],
   exams: [
