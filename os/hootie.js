@@ -351,8 +351,8 @@
 
       case 'exams':
         return examLine(ctx, ctx.nextExam)
-          + '<br><br>Two exams, not five. Midterm 1 covers Weeks 1 to 7 and its window is Oct 29 to Nov 1. Midterm 2 covers Weeks 8 to 14, Dec 14 to 16. Each is a window of several days, not an hour, and each is worth 17.5 percent.'
-          + '<br><br>Neither is multiple choice. You draw a physiological pathway and teach it out loud on video with no notes. Every week\'s Retrieve step is that same task in miniature, ungraded, so the format is familiar long before it counts. Dates are on the ' + a('calendar') + ' and in your ' + ilink(s.syllabus, 'syllabus') + '.';
+          + '<br><br>Two exams, not five. Midterm 1 covers Weeks 1 to 7 and its window is Oct 29 to Nov 1. Midterm 2 covers Weeks 9 to 14, Dec 14 to 16. Each is a window of several days, not an hour, and each is worth 17.5 percent.'
+          + '<br><br>Each midterm question is multiple choice. You get 10 minutes to prepare a physiological model from memory, then on video, out loud with no notes, you present the model and finish by giving your answer. The model and how you present it are worth 75 percent of the points for that question, and your answer is worth 25 percent. Discussion 4 is a full practice run, and every week\'s Retrieve step practices the model part, ungraded, so the format is familiar long before it counts. Dates are on the ' + a('calendar') + ' and in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       /* Rewritten Sep 7 2026. This answer used to describe "weekly
          checkpoints" with the words "Weight is still to be set" and

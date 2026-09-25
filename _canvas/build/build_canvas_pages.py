@@ -866,10 +866,11 @@ def how_grading_works():
 
     parts.append(h2("The four categories"))
     parts.append(cat("35 percent", "Knowledge",
-        p("Two exams, 17.5 percent each. They are not multiple choice. You draw a physiological pathway and teach it out "
-          "loud on video, with no notes.")
-        + p("Midterm 1 covers Weeks 1 to 7, in a window from October 26 to 28. Midterm 2 covers Weeks 8 to 14, in a window "
-            "from December 14 to 16. Each one is a three day window rather than an hour, so you can pick your time.")))
+        p("Two exams, 17.5 percent each. " "Each midterm question is multiple choice. You get 10 minutes to prepare a physiological model from memory, "
+          "then on video, out loud with no notes, you present the model and finish by giving your answer. The model and how you present it are worth 75 percent of the points for that question, and your answer is worth 25 percent.")
+        + p("Midterm 1 covers Weeks 1 to 7, in a window from Thursday, October 29 to Sunday, November 1. Midterm 2 covers "
+            "Weeks 9 to 14, in a window from December 14 to 16. Each one is a window of several days rather than an hour, "
+            "so you can pick your time.")))
     parts.append(cat("25 percent", "Investigation",
         p("The weekly labs. You generate and interpret real physiological output and write it up in the same structure a "
           "clinical write up uses: question, prediction, evidence, interpretation, conclusion.")

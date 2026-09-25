@@ -433,7 +433,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "How do the midterms work?",
-  "a": "You draw a physiological pathway and teach it on video, out loud, no notes: draw the mechanism, label it, explain each step and why it happens. Not multiple choice."
+  "a": "Each midterm question is multiple choice. You get 10 minutes to prepare a physiological model from memory, then on video, out loud with no notes, you present the model and finish by giving your answer. The model and how you present it are worth 75 percent of the points for that question, and your answer is worth 25 percent. The model shows the mechanism: label it, explain each step and say why it happens."
  },
  {
   "cat": "Midterms",
@@ -488,7 +488,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "Are the midterms cumulative?",
-  "a": "Each covers its own block of weeks. Midterm 1 is Weeks 1 to 7, Midterm 2 is Weeks 8 to 14. But physiology compounds, so Midterm 2's pathways stand on everything before them."
+  "a": "Each covers its own block of weeks. Midterm 1 is Weeks 1 to 7, Midterm 2 is Weeks 9 to 14. But physiology compounds, so Midterm 2's pathways stand on everything before them."
  },
  {
   "cat": "Midterms",

@@ -578,7 +578,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q95",
   "q": "How do the midterms work?",
-  "a": "<p>You draw a physiological pathway and teach it on video, out loud, no notes: draw the mechanism, label it, explain each step and why it happens. Not multiple choice.</p>",
+  "a": "<p>Each midterm question is multiple choice. You get 10 minutes to prepare a physiological model from memory, then on video, out loud with no notes, you present the model and finish by giving your answer. The model and how you present it are worth 75 percent of the points for that question, and your answer is worth 25 percent. The model shows the mechanism: label it, explain each step and say why it happens.</p>",
   "topic": "Midterms"
  },
  {
@@ -590,7 +590,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q97",
   "q": "When is Midterm 2?",
-  "a": "<p>Monday, December 14 at 8:00 am to Wednesday, December 16 at 10:00 pm, at the front of Week 15. It covers Weeks 8 to 14.</p>",
+  "a": "<p>Monday, December 14 at 8:00 am to Wednesday, December 16 at 10:00 pm, at the front of Week 15. It covers Weeks 9 to 14.</p>",
   "topic": "Midterms"
  },
  {
@@ -638,7 +638,7 @@ window.BIO005_QUESTIONS = [
  {
   "id": "q106",
   "q": "Are the midterms cumulative?",
-  "a": "<p>Each covers its own block of weeks. Midterm 1 is Weeks 1 to 7, Midterm 2 is Weeks 8 to 14. But physiology compounds, so Midterm 2's pathways stand on everything before them.</p>",
+  "a": "<p>Each covers its own block of weeks. Midterm 1 is Weeks 1 to 7, Midterm 2 is Weeks 9 to 14. But physiology compounds, so Midterm 2's pathways stand on everything before them.</p>",
   "topic": "Midterms"
  },
  {
