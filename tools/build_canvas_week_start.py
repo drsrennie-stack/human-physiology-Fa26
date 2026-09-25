@@ -28,11 +28,11 @@ from build_week_entry import STEPS   # same step names, times and order as the l
 NAVY, MAROON, MDARK, INK_SOFT = "#0B1530", "#8B3A2E", "#6E2D24", "#414B5C"
 FONT = "'Plus Jakarta Sans','Open Sans','Helvetica Neue',Arial,sans-serif"
 CARD = ("background:#FFFFFF;border-radius:8px;padding:22px 24px;margin:0 0 18px 0;"
-        "box-shadow:0 1px 3px rgba(11,21,48,0.10),0 6px 16px rgba(11,21,48,0.08);")
-EYEBROW = ("margin:0 0 8px 0;font-size:0.78em;font-weight:700;letter-spacing:0.18em;"
-           "text-transform:uppercase;color:%s;" % MAROON)
+        "border:1px solid #D9DDE3;")  # Canvas strips box-shadow, so a hairline border stands in
+EYEBROW = ("margin:0 0 8px 0;font-size:0.85em;font-weight:700;"
+           "color:%s;" % MAROON)  # Canvas strips letter-spacing and text-transform
 BTN = ("display:inline-block;background:%s;color:#FFFFFF;text-decoration:none;font-weight:800;"
-       "font-size:0.85em;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;"
+       "font-size:0.95em;padding:12px 20px;"
        "border-radius:4px;" % MAROON)
 PHASE = {'prev': 'Preview', 'learn': 'Learn', 'retr': 'Retrieve', 'check': 'Check', 'assess': 'Use it'}
 
@@ -52,7 +52,7 @@ def printables(W, n):
                 rows.append('<li style="margin:0 0 8px 0;"><a href="%s%s" target="_blank" rel="noopener" '
                             'style="color:%s;font-weight:700;text-decoration:underline;">%s</a> '
                             '<span style="color:%s;">(Step %d. PDF, opens the course site in a new tab)</span></li>'
-                            % (SITE, e(path), MAROON, e(_cap(_re.sub(r"^Choice \d: ", "", _re.sub(r"\s*\(PDF\)$", "", _re.sub(r"</?strong>", "", label))))), INK_SOFT, i))
+                            % (SITE, e(path), MAROON, e(_cap(_re.sub(r"^Choice \d(, [^:]*)?: ", "", _re.sub(r"\s*\(PDF\)$", "", _re.sub(r"</?strong>", "", label))))), INK_SOFT, i))
     if not rows: return ""
     return ('<div style="%s"><p style="%s">Printables for Week %d</p>' % (CARD, EYEBROW, n) +
             '<p style="margin:0 0 12px 0;line-height:1.6;color:%s;">You do not have to print anything. If you like '
@@ -78,8 +78,7 @@ def build(n):
     due = "".join('<li style="margin:0 0 8px 0;"><strong>%s:</strong> %s</li>' % (e(a), e(b))
                   for a, b in data["canvas_due"])
     choice = lambda eb, h, body, extra: (
-        '<div style="display:inline-block;vertical-align:top;width:47%%;min-width:260px;'
-        'box-sizing:border-box;margin:0 2%% 16px 0;%s">'
+        '<div style="flex:1 1 260px;min-width:0;margin:0;%s">'
         '<p style="%s">%s</p>'
         '<h3 style="margin:0 0 10px 0;font-size:1.3em;line-height:1.25;color:%s;">%s</h3>'
         '%s%s</div>' % (CARD.replace('margin:0 0 18px 0;', ''), EYEBROW, eb, NAVY, h, body, extra))
@@ -97,7 +96,7 @@ def build(n):
       '<h3 style="margin:26px 0 6px 0;font-size:1.35em;color:%s;">Choose how you want to work this week</h3>' % MDARK +
       p('Both ways have the same steps, in the same order, with the same due dates, and you turn in '
         'everything in Canvas either way. Pick the one that feels easier. You can switch at any time.', INK_SOFT) +
-      '<div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:16px;margin:0 0 18px 0;">' +
       choice('Option 1', 'Stay in Canvas',
              p('Work down this module from top to bottom. Each item opens the page for that step and '
                'is where you turn in the work for it.') +

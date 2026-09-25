@@ -30,9 +30,9 @@ sys.path.insert(0, str(ROOT / "tools"))
 NAVY, MAROON, MDARK, INK_SOFT = "#0B1530", "#8B3A2E", "#6E2D24", "#414B5C"
 FONT = "'Plus Jakarta Sans','Open Sans','Helvetica Neue',Arial,sans-serif"
 CARD = ("background:#FFFFFF;border-radius:8px;padding:20px 24px;margin:0 0 18px 0;"
-        "box-shadow:0 1px 3px rgba(11,21,48,0.10),0 6px 16px rgba(11,21,48,0.08);")
-EYEBROW = ("margin:0 0 8px 0;font-size:0.78em;font-weight:700;letter-spacing:0.18em;"
-           "text-transform:uppercase;color:%s;" % MAROON)
+        "border:1px solid #D9DDE3;")  # Canvas strips box-shadow, so a hairline border stands in
+EYEBROW = ("margin:0 0 8px 0;font-size:0.85em;font-weight:700;"
+           "color:%s;" % MAROON)  # Canvas strips letter-spacing and text-transform
 H3 = "margin:0 0 10px 0;font-size:1.2em;line-height:1.3;color:%s;" % MDARK
 P = "margin:0 0 12px 0;line-height:1.6;color:%s;"
 LI = "margin:0 0 10px 0;line-height:1.55;"
