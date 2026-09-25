@@ -405,8 +405,8 @@ a{color:var(--maroon-dark);font-weight:700}
   </fieldset>
   <span class="cnt" id="cnt"></span>
   <span class="pdflinks">Tagged PDF:
-    <a href="BIO005-Week1-NoteSheet.pdf" target="_blank" rel="noopener">two to a page</a> &middot;
-    <a href="BIO005-Week1-NoteSheet-Tall.pdf" target="_blank" rel="noopener">one to a page, taller box</a>
+    <a id="pdf2" href="sheets/BIO005-note-sheet-week-01.pdf" target="_blank" rel="noopener">two to a page</a> &middot;
+    <a id="pdf1" href="sheets/BIO005-note-sheet-week-01-tall.pdf" target="_blank" rel="noopener">one to a page, taller box</a>
   </span>
 </div></div>
 
@@ -488,6 +488,19 @@ a{color:var(--maroon-dark);font-weight:700}
 
   /* Two to a page is the default. One competency per page made Week 1
      eighteen sheets of paper and students cannot carry that every week. */
+  /* Sep 25 2026: the tagged PDF links follow the week. They pointed at the
+     Week 1 PDFs for every week before. */
+  (function(){
+    var nn = (week < 10 ? "0" : "") + week, a2 = document.getElementById("pdf2"), a1 = document.getElementById("pdf1");
+    var stem = BLANK ? "sheets/BIO005-note-sheet-BLANK" : "sheets/BIO005-note-sheet-week-" + nn;
+    if (a2) a2.href = stem + ".pdf";
+    if (a1) a1.href = stem + "-tall.pdf";
+    /* a week with no competencies of its own (Week 3, Week 8) has no PDF */
+    var d = (window.BIO005_SHEET || {})[week];
+    if (!BLANK && !(d && d.items && d.items.length)) {
+      var pl = document.querySelector(".pdflinks"); if (pl) pl.hidden = true;
+    }
+  })();
   var per = parseInt(qs("per"), 10);
   if (!(per === 1 || per === 2 || per === 3)) per = 2;
 
@@ -568,9 +581,12 @@ a{color:var(--maroon-dark);font-weight:700}
        had h2 per competency with nothing above them. The runner on the first
        sheet page is that document's h1. On later pages it stays a span, so the
        PDF gets exactly one h1. */
+    /* Sep 25 2026: the blank guide is not tied to a week, so its runner says so. */
+    var rtxt = BLANK ? 'BIO 005 &middot; Competency Study Guide &middot; Week ______'
+                     : 'BIO 005 &middot; Week ' + wk + ' &middot; Competency Study Guide';
     var runner = first
-      ? '<p class="runner" role="presentation">BIO 005 &middot; Week ' + wk + ' &middot; Competency Study Guide</p>'
-      : '<span class="runner">BIO 005 &middot; Week ' + wk + ' &middot; Competency Study Guide</span>';
+      ? '<p class="runner" role="presentation">' + rtxt + '</p>'
+      : '<span class="runner">' + rtxt + '</span>';
     return '' +
     '<section class="sheetpage d' + per + '">' +
       '<div class="phead">' +

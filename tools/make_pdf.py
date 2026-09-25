@@ -70,12 +70,114 @@ JOBS = {
  'BIO005-Fall2026-Syllabus.pdf':
    ('syllabus-fall2026.html', 'BIO 005 syllabus, Fall 2026',
     'Course syllabus, Yuba College, Fall 2026'),
+ # Sep 25 2026: printable copies of the Week 4 worksheets, linked from the
+ # Canvas step pages so a student can download and work on paper.
+ 'BIO005-Week4-Preread.pdf':
+   ('week-04-preread.html', 'BIO 005 Week 4 pre-read worksheet',
+    'The Week 4 pre-read: where to look in Silverthorn and the questions to answer'),
+ 'BIO005-Week4-Lab-Worksheet.pdf':
+   ('lab-worksheet-week04.html', 'BIO 005 Week 4 lab worksheet',
+    'PhysioEx Exercise 3, Activities 1 to 9: what you measured, what you found, what you learned'),
  'BIO005-Week2-Graphing-Worksheet.pdf':
    ('worksheet-week02-graphing.html', 'BIO 005 Week 2 graphing worksheet',
     'Three figures to read and answer by hand'),
 }
 
-async def render(page_url: str, keep: str = None, title: str = '') -> str:
+# Sep 25 2026. Small weekly worksheets print compact: two columns, small type,
+# short answer boxes, so a pre-read or a lab worksheet fits on one or two
+# sheets of paper. Value is the answer box height in inches.
+# Sep 25 2026: every week's Competency Study Guide as a tagged PDF, two to a
+# page and one to a page, plus the blank one. These replace the untagged
+# Chromium prints that sheets/ held before.
+for _w in [w for w in range(1, 16) if w != 8]:
+    JOBS['sheets/BIO005-note-sheet-week-%02d.pdf' % _w] = (
+        'note-sheet.html?week=%d&per=2' % _w, 'BIO 005 Week %d Competency Study Guide' % _w,
+        'One drawing box per competency with its two prompts, two competencies to a page, Week %d' % _w, '.sheetpage')
+    JOBS['sheets/BIO005-note-sheet-week-%02d-tall.pdf' % _w] = (
+        'note-sheet.html?week=%d&per=1' % _w, 'BIO 005 Week %d Competency Study Guide, one per page' % _w,
+        'One competency to a page, so the drawing box is taller, Week %d' % _w, '.sheetpage')
+JOBS['sheets/BIO005-note-sheet-BLANK.pdf'] = (
+    'note-sheet.html?week=1&per=2&blank=1', 'BIO 005 blank Competency Study Guide',
+    'Blank drawing boxes, two to a page, for any competency', '.sheetpage')
+JOBS['sheets/BIO005-note-sheet-BLANK-tall.pdf'] = (
+    'note-sheet.html?week=1&per=1&blank=1', 'BIO 005 blank Competency Study Guide, one per page',
+    'Blank drawing boxes, one to a page', '.sheetpage')
+
+COMPACT = {
+ 'BIO005-Week4-Preread.pdf': 0.42,
+ 'BIO005-Week4-Lab-Worksheet.pdf': 0.6,
+}
+
+COMPACT_JS = """(box) => {
+  const main = document.querySelector('main') || document.body;
+  // answer boxes: short and uniform
+  main.querySelectorAll('div[role=presentation]').forEach(d => { d.style.height = box + 'in'; d.style.margin = '1.5pt 0 0'; d.style.borderRadius = '2pt'; });
+  // self-rating fieldsets become one compact table per group
+  main.querySelectorAll('.card').forEach(card => {
+    const fs = [].slice.call(card.querySelectorAll('fieldset')).filter(f => f.querySelector('.choices'));
+    if (!fs.length) return;
+    const heads = [].slice.call(fs[0].querySelectorAll('.choices label')).map(l => l.textContent.trim());
+    let table = null;
+    fs.forEach(f => {
+      const prev = f.previousElementSibling;
+      if (!table || (prev && prev.tagName === 'H3')) {
+        table = document.createElement('table'); table.className = 'rate';
+        const tr = document.createElement('tr');
+        const th0 = document.createElement('th'); th0.scope = 'col'; th0.textContent = 'Goal'; tr.appendChild(th0);
+        heads.forEach(h => { const th = document.createElement('th'); th.scope = 'col'; th.className = 'bh'; th.textContent = ({'This is new to me':'New to me','I have heard of it':'Heard of it','I could explain it now':'Could explain'})[h] || h; tr.appendChild(th); });
+        const thead = document.createElement('thead'); thead.appendChild(tr); table.appendChild(thead);
+        table.appendChild(document.createElement('tbody'));
+        f.parentNode.insertBefore(table, f);
+      }
+      const tr = document.createElement('tr');
+      const td = document.createElement('td'); td.textContent = f.querySelector('legend').textContent.trim(); tr.appendChild(td);
+      heads.forEach(() => { const c = document.createElement('td'); c.className = 'bx'; c.textContent = '\u25A1'; tr.appendChild(c); });
+      table.tBodies[0].appendChild(tr);
+      f.remove();
+    });
+  });
+  // the turn-in note: paper wording, not the on-screen PDF button
+  main.querySelectorAll('.card').forEach(card => {
+    const h = card.querySelector('h2');
+    if (!h || !/turn it in/i.test(h.textContent)) return;
+    const m = card.textContent.match(/upload it to the (.+?) in Canvas/i);
+    const where = m ? m[1] : 'assignment';
+    card.innerHTML = '<p class="turnin"><b>Turn it in:</b> photograph or scan these pages and upload them to the ' + where + ' in Canvas.</p>';
+  });
+  // name and date under the title
+  const h1 = main.querySelector('h1');
+  if (h1) { const nd = document.createElement('p'); nd.className = 'nd'; nd.textContent = 'Name ______________________________   Date ____________'; h1.insertAdjacentElement('afterend', nd); }
+  const st = document.createElement('style');
+  st.textContent = `@page{size:letter;margin:0.38in 0.4in}
+   body{font-size:7.4pt!important;line-height:1.28!important}
+   main .wrap{column-count:2;column-gap:0.22in;max-width:none!important;padding:0!important}
+   header.pagehead{column-span:all;margin:0 0 4pt!important}
+   header.pagehead p{margin:1pt 0!important;font-size:7.2pt!important}
+   .mm-eyebrow{font-size:6.2pt!important;margin:0!important}
+   h1{font-size:12pt!important;margin:0 0 1pt!important;line-height:1.1!important}
+   .nd{font-size:8pt!important;margin:3pt 0 2pt!important}
+   .card{border:0!important;padding:0!important;margin:0 0 5pt!important;box-shadow:none!important;break-inside:auto!important}
+   .card h2{font-size:8.6pt!important;margin:3pt 0 1pt!important;break-after:avoid}
+   .card h3,.card .sub{font-size:7.8pt!important;margin:3pt 0 1pt!important;break-after:avoid}
+   .card p{margin:0 0 2pt!important;font-size:7.2pt!important}
+   .card .lead,.card .note{font-size:6.8pt!important}
+   .q{margin:0 0 3pt!important;break-inside:avoid!important}
+   .q label{font-size:7.2pt!important;font-weight:700;display:block;line-height:1.22!important}
+   .q .where{font-size:6.6pt!important;display:block;color:#333!important}
+   table.rate{width:100%;border-collapse:collapse;margin:1pt 0 3pt;font-size:6.9pt;table-layout:fixed}
+   table.rate th{font-size:6pt;text-align:center;font-weight:700;padding:1pt 2pt;border-bottom:.6pt solid #555;text-transform:none!important;letter-spacing:0!important}
+   table.rate th.bh{width:0.5in}
+   table.rate th:first-child{text-align:left}
+   table.rate td{padding:1.5pt 2pt;border-bottom:.4pt solid #bbb;vertical-align:top}
+   table.rate td.bx{text-align:center;font-size:9pt}
+   .card ol,.card ul{margin:0 0 2pt 1.2em!important;padding:0!important}
+   .card li{font-size:7.2pt!important;line-height:1.3!important;margin:0 0 1pt!important}
+   .card li::marker{font-size:7.2pt}
+   .turnin{font-size:7.2pt!important;margin-top:3pt!important}`;
+  document.head.appendChild(st);
+}"""
+
+async def render(page_url: str, keep: str = None, title: str = '', compact: float = None) -> str:
     """Load the page in Chromium, let its JS settle, return the printable DOM."""
     async with async_playwright() as pw:
         b = await pw.chromium.launch()
@@ -83,6 +185,28 @@ async def render(page_url: str, keep: str = None, title: str = '') -> str:
         await p.emulate_media(media='print')
         await p.goto('file://' + str(ROOT) + '/' + page_url)
         await p.wait_for_timeout(1800)
+        # The Competency Study Guide widens a block's text column until its
+        # prompts fit. WeasyPrint sets text a little wider than Chromium, so
+        # the prompts get a touch smaller here and each column one step wider
+        # than Chromium needed, or the ends of long prompts were clipped.
+        await p.evaluate("""() => {
+          if (!window.BIO005_fitSheets) return;
+          const st = document.createElement('style');
+          st.textContent = '@media print{.pk{font-size:6.4pt!important;line-height:1.22!important}' +
+            '.info .can{font-size:7.2pt!important;line-height:1.26!important}' +
+            // not on the blank guide: its extra Prompt A/B checkboxes overlap when forced onto one line
+            (location.search.indexOf('blank=1') < 0
+              ? '.info .meta{flex-wrap:nowrap!important}.info .meta span{white-space:nowrap!important}'
+              // WeasyPrint measures an empty inline-block too narrow inside a flex item; an inline box with padding is measured right
+              : '.info .meta span{white-space:nowrap!important}.tick{display:inline!important;padding:0 5px!important;margin:0 3px!important;font-size:8pt}') + '}';
+          document.head.appendChild(st);
+          window.BIO005_fitSheets();
+          document.querySelectorAll('.pg').forEach(g => {
+            const m = /([0-9.]+)in/.exec(g.style.gridTemplateColumns || '2.25in');
+            const w = Math.min(4.0, parseFloat(m ? m[1] : '2.25') + 0.35);
+            g.style.gridTemplateColumns = w.toFixed(2) + 'in minmax(0,1fr)';
+          });
+        }""")
         if keep:
             await p.evaluate("""(sel) => {
               const keepers = [].slice.call(document.querySelectorAll(sel));
@@ -106,6 +230,31 @@ async def render(page_url: str, keep: str = None, title: str = '') -> str:
                 'position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden');
               document.body.insertBefore(h, document.body.firstChild);
             }""", title)
+        # Sep 25 2026. WeasyPrint drops form fields, so a worksheet printed with
+        # its answer boxes empty came out with no room to write at all. Each
+        # text box becomes a plain ruled-free box of about the same height,
+        # labeled for the structure tree by the question above it.
+        await p.evaluate("""() => {
+          [].slice.call(document.querySelectorAll('textarea, input[type=text]')).forEach(t => {
+            const r = t.getBoundingClientRect();
+            const rows = parseInt(t.getAttribute('rows') || '0', 10);
+            const h = Math.max(t.tagName === 'INPUT' ? 0.45 : 1.1, rows ? rows * 0.22 : 0, r.height / 96);
+            const d = document.createElement('div');
+            d.setAttribute('role', 'presentation');
+            d.setAttribute('style', 'border:0.8pt solid #777;border-radius:4pt;margin:4pt 0 10pt;height:' + h.toFixed(2) + 'in');
+            t.replaceWith(d);
+          });
+          /* A worksheet card holding three answer boxes is taller than half a
+             page, and keeping each card whole left most pages half empty. Let
+             cards break between questions; a single question never splits. */
+          if (document.querySelector('.card .q')) {
+            const st = document.createElement('style');
+            st.textContent = '@media print{.card{break-inside:auto!important}.q{break-inside:avoid!important}.card h2,.card h3,.card h4,.card h3 + p{break-after:avoid!important}.card .q:first-of-type{break-before:avoid!important}}';
+            document.head.appendChild(st);
+          }
+        }""")
+        if compact:
+            await p.evaluate(COMPACT_JS, compact)
         html = await p.evaluate("""() => {
           /* Anything the page's own print stylesheet hides is not part of the
              printed document. Playwright is in print emulation here, so this
@@ -267,8 +416,9 @@ def main():
         if not (ROOT / src.split('?')[0]).exists():
             print(f"skip {name}: {src.split('?')[0]} not in repo"); continue
         print(f"building {name} from {src}")
-        html = asyncio.run(render(src, keep, title))
+        html = asyncio.run(render(src, keep, title, COMPACT.get(name)))
         target = OUT / name
+        target.parent.mkdir(parents=True, exist_ok=True)
         HTML(string=html, base_url=str(ROOT) + '/').write_pdf(
             target, pdf_variant='pdf/ua-1', uncompressed_pdf=False)
         stamp(target, title, desc)

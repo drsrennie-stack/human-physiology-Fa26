@@ -25,14 +25,15 @@ STEPS = [
   status="Turned in. Complete or not complete.",
   intro="A quick look ahead, not a full read. You look at the headings and figures and answer a few short questions, "
         "so the lessons make more sense when you get to them.",
-  todo=["Open the Week 4 pre-read.",
+  todo=["Open the Week 4 pre-read on screen, or download the printable copy if you would rather work on paper.",
         "In Silverthorn Chapter 5, Membrane Dynamics, read the part near the end on the resting membrane potential. "
         "Then skim Chapter 9, Neurons: Cellular and Network Properties, looking at the headings and the figures.",
         "Answer the questions on the pre-read in a few words each. Short answers are fine.",
         "Save the page as a PDF with the button at the bottom, or photograph your paper copy."],
   note="Chapter numbers are for the 9th edition. Other editions number things differently, so go by the chapter "
        "title and the topic, and use the search in your eText.",
-  links=[("The Week 4 pre-read", "week-04-preread.html")],
+  links=[("The Week 4 pre-read, to fill in on screen", "week-04-preread.html"),
+         ("The Week 4 pre-read, to print and do on paper (PDF)", "sheets/BIO005-Week4-Preread.pdf")],
   submit_here=["Upload your PDF or photo here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
           "Due " + DUE + ". Complete or not complete."],
   turnin=["Upload the PDF or photo to the <strong>Week 4 pre-read</strong> assignment in Canvas.",
@@ -121,12 +122,13 @@ STEPS = [
         "on the Week 4 lab worksheet.",
   todo=["Open PhysioEx through <strong>Access Pearson</strong> in the Canvas menu on the left, and run Exercise 3, "
         "Activities 1 to 9.",
-        "Fill in the lab worksheet as you go. For each activity it asks what you measured, what you found, and "
-        "what you learned.",
+        "Fill in the lab worksheet as you go, on screen or on the printable copy. For each activity it asks what you "
+        "measured, what you found, and what you learned.",
         "Answer the two questions at the end of the worksheet.",
         "Save the worksheet as a PDF with the button at the bottom, or photograph your paper copy."],
   note="The exercise has to show complete in Pearson, and the points are on your worksheet. You need both.",
-  links=[("The Week 4 lab worksheet", "lab-worksheet-week04.html"),
+  links=[("The Week 4 lab worksheet, to fill in on screen", "lab-worksheet-week04.html"),
+         ("The Week 4 lab worksheet, to print and do on paper (PDF)", "sheets/BIO005-Week4-Lab-Worksheet.pdf"),
          ("What to run and record in PhysioEx this week", "assignment-physioex.html?week=4")],
   submit_here=["Upload your worksheet here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
           "Due " + DUE + ". PhysioEx Exercise 3 also has to show complete in Pearson."],

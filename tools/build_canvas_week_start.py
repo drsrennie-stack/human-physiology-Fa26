@@ -38,10 +38,30 @@ PHASE = {'prev': 'Preview', 'learn': 'Learn', 'retr': 'Retrieve', 'check': 'Chec
 
 def e(s): return html.escape(s, quote=True)
 
+def printables(W, n):
+    """Every PDF the week's steps link to, in one place, so students can print the week at once."""
+    if W is None: return ""
+    import re as _re
+    seen, rows = set(), []
+    for i, st in enumerate(W.STEPS, 1):
+        for label, path in st["links"]:
+            if path.endswith(".pdf") and path not in seen:
+                seen.add(path)
+                rows.append('<li style="margin:0 0 8px 0;"><a href="%s%s" target="_blank" rel="noopener" '
+                            'style="color:%s;font-weight:700;text-decoration:underline;">%s</a> '
+                            '<span style="color:%s;">(Step %d. PDF, opens the course site in a new tab)</span></li>'
+                            % (SITE, e(path), MAROON, e(_re.sub(r"\s*\(PDF\)$", "", _re.sub(r"</?strong>", "", label))), INK_SOFT, i))
+    if not rows: return ""
+    return ('<div style="%s"><p style="%s">Printables for Week %d</p>' % (CARD, EYEBROW, n) +
+            '<p style="margin:0 0 12px 0;line-height:1.6;color:%s;">You do not have to print anything. If you like '
+            'working on paper, here is every printable for the week. Each one is also linked on its own step.</p>' % INK_SOFT +
+            '<ul style="margin:0;padding-left:1.2em;line-height:1.5;color:%s;">%s</ul></div>' % (NAVY, "".join(rows)))
+
 def build(n):
     data = json.load(open(ROOT / "tools/week-entry-data.json"))["weeks"][str(n)]
     nn = "%02d" % n
     entry = SITE + "week-%s-entry.html" % nn
+    W = None
     try:   # prefer the Canvas step titles, so this list matches the module exactly
         import importlib, re as _re
         W = importlib.import_module("canvas_steps_week%02d" % n)
@@ -93,6 +113,7 @@ def build(n):
       'not solid yet, go back to Step 5 for that competency and check again. That loop is part of the '
       'week, not a sign you are behind.</p>' % INK_SOFT +
       '</div>' +
+      printables(W, n) +
       '<div style="%s">' % CARD +
       '<p style="%s">Due this week, all times Pacific</p>' % EYEBROW +
       '<ul style="margin:0;padding-left:1.2em;line-height:1.5;color:%s;">%s</ul>' % (NAVY, due) +
