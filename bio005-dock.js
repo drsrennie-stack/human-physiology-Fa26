@@ -387,9 +387,9 @@
     t.push({ g: '1 Learn', name: 'Competencies', sub: 'What you have to be able to do this week',
              url: BASE + 'week-' + nn + '-competencies.html', icon: 'target', tone: 'navy',
              kw: 'competencies competency list objectives what to know checklist' });
-    t.push({ g: '1 Learn', name: 'Note sheet', sub: 'Pass 1 from the book before the lectures, pass 2 after in a second color',
+    t.push({ g: '1 Learn', name: 'Competency Study Guide', sub: 'Pass 1 from the book before the lectures, pass 2 after in a second color',
              url: BASE + 'note-sheet.html?week=' + wn, icon: 'pencil', tone: 'gold',
-             kw: 'note sheet notesheet boxes competency print handwritten journal' });
+             kw: 'Competency Study Guide notesheet boxes competency print handwritten journal' });
     t.push({ g: '1 Learn', name: 'Learn It With Dr. Rennie', sub: 'After your first pass: this week\'s lectures, short and in order',
              url: BASE + 'lecture-week.html?week=' + wn, icon: 'play', tone: 'terra',
              kw: 'lecture lectures video watch slides teach week' });
@@ -711,7 +711,7 @@
     live  = panel.querySelector('.bd-live');
 
     /* THE WEEK PICKER. Every week-specific tile points at the week that is
-       open now. A student who wants last week's notes, note sheet, cards
+       open now. A student who wants last week's notes, Competency Study Guide, cards
        or case picks that week here and every tile in the dock follows.
        Only weeks that have opened are listed; the choice lasts while the
        page is open and goes back to the current week next time. */

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BIO 005 &middot; Note sheet</title>
+<title>BIO 005 &middot; Competency Study Guide</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <link rel="stylesheet" href="assets/brandbar.css">
@@ -155,7 +155,7 @@ a{color:var(--maroon-dark);font-weight:700}
                 width:130px;margin:0 14px 0 5px}
 
 .drawrule{margin-top:9px;font-size:11.5px;line-height:1.4;color:var(--maroon-dark);
-          border-left:2px solid var(--maroon);padding-left:9px}   /* 10.18:1 on white */
+          }   /* 10.18:1 on white. No left accent bar (Sep 25 2026, house rule). */
 .drawrule b{font-weight:800}
 
 /* one competency inside the sheet */
@@ -249,8 +249,7 @@ a{color:var(--maroon-dark);font-weight:700}
   .phead{border-bottom:1.2pt solid #000}
   .phead .runner,.phead .who{color:#000;font-size:7.5pt}
   .phead .who .ln{border-bottom:.7pt solid #000}
-  .drawrule{color:#000;font-size:7.4pt;border-left:1.5pt solid #000;
-            padding-left:6pt;margin-top:0.05in}
+  .drawrule{color:#000;font-size:7.4pt;margin-top:0.05in}
 
   /* Each competency block gets an EXPLICIT height, not flex:1. Flex let the
      third block on a three up page push past the bottom of the paper, and the
@@ -360,6 +359,9 @@ a{color:var(--maroon-dark);font-weight:700}
   .info .prompts{grid-template-columns:1fr;gap:0.06in}
   .info .meta{margin-top:auto;padding-top:0.06in}
   .grid{margin-top:0}
+  .d2 .pg.fit1{grid-template-columns:2.6in minmax(0,1fr)}
+  .d2 .pg.fit2{grid-template-columns:2.95in minmax(0,1fr)}
+  .d2 .pg.fit3{grid-template-columns:3.3in minmax(0,1fr)}
 }
 .pdflinks{font-size:13px;color:#414B5C;margin-left:auto}
 .pdflinks a{font-weight:700}
@@ -380,7 +382,7 @@ a{color:var(--maroon-dark);font-weight:700}
 
 <header class="top"><div class="wrap">
   <p class="eyebrow" id="eyebrow">BIO 005 &middot; Human Physiology &middot; Fall 2026</p>
-  <h1 id="h1">Your note sheet, already built.</h1>
+  <h1 id="h1">Your Competency Study Guide, already built.</h1>
   <p class="sub">One open box per competency, and the box gets drawn, not written. Your prompt says what goes in it, so you divide it however that prompt needs. Print it, rule the same box onto your own paper, or work it on a tablet. All three are graded the same.</p>
   <p class="btnrow">
     <button class="sqbtn" type="button" id="printbtn">Print or save as PDF</button>
@@ -434,12 +436,12 @@ a{color:var(--maroon-dark);font-weight:700}
      description went with it. The two links that pointed at #template
      were rewritten in the same pass. -->
 
-<main id="sheets" class="sheets" aria-label="The note sheet"></main>
+<main id="sheets" class="sheets" aria-label="The Competency Study Guide"></main>
 
 <div class="tail"><div class="box">
   <h2>Turning it in</h2>
   <p>Photograph every sheet in order, in good light, flat on the table. Both colors have to be readable. Combine them into one PDF and upload that to the week&rsquo;s Canvas assignment. Printed and hand ruled sheets are graded the same way.</p>
-  <p>Full submission and grading detail is on the <a href="assignment-notesheet.html" target="_top">note sheet assignment page</a>.</p>
+  <p>Full submission and grading detail is on the <a href="assignment-notesheet.html" target="_top">Competency Study Guide assignment page</a>.</p>
   <p>Dr. Sharilyn Rennie</p>
 </div></div>
 
@@ -567,8 +569,8 @@ a{color:var(--maroon-dark);font-weight:700}
        sheet page is that document's h1. On later pages it stays a span, so the
        PDF gets exactly one h1. */
     var runner = first
-      ? '<p class="runner" role="presentation">BIO 005 &middot; Week ' + wk + ' &middot; Note sheet</p>'
-      : '<span class="runner">BIO 005 &middot; Week ' + wk + ' &middot; Note sheet</span>';
+      ? '<p class="runner" role="presentation">BIO 005 &middot; Week ' + wk + ' &middot; Competency Study Guide</p>'
+      : '<span class="runner">BIO 005 &middot; Week ' + wk + ' &middot; Competency Study Guide</span>';
     return '' +
     '<section class="sheetpage d' + per + '">' +
       '<div class="phead">' +
@@ -601,20 +603,48 @@ a{color:var(--maroon-dark);font-weight:700}
       pages++;
     }
     host.innerHTML = out.join("");
+    /* Sep 25 2026. At two to a page the left column was 2.25in for every
+       competency, and a long prompt pair ran past the bottom of its block and
+       was cut off in print. Each block now gets a wider left column when its
+       text is long. The cut points were measured in print layout across all
+       fifteen weeks, and each one sits below the shortest text that needed
+       the next width, so nothing clips. */
+    [].forEach.call(host.querySelectorAll(".pg"), function(g){
+      var inf = g.querySelector(".info"); if (!inf) return;
+      var L = inf.textContent.replace(/\s+/g, " ").length;
+      g.classList.add(L > 1267 ? "fit3" : L > 1150 ? "fit2" : L > 989 ? "fit1" : "fit0");
+    });
+    /* The PDF builder calls this with print media emulated, where it can
+       measure the real printed layout: each block steps its left column wider
+       until the prompts and pass-color lines fit, instead of guessing from
+       the length of the text. */
+    window.BIO005_fitSheets = function(){
+      var W = ["2.25in", "2.6in", "2.95in", "3.3in", "3.65in"], bad = 0;
+      [].forEach.call(host.querySelectorAll(".pg"), function(g){
+        var inf = g.querySelector(".info"), meta = g.querySelector(".meta");
+        for (var k = 0; k < W.length; k++){
+          g.style.gridTemplateColumns = W[k] + " minmax(0,1fr)";
+          if (inf.scrollHeight <= inf.clientHeight + 1 &&
+              meta.getBoundingClientRect().bottom <= g.getBoundingClientRect().bottom + 0.5) return;
+        }
+        bad++;
+      });
+      return bad;
+    };
   }
 
   document.getElementById("eyebrow").innerHTML =
     "BIO 005 &middot; Week " + week + " &middot; " + esc(title);
   document.getElementById("h1").textContent = BLANK
-    ? "Blank note sheet."
-    : "Your Week " + week + " note sheet, already built.";
+    ? "Blank Competency Study Guide."
+    : "Your Week " + week + " Competency Study Guide, already built.";
 
   var nItems = w && w.items ? w.items.length : 0;
   document.getElementById("cnt").textContent = nItems
     ? nItems + (nItems === 1 ? " competency" : " competencies") + ", " +
       pages + (pages === 1 ? " sheet of paper" : " sheets of paper")
     : "";
-  document.title = "BIO 005 Week " + week + " note sheet";
+  document.title = "BIO 005 Week " + week + " Competency Study Guide";
 
   document.getElementById("compbtn").href =
     "week-" + String(week).padStart(2,"0") + "-competencies.html";

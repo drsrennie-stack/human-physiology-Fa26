@@ -1,4 +1,4 @@
-/* BIO 005 note sheet PDFs.
+/* BIO 005 Competency Study Guide PDFs.
    Renders note-sheet.html at two competencies to a page and prints it to a
    PDF that goes in Canvas Files, so a student never has to leave Canvas to
    get the sheet. Serve the repo on 8777 first:  python3 -m http.server 8777
@@ -18,6 +18,7 @@ const SHEET_HEIGHT = '9.2in';
   const b = await chromium.launch();
   for (const w of WEEKS) {
     const pg = await b.newPage();
+    await pg.emulateMedia({ media: 'print' });
     const errs = [];
     pg.on('pageerror', e => errs.push(e.message));
     await pg.goto('http://127.0.0.1:8777/note-sheet.html?week=' + w + '&per=2',
@@ -33,6 +34,9 @@ const SHEET_HEIGHT = '9.2in';
       document.head.appendChild(s);
     }, SHEET_HEIGHT);
     await pg.waitForTimeout(250);
+    /* Sep 25 2026: widen each block's left column until its prompts fit. */
+    const unfit = await pg.evaluate(() => window.BIO005_fitSheets ? window.BIO005_fitSheets() : 0);
+    if (unfit) console.log('week ' + w + ': ' + unfit + ' blocks still do not fit');
     const nn = String(w).padStart(2, '0');
     await pg.pdf({ path: OUT + 'BIO005-note-sheet-week-' + nn + '.pdf',
                    printBackground: true, preferCSSPageSize: true });

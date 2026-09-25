@@ -22,11 +22,11 @@ the Learn stage splits into a 2a and a 2b rather than into separate read and wat
 | Check (outline) | Find the gaps | 9 Mastery Check | 8 Mastery Check |
 
 2a and 2b are the same step done twice on different material, which is why they share a
-number. Each carries its own note sheet, its own competency list, its own reading and its
+number. Each carries its own Competency Study Guide, its own competency list, its own reading and its
 own videos, and each does both color passes on one page.
 
 All of the graded weekly work sits in Apply. Learn, Practice and Check carry no points;
-the note sheet upload and the Mastery Check report are marked complete or not complete
+the Competency Study Guide upload and the Mastery Check report are marked complete or not complete
 and are the participation record.
 
 ## How to paste one
@@ -47,7 +47,7 @@ and are the participation record.
 | `w01-01-print-your-week.html` | Week 1, Step 1: Watch the intro, then print your week | Learn |
 | `w01-02-first-pass.html` | Week 1, Step 2: First pass, in your first color | Learn |
 | `w01-03-second-pass.html` | Week 1, Step 3: Second pass, in your second color | Learn |
-| `w01-04-upload-note-sheet.html` | Week 1, Step 4: Upload your note sheet | Learn |
+| `w01-04-upload-note-sheet.html` | Week 1, Step 4: Upload your Competency Study Guide | Learn |
 | `w01-05-study-it.html` | Week 1, Step 5: Study it for several days | Practice |
 | `w01-06-lab.html` | Week 1, Step 6: Lab, the Reference Range Lab | Apply |
 | `w01-07-patient.html` | Week 1, Step 7: Your patient, the preseason physical | Apply |
@@ -57,7 +57,7 @@ and are the participation record.
 | `w02-01-print-your-week.html` | Week 2, Step 1: Print your week | Learn |
 | `w02-02a-cell-anatomy.html` | Week 2, Step 2a: Cell anatomy, read it then watch it | Learn |
 | `w02-02b-cell-physiology.html` | Week 2, Step 2b: Cell physiology and transport, read it then watch it | Learn |
-| `w02-03-upload-note-sheets.html` | Week 2, Step 3: Upload both note sheets | Learn |
+| `w02-03-upload-note-sheets.html` | Week 2, Step 3: Upload both Competency Study Guides | Learn |
 | `w02-04-study-it.html` | Week 2, Step 4: Study it for several days | Practice |
 | `w02-05-lab.html` | Week 2, Step 5: Lab, PhysioEx Exercise 8, amylase | Apply |
 | `w02-06-patient.html` | Week 2, Step 6: Your patient, the student health visit | Apply |
@@ -85,8 +85,8 @@ makes that true.
 3. Page, Step 1 Print your week.
 4. Page, Step 2 First pass.
 5. Page, Step 3 Second pass.
-6. Page, Step 4 Upload your note sheet.
-7. **Assignment,** Week 2 note sheet. File upload, one file. Display grade as
+6. Page, Step 4 Upload your Competency Study Guide.
+7. **Assignment,** Week 2 Competency Study Guide. File upload, one file. Display grade as
    Complete/Incomplete, 0 points, in a Participation group weighted 0 percent. Due Sun
    Sep 20, 10:00 pm.
 8. **Text header: PRACTICE, try it from memory**
@@ -153,10 +153,10 @@ September 14, so students get in without asking for access.
 
 | Week | Section | Button | File |
 |---|---|---|---|
-| W1 Step 1 | | Week 1 note sheet: introduction to physiology | Introduction to Physiology NoteSheet |
-| W2 Step 1 | Foundations of the cell and tissues | Note sheet | Cell Anatomy NoteSheet |
+| W1 Step 1 | | Week 1 Competency Study Guide: introduction to physiology | Introduction to Physiology NoteSheet |
+| W2 Step 1 | Foundations of the cell and tissues | Competency Study Guide | Cell Anatomy NoteSheet |
 | W2 Step 1 | Foundations of the cell and tissues | Competency list | Cell Anatomy Competencies |
-| W2 Step 1 | Cellular physiology and transport mechanisms | Note sheet | Cell Physiology NoteSheet |
+| W2 Step 1 | Cellular physiology and transport mechanisms | Competency Study Guide | Cell Physiology NoteSheet |
 | W2 Step 1 | Cellular physiology and transport mechanisms | Competency list | Cell Phys Competencies |
 
 The links live in the `PRINT_PDF` table at the top of `build_canvas_pages.py`. Replace a
@@ -165,7 +165,7 @@ stops being a button: the page names it in plain text under a "Not posted yet" l
 instead, so a sheet that does not exist yet never gets a link that goes nowhere.
 
 Week 2 Step 1 is laid out as the two halves rather than as four loose buttons, with a
-heading for each and its note sheet and competency list underneath. Week 2 Step 1 no
+heading for each and its Competency Study Guide and competency list underneath. Week 2 Step 1 no
 longer carries the print pack; Week 1 Step 1 still does, for the brain dump paper.
 
 A Drive link leaves Canvas, so those buttons open in a new tab and the page carries the
@@ -174,7 +174,7 @@ line telling students to close it to come back.
 Step 4 of both weeks has no off-site button at all. The photographing instructions that
 used to live on `assignment-notesheet.html` are written into the Canvas page now.
 
-A printed note sheet is mostly empty drawing boxes, which a screen reader cannot narrate.
+A printed Competency Study Guide is mostly empty drawing boxes, which a screen reader cannot narrate.
 `note-sheet.html` stays on the course site as the equivalent accessible version, with the
 same prompts as real text in reading order, and it is where a student using a reader
 should be sent. That is recorded in the compliance notes.
@@ -250,7 +250,7 @@ find the `href`, replace it once the assignment is made.
 | Page | Button | Swap for |
 |---|---|---|
 | W1 Step 7 | Turn in your chart entry | the Week 1 Use It assignment |
-| W2 Step 4 | Upload your Week 2 note sheet in Canvas | the Week 2 note sheet assignment |
+| W2 Step 4 | Upload your Week 2 Competency Study Guide in Canvas | the Week 2 Competency Study Guide assignment |
 | W2 Step 6 | Turn the lab in | the Week 2 lab assignment |
 | W2 Step 7 | Turn in your chart entry | the Week 2 Use It assignment |
 | W2 Step 9 | Upload the report in Canvas | the Week 2 Mastery Check report assignment |
@@ -261,7 +261,7 @@ at the foot of `How grading works`. They work as soon as those pages exist under
 exact titles.
 
 Five left, plus the four print PDFs above. Already wired: Week 1 lab (assignment 1240111), Week 1 Mastery Check report
-(assignment 1240401), Week 1 note sheet upload (assignment 1241504), Discussion 1A
+(assignment 1240401), Week 1 Competency Study Guide upload (assignment 1241504), Discussion 1A
 vision board (topic 712733), Discussion 1B
 metacognition (topic 713315), Week 2 discussion (topic 712810, the one learning-lab.html
 already links; confirm it is the Week 2 topic), Virtual Office (topic 711800).
@@ -274,9 +274,9 @@ still says Show Me What You Know, Investigate It, Use It and Think About It in
 `how-grading-works.html`, the assignment pages and the syllabus, so the site needs a sweep
 to match before students meet both versions.
 
-## The note sheet upload
+## The Competency Study Guide upload
 
-Every week has a note sheet assignment: file upload, Complete/Incomplete, no points. The
+Every week has a Competency Study Guide assignment: file upload, Complete/Incomplete, no points. The
 pages say it is not graded for a score, it shows you are participating, and participating
 is a condition of staying enrolled. The same wording is now on `assignment-notesheet.html`
 on the course site, which used to say nothing is submitted.

@@ -116,13 +116,13 @@
     'lab-report-form.html':          { name: 'Lab report form',           parent: 'clinical-physiology-lab-manual.html' },
 
     /* Assignments */
-    'assignment-notesheet.html':    { name: 'Note sheets',      parent: 'how-grading-works.html' },
+    'assignment-notesheet.html':    { name: 'Competency Study Guides',      parent: 'how-grading-works.html' },
     'assignment-discussion.html':   { name: 'Discussions',      parent: 'how-grading-works.html' },
     'assignment-bookproblems.html': { name: 'Book problems',    parent: 'how-grading-works.html' },
     'assignment-physioex.html':     { name: 'PhysioEx labs',    parent: 'how-grading-works.html' },
 
     /* Study tools */
-    'competency-study-guide.html':   { name: 'Competency study guide', parent: 'course-start.html' },
+    'competency-study-guide.html':   { name: 'All 268 competencies', parent: 'course-start.html' },
     'competency-recall.html':        { name: 'Recall cards',           parent: 'course-start.html' },
     'competency-packet-fall2026.html': { name: 'Competency packet',    parent: 'course-start.html' },
     'mastery-canvas.html':           { name: 'Draw it from memory',    parent: 'course-start.html' },
@@ -712,7 +712,7 @@
         html: '<ul>'
           + tool('lecture-week.html?week=' + wn, 'Learn It With Dr. Rennie', 'This week\'s lectures, short and in order')
           + tool('week-' + nn + '-notes.html', 'Notes', 'The written version of what I teach')
-          + tool('note-sheet.html?week=' + wn, 'Note sheet', 'One box per competency. Print it before you start')
+          + tool('note-sheet.html?week=' + wn, 'Competency Study Guide', 'One box per competency. Print it before you start')
           + tool('week-' + nn + '-competencies.html', 'Competencies', 'What you have to be able to do this week')
           + tool('door-lecture.html', 'Every week\'s lectures', 'All fifteen weeks, by week')
           + '</ul>' },
@@ -858,12 +858,12 @@
      THE WEEK GATE. Sep 8 2026.
 
      A week's teaching pages (week-NN.html, week-NN-notes.html,
-     lecture-week.html?week=N, the note sheet questions) open on the
+     lecture-week.html?week=N, the Competency Study Guide questions) open on the
      week's Monday at 8:00 am Pacific
      Pacific. On top of the date, HOLD keeps a week locked while it is
      still being built: delete a week's number from HOLD when its
      material is ready. Everything else on the site (competencies,
-     note sheet PDFs, recall cards, study guide, schedule, syllabus,
+     Competency Study Guide PDFs, recall cards, study guide, schedule, syllabus,
      labs) is never gated.
 
      A gated page never shows a wall. It names the opening day and the
@@ -981,7 +981,7 @@
       + '<li><a class="main" href="' + B + cur.file + '" target="_top">This week, Week ' + cur.n + '</a></li>'
       + (n === 8 ? '<li><a href="' + B + 'practice-exam.html" target="_top">Midterm 1 practice exam</a></li>' :
         '<li><a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top">Week ' + n + ' competencies</a></li>'
-      + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' note sheet (PDF)</a></li>')
+      + '<li><a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_top">Week ' + n + ' Competency Study Guide (PDF)</a></li>')
       + '<li><a href="' + B + 'rx-cards.html" target="_top">Rx Cards</a></li>'
       + '<li><a href="' + B + 'course-schedule.html" target="_top">The schedule</a></li>'
       + '</ul></div>';

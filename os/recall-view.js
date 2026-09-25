@@ -35,7 +35,7 @@
 
    2. FLAGGING, AND WHAT A FLAG IS FOR.
       A flag is not a bookmark. Flagged cards, plus the ones the
-      student actually missed, assemble into a printable note sheet
+      student actually missed, assemble into a printable Competency Study Guide
       grouped by competency: the question, the answer, why the wrong
       options were wrong, and blank ruled space to redraw or re-derive
       the mechanism from memory. The sheet is the study product; the
@@ -475,7 +475,7 @@
     return isFlagged(entry);
   }
 
-  /* Everything that belongs on a note sheet: cards the student flagged
+  /* Everything that belongs on a Competency Study Guide: cards the student flagged
      by hand, plus the ones they actually missed or were sure and wrong
      on. Missed cards are included without being asked for, because the
      student who most needs the sheet is the least likely to remember to
@@ -588,7 +588,7 @@
       +   '<button type="button" class="btn primary" id="rv-start">'
       +     (pos > 0 && pos < queue.length ? 'Back to the card' : 'Start a run') + '</button> '
       +   '<button type="button" class="btn ghost" id="rv-restart">Fresh run</button> '
-      +   '<button type="button" class="btn ghost" id="rv-notes">Note sheets'
+      +   '<button type="button" class="btn ghost" id="rv-notes">Competency Study Guides'
       +     (s.sheet ? ' (' + s.sheet + ')' : '') + '</button>'
       + '</div>'
       + '<p class="rv-gate-line">'
@@ -678,7 +678,7 @@
       +     '<button type="button" class="rv-flag' + (flagged ? ' is-on' : '') + '" id="rv-flagbtn"'
       +       ' aria-pressed="' + (flagged ? 'true' : 'false') + '">'
       +       '<span aria-hidden="true">&#9873;</span> '
-      +       '<span class="rv-flag-t">' + (flagged ? 'Flagged for the note sheet' : 'Flag this for my note sheet') + '</span>'
+      +       '<span class="rv-flag-t">' + (flagged ? 'Flagged for the Competency Study Guide' : 'Flag this for my Competency Study Guide') + '</span>'
       +     '</button>'
       +     '<button type="button" class="rv-close" id="rv-close" aria-label="Close the card and go back to the deck">'
       +       '<span aria-hidden="true">&#10005;</span></button>'
@@ -696,18 +696,18 @@
          + esc(label) + '</button>';
   }
 
-  /* ---------- the note sheet ----------
+  /* ---------- the Competency Study Guide ----------
      Grouped by competency, worst first. Every entry carries the
      question, the answer, why the wrong options were wrong, and ruled
      space to redraw the mechanism from memory. The blank space is not
      decoration: drawing from memory is the integrity mechanism this
-     course is built on, and a note sheet you only read is a note sheet
+     course is built on, and a Competency Study Guide you only read is a Competency Study Guide
      that taught you nothing. */
 
   function noteSheetHtml() {
     var items = sheetEntries();
     if (!items.length) {
-      return '<div class="rv-panel"><h3>Nothing on your note sheet yet</h3>'
+      return '<div class="rv-panel"><h3>Nothing on your Competency Study Guide yet</h3>'
         + '<p>This fills up on its own. Anything you miss, anything you are sure about and wrong '
         + 'on, and anything you flag while you work lands here, grouped by competency. Then you '
         + 'print it and work it by hand.</p>'
@@ -723,7 +723,7 @@
     var sheet = '<div class="rv-sheet" id="rv-sheet">'
       + '<div class="rv-sheet-head">'
       +   '<p class="rv-sheet-eyebrow">BIO 005 Human Physiology</p>'
-      +   '<h2>Your note sheet</h2>'
+      +   '<h2>Your Competency Study Guide</h2>'
       +   '<p class="rv-sheet-sub">' + items.length + ' card' + (items.length === 1 ? '' : 's')
       +     ' across ' + keys.length + ' competenc' + (keys.length === 1 ? 'y' : 'ies')
       +     ', built from what you missed and what you flagged. Work it by hand. '
@@ -809,7 +809,7 @@
              + 'found easy will not.</p>'
              + report()
              + '<button type="button" class="btn primary" id="rv-restart2">Run another set</button> '
-             + '<button type="button" class="btn" id="rv-notes2">Build my note sheet</button></div>';
+             + '<button type="button" class="btn" id="rv-notes2">Build my Competency Study Guide</button></div>';
     } else if (stage) {
       inner += cardHtml(queue[pos]);
     } else {
@@ -967,8 +967,8 @@
       t.setAttribute('aria-pressed', on ? 'true' : 'false');
       t.className = 'rv-flag' + (on ? ' is-on' : '');
       var lab = t.querySelector('.rv-flag-t');
-      if (lab) lab.textContent = on ? 'Flagged for the note sheet' : 'Flag this for my note sheet';
-      say(on ? 'Flagged. It will appear on your note sheet.' : 'Flag removed.');
+      if (lab) lab.textContent = on ? 'Flagged for the Competency Study Guide' : 'Flag this for my Competency Study Guide';
+      say(on ? 'Flagged. It will appear on your Competency Study Guide.' : 'Flag removed.');
       return;
     }
 
@@ -1037,7 +1037,7 @@
       var verdict = right ? 'Correct. ' : 'Not this time. The answer is: ' + strip(shown[rightAt].text) + '. ';
       if (!right && confidence === 'sure') {
         verdict += 'You were sure on that one. That is the pairing worth chasing, so it has gone '
-                 + 'onto your note sheet. ';
+                 + 'onto your Competency Study Guide. ';
       }
       if (right && confidence === 'no') {
         verdict += 'You said you did not know it, so it is held back to tomorrow rather than '
@@ -1069,7 +1069,7 @@
     d.className = 'rv-verdict ' + (right ? 'is-right' : 'is-wrong');
     var flagline = '';
     if (!right && confidence === 'sure') {
-      flagline = '<p class="rv-redflag">Sure and wrong. This one is on your note sheet.</p>';
+      flagline = '<p class="rv-redflag">Sure and wrong. This one is on your Competency Study Guide.</p>';
     } else if (right && confidence === 'no') {
       flagline = '<p class="rv-redflag rv-redflag-soft">Right, but you said you did not know it. '
                + 'It comes back tomorrow before it counts.</p>';
@@ -1147,7 +1147,7 @@
     if (!panel) return;
     var doc = '<!doctype html><html lang="en"><head><meta charset="utf-8">'
       + '<meta name="viewport" content="width=device-width, initial-scale=1">'
-      + '<title>BIO 005 note sheet</title><style>' + SHEET_CSS + '</style></head><body>'
+      + '<title>BIO 005 Competency Study Guide</title><style>' + SHEET_CSS + '</style></head><body>'
       + panel.outerHTML + '</body></html>';
     try {
       var blob = new Blob([doc], { type: 'text/html' });
@@ -1370,7 +1370,7 @@
   + '.rv-stage :focus-visible,#' + MOUNT + ' :focus-visible{outline:3px solid ' + GOLD + ';'
   +   'outline-offset:3px;box-shadow:0 0 0 3px ' + NAVY + '}'
 
-  /* report and note sheet inside the OS */
+  /* report and Competency Study Guide inside the OS */
   + '#' + MOUNT + ' .rv-report{margin:18px 0 14px;padding-top:14px;border-top:1px solid rgba(11,21,48,.14)}'
   + '#' + MOUNT + ' .rv-report h4{margin:0 0 4px;font-size:1rem}'
   + '#' + MOUNT + ' .rv-report-sub{margin:0 0 10px;font-size:.86rem;opacity:.78}'

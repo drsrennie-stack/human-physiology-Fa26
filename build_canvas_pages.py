@@ -29,13 +29,13 @@ def drive(file_id):
 
 PRINT_PDF = {
     (1, "notes"):      dict(id=drive("1AN276f3jUYM9HcV9QqHa2HYSLy0_YcNs"),
-                            label="Week 1 note sheet: introduction to physiology"),
+                            label="Week 1 Competency Study Guide: introduction to physiology"),
     (2, "cell-notes"): dict(id=drive("1JQPur4khec-RYzhiA7gD-n1R9Oc0fC2b"),
-                            label="Note sheet"),
+                            label="Competency Study Guide"),
     (2, "cell-comps"): dict(id=drive("1ezl37N5urBe-fA5F_TczXkBYM-q5dKDA"),
                             label="Competency list"),
     (2, "phys-notes"): dict(id=drive("1w_M1mYyA4z94RlEG_zdNERRoLAbnbiwZ"),
-                            label="Note sheet"),
+                            label="Competency Study Guide"),
     (2, "phys-comps"): dict(id=drive("1Upk5YUdoK1Zcr2KphTYFjIOcA0bs4RTu"),
                             label="Competency list"),
 }
@@ -182,12 +182,12 @@ def help_block():
 SHORT = {
     "Cell anatomy: read it, then watch it": "cell-anatomy",
     "Cell physiology and transport: read it, then watch it": "cell-physiology",
-    "Upload both note sheets": "upload-note-sheets",
+    "Upload both Competency Study Guides": "upload-note-sheets",
     "Watch the course introduction, then print your week": "print-your-week",
     "Print your week": "print-your-week",
     "First pass, in your first color: the book and the notes": "first-pass",
     "Second pass, in your second color: the videos": "second-pass",
-    "Upload your note sheet": "upload-note-sheet",
+    "Upload your Competency Study Guide": "upload-note-sheet",
     "Study it for several days": "study-it",
     "Take the Mastery Check and upload your report": "mastery-check",
     "Lab: the Reference Range Lab (Investigate It)": "lab",
@@ -211,7 +211,7 @@ STAGE_STYLE = {
 }
 STAGE_TAGLINE = {
     "Learn":    ("Learn it with Dr. Rennie",
-                 "Read first with your note sheet open, then watch me teach it, then go back and add what changed."),
+                 "Read first with your Competency Study Guide open, then watch me teach it, then go back and add what changed."),
     "Practice": ("Try it from memory",
                  "Get it back without looking. Brain dumps, drawing, recall cards, book problems. Mistakes here are useful and none of it is graded."),
     "Apply":    ("Use what you learned",
@@ -222,12 +222,12 @@ STAGE_TAGLINE = {
 STAGE = {
     "Cell anatomy: read it, then watch it": "Learn",
     "Cell physiology and transport: read it, then watch it": "Learn",
-    "Upload both note sheets": "Learn",
+    "Upload both Competency Study Guides": "Learn",
     "Watch the course introduction, then print your week": "Learn",
     "Print your week": "Learn",
     "First pass, in your first color: the book and the notes": "Learn",
     "Second pass, in your second color: the videos": "Learn",
-    "Upload your note sheet": "Learn",
+    "Upload your Competency Study Guide": "Learn",
     "Study it for several days": "Practice",
     "Lab: the Reference Range Lab (Investigate It)": "Apply",
     "Lab: PhysioEx Exercise 8, the amylase assay (Investigate It)": "Apply",
@@ -255,12 +255,12 @@ def stage_chip(stage, trailing=""):
 PAGE_TITLE = {
     "Cell anatomy: read it, then watch it": "Cell anatomy, read it then watch it",
     "Cell physiology and transport: read it, then watch it": "Cell physiology and transport, read it then watch it",
-    "Upload both note sheets": "Upload both note sheets",
+    "Upload both Competency Study Guides": "Upload both Competency Study Guides",
     "Watch the course introduction, then print your week": "Watch the intro, then print your week",
     "Print your week": "Print your week",
     "First pass, in your first color: the book and the notes": "First pass, in your first color",
     "Second pass, in your second color: the videos": "Second pass, in your second color",
-    "Upload your note sheet": "Upload your note sheet",
+    "Upload your Competency Study Guide": "Upload your Competency Study Guide",
     "Study it for several days": "Study it for several days",
     "Take the Mastery Check and upload your report": "Mastery Check, and upload your report",
     "Lab: the Reference Range Lab (Investigate It)": "Lab, the Reference Range Lab",
@@ -416,7 +416,7 @@ W1 = dict(
     due_rows=[
         ("Discussion 1, your vision board:", "post by Friday, September 11, 10:00 pm; replies by Sunday, September 13, 10:00 pm."),
         ("Discussion 2, what the evidence told you:", "post by Sunday, September 13, 10:00 pm. Replies are optional this week only."),
-        ("Note sheet upload, both passes:", "Sunday, September 13, 10:00 pm. Complete or not complete."),
+        ("Competency Study Guide upload, both passes:", "Sunday, September 13, 10:00 pm. Complete or not complete."),
         ("Lab, the Reference Range Lab:", "Sunday, September 13, 10:00 pm."),
         ("Application, your patient's preseason physical:", "Sunday, September 13, 10:00 pm."),
         ("Mastery Check report:", "Sunday, September 13, 10:00 pm. Complete or not complete."),
@@ -425,7 +425,7 @@ W1 = dict(
         dict(title="Watch the course introduction, then print your week",
              when="Tuesday, about 45 minutes plus printing",
              body_html=p("The introduction is about thirty minutes and shows you every part of the course once.")
-                       + p("Then print your note sheet. There is a box per competency with the prompts already on it, so you are not building anything, just filling it in. Print it and you have the paper you need for the rest of the week.")
+                       + p("Then print your Competency Study Guide. There is a box per competency with the prompts already on it, so you are not building anything, just filling it in. Print it and you have the paper you need for the rest of the week.")
                        + p("If you also want the <strong>brain dump paper</strong> for prompts A and B, the print pack builds that for you: tick what you want and print.")
                        + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one."),
              buttons=[btn("Watch the course introduction", BASE + "index.html#intro"),
@@ -434,7 +434,7 @@ W1 = dict(
              after_buttons=pdf_pending(1, "notes")),
         dict(title="First pass, in your first color: the book and the notes",
              when="Tuesday to Thursday, about 3 hours",
-             body_html=p("Pick one pen color and keep it for this pass. Read Chapter 1 and the control sections of Chapter 6, or read my notes, and fill in each box on the note sheet as you go: draw the idea, label it, put the steps in order. "
+             body_html=p("Pick one pen color and keep it for this pass. Read Chapter 1 and the control sections of Chapter 6, or read my notes, and fill in each box on the Competency Study Guide as you go: draw the idea, label it, put the steps in order. "
                          "Then try the two competency prompts (A and B) for each box on the brain dump paper. Leave every gap you cannot fill. The gaps are the point; they tell you what the videos have to give you.")
                        + p("Keep the writing to drawings, labels, arrows and short lists. Sentences running across the page do not help you on exam day."),
              buttons=[btn("Read the Week 1 notes", BASE + "biol005-m01-maintain-control-notes.html"),
@@ -444,12 +444,12 @@ W1 = dict(
              when="Thursday and Friday, about 3 hours",
              body_html=p("Switch pens. Press play on the first concept video and let the week run; there are twenty short videos, and the list on the page lets you jump to the one that matches the box you are working on. "
                          "Every time the video gives you something the reading did not, add it to the same box in the second color. When you are done, the sheet shows you exactly where your reading was thin.")
-                       + p("The notes print. There is a Print button at the top of the notes page, so you can have them on paper beside the note sheet rather than switching windows."),
+                       + p("The notes print. There is a Print button at the top of the notes page, so you can have them on paper beside the Competency Study Guide rather than switching windows."),
              buttons=[btn("Watch the Week 1 concept videos", BASE + "concept-videos-week01.html"),
                       btn("Slides and notes for Week 1", BASE + "lecture-week.html?week=1", primary=False)]),
-        dict(title="Upload your note sheet",
+        dict(title="Upload your Competency Study Guide",
              when="After your second pass, by Sunday",
-             body_html=p("Photograph or scan every page of your note sheet with both colors on it and upload it as one file in Canvas. I am not grading the sheet. I mark it complete or not complete, and I read enough of it to see how the week went for you. "
+             body_html=p("Photograph or scan every page of your Competency Study Guide with both colors on it and upload it as one file in Canvas. I am not grading the sheet. I mark it complete or not complete, and I read enough of it to see how the week went for you. "
                          "Turning it in every week is how you show you are participating, and participating is a condition of staying enrolled. Whether you filled the boxes from the book, my notes, the videos or all three is up to you; the sheet just has to show two passes.")
                        + p("<strong>How to photograph it.</strong>")
                        + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;color:%s;">'
@@ -458,14 +458,14 @@ W1 = dict(
                          '<li style="margin:0 0 8px 0;">Combine the pages into one file, in order, and upload that one file. Most phones will do this from the Files or Notes app; any free scanner app will too.</li>'
                          '<li style="margin:0 0 8px 0;">Photograph each page as you finish it rather than all six on Sunday night. Losing the sheet costs you no points and a great deal of work.</li>'
                          '<li style="margin:0 0 8px 0;">Handwritten and on paper, in your two colors. A typed sheet closes the gap between the passes, and that gap is the whole point.</li></ul>' % NAVY,
-             buttons=[btn("Upload your Week 1 note sheet in Canvas", CANVAS + "/assignments/1241504", primary=True, new_tab=False),],
+             buttons=[btn("Upload your Week 1 Competency Study Guide in Canvas", CANVAS + "/assignments/1241504", primary=True, new_tab=False),],
              graded="Complete or not complete, for participation. Due Sunday, September 13, 10:00 pm Pacific."),
         dict(title="Study it for several days",
              when="Every day from Thursday, about an hour a day",
-             body_html=p("Now the note sheet closes and the material has to come back out of your head. Do a little every day; four short sessions beat one long one, because the forgetting in between is what makes the memory stick. Pick from these, and try more than one:")
+             body_html=p("Now the Competency Study Guide closes and the material has to come back out of your head. Do a little every day; four short sessions beat one long one, because the forgetting in between is what makes the memory stick. Pick from these, and try more than one:")
                        + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.55;">'
                          '<li><strong>Rx Cards.</strong> Spaced recall cards for this week. Rate your confidence honestly; a confident wrong answer is the one the cards will chase.</li>'
-                         '<li><strong>Draw it from memory.</strong> Redraw one note sheet box on a blank canvas with nothing open, then check it against the sheet.</li>'
+                         '<li><strong>Draw it from memory.</strong> Redraw one Competency Study Guide box on a blank canvas with nothing open, then check it against the sheet.</li>'
                          '<li><strong>Brain dump.</strong> Take a competency prompt cold, on paper. This is what the midterm feels like.</li>'
                          '<li><strong>Book problems.</strong> Work them forward before you look, and backward from the answer to see how the author got there.</li>'
                          '<li><strong>Study With Me.</strong> Do any of the above with other people and quiz each other.</li></ul>',
@@ -590,7 +590,7 @@ W1 = dict(
              graded="Thinking category. Discussion 1 post Friday, September 11, 10:00 pm; replies Sunday, September 13, 10:00 pm. Discussion 2 post Sunday, September 13, 10:00 pm. All Pacific."),
     ],
     done_items=[
-        "Your note sheet has two colors on it, you can say which boxes are still thin, and it is uploaded.",
+        "Your Competency Study Guide has two colors on it, you can say which boxes are still thin, and it is uploaded.",
         "You have done at least one Mastery Check and uploaded the report.",
         "The Reference Range Lab is turned in.",
         "Your patient's first chart entry is turned in.",
@@ -614,7 +614,7 @@ W2 = dict(
           "from <strong>Chapter 6</strong> (Communication, Integration and Homeostasis)."),
     due_rows=[
         ("Discussion 2:", "post by Friday, September 18, 10:00 pm; replies by Sunday, September 20, 10:00 pm."),
-        ("Both note sheets, both passes:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
+        ("Both Competency Study Guides, both passes:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
         ("Lab, PhysioEx Exercise 8, amylase:", "Sunday, September 20, 10:00 pm."),
         ("Application, your patient's student health visit:", "Sunday, September 20, 10:00 pm."),
         ("Mastery Check report:", "Sunday, September 20, 10:00 pm. Complete or not complete."),
@@ -623,15 +623,15 @@ W2 = dict(
         dict(title="Print your week",
              when="Monday, about 20 minutes plus printing",
              body_html=(
-               p("Week 2 comes in two halves, and each half has its own note sheet and its own competency list. Print all four before you start.")
+               p("Week 2 comes in two halves, and each half has its own Competency Study Guide and its own competency list. Print all four before you start.")
                + p("Work the halves in order. The anatomy is the structure, and the physiology is what that structure does, so the second half only makes sense once you can see where it is happening. Step 2a is the anatomy start to finish, Step 2b is the physiology.")
 
                + sub("A. Foundations of the cell and tissues")
-               + p("Organelles, the membrane itself, and the four tissue types. The note sheet has a box per competency with the prompts already on it. The competency list says what each box is asking you for, so keep it beside you while you fill them in.")
+               + p("Organelles, the membrane itself, and the four tissue types. The Competency Study Guide has a box per competency with the prompts already on it. The competency list says what each box is asking you for, so keep it beside you while you fill them in.")
                + row(pdf_btn(2, "cell-notes"), pdf_btn(2, "cell-comps", primary=False))
 
                + sub("B. Cellular physiology and transport mechanisms")
-               + p("What that anatomy does: what crosses the membrane and how, diffusion and osmosis, the pumps, how a signal arrives and how it is switched off. Same shape, a note sheet and a competency list.")
+               + p("What that anatomy does: what crosses the membrane and how, diffusion and osmosis, the pumps, how a signal arrives and how it is switched off. Same shape, a Competency Study Guide and a competency list.")
                + row(pdf_btn(2, "phys-notes"), pdf_btn(2, "phys-comps", primary=False))
 
                + p("No printer? Rule the boxes onto your own paper. A hand ruled sheet is graded exactly the same as a printed one.",
@@ -644,7 +644,7 @@ W2 = dict(
              sub="a",
              when="Monday to Wednesday, about 4 hours",
              body_html=(
-               p("This is the first half, start to finish, on one page. Work the <strong>Foundations of the cell and tissues</strong> note sheet only. Leave the physiology sheet alone until Step 2b.")
+               p("This is the first half, start to finish, on one page. Work the <strong>Foundations of the cell and tissues</strong> Competency Study Guide only. Leave the physiology sheet alone until Step 2b.")
                + sub("First pass, in your first color")
                + p("Pick one pen color and keep it for this pass. Read Chapter 3 and fill in each box as you go: draw the structure, label it, say what it is for. Then try the A and B prompts on the brain dump paper. Leave every gap you cannot fill. The gaps are the point; they tell you what the videos have to give you.")
                + p("Keep it to drawings, labels, arrows and short lists. Sentences running across the page do not help you on exam day.")
@@ -661,7 +661,7 @@ W2 = dict(
              sub="b",
              when="Wednesday to Friday, about 5 hours",
              body_html=(
-               p("Now the second half, same two passes, on the <strong>Cellular physiology and transport mechanisms</strong> note sheet. This is the bigger of the two halves, so give it the extra day.")
+               p("Now the second half, same two passes, on the <strong>Cellular physiology and transport mechanisms</strong> Competency Study Guide. This is the bigger of the two halves, so give it the extra day.")
                + sub("First pass, in your first color")
                + p("Read Chapter 5 for what crosses the membrane and how, and the signaling sections of Chapter 6 for how a message arrives and gets switched off, or read my transport notes, which cover the same ground with five worked problems. Fill the boxes as you read: draw the gradient, draw the protein, put the steps in order. Then take the A and B prompts cold on the brain dump paper and leave the gaps.")
                + p("Two things are worth drawing rather than writing every time: the direction a substance is moving relative to its gradient, and whether the cell is spending energy to move it. Those two together are most of this half.")
@@ -674,9 +674,9 @@ W2 = dict(
                       btn("Slides and notes", BASE + "lecture-week.html?week=2", primary=False),
                       btn("The competencies, with what each one asks", BASE + "competency-study-guide.html?week=2", primary=False)]),
 
-        dict(title="Upload both note sheets",
+        dict(title="Upload both Competency Study Guides",
              when="After your second pass, by Sunday",
-             body_html=p("Photograph or scan every page of <strong>both</strong> note sheets with both colors on them and upload them in Canvas. One file is fine if you can combine them; two files is fine too. I am not grading the sheets. I mark them complete or not complete, and I read enough to see how the week went for you. "
+             body_html=p("Photograph or scan every page of <strong>both</strong> Competency Study Guides with both colors on them and upload them in Canvas. One file is fine if you can combine them; two files is fine too. I am not grading the sheets. I mark them complete or not complete, and I read enough to see how the week went for you. "
                          "Turning them in every week is how you show you are participating, and participating is a condition of staying enrolled.")
                        + p("<strong>How to photograph them.</strong>")
                        + ul(["One page at a time, flat on the table, in good light, straight down rather than at an angle.",
@@ -684,14 +684,14 @@ W2 = dict(
                              "Keep the two halves in order, anatomy first, then physiology, so I can follow your week.",
                              "Photograph each page as you finish it rather than all of them on Sunday night. Losing a sheet costs you no points and a great deal of work.",
                              "Handwritten and on paper, in your two colors. A typed sheet closes the gap between the passes, and that gap is the whole point."]),
-             buttons=[btn("Upload your Week 2 note sheets in Canvas", CANVAS + "/assignments", primary=True, new_tab=False)],
+             buttons=[btn("Upload your Week 2 Competency Study Guides in Canvas", CANVAS + "/assignments", primary=True, new_tab=False)],
              graded="Complete or not complete, for participation. Due Sunday, September 20, 10:00 pm Pacific."),
 
         dict(title="Study it for several days",
              when="Every day from Thursday, about an hour a day",
-             body_html=p("Now both note sheets close and the material has to come back out of your head. Do a little every day; four short sessions beat one long one, because the forgetting in between is what makes the memory stick. Pick from these, and try more than one:")
+             body_html=p("Now both Competency Study Guides close and the material has to come back out of your head. Do a little every day; four short sessions beat one long one, because the forgetting in between is what makes the memory stick. Pick from these, and try more than one:")
                        + ul(["<strong>Rx Cards.</strong> Spaced recall cards for this week. Rate your confidence honestly; a confident wrong answer is the one the cards will chase.",
-                             "<strong>Draw it from memory.</strong> Redraw one note sheet box on a blank canvas with nothing open, then check it against the sheet.",
+                             "<strong>Draw it from memory.</strong> Redraw one Competency Study Guide box on a blank canvas with nothing open, then check it against the sheet.",
                              "<strong>Brain dump.</strong> Take a competency prompt cold, on paper. This is what the midterm feels like.",
                              "<strong>Book problems.</strong> Work them forward before you look, and backward from the answer to see how the author got there.",
                              "<strong>Study With Me.</strong> Do any of the above with other people and quiz each other."])
@@ -765,7 +765,7 @@ W2 = dict(
              graded="Thinking category. Post Friday, September 18, 10:00 pm; two replies Sunday, September 20, 10:00 pm. Pacific."),
     ],
     done_items=[
-        "Both note sheets have two colors on them, you can say which boxes are still thin, and both are uploaded.",
+        "Both Competency Study Guides have two colors on them, you can say which boxes are still thin, and both are uploaded.",
         "You can draw one full signal pathway, ligand to response, from memory.",
         "You can take one substance and say whether it crosses the membrane with the gradient or against it, and whether the cell pays for the trip.",
         "You have done at least one Mastery Check and uploaded the report.",
@@ -791,10 +791,10 @@ def how_every_week_works():
                  + '</div>')
     parts.append(h2("The four stages, and the steps inside them"))
     stage_steps = {
-        "Learn": [("Print your week", "Competency list, note sheet, brain dump paper. Printing is optional; ruling the boxes onto your own paper is treated exactly the same."),
-                  ("First pass, in your first color", "Read the book chapters or my notes and fill in the note sheet boxes with drawings, labels and short lists. Try the competency prompts. Leave the gaps."),
+        "Learn": [("Print your week", "Competency list, Competency Study Guide, brain dump paper. Printing is optional; ruling the boxes onto your own paper is treated exactly the same."),
+                  ("First pass, in your first color", "Read the book chapters or my notes and fill in the Competency Study Guide boxes with drawings, labels and short lists. Try the competency prompts. Leave the gaps."),
                   ("Second pass, in your second color", "Watch the week's videos in order and add what they gave you that the reading did not. The second color shows you exactly where your reading was thin."),
-                  ("Upload your note sheet", "Photograph or scan the sheet with both colors on it and upload it. Marked complete or not complete, never graded for a score. It is how you show you are participating.")],
+                  ("Upload your Competency Study Guide", "Photograph or scan the sheet with both colors on it and upload it. Marked complete or not complete, never graded for a score. It is how you show you are participating.")],
         "Practice": [("Study it for several days", "About an hour a day: recall cards, draw it from memory, brain dumps, book problems, Study With Me. Spacing is the whole trick, because the forgetting in between is what makes it stick.")],
         "Apply": [("Lab", "The week's lab, with a sheet you fill in by hand and turn in. Graded, Investigation."),
                   ("Your patient", "One entry in your patient's chart each week: draw the loop, answer the questions, log your AI use. Graded, Application."),
@@ -817,19 +817,19 @@ def how_every_week_works():
                      + '</div>')
     parts.append(h2("Why two colors"))
     parts.append('<div style="%s">' % CARD
-                 + p("The note sheet is one big box per competency, and you fill each box twice. The first pass, from the book and the notes, is done before you watch anything. That pass is your baseline: what your own reading produced. The second pass, from the videos, goes into the same box in a different color. When you are done, the second color is a map of what the reading did not give you, and that map is what you study from.")
+                 + p("The Competency Study Guide is one big box per competency, and you fill each box twice. The first pass, from the book and the notes, is done before you watch anything. That pass is your baseline: what your own reading produced. The second pass, from the videos, goes into the same box in a different color. When you are done, the second color is a map of what the reading did not give you, and that map is what you study from.")
                  + p("Do it in this order. A student who watches the video first recognizes the material instead of producing it, and the sheet stops showing the gap that makes the week work.")
                  + p("Keep it to drawings, labels, arrows and short lists. If you need words, put them in small boxes with arrows between them, in the order things happen. Sentences running across the page do not count, because that is not how the exam will ask you.")
                  + '</div>')
     parts.append(h2("When things are due"))
     parts.append('<div style="%s">' % CARD
                  + p("<strong>Friday, 10:00 pm Pacific:</strong> your discussion post.")
-                 + p("<strong>Sunday, 10:00 pm Pacific:</strong> your discussion replies, the lab, your patient chart entry, your note sheet upload, and your Mastery Check report.")
+                 + p("<strong>Sunday, 10:00 pm Pacific:</strong> your discussion replies, the lab, your patient chart entry, your Competency Study Guide upload, and your Mastery Check report.")
                  + p("Every week opens on its Monday. If you have finished and submitted the current week, the next one unlocks early on Saturday at 8:00 pm Pacific so you can start over the weekend. Late work: up to 24 hours late loses half the credit, and after that it is a zero. Plan for emergencies.")
                  + '</div>')
     parts.append(h2("Participation, and staying enrolled"))
     parts.append('<div style="%s">' % CARD
-                 + p("Two things are turned in every week that carry no points: your note sheet, after both passes, and your Mastery Check report. Each is marked complete or not complete. They are how I see that you are working through the week, and how I know when to reach out. A student who stops turning them in is not participating in the class, and continued participation is a condition of staying enrolled. This is not a hoop. The sheet is the work, and uploading it takes two minutes.")
+                 + p("Two things are turned in every week that carry no points: your Competency Study Guide, after both passes, and your Mastery Check report. Each is marked complete or not complete. They are how I see that you are working through the week, and how I know when to reach out. A student who stops turning them in is not participating in the class, and continued participation is a condition of staying enrolled. This is not a hoop. The sheet is the work, and uploading it takes two minutes.")
                  + '</div>')
     parts.append(h2("What is graded"))
     parts.append('<div style="%s">' % CARD
@@ -838,7 +838,7 @@ def how_every_week_works():
                  + '<li><strong>Investigation, 25 percent.</strong> The weekly lab.</li>'
                  + '<li><strong>Application, 25 percent.</strong> The weekly patient case and your chart.</li>'
                  + '<li><strong>Thinking, 15 percent.</strong> The weekly discussion.</li></ul>'
-                 + p("All of the graded work sits in the Apply stage, plus the two midterms. Learn, Practice and Check carry no points on purpose, so you can do them the way that works for your brain. The note sheet upload and the Mastery Check report are tracked complete or not complete because they show me you are in the course.",
+                 + p("All of the graded work sits in the Apply stage, plus the two midterms. Learn, Practice and Check carry no points on purpose, so you can do them the way that works for your brain. The Competency Study Guide upload and the Mastery Check report are tracked complete or not complete because they show me you are in the course.",
                      extra="margin-top:12px;")
                  + '<p style="margin:8px 0 0 0;">'
                  + btn("How grading works, in full", CANVAS + "/pages/how-grading-works", primary=False, new_tab=False)
@@ -893,7 +893,7 @@ def how_grading_works():
     parts.append('<div style="%s">' % CARD
                  + p("Several things you do every week carry no points at all.")
                  + '<ul style="margin:0 0 12px 0;padding-left:1.2em;line-height:1.6;color:%s;">' % NAVY
-                 + '<li style="margin:0 0 10px 0;"><strong>The note sheet and the retrieval work.</strong> This is where you '
+                 + '<li style="margin:0 0 10px 0;"><strong>The Competency Study Guide and the retrieval work.</strong> This is where you '
                    'find out what you do not know. Grading it would push you to make it look finished instead of honest, and '
                    'an honest sheet with gaps in it is worth more to you than a tidy one.</li>'
                  + '<li style="margin:0 0 10px 0;"><strong>The practice items.</strong> Predict, commit, check, correct, '
@@ -912,7 +912,7 @@ def how_grading_works():
 
     parts.append(h2("The two things you turn in that carry no points"))
     parts.append('<div style="%s">' % CARD
-                 + p("Your note sheet, after both passes, and your Mastery Check report. Each is marked complete or not "
+                 + p("Your Competency Study Guide, after both passes, and your Mastery Check report. Each is marked complete or not "
                      "complete, never scored. They are how I see that you are working through the week, and how I know when "
                      "to reach out. A student who stops turning them in is not participating in the class, and continued "
                      "participation is a condition of staying enrolled.")

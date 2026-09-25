@@ -22,7 +22,7 @@ only ever one copy of each file in the repo.
 
 | Assignment | File | Height |
 |---|---|---|
-| Note sheet | `assignment-notesheet.html` | 2800 |
+| Competency Study Guide | `assignment-notesheet.html` | 2800 |
 | Weekly lab analysis | `assignment-physioex.html` | 2600 |
 | Book problems | `assignment-bookproblems.html` | 2200 |
 | Discussion | `assignment-discussion.html` | 2200 |

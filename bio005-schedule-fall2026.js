@@ -150,7 +150,7 @@ window.BIO005_WEEKS = [
   { wk:8, opens:"2026-10-26", closes:"2026-11-01",
     title:"Midterm 1",
     exam:true,
-    note:"Midterm 1 week. No new competencies, no note sheet, no discussion. The exam covers Weeks 1 to 7 and runs Thursday October 29 to Sunday November 1. Monday to Wednesday is review and unlimited practice exams.",
+    note:"Midterm 1 week. No new competencies, no Competency Study Guide, no discussion. The exam covers Weeks 1 to 7 and runs Thursday October 29 to Sunday November 1. Monday to Wednesday is review and unlimited practice exams.",
     extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, drawn and taught out loud on video, Oct 29 to Nov 1"],
     competencies:[] },
 
@@ -235,10 +235,10 @@ window.BIO005_GRADING = {
   status: 'GRADE MODEL OF RECORD, corrected Sep 7 2026 against the published ' +
           'syllabus-fall2026.html and how-grading-works.html. Four categories, two midterms. ' +
           'THE PREVIOUS CONTENT OF THIS BLOCK WAS WRONG: it called itself the model of record ' +
-          'while carrying the retired five component model, note sheets 20, midterms 40, lab 15, ' +
+          'while carrying the retired five component model, Competency Study Guides 20, midterms 40, lab 15, ' +
           'book problems 15, discussions 10. Nothing reads this object today, which is the only ' +
           'reason no page repeated those numbers to a student.',
-  note:   'Sorted by weight. The note sheets, the practice items, the book problems and the ' +
+  note:   'Sorted by weight. The Competency Study Guides, the practice items, the book problems and the ' +
           'Mastery Check carry no points at all, on purpose: they are where a student finds out ' +
           'what they do not know, and grading them rewards looking finished over being honest.',
   categories: [
@@ -260,7 +260,7 @@ window.BIO005_GRADING = {
            'Friday 10:00 pm, replies Sunday 10:00 pm.' }
   ],
   ungraded: [
-    'Competency note sheets', 'Retrieval practice', 'Practice items',
+    'Competency Competency Study Guides', 'Retrieval practice', 'Practice items',
     'Book problems', 'Mastery Check', 'Weekly practice log'
   ],
   exams: [
@@ -268,7 +268,7 @@ window.BIO005_GRADING = {
     { n:2, covers:[8,9,10,11,12,13,14],  opens:'2026-12-14', closes:'2026-12-16', weight:17.5 }
   ],
   retired: 'Retired as of Sep 7 2026: three midterms covering 1-5, 6-10 and 11-15; five unit exams; ' +
-           'the Aug 23 categories; and the five component model with graded note sheets and book ' +
+           'the Aug 23 categories; and the five component model with graded Competency Study Guides and book ' +
            'problems. Week 15 is not on an exam; it closes with the synthesis work.'
 };
 /* ============================================================

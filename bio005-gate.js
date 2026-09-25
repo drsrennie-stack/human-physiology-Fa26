@@ -131,7 +131,7 @@
           '<ul class="b5gate-links">' +
             '<li><a href="course-start.html" target="_top">Course home<span>The week that is open now</span></a></li>' +
             '<li><a href="rx-cards.html" target="_top">Rx Cards<span>Recall cards for the whole course, never locked</span></a></li>' +
-            '<li><a href="competency-study-guide.html" target="_top">Competency study guide<span>What you should be able to do, every week</span></a></li>' +
+            '<li><a href="competency-study-guide.html" target="_top">All 268 competencies<span>What you should be able to do, every week</span></a></li>' +
             '<li><a href="clinical-physiology-lab-manual.html" target="_top">Lab manual<span>All fifteen labs</span></a></li>' +
             '<li><a href="course-schedule.html" target="_top">Course schedule<span>Every week, with dates and reading</span></a></li>' +
             '<li><a href="sitemap.html" target="_top">All course pages<span>Everything in one list</span></a></li>' +

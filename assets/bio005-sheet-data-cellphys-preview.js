@@ -1,5 +1,5 @@
 /* GENERATED PREVIEW, Sep 14 2026. The Chapter 4 cell physiology set, parked
-   on the week 2 slot only so the existing note sheet can render it. It is not
+   on the week 2 slot only so the existing Competency Study Guide can render it. It is not
    a claim that this is week 2. Load after the real data file. */
 (function(){ var S = window.BIO005_SHEET = window.BIO005_SHEET || {};
   S[2] = {

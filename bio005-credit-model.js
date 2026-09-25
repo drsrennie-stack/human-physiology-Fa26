@@ -123,7 +123,7 @@ window.BIO005_CREDIT = {
      recognize a pathway and unable to draw one.
      ------------------------------------------------------------ */
   ungraded: [
-    { id:"notesheet", name:"Note sheet and retrieval",
+    { id:"notesheet", name:"Competency Study Guide and retrieval",
       why:"This is where a student finds out what they do not know. Grading it would push them to make it look finished rather than honest, and an honest sheet with gaps in it is worth more to them than a tidy one." },
     { id:"practice", name:"Practice items",
       why:"Predict, commit, check, correct, explain. Getting these wrong is the point of doing them." },

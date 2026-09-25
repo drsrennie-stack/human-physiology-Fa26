@@ -23,7 +23,7 @@ stretch with nothing due in between.
 | 1 | Week 1 \| Foundations in Physiology (Work Template) | `w01-overview.html` |
 | 2 | Week 1, Step 1 \| Your first pass | `w01-step-01-first-pass.html` |
 | 3 | Week 1, Step 2 \| VIDEOS: Second pass, in your second color | `concept-videos-week01.html` |
-| 4 | Week 1, Step 3 \| Upload your note sheet | `w01-step-03-upload-note-sheet.html` |
+| 4 | Week 1, Step 3 \| Upload your Competency Study Guide | `w01-step-03-upload-note-sheet.html` |
 | 5 | Week 1, Step 4 \| Study it for several days | `w01-step-04-study-it.html` |
 | 6 | Week 1, Step 5 \| Lab, the Reference Range Lab | `w01-step-05-lab.html` |
 | 7 | Week 1, Step 6 \| Your patient, the preseason physical | `w01-step-06-patient.html` |
@@ -33,7 +33,7 @@ stretch with nothing due in between.
 | 10 | Week 2 \| The Cell, and How Cells Talk (Work Template) | `w02-overview.html` |
 | 11 | Week 2, Step 1 \| Your first pass | `w02-step-01-first-pass.html` |
 | 12 | Week 2, Step 2 \| VIDEOS: Second pass, in your second color | `concept-videos-week03.html` |
-| 13 | Week 2, Step 3 \| Upload both note sheets | `w02-step-03-upload-note-sheets.html` |
+| 13 | Week 2, Step 3 \| Upload both Competency Study Guides | `w02-step-03-upload-note-sheets.html` |
 | 14 | Week 2, Step 4 \| Study it for several days | `w02-step-04-study-it.html` |
 | 15 | Week 2, Step 5 \| Lab, PhysioEx Exercise 8, amylase | `w02-step-05-lab.html` |
 | 16 | Week 2, Step 6 \| Your patient, the student health visit | `w02-step-06-patient.html` |
@@ -69,7 +69,7 @@ stretch with nothing due in between.
 <p><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/concept-videos-week01.html" target="_blank" rel="noopener">Open this page in a new tab<span class="screenreader-only"> (opens in a new tab)</span></a> if the frame above does not load on your device.</p>
 ```
 
-## Week 1, Step 3 | Upload your note sheet
+## Week 1, Step 3 | Upload your Competency Study Guide
 
 `w01-step-03-upload-note-sheet.html`, height 1450
 
@@ -150,7 +150,7 @@ stretch with nothing due in between.
 <p><a href="https://drsrennie-stack.github.io/human-physiology-Fa26/concept-videos-week03.html" target="_blank" rel="noopener">Open this page in a new tab<span class="screenreader-only"> (opens in a new tab)</span></a> if the frame above does not load on your device.</p>
 ```
 
-## Week 2, Step 3 | Upload both note sheets
+## Week 2, Step 3 | Upload both Competency Study Guides
 
 `w02-step-03-upload-note-sheets.html`, height 1400
 
@@ -224,7 +224,7 @@ Seven buttons across the two weeks point at the Canvas Assignments index rather
 than a specific assignment, because those assignments do not exist yet. They
 always land somewhere useful, but swap each for the direct link once you make it:
 
-- Week 2 Step 3, Upload your Week 2 note sheets
+- Week 2 Step 3, Upload your Week 2 Competency Study Guides
 - Week 2 Step 5, Turn the lab in
 - Week 2 Step 6, Turn in your chart entry
 - Week 1 Step 6, Turn in your chart entry
@@ -232,7 +232,7 @@ always land somewhere useful, but swap each for the direct link once you make it
 Wired: Week 2 Step 8, Upload the report in Canvas, to assignment 1241526 on
 September 15.
 
-Week 1's note sheet, lab and Mastery Check assignments are already wired to their
+Week 1's Competency Study Guide, lab and Mastery Check assignments are already wired to their
 real Canvas IDs.
 
 Dr. Sharilyn Rennie

@@ -3,12 +3,12 @@ var BIO005_FAQ = [
  {
   "cat": "Getting started",
   "q": "Where do I start?",
-  "a": "If you know the week, start its note sheet. If you truly do not know what to do, there is an exact order, and it always works: read the questions, preview the text, organize your notes, answer from what you know in one color, watch the concept's video, add what you learned in a second color, turn it in. The full method is under the question I do not know what to do on this page."
+  "a": "If you know the week, start its Competency Study Guide. If you truly do not know what to do, there is an exact order, and it always works: read the questions, preview the text, organize your notes, answer from what you know in one color, watch the concept's video, add what you learned in a second color, turn it in. The full method is under the question I do not know what to do on this page."
  },
  {
   "cat": "Getting started",
   "q": "What should I do on the very first day?",
-  "a": "Read the <a href=\"syllabus-fall2026.html\">syllabus</a>, buy Pearson access through Access Pearson in Canvas, post your introduce yourself discussion, and start the Week 1 note sheet. That is a full first day."
+  "a": "Read the <a href=\"syllabus-fall2026.html\">syllabus</a>, buy Pearson access through Access Pearson in Canvas, post your introduce yourself discussion, and start the Week 1 Competency Study Guide. That is a full first day."
  },
  {
   "cat": "Getting started",
@@ -123,7 +123,7 @@ var BIO005_FAQ = [
  {
   "cat": "Navigating the course",
   "q": "What are the concept videos?",
-  "a": "The recorded lectures, posted on each week's page when the week opens. Press play once and the whole week runs, or jump to a single concept. Work your note sheet alongside them."
+  "a": "The recorded lectures, posted on each week's page when the week opens. Press play once and the whole week runs, or jump to a single concept. Work your Competency Study Guide alongside them."
  },
  {
   "cat": "Navigating the course",
@@ -178,7 +178,7 @@ var BIO005_FAQ = [
  {
   "cat": "Navigating the course",
   "q": "What is the course tools button?",
-  "a": "On pages that carry it, the button in the bottom left corner opens everything: this week, your note sheet, Rx Cards, labs, the schedule, the syllabus."
+  "a": "On pages that carry it, the button in the bottom left corner opens everything: this week, your Competency Study Guide, Rx Cards, labs, the schedule, the syllabus."
  },
  {
   "cat": "Navigating the course",
@@ -222,7 +222,7 @@ var BIO005_FAQ = [
  },
  {
   "cat": "Grading",
-  "q": "How are note sheets graded?",
+  "q": "How are Competency Study Guides graded?",
   "a": "You submit the whole sheet. I pick five prompts and grade those for accuracy, and you will not know which five ahead of time, so every prompt has to be real. The rest is checked for completion."
  },
  {
@@ -272,7 +272,7 @@ var BIO005_FAQ = [
  },
  {
   "cat": "Grading",
-  "q": "Why are note sheets worth so much?",
+  "q": "Why are Competency Study Guides worth so much?",
   "a": "Twenty percent because they are the pre work that makes everything else possible, and they double as your midterm study guide, so the points pay you twice."
  },
  {
@@ -303,70 +303,70 @@ var BIO005_FAQ = [
  {
   "cat": "Grading",
   "q": "Where does participation show up in the grade?",
-  "a": "Participation in an online course is submitted work, and what I can certify is the graded work: your weekly discussion post, your lab, and your application case. The note sheet, the practice items and the Mastery Check carry no points, so as much as they drive your learning, they are not what attendance is measured from."
+  "a": "Participation in an online course is submitted work, and what I can certify is the graded work: your weekly discussion post, your lab, and your application case. The Competency Study Guide, the practice items and the Mastery Check carry no points, so as much as they drive your learning, they are not what attendance is measured from."
  },
  {
-  "cat": "Note sheets",
-  "q": "What is a note sheet?",
+  "cat": "Competency Study Guides",
+  "q": "What is a Competency Study Guide?",
   "a": "A weekly sheet with one prompt for each competency you must be able to do that week. You complete it from the reading and the videos before anything else. It is the first step of every week."
  },
  {
-  "cat": "Note sheets",
-  "q": "When is the note sheet due?",
+  "cat": "Competency Study Guides",
+  "q": "When is the Competency Study Guide due?",
   "a": "Sunday at 10:00 pm, with everything else."
  },
  {
-  "cat": "Note sheets",
+  "cat": "Competency Study Guides",
   "q": "Which five prompts get graded?",
   "a": "You will not know ahead of time. That is the point: every prompt has to be real."
  },
  {
-  "cat": "Note sheets",
-  "q": "Can I type my note sheet?",
+  "cat": "Competency Study Guides",
+  "q": "Can I type my Competency Study Guide?",
   "a": "No. Handwritten and hand drawn, then photographed or scanned into a PDF for Canvas."
  },
  {
-  "cat": "Note sheets",
-  "q": "What does a good note sheet answer look like?",
+  "cat": "Competency Study Guides",
+  "q": "What does a good Competency Study Guide answer look like?",
   "a": "Two colors telling the truth. First color: your best answer from memory and the text preview. Second color: what the video and your digging added. A drawing or worked explanation you could teach from, not a copied sentence. If your sheet can carry you through the practice round without the book, it is good."
  },
  {
-  "cat": "Note sheets",
-  "q": "Where do I find each week's note sheet?",
+  "cat": "Competency Study Guides",
+  "q": "Where do I find each week's Competency Study Guide?",
   "a": "On the week's page, step 1, posted when the week opens."
  },
  {
-  "cat": "Note sheets",
-  "q": "Do note sheets help with the midterms?",
-  "a": "They are the midterm study guide. Every midterm pathway starts life as a note sheet prompt."
+  "cat": "Competency Study Guides",
+  "q": "Do Competency Study Guides help with the midterms?",
+  "a": "They are the midterm study guide. Every midterm pathway starts life as a Competency Study Guide prompt."
  },
  {
-  "cat": "Note sheets",
+  "cat": "Competency Study Guides",
   "q": "What if I cannot finish every prompt?",
   "a": "Turn in what you have by Sunday 10:00 pm. A partially complete sheet earns partial completion credit; a late sheet costs half; after 24 hours it is a zero."
  },
  {
-  "cat": "Note sheets",
-  "q": "Can I work on note sheets with classmates?",
+  "cat": "Competency Study Guides",
+  "q": "Can I work on Competency Study Guides with classmates?",
   "a": "Study together, absolutely. But what you turn in must be your own work in your own hand from your own head."
  },
  {
-  "cat": "Note sheets",
-  "q": "How long should a note sheet take?",
+  "cat": "Competency Study Guides",
+  "q": "How long should a Competency Study Guide take?",
   "a": "Plan on several focused hours across the week. It is most of your prepare and watch time, which is why it comes first."
  },
  {
-  "cat": "Note sheets",
+  "cat": "Competency Study Guides",
   "q": "What is the two color rule?",
   "a": "Your first color is your baseline: what you can answer from memory and the text preview, before the video. The second color is everything you add from the video or your own digging afterward. The result reads at a glance: color one is what you already had, color two is exactly what you still need to commit to memory. Your studying aims at the second color."
  },
  {
-  "cat": "Note sheets",
+  "cat": "Competency Study Guides",
   "q": "Do I need special supplies?",
   "a": "Paper, pens in two colors, and a way to photograph or scan to PDF. That is it."
  },
  {
-  "cat": "Note sheets",
+  "cat": "Competency Study Guides",
   "q": "My handwriting is bad. Will I lose points?",
   "a": "No. Legible is the bar, beautiful is not. If I can read it and follow the drawing, it grades fine."
  },
@@ -478,7 +478,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "What gets asked on a midterm?",
-  "a": "Pathways drawn from that block's competencies in the <a href=\"competency-packet-fall2026.html\">packet</a>. If you can teach every pathway your note sheets built, you are ready."
+  "a": "Pathways drawn from that block's competencies in the <a href=\"competency-packet-fall2026.html\">packet</a>. If you can teach every pathway your Competency Study Guides built, you are ready."
  },
  {
   "cat": "Midterms",
@@ -503,7 +503,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "How should I study for a midterm?",
-  "a": "Draw pathways from memory, then teach them out loud with no notes, then check the drawing against your note sheet. The Mastery Check report tells you which pathways to hit first."
+  "a": "Draw pathways from memory, then teach them out loud with no notes, then check the drawing against your Competency Study Guide. The Mastery Check report tells you which pathways to hit first."
  },
  {
   "cat": "Midterms",
@@ -733,7 +733,7 @@ var BIO005_FAQ = [
  {
   "cat": "Time and workload",
   "q": "How should I split my hours across the week?",
-  "a": "A workable shape: note sheet and videos across two or three sittings early in the week, discussion by Friday, lab and problems by Saturday, review and the practice round Sunday. Never all of it Sunday."
+  "a": "A workable shape: Competency Study Guide and videos across two or three sittings early in the week, discussion by Friday, lab and problems by Saturday, review and the practice round Sunday. Never all of it Sunday."
  },
  {
   "cat": "Time and workload",
@@ -753,7 +753,7 @@ var BIO005_FAQ = [
  {
   "cat": "Time and workload",
   "q": "What should I cut when I fall behind?",
-  "a": "Nothing silently. Message me and we triage together. Usually: current week's note sheet first, then lab, then catch up. Never skip the current week to redo a graded past one."
+  "a": "Nothing silently. Message me and we triage together. Usually: current week's Competency Study Guide first, then lab, then catch up. Never skip the current week to redo a graded past one."
  },
  {
   "cat": "Time and workload",
@@ -798,7 +798,7 @@ var BIO005_FAQ = [
  {
   "cat": "Studying",
   "q": "How do I memorize pathways?",
-  "a": "You do not memorize them, you rebuild them. Draw from a blank page, check against your note sheet, fix, and draw again tomorrow. Two or three rebuilds and it is yours."
+  "a": "You do not memorize them, you rebuild them. Draw from a blank page, check against your Competency Study Guide, fix, and draw again tomorrow. Two or three rebuilds and it is yours."
  },
  {
   "cat": "Studying",
@@ -808,7 +808,7 @@ var BIO005_FAQ = [
  {
   "cat": "Studying",
   "q": "Is rereading the textbook studying?",
-  "a": "It is warming up. Rereading and rewatching are passive, and passive time feels like progress while producing very little of it. The Silverthorn reading feeds the note sheet; retrieval, drawing from memory, and explaining out loud are the studying."
+  "a": "It is warming up. Rereading and rewatching are passive, and passive time feels like progress while producing very little of it. The Silverthorn reading feeds the Competency Study Guide; retrieval, drawing from memory, and explaining out loud are the studying."
  },
  {
   "cat": "Studying",
@@ -1136,13 +1136,13 @@ var BIO005_FAQ = [
   "a": "Confirm every submission went in, check the gradebook line by line, and email about discrepancies immediately, not after grades post. Then close the term knowing the record matches the work."
  },
  {
-  "cat": "Note sheets",
-  "q": "Do I submit the note sheet even on a midterm window week?",
-  "a": "Yes. Weeks 6 and 11 run their own full week while the window is open. The note sheet is due Sunday 10:00 pm as always."
+  "cat": "Competency Study Guides",
+  "q": "Do I submit the Competency Study Guide even on a midterm window week?",
+  "a": "Yes. Weeks 6 and 11 run their own full week while the window is open. The Competency Study Guide is due Sunday 10:00 pm as always."
  },
  {
-  "cat": "Note sheets",
-  "q": "What if I lose my note sheet before submitting?",
+  "cat": "Competency Study Guides",
+  "q": "What if I lose my Competency Study Guide before submitting?",
   "a": "This is why you photograph work the moment you finish it. Rebuild what you can before 10:00 pm and submit; partial beats zero, and the late policy has no lost paper clause."
  },
  {
@@ -1238,7 +1238,7 @@ var BIO005_FAQ = [
  {
   "cat": "Getting started",
   "q": "I do not know what to do. What is the exact order?",
-  "a": "Start with the pre-work, in this exact order. One: read the note sheet questions first, before anything else. Two: preview the text with those questions in your head. Three: organize your notes so you know where to find things. Do not make flashcards; organize. Four: practice answering the questions the best you can, from what you already know, in your first color, on the master note sheet you will draw and create from. Five: now watch the video for that concept; the concept name and number are at the top of the prompt. Six: as you watch, add what you did not know in a second color, from the video or any other digging you do. Your first color is your baseline, what you already had, especially if you wrote it from memory. The second color is exactly what you need to commit to memory. Then turn it in. For lab: run PhysioEx first, then complete the worksheet, then the clinical correlations. And if a step genuinely does not work for the way you learn, see the next question; the method bends, the course requirements do not."
+  "a": "Start with the pre-work, in this exact order. One: read the Competency Study Guide questions first, before anything else. Two: preview the text with those questions in your head. Three: organize your notes so you know where to find things. Do not make flashcards; organize. Four: practice answering the questions the best you can, from what you already know, in your first color, on the master Competency Study Guide you will draw and create from. Five: now watch the video for that concept; the concept name and number are at the top of the prompt. Six: as you watch, add what you did not know in a second color, from the video or any other digging you do. Your first color is your baseline, what you already had, especially if you wrote it from memory. The second color is exactly what you need to commit to memory. Then turn it in. For lab: run PhysioEx first, then complete the worksheet, then the clinical correlations. And if a step genuinely does not work for the way you learn, see the next question; the method bends, the course requirements do not."
  },
  {
   "cat": "Getting started",

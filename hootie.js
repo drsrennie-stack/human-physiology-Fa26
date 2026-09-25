@@ -347,7 +347,7 @@
           + '<br><b>25%</b> Investigate It. The weekly labs.'
           + '<br><b>25%</b> Use It. Your weekly application case, building into your patient file.'
           + '<br><b>15%</b> Think About It. The weekly discussion.'
-          + '<br><br>Your note sheet, the practice items, the Mastery Check and the recall cards carry <b>no points at all</b>, on purpose. They are the route to the four above, not extras.'
+          + '<br><br>Your Competency Study Guide, the practice items, the Mastery Check and the recall cards carry <b>no points at all</b>, on purpose. They are the route to the four above, not extras.'
           + '<br><br>There is no curve and no back-end extra credit. There is a front-end version: <a href="scholar-points.html" target="_top">Scholar Points</a>, up to a 2.5 percent bump earned by studying with other people across the term. Full detail in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       case 'exams':
@@ -361,7 +361,7 @@
          students. There are no checkpoints and no placeholder. */
       case 'tbl':
         return '<p>There is no TBL in this course. No teams, no iRAT or tRAT, and nothing that meets at a set time. BIO 005 is fully online and asynchronous.</p>'
-          + '<p>What replaces attendance is what you turn in: your Mastery Check, your discussion post, and any lab the week requires. The note sheet and the practice work carry no points, so nothing is measuring whether you showed up, only whether the work is there.</p>'
+          + '<p>What replaces attendance is what you turn in: your Mastery Check, your discussion post, and any lab the week requires. The Competency Study Guide and the practice work carry no points, so nothing is measuring whether you showed up, only whether the work is there.</p>'
           + '<br><br>Studying the work across the week is what makes these go well. There is no version of a checkpoint that goes well if you start it Sunday night. More in your ' + ilink(s.syllabus, 'syllabus') + '.';
 
       case 'mastery':
