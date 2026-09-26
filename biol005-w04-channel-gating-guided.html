@@ -398,7 +398,7 @@ var STEPS=[
  text:["Gated channels are sorted by what makes them open. One kind responds to a change in the voltage across the membrane. One kind opens when a specific chemical binds to it. One kind opens when the membrane is physically stretched or pressed."],
  name:"voltage gated, ligand gated, and mechanically gated channels",
  auto:true,
- desc:"Each gated channel gets a labelled trigger above it: a voltage change, a chemical binding, and stretch or pressure.",
+ desc:"Each gated channel gets a labeled trigger above it: a voltage change, a chemical binding, and stretch or pressure.",
  pre:function(){S(ALLCH);labCh(true);trig([]);},
  play:function(a){trig(["volt"]);return wait(650,a).then(function(){trig(["volt","lig"]);return wait(650,a);}).then(function(){trig(["volt","lig","mech"]);only(ALLCH.concat(["trig"]));cap("Three triggers, three kinds of gate.");});},
  post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["volt","lig","mech"]);cap("Three triggers, three kinds of gate.");}},

@@ -27,7 +27,7 @@ WCAG 2.2. AA met, unchanged, with one criterion improved.
 ## 3. Color contrast audit
 
 No contrast pair changed. The longer label text renders in the same `.cnt`
-colour on the same background as the count it replaces.
+color on the same background as the count it replaces.
 
 ## 4. Keyboard navigation flow verified
 

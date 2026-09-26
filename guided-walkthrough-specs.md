@@ -90,7 +90,7 @@ link: 10.5px, uppercase, letter-spacing .24em, maroon, min-height 44px.
 The floating Back button (bio005-back.js) and Ask Hootie (hootie.js) are NOT loaded on
 walkthroughs. Hootie sits fixed at bottom right and covers the worksheet's Save as PDF
 button when the sticky worksheet reaches the bottom of the screen, and on a phone both
-cover the lesson's Back, Show me and Next controls. A second button labelled Back
+cover the lesson's Back, Show me and Next controls. A second button labeled Back
 would also be confused with the lesson's own Back.
 
 Two columns, lesson and worksheet.
@@ -229,7 +229,7 @@ permanently.
 |---|---|
 | Step with ask | Next disabled until Show me is clicked, using the disabled attribute, never color alone |
 | Step with auto | Plays on arrival, no Show me button |
-| Jump menu | Disabled until the last step, labelled so students know why |
+| Jump menu | Disabled until the last step, labeled so students know why |
 | Jump targets | Topic starts only, never mid-topic steps |
 | Saved progress | localStorage, key bio005-wNN-<slug>-guided-v1, unique per file |
 

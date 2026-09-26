@@ -63,8 +63,8 @@ def pdf_pending(week, *kinds):
 OUT = pathlib.Path(__file__).parent / "canvas-pages"
 OUT.mkdir(exist_ok=True)
 
-# Palette of record for the physiology site (bio-005-brand). Every text colour
-# below measures at least 7:1 on white except the muted grey, which is 7.3:1.
+# Palette of record for the physiology site (bio-005-brand). Every text color
+# below measures at least 7:1 on white except the muted gray, which is 7.3:1.
 NAVY = "#0B1530"
 MAROON = "#8B3A2E"
 MAROON_DARK = "#6E2D24"
@@ -97,11 +97,11 @@ def btn(label, href, primary=True, new_tab=True):
             % (style, href, attrs, html.escape(label), tail))
 
 def p(text, extra=""):
-    """extra can override margin or colour; whichever it sets is left out of the
+    """extra can override margin or color; whichever it sets is left out of the
     base so the style attribute never carries the same property twice."""
-    colour = "" if "color:" in extra else "color:%s;" % NAVY
+    color = "" if "color:" in extra else "color:%s;" % NAVY
     margin = "" if "margin:" in extra else "margin:0 0 12px 0;"
-    return '<p style="%sline-height:1.6;%s%s">%s</p>' % (margin, colour, extra, text)
+    return '<p style="%sline-height:1.6;%s%s">%s</p>' % (margin, color, extra, text)
 
 def h2(text, id_=None):
     idattr = ' id="%s"' % id_ if id_ else ""
@@ -127,7 +127,7 @@ def row(*buttons):
 
 def step_card(n, title, body_html, buttons, when=None, graded=None):
     """One numbered step. The number is part of the heading text, so a screen
-    reader hears 'Step 3, Second pass' and nothing is carried by colour alone."""
+    reader hears 'Step 3, Second pass' and nothing is carried by color alone."""
     when_html = ""
     if when:
         when_html = ('<p style="margin:0 0 10px 0;font-size:0.9em;font-weight:700;letter-spacing:0.04em;'
@@ -199,7 +199,7 @@ SHORT = {
 }
 
 # The four stages the course site already uses on its cards, with the card
-# colours. Every step belongs to exactly one stage, and the stages run in this
+# colors. Every step belongs to exactly one stage, and the stages run in this
 # order, so the Canvas module reads the same way the site does.
 # Measured on white: Learn 7.66:1, Practice 18.04:1, Apply 7.46:1, Check 18.04:1.
 STAGE_ORDER = ["Learn", "Practice", "Apply", "Check"]

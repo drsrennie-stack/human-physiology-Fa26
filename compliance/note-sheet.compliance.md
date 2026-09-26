@@ -261,8 +261,8 @@ operable:
 
 - Every drawing box carries a real `textarea` holding the same work in words,
   reached by a `button` with `aria-expanded` and `aria-controls`, in the tab
-  order, labelled `Competency n, this box in words`.
-- The typed box is not a lesser option. A word picture in short labelled
+  order, labeled `Competency n, this box in words`.
+- The typed box is not a lesser option. A word picture in short labeled
   pieces with arrows is what the assignment asks for either way, and the two
   are graded the same. The instruction under each box says so.
 - The canvas carries `role="img"` and an `aria-label` that names the box and

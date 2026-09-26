@@ -536,7 +536,7 @@ module.exports = {
       lede: "Get the boundaries right first, because most enzyme mistakes on an exam are boundary mistakes rather than mechanism mistakes.",
       body: [
         "An **enzyme** lowers the energy hill a reaction has to get over to start. That hill is the **activation energy**, and lowering it means a far greater fraction of the molecules have enough energy to react at any moment. The reaction goes faster. That is the entire job.",
-        "It does it by holding the substrates in a pocket, in the right orientation, in a chemical environment that stabilises the awkward halfway state. The pocket is the tertiary fold from three slides ago."
+        "It does it by holding the substrates in a pocket, in the right orientation, in a chemical environment that stabilizes the awkward halfway state. The pocket is the tertiary fold from three slides ago."
       ],
       list: [
         "**It cannot change the products.** Whatever the reaction was going to make, it still makes.",
@@ -841,7 +841,7 @@ module.exports = {
       cols: 3,
       kicker: "ATP and energy coupling",
       h: "ATP does not power anything. It pays for things",
-      lede: "Splitting ATP releases energy, and the cell **couples** that release to work it could not otherwise do. Coupling is the important word: the two reactions are physically joined on the same protein, so the favourable one drags the unfavourable one along with it. Three categories of work, and you meet all three by week 6.",
+      lede: "Splitting ATP releases energy, and the cell **couples** that release to work it could not otherwise do. Coupling is the important word: the two reactions are physically joined on the same protein, so the favorable one drags the unfavourable one along with it. Three categories of work, and you meet all three by week 6.",
       cards: [
         {
           label: "Transport",
@@ -859,7 +859,7 @@ module.exports = {
           label: "Chemical",
           labelClass: "teal",
           h: "What work is being paid for when a cell builds something?",
-          p: ["Making a large molecule out of small ones, which costs energy every time. Linking amino acids into a protein, glucose into glycogen, or synthesising a neurotransmitter.", "Your body is rebuilt continuously, not once. Every one of those bonds was paid for with ATP, which is why building tissue costs calories and why starvation eats muscle."]
+          p: ["Making a large molecule out of small ones, which costs energy every time. Linking amino acids into a protein, glucose into glycogen, or synthesizing a neurotransmitter.", "Your body is rebuilt continuously, not once. Every one of those bonds was paid for with ATP, which is why building tissue costs calories and why starvation eats muscle."]
         }
       ],
       big: "Transport, mechanical, chemical. Pump, muscle, building a protein. Say the three out loud.",
@@ -915,7 +915,7 @@ module.exports = {
           labelClass: "terra",
           big: "The catch",
           h: "How can an A1c change when the glucose has not moved at all?",
-          p: ["Because A1c measures exposure time, and exposure time is set by how long red cells live. Red cells normally last **about 120 days**.", "Shorten that lifespan and cells are replaced before they can accumulate glycation, so **A1c reads falsely low in a patient whose glucose has not changed by a single mg/dL**. Haemolysis does it. So does a recent transfusion, or blood loss, or iron replacement kicking off a burst of new red cells."]
+          p: ["Because A1c measures exposure time, and exposure time is set by how long red cells live. Red cells normally last **about 120 days**.", "Shorten that lifespan and cells are replaced before they can accumulate glycation, so **A1c reads falsely low in a patient whose glucose has not changed by a single mg/dL**. Hemolysis does it. So does a recent transfusion, or blood loss, or iron replacement kicking off a burst of new red cells."]
         },
         {
           label: "Read them together",

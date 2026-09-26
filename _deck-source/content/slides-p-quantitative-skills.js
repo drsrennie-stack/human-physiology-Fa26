@@ -341,7 +341,7 @@ module.exports = {
       ans: "278 mOsm/L on the shelf, and plain water in the patient. D5W is **free water in disguise**, which is why it is the wrong bag for somebody who is bleeding and the right bag for somebody whose sodium is too high.",
       timer: 180,
       big: "Two bags, both isosmotic in the bag, completely different once the body gets hold of them.",
-      lab: "This is the trap on the fluid choice task in the Week 1 lab. Read what the solute is, not just what the osmolarity is, because a solute that gets metabolised stops counting the moment it is metabolised.",
+      lab: "This is the trap on the fluid choice task in the Week 1 lab. Read what the solute is, not just what the osmolarity is, because a solute that gets metabolized stops counting the moment it is metabolized.",
       covers: ["w1-units-conversion"]
     },
 

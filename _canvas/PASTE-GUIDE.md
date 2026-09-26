@@ -6,7 +6,7 @@ The only classes used are Canvas's own (`Button`, `screenreader-only`).
 
 One page per step, and the steps are grouped under the four stages the course site
 already uses on its cards: Learn, Practice, Apply, Check. Each page carries its stage
-label at the top in the stage's own colour, so a student always knows which part of the
+label at the top in the stage's own color, so a student always knows which part of the
 week they are in.
 
 ## The four stages, and what sits in each

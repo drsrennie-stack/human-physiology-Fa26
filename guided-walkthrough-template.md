@@ -111,7 +111,7 @@ Canvas size, keep-clear zones, stroke weights, and marker sizes are all in the
 specs file. Two rules worth repeating here because they cause real bugs:
 
 - Draw order is z-order. Background parts first, foreground last.
-- A travelling marker stops short of a filled endpoint so it stays visible.
+- A traveling marker stops short of a filled endpoint so it stays visible.
 
 ---
 

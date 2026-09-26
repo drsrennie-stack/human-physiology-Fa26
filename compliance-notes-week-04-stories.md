@@ -34,7 +34,7 @@ WCAG 2.2. Level AA met on every criterion checked. AAA contrast met for body tex
 
 ## 3. Color contrast audit
 
-Unchanged from the lectures file: navy on white 18.04, maroon on white 7.66, secondary grey on white 7.23, white on navy 18.04, white on maroon 7.66, gold-deep on white 4.87 (used only for calcium shapes and their bold labels).
+Unchanged from the lectures file: navy on white 18.04, maroon on white 7.66, secondary gray on white 7.23, white on navy 18.04, white on maroon 7.66, gold-deep on white 4.87 (used only for calcium shapes and their bold labels).
 
 ## 4. Keyboard navigation verified
 

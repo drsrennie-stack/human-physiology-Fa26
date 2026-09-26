@@ -208,7 +208,7 @@ window.BIO005_SHEET = {
     "name": "Simple diffusion and Fick's law",
     "can": "State the variables in Fick's law of diffusion and predict how a change in concentration gradient, surface area, membrane thickness, or distance changes the rate of transfer.",
     "a": "Draw the Fick's law setup as a picture, not an equation: two compartments, a membrane between them, and label on the drawing the surface area, the concentration difference, and the membrane thickness. Then draw four small graphs in a row, rate of diffusion against each of those, plus against diffusion distance. Label both axes on every graph. One line: one variable sits in the denominator, so say which and how the shape of its graph shows that.",
-    "b": "Draw a real gas exchange surface, one alveolus against one capillary, and mark on it every Fick variable the body has already optimised. Then draw the same surface in pulmonary edema, with fluid thickening the barrier. Show what changed and what did not. One line: name the single Fick variable the disease changed, and say whether breathing faster fixes it."
+    "b": "Draw a real gas exchange surface, one alveolus against one capillary, and mark on it every Fick variable the body has already optimized. Then draw the same surface in pulmonary edema, with fluid thickening the barrier. Show what changed and what did not. One line: name the single Fick variable the disease changed, and say whether breathing faster fixes it."
    },
    {
     "n": 6,
@@ -639,7 +639,7 @@ window.BIO005_SHEET = {
     "n": 11,
     "name": "Receptive fields and acuity",
     "can": "Relate receptive field size and lateral inhibition to two point discrimination and predict which body regions have the finest acuity.",
-    "a": "Draw two patches of skin side by side, a fingertip and the middle of the back, with the sensory neuron receptive fields on each drawn to scale as circles. Set the same pair of caliper points on both and show why one is felt as two points and the other as one. Write your own measured thresholds in millimetres on each patch. One line: what would have to change on the back to make it match the fingertip.",
+    "a": "Draw two patches of skin side by side, a fingertip and the middle of the back, with the sensory neuron receptive fields on each drawn to scale as circles. Set the same pair of caliper points on both and show why one is felt as two points and the other as one. Write your own measured thresholds in millimeters on each patch. One line: what would have to change on the back to make it match the fingertip.",
     "b": "Draw three sensory neurons in a row receiving a stimulus that is strongest on the middle one. Add the inhibitory interneurons that connect them sideways. Then draw the firing rate of all three as bars, once before the lateral connections act and once after. One line: what the sharpened pattern lets the brain do that the raw pattern did not."
    },
    {
@@ -667,7 +667,7 @@ window.BIO005_SHEET = {
     "n": 15,
     "name": "Tactile mapping and adaptation testing",
     "can": "Measure two point discrimination at several body sites and show receptor adaptation and referred sensation experimentally.",
-    "a": "Draw a body outline and write your own measured two point threshold in millimetres at every site you tested. Before looking at anyone else's data, circle the site you predicted would be finest. Then draw a bar for each site ordered from finest to coarsest with the real numbers on them. One line: name a site where your measurement and your prediction disagreed, and one method error that could explain it.",
+    "a": "Draw a body outline and write your own measured two point threshold in millimeters at every site you tested. Before looking at anyone else's data, circle the site you predicted would be finest. Then draw a bar for each site ordered from finest to coarsest with the real numbers on them. One line: name a site where your measurement and your prediction disagreed, and one method error that could explain it.",
     "b": "Draw a time axis and plot your own adaptation data on it, how long the sensation took to fade for each stimulus you tested. Beside it, draw a body outline with your referred sensation result on it, marking where the stimulus was applied and where it was actually felt. One line: what the distance between those two marks tells you about where in the pathway the mistake is being made."
    },
    {
@@ -730,7 +730,7 @@ window.BIO005_SHEET = {
     "n": 24,
     "name": "Vision testing",
     "can": "Perform visual acuity, blind spot, accommodation, and color vision testing and interpret each result.",
-    "a": "Draw four panels in a row, one for each test you ran, acuity, blind spot, accommodation, and color vision. In each panel, draw the setup and your own result, with real numbers where you have them, including your acuity fraction and your near point in centimetres. One line: name the test whose result depends most on the subject being honest, and what that means for trusting the number.",
+    "a": "Draw four panels in a row, one for each test you ran, acuity, blind spot, accommodation, and color vision. In each panel, draw the setup and your own result, with real numbers where you have them, including your acuity fraction and your near point in centimeters. One line: name the test whose result depends most on the subject being honest, and what that means for trusting the number.",
     "b": "Draw the eye in cross section and mark the optic disc and the fovea in their correct positions relative to each other. Draw rays from the target in your blind spot experiment to work out where the spot falls in the visual field and on which side. Then do the same for the other eye. One line: why you never notice the blind spot in ordinary life."
    },
    {
@@ -806,7 +806,7 @@ window.BIO005_SHEET = {
     "n": 9,
     "name": "Length tension relationship",
     "can": "Interpret a length tension curve and explain why tension falls at very short and very long sarcomere lengths.",
-    "a": "Draw the length tension curve with sarcomere length on the x axis and active tension on the y, and mark the plateau at about 2.0 to 2.2 micrometres. Above three points on the curve, one short, one on the plateau, one long, draw the sarcomere at that length with the thick and thin filaments overlapping correctly. One line: tension falls at both ends of this curve, so say why the two ends fall for different reasons.",
+    "a": "Draw the length tension curve with sarcomere length on the x axis and active tension on the y, and mark the plateau at about 2.0 to 2.2 micrometers. Above three points on the curve, one short, one on the plateau, one long, draw the sarcomere at that length with the thick and thin filaments overlapping correctly. One line: tension falls at both ends of this curve, so say why the two ends fall for different reasons.",
     "b": "Draw a sarcomere at a very short length and at a very long length, big enough to show the Z discs, the thick filaments, and where the thin filaments end. In the short one, show the two things that physically get in the way. In the long one, show what has run out. One line: say which of the two you can actually reach in a joint in your own body, and what stops you reaching the other."
    },
    {
@@ -925,7 +925,7 @@ window.BIO005_SHEET = {
     "name": "Autonomic and somatic organization",
     "can": "Contrast the somatic motor system with the autonomic two neuron pathway by neuron count and by effector tissue.",
     "a": "Draw the somatic motor pathway and the autonomic pathway side by side, both starting in the CNS and ending at an effector. Count the neurons in each and put the ganglion in its correct place on the autonomic one. Label the transmitter released at every synapse and at both endings. Name the effector tissue at the end of each. One line: what the extra neuron buys the autonomic system.",
-    "b": "Draw one somatic motor neuron reaching skeletal muscle, and one autonomic pathway branching to cardiac muscle, a smooth muscle, and a gland. Then cut every nerve on your drawing and show what happens to each effector. One line: one of these effectors is completely paralysed by the cut while the others keep working, say which and why."
+    "b": "Draw one somatic motor neuron reaching skeletal muscle, and one autonomic pathway branching to cardiac muscle, a smooth muscle, and a gland. Then cut every nerve on your drawing and show what happens to each effector. One line: one of these effectors is completely paralyzed by the cut while the others keep working, say which and why."
    },
    {
     "n": 2,
@@ -1527,7 +1527,7 @@ window.BIO005_SHEET = {
     "n": 12,
     "name": "Pancreatic and biliary secretion",
     "can": "State the components of pancreatic juice and bile and explain how bicarbonate neutralizes chyme and how bile salts emulsify fat.",
-    "a": "Draw the duodenum with the pancreatic duct and the bile duct arriving at it. On the pancreas draw an acinar cell and a duct cell, and label what each secretes, enzymes from one and a watery bicarbonate fluid from the other. Draw a pH scale along the duodenum showing chyme arriving acidic and being neutralised. Mark the hormone that drives each secretion. One line: say what happens to pancreatic enzyme activity if the bicarbonate fails, and why the enzymes care.",
+    "a": "Draw the duodenum with the pancreatic duct and the bile duct arriving at it. On the pancreas draw an acinar cell and a duct cell, and label what each secretes, enzymes from one and a watery bicarbonate fluid from the other. Draw a pH scale along the duodenum showing chyme arriving acidic and being neutralized. Mark the hormone that drives each secretion. One line: say what happens to pancreatic enzyme activity if the bicarbonate fails, and why the enzymes care.",
     "b": "Draw one large fat droplet in watery chyme, then draw it again after bile salts arrive, now as many small droplets with bile salt molecules at each surface. Show the polar and nonpolar ends of one bile salt. Beside the two pictures, draw a bar for total droplet surface area in each case. Then draw lipase working on a surface. One line: say whether bile salts break any chemical bonds, and if not, name what they actually changed."
    },
    {
@@ -1758,7 +1758,7 @@ window.BIO005_SHEET = {
     "name": "Ventilation in exercise and at altitude",
     "can": "Predict the ventilatory response to exercise and to acute and chronic altitude exposure and explain the acclimatization changes.",
     "a": "Draw one set of axes, time on the horizontal through rest, the start of exercise, steady exercise, and recovery, with ventilation on the vertical. Plot the abrupt jump at the moment work begins, the plateau, and the fall at the end. On the same time axis underneath, plot arterial carbon dioxide staying close to normal through moderate exercise. One line: say why the ventilation jump cannot have been caused by a rise in carbon dioxide, and name what you think triggered it.",
-    "b": "Draw a person arriving at 4000 meters and follow them down the page over days. Day one: inspired oxygen partial pressure low, peripheral chemoreceptors firing, ventilation up, and carbon dioxide blown off so plasma pH rises above 7.45, which limits the response. Then over days draw the kidney excreting bicarbonate to bring pH back down, ventilation rising further, red cell production climbing, and 2,3 bisphosphoglycerate rising. One line: say which acclimatisation change helps at the tissue rather than at the lung, and how."
+    "b": "Draw a person arriving at 4000 meters and follow them down the page over days. Day one: inspired oxygen partial pressure low, peripheral chemoreceptors firing, ventilation up, and carbon dioxide blown off so plasma pH rises above 7.45, which limits the response. Then over days draw the kidney excreting bicarbonate to bring pH back down, ventilation rising further, red cell production climbing, and 2,3 bisphosphoglycerate rising. One line: say which acclimatization change helps at the tissue rather than at the lung, and how."
    },
    {
     "n": 22,

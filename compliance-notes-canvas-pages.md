@@ -22,7 +22,7 @@ Target: WCAG 2.2 AA as the floor, AAA where the Canvas editor allows it.
 |---|---|---|
 | 1.3.1 Info and relationships | AA | Real headings (the Canvas page title is the h1, h2 for sections on the overview, h3 for the due list), real lists for the due list, the step list and the done list, no layout tables. A step page has no heading under the title because it carries one thing. |
 | 1.3.2 Meaningful sequence | AA | The DOM order is the reading order is the working order. On a step page: what it is, when and how long, what to do, the buttons, what comes next. |
-| 1.4.1 Use of colour | AA | The stage chip names its stage in words ("APPLY"), the step number is written as text beside it and in the page title, graded items say "Graded." in words, due dates are written out. The four stage colours repeat information that is already in the text, so a student who cannot see colour loses nothing. |
+| 1.4.1 Use of color | AA | The stage chip names its stage in words ("APPLY"), the step number is written as text beside it and in the page title, graded items say "Graded." in words, due dates are written out. The four stage colors repeat information that is already in the text, so a student who cannot see color loses nothing. |
 | 1.4.3 / 1.4.6 Contrast | AAA | See section 3. Every text pair is above 7:1. |
 | 1.4.4 Resize text | AA | Font sizes are em based; no fixed pixel heights on text containers. |
 | 1.4.10 Reflow | AA | Single column, no min-width, buttons wrap. Checked at 400 px in Chromium. |
@@ -41,7 +41,7 @@ Target: WCAG 2.2 AA as the floor, AAA where the Canvas editor allows it.
 
 Not applicable: no images (nothing needs alt text), no forms, no media, no motion.
 
-## 3. Colour contrast audit
+## 3. Color contrast audit
 
 Measured with the WCAG relative luminance formula.
 
@@ -49,7 +49,7 @@ Measured with the WCAG relative luminance formula.
 |---|---|---|---|---|
 | Navy `#0B1530` body text | White `#FFFFFF` | 18.04:1 | pass | pass |
 | Maroon dark `#6E2D24` eyebrow and step timing | White | 10.18:1 | pass | pass |
-| Muted grey `#4F576A` supporting text | White | 7.23:1 | pass | pass |
+| Muted gray `#4F576A` supporting text | White | 7.23:1 | pass | pass |
 | White button text | Maroon `#8B3A2E` | 7.66:1 | pass | pass |
 | Navy text in the due box | Navy tint `#ECEFF4` | 15.65:1 | pass | pass |
 | LEARN chip, white text | Maroon `#8B3A2E` | 7.66:1 | pass | pass |
@@ -99,10 +99,10 @@ reviewer; the Canvas chrome around the page is Instructure's, not ours.
 - The Canvas editor strips `<style>` blocks, so hover and focus styling for the maroon
   buttons is Canvas's default rather than the site's. Focus remains visible.
 - Canvas's own Button class turns the buttons blue on hover in some themes. Inline
-  background colour wins at rest, so the resting state is always maroon.
+  background color wins at rest, so the resting state is always maroon.
 - The step number lives in plain text beside the stage chip and in the page title, so it
   survives Canvas themes and high contrast mode unchanged. The chip carries a 2 px border
-  in its own colour, so it stays visible as a shape when a forced-colours mode drops the
+  in its own color, so it stays visible as a shape when a forced-colors mode drops the
   background fill.
 - Seven buttons point at the Canvas Assignments or Discussions index until the
   matching assignment exists (listed in PASTE-GUIDE.md). They always land somewhere

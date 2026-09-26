@@ -334,7 +334,7 @@ tx(gJob,596,436,"Send","tm",22,"middle");
 var jobItems=Array.prototype.slice.call(gJob.childNodes);
 function jobs(n){jobItems.forEach(function(t,i){t.setAttribute("display",i<n?"":"none");});}
 
-/* ---- travelling signal ---- */
+/* ---- traveling signal ---- */
 var gSig=G("sig");
 var SIG=el("circle",{cx:0,cy:0,r:13,fill:MAROON},gSig);
 function sigAt(x,y){place(gSig,x,y);}
@@ -550,7 +550,7 @@ var STEPS=[
  text:["Before you meet a single neuron, it helps to see the whole system it belongs to. Picture reaching for a pan and pulling your hand back the instant you feel how hot it is. Information came in from your skin, something decided what to do, and a command went out to the muscles of your arm.","The deciding happens in the brain and spinal cord. Everything else, every nerve running out to your skin, muscles, and organs, is the wiring that carries information in and commands out."],
  name:"central nervous system (CNS) and peripheral nervous system (PNS)",
  auto:true,
- desc:"A box at the top of the map is labelled central nervous system, brain and spinal cord. A line of text beneath it says everything outside it is the peripheral nervous system.",
+ desc:"A box at the top of the map is labeled central nervous system, brain and spinal cord. A line of text beneath it says everything outside it is the peripheral nervous system.",
  pre:function(){S(["map","caption"]);mapShow([]);},
  play:function(a){mapShow(["cns"]);return wait(700,a).then(function(){mapShow(["cns","pns"]);cap("The brain and spinal cord decide.");});},
  post:function(){mapShow(["cns","pns"]);cap("The brain and spinal cord decide.");}},
@@ -560,7 +560,7 @@ var STEPS=[
  ask:"After a big meal, stretch receptors in your stomach wall send a signal. Which way is that signal traveling, toward the central nervous system or away from it?",
  ans:["Toward it. Every signal that reports on the body, whether it starts in the skin, a muscle, an eye, or an organ, travels inward to the brain and spinal cord.","This inward half of the peripheral nervous system is the sensory division, also called the afferent division. Afferent means carrying toward. A signal does not have to reach your awareness to count, and most of the signals from your organs never do."],
  name:"sensory, or afferent, division",
- desc:"A box labelled sensory, afferent, sits at the left of the map with an arrow pointing up into the central nervous system. A red dot travels along the arrow toward the central nervous system.",
+ desc:"A box labeled sensory, afferent, sits at the left of the map with an arrow pointing up into the central nervous system. A red dot travels along the arrow toward the central nervous system.",
  pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","aff"]);place(gMapSig,200,137);},
  play:function(a){return tweenPath(gMapSig,[[298,94]],1000,a).then(function(){cap("Sensory signals travel in.");});},
  post:function(){place(gMapSig,298,94);cap("Sensory signals travel in.");}},
@@ -569,7 +569,7 @@ var STEPS=[
  text:["The other half of the peripheral wiring carries commands outward, from the central nervous system to the tissues that actually carry them out. Those tissues are called effectors, and they are muscles and glands."],
  name:"efferent division",
  auto:true,
- desc:"An arrow leaves the central nervous system and points down to a box labelled efferent, away from the CNS. A red dot travels down the arrow.",
+ desc:"An arrow leaves the central nervous system and points down to a box labeled efferent, away from the CNS. A red dot travels down the arrow.",
  pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","aff","eff"]);place(gMapSig,562,91);},
  play:function(a){return tweenPath(gMapSig,[[592,126]],800,a).then(function(){cap("Commands travel away from the CNS.");});},
  post:function(){place(gMapSig,592,126);cap("Commands travel away from the CNS.");}},
@@ -599,7 +599,7 @@ var STEPS=[
  ask:"When food stretches a section of intestine, the smooth muscle there contracts to push the food along. This still happens in a piece of intestine whose connections to the brain and spinal cord have been cut. What does that tell you about the network in the gut wall?",
  ans:["It can sense, decide, and command on its own. The network acts as its own integrating center, so simple gut reflexes do not need the brain or spinal cord at all.","This is the enteric nervous system. It can work independently, but the autonomic division normally adjusts it, speeding digestion during rest and slowing it during stress."],
  name:"enteric nervous system",
- desc:"A dashed box appears at the lower left of the map, labelled enteric nervous system, in the wall of the gut, runs the digestive tract.",
+ desc:"A dashed box appears at the lower left of the map, labeled enteric nervous system, in the wall of the gut, runs the digestive tract.",
  pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff","som","aut","split"]);},
  play:function(a){return wait(400,a).then(function(){mapShow(MAPALL);cap("The gut has its own network.");});},
  post:function(){mapShow(MAPALL);cap("The gut has its own network.");}},
@@ -749,7 +749,7 @@ var STEPS=[
  text:["You have now seen three kinds of signal in one cell: small signals that change size and fade, a fixed-size signal that travels without fading, and a chemical released at the end."],
  ask:"Before you look, sort the regions. Which ones carry signals that change size and fade, which one carries the fixed-size signal, and where does the signal stop being electrical?",
  ans:["The dendrites and cell body carry graded potentials. The trigger zone is where a graded potential becomes an action potential, if it reaches threshold. The axon carries action potentials, and the axon terminal turns the electrical signal into a chemical one.","Notice that the trigger zone is the one place where the graded signals end and the voltage-gated sodium channels are densest. That overlap is exactly what makes it the decision point."],
- desc:"The labelled neuron, with the word graded under the dendrites and cell body, threshold here under the trigger zone, all or none under the axon, and chemical under the terminals.",
+ desc:"The labeled neuron, with the word graded under the dendrites and cell body, threshold here under the trigger zone, all or none under the axon, and chemical under the terminals.",
  pre:function(){S(["soma","dend","hill","axon","term","labels","caption","stype"]);labs(["dend","soma","hill","axon","term"]);stype(0);},
  play:function(a){return [1,2,3,4].reduce(function(p,n){return p.then(function(){stype(n);return wait(450,a);});},Promise.resolve()).then(function(){cap("Graded, then all or none, then chemical.");});},
  post:function(){stype(4);cap("Graded, then all or none, then chemical.");}},
@@ -889,7 +889,7 @@ var STEPS=[
  ask:"Charge leaks out of bare fiber. If a signal now has to cross a long stripped stretch instead of jumping a short gap, what happens to it?",
  ans:["It weakens as it crosses. The bare stretch leaks current, and because it used to be covered, it has very few sodium channels to rebuild the signal. If the stretch is long enough, the signal fades before the next node reaches threshold and the message never arrives, which is called conduction block.","That is why multiple sclerosis symptoms depend on which fibers lose insulation. Vision, balance, sensation, and strength can all be affected, and symptoms come and go as areas become inflamed and then partly recover."],
  name:"demyelination",
- desc:"Two segments of insulation disappear and are marked with crosses. The travelling dot slows across the bare stretch and fades before reaching the end.",
+ desc:"Two segments of insulation disappear and are marked with crosses. The traveling dot slows across the bare stretch and fades before reaching the end.",
  pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","damage","caption","sig"]);myelin([2]);place(gSig,330,290);},
  play:function(a){return tweenPath(gSig,[[446,290]],900,a).then(function(){SIG.setAttribute("r",9);return tweenPath(gSig,[[564,290]],1500,a);}).then(function(){SIG.setAttribute("r",4);return tweenPath(gSig,[[600,290]],900,a);}).then(function(){SIG.setAttribute("r",0);cap("The signal fades before it arrives.");});},
  post:function(){myelin([2]);place(gSig,600,290);SIG.setAttribute("r",0);cap("The signal fades before it arrives.");}},
@@ -941,7 +941,7 @@ var STEPS=[
  ask:"Suppose you block only the outward motor at the middle of a long axon. Where would its cargo pile up, on the cell body side of the block or on the terminal side?",
  ans:["On the cell body side. Outward cargo is still being sent from the cell body, but it cannot get past the block, so it collects just before it. If you blocked the inward motor instead, returning cargo would pile up on the terminal side.","The outward motor is kinesin, which carries anterograde cargo. The inward motor is dynein, which carries retrograde cargo. If dynein fails, supplies still arrive, but debris and survival signals stop coming back, and over time the neuron degenerates."],
  name:"kinesin (anterograde) and dynein (retrograde)",
- desc:"A gold package labelled kinesin travels outward along the fiber, and a red package labelled dynein travels back toward the cell body.",
+ desc:"A gold package labeled kinesin travels outward along the fiber, and a red package labeled dynein travels back toward the cell body.",
  pre:function(){S(["soma","dend","hill","axon","term","track","vesicle","caption"]);motorLabs(true);place(VES,330,266);place(VES2,742,266);},
  play:function(a){return Promise.all([tweenPath(VES,[[742,266]],1600,a),tweenPath(VES2,[[330,266]],1600,a)]).then(function(){cap("Kinesin out, dynein back.");});},
  post:function(){motorLabs(true);place(VES,742,266);place(VES2,330,266);cap("Kinesin out, dynein back.");}},
@@ -971,7 +971,7 @@ var STEPS=[
  text:["The brain and spinal cord form the central nervous system. The sensory, or afferent, division carries information in, and the efferent division carries commands out through somatic motor and autonomic branches, with the autonomic split into sympathetic and parasympathetic. The enteric nervous system runs the gut. Neurons are sorted by shape into multipolar, bipolar, and pseudounipolar, and by direction into sensory, efferent, and interneurons.","A neuron receives graded potentials at its dendrites and soma, decides at the trigger zone, sends all-or-none action potentials along the axon, and releases neurotransmitter at the axon terminals when calcium enters. Astrocytes control the fluid around neurons and help form the blood-brain barrier, oligodendrocytes and Schwann cells build myelin, microglia clean up, ependymal cells line the fluid spaces, and satellite cells support cell bodies in ganglia.","Myelin speeds conduction by letting the signal be rebuilt only at the nodes, where the sodium channels are, and losing it slows or blocks the signal. Axonal transport keeps the far end supplied: fast transport by kinesin outward and dynein back, and slow transport for the cytoskeleton."],
  ask:"Without scrolling back, name the regions of a neuron in the order a signal passes through them, and say what each one does and what kind of signal it carries.",
  ans:["Dendrites receive incoming signals as graded potentials. The soma adds them together and makes the cell's proteins. The trigger zone, the axon hillock and initial segment, decides whether to fire. The axon carries all-or-none action potentials to the terminals, which pass the message to the next cell as a chemical.","If any of those were hard to recall, that is the part to go back over. The resting membrane potential walkthrough, which comes next, builds on this one."],
- desc:"The full neuron with all regions labelled and a signal travelling the complete route.",
+ desc:"The full neuron with all regions labeled and a signal traveling the complete route.",
  pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,92,168);},
  play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],400,a);}).then(function(){return tweenPath(gSig,[[446,290]],260,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],300,a);}).then(function(){cap("Receive, add, decide, send.");});},
  post:function(){labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,790,290);cap("Receive, add, decide, send.");}},

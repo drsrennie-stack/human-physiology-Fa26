@@ -1330,7 +1330,7 @@ var root=document.getElementById('apx'); if(!root) return;
 var $=function(id){return document.getElementById(id);};
 var cv=$('apxCanvas'), cx=cv.getContext('2d');
 var W=1000,H=560, MT=250, MB=300;
-var NAVY='#0B1530', MAR='#8B3A2E', GREY='#4F576A', TINT='#ECEFF4';
+var NAVY='#0B1530', MAR='#8B3A2E', GRAY='#4F576A', TINT='#ECEFF4';
 var FONT="'Plus Jakarta Sans',system-ui,sans-serif";
 var DT=0.002, TEND=12, N=Math.round(TEND/DT);
 var PR={tau0:2.0,hd:0.224,htau:0.1,kd:0.25,krise:0.5,koff:2.2,kdec:0.6,kmax:3.59,ma:0.12,stimT:1.0,stimD:0.4,thr:-55.2,pnaMax:20};
@@ -1451,7 +1451,7 @@ function tag(t,x,y,col,al,size){ cx.font='800 '+(size||17)+'px '+FONT; var w=cx.
   cx.fillStyle='rgba(255,255,255,.92)'; cx.fillRect(x0-4,y-(size||17),w+8,(size||17)+6); text(t,x,y,col,al,size); }
 function arrow(x,y1,y2,col){ cx.strokeStyle=col; cx.fillStyle=col; cx.lineWidth=5; cx.beginPath(); cx.moveTo(x,y1); cx.lineTo(x,y2); cx.stroke();
   var d= y2>y1?1:-1; cx.beginPath(); cx.moveTo(x,y2+d*10); cx.lineTo(x-9,y2-d*4); cx.lineTo(x+9,y2-d*4); cx.closePath(); cx.fill(); }
-function plug(x,y,lab){ cx.fillStyle=GREY; cx.beginPath(); cx.moveTo(x-17,y-12); cx.lineTo(x+17,y-12); cx.lineTo(x+11,y+8); cx.lineTo(x-11,y+8); cx.closePath(); cx.fill(); }
+function plug(x,y,lab){ cx.fillStyle=GRAY; cx.beginPath(); cx.moveTo(x-17,y-12); cx.lineTo(x+17,y-12); cx.lineTo(x+11,y+8); cx.lineTo(x-11,y+8); cx.closePath(); cx.fill(); }
 function naChannel(x,m,c,blocked){
   cx.fillStyle='#fff'; cx.fillRect(x-14,MT-2,28,MB-MT+4);
   cx.strokeStyle=NAVY; cx.lineWidth=4; cx.fillStyle='#fff';
@@ -1481,8 +1481,8 @@ function draw(){
   var ticks=[60,30,0,-30,-70,-100];
   for(i=0;i<ticks.length;i++){ var v=ticks[i]; cx.beginPath(); cx.moveTo(GX0-6,Y(v)); cx.lineTo(GX0,Y(v)); cx.stroke(); text((v<0?'−':(v>0?'+':''))+Math.abs(v),GX0-10,Y(v)+6,NAVY,'right',18,700); }
   for(i=0;i<=TEND;i+=2){ cx.beginPath(); cx.moveTo(X(i),GY1); cx.lineTo(X(i),GY1+6); cx.stroke(); text(String(i),X(i),GY1+26,NAVY,'center',18,700); }
-  text('time, in milliseconds',GX1,GY1+52,GREY,'right',17,700);
-  var refs=[[61,'E of Na⁺, +61',NAVY],[0,'0 mV',GREY],[-55,'threshold, −55',GREY],[-95,'E of K⁺, −95',MAR]];
+  text('time, in milliseconds',GX1,GY1+52,GRAY,'right',17,700);
+  var refs=[[61,'E of Na⁺, +61',NAVY],[0,'0 mV',GRAY],[-55,'threshold, −55',GRAY],[-95,'E of K⁺, −95',MAR]];
   for(i=0;i<refs.length;i++){ cx.setLineDash([8,6]); cx.strokeStyle=refs[i][2]; cx.lineWidth=2; cx.beginPath(); cx.moveTo(GX0,Y(refs[i][0])); cx.lineTo(GX1,Y(refs[i][0])); cx.stroke(); cx.setLineDash([]);
     text(refs[i][1],GX1,Y(refs[i][0])+ (refs[i][0]===61?22:-7),refs[i][2],'right',17,800); }
   /* stimulus bar */
@@ -1502,13 +1502,13 @@ function draw(){
   for(i=0;i<KX.length;i++) kChannel(KX[i],kg,S.kb);
   if(pnaV>1.5){ for(i=0;i<NAX.length;i++) arrow(NAX[i]+3,MB+30,MB+66,NAVY); tag('Na⁺ in',690,MT-30,NAVY,'center',20); }
   if(kg>0.12){ for(i=0;i<KX.length;i++) arrow(KX[i]+3,MT-22,MT-46,MAR); tag('K⁺ out',905,MB+40,MAR,'center',20); }
-  tag('OUTSIDE THE CELL',PX0,32,GREY,'left',18); tag('INSIDE THE CELL',PX0,H-70,GREY,'left',18);
+  tag('OUTSIDE THE CELL',PX0,32,GRAY,'left',18); tag('INSIDE THE CELL',PX0,H-70,GRAY,'left',18);
   tag('Voltage gated',690,150,NAVY,'center',20); tag('Na⁺ channels',690,174,NAVY,'center',20);
   tag('Voltage gated',905,150,MAR,'center',20); tag('K⁺ channels',905,174,MAR,'center',20);
-  if(S.ttx) tag('blocked by tetrodotoxin',690,198,GREY,'center',17);
-  if(S.kb) tag('blocked',905,198,GREY,'center',17);
-  text('Na⁺ channel: bar = activation gate,',PX0,H-40,GREY,'left',17,700);
-  text('ball = inactivation gate. K⁺ channel: one gate.',PX0,H-16,GREY,'left',17,700);
+  if(S.ttx) tag('blocked by tetrodotoxin',690,198,GRAY,'center',17);
+  if(S.kb) tag('blocked',905,198,GRAY,'center',17);
+  text('Na⁺ channel: bar = activation gate,',PX0,H-40,GRAY,'left',17,700);
+  text('ball = inactivation gate. K⁺ channel: one gate.',PX0,H-16,GRAY,'left',17,700);
 }
 var PHN=['Resting','Graded depolarization toward threshold','Rising phase','Peak','Falling phase','After-hyperpolarization','Back at rest','Graded potential, below threshold'];
 function readouts(){

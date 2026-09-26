@@ -47,7 +47,7 @@ Skip link, Print this sheet, Back to Week 4. That is the full set of controls.
 
 ## 5. Screen reader testing
 
-Automated verification: section landmarks, heading order, the labelled scaffold
+Automated verification: section landmarks, heading order, the labeled scaffold
 figure, and the skip link. No errors.
 
 An important limitation is stated plainly in section 6 rather than treated as solved.

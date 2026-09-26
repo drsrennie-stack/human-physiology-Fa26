@@ -44,7 +44,7 @@
       "n": 6,
       "name": "The citric acid cycle and the electron transport chain",
       "can": "Say which mitochondrial space each aerobic stage runs in, trace an electron from a fuel molecule to oxygen, and state the approximate total ATP yield from one glucose.",
-      "a": "Draw one mitochondrion large, with the matrix and the inner membrane labelled. Put the citric acid cycle in the matrix and the electron transport chain in the inner membrane. Show NADH carrying electrons from the cycle to the chain, protons being pushed across, and them coming back through the ATP maker. Mark where oxygen sits and what it becomes.",
+      "a": "Draw one mitochondrion large, with the matrix and the inner membrane labeled. Put the citric acid cycle in the matrix and the electron transport chain in the inner membrane. Show NADH carrying electrons from the cycle to the chain, protons being pushed across, and them coming back through the ATP maker. Mark where oxygen sits and what it becomes.",
       "b": "Draw a running total of ATP across the whole path for one glucose: glycolysis, pyruvate entry, the cycle, then the chain. Put the number at each stage and the total at the end, and mark that the total is approximate. Under it, one line naming which single stage produces most of it and why losing oxygen collapses that stage first."
     },
     {

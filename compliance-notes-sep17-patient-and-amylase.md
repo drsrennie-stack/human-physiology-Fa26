@@ -30,7 +30,7 @@ WCAG 2.2. AA met throughout. AAA met on contrast and on section headings.
 
 ## 3. Color contrast audit
 
-No new colour was introduced. Every pair on the new page comes from the step
+No new color was introduced. Every pair on the new page comes from the step
 page template and was measured when that template shipped.
 
 | Text / background | Hex pair | Ratio | Result |
@@ -52,8 +52,8 @@ row, so the tab order gains one stop in reading order and changes nowhere else.
 ## 5. Screen reader testing
 
 Checked on the new page in the rendered output. The six part loop announces as
-an ordered list of six items, the lead phrase of each step is emphasised with
-`b` rather than by colour alone, and the quick answers announce at heading level
+an ordered list of six items, the lead phrase of each step is emphasized with
+`b` rather than by color alone, and the quick answers announce at heading level
 3 under their level 2 section. The four buttons announce with their destination
 and their new tab warning inside the accessible name.
 

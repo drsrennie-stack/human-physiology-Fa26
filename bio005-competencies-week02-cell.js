@@ -64,7 +64,7 @@ window.BIO005_WEEK02_CELL = {
       name:"Cytoplasm, cytosol and inclusions",
       can:"Distinguish cytoplasm, cytosol and inclusions, and give an example of a stored inclusion and the cell type that keeps it.",
       dok:2, yield:"core", est:15, facets:["lecture"],
-      a:"Draw a cell with its outline and nucleus only, then shade the cytosol one way and circle the region the word cytoplasm covers. Add a glycogen granule and a lipid droplet as inclusions, each labelled with a cell type that stores it. One line: what makes an inclusion different from an organelle.",
+      a:"Draw a cell with its outline and nucleus only, then shade the cytosol one way and circle the region the word cytoplasm covers. Add a glycogen granule and a lipid droplet as inclusions, each labeled with a cell type that stores it. One line: what makes an inclusion different from an organelle.",
       b:"Draw three cells in a row: a liver cell after a meal, a fat cell, and a muscle cell after a sprint. In each, draw the inclusions you would expect to find and how much. Under the row, one line on what the inclusions tell you about what that cell does for a living." },
 
     { id:"w2c-cytoskeleton",
@@ -72,7 +72,7 @@ window.BIO005_WEEK02_CELL = {
       name:"The cytoskeleton and motor proteins",
       can:"Compare microfilaments, intermediate filaments and microtubules by what they are made of and what they do, and describe how a motor protein moves a load along a microtubule.",
       dok:2, yield:"core", est:15, facets:["lecture"],
-      a:"Draw one cell and run all three filament types through it, each drawn differently and labelled with its protein and its job. Then draw a motor protein walking a vesicle along a microtubule, with an arrow for the direction and a mark for where the ATP goes in.",
+      a:"Draw one cell and run all three filament types through it, each drawn differently and labeled with its protein and its job. Then draw a motor protein walking a vesicle along a microtubule, with an arrow for the direction and a mark for where the ATP goes in.",
       b:"Draw a nerve cell with a long axon. Show a vesicle made at the cell body being carried to the end, and a worn out mitochondrion being carried back. Label the track and the direction of each trip. One line under it on what happens to the far end of that axon if the track breaks." },
 
     { id:"w2c-surface-structures",
@@ -81,7 +81,7 @@ window.BIO005_WEEK02_CELL = {
       can:"Tell cilia, flagella and microvilli apart by structure and function, and predict what fails when the cilia of a given tissue stop moving.",
       dok:2, yield:"core", est:15, facets:["lecture"],
       a:"Draw three cell surfaces side by side, one with cilia, one with a flagellum, one with microvilli. Draw each structure to scale with the cell and mark whether it moves. Label the tissue where you would find each, and beside each one write what the cell gains from it.",
-      b:"Draw the lining of an airway with a layer of mucus on top and cilia underneath, arrows showing which way the mucus travels. Then draw the same airway with the cilia paralysed by cigarette smoke. Show what happens to the mucus and to anything trapped in it. One line on why that patient coughs." },
+      b:"Draw the lining of an airway with a layer of mucus on top and cilia underneath, arrows showing which way the mucus travels. Then draw the same airway with the cilia paralyzed by cigarette smoke. Show what happens to the mucus and to anything trapped in it. One line on why that patient coughs." },
 
     { id:"w2c-nucleus",
       module:1, week:2, system:"The cell", general:"The cell",
@@ -120,7 +120,7 @@ window.BIO005_WEEK02_CELL = {
       name:"Mitochondrial structure and ATP",
       can:"Draw the mitochondrion with both membranes, the cristae and the matrix, say which step of energy production happens in each space, and explain why cristae are folded.",
       dok:2, yield:"core", est:15, facets:["lecture"],
-      a:"Draw one mitochondrion large enough to fill half the box, with the outer membrane, the inner membrane folded into cristae, the intermembrane space and the matrix all labelled. Mark where the citric acid cycle runs and where the electron transport chain sits. One line on what the folding buys the cell.",
+      a:"Draw one mitochondrion large enough to fill half the box, with the outer membrane, the inner membrane folded into cristae, the intermembrane space and the matrix all labeled. Mark where the citric acid cycle runs and where the electron transport chain sits. One line on what the folding buys the cell.",
       b:"Draw three cells and give each the number of mitochondria you expect: a cardiac muscle cell, a skin cell, and a red blood cell. Under the row, one line on what the count predicts about how that cell makes its ATP and what happens to it when oxygen runs short." },
 
     { id:"w2c-junctions",
@@ -153,7 +153,7 @@ window.BIO005_WEEK02_CELL = {
       can:"Identify the three muscle tissue types and the two cell types of neural tissue by structure, and state what makes both tissue classes excitable.",
       dok:2, yield:"core", est:15, facets:["lecture"],
       a:"Draw skeletal, cardiac and smooth muscle side by side, with the striations, the cell shape, the nuclei and the intercalated discs drawn where they belong. Label which are under voluntary control. One line on what all three share that makes them muscle.",
-      b:"Draw a neuron and a supporting glial cell together, labelling the parts of the neuron that receive and the part that sends. Then draw a muscle cell beside them. Under the drawing, one line on what excitable means and what both tissues do with that property." },
+      b:"Draw a neuron and a supporting glial cell together, labeling the parts of the neuron that receive and the part that sends. Then draw a muscle cell beside them. Under the drawing, one line on what excitable means and what both tissues do with that property." },
 
     { id:"w2c-cell-turnover",
       module:1, week:2, system:"The cell", general:"The cell",

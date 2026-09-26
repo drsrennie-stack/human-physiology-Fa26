@@ -370,7 +370,7 @@ module.exports = {
       lede: "Everything so far moved a solute down its own gradient. Now the cell wants the opposite, and that is not a matter of finding a better protein. It is a matter of energy.",
       body: [
         "Moving a solute against its electrochemical gradient is work, and work needs energy. There are exactly two ways a cell pays for it, and telling them apart is most of what this section is about.",
-        "In **primary active transport** the carrier hydrolyses ATP itself. The protein is an enzyme as well as a carrier, which is why the name ends in ATPase. Energy in, gradient out.",
+        "In **primary active transport** the carrier hydrolyzes ATP itself. The protein is an enzyme as well as a carrier, which is why the name ends in ATPase. Energy in, gradient out.",
         "In **secondary active transport** no ATP touches the carrier at all. One solute is allowed to fall down the gradient it already has, and the energy released by that fall drags a second solute uphill alongside it.",
         "Secondary is not free, though, and this is the sentence students miss. Somebody built the gradient it is spending, and that somebody was a pump burning ATP. Secondary active transport is ATP energy arriving second hand."
       ],
@@ -385,7 +385,7 @@ module.exports = {
       lede: "It is in the membrane of every cell you own. One cycle, one ATP, three Na+ out, two K+ in, and it does not stop while you are alive.",
       svg: FIG_PUMP,
       cap: "The pump spans the membrane. On the left, three Na+ leave against a gradient that runs from about 12 mM inside up to about 145 mM outside. On the right, two K+ enter against a gradient that runs from about 4 mM outside up to about 140 mM inside. One ATP is hydrolyzed per cycle.",
-      lab: "In the Week 2 lab you classify this pump on the transporter table for Kofi's gut cell. Three columns: carrier or channel, passive or active, and if active, primary or secondary. It is a carrier, it is active, and it is primary, and the reason it is primary is that the transport protein hydrolyses the ATP itself.",
+      lab: "In the Week 2 lab you classify this pump on the transporter table for Kofi's gut cell. Three columns: carrier or channel, passive or active, and if active, primary or secondary. It is a carrier, it is active, and it is primary, and the reason it is primary is that the transport protein hydrolyzes the ATP itself.",
       covers: ["w2-primary-active-transport"],
       big: "**3 Na+ out, 2 K+ in, 1 ATP.** Say it until it is boring."
     },
@@ -851,7 +851,7 @@ module.exports = {
       listLabel: "What to do",
       list: [
         "Transporter A moves urea across the membrane. It goes faster whenever you raise urea outside, it has shown no ceiling at any concentration you tried, and a poison that stops ATP does nothing to it.",
-        "Transporter B moves H+ out of the cell and K+ in, and it hydrolyses ATP to do it. It is in your stomach lining, and it is the target of a proton pump inhibitor.",
+        "Transporter B moves H+ out of the cell and K+ in, and it hydrolyzes ATP to do it. It is in your stomach lining, and it is the target of a proton pump inhibitor.",
         "Transporter C moves Na+ into the cell and H+ out of it, and it slows down within minutes of blocking the sodium potassium ATPase.",
         "Transporter D moves Ca2+ out of the cell using ATP directly, and changing extracellular sodium does nothing to it at all.",
         "Then, for each one, write down the single experiment that would prove your answer to somebody who disagreed with you."

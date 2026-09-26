@@ -364,7 +364,7 @@ module.exports = {
   ],
   body: [
     "So diffusion is not a transport system for a body. It is a transport system for the last few micrometers, and everything else has to be handled by bulk flow: blood in vessels, air in airways, filtrate in tubules. Your circulation exists because diffusion does not scale.",
-    "This also tells you why cells are the size they are, why a tumour that outgrows its blood supply goes necrotic in the middle, and why a swollen, edematous tissue is a poorly oxygenated tissue even when the blood arriving is perfectly saturated. You added distance, and distance is squared."
+    "This also tells you why cells are the size they are, why a tumor that outgrows its blood supply goes necrotic in the middle, and why a swollen, edematous tissue is a poorly oxygenated tissue even when the blood arriving is perfectly saturated. You added distance, and distance is squared."
   ],
   covers: ["w2-fick-diffusion"],
   big: "Diffusion moves things across a membrane. Blood moves things across a body."
