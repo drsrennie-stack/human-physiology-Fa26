@@ -62,14 +62,14 @@ def card(c, width="100%"):
 'color:%(head)s;line-height:1.15;margin:0 0 9px">%(title)s</span>'
 '<span style="display:block;color:#FFFFFF;font-size:15.5px;line-height:1.45;margin:0 0 11px">'
 '%(what)s</span>'
-'<span style="display:block;color:%(grey)s;font-size:14.5px;line-height:1.5;margin:0 0 18px">'
+'<span style="display:block;color:%(gray)s;font-size:14.5px;line-height:1.5;margin:0 0 18px">'
 '%(why)s</span>'
 '<span style="display:block;font-size:13px;font-weight:800;letter-spacing:.14em;'
 'text-transform:uppercase;color:%(gold)s">%(mins)s</span>'
 '<span class="screenreader-only">, opens in a new tab</span>'
 '</a>'
     ) % dict(base=BASE, file=c["file"], w=width, card=CARD, font=FONT, tile=tile(c),
-             head=c["head"], title=c["title"], what=c["what"], grey=GREY,
+             head=c["head"], title=c["title"], what=c["what"], gray=GREY,
              why=c["why"], gold=GOLD, mins=c["mins"])
 
 

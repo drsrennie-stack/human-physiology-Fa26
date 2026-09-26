@@ -130,7 +130,7 @@ PATCH = {
     "Blood supply to the capsule is richer, so damage there spreads further",
     "The capsule carries sensory fibers only, and sensory loss looks like weakness"],
   "correctIndex": 0,
-  "explanation": "Fibers that spread across a wide sheet of cortex funnel down into a compact bundle in the posterior limb of the internal capsule. Packing the whole body's motor traffic into a few millimetres means a tiny infarct there produces a dense hemiparesis, which is the classic lacunar stroke. Cell bodies stay up in the cortex; the capsule carries axons. Blood supply does not make a lesion spread; the small perforating arteries that feed the capsule are in fact end arteries with little collateral, which is part of why lesions there are so sharply defined. The capsule carries both motor and sensory traffic, but weakness in this situation is real motor weakness, not a sensory finding."
+  "explanation": "Fibers that spread across a wide sheet of cortex funnel down into a compact bundle in the posterior limb of the internal capsule. Packing the whole body's motor traffic into a few millimeters means a tiny infarct there produces a dense hemiparesis, which is the classic lacunar stroke. Cell bodies stay up in the cortex; the capsule carries axons. Blood supply does not make a lesion spread; the small perforating arteries that feed the capsule are in fact end arteries with little collateral, which is part of why lesions there are so sharply defined. The capsule carries both motor and sensory traffic, but weakness in this situation is real motor weakness, not a sensory finding."
  },
  "c25": {
   "q": "Corticospinal fibers cross to the opposite side low in the medulla. What is the functional consequence of that crossing point?",
@@ -160,14 +160,14 @@ PATCH = {
 "t-general-sensory-physiology": {
  "c101": {
   "q": "The somatosensory map gives far more cortex to the fingertips than to the skin of the back. What does that predict about two point discrimination at those two sites?",
-  "a": "The fingertips can tell two points apart at a few millimetres, while the back needs several centimetres.",
+  "a": "The fingertips can tell two points apart at a few millimeters, while the back needs several centimeters.",
   "options": [
-    "Fingertips separate two points at a few millimetres; the back needs several centimetres",
+    "Fingertips separate two points at a few millimeters; the back needs several centimeters",
     "Both sites separate two points at about the same distance",
     "The back is more sensitive, because it has a larger surface area",
     "Two point discrimination depends only on how hard the points are pressed"],
   "correctIndex": 0,
-  "explanation": "Two point discrimination tracks receptive field size and how much cortex is devoted to an area. Fingertips have small, densely packed receptive fields and a large cortical representation, so two nearby points still activate separate cortical territory and feel like two. On the back the receptive fields are large and overlapping and the cortical territory is small, so two points several centimetres apart can still fall inside one field and feel like one. Equal thresholds would mean the map is uniform, which it clearly is not. Total surface area does not set sensitivity; receptor density and cortical space do. Pressing harder increases firing rate, which codes intensity, but it does not improve the spatial resolution of the map."
+  "explanation": "Two point discrimination tracks receptive field size and how much cortex is devoted to an area. Fingertips have small, densely packed receptive fields and a large cortical representation, so two nearby points still activate separate cortical territory and feel like two. On the back the receptive fields are large and overlapping and the cortical territory is small, so two points several centimeters apart can still fall inside one field and feel like one. Equal thresholds would mean the map is uniform, which it clearly is not. Total surface area does not set sensitivity; receptor density and cortical space do. Pressing harder increases firing rate, which codes intensity, but it does not improve the spatial resolution of the map."
  },
  "c107": {
   "q": "In the dorsal column pathway the fibers cross the midline in the medulla, not in the spinal cord. What does that predict about a lesion in the cord compared with a lesion in the brainstem above the crossing?",
@@ -322,7 +322,7 @@ PATCH = {
 # ---------------------------------------------------------- lymphatic return
 "t-vascular-physiology": {
  "c118": {
-  "q": "Roughly 3 litres of filtered fluid are left behind in the interstitial space each day and returned to the blood by lymphatic vessels. What happens if lymphatic drainage from one arm is blocked?",
+  "q": "Roughly 3 liters of filtered fluid are left behind in the interstitial space each day and returned to the blood by lymphatic vessels. What happens if lymphatic drainage from one arm is blocked?",
   "a": "That arm swells, because filtered fluid keeps arriving but has no route back into the bloodstream.",
   "options": [
     "That arm swells, because filtered fluid keeps arriving and cannot get back to the blood",
@@ -357,10 +357,10 @@ PATCH = {
   "options": [
     "Spiral arteries constrict, the functional layer loses its blood supply and is shed, and the basal layer stays to rebuild it",
     "The entire lining including the deepest layer is shed, and a new one grows from the myometrium",
-    "The lining stops secreting but is not shed until oestrogen also falls",
+    "The lining stops secreting but is not shed until estrogen also falls",
     "The muscular wall of the uterus is shed along with the lining"],
   "correctIndex": 0,
-  "explanation": "Progesterone from the corpus luteum is what maintains the built up lining. When the corpus luteum degenerates and progesterone falls, the coiled spiral arteries supplying the superficial functionalis constrict, that layer becomes ischaemic and breaks down, and it is shed as menstrual flow. The deeper stratum basalis has its own straight arterial supply that is not affected, so it survives and regenerates the lining under oestrogen in the next cycle. If the whole lining were shed there would be nothing left to rebuild from, and the myometrium is muscle, not a source of endometrial cells. Oestrogen also falls at this point, but it is progesterone withdrawal that triggers the shedding, which is why a progestin only pill can be used to control bleeding. The myometrium is never shed; it contracts to help expel the flow."
+  "explanation": "Progesterone from the corpus luteum is what maintains the built up lining. When the corpus luteum degenerates and progesterone falls, the coiled spiral arteries supplying the superficial functionalis constrict, that layer becomes ischaemic and breaks down, and it is shed as menstrual flow. The deeper stratum basalis has its own straight arterial supply that is not affected, so it survives and regenerates the lining under estrogen in the next cycle. If the whole lining were shed there would be nothing left to rebuild from, and the myometrium is muscle, not a source of endometrial cells. Estrogen also falls at this point, but it is progesterone withdrawal that triggers the shedding, which is why a progestin only pill can be used to control bleeding. The myometrium is never shed; it contracts to help expel the flow."
  },
 },
 
@@ -466,7 +466,7 @@ PATCH = {
     "Electrical synapses have a much wider cleft, so the signal spreads more easily",
     "Electrical synapses use myelin to speed the signal across the cleft"],
   "correctIndex": 0,
-  "explanation": "Gap junctions are pores that connect the cytoplasm of two cells directly, so ions carrying the current simply flow through, and the delay is essentially zero. That speed is why electrical synapses appear where cells must act as a unit, such as cardiac muscle, single unit smooth muscle, and some escape reflexes. The price is that the signal cannot easily be amplified, inverted or modulated, which is what chemical synapses are for. Electrical synapses use no transmitter at all. The cleft at an electrical synapse is much NARROWER, only a few nanometres, because the two membranes have to be close enough for the channels to line up. Myelin insulates axons; it has no role at a synapse."
+  "explanation": "Gap junctions are pores that connect the cytoplasm of two cells directly, so ions carrying the current simply flow through, and the delay is essentially zero. That speed is why electrical synapses appear where cells must act as a unit, such as cardiac muscle, single unit smooth muscle, and some escape reflexes. The price is that the signal cannot easily be amplified, inverted or modulated, which is what chemical synapses are for. Electrical synapses use no transmitter at all. The cleft at an electrical synapse is much NARROWER, only a few nanometers, because the two membranes have to be close enough for the channels to line up. Myelin insulates axons; it has no role at a synapse."
  },
 },
 

@@ -34,7 +34,7 @@ A(tbl("Change one and the rate follows", ["Variable","Effect on rate","What it l
  [["Concentration gradient","Steeper gradient, faster","A low arterial oxygen widens the alveolar gradient"],
   ["Surface area","More area, faster","Emphysema destroys alveolar walls and cuts area"],
   ["Membrane thickness","Thicker, slower","Fibrosis thickens the barrier"],
-  ["Diffusion distance","Further, slower","Pulmonary oedema puts fluid in the way"]]))
+  ["Diffusion distance","Further, slower","Pulmonary edema puts fluid in the way"]]))
 A(sub("What crosses the lipid unaided, in order"))
 A(ol(["<b>Small nonpolar gases.</b> Oxygen, carbon dioxide. Straight through, fast.",
       "<b>Small uncharged polar molecules.</b> Water, urea. Slowly.",
@@ -44,18 +44,18 @@ A(hold("Why this order is worth knowing cold",
   "It decides which mechanism a substance is forced to use. If a question tells you the molecule is charged, you already know a protein is involved before you know anything else about it."))
 
 A(prob(1,
- "A patient develops pulmonary oedema, which puts a layer of fluid between the air and the blood and doubles the distance oxygen must travel. Nothing else changes. What happens to oxygen transfer, and why is the patient breathless rather than simply tired?",
+ "A patient develops pulmonary edema, which puts a layer of fluid between the air and the blood and doubles the distance oxygen must travel. Nothing else changes. What happens to oxygen transfer, and why is the patient breathless rather than simply tired?",
  "Fick's law: rate rises with gradient and area, falls with thickness and distance.",
  ["Distance went up. Gradient, area and thickness are unchanged.",
   "Distance sits in the denominator, so doubling it roughly <b>halves</b> the rate of transfer.",
   "Less oxygen crosses per second, so arterial oxygen falls.",
   "Chemoreceptors respond to that fall by driving ventilation up, and that is what the patient feels as breathlessness.",
-  "<b>Draw:</b> two boxes with a barrier between, the barrier drawn twice, thin and thickened, distance labelled on both.",
-  "<b>Carry:</b> nothing was wrong with the oxygen, the haemoglobin or the gradient. One geometric variable moved and the system followed."]))
+  "<b>Draw:</b> two boxes with a barrier between, the barrier drawn twice, thin and thickened, distance labeled on both.",
+  "<b>Carry:</b> nothing was wrong with the oxygen, the hemoglobin or the gradient. One geometric variable moved and the system followed."]))
 
 A(sec("Osmosis, osmolarity and tonicity"))
 A(sub("Osmosis in one line"))
-A(ul(["Water moves toward the side with <b>more solute</b>, because more solute means less water per litre.",
+A(ul(["Water moves toward the side with <b>more solute</b>, because more solute means less water per liter.",
       "Track the water, not the solute. Tracking the solute is where marks are lost.",
       "Osmotic pressure is the pressure needed to <b>stop</b> that movement, not a push the solutes exert."]))
 A(sub("The two words students confuse"))
@@ -94,7 +94,7 @@ A(sec("Primary active transport"))
 A(p("A cell at equilibrium with its surroundings is dead. Life is the business of holding gradients that would rather collapse, and this is the protein that does it."))
 A(seq("The sodium potassium ATPase, one cycle",
  [("Three sodium ions bind inside","The pump is open to the cytosol and sodium is scarce there, so it binds readily."),
-  ("ATP is hydrolysed","A phosphate is transferred to the pump and it changes shape."),
+  ("ATP is hydrolyzed","A phosphate is transferred to the pump and it changes shape."),
   ("Three sodium are released outside","Against their gradient, into a fluid already high in sodium."),
   ("Two potassium ions bind outside","The new shape has a high affinity for potassium."),
   ("The phosphate comes off","The pump returns to its original shape."),

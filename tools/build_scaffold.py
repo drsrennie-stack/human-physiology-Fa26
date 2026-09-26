@@ -162,7 +162,7 @@ def write_competencies_js(comps):
         "/* ------------------------------------------------------------\n"
         "   REGENERATED at 268 competencies from bio005-competencies.csv.\n"
         "   The previous file in this repo held the superseded 137 set with\n"
-        "   m1-* ids. PLACEHOLDERS item B resolved that in favour of 268, and\n"
+        "   m1-* ids. PLACEHOLDERS item B resolved that in favor of 268, and\n"
         "   the card bank is tagged to these w1-* ids, so the two files have\n"
         "   to agree or answering a card moves no mastery bar.\n"
         "   ------------------------------------------------------------ */\n\n")

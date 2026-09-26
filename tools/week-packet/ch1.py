@@ -95,7 +95,7 @@ A(tbl("Named by shape and by layers", ["","Types","Where and why"],
   ["Layers","Simple (one), stratified (many), pseudostratified","One layer for exchange, many for protection"],
   ["Simple squamous","One flat layer","Alveoli and capillaries. As thin as possible, because Fick's law rewards it"],
   ["Simple columnar","One tall layer","Intestine. Room for the machinery of absorption"],
-  ["Stratified squamous","Many flat layers","Skin and oesophagus. Built to be abraded and replaced"]]))
+  ["Stratified squamous","Many flat layers","Skin and esophagus. Built to be abraded and replaced"]]))
 A(sub("Connective tissue, muscle and nerve, in brief"))
 A(tbl("The other three tissue types", ["Tissue","Defining feature","Examples"],
  [["Connective","Cells scattered in an extracellular matrix. The matrix is the tissue","Bone, cartilage, blood, fat, tendon"],
@@ -106,7 +106,7 @@ A(hold("The skin is all four in one organ",
 
 A(prob(1,
  "A 70 kg adult is 60 percent water. Divide that water into compartments, then say how much blood the patient has if blood is 40 percent cells by volume.",
- "ICF is two thirds of total body water, ECF one third. Plasma is about a quarter of the ECF. One kilogram of water is one litre.",
+ "ICF is two thirds of total body water, ECF one third. Plasma is about a quarter of the ECF. One kilogram of water is one liter.",
  ["Total body water: 70 &times; 0.60 = <b>42 L</b>.",
   "Intracellular: 42 &times; 2/3 = <b>28 L</b>. Most of the body's water is inside cells.",
   "Extracellular: 42 &minus; 28 = <b>14 L</b>.",

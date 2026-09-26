@@ -177,12 +177,19 @@ COMPACT_JS = """(box) => {
   document.head.appendChild(st);
 }"""
 
-async def render(page_url: str, keep: str = None, title: str = '', compact: float = None) -> str:
+async def render(page_url: str, keep: str = None, title: str = '', compact: float = None, prep: str = None) -> str:
     """Load the page in Chromium, let its JS settle, return the printable DOM."""
     async with async_playwright() as pw:
         b = await pw.chromium.launch()
         p = await b.new_page()
         await p.emulate_media(media='print')
+        if prep:
+            # Sep 26 2026: printable notes. Keep the reading layout and the
+            # section folding off, so the page prints as its plain document.
+            await p.add_init_script("window.__BIO005_READING__ = true;"
+                "document.addEventListener('DOMContentLoaded', function(){"
+                "document.body.setAttribute('data-collapse','off');"
+                "document.body.setAttribute('data-no-reading-mode','');});")
         await p.goto('file://' + str(ROOT) + '/' + page_url)
         await p.wait_for_timeout(1800)
         # The Competency Study Guide widens a block's text column until its
@@ -255,6 +262,8 @@ async def render(page_url: str, keep: str = None, title: str = '', compact: floa
         }""")
         if compact:
             await p.evaluate(COMPACT_JS, compact)
+        if prep:
+            await p.evaluate(prep)
         html = await p.evaluate("""() => {
           /* Anything the page's own print stylesheet hides is not part of the
              printed document. Playwright is in print emulation here, so this
@@ -314,7 +323,7 @@ async def render(page_url: str, keep: str = None, title: str = '', compact: floa
           });
 
           /* WeasyPrint gives an EMPTY inline-block no line box, so the printed
-             tick squares and the colour rules collapsed to a pair of vertical
+             tick squares and the color rules collapsed to a pair of vertical
              strokes. A zero width character gives the box something to sit on. */
           document.querySelectorAll('.cl, .ln, .swatch').forEach(e => {
             if (!e.textContent.trim()) e.textContent = '\u200B';

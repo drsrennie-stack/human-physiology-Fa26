@@ -66,7 +66,7 @@ PARTS = [
      "control loop, run first with ions and then with hormones."),
     (3, "Part 3. Systems in Action", [9, 10, 11, 12, 13, 14, 15],
      "The same control loop again in one system after another, until the "
-     "pattern is the thing you recognise rather than the facts."),
+     "pattern is the thing you recognize rather than the facts."),
 ]
 
 TOPIC_WEEK = {

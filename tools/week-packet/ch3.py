@@ -71,7 +71,7 @@ A(seq("One pass through the cascade, and how it switches itself off",
   ("The alpha subunit separates","It moves along the inner face of the membrane to the amplifier enzyme."),
   ("The amplifier enzyme runs","It produces a great deal of second messenger."),
   ("A protein kinase is activated","It adds phosphate groups to target proteins and changes what they do. Phosphorylation is the cell's general purpose on switch."),
-  ("The alpha subunit hydrolyses its own GTP","It reassembles with beta and gamma. The switch turns itself off.")]))
+  ("The alpha subunit hydrolyzes its own GTP","It reassembles with beta and gamma. The switch turns itself off.")]))
 A(hold("The G protein is a timer as well as a switch",
   "How long the alpha subunit takes to hydrolyse its GTP sets how long the signal lasts. Cholera toxin locks that subunit so it cannot, the switch jams on, cAMP stays high, chloride and water pour into the gut. That is the diarrhoea."))
 
@@ -86,7 +86,7 @@ A(hold("Why calcium works as a messenger at all",
   "The cell holds cytosolic calcium about ten thousand times lower than outside, using the calcium pumps from the transport chapter. Opening a channel for a moment therefore produces a large proportional change. The low resting level is what makes the signal readable."))
 
 A(sec("Amplification"))
-A(ul(["A hormone is present in blood at roughly a billionth of a mole per litre. The response can be enormous.",
+A(ul(["A hormone is present in blood at roughly a billionth of a mole per liter. The response can be enormous.",
       "The gap between those two is amplification, and it is a property of the <b>cascade</b>, not of the hormone."]))
 A(seq("Where the gain comes from, epinephrine in a liver cell",
  [("One ligand, one receptor","But the receptor activates many G proteins while the ligand is bound."),
@@ -128,13 +128,13 @@ A(sec("Signal termination"))
 A(p("Nothing above matters unless the signal can be stopped."))
 A(tbl("Five ways a signal ends", ["Route","How","Example"],
  [["The ligand leaves or is destroyed","Broken down, taken back up, or cleared","Acetylcholinesterase clears the cleft in about a millisecond"],
-  ["The receptor stops responding","Internalised or chemically modified so it no longer couples","Receptor desensitisation"],
-  ["The switch turns itself off","The G protein hydrolyses its GTP","Built into every G protein cascade"],
+  ["The receptor stops responding","Internalized or chemically modified so it no longer couples","Receptor desensitisation"],
+  ["The switch turns itself off","The G protein hydrolyzes its GTP","Built into every G protein cascade"],
   ["The second messenger is destroyed","Enzymes break it down continuously","Phosphodiesterase breaks down cAMP; calcium is pumped back out"],
   ["The phosphate comes off","Phosphatases reverse what the kinases did","Every on switch has a matching off switch"]]))
 A(tbl("Failure to terminate is a category of disease", ["What fails","Mechanism","Result"],
  [["Cholera toxin","Locks the G protein alpha subunit on","cAMP stays high, chloride and water pour into the gut"],
-  ["Some endocrine tumours","A mutation leaves a receptor active with no ligand at all","Continuous hormone output with no signal"],
+  ["Some endocrine tumors","A mutation leaves a receptor active with no ligand at all","Continuous hormone output with no signal"],
   ["Sildenafil, on purpose","Inhibits the phosphodiesterase that breaks down cGMP","The relaxing signal lasts longer. Termination blocked as the therapy"]]))
 A(hold("Knowing how a pathway is switched off tells you where a drug can act",
   "Half the drugs in this chapter do not touch the receptor at all. They work on the off switch."))

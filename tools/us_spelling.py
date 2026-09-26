@@ -77,6 +77,9 @@ PAIRS = [
     ('judgement','judgment'), ('judgements','judgments'),
     ('acknowledgement','acknowledgment'),
     ('grey','gray'), ('greyed','grayed'),
+    # Sep 26 2026 additions
+    ('recognisable','recognizable'), ('acclimatisation','acclimatization'), ('desensitisation','desensitization'),
+    ('catheterisation','catheterization'), ('neighbouring','neighboring'), ('neighbour','neighbor'), ('neighbours','neighbors'),
     ('haemoglobin','hemoglobin'), ('haematocrit','hematocrit'),
     ('haemorrhage','hemorrhage'), ('haematology','hematology'),
     ('oedema','edema'), ('oesophagus','esophagus'), ('oestrogen','estrogen'),

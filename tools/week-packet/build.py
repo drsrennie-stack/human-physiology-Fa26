@@ -24,7 +24,7 @@ CH = [
         "Describe the forms of vesicular transport and say which cells use each.",
         "Trace glucose across an intestinal epithelium, naming the protein on each membrane."]),
  dict(n=3, title="How Cells Talk to Each Other", sub="Cell signaling", src=ch3,
-   lede="One signal molecule reaching the right cell, being recognised, converted into something the "
+   lede="One signal molecule reaching the right cell, being recognized, converted into something the "
         "inside of the cell can act on, amplified enough to matter, and then switched off.",
    obj=["Name the signal types by how far they travel and say what sets the speed and reach of each.",
         "Predict where a receptor sits, and the onset and duration of the response, from the solubility of the signal.",
