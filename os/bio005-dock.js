@@ -383,7 +383,7 @@
     t.push({ g: ST, name: 'Brain Dump', sub: 'Spin a random competency, do it from memory, then check it against its list',
              url: BASE + 'competency-brain-dump.html', icon: 'brain', tone: 'navy',
              kw: 'brain dump braindump randomizer random spin rubric check memory blank page retrieve recall write study tools' });
-    t.push({ g: ST, name: 'Mastery Check', sub: 'At least 50 questions and 80 percent to count, nothing open, and a report you upload',
+    t.push({ g: ST, name: 'Mastery Check', sub: 'About 30 questions a try, at least 3 tries, aim for 80 percent, nothing open, and the reports you upload',
              url: BASE + 'practice-exam.html?week=' + wn + (wn === 8 ? '' : '&n=50'), icon: 'target', tone: 'gold', qr: 'mastery',
              kw: 'mastery check practice exam gap finder test questions score report study tools' });
     t.push({ g: ST, name: 'Draw It to Know It', sub: 'Draw a mechanism from memory, then check what you covered',

@@ -415,7 +415,7 @@
         return '<p>Press <b>Course tools</b> in the bottom left corner of any course page. Your study tools are at the top:</p>'
           + a('rx', 'Rx Cards') + ': spaced recall that gets harder as you prove it.'
           + '<br>The ' + a('dump', 'Brain Dump') + ': a random competency and prompt, done on paper from memory, then checked against what the prompt asked for.'
-          + '<br>The ' + a('check', 'Mastery Check') + ': at least 50 questions and 80 percent to count, and a report you upload.'
+          + '<br>The ' + a('check', 'Mastery Check') + ': about 30 questions a try, at least 3 tries, aim for 80 percent, and the reports you upload.'
           + '<br>' + a('draw', 'Draw It to Know It') + ': draw a mechanism from memory, then check it.';
 
       case 'rx':
@@ -431,7 +431,7 @@
           + '<p>When you went in confident and came out patchy, it moves that competency up your weak spot list.</p>';
 
       case 'mastery':
-        return '<p>The ' + a('check') + ' is a practice exam you build yourself. An attempt counts when it covers <b>one week</b>, has <b>at least 50 questions</b>, tests <b>every competency</b> that week, and you score <b>80 percent or higher</b>. The report says Met or Not yet for each of those.</p>'
+        return '<p>The ' + a('check') + ' is a practice exam you build yourself. From Week 4 on, a try counts when it covers <b>one week</b>, has <b>about 30 questions</b>, and tests <b>every competency</b> that week. Do <b>at least 3 tries</b>, with studying in between, and aim for <b>80 percent</b> before you stop. Turn in the report from every try.</p>'
           + '<p>Take it as many times as you like; each try is a fresh set of questions. If it says Not yet, go back to the competencies it lists, then take it again. When an attempt meets the standard, save the report as a PDF and upload it in Canvas. It carries no points and is marked complete or not complete.</p>'
           + '<p>' + a('masteryOS', 'The Mastery OS') + ' is your study engine alongside it: spaced recall across all 268 competencies and a gap finder that shows what is weak.</p>';
 

@@ -62,7 +62,7 @@ def part1():
                  "".join('      <li><label><input type="radio" name="mc%d" value="%s"> %s</label></li>\n'
                          % (k, o[0], e(o)) for o in q["options"]) + '    </ul>\n  </fieldset>\n')
         body += '  <h3 class="sub">Step 1. Prepare your answer on camera, 15 minutes</h3>\n  <p>%s</p>\n  <p>%s</p>\n' % (e(D["prep"]), e(q["dump"]))
-        body += '  <h3 class="sub">Step 2. Present your answer, 5 minutes</h3>\n  <p>%s</p>\n' % e(D["teach"])
+        body += '  <h3 class="sub">Step 2. Teach your answer, 5 to 7 minutes</h3>\n  <p>%s</p>\n' % e(D["teach"])
         body += '  <h3 class="sub">Step 3. Write down your answer</h3>\n  <p>Mark the answer you gave in the choices above, then say how sure you are.</p>\n'
         body += ('  <fieldset>\n    <legend>How sure are you?</legend>\n    <ul class="opts">\n' +
                  "".join('      <li><label><input type="radio" name="sure%d" value="%s"> %s</label></li>\n'

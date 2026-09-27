@@ -65,7 +65,8 @@ STEPS = [
                     links=[("The Week 4 competency list", "week-04-competencies.html")])]),
          ("The Week 4 lessons and videos, in order (opens Monday, September 28 at 8:00 am)", "lecture-week.html?week=4"),
          ("The Week 4 drawing sheet, for after the three walkthroughs. Print it, or open it and draw on your own paper", "biol005-w04-drawing-sheet.html"),
-         ("The Week 4 written notes, one page per lesson, for reading and rereading (opens Monday, September 28 at 8:00 am)", "week-04-notes.html", "optional")],
+         ("The Week 4 written notes, one page per lesson, for reading and rereading (opens Monday, September 28 at 8:00 am)", "week-04-notes.html", "optional"),
+         ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
   turnin=None),
 
  dict(title="Second pass, in your second color", time="30 to 60 minutes",
@@ -78,7 +79,8 @@ STEPS = [
         "Add what you missed, fix what was wrong, and add anything that clicked this time, in the same boxes.",
         "Do not erase your first color. The gap between the two colors is the most useful thing on the page."],
   links=[("The Week 4 lessons and videos, in order", "lecture-week.html?week=4"),
-         ("The Week 4 written notes, one page per lesson, for reading and rereading", "week-04-notes.html", "optional")],
+         ("The Week 4 written notes, one page per lesson, for reading and rereading", "week-04-notes.html", "optional"),
+         ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
   turnin=None),
 
  dict(title="Upload your Competency Study Guide", time="About 10 minutes",
@@ -100,29 +102,26 @@ STEPS = [
   todo=["Do Rx Cards for Week 4. They get harder as you get them right, and every answer comes with the reason.",
         "Do a brain dump: pick a competency, close everything, and write or draw all you can. Then check it and "
         "note what you left out.",
-        "Draw a mechanism from nothing on the drawing canvas, then check it against your guide.",
         "Watch a video again when a brain dump shows a gap you cannot fill from your guide."],
   links=[("Rx Cards", "rx-cards.html"),
-         ("Try It From Memory, the brain dump", "competency-brain-dump.html"),
-         ("Draw it, the drawing canvas", "mastery-canvas.html")],
+         ("Try It From Memory, the brain dump", "competency-brain-dump.html")],
   turnin=None),
 
- dict(title="Mastery Check, and upload your report", time="35 to 50 minutes per try",
-  status="Turned in. No points, but it has to be turned in.",
-  intro="The Mastery Check tells you which competencies are solid and which need another round. Take it as many "
-        "times as you like; each try is a fresh set of questions.",
-  todo=["Open the Mastery Check. It is set to Week 4 and 50 questions.",
-        "An attempt counts as your Mastery Check when it covers one week, has at least 50 questions, tests every "
-        "competency, and you score 80 percent or higher. The report says Met or Not yet for each of those.",
-        "If it says Not yet, go back to Step 5 for the competencies it lists, then take it again. If you could not "
+ dict(title="Mastery Check, and upload your reports", time="30 to 50 minutes per try, at least 3 tries",
+  status="Turned in. No points, but every try's report has to be turned in.",
+  intro="The Mastery Check tells you which competencies are solid and which need another round. Each try is a "
+        "fresh set of about 30 questions, enough to test every Week 4 competency once.",
+  todo=["Open the Mastery Check. It is set to Week 4 and 30 questions.",
+        "Do at least 3 tries, with Study it (Step 5) in between. Aim for 80 percent before you stop. You can always do more.",
+        "After each try, the report lists the competencies you missed. Go back to Step 5 for those, then take it again. If you could not "
         "start a competency at all, go back to Step 3 for that one.",
-        "When an attempt meets the standard, open the report and save it as a PDF."],
-  links=[("The Week 4 Mastery Check", "practice-exam.html?week=4&n=50"),
-         ("How to save and upload your report, if you need help with it", "assignment-practice-log.html", "optional")],
-  submit_here=["Upload your report here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
-          "Due " + DUE + ". Upload the attempt that meets the standard."],
-  turnin=["Upload the report to the <strong>Week 4 Mastery Check</strong> assignment in Canvas.",
-          "Due " + DUE + ". Upload the attempt that meets the standard."]),
+        "Save the report from every try as a PDF. The weekly practice log puts every try in one PDF, if that is easier."],
+  links=[("The Week 4 Mastery Check", "practice-exam.html?week=4&n=30"),
+         ("How to save and upload your reports, if you need help with it", "assignment-practice-log.html", "optional")],
+  submit_here=["Upload your reports here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
+          "Due " + DUE + ". Upload the report from every try, at least 3."],
+  turnin=["Upload the reports to the <strong>Week 4 Mastery Check</strong> assignment in Canvas.",
+          "Due " + DUE + ". Upload the report from every try, at least 3."]),
 
  dict(title="Lab, PhysioEx Exercise 3", time="2 to 3 hours",
   status="Graded. Investigate It, 25 percent of your grade across the term.",
@@ -147,7 +146,7 @@ STEPS = [
           "Due " + DUE + "."]),
 
  dict(title="Your application case", time="About 1 hour",
-  status="Not turned in this week. Your work goes into your patient chart.",
+  status="Information only, nothing to turn in this week. Your answers go on your patient chart, which you hand in on Sunday, November 1, at the end of Week 8.",
   intro="This week's case is Camila Reyes, the first four hours of her treatment. You use the week's physiology "
         "to explain what is happening to her, and that thinking goes into your patient chart, which is how you "
         "track her across the term.",
@@ -172,7 +171,7 @@ STEPS = [
   turnin=None),
 
  dict(title="Exam practice part 1, your videos", time="About 1 hour 30 minutes",
-  status="Your videos go to me only. Then you post about how it went in the discussion. Think About It, 15 percent of your grade across the term. Part 2 is Discussion 5, next week.",
+  status="This has two parts. Your two videos go to me only and are graded complete or incomplete. Your meta-analysis of how it went is the public part, posted in Discussion 4. Part 2 of the practice is Discussion 5, next week.",
   intro="", todo=[], links=[],
   submit_here=["Upload everything here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>. Only I see it.",
                "Due " + DUE + "."],
@@ -193,10 +192,11 @@ SOURCES = ("Everything in this practice comes from the Week 2 competencies on pr
 PRACTICE = dict(
  intro="This is part 1 of a two-week practice run of your exam format. This week you work two multiple choice "
        "questions the way the exam asks you to, one at a time, on video: 15 minutes preparing your answer by building a model from memory, "
-       "then 5 minutes presenting it and giving your answer. Next week, in Discussion 5, you check your work against the real "
+       "then 5 to 7 minutes teaching it and giving your answer. Next week, in Discussion 5, you check your work against the real "
        "rubrics and analyze what it shows you.",
- how=["Close your notes, the slides and the book, and keep them closed until you have turned everything in. The point is to find out what you can do from memory.",
-      "Do one question at a time. Each question is one video: 15 minutes preparing your answer on camera, then 5 minutes presenting it. Finish question 1 completely before you read question 2.",
+ how=["What you need: a whiteboard and a marker to build your model on, and a phone or computer to record in Canvas Studio.",
+      "Close your notes, the slides and the book, and keep them closed until you have turned everything in. The point is to find out what you can do from memory.",
+      "Do one question at a time. Each question is one video: 15 minutes preparing your answer on camera with no resources, then 5 to 7 minutes teaching it. Finish question 1 completely before you read question 2.",
       "There are no rubrics this week. You will see them next week, so do your honest best now and do not look anything up.",
       "Keep your models and your videos. You need them for part 2."],
  questions=[
@@ -225,12 +225,12 @@ PRACTICE = dict(
             "changes, step by step, until you reach glucose uptake."),
  ],
  prep="Start recording in Canvas Studio before you begin, and set a timer for 15 minutes. Prepare your answer on camera: build your "
-      "model from memory as a brain dump, on a whiteboard or on paper, and think out loud as you go. I want to see you "
+      "model from memory as a brain dump on your whiteboard, and think out loud as you go. I want to see you "
       "working it out, so keep the camera on you and on what you are drawing the whole time. A phone video is fine.",
- teach="Keep recording. Set a timer for 5 minutes and present your answer as if to a classmate who missed class: walk "
+ teach="Keep recording. Take 5 to 7 minutes to teach your answer as if to a classmate who missed class: walk "
        "through your model in order, explain why each wrong answer cannot be right, and finish by giving your answer.",
  choose="Write down the answer you gave at the end of your video, and how sure you are: sure, fairly sure, or guessing.",
- turnin=["Your two videos from Canvas Studio, one for each question, each with the 15 minutes of preparing and the 5 minutes of presenting.",
+ turnin=["Your two videos from Canvas Studio, one for each question, each with the 15 minutes of preparing and the 5 to 7 minutes of teaching. Graded complete or incomplete, and only I see them.",
          "The transcript of each video. In Canvas Studio, open the video, go to the Captions tab and choose Request, with English as the language. When the captions are ready, use Review and Publish, fix only the words the machine got wrong, then Download the caption file. Do not reword what you said.",
          "Your answer to each question, and how sure you were.",
          "A photo of each finished model."],
@@ -242,7 +242,7 @@ PRACTICE = dict(
 DISC4 = dict(
  title="Discussion 4, how your exam practice went",
  first_post="Friday, October 2 at 10:00 pm", due=DUE,
- intro="Once your two videos are uploaded to the assignment, come to the discussion and talk about the experience. This is not "
+ intro="Once your two videos are uploaded to the assignment, come here and post your meta-analysis: a look back at how you did the practice. This is the public part; your videos stay with me. It is not "
        "about the right answers. You will check those next week. It is about how working from memory felt, where it "
        "broke down, and what you can do about it, and about helping each other find ways to fix the gaps.",
  rule="Do not post which answers you chose. Everyone checks their answers against the key next week, and seeing "
@@ -261,12 +261,12 @@ PART2 = dict(
  first_post="Friday, October 9 at 10:00 pm", due="Sunday, October 11 at 10:00 pm",
  status="Graded. Think About It, 15 percent of your grade across the term.",
  intro="Last week you worked two exam questions on video: for each one you spent 15 minutes building a model to "
-       "prepare your answer, then 5 minutes presenting it. This week you check that work against the rubrics I use on the exam, then look "
+       "prepare your answer, then 5 to 7 minutes teaching it. This week you check that work against the rubrics I use on the exam, then look "
        "closely at what it shows you about how you learn.",
  how=["Open your two videos, the photos of your models and your answers from last week.",
       "Watch the 15 minutes of preparing in each video and check the model you built against its rubric. A point counts only if you clearly said or drew it.",
       "Check your two answers against the key.",
-      "Watch the 5 minutes of presenting in each video and count the points you clearly made.",
+      "Watch the 5 to 7 minutes of teaching in each video and count the points you clearly made.",
       "Answer the analysis questions, then post."],
  scoring="On the exam, each question is scored the same way: your model and your teaching are worth 75 percent of "
          "the points for that question, and your answer is worth 25 percent.",

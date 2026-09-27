@@ -322,7 +322,8 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
           </div>
         </fieldset>
         <div class="std" id="stdnote">
-          <p><strong>When an attempt counts as your Mastery Check.</strong> Pick one week, answer at least 50 questions, and score 80 percent or higher. At 50 questions or more, every competency for that week gets at least one question. Shorter attempts are good practice, and the report tells you plainly whether an attempt meets the standard.</p>
+          <p><strong>How the Mastery Check works, from Week 4 on.</strong> Pick one week and answer about 30 questions, which is enough to test every competency that week at least once. Each try takes 30 to 50 minutes. Do at least 3 tries, with Study it in between, and aim for 80 percent before you stop. You can always do more. Save the report from every try and turn them all in. The report tells you plainly whether a try counts and whether you reached 80 percent.</p>
+          <p><strong>Weeks 1 to 3</strong> keep the rule they had: at least 50 questions and 80 percent or higher.</p>
         </div>
         <fieldset>
           <legend>What a 30 question exam is made of</legend>
@@ -431,8 +432,15 @@ var BLUEPRINT = { mc:14, ma:5, tf:4, bd:3, app:4 };  /* per 30 */
    numbers live here so a unit can be raised later without touching the
    rest of the page: set MASTERY.byWeek[5] = {minQ:75} to give Week 5 its
    own minimum. */
-var MASTERY = { minQ:50, pass:0.80, perComp:1, byWeek:{} };
-function masteryRule(w){ var r=MASTERY.byWeek[w]||{}; return { minQ:r.minQ||MASTERY.minQ, pass:r.pass||MASTERY.pass, perComp:r.perComp||MASTERY.perComp }; }
+/* Sep 26 2026, Scrubs: from Week 4 on, a try counts at about 30 questions
+   (every competency once), at least 3 tries, 80 percent is the goal to reach
+   before stopping, not a gate, and every try's report is turned in.
+   goal:true marks a week where the score is a goal. Weeks 1 to 3 keep
+   the old gate of 50 questions and 80 percent. */
+var MASTERY = { minQ:30, pass:0.80, perComp:1, tries:3, goal:true,
+  byWeek:{ 1:{minQ:50, goal:false}, 2:{minQ:50, goal:false}, 3:{minQ:50, goal:false} } };
+function masteryRule(w){ var r=MASTERY.byWeek[w]||{}; function g(k){ return (k in r) ? r[k] : MASTERY[k]; }
+  return { minQ:g('minQ'), pass:g('pass'), perComp:g('perComp'), tries:g('tries'), goal:g('goal') }; }
 function masteryStatus(a){
   if(!a || !a.byComp || a.weeks.length!==1 || a.mode==='gaps') return null;
   var w=a.weeks[0], rule=masteryRule(w);
@@ -440,15 +448,20 @@ function masteryStatus(a){
   if(!comps.length) return null;
   var covered=comps.filter(function(c){ var v=a.byComp[c.id]; return v && v[1]>=rule.perComp; }).length;
   var okN=a.n>=rule.minQ, okScore=a.score>=rule.pass-1e-9, okCover=covered===comps.length;
-  return { week:w, rule:rule, n:a.n, score:a.score, covered:covered, total:comps.length, okN:okN, okScore:okScore, okCover:okCover, ok:okN&&okScore&&okCover, comps:comps };
+  return { week:w, rule:rule, n:a.n, score:a.score, covered:covered, total:comps.length, okN:okN, okScore:okScore, okCover:okCover, ok:okN&&okCover&&(rule.goal||okScore), comps:comps };
 }
 function masteryBlockHTML(a, tag){
   var m=masteryStatus(a); if(!m) return '';
   function row(ok, text){ return '<li><span class="'+(ok?'ok':'no')+'">'+(ok?'Met':'Not yet')+':</span> '+text+'</li>'; }
-  var head = m.ok ? 'This attempt meets the Week '+m.week+' Mastery Check standard.' : 'This attempt is practice. It does not meet the Week '+m.week+' Mastery Check standard yet.';
+  var head;
+  if(m.rule.goal){
+    head = !m.ok ? 'This try is practice. It does not count as a Week '+m.week+' Mastery Check try yet.'
+      : m.okScore ? 'This counts as a Week '+m.week+' Mastery Check try, and you reached the 80 percent goal. Save this report. Do at least '+m.rule.tries+' tries in all.'
+      : 'This counts as a Week '+m.week+' Mastery Check try. Save this report, go back to Study it for the competencies below, then try again. Do at least '+m.rule.tries+' tries, and aim for 80 percent before you stop.';
+  } else head = m.ok ? 'This attempt meets the Week '+m.week+' Mastery Check standard.' : 'This attempt is practice. It does not meet the Week '+m.week+' Mastery Check standard yet.';
   return '<div class="mstd"><'+tag+'>'+esc(head)+'</'+tag+'><ul>'+
     row(m.okN, m.n+' questions answered. The minimum is '+m.rule.minQ+'.')+
-    row(m.okScore, (Math.floor(m.score*1000)/10)+' percent. The standard is '+Math.round(m.rule.pass*100)+' percent or higher.')+
+    row(m.okScore, (Math.floor(m.score*1000)/10)+' percent. '+(m.rule.goal?'The goal is ':'The standard is ')+Math.round(m.rule.pass*100)+' percent or higher.')+
     row(m.okCover, m.covered+' of '+m.total+' competencies tested at least '+(m.rule.perComp===1?'once':m.rule.perComp+' times')+'.')+
     '</ul></div>';
 }

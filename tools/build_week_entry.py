@@ -144,6 +144,100 @@ def steplist(week):
         out.append(f'      <li><strong>{PHASE[kind]}.</strong> {name}{esc(t)}{extras}</li>')
     return '\n'.join(out)
 
+
+# ---------------------------------------------------------------------------
+# The straight line. Sep 26 2026: Scrubs asked for the loop as one straight
+# line with each step's pages attached to it, like her Process diagram, so a
+# student never steps sideways onto a menu page before reaching the work.
+# A week whose steps carry "pages" in tools/week-entry-data.json gets this
+# layout; a week without them keeps the diagram above.
+#   step keys used:  what (one line), pages [{label, href|null, desc, optional}],
+#                    empty (text when there are no pages), loop (draw the way
+#                    back after this step), title / sub / time / badges overrides
+# ---------------------------------------------------------------------------
+BADGE_CLS = {'W': 'wbadge', 'S': 'wbadge abadge', 'T': 'wbadge tbadge'}
+BADGE_SR = {'W': 'has a worksheet', 'S': 'you submit this in Canvas', 'T': 'you track this all term'}
+
+def uses_line(week):
+    return all('pages' in week['steps'][k] for k, *_ in STEPS)
+
+def line(week):
+    out = ['<ol class="line" aria-label="This week\'s steps, in order">']
+    for i, (key, title, sub, time, kind, letters) in enumerate(STEPS, 1):
+        st = week['steps'][key]
+        title = st.get('title', title); time = st.get('time', time)
+        letters = tuple(st.get('badges', letters))
+        bd = ''.join(f'<span class="{BADGE_CLS[l]}" aria-hidden="true">{l}</span>' for l in letters)
+        sr = ''.join(f'<span class="mm-vh">, {BADGE_SR[l]}</span>' for l in letters)
+        items = []
+        for pgi in st['pages']:
+            opt = '<span class="opt">Optional</span>' if pgi.get('optional') else ''
+            desc = f'<span class="pd">{esc(pgi["desc"])}</span>' if pgi.get('desc') else ''
+            if pgi.get('href'):
+                items.append(f'<li><a class="pg" href="{esc(pgi["href"])}" target="_top"><span class="pl">{esc(pgi["label"])}{opt}</span>{desc}</a></li>')
+            else:
+                items.append(f'<li><div class="pg pg-text"><span class="pl">{esc(pgi["label"])}{opt}</span>{desc}</div></li>')
+        pages = (f'<p class="ph">Pages for this step</p><ul class="pages">{"".join(items)}</ul>' if items
+                 else f'<p class="ph">Pages for this step</p><p class="none">{esc(st.get("empty", "Nothing new to open for this step."))}</p>')
+        out.append(
+            f'<li class="stop k-{kind}" id="s-{key}"><span class="node" aria-hidden="true">{i}</span>'
+            f'<div class="scard"><p class="phase">{PHASE[kind]}</p>'
+            f'<div class="shead"><h2><span class="mm-vh">Step {i}. </span>{esc(title)}{sr}</h2>'
+            f'<span class="time">{esc(time)}</span><span class="bdg">{bd}</span></div>'
+            f'<p class="what">{esc(st["what"])}</p>{pages}</div></li>')
+        if st.get('loop'):
+            out.append(
+                '<li class="loopback"><span class="node" aria-hidden="true">'
+                '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg></span>'
+                '<div class="lcard"><p class="lh">Go around at least 3 times.</p>'
+                '<p>After each try, go back to <a href="#s-study">Study it</a> for the competencies the report lists, then take the Mastery Check again. Aim for 80 percent before you stop. You can always do more.</p>'
+                '<p>Could not start a competency at all? Go back to <a href="#s-second">Second pass</a> for that one.</p>'
+                '<p class="lgo">At least 3 tries and at 80 percent? Keep going down the line.</p></div></li>')
+    out.append('</ol>')
+    return '\n'.join(out)
+
+LINE_STYLE = r"""<style>
+/* The straight line: one numbered node per step on a navy line, a white
+   card beside it, and that step's pages listed inside the card.
+   Maroon link text on white 7.66:1, ink-soft on white 8.93:1. */
+.line{list-style:none;margin:24px 0 0;padding:0;position:relative;display:grid;gap:14px}
+.line::before{content:"";position:absolute;left:17px;top:20px;bottom:20px;width:2px;background:var(--navy)}
+.stop,.loopback{position:relative;padding-left:52px}
+.node{position:absolute;left:0;top:14px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+.k-prev .node{background:var(--navy-tint);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.k-learn .node{background:var(--navy);color:var(--white)}
+.k-retr .node{background:var(--maroon);color:var(--white)}
+.k-check .node{background:var(--gold);color:var(--navy-deep);box-shadow:inset 0 0 0 2px var(--navy)}
+.k-assess .node{background:var(--white);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.scard,.lcard{background:var(--white);border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:14px 18px 16px}
+.phase{margin:0;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.shead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:2px}
+.shead h2{margin:0;font-size:20px;line-height:1.25;color:var(--navy)}
+.time{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.bdg{display:flex;gap:6px;margin-left:auto}
+.what{margin:8px 0 0;font-size:16px;line-height:1.55;color:var(--ink)}
+.ph{margin:12px 0 6px;font-size:13px;font-weight:700;color:var(--maroon-dark)}
+.pages{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pg{display:grid;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink);background:var(--white);transition:var(--motion)}
+a.pg:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+a.pg:focus-visible{outline:3px solid var(--maroon);outline-offset:2px}
+.pl{font-weight:700;font-size:16px;color:var(--maroon);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+a.pg .pl::after{content:"\2192";font-weight:700}
+.pg-text .pl{color:var(--navy)}
+.pd{font-size:14px;line-height:1.45;color:var(--ink-soft)}
+.opt{font-size:12px;font-weight:700;color:var(--ink-soft);border:1px solid var(--ink-soft);border-radius:99px;padding:0 8px}
+.none{margin:0;font-size:15px;color:var(--ink-soft)}
+.loopback .node{background:var(--white);color:var(--maroon);box-shadow:inset 0 0 0 2px var(--maroon)}
+.lcard{border:1.5px dashed var(--maroon);box-shadow:none}
+.lcard p{margin:6px 0 0;font-size:15px;line-height:1.5}
+.lcard .lh{margin:0;font-weight:800;color:var(--maroon-dark);font-size:16px}
+.lcard a{color:var(--maroon);font-weight:700}
+.lcard .lgo{font-weight:700;color:var(--navy)}
+@media (prefers-reduced-motion:reduce){.pg,a.pg:hover{transition:none;transform:none}}
+@media (max-width:420px){.stop,.loopback{padding-left:46px}.node{width:32px;height:32px;font-size:14px}.line::before{left:15px}.bdg{margin-left:0}}
+@media print{.scard,.lcard,.pg{box-shadow:none!important}a.pg .pl::after{content:""}}
+</style>"""
+
 PAGE = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,16 +285,7 @@ __STYLE__
 <div class="loop-wrap">
 __KEY__
 
-<figure class="diagram">
-__SVG__
-</figure>
-
-<details class="steplist">
-<summary>See this week's steps as a list</summary>
-    <ol>
-__LIST__
-    </ol>
-</details>
+__BODY__
 </div>
 </main>
 
@@ -248,7 +333,14 @@ def build(n):
     w=dict(DATA['weeks'][str(n)]); w['n']=n
     page=PAGE.format(n=n, nn=f'{n:02d}', title=esc(w['title']), opens=esc(w['opens']), closes=esc(w['closes']),
                      meta=(('Opens %s. Your first discussion post is due %s at 10:00 pm, and everything else is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['discussion_first_post']), esc(w['closes']))) if w.get('discussion_first_post') else ('Opens %s. Everything is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['closes'])))), patient=esc(w['patient_label']))
-    page=page.replace('__STYLE__',STYLE).replace('__KEY__',KEY).replace('__SVG__',svg(w)).replace('__LIST__',steplist(w))
+    if uses_line(w):
+        body=line(w); style=STYLE+'\n'+LINE_STYLE
+        page=page.replace('Start at the top and work your way down. Click any step to open it.','Start at the top and work your way down. Each step lists the pages you need for it.')
+    else:
+        body=('<figure class="diagram">\n'+svg(w)+'\n</figure>\n\n<details class="steplist">\n<summary>See this week\'s steps as a list</summary>\n    <ol>\n'
+              +steplist(w)+'\n    </ol>\n</details>')
+        style=STYLE
+    page=page.replace('__STYLE__',style).replace('__KEY__',KEY).replace('__BODY__',body)
     out=ROOT/f'week-{n:02d}-entry.html'; out.write_text(page,encoding='utf-8')
     missing=[title for key,title,*_ in STEPS if not w['steps'][key]['link']]
     print(f'built {out.name}' + (f'  NOT POSTED YET: {", ".join(missing)}' if missing else ''))

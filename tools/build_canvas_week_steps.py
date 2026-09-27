@@ -162,7 +162,7 @@ def practice1(W, i, st):
     for k, q in enumerate(D["questions"], 1):
         o.append(card(h3("Question %d" % k) + p("<strong>" + q["q"] + "</strong>") + opts(q["options"]) +
                       h4("Step 1. Prepare your answer on camera, 15 minutes") + p(D["prep"]) + p(q["dump"]) +
-                      h4("Step 2. Present your answer, 5 minutes") + p(D["teach"]) +
+                      h4("Step 2. Teach your answer, 5 to 7 minutes") + p(D["teach"]) +
                       h4("Step 3. Write down your answer") + p(D["choose"]) +
                       (p("<strong>Now go on to question 2.</strong>") if k < len(D["questions"]) else "")))
     o.append(card(h3("Turn it in here") + p("Upload all of this to this assignment. Only I see it.") + ul(D["turnin"]) +

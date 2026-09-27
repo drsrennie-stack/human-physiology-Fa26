@@ -123,6 +123,47 @@ h3{font-size:17px}
   a{color:inherit;text-decoration:none}
 }
 </style>
+<style>
+/* The straight line: one numbered node per step on a navy line, a white
+   card beside it, and that step's pages listed inside the card.
+   Maroon link text on white 7.66:1, ink-soft on white 8.93:1. */
+.line{list-style:none;margin:24px 0 0;padding:0;position:relative;display:grid;gap:14px}
+.line::before{content:"";position:absolute;left:17px;top:20px;bottom:20px;width:2px;background:var(--navy)}
+.stop,.loopback{position:relative;padding-left:52px}
+.node{position:absolute;left:0;top:14px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+.k-prev .node{background:var(--navy-tint);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.k-learn .node{background:var(--navy);color:var(--white)}
+.k-retr .node{background:var(--maroon);color:var(--white)}
+.k-check .node{background:var(--gold);color:var(--navy-deep);box-shadow:inset 0 0 0 2px var(--navy)}
+.k-assess .node{background:var(--white);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.scard,.lcard{background:var(--white);border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:14px 18px 16px}
+.phase{margin:0;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.shead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:2px}
+.shead h2{margin:0;font-size:20px;line-height:1.25;color:var(--navy)}
+.time{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.bdg{display:flex;gap:6px;margin-left:auto}
+.what{margin:8px 0 0;font-size:16px;line-height:1.55;color:var(--ink)}
+.ph{margin:12px 0 6px;font-size:13px;font-weight:700;color:var(--maroon-dark)}
+.pages{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pg{display:grid;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink);background:var(--white);transition:var(--motion)}
+a.pg:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+a.pg:focus-visible{outline:3px solid var(--maroon);outline-offset:2px}
+.pl{font-weight:700;font-size:16px;color:var(--maroon);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+a.pg .pl::after{content:"\2192";font-weight:700}
+.pg-text .pl{color:var(--navy)}
+.pd{font-size:14px;line-height:1.45;color:var(--ink-soft)}
+.opt{font-size:12px;font-weight:700;color:var(--ink-soft);border:1px solid var(--ink-soft);border-radius:99px;padding:0 8px}
+.none{margin:0;font-size:15px;color:var(--ink-soft)}
+.loopback .node{background:var(--white);color:var(--maroon);box-shadow:inset 0 0 0 2px var(--maroon)}
+.lcard{border:1.5px dashed var(--maroon);box-shadow:none}
+.lcard p{margin:6px 0 0;font-size:15px;line-height:1.5}
+.lcard .lh{margin:0;font-weight:800;color:var(--maroon-dark);font-size:16px}
+.lcard a{color:var(--maroon);font-weight:700}
+.lcard .lgo{font-weight:700;color:var(--navy)}
+@media (prefers-reduced-motion:reduce){.pg,a.pg:hover{transition:none;transform:none}}
+@media (max-width:420px){.stop,.loopback{padding-left:46px}.node{width:32px;height:32px;font-size:14px}.line::before{left:15px}.bdg{margin-left:0}}
+@media print{.scard,.lcard,.pg{box-shadow:none!important}a.pg .pl::after{content:""}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to this week's steps</a>
@@ -145,7 +186,7 @@ h3{font-size:17px}
   <p class="mm-eyebrow">Week 4, start here</p>
   <h1 class="mm-display"><span>Week 4</span>: Membrane potential, neurons and synapses.</h1>
   <p class="entry-meta">Opens Monday, September 28. Your first discussion post is due Friday, October 2 at 10:00 pm, and everything else is due Sunday, October 4 at 10:00 pm.</p>
-  <p class="entry-how">Start at the top and work your way down. Click any step to open it. Your patient this week is Patient 1. <a href="weekly-loop.html" target="_top">How the weekly loop works</a></p>
+  <p class="entry-how">Start at the top and work your way down. Each step lists the pages you need for it. Your patient this week is Patient 1. <a href="weekly-loop.html" target="_top">How the weekly loop works</a></p>
 </div></header>
 
 <div class="loop-wrap">
@@ -163,124 +204,19 @@ h3{font-size:17px}
 </ul>
 </details>
 
-<figure class="diagram">
-<svg viewBox="-10 0 372 1080" role="group" aria-labelledby="loopTitle" xmlns="http://www.w3.org/2000/svg">
-  <title id="loopTitle">Week 4 loop. Each step is a link to this week's page.</title>
-  <defs>
-    <filter id="lift" x="-10%" y="-20%" width="120%" height="160%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity="0.12"/></filter>
-    <marker id="ahGray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0B1530"/></marker>
-    <marker id="ahMaroon" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8B3A2E"/></marker>
-    <marker id="ahNavy" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0B1530"/></marker>
-  </defs>
-  <g font-family="'Plus Jakarta Sans',system-ui,sans-serif" fill="#0B1530">
-    <text x="40" y="30" font-size="13" font-weight="700" fill="#414B5C" aria-hidden="true">Preview</text>
-    <a href="week-04-preread.html" target="_top" aria-label="Pre-read, opens this week&#x27;s page">
-    <rect x="40" y="42" width="280" height="58" rx="10" fill="#ECEFF4" stroke="#0B1530" stroke-width="1.5" filter="url(#lift)"/>
-    <text x="56" y="66" font-size="15" font-weight="700" fill="#0B1530">Pre-read</text>
-    <text x="304" y="66" font-size="12" font-weight="700" fill="#0B1530" text-anchor="end">30 min max</text>
-    <text x="56" y="85" font-size="12" fill="#0B1530">Figures, bold terms, pre-read worksheet</text>
-    <g aria-hidden="true"><circle cx="316" cy="44" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="48.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    <g aria-hidden="true"><circle cx="290" cy="44" r="11.5" fill="#0B1530" stroke="#fff" stroke-width="2"/><text x="290" y="48.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">W</text></g>
-    </a>
-    <line x1="180" y1="100" x2="180" y2="134" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <text x="40" y="124" font-size="13" font-weight="700" fill="#0B1530" aria-hidden="true">Learn</text>
-    <a href="lecture-week.html?week=4" target="_top" aria-label="First pass, opens this week&#x27;s page">
-    <rect x="40" y="136" width="280" height="58" rx="10" fill="#0B1530" filter="url(#lift)"/>
-    <text x="56" y="160" font-size="15" font-weight="700" fill="#fff">First pass</text>
-    <text x="304" y="160" font-size="12" font-weight="700" fill="#fff" text-anchor="end">3 to 4 hours</text>
-    <text x="56" y="179" font-size="12" fill="#fff">Slides, then your Competency Study Guide</text>
-    <g aria-hidden="true"><circle cx="316" cy="138" r="11.5" fill="#0B1530" stroke="#fff" stroke-width="2"/><text x="316" y="142.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">W</text></g>
-    </a>
-    <line x1="180" y1="194" x2="180" y2="212" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <a href="lecture-week.html?week=4" target="_top" aria-label="Second pass, opens this week&#x27;s page">
-    <rect x="40" y="214" width="280" height="58" rx="10" fill="#0B1530" filter="url(#lift)"/>
-    <text x="56" y="238" font-size="15" font-weight="700" fill="#fff">Second pass</text>
-    <text x="304" y="238" font-size="12" font-weight="700" fill="#fff" text-anchor="end">30 to 60 min</text>
-    <text x="56" y="257" font-size="12" fill="#fff">Same slides again, in a second color</text>
-    </a>
-    <line x1="180" y1="272" x2="180" y2="290" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <a href="assignment-notesheet.html" target="_top" aria-label="Upload your guide, opens this week&#x27;s page">
-    <rect x="40" y="292" width="280" height="58" rx="10" fill="#0B1530" filter="url(#lift)"/>
-    <text x="56" y="316" font-size="15" font-weight="700" fill="#fff">Upload your guide</text>
-    <text x="304" y="316" font-size="12" font-weight="700" fill="#fff" text-anchor="end">10 min</text>
-    <text x="56" y="335" font-size="12" fill="#fff">Competency Study Guide, both colors</text>
-    <g aria-hidden="true"><circle cx="316" cy="294" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="298.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    </a>
-    <line x1="180" y1="350" x2="180" y2="408" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <text x="196" y="386" font-size="13" font-weight="700" fill="#8B3A2E" aria-hidden="true">Retrieve and check</text>
-    <a href="door-study.html?week=4" target="_top" aria-label="Study it, opens this week&#x27;s page">
-    <rect x="82" y="410" width="196" height="66" rx="10" fill="#8B3A2E" filter="url(#lift)"/>
-    <text x="180" y="432" font-size="15" font-weight="700" fill="#fff" text-anchor="middle">Study it</text>
-    <text x="180" y="450" font-size="12" fill="#fff" text-anchor="middle">Cards and brain dumps</text>
-    <text x="180" y="467" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">4 sessions of 30 to 45 min</text>
-    </a>
-    <path d="M278 443 C350 443 350 653 278 653" fill="none" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <path d="M82 653 C18 653 18 443 82 443" fill="none" stroke="#8B3A2E" stroke-width="2.5" marker-end="url(#ahMaroon)"/>
-    <text x="180" y="530" font-size="14" font-weight="700" fill="#8B3A2E" text-anchor="middle" aria-hidden="true">Not yet?</text>
-    <text x="180" y="550" font-size="12" fill="#414B5C" text-anchor="middle" aria-hidden="true">Go back around for the</text>
-    <text x="180" y="566" font-size="12" fill="#414B5C" text-anchor="middle" aria-hidden="true">competency the check names</text>
-    <a href="practice-exam.html?week=4&amp;n=50" target="_top" aria-label="Mastery Check, opens this week&#x27;s page">
-    <rect x="82" y="620" width="196" height="66" rx="10" fill="#C9A14A" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
-    <text x="180" y="642" font-size="15" font-weight="700" fill="#060A18" text-anchor="middle">Mastery Check</text>
-    <text x="180" y="660" font-size="12" fill="#060A18" text-anchor="middle">Which competencies are solid?</text>
-    <text x="180" y="677" font-size="12" font-weight="700" fill="#060A18" text-anchor="middle">35 to 50 min per try</text>
-    <g aria-hidden="true"><circle cx="274" cy="622" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="274" y="626.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    </a>
-    <path d="M82 676 H10 V243 H36" fill="none" stroke="#0B1530" stroke-width="1.75" stroke-dasharray="5 4" marker-end="url(#ahNavy)"/>
-    <text transform="translate(5 470) rotate(-90)" font-size="11" fill="#0B1530" text-anchor="middle" aria-hidden="true">Could not start it? Back to second pass</text>
-    <line x1="180" y1="686" x2="180" y2="742" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <text x="192" y="718" font-size="13" font-weight="700" aria-hidden="true">All solid</text>
-    <text x="40" y="762" font-size="13" font-weight="700" fill="#414B5C" aria-hidden="true">Use it</text>
-    <a href="assignment-physioex.html?week=4" target="_top" aria-label="The lab, opens this week&#x27;s page">
-    <rect x="40" y="772" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
-    <text x="56" y="796" font-size="15" font-weight="700" fill="#0B1530">The lab</text>
-    <text x="304" y="796" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">2 to 3 hours</text>
-    <text x="56" y="815" font-size="12" fill="#414B5C">PhysioEx, then your lab worksheet</text>
-    <g aria-hidden="true"><circle cx="316" cy="774" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="778.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    </a>
-    <line x1="180" y1="830" x2="180" y2="848" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <a href="assignment-apply.html?week=4" target="_top" aria-label="Application case, opens this week&#x27;s page">
-    <rect x="40" y="850" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
-    <text x="56" y="874" font-size="15" font-weight="700" fill="#0B1530">Application case</text>
-    <text x="304" y="874" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">About 1 hour</text>
-    <text x="56" y="893" font-size="12" fill="#414B5C">Work the case using the physiology</text>
-    <g aria-hidden="true"><circle cx="316" cy="852" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="856.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    </a>
-    <line x1="180" y1="908" x2="180" y2="926" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <a href="patient-chart-book.html" target="_top" aria-label="Your patient, opens this week&#x27;s page">
-    <rect x="40" y="928" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
-    <text x="56" y="952" font-size="15" font-weight="700" fill="#0B1530">Your patient</text>
-    <text x="304" y="952" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">About 30 min</text>
-    <text x="56" y="971" font-size="12" fill="#414B5C">Document this week&#x27;s findings</text>
-    <g aria-hidden="true"><circle cx="316" cy="930" r="11.5" fill="#C9A14A" stroke="#0B1530" stroke-width="1.5"/><text x="316" y="934.5" font-size="12" font-weight="800" fill="#060A18" text-anchor="middle">T</text></g>
-    </a>
-    <line x1="180" y1="986" x2="180" y2="1004" stroke="#0B1530" stroke-width="2" marker-end="url(#ahGray)"/>
-    <a href="discussion-week04.html" target="_top" aria-label="The discussion, opens this week&#x27;s page">
-    <rect x="40" y="1006" width="280" height="58" rx="10" fill="#fff" stroke="#0B1530" stroke-width="1" filter="url(#lift)"/>
-    <text x="56" y="1030" font-size="15" font-weight="700" fill="#0B1530">The discussion</text>
-    <text x="304" y="1030" font-size="12" font-weight="700" fill="#414B5C" text-anchor="end">About 1 hour</text>
-    <text x="56" y="1049" font-size="12" fill="#414B5C">What your check showed, what you changed</text>
-    <g aria-hidden="true"><circle cx="316" cy="1008" r="11.5" fill="#8B3A2E" stroke="#fff" stroke-width="2"/><text x="316" y="1012.5" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">S</text></g>
-    </a>
-  </g>
-</svg>
-</figure>
-
-<details class="steplist">
-<summary>See this week's steps as a list</summary>
-    <ol>
-      <li><strong>Preview.</strong> <a href="week-04-preread.html" target="_top">Pre-read</a>. 30 min max, has a worksheet, you submit it in Canvas.</li>
-      <li><strong>Learning.</strong> <a href="lecture-week.html?week=4" target="_top">First pass</a>. 3 to 4 hours, has a worksheet: your Competency Study Guide, which you submit at the upload step.<ul><li><a href="note-sheet.html?week=4" target="_top">Your Week 4 Competency Study Guide</a></li><li><a href="week-04-competencies.html" target="_top">This week&#x27;s competencies</a></li></ul></li>
-      <li><strong>Learning.</strong> <a href="lecture-week.html?week=4" target="_top">Second pass</a>. 30 to 60 min.<ul><li><a href="note-sheet.html?week=4" target="_top">Your Week 4 Competency Study Guide</a></li></ul></li>
-      <li><strong>Learning.</strong> <a href="assignment-notesheet.html" target="_top">Upload your guide</a>. 10 min, you submit it in Canvas.</li>
-      <li><strong>Retrieval.</strong> <a href="door-study.html?week=4" target="_top">Study it</a>. 4 sessions of 30 to 45 min.<ul><li><a href="rx-cards.html" target="_top">Rx Cards</a></li><li><a href="competency-brain-dump.html" target="_top">Brain Dump</a></li></ul></li>
-      <li><strong>Checking.</strong> <a href="practice-exam.html?week=4&amp;n=50" target="_top">Mastery Check</a>. 35 to 50 min per try, it counts when an attempt has at least 50 questions and scores 80 percent or higher, you submit it in Canvas.<ul><li><a href="assignment-practice-log.html" target="_top">How to submit your report</a></li></ul></li>
-      <li><strong>Use it.</strong> <a href="assignment-physioex.html?week=4" target="_top">The lab</a>. 2 to 3 hours, you submit it in Canvas.<ul><li><a href="lab-worksheet-week04.html" target="_top">Week 4 lab worksheet</a></li></ul></li>
-      <li><strong>Use it.</strong> <a href="assignment-apply.html?week=4" target="_top">Application case</a>. About 1 hour, you submit it in Canvas.</li>
-      <li><strong>Use it.</strong> <a href="patient-chart-book.html" target="_top">Your patient</a>. About 30 min, you track this all term.</li>
-      <li><strong>Use it.</strong> <a href="discussion-week04.html" target="_top">The discussion</a>. About 1 hour, you submit it in Canvas.</li>
-    </ol>
-</details>
+<ol class="line" aria-label="This week's steps, in order">
+<li class="stop k-prev" id="s-preread"><span class="node" aria-hidden="true">1</span><div class="scard"><p class="phase">Preview</p><div class="shead"><h2><span class="mm-vh">Step 1. </span>Pre-read<span class="mm-vh">, has a worksheet</span><span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">30 min max</span><span class="bdg"><span class="wbadge" aria-hidden="true">W</span><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Look over the chapter before you learn it: the figures and the bold terms. Then fill in the pre-read worksheet. Stop at 30 minutes.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="week-04-preread.html" target="_top"><span class="pl">Pre-read and worksheet</span><span class="pd">The figures, the bold terms, and the pre-read worksheet you turn in</span></a></li></ul></div></li>
+<li class="stop k-learn" id="s-first"><span class="node" aria-hidden="true">2</span><div class="scard"><p class="phase">Learning</p><div class="shead"><h2><span class="mm-vh">Step 2. </span>First pass<span class="mm-vh">, has a worksheet</span></h2><span class="time">3 to 4 hours</span><span class="bdg"><span class="wbadge" aria-hidden="true">W</span></span></div><p class="what">Work through the lessons in order and fill in your Competency Study Guide in your first color as you go.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="note-sheet.html?week=4" target="_top"><span class="pl">Competency Study Guide</span><span class="pd">Your worksheet for the week. Print it, or work the same prompts on your own paper.</span></a></li><li><a class="pg" href="lecture-week.html?week=4" target="_top"><span class="pl">Walkthroughs and slides</span><span class="pd">The Week 4 lessons in order, starting with the three walkthroughs. Opens Monday, September 28 at 8:00 am.</span></a></li><li><div class="pg pg-text"><span class="pl">Videos</span><span class="pd">Inside the walkthroughs. Press Stuck? Watch a short explanation on any step where a video helps.</span></div></li><li><a class="pg" href="week-04-notes.html" target="_top"><span class="pl">Written notes<span class="opt">Optional</span></span><span class="pd">One page per lesson, to read and reread</span></a></li><li><a class="pg" href="notes/BIO005-Week4-Notes-all.pdf" target="_top"><span class="pl">Written notes to print (PDF)<span class="opt">Optional</span></span><span class="pd">The same notes in two columns, to save paper</span></a></li></ul></div></li>
+<li class="stop k-learn" id="s-second"><span class="node" aria-hidden="true">3</span><div class="scard"><p class="phase">Learning</p><div class="shead"><h2><span class="mm-vh">Step 3. </span>Second pass</h2><span class="time">30 to 60 min</span><span class="bdg"></span></div><p class="what">Go back through the same walkthroughs, slides and notes from First pass. Add to your Competency Study Guide in a second color.</p><p class="ph">Pages for this step</p><p class="none">No new pages. Use the ones from First pass.</p></div></li>
+<li class="stop k-learn" id="s-upload"><span class="node" aria-hidden="true">4</span><div class="scard"><p class="phase">Learning</p><div class="shead"><h2><span class="mm-vh">Step 4. </span>Upload your guide<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">10 min</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Scan or photograph your Competency Study Guide, both colors, as one file and turn it in on Canvas.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="assignment-notesheet.html" target="_top"><span class="pl">How to upload your guide</span><span class="pd">What to scan and where it goes in Canvas</span></a></li></ul></div></li>
+<li class="stop k-retr" id="s-study"><span class="node" aria-hidden="true">5</span><div class="scard"><p class="phase">Retrieval</p><div class="shead"><h2><span class="mm-vh">Step 5. </span>Study it</h2><span class="time">4 sessions of 30 to 45 min</span><span class="bdg"></span></div><p class="what">Pull the week back out of memory. Spread it over at least four days instead of one sitting.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="rx-cards.html" target="_top"><span class="pl">Rx Cards</span><span class="pd">At least 20 cards a session and 60 cards a week</span></a></li><li><a class="pg" href="competency-brain-dump.html" target="_top"><span class="pl">Brain Dump</span><span class="pd">Pick a competency, close everything, write or draw all you can, then check it</span></a></li></ul></div></li>
+<li class="stop k-check" id="s-check"><span class="node" aria-hidden="true">6</span><div class="scard"><p class="phase">Checking</p><div class="shead"><h2><span class="mm-vh">Step 6. </span>Mastery Check<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">30 to 50 min per try, at least 3 tries</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Take the Mastery Check, about 30 questions a try. Do at least 3 tries with Study it in between, and aim for 80 percent before you stop. You can always do more. Turn in the report from every try.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="practice-exam.html?week=4&amp;n=30" target="_top"><span class="pl">Mastery Check</span><span class="pd">Set to Week 4 and 30 questions. Each try is a fresh set.</span></a></li><li><a class="pg" href="assignment-practice-log.html" target="_top"><span class="pl">How to submit your reports</span><span class="pd">Save each report as a PDF, or print your weekly practice log, which has every try in one PDF</span></a></li></ul></div></li>
+<li class="loopback"><span class="node" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg></span><div class="lcard"><p class="lh">Go around at least 3 times.</p><p>After each try, go back to <a href="#s-study">Study it</a> for the competencies the report lists, then take the Mastery Check again. Aim for 80 percent before you stop. You can always do more.</p><p>Could not start a competency at all? Go back to <a href="#s-second">Second pass</a> for that one.</p><p class="lgo">At least 3 tries and at 80 percent? Keep going down the line.</p></div></li>
+<li class="stop k-assess" id="s-lab"><span class="node" aria-hidden="true">7</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 7. </span>The lab<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">2 to 3 hours</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Run PhysioEx, then fill in the lab worksheet and turn it in.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="assignment-physioex.html?week=4" target="_top"><span class="pl">PhysioEx lab</span><span class="pd">The simulation and what to record</span></a></li><li><a class="pg" href="lab-worksheet-week04.html" target="_top"><span class="pl">Lab worksheet</span><span class="pd">Where your results and answers go</span></a></li></ul></div></li>
+<li class="stop k-assess" id="s-case"><span class="node" aria-hidden="true">8</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 8. </span>Application case</h2><span class="time">About 1 hour</span><span class="bdg"></span></div><p class="what">Information only. Read this week&#x27;s case and work the five questions. Nothing is turned in this week: your answers go on your patient chart, which you hand in on Sunday, November 1, at the end of Week 8.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="assignment-apply.html?week=4" target="_top"><span class="pl">This week&#x27;s case</span><span class="pd">The chart, the five questions, and the prompt for your entry point</span></a></li></ul></div></li>
+<li class="stop k-assess" id="s-patient"><span class="node" aria-hidden="true">9</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 9. </span>Your patient<span class="mm-vh">, you track this all term</span></h2><span class="time">About 30 min</span><span class="bdg"><span class="wbadge tbadge" aria-hidden="true">T</span></span></div><p class="what">Copy this week&#x27;s numbers into your patient chart and fill in this week&#x27;s page. Keep the chart. You hand it in on Sunday, November 1, at the end of Week 8.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="patient-chart-book.html" target="_top"><span class="pl">Your patient chart</span><span class="pd">Your flowsheets and this week&#x27;s page</span></a></li></ul></div></li>
+<li class="stop k-assess" id="s-discussion"><span class="node" aria-hidden="true">10</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 10. </span>Exam practice and Discussion 4<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">About 2 hours</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">For each of two multiple choice questions: 15 minutes to build your model from memory on a whiteboard, no resources, then 5 to 7 minutes teaching your answer, all on video. Your videos go to me only, graded complete or incomplete. Then post your meta-analysis of how it went in Discussion 4, and reply to two classmates.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="discussion-week04.html" target="_top"><span class="pl">Exam practice part 1 and Discussion 4</span><span class="pd">You need a whiteboard, a marker, and a phone or computer to record. The page has both questions, how to record, and the discussion prompt.</span></a></li></ul></div></li>
+</ol>
 </div>
 </main>
 
