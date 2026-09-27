@@ -925,6 +925,10 @@ wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=w
 
 /* ======================= player ======================= */
 var cur=0;
+/* Sep 27 2026, Scrubs: an instructor preview. Add ?preview=1 to the address
+   to look through every step with nothing locked: no typing needed before
+   Show me, Next always on, and the topic menu open from the start. */
+var PREVIEW=/[?&]preview=1\b/.test(location.search);
 var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
 function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
 function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
@@ -946,7 +950,7 @@ function goTo(i,focus){
   var s=STEPS[cur],rev=!!st.revealed[cur];
   document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
   document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
-  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!!s.ask&&!rev);
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!PREVIEW&&!!s.ask&&!rev);
   setScene(cur,rev&&!s.auto);
   renderNarr(cur,rev&&!s.auto);
   document.getElementById("sceneDesc").textContent=s.desc||"";
@@ -974,7 +978,7 @@ var busy=false;
 function predWords(i){return ((store["p"+i]||"").trim().match(/\S+/g)||[]).length;}
 function gateShow(){
   var s=STEPS[cur],gn=document.getElementById("gateNote");
-  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished){gn.textContent="";return;}
+  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished||PREVIEW){gn.textContent="";return;}
   var ok=predWords(cur)>=3;if(!busy&&!playBtn.hidden)playBtn.disabled=!ok;
   gn.textContent=ok?"":"Type your prediction in the worksheet on the right, at least a few words, to unlock Show me.";
 }
@@ -993,7 +997,8 @@ var li0=document.createElement("li"),b0=document.createElement("button");b0.type
 b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
 function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
 window.__unlock=unlockJump;
-if(st.finished)unlockJump(false);
+if(st.finished||PREVIEW)unlockJump(false);
+if(PREVIEW)note("Preview mode: nothing is locked. Remove ?preview=1 from the address to see what students see.");
 jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
 document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});

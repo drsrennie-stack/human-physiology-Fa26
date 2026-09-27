@@ -62,7 +62,7 @@ def page(n):
     head = ('<header class="top"><div class="wrap">\n  <p class="eyebrow">BIO 005 · Week 4 · Written notes</p>\n'
             '  <h1>%s</h1>\n  <p>The written notes for the %s walkthrough%s.</p>\n'
             '  <p><b>To print:</b> <a href="%s" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>\n'
-            '</div></header>\n' % (e(n["title"]), e(n["title"].lower() if n["title"] != "The resting membrane potential" else "resting membrane potential"), (". " + e(n["comps"])) if n["comps"] else "", pdf))
+            '</div></header>\n' % (e(n["title"]), e(re.sub(r"^the ", "", n["title"].lower())), (". " + e(n["comps"])) if n["comps"] else "", pdf))
     body = ['<main id="main"><div class="wrap notes">\n',
             '<div class="use"><p><b>How to use these notes.</b> Work through <a href="%s" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. '
             'Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the slides.</p></div>\n' % n["walk"]]

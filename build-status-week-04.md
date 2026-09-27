@@ -18,6 +18,8 @@ PDF export, and Khan support buttons.
 | biol005-w04-neurons-glia-guided.html | 44 | 33 | 7 | 3 steps | 100 KB |
 | biol005-w04-rmp-guided.html | 35 | 28 | 12 | 14 steps | 78 KB |
 | biol005-w04-channel-gating-guided.html | 16 | 13 | 6 | 1 step | 48 KB |
+| biol005-w04-graded-potentials-guided.html | 15 | 12 | 5 | 2 steps | 60 KB |
+| biol005-w04-action-potential-guided.html | 16 | 14 | 7 | 4 steps | 70 KB |
 
 What was verified on each, by running them headlessly:
 
@@ -40,6 +42,20 @@ Fixes made after visual inspection: sodium was bouncing off the membrane instead
 of passing through the channel in the resting potential file; dendrites were
 drawing on top of the cell body; labels and captions were running under the Watch
 again button; the inactivation gate was blocking at the wrong end of the pore.
+
+Update, September 27, 2026: graded potentials built from the channel gating file, with
+the same checks, plus a keyboard pass and a 390 px reflow check. It is linked from
+lecture-week.html (week-04.html now forwards to the Week 4 start page). The drawing
+sheet gained Part 5, Graded potentials, and now opts out of the reading layout so each
+part prints on its own page. See compliance-notes-week-04-graded-potentials.md.
+
+Update, September 27, 2026 (later): the action potential walkthrough is built, covering
+competencies 13 to 16, with its written notes and notes PDF. It replaces the older action
+potential story slides, draw-along, lecture notes and slides on the lessons page. No
+drawing sheet part was added, since the drawing sheet was taken off Canvas Step 2 and the
+lessons page the same day. Every walkthrough now also opens with nothing locked when
+?preview=1 is added to its address, and instructor-preview-week04.html lists all five
+with their support videos. See compliance-notes-week-04-action-potential.md.
 
 ## 2. Drawing sheet, built
 

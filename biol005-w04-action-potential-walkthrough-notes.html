@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The action potential, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 4 · Written notes</p>
+  <h1>The action potential</h1>
+  <p>The written notes for the action potential walkthrough. Week 4 competencies 13 to 16.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week4-Walkthrough-Notes-action-potential.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Work through <a href="biol005-w04-action-potential-guided.html" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the slides.</p></div>
+<section>
+<h2>The key numbers</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Point</th><th scope="col">Voltage</th><th scope="col">What sets it</th></tr></thead><tbody>
+<tr><th scope="row">Rest</th><td>−70 mV</td><td>Mostly potassium leak (resting potential walkthrough)</td></tr>
+<tr><th scope="row">Threshold</th><td>about −55 mV</td><td>Sodium current in first outweighs potassium current out</td></tr>
+<tr><th scope="row">Peak</th><td>about +30 mV</td><td>Sodium inactivation gates close and potassium channels open</td></tr>
+<tr><th scope="row">After-hyperpolarization</th><td>about −80 mV</td><td>Potassium channels slow to close</td></tr>
+<tr><th scope="row">Sodium's balance point</th><td>+60 mV</td><td>The ceiling the rise heads toward</td></tr>
+<tr><th scope="row">Potassium's balance point</th><td>−90 mV</td><td>The floor the dip heads toward</td></tr>
+</tbody></table></div>
+<p>The whole spike, from threshold back to rest, lasts a few milliseconds. The rise and the fall together take about 1 to 2 ms.</p>
+</section>
+<section>
+<h2>The two voltage-gated channels</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Channel</th><th scope="col">Gates</th><th scope="col">At rest</th><th scope="col">When depolarized</th></tr></thead><tbody>
+<tr><th scope="row">Voltage-gated Na+ channel</th><td>Activation gate (outside), inactivation gate (inside)</td><td>Activation closed, inactivation open</td><td>Activation opens fast; inactivation closes a little later and stays closed until the membrane repolarizes</td></tr>
+<tr><th scope="row">Voltage-gated K+ channel</th><td>One gate</td><td>Closed</td><td>Opens slowly, at about the time sodium channels inactivate, and closes slowly</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Both channels are opened by depolarization. The difference that shapes the action potential is timing: sodium is fast, potassium is slow.</li>
+  <li>A stimulus can open an activation gate. Nothing can force an inactivation gate open. It reopens only after the membrane repolarizes.</li>
+</ul>
+</section>
+<section>
+<h2>Reaching threshold</h2>
+<ul>
+  <li>A graded potential depolarizes the trigger zone and opens some voltage-gated sodium channels.</li>
+  <li>Below threshold (example: a 10 mV push to −60 mV) the sodium coming in is less than the potassium leaking out. The membrane falls back to rest. Nothing fires.</li>
+  <li>At threshold (a 15 mV push to about −55 mV) the sodium current in matches, then outweighs, the potassium current out.</li>
+  <li>Threshold is a balance of two currents, not a fixed number.</li>
+</ul>
+<ol>
+  <li>Sodium comes in and the membrane depolarizes.</li>
+  <li>Depolarization opens more voltage-gated sodium channels.</li>
+  <li>More sodium comes in, and the membrane depolarizes further.</li>
+  <li>Back to step 2. This self-feeding loop is positive feedback, and once it starts the stimulus no longer matters.</li>
+</ol>
+</section>
+<section>
+<h2>The phases, in order</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Phase</th><th scope="col">Voltage</th><th scope="col">Na+ channels</th><th scope="col">K+ channels</th><th scope="col">Ion movement</th></tr></thead><tbody>
+<tr><th scope="row">Rest</th><td>−70 mV</td><td>Closed (activation gate closed)</td><td>Closed</td><td>Leak only</td></tr>
+<tr><th scope="row">Rising phase (depolarization)</th><td>−55 to about +30 mV</td><td>Open</td><td>Starting to open</td><td>Na+ rushes in</td></tr>
+<tr><th scope="row">Peak (overshoot above 0 mV)</th><td>about +30 mV</td><td>Inactivation gates close</td><td>Open</td><td>Na+ stops; K+ starts to leave</td></tr>
+<tr><th scope="row">Falling phase (repolarization)</th><td>+30 back to −70 mV</td><td>Inactivated</td><td>Open</td><td>K+ flows out</td></tr>
+<tr><th scope="row">After-hyperpolarization</th><td>down to about −80 mV, then back to rest</td><td>Resetting: activation closes, inactivation opens</td><td>Still open, closing slowly</td><td>Extra K+ out moves the membrane toward −90 mV</td></tr>
+</tbody></table></div>
+<ul>
+  <li>The rise heads toward sodium's balance point (+60 mV) because the membrane is now most permeable to sodium, the same rule as the resting potential.</li>
+  <li>It stops near +30 mV because the sodium inactivation gates close and the potassium channels open.</li>
+  <li>Potassium leaving brings the voltage down. The sodium-potassium pump does not.</li>
+  <li>The dip below rest happens because the potassium channels are slow to close, so the membrane is briefly more permeable to potassium than at rest.</li>
+</ul>
+<dl>
+  <dt>Threshold</dt><dd>The voltage at which sodium current in first outweighs potassium current out and the action potential takes off; about −55 mV here.</dd>
+  <dt>Positive feedback</dt><dd>A loop in which the result of a step makes the step happen more: depolarization opens sodium channels, which cause more depolarization.</dd>
+  <dt>Rising phase (depolarization)</dt><dd>The fast climb from threshold to the peak, carried by sodium coming in.</dd>
+  <dt>Overshoot</dt><dd>The part of the action potential above 0 mV, when the inside is positive.</dd>
+  <dt>Falling phase (repolarization)</dt><dd>The fall from the peak back toward rest, carried by potassium going out.</dd>
+  <dt>After-hyperpolarization</dt><dd>The brief dip below rest after the spike, caused by potassium channels that are slow to close.</dd>
+</dl>
+</section>
+<section>
+<h2>How many ions move</h2>
+<ul>
+  <li>Only a tiny fraction of the ions cross in one action potential. Inside the cell, sodium stays about 15 mM and potassium about 150 mM.</li>
+  <li>The gradients are still there after a spike, so a neuron can fire again right away without waiting for the pump.</li>
+  <li>The pump keeps concentrations steady over the long run, across thousands of action potentials. It does not repolarize the membrane after each spike.</li>
+</ul>
+</section>
+<section>
+<h2>All or none</h2>
+<ul>
+  <li>Below threshold: no action potential at all. At or above threshold: a full-sized one.</li>
+  <li>Example: pushes of 5 and 10 mV stay below threshold. Pushes of 16 and 30 mV both give action potentials that peak at about +30 mV.</li>
+  <li>The size is set by the channels and sodium's balance point, not by the stimulus. A bigger push only reaches threshold a little sooner.</li>
+</ul>
+<dl>
+  <dt>All or none</dt><dd>An action potential either happens at full size or does not happen; its size does not depend on the size of the stimulus.</dd>
+</dl>
+</section>
+<section>
+<h2>Coding stimulus strength</h2>
+<ul>
+  <li>Because every spike is the same size, size cannot carry information.</li>
+  <li>Frequency coding: a stronger stimulus makes a single neuron fire more often. A bigger graded potential reaches threshold again sooner after each spike. Example in the walkthrough: 2, 5 and 9 action potentials in the same time for weak, medium and strong.</li>
+  <li>Population coding: a stronger stimulus activates more receptors, so more neurons fire. Example: 1, 2 and 4 neurons.</li>
+  <li>A single axon can only use frequency coding.</li>
+</ul>
+<dl>
+  <dt>Frequency coding</dt><dd>Signaling stimulus strength by how often a neuron fires.</dd>
+  <dt>Population coding</dt><dd>Signaling stimulus strength by how many neurons fire.</dd>
+</dl>
+</section>
+<section>
+<h2>Refractory periods</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Period</th><th scope="col">When</th><th scope="col">Channel state</th><th scope="col">Can a second action potential start?</th></tr></thead><tbody>
+<tr><th scope="row">Absolute refractory period</th><td>From the start of the spike until the sodium channels begin to reset, through most of the fall</td><td>Na+ inactivation gates closed</td><td>No, no matter how strong the stimulus</td></tr>
+<tr><th scope="row">Relative refractory period</th><td>During the dip below rest</td><td>Some Na+ channels reset; extra K+ channels still open</td><td>Yes, but it takes a stronger stimulus than usual, and the second spike is often a little smaller</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Example: during the dip the membrane is near −78 mV. The same 16 mV push that fired the first spike reaches only −62 mV, short of threshold.</li>
+  <li>The absolute refractory period lasts about 1 to 2 ms, which sets a ceiling on firing rate: 1,000 ms ÷ 2 ms = 500 per second, or 1,000 ms ÷ 1 ms = 1,000 per second. Most neurons fire well below this.</li>
+  <li>The refractory period also keeps the action potential traveling in one direction along the axon (conduction walkthrough).</li>
+</ul>
+<dl>
+  <dt>Absolute refractory period</dt><dd>The time during which no stimulus of any size can start a second action potential, because the sodium inactivation gates are closed.</dd>
+  <dt>Relative refractory period</dt><dd>The time right after, during which a second action potential can start but only with a stronger stimulus than usual.</dd>
+</dl>
+</section>
+<section>
+<h2>Patient: a drug that blocks potassium channels</h2>
+<ul>
+  <li>Dalfampridine blocks voltage-gated potassium channels. It is used to help people with multiple sclerosis walk.</li>
+  <li>In multiple sclerosis, axons lose myelin, which exposes potassium channels that are normally covered.</li>
+  <li>With the potassium channels blocked, the rise and peak barely change, the fall is much slower, and the dip below rest mostly disappears. The action potential gets wider.</li>
+  <li>A wider action potential delivers more charge to the next stretch of axon, which helps the signal cross a stretch that has lost its myelin.</li>
+  <li>Blocking these channels throughout the brain can make neurons fire too easily, so the dose is kept low: too much can cause seizures.</li>
+</ul>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>

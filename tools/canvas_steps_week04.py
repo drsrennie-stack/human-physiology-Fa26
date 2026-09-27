@@ -49,16 +49,15 @@ STEPS = [
   todo=["Choose how you will do your Competency Study Guide, in the Choose one box below: the printed worksheet, or your own paper. Pick two pens you can tell apart.",
         "Read the Week 4 competencies first, so you know what you are looking for.",
         "The lessons, videos and notes open Monday, September 28 at 8:00 am. Before then the lessons link shows a Get ready page.",
-        "Open the Week 4 lessons and work through them in order. Start with the four walkthroughs: neurons and "
-        "neuroglia, then the resting membrane potential, then ion channel gating, then graded potentials. Then the "
-        "lessons on the action potential, how action potentials carry information, the chemical synapse, "
+        "Open the Week 4 lessons and work through them in order. Start with the five walkthroughs: neurons and "
+        "neuroglia, then the resting membrane potential, then ion channel gating, then graded potentials, then the "
+        "action potential. Then the lessons on how action potentials carry information, the chemical synapse, "
         "and integration at the synapse.",
         "Watch the short videos as you go, and again whenever you need them. In the walkthroughs, look for the "
         "<strong>Stuck? Watch a short explanation</strong> button on the steps where a video helps.",
-        "Print the worksheet for each walkthrough and keep it beside you. Every time a walkthrough asks you to predict, write or draw your prediction on the worksheet and type it into the walkthrough, then press Show me. Next stays locked until you do.",
+        "Each walkthrough has a worksheet in the right-hand column. Every time it asks you to predict, type your prediction there first. Show me stays locked until you do, and Next stays locked until you press Show me.",
         "After each walkthrough, read its written notes to fill in anything you missed.",
-        "For each competency, pick prompt A or prompt B and draw it in the box in your first color.",
-        "After each walkthrough, do its part of the drawing sheet from memory, with the walkthrough closed."],
+        "For each competency, pick prompt A or prompt B and draw it in the box in your first color."],
   links=[dict(title="Choose one: how you will do your Competency Study Guide",
       options=[dict(name="Print the ready-made worksheet", text="A box for each competency with both prompts printed beside it. Print whichever size you like.",
                     links=[("The Study Guide, two competencies to a page (PDF)", "sheets/BIO005-note-sheet-week-04.pdf"),
@@ -66,8 +65,6 @@ STEPS = [
                dict(name="Use your own paper", text="The same competencies and the same prompts on one page. Work them in a notebook or on blank paper.",
                     links=[("The Week 4 competency list", "week-04-competencies.html")])]),
          ("The Week 4 lessons and videos, in order (opens Monday, September 28 at 8:00 am)", "lecture-week.html?week=4"),
-         ("The Week 4 drawing sheet, one part for each walkthrough. Print it, or open it and draw on your own paper", "biol005-w04-drawing-sheet.html"),
-         ("The walkthrough worksheets, to print and fill in as you go (PDF)", "sheets/BIO005-Week4-Worksheets-all.pdf"),
          ("The Week 4 written notes, for each walkthrough and lesson (opens Monday, September 28 at 8:00 am)", "week-04-notes.html"),
          ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
   turnin=None),
