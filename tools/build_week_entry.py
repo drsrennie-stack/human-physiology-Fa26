@@ -466,6 +466,32 @@ KEY = r"""<details class="keybox">
 </ul>
 </details>"""
 
+# Sep 27 2026, Scrubs: the Course tools dock follows the same steps. Every
+# week built as a straight line is written into bio005-dock.js (and the
+# os/ copy) between the LINE-STEPS markers, so the dock's groups are the
+# week's steps, in order, with the same pages under each.
+def dock_steps():
+    import json, re
+    out = {}
+    for k, w in DATA['weeks'].items():
+        if not uses_line(w): continue
+        steps = []
+        for key, title, sub, time, kind, letters in STEPS:
+            st = w['steps'][key]
+            steps.append({'key': key, 'title': st.get('title', title), 'time': st.get('time', time), 'what': st['what'],
+                          'pages': [{'label': g['label'], 'href': g.get('href'), 'desc': g.get('desc', ''), 'opt': bool(g.get('optional'))} for g in st['pages']]})
+        out[int(k)] = {'entry': f'week-{int(k):02d}-entry.html', 'steps': steps}
+    block = '/*LINE-STEPS*/ var LINE_STEPS = ' + json.dumps(out, ensure_ascii=False) + '; /*END-LINE-STEPS*/'
+    for f in ('bio005-dock.js', 'os/bio005-dock.js'):
+        path = ROOT / f
+        if not path.exists(): continue
+        t = path.read_text(encoding='utf-8')
+        t2 = re.sub(r'/\*LINE-STEPS\*/.*?/\*END-LINE-STEPS\*/', lambda m: block, t, count=1, flags=re.S)
+        if t2 == t and '/*LINE-STEPS*/' not in t: print('no LINE-STEPS marker in', f); continue
+        path.write_text(t2, encoding='utf-8')
+    print('dock steps written for weeks', sorted(out))
+
 if __name__=='__main__':
     arg=sys.argv[1] if len(sys.argv)>1 else 'all'
     for n in (sorted(int(k) for k in DATA['weeks']) if arg=='all' else [int(arg)]): build(n)
+    dock_steps()

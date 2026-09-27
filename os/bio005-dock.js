@@ -350,10 +350,91 @@
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
   /* One definition per tool. tone drives the icon gradient. */
+  /*LINE-STEPS*/ var LINE_STEPS = {"4": {"entry": "week-04-entry.html", "steps": [{"key": "preread", "title": "Pre-read", "time": "30 min max", "what": "Look over the chapter before you learn it: the figures and the bold terms. Then fill in the pre-read worksheet. Stop at 30 minutes.", "pages": [{"label": "Pre-read and worksheet", "href": "week-04-preread.html", "desc": "The figures, the bold terms, and the pre-read worksheet you turn in", "opt": false}]}, {"key": "first", "title": "First pass", "time": "3 to 4 hours", "what": "Work through the walkthroughs in order, typing each prediction into the worksheet on the right before you press Show me. Then use the written notes to fill in your Competency Study Guide in your first color.", "pages": [{"label": "Competency Study Guide", "href": "note-sheet.html?week=4", "desc": "Your worksheet for the week. Print it, or work the same prompts on your own paper.", "opt": false}, {"label": "Walkthroughs and slides", "href": "lecture-week.html?week=4", "desc": "The Week 4 lessons in order, starting with the walkthroughs. Opens Monday, September 28 at 8:00 am.", "opt": false}, {"label": "Videos from Dr. Rennie: coming soon", "href": null, "desc": "For now, the Khan Academy videos are inside the walkthroughs. Press Stuck? Watch a short explanation on any step where a video helps.", "opt": false}, {"label": "Written notes", "href": "week-04-notes.html", "desc": "Notes for each walkthrough in bullets, definitions and sequences, to study from after the walkthrough", "opt": false}, {"label": "Written notes to print (PDF)", "href": "notes/BIO005-Week4-Notes-all.pdf", "desc": "All the Week 4 notes in two columns, to save paper", "opt": true}]}, {"key": "second", "title": "Second pass", "time": "30 to 60 min", "what": "Go back through the same walkthroughs, slides and notes from First pass. Add to your Competency Study Guide in a second color.", "pages": []}, {"key": "upload", "title": "Upload your guide", "time": "10 min", "what": "Scan or photograph your Competency Study Guide, both colors, as one file and turn it in on Canvas.", "pages": [{"label": "How to upload your guide", "href": "assignment-notesheet.html", "desc": "What to scan and where it goes in Canvas", "opt": false}]}, {"key": "study", "title": "Study it", "time": "4 sessions of 30 to 45 min", "what": "Pull the week back out of memory. Spread it over at least four days instead of one sitting.", "pages": [{"label": "Rx Cards", "href": "rx-cards.html", "desc": "At least 20 cards a session and 60 cards a week", "opt": false}, {"label": "Brain Dump", "href": "competency-brain-dump.html", "desc": "Pick a competency, close everything, write or draw all you can, then check it", "opt": false}]}, {"key": "check", "title": "Mastery Check", "time": "30 to 50 min per try, at least 3 tries", "what": "Take the Mastery Check, about 30 questions a try. Do at least 3 tries with Study it in between, and aim for 80 percent before you stop. You can always do more. Turn in the report from every try.", "pages": [{"label": "Mastery Check", "href": "practice-exam.html?week=4&n=30", "desc": "Set to Week 4 and 30 questions. Each try is a fresh set.", "opt": false}, {"label": "How to submit your reports", "href": "assignment-practice-log.html", "desc": "Save each report as a PDF, or print your weekly practice log, which has every try in one PDF", "opt": false}]}, {"key": "lab", "title": "The lab", "time": "2 to 3 hours", "what": "Run PhysioEx, then fill in the lab worksheet and turn it in.", "pages": [{"label": "PhysioEx lab", "href": "assignment-physioex.html?week=4", "desc": "The simulation and what to record", "opt": false}, {"label": "Lab worksheet", "href": "lab-worksheet-week04.html", "desc": "Where your results and answers go", "opt": false}]}, {"key": "case", "title": "Application case", "time": "About 1 hour", "what": "Information only. Read this week's case and work the five questions. Nothing is turned in this week: your answers go on your patient chart, which you hand in on Sunday, November 1, at the end of Week 8.", "pages": [{"label": "This week's case", "href": "assignment-apply.html?week=4", "desc": "The chart, the five questions, and the prompt for your entry point", "opt": false}]}, {"key": "patient", "title": "Your patient", "time": "About 30 min", "what": "Copy this week's numbers into your patient chart and fill in this week's page. Keep the chart. You hand it in on Sunday, November 1, at the end of Week 8.", "pages": [{"label": "Your patient chart", "href": "patient-chart-book.html", "desc": "Your flowsheets and this week's page", "opt": false}]}, {"key": "discussion", "title": "Exam practice and Discussion 4", "time": "About 2 hours", "what": "Two timed quizzes, one question each. In each, you record on Studio inside the quiz: 15 minutes building your model from memory on a whiteboard, then 5 to 7 minutes teaching it. Your videos go to me only, graded complete or incomplete. Then post your meta-analysis in Discussion 4 and reply to two classmates.", "pages": [{"label": "Directions for the exam practice", "href": "discussion-week04.html", "desc": "Read these first: what you need, the timing, the steps and how it is graded. Your Discussion 4 prompt is here too.", "opt": false}, {"label": "Exam practice, Question 1 (timed quiz)", "href": "https://yccd.instructure.com/courses/42616/quizzes/384885", "desc": "28 minutes from the moment it opens. Be set up and recording-ready before you open it.", "opt": false}, {"label": "Exam practice, Question 2 (timed quiz)", "href": "https://yccd.instructure.com/courses/42616/quizzes/384886", "desc": "Opens after you submit Question 1.", "opt": false}]}]}}; /*END-LINE-STEPS*/
+
+  /* Sep 27 2026, Scrubs: from Week 4 on, a week is one straight line of ten
+     steps. For those weeks the dock's groups ARE the steps, in order, each
+     holding the same pages the week's steps page lists, so the dock and
+     the week never disagree. Weeks 1 to 3 keep the four stages below.
+     LINE_STEPS is written by tools/build_week_entry.py. */
+  function lineTools(wn, nn, wt, TW) {
+    var L = LINE_STEPS[wn], t = [];
+    var ICON = { preread: 'doc', first: 'play', second: 'pencil', upload: 'doc', study: 'cards', check: 'target',
+                 lab: 'flask', 'case': 'target', patient: 'doc', discussion: 'people' };
+    t.push({ g: TW, name: 'Week ' + wn + ' steps' + (chosenWeek ? '' : ', this week'), sub: (wt ? wt + '. ' : '') + 'All ten steps in order, with the pages for each',
+             url: BASE + L.entry, icon: 'target', tone: 'gold', qr: 'today',
+             kw: 'this week today now week page current steps line order' });
+    t.push({ g: TW, name: 'Course calendar', sub: 'Every week, every due date, every exam window',
+             url: BASE + 'course-schedule.html', icon: 'cal', tone: 'navy', qr: 'calendar',
+             kw: 'calendar schedule dates due deadlines weeks exam window when' });
+    L.steps.forEach(function (s, i) {
+      var g = 'Step ' + (i + 1) + '. ' + s.title;
+      if (!s.pages.length) {
+        t.push({ g: g, name: s.title, sub: s.what + ' (' + s.time + ')', url: BASE + L.entry + '#s-' + s.key,
+                 icon: ICON[s.key] || 'doc', tone: 'navy', kw: s.title + ' ' + s.what });
+        return;
+      }
+      s.pages.forEach(function (p, j) {
+        var ext = !!(p.href && /^https?:/.test(p.href));
+        t.push({ g: g, name: p.label + (p.opt ? ' (optional)' : ''), sub: p.desc || (j === 0 ? s.what : s.title),
+                 url: p.href ? (ext ? p.href : BASE + p.href) : '', ext: ext,
+                 icon: ICON[s.key] || 'doc', tone: j % 2 ? 'terra' : (j ? 'navy' : 'gold'),
+                 kw: s.title + ' ' + p.label + ' ' + (p.desc || '') + ' ' + s.what });
+      });
+    });
+    var MO = 'More for any week';
+    t.push({ g: MO, name: 'Every week\'s lectures', sub: 'All fifteen weeks, by week', url: BASE + 'door-lecture.html', icon: 'play', tone: 'navy',
+             kw: 'lectures all weeks library videos' });
+    t.push({ g: MO, name: 'Chemistry review', sub: 'Optional. The chemistry this course assumes, with videos to fill a gap', url: BASE + 'm02-chem-review.html', icon: 'flask', tone: 'terra',
+             kw: 'chemistry review prerequisite khan academy bonds ph atoms molecules' });
+    t.push({ g: MO, name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense', url: BASE + 'anatomy-review.html', icon: 'globe', tone: 'gold',
+             kw: 'anatomy review structure nephron heart lung neuron muscle location' });
+    t.push({ g: MO, name: 'Kahoot library', sub: 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term',
+             url: 'https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', icon: 'play', tone: 'gold', ext: true, kw: 'kahoot kahoots quiz game review play' });
+    t.push({ g: MO, name: 'Every lab', sub: 'All fifteen weeks of labs, and the lab manual', url: BASE + 'door-lab.html', icon: 'flask', tone: 'navy',
+             kw: 'labs all lab manual clinical physiology' });
+    t.push({ g: MO, name: 'Every assignment', sub: 'Everything graded, in one place', url: BASE + 'door-assignments.html', icon: 'doc', tone: 'gold',
+             kw: 'assignments graded all due list' });
+    t.push({ g: MO, name: 'How grading works', sub: 'What counts, what it is worth, what carries no points', url: BASE + 'how-grading-works.html', icon: 'target', tone: 'navy',
+             kw: 'grading grades points worth weight categories' });
+    t.push({ g: MO, name: 'Patient chart: what you turn in, and when', sub: 'Camila on Nov 1 with Midterm 1, Dale on Dec 16', url: BASE + 'assignment-patient-chart.html', icon: 'target', tone: 'gold',
+             kw: 'patient chart upload december capstone pdf turn in instructions' });
+    return t;
+  }
+
+  function aboutTools() {
+    var t = [];
+    /* ---------- ABOUT THE COURSE ---------- */
+    t.push({ g: 'About the course', name: 'Course home', sub: 'The front of the course',
+             url: BASE + 'index.html', icon: 'home', tone: 'navy', qr: 'home',
+             kw: 'home hub front start main course' });
+    t.push({ g: 'About the course', name: 'How this course works', sub: 'What one week looks like, and what mastery means here',
+             url: BASE + 'how-this-course-works.html', icon: 'target', tone: 'gold',
+             kw: 'how course works stages learn practice apply check intro' });
+    t.push({ g: 'About the course', name: 'Syllabus', sub: 'Policies, dates, exam windows',
+             url: BASE + 'syllabus-fall2026.html', icon: 'doc', tone: 'navy',
+             kw: 'syllabus policy rules grading late work ai policy contact' });
+    t.push({ g: 'About the course', name: 'Questions and answers', sub: 'The questions students ask most',
+             url: BASE + 'course-questions.html', icon: 'doc', tone: 'terra',
+             kw: 'questions answers faq help how do i' });
+    t.push({ g: 'About the course', name: 'Accessibility', sub: 'How this was built, what was checked, what is still open',
+             url: BASE + 'accessibility.html', icon: 'target', tone: 'terra',
+             kw: 'accessibility access screen reader contrast keyboard captions dsps accommodation wcag' });
+    t.push({ g: 'About the course', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
+             url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra', ext: true,
+             kw: 'office hours ask question help contact instructor forum' });
+    t.push({ g: 'About the course', name: 'Canvas', sub: 'Turn work in, see grades',
+             url: 'https://yccd.instructure.com/courses/42616/modules', icon: 'globe', tone: 'navy', qr: 'canvas', ext: true,
+             kw: 'canvas grades submit turn in lms' });
+
+    return t;
+  }
+
   function tools() {
     var t = [];
     var wn = currentWeekN(), nn = pad2(wn), wt = currentWeekTitle(wn);
     var TW = chosenWeek ? 'Week ' + wn : 'This week';
+    if (LINE_STEPS[wn]) return lineTools(wn, nn, wt, TW).concat(aboutTools());
 
     /* ============================================================
        CATALOG, REORGANIZED Sep 13 2026 ON SCRUBS' INSTRUCTION
@@ -479,30 +560,8 @@
              url: BASE + 'assignment-practice-log.html', icon: 'doc', tone: 'terra',
              kw: 'upload report practice log canvas trend' });
 
-    /* ---------- ABOUT THE COURSE ---------- */
-    t.push({ g: 'About the course', name: 'Course home', sub: 'The front of the course',
-             url: BASE + 'index.html', icon: 'home', tone: 'navy', qr: 'home',
-             kw: 'home hub front start main course' });
-    t.push({ g: 'About the course', name: 'How this course works', sub: 'The four stages, and what mastery means here',
-             url: BASE + 'how-this-course-works.html', icon: 'target', tone: 'gold',
-             kw: 'how course works stages learn practice apply check intro' });
-    t.push({ g: 'About the course', name: 'Syllabus', sub: 'Policies, dates, exam windows',
-             url: BASE + 'syllabus-fall2026.html', icon: 'doc', tone: 'navy',
-             kw: 'syllabus policy rules grading late work ai policy contact' });
-    t.push({ g: 'About the course', name: 'Questions and answers', sub: 'The questions students ask most',
-             url: BASE + 'course-questions.html', icon: 'doc', tone: 'terra',
-             kw: 'questions answers faq help how do i' });
-    t.push({ g: 'About the course', name: 'Accessibility', sub: 'How this was built, what was checked, what is still open',
-             url: BASE + 'accessibility.html', icon: 'target', tone: 'terra',
-             kw: 'accessibility access screen reader contrast keyboard captions dsps accommodation wcag' });
-    t.push({ g: 'About the course', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
-             url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra', ext: true,
-             kw: 'office hours ask question help contact instructor forum' });
-    t.push({ g: 'About the course', name: 'Canvas', sub: 'Turn work in, see grades',
-             url: 'https://yccd.instructure.com/courses/42616/modules', icon: 'globe', tone: 'navy', qr: 'canvas', ext: true,
-             kw: 'canvas grades submit turn in lms' });
+    return t.concat(aboutTools());
 
-    return t;
   }
 
   var CSS = [
