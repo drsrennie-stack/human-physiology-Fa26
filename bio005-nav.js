@@ -766,6 +766,25 @@
         + '<h2>Stage ' + S.n + ' of 4, Week ' + wn + ' &middot; ' + S.tag + '</h2><p class="b5-lead">' + S.lead + '</p>' + S.html + '</div></li>';
     }
 
+    /* Sep 27 2026, Scrubs: from Week 4 on, a week is one straight line of
+       steps (week-NN-entry.html), not the four stages. On a page that
+       belongs to Week 4 or later, the four stage buttons give way to one
+       link to that week's steps. Pages for Weeks 1 to 3 keep the stages,
+       so nothing changes for those weeks mid-term. */
+    function weekOfThisPage() {
+      var m = /[?&]week=(\d{1,2})\b/.exec(location.search) || /^week-(\d{2})\b/.exec(file) || /-w(\d{2})-/.exec(file);
+      return m ? parseInt(m[1], 10) : 0;
+    }
+    var pw = weekOfThisPage() || cur.n;
+    var LINE = { 4: 'week-04-entry.html' };
+    var lineWeek = pw >= 4 ? pw : 0;
+    function lineItem() {
+      var f = LINE[lineWeek] || ('week-' + pad2(lineWeek) + '.html');
+      var here = (file === f);
+      return '<li class="b5-stage' + (here ? ' b5-on' : '') + '"><a href="' + B + f + '" target="_top"' + (here ? ' aria-current="page"' : '') + '>'
+        + 'Week ' + lineWeek + ' steps<span class="b5-sub">in order</span></a></li>';
+    }
+
     var nav = document.createElement('nav');
     nav.className = 'b5site';
     nav.setAttribute('aria-label', 'Course sections');
@@ -774,7 +793,7 @@
       + item('thisweek', cur.file, 'This week', 'Week ' + cur.n)
       + '<li class="' + (sec === 'weeks' ? 'b5-on' : '') + '"><button type="button" id="b5-weeks-btn" aria-expanded="false" aria-controls="b5-weeks-panel">Weeks' + CARET + (sec === 'weeks' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-weeks-panel" hidden>' + weeksHtml + '</div></li>'
-      + stageItem('learn') + stageItem('practice') + stageItem('apply') + stageItem('check')
+      + (lineWeek ? lineItem() : stageItem('learn') + stageItem('practice') + stageItem('apply') + stageItem('check'))
       + '<li class="b5-grow b5-canvas"><a href="' + CANVAS_HOME + '" target="_top">Canvas<span class="b5vh">, back to the Canvas course</span></a></li>'
       + '<li class="' + (sec === 'help' ? 'b5-on' : '') + '"><button type="button" id="b5-help-btn" aria-expanded="false" aria-controls="b5-help-panel">Help' + CARET + (sec === 'help' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-help-panel" hidden>' + helpHtml + '</div></li>'

@@ -13,7 +13,7 @@ What changes on paper, and why
     that, and nothing is cut.
   - No filled backgrounds. Navy cards, tinted boxes and shadows become white
     with a thin gray rule, so a page costs text ink, not panel ink. Headings
-    keep the course maroon and navy, so the page still reads in color.
+    keep the course red; all other ink is black (two-tone, Sep 27 2026).
   - Figures keep their full content and are capped in height so one drawing
     never takes a whole page.
   - The moving models cannot move on paper. Their controls and canvas come
@@ -105,7 +105,7 @@ PREP = r"""(meta) => {
     @bottom-left{content:"BIO 005 · Week ${week} · ${title.replace(/"/g,'')}";font:6.8pt 'Plus Jakarta Sans',sans-serif;color:#555}
     @bottom-right{content:"page " counter(page) " of " counter(pages);font:6.8pt 'Plus Jakarta Sans',sans-serif;color:#555}}
   html,body{background:#fff!important}
-  main *{font-size:inherit!important;background:#fff!important;color:#0B1530!important;border-color:#B9BFC9!important}
+  main *{font-size:inherit!important;background:#fff!important;color:#000!important;border-color:#B9BFC9!important}
   main *::before, main *::after{background:none!important;box-shadow:none!important;color:#8B3A2E!important;font-size:inherit!important}
   main h2, main h2 *{color:#8B3A2E!important}
   main .kick, main .eyebrow, main .tag, main .stg{color:#8B3A2E!important}
@@ -118,14 +118,14 @@ PREP = r"""(meta) => {
   main h2{font-size:10.6pt!important}
   main h3{font-size:9.2pt!important}
   main h4, main h5{font-size:8.8pt!important}
-  body{font-family:'Plus Jakarta Sans',sans-serif!important;font-size:8.6pt!important;line-height:1.34!important;color:#0B1530!important;margin:0!important}
+  body{font-family:'Plus Jakarta Sans',sans-serif!important;font-size:8.6pt!important;line-height:1.34!important;color:#000!important;margin:0!important}
   *{box-shadow:none!important;text-shadow:none!important}
   main, main .wrap, .wrap{max-width:none!important;padding:0!important;margin:0!important}
   main{column-count:2;column-gap:0.24in;column-fill:auto}
   main .kick{column-span:all;font-size:7pt!important;font-weight:700;color:#8B3A2E!important;margin:0 0 2pt!important}
-  h1{column-span:all;font-size:16pt!important;line-height:1.1!important;margin:0 0 6pt!important;color:#0B1530!important}
+  h1{column-span:all;font-size:16pt!important;line-height:1.1!important;margin:0 0 6pt!important;color:#000!important}
   h2{font-size:10.6pt!important;line-height:1.2!important;margin:9pt 0 3pt!important;color:#8B3A2E!important;break-after:avoid;page-break-after:avoid}
-  h3{font-size:9.2pt!important;line-height:1.22!important;margin:6pt 0 2pt!important;color:#0B1530!important;break-after:avoid}
+  h3{font-size:9.2pt!important;line-height:1.22!important;margin:6pt 0 2pt!important;color:#000!important;break-after:avoid}
   h4,h5{font-size:8.8pt!important;margin:5pt 0 2pt!important;break-after:avoid}
   p, li, td, th, dd, dt, figcaption, span, div{font-size:inherit}
   p{margin:0 0 4pt!important;max-width:none!important}
@@ -134,8 +134,8 @@ PREP = r"""(meta) => {
   section, .card, .sl, .key, .eq, .chain, .term, .tgroup, .cprof, .prob, .clin, .cmp, .mapcard, aside, .note, .box{
     background:#fff!important;border-radius:3pt!important;padding:0!important;margin:0 0 5pt!important;min-height:0!important;height:auto!important}
   .card, .key, .eq, .prob, .clin, .cmp, .mapcard, .cprof, aside{border:0.6pt solid #B9BFC9!important;padding:4pt 6pt!important}
-  .card.navy, .navy, [class*="dark"]{color:#0B1530!important}
-  .card.navy *, .navy *{color:#0B1530!important}
+  .card.navy, .navy, [class*="dark"]{color:#000!important}
+  .card.navy *, .navy *{color:#000!important}
   [style*="background"]{background:#fff!important}
   .eyebrow, .tag, .stg{font-size:6.6pt!important;letter-spacing:.06em!important;color:#8B3A2E!important;background:#fff!important;margin:0 0 1pt!important}
   .prob, .eq, figure, table, .chain, .key{break-inside:avoid;page-break-inside:avoid}
@@ -143,12 +143,12 @@ PREP = r"""(meta) => {
   figure img, img, svg{max-width:100%!important;height:auto!important;max-height:3.1in!important;display:block;margin:0 auto 2pt}
   figcaption{font-size:7.4pt!important;line-height:1.28!important;color:#333!important;margin:2pt 0 0!important}
   table{width:100%!important;border-collapse:collapse!important;font-size:7.4pt!important;margin:2pt 0 6pt!important}
-  th, td{padding:1.8pt 3pt!important;border:0.5pt solid #B9BFC9!important;vertical-align:top;background:#fff!important;color:#0B1530!important}
+  th, td{padding:1.8pt 3pt!important;border:0.5pt solid #B9BFC9!important;vertical-align:top;background:#fff!important;color:#000!important}
   th{font-weight:700!important;background:#F3F4F7!important}
-  .hl, mark{background:#FFF3C4!important;color:#0B1530!important}
-  .term b, .term strong, dt{color:#0B1530!important}
+  .hl, mark{background:#fff!important;color:#000!important;font-weight:700!important}
+  .term b, .term strong, dt{color:#000!important}
   .modelnote{font-size:7.4pt!important;color:#414B5C!important;border:0.6pt dashed #999!important;padding:3pt 5pt!important;margin:2pt 0 6pt!important}
-  a{color:#0B1530!important;text-decoration:none!important}
+  a{color:#000!important;text-decoration:none!important}
   .scroller{overflow:visible!important}
   `;
   document.head.appendChild(st);

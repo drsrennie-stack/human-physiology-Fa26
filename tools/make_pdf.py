@@ -177,6 +177,17 @@ COMPACT_JS = """(box) => {
   document.head.appendChild(st);
 }"""
 
+# Sep 27 2026, Scrubs: printables are two-tone, course red plus BLACK. The
+# navy used on screen prints as black, in the CSS and in inline SVG figures.
+import re as _re
+NAVY = ["#0B1530", "#060A18", "#1E3D4C", "#142A36", "#0B1630"]
+def ink(html: str) -> str:
+    for h in NAVY:
+        html = _re.sub(_re.escape(h), "#000000", html, flags=_re.I)
+    html = _re.sub(r"rgba\(\s*11\s*,\s*21\s*,\s*48\s*,", "rgba(0,0,0,", html)
+    html = _re.sub(r"rgb\(\s*11\s*,\s*21\s*,\s*48\s*\)", "rgb(0,0,0)", html)
+    return html
+
 async def render(page_url: str, keep: str = None, title: str = '', compact: float = None, prep: str = None) -> str:
     """Load the page in Chromium, let its JS settle, return the printable DOM."""
     async with async_playwright() as pw:
@@ -338,7 +349,7 @@ async def render(page_url: str, keep: str = None, title: str = '', compact: floa
           return '<!DOCTYPE html>' + document.documentElement.outerHTML;
         }""")
         await b.close()
-        return html
+        return ink(html)
 
 def stamp(path: pathlib.Path, title: str, subject: str):
     """PDF/UA requires the title in the catalog and the viewer told to show it."""

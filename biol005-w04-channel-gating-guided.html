@@ -140,6 +140,9 @@ button{font-family:var(--body)}
   .field textarea,.field input{display:none}
   .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
 }
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
 </style>
 </head>
 <body>
@@ -162,7 +165,6 @@ button{font-family:var(--body)}
     </div>
     <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
     <a href="lecture-week.html?week=4" target="_top">Week 4 lectures</a>
-    <a href="sheets/BIO005-Week4-Worksheet-channel-gating.pdf" target="_blank" rel="noopener">Print the worksheet<span class="sr"> (PDF, opens in a new tab)</span></a>
     <a href="biol005-w04-channel-gating-walkthrough-notes.html" target="_blank" rel="noopener">Written notes<span class="sr"> (opens in a new tab)</span></a>
   </div>
 </header>
@@ -185,7 +187,8 @@ button{font-family:var(--body)}
     <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
     <div class="controls">
       <button type="button" class="tbtn" id="backBtn">Back</button>
-      <button type="button" class="tbtn primary" id="playBtn">Show me</button>
+      <button type="button" class="tbtn primary" id="playBtn" aria-describedby="gateNote">Show me</button>
+      <span id="gateNote" class="sr" aria-live="polite"></span>
       <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
       <button type="button" class="tbtn" id="nextBtn">Next</button>
     </div>
@@ -196,7 +199,7 @@ button{font-family:var(--body)}
   <aside class="card ws" id="ws" aria-labelledby="wsTitle">
     <h2 id="wsTitle">Your worksheet</h2>
     <div class="ws-body" id="wsBody">
-      <p class="sub">Write each prediction on your printed worksheet and here before you click Show me. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <p class="sub">Type each prediction here before you click Show me. Show me stays locked until you do. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
       <div class="print-only"><p><b>BIOL 005 Week 4: Ion channel gating, prediction worksheet</b></p><p id="printDate"></p></div>
       <div class="field">
         <label for="stuName">Your name</label>
@@ -579,7 +582,7 @@ function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function wire(root){
   root.querySelectorAll("textarea[data-k]").forEach(function(ta){
     var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
-    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);gateShow();clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
   });
 }
 function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
@@ -618,7 +621,7 @@ function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}
 function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
 function renderNarr(i,revealed){
   var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
-  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Write your prediction in the worksheet, then click Show me.':'Write your prediction in the worksheet, then click Show me. Next unlocks after you see what happens.')+'</p></div>';}
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
   if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
   else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
   h+=supportHTML(s.title);
@@ -640,23 +643,32 @@ function goTo(i,focus){
   playBtn.hidden=!!s.auto||rev;
   replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
   playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
-  renderCurrent();
+  busy=false;renderCurrent();gateShow();
   if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
   if(s.auto){runPlay(true);}
 }
 function runPlay(auto){
   var i=cur,s=STEPS[i];
   runId++;s.pre();
-  var my=runId;playBtn.disabled=true;replayBtn.disabled=true;
+  var my=runId;busy=true;playBtn.disabled=true;replayBtn.disabled=true;
   s.play(true).then(function(){
     if(my!==runId)return;
-    playBtn.disabled=false;replayBtn.disabled=false;
+    busy=false;playBtn.disabled=false;replayBtn.disabled=false;
     if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
       var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
     }
   });
 }
-playBtn.addEventListener("click",function(){runPlay(false);});
+/* Sep 27 2026: Show me stays locked until a prediction is typed (at least 3 words) */
+var busy=false;
+function predWords(i){return ((store["p"+i]||"").trim().match(/\S+/g)||[]).length;}
+function gateShow(){
+  var s=STEPS[cur],gn=document.getElementById("gateNote");
+  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished){gn.textContent="";return;}
+  var ok=predWords(cur)>=3;if(!busy&&!playBtn.hidden)playBtn.disabled=!ok;
+  gn.textContent=ok?"":"Type your prediction in the worksheet on the right, at least a few words, to unlock Show me.";
+}
+playBtn.addEventListener("click",function(){if(playBtn.disabled)return;runPlay(false);});
 document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
 replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
 backBtn.addEventListener("click",function(){goTo(cur-1,true);});

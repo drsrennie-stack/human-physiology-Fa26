@@ -108,6 +108,15 @@
     15: ''
   };
 
+  /* PAGES WITH THEIR OWN CANVAS HOME. Sep 27 2026, Scrubs: a page opened
+     from one Canvas assignment should send the student back to that
+     assignment, not to the modules list. Copy the whole URL from inside the
+     module, including ?module_item_id=. */
+  var CANVAS_PAGE = {
+    'week-04-preread.html': { href: 'https://yccd.instructure.com/courses/42616/assignments/1243536?module_item_id=2714388',
+                              label: 'Back to the Week 4 pre-read in Canvas' }
+  };
+
   /* WHICH WEEK IS THIS PAGE ABOUT.
 
      Most pages say so in their filename. The ones that do not, and the
@@ -178,6 +187,8 @@
 
   /* The honest destination for a cold open, best first. */
   function coldTarget() {
+    var own = CANVAS_PAGE[fileName().toLowerCase()];
+    if (own) return own;
     var n = weekOfPage();
     if (n && CANVAS_WEEK[n]) return { href: CANVAS_WEEK[n], label: 'Back to Week ' + n + ' in Canvas' };
     if (n) return { href: CANVAS_HOME, label: 'Back to the Canvas modules' };
