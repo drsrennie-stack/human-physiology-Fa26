@@ -260,7 +260,7 @@ window.BIO005_CHART = {
      explicitly left alone. */
   3: {
     title:'Catch Up on the Cell',
-    date:'September 22, 06:40', when:'Four days after the training room',
+    date:'September 22, 0640', when:'Four days after the training room',
     encounter:'Arrival in the emergency department',
     tools:[
       ['Correcting a sodium for the glucose',
@@ -277,10 +277,10 @@ window.BIO005_CHART = {
     chart:[
       ['Vitals','HR 128, BP 96/58, RR 32, temperature 36.4 &deg;C (97.5 &deg;F), SpO<sub>2</sub> 99% on room air. Weight 55 kg (121 lb), from 63.5 kg four days ago and 61 kg in August.'],
       ['Examination','Dry mucous membranes, skin tenting, sunken eyes. Drowsy but rousable. Breathing deeply and without effort. She has been passing very large volumes of urine and drinking constantly for about three weeks.'],
-      ['Note','Estimated fluid deficit approximately 6 L. First liter of 0.9% sodium chloride started at 06:55.']
+      ['Note','Estimated fluid deficit approximately 6 L. First liter of 0.9% sodium chloride started at 0655.']
     ],
     panels:[
-      { name:'Basic metabolic panel', when:'September 22, 06:45', rows:[
+      { name:'Basic metabolic panel', when:'September 22, 0645', rows:[
         ['Sodium (measured)','128','mEq/L','135 to 145','L'],
         ['Potassium','5.4','mEq/L','3.5 to 5.0','H'],
         ['Chloride','96','mEq/L','98 to 107','L'],
@@ -289,7 +289,7 @@ window.BIO005_CHART = {
         ['Blood urea nitrogen','34','mg/dL','7 to 20','H'],
         ['Creatinine','1.6','mg/dL','0.5 to 1.0','H']
       ]},
-      { name:'Osmolality', when:'September 22, 06:45', rows:[
+      { name:'Osmolality', when:'September 22, 0645', rows:[
         ['Serum osmolality (measured)','305','mOsm/kg','275 to 295','H'],
         ['Urine osmolality','320','mOsm/kg','no fixed range, read against serum','']
       ]}
@@ -321,43 +321,43 @@ window.BIO005_CHART = {
      the synapse half of the old Week 5 entry moved up to join it. */
   4: {
     title:'Membrane Potential, Neurons and Synapses',
-    date:'September 22, 07:00 to 11:00', when:'The first four hours of treatment',
+    date:'September 22, 0700 to 1100', when:'The first four hours of treatment',
     encounter:'Resuscitation, hours 0 to 4',
-    arc:'Her potassium is the number that will hurt her if you read it as a quantity rather than as a position. It is high on arrival and low four hours later, and almost none of that is potassium entering or leaving her body. While that is happening, two synapses are doing visible work on her, and they are using different transmitters to serve the same outflow.',
+    arc:'This week is about potassium and her nervous system. When she arrives, the potassium in her blood is high. Four hours later it is low. Her body did not take in potassium and then lose it in those four hours. Most of the change is potassium moving between her blood and the inside of her cells, so the blood number on its own can fool you. At the same time, her nervous system is working hard. Her heart is racing, the blood vessels in her skin are squeezed shut, and her skin is dry. All three come from the same part of her nervous system, the sympathetic division, but it does not use the same chemical messenger and receptor for each job.',
     chart:[
-      ['Potassium','07:00: 5.4 mEq/L. 09:00: 4.1. 11:00: 3.1.'],
-      ['ECG','07:05: sinus tachycardia at 128, tall peaked T waves, QTc 410 ms. 11:00: T waves flattened, U waves present.'],
+      ['Potassium','0700: 5.4 mEq/L. 0900: 4.1. 1100: 3.1.'],
+      ['ECG','0705: sinus tachycardia at 128, tall peaked T waves, QTc 410 ms. 1100: T waves flattened, U waves present.'],
       ['Autonomic examination','HR 128. Peripheries cool to the mid-forearm, capillary refill 4 seconds. Skin dry despite the tachycardia. Pupils 4 mm and reactive.'],
-      ['Treatment','Insulin infusion started 07:20. Fluids continuing. Potassium chloride added to the infusion at 11:05 and the insulin rate reduced.'],
-      ['Note','Total body potassium deficit in this presentation is typically 3 to 5 mEq per kg of body weight, which for her is roughly 165 to 275 mEq, despite the arrival value being above the reference range.']
+      ['Treatment','Insulin infusion started 0720. Fluids continuing. Potassium chloride added to the infusion at 1105 and the insulin rate reduced.'],
+      ['Note','In a patient this sick with DKA, the body is usually short about 3 to 5 mEq of potassium for every kilogram of body weight. For her that is roughly 165 to 275 mEq missing, even though her first blood value was above the normal range.']
     ],
     panels:[
       { name:'Potassium series', when:'September 22', rows:[
-        ['Potassium, 07:00','5.4','mEq/L','3.5 to 5.0','H'],
-        ['Potassium, 09:00','4.1','mEq/L','3.5 to 5.0',''],
-        ['Potassium, 11:00','3.1','mEq/L','3.5 to 5.0','L'],
-        ['Magnesium, 07:00','1.6','mg/dL','1.7 to 2.4','L'],
-        ['Phosphate, 07:00','4.8','mg/dL','2.5 to 4.5','H']
+        ['Potassium, 0700','5.4','mEq/L','3.5 to 5.0','H'],
+        ['Potassium, 0900','4.1','mEq/L','3.5 to 5.0',''],
+        ['Potassium, 1100','3.1','mEq/L','3.5 to 5.0','L'],
+        ['Magnesium, 0700','1.6','mg/dL','1.7 to 2.4','L'],
+        ['Phosphate, 0700','4.8','mg/dL','2.5 to 4.5','H']
       ]}
     ],
     five:[
-      'Name the ion this entry is about and say which way its electrochemical gradient points across a resting cell membrane. Say what holds that gradient in place and what it costs.',
-      'Predict what a serum potassium of 5.4 does to the resting membrane potential, and then what 3.1 does. Give the direction for each, and say which of the two she is in more danger from at 11:00.',
-      'Explain, gate by gate, why a membrane held depolarized becomes less excitable rather than more, and name the channel state that does it.',
-      'Her heart is fast and her skin vessels are shut. Name the transmitter and the receptor at each of those two synapses, and say why one outflow ends at two different receptors. Then interpret her dry skin: say what it shows and what it cannot show about her sympathetic state.',
-      'Name the one measurement or event that would make you hold the insulin, and say why holding it is the right move even though her glucose is still high.'
+      'Which ion is this entry about? Across a resting cell membrane, which way does it tend to move, and why? What keeps its concentration difference in place, and what does that cost the cell?',
+      'Predict what a blood potassium of 5.4 does to the resting membrane potential. Then predict what 3.1 does. For each, say which way the resting potential moves, and say which one puts her in more danger at 1100.',
+      'A cell that stays partly depolarized becomes harder to fire, not easier. Explain why, one gate at a time, and name the channel state that causes it.',
+      'Her heart is fast and the blood vessels in her skin are squeezed shut. For each one, name the neurotransmitter and the receptor involved, and explain how the same part of the nervous system can cause two different effects. Then look at her dry skin. What does it tell you about her sympathetic nervous system, and what can it not tell you?',
+      'What one lab result or event would make you stop the insulin for now? Why is stopping it the right move, even though her blood sugar is still high?'
     ],
     tracks:{
-      nursing:{ data:'Standing protocol: hold insulin if potassium is below 3.3 mEq/L and replace first. Potassium every two hours while on the infusion. Continuous cardiac monitoring.',
-        go:'the protocol says hold the insulin, which feels like withholding treatment from a patient whose glucose is 642. Explain, physiologically, what insulin does to potassium that makes the protocol right. Then say which of the two problems, the glucose or the potassium, will kill her first, and why the ECG is the monitor that tells you.' },
-      medicine:{ data:'Three separate forces are acting on where potassium sits: insulin deficiency, acidemia, and an osmotic diuresis that has been running for days. Two of them move potassium out of cells and one of them removes it from the body.',
-        go:'name each of the three forces, say whether it shifts potassium or removes it, and say which direction the serum number moves under each. Then explain how a patient can be simultaneously hyperkalemic and severely potassium depleted, and say which of those two facts the treatment is about to reverse first.' },
-      radiology:{ data:'There is nothing to image here. The ECG, however, is a recording of a physiological signal from the body surface, in the same sense that any imaging modality records a signal that has traveled through tissue.',
-        go:'say what the ECG is actually recording, and be precise: it is not the action potential of a single cell. Explain what summation and volume conduction mean here, and then say why a change in the T wave, which is repolarization, is the first thing potassium alters. Name what the ECG cannot tell you about her potassium.' },
-      rt:{ data:'Her pH on arrival was 7.09. Correcting an acidemia, whether by ventilation or by clearing the acid load, shifts potassium into cells. Her respiratory rate of 32 is already doing part of that work.',
-        go:'name the exchange that couples hydrogen ion and potassium across the cell membrane, and say which way each moves as pH rises. Then say what would happen to her potassium if someone sedated and intubated her and set a ventilator rate of 14, and why that is one of the most dangerous things you could do to her this morning.' },
-      exercise:{ data:'Serum potassium rises during intense exercise, sometimes to 6 mEq/L or above, and returns to baseline within minutes of stopping. The rise comes largely from working muscle and the recovery is largely reuptake.',
-        go:'the same number that is an emergency in her is routine in a sprinter. Explain where the potassium comes from during exercise, which pump takes it back, and why the recovery is so fast. Then say what is different about her situation that makes 5.4 dangerous, using time course and total body content in your answer.' }
+      nursing:{ data:'The hospital protocol: if potassium is below 3.3 mEq/L, stop the insulin and give potassium first. Check potassium every two hours while the insulin is running. Keep her on a heart monitor the whole time.',
+        go:'the protocol says to stop the insulin, which feels like holding back treatment from a patient whose blood sugar is 642. Explain what insulin does to potassium that makes the protocol right. Then say which problem is more dangerous right now, the sugar or the potassium, and why the heart monitor (ECG) is what warns you.' },
+      medicine:{ data:'Three things are affecting where her potassium is: she has too little insulin, her blood is too acidic, and she has been making huge amounts of urine for days because of the sugar in it. Two of these move potassium out of her cells into her blood. One of them removes potassium from her body.',
+        go:'name each of the three, say whether it moves potassium or removes it, and say which way it pushes the blood potassium number. Then explain how she can have high potassium in her blood while her body is badly short of potassium overall, and say which of those two the treatment will change first.' },
+      radiology:{ data:'There is nothing to image here. But an ECG is a lot like imaging: it records a signal from the body surface that has traveled through tissue to get there.',
+        go:'say what an ECG actually records. It is not the action potential of one cell. Explain how the electrical activity of many heart cells adds up and spreads through the body to reach the skin. Then say why the T wave, which shows the heart repolarizing, is the first part of the ECG that potassium changes. Finally, name one thing the ECG cannot tell you about her potassium.' },
+      rt:{ data:'Her blood pH on arrival was 7.09, which is very acidic. When the acid is corrected, either by breathing it off or by clearing it, potassium moves back into cells. Breathing 32 times a minute, she is already doing part of that on her own.',
+        go:'name the exchange that links hydrogen ions and potassium across the cell membrane, and say which way each one moves as the pH rises. Then say what would happen to her potassium if someone sedated her, put her on a ventilator, and set it to breathe only 14 times a minute, and why that would be one of the most dangerous things to do to her this morning.' },
+      exercise:{ data:'Blood potassium rises during hard exercise, sometimes to 6 mEq/L or higher, and goes back to normal within minutes of stopping. Most of the extra comes out of the working muscles, and most of the recovery is the muscles taking it back in.',
+        go:'the same number that is an emergency in her is normal in a sprinter. Explain where the potassium comes from during exercise, which pump takes it back, and why it recovers so fast. Then say what is different about her that makes 5.4 dangerous. Use how long it lasts and how much potassium her body holds overall in your answer.' }
     }
   },
 
@@ -373,15 +373,15 @@ window.BIO005_CHART = {
     encounter:'Neurological, reflex and sensory assessment',
     arc:'Three loops are on this page and none of them needed a doctor to run. One protects her brain, one defends her blood pressure, and one changed the shape of a lens without anyone noticing until she stopped wearing her contact lenses. Two of the three recover on their own. The interesting question is what you would have to measure to know which.',
     chart:[
-      ['Conscious level','06:40 Glasgow Coma Scale 13 (eyes 3, verbal 4, motor 6): drowsy, oriented to person and place but not to time. 10:00 GCS 14. 14:00 GCS 15, fully oriented.'],
-      ['Reflexes, September 22','Patellar 1+ and ankle 1+, symmetric, at 06:40; 2+ and symmetric by 14:00. Plantar response flexor throughout. Pupils 4 mm, brisk and equal.'],
+      ['Conscious level','0640 Glasgow Coma Scale 13 (eyes 3, verbal 4, motor 6): drowsy, oriented to person and place but not to time. 1000 GCS 14. 1400 GCS 15, fully oriented.'],
+      ['Reflexes, September 22','Patellar 1+ and ankle 1+, symmetric, at 0640; 2+ and symmetric by 1400. Plantar response flexor throughout. Pupils 4 mm, brisk and equal.'],
       ['Sensory testing, September 22','Light touch and vibration intact at both great toes. A 10 g monofilament was felt at all nine sites on each foot.'],
-      ['Sitting up, 07:40','Supine 96/58 with HR 128. At one minute sitting 78/44 with HR 138. She felt faint and was laid flat.'],
+      ['Sitting up, 0740','Supine 96/58 with HR 128. At one minute sitting 78/44 with HR 138. She felt faint and was laid flat.'],
       ['Vision','She reports that everything has looked soft for about two weeks and that she stopped wearing her contact lenses because they were not helping. Bedside distance acuity September 22: 20/60 both eyes. October 20: 20/20 both eyes, same prescription, no treatment given to her eyes.'],
       ['Breathing','RR 32, deep and regular, unchanged through the morning.']
     ],
     panels:[
-      { name:'Bedside sensory and reflex testing', when:'September 22, 08:10', rows:[
+      { name:'Bedside sensory and reflex testing', when:'September 22, 0810', rows:[
         ['Patellar reflex, both sides','1+','','2+ is the usual normal','L'],
         ['Ankle reflex, both sides','1+','','2+ is the usual normal','L'],
         ['Plantar response','flexor','','flexor',''],
@@ -395,11 +395,11 @@ window.BIO005_CHART = {
       'Name the five parts of a reflex arc. Then map her pupillary light reflex onto them, naming the actual structure at each step, and say which part of that arc is the one you are testing when you shine a light in one eye and watch the other.',
       'Her blood pressure fell from 96/58 to 78/44 when she sat up, and her heart rate rose by 10. Name the reflex that should have prevented the fall, name its sensor and where that sensor sits, and say why the response you can see on this page is not enough.',
       'Her distance vision was 20/60 on September 22 and 20/20 four weeks later, with no change in prescription and nothing done to her eyes. Explain the mechanism using what you know about water moving toward solute, name the structure that changed shape, and say why the change took weeks to reverse when her glucose came down in hours.',
-      'Interpret reflexes of 1+ at 06:40 and 2+ at 14:00. Say what that change shows and what it cannot show.',
+      'Interpret reflexes of 1+ at 0640 and 2+ at 1400. Say what that change shows and what it cannot show.',
       'Name the one sensory test you would add today that would change what you tell her about the next twenty years, and say what a normal result would and would not rule out.'
     ],
     tracks:{
-      nursing:{ data:'The Glasgow Coma Scale is scored from three separate observations: eye opening out of 4, best verbal response out of 5, and best motor response out of 6. She scored E3 V4 M6 at 06:40.',
+      nursing:{ data:'The Glasgow Coma Scale is scored from three separate observations: eye opening out of 4, best verbal response out of 5, and best motor response out of 6. She scored E3 V4 M6 at 0640.',
         go:'the scale is a set of reflexes and responses, not a measure of consciousness itself. For each of the three components, say whether you are testing a sensory pathway, a motor pathway, or the integration between them. Then say what E3 V4 M6 tells you that a bare total of 13 does not, and name a different combination that also totals 13 and would worry you far more.' },
       medicine:{ data:'Large myelinated fibers carry vibration and light touch and conduct at roughly 35 to 75 m/s. Small thinly myelinated and unmyelinated fibers carry pain and temperature and conduct at roughly 0.5 to 30 m/s. Nerve conduction studies record only the large fibers, and the monofilament tests them too.',
         go:'her monofilament and vibration testing are normal today, and a nerve conduction study would be normal as well. Say precisely what that does and does not exclude, naming which fiber population is invisible to both tests. Then say which of her symptoms over the last three weeks, if any, could already have been a small fiber symptom, and write the question you would ask her to find out.' },
@@ -579,7 +579,7 @@ window.BIO005_CHART = {
   /* ---------------------------------------------------------- 9 */
   9: {
     title:'The Heart as a Pump',
-    date:'March 10, and November 4 at 08:40', when:'His last well clinic visit, and the morning he arrived',
+    date:'March 10, and November 4 at 0840', when:'His last well clinic visit, and the morning he arrived',
     encounter:'Emergency department, arrival',
     tools:[
       ['Why his lactate is 4.6',
@@ -595,14 +595,14 @@ window.BIO005_CHART = {
     arc:'He has had a bad pump for six years and he has lived around it. Then he got an infection, which asks a heart for more output, and his heart has none left to give. The trap on this page is that his cardiac output reads normal. Read it against what a man with a temperature of 38.9 &deg;C (102.0 &deg;F) should be producing and it is not normal at all, and two numbers on this page tell you so.',
     chart:[
       ['Baseline, March 10 clinic','HR 64, BP 118/70, RR 16, temperature 36.8 &deg;C (98.2 &deg;F), SpO<sub>2</sub> 96% on room air. Weight 88 kg (194 lb), height 178 cm (5 ft 10 in). Echocardiogram: ejection fraction 30%, left ventricle dilated. He walks his dog twice a day and stops once on the hill.'],
-      ['November 4, 08:40, arrival','Four days of cough and fever, one day of confusion. Brought in by his daughter. HR 118, BP 82/46, RR 28, temperature 38.9 &deg;C (102.0 &deg;F), SpO<sub>2</sub> 88% on room air and 93% on 6 L by nasal cannula. Weight 91 kg (201 lb).'],
+      ['November 4, 0840, arrival','Four days of cough and fever, one day of confusion. Brought in by his daughter. HR 118, BP 82/46, RR 28, temperature 38.9 &deg;C (102.0 &deg;F), SpO<sub>2</sub> 88% on room air and 93% on 6 L by nasal cannula. Weight 91 kg (201 lb).'],
       ['Examination','Confused but rousable. Knees mottled, capillary refill 4 seconds, hands cold to the wrist. Crackles at the right base and through the right mid-zone. Jugular venous pressure raised 8 cm above the sternal angle. Third heart sound present. Pitting edema to mid-shin.'],
-      ['ECG, 08:45','Sinus tachycardia at 118. Q waves in V1 to V4, unchanged from March. No ST elevation.'],
-      ['Bedside echocardiogram, 09:20','Ejection fraction 25%. Left ventricular internal diameter in diastole 62 mm. Stroke volume 42 mL at a heart rate of 118, so cardiac output 4.9 L/min. Body surface area 2.1 m<sup>2</sup>. Inferior vena cava 2.3 cm with almost no change through the respiratory cycle. Central venous pressure 14 mmHg.'],
-      ['Note','He took his morning carvedilol at 07:00, before his daughter found him confused.']
+      ['ECG, 0845','Sinus tachycardia at 118. Q waves in V1 to V4, unchanged from March. No ST elevation.'],
+      ['Bedside echocardiogram, 0920','Ejection fraction 25%. Left ventricular internal diameter in diastole 62 mm. Stroke volume 42 mL at a heart rate of 118, so cardiac output 4.9 L/min. Body surface area 2.1 m<sup>2</sup>. Inferior vena cava 2.3 cm with almost no change through the respiratory cycle. Central venous pressure 14 mmHg.'],
+      ['Note','He took his morning carvedilol at 0700, before his daughter found him confused.']
     ],
     panels:[
-      { name:'Chemistry', when:'November 4, 08:50', rows:[
+      { name:'Chemistry', when:'November 4, 0850', rows:[
         ['Sodium','132','mEq/L','135 to 145','L'],
         ['Potassium','5.1','mEq/L','3.5 to 5.0','H'],
         ['Chloride','98','mEq/L','98 to 107',''],
@@ -612,13 +612,13 @@ window.BIO005_CHART = {
         ['Creatinine','2.6','mg/dL','0.7 to 1.3','H'],
         ['Albumin','2.9','g/dL','3.5 to 5.0','L']
       ]},
-      { name:'Cardiac and perfusion markers', when:'November 4, 08:50', rows:[
+      { name:'Cardiac and perfusion markers', when:'November 4, 0850', rows:[
         ['Troponin T (high sensitivity)','68','ng/L','under 14','H'],
         ['B-type natriuretic peptide','1,840','pg/mL','under 100 (his March value was 480)','H'],
         ['Lactate','4.6','mmol/L','0.5 to 2.0','H'],
         ['Central venous oxygen saturation','52','%','70 to 80','L']
       ]},
-      { name:'Arterial blood gas, on 6 L nasal cannula', when:'November 4, 08:55', rows:[
+      { name:'Arterial blood gas, on 6 L nasal cannula', when:'November 4, 0855', rows:[
         ['pH','7.32','','7.35 to 7.45','L'],
         ['PaCO<sub>2</sub>','30','mmHg','35 to 45','L'],
         ['PaO<sub>2</sub>','62','mmHg','80 to 100','L'],
@@ -638,7 +638,7 @@ window.BIO005_CHART = {
         go:'weight is the most useful number on this page and it is the one nobody orders. Say what 3 kg of gain represents in liters and which compartment it is in, showing the arithmetic. Then explain how a man with a blood pressure of 82/46 can be fluid overloaded at the same time, naming the two compartments that are moving in opposite directions. Finish with what you would chart hourly tonight and the single number that would make you call someone.' },
       medicine:{ data:'His troponin is 68 ng/L against a reference of under 14. His ECG shows old Q waves in V1 to V4 and no ST elevation. His heart rate is 118, his diastolic pressure is 46, and his arterial oxygen saturation is 92 percent.',
         go:'a raised troponin is not the same as a blocked artery. Say what troponin is, where in the cell it sits, and give three ways a heart can release it with no coronary occlusion at all. Then use the three numbers above to argue which mechanism is operating here, being specific about what sets coronary blood flow and when in the cardiac cycle the left ventricle actually gets perfused. Finish by saying what your answer changes about the next hour.' },
-      radiology:{ data:'Chest radiograph 09:05: consolidation in the right lower and right middle lobes. Cardiothoracic ratio 0.58. Small bilateral pleural effusions. Upper lobe vessels more prominent than lower.',
+      radiology:{ data:'Chest radiograph 0905: consolidation in the right lower and right middle lobes. Cardiothoracic ratio 0.58. Small bilateral pleural effusions. Upper lobe vessels more prominent than lower.',
         go:'a chest film measures shadows, not function. Say what the cardiothoracic ratio physically measures and what has to be assumed before you can call it cardiomegaly, then say why a film taken at the bedside makes that assumption weaker. Name which of the four findings changes what is done this morning, and name the number in his chart that the film could never have given you.' },
       rt:{ data:'His oxygen saturation by pulse oximeter is 93 percent on 6 L. His central venous oxygen saturation, sampled from a catheter tip in the superior vena cava, is 52 percent. His hemoglobin is 11.8 g/dL.',
         go:'both numbers are saturations and they are reporting two completely different things. Say what each one samples and what each one tells you. Then write out the four terms that set oxygen delivery, put his numbers into each, and say which term is failing. Finish by explaining how a man can have an arterial saturation of 93 percent and a central venous saturation of 52 percent at the same time, and what that gap means about extraction.' },
@@ -650,7 +650,7 @@ window.BIO005_CHART = {
   /* ---------------------------------------------------------- 10 */
   10: {
     title:'Pressure, Flow, and Holding Blood Pressure Steady',
-    date:'November 4, 09:00 to 18:00', when:'Day 1, the first nine hours',
+    date:'November 4, 0900 to 1800', when:'Day 1, the first nine hours',
     encounter:'Resuscitation and hemodynamic support',
     tools:[
       ['Pulse pressure variation',
@@ -659,23 +659,23 @@ window.BIO005_CHART = {
     ],
     arc:'Mean arterial pressure is the product of flow and resistance, and a body can defend it by raising either one. Over nine hours he is asked to do both, and the chart records exactly what each one costs him. The fluid that was meant to help him made his lung worse within twenty-five minutes, and the drug that raised his pressure did not raise his flow.',
     chart:[
-      ['09:00, before anything','BP 82/46, mean arterial pressure 58 mmHg. HR 118. Central venous pressure 14 mmHg. Cardiac output 4.9 L/min. Pulse pressure 36 mmHg. Pulse pressure variation 8%.'],
-      ['09:10, fluid','500 mL of balanced crystalloid over 20 minutes.'],
-      ['09:35, after the fluid','BP 86/50, mean arterial pressure 62 mmHg. Central venous pressure 18 mmHg. Cardiac output 5.1 L/min. SpO<sub>2</sub> fell from 93% to 89% on the same 6 L.'],
-      ['09:50','A second 500 mL was considered and not given. Noradrenaline started at 0.05 &micro;g/kg/min through a central line, titrated to 0.22 &micro;g/kg/min by 11:00.'],
-      ['11:00','BP 104/58, mean arterial pressure 73 mmHg. HR 104. Central venous pressure 16 mmHg. Cardiac output 5.6 L/min. Lactate 3.4 mmol/L. Urine output 15 mL/h.'],
-      ['16:00','Dobutamine added at 5 &micro;g/kg/min.'],
-      ['18:00','BP 108/56, mean arterial pressure 73 mmHg. HR 112. Central venous pressure 16 mmHg. Cardiac output 6.8 L/min. Lactate 2.1 mmol/L. Urine output 35 mL/h. Central venous oxygen saturation 66%.'],
-      ['Note','He took carvedilol 12.5 mg at 07:00. Lisinopril and spironolactone were held on admission.']
+      ['0900, before anything','BP 82/46, mean arterial pressure 58 mmHg. HR 118. Central venous pressure 14 mmHg. Cardiac output 4.9 L/min. Pulse pressure 36 mmHg. Pulse pressure variation 8%.'],
+      ['0910, fluid','500 mL of balanced crystalloid over 20 minutes.'],
+      ['0935, after the fluid','BP 86/50, mean arterial pressure 62 mmHg. Central venous pressure 18 mmHg. Cardiac output 5.1 L/min. SpO<sub>2</sub> fell from 93% to 89% on the same 6 L.'],
+      ['0950','A second 500 mL was considered and not given. Noradrenaline started at 0.05 &micro;g/kg/min through a central line, titrated to 0.22 &micro;g/kg/min by 1100.'],
+      ['1100','BP 104/58, mean arterial pressure 73 mmHg. HR 104. Central venous pressure 16 mmHg. Cardiac output 5.6 L/min. Lactate 3.4 mmol/L. Urine output 15 mL/h.'],
+      ['1600','Dobutamine added at 5 &micro;g/kg/min.'],
+      ['1800','BP 108/56, mean arterial pressure 73 mmHg. HR 112. Central venous pressure 16 mmHg. Cardiac output 6.8 L/min. Lactate 2.1 mmol/L. Urine output 35 mL/h. Central venous oxygen saturation 66%.'],
+      ['Note','He took carvedilol 12.5 mg at 0700. Lisinopril and spironolactone were held on admission.']
     ],
     panels:[
       { name:'Derived hemodynamics', when:'November 4', rows:[
-        ['Mean arterial pressure, 09:00','58','mmHg','70 to 100','L'],
-        ['Mean arterial pressure, 11:00','73','mmHg','70 to 100',''],
-        ['Systemic vascular resistance, 09:00','718','dyn&middot;s&middot;cm<sup>&minus;5</sup>','800 to 1,200','L'],
-        ['Systemic vascular resistance, 11:00','814','dyn&middot;s&middot;cm<sup>&minus;5</sup>','800 to 1,200',''],
-        ['Systemic vascular resistance, 18:00','671','dyn&middot;s&middot;cm<sup>&minus;5</sup>','800 to 1,200','L'],
-        ['Cardiac index, 18:00','3.2','L/min/m<sup>2</sup>','2.5 to 4.0','']
+        ['Mean arterial pressure, 0900','58','mmHg','70 to 100','L'],
+        ['Mean arterial pressure, 1100','73','mmHg','70 to 100',''],
+        ['Systemic vascular resistance, 0900','718','dyn&middot;s&middot;cm<sup>&minus;5</sup>','800 to 1,200','L'],
+        ['Systemic vascular resistance, 1100','814','dyn&middot;s&middot;cm<sup>&minus;5</sup>','800 to 1,200',''],
+        ['Systemic vascular resistance, 1800','671','dyn&middot;s&middot;cm<sup>&minus;5</sup>','800 to 1,200','L'],
+        ['Cardiac index, 1800','3.2','L/min/m<sup>2</sup>','2.5 to 4.0','']
       ]},
       { name:'Serum albumin and oncotic pressure', when:'November 4', rows:[
         ['Albumin','2.9','g/dL','3.5 to 5.0','L'],
@@ -683,22 +683,22 @@ window.BIO005_CHART = {
       ]}
     ],
     five:[
-      'Write the equation connecting mean arterial pressure, cardiac output and systemic vascular resistance. Calculate his systemic vascular resistance at 09:00 and at 11:00 from the numbers on this page, show the arithmetic, and say in one sentence what the noradrenaline actually changed.',
+      'Write the equation connecting mean arterial pressure, cardiac output and systemic vascular resistance. Calculate his systemic vascular resistance at 0900 and at 1100 from the numbers on this page, show the arithmetic, and say in one sentence what the noradrenaline actually changed.',
       'He was given 500 mL. His central venous pressure rose by 4 mmHg and his cardiac output rose by 0.2 L/min. Using the Frank-Starling curve you drew last week, predict what a second 500 mL would have done. Then say what happened to his oxygen saturation in those twenty-five minutes and name the force that changed to produce it.',
       'Explain the baroreflex: name the sensor, where it sits, the afferent nerve, the integrator, and both efferent limbs. Then say what carvedilol does to that loop, and use it to explain why a heart rate of 118 in him is a larger signal than a heart rate of 118 in a man who takes nothing.',
-      'Interpret a mean arterial pressure of 73 at 11:00. Say what it shows and what it cannot show about whether his kidneys and his gut are being perfused, and name the numbers on this page that argue they were not.',
+      'Interpret a mean arterial pressure of 73 at 1100. Say what it shows and what it cannot show about whether his kidneys and his gut are being perfused, and name the numbers on this page that argue they were not.',
       'Name the one measurement that would tell you whether to add more noradrenaline or to add dobutamine, and say what a high and a low result would each mean.'
     ],
     tracks:{
       nursing:{ data:'The order reads: titrate noradrenaline to a mean arterial pressure of at least 65 mmHg. It does not give a target blood pressure. Urine output is charted hourly and capillary refill every two hours.',
         go:'say why the mean, rather than the systolic, is the number the order chose, and what the mean represents across a whole cardiac cycle that a systolic reading does not. Then name three things you would watch, other than the blood pressure itself, to tell you that the pressure you are creating is actually producing flow. For each one say which finding would tell you it is not, and say which of the three moved first in him.' },
-      medicine:{ data:'Noradrenaline acts mainly at alpha-1 receptors with some beta-1 activity. Dobutamine acts mainly at beta-1 receptors with some beta-2 activity. Between 16:00 and 18:00 his cardiac output rose from 5.6 to 6.8 L/min while his systemic vascular resistance fell from 814 to 671, and his mean arterial pressure did not change.',
+      medicine:{ data:'Noradrenaline acts mainly at alpha-1 receptors with some beta-1 activity. Dobutamine acts mainly at beta-1 receptors with some beta-2 activity. Between 1600 and 1800 his cardiac output rose from 5.6 to 6.8 L/min while his systemic vascular resistance fell from 814 to 671, and his mean arterial pressure did not change.',
         go:'take each drug and say which receptor it occupies, which second messenger follows, and what the smooth muscle cell or the myocyte then does. Then explain how adding dobutamine raised his cardiac output and lowered his resistance at the same time, and why the mean arterial pressure held steady through both. Finish by saying what his lactate falling from 3.4 to 2.1 tells you about which of the two changes mattered.' },
-      radiology:{ data:'Bedside ultrasound at 09:00: inferior vena cava 2.3 cm with almost no respiratory variation. Lung ultrasound: B-lines in all anterior and lateral zones bilaterally, denser on the right.',
+      radiology:{ data:'Bedside ultrasound at 0900: inferior vena cava 2.3 cm with almost no respiratory variation. Lung ultrasound: B-lines in all anterior and lateral zones bilaterally, denser on the right.',
         go:'inferior vena cava diameter is offered as a volume measurement and it is not one. Say what it physically measures, and name two things other than blood volume that change it in him specifically. Then say what a B-line physically is, in terms of what sound does at an interface, and use the fact that they are bilateral and in every zone to argue what is filling his alveoli and where it came from.' },
       rt:{ data:'His oxygen saturation fell from 93 percent to 89 percent within twenty-five minutes of a 500 mL fluid bolus, on the same 6 L of oxygen. His albumin is 2.9 g/dL and his estimated plasma colloid osmotic pressure is 13 mmHg against a normal 25 to 28.',
         go:'the fluid was given to help him and it made his lung worse inside half an hour. Name the four Starling forces at the pulmonary capillary, say which one the bolus changed and by how much, and say which one his albumin had already weakened. Then explain why the same 500 mL would have been far safer in a man with a normal albumin, and name the one feature of the pulmonary circulation that makes it the first place this shows up.' },
-      exercise:{ data:'A healthy person meeting a demand for more flow raises cardiac output and drops resistance in the working muscle beds at the same time; mean arterial pressure barely moves. In him, the pressure between 09:00 and 11:00 was held almost entirely by raising resistance.',
+      exercise:{ data:'A healthy person meeting a demand for more flow raises cardiac output and drops resistance in the working muscle beds at the same time; mean arterial pressure barely moves. In him, the pressure between 0900 and 1100 was held almost entirely by raising resistance.',
         go:'name the two ways a body can defend a mean arterial pressure, and say which one is cheap and which one is expensive. Then explain precisely what raising systemic vascular resistance costs a left ventricle with an ejection fraction of 25 percent, using the word afterload and saying what it does to stroke volume and to myocardial oxygen demand. Finish by naming the organ bed that pays for it first and the number in his chart that shows it paying.' }
     }
   },
@@ -715,7 +715,7 @@ window.BIO005_CHART = {
     ],
     arc:'Two things are happening to him and they need separating. There is an organism, and there is what his body is doing about the organism. The antibiotic treats the first one. Almost everything on this page, including the thing that nearly killed him, is the second one. By Day 3 his white cell count has fallen below normal without anyone treating it, and that is worse news than the 19.4 he arrived with.',
     chart:[
-      ['Microbiology','Two sets of blood cultures taken Day 1 before antibiotics. Both positive on Day 2 for Streptococcus pneumoniae. Sputum grew the same organism. Urine culture negative. Antibiotics started Day 1 at 09:30.'],
+      ['Microbiology','Two sets of blood cultures taken Day 1 before antibiotics. Both positive on Day 2 for Streptococcus pneumoniae. Sputum grew the same organism. Urine culture negative. Antibiotics started Day 1 at 0930.'],
       ['Temperature','Day 1: 38.9 &deg;C (102.0 &deg;F). Day 3: 35.8 &deg;C (96.4 &deg;F). Day 5: 37.2 &deg;C (99.0 &deg;F).'],
       ['Day 3 note','No bleeding anywhere. No transfusion and no platelets given. Nothing has been done to his blood count. It has changed on its own.'],
       ['Day 5 note','Off noradrenaline since Day 4. Still ventilated.']
@@ -850,10 +850,10 @@ window.BIO005_CHART = {
     ],
     arc:'His lung fails in two stages and they are not the same problem. First it gets wet, because of what you worked on in Week 10. Then it gets stiff, because of what you worked on in Week 11. By Day 2 the fast lever that normally holds a pH steady within a minute is being asked to cover for a kidney that has stopped working, and the muscles doing the levering are the same ones that wasted in Week 12.',
     chart:[
-      ['Day 1, 08:55, on 6 L nasal cannula','pH 7.32, PaCO<sub>2</sub> 30 mmHg, PaO<sub>2</sub> 62 mmHg, bicarbonate 15 mEq/L, SaO<sub>2</sub> 92%. Estimated inspired oxygen fraction 0.44.'],
-      ['Day 2, 04:00, on high flow 60 L/min at inspired oxygen 0.80','pH 7.25, PaCO<sub>2</sub> 38 mmHg, PaO<sub>2</sub> 58 mmHg, bicarbonate 16 mEq/L. Respiratory rate 38, using accessory muscles, unable to finish a sentence.'],
-      ['Day 2, 05:10','Intubated. Volume controlled ventilation, tidal volume 440 mL, rate 24, PEEP 12 cmH<sub>2</sub>O, inspired oxygen 0.70.'],
-      ['Day 2, 08:00, ventilated','pH 7.24, PaCO<sub>2</sub> 44 mmHg, PaO<sub>2</sub> 78 mmHg, bicarbonate 18 mEq/L. Plateau pressure 28 cmH<sub>2</sub>O with a PEEP of 12. No bicarbonate was given.'],
+      ['Day 1, 0855, on 6 L nasal cannula','pH 7.32, PaCO<sub>2</sub> 30 mmHg, PaO<sub>2</sub> 62 mmHg, bicarbonate 15 mEq/L, SaO<sub>2</sub> 92%. Estimated inspired oxygen fraction 0.44.'],
+      ['Day 2, 0400, on high flow 60 L/min at inspired oxygen 0.80','pH 7.25, PaCO<sub>2</sub> 38 mmHg, PaO<sub>2</sub> 58 mmHg, bicarbonate 16 mEq/L. Respiratory rate 38, using accessory muscles, unable to finish a sentence.'],
+      ['Day 2, 0510','Intubated. Volume controlled ventilation, tidal volume 440 mL, rate 24, PEEP 12 cmH<sub>2</sub>O, inspired oxygen 0.70.'],
+      ['Day 2, 0800, ventilated','pH 7.24, PaCO<sub>2</sub> 44 mmHg, PaO<sub>2</sub> 78 mmHg, bicarbonate 18 mEq/L. Plateau pressure 28 cmH<sub>2</sub>O with a PEEP of 12. No bicarbonate was given.'],
       ['Day 4, proned 16 hours a day','pH 7.36, PaCO<sub>2</sub> 40 mmHg, PaO<sub>2</sub> 92 mmHg, bicarbonate 22 mEq/L, on inspired oxygen 0.55 and PEEP 12.'],
       ['Day 7, spontaneous breathing trial','Inspired oxygen 0.40, PEEP 8. Trial stopped after 12 minutes. Respiratory rate 34, tidal volume 260 mL. He was not distressed at the start and was sweating at the end.'],
       ['Hemoglobin','11.8 g/dL on Day 1, 9.6 g/dL from Day 3. His March value was 12.6 g/dL with a saturation of 96% on room air.']
@@ -861,11 +861,11 @@ window.BIO005_CHART = {
     panels:[
       { name:'Gas exchange, derived', when:'Day 1 and Day 2', rows:[
         ['PaO<sub>2</sub> to inspired oxygen ratio, Day 1','141','mmHg','over 300','L'],
-        ['PaO<sub>2</sub> to inspired oxygen ratio, Day 2, 04:00','73','mmHg','over 300','L'],
-        ['PaO<sub>2</sub> to inspired oxygen ratio, Day 2, 08:00','111','mmHg','over 300','L'],
+        ['PaO<sub>2</sub> to inspired oxygen ratio, Day 2, 0400','73','mmHg','over 300','L'],
+        ['PaO<sub>2</sub> to inspired oxygen ratio, Day 2, 0800','111','mmHg','over 300','L'],
         ['PaO<sub>2</sub> to inspired oxygen ratio, Day 4','167','mmHg','over 300','L']
       ]},
-      { name:'Respiratory mechanics, Day 2 ventilated', when:'November 5, 08:00', rows:[
+      { name:'Respiratory mechanics, Day 2 ventilated', when:'November 5, 0800', rows:[
         ['Tidal volume','440','mL','6 mL per kg predicted body weight',''],
         ['Plateau pressure','28','cmH<sub>2</sub>O','under 30',''],
         ['PEEP','12','cmH<sub>2</sub>O','set',''],
@@ -880,9 +880,9 @@ window.BIO005_CHART = {
       ]}
     ],
     five:[
-      'Calculate his arterial oxygen content on Day 2 at 04:00 and at his March baseline, using 1.34 mL of oxygen carried per gram of hemoglobin and 0.003 mL per mmHg dissolved. Show both. Say which of the two terms does almost all the work, and what that means about treating him with oxygen alone.',
+      'Calculate his arterial oxygen content on Day 2 at 0400 and at his March baseline, using 1.34 mL of oxygen carried per gram of hemoglobin and 0.003 mL per mmHg dissolved. Show both. Say which of the two terms does almost all the work, and what that means about treating him with oxygen alone.',
       'His alveolar to arterial oxygen difference is very large and it barely improves when the inspired oxygen is raised from 0.44 to 0.80. Name the two mechanisms that produce a low arterial oxygen with a large alveolar to arterial difference, say exactly how raising inspired oxygen separates them, and say which one he has.',
-      'Explain the fast pH lever: name the reaction, the enzyme, the organ, and say how a change in breathing changes blood pH within a minute. Then apply Winter\'s formula to his Day 2, 04:00 gas and say whether his lever is working. Say what that answer told the team to do at 05:10.',
+      'Explain the fast pH lever: name the reaction, the enzyme, the organ, and say how a change in breathing changes blood pH within a minute. Then apply Winter\'s formula to his Day 2, 0400 gas and say whether his lever is working. Say what that answer told the team to do at 0510.',
       'Interpret a plateau pressure of 28 with a PEEP of 12 and a tidal volume of 440 mL. Calculate his compliance, say what it shows, and say what it cannot show about whether the stiffness is in his lung or in his chest wall.',
       'Name the one measurement that would tell you whether his failed breathing trial on Day 7 is a lung problem or a pump problem, and say what each result would mean.'
     ],
@@ -982,17 +982,17 @@ window.BIO005_CHART = {
     ],
     arc:'This is the last entry and it is the first one again, twice. You read Camila\'s arrival gas in Week 3 and were told to leave it alone. You read Dale\'s in Week 9 and were told the same. Read both of them now. Then read the gas each of them had once treatment had been running, which is the one that catches people out, because in both patients the treatment created a second acidosis while it was fixing the first.',
     chart:[
-      ['Camila, September 22, 06:45, on arrival','pH 7.09, PaCO<sub>2</sub> 14 mmHg, bicarbonate 4 mEq/L. Sodium 128, chloride 96, albumin 4.2 g/dL, glucose 642 mg/dL, beta-hydroxybutyrate 6.8 mmol/L.'],
-      ['Camila, September 22, 18:00, after 6 L of 0.9% saline and an insulin infusion','pH 7.31, PaCO<sub>2</sub> 26 mmHg, bicarbonate 13 mEq/L. Sodium 140, chloride 112, albumin 3.9 g/dL, glucose 198 mg/dL, beta-hydroxybutyrate 1.1 mmol/L.'],
-      ['Dale, November 4, 08:55, on arrival','pH 7.32, PaCO<sub>2</sub> 30 mmHg, bicarbonate 15 mEq/L. Sodium 132, chloride 98, albumin 2.9 g/dL, lactate 4.6 mmol/L, creatinine 2.6 mg/dL.'],
-      ['Dale, November 5, 04:00, Day 2, before intubation','pH 7.25, PaCO<sub>2</sub> 38 mmHg, bicarbonate 16 mEq/L. Respiratory rate 38, using accessory muscles.'],
+      ['Camila, September 22, 0645, on arrival','pH 7.09, PaCO<sub>2</sub> 14 mmHg, bicarbonate 4 mEq/L. Sodium 128, chloride 96, albumin 4.2 g/dL, glucose 642 mg/dL, beta-hydroxybutyrate 6.8 mmol/L.'],
+      ['Camila, September 22, 1800, after 6 L of 0.9% saline and an insulin infusion','pH 7.31, PaCO<sub>2</sub> 26 mmHg, bicarbonate 13 mEq/L. Sodium 140, chloride 112, albumin 3.9 g/dL, glucose 198 mg/dL, beta-hydroxybutyrate 1.1 mmol/L.'],
+      ['Dale, November 4, 0855, on arrival','pH 7.32, PaCO<sub>2</sub> 30 mmHg, bicarbonate 15 mEq/L. Sodium 132, chloride 98, albumin 2.9 g/dL, lactate 4.6 mmol/L, creatinine 2.6 mg/dL.'],
+      ['Dale, November 5, 0400, Day 2, before intubation','pH 7.25, PaCO<sub>2</sub> 38 mmHg, bicarbonate 16 mEq/L. Respiratory rate 38, using accessory muscles.'],
       ['Dale, November 10, Day 7, after about 9 L of 0.9% saline over three days','pH 7.31, PaCO<sub>2</sub> 40 mmHg, bicarbonate 20 mEq/L. Sodium 141, chloride 114, albumin 2.1 g/dL, lactate 1.2 mmol/L.'],
       ['Dale, November 18, Day 15, off renal replacement','pH 7.36, PaCO<sub>2</sub> 38 mmHg, bicarbonate 21 mEq/L. Sodium 140, chloride 108, albumin 2.6 g/dL.']
     ],
     panels:[
       { name:'Anion gaps, for you to check', when:'Both patients', rows:[
         ['Camila, arrival, albumin 4.2','you calculate','mEq/L','normal about 12',''],
-        ['Camila, 18:00, albumin 3.9','you calculate','mEq/L','normal about 12',''],
+        ['Camila, 1800, albumin 3.9','you calculate','mEq/L','normal about 12',''],
         ['Dale, arrival, albumin 2.9','you calculate','mEq/L','normal about 12',''],
         ['Dale, Day 7, albumin 2.1','you calculate','mEq/L','normal about 12',''],
         ['Dale, Day 15, albumin 2.6','you calculate','mEq/L','normal about 12','']
@@ -1002,7 +1002,7 @@ window.BIO005_CHART = {
       'Name the primary disturbance in each of the six blood gases on this page. For each one say which lever, the fast one or the slow one, is doing the compensating, and whether it is doing enough. Show the Winter\'s check for every gas where a metabolic acidosis is primary.',
       'Calculate the anion gap for Dale on November 4 and on November 10, and correct both for his albumin. Say what the two corrected numbers, read with his chloride, reveal about what happened between those dates, and name the fluid responsible.',
       'Explain the slow lever: name where filtered bicarbonate is reclaimed, where new bicarbonate is made, what the acid is excreted with, and how long the whole response takes. Then say why Dale\'s slow lever could not help him on November 4 and could not help him on November 10, for two completely different reasons.',
-      'Interpret Camila\'s 18:00 gas and Dale\'s November 10 gas side by side. Both patients are improving. Both have a new acidosis that was made by the treatment. Say what each gas shows, what neither can show, and what you would change about the fluid in each case.',
+      'Interpret Camila\'s 1800 gas and Dale\'s November 10 gas side by side. Both patients are improving. Both have a new acidosis that was made by the treatment. Say what each gas shows, what neither can show, and what you would change about the fluid in each case.',
       'Both files open with a person who was well and one sentence of history. Name the one measurement you would have added to Camila\'s August physical and the one you would have added to Dale\'s March clinic visit, and for each say what question it would have let you answer later.'
     ],
     tracks:{
@@ -1012,9 +1012,9 @@ window.BIO005_CHART = {
         go:'work the delta ratio for Camila between her two gases and for Dale between his arrival and Day 7 gases, showing the arithmetic for each. Say what each result reveals. Then explain why 0.9 percent saline does this, naming what is actually in the bag and what the body does with each of its two ions, and say what you would have given instead and why its anion behaves differently.' },
       radiology:{ data:'Across both files: Camila had one screening ECG, two DEXA scans and one pelvic ultrasound. Dale had chest films on Days 1, 2 and 3, a CT of the chest and abdomen on Day 2, serial bedside ultrasound, and two echocardiograms.',
         go:'read both files as one. Name the single study across both patients that most changed what was done, and defend it. Then name the single study that did the most harm, say exactly how the harm happened at tissue level, and say what question it was answering that a number already on the chart had answered first. Finish by naming one study that was not done in either patient and should have been, or say plainly that there is none.' },
-      rt:{ data:'Camila\'s PaCO<sub>2</sub> rose from 14 to 26 mmHg between 06:45 and 18:00 on September 22, and the team was pleased. Dale\'s PaCO<sub>2</sub> rose from 30 to 38 mmHg between Day 1 and 04:00 on Day 2, and the team intubated him. Both rises are about the same size.',
-        go:'the same number moved the same way in both patients and it meant opposite things. Explain why, using Winter\'s formula on each and saying what the expected value was in each case. Then say what a rising PaCO<sub>2</sub> tells you about respiratory muscles when the acid load is unchanged, and name the bedside observation in Dale\'s chart, not a number, that said the same thing at 04:00.' },
-      exercise:{ data:'At her November exercise test Camila reached a blood lactate of 11.4 mmol/L with a pH of 7.31, which is the pH she had at 18:00 on the day she nearly died. Dale reached a lactate of 4.6 with a pH of 7.32. Where the protons in exercise acidosis come from is genuinely disputed: the traditional account is that lactic acid dissociates, and a competing account holds that lactate production consumes a proton and the protons come from ATP hydrolysis outrunning oxidative resynthesis.',
+      rt:{ data:'Camila\'s PaCO<sub>2</sub> rose from 14 to 26 mmHg between 0645 and 1800 on September 22, and the team was pleased. Dale\'s PaCO<sub>2</sub> rose from 30 to 38 mmHg between Day 1 and 0400 on Day 2, and the team intubated him. Both rises are about the same size.',
+        go:'the same number moved the same way in both patients and it meant opposite things. Explain why, using Winter\'s formula on each and saying what the expected value was in each case. Then say what a rising PaCO<sub>2</sub> tells you about respiratory muscles when the acid load is unchanged, and name the bedside observation in Dale\'s chart, not a number, that said the same thing at 0400.' },
+      exercise:{ data:'At her November exercise test Camila reached a blood lactate of 11.4 mmol/L with a pH of 7.31, which is the pH she had at 1800 on the day she nearly died. Dale reached a lactate of 4.6 with a pH of 7.32. Where the protons in exercise acidosis come from is genuinely disputed: the traditional account is that lactic acid dissociates, and a competing account holds that lactate production consumes a proton and the protons come from ATP hydrolysis outrunning oxidative resynthesis.',
         go:'three similar pH values, three completely different states. Say what makes one an emergency, one a normal Tuesday, and one something in between, using the anion gap, the time course, and what happens when the stimulus stops. Then lay out both accounts of the exercise protons, say what each predicts you would measure, and take a position while making clear which parts are settled and which are not.' }
     }
   }
