@@ -89,30 +89,44 @@ def build(n):
         '%s%s</div>' % (CARD.replace('margin:0 0 18px 0;', ''), EYEBROW, eb, NAVY, h, body, extra))
     p = lambda t, c=NAVY: '<p style="margin:0 0 12px 0;line-height:1.6;color:%s;">%s</p>' % (c, t)
 
+    # Sep 27 2026, Scrubs: the top of every week's Start here page looks like the
+    # course home page students already know (tools/site/enter-card.html): the
+    # centered welcome, then the two big cards, maroon Stay in Canvas and navy
+    # Use the week page.
+    F = "'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+    FH = "'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+    SH = "box-shadow:0 10px 24px -8px rgba(11,21,48,.35),0 3px 8px -3px rgba(11,21,48,.25)"
+    dates = (('Opens %s. Everything is due %s at 10:00 pm Pacific, except your first discussion post, '
+              'which is due %s at 10:00 pm.' % (e(data["opens"]), e(data["closes"]), e(data["discussion_first_post"])))
+             if data.get("discussion_first_post") else
+             'Opens %s. Everything is due %s at 10:00 pm Pacific.' % (e(data["opens"]), e(data["closes"])))
+    def bigcard(bg, arrow, acol, align, h, body, btn_href, btn_text, btn_bg, btn_fg, target, note):
+        return ('<div style="flex:1 1 300px;min-width:270px;background:%s;border-radius:16px;padding:26px 24px 24px;%s">'
+                '<p style="margin:0 0 12px;line-height:0;text-align:%s"><span aria-hidden="true" style="display:inline-block;font-family:%s;font-size:54px;line-height:1;font-weight:700;color:%s">%s</span></p>'
+                '<h3 style="margin:0 0 10px;font-family:%s;font-size:23px;font-weight:800;letter-spacing:-.022em;color:#FFFFFF;line-height:1.15">%s</h3>'
+                '<p style="margin:0 0 18px;font-family:%s;font-size:15.5px;line-height:1.6;color:#F5F1E8">%s</p>'
+                '<p style="margin:0"><a href="%s" target="%s"%s style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;border-radius:8px;background:%s;border:2px solid %s;color:%s;text-decoration:none;font-family:%s;font-weight:800;font-size:16px">%s</a></p>'
+                '<p style="margin:12px 0 0;font-family:%s;font-size:13px;line-height:1.5;color:#F5F1E8">%s</p></div>'
+                % (bg, SH, align, F, acol, arrow, FH, h, F, body, btn_href, target,
+                   ' rel="noopener"' if target == "_blank" else "", btn_bg, btn_bg, btn_fg, F, btn_text, F, note))
     out = (
       '<div style="font-family:%s;color:%s;max-width:960px;">' % (FONT, NAVY) +
-      '<p style="%s">BIO 005 Human Physiology &middot; %s</p>' % (EYEBROW, e(data["n_of"])) +
-      '<h2 style="margin:0 0 12px 0;font-size:2em;line-height:1.15;font-weight:800;color:%s;">'
-      '<span style="color:%s;">Week %d</span>: %s.</h2>' % (NAVY, MAROON, n, e(data["title"])) +
-      p(('Opens %s. Everything is due %s at 10:00 pm Pacific, except your first discussion post, '
-         'which is due %s at 10:00 pm.' % (e(data["opens"]), e(data["closes"]), e(data["discussion_first_post"])))
-        if data.get("discussion_first_post") else
-        'Opens %s. Everything is due %s at 10:00 pm Pacific.' % (e(data["opens"]), e(data["closes"]))) +
-      '<h3 style="margin:26px 0 6px 0;font-size:1.35em;color:%s;">Choose how you want to work this week</h3>' % MDARK +
-      p('Both ways have the same steps, in the same order, with the same due dates, and you turn in '
-        'everything in Canvas either way. Pick the one that feels easier. You can switch at any time.', INK_SOFT) +
-      '<div style="display:flex;flex-wrap:wrap;gap:16px;margin:0 0 18px 0;">' +
-      choice('Option 1', 'Stay in Canvas',
-             p('Work down this module from top to bottom. Each item opens the page for that step and '
-               'is where you turn in the work for it.') +
-             p('When you finish a page, press <strong>Next</strong> at the bottom to go to the following step.'),
-             p('<strong>Start:</strong> press Next below this page.', MAROON)) +
-      choice('Option 2', 'Use the interactive week page',
-             p('One page that shows the whole week as a loop, from the pre-read to the discussion. Click '
-               'any step to open it.') +
-             p('It opens in a new tab, so Canvas stays open behind it for turning in your work.'),
-             '<p style="margin:4px 0 0 0;"><a href="%s" target="_blank" rel="noopener" style="%s">'
-             'Open the Week %d page &#8599;</a></p>' % (entry, BTN, n)) +
+      '<div style="text-align:center;padding:6px 0 0">'
+      '<p style="margin:0 0 14px;line-height:0"><img src="%sicon.svg" width="54" height="64" alt="" style="display:inline-block;height:64px;width:auto;border:0"></p>' % SITE +
+      '<p style="margin:0 0 12px;font-family:%s;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8B3A2E">BIO 005 &middot; %s</p>' % (F, e(data["n_of"])) +
+      '<h2 style="margin:0 auto;font-family:%s;font-size:34px;font-weight:800;letter-spacing:-.025em;color:#0B1530;line-height:1.1;max-width:22ch">Week %d: <span style="color:#8B3A2E">%s.</span></h2>' % (FH, n, e(data["title"])) +
+      '<p style="margin:16px auto 0;font-family:%s;font-size:17px;line-height:1.6;color:#414B5C;max-width:54ch">%s</p>' % (F, dates) +
+      '<p style="margin:14px auto 0;font-family:%s;font-size:15.5px;line-height:1.6;color:#0B1530;max-width:54ch">You can work this week two ways, and they hold the same steps in the same order under the same names. You turn everything in on Canvas either way. Pick whichever one suits how you like to work.</p>' % F +
+      '</div>'
+      '<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:stretch;margin:30px 0 26px">' +
+      bigcard("#8B3A2E", "&#8592;", "#E0BC6C", "left", "Stay in Canvas",
+              "Work down this module from top to bottom. Each item opens the page for that step and is where you turn in the work for it. When you finish a page, press <b>Next</b> at the bottom.",
+              "https://yccd.instructure.com/courses/42616/modules", "Go to the modules", "#FFFFFF", "#8B3A2E", "_top",
+              "Or press Next at the bottom of this page to start Step 1.") +
+      bigcard("#0B1530", "&#8594;", "#C9A14A", "right", "Use the Week %d page" % n,
+              "The whole week on one page, as one line of steps from the pre-read to the discussion, with the pages for each step listed under it.",
+              entry, "Open the Week %d page" % n, "#C9A14A", "#060A18", "_blank",
+              "It opens in a new tab, so Canvas stays open behind it for turning in your work.") +
       '</div>' +
       '<div style="%s">' % CARD +
       '<p style="%s">This week, in order: the steps in this module</p>' % EYEBROW +
