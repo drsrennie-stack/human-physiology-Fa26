@@ -45,8 +45,12 @@ NOTES = {
      ("biol005-w02-transport-notes.html", "Membrane transport"),
      ("biol005-w02-signaling-notes.html", "Cell signaling")],
  3: [("biol005-w03-compartments-notes.html", "Body fluid compartments")],
- 4: [("biol005-w04-neurons-glia-notes.html", "Neurons and glia"),
-     ("biol005-w04-membrane-potential-notes.html", "The resting membrane potential"),
+ # Sep 27 2026: each guided walkthrough has its own bullet notes, which replace the
+ # older lecture notes for that topic in the Week 4 packet.
+ 4: [("biol005-w04-neurons-glia-walkthrough-notes.html", "Neurons and neuroglia"),
+     ("biol005-w04-rmp-walkthrough-notes.html", "The resting membrane potential"),
+     ("biol005-w04-channel-gating-walkthrough-notes.html", "Ion channel gating"),
+     ("biol005-w04-graded-potentials-walkthrough-notes.html", "Graded potentials"),
      ("biol005-w04-action-potential-notes.html", "Graded potentials and the action potential"),
      ("biol005-w04-ap-conduction-notes.html", "How action potentials carry information"),
      ("biol005-w04-synapse-notes.html", "The chemical synapse"),
@@ -168,7 +172,12 @@ def main():
                 print("missing", f); continue
             html = asyncio.run(build_one(f, t, w))
             doc = HTML(string=html, base_url=str(ROOT) + '/').render(pdf_variant='pdf/ua-1')
-            name = "notes/BIO005-Week%d-Notes-%d-%s.pdf" % (w, i, f.replace("biol005-", "").replace("-notes.html", ""))
+            if f.endswith("-walkthrough-notes.html"):
+                name = "notes/BIO005-Week%d-Walkthrough-Notes-%s.pdf" % (w, f.replace("biol005-w%02d-" % w, "").replace("-walkthrough-notes.html", ""))
+            else:
+                # lecture notes keep the numbers they were first published under
+                k = i - sum(1 for g, _ in NOTES[w][:i] if g.endswith("-walkthrough-notes.html")) + (2 if w == 4 else 0)
+                name = "notes/BIO005-Week%d-Notes-%d-%s.pdf" % (w, k, f.replace("biol005-", "").replace("-notes.html", ""))
             target = OUT / name
             target.parent.mkdir(parents=True, exist_ok=True)
             doc.write_pdf(target, pdf_variant='pdf/ua-1', uncompressed_pdf=False)

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neurons and neuroglia, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 4 · Written notes</p>
+  <h1>Neurons and neuroglia</h1>
+  <p>The written notes for the neurons and neuroglia walkthrough. Week 4 competencies 7 to 11.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week4-Walkthrough-Notes-neurons-glia.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Work through <a href="biol005-w04-neurons-glia-guided.html" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the slides.</p></div>
+<section>
+<h2>The map of the nervous system</h2>
+<ul>
+  <li>The central nervous system (CNS) is the brain and spinal cord. It is where information is integrated and decisions are made.</li>
+  <li>The peripheral nervous system (PNS) is everything else: the nerves that carry information in and commands out.</li>
+  <li>The sensory division, also called the afferent division, carries information toward the CNS from receptors in the skin, muscles, eyes, ears and internal organs. Most signals from the organs never reach awareness.</li>
+  <li>The efferent division carries commands away from the CNS to effectors, which are muscles and glands.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Efferent branch</th><th scope="col">What it controls</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">Somatic motor division</th><td>Skeletal muscle</td><td>Picking up a pencil on purpose; many reflexes</td></tr>
+<tr><th scope="row">Autonomic division (visceral nervous system)</th><td>Smooth muscle, cardiac muscle, glands, some adipose tissue</td><td>Heart rate speeding up without your deciding it</td></tr>
+</tbody></table></div>
+<ul>
+  <li>The autonomic division has two branches that often have opposite effects on the same organ. The organ's activity reflects the balance between them.</li>
+  <li>Sympathetic branch: fight-or-flight. Prepares the body for stress and effort, for example raising heart rate and sending more blood to working muscles.</li>
+  <li>Parasympathetic branch: rest-and-digest. Runs maintenance such as digestion, and slows the heart.</li>
+  <li>Enteric nervous system: a network of neurons in the wall of the digestive tract. It can sense, decide and command on its own, and the autonomic division normally adjusts it.</li>
+</ul>
+<dl>
+  <dt>Afferent</dt><dd>Carrying toward the CNS. The sensory division.</dd>
+  <dt>Efferent</dt><dd>Carrying away from the CNS, toward effectors.</dd>
+  <dt>Effector</dt><dd>A muscle or gland that carries out a command.</dd>
+</dl>
+</section>
+<section>
+<h2>Neurons sorted by direction and by shape</h2>
+<div class="tbl"><table><thead><tr><th scope="col">By direction</th><th scope="col">What it does</th><th scope="col">Where</th></tr></thead><tbody>
+<tr><th scope="row">Sensory (afferent) neuron</th><td>Carries information toward the CNS</td><td>Receptor to CNS</td></tr>
+<tr><th scope="row">Interneuron</th><td>Connects other neurons; does the processing, comparing and deciding</td><td>Entirely inside the CNS</td></tr>
+<tr><th scope="row">Efferent (motor) neuron</th><td>Carries commands away from the CNS</td><td>CNS to effector</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Every neuron has dendrites, short branches that receive signals, and one axon, a long fiber that carries the signal away.</li>
+  <li>Neurons are sorted by shape by counting the processes that leave the cell body.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Shape</th><th scope="col">Processes</th><th scope="col">Where it is found</th></tr></thead><tbody>
+<tr><th scope="row">Multipolar</th><td>Many dendrites and one axon</td><td>Interneurons of the brain and spinal cord, and efferent neurons such as somatic motor neurons (cell bodies in the ventral horn)</td></tr>
+<tr><th scope="row">Bipolar</th><td>One dendrite and one axon</td><td>Retina and olfactory epithelium</td></tr>
+<tr><th scope="row">Pseudounipolar</th><td>One stalk that splits in two</td><td>Sensory neurons for touch, pain and stretch; cell bodies in the dorsal root ganglia</td></tr>
+</tbody></table></div>
+<ul>
+  <li>In a pseudounipolar neuron the signal runs from the skin straight past the cell body toward the spinal cord, without detouring through the cell body where it could fade.</li>
+  <li>Sensory fibers enter the spinal cord through the dorsal root and motor axons leave through the ventral root, so damage to one root affects one direction only.</li>
+</ul>
+</section>
+<section>
+<h2>The four working regions of a neuron</h2>
+<ol>
+  <li>Dendrites receive signals from other cells. One neuron may receive input from thousands of others. The signals here are graded potentials: small, local, variable in size, and they fade as they spread.</li>
+  <li>The cell body (soma) holds the nucleus and makes the cell's proteins. Signals from every branch spread into it and add together, which is called summation.</li>
+  <li>The trigger zone, the axon hillock and the initial segment of the axon, decides whether to fire. It has the highest density of voltage-gated sodium channels in the neuron, so it reaches threshold first. In a sensory neuron the trigger zone sits near the receptor endings instead.</li>
+  <li>The axon carries action potentials. An action potential is all or none: it is rebuilt at full size as it travels, so it arrives as big as it started. A motor axon from the spinal cord to the foot can be about a meter long.</li>
+  <li>The axon terminals release neurotransmitter. When an action potential arrives, voltage-gated calcium channels open, calcium rushes in, and the rise in calcium makes vesicles fuse with the membrane and release neurotransmitter.</li>
+</ol>
+<ul>
+  <li>A stronger stimulus does not make a bigger action potential. It makes action potentials fire more often, and it recruits more neurons.</li>
+  <li>If the calcium channels at the terminal are blocked, the action potential arrives normally but no neurotransmitter is released, so the message stops at the terminal.</li>
+</ul>
+<dl>
+  <dt>Graded potential</dt><dd>A small, local change in membrane voltage whose size varies with the input and which fades with distance.</dd>
+  <dt>Action potential</dt><dd>A large, all-or-none signal that travels the length of the axon without getting smaller.</dd>
+  <dt>Trigger zone</dt><dd>The axon hillock and initial segment, where the neuron decides whether to fire.</dd>
+  <dt>Synapse</dt><dd>The junction between an axon terminal and the next cell: a neuron, a muscle fiber or a gland.</dd>
+</dl>
+</section>
+<section>
+<h2>The glial cells</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Glial cell</th><th scope="col">Where</th><th scope="col">Job</th></tr></thead><tbody>
+<tr><th scope="row">Astrocyte</th><td>CNS</td><td>Most common CNS glia. Controls the fluid around neurons: takes up extra potassium after neurons fire, clears leftover neurotransmitter such as glutamate, passes fuel from blood to neurons. Its end feet signal capillary cells to form the tight junctions of the blood-brain barrier.</td></tr>
+<tr><th scope="row">Oligodendrocyte</th><td>CNS</td><td>Makes myelin. One oligodendrocyte wraps segments of several axons.</td></tr>
+<tr><th scope="row">Microglia</th><td>CNS</td><td>Resident immune cells. Patrol, then activate to engulf invaders, damaged cells and debris.</td></tr>
+<tr><th scope="row">Ependymal cell</th><td>CNS</td><td>Lines the ventricles and central canal. Specialized ependymal cells make cerebrospinal fluid; cilia help move it.</td></tr>
+<tr><th scope="row">Schwann cell</th><td>PNS</td><td>Makes myelin. One Schwann cell wraps one segment of one axon. Helps cut peripheral axons regrow.</td></tr>
+<tr><th scope="row">Satellite cell</th><td>PNS</td><td>Forms a capsule around cell bodies in ganglia and regulates the fluid around them. A kind of Schwann cell that does not make myelin.</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Blood-brain barrier: brain capillaries are sealed by tight junctions. Small lipid-soluble molecules (oxygen, carbon dioxide, alcohol) cross easily; water-soluble molecules (glucose, amino acids) need transport proteins. It keeps out many toxins, and many drugs.</li>
+  <li>If astrocytes cannot clear potassium, outside potassium rises, the resting potential becomes less negative, and neurons sit closer to threshold. This is one link to seizure disorders.</li>
+  <li>Hydrocephalus: if cerebrospinal fluid cannot drain, it builds up, the ventricles swell and pressure rises on the brain. Fluid stays steady only when production matches drainage.</li>
+  <li>Because one oligodendrocyte myelinates many axons, losing one damages insulation on many fibers.</li>
+</ul>
+<h3>When an axon is cut</h3>
+<ol>
+  <li>The part of the axon cut off from the cell body dies, because it is no longer supplied.</li>
+  <li>In the PNS, Schwann cells survive, clear debris, line up into a tube and release growth factors, and the axon can regrow along that path, at roughly a millimeter a day.</li>
+  <li>In the CNS, oligodendrocytes and astrocytes release molecules that block regrowth, and astrocytes form a scar.</li>
+</ol>
+</section>
+<section>
+<h2>Myelin and what happens when it is lost</h2>
+<ul>
+  <li>Myelin is a glial cell's own membrane wound around the axon many times. Membrane is mostly lipid and ions cannot cross it, so myelin is electrical insulation.</li>
+  <li>Myelin covers the axon in segments. The bare gaps between them are the nodes of Ranvier.</li>
+  <li>Voltage-gated sodium channels are packed at the nodes, with very few in the membrane under the myelin.</li>
+  <li>The slow step in conduction is the membrane opening channels to rebuild the signal, not current moving along the inside of the axon. Myelin stops current leaking out, so current from one node reaches the next node still strong enough to rebuild the signal there.</li>
+  <li>The signal is rebuilt only at the nodes, so it effectively jumps from node to node. This is saltatory conduction.</li>
+  <li>In electrical terms, myelin raises membrane resistance (less current leaks out) and lowers membrane capacitance (less charge is needed to change the voltage). A wider axon also conducts faster, because it has less resistance to current flowing along the inside.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Axon</th><th scope="col">Conduction speed</th></tr></thead><tbody>
+<tr><th scope="row">Large, myelinated</th><td>Up to about 120 m/s</td></tr>
+<tr><th scope="row">Thin, unmyelinated</th><td>About 0.5 to 2 m/s</td></tr>
+</tbody></table></div>
+<h3>Demyelination</h3>
+<ol>
+  <li>The myelin over a stretch of axon is destroyed and the bare axon is exposed.</li>
+  <li>Current leaks out of the bare stretch.</li>
+  <li>That membrane was always covered, so it has very few sodium channels to rebuild the signal.</li>
+  <li>If the stretch is long enough, the signal fades before the next node reaches threshold. The message never arrives: conduction block.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Disease</th><th scope="col">Myelin attacked</th><th scope="col">Pattern</th></tr></thead><tbody>
+<tr><th scope="row">Multiple sclerosis</th><td>CNS myelin, made by oligodendrocytes</td><td>Scattered, unrelated-looking symptoms (vision, sensation, strength, balance) that come and go as patches become inflamed and partly recover. Warmth can briefly tip barely conducting fibers into block.</td></tr>
+<tr><th scope="row">Guillain-Barré syndrome</th><td>PNS myelin, made by Schwann cells</td><td>Weakness that climbs the legs, often after an infection; reflexes lost; conduction slowed but response size near normal. Most people recover over weeks to months because Schwann cells remyelinate well.</td></tr>
+</tbody></table></div>
+</section>
+<section>
+<h2>Axonal transport</h2>
+<ul>
+  <li>Proteins are made in the cell body. Nothing is built at the axon terminals, so everything has to be shipped along the axon.</li>
+  <li>Cargo travels on microtubules that run the length of the axon. Motor proteins walk along them, splitting ATP at every step. If the microtubules are taken apart, traffic stops in both directions.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Direction</th><th scope="col">Motor protein</th><th scope="col">Cargo</th></tr></thead><tbody>
+<tr><th scope="row">Anterograde: cell body to terminals</th><td>Kinesin</td><td>Synaptic vesicles, new membrane proteins such as channels, mitochondria</td></tr>
+<tr><th scope="row">Retrograde: terminals to cell body</th><td>Dynein</td><td>Worn-out membrane and organelles for recycling, growth factor signals from the target cell</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th scope="col">Speed</th><th scope="col">Rate</th><th scope="col">Carries</th></tr></thead><tbody>
+<tr><th scope="row">Fast transport</th><td>Up to about 400 mm per day</td><td>Vesicles and mitochondria</td></tr>
+<tr><th scope="row">Slow transport</th><td>About 0.2 to 2.5 mm per day</td><td>Cytoskeleton proteins and dissolved enzymes</td></tr>
+</tbody></table></div>
+<ul>
+  <li>At 400 mm per day, fast transport covers a 1 meter axon in about 2.5 days.</li>
+  <li>A cut peripheral axon regrows about a millimeter a day because it is built from cytoskeleton proteins that arrive by slow transport.</li>
+  <li>A block on the axon piles outward cargo up on the cell body side. Blocking the inward motor piles returning cargo up on the terminal side.</li>
+  <li>Retrograde transport is also a way in: rabies virus and tetanus toxin ride it from the terminals into the CNS. Herpes viruses ride it in to hide in a sensory cell body, and later ride anterograde transport back out, so a cold sore returns in the same spot.</li>
+</ul>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>

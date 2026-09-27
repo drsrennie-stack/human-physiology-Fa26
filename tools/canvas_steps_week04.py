@@ -55,6 +55,8 @@ STEPS = [
         "and integration at the synapse.",
         "Watch the short videos as you go, and again whenever you need them. In the walkthroughs, look for the "
         "<strong>Stuck? Watch a short explanation</strong> button on the steps where a video helps.",
+        "Print the worksheet for each walkthrough and keep it beside you. Every time a walkthrough asks you to predict, write or draw your prediction on the worksheet and type it into the walkthrough, then press Show me. Next stays locked until you do.",
+        "After each walkthrough, read its written notes to fill in anything you missed.",
         "For each competency, pick prompt A or prompt B and draw it in the box in your first color.",
         "After each walkthrough, do its part of the drawing sheet from memory, with the walkthrough closed."],
   links=[dict(title="Choose one: how you will do your Competency Study Guide",
@@ -65,7 +67,8 @@ STEPS = [
                     links=[("The Week 4 competency list", "week-04-competencies.html")])]),
          ("The Week 4 lessons and videos, in order (opens Monday, September 28 at 8:00 am)", "lecture-week.html?week=4"),
          ("The Week 4 drawing sheet, one part for each walkthrough. Print it, or open it and draw on your own paper", "biol005-w04-drawing-sheet.html"),
-         ("The Week 4 written notes, one page per lesson, for reading and rereading (opens Monday, September 28 at 8:00 am)", "week-04-notes.html", "optional"),
+         ("The walkthrough worksheets, to print and fill in as you go (PDF)", "sheets/BIO005-Week4-Worksheets-all.pdf"),
+         ("The Week 4 written notes, for each walkthrough and lesson (opens Monday, September 28 at 8:00 am)", "week-04-notes.html"),
          ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
   turnin=None),
 

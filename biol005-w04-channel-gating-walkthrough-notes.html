@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ion channel gating, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 4 · Written notes</p>
+  <h1>Ion channel gating</h1>
+  <p>The written notes for the ion channel gating walkthrough.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week4-Walkthrough-Notes-channel-gating.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Work through <a href="biol005-w04-channel-gating-guided.html" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the slides.</p></div>
+<section>
+<h2>Leak channels and gated channels</h2>
+<ul>
+  <li>Leak channels have no gate. They are always open and let through whatever fits, all the time. Potassium leak channels are why a resting cell has a voltage at all.</li>
+  <li>Most channels are gated: a moving part sits in the pore and blocks it until a specific trigger moves it.</li>
+  <li>Gates let the cell control when ions move, not just whether they can. Leak channels set the resting voltage; gated channels let the cell act at a chosen moment.</li>
+</ul>
+<dl>
+  <dt>Leak channel</dt><dd>A channel with no gate, open all the time.</dd>
+  <dt>Gated channel</dt><dd>A channel with a gate that opens only in response to a specific trigger.</dd>
+</dl>
+</section>
+<section>
+<h2>What opens a gate</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Channel</th><th scope="col">Opens when</th><th scope="col">Where you meet it</th></tr></thead><tbody>
+<tr><th scope="row">Voltage-gated</th><td>The voltage across the membrane changes. Charged parts of the channel sit in the electric field and physically move, and the gate moves with them.</td><td>The sodium and potassium channels of axons; calcium channels in axon terminals</td></tr>
+<tr><th scope="row">Ligand-gated (chemically gated)</th><td>A specific molecule binds to a receptor site on the channel, like a key in a lock. The gate stays open while it is bound.</td><td>Acetylcholine receptors where a motor neuron meets a muscle fiber</td></tr>
+<tr><th scope="row">Mechanically gated</th><td>The membrane is stretched, bent or pressed.</td><td>Sensory endings in the skin, hair cells of the inner ear, walls of blood vessels</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Positive feedback in voltage-gated sodium channels: channels open when the membrane becomes less negative, sodium comes in and makes it less negative still, which opens more channels. This runaway loop is why an action potential goes all the way once it starts.</li>
+  <li>Ligand-gated channels are how one cell talks to the next: the message crosses the gap as a chemical, and the chemical opens gates on the far side.</li>
+  <li>A drug that sits in the acetylcholine binding sites without opening the channels leaves the channels shut, and the muscle is not told to contract: weakness or paralysis. Some paralytic drugs used in surgery work this way. In myasthenia gravis, antibodies destroy these receptors, causing weakness that worsens with use.</li>
+  <li>Mechanically gated channels are where sensation begins: pressure, sound vibration and stretch are turned into an electrical signal.</li>
+</ul>
+</section>
+<section>
+<h2>The voltage-gated sodium channel has two gates</h2>
+<ul>
+  <li>Activation gate: at the outer end of the pore. Closed at rest; opens quickly at threshold.</li>
+  <li>Inactivation gate: at the inner end of the pore. Open at rest; responds to the same voltage change but moves slowly, and then plugs the pore from the inside.</li>
+  <li>Both gates must be out of the way for sodium to pass.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">State</th><th scope="col">Activation gate (outer)</th><th scope="col">Inactivation gate (inner)</th><th scope="col">Na+ passes?</th><th scope="col">Can it open now?</th></tr></thead><tbody>
+<tr><th scope="row">Resting</th><td>Closed</td><td>Open</td><td>No</td><td>Yes, it is ready</td></tr>
+<tr><th scope="row">Open</th><td>Open</td><td>Open</td><td>Yes, sodium floods in</td><td>It is open</td></tr>
+<tr><th scope="row">Inactivated</th><td>Open</td><td>Closed, plugging the pore</td><td>No</td><td>No, whatever the stimulus</td></tr>
+</tbody></table></div>
+<h3>The sequence, every time the channel fires</h3>
+<ol>
+  <li>At rest (about −70 mV) the channel is in the resting state.</li>
+  <li>The membrane depolarizes to threshold, about −55 mV, and the activation gate swings open.</li>
+  <li>Sodium pours in, driven by both its concentration gradient and the negative inside, so the voltage shoots up. This is the upstroke of the action potential.</li>
+  <li>About a millisecond later the slow inactivation gate closes and plugs the pore. Sodium stops, on its own, with nothing needed to switch it off.</li>
+  <li>The membrane repolarizes toward rest.</li>
+  <li>Only then does the channel reset: the activation gate closes, then the inactivation gate swings back out of the pore. The channel is back in the resting state.</li>
+</ol>
+<dl>
+  <dt>Inactivation</dt><dd>The inner gate blocking the pore while the outer gate is still open. Different from being closed: a closed channel can open, an inactivated channel cannot.</dd>
+  <dt>Absolute refractory period</dt><dd>The time after firing when most sodium channels are inactivated, so no stimulus, however strong, can produce another action potential. It sets the top firing rate and keeps an action potential traveling in one direction.</dd>
+  <dt>Channel reset</dt><dd>Return from inactivated to resting, which happens only when the membrane repolarizes.</dd>
+</dl>
+</section>
+<section>
+<h2>The voltage-gated potassium channel</h2>
+<ul>
+  <li>It responds to the same depolarization as the sodium channel, but it has only one gate and it is slow.</li>
+  <li>It is still opening while sodium channels are inactivating, so potassium leaves and helps bring the membrane back down.</li>
+  <li>It closes late too, so potassium keeps leaving after the voltage is back at rest. The voltage dips below rest until the channels close.</li>
+  <li>After-hyperpolarization: that dip below rest. It is part of why a neuron is harder to fire for a short time after an action potential, since the membrane is further from threshold.</li>
+</ul>
+</section>
+<section>
+<h2>Reading patients with the channel states</h2>
+<div class="tbl"><table><thead><tr><th scope="col">Patient</th><th scope="col">What is wrong</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Local anesthetic (lidocaine) at the dentist</th><td>Numb, but still able to move the face</td><td>Lidocaine sits in the sodium channel pore, so sodium cannot enter even when the activation gate opens. No action potential, no pain signal. It binds best to open or inactivated channels, so it acts fastest on nerves firing often, and small pain fibers are blocked before larger motor fibers.</td></tr>
+<tr><th scope="row">Severe hyperkalemia</th><td>Excitable tissue stops responding; life threatening in the heart</td><td>High outside potassium holds the membrane depolarized, so sodium channels stay inactivated and never reset.</td></tr>
+<tr><th scope="row">Hyperkalemic periodic paralysis</th><td>Episodes of weakness with high blood potassium, normal between episodes</td><td>An inherited muscle sodium channel that is slow to inactivate keeps the membrane depolarized; channels stay inactivated, so the muscle cannot fire. Too much depolarization means no activity, not more.</td></tr>
+</tbody></table></div>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
