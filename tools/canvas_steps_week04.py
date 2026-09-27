@@ -49,14 +49,14 @@ STEPS = [
   todo=["Choose how you will do your Competency Study Guide, in the Choose one box below: the printed worksheet, or your own paper. Pick two pens you can tell apart.",
         "Read the Week 4 competencies first, so you know what you are looking for.",
         "The lessons, videos and notes open Monday, September 28 at 8:00 am. Before then the lessons link shows a Get ready page.",
-        "Open the Week 4 lessons and work through them in order. Start with the three walkthroughs: neurons and "
-        "neuroglia, then the resting membrane potential, then ion channel gating. Then the lessons on graded "
-        "potentials and the action potential, how action potentials carry information, the chemical synapse, "
+        "Open the Week 4 lessons and work through them in order. Start with the four walkthroughs: neurons and "
+        "neuroglia, then the resting membrane potential, then ion channel gating, then graded potentials. Then the "
+        "lessons on the action potential, how action potentials carry information, the chemical synapse, "
         "and integration at the synapse.",
         "Watch the short videos as you go, and again whenever you need them. In the walkthroughs, look for the "
         "<strong>Stuck? Watch a short explanation</strong> button on the steps where a video helps.",
         "For each competency, pick prompt A or prompt B and draw it in the box in your first color.",
-        "After the three walkthroughs, do the drawing sheet from memory, with the walkthrough closed."],
+        "After each walkthrough, do its part of the drawing sheet from memory, with the walkthrough closed."],
   links=[dict(title="Choose one: how you will do your Competency Study Guide",
       options=[dict(name="Print the ready-made worksheet", text="A box for each competency with both prompts printed beside it. Print whichever size you like.",
                     links=[("The Study Guide, two competencies to a page (PDF)", "sheets/BIO005-note-sheet-week-04.pdf"),
@@ -64,7 +64,7 @@ STEPS = [
                dict(name="Use your own paper", text="The same competencies and the same prompts on one page. Work them in a notebook or on blank paper.",
                     links=[("The Week 4 competency list", "week-04-competencies.html")])]),
          ("The Week 4 lessons and videos, in order (opens Monday, September 28 at 8:00 am)", "lecture-week.html?week=4"),
-         ("The Week 4 drawing sheet, for after the three walkthroughs. Print it, or open it and draw on your own paper", "biol005-w04-drawing-sheet.html"),
+         ("The Week 4 drawing sheet, one part for each walkthrough. Print it, or open it and draw on your own paper", "biol005-w04-drawing-sheet.html"),
          ("The Week 4 written notes, one page per lesson, for reading and rereading (opens Monday, September 28 at 8:00 am)", "week-04-notes.html", "optional"),
          ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
   turnin=None),
@@ -170,12 +170,9 @@ STEPS = [
          ("What you turn in, and when", "assignment-patient-chart.html", "optional")],
   turnin=None),
 
- dict(title="Exam practice part 1, your videos", time="About 1 hour 30 minutes",
-  status="This has two parts. Your two videos go to me only and are graded complete or incomplete. Your meta-analysis of how it went is the public part, posted in Discussion 4. Part 2 of the practice is Discussion 5, next week.",
-  intro="", todo=[], links=[],
-  submit_here=["Upload everything here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>. Only I see it.",
-               "Due " + DUE + "."],
-  turnin=None),
+ dict(title="Exam practice part 1, two timed questions", time="About 1 hour, including your Discussion 4 post",
+  status="Your two videos go to me only and are graded complete or incomplete. Your meta-analysis of how it went is the public part, posted in Discussion 4. Part 2 of the practice is Discussion 5, next week.",
+  intro="", todo=[], links=[], turnin=None),
 ]
 
 
@@ -185,55 +182,41 @@ STEPS = [
 # so it is a Canvas assignment. Week 5, part 2: the rubrics come out, students
 # score their own work and analyze it, and that is the Week 5 discussion.
 # The rubrics are NOT on the part 1 page on purpose.
-SOURCES = ("Everything in this practice comes from the Week 2 competencies on primary active transport, secondary "
-           "active transport and transepithelial transport: the Na+/K+ ATPase, the Na+/Ca2+ exchanger, SGLT, GLUT2 "
-           "and ouabain. Nothing here needs Week 4.")
+SOURCES = "Both questions come from the Week 2 competencies on membrane transport. Nothing here needs Week 4."
 
 PRACTICE = dict(
- intro="This is part 1 of a two-week practice run of your exam format. This week you work two multiple choice "
-       "questions the way the exam asks you to, one at a time, on video: 15 minutes preparing your answer by building a model from memory, "
-       "then 5 to 7 minutes teaching it and giving your answer. Next week, in Discussion 5, you check your work against the real "
-       "rubrics and analyze what it shows you.",
- how=["What you need: a whiteboard and a marker to build your model on, and a phone or computer to record in Canvas Studio.",
-      "Close your notes, the slides and the book, and keep them closed until you have turned everything in. The point is to find out what you can do from memory.",
-      "Do one question at a time. Each question is one video: 15 minutes preparing your answer on camera with no resources, then 5 to 7 minutes teaching it. Finish question 1 completely before you read question 2.",
-      "There are no rubrics this week. You will see them next week, so do your honest best now and do not look anything up.",
-      "Keep your models and your videos. You need them for part 2."],
- questions=[
-  dict(q="A drug partly inhibits the Na+/K+ ATPase in a heart muscle cell. Trace the effect on intracellular Na+, "
-         "on calcium removal by the Na+/Ca2+ exchanger, and on the strength of contraction.",
-       options=["A. Intracellular Na+ falls, the exchanger removes more Ca2+, and contraction weakens",
-                "B. Intracellular Ca2+ is unchanged, because the exchanger runs on ATP and does not depend on the pump",
-                "C. Intracellular Na+ rises, the exchanger removes less Ca2+, and contraction strengthens",
-                "D. Intracellular Na+ rises, the exchanger removes more Ca2+, and contraction weakens"],
-       key="C",
-       dump="Build the model that answers question 1. Draw a heart muscle cell "
-            "membrane with the Na+/K+ ATPase and the Na+/Ca2+ exchanger in it. Show which way Na+, K+ and Ca2+ move "
-            "through each one and what powers each. Then trace what partly inhibiting the pump does, step by step, "
-            "until you reach the strength of contraction."),
-  dict(q="Ouabain is added to an intestinal epithelial cell. Trace the effect on intracellular Na+ and then on "
-         "glucose uptake through SGLT at the apical membrane.",
-       options=["A. Intracellular Na+ is unchanged, because SGLT keeps it low",
-                "B. Intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls",
-                "C. Intracellular Na+ rises, the Na+ gradient steepens, and SGLT glucose uptake rises",
-                "D. Intracellular Na+ falls, and SGLT glucose uptake rises"],
-       key="B",
-       dump="Build the model that answers question 2. Draw an intestinal "
-            "epithelial cell with the lumen on the apical side and the blood on the basolateral side. Trace one glucose "
-            "molecule from the lumen to the blood: name the transporter at each membrane, which membrane it sits on, "
-            "and whether each step is uphill or downhill for glucose. Add the Na+/K+ ATPase, then trace what ouabain "
-            "changes, step by step, until you reach glucose uptake."),
- ],
- prep="Start recording in Canvas Studio before you begin, and set a timer for 15 minutes. Prepare your answer on camera: build your "
-      "model from memory as a brain dump on your whiteboard, and think out loud as you go. I want to see you "
-      "working it out, so keep the camera on you and on what you are drawing the whole time. A phone video is fine.",
- teach="Keep recording. Take 5 to 7 minutes to teach your answer as if to a classmate who missed class: walk "
-       "through your model in order, explain why each wrong answer cannot be right, and finish by giving your answer.",
- choose="Write down the answer you gave at the end of your video, and how sure you are: sure, fairly sure, or guessing.",
- turnin=["Your two videos from Canvas Studio, one for each question, each with the 15 minutes of preparing and the 5 to 7 minutes of teaching. Graded complete or incomplete, and only I see them.",
-         "The transcript of each video. In Canvas Studio, open the video, go to the Captions tab and choose Request, with English as the language. When the captions are ready, use Review and Publish, fix only the words the machine got wrong, then Download the caption file. Do not reword what you said.",
-         "Your answer to each question, and how sure you were.",
-         "A photo of each finished model."],
+ # Sep 27 2026, Scrubs: each question is its own timed New Quiz (28 minutes),
+ # with the Studio recording made and embedded inside the quiz. The question
+ # text is only in the quizzes, never on this page or the course site.
+ quizzes=[("Exam practice part 1, Question 1", "https://yccd.instructure.com/courses/42616/quizzes/384885"),
+          ("Exam practice part 1, Question 2", "https://yccd.instructure.com/courses/42616/quizzes/384886")],
+ intro="This is a practice run of your exam format. In each of two timed quizzes you get one exam question, build a model on a "
+       "whiteboard from memory that answers it, and teach that model on video. On the exam, you will not be allowed to redo a "
+       "question if you do not follow these directions or do not turn in your video. That is why we are practicing the process "
+       "now, so that on exam day it runs smoothly and all your attention goes to the physiology.",
+ need=["A whiteboard and a marker",
+       "A computer with a camera and microphone, in Chrome, Edge, Safari or Firefox",
+       "A quiet place where no one will interrupt you for 30 minutes, once for each question"],
+ before=["Do a short test recording in Canvas Studio before you start, so you know your camera, microphone and screen recording work. Delete it afterward.",
+         "Aim your camera so it sees both you and your whiteboard.",
+         "Close your notes, the slides, the book, every other tab and window, and any AI tool. Keep them closed until you have submitted.",
+         "Read these directions all the way through. The timer starts the moment you open the quiz."],
+ timing="Each quiz gives you 28 minutes from the moment it opens, and then it submits itself, whether your video is embedded or not. That covers about 3 minutes to read the question and start recording, 15 minutes to prepare, 5 to 7 minutes to teach, and about 3 minutes to save and embed your video. If you wait before you start recording, those minutes come out of your own time.",
+ steps=["Open the quiz. In the answer box, click the Studio button, then <strong>Create</strong>, then <strong>Studio Capture</strong> (Chrome or Edge) or <strong>Screen Capture</strong> (Safari or Firefox). Record your whole screen with your camera on, so your video shows the question on your screen.",
+        "Read the question out loud.",
+        "Prepare for 15 minutes. Build your model on the whiteboard from memory and think out loud as you go.",
+        "Teach for 5 to 7 minutes. Walk through your model in order, as if you were teaching a classmate who missed class. Give your answer by reading it out loud. Then go through each of the other three choices and point to the exact spot on your model that shows why it is wrong. End by stating the correct answer again.",
+        "Click <strong>Finish Recording</strong>, add a title, and click <strong>Save Media</strong>.",
+        "Click your video's thumbnail, then <strong>Embed Media</strong>. Your video does not attach by itself.",
+        "Check that your video shows in the answer box, choose your answer, and click <strong>Submit</strong>."],
+ counts=["it opens with the question visible on your screen,",
+         "it runs from start to finish without pausing or stopping,",
+         "your whiteboard stays in view the whole time, and",
+         "nothing else is open on your screen."],
+ grading=["Your answer is worth 25 percent.",
+          "Your model and how clearly you explain it are worth 75 percent, including showing where each wrong choice breaks down."],
+ grading_note="This is not graded like a speech. If you notice a mistake while you are preparing or teaching, say so and fix it right then. You will not lose points for a mistake you correct. What counts is the physiology, following the procedure, and showing that you can organize what you know to answer the question.",
+ after="Only I see your videos. Question 2 opens after you submit Question 1. Then post in Discussion 4 about how it went. Next week, in Discussion 5, you check your work against the answer key and the rubric.",
 )
 
 # Week 4 has two Canvas items for step 10: the assignment above (videos, to me
@@ -242,7 +225,7 @@ PRACTICE = dict(
 DISC4 = dict(
  title="Discussion 4, how your exam practice went",
  first_post="Friday, October 2 at 10:00 pm", due=DUE,
- intro="Once your two videos are uploaded to the assignment, come here and post your meta-analysis: a look back at how you did the practice. This is the public part; your videos stay with me. It is not "
+ intro="Once you have submitted both Exam practice quizzes, come here and post your meta-analysis: a look back at how you did the practice. This is the public part; your videos stay with me. It is not "
        "about the right answers. You will check those next week. It is about how working from memory felt, where it "
        "broke down, and what you can do about it, and about helping each other find ways to fix the gaps.",
  rule="Do not post which answers you chose. Everyone checks their answers against the key next week, and seeing "
@@ -257,58 +240,23 @@ DISC4 = dict(
 )
 
 PART2 = dict(
+ # Sep 27 2026: the rubrics and the answer key are kept out of this public repo until
+ # the practice quizzes close. Scrubs pastes the full Discussion 5 into Canvas on Oct 5.
+ locked="The rubrics and the answer key appear in Discussion 5 in Canvas on Monday, October 5, after the practice quizzes close.",
  week=5, title="Discussion 5, exam practice part 2", time="About 1 hour",
  first_post="Friday, October 9 at 10:00 pm", due="Sunday, October 11 at 10:00 pm",
  status="Graded. Think About It, 15 percent of your grade across the term.",
  intro="Last week you worked two exam questions on video: for each one you spent 15 minutes building a model to "
        "prepare your answer, then 5 to 7 minutes teaching it. This week you check that work against the rubrics I use on the exam, then look "
        "closely at what it shows you about how you learn.",
- how=["Open your two videos, the photos of your models and your answers from last week.",
-      "Watch the 15 minutes of preparing in each video and check the model you built against its rubric. A point counts only if you clearly said or drew it.",
+ how=["Open your two Exam practice quizzes from last week. Each one holds your video and the answer you chose. Your videos are also in your Studio library.",
+      "Watch the 15 minutes of preparing in each video and check the model you built against its rubric. Pause the video on your finished whiteboard to check it. A point counts only if you clearly said or drew it.",
       "Check your two answers against the key.",
       "Watch the 5 to 7 minutes of teaching in each video and count the points you clearly made.",
       "Answer the analysis questions, then post."],
  scoring="On the exam, each question is scored the same way: your model and your teaching are worth 75 percent of "
          "the points for that question, and your answer is worth 25 percent.",
- dump_rubrics=[
-  ("Model 1, the pump and the exchanger (6 points)",
-   ["The pump uses ATP to keep intracellular Na+ low, storing energy in the inward Na+ gradient",
-    "The exchanger is an antiporter that moves Na+ in and Ca2+ out",
-    "Na+ flowing downhill into the cell provides the energy to push Ca2+ out against its gradient",
-    "Pump inhibition lets intracellular Na+ rise and flattens the Na+ gradient",
-    "The exchanger has less driving force, so Ca2+ removal slows",
-    "Intracellular Ca2+ rises and contraction becomes stronger"]),
-  ("Model 2, glucose from the gut to the blood (6 points)",
-   ["SGLT on the apical membrane moves glucose into the cell with Na+",
-    "The apical step is uphill for glucose, powered by Na+ moving downhill",
-    "Glucose accumulates inside the cell to a high concentration",
-    "GLUT2 on the basolateral membrane moves glucose out by facilitated diffusion, downhill",
-    "Glucose then diffuses into the capillary",
-    "The Na+/K+ ATPase on the basolateral membrane keeps intracellular Na+ low, which is what makes the apical Na+ step downhill"])],
- keys=["Question 1: C. Intracellular Na+ rises, the exchanger removes less Ca2+, and contraction strengthens.",
-       "Question 2: B. Intracellular Na+ rises, the Na+ gradient shrinks, and SGLT glucose uptake falls."],
- teach_rubrics=[
-  ("Presenting question 1 (9 points)",
-   ["I explained that the Na+/K+ ATPase uses ATP to pump Na+ out, keeping intracellular Na+ low",
-    "I explained that the exchanger is an antiporter that lets Na+ in and pushes Ca2+ out, powered by Na+ moving downhill",
-    "I explained that partly inhibiting the pump lets intracellular Na+ rise and flattens the Na+ gradient",
-    "I explained that the exchanger then has less driving force, so less Ca2+ is removed and intracellular Ca2+ rises",
-    "I explained that more Ca2+ inside the cell makes contraction stronger",
-    "I explained why A is wrong: Na+ cannot fall when the pump that removes it is slowed",
-    "I explained why B is wrong: the exchanger does not use ATP, it runs on the Na+ gradient, so it depends on the pump",
-    "I explained why D is wrong: a flatter Na+ gradient means the exchanger removes less Ca2+, not more",
-    "I presented my model in order, with arrows for Na+, K+ and Ca2+, before I gave my answer"]),
-  ("Presenting question 2 (9 points)",
-   ["I explained that ouabain blocks the Na+/K+ ATPase, so Na+ is no longer pumped out",
-    "I explained that SGLT sits on the apical membrane and the pump on the basolateral membrane",
-    "I explained that SGLT uses the energy of Na+ moving downhill into the cell to pull glucose in uphill",
-    "I explained that when Na+ builds up inside, the gradient across the apical membrane flattens",
-    "I explained that SGLT loses its energy source, so glucose uptake falls",
-    "I explained why A is wrong: SGLT brings Na+ into the cell, so it cannot be what keeps Na+ low",
-    "I explained why C is wrong: the gradient cannot steepen when Na+ is rising inside",
-    "I explained why D is wrong: Na+ cannot fall when its only exit, the pump, is blocked",
-    "I presented my model in order, with arrows for Na+ and glucose, before I gave my answer"])],
- analysis=["For each question, were you right, and how sure were you when you answered? Say whether each one was sure and right, sure and wrong, unsure and right, or unsure and wrong.",
+ analysis=["For each question, were you right, and how sure did you feel when you gave your answer at the end of your video? Say whether each one was sure and right, sure and wrong, unsure and right, or unsure and wrong.",
            "Where did your model first go wrong or leave something out? Name the exact step.",
            "Was that a gap, something you did not know, or a misconception, something you were sure of that is not true? How can you tell?",
            "Compare your model score with your presenting score for the same question. Did presenting it out loud show you anything that building the model did not?",

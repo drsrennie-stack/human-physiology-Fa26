@@ -151,25 +151,24 @@ def _head(n, i, total, title, time, status):
             '<p style="%s"><strong>Time:</strong> %s. <strong>Counts for:</strong> %s</p>' % (P % NAVY, txt(time), txt(status)))
 
 def practice1(W, i, st):
-    """Discussion 4, part 1: a Canvas ASSIGNMENT, turned in to me only. Everything is on this page.
-    No rubrics here on purpose; they come out in part 2 next week."""
+    """Exam practice part 1, a Canvas PAGE. Sep 27 2026: each question is its own timed
+    New Quiz with the Studio video made inside it, so this page carries the directions and
+    the two quiz links, and never the questions."""
     D, n, total = W.PRACTICE, W.WEEK, len(W.STEPS)
     ul, ol, opts, p, h3, h4, card = _kit()
+    link = lambda t, u: '<a href="%s" target="_top" style="color:%s;font-weight:700;text-decoration:underline;">%s</a>' % (u, MAROON, t)
     o = [_head(n, i, total, st["title"], st["time"], st["status"])]
     o.append(p(D["intro"]))
     o.append(p(W.SOURCES, INK_SOFT))
-    o.append(card(h3("How to do it") + ol(D["how"])))
-    for k, q in enumerate(D["questions"], 1):
-        o.append(card(h3("Question %d" % k) + p("<strong>" + q["q"] + "</strong>") + opts(q["options"]) +
-                      h4("Step 1. Prepare your answer on camera, 15 minutes") + p(D["prep"]) + p(q["dump"]) +
-                      h4("Step 2. Teach your answer, 5 to 7 minutes") + p(D["teach"]) +
-                      h4("Step 3. Write down your answer") + p(D["choose"]) +
-                      (p("<strong>Now go on to question 2.</strong>") if k < len(D["questions"]) else "")))
-    o.append(card(h3("Turn it in here") + p("Upload all of this to this assignment. Only I see it.") + ul(D["turnin"]) +
-                  ul(st["submit_here"])))
-    o.append(p("<strong>Then:</strong> post about how it went in <strong>" + W.DISC4["title"] + "</strong>, the next "
-               "item in this module. <strong>Next week:</strong> Discussion 5 is part 2. You get the rubrics, score your "
-               "own work, and write about what it shows you."))
+    o.append(card(h3("What you need") + ul(D["need"])))
+    o.append(card(h3("Before you open a quiz") + ul(D["before"])))
+    o.append(card(h3("Timing") + p(D["timing"])))
+    o.append(card(h3("The steps, inside each quiz") + ol(D["steps"])))
+    o.append(card(h3("Your video counts only if") + ul(D["counts"])))
+    o.append(card(h3("How this is graded") + ul(D["grading"]) + p(D["grading_note"])))
+    qs = '<ol style="margin:0 0 12px 0;padding-left:1.4em;color:%s;">%s</ol>' % (NAVY, "".join('<li style="%s">%s</li>' % (LI, link(html.escape(t), u)) for t, u in D["quizzes"]))
+    o.append(card(h3("The two quizzes, in order") + qs + p(D["after"])))
+    o.append(p("<strong>Then:</strong> post about how it went in <strong>" + W.DISC4["title"] + "</strong>, the next item in this module."))
     o.append('<p style="margin:6px 0 0 0;font-size:0.85em;color:%s;">Dr. Sharilyn Rennie</p></div>' % INK_SOFT)
     return "".join(o) + "\n"
 
@@ -196,15 +195,18 @@ def practice2(W):
     o.append(p("<strong>Your post is due " + D["first_post"] + ".</strong> Two replies are due " + D["due"] + "."))
     o.append(p(D["intro"]))
     o.append(card(h3("How to do it") + ol(D["how"])))
-    body = h3("Check your models")
-    for t, pts in D["dump_rubrics"]:
-        body += h4(t) + ul(pts)
-    o.append(card(body))
-    o.append(card(h3("Check your answers") + ul(D["keys"])))
-    body = h3("Check your presenting") + p(D["scoring"])
-    for t, pts in D["teach_rubrics"]:
-        body += h4(t) + ul(pts)
-    o.append(card(body))
+    if D.get("dump_rubrics"):
+        body = h3("Check your models")
+        for t, pts in D["dump_rubrics"]:
+            body += h4(t) + ul(pts)
+        o.append(card(body))
+        o.append(card(h3("Check your answers") + ul(D["keys"])))
+        body = h3("Check your teaching") + p(D["scoring"])
+        for t, pts in D["teach_rubrics"]:
+            body += h4(t) + ul(pts)
+        o.append(card(body))
+    else:
+        o.append(card(h3("The rubrics and the answer key") + p(D["locked"]) + p(D["scoring"])))
     o.append(card(h3("Analyze it") + p("Answer each one in two or three sentences.") + ol(D["analysis"])))
     o.append(card(h3("What to post") + p("Press <strong>Reply</strong> on this discussion and include:") + ul(D["post"]) +
                   h4("Replies") + p(D["replies"]) +
@@ -225,9 +227,8 @@ def build(n):
         name = "w%02d-%02d-%s.html" % (n, i, slug(st["title"]))
         t = re.sub(r"</?strong>", "", st["title"])
         if i == len(W.STEPS) and hasattr(W, "PRACTICE"):
-            name = name.replace(".html", "-ASSIGNMENT.html")
             (pages_dir / name).write_text(practice1(W, i, st), encoding="utf-8")
-            readme.append("Week %d, Step %d | %s   ->  %s  (Canvas ASSIGNMENT, turned in to me only: paste into its description)" % (n, i, t, name))
+            readme.append("Week %d, Step %d | %s   ->  %s  (Canvas PAGE: the two timed quizzes are linked from it)" % (n, i, t, name))
             if hasattr(W, "DISC4"):
                 nd = "w%02d-10b-%s.html" % (n, slug(W.DISC4["title"]))
                 (pages_dir / nd).write_text(disc4(W, i), encoding="utf-8")

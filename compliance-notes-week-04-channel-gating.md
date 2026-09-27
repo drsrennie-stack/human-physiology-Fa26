@@ -62,6 +62,45 @@ Hand verification with NVDA in Chrome and VoiceOver in Safari still outstanding.
    export is complete.
 4. Worksheet answers are stored in the student's own browser.
 
-## 7. Reviewer
+## 7. Brand restyle, September 24, 2026
 
+Covers biol005-w04-channel-gating-guided.html.
+
+Brand restyle onto the MedMasters system, forked from virtual-office.html. Layout,
+animation, Next gating, Show me, the worksheet sidebar, saving and the PDF view are
+unchanged, and were rechecked in headless Chromium after the change.
+
+- Added the shared brand bar and dark footer from assets/brandbar.css. The bar is
+  static on the walkthroughs (not sticky) because the figure and worksheet columns
+  are already sticky.
+- The course line above the h1 is now a tracked uppercase maroon eyebrow; the h1 is
+  two-tone Open Sans 800 with the key words in maroon and a closing period.
+- Headings maroon-dark. Buttons uppercase and tracked at 4px radius; primary buttons
+  maroon. Cards, boxes and the figure frame at 8px radius.
+- Locked controls (every disabled button, including Next before Show me and the jump
+  menu before the end) are now gray dashed instead of faded, so the state no longer
+  relies on reduced opacity. The unlocked jump menu gets a gold-deep border.
+- Jump menu hover and focus keep the item white with a navy outline instead of a
+  navy-tint fill.
+- The floating Back button and Ask Hootie are not loaded here: they would cover the
+  worksheet's Save as PDF button and, on a phone, the lesson controls.
+- No italics, no em or en dashes, target="_top" and rel="noopener" unchanged, height
+  sender still last before </body>. Heading order, skip link, aria-live regions and
+  aria-expanded unchanged.
+
+New or changed contrast pairs, measured:
+
+| Pair | Ratio | Level |
+|---|---|---|
+| Maroon #8B3A2E eyebrow and prediction labels on white #FFFFFF | 7.66:1 | AAA |
+| Maroon #8B3A2E eyebrow and Week 4 lectures link on the off-white page #FAFAF9 | 7.33:1 | AAA |
+| Maroon-dark #6E2D24 step and worksheet headings on white | 10.18:1 | AAA |
+| White on maroon #8B3A2E, primary buttons (Show me, Save as PDF) | 7.66:1 | AAA |
+| White on maroon-dark #6E2D24, primary button hover | 10.18:1 | AAA |
+| Locked gray #454B58 dashed border and label on white, disabled buttons | 8.75:1 | AAA |
+| Gold-deep #8A6D33 border on white, unlocked Jump to a topic (non-text) | 4.87:1 | Passes 3:1 |
+| Navy #0B1530 inset outline on white, jump menu hover and focus (non-text) | 18.04:1 | Passes 3:1 |
+| Bone #F5F1E8 footer text on navy-deep #060A18 | 17.50:1 | AAA |
+
+## 8. Reviewer
 Dr. Sharilyn Rennie

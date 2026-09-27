@@ -49,38 +49,38 @@ def turn(where):
         '  <p>%s</p>\n  <button type="button" class="mm-btn" id="printBtn">Print or save as PDF</button>\n'
         '  <p id="saved" aria-live="polite">Your answers save on this device as you type.</p>\n' % e(where))
 
+def es(t):
+    """escape, keeping <strong> for button names"""
+    return re.sub(r"&lt;(/?)strong&gt;", r"<\1strong>", e(t))
+
+def ul(xs):
+    return '  <ul>\n' + "".join('    <li>%s</li>\n' % es(x) for x in xs) + '  </ul>\n'
+
 def part1():
+    """Sep 27 2026: the two questions are timed Canvas quizzes with the Studio video made
+    inside them. This page has the directions and the links, never the questions."""
     D = W.PRACTICE
     out = ['<header class="pagehead">\n  <p class="mm-eyebrow">Week 4, exam practice part 1</p>\n'
            '  <h1 class="mm-display">Exam practice part 1: work it the way the <span>exam asks</span>.</h1>\n'
-           '  <p class="meta"><strong>Videos to me only, in Canvas, by %s. Your discussion post is due %s, and two replies by %s.</strong></p>\n'
+           '  <p class="meta"><strong>Both quizzes are due %s. Your Discussion 4 post is due %s, and two replies by %s.</strong></p>\n'
            '  <p>%s</p>\n  <p>%s</p>\n</header>\n' % (e(W.DUE), e(W.DISC4["first_post"]), e(W.DUE), e(D["intro"]), e(W.SOURCES))]
-    out.append(card("h-rules", "How to do it", steps(D["how"])))
-    for k, q in enumerate(D["questions"], 1):
-        body = '  <p class="prompt">%s</p>\n' % e(q["q"])
-        body += ('  <fieldset>\n    <legend>Read all four choices now. Mark the one you gave at the end of your video.</legend>\n    <ul class="opts">\n' +
-                 "".join('      <li><label><input type="radio" name="mc%d" value="%s"> %s</label></li>\n'
-                         % (k, o[0], e(o)) for o in q["options"]) + '    </ul>\n  </fieldset>\n')
-        body += '  <h3 class="sub">Step 1. Prepare your answer on camera, 15 minutes</h3>\n  <p>%s</p>\n  <p>%s</p>\n' % (e(D["prep"]), e(q["dump"]))
-        body += '  <h3 class="sub">Step 2. Teach your answer, 5 to 7 minutes</h3>\n  <p>%s</p>\n' % e(D["teach"])
-        body += '  <h3 class="sub">Step 3. Write down your answer</h3>\n  <p>Mark the answer you gave in the choices above, then say how sure you are.</p>\n'
-        body += ('  <fieldset>\n    <legend>How sure are you?</legend>\n    <ul class="opts">\n' +
-                 "".join('      <li><label><input type="radio" name="sure%d" value="%s"> %s</label></li>\n'
-                         % (k, v, v.capitalize()) for v in ("sure", "fairly sure", "guessing")) +
-                 '    </ul>\n  </fieldset>\n')
-        if k < len(D["questions"]):
-            body += '  <p><strong>Now go on to question 2.</strong></p>\n'
-        out.append(card("h-q%d" % k, "Question %d" % k, body))
-    out.append(card("h-post", "What you turn in", steps(D["turnin"]) +
-        '  <p>Upload all of it to the <strong>Exam practice part 1, your videos</strong> assignment in Canvas. '
-        'Only I see it. Keep your models and videos for next week.</p>\n'))
+    out.append(card("h-need", "What you need", ul(D["need"])))
+    out.append(card("h-before", "Before you open a quiz", ul(D["before"])))
+    out.append(card("h-time", "Timing", '  <p>%s</p>\n' % e(D["timing"])))
+    out.append(card("h-steps", "The steps, inside each quiz", '  <ol class="steps">\n' + "".join('    <li>%s</li>\n' % es(x) for x in D["steps"]) + '  </ol>\n'))
+    out.append(card("h-counts", "Your video counts only if", ul(D["counts"])))
+    out.append(card("h-grade", "How this is graded", ul(D["grading"]) + '  <p>%s</p>\n' % e(D["grading_note"])))
+    links = '  <ol class="steps">\n' + "".join(
+        '    <li><a href="%s" target="_blank" rel="noopener">%s</a> <span class="mm-vh">(opens Canvas in a new tab)</span></li>\n' % (u, e(t))
+        for t, u in D["quizzes"]) + '  </ol>\n'
+    out.append(card("h-quiz", "The two quizzes, in order", links + '  <p>%s</p>\n' % e(D["after"])))
     G = W.DISC4
     out.append(card("h-disc", "Then post in Discussion 4",
         '  <p>%s</p>\n  <p><strong>%s</strong></p>\n' % (e(G["intro"]), e(G["rule"])) +
         "".join(area("d%d" % k, q) for k, q in enumerate(G["post"], 1)) +
         '  <p><strong>Replies:</strong> %s</p>\n' % e(G["replies"][0].lower() + G["replies"][1:]) +
         '  <p>Your post goes in <strong>%s</strong> in Canvas.</p>\n' % e(G["title"])))
-    out.append(turn("Save this page as a PDF if you want a copy of your answers and your post."))
+    out.append(turn("Save this page as a PDF if you want a copy of your Discussion 4 draft."))
     return "".join(out)
 
 def part2():
@@ -90,15 +90,18 @@ def part2():
            '  <p class="meta"><strong>First post due %s. Two replies due %s.</strong></p>\n'
            '  <p>%s</p>\n</header>\n' % (e(D["first_post"]), e(D["due"]), e(D["intro"]))]
     out.append(card("h-rules", "How to do it", steps(D["how"])))
-    body = ""
-    for k, (t, pts) in enumerate(D["dump_rubrics"], 1):
-        body += '  <h3 class="sub">%s</h3>\n' % e(t) + checks("bd%dr" % k, pts)
-    out.append(card("h-bd", "Check your models", body))
-    out.append(card("h-key", "Check your answers", steps(D["keys"])))
-    body = '  <p>%s</p>\n' % e(D["scoring"])
-    for k, (t, pts) in enumerate(D["teach_rubrics"], 1):
-        body += '  <h3 class="sub">%s</h3>\n' % e(t) + checks("t%dr" % k, pts)
-    out.append(card("h-teach", "Check your presenting", body))
+    if D.get("dump_rubrics"):
+        body = ""
+        for k, (t, pts) in enumerate(D["dump_rubrics"], 1):
+            body += '  <h3 class="sub">%s</h3>\n' % e(t) + checks("bd%dr" % k, pts)
+        out.append(card("h-bd", "Check your models", body))
+        out.append(card("h-key", "Check your answers", steps(D["keys"])))
+        body = '  <p>%s</p>\n' % e(D["scoring"])
+        for k, (t, pts) in enumerate(D["teach_rubrics"], 1):
+            body += '  <h3 class="sub">%s</h3>\n' % e(t) + checks("t%dr" % k, pts)
+        out.append(card("h-teach", "Check your teaching", body))
+    else:
+        out.append(card("h-key", "The rubrics and the answer key", '  <p>%s</p>\n  <p>%s</p>\n' % (e(D["locked"]), e(D["scoring"]))))
     body = "".join(area("a%d" % k, q) for k, q in enumerate(D["analysis"], 1))
     out.append(card("h-reflect", "Analyze it", body))
     out.append(card("h-post", "What to post", steps(D["post"]) +
