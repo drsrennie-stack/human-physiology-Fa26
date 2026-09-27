@@ -51,10 +51,10 @@ for slug, title in WALKS:
                 + (f'<p>Support videos ({len(vids)}), by step:</p><ul>{li}</ul>' if vids else '<p>No support videos on this walkthrough yet.</p>')
                 + '</section>')
 head = ('<header class="top"><div class="wrap">\n  <p class="eyebrow">BIO 005 · Week 4 · For Dr. Rennie</p>\n'
-        '  <h1>Week 4 preview</h1>\n  <p>Every walkthrough with nothing locked, and every support video it links. '
+        '  <h1>Week 4 preview</h1>\n  <p>Every walkthrough with nothing locked, and every Khan Academy video it links, under the step it goes with. '
         'In preview mode you do not have to type a prediction before Show me, Next is always on, and the topic menu is open from the start. '
         'Anything you type still saves in your browser only.</p>\n'
-        '  <p>Videos from Dr. Rennie are not posted yet. The step lists show the Khan Academy videos students can open when they are stuck.</p>\n</div></header>\n')
+        '</div></header>\n')
 body = '<main id="main"><div class="wrap">\n' + "\n".join(rows) + '\n</div></main>'
 s = SHELL[:a] + head + body + SHELL[b:]
 s = re.sub(r"<title>[^<]*</title>", "<title>Week 4 preview &middot; BIO 005 Human Physiology</title>", s, 1)
