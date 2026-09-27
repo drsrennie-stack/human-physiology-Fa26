@@ -65,8 +65,11 @@ STEPS = [
                dict(name="Use your own paper", text="The same competencies and the same prompts on one page. Work them in a notebook or on blank paper.",
                     links=[("The Week 4 competency list", "week-04-competencies.html")])]),
          ("The Week 4 lessons and videos, in order (opens Monday, September 28 at 8:00 am)", "lecture-week.html?week=4"),
-         ("The Week 4 written notes, for each walkthrough and lesson (opens Monday, September 28 at 8:00 am)", "week-04-notes.html"),
-         ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
+         dict(title="Choose one: how you will read the Week 4 written notes (they open Monday, September 28 at 8:00 am)",
+              options=[dict(name="On screen", text="The notes for each walkthrough and lesson, one page each.",
+                            links=[("The Week 4 written notes", "week-04-notes.html")]),
+                       dict(name="On paper", text="The same notes, all in one PDF, in two columns to save paper.",
+                            links=[("The Week 4 written notes to print (PDF)", "notes/BIO005-Week4-Notes-all.pdf")])])],
   turnin=None),
 
  dict(title="Second pass, in your second color", time="30 to 60 minutes",
@@ -79,8 +82,7 @@ STEPS = [
         "Add what you missed, fix what was wrong, and add anything that clicked this time, in the same boxes.",
         "Do not erase your first color. The gap between the two colors is the most useful thing on the page."],
   links=[("The Week 4 lessons and videos, in order", "lecture-week.html?week=4"),
-         ("The Week 4 written notes, one page per lesson, for reading and rereading", "week-04-notes.html", "optional"),
-         ("The same Week 4 notes as one printable PDF, two columns to save paper", "notes/BIO005-Week4-Notes-all.pdf", "optional")],
+         ("The Week 4 written notes, the same ones you used in your first pass, on screen or printed", "week-04-notes.html", "optional")],
   turnin=None),
 
  dict(title="Upload your Competency Study Guide", time="About 10 minutes",
