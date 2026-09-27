@@ -233,9 +233,25 @@ a.pg .pl::after{content:"\2192";font-weight:700}
 .lcard .lh{margin:0;font-weight:800;color:var(--maroon-dark);font-size:16px}
 .lcard a{color:var(--maroon);font-weight:700}
 .lcard .lgo{font-weight:700;color:var(--navy)}
+/* Sep 27 2026, Scrubs: each step card takes the color of its phase, the same
+   boxes as the weekly loop diagram: Preview navy-tint, Learn navy, Study it
+   maroon, Mastery Check gold, Use it white with a navy outline. The page
+   links inside stay white cards. White on navy 18.04:1, white on maroon
+   7.66:1, navy on gold 8.2:1, navy on navy-tint 16.3:1. */
+.k-prev .scard{background:var(--navy-tint);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.k-assess .scard{background:var(--white);box-shadow:inset 0 0 0 1.5px var(--navy),0 1px 3px rgba(11,21,48,.08)}
+.k-learn .scard{background:var(--navy)}
+.k-retr .scard{background:var(--maroon)}
+.k-check .scard{background:var(--gold);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.k-learn .scard>.phase,.k-learn .shead h2,.k-learn .time,.k-learn .what,.k-learn .ph,.k-learn .none,
+.k-retr .scard>.phase,.k-retr .shead h2,.k-retr .time,.k-retr .what,.k-retr .ph,.k-retr .none{color:#fff}
+.k-check .scard>.phase,.k-check .shead h2,.k-check .time,.k-check .what,.k-check .ph,.k-check .none{color:var(--navy-deep)}
+.k-prev .ph,.k-assess .ph{color:var(--maroon-dark)}
+.k-learn .bdg>*,.k-retr .bdg>*,.k-check .bdg>*{box-shadow:0 0 0 2px #fff}
+.k-learn .pg,.k-retr .pg,.k-check .pg{border-color:transparent}
 @media (prefers-reduced-motion:reduce){.pg,a.pg:hover{transition:none;transform:none}}
 @media (max-width:420px){.stop,.loopback{padding-left:46px}.node{width:32px;height:32px;font-size:14px}.line::before{left:15px}.bdg{margin-left:0}}
-@media print{.scard,.lcard,.pg{box-shadow:none!important}a.pg .pl::after{content:""}}
+@media print{.scard,.lcard,.pg{box-shadow:none!important}a.pg .pl::after{content:""}.k-learn .scard,.k-retr .scard,.k-check .scard,.k-prev .scard{background:#fff!important;border:1px solid #000}.k-learn .scard *,.k-retr .scard *,.k-check .scard *{color:#000!important}}
 </style>"""
 
 PAGE = """<!DOCTYPE html>
