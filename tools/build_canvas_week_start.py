@@ -60,8 +60,8 @@ def printables(W, n):
                             % (SITE, e(path), MAROON, e(_cap(_re.sub(r"^Choice \d(, [^:]*)?: ", "", _re.sub(r"\s*\(PDF\)$", "", _re.sub(r"</?strong>", "", label))))), INK_SOFT, i))
     if not rows: return ""
     return ('<div style="%s"><p style="%s">Printables for Week %d</p>' % (CARD, EYEBROW, n) +
-            '<p style="margin:0 0 12px 0;line-height:1.6;color:%s;">You do not have to print anything. If you like '
-            'working on paper, here is every printable for the week. Each one is also linked on its own step.</p>' % INK_SOFT +
+            '<p style="margin:0 0 12px 0;line-height:1.6;color:%s;"><strong>Nothing has to be printed.</strong> You can work on your own paper instead: label every page with your name, Week 4, the step, and the competency number or question number each answer goes with. If you like '
+            'working on paper, here is every printable for the week. Each one is also linked on its own step. If you print them here, you do not need to print them again when a step links the same sheet.</p>' % INK_SOFT +
             '<ul style="margin:0;padding-left:1.2em;line-height:1.5;color:%s;">%s</ul></div>' % (NAVY, "".join(rows)))
 
 def build(n):

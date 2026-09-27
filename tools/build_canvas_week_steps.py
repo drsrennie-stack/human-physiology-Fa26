@@ -50,9 +50,22 @@ OPT = ('<span style="display:inline-block;background:#ECEFF4;color:%s;font-weigh
        'padding:1px 8px;border-radius:4px;margin:0 6px 0 0;">Optional</span>' % NAVY)
 NOTE = '<span style="color:%s;">(opens the course site in a new tab)</span>' % INK_SOFT
 
+# Sep 27 2026, Scrubs: students who already printed a sheet (from the Start here
+# page, or the whole-term packet in Week 1) should never think they must print it again.
+REPRINT = ('<br><span style="color:%s;font-size:0.92em;">Already printed this from the Start here page? '
+           'You do not need to print it again.</span>' % INK_SOFT)
+PACKET = ('<br><span style="color:%s;font-size:0.92em;">If you printed the competency packet for the whole term in Week 1, '
+          'you already have this list. You do not need to print it again.</span>' % INK_SOFT)
+
+# Sep 27 2026, Scrubs: nothing has to be printed; own paper is fine if it is labeled.
+PAPER = ("<strong>Nothing has to be printed.</strong> You can do any of this on your own paper instead. "
+         "Label every page with your name, Week 4, the step, and the competency number or question number "
+         "each answer goes with, so your work can be matched to the right place.")
+
 def a_link(label, path):
-    return ('<a href="%s%s" target="_blank" rel="noopener" style="%s">%s</a> %s'
-            % (SITE, html.escape(path, quote=True), LINK, txt(label), NOTE))
+    extra = REPRINT if path.endswith(".pdf") else (PACKET if re.search(r"week-\d\d-competencies\.html$", path) else "")
+    return ('<a href="%s%s" target="_blank" rel="noopener" style="%s">%s</a> %s%s'
+            % (SITE, html.escape(path, quote=True), LINK, txt(label), NOTE, extra))
 
 def links_card(items):
     """Sep 25 2026, Scrubs: every item is numbered, so students know they do all of
@@ -74,8 +87,10 @@ def links_card(items):
             label, path = it[0], it[1]
             lis.append('<li style="%s">%s%s</li>' % (LI, OPT if len(it) > 2 else "", a_link(label, path)))
     anyopt = any(not isinstance(it, dict) and len(it) > 2 for it in items)
+    anypdf = ".pdf" in repr(items)
     lead = ("Do these in order. Each link opens the course site in a new tab, and Canvas stays open in this tab."
-            + (" Anything marked Optional is up to you." if anyopt else ""))
+            + (" Anything marked Optional is up to you." if anyopt else "")
+            + (" " + PAPER if anypdf else ""))
     return ('<div style="%s"><h3 style="%s">What you need for this step</h3>'
             '<p style="%s">%s</p><ol style="margin:0;padding-left:1.4em;color:%s;">%s</ol></div>'
             % (CARD, H3, P % INK_SOFT, lead, NAVY, "".join(lis)))

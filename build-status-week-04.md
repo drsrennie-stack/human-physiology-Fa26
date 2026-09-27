@@ -136,9 +136,11 @@ only.
    only the URLs that could be verified independently. Khan Academy could not be
    reached from the build environment on September 24, so the new neurons and
    glia steps (map, glia, myelin, transport) have no support buttons yet.
-3. The drawing sheet covers three topics, not the chapter.
-4. Competency mismatches flagged earlier are unresolved: the eleven stated
-   objectives do not line up with bio005-competencies.js, and the Nernst competency
-   still says "Calculate" although calculation is no longer required.
-5. lecture-week.html does not link any of the new files.
+3. The drawing sheet is no longer linked from Canvas Step 2 or the lessons page
+   (September 27); the Competency Study Guide holds the drawing prompts.
+4. The Nernst competency is fixed: it now asks students to explain and predict with
+   the equilibrium potential, not calculate it. The older question of whether the
+   eleven stated objectives line up with bio005-competencies.js is still open.
+5. lecture-week.html links every walkthrough, its notes and its videos, one card per
+   topic (September 27).
 6. Week 4 is still gated closed in bio005-nav.js.

@@ -10,7 +10,9 @@ tables, so this page always matches what students see.
 
 Run: python3 tools/make_instructor_preview.py
 """
-import html, pathlib, re
+import html, pathlib, re, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from walkthrough_videos import videos
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 def e(s):
     s = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), s)
@@ -19,20 +21,6 @@ def e(s):
 WALKS = [("neurons-glia", "Neurons and neuroglia"), ("rmp", "The resting membrane potential"),
          ("channel-gating", "Ion channel gating"), ("graded-potentials", "Graded potentials"),
          ("action-potential", "The action potential")]
-
-def videos(src):
-    ka = re.search(r'var KA="([^"]*)"', src)
-    blk = src[src.index("var V={"):]
-    if ka: blk = blk.replace('KA+"', '"' + ka.group(1))
-    V = dict(re.findall(r'(\w+):\{u:"([^"]+)",n:"[^"]*"\}', blk))
-    N = dict(re.findall(r'(\w+):\{u:"[^"]+",n:"([^"]*)"\}', blk))
-    out = []
-    sup = src[src.index("var V={"):src.index("function supportHTML")].replace('"+M+"', "\u2212")
-    for m in re.finditer(r'(?:"([^"]+)"|SUP\["([^"]+)"\])\s*[:=]\s*\[((?:\["[^"]*","\w+","[^"]*"\],?)+)\]', sup):
-        step = (m.group(1) or m.group(2)).replace('"+M+"', "−")
-        for q, k, _ in re.findall(r'\["([^"]*)","(\w+)","([^"]*)"\]', m.group(3)):
-            out.append((step, q, N.get(k, ""), V.get(k, "")))
-    return out
 
 SHELL = (ROOT / "week-04-notes.html").read_text(encoding="utf-8")
 a = SHELL.index('<header class="top">'); b = SHELL.index("</div></main>") + len("</div></main>")

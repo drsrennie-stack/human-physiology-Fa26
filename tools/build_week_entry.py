@@ -351,7 +351,7 @@ def build(n):
                      meta=(('Opens %s. Your first discussion post is due %s at 10:00 pm, and everything else is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['discussion_first_post']), esc(w['closes']))) if w.get('discussion_first_post') else ('Opens %s. Everything is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['closes'])))), patient=esc(w['patient_label']))
     if uses_line(w):
         body=line(w); style=STYLE+'\n'+LINE_STYLE
-        page=page.replace('Start at the top and work your way down. Click any step to open it.','Start at the top and work your way down. Each step lists the pages you need for it.')
+        page=page.replace('Start at the top and work your way down. Click any step to open it.','Start at the top and work your way down. Each step lists the pages you need for it. Nothing has to be printed: you can work on your own paper, as long as you label every page with your name, the week, the step, and the competency or question number.')
     else:
         body=('<figure class="diagram">\n'+svg(w)+'\n</figure>\n\n<details class="steplist">\n<summary>See this week\'s steps as a list</summary>\n    <ol>\n'
               +steplist(w)+'\n    </ol>\n</details>')

@@ -53,8 +53,9 @@ STEPS = [
         "neuroglia, then the resting membrane potential, then ion channel gating, then graded potentials, then the "
         "action potential. Then the lessons on how action potentials carry information, the chemical synapse, "
         "and integration at the synapse.",
-        "Watch the short videos as you go, and again whenever you need them. In the walkthroughs, look for the "
-        "<strong>Stuck? Watch a short explanation</strong> button on the steps where a video helps.",
+        "Watch the short Khan Academy videos as you go, and again whenever you need them. Every topic on the lessons page has a "
+        "<strong>Watch the videos</strong> button, and inside the walkthroughs the <strong>Stuck? Watch a short explanation</strong> "
+        "button opens the video that goes with that step.",
         "Each walkthrough has a worksheet in the right-hand column. Every time it asks you to predict, type your prediction there first. Show me stays locked until you do, and Next stays locked until you press Show me.",
         "After each walkthrough, read its written notes to fill in anything you missed.",
         "For each competency, pick prompt A or prompt B and draw it in the box in your first color."],
