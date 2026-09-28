@@ -8,8 +8,8 @@ Week 4, Step 4 | Upload your Competency Study Guide   ->  w04-04-upload-your-com
 Week 4, Step 5 | Study it for several days   ->  w04-05-study-it-for-several-days.html  (Canvas PAGE)
 Week 4, Step 6 | Mastery Check, and upload your reports   ->  w04-06-mastery-check-and-upload-your-reports-ASSIGNMENT.html  (Canvas ASSIGNMENT: paste into its description)
 Week 4, Step 7 | Lab, PhysioEx Exercise 3   ->  w04-07-lab-physioex-exercise-3-ASSIGNMENT.html  (Canvas ASSIGNMENT: paste into its description)
-Week 4, Step 8 | Your application case   ->  w04-08-your-application-case.html  (Canvas PAGE)
-Week 4, Step 9 | Your patient, this week's findings   ->  w04-09-your-patient-this-week-s-findings.html  (Canvas PAGE)
+Week 4, Step 8 | Your patient, in Rounds   ->  w04-08-your-patient-in-rounds.html  (Canvas PAGE)
+Week 4, Step 9 | Check your chart   ->  w04-09-check-your-chart.html  (Canvas PAGE)
 Week 4, Step 10 | Exam practice part 1, two timed questions   ->  w04-10-exam-practice-part-1-two-timed-questions.html  (Canvas PAGE: the two timed quizzes are linked from it)
 Week 4, Step 10 | Discussion 4, how your exam practice went   ->  w04-10b-discussion-4-how-your-exam-practice-went.html  (Canvas DISCUSSION: paste into its description)
 

@@ -171,6 +171,7 @@ details .body p{margin:0 0 8px;font-size:14.5px}
 .later{display:block;margin-top:4px;font-size:13.5px;font-weight:700;color:#A0522D}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media(max-width:620px){.opts{grid-template-columns:1fr}}
+[hidden]{display:none!important}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
@@ -320,6 +321,21 @@ details .body p{margin:0 0 8px;font-size:14.5px}
   if (w >= 4) {
     var handIn = w <= 8 ? 'Sunday, November 1, with Midterm 1' : 'Wednesday, December 16';
     var rb = document.getElementById('roundsBtn'); rb.href = 'patient-rounds.html?week=' + w; rb.hidden = false;
+    /* Sep 27 2026, Scrubs: from Week 4 on the whole case lives in Rounds, so this
+       page only points there. One place to go, nothing to choose between. */
+    (function () {
+      var due = document.getElementById('dueline');
+      due.textContent = 'Nothing is uploaded this week.';
+      var c = document.createElement('div');
+      c.className = 'card'; c.id = 'goRounds';
+      c.innerHTML = '<h2 style="margin-top:0">This week\'s case is in Rounds</h2>' +
+        '<p>Everything for this week\'s case is in Rounds, your patient\'s online chart: the story, the numbers, the five questions, your entry point\'s question, and your note. You type it all there.</p>' +
+        '<p><a class="homebtn" href="patient-rounds.html?week=' + w + '" target="_top">Open Rounds, Week ' + w + '</a></p>' +
+        '<p>At the end of the case, in the week of ' + (w <= 8 ? 'Midterm 1' : 'Midterm 2') + ', you click Export the whole case in Rounds and upload that one PDF, due ' + handIn + '.</p>';
+      due.parentNode.insertBefore(c, due.nextSibling);
+      for (var n = c.nextElementSibling; n; n = n.nextElementSibling) { if (n.tagName !== 'SCRIPT') { n.style.display = 'none'; } }
+      rb.style.display = 'none';
+    }());
     document.getElementById('eyeline').innerHTML = 'Patient chart &middot; nothing to upload this week';
     document.getElementById('dueline').textContent = 'Nothing is turned in this week. Your whole chart is turned in ' + handIn + '.';
     document.getElementById('turnH').textContent = 'Where your answers go';
