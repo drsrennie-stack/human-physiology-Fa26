@@ -333,9 +333,9 @@ function labs(keys){for(var k in L)L[k].setAttribute("display","none");(keys||[]
 
 /* ---- job words ---- */
 var gJob=G("job");
-tx(gJob,140,436,"Receive","tm",22,"middle");
-tx(gJob,370,436,"Decide","tm",22,"middle");
-tx(gJob,596,436,"Send","tm",22,"middle");
+tx(gJob,140,436,"Input","tm",22,"middle");
+tx(gJob,370,436,"Integration","tm",22,"middle");
+tx(gJob,596,436,"Output","tm",22,"middle");
 var jobItems=Array.prototype.slice.call(gJob.childNodes);
 function jobs(n){jobItems.forEach(function(t,i){t.setAttribute("display",i<n?"":"none");});}
 
@@ -406,42 +406,51 @@ tx(gClsLoc,170,196,"CNS and motor neurons","tm",16,"middle");
 tx(gClsLoc,450,196,"Retina, olfactory epithelium","tm",16,"middle");
 tx(gClsLoc,730,196,"Dorsal root ganglion","tm",16,"middle");
 
-/* ---- map of the nervous system ---- */
+/* ---- map of the nervous system ----
+   Sep 27 2026, Scrubs: a real mind map that fills the scene. The CNS box sits
+   on the left, the PNS is a dashed region holding everything else, the maroon
+   arrows are the function (messages in, commands out), and the thin navy lines
+   are the branches. Every box says what that part does. */
 var gMap=G("map");
 var MP={};
 function box(g,x,y,w,h,dash){var a={x:x,y:y,width:w,height:h,rx:12,fill:"#fff",stroke:NAVY,"stroke-width":3};if(dash)a["stroke-dasharray"]=dash;return el("rect",a,g);}
-MP.cns=(function(){var g=el("g",{},gMap);box(g,300,18,300,66);
-  tx(g,450,46,"Central nervous system","tn",20,"middle");tx(g,450,70,"brain and spinal cord","t",15,"middle");return g;})();
+function node(g,x,y,w,h,lines,dash){box(g,x,y,w,h,dash);var cx=x+w/2;
+  lines.forEach(function(L,i){tx(g,cx,y+26+22*i+(i>0&&lines[i-1][1]==="tn"&&L[1]!=="tn"?2:0),L[0],L[1],L[2],"middle");});return g;}
+function flow(g,d){return el("path",{d:d,fill:"none",stroke:MAROON,"stroke-width":5,"stroke-linecap":"round","stroke-linejoin":"round","marker-end":"url(#am)"},g);}
+function branch(g,pts){return el("polyline",{points:pts.map(function(q){return q.join(",");}).join(" "),fill:"none",stroke:NAVY,"stroke-width":2.5,"stroke-linejoin":"round"},g);}
+MP.cns=node(el("g",{},gMap),15,150,200,122,[["Central nervous","tn",18],["system (CNS)","tn",18],["brain and spinal cord","t",16],["integrating center","tm",16]]);
 MP.pns=(function(){var g=el("g",{},gMap);
-  tx(g,450,118,"Everything outside it is the peripheral nervous system (PNS)","t",16,"middle");return g;})();
-MP.aff=(function(){var g=el("g",{},gMap);box(g,40,136,220,58);
-  tx(g,150,160,"Sensory (afferent)","tn",18,"middle");tx(g,150,182,"toward the CNS","t",15,"middle");
-  arrow(g,205,134,308,90,MAROON,5);
-  tx(g,150,216,"receptors in skin, muscles,","t",15,"middle");tx(g,150,234,"eyes, ears, and organs","t",15,"middle");return g;})();
-MP.eff=(function(){var g=el("g",{},gMap);box(g,500,136,220,58);
-  tx(g,610,160,"Efferent","tn",18,"middle");tx(g,610,182,"away from the CNS","t",15,"middle");
-  arrow(g,560,88,596,130,MAROON,5);return g;})();
-MP.som=(function(){var g=el("g",{},gMap);box(g,380,232,190,50);
-  tx(g,475,263,"Somatic motor","tn",18,"middle");arrow(g,570,196,502,228,MAROON,5);
-  tx(g,475,306,"skeletal muscle","t",15,"middle");return g;})();
-MP.aut=(function(){var g=el("g",{},gMap);box(g,646,232,180,50);
-  tx(g,736,263,"Autonomic","tn",18,"middle");arrow(g,650,196,708,228,MAROON,5);
-  tx(g,740,380,"smooth muscle, cardiac muscle,","t",15,"middle");tx(g,740,398,"glands, some adipose tissue","t",15,"middle");return g;})();
-MP.split=(function(){var g=el("g",{},gMap);box(g,590,312,140,44);box(g,740,312,150,44);
-  tx(g,660,339,"Sympathetic","tn",16,"middle");tx(g,815,339,"Parasympathetic","tn",16,"middle");
-  arrow(g,716,284,678,308,MAROON,4);arrow(g,756,284,796,308,MAROON,4);return g;})();
-MP.ent=(function(){var g=el("g",{},gMap);box(g,40,262,250,58,"8 6");
-  tx(g,165,286,"Enteric nervous system","tn",17,"middle");tx(g,165,308,"in the wall of the gut","t",15,"middle");
-  tx(g,165,342,"runs the digestive tract","t",15,"middle");return g;})();
+  el("rect",{x:240,y:10,width:650,height:412,rx:18,fill:"none",stroke:INK2,"stroke-width":2,"stroke-dasharray":"9 7"},g);
+  tx(g,565,36,"Peripheral nervous system (PNS)","tn",19,"middle");
+  tx(g,565,58,"cranial and spinal nerves and their ganglia","t",16,"middle");return g;})();
+MP.aff=(function(){var g=el("g",{},gMap);
+  node(g,262,76,210,64,[["Sensory (afferent)","tn",18],["toward the CNS","t",16]]);
+  flow(g,"M258 108 L115 108 L115 144");return g;})();
+MP.eff=(function(){var g=el("g",{},gMap);
+  node(g,262,265,210,64,[["Efferent (motor)","tn",18],["away from the CNS","t",16]]);
+  flow(g,"M115 274 L115 297 L254 297");return g;})();
+MP.som=(function(){var g=el("g",{},gMap);
+  branch(g,[[472,297],[486,297],[486,222],[500,222]]);
+  node(g,500,190,190,64,[["Somatic motor","tn",18],["skeletal muscle","t",16]]);return g;})();
+MP.aut=(function(){var g=el("g",{},gMap);
+  branch(g,[[486,297],[486,342],[500,342]]);
+  node(g,500,300,190,84,[["Autonomic","tn",18],["cardiac muscle,","t",16],["smooth muscle, glands","t",16]]);return g;})();
+MP.split=(function(){var g=el("g",{},gMap);
+  branch(g,[[690,342],[700,342],[700,292],[712,292]]);branch(g,[[700,342],[700,368],[712,368]]);
+  node(g,712,262,173,60,[["Sympathetic","tn",17],["fight or flight","t",16]]);
+  node(g,712,338,173,60,[["Parasympathetic","tn",17],["rest and digest","t",16]]);return g;})();
+MP.ent=(function(){var g=el("g",{},gMap);
+  node(g,262,350,210,62,[["Enteric","tn",18],["in the wall of the gut","t",16]],"8 6");
+  el("line",{x1:500,y1:372,x2:474,y2:381,stroke:NAVY,"stroke-width":2,"stroke-dasharray":"5 5"},g);return g;})();
 MP.tags=(function(){var g=el("g",{},gMap);
-  tx(g,236,104,"sensory neurons","tm",16,"end");
-  tx(g,418,114,"interneurons, inside the CNS","tm",16,"middle");
-  tx(g,606,104,"efferent neurons","tm",16,"start");return g;})();
+  tx(g,176,98,"afferent neurons","tm",15,"middle");
+  tx(g,176,318,"efferent neurons","tm",15,"middle");
+  tx(g,115,352,"interneurons:","tm",15,"middle");tx(g,115,370,"inside the CNS","tm",15,"middle");return g;})();
 function mapShow(keys){for(var k in MP)MP[k].setAttribute("display","none");(keys||[]).forEach(function(k){if(MP[k])MP[k].setAttribute("display","");});}
-var MAPALL=["cns","aff","eff","som","aut","split","ent"];
+var MAPALL=["cns","pns","aff","eff","som","aut","split","ent"];
 var gMapSig=G("mapsig");
 var MSIG=el("circle",{cx:0,cy:0,r:10,fill:MAROON},gMapSig);
-place(gMapSig,200,137);
+place(gMapSig,258,108);
 
 /* ---- two inputs, near and far ---- */
 var gSig2=G("sig2");
@@ -542,7 +551,7 @@ function cap(s){CAP.textContent=s||"";}
 
 function myelin(on){mySegs.forEach(function(r,i){r.setAttribute("display",on&&(on===true||on.indexOf(i)>=0)?"":"none");});}
 function resetAll(){labs([]);jobs(0);glia([]);classes([]);cap("");myelin(true);fade(gMy,1);
-  SIG.setAttribute("r",13);SIG2.setAttribute("r",13);mapShow([]);place(gMapSig,200,137);motorLabs(false);
+  SIG.setAttribute("r",13);SIG2.setAttribute("r",13);mapShow([]);place(gMapSig,258,108);motorLabs(false);
   TR.forEach(function(g){place(g,330,290);g.setAttribute("display","none");});
   caStart();stype(0);sortShow(0,0);bbbStart();curShow(0);naH(0);place(VES3,330,332);}
 /* ======================= steps ======================= */
@@ -551,73 +560,73 @@ function S(list){only(list);resetAll();}
 var STEPS=[
 /* ---- 1. map of the nervous system ---- */
 {sec:"The map of the nervous system",comp:"Neuron structural and functional classes",
- title:"Where the decisions get made",
- text:["Before you meet a single neuron, it helps to see the whole system it belongs to. Picture reaching for a pan and pulling your hand back the instant you feel how hot it is. Information came in from your skin, something decided what to do, and a command went out to the muscles of your arm.","The deciding happens in the brain and spinal cord. Everything else, every nerve running out to your skin, muscles, and organs, is the wiring that carries information in and commands out."],
+ title:"Organization of the nervous system",
+ text:["Before looking at individual neurons, look at how the whole nervous system is organized. Picture touching a hot pan and pulling your hand away. The heat is the stimulus. Sensory receptors in your skin detect it, your spinal cord integrates that information, and a response goes out to the skeletal muscles of your arm. Those muscles are the effectors, the tissues that carry out the response.","The brain and spinal cord form the central nervous system (CNS). The CNS is the integrating center: it receives incoming information, combines it with everything else going on, and selects a response. All the neural tissue outside the CNS, the cranial nerves, the spinal nerves, and their ganglia, forms the peripheral nervous system (PNS). The PNS carries signals between the CNS and the rest of the body, in both directions."],
  name:"central nervous system (CNS) and peripheral nervous system (PNS)",
  auto:true,
- desc:"A box at the top of the map is labeled central nervous system, brain and spinal cord. A line of text beneath it says everything outside it is the peripheral nervous system.",
+ desc:"On the left, a box labeled central nervous system, CNS, brain and spinal cord, integrating center. The rest of the scene is a large dashed region labeled peripheral nervous system, PNS, cranial and spinal nerves and their ganglia.",
  pre:function(){S(["map","caption"]);mapShow([]);},
- play:function(a){mapShow(["cns"]);return wait(700,a).then(function(){mapShow(["cns","pns"]);cap("The brain and spinal cord decide.");});},
- post:function(){mapShow(["cns","pns"]);cap("The brain and spinal cord decide.");}},
+ play:function(a){mapShow(["cns"]);return wait(700,a).then(function(){mapShow(["cns","pns"]);cap("CNS integrates. PNS carries signals.");});},
+ post:function(){mapShow(["cns","pns"]);cap("CNS integrates. PNS carries signals.");}},
 
-{title:"Information coming in",
+{title:"The afferent division",
  text:["Information reaches the central nervous system from sensory receptors all over the body. Some sit in your skin and muscles, some are in your eyes and ears, and many sit inside your organs, reporting on things like blood pressure and how full your stomach is.","All of that incoming traffic travels on one half of the peripheral wiring."],
  ask:"After a big meal, stretch receptors in your stomach wall send a signal. Which way is that signal traveling, toward the central nervous system or away from it?",
  ans:["Toward it. Every signal that reports on the body, whether it starts in the skin, a muscle, an eye, or an organ, travels inward to the brain and spinal cord.","This inward half of the peripheral nervous system is the sensory division, also called the afferent division. Afferent means carrying toward. A signal does not have to reach your awareness to count, and most of the signals from your organs never do."],
  name:"sensory, or afferent, division",
- desc:"A box labeled sensory, afferent, sits at the left of the map with an arrow pointing up into the central nervous system. A red dot travels along the arrow toward the central nervous system.",
- pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","aff"]);place(gMapSig,200,137);},
- play:function(a){return tweenPath(gMapSig,[[298,94]],1000,a).then(function(){cap("Sensory signals travel in.");});},
- post:function(){place(gMapSig,298,94);cap("Sensory signals travel in.");}},
+ desc:"Inside the PNS region, a box labeled sensory, afferent, toward the CNS. A red arrow runs from it into the CNS box, and a red dot travels along the arrow into the CNS.",
+ pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","pns","aff"]);place(gMapSig,258,108);},
+ play:function(a){return tweenPath(gMapSig,[[115,108],[115,146]],1100,a).then(function(){cap("Afferent signals travel toward the CNS.");});},
+ post:function(){place(gMapSig,115,146);cap("Afferent signals travel toward the CNS.");}},
 
-{title:"Commands going out",
- text:["The other half of the peripheral wiring carries commands outward, from the central nervous system to the tissues that actually carry them out. Those tissues are called effectors, and they are muscles and glands."],
+{title:"The efferent division",
+ text:["The other half of the PNS carries signals outward, from the CNS to the effectors, the tissues that carry out the response. Effectors are muscles and glands. Because these signals travel away from the CNS, this is the efferent division. Efferent means carrying away."],
  name:"efferent division",
  auto:true,
- desc:"An arrow leaves the central nervous system and points down to a box labeled efferent, away from the CNS. A red dot travels down the arrow.",
- pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","aff","eff"]);place(gMapSig,562,91);},
- play:function(a){return tweenPath(gMapSig,[[592,126]],800,a).then(function(){cap("Commands travel away from the CNS.");});},
- post:function(){place(gMapSig,592,126);cap("Commands travel away from the CNS.");}},
+ desc:"A red arrow leaves the bottom of the CNS box and runs to a box labeled efferent, motor, away from the CNS. A red dot travels along it out of the CNS.",
+ pre:function(){S(["map","mapsig","caption"]);mapShow(["cns","pns","aff","eff"]);place(gMapSig,115,274);},
+ play:function(a){return tweenPath(gMapSig,[[115,297],[254,297]],1000,a).then(function(){cap("Efferent signals travel to effectors.");});},
+ post:function(){place(gMapSig,254,297);cap("Efferent signals travel to effectors.");}},
 
-{title:"Two kinds of targets",
+{title:"Somatic motor and autonomic divisions",
  text:["The efferent division splits by what it controls. One branch runs your skeletal muscles, the ones that move your bones. The other runs smooth muscle, cardiac muscle, glands, and some adipose tissue, which is most of the quiet work that keeps your organs running."],
- ask:"Picking up a pencil and speeding up your heart are both commands leaving the central nervous system. Which one can you do on purpose, and which branch do you think carries each command?",
- ans:["You pick up the pencil on purpose, and that command travels on the branch to skeletal muscle. Your heart speeds up without your deciding it, and that command travels on the branch to cardiac muscle, smooth muscle, and glands.","The branch to skeletal muscle is the somatic motor division. The branch to everything else is the autonomic division, sometimes called the visceral nervous system because it controls the internal organs. Reflexes can also use the somatic motor pathway without any decision on your part."],
+ ask:"Picking up a pencil and speeding up your heart are both efferent signals leaving the CNS. Which one is voluntary, and which branch do you think carries each signal?",
+ ans:["Picking up the pencil is voluntary, and that signal travels on the branch to skeletal muscle. Your heart speeds up involuntarily, without any conscious control, and that signal travels on the branch to cardiac muscle, smooth muscle, and glands.","The branch to skeletal muscle is the somatic motor division. The branch to everything else is the autonomic division, sometimes called the visceral nervous system because it controls the internal organs. Reflexes can also use the somatic motor pathway without any decision on your part."],
  name:"somatic motor division and autonomic division",
- desc:"The efferent box splits into two boxes: somatic motor, above the words skeletal muscle, and autonomic, above the words smooth muscle, cardiac muscle, glands, some adipose tissue.",
- pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff"]);},
- play:function(a){return wait(300,a).then(function(){mapShow(["cns","aff","eff","som"]);return wait(700,a);}).then(function(){mapShow(["cns","aff","eff","som","aut"]);cap("Skeletal muscle, or everything else.");});},
- post:function(){mapShow(["cns","aff","eff","som","aut"]);cap("Skeletal muscle, or everything else.");}},
+ desc:"The efferent box branches into two boxes: somatic motor, skeletal muscle; and autonomic, cardiac muscle, smooth muscle, glands.",
+ pre:function(){S(["map","caption"]);mapShow(["cns","pns","aff","eff"]);},
+ play:function(a){return wait(300,a).then(function(){mapShow(["cns","pns","aff","eff","som"]);return wait(700,a);}).then(function(){mapShow(["cns","pns","aff","eff","som","aut"]);cap("Efferent: somatic and autonomic.");});},
+ post:function(){mapShow(["cns","pns","aff","eff","som","aut"]);cap("Efferent: somatic and autonomic.");}},
 
-{title:"The autonomic branch splits in two",
+{title:"Sympathetic and parasympathetic branches",
  text:["The autonomic division has two branches of its own. One prepares the body for stress and effort, raising heart rate and sending more blood to working muscles. The other runs the body's maintenance, such as digestion, and slows the heart when you are calm."],
  ask:"Many organs, including the heart, receive input from both autonomic branches. If one branch speeds the heart up, what would you predict the other one does to it?",
  ans:["It slows the heart down. The two branches often have opposite effects on the same organ, so the organ's activity at any moment reflects the balance between them.","The branch for stress and effort is the sympathetic branch, often called fight-or-flight. The maintenance branch is the parasympathetic branch, often called rest-and-digest. You will build the autonomic division in detail later in the course."],
  name:"sympathetic and parasympathetic branches",
- desc:"The autonomic box splits into two smaller boxes, sympathetic and parasympathetic.",
- pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff","som","aut"]);},
- play:function(a){return wait(400,a).then(function(){mapShow(["cns","aff","eff","som","aut","split"]);cap("Two branches, often opposite effects.");});},
- post:function(){mapShow(["cns","aff","eff","som","aut","split"]);cap("Two branches, often opposite effects.");}},
+ desc:"The autonomic box branches into two smaller boxes: sympathetic, fight or flight, and parasympathetic, rest and digest.",
+ pre:function(){S(["map","caption"]);mapShow(["cns","pns","aff","eff","som","aut"]);},
+ play:function(a){return wait(400,a).then(function(){mapShow(["cns","pns","aff","eff","som","aut","split"]);cap("Two branches, often opposing effects.");});},
+ post:function(){mapShow(["cns","pns","aff","eff","som","aut","split"]);cap("Two branches, often opposing effects.");}},
 
-{title:"A nervous system in the gut wall",
+{title:"The enteric nervous system",
  text:["One more part completes the map. The wall of your digestive tract contains its own dense network of neurons along its whole length, and that network controls how the gut moves and what it secretes."],
  ask:"When food stretches a section of intestine, the smooth muscle there contracts to push the food along. This still happens in a piece of intestine whose connections to the brain and spinal cord have been cut. What does that tell you about the network in the gut wall?",
- ans:["It can sense, decide, and command on its own. The network acts as its own integrating center, so simple gut reflexes do not need the brain or spinal cord at all.","This is the enteric nervous system. It can work independently, but the autonomic division normally adjusts it, speeding digestion during rest and slowing it during stress."],
+ ans:["It can detect a stimulus, integrate it, and send out a response on its own. The network acts as its own integrating center, so simple gut reflexes do not need the brain or spinal cord at all.","This is the enteric nervous system. It can work independently, but the autonomic division normally adjusts it, speeding digestion during rest and slowing it during stress."],
  name:"enteric nervous system",
- desc:"A dashed box appears at the lower left of the map, labeled enteric nervous system, in the wall of the gut, runs the digestive tract.",
- pre:function(){S(["map","caption"]);mapShow(["cns","aff","eff","som","aut","split"]);},
- play:function(a){return wait(400,a).then(function(){mapShow(MAPALL);cap("The gut has its own network.");});},
- post:function(){mapShow(MAPALL);cap("The gut has its own network.");}},
+ desc:"A dashed box appears under the efferent box, labeled enteric, in the wall of the gut. A dashed line links it to the autonomic box.",
+ pre:function(){S(["map","caption"]);mapShow(["cns","pns","aff","eff","som","aut","split"]);},
+ play:function(a){return wait(400,a).then(function(){mapShow(MAPALL);cap("Enteric: the gut's own network.");});},
+ post:function(){mapShow(MAPALL);cap("Enteric: the gut's own network.");}},
 
-{title:"Neurons sorted by direction",
+{title:"Functional classes of neurons",
  text:["Now put individual neurons onto the map. The simplest way to sort them is by which way they carry information.","Sensory neurons carry information toward the central nervous system. Efferent neurons, often called motor neurons, carry commands away from it. Interneurons sit entirely inside the central nervous system and connect the other two."],
  ask:"Roughly 99 percent of the neurons in your body are interneurons. Why would that be?",
- ans:["Because most of what your nervous system does is process, compare, and decide, not just detect and act. All of that work happens between the incoming and outgoing signals, inside the brain and spinal cord.","You can see this when you sit still and work through a problem in your head. Nothing new comes in and nothing goes out, yet your central nervous system is busy, and the neurons doing that work are interneurons."],
+ ans:["Because most of what your nervous system does is integration: processing, comparing, and selecting responses, not just detecting and responding. All of that work happens between the incoming and outgoing signals, inside the brain and spinal cord.","You can see this when you sit still and work through a problem in your head. Nothing new comes in and nothing goes out, yet your central nervous system is busy, and the neurons doing that work are interneurons."],
  name:"sensory (afferent) neurons, efferent (motor) neurons, and interneurons",
- desc:"The full map, with labels showing sensory neurons on the incoming arrow, interneurons inside the central nervous system, and efferent neurons on the outgoing arrow.",
+ desc:"The full map, with labels showing afferent neurons on the incoming arrow, interneurons inside the central nervous system, and efferent neurons on the outgoing arrow.",
  pre:function(){S(["map","caption"]);mapShow(MAPALL);},
- play:function(a){return wait(400,a).then(function(){mapShow(MAPALL.concat(["tags"]));cap("Toward, away, and in between.");});},
- post:function(){mapShow(MAPALL.concat(["tags"]));cap("Toward, away, and in between.");}},
+ play:function(a){return wait(400,a).then(function(){mapShow(MAPALL.concat(["tags"]));cap("Afferent, interneuron, efferent.");});},
+ post:function(){mapShow(MAPALL.concat(["tags"]));cap("Afferent, interneuron, efferent.");}},
 
 /* ---- 2. shapes ---- */
 {sec:"Neuron shapes",comp:"Neuron structural and functional classes",
@@ -650,13 +659,13 @@ var STEPS=[
 
 /* ---- 3. regions ---- */
 {sec:"What a neuron does",comp:"Functional regions of a neuron",
- title:"One cell with three jobs",
- text:["Now zoom in on a single neuron and follow a signal through it. Think back to pulling your hand away from the hot pan. Information has to get from your fingertip to your spinal cord, and a decision has to come back out to the muscle that pulls your hand away.","A neuron is built to do that. It takes in a signal at one end, decides whether the signal is worth passing on, and sends it out the other end."],
- desc:"A neuron is shown with branches on the left, a round cell body, and a long fiber running to the right. The words receive, decide, and send appear beneath the three parts.",
+ title:"Functional regions of a neuron",
+ text:["Now zoom in on a single neuron and follow a signal through it. Think back to pulling your hand away from the hot pan. A signal has to travel from the receptors in your fingertip to your spinal cord, and a response has to travel back out to the skeletal muscle that pulls your hand away.","Every neuron has regions specialized for three functions. An input region receives signals from receptors or other neurons, an integration region sums those signals and determines whether an action potential starts, and an output region carries the signal to the next cell."],
+ desc:"A neuron is shown with branches on the left, a round cell body, and a long fiber running to the right. The words input, integration, and output appear beneath the three parts.",
  auto:true,
  pre:function(){S(["soma","dend","hill","axon","term","caption","job"]);jobs(0);},
- play:function(a){return wait(300,a).then(function(){jobs(1);return wait(600,a);}).then(function(){jobs(2);return wait(600,a);}).then(function(){jobs(3);cap("Receive, decide, send.");});},
- post:function(){jobs(3);cap("Receive, decide, send.");}},
+ play:function(a){return wait(300,a).then(function(){jobs(1);return wait(600,a);}).then(function(){jobs(2);return wait(600,a);}).then(function(){jobs(3);cap("Input, integration, output.");});},
+ post:function(){jobs(3);cap("Input, integration, output.");}},
 
 {title:"Where the signal comes in",
  text:["The branches on the left are where other cells make contact. There are a lot of them, because one neuron may be listening to thousands of others at the same time."],
@@ -679,10 +688,10 @@ var STEPS=[
 
 {title:"Signals that change size",
  text:["The signals arriving on the dendrites and cell body are small, local changes in the membrane's voltage. A stronger input makes a bigger change and a weaker input makes a smaller one. Some push the cell toward firing and some push it away.","Every one of them fades as it spreads, so an input that starts far out on a dendrite has shrunk by the time it reaches the middle of the cell."],
- ask:"Two identical inputs arrive at the same moment, one at the far tip of a dendrite and one on the cell body right next to the decision point. Which one will have the bigger effect at the decision point?",
- ans:["The one on the cell body. It starts the same size, but it has almost no distance to travel, so it has barely faded when it arrives. The distant one shrinks along the way.","These small signals are graded potentials, graded because their size varies with the strength of the input. When several arrive together, their effects add up, which is called summation, and the total that reaches the decision point is what counts."],
+ ask:"Two identical inputs arrive at the same moment, one at the far tip of a dendrite and one on the cell body right next to where the axon begins. Which one will have the bigger effect at the trigger zone?",
+ ans:["The one on the cell body. It starts the same size, but it has almost no distance to travel, so it has barely faded when it arrives. The distant one shrinks along the way.","These small signals are graded potentials, graded because their size varies with the strength of the input. When several arrive together, their effects add up, which is called summation, and the total that reaches the trigger zone is what counts."],
  name:"graded potentials",
- desc:"Two red dots start the same size. One travels from the far tip of a branch and shrinks as it goes. The other starts on the cell body near the decision point and arrives almost full size.",
+ desc:"Two red dots start the same size. One travels from the far tip of a branch and shrinks as it goes. The other starts on the cell body near the start of the axon and arrives almost full size.",
  pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig","sig2"]);labs(["dend","soma","hill"]);place(gSig,92,168);place(gSig2,262,252);},
  play:function(a){var p1=tweenPath(gSig,[[150,215],[230,290],[284,300]],1400,a),
    p2=tweenVal(13,5,1400,a,function(v){SIG.setAttribute("r",v);}),
@@ -691,10 +700,10 @@ var STEPS=[
    return Promise.all([p1,p2,p3,p4]).then(function(){cap("Near input strong, far input faded.");});},
  post:function(){place(gSig,284,300);SIG.setAttribute("r",5);place(gSig2,300,280);SIG2.setAttribute("r",11);cap("Near input strong, far input faded.");}},
 
-{title:"The decision point",
- text:["Right where the cell body tapers into a cone and the long fiber begins, there is a small region that acts as the decision point. It includes that cone and the first stretch of the fiber. This is the spot that decides whether everything the neuron just heard is enough to send a signal onward.","The gold wedge marks it."],
- ask:"Why would it make sense for the decision point to sit right there, between the incoming branches and the outgoing fiber, rather than somewhere out on a branch?",
- ans:["Because everything has to pass through that spot on the way out. Putting the decision there means the cell can add up all the incoming signals first, then decide once.","This region is unusually sensitive. It has the highest density of voltage-gated sodium channels in the neuron, which is why it reaches threshold before anywhere else does. In a sensory neuron the trigger zone sits out near the receptor endings instead, but its job is the same."],
+{title:"The trigger zone",
+ text:["Right where the cell body tapers into a cone and the long fiber begins, there is a small region that acts as the integration point. It includes that cone and the first stretch of the fiber. This is where the neuron's incoming signals are summed, and if the sum reaches threshold, an action potential begins here.","The gold wedge marks it."],
+ ask:"Why would it make sense for this integration point to sit right there, between the incoming branches and the outgoing fiber, rather than somewhere out on a branch?",
+ ans:["Because every signal has to pass through that spot on the way out. Placing it there means the cell sums all its incoming signals first, and only the total determines whether an action potential starts.","This region is unusually sensitive. It has the highest density of voltage-gated sodium channels in the neuron, which is why it reaches threshold before anywhere else does. In a sensory neuron the trigger zone sits out near the receptor endings instead, but its job is the same."],
  name:"axon hillock and initial segment, together called the trigger zone",
  desc:"A gold wedge between the cell body and the long fiber is highlighted, and a signal arrives at it from the branches.",
  pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["soma","hill"]);place(gSig,92,168);},
@@ -702,7 +711,7 @@ var STEPS=[
  post:function(){place(gSig,310,290);cap("Everything out passes through here.");}},
 
 {title:"The long fiber out",
- text:["Past the decision point, the cell sends out one long fiber. There is only ever one, although it can branch along the way, and it can be very long. A motor neuron running from the base of your spine to your foot has a fiber close to a meter long, all part of one cell."],
+ text:["Past the trigger zone, the cell sends out one long fiber. There is only ever one, although it can branch along the way, and it can be very long. A motor neuron running from the base of your spine to your foot has a fiber close to a meter long, all part of one cell."],
  name:"axon",
  auto:true,
  desc:"A red dot travels the length of the long fiber from left to right without shrinking.",
@@ -742,18 +751,18 @@ var STEPS=[
  post:function(){place(gSig,790,290);caEnd();cap("Calcium in, transmitter out.");}},
 
 {title:"The whole route, once through",
- text:["Put the regions together and you have the path a signal takes through a single neuron: in at the dendrites, added up at the cell body, decided at the trigger zone, and out along the axon to the terminals."],
+ text:["Put the regions together and you have the path a signal takes through a single neuron: input at the dendrites, summation at the cell body, action potential initiation at the trigger zone, conduction along the axon, and output at the axon terminals."],
  name:"the functional regions of a neuron",
  auto:true,
  desc:"A red dot travels the full route from a branch tip through the cell body, the trigger zone, along the fiber, to the terminals.",
  pre:function(){S(["soma","dend","hill","axon","term","labels","caption","sig"]);labs(["dend","soma","hill","axon","term"]);place(gSig,92,168);},
- play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],500,a);}).then(function(){return tweenPath(gSig,[[742,290],[790,290]],1300,a);}).then(function(){cap("Receive, add, decide, send.");});},
- post:function(){place(gSig,790,290);cap("Receive, add, decide, send.");}},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],500,a);}).then(function(){return tweenPath(gSig,[[742,290],[790,290]],1300,a);}).then(function(){cap("Input, integration, conduction, output.");});},
+ post:function(){place(gSig,790,290);cap("Input, integration, conduction, output.");}},
 
 {title:"Which signal each region carries",
  text:["You have now seen three kinds of signal in one cell: small signals that change size and fade, a fixed-size signal that travels without fading, and a chemical released at the end."],
  ask:"Before you look, sort the regions. Which ones carry signals that change size and fade, which one carries the fixed-size signal, and where does the signal stop being electrical?",
- ans:["The dendrites and cell body carry graded potentials. The trigger zone is where a graded potential becomes an action potential, if it reaches threshold. The axon carries action potentials, and the axon terminal turns the electrical signal into a chemical one.","Notice that the trigger zone is the one place where the graded signals end and the voltage-gated sodium channels are densest. That overlap is exactly what makes it the decision point."],
+ ans:["The dendrites and cell body carry graded potentials. The trigger zone is where a graded potential becomes an action potential, if it reaches threshold. The axon carries action potentials, and the axon terminal turns the electrical signal into a chemical one.","Notice that the trigger zone is the one place where the graded signals end and the voltage-gated sodium channels are densest. That overlap is exactly what makes it the integration point."],
  desc:"The labeled neuron, with the word graded under the dendrites and cell body, threshold here under the trigger zone, all or none under the axon, and chemical under the terminals.",
  pre:function(){S(["soma","dend","hill","axon","term","labels","caption","stype"]);labs(["dend","soma","hill","axon","term"]);stype(0);},
  play:function(a){return [1,2,3,4].reduce(function(p,n){return p.then(function(){stype(n);return wait(450,a);});},Promise.resolve()).then(function(){cap("Graded, then all or none, then chemical.");});},
@@ -973,18 +982,18 @@ var STEPS=[
 /* ---- 7. story check ---- */
 {sec:"Tell the story back",comp:"Neurons and neuroglia",
  title:"The whole story, with the science names",
- text:["The brain and spinal cord form the central nervous system. The sensory, or afferent, division carries information in, and the efferent division carries commands out through somatic motor and autonomic branches, with the autonomic split into sympathetic and parasympathetic. The enteric nervous system runs the gut. Neurons are sorted by shape into multipolar, bipolar, and pseudounipolar, and by direction into sensory, efferent, and interneurons.","A neuron receives graded potentials at its dendrites and soma, decides at the trigger zone, sends all-or-none action potentials along the axon, and releases neurotransmitter at the axon terminals when calcium enters. Astrocytes control the fluid around neurons and help form the blood-brain barrier, oligodendrocytes and Schwann cells build myelin, microglia clean up, ependymal cells line the fluid spaces, and satellite cells support cell bodies in ganglia.","Myelin speeds conduction by letting the signal be rebuilt only at the nodes, where the sodium channels are, and losing it slows or blocks the signal. Axonal transport keeps the far end supplied: fast transport by kinesin outward and dynein back, and slow transport for the cytoskeleton."],
+ text:["The brain and spinal cord form the central nervous system, the integrating center. The sensory, or afferent, division carries signals toward it, and the efferent division carries signals away from it to effectors through somatic motor and autonomic branches, with the autonomic split into sympathetic and parasympathetic. The enteric nervous system runs the gut. Neurons are sorted by shape into multipolar, bipolar, and pseudounipolar, and by direction into sensory, efferent, and interneurons.","A neuron receives graded potentials at its dendrites and soma, sums them at the trigger zone, where an action potential starts if threshold is reached, sends all-or-none action potentials along the axon, and releases neurotransmitter at the axon terminals when calcium enters. Astrocytes control the fluid around neurons and help form the blood-brain barrier, oligodendrocytes and Schwann cells build myelin, microglia clean up, ependymal cells line the fluid spaces, and satellite cells support cell bodies in ganglia.","Myelin speeds conduction by letting the signal be rebuilt only at the nodes, where the sodium channels are, and losing it slows or blocks the signal. Axonal transport keeps the far end supplied: fast transport by kinesin outward and dynein back, and slow transport for the cytoskeleton."],
  ask:"Without scrolling back, name the regions of a neuron in the order a signal passes through them, and say what each one does and what kind of signal it carries.",
- ans:["Dendrites receive incoming signals as graded potentials. The soma adds them together and makes the cell's proteins. The trigger zone, the axon hillock and initial segment, decides whether to fire. The axon carries all-or-none action potentials to the terminals, which pass the message to the next cell as a chemical.","If any of those were hard to recall, that is the part to go back over. The resting membrane potential walkthrough, which comes next, builds on this one."],
+ ans:["Dendrites receive incoming signals as graded potentials. The soma adds them together and makes the cell's proteins. The trigger zone, the axon hillock and initial segment, is where the summed signal either reaches threshold and starts an action potential or does not. The axon carries all-or-none action potentials to the terminals, which pass the message to the next cell as a chemical.","If any of those were hard to recall, that is the part to go back over. The resting membrane potential walkthrough, which comes next, builds on this one."],
  desc:"The full neuron with all regions labeled and a signal traveling the complete route.",
  pre:function(){S(["soma","dend","hill","axon","term","myelin","nodes","labels","caption","sig"]);labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,92,168);},
- play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],400,a);}).then(function(){return tweenPath(gSig,[[446,290]],260,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],300,a);}).then(function(){cap("Receive, add, decide, send.");});},
- post:function(){labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,790,290);cap("Receive, add, decide, send.");}},
+ play:function(a){return tweenPath(gSig,[[150,215],[230,290]],900,a).then(function(){return tweenPath(gSig,[[310,290]],400,a);}).then(function(){return tweenPath(gSig,[[446,290]],260,a);}).then(function(){return tweenPath(gSig,[[564,290]],260,a);}).then(function(){return tweenPath(gSig,[[682,290]],260,a);}).then(function(){return tweenPath(gSig,[[790,290]],300,a);}).then(function(){cap("Input, integration, conduction, output.");});},
+ post:function(){labs(["dend","soma","hill","axon","term","my","node"]);place(gSig,790,290);cap("Input, integration, conduction, output.");}},
 
 {title:"The map, from memory",
  text:["One more retrieval before you move on. The map of the nervous system is the frame that the rest of this course hangs on, so it is worth being able to rebuild it without looking."],
  ask:"Without scrolling back, rebuild the map in your worksheet. Start with the central nervous system, then name each division and branch, say which way information travels on each, and give one target for each efferent branch.",
- ans:["The central nervous system is the brain and spinal cord. The sensory, or afferent, division carries information toward it. The efferent division carries commands away and splits into the somatic motor division, which controls skeletal muscle, and the autonomic division, which controls smooth muscle, cardiac muscle, glands, and some adipose tissue. The autonomic division splits into sympathetic and parasympathetic branches, and the enteric nervous system in the gut wall can run the digestive tract on its own.","Check your version against the figure. Anything you left out is the first thing to review before you start the resting membrane potential walkthrough."],
+ ans:["The central nervous system is the brain and spinal cord. The central nervous system is the integrating center. The sensory, or afferent, division carries signals toward it. The efferent division carries signals away, to effectors, and splits into the somatic motor division, which controls skeletal muscle, and the autonomic division, which controls smooth muscle, cardiac muscle, glands, and some adipose tissue. The autonomic division splits into sympathetic and parasympathetic branches, and the enteric nervous system in the gut wall can run the digestive tract on its own.","Check your version against the figure. Anything you left out is the first thing to review before you start the resting membrane potential walkthrough."],
  desc:"The full map of the nervous system builds piece by piece: the central nervous system, the sensory and efferent divisions, somatic motor and autonomic, sympathetic and parasympathetic, and the enteric nervous system.",
  pre:function(){S(["map","caption"]);mapShow([]);},
  play:function(a){var shown=[];return MAPALL.reduce(function(p,k){return p.then(function(){shown.push(k);mapShow(shown.slice());return wait(380,a);});},Promise.resolve()).then(function(){cap("The whole map, in one picture.");});},
