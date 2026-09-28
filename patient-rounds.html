@@ -52,8 +52,8 @@
   marked as not auto-checked rather than being marked wrong for
   wording.
 
-  WEEKS 1 AND 2 ARRIVE ALREADY FILED. Those two weeks were charted on
-  paper before this page existed and nobody should do them twice.
+  WEEKS 1 TO 3 ARRIVE ALREADY FILED. Those three weeks were charted on
+  paper before this page existed (Sep 27: typed charting starts Week 4) and nobody should do them twice.
   They render filled and read-only with a line saying so.
 
   NOT AN IMITATION OF ANY VENDOR. Banner, activity tabs, a time
@@ -215,6 +215,12 @@ td.no .cellmsg{color:var(--terra-dark)}
   border:1.5px solid var(--navy);border-radius:9px;padding:9px 11px;min-height:90px}
 
 .printonly{display:none}
+.stamp{margin:6px 0 0;font-size:12px;font-weight:700;color:var(--muted)}
+#caseprint{display:none}
+#caseprint h1{font-size:18pt;margin:0 0 4px}
+#caseprint .cweek + .cweek{break-before:page}
+#caseprint table{width:100%;border-collapse:collapse;margin:10px 0}
+#caseprint th,#caseprint td{border:1px solid #000;padding:3px 6px;text-align:left;font-size:9.5pt}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media (forced-colors:active){.panel,.beat,.watch,.locked,.flash{border:1px solid CanvasText}}
@@ -236,6 +242,9 @@ td.no .cellmsg{color:var(--terra-dark)}
   th,td{border-color:#000}
   td.flg,tr.abn td.val,td.held,.plabel,.stepnum{color:#000}
   h2,h3{break-after:avoid}
+  .stamp{color:#000}
+  body.printcase > *:not(#caseprint){display:none!important}
+  body.printcase #caseprint{display:block}
 }
 </style>
 </head>
@@ -320,12 +329,60 @@ var KEY = 'bio005-rounds-v1-w' + WK;
 var TRACKKEY = 'bio005-track-v1';
 
 /* ---------- saved state ---------- */
-var S = { v:1, week:WK, answers:{}, flow:{}, io:{}, done:{}, track:null, name:'', seen:-1 };
+var S = { v:1, week:WK, answers:{}, flow:{}, io:{}, done:{}, track:null, name:'', seen:-1, log:{}, days:{}, opened:null, exports:[] };
 try {
   var raw = localStorage.getItem(KEY);
   if (raw) { var got = JSON.parse(raw); if (got && got.week === WK) { S = Object.assign(S, got); } }
 } catch (e) {}
 try { if (!S.track) { S.track = localStorage.getItem(TRACKKEY); } } catch (e) {}
+
+/* Sep 27 2026, Scrubs: date every entry. Each field keeps the first time
+   something was typed in it and the last time it changed, and the week keeps
+   a count of edits per day. All of it prints on the PDF. The times come from
+   the student's own computer clock, so they show work pattern, not proof;
+   the Canvas upload time is the only server time. */
+S.log = S.log || {}; S.days = S.days || {}; S.exports = S.exports || [];
+if (!S.opened) { S.opened = new Date().toISOString(); }
+function dayKey(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+function stamp(id) {
+  var d = new Date(), now = d.toISOString();
+  var r = S.log[id] || (S.log[id] = { first:now, n:0 });
+  r.last = now; r.n++;
+  var k = dayKey(d); S.days[k] = (S.days[k] || 0) + 1;
+}
+var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmt(iso) {
+  if (!iso) { return ''; }
+  var d = new Date(iso); if (isNaN(d)) { return ''; }
+  return MON[d.getMonth()] + ' ' + d.getDate() + ', ' + ('0' + d.getHours()).slice(-2) + ('0' + d.getMinutes()).slice(-2);
+}
+function fmtDay(k) { var a = k.split('-'); return MON[parseInt(a[1], 10) - 1] + ' ' + parseInt(a[2], 10); }
+function stampLine(r) {
+  if (!r) { return ''; }
+  var t = 'Entered ' + fmt(r.first);
+  if (r.last && fmt(r.last) !== fmt(r.first)) { t += '. Last changed ' + fmt(r.last); }
+  return '<p class="stamp">' + t + '.</p>';
+}
+/* one stamp for a group of fields: the earliest first entry and the latest change */
+function groupStamp(st, prefix) {
+  var first = null, last = null;
+  Object.keys(st.log || {}).forEach(function (k) {
+    if (k.indexOf(prefix) !== 0) { return; }
+    var r = st.log[k];
+    if (!first || r.first < first) { first = r.first; }
+    if (!last || r.last > last) { last = r.last; }
+  });
+  return first ? { first:first, last:last } : null;
+}
+function activityHtml(st) {
+  var ks = Object.keys(st.days || {}).sort();
+  var h = '<div class="beat activity"><h3>When you worked on this week</h3>';
+  h += '<p>Opened in Rounds ' + (fmt(st.opened) || 'not yet') + '.</p>';
+  h += ks.length ? '<p>Days with entries: ' + ks.map(function (k) { return fmtDay(k) + ' (' + st.days[k] + ' edit' + (st.days[k] === 1 ? '' : 's') + ')'; }).join(', ') + '.</p>'
+                 : '<p>Nothing typed yet.</p>';
+  if (st.exports && st.exports.length) { h += '<p>Exported to PDF: ' + st.exports.map(fmt).join(', ') + '.</p>'; }
+  return h + '<p class="note">Times come from this computer\'s clock (24-hour).</p></div>';
+}
 
 var saveTimer = null;
 function flush() {
@@ -396,7 +453,7 @@ var steps = [];
 steps.push({ id:'arrive', label:'Arrive', title:'Where you are, and who you are seeing' });
 steps.push({ id:'predict', label:'Predict', title:'Before you look at anything', gate:true });
 wk.chart.forEach(function (row, i) {
-  steps.push({ id:'beat' + i, label:row[0].split(',')[0].slice(0, 16), title:row[0], beat:i });
+  steps.push({ id:'beat' + i, label:(function (t) { t = t.split(',')[0]; if (t.length <= 18) { return t; } var w = t.slice(0, 19).split(' '); w.pop(); return w.join(' ') || t.slice(0, 18); }(row[0])), title:row[0], beat:i });
 });
 steps.push({ id:'lesson', label:'How to chart', title:LESSONS[ex.coach.lesson[0]].title });
 steps.push({ id:'vitals', label:'File vitals', title:'File this week into the flowsheet' });
@@ -616,26 +673,33 @@ function panelOrd() {
   return h + '</tbody></table></div>';
 }
 
-function panelMine() {
-  var A = S.answers, h = '';
-  function put(label, txt) {
-    h += '<div class="beat"><h3>' + esc(label) + '</h3><p>' + (txt ? esc(txt).replace(/</g, '&lt;') : 'Not written yet.') + '</p></div>';
+function entriesHtml(st, wkw) {
+  var A = st.answers || {}, L = st.log || {}, h = '';
+  function put(label, key) {
+    var txt = A[key];
+    h += '<div class="beat"><h3>' + esc(label) + '</h3><p>' + (txt ? esc(txt).replace(/&/g, '&amp;').replace(/</g, '&lt;') : 'Not written yet.') + '</p>'
+      + (txt ? stampLine(L['a-' + key]) : '') + '</div>';
   }
-  put('Prediction', A.predict);
-  put('How to chart, your answer', A.lesson);
-  put('Reading the results', A.results);
-  put('Problem list', A.problems);
-  put('Medications and orders', A.mar);
-  put('Your drawing, described', A.draw);
-  wk.five.forEach(function (q, i) { put('Question ' + (i + 1), A['q' + i]); });
-  put('From your desk', A.desk);
-  put('Subjective', A.noteS);
-  put('Objective', A.noteO);
-  put('Assessment', A.noteA);
-  put('Plan', A.noteP);
-  put('AI log', A.ai);
+  put('Prediction', 'predict');
+  put('How to chart, your answer', 'lesson');
+  put('Reading the results', 'results');
+  put('Problem list', 'problems');
+  put('Medications and orders', 'mar');
+  put('Your drawing, described', 'draw');
+  (wkw.five || []).forEach(function (q, i) { put('Question ' + (i + 1), 'q' + i); });
+  put('From your desk', 'desk');
+  put('Subjective', 'noteS');
+  put('Objective', 'noteO');
+  put('Assessment', 'noteA');
+  put('Plan', 'noteP');
+  put('AI log', 'ai');
+  var fs = groupStamp(st, 'f-'), is = groupStamp(st, 'io-');
+  if (fs) { h += '<div class="beat"><h3>Flowsheet</h3>' + stampLine(fs) + '</div>'; }
+  if (is) { h += '<div class="beat"><h3>Intake and output</h3>' + stampLine(is) + '</div>'; }
+  if (st.name) { h += '<div class="beat"><h3>Signed</h3><p>' + esc(st.name).replace(/</g, '&lt;') + '</p>' + stampLine(L.name) + '</div>'; }
   return h;
 }
+function panelMine() { return activityHtml(S) + entriesHtml(S, wk); }
 
 function paintChart() {
   var host = document.getElementById('tabpanels');
@@ -657,6 +721,7 @@ function wireChart() {
       td.className = '';
       var msg = td.querySelector('.cellmsg'); if (msg) { msg.remove(); }
       if (i.id.indexOf('f-') === 0) { S.flow[i.id] = i.value; } else { S.io[i.id] = i.value; }
+      stamp(i.id);
       save();
     });
   });
@@ -686,7 +751,7 @@ function checkCells(sel, source, msgHost, what) {
   if (bad) { lines.push('<strong>' + bad + '</strong> do not. They are outlined; go back to the note and read them again rather than guessing.'); }
   if (blank) { lines.push('<strong>' + blank + '</strong> are still empty.'); }
   if (skipped) { lines.push('<strong>' + skipped + '</strong> are written in words, so they are not checked automatically. Read those back yourself.'); }
-  if (!bad && !blank) { lines.push('That is the whole of ' + what + ' filed correctly. The transcription is the work; well done for doing it by hand.'); }
+  if (!bad && !blank) { lines.push('That is the whole of ' + what + ' filed correctly. Copying the numbers in yourself is the work, and you did it.'); }
   host.innerHTML = '<div class="' + cls + '"><p>' + lines.join(' ') + '</p></div>';
 }
 function checkFlow() { checkCells('#tabpanels td[data-key][data-id^="f-"]', ex.flow, 'flowmsg', 'this week’s flowsheet'); }
@@ -712,7 +777,7 @@ function field(key, label, hint, minChars, tall) {
       ? (n >= minChars ? n + ' characters. That is enough to move on.' : n + ' of at least ' + minChars + ' characters.')
       : n + ' characters.';
   }
-  ta.addEventListener('input', function () { S.answers[key] = ta.value; upd(); save(); gateCheck(); });
+  ta.addEventListener('input', function () { S.answers[key] = ta.value; stamp('a-' + key); upd(); save(); gateCheck(); });
   upd();
   box.appendChild(c);
   return box;
@@ -814,7 +879,7 @@ function renderStep() {
     root.appendChild(field('mar', 'Your answer', 'Answer the question above, using what is actually on the record.', 60));
 
   } else if (s.id === 'draw') {
-    root.appendChild(el('p', 'say', 'Draw the control loop for this week on paper: the regulated variable, the sensor, the integrating centre, the effector, and where in the loop this patient is being pushed or is failing. Label every arrow with a direction.'));
+    root.appendChild(el('p', 'say', 'Draw the control loop for this week on paper: the regulated variable, the sensor, the integrating center, the effector, and where in the loop this patient is being pushed or is failing. Label every arrow with a direction.'));
     root.appendChild(el('p', 'note', 'Photograph it and upload the photo with your PDF. Drawings are not saved by this page, which is the other reason to export every week.'));
     root.appendChild(field('draw', 'Describe your drawing in words',
       'The description is marked with the drawing. If you cannot describe it, the drawing is not finished.', 100, true));
@@ -867,22 +932,30 @@ function renderStep() {
     nm.appendChild(el('label', 'fl', 'Your name, exactly as it appears in Canvas'));
     nm.lastChild.setAttribute('for', 'signname');
     var inp = el('input'); inp.type = 'text'; inp.id = 'signname'; inp.value = S.name || '';
-    inp.addEventListener('input', function () { S.name = inp.value; save(); });
+    inp.addEventListener('input', function () { S.name = inp.value; stamp('name'); save(); });
     nm.appendChild(inp);
     root.appendChild(nm);
     root.appendChild(field('ai', 'Your AI log for this week',
       'What you asked, what you got, and what you did with it. One line saying you used none is a complete answer and has never cost anyone a mark.', 0));
     var br = el('div', 'btnrow noprint');
     var pb = el('button', 'btn pri', 'Export this week to PDF'); pb.type = 'button';
-    pb.addEventListener('click', function () { activeTab = 'mine'; buildTabs(); paintChart(); setTimeout(function () { window.print(); }, 120); });
+    pb.addEventListener('click', function () { S.exports.push(new Date().toISOString()); flush(); activeTab = 'mine'; buildTabs(); paintChart(); setTimeout(function () { window.print(); }, 120); });
+    var cr = caseRange();
+    var wb = el('button', 'btn', 'Export the whole case, Weeks ' + cr.from + ' to ' + cr.to + ', to PDF'); wb.type = 'button';
+    wb.addEventListener('click', function () { flush(); printCase(); });
     var cb = el('button', 'btn', 'Show my save code'); cb.type = 'button';
     cb.setAttribute('aria-expanded', 'false');
     cb.setAttribute('aria-controls', 'codewrap');
     var rb = el('button', 'btn', 'Paste a save code back in'); rb.type = 'button';
     rb.setAttribute('aria-expanded', 'false');
     rb.setAttribute('aria-controls', 'restorewrap');
-    br.appendChild(pb); br.appendChild(cb); br.appendChild(rb);
+    br.appendChild(pb); br.appendChild(wb); br.appendChild(cb); br.appendChild(rb);
     root.appendChild(br);
+    root.appendChild(el('p', 'note', '<strong>At the end of the case</strong>, in the week of ' + cr.exam + ', click Export the whole case. '
+      + 'It puts every week you charted in this browser into one PDF, with the date and time of every entry. '
+      + 'Upload that PDF to the Canvas assignment for ' + P.name.split(' ')[0] + '\'s chart, due ' + cr.due + '. '
+      + (cr.paper ? 'Upload your scanned paper pages for Weeks ' + cr.paper + ' in the same submission. ' : '')
+      + 'Export each week as you go too, as a backup.'));
 
     var cw = el('div', 'qbox'); cw.id = 'codewrap'; cw.hidden = true;
     cw.appendChild(el('label', 'fl', 'Copy this and keep it somewhere you own'));
@@ -928,6 +1001,66 @@ function renderStep() {
   document.getElementById('prev').disabled = idx === 0;
   gateCheck();
   document.getElementById('steph').focus();
+}
+
+/* ---------- the whole case in one PDF ---------- */
+function caseRange() {
+  var ws = Object.keys(C.patientByWeek).map(Number).filter(function (w) { return C.patientByWeek[w] === pKey; }).sort(function (a, b) { return a - b; });
+  var paper = ws.filter(function (w) { return E.weeks[w] && E.weeks[w].prefiled; });
+  var A = pKey === 'A';
+  return { weeks:ws, from:ws[0], to:ws[ws.length - 1],
+    paper: paper.length ? (paper.length === 1 ? String(paper[0]) : paper[0] + ' to ' + paper[paper.length - 1]) : '',
+    exam: A ? 'Midterm 1' : 'Midterm 2',
+    due: A ? 'Sunday, November 1, at 10:00 pm, with Midterm 1' : 'Wednesday, December 16, at 10:00 pm, with Midterm 2' };
+}
+function staticTable(cols, rowsDef, get, caption) {
+  var h = '<table><caption>' + caption + '</caption><thead><tr><th scope="col">Measure</th>';
+  cols.forEach(function (c) { h += '<th scope="col">' + esc(c.t) + '</th>'; });
+  h += '</tr></thead><tbody>';
+  rowsDef.forEach(function (r) {
+    if (r.grp) { h += '<tr class="grp"><th scope="row" colspan="' + (cols.length + 1) + '">' + r.grp + '</th></tr>'; return; }
+    h += '<tr><th scope="row">' + r[1] + '<span class="u">' + (r[2] || '') + '</span></th>';
+    cols.forEach(function (c, ci) {
+      h += '<td>' + (c[r[0]] == null ? '' : String(get(r[0], ci, c[r[0]]) || '').replace(/</g, '&lt;')) + '</td>';
+    });
+    h += '</tr>';
+  });
+  return h + '</tbody></table>';
+}
+function printCase() {
+  var cr = caseRange(), host = document.getElementById('caseprint'), h = '';
+  var signer = S.name;
+  cr.weeks.forEach(function (w) { if (!signer) { try { var t = JSON.parse(localStorage.getItem('bio005-rounds-v1-w' + w) || 'null'); if (t && t.name) { signer = t.name; } } catch (e) {} } });
+  h += '<h1>' + esc(P.name) + ': the whole case, Weeks ' + cr.from + ' to ' + cr.to + '</h1>'
+    + '<p>' + (signer ? esc(signer).replace(/</g, '&lt;') + '. ' : '') + 'Exported ' + fmt(new Date().toISOString()) + '. Due ' + cr.due + '.</p>';
+  if (cr.paper) { h += '<p><strong>Weeks ' + cr.paper + ' were charted on paper.</strong> Your handwritten pages for those weeks go in the same Canvas submission as this PDF.</p>'; }
+  cr.weeks.forEach(function (w) {
+    var exw = E.weeks[w], wkw = C.weeks[w];
+    if (!exw || !wkw) { return; }
+    var st = null;
+    try { st = JSON.parse(localStorage.getItem('bio005-rounds-v1-w' + w) || 'null'); } catch (e) {}
+    if (w === WK) { st = S; }
+    if (exw.prefiled) { return; }
+    h += '<section class="cweek"><h2>Week ' + w + ': ' + esc(wkw.title) + '</h2>';
+    if (!st || !st.answers) {
+      h += '<p><strong>Nothing charted in Rounds for this week in this browser.</strong> If you charted it on another computer, open Week ' + w + ' in Rounds here, paste that week\'s save code, and export again.</p></section>';
+      return;
+    }
+    h += activityHtml(st);
+    var rowsDef = [];
+    E.groups.forEach(function (g) {
+      var rs = g.rows.filter(function (r) { return exw.flow.some(function (c) { return c[r[0]] != null; }); });
+      if (rs.length) { rowsDef.push({ grp:g.name }); rowsDef = rowsDef.concat(rs); }
+    });
+    h += staticTable(exw.flow, rowsDef, function (k, ci) { return (st.flow || {})['f-' + k + '-' + ci]; }, 'Flowsheet, week ' + w);
+    if (exw.io) { h += staticTable(exw.io, E.ioRows, function (k, ci) { return (st.io || {})['io-' + k + '-' + ci]; }, 'Intake and output, week ' + w); }
+    h += entriesHtml(st, wkw) + '</section>';
+  });
+  host.innerHTML = h;
+  document.body.classList.add('printcase');
+  var done = function () { document.body.classList.remove('printcase'); window.removeEventListener('afterprint', done); };
+  window.addEventListener('afterprint', done);
+  setTimeout(function () { window.print(); }, 120);
 }
 
 function openBtn(tab, label) {
@@ -988,5 +1121,6 @@ renderStep();
   post();
 }());
 </script>
+<div id="caseprint" aria-hidden="true"></div>
 </body>
 </html>

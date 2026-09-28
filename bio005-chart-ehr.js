@@ -46,11 +46,11 @@
    files cannot drift apart. 206 values are in this category.
 
    The second kind is new, because a flowsheet has more rows than a
-   paragraph does. A narrative says she arrived at 06:40 and was
-   herself by 14:00; a flowsheet needs a heart rate at 10:00 as well.
+   paragraph does. A narrative says she arrived at 0640 and was
+   herself by 1400; a flowsheet needs a heart rate at 1000 as well.
    Interval vital signs, the fluid volumes, the weights between two
-   stated weights, and the millilitre conversions of quantities the
-   case gives in litres are all written here and appear nowhere in
+   stated weights, and the milliliter conversions of quantities the
+   case gives in liters are all written here and appear nowhere in
    the case file. They are constrained rather than invented, and
    tools/check_ehr_chart.js is what constrains them. It fails if a
    mean arterial pressure does not follow from its own blood
@@ -173,7 +173,7 @@ window.BIO005_EHR = {
        file is not edited. The panels live here instead so the Results tab
        is not empty for the two weeks students have already done. */
     panels:[
-      { name:'Basic metabolic panel', when:'August 12, 09:30', rows:[
+      { name:'Basic metabolic panel', when:'August 12, 0930', rows:[
         ['Sodium','139','mEq/L','135 to 145',''],
         ['Potassium','4.2','mEq/L','3.5 to 5.0',''],
         ['Chloride','103','mEq/L','98 to 107',''],
@@ -181,7 +181,7 @@ window.BIO005_EHR = {
         ['Glucose','88','mg/dL','70 to 99',''],
         ['Creatinine','0.8','mg/dL','0.5 to 1.0','']
       ]},
-      { name:'Complete blood count', when:'August 12, 09:30', rows:[
+      { name:'Complete blood count', when:'August 12, 0930', rows:[
         ['Hemoglobin','13.4','g/dL','12.0 to 15.5',''],
         ['Hematocrit','40','%','36 to 46','']
       ]},
@@ -196,8 +196,8 @@ window.BIO005_EHR = {
       ]}
     ],
     flow:[
-      { t:'Aug 12, 09:10', hr:'52', bp:'108/64', map:'79', rr:'12', temp:'36.8 (98.2)', spo2:'99', o2:'Room air', wt:'61 (134)', gcs:'15' },
-      { t:'Aug 12, 09:14 standing', hr:'64', bp:'104/66', map:'79' }
+      { t:'Aug 12, 0910', hr:'52', bp:'108/64', map:'79', rr:'12', temp:'36.8 (98.2)', spo2:'99', o2:'Room air', wt:'61 (134)', gcs:'15' },
+      { t:'Aug 12, 0914 standing', hr:'64', bp:'104/66', map:'79' }
     ],
     io:null,
     mar:[],
@@ -226,7 +226,7 @@ window.BIO005_EHR = {
     location:'Athletic training room, then emergency department',
     encounterType:'Emergency, admitted',
     panels:[
-      { name:'Basic metabolic panel', when:'September 18, 17:40', rows:[
+      { name:'Basic metabolic panel', when:'September 18, 1740', rows:[
         ['Sodium','124','mEq/L','135 to 145','LL'],
         ['Potassium','4.0','mEq/L','3.5 to 5.0',''],
         ['Chloride','89','mEq/L','98 to 107','L'],
@@ -235,34 +235,34 @@ window.BIO005_EHR = {
         ['Blood urea nitrogen','9','mg/dL','7 to 20',''],
         ['Creatinine','0.7','mg/dL','0.5 to 1.0','']
       ]},
-      { name:'Osmolality', when:'September 18, 17:40', rows:[
+      { name:'Osmolality', when:'September 18, 1740', rows:[
         ['Serum osmolality (measured)','256','mOsm/kg','275 to 295','L'],
         ['Urine osmolality','380','mOsm/kg','read against the serum',''],
         ['Urine sodium','52','mEq/L','read against the clinical state','']
       ]}
     ],
     flow:[
-      { t:'Sep 18, 17:20', hr:'96', bp:'118/70', map:'86', rr:'18', temp:'37.4 (99.3)', spo2:'98', o2:'Room air', wt:'63.5 (140)', gcs:'14' }
+      { t:'Sep 18, 1720', hr:'96', bp:'118/70', map:'86', rr:'18', temp:'37.4 (99.3)', spo2:'98', o2:'Room air', wt:'63.5 (140)', gcs:'14' }
     ],
     io:[
       { t:'Sep 18, the day', oral:'5,000', iv:'0', totalIn:'5,000', urine:'not measured', other:'Vomited twice, volume not recorded', totalOut:'not measured', net:'not calculable', cum:'not calculable' }
     ],
     mar:[
-      ['Sodium chloride 3%','100 mL','Intravenous over 10 minutes','Sep 18, 18:05','Given']
+      ['Sodium chloride 3%','100 mL','Intravenous over 10 minutes','Sep 18, 1805','Given']
     ],
     orders:[
-      ['Admit to observation','Medicine','Sep 18, 18:00','Active'],
-      ['Sodium chloride 3%, 100 mL over 10 minutes','One dose, then reassess','Sep 18, 18:00','Completed'],
-      ['Serum sodium every 2 hours','While correcting','Sep 18, 18:00','Active'],
-      ['Strict intake and output','Hourly','Sep 18, 18:00','Active'],
-      ['Nothing by mouth','Until reviewed','Sep 18, 18:00','Active']
+      ['Admit to observation','Medicine','Sep 18, 1800','Active'],
+      ['Sodium chloride 3%, 100 mL over 10 minutes','One dose, then reassess','Sep 18, 1800','Completed'],
+      ['Serum sodium every 2 hours','While correcting','Sep 18, 1800','Active'],
+      ['Strict intake and output','Hourly','Sep 18, 1800','Active'],
+      ['Nothing by mouth','Until reviewed','Sep 18, 1800','Active']
     ],
     coach:{
-      predict:"She trained twice in the heat, sweated hard through both sessions, and drank about five litres of plain water. Before you look at her weight: up, down, or the same?",
+      predict:"She trained twice in the heat, sweated hard through both sessions, and drank about five liters of plain water. Before you look at her weight: up, down, or the same?",
       read:"Her intake is charted and her output is not. That is real, it happens on every ward, and one of this week's questions turns on the gap.",
       lesson:["weight", "Her weight is on the vital signs flowsheet and not in the note. What does putting it in the grid let you do that a sentence would not?"],
       vitals:"File the weight and put it beside the August weight. Two numbers, five weeks apart, and between them is the whole case.",
-      io:"Five litres in and an output nobody wrote down. What is the honest thing to chart in the urine row, and why is a blank better than a guess?",
+      io:"Five liters in and an output nobody wrote down. What is the honest thing to chart in the urine row, and why is a blank better than a guess?",
       results:"Read the sodium and the measured osmolality together rather than one after the other. What are they telling you twice?",
       problems:"You can open a problem here without knowing the cause. What can you name from the chart alone?",
       mar:"She was given salt water after drinking water all day. Before you judge it, what would you want to know about the concentration of what she was given?",
@@ -272,34 +272,35 @@ window.BIO005_EHR = {
 
   /* ---------------------------------------------------------- 3 */
   3: {
+    prefiled:true,   /* charted on paper in Week 3 (typed chart starts Week 4); the app files it and says so */
     location:'Emergency department, resuscitation bay 2',
     encounterType:'Emergency, admitted',
     flow:[
-      { t:'Sep 22, 06:40', hr:'128', bp:'96/58', map:'71', rr:'32', temp:'36.4 (97.5)', spo2:'99', o2:'Room air', wt:'55 (121)', gcs:'13', pupils:'4 mm, reactive', glu:'642', k:'5.4', cr:'1.6' }
+      { t:'Sep 22, 0640', hr:'128', bp:'96/58', map:'71', rr:'32', temp:'36.4 (97.5)', spo2:'99', o2:'Room air', wt:'55 (121)', gcs:'13', pupils:'4 mm, reactive', glu:'642', k:'5.4', cr:'1.6' }
     ],
     io:[
-      { t:'Sep 22, 06:40 to 07:40', oral:'0', iv:'1,000', totalIn:'1,000', urine:'40', other:'0', totalOut:'40', net:'+960', cum:'+960' }
+      { t:'Sep 22, 0640 to 0740', oral:'0', iv:'1,000', totalIn:'1,000', urine:'40', other:'0', totalOut:'40', net:'+960', cum:'+960' }
     ],
     mar:[
-      ['Sodium chloride 0.9%','1,000 mL','Intravenous over 1 hour','Sep 22, 06:55','Running']
+      ['Sodium chloride 0.9%','1,000 mL','Intravenous over 1 hour','Sep 22, 0655','Running']
     ],
     orders:[
-      ['Sodium chloride 0.9%, 1 L over the first hour, then reassess','Fluid resuscitation','Sep 22, 06:50','Active'],
-      ['Hourly urine output','Nursing','Sep 22, 06:50','Active'],
-      ['Hourly point of care glucose','Nursing','Sep 22, 06:50','Active'],
-      ['Potassium every 2 hours','Laboratory','Sep 22, 06:50','Active'],
-      ['Nothing by mouth','Until reviewed','Sep 22, 06:50','Active'],
-      ['Continuous cardiac monitoring','Nursing','Sep 22, 06:50','Active']
+      ['Sodium chloride 0.9%, 1 L over the first hour, then reassess','Fluid resuscitation','Sep 22, 0650','Active'],
+      ['Hourly urine output','Nursing','Sep 22, 0650','Active'],
+      ['Hourly point of care glucose','Nursing','Sep 22, 0650','Active'],
+      ['Potassium every 2 hours','Laboratory','Sep 22, 0650','Active'],
+      ['Nothing by mouth','Until reviewed','Sep 22, 0650','Active'],
+      ['Continuous cardiac monitoring','Nursing','Sep 22, 0650','Active']
     ],
     coach:{
       predict:"Four days ago she weighed 63.5 kg and was overloaded with water. She has been passing very large volumes of urine since. Before you look: what has her weight done, and what has happened inside her cells?",
       read:"Nothing new opens this week. Everything you need was taught in Week 2, and this is the same physiology on a much harder patient. If a question feels like it needs something you have not met, read it again.",
       lesson:["trend", "Three weights now sit in one row: 61, 63.5 and 55 kg. What can you see in a row that you could not see in three separate notes?"],
       vitals:"File today's weight, then run your eye along the whole row before you move on. Which of the three numbers is the one you would have wanted first?",
-      io:"One hour of fluid is charted. At this rate, how long would it take to replace a six litre deficit, and what does that arithmetic tell you about the plan?",
+      io:"One hour of fluid is charted. At this rate, how long would it take to replace a six liter deficit, and what does that arithmetic tell you about the plan?",
       results:"Two numbers on this panel belong to a system you reach in Week 15. The chart tells you which and tells you to leave them alone. Which two, and how did you know?",
       problems:"You can now name several problems you could not name on Tuesday. Write the evidence beside each, because in four weeks you will not remember why you opened it.",
-      mar:"The first litre is isotonic saline and she is profoundly hyperosmolar. What question would you ask the person who wrote that order?",
+      mar:"The first liter is isotonic saline and she is profoundly hyperosmolar. What question would you ask the person who wrote that order?",
       note:"Your assessment is about where water has gone, not about what she is called. A diagnosis is not required and is not what is being marked."
     }
   },
@@ -309,24 +310,24 @@ window.BIO005_EHR = {
     location:'Emergency department, resuscitation bay 2',
     encounterType:'Emergency, admitted',
     flow:[
-      { t:'Sep 22, 07:00', hr:'128', bp:'96/58', map:'71', rr:'32', k:'5.4', glu:'642', pupils:'4 mm, reactive' },
-      { t:'Sep 22, 09:00', hr:'116', k:'4.1', glu:'486' },
-      { t:'Sep 22, 11:00', hr:'104', k:'3.1', glu:'372' }
+      { t:'Sep 22, 0700', hr:'128', bp:'96/58', map:'71', rr:'32', k:'5.4', glu:'642', pupils:'4 mm, reactive' },
+      { t:'Sep 22, 0900', hr:'116', k:'4.1', glu:'486' },
+      { t:'Sep 22, 1100', hr:'104', k:'3.1', glu:'372' }
     ],
     io:[
-      { t:'Sep 22, 07:00 to 11:00', oral:'0', iv:'3,000', totalIn:'3,000', urine:'420', other:'0', totalOut:'420', net:'+2,580', cum:'+3,540' }
+      { t:'Sep 22, 0700 to 1100', oral:'0', iv:'3,000', totalIn:'3,000', urine:'420', other:'0', totalOut:'420', net:'+2,580', cum:'+3,540' }
     ],
     mar:[
-      ['Sodium chloride 0.9%','continuous','Intravenous','Sep 22, 06:55 onward','Running'],
-      ['Insulin, regular, infusion','0.1 units/kg/h','Intravenous','Sep 22, 07:20','Started'],
-      ['Insulin, regular, infusion','rate reduced','Intravenous','Sep 22, 11:05','Rate changed'],
-      ['Potassium chloride','added to the infusion','Intravenous','Sep 22, 11:05','Started']
+      ['Sodium chloride 0.9%','continuous','Intravenous','Sep 22, 0655 onward','Running'],
+      ['Insulin, regular, infusion','0.1 units/kg/h','Intravenous','Sep 22, 0720','Started'],
+      ['Insulin, regular, infusion','rate reduced','Intravenous','Sep 22, 1105','Rate changed'],
+      ['Potassium chloride','added to the infusion','Intravenous','Sep 22, 1105','Started']
     ],
     orders:[
-      ['Insulin infusion per protocol','Hold if potassium is below 3.3 mEq/L','Sep 22, 07:15','Active'],
-      ['Potassium every 2 hours while on the infusion','Laboratory','Sep 22, 07:15','Active'],
-      ['Continuous cardiac monitoring','Nursing','Sep 22, 06:50','Active'],
-      ['12 lead ECG on arrival and at 4 hours','Cardiology','Sep 22, 07:00','Resulted twice']
+      ['Insulin infusion per protocol','Hold if potassium is below 3.3 mEq/L','Sep 22, 0715','Active'],
+      ['Potassium every 2 hours while on the infusion','Laboratory','Sep 22, 0715','Active'],
+      ['Continuous cardiac monitoring','Nursing','Sep 22, 0650','Active'],
+      ['12 lead ECG on arrival and at 4 hours','Cardiology','Sep 22, 0700','Resulted twice']
     ],
     coach:{
       predict:"Her potassium was 5.4 on arrival. She has been losing potassium in her urine for three weeks. Before you look at the next two values: which way does the number go over the next four hours, and which way does her total body potassium go?",
@@ -334,7 +335,7 @@ window.BIO005_EHR = {
       lesson:["source", "The potassium in the flowsheet came from a laboratory and the ECG changes came from a machine at the bedside. Which one is closer to the membrane, and why does a chart keep both?"],
       vitals:"Put the potassium row and the ECG findings in the same columns. One is measuring the serum and one is watching what the serum is doing to a cell.",
       io:"Fluid has been running for four hours. How much of what went in do you think is still in her bloodstream, and what would you need to know to answer properly?",
-      results:"A value inside the reference range at 09:00 is not reassurance here. What is it on its way to?",
+      results:"A value inside the reference range at 0900 is not reassurance here. What is it on its way to?",
       problems:"Open a problem for the potassium even though the arrival value was high. In the evidence field, say which direction the danger is now coming from.",
       mar:"The protocol says hold the insulin below a certain potassium. Before you read the number: what do you think insulin does to where potassium sits?",
       note:"Your plan should contain one thing you would stop, not only things you would give."
@@ -346,25 +347,25 @@ window.BIO005_EHR = {
     location:'Emergency department, then medical ward',
     encounterType:'Inpatient, day 1',
     flow:[
-      { t:'Sep 22, 06:40', hr:'128', bp:'96/58', map:'71', rr:'32', gcs:'13', pupils:'4 mm, brisk and equal', dtr:'1+ symmetric' },
-      { t:'Sep 22, 07:40 sitting', hr:'138', bp:'78/44', map:'55' },
-      { t:'Sep 22, 10:00', hr:'112', rr:'32', gcs:'14' },
-      { t:'Sep 22, 14:00', hr:'96', bp:'108/62', map:'77', rr:'24', gcs:'15', dtr:'2+ symmetric' }
+      { t:'Sep 22, 0640', hr:'128', bp:'96/58', map:'71', rr:'32', gcs:'13', pupils:'4 mm, brisk and equal', dtr:'1+ symmetric' },
+      { t:'Sep 22, 0740 sitting', hr:'138', bp:'78/44', map:'55' },
+      { t:'Sep 22, 1000', hr:'112', rr:'32', gcs:'14' },
+      { t:'Sep 22, 1400', hr:'96', bp:'108/62', map:'77', rr:'24', gcs:'15', dtr:'2+ symmetric' }
     ],
     io:[
-      { t:'Sep 22, 06:40 to 14:00', oral:'0', iv:'5,000', totalIn:'5,000', urine:'980', other:'0', totalOut:'980', net:'+4,020', cum:'+4,020' }
+      { t:'Sep 22, 0640 to 1400', oral:'0', iv:'5,000', totalIn:'5,000', urine:'980', other:'0', totalOut:'980', net:'+4,020', cum:'+4,020' }
     ],
     mar:[
-      ['Sodium chloride 0.9%','continuous','Intravenous','Sep 22, 06:55 onward','Running'],
-      ['Insulin, regular, infusion','continuous','Intravenous','Sep 22, 07:20 onward','Running'],
-      ['Potassium chloride','in the infusion','Intravenous','Sep 22, 11:05 onward','Running']
+      ['Sodium chloride 0.9%','continuous','Intravenous','Sep 22, 0655 onward','Running'],
+      ['Insulin, regular, infusion','continuous','Intravenous','Sep 22, 0720 onward','Running'],
+      ['Potassium chloride','in the infusion','Intravenous','Sep 22, 1105 onward','Running']
     ],
     orders:[
-      ['Hourly neurological observations','Nursing','Sep 22, 07:00','Active'],
-      ['Limit the fall in plasma osmolality to about 3 mOsm/kg per hour','Medicine','Sep 22, 07:00','Active'],
-      ['Bedside visual acuity','Nursing','Sep 22, 08:00','Resulted'],
-      ['10 g monofilament and 128 Hz vibration testing, both feet','Nursing','Sep 22, 08:10','Resulted'],
-      ['Lie and stand blood pressure','Nursing','Sep 22, 07:40','Resulted']
+      ['Hourly neurological observations','Nursing','Sep 22, 0700','Active'],
+      ['Limit the fall in plasma osmolality to about 3 mOsm/kg per hour','Medicine','Sep 22, 0700','Active'],
+      ['Bedside visual acuity','Nursing','Sep 22, 0800','Resulted'],
+      ['10 g monofilament and 128 Hz vibration testing, both feet','Nursing','Sep 22, 0810','Resulted'],
+      ['Lie and stand blood pressure','Nursing','Sep 22, 0740','Resulted']
     ],
     coach:{
       predict:"She is drowsy, her blood pressure is 96/58 and she is about to be sat upright for the first time. What do you expect her blood pressure and her heart rate to do in the first minute?",
@@ -488,42 +489,42 @@ window.BIO005_EHR = {
     encounterType:'Emergency, admitted to intensive care',
     flow:[
       { t:'Mar 10, baseline clinic', hr:'64', bp:'118/70', map:'86', rr:'16', temp:'36.8 (98.2)', spo2:'96', o2:'Room air', wt:'88 (194)', ef:'30', cr:'1.5', hgb:'12.6' },
-      { t:'Nov 4, 08:40 arrival', hr:'118', bp:'82/46', map:'58', rr:'28', temp:'38.9 (102.0)', spo2:'88', o2:'Room air', wt:'91 (201)', gcs:'14' },
-      { t:'Nov 4, 08:50 on oxygen', spo2:'93', o2:'6 L nasal cannula', k:'5.1', glu:'268', cr:'2.6', lac:'4.6', hgb:'11.8' },
-      { t:'Nov 4, 09:20 echo', cvp:'14', co:'4.9', sv:'42', scvo2:'52', ef:'25' }
+      { t:'Nov 4, 0840 arrival', hr:'118', bp:'82/46', map:'58', rr:'28', temp:'38.9 (102.0)', spo2:'88', o2:'Room air', wt:'91 (201)', gcs:'14' },
+      { t:'Nov 4, 0850 on oxygen', spo2:'93', o2:'6 L nasal cannula', k:'5.1', glu:'268', cr:'2.6', lac:'4.6', hgb:'11.8' },
+      { t:'Nov 4, 0920 echo', cvp:'14', co:'4.9', sv:'42', scvo2:'52', ef:'25' }
     ],
     io:[
-      { t:'Nov 4, 08:40 to 10:40', oral:'0', iv:'500', totalIn:'500', urine:'20', other:'0', totalOut:'20', net:'+480', cum:'+480' }
+      { t:'Nov 4, 0840 to 1040', oral:'0', iv:'500', totalIn:'500', urine:'20', other:'0', totalOut:'20', net:'+480', cum:'+480' }
     ],
     mar:[
-      ['Carvedilol','12.5 mg','Oral, at home','Nov 4, 07:00','Taken at home'],
-      ['Ceftriaxone','2 g','Intravenous','Nov 4, 09:30','Given'],
-      ['Azithromycin','500 mg','Intravenous','Nov 4, 09:40','Given'],
-      ['Sodium chloride, balanced crystalloid','500 mL','Intravenous over 20 minutes','Nov 4, 09:10','Given'],
+      ['Carvedilol','12.5 mg','Oral, at home','Nov 4, 0700','Taken at home'],
+      ['Ceftriaxone','2 g','Intravenous','Nov 4, 0930','Given'],
+      ['Azithromycin','500 mg','Intravenous','Nov 4, 0940','Given'],
+      ['Sodium chloride, balanced crystalloid','500 mL','Intravenous over 20 minutes','Nov 4, 0910','Given'],
       ['Lisinopril','10 mg','Oral','Nov 4','HELD on admission'],
       ['Spironolactone','25 mg','Oral','Nov 4','HELD on admission'],
       ['Metformin','1,000 mg','Oral','Nov 4','HELD on admission']
     ],
     orders:[
-      ['Admit to intensive care','Critical care','Nov 4, 09:45','Active'],
-      ['Blood cultures, two sets, before antibiotics','Microbiology','Nov 4, 09:00','Collected'],
-      ['Ceftriaxone and azithromycin','Community acquired pneumonia','Nov 4, 09:25','Active'],
-      ['Bedside echocardiogram','Critical care','Nov 4, 09:10','Resulted'],
-      ['Chest radiograph, portable','Radiology','Nov 4, 09:05','Resulted'],
-      ['Arterial line','Critical care','Nov 4, 09:15','Placed'],
-      ['Central venous catheter','Critical care','Nov 4, 09:20','Placed'],
-      ['Hourly urine output','Nursing','Nov 4, 09:00','Active'],
-      ['Hold lisinopril, spironolactone and metformin','Medicine','Nov 4, 09:00','Active']
+      ['Admit to intensive care','Critical care','Nov 4, 0945','Active'],
+      ['Blood cultures, two sets, before antibiotics','Microbiology','Nov 4, 0900','Collected'],
+      ['Ceftriaxone and azithromycin','Community acquired pneumonia','Nov 4, 0925','Active'],
+      ['Bedside echocardiogram','Critical care','Nov 4, 0910','Resulted'],
+      ['Chest radiograph, portable','Radiology','Nov 4, 0905','Resulted'],
+      ['Arterial line','Critical care','Nov 4, 0915','Placed'],
+      ['Central venous catheter','Critical care','Nov 4, 0920','Placed'],
+      ['Hourly urine output','Nursing','Nov 4, 0900','Active'],
+      ['Hold lisinopril, spironolactone and metformin','Medicine','Nov 4, 0900','Active']
     ],
     coach:{
       predict:"A 68 year old man with a heart that ejects 30 percent arrives with four days of fever. Before you look at anything: is his cardiac output going to be high, low, or normal, and what should it be?",
       read:"A new patient, and he arrives already carrying four problems. Read his home medication list before his vital signs; three of the numbers on this page make no sense without it.",
       lesson:["heldmed", "Three of his home medications are charted as HELD, not removed. What is the difference, and who needs to see it?"],
-      vitals:"File the heart rate of 118, then go back to the medication record and see what he took at 07:00. That is the most useful thing you will do today. What does it change?",
-      io:"Twenty millilitres of urine in two hours. What is that per hour per kilogram, and is it enough?",
+      vitals:"File the heart rate of 118, then go back to the medication record and see what he took at 0700. That is the most useful thing you will do today. What does it change?",
+      io:"Twenty milliliters of urine in two hours. What is that per hour per kilogram, and is it enough?",
       results:"His cardiac output sits inside the normal range. Chart it anyway. What should a man with a temperature of 38.9 degrees Celsius be producing?",
       problems:"Four of his problems existed before this morning. Open them anyway and mark them chronic. Why do the acute ones only make sense against them?",
-      mar:"He took a beta blocker at 07:00 and arrived at 08:40 with a heart rate of 118. What would that heart rate have been without the drug?",
+      mar:"He took a beta blocker at 0700 and arrived at 0840 with a heart rate of 118. What would that heart rate have been without the drug?",
       note:"Your assessment has to hold two ideas at once: he is underfilled where it matters and overfilled where you can see it."
     }
   },
@@ -533,28 +534,28 @@ window.BIO005_EHR = {
     location:'Intensive care, bed 4',
     encounterType:'Inpatient, day 1',
     flow:[
-      { t:'Nov 4, 09:00', hr:'118', bp:'82/46', map:'58', rr:'28', spo2:'93', o2:'6 L nasal cannula', cvp:'14', co:'4.9', sv:'42', svr:'718', lac:'4.6', scvo2:'52', uo:'10' },
-      { t:'Nov 4, 09:35 after 500 mL', hr:'116', bp:'86/50', map:'62', spo2:'89', o2:'6 L nasal cannula', cvp:'18', co:'5.1' },
-      { t:'Nov 4, 11:00 on noradrenaline', hr:'104', bp:'104/58', map:'73', cvp:'16', co:'5.6', svr:'814', lac:'3.4', uo:'15' },
-      { t:'Nov 4, 18:00 plus dobutamine', hr:'112', bp:'108/56', map:'73', cvp:'16', co:'6.8', svr:'671', lac:'2.1', scvo2:'66', uo:'35' }
+      { t:'Nov 4, 0900', hr:'118', bp:'82/46', map:'58', rr:'28', spo2:'93', o2:'6 L nasal cannula', cvp:'14', co:'4.9', sv:'42', svr:'718', lac:'4.6', scvo2:'52', uo:'10' },
+      { t:'Nov 4, 0935 after 500 mL', hr:'116', bp:'86/50', map:'62', spo2:'89', o2:'6 L nasal cannula', cvp:'18', co:'5.1' },
+      { t:'Nov 4, 1100 on noradrenaline', hr:'104', bp:'104/58', map:'73', cvp:'16', co:'5.6', svr:'814', lac:'3.4', uo:'15' },
+      { t:'Nov 4, 1800 plus dobutamine', hr:'112', bp:'108/56', map:'73', cvp:'16', co:'6.8', svr:'671', lac:'2.1', scvo2:'66', uo:'35' }
     ],
     io:[
-      { t:'Nov 4, 09:00 to 18:00', oral:'0', iv:'2,400', totalIn:'2,400', urine:'190', other:'0', totalOut:'190', net:'+2,210', cum:'+2,690' }
+      { t:'Nov 4, 0900 to 1800', oral:'0', iv:'2,400', totalIn:'2,400', urine:'190', other:'0', totalOut:'190', net:'+2,210', cum:'+2,690' }
     ],
     mar:[
-      ['Balanced crystalloid','500 mL','Intravenous over 20 minutes','Nov 4, 09:10','Given'],
-      ['Balanced crystalloid, second bolus','500 mL','Intravenous','Nov 4, 09:40','NOT GIVEN, cancelled'],
-      ['Noradrenaline','0.05 micrograms/kg/min, titrated to 0.22','Intravenous infusion','Nov 4, 09:50','Running'],
-      ['Dobutamine','5 micrograms/kg/min','Intravenous infusion','Nov 4, 16:00','Running'],
+      ['Balanced crystalloid','500 mL','Intravenous over 20 minutes','Nov 4, 0910','Given'],
+      ['Balanced crystalloid, second bolus','500 mL','Intravenous','Nov 4, 0940','NOT GIVEN, cancelled'],
+      ['Noradrenaline','0.05 micrograms/kg/min, titrated to 0.22','Intravenous infusion','Nov 4, 0950','Running'],
+      ['Dobutamine','5 micrograms/kg/min','Intravenous infusion','Nov 4, 1600','Running'],
       ['Carvedilol','12.5 mg','Oral','Nov 4, evening dose','HELD']
     ],
     orders:[
-      ['Titrate noradrenaline to a mean arterial pressure of at least 65 mmHg','Nursing','Nov 4, 09:50','Active'],
-      ['Continuous cardiac output monitoring','Critical care','Nov 4, 09:20','Active'],
-      ['Hourly urine output and capillary refill every 2 hours','Nursing','Nov 4, 09:00','Active'],
-      ['Lactate every 2 hours until under 2.0','Laboratory','Nov 4, 09:00','Active'],
-      ['Lung ultrasound','Critical care','Nov 4, 09:30','Resulted'],
-      ['Hold carvedilol while on vasopressor support','Medicine','Nov 4, 10:00','Active']
+      ['Titrate noradrenaline to a mean arterial pressure of at least 65 mmHg','Nursing','Nov 4, 0950','Active'],
+      ['Continuous cardiac output monitoring','Critical care','Nov 4, 0920','Active'],
+      ['Hourly urine output and capillary refill every 2 hours','Nursing','Nov 4, 0900','Active'],
+      ['Lactate every 2 hours until under 2.0','Laboratory','Nov 4, 0900','Active'],
+      ['Lung ultrasound','Critical care','Nov 4, 0930','Resulted'],
+      ['Hold carvedilol while on vasopressor support','Medicine','Nov 4, 1000','Active']
     ],
     coach:{
       predict:"He is about to be given 500 mL of fluid. His central venous pressure is already 14. Before you look: what happens to his cardiac output, and what happens to his oxygen saturation?",
@@ -563,7 +564,7 @@ window.BIO005_EHR = {
       vitals:"Chart the central venous pressure in the same column as the cardiac output every time. Neither means much alone.",
       io:"Nine hours, 2,400 mL in and 190 mL out. Before you judge that: what is his kidney being asked to do at a mean pressure of 58?",
       results:"You are asked to calculate a resistance. Take the numbers off your own flowsheet rather than out of the paragraph. Did you get the same answer twice?",
-      problems:"Shock is not a problem list entry. What kind, what is your evidence, and would you be willing to change it at 18:00?",
+      problems:"Shock is not a problem list entry. What kind, what is your evidence, and would you be willing to change it at 1800?",
       mar:"A bolus that was ordered and then cancelled is still on the record. Why does a chart keep the thing that did not happen?",
       note:"Your plan should name the number you would titrate to and the number that would tell you the titration is not working."
     }
@@ -658,9 +659,9 @@ window.BIO005_EHR = {
     location:'Intensive care, bed 4',
     encounterType:'Inpatient, days 2 to 7',
     flow:[
-      { t:'Nov 4, day 1, 08:55', rr:'28', spo2:'92', o2:'6 L nasal cannula, FiO2 0.44', ph:'7.32', paco2:'30', pao2:'62', hco3:'15', hgb:'11.8' },
-      { t:'Nov 5, day 2, 04:00', rr:'38', spo2:'90', o2:'High flow 60 L/min, FiO2 0.80', ph:'7.25', paco2:'38', pao2:'58', hco3:'16', hgb:'9.6' },
-      { t:'Nov 5, day 2, 08:00', rr:'24', spo2:'96', o2:'Ventilated', ph:'7.24', paco2:'44', pao2:'78', hco3:'18', vt:'440', rateSet:'24', peep:'12', fio2:'0.70', pplat:'28' },
+      { t:'Nov 4, day 1, 0855', rr:'28', spo2:'92', o2:'6 L nasal cannula, FiO2 0.44', ph:'7.32', paco2:'30', pao2:'62', hco3:'15', hgb:'11.8' },
+      { t:'Nov 5, day 2, 0400', rr:'38', spo2:'90', o2:'High flow 60 L/min, FiO2 0.80', ph:'7.25', paco2:'38', pao2:'58', hco3:'16', hgb:'9.6' },
+      { t:'Nov 5, day 2, 0800', rr:'24', spo2:'96', o2:'Ventilated', ph:'7.24', paco2:'44', pao2:'78', hco3:'18', vt:'440', rateSet:'24', peep:'12', fio2:'0.70', pplat:'28' },
       { t:'Nov 7, day 4, proned', rr:'24', spo2:'97', o2:'Ventilated, proned 16 h/day', ph:'7.36', paco2:'40', pao2:'92', hco3:'22', vt:'440', rateSet:'24', peep:'12', fio2:'0.55' },
       { t:'Nov 10, day 7, breathing trial', rr:'34', spo2:'94', o2:'Ventilated, pressure support', vt:'260', peep:'8', fio2:'0.40' }
     ],
@@ -668,26 +669,26 @@ window.BIO005_EHR = {
       { t:'Nov 5, day 2', oral:'0', iv:'3,100', totalIn:'3,100', urine:'240', other:'0', totalOut:'240', net:'+2,860', cum:'+5,550' }
     ],
     mar:[
-      ['Propofol','sedation, titrated','Intravenous infusion','Nov 5, 05:10 onward','Running'],
-      ['Fentanyl','analgesia, titrated','Intravenous infusion','Nov 5, 05:10 onward','Running'],
-      ['Cisatracurium','neuromuscular blockade','Intravenous','Nov 5, 05:10 and for mechanics','Given, short course'],
+      ['Propofol','sedation, titrated','Intravenous infusion','Nov 5, 0510 onward','Running'],
+      ['Fentanyl','analgesia, titrated','Intravenous infusion','Nov 5, 0510 onward','Running'],
+      ['Cisatracurium','neuromuscular blockade','Intravenous','Nov 5, 0510 and for mechanics','Given, short course'],
       ['Noradrenaline','titrated','Intravenous infusion','Stopped Nov 7','Stopped']
     ],
     orders:[
-      ['Intubate and ventilate','Critical care','Nov 5, 05:05','Completed 05:10'],
-      ['Volume controlled ventilation, 6 mL/kg predicted body weight','Critical care','Nov 5, 05:10','Active'],
+      ['Intubate and ventilate','Critical care','Nov 5, 0505','Completed 0510'],
+      ['Volume controlled ventilation, 6 mL/kg predicted body weight','Critical care','Nov 5, 0510','Active'],
       ['Prone positioning 16 hours a day','Critical care','Nov 7','Active'],
       ['Arterial blood gas every 4 hours, then as needed','Laboratory','Nov 4','Active'],
       ['Daily spontaneous breathing trial once criteria met','Critical care','Nov 10','Attempted, failed'],
       ['Chest radiograph daily','Radiology','Nov 4 onward','Active']
     ],
     coach:{
-      predict:"At 04:00 on Day 2 his bicarbonate is 16 and his carbon dioxide is 38. Before you apply any formula: is his breathing keeping up with his acid, or falling behind?",
+      predict:"At 0400 on Day 2 his bicarbonate is 16 and his carbon dioxide is 38. Before you apply any formula: is his breathing keeping up with his acid, or falling behind?",
       read:"His lung fails in two stages and they are not the same problem. First it gets wet, which is Week 10. Then it gets stiff, which is Week 11.",
       lesson:["settings", "From the third column on, this flowsheet has ventilator rows in it. Which of those numbers did a person choose and which did his body produce? Why must a chart show the difference?"],
       vitals:"File the ventilator settings in their own group, away from the vital signs. What would go wrong if a set rate sat in the same row as a measured one?",
       io:"His fluid balance is still strongly positive on Day 2. What is that doing to the lung you are about to ventilate?",
-      results:"The 04:00 gas on Day 2 decided everything that followed. Chart it, then apply the formula in the tools box. What did that answer tell the team to do at 05:05?",
+      results:"The 0400 gas on Day 2 decided everything that followed. Chart it, then apply the formula in the tools box. What did that answer tell the team to do at 0505?",
       problems:"You can name what his lung is doing without naming a syndrome. Try it. Which is more useful at handover?",
       mar:"He was paralysed briefly so the mechanics could be measured. Why does a plateau pressure need a patient who is not breathing?",
       note:"Your assessment should say why a rising carbon dioxide was allowed on purpose in one column and was an emergency in another."
@@ -731,7 +732,7 @@ window.BIO005_EHR = {
       read:"Everyone will tell you his kidney failed because it was not getting enough blood. Look at the central venous pressure column and ask what a filter does when the pressure downstream of it rises.",
       lesson:["compare", "Two sets of urine indices, two days apart, saying opposite things. What has to be true of a chart before a comparison like that is trustworthy?"],
       vitals:"The weight row and the running fluid total are the argument this week. Chart both. Which one do you believe, and what are the other one's blind spots?",
-      io:"On Day 6 the chart says plus 7.4 litres and the scale says plus 3 kilograms. Where are the other four?",
+      io:"On Day 6 the chart says plus 7.4 liters and the scale says plus 3 kilograms. Where are the other four?",
       results:"Two sets of urine indices, two days apart, saying opposite things about the tubule. What changed between them?",
       problems:"His kidney problem is not new. Write the chronic one and the acute one as two entries. Why do they need different evidence?",
       mar:"Two of his home medications have been held for fifteen days and one of them normally protects his kidney. What is the argument for holding it anyway?",
@@ -744,10 +745,10 @@ window.BIO005_EHR = {
     location:'Both files, read again',
     encounterType:'Integration',
     flow:[
-      { t:'Camila, Sep 22, 06:45', ph:'7.09', paco2:'14', hco3:'4', rr:'32' },
-      { t:'Camila, Sep 22, 18:00', ph:'7.31', paco2:'26', hco3:'13', rr:'24' },
-      { t:'Dale, Nov 4, 08:55', ph:'7.32', paco2:'30', pao2:'62', hco3:'15', rr:'28' },
-      { t:'Dale, Nov 5, 04:00', ph:'7.25', paco2:'38', pao2:'58', hco3:'16', rr:'38' },
+      { t:'Camila, Sep 22, 0645', ph:'7.09', paco2:'14', hco3:'4', rr:'32' },
+      { t:'Camila, Sep 22, 1800', ph:'7.31', paco2:'26', hco3:'13', rr:'24' },
+      { t:'Dale, Nov 4, 0855', ph:'7.32', paco2:'30', pao2:'62', hco3:'15', rr:'28' },
+      { t:'Dale, Nov 5, 0400', ph:'7.25', paco2:'38', pao2:'58', hco3:'16', rr:'38' },
       { t:'Dale, Nov 10, day 7', ph:'7.31', paco2:'40', hco3:'20', rr:'24' },
       { t:'Dale, Nov 18, day 15', ph:'7.36', paco2:'38', hco3:'21', rr:'18' }
     ],
@@ -765,7 +766,7 @@ window.BIO005_EHR = {
       read:"This is the last entry and it is the first one again, twice. You were told in Week 3 and again in Week 9 to notice two numbers and leave them alone. Pick them up now.",
       lesson:["compare", "Six gases from two different people, in one grid. What makes that a fair comparison, and what would make it a misleading one?"],
       vitals:"Chart all six in one flowsheet. The comparison is the assignment, and it only works if the rows line up.",
-      io:"Camila got six litres in twelve hours and Dale about nine over three days. Which of them had less time to deal with it?",
+      io:"Camila got six liters in twelve hours and Dale about nine over three days. Which of them had less time to deal with it?",
       results:"One correction on this page, the albumin correction, changes the answer in one patient and not the other. Which, and why?",
       problems:"Add one final problem to each list: the one the treatment created. Both patients have one.",
       mar:"The same bag of fluid appears on both medication records. What is actually in it, and what does the body do with each of its two ions?",

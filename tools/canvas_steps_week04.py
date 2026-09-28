@@ -149,27 +149,29 @@ STEPS = [
           "Due " + DUE + "."]),
 
  dict(title="Your application case", time="About 1 hour",
-  status="Information only, nothing to turn in this week. Your answers go on your patient chart, which you hand in on Sunday, November 1, at the end of Week 8.",
+  status="Information only, nothing to turn in this week. Your answers go in your patient's online chart, Rounds. Camila's case ends at Midterm 1, and you upload the whole chart as one PDF that week, due Sunday, November 1.",
   intro="This week's case is Camila Reyes, the first four hours of her treatment. You use the week's physiology "
-        "to explain what is happening to her, and that thinking goes into your patient chart, which is how you "
-        "track her across the term.",
-  todo=["Open this week's case and read the chart.",
-        "Work through the five questions, using the physiology from this week, and the prompt for your entry point.",
-        "Write your answers on this week's page of your patient chart, so they stay with her numbers.",
-        "Keep your chart. Nothing from the case is uploaded this week."],
+        "to explain what is happening to her. Starting this week you chart her online in Rounds, "
+        "laid out like a hospital record. You type into it, so nothing is printed.",
+  todo=["Open this week's case and read it.",
+        "Open Rounds for Week 4 and follow the steps down the left side. Write your prediction first.",
+        "Answer the five questions and your entry point's question in Rounds, using this week's physiology.",
+        "Nothing from the case is uploaded this week. You finish the chart in Step 9."],
   links=[("This week's case: resuscitation, hours 0 to 4", "assignment-apply.html?week=4"),
-         ("Your patient chart", "patient-chart-book.html")],
+         ("Rounds: chart Week 4", "patient-rounds.html?week=4")],
   turnin=None),
 
  dict(title="Your patient, this week's findings", time="About 30 minutes",
-  status="Not turned in this week. Camila's chart and analysis are turned in on Sunday, November 1, with Midterm 1.",
-  intro="You keep Camila's chart by hand through Week 8. Each week you add that week's numbers and your thinking, "
+  status="Not turned in this week. Camila's case ends at Midterm 1. That week you click Export the whole case in Rounds and upload the one PDF, due Sunday, November 1.",
+  intro="You keep Camila's chart through Week 8. Weeks 1 to 3 are already in Rounds, filed from your paper chart. "
+        "From Week 4 on, you type each week's numbers and your thinking into Rounds, "
         "including what you worked out in the case in Step 8.",
-  todo=["Open your patient chart and this week's released results.",
-        "Copy this week's numbers into your flowsheets first. Copying them by hand is how you notice a trend.",
-        "Fill in this week's page: what changed, the problem list, the drawing, and your thinking.",
-        "Keep the chart. Do not upload it this week."],
-  links=[("Your patient chart", "patient-chart-book.html"),
+  todo=["Open Rounds for Week 4.",
+        "File this week's numbers in the Flowsheet first. Typing them in one row at a time is how you notice a trend. Rounds tells you which cells do not match the record.",
+        "Fill in the problem list, the medication record, and your note. Draw the control loop on paper, label it with your name and Week 4, and keep a photo of it with your PDF.",
+        "Sign, then click <strong>Export this week to PDF</strong> and keep it as a backup. Do not upload it this week.",
+        "Rounds records the date and time of every entry, and they print on your PDF, so chart each week during that week."],
+  links=[("Rounds: chart Week 4", "patient-rounds.html?week=4"),
          ("What you turn in, and when", "assignment-patient-chart.html", "optional")],
   turnin=None),
 
