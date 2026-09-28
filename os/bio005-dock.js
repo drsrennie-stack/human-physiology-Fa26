@@ -385,20 +385,8 @@
     var MO = 'More for any week';
     t.push({ g: MO, name: 'Every week\'s lectures', sub: 'All fifteen weeks, by week', url: BASE + 'door-lecture.html', icon: 'play', tone: 'navy',
              kw: 'lectures all weeks library videos' });
-    t.push({ g: MO, name: 'Chemistry review', sub: 'Optional. The chemistry this course assumes, with videos to fill a gap', url: BASE + 'm02-chem-review.html', icon: 'flask', tone: 'terra',
-             kw: 'chemistry review prerequisite khan academy bonds ph atoms molecules' });
-    t.push({ g: MO, name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense', url: BASE + 'anatomy-review.html', icon: 'globe', tone: 'gold',
-             kw: 'anatomy review structure nephron heart lung neuron muscle location' });
     t.push({ g: MO, name: 'Kahoot library', sub: 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term',
              url: 'https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', icon: 'play', tone: 'gold', ext: true, kw: 'kahoot kahoots quiz game review play' });
-    t.push({ g: MO, name: 'Every lab', sub: 'All fifteen weeks of labs, and the lab manual', url: BASE + 'door-lab.html', icon: 'flask', tone: 'navy',
-             kw: 'labs all lab manual clinical physiology' });
-    t.push({ g: MO, name: 'Every assignment', sub: 'Everything graded, in one place', url: BASE + 'door-assignments.html', icon: 'doc', tone: 'gold',
-             kw: 'assignments graded all due list' });
-    t.push({ g: MO, name: 'How grading works', sub: 'What counts, what it is worth, what carries no points', url: BASE + 'how-grading-works.html', icon: 'target', tone: 'navy',
-             kw: 'grading grades points worth weight categories' });
-    t.push({ g: MO, name: 'Patient chart: what you turn in, and when', sub: 'Camila on Nov 1 with Midterm 1, Dale on Dec 16', url: BASE + 'assignment-patient-chart.html', icon: 'target', tone: 'gold',
-             kw: 'patient chart upload december capstone pdf turn in instructions' });
     return t;
   }
 
@@ -406,10 +394,10 @@
     var t = [];
     /* ---------- ABOUT THE COURSE ---------- */
     t.push({ g: 'About the course', name: 'Course home', sub: 'The front of the course',
-             url: BASE + 'index.html', icon: 'home', tone: 'navy', qr: 'home',
+             url: BASE + 'course.html', icon: 'home', tone: 'navy', qr: 'home',
              kw: 'home hub front start main course' });
-    t.push({ g: 'About the course', name: 'How this course works', sub: 'What one week looks like, and what mastery means here',
-             url: BASE + 'how-this-course-works.html', icon: 'target', tone: 'gold',
+    t.push({ g: 'About the course', name: 'How this course works', sub: 'How every week works, step by step',
+             url: BASE + 'weekly-loop.html', icon: 'target', tone: 'gold',
              kw: 'how course works stages learn practice apply check intro' });
     t.push({ g: 'About the course', name: 'Syllabus', sub: 'Policies, dates, exam windows',
              url: BASE + 'syllabus-fall2026.html', icon: 'doc', tone: 'navy',
@@ -420,7 +408,7 @@
     t.push({ g: 'About the course', name: 'Accessibility', sub: 'How this was built, what was checked, what is still open',
              url: BASE + 'accessibility.html', icon: 'target', tone: 'terra',
              kw: 'accessibility access screen reader contrast keyboard captions dsps accommodation wcag' });
-    t.push({ g: 'About the course', name: 'Virtual Office', sub: 'Ask a question where the whole class sees the answer',
+    t.push({ g: 'About the course', name: 'Virtual Office', sub: 'Ask (or Offer) Help in Canvas, where the whole class sees the answer',
              url: 'https://yccd.instructure.com/courses/42616/discussion_topics/711800', icon: 'people', tone: 'terra', ext: true,
              kw: 'office hours ask question help contact instructor forum' });
     t.push({ g: 'About the course', name: 'Canvas', sub: 'Turn work in, see grades',
@@ -495,15 +483,6 @@
     t.push({ g: '1 Learn', name: 'Every week\'s lectures', sub: 'All fifteen weeks, by week',
              url: BASE + 'door-lecture.html', icon: 'play', tone: 'navy',
              kw: 'lectures all weeks library videos' });
-    t.push({ g: '1 Learn', name: 'Chemistry review', sub: 'Optional. The chemistry this course assumes, with videos to fill a gap',
-             url: BASE + 'm02-chem-review.html', icon: 'flask', tone: 'terra',
-             kw: 'chemistry review prerequisite khan academy bonds ph atoms molecules' });
-    t.push({ g: '1 Learn', name: 'Anatomy review', sub: 'The structures you need so the mechanisms make sense',
-             url: BASE + 'anatomy-review.html', icon: 'globe', tone: 'gold',
-             kw: 'anatomy review structure nephron heart lung neuron muscle location' });
-    t.push({ g: '1 Learn', name: 'Before you start', sub: 'Three short checks that tell you whether you need to review',
-             url: BASE + 'before-you-start.html', icon: 'target', tone: 'gold',
-             kw: 'before start readiness check prerequisite assumed chemistry anatomy math gap' });
 
     /* ---------- 2 PRACTICE ---------- */
     /* Sep 24 2026: book problems were dropped from Week 4 on; Weeks 1 to 3 keep them. */
@@ -513,12 +492,6 @@
     t.push({ g: '2 Practice', name: 'Kahoot library', sub: 'Dr. Rennie\'s Kahoots. Physiology sets get added through the term',
              url: 'https://drsrennie-stack.github.io/new-build-bio4-solano/kahoots.html', icon: 'play', tone: 'gold', ext: true,
              kw: 'kahoot kahoots quiz game review play' });
-    t.push({ g: '2 Practice', name: 'All of it on one sheet', sub: 'Every practice item for the week, printable',
-             url: BASE + 'ungraded-sheet.html?week=' + wn, icon: 'doc', tone: 'terra',
-             kw: 'one sheet ungraded printable practice items all' });
-    t.push({ g: '2 Practice', name: 'Physiology games', sub: 'Games you play out loud with other people',
-             url: BASE + 'physiology-games.html', icon: 'people', tone: 'navy', soon: true,
-             kw: 'games game play taboo memory match team' });
 
     /* ---------- 3 APPLY ---------- */
     /* Sep 24 2026: Week 8 is the Midterm 1 week, no teaching, no lab, case or discussion. */
@@ -526,39 +499,22 @@
              url: BASE + 'week-08.html#apply', icon: 'target', tone: 'gold',
              kw: 'midterm exam test draw teach video window' });
     if (wn !== 8) t.push({ g: '3 Apply', name: 'This week\'s lab', sub: 'What to run, what to record, and how to turn it in. Investigate It, 25%',
-             url: BASE + 'week-' + nn + '.html#apply', icon: 'flask', tone: 'gold',
+             url: BASE + (wn >= 3 ? 'assignment-physioex.html?week=' + Math.max(wn, 4) : 'week-' + nn + '.html#apply'), icon: 'flask', tone: 'gold',
              kw: 'lab physioex worksheet investigate data record turn in' });
-    if (wn !== 8) t.push({ g: '3 Apply', name: 'Use It case', sub: 'This week\'s case on your patient, five questions. Use It, 20%',
-             url: BASE + 'assignment-apply.html?week=' + wn, icon: 'target', tone: 'terra',
+    if (wn !== 8) t.push({ g: '3 Apply', name: wn >= 3 ? 'Your patient: case and chart' : 'Use It case',
+             sub: wn >= 3 ? 'This week\'s patient case and your chart, together in Rounds' : 'This week\'s case on your patient, five questions. Use It, 20%',
+             url: BASE + (wn >= 3 ? 'patient-rounds.html?week=' + Math.max(wn, 4) : 'assignment-apply.html?week=' + wn), icon: 'target', tone: 'terra',
              kw: 'use it case apply patient questions entry point weekly' });
     if (wn !== 8) t.push({ g: '3 Apply', name: 'Discussion', sub: 'Post by Friday, two replies by Sunday. Think About It, 15%',
              url: BASE + (wn === 1 ? 'assignment-discussion-01-metacognition.html' : 'assignment-discussion.html?week=' + wn), icon: 'people', tone: 'navy',
              kw: 'discussion post reply metacognition think about it' });
-    t.push({ g: '3 Apply', name: 'Every lab', sub: 'All fifteen weeks of labs, and the lab manual',
-             url: BASE + 'door-lab.html', icon: 'flask', tone: 'navy',
-             kw: 'labs all lab manual clinical physiology' });
-    t.push({ g: '3 Apply', name: 'Every assignment', sub: 'Everything graded, in one place',
-             url: BASE + 'door-assignments.html', icon: 'doc', tone: 'gold',
-             kw: 'assignments graded all due list' });
-    t.push({ g: '3 Apply', name: 'How grading works', sub: 'What counts, what it is worth, what carries no points',
-             url: BASE + 'how-grading-works.html', icon: 'target', tone: 'navy',
-             kw: 'grading grades points worth weight categories' });
 
     /* ---------- PATIENT FILE ---------- */
-    t.push({ g: 'Patient file, the capstone', name: 'Your patient chart', sub: 'Two patients, one at a time, by hand. Nothing turned in weekly. Use It, 5%',
-             url: BASE + 'patient-chart-book.html', icon: 'doc', tone: 'terra',
-             kw: 'patient chart file capstone camila flowsheet problem list all term' });
-    t.push({ g: 'Patient file, the capstone', name: 'What you turn in, and when', sub: 'Camila on Nov 1 with Midterm 1, Dale on Dec 16',
-             url: BASE + 'assignment-patient-chart.html', icon: 'target', tone: 'gold',
-             kw: 'patient chart upload december capstone pdf turn in instructions' });
 
     /* ---------- 4 CHECK ---------- */
     t.push({ g: '4 Check', name: 'Competency checklist', sub: 'Tick what you can do from memory',
              url: BASE + 'week-' + nn + '-competencies.html', icon: 'doc', tone: 'navy',
              kw: 'checklist competencies tick ready' });
-    t.push({ g: '4 Check', name: 'Upload your report', sub: 'No points, and I read every one',
-             url: BASE + 'assignment-practice-log.html', icon: 'doc', tone: 'terra',
-             kw: 'upload report practice log canvas trend' });
 
     return t.concat(aboutTools());
 

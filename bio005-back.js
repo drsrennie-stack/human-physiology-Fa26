@@ -94,7 +94,7 @@
     1: 'https://yccd.instructure.com/courses/42616/pages/week-1-%7C-foundations-in-physiology?module_item_id=2704971',
     2: 'https://yccd.instructure.com/courses/42616/pages/week-2-%7C-the-cell-and-how-cells-talk?module_item_id=2708586',
     3: '',
-    4: '',
+    4: 'https://yccd.instructure.com/courses/42616/modules/items/2714377',
     5: '',
     6: '',
     7: '',
@@ -234,7 +234,17 @@
     '.b5-back:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(0,0,0,.22);color:#fff}',
     '.b5-back:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}',
     '.b5-back svg{flex:0 0 auto}',
+    '.b5-backwrap{padding:0;background:none;border:0;box-shadow:none;gap:8px;flex-wrap:wrap;align-items:flex-end}',
+    '.b5-backwrap:hover{transform:none;box-shadow:none}',
+    '.b5-pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:11px 17px;border-radius:999px;',
+    '  background:#0B1530;color:#fff;border:1px solid #0B1530;font-weight:700;font-size:.85rem;text-decoration:none;',
+    '  box-shadow:0 8px 16px rgba(0,0,0,.18);transition:transform 180ms ease,box-shadow 180ms ease}',
+    '.b5-pill:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(0,0,0,.22);color:#fff}',
+    '.b5-pill:focus-visible{outline:3px solid #C9A14A;outline-offset:3px}',
+    '.b5-pill2{background:#fff;color:#0B1530;border:1.5px solid #0B1530}',
+    '.b5-pill2:hover{color:#0B1530}',
     '@media print{.b5-back{display:none!important}}',
+    '@media (prefers-reduced-motion:reduce){.b5-pill{transition:none}.b5-pill:hover{transform:none}}',
     '@media (prefers-reduced-motion:reduce){',
     '  .b5-back{transition:none}.b5-back:hover{transform:none}}'
   ].join('');
@@ -243,6 +253,44 @@
     'stroke="currentColor" stroke-width="2.6" stroke-linecap="round" ' +
     'stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/>' +
     '<path d="M12 19l-7-7 7-7"/></svg>';
+
+  /* THE WEEK PAGE IS HOME BASE. Sep 27 2026, Scrubs: a student working the
+     week from the site keeps coming back to week-NN-entry.html, because that
+     page shows the whole process. When a student opens that page, this tab
+     remembers it (sessionStorage, so a tab opened from Canvas is not
+     affected), along with the step whose link they followed. Every page
+     they reach from it then offers "Back to the Week N steps", returning to
+     that step, plus a "Go to Canvas" button. */
+  var HUBKEY = 'b5-weekhub';
+  function hubRead() { try { return JSON.parse(sessionStorage.getItem(HUBKEY) || 'null'); } catch (e) { return null; } }
+  function hubWrite(h) { try { sessionStorage.setItem(HUBKEY, JSON.stringify(h)); } catch (e) {} }
+  function isEntry() { return /^week-(\d{2})-entry\.html$/.exec(fileName().toLowerCase()); }
+  (function () {
+    var m = isEntry();
+    if (!m) return;
+    var w = parseInt(m[1], 10);
+    hubWrite({ w: w, f: fileName(), step: (hubRead() || {}).w === w ? (hubRead() || {}).step : '' });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var li = a.closest('li[id^="s-"]');
+      hubWrite({ w: w, f: fileName(), step: li ? li.id : '' });
+    }, true);
+  }());
+  function hubFor() {
+    if (isEntry()) return null;
+    var h = hubRead();
+    if (!h || !h.f) return null;
+    var n = weekOfPage();
+    if (n && n !== h.w) return null;
+    return h;
+  }
+  function canvasTarget() {
+    var own = CANVAS_PAGE[fileName().toLowerCase()];
+    if (own) return own.href;
+    var n = weekOfPage() || (hubRead() || {}).w;
+    return (n && CANVAS_WEEK[n]) ? CANVAS_WEEK[n] : CANVAS_HOME;
+  }
 
   function mount() {
     if (skip()) return;
@@ -268,6 +316,21 @@
       document.head.appendChild(fix);
     }
 
+    var hub = hubFor();
+    if (hub || isEntry()) {
+      var wrap = document.createElement('nav');
+      wrap.className = 'b5-back b5-backwrap';
+      wrap.setAttribute('aria-label', 'Where to go next');
+      var h = '';
+      if (hub) {
+        h += '<a class="b5-pill" href="' + hub.f + (hub.step ? '#' + hub.step : '') + '" target="_top">' + ARROW +
+             '<span>Back to the Week ' + hub.w + ' steps</span></a>';
+      }
+      h += '<a class="b5-pill b5-pill2" href="' + canvasTarget() + '" target="_top"><span>Go to Canvas</span></a>';
+      wrap.innerHTML = h;
+      document.body.appendChild(wrap);
+      el = wrap;
+    } else {
     var back = canGoBack();
     var el = document.createElement(back ? 'button' : 'a');
     el.className = 'b5-back';
@@ -284,6 +347,7 @@
       el.setAttribute('aria-label', t.label);
     }
     document.body.appendChild(el);
+    }
 
     /* DO NOT LAND ON TOP OF SOMETHING ELSE.
 

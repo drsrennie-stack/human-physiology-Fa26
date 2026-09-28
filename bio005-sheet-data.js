@@ -443,8 +443,8 @@ window.BIO005_SHEET = {
    {
     "n": 7,
     "name": "Action potential phases",
-    "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and afterhyperpolarization.",
-    "a": "Draw an action potential tracing, mV on the y and ms on the x, from minus 70 up to about plus 30 and back down through an afterhyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. One line: say what closes at the peak and what is still open during the afterhyperpolarization.",
+    "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and after-hyperpolarization.",
+    "a": "Draw an action potential tracing, mV on the y and ms on the x, from minus 70 up to about plus 30 and back down through an after-hyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and after-hyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. One line: say what closes at the peak and what is still open during the after-hyperpolarization.",
     "b": "Draw a voltage gated sodium channel four times across the top of your box, in its resting, activated, inactivated, and recovered states, with both of its gates drawn separately every time. Under each, write the membrane voltage at which that state occurs. Beneath that row, draw a voltage gated potassium channel in its two states with its timing. One line: both open on depolarization, so say what makes potassium arrive late and why the cell needs that delay."
    },
    {

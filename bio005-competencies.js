@@ -873,7 +873,7 @@ window.BIO005_COMPETENCIES = [
     "system": "Electrical Signaling",
     "general": "Electrical Signaling",
     "name": "Action potential phases",
-    "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and afterhyperpolarization.",
+    "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and after-hyperpolarization.",
     "dok": 2,
     "yield": "core",
     "est": 20,

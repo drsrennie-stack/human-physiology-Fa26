@@ -365,24 +365,24 @@ window.BIO005_SHEET = {
     "n": 1,
     "name": "Ion distribution and electrochemical gradients",
     "can": "State the typical intracellular and extracellular concentrations of sodium, potassium, chloride, and calcium and separate the chemical from the electrical component of the driving force on each ion.",
-    "a": "Which way do the chemical and electrical forces push each ion, and which force wins? Draw a cell and give each ion a pair of bars, inside and outside, with bar height for concentration: sodium: 145 mM out, 15 mM in, potassium: 4 mM out, 140 mM in, chloride: 110 mM out, 10 mM in, calcium: about 1 mM out, 0.0001 mM free in. Mark the inside of the membrane negative. On each ion, draw two separate arrows: the chemical force and the electrical force. In one line: two ions have arrows pointing opposite ways. Name both and say which force wins.",
-    "b": "Which ion has the largest driving force at rest, and what keeps it from moving? Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90 mV, sodium near plus 60 mV, calcium near plus 120 mV, chloride near minus 65 mV. Draw one horizontal line at minus 70 mV across all four. Each gap from that line is a driving force. In one line: name the ion with the largest gap and say what stops it moving at rest.",
+    "a": "Which way do the concentration gradient and the electrical gradient drive each ion, and which one is larger? Draw a cell and give each ion a pair of bars, inside and outside, with bar height for concentration: sodium: 145 mM out, 15 mM in, potassium: 5 mM out, 150 mM in, chloride: 108 mM out, 10 mM in, calcium: about 1 mM out, 0.0001 mM free in. Mark the inside of the membrane negative. On each ion, draw two separate arrows: one for the concentration gradient and one for the electrical gradient. In one line: two ions have their two arrows pointing opposite ways. Name both and say which gradient is larger for each.",
+    "b": "Which ion has the largest driving force at rest, and what keeps it from moving? Draw four vertical voltage scales side by side, one per ion, from minus 100 mV up to plus 150 mV. Mark each ion's equilibrium potential: potassium near minus 90 mV, sodium near plus 60 mV, calcium near plus 120 mV, chloride near minus 65 mV. Draw one horizontal line at minus 70 mV across all four. Each gap from that line is a driving force. In one line: name the ion with the largest gap and say why it barely moves at rest.",
     "ax": {
-     "q": "Which way do the chemical and electrical forces push each ion, and which force wins?",
+     "q": "Which way do the concentration gradient and the electrical gradient drive each ion, and which one is larger?",
      "do": [
       "Draw a cell and give each ion a pair of bars, inside and outside, with bar height for concentration:",
       {
        "sub": [
         "sodium: 145 mM out, 15 mM in",
-        "potassium: 4 mM out, 140 mM in",
-        "chloride: 110 mM out, 10 mM in",
+        "potassium: 5 mM out, 150 mM in",
+        "chloride: 108 mM out, 10 mM in",
         "calcium: about 1 mM out, 0.0001 mM free in"
        ]
       },
       "Mark the inside of the membrane negative.",
-      "On each ion, draw two separate arrows: the chemical force and the electrical force."
+      "On each ion, draw two separate arrows: one for the concentration gradient and one for the electrical gradient."
      ],
-     "one": "Two ions have arrows pointing opposite ways. Name both and say which force wins."
+     "one": "Two ions have their two arrows pointing opposite ways. Name both and say which gradient is larger for each."
     },
     "bx": {
      "q": "Which ion has the largest driving force at rest, and what keeps it from moving?",
@@ -399,7 +399,7 @@ window.BIO005_SHEET = {
       },
       "Draw one horizontal line at minus 70 mV across all four. Each gap from that line is a driving force."
      ],
-     "one": "Name the ion with the largest gap and say what stops it moving at rest."
+     "one": "Name the ion with the largest gap and say why it barely moves at rest."
     }
    },
    {
@@ -432,7 +432,7 @@ window.BIO005_SHEET = {
     "n": 3,
     "name": "Resting membrane potential",
     "can": "Explain why the resting membrane potential sits near the potassium equilibrium potential, explain in words how the Goldman equation combines each ion's concentration gradient and permeability, and predict how the potential shifts when membrane permeability to potassium or sodium changes.",
-    "a": "Why does the resting potential sit so close to potassium's equilibrium potential? Draw a cell at rest with minus 70 mV written inside. On its membrane, draw many potassium leak channels, a few sodium leak channels, and the sodium potassium pump. Beside the cell, draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60. Mark where minus 70 sits between them. In one line: the resting potential sits close to one of those two and nowhere near halfway. Say what makes it lean.",
+    "a": "Why does the resting potential sit so close to potassium's equilibrium potential? Draw a cell at rest with minus 70 mV written inside. On its membrane, draw many potassium leak channels, a few sodium leak channels, and the sodium potassium pump. Beside the cell, draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60. Mark where minus 70 sits between them. In one line: the resting potential sits close to one of those two, not halfway between them. Say which property of the resting membrane makes that happen.",
     "b": "Which changes move the resting potential a lot, and which barely move it at first? Draw a voltage scale from minus 90 to plus 60 mV with the resting potential marked. Draw four labeled arrows off it showing where the potential moves when you: open more potassium channels, open sodium channels, block the potassium leak, stop the sodium potassium pump. In one line: one of those four shifts the potential only a few mV even though it eventually ruins the cell. Name it and say why the immediate effect is so small.",
     "ax": {
      "q": "Why does the resting potential sit so close to potassium's equilibrium potential?",
@@ -442,7 +442,7 @@ window.BIO005_SHEET = {
       "Beside the cell, draw a voltage scale with the potassium equilibrium potential near minus 90 and the sodium equilibrium potential near plus 60.",
       "Mark where minus 70 sits between them."
      ],
-     "one": "The resting potential sits close to one of those two and nowhere near halfway. Say what makes it lean."
+     "one": "The resting potential sits close to one of those two, not halfway between them. Say which property of the resting membrane makes that happen."
     },
     "bx": {
      "q": "Which changes move the resting potential a lot, and which barely move it at first?",
@@ -594,7 +594,7 @@ window.BIO005_SHEET = {
     "name": "Functional regions of a neuron",
     "can": "Label the dendrites, cell body, axon hillock, trigger zone, axon, and axon terminal and state which signal type each region carries.",
     "a": "What kind of signal does each region of a neuron carry, and where does it change? Draw one motor neuron big, across the whole width of your box. Label the dendrites, cell body, axon hillock, trigger zone, axon, myelin, nodes, and axon terminal. Above each region, write the signal type it carries (graded or all or none) and sketch the shape of that signal there. In one line: mark the spot where graded becomes all or none and say what has to be true at that spot for the change to happen.",
-    "b": "Which region of the neuron is the decision point, and why? Draw the same neuron three times as three narrow strips stacked on top of each other. Strip 1: shade every region where graded potentials happen. Strip 2: shade every region with a high density of voltage gated sodium channels. Strip 3: shade where chemical signaling takes over from electrical. In one line: name the region that appears in more than one strip and say why that makes it the decision point.",
+    "b": "Which region of the neuron is the trigger zone, and why does the action potential start there? Draw the same neuron three times as three narrow strips stacked on top of each other. Strip 1: shade every region where graded potentials happen. Strip 2: shade every region with a high density of voltage gated sodium channels. Strip 3: shade where chemical signaling takes over from electrical. In one line: name the region that appears in more than one strip and say why that makes it the place where graded potentials are summed and an action potential starts.",
     "ax": {
      "q": "What kind of signal does each region of a neuron carry, and where does it change?",
      "do": [
@@ -605,14 +605,14 @@ window.BIO005_SHEET = {
      "one": "Mark the spot where graded becomes all or none and say what has to be true at that spot for the change to happen."
     },
     "bx": {
-     "q": "Which region of the neuron is the decision point, and why?",
+     "q": "Which region of the neuron is the trigger zone, and why does the action potential start there?",
      "do": [
       "Draw the same neuron three times as three narrow strips stacked on top of each other.",
       "Strip 1: shade every region where graded potentials happen.",
       "Strip 2: shade every region with a high density of voltage gated sodium channels.",
       "Strip 3: shade where chemical signaling takes over from electrical."
      ],
-     "one": "Name the region that appears in more than one strip and say why that makes it the decision point."
+     "one": "Name the region that appears in more than one strip and say why that makes it the place where graded potentials are summed and an action potential starts."
     }
    },
    {
@@ -729,22 +729,22 @@ window.BIO005_SHEET = {
    {
     "n": 13,
     "name": "Action potential phases",
-    "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and afterhyperpolarization.",
-    "a": "Which channels cause each phase of the action potential? Draw an action potential tracing, mV on the y axis and ms on the x axis: from minus 70 up to about plus 30, then down through an afterhyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. In one line: say what closes at the peak and what is still open during the afterhyperpolarization.",
-    "b": "How do the gates of the sodium and potassium channels time the action potential? Across the top of your box, draw a voltage gated sodium channel four times: resting, activated, inactivated, and recovered. Draw both of its gates separately every time. Under each state, write the membrane voltage at which it occurs. Beneath that row, draw a voltage gated potassium channel in its two states, with its timing. In one line: both channels open on depolarization. Say what makes potassium arrive late and why the cell needs that delay.",
+    "can": "Diagram an action potential and state the channel state and ion movement responsible for depolarization to peak and for repolarization and after-hyperpolarization.",
+    "a": "Which channels cause each phase of the action potential? Draw an action potential tracing, mV on the y axis and ms on the x axis: from minus 70 up to about plus 30, then down through an after-hyperpolarization near minus 80. Label threshold, depolarization, peak, repolarization, and after-hyperpolarization on the curve. Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium. In one line: say what closes at the peak and what is still open during the after-hyperpolarization.",
+    "b": "How do the gates of the sodium and potassium channels time the action potential? Across the top of your box, draw a voltage-gated sodium channel four times: resting (closed), open, inactivated, and back to resting. Draw both of its gates, the activation gate and the inactivation gate, every time. Under each state, write the membrane voltage at which it occurs. Beneath that row, draw a voltage gated potassium channel in its two states, with its timing. In one line: both channels open on depolarization. Say what makes potassium arrive late and why the cell needs that delay.",
     "ax": {
      "q": "Which channels cause each phase of the action potential?",
      "do": [
-      "Draw an action potential tracing, mV on the y axis and ms on the x axis: from minus 70 up to about plus 30, then down through an afterhyperpolarization near minus 80.",
-      "Label threshold, depolarization, peak, repolarization, and afterhyperpolarization on the curve.",
+      "Draw an action potential tracing, mV on the y axis and ms on the x axis: from minus 70 up to about plus 30, then down through an after-hyperpolarization near minus 80.",
+      "Label threshold, depolarization, peak, repolarization, and after-hyperpolarization on the curve.",
       "Underneath, draw two permeability traces lined up in time with it, one for sodium and one for potassium."
      ],
-     "one": "Say what closes at the peak and what is still open during the afterhyperpolarization."
+     "one": "Say what closes at the peak and what is still open during the after-hyperpolarization."
     },
     "bx": {
      "q": "How do the gates of the sodium and potassium channels time the action potential?",
      "do": [
-      "Across the top of your box, draw a voltage gated sodium channel four times: resting, activated, inactivated, and recovered. Draw both of its gates separately every time.",
+      "Across the top of your box, draw a voltage-gated sodium channel four times: resting (closed), open, inactivated, and back to resting. Draw both of its gates, the activation gate and the inactivation gate, every time.",
       "Under each state, write the membrane voltage at which it occurs.",
       "Beneath that row, draw a voltage gated potassium channel in its two states, with its timing."
      ],
@@ -755,7 +755,7 @@ window.BIO005_SHEET = {
     "n": 14,
     "name": "Threshold and all or none",
     "can": "Explain what threshold represents at the trigger zone and why action potential amplitude does not change with a stronger stimulus.",
-    "a": "What is threshold, in terms of the currents at the trigger zone? Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over: below threshold: a few channels open and the leak winning, exactly at threshold: the two currents balanced, above threshold: the positive feedback running away. Draw the current arrows in and out in every panel. In one line: define threshold from your three drawings in terms of two currents, not a number.",
+    "a": "What is threshold, in terms of the currents at the trigger zone? Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over: below threshold: a few sodium channels open and the outward potassium current larger than the inward sodium current, exactly at threshold: the two currents equal, above threshold: positive feedback opening more and more sodium channels. Draw the current arrows in and out in every panel. In one line: define threshold from your three drawings in terms of two currents, not a number.",
     "b": "Why is every action potential the same size, no matter how strong the stimulus? Draw one set of axes. Along a bottom trace, draw four stimuli of increasing strength as bars. Above them, plot the membrane potential each one produces, and mark threshold. Show the first two failing to reach threshold and the last two producing identical full sized action potentials. In one line: the fourth stimulus was far stronger than the third and the spike came out the same size. Say what actually fixes the amplitude.",
     "ax": {
      "q": "What is threshold, in terms of the currents at the trigger zone?",
@@ -763,9 +763,9 @@ window.BIO005_SHEET = {
       "Draw the trigger zone as a close up patch of membrane with voltage gated sodium channels in it, three times over:",
       {
        "sub": [
-        "below threshold: a few channels open and the leak winning",
-        "exactly at threshold: the two currents balanced",
-        "above threshold: the positive feedback running away"
+        "below threshold: a few sodium channels open and the outward potassium current larger than the inward sodium current",
+        "exactly at threshold: the two currents equal",
+        "above threshold: positive feedback opening more and more sodium channels"
        ]
       },
       "Draw the current arrows in and out in every panel."
