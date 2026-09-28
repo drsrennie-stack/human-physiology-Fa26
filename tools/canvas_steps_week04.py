@@ -106,8 +106,8 @@ STEPS = [
         "Do a brain dump: pick a competency, close everything, and write or draw all you can. Then check it and "
         "note what you left out.",
         "Watch a video again when a brain dump shows a gap you cannot fill from your guide."],
-  links=[("Rx Cards", "rx-cards.html"),
-         ("Try It From Memory, the brain dump", "competency-brain-dump.html")],
+  links=[("Rx Cards", "rx-cards.html?week=4&only=1"),
+         ("Try It From Memory, the brain dump", "competency-brain-dump.html?week=4")],
   turnin=None),
 
  dict(title="Mastery Check, and upload your reports", time="30 to 50 minutes per try, at least 3 tries",

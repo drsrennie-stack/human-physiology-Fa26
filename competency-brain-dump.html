@@ -371,9 +371,19 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
       o.textContent = (w === '0' ? 'Optional review' : 'Week ' + w) + ': ' + seen[w];
       sel.appendChild(o);
     });
-    sel.value = '2';
+    /* Sep 27 2026, Scrubs: start on this week, not a fixed week. ?week=N in the
+       link wins; otherwise the latest week that has opened (8:00 am on its
+       opening day) and has competencies here. */
+    var OPEN = [[8,8],[8,16],[8,16],[8,28],[9,5],[9,12],[9,19],[9,26],[10,2],[10,9],[10,16],[10,23],[10,30],[11,7],[11,14]];
+    var qw = parseInt((/[?&]week=(\d{1,2})/.exec(location.search) || [])[1], 10);
+    var start = 0, now = new Date();
+    if (qw >= 1 && qw <= 15) { start = qw; }
+    else { OPEN.forEach(function(d, i){ if (new Date(2026, d[0], d[1], 8, 0, 0) <= now) start = i + 1; }); }
+    while (start > 0 && !seen[start]) start--;
+    if (!start) start = 0;
+    sel.value = String(start);
     sel.addEventListener('change', function(){ weekFilter = parseInt(sel.value,10) || 0; });
-    weekFilter = 2;
+    weekFilter = start;
   })();
 
   function pool(){
