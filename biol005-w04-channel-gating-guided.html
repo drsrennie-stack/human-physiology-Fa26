@@ -303,8 +303,8 @@ function chan(x,label){
 }
 var CH={};
 CH.leak=chan(150,"Leak channel");
-CH.volt=chan(370,"Voltage gated");
-CH.lig=chan(590,"Chemically gated");
+CH.volt=chan(370,"Voltage-gated");
+CH.lig=chan(590,"Ligand-gated");
 CH.mech=chan(790,"Mechanically gated");
 for(var k in CH)REG["ch_"+k]=CH[k].g;
 function openCh(name,on){CH[name].bar.setAttribute("display",on?"none":"");}
@@ -314,11 +314,11 @@ function labCh(on){for(var k in CH)CH[k].lab.setAttribute("display",on?"":"none"
 var gTrig=G("trig");
 var TRIG={};
 TRIG.volt=(function(){var g=el("g",{},gTrig);
-  tx(g,370,150,"Voltage changes","tm",16,"middle");
+  tx(g,370,150,"Voltage change","tm",16,"middle");
   arrow(g,370,166,370,MY-14,MAROON,5);return g;})();
 TRIG.lig=(function(){var g=el("g",{},gTrig);
   el("circle",{cx:590,cy:150,r:16,fill:MAROON},g);
-  tx(g,590,120,"A chemical binds","tm",16,"middle");
+  tx(g,590,120,"Ligand binds","tm",16,"middle");
   arrow(g,590,172,590,MY-14,MAROON,5);return g;})();
 TRIG.mech=(function(){var g=el("g",{},gTrig);
   tx(g,790,150,"Stretch or pressure","tm",16,"middle");
@@ -377,174 +377,174 @@ function S(l){only(l);resetAll();}
 
 var STEPS=[
 /* ---- 1. two kinds of doors ---- */
-{sec:"Doors that open and doors that stay open",comp:"Ion channel gating",
- title:"Some doors never close",
- text:["You already know that potassium sits on the inside of a resting cell and leaks out through doors that stay open all the time. Those doors have no gate. Whatever can fit through them goes through, all day, without anything switching them on.","They are the reason a resting cell has a voltage at all."],
+{sec:"Leak channels and gated channels",comp:"Ion channel gating",
+ title:"Leak channels are always open",
+ text:["An ion channel is a membrane protein with a water-filled pore that lets specific ions cross the membrane. A leak channel has no gate, so its pore is open all the time. Each leak channel is selective, meaning it lets only certain ions through, and those ions move through it continuously, down their concentration and electrical gradients.","In a resting neuron, most leak channels are potassium leak channels. Potassium is more concentrated inside the cell, so it diffuses out through them, and that outward movement of positive charge is the main reason the resting membrane potential is negative."],
  name:"leak channels",
  auto:true,
- desc:"A membrane runs across the screen with one open channel. Ions pass through it steadily with nothing blocking the way.",
+ desc:"A membrane runs across the scene with one channel labeled leak channel. It has no gate, so its pore is open.",
  pre:function(){S(["mem","ch_leak","cap"]);openCh("leak",true);labCh(true);},
- play:function(a){return wait(500,a).then(function(){cap("Always open, nothing switches it on.");});},
- post:function(){only(["mem","ch_leak","cap"]);resetAll();openCh("leak",true);labCh(true);cap("Always open, nothing switches it on.");}},
+ play:function(a){return wait(500,a).then(function(){cap("Leak channel: no gate, always open");});},
+ post:function(){only(["mem","ch_leak","cap"]);resetAll();openCh("leak",true);labCh(true);cap("Leak channel: no gate, always open");}},
 
-{title:"Most doors have a gate",
- text:["Leak channels are the exception. Most channels in a membrane have a moving part that sits in the pore and blocks it until something specific tells it to move."],
- ask:"A cell has to fire a signal at one moment and stay quiet the next. Why would a gate that opens only when told be more useful than a door that is always open?",
- ans:["Because the cell needs to control when ions move, not just whether they can. A gate lets the cell hold still and then act.","Always-open leak channels set the resting voltage. Gated channels are what let the cell do something, at a moment of its choosing."],
+{title:"Most channels are gated",
+ text:["Most ion channels are gated channels. Part of the channel protein, called the gate, blocks the pore when the channel is closed. A specific stimulus causes a conformational change, which is a change in the shape of the protein, and that shape change moves the gate out of the pore so ions can pass."],
+ ask:"A neuron has to produce a signal at certain moments and stay at rest the rest of the time. Why would a channel that opens only in response to a specific stimulus be more useful for this than a channel that is always open?",
+ ans:["A gated channel lets ion movement change at a specific time, in response to a specific stimulus. When gated channels open, ions cross the membrane and the membrane potential changes, which is how a signal starts. A channel that is always open allows only a steady flow that cannot switch on or off.","Leak channels set the resting membrane potential. Gated channels change the membrane potential, and that change is the signal."],
  name:"gated ion channels",
  desc:"Three more channels appear in the membrane, each with a gold bar blocking the pore.",
  pre:function(){S(ALLCH);labCh(true);},
- play:function(a){return wait(500,a).then(function(){cap("Blocked until something moves the gate.");});},
- post:function(){only(ALLCH);resetAll();labCh(true);cap("Blocked until something moves the gate.");}},
+ play:function(a){return wait(500,a).then(function(){cap("Gated channels: closed until stimulated");});},
+ post:function(){only(ALLCH);resetAll();labCh(true);cap("Gated channels: closed until stimulated");}},
 
 /* ---- 2. what opens a gate ---- */
 {sec:"What opens a gate",comp:"Ion channel gating",
- title:"Three different triggers",
- text:["Gated channels are sorted by what makes them open. One kind responds to a change in the voltage across the membrane. One kind opens when a specific chemical binds to it. One kind opens when the membrane is physically stretched or pressed."],
- name:"voltage gated, ligand gated, and mechanically gated channels",
+ title:"Three kinds of gating",
+ text:["Gated channels are classified by the stimulus that opens them. Voltage-gated channels open in response to a change in the membrane potential. Ligand-gated channels, also called chemically gated channels, open when a specific molecule, the ligand, binds to them. Mechanically gated channels open when the membrane is physically stretched, bent, or pressed."],
+ name:"voltage-gated, ligand-gated, and mechanically gated channels",
  auto:true,
- desc:"Each gated channel gets a labeled trigger above it: a voltage change, a chemical binding, and stretch or pressure.",
+ desc:"A labeled stimulus appears above each gated channel: a voltage change above the voltage-gated channel, a ligand binding above the ligand-gated channel, and stretch or pressure above the mechanically gated channel.",
  pre:function(){S(ALLCH);labCh(true);trig([]);},
- play:function(a){trig(["volt"]);return wait(650,a).then(function(){trig(["volt","lig"]);return wait(650,a);}).then(function(){trig(["volt","lig","mech"]);only(ALLCH.concat(["trig"]));cap("Three triggers, three kinds of gate.");});},
- post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["volt","lig","mech"]);cap("Three triggers, three kinds of gate.");}},
+ play:function(a){trig(["volt"]);return wait(650,a).then(function(){trig(["volt","lig"]);return wait(650,a);}).then(function(){trig(["volt","lig","mech"]);only(ALLCH.concat(["trig"]));cap("Voltage, ligand, and mechanical gating");});},
+ post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["volt","lig","mech"]);cap("Voltage, ligand, and mechanical gating");}},
 
-{title:"The one that answers to voltage",
- text:["A voltage-gated channel has charged parts built into it that sit in the electric field across the membrane. When that field changes, those parts physically move, and the gate swings with them."],
- ask:"Voltage-gated channels open when the membrane becomes less negative. Once they open and let positive ions in, the membrane becomes less negative still. What does that do to the neighboring voltage-gated channels?",
- ans:["It opens them too. Each channel that opens makes the conditions that open the next one.","This runaway loop is what makes an action potential go all the way once it starts. You will build the whole thing in the action potential section."],
+{title:"Voltage-gated channels",
+ text:["A voltage-gated channel contains a voltage sensor, a region of the protein that carries charged amino acids and sits within the electric field across the membrane. When the membrane depolarizes, meaning the inside becomes less negative, the voltage sensor moves. That movement causes a conformational change that opens the gate."],
+ ask:"Voltage-gated sodium channels open when the membrane depolarizes. Once they open, sodium ions enter the cell and depolarize the membrane further. What effect does that have on nearby voltage-gated sodium channels?",
+ ans:["It opens them as well. Each channel that opens lets in sodium that depolarizes the membrane further, which opens more channels.","This is positive feedback, and it is why an action potential, once it reaches threshold, always goes to its full size. You will work through the full sequence in the action potential section."],
  name:"positive feedback",
- desc:"The voltage-gated channel opens as the voltage reading climbs.",
+ desc:"The membrane voltage rises from negative seventy to negative forty-five millivolts, and the voltage-gated channel opens.",
  pre:function(){S(ALLCH.concat(["trig","meter"]));labCh(true);trig(["volt"]);mv(-70);},
- play:function(a){return tweenVal(-70,-45,900,a,function(v){mv(v);}).then(function(){openCh("volt",true);cap("The field changes, the gate swings open.");});},
- post:function(){only(ALLCH.concat(["trig","meter"]));resetAll();labCh(true);trig(["volt"]);openCh("volt",true);mv(-45);cap("The field changes, the gate swings open.");}},
+ play:function(a){return tweenVal(-70,-45,900,a,function(v){mv(v);}).then(function(){openCh("volt",true);cap("Depolarization opens the channel");});},
+ post:function(){only(ALLCH.concat(["trig","meter"]));resetAll();labCh(true);trig(["volt"]);openCh("volt",true);mv(-45);cap("Depolarization opens the channel");}},
 
-{title:"The one that waits for a chemical",
- text:["A chemically gated channel stays shut until a particular molecule binds to a receptor site on it. The molecule fits the site the way a key fits a lock, and the gate opens while it is bound.","This is how one cell talks to the next one. The message crosses the gap as a chemical, and the chemical opens gates on the far side."],
- ask:"At the junction between a motor neuron and a muscle fiber, the neuron releases acetylcholine and the muscle's channels open. What would happen at that junction if a drug sat in those binding sites without opening them?",
- ans:["Acetylcholine would have nowhere to bind, the channels would stay shut, and the muscle would not be told to contract. The result is weakness or paralysis.","Several paralytic drugs used in surgery work this way, and so does the antibody attack in myasthenia gravis, which destroys these receptors and causes muscle weakness that worsens with use."],
- name:"ligand gated channels",
- desc:"A chemical binds to the chemically gated channel and its gate opens.",
+{title:"Ligand-gated channels",
+ text:["A ligand-gated channel stays closed until its ligand binds to a binding site on the channel protein. The binding site fits only molecules with a particular shape and charge, which is why each ligand-gated channel responds to specific ligands. Binding causes a conformational change that opens the gate, and the channel stays open while the ligand is bound.","This is the basis of chemical synaptic transmission. One cell releases a neurotransmitter, it diffuses across the synaptic cleft, and it binds to ligand-gated channels on the next cell."],
+ ask:"At the neuromuscular junction, the synapse between a motor neuron and a skeletal muscle fiber, the neuron releases acetylcholine, which binds to ligand-gated channels on the muscle fiber and opens them. What would happen if a drug bound to those binding sites without opening the channels?",
+ ans:["Acetylcholine could not bind, so the channels would stay closed. The muscle fiber would not depolarize, no action potential would start in the muscle, and the muscle would not contract. The result is weakness or paralysis.","Some paralytic drugs used during surgery work this way. In myasthenia gravis, antibodies attack these acetylcholine receptors and reduce their number, which causes muscle weakness that worsens with repeated use."],
+ name:"ligand-gated channels",
+ desc:"A ligand binds to the ligand-gated channel and its gate opens.",
  pre:function(){S(ALLCH.concat(["trig"]));labCh(true);trig(["lig"]);},
- play:function(a){return wait(600,a).then(function(){openCh("lig",true);cap("Bound, so the gate is open.");});},
- post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["lig"]);openCh("lig",true);cap("Bound, so the gate is open.");}},
+ play:function(a){return wait(600,a).then(function(){openCh("lig",true);cap("Ligand bound: channel open");});},
+ post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["lig"]);openCh("lig",true);cap("Ligand bound: channel open");}},
 
-{title:"The one that answers to touch",
- text:["A mechanically gated channel opens when the membrane it sits in is bent, stretched, or pressed. No voltage change and no chemical is needed, only physical deformation."],
- ask:"These channels sit in the sensory endings in your skin, in the hair cells of your inner ear, and in the walls of your blood vessels. What do those three places have in common?",
- ans:["In all three, something physical has to be turned into an electrical signal. Pressure on the skin, sound vibration in the ear, and stretch in a vessel wall are all mechanical events.","These channels are where sensation actually begins. Pressure opens the gate, ions move, and the membrane voltage changes, which is the first electrical step in feeling anything."],
+{title:"Mechanically gated channels",
+ text:["A mechanically gated channel opens when the membrane around it is stretched, bent, or pressed. The physical deformation pulls on the channel protein and changes its shape, which opens the gate. No voltage change or ligand is needed."],
+ ask:"Mechanically gated channels are found in touch receptors in the skin, in the hair cells of the inner ear, and in stretch receptors in the walls of blood vessels. What do those three locations have in common?",
+ ans:["In all three, a mechanical stimulus has to be converted into an electrical signal. Pressure on the skin, sound vibration in the ear, and stretch of a vessel wall are all mechanical events.","This conversion is called sensory transduction. The stimulus opens mechanically gated channels, ions cross the membrane, and the membrane potential changes. That change is the first electrical step in touch, hearing, and the sensing of blood pressure."],
  name:"mechanically gated channels",
- desc:"Pressure on the membrane opens the mechanically gated channel.",
+ desc:"A stretch or pressure arrow points at the mechanically gated channel, and its gate opens.",
  pre:function(){S(ALLCH.concat(["trig"]));labCh(true);trig(["mech"]);},
- play:function(a){return wait(600,a).then(function(){openCh("mech",true);cap("Bent or pressed, so it opens.");});},
- post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["mech"]);openCh("mech",true);cap("Bent or pressed, so it opens.");}},
+ play:function(a){return wait(600,a).then(function(){openCh("mech",true);cap("Membrane deformed: channel open");});},
+ post:function(){only(ALLCH.concat(["trig"]));resetAll();labCh(true);trig(["mech"]);openCh("mech",true);cap("Membrane deformed: channel open");}},
 
 /* ---- 3. the sodium channel has two gates ---- */
 {sec:"The sodium channel has two gates",comp:"Ion channel gating",
- title:"Not one gate, two",
- text:["Now zoom in on the voltage-gated sodium channel, because it is built differently from the others and that difference runs the whole action potential.","It has two gates on the same pore. One sits at the outer end, and one sits at the inner end. Both have to be out of the way for sodium to get through."],
- ask:"Two gates on one pore, and both must be open for anything to pass. How many different states can that channel be in?",
- ans:["Three that matter. Outer gate shut with the inner one open, both open, and the outer one open with the inner one now blocking.","Those three states are called resting, open, and inactivated, and they happen in that order every time the channel fires."],
+ title:"Two gates on one channel",
+ text:["The voltage-gated sodium channel is the channel responsible for the rising phase of the action potential, and it has a feature the other channels in this lesson lack: two gates on the same pore.","The activation gate is drawn here across the top of the pore. It opens quickly when the membrane depolarizes. The inactivation gate sits on the cytoplasmic side of the channel and is drawn here as a ball on a chain. It closes more slowly in response to the same depolarization. Sodium can pass only when both gates are open."],
+ ask:"The channel has two gates, and sodium passes only when both are open. List the possible combinations of gate positions, and say which one lets sodium through.",
+ ans:["Two gates with two positions each give four combinations, and only one of them, with both gates open, lets sodium through.","The channel moves through three functional states in order: resting (activation gate closed, inactivation gate open), open (both gates open), and inactivated (inactivation gate closed, whatever the activation gate is doing). The fourth combination, with both gates closed, occurs briefly during repolarization and still counts as inactivated, because the channel cannot open until the inactivation gate reopens."],
  name:"the activation gate and the inactivation gate",
- desc:"A large sodium channel with a gold gate across the outer end and a red ball on a chain hanging at the inner end.",
+ desc:"A large sodium channel with a gold activation gate across the top of the pore and a red ball-and-chain inactivation gate hanging on the cytoplasmic side, clear of the pore.",
  pre:function(){S(["mem","big","biglab","cap"]);actOpen(false);inactBlock(false);},
- play:function(a){return wait(600,a).then(function(){cap("Two gates, one pore.");});},
- post:function(){only(["mem","big","biglab","cap"]);resetAll();actOpen(false);inactBlock(false);cap("Two gates, one pore.");}},
+ play:function(a){return wait(600,a).then(function(){cap("Activation gate and inactivation gate");});},
+ post:function(){only(["mem","big","biglab","cap"]);resetAll();actOpen(false);inactBlock(false);cap("Activation gate and inactivation gate");}},
 
-{title:"At rest, waiting",
- text:["When the cell is sitting at its resting voltage, the outer gate is closed and the inner one is open and out of the way. Nothing gets through, but the channel is ready."],
+{title:"The resting state",
+ text:["At the resting membrane potential, about negative seventy millivolts, the activation gate is closed and the inactivation gate is open. No sodium passes, but the channel is able to open if the membrane depolarizes. This is the resting state, sometimes called the closed state."],
  name:"the resting state",
  auto:true,
- desc:"The outer gate is closed, the inner ball hangs clear of the pore, and the voltage reads negative seventy millivolts.",
+ desc:"The activation gate is closed, the inactivation gate hangs clear of the pore, sodium ions wait outside the cell, and the voltage reads negative seventy millivolts.",
  pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(false);inactBlock(false);mv(-70);ionsHome();},
- play:function(a){return wait(500,a).then(function(){cap("Closed, but ready to open.");});},
- post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Closed, but ready to open.");}},
+ play:function(a){return wait(500,a).then(function(){cap("Resting state: closed, able to open");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Resting state: closed, able to open");}},
 
-{title:"Threshold, and it opens",
- text:["When the membrane depolarizes to about negative fifty-five millivolts, the outer gate swings open. The inner one is still out of the way, so the pore is clear and sodium pours in."],
- ask:"Sodium is far more concentrated outside the cell, and the inside is negative. Both of those push sodium the same direction. What happens to the voltage once the pore is clear?",
- ans:["Sodium rushes in fast and the inside becomes rapidly less negative, then positive. The voltage shoots upward.","This is the upstroke of the action potential. Both the chemical gradient and the electrical gradient drive sodium inward, so once the gate opens, the movement is quick and large."],
+{title:"Threshold and the open state",
+ text:["As the membrane depolarizes, activation gates begin to open. At threshold, about negative fifty-five millivolts, enough sodium channels are open that sodium entering the cell outpaces potassium leaving it, and the depolarization becomes self-reinforcing. The inactivation gate is still open, so the pore is clear and sodium flows into the cell. This is the open state."],
+ ask:"Sodium is much more concentrated outside the cell than inside, and the inside of the cell is negative. Both of those drive sodium in the same direction. What happens to the membrane potential once the pore is open?",
+ ans:["Sodium enters rapidly, and the inside of the cell becomes less negative and then positive. The membrane potential rises quickly, to about positive thirty millivolts.","This is the rising phase, or depolarization phase, of the action potential. The concentration gradient and the electrical gradient both drive sodium inward, so once the channels open, sodium entry is fast and large."],
  name:"threshold and the activation gate opening",
- desc:"The outer gate opens, sodium ions move through the pore into the cell, and the voltage reading climbs from negative fifty-five toward positive thirty.",
+ desc:"The activation gate opens, sodium ions move through the pore into the cell, and the voltage reading climbs from negative fifty-five toward positive thirty millivolts.",
  pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(false);inactBlock(false);mv(-55);ionsHome();},
  play:function(a){actOpen(true);
    var moves=IONS.map(function(g,i){return tweenPath(g,[[BX-20+i*14,MY+40],[BX+70+i*42,MY+MH+38]],900+i*120,a);});
-   return Promise.all(moves.concat([tweenVal(-55,30,1300,a,function(v){mv(v);})])).then(function(){cap("Pore clear. Sodium floods in.");});},
- post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(true);inactBlock(false);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});cap("Pore clear. Sodium floods in.");}},
+   return Promise.all(moves.concat([tweenVal(-55,30,1300,a,function(v){mv(v);})])).then(function(){cap("Open state: sodium flows into the cell");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(true);inactBlock(false);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});cap("Open state: sodium flows into the cell");}},
 
-{title:"The second gate swings shut",
- text:["The inner gate also responds to the same voltage change that opened the outer one, but it moves slowly. By the time it finishes moving, the outer gate has already been open for about a millisecond. The inner gate then plugs the pore from the inside."],
- ask:"The outer gate is still open at this moment, but the pore is blocked from the inside. Can sodium get through, and can the cell open this channel again right now?",
- ans:["No to both. The pore is blocked, so sodium stops, and opening the outer gate further does nothing because the block is at the other end.","This is inactivation, and it is different from simply being closed. A closed channel can open. An inactivated channel cannot, no matter how strong the stimulus."],
+{title:"The inactivation gate closes",
+ text:["The inactivation gate responds to the same depolarization that opened the activation gate, but it moves more slowly. About a millisecond after the activation gate opens, the inactivation gate closes and blocks the pore from the cytoplasmic side."],
+ ask:"At this moment the activation gate is still open, but the inactivation gate is blocking the pore. Can sodium pass through, and can a stimulus open this channel again right now?",
+ ans:["No to both. The inactivation gate blocks the pore, so sodium entry stops, and the channel cannot open again until the inactivation gate reopens.","This is the inactivated state, and it is different from the resting (closed) state. A channel in the resting state can open when the membrane depolarizes. An inactivated channel cannot open, no matter how strong the stimulus."],
  name:"inactivation",
- desc:"The red ball swings up into the pore and blocks it from the inside while the outer gate is still open. The ions stop moving.",
+ desc:"The red inactivation gate swings up into the pore and blocks it from the cytoplasmic side while the activation gate is still open. No more sodium enters.",
  pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(true);inactBlock(false);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});},
- play:function(a){return wait(500,a).then(function(){inactBlock(true);return wait(400,a);}).then(function(){cap("Blocked from the inside. Sodium stops.");});},
- post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(true);inactBlock(true);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});cap("Blocked from the inside. Sodium stops.");}},
+ play:function(a){return wait(500,a).then(function(){inactBlock(true);return wait(400,a);}).then(function(){cap("Inactivated state: sodium entry stops");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(true);inactBlock(true);mv(30);IONS.forEach(function(g,i){place(g,BX+70+i*42,MY+MH+38);});cap("Inactivated state: sodium entry stops");}},
 
-{title:"Why that matters so much",
- text:["Inactivation does two things the cell could not do without it. It stops the sodium flood on its own, without needing anything to switch it off, and it makes the cell briefly unable to fire again."],
- ask:"For a short period after firing, most sodium channels in that patch of membrane are inactivated and cannot reopen. What does that do to a second signal arriving right behind the first one?",
- ans:["It cannot produce another action potential there. The membrane is temporarily unresponsive, no matter how strong the second stimulus is.","That period is the absolute refractory period. It sets the top speed a neuron can fire, and it is also why an action potential travels in one direction only, since the membrane behind it is still inactivated."],
+{title:"Why inactivation matters",
+ text:["Inactivation has two important effects. It ends sodium entry automatically, because the same depolarization that opens the channel also closes it a moment later. It also leaves the membrane briefly unable to produce another action potential. While the sodium channels are inactivated, the membrane repolarizes, mainly because potassium leaves the cell."],
+ ask:"For a short time after an action potential, most sodium channels in that region of membrane are inactivated and cannot reopen. What happens if a second stimulus arrives during that time?",
+ ans:["It cannot produce another action potential in that region, no matter how strong the stimulus is.","That period is the absolute refractory period. It limits how many action potentials a neuron can produce per second, and it is why an action potential travels in one direction along an axon: the membrane it has just passed is still refractory."],
  name:"the absolute refractory period",
- desc:"The sodium channel stays inactivated with the inner gate blocking the pore, and the voltage begins to fall.",
+ desc:"The sodium channel stays inactivated with the inactivation gate blocking the pore, and the voltage falls from positive thirty toward negative sixty millivolts.",
  pre:function(){S(["mem","big","biglab","meter","cap"]);actOpen(true);inactBlock(true);mv(30);},
- play:function(a){return tweenVal(30,-60,1100,a,function(v){mv(v);}).then(function(){cap("Cannot fire again yet.");});},
- post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(true);inactBlock(true);mv(-60);cap("Cannot fire again yet.");}},
+ play:function(a){return tweenVal(30,-60,1100,a,function(v){mv(v);}).then(function(){cap("Inactivated: channel cannot reopen");});},
+ post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(true);inactBlock(true);mv(-60);cap("Inactivated: channel cannot reopen");}},
 
-{title:"Resetting the channel",
- text:["The channel does not reset when the cell wants it to. It resets when the membrane voltage goes back down toward rest. Only then does the outer gate close again and the inner gate swing back out of the pore, in that order."],
- ask:"A channel resets only when the membrane repolarizes. What would happen to a neuron sitting in a fluid that kept it permanently depolarized, never letting it return toward its resting voltage?",
- ans:["Its sodium channels would stay inactivated and never reset, so the neuron could not fire at all.","This is what happens in severe hyperkalemia. High potassium outside the cell holds the membrane depolarized, sodium channels stay inactivated, and excitable tissue stops responding. In cardiac muscle that is life threatening."],
+{title:"Returning to the resting state",
+ text:["The sodium channel returns to the resting state only after the membrane repolarizes, meaning the membrane potential returns toward its negative resting value. Repolarization first closes the activation gate, and then the inactivation gate reopens. The channel is back in the resting state and can open again."],
+ ask:"Sodium channels return to the resting state only when the membrane repolarizes. What would happen to a neuron in extracellular fluid that kept its membrane depolarized, so it never returned to its resting membrane potential?",
+ ans:["Its sodium channels would stay inactivated and would not return to the resting state, so the neuron could not produce action potentials.","This happens in severe hyperkalemia, an abnormally high potassium concentration in the blood. The high extracellular potassium keeps the membrane depolarized, sodium channels stay inactivated, and excitable tissue stops responding. In the heart this can cause life-threatening arrhythmias."],
  name:"repolarization and channel reset",
- desc:"As the voltage returns to negative seventy, the outer gate closes and the inner ball swings back out of the pore.",
+ desc:"As the voltage returns to negative seventy millivolts, the activation gate closes and then the inactivation gate swings back out of the pore.",
  pre:function(){S(["mem","big","biglab","meter","cap"]);actOpen(true);inactBlock(true);mv(-60);},
- play:function(a){return tweenVal(-60,-70,700,a,function(v){mv(v);}).then(function(){actOpen(false);return wait(350,a);}).then(function(){inactBlock(false);cap("Back to resting. Ready again.");});},
- post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Back to resting. Ready again.");}},
+ play:function(a){return tweenVal(-60,-70,700,a,function(v){mv(v);}).then(function(){actOpen(false);return wait(350,a);}).then(function(){inactBlock(false);cap("Repolarized: back to the resting state");});},
+ post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Repolarized: back to the resting state");}},
 
 /* ---- 4. the slow potassium gate ---- */
-{sec:"The slow potassium gate",comp:"Ion channel gating",
- title:"Late to open, late to close",
- text:["Voltage-gated potassium channels answer to the same voltage change as the sodium ones, but they have only one gate and they are slow. They are still opening while sodium is already shutting down."],
- ask:"Potassium channels open late and stay open a little too long, letting potassium keep leaving after the voltage has already come back down to rest. What does the voltage do in that moment?",
- ans:["It dips below the resting value, more negative than where it started, until those channels finally close.","That undershoot is the after-hyperpolarization. It is also part of why a neuron is harder to fire for a short time after an action potential, since the membrane is sitting further from threshold than usual."],
+{sec:"The voltage-gated potassium channel",comp:"Ion channel gating",
+ title:"Slow to open, slow to close",
+ text:["Voltage-gated potassium channels open in response to the same depolarization as the sodium channels, but they have a single gate and they open more slowly. They open at about the time the sodium channels are inactivating, and potassium leaving the cell repolarizes the membrane."],
+ ask:"Voltage-gated potassium channels are also slow to close, so potassium keeps leaving the cell after the membrane potential has returned to its resting value. What happens to the membrane potential during that time?",
+ ans:["It becomes more negative than the resting potential, and it stays there until those potassium channels close.","This is after-hyperpolarization, also called the undershoot. It contributes to the relative refractory period, when a stronger than normal stimulus is needed to fire the neuron, because the membrane is farther from threshold than usual."],
  name:"after-hyperpolarization",
- desc:"The voltage falls past negative seventy to about negative eighty before returning.",
+ desc:"The voltage-gated channel opens and the voltage falls below negative seventy to about negative eighty-two millivolts. The channel closes and the voltage returns to negative seventy.",
  pre:function(){S(["mem","ch_leak","ch_volt","meter","cap"]);labCh(true);mv(-70);},
- play:function(a){openCh("volt",true);return tweenVal(-70,-82,900,a,function(v){mv(v);}).then(function(){return wait(400,a);}).then(function(){openCh("volt",false);return tweenVal(-82,-70,700,a,function(v){mv(v);});}).then(function(){cap("It dips below rest, then comes back.");});},
- post:function(){only(["mem","ch_leak","ch_volt","meter","cap"]);resetAll();labCh(true);mv(-70);cap("It dips below rest, then comes back.");}},
+ play:function(a){openCh("volt",true);return tweenVal(-70,-82,900,a,function(v){mv(v);}).then(function(){return wait(400,a);}).then(function(){openCh("volt",false);return tweenVal(-82,-70,700,a,function(v){mv(v);});}).then(function(){cap("After-hyperpolarization, then rest");});},
+ post:function(){only(["mem","ch_leak","ch_volt","meter","cap"]);resetAll();labCh(true);mv(-70);cap("After-hyperpolarization, then rest");}},
 
 /* ---- 5. clinical ---- */
-{sec:"Reading patients with it",comp:"Ion channel gating",
- title:"Patient: the dentist's injection",
- text:["A patient gets lidocaine before a dental procedure. Within a few minutes the area is numb, but the patient can still move the muscles of that side of the face. Lidocaine works by sitting inside voltage-gated sodium channels and blocking the pore."],
- ask:"Lidocaine blocks the sodium channel pore. Using the three states you just built, explain why the patient stops feeling pain in that area.",
- ans:["Blocking the pore means sodium cannot enter even when the outer gate opens, so the membrane never depolarizes far enough to fire. Without an action potential, the pain signal never reaches the brain.","Lidocaine binds best to channels that are open or inactivated, which is why it works fastest on nerves that are firing frequently. Small pain fibers are affected before the larger motor fibers, which is why sensation goes before movement does."],
+{sec:"Clinical applications",comp:"Ion channel gating",
+ title:"Patient: a local anesthetic",
+ text:["A patient receives an injection of lidocaine, a local anesthetic, before a dental procedure. Within a few minutes the gums and lip on that side are numb. Lidocaine binds inside the pore of voltage-gated sodium channels and blocks it."],
+ ask:"Lidocaine blocks the pore of voltage-gated sodium channels. Using the three channel states, explain why the patient stops feeling pain in that area.",
+ ans:["With the pore blocked, sodium cannot enter even when the activation gate opens, so the axon membrane cannot depolarize enough to produce an action potential. Without action potentials, the pain signal is not conducted to the brain.","Lidocaine binds most readily to channels in the open and inactivated states, so it blocks nerves that are firing frequently most effectively. Small-diameter pain fibers are also blocked at lower concentrations than large motor fibers, so pain sensation is usually lost before movement."],
  name:"local anesthetic action",
- desc:"A drug molecule sits inside the sodium channel pore, blocking it while the gates are still in place.",
+ desc:"A drug molecule sits in the pore of the sodium channel and blocks it, even though the activation gate is open. The voltage stays at negative seventy millivolts.",
  pre:function(){S(["mem","big","biglab","drug","meter","cap"]);actOpen(true);inactBlock(false);mv(-70);},
- play:function(a){return wait(600,a).then(function(){cap("The pore is plugged. No signal.");});},
- post:function(){only(["mem","big","biglab","drug","meter","cap"]);resetAll();actOpen(true);inactBlock(false);mv(-70);cap("The pore is plugged. No signal.");}},
+ play:function(a){return wait(600,a).then(function(){cap("Pore blocked: no sodium entry");});},
+ post:function(){only(["mem","big","biglab","drug","meter","cap"]);resetAll();actOpen(true);inactBlock(false);mv(-70);cap("Pore blocked: no sodium entry");}},
 
-{title:"Patient: weakness after a big meal",
- text:["A 24 year old reports episodes of severe muscle weakness, sometimes after resting following exercise and sometimes after a large meal. During an episode his blood potassium is high. Between episodes he is completely normal. He has an inherited fault in a muscle sodium channel that makes it slow to inactivate."],
- ask:"His sodium channels are slow to inactivate, which leaves the muscle membrane depolarized for longer than it should be. Why would that cause weakness rather than extra contraction?",
- ans:["Because a membrane held depolarized keeps its sodium channels inactivated, and inactivated channels cannot reopen. The muscle cannot fire, so it cannot contract.","This is hyperkalemic periodic paralysis. It is a useful case because it shows that too much depolarization does not mean more activity. Past a point, it means no activity at all, which is exactly what happens in severe hyperkalemia."],
+{title:"Patient: episodes of weakness after rest",
+ text:["A 24-year-old man reports episodes of severe muscle weakness that start while he is resting after exercise, or after he eats foods high in potassium. During an episode his blood potassium is often high. Between episodes his strength is normal. He has an inherited mutation in the skeletal muscle sodium channel that impairs inactivation."],
+ ask:"Some of his sodium channels do not inactivate completely, so they keep letting sodium in and hold the muscle membrane depolarized longer than normal. Why would that cause weakness rather than extra contraction?",
+ ans:["A membrane that stays depolarized keeps most of its sodium channels, including the normal ones, in the inactivated state, and inactivated channels cannot open. The muscle fiber cannot produce action potentials, so it cannot contract.","This condition is hyperkalemic periodic paralysis. It shows that sustained depolarization does not produce more activity. Beyond a certain point it stops activity, the same effect seen in severe hyperkalemia."],
  name:"a sodium channelopathy",
- desc:"The sodium channel stays inactivated with the membrane held depolarized.",
+ desc:"The sodium channel stays inactivated, with the inactivation gate blocking the pore, while the voltage stays at negative fifty millivolts.",
  pre:function(){S(["mem","big","biglab","meter","cap"]);actOpen(true);inactBlock(true);mv(-50);},
- play:function(a){return wait(600,a).then(function(){cap("Held depolarized, so it cannot reset.");});},
- post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(true);inactBlock(true);mv(-50);cap("Held depolarized, so it cannot reset.");}},
+ play:function(a){return wait(600,a).then(function(){cap("Depolarized: channels stay inactivated");});},
+ post:function(){only(["mem","big","biglab","meter","cap"]);resetAll();actOpen(true);inactBlock(true);mv(-50);cap("Depolarized: channels stay inactivated");}},
 
 /* ---- 6. story check ---- */
-{sec:"Tell the story back",comp:"Ion channel gating",
- title:"The whole story, with the science names",
- text:["Leak channels have no gate and set the resting voltage. Gated channels open to a specific trigger: a voltage change, a chemical binding, or physical stretch. The voltage-gated sodium channel carries two gates, so it moves through three states, resting, open, and inactivated, and it can only reset once the membrane repolarizes.","Inactivation stops the sodium flood on its own and creates the absolute refractory period. Voltage-gated potassium channels are slower, and their late closing produces the dip below rest."],
- ask:"Without scrolling back, name the three states of a voltage-gated sodium channel, say what each gate is doing in each state, and say what has to happen before the channel can fire again.",
- ans:["Resting: outer activation gate closed, inner inactivation gate open, nothing passes but the channel is ready. Open: both gates clear, sodium floods in. Inactivated: activation gate still open, inactivation gate blocking the pore, nothing passes and the channel cannot be reopened. The membrane has to repolarize before it resets.","If any part of that was hard to recall, go back over it before starting graded potentials. The action potential section is built entirely on these three states."],
- desc:"The sodium channel is shown cycling through resting, open, and inactivated with the voltage trace beside it.",
+{sec:"Review",comp:"Ion channel gating",
+ title:"Summary of ion channel gating",
+ text:["Leak channels have no gate and set the resting membrane potential. Gated channels open in response to a specific stimulus: voltage-gated channels respond to a change in membrane potential, ligand-gated channels to a bound ligand, and mechanically gated channels to stretch or pressure. The voltage-gated sodium channel has an activation gate and an inactivation gate, so it cycles through three states, resting, open, and inactivated, and it returns to the resting state only after the membrane repolarizes.","Inactivation ends sodium entry automatically and causes the absolute refractory period. Voltage-gated potassium channels open and close more slowly, and their late closing causes after-hyperpolarization."],
+ ask:"Without looking back, name the three states of a voltage-gated sodium channel, describe what each gate is doing in each state, and state what has to happen before the channel can open again.",
+ ans:["Resting: activation gate closed, inactivation gate open; no sodium passes, but the channel can open. Open: both gates open; sodium flows into the cell. Inactivated: activation gate still open, inactivation gate blocking the pore; no sodium passes and the channel cannot open. The membrane has to repolarize before the channel returns to the resting state.","If any part of that was hard to recall, review it before starting graded potentials. The action potential section builds directly on these three states."],
+ desc:"The sodium channel cycles from resting to open to inactivated and back to resting while the voltage reading rises from negative seventy to positive thirty millivolts and returns to negative seventy.",
  pre:function(){S(["mem","big","biglab","meter","ions","cap"]);actOpen(false);inactBlock(false);mv(-70);ionsHome();},
- play:function(a){return wait(400,a).then(function(){actOpen(true);return tweenVal(-70,30,800,a,function(v){mv(v);});}).then(function(){inactBlock(true);return tweenVal(30,-70,900,a,function(v){mv(v);});}).then(function(){actOpen(false);inactBlock(false);cap("Resting, open, inactivated, reset.");});},
- post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Resting, open, inactivated, reset.");}}
+ play:function(a){return wait(400,a).then(function(){actOpen(true);return tweenVal(-70,30,800,a,function(v){mv(v);});}).then(function(){inactBlock(true);return tweenVal(30,-70,900,a,function(v){mv(v);});}).then(function(){actOpen(false);inactBlock(false);cap("Resting, open, inactivated, resting");});},
+ post:function(){only(["mem","big","biglab","meter","ions","cap"]);resetAll();actOpen(false);inactBlock(false);mv(-70);cap("Resting, open, inactivated, resting");}}
 ];
 /* ======================= support videos ======================= */
 var V={
@@ -553,10 +553,10 @@ var V={
   apm:{u:"https://www.youtube.com/watch?v=MZz4OUOyFvg",n:"Neuron action potential mechanism"}
 };
 var SUP={
-  "Threshold, and it opens":[["What happens at threshold?","ap","Listen for what happens when the membrane reaches threshold and the sodium channels open."]],
-  "The second gate swings shut":[["Why does sodium stop coming in at the peak?","apm","Listen for what stops sodium from entering at the top of the action potential."]],
-  "Late to open, late to close":[["What brings the membrane back down?","apm","Listen for the potassium channels opening after the sodium channels, and potassium leaving the cell."]],
-  "The one that waits for a chemical":[["How does a chemical open a channel?","lig","Listen for the molecule binding to the channel itself and the gate opening while it is bound."]]
+  "Threshold and the open state":[["What happens at threshold?","ap","Listen for what happens when the membrane reaches threshold and the sodium channels open."]],
+  "The inactivation gate closes":[["Why does sodium stop coming in at the peak?","apm","Listen for what stops sodium from entering at the top of the action potential."]],
+  "Slow to open, slow to close":[["What repolarizes the membrane?","apm","Listen for the potassium channels opening after the sodium channels, and potassium leaving the cell."]],
+  "Ligand-gated channels":[["How does a chemical open a channel?","lig","Listen for the molecule binding to the channel itself and the gate opening while it is bound."]]
 };
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";

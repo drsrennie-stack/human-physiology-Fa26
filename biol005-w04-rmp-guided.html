@@ -317,10 +317,10 @@ function door(id,y,col,label){
   if(label){tx(g,586,y-42,label,col===MAROON?"tm":"tn",14);}
   return g;
 }
-door("kdoor",290,MAROON,"potassium door");
+door("kdoor",290,MAROON,"K+ leak channel");
 door("kdoor2",200,MAROON,"");
 door("kdoor3",380,MAROON,"");
-door("nadoor",110,NAVY,"sodium door");
+door("nadoor",110,NAVY,"Na+ channel");
 var gPump=layer("pump");
 el("rect",{x:551,y:432,width:18,height:56,fill:"#fff"},gPump);
 el("circle",{cx:560,cy:460,r:27,fill:"#fff",stroke:NAVY,"stroke-width":5},gPump);tx(gPump,560,466,"pump","tn",14,"middle");
@@ -352,16 +352,16 @@ var NA=NAPOS.map(function(p){var g=ionNa(gNa);place(g,p[0],p[1]);return g;});
 
 /* arrows: tug of war */
 var gTug=layer("tug");
-arrow(gTug,585,290,700,290,MAROON,8);tx(gTug,600,332,"crowding pushes out","tm",16);
-arrow(gTug,535,290,420,290,NAVY,8);tx(gTug,300,242,"negative inside pulls back","tn",16);
+arrow(gTug,585,290,700,290,MAROON,8);tx(gTug,600,332,"concentration gradient","tm",16);
+arrow(gTug,535,290,420,290,NAVY,8);tx(gTug,330,242,"electrical gradient","tn",16);
 var gTugBig=layer("tugbig");
-arrow(gTugBig,585,290,760,290,MAROON,10);tx(gTugBig,600,332,"crowding pushes out","tm",16);
-arrow(gTugBig,535,290,480,290,NAVY,4);tx(gTugBig,360,242,"weak pull back","tn",16);
+arrow(gTugBig,585,290,760,290,MAROON,10);tx(gTugBig,600,332,"concentration gradient","tm",16);
+arrow(gTugBig,535,290,480,290,NAVY,4);tx(gTugBig,330,242,"electrical gradient (weak)","tn",16);
 
 /* arrows: sodium both inward */
 var gNaArr=layer("naarrows");
-arrow(gNaArr,720,95,600,105,NAVY,7);tx(gNaArr,640,60,"crowding pushes in","tn",15);
-arrow(gNaArr,720,140,600,122,INK2,7);tx(gNaArr,640,170,"negative inside pulls in","t",15);
+arrow(gNaArr,720,95,600,105,NAVY,7);tx(gNaArr,640,56,"concentration gradient","tn",15);
+arrow(gNaArr,720,140,600,122,INK2,7);tx(gNaArr,640,194,"electrical gradient","t",15);
 
 /* electrode */
 var gEl=layer("electrode");
@@ -372,7 +372,7 @@ place(probe,400,-10);
 el("rect",{x:640,y:380,width:210,height:110,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":4},gEl);
 tx(gEl,745,412,"inside compared with outside","t",13,"middle");
 var meter=tx(gEl,745,462,"","tn",36,"middle");
-el("line",{x1:790,y1:500,x2:840,y2:500,stroke:INK2,"stroke-width":5},gEl);tx(gEl,735,530,"reference outside","t",13,"start");
+el("line",{x1:790,y1:500,x2:840,y2:500,stroke:INK2,"stroke-width":5},gEl);tx(gEl,735,530,"reference electrode","t",13,"start");
 
 /* gates scene */
 var gG=layer("gates");
@@ -390,11 +390,11 @@ GATES.forEach(function(G){
 });
 function setGate(G,open){G.l.setAttribute("x",open?G.x-34:G.x-17);G.r.setAttribute("x",open?G.x+18:G.x+1);}
 var gTrig=el("g",{},gG);
-var trigV=el("g",{"class":"layer off"},gTrig);tx(trigV,340,215,"+  +  +","tn",24,"middle");tx(trigV,340,196,"charge changes","t",14,"middle");
-var lig=el("g",{"class":"layer off"},gTrig);el("polygon",{points:"-14,0 14,0 0,-22",fill:GDEEP},lig);var ligT=tx(lig,22,-6,"chemical","t",14);place(lig,560,120);
+var trigV=el("g",{"class":"layer off"},gTrig);tx(trigV,340,215,"+  +  +","tn",24,"middle");tx(trigV,340,196,"voltage changes","t",14,"middle");
+var lig=el("g",{"class":"layer off"},gTrig);el("polygon",{points:"-14,0 14,0 0,-22",fill:GDEEP},lig);var ligT=tx(lig,22,-6,"ligand","t",14);place(lig,560,120);
 var trigM=el("g",{"class":"layer off"},gTrig);arrow(trigM,730,200,670,200,INK2,5);arrow(trigM,810,200,870,200,INK2,5);tx(trigM,770,188,"stretch","t",14,"middle");
 var lido=el("g",{"class":"layer off"},gTrig);el("rect",{x:318,y:250,width:44,height:20,rx:5,fill:GDEEP},lido);tx(lido,340,236,"lidocaine","t",15,"middle");
-var noAP=el("g",{"class":"layer off"},gTrig);tx(noAP,340,440,"door stays shut, no signal","tm",17,"middle");
+var noAP=el("g",{"class":"layer off"},gTrig);tx(noAP,340,440,"channel blocked: no action potential","tm",17,"middle");
 
 /* graph scene */
 var gGr=layer("graph");
@@ -405,7 +405,7 @@ tx(gGr,475,550,"time","t",16,"middle");
 el("line",{x1:90,y1:gy(0),x2:860,y2:gy(0),stroke:INK2,"stroke-width":2,"stroke-dasharray":"8 8"},gGr);
 el("line",{x1:90,y1:gy(-70),x2:860,y2:gy(-70),stroke:INK2,"stroke-width":2,"stroke-dasharray":"8 8"},gGr);
 var gWords=el("g",{"class":"layer"},gGr);
-tx(gWords,856,gy(0)-10,"zero: inside equals outside","t",14,"end");tx(gWords,856,gy(-70)+26,"resting value","t",14,"end");
+tx(gWords,856,gy(0)-10,"0 mV: no charge difference","t",14,"end");tx(gWords,856,gy(-70)-12,"resting membrane potential","t",14,"end");
 tx(gWords,40,120,"up =","t",14);tx(gWords,40,138,"less","t",14);tx(gWords,40,156,"negative","t",14);
 var gNums=el("g",{"class":"layer off"},gGr);
 tx(gNums,82,gy(0)+5,"0","t",14,"end");tx(gNums,82,gy(-70)+5,M+"70","t",14,"end");tx(gNums,82,gy(30)+5,"+30","t",14,"end");
@@ -421,7 +421,7 @@ var GLAB=[
   tx(gGr,236,gy(-20),"depolarization","tn",17),
   tx(gGr,400,gy(30)-10,"overshoot (inside positive)","tn",17),
   tx(gGr,456,gy(-30),"repolarization","tn",17),
-  tx(gGr,500,gy(-86)+30,"hyperpolarization","tn",17)
+  tx(gGr,320,gy(-86)+30,"hyperpolarization","tn",17)
 ];
 function segDraw(i,f){var p=segP[i],len=p.getTotalLength();p.style.strokeDasharray=len;p.style.strokeDashoffset=len*(1-f);}
 function drawSeg(i,anim,dur){return tweenVal(0,1,dur||900,anim,function(v){segDraw(i,v);});}
@@ -432,7 +432,7 @@ function nx(mv){return 80+(mv+110)*3.1;}
 el("line",{x1:nx(-110),y1:300,x2:nx(130),y2:300,stroke:NAVY,"stroke-width":5},gNL);
 for(var mv=-110;mv<=130;mv+=10){el("line",{x1:nx(mv),y1:mv%50===0?288:294,x2:nx(mv),y2:mv%50===0?312:306,stroke:NAVY,"stroke-width":2},gNL);}
 [-100,-50,0,50,100].forEach(function(v){tx(gNL,nx(v),340,(v>0?"+":(v<0?M:""))+Math.abs(v)+(v===0?" mV":""),"t",14,"middle");});
-tx(gNL,nx(-110),380,"more negative inside","t",14,"start");tx(gNL,nx(130),380,"more positive inside","t",14,"end");
+[tx(gNL,nx(-110),380,"more negative inside","t",14,"start"),tx(gNL,nx(130),380,"more positive inside","t",14,"end")].forEach(function(t){t.setAttribute("style","paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round");});
 function emark(id,mv,label,col,up){
   var g=layer(id,gNL);g._mv=mv;
   g._line=el("line",{x1:0,y1:300,x2:0,y2:up?190:420,stroke:col,"stroke-width":4},g);
@@ -441,14 +441,15 @@ function emark(id,mv,label,col,up){
   setMark(g,mv);return g;
 }
 function setMark(g,mv){g._mv=mv;var x=nx(mv);g._line.setAttribute("x1",x);g._line.setAttribute("x2",x);g._t1.setAttribute("x",x);g._t2.setAttribute("x",x);g._t2.textContent="about "+(mv>0?"+":(mv<0?M:""))+Math.abs(Math.round(mv))+" mV";}
-var mK=emark("mK",-90,"potassium balance point",MAROON,true);
-var mNa=emark("mNa",60,"sodium balance point",NAVY,true);
-var mCl=emark("mCl",-65,"chloride",INK2,false);
-var mCa=emark("mCa",120,"calcium",INK2,false);
+var mK=emark("mK",-90,"E for K+",MAROON,true);
+var mNa=emark("mNa",60,"E for Na+",NAVY,true);
+var mCl=emark("mCl",-65,"E for Cl"+M,INK2,false);
+var mCa=emark("mCa",120,"E for Ca2+",INK2,true);
 var gRest=layer("rest",gNL);
 var restDot=el("circle",{cy:300,r:14,fill:MAROON,stroke:"#fff","stroke-width":3},gRest);
 var restLab=tx(gRest,0,262,"","tm",18,"middle");
-var restCap=tx(gRest,0,240,"membrane","t",14,"middle");
+var restCap=tx(gRest,0,240,"membrane potential","t",14,"middle");
+[restLab,restCap].forEach(function(t){t.setAttribute("style","paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round");});
 function setRest(mv){var x=nx(mv);restDot.setAttribute("cx",x);restLab.setAttribute("x",x);restCap.setAttribute("x",x);restLab.textContent=(mv>0.5?"+":(mv<-0.5?M:""))+Math.abs(Math.round(mv))+" mV";gRest._mv=mv;}
 setRest(-70);
 var gPull=layer("pull",gNL);
@@ -471,8 +472,8 @@ function setMove(from,to,text,col){
   moveT.setAttribute("x",(nx(from)+nx(to))/2);moveT.setAttribute("y",y-18);moveT.textContent=text;moveT.setAttribute("class",col===MAROON?"tm":"tn");
 }
 var gLab=layer("labcard",gNL);
-el("rect",{x:560,y:420,width:320,height:120,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":3},gLab);
-var labT1=tx(gLab,580,452,"","tn",17),labT2=tx(gLab,580,486,"","tm",24),labT3=tx(gLab,580,518,"","t",15);
+el("rect",{x:250,y:410,width:320,height:120,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":3},gLab);
+var labT1=tx(gLab,270,442,"","tn",17),labT2=tx(gLab,270,476,"","tm",24),labT3=tx(gLab,270,508,"","t",15);
 var hoursT=tx(layer("hours",gNL),nx(-40),120,"several hours later","tm",18,"middle");
 
 /* concentration scene */
@@ -483,10 +484,10 @@ tx(gCo,250,74,"Inside (mM)","tn",18,"middle");tx(gCo,660,74,"Outside (mM)","tn",
 var ROWS=[["K+","150","5",MAROON],["Na+","15","145",NAVY],["Cl"+M,"10","108",INK2],["Ca2+","0.0001","1",GDEEP],["large anions","many","almost none",INK2]];
 ROWS.forEach(function(r,i){var y=130+i*82;tx(gCo,90,y,r[0],"tn",20);tx(gCo,360,y,r[1],"tn",22,"end");tx(gCo,620,y,r[2],"tn",22,"end");});
 var gCoArr=layer("concarr",gCo.parentNode);
-arrow(gCoArr,480,124,590,124,INK2,5);tx(gCoArr,700,112,"K: crowding pushes out","t",14);
-arrow(gCoArr,590,146,480,146,NAVY,5);tx(gCoArr,700,160,"charge pulls in","tn",14);
-arrow(gCoArr,590,206,480,206,INK2,5);tx(gCoArr,700,194,"Na: crowding pushes in","t",14);
-arrow(gCoArr,590,228,480,228,NAVY,5);tx(gCoArr,700,242,"charge pulls in","tn",14);
+arrow(gCoArr,480,124,590,124,INK2,5);tx(gCoArr,636,108,"K+ concentration gradient: out","t",14);
+arrow(gCoArr,590,146,480,146,NAVY,5);tx(gCoArr,636,160,"K+ electrical gradient: in","tn",14);
+arrow(gCoArr,590,206,480,206,INK2,5);tx(gCoArr,636,190,"Na+ concentration gradient: in","t",14);
+arrow(gCoArr,590,228,480,228,NAVY,5);tx(gCoArr,636,242,"Na+ electrical gradient: in","tn",14);
 
 /* equation scene */
 var gEq=layer("eq");
@@ -534,104 +535,104 @@ function show(g){g.classList.remove("off");}
 /* ======================= steps ======================= */
 var STEPS=[
 /* ---------- Section 1: the story ---------- */
-{sec:"A balloon full of balls",comp:"Competency 1",title:"Start with a balloon",
- text:["Here is a balloon. Inside it there are lots of little balls. Outside there are only a few."],
- ask:"If these balls could pass through the balloon, which way would they tend to move?",
- ans:["Out. Each ball moves at random, but there are far more balls inside, so more of them happen to cross outward than inward. The overall movement is toward the side with fewer."],
+{sec:"From a balloon to a cell",comp:"Ion distribution and electrochemical gradients",title:"Start with a balloon",
+ text:["Here is a balloon with many small particles inside it and only a few outside it."],
+ ask:"If these particles could pass through the wall of the balloon, which way would they tend to move?",
+ ans:["Out. Each particle moves at random, but because there are far more particles inside, more of them cross outward than inward at any moment. The net movement is from the region of higher concentration to the region of lower concentration. A difference in concentration between two regions is called a concentration gradient."],
  name:"diffusion down a concentration gradient",
- desc:"A balloon with fourteen maroon balls inside and three outside.",
+ desc:"A balloon with fourteen maroon particles inside and three outside. Three of the inside particles move out.",
  pre:function(){only(["balloon","kions"]);kState(0);},
  play:function(a){return leaveK(0,3,a,290);}},
 {title:"The balloon becomes a cell",
- text:["Now the balloon becomes a cell, with a membrane and a nucleus. The balls are still inside.","A real membrane is different from a balloon. The balls cannot slip through it whenever they like."],
- desc:"The balloon changes into a cell outline with a nucleus. The balls stay inside.",
+ text:["Now the balloon becomes a cell, with a plasma membrane and a nucleus. The particles are still inside.","The plasma membrane is a lipid bilayer, and these particles cannot pass through its hydrophobic interior on their own."],
+ desc:"The balloon changes into a cell outline with a nucleus. The particles stay inside.",
  auto:true,
  pre:function(){only(["balloon","kions"]);kState(0);},
  play:function(a){show(L.cell);L.balloon.classList.add("off");return wait(500,a).then(function(){show(L.nucleus);});},
  post:function(){only(["cell","nucleus","kions"]);kState(0);}},
-{title:"The membrane blocks them",
- text:["Watch one ball run into the membrane."],
- ask:"If the membrane stops the balls, what would they need in order to cross?",
- ans:["A door, a way through the membrane made for that kind of ball. The cell is not handed its doors. It has to build them."],
+{title:"The membrane is a barrier",
+ text:["Watch one particle reach the membrane."],
+ ask:"If the lipid bilayer blocks these particles, what would they need in order to cross?",
+ ans:["A channel: a protein that spans the membrane and forms a pore that only certain particles can pass through. The cell has to make these proteins itself."],
  name:"channel protein",
- desc:"A ball near the right side of the cell moves to the membrane and bounces back.",
+ desc:"A particle near the right side of the cell moves to the membrane and bounces back. A channel then appears in the membrane.",
  pre:function(){only(["cell","nucleus","kions"]);kState(0);},
  play:function(a){var g=K[7];return tweenPath(g,[[540,270],KPOS[7]],1200,a).then(function(){show(L.kdoor);});},
  post:function(){only(["cell","nucleus","kions","kdoor"]);kState(0);}},
-{title:"Doors come from genes",
- text:["A door is a protein, and every protein is built from the instructions in a gene. Watch the trip from the gene in the nucleus to the membrane."],
- desc:"A small circle travels from the gene in the nucleus to the rough ER, then the Golgi, then to the membrane, where a door appears.",
+{title:"Channel proteins come from genes",
+ text:["A channel is a protein, and every protein is built from the instructions in a gene. Watch the path from the gene in the nucleus to the plasma membrane."],
+ desc:"A small circle travels from the gene in the nucleus to the rough ER, then the Golgi, then to the membrane, where a channel appears.",
  auto:true,
  pre:function(){only(["cell","nucleus","factory"]);place(carrier,190,300);facLabel.textContent="";},
  play:function(a){
-   facLabel.textContent="the gene is copied as mRNA";
-   return tweenPath(carrier,[[330,160]],1200,a).then(function(){facLabel.textContent="ribosomes on the rough ER build the door";return wait(700,a);})
-   .then(function(){return tweenPath(carrier,[[420,410]],1200,a);}).then(function(){facLabel.textContent="the Golgi finishes and packages it";return wait(700,a);})
-   .then(function(){return tweenPath(carrier,[[540,290]],1100,a);}).then(function(){facLabel.textContent="a vesicle delivers it to the membrane";show(L.kdoor);});
+   facLabel.textContent="the gene is transcribed into mRNA";
+   return tweenPath(carrier,[[330,160]],1200,a).then(function(){facLabel.textContent="ribosomes on the rough ER make the channel";return wait(700,a);})
+   .then(function(){return tweenPath(carrier,[[420,410]],1200,a);}).then(function(){facLabel.textContent="the Golgi modifies and packages it";return wait(700,a);})
+   .then(function(){return tweenPath(carrier,[[540,290]],1100,a);}).then(function(){facLabel.textContent="vesicle fusion adds it to the membrane";show(L.kdoor);});
  },
- post:function(){only(["cell","nucleus","factory","kdoor"]);place(carrier,540,290);facLabel.textContent="a vesicle delivers it to the membrane";}},
-{title:"A door for potassium",
- text:["Let's name our balls. They are potassium, and the cell is packed with it.","The cell builds a door that fits only potassium, and this door stays open all the time."],
- ask:"The door is open. What will the potassium do?",
- ans:["It leaves. There is much more potassium inside than outside, so potassium moves out through the open door."],
+ post:function(){only(["cell","nucleus","factory","kdoor"]);place(carrier,540,290);facLabel.textContent="vesicle fusion adds it to the membrane";}},
+{title:"A channel for potassium",
+ text:["These particles are potassium ions, and the concentration of potassium inside the cell is high.","The cell makes a channel that only potassium can pass through, and this channel stays open all the time."],
+ ask:"The channel is open. Which way will potassium move?",
+ ans:["Out. The potassium concentration is much higher inside than outside, so potassium diffuses out through the open channel, down its concentration gradient."],
  name:"potassium leak channel",
- desc:"The cell is full of maroon potassium balls labeled K. One potassium door on the right is open. Potassium balls leave through it.",
+ desc:"The cell is full of maroon potassium ions labeled K. One potassium leak channel on the right is open, and potassium ions leave through it.",
  pre:function(){only(["cell","kions","kdoor"]);kState(0);},
  play:function(a){return leaveK(0,4,a);}},
-{title:"Every ball carries a charge",
- text:["Here is the new piece of information. Each potassium carries one positive charge.","The cell is also full of large proteins with negative charges. They are far too big to fit through any door."],
- ask:"Potassium is leaving and taking its positive charge with it. The negative proteins stay. What happens to the charge inside the cell?",
- ans:["The inside becomes negative. Each potassium that leaves carries a plus away and leaves an unmatched minus behind.","The extra charge gathers in a very thin layer at the membrane: minuses on the inside face and pluses on the outside face. Only a tiny fraction of the potassium has to leave to do this."],
+{title:"Each ion carries a charge",
+ text:["Each potassium ion carries one positive charge, which is why it is written K+.","The cell also contains large proteins and other molecules that carry negative charges. These large anions are too big to pass through any channel."],
+ ask:"Potassium is leaving and carrying its positive charge with it, while the negative proteins stay inside. What happens to the charge inside the cell?",
+ ans:["The inside becomes negative. Each potassium ion that leaves carries a positive charge out and leaves an unpaired negative charge behind.","This separated charge collects in a very thin layer along the membrane, with negative charges on the inner surface and positive charges on the outer surface. Only a tiny fraction of the cell's potassium has to leave to produce it."],
  name:"charge separation across the membrane",
  desc:"Gray negative proteins appear inside the cell. As more potassium leaves, minus signs appear along the inside of the membrane and plus signs along the outside.",
  pre:function(){only(["cell","kions","kdoor","anions","signs"]);kState(4);signs("none");},
  play:function(a){return leaveK(4,6,a).then(function(){signs("all");});}},
-{title:"A tug of war at the door",
- text:["Now picture one potassium standing in the open door. Two things are pulling on it."],
- ask:"What are the two pulls, which way does each one go, and will all of the potassium eventually leave?",
- ans:["The crowding pushes potassium out, because there is still far more inside. The negative inside pulls it back in, because opposite charges attract.","Every potassium that leaves makes the inside more negative, so the pull back grows until the two pulls are equal. Then potassium moves in and out equally, with no net movement, long before the potassium runs out."],
+{title:"Two forces on potassium",
+ text:["Now consider one potassium ion in the open channel. Two forces act on it at the same time."],
+ ask:"What are the two forces, which way does each one act, and will all of the potassium eventually leave?",
+ ans:["The concentration gradient drives potassium out, because its concentration is still far higher inside. The electrical gradient draws it back in, because the negative inside attracts the positive ion.","Each potassium ion that leaves makes the inside more negative, so the electrical gradient grows until it is equal and opposite to the concentration gradient. From then on, potassium moves in and out at equal rates, with no net movement, long before the cell runs out of potassium. The membrane potential at which this happens is called the equilibrium potential for that ion."],
  name:"equilibrium potential",
- desc:"One potassium sits in the door. A big maroon arrow pushing out is shown first with a small navy arrow pulling in. The navy arrow grows until both arrows are the same size.",
+ desc:"One potassium ion sits in the channel. A large maroon arrow labeled concentration gradient points out, and a small navy arrow labeled electrical gradient points in. Then the two arrows become the same size.",
  pre:function(){only(["cell","anions","signs","kdoor","tugk","tugbig"]);signs("weak");place(tugK,560,290);},
  play:function(a){
    return wait(900,a).then(function(){L.tugbig.classList.add("off");show(L.tug);signs("all");return tweenPath(tugK,[[600,290],[520,290],[590,290],[530,290],[560,290]],2400,a);});
  },
  post:function(){only(["cell","anions","signs","kdoor","tugk","tug"]);signs("all");place(tugK,560,290);}},
-{sec:"Sodium, and why potassium has the most say",comp:"Competencies 1 and 3",title:"Meet sodium",
- text:["The cell has a second kind of ball: sodium. Sodium is the opposite of potassium. It is crowded outside and scarce inside, and it also carries one positive charge."],
- ask:"Look at a sodium ball outside the cell. Which way does the crowding push it, and which way does the negative inside pull it?",
- ans:["Both point in. The crowding pushes sodium in, and the negative inside pulls this positive ion in too. Sodium is pushed in from both directions."],
- desc:"Navy sodium balls labeled Na crowd the outside. Two arrows at the top right both point into the cell.",
+{sec:"Sodium and membrane permeability",comp:"Ion distribution and electrochemical gradients",title:"A second ion: sodium",
+ text:["The cell also contains sodium ions (Na+). Sodium is distributed the opposite way from potassium: its concentration is high outside the cell and low inside. Like potassium, each sodium ion carries one positive charge."],
+ ask:"Consider a sodium ion outside the cell. Which way does its concentration gradient act, and which way does the electrical gradient act?",
+ ans:["Both act inward. The concentration gradient drives sodium in, and the negative inside also attracts the positive sodium ion, so both forces favor sodium entry."],
+ desc:"Navy sodium ions labeled Na are concentrated outside the cell. Two arrows at the top right, labeled concentration gradient and electrical gradient, both point into the cell.",
  pre:function(){only(["cell","anions","signs","kdoor","kions","naions"]);kState(6);signs("all");naState(0);},
  play:function(a){show(L.naarrows);return Promise.resolve();},
  post:function(){only(["cell","anions","signs","kdoor","kions","naions","naarrows"]);kState(6);signs("all");naState(0);}},
-{title:"Only a few sodium doors",
- text:["Back to the nucleus: the cell builds a door for sodium, but only a few of them. Potassium has many open doors."],
- ask:"A little sodium trickles in through the sodium door. What does that do to the charge inside the cell?",
- ans:["The inside becomes a bit less negative, because each sodium brings a plus in.","The effect is small because there are so few sodium doors. The ion with more open doors has more say over the charge."],
+{title:"Only a few sodium channels",
+ text:["The cell also makes channels that sodium can pass through, but at rest far fewer of them are open than potassium leak channels."],
+ ask:"A small amount of sodium leaks in through the sodium channel. What does that do to the charge inside the cell?",
+ ans:["The inside becomes slightly less negative, because each sodium ion carries a positive charge in.","The effect is small because so few sodium channels are open. How easily an ion crosses the membrane is the membrane's permeability to that ion, and it depends mainly on how many of that ion's channels are open. The ion with the higher permeability has the larger effect on the membrane potential."],
  name:"membrane permeability",
- desc:"A sodium door appears near the top of the membrane. Two sodium balls move into the cell. Some of the minus signs fade.",
+ desc:"A sodium channel appears near the top of the membrane. Two sodium ions move into the cell. Some of the minus signs fade.",
  pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("all");naState(0);},
  play:function(a){return tweenPath(NA[0],[[600,110],[560,110],[500,140]],1100,a).then(function(){return tweenPath(NA[1],[[600,110],[560,110],[440,150]],1100,a);}).then(function(){signs("weak");});},
  post:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("weak");naState(2);}},
-{title:"Potassium has the most say",
- text:["Count the doors: three for potassium and one for sodium. Potassium can cross far more easily than sodium, so potassium sets most of the charge.","Sodium's small leak is the only reason the inside is not even more negative."],
- ask:"A drug blocks every potassium door. Does the inside stay just as negative?",
- ans:["No. With potassium unable to leave, nothing keeps carrying positive charge out, but sodium keeps trickling in. The inside becomes less negative.","That shows the potassium leak doors are the main reason the inside is negative at all."],
- desc:"The cell shows three potassium doors and one sodium door. When the potassium doors are blocked, sodium keeps entering and the minus signs fade.",
+{title:"Potassium permeability dominates",
+ text:["The scene shows three potassium channels and one sodium channel. At rest the membrane is much more permeable to potassium than to sodium, so potassium has the largest effect on the membrane potential.","The small inward leak of sodium is the reason the inside is not even more negative."],
+ ask:"A drug blocks every potassium channel. Does the inside stay just as negative?",
+ ans:["No. With the potassium channels blocked, potassium can no longer carry positive charge out, but sodium continues to leak in. The inside becomes less negative.","This shows that the potassium leak channels are the main reason the inside is negative at all."],
+ desc:"The cell shows three potassium channels and one sodium channel. When the potassium channels are blocked, sodium keeps entering and the minus signs fade.",
  pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("weak");naState(2);},
  play:function(a){L.kdoor.classList.add("off");L.kdoor2.classList.add("off");L.kdoor3.classList.add("off");return tweenPath(NA[2],[[600,110],[560,110],[470,160]],1100,a).then(function(){signs("none");});}},
-{sec:"The pump",comp:"Competency 7",title:"The leaks never stop",
- text:["Sodium keeps leaking in and potassium keeps leaking out, a little at a time, all day long."],
- ask:"If nothing stopped the leaks, what would happen to the crowding on each side over many hours?",
- ans:["The crowding would slowly even out. With no crowding there would be no push to separate the charge, and the inside would lose its negative charge."],
- desc:"The cell with its potassium and sodium doors. Ions keep leaking in both directions.",
+{sec:"The pump",comp:"Resting membrane potential",title:"The leaks are continuous",
+ text:["Sodium leaks in and potassium leaks out continuously, a small amount at a time."],
+ ask:"If nothing reversed these leaks, what would happen to the concentration gradients over many hours?",
+ ans:["The concentration gradients would gradually run down. Without a potassium concentration gradient, nothing would drive potassium out to separate charge, and the inside would lose its negative charge."],
+ desc:"The cell with its potassium and sodium channels. Ions keep leaking in both directions.",
  pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor"]);kState(6);signs("weak");naState(2);},
  play:function(a){return Promise.all([leaveK(6,8,a,200),tweenPath(NA[2],[[600,110],[560,110],[470,160]],1300,a)]).then(function(){signs("none");});}},
-{title:"Build a machine",
- text:["So the cell reads one more gene and builds a machine for the membrane. It uses energy from ATP to carry ions back uphill: three sodium out and two potassium in, every cycle.","Its job is to keep the crowding in place. Because it moves three pluses out for every two in, it also adds a little negative charge by itself, but only a few millivolts' worth."],
- name:"sodium potassium pump",
- desc:"A round pump appears low on the membrane. Three sodium balls move out through it and two potassium balls move in.",
+{title:"The sodium-potassium pump",
+ text:["The cell makes one more membrane protein, the sodium-potassium pump. It uses energy from ATP to move ions against their concentration gradients: for each ATP it hydrolyzes, it moves three sodium ions out and two potassium ions in.","Its main job is to maintain the concentration gradients. Because each cycle moves three positive charges out and only two in, the pump also makes the inside slightly more negative directly, but only by a few millivolts."],
+ name:"Na+/K+-ATPase (sodium-potassium pump)",
+ desc:"A round pump appears low on the membrane. Three sodium ions move out through it and two potassium ions move in.",
  auto:true,
  pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump"]);kState(6);signs("weak");naState(3);},
  play:function(a){
@@ -642,203 +643,203 @@ var STEPS=[
    .then(function(){return wait(600,a);}).then(function(){t.forEach(function(g){g.remove();});signs("all");});
  },
  post:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump"]);kState(6);signs("all");naState(3);}},
-{title:"Tell the story so far",comp:"Check",
- text:["Before you go on, write the story so far in your own words, from the balloon to the pump. Use the worksheet box."],
- ask:"Tell the whole story so far: why does the inside of a resting cell end up negative, and what keeps it that way?",
- ans:["Potassium is crowded inside and has many open doors, so it leaks out. It carries plus charge away and leaves the large negative proteins behind, so the inside turns negative. The negative inside pulls potassium back until the push out and the pull in balance. A few sodium doors let a little sodium in, making the inside a bit less negative. The pump spends ATP to keep sodium crowded outside and potassium crowded inside, so the whole arrangement lasts."],
- desc:"The finished cell with potassium doors, a sodium door, the pump, and charge along the membrane.",
+{title:"Summarize the story so far",comp:"Check",
+ text:["Before going on, write the story so far in your own words, from the balloon to the pump, in the worksheet box."],
+ ask:"Explain the story so far: why does the inside of a resting cell become negative, and what keeps it that way?",
+ ans:["Potassium is concentrated inside the cell and the membrane has many open potassium leak channels, so potassium diffuses out. Each ion carries a positive charge out and leaves the large anions behind, so the inside becomes negative. The electrical gradient then draws potassium back in until it balances the concentration gradient. A few open sodium channels let a small amount of sodium in, which makes the inside slightly less negative. The sodium-potassium pump uses ATP to keep sodium concentrated outside and potassium concentrated inside, so the gradients, and the membrane potential that depends on them, are maintained."],
+ desc:"The finished cell with potassium channels, a sodium channel, the pump, and charge along the membrane.",
  pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump"]);kState(6);signs("all");naState(3);},
  play:function(){return Promise.resolve();}},
 /* ---------- Section: doors ---------- */
-{sec:"Kinds of doors",comp:"Competency 8",title:"Most doors have gates",
- text:["The potassium leak door is always open. Most other channels are gated: something opens them and something closes them again."],
- ask:"Think about what a cell might need to respond to. What kinds of things could open a door?",
- ans:["A voltage-gated door opens when the charge across the membrane changes, and it closes again, for a sodium channel through a built-in plug.","A ligand-gated door opens when a chemical such as a neurotransmitter binds, and closes when the chemical comes off.","A mechanically gated door opens when the membrane is stretched or pressed, and closes when the force is removed.","The leak door has no gate at all."],
- desc:"Four doors sit in a membrane. The leak door is open. In turn, a change in charge opens the voltage-gated door, a chemical lands on and opens the ligand-gated door, and stretching opens the mechanically gated door.",
+{sec:"Kinds of channels",comp:"Ion channel gating",title:"Most channels are gated",
+ text:["Potassium leak channels are always open. Most other ion channels are gated: a specific stimulus opens them, and they close again afterward."],
+ ask:"Cells respond to many kinds of signals. What kinds of stimuli could open a channel?",
+ ans:["A voltage-gated channel opens when the membrane potential changes. Voltage-gated sodium channels then close on their own through an inactivation gate.","A ligand-gated channel opens when a chemical, such as a neurotransmitter, binds to it, and closes when that chemical unbinds.","A mechanically gated channel opens when the membrane is stretched or pressed, and closes when the force is removed.","A leak channel has no gate at all."],
+ desc:"Four channels sit in a membrane. The leak channel is open. In turn, a change in voltage opens the voltage-gated channel, a ligand binds to and opens the ligand-gated channel, and stretching opens the mechanically gated channel.",
  pre:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="always open";},
  play:function(a){
-   show(trigV);return wait(700,a).then(function(){setGate(GATES[1],true);GATES[1].cap.textContent="opens when";GATES[1].cap2.textContent="the charge changes";show(lig);return tweenPath(lig,[[560,236]],1000,a);})
-   .then(function(){setGate(GATES[2],true);GATES[2].cap.textContent="opens when";GATES[2].cap2.textContent="a chemical binds";show(trigM);return wait(800,a);})
+   show(trigV);return wait(700,a).then(function(){setGate(GATES[1],true);GATES[1].cap.textContent="opens when";GATES[1].cap2.textContent="the voltage changes";show(lig);return tweenPath(lig,[[560,236]],1000,a);})
+   .then(function(){setGate(GATES[2],true);GATES[2].cap.textContent="opens when";GATES[2].cap2.textContent="a ligand binds";show(trigM);return wait(800,a);})
    .then(function(){setGate(GATES[3],true);GATES[3].cap.textContent="opens when";GATES[3].cap2.textContent="it is stretched";});
  }},
 /* ---------- Section: reading a trace ---------- */
-{sec:"Words for changes",comp:"Competency 10",title:"Watching the charge over time",
- text:["We can record the charge inside a cell as a line over time. Up means the inside is less negative. Down means it is more negative.","Right now the cell is at rest, so the line is flat."],
- desc:"A graph with a dashed line for zero and a dashed line for the resting value. A maroon line is drawn flat along the resting value.",
+{sec:"Terms for voltage changes",comp:"Depolarization and hyperpolarization",title:"Recording the membrane potential",
+ text:["The membrane potential can be recorded over time and plotted as a trace. An upward change means the inside is becoming less negative, and a downward change means it is becoming more negative.","The cell is at rest now, so the trace is flat."],
+ desc:"A graph with a dashed line at zero and a dashed line at the resting membrane potential. A maroon trace is drawn flat along the resting value.",
  auto:true,
  pre:function(){only(["graph"]);segP.forEach(function(p,i){segDraw(i,0);});GLAB.forEach(function(t){t.style.opacity=0;});gNums.classList.add("off");},
  play:function(a){return drawSeg(0,a,1200);},
  post:function(){only(["graph"]);segDraw(0,1);[1,2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t){t.style.opacity=0;});}},
-{title:"The line starts to rise",
- text:["Something makes the line start to climb toward zero."],
- ask:"As the line rises toward zero, is the inside becoming more negative or less negative?",
- ans:["Less negative. Moving from the resting value toward zero means the membrane is less polarized than it was."],
+{title:"The trace starts to rise",
+ text:["A stimulus makes the trace rise toward zero."],
+ ask:"As the trace rises toward zero, is the inside becoming more negative or less negative?",
+ ans:["Less negative. When the membrane potential moves from its resting value toward zero, the membrane is less polarized than before. Polarized means that charge is separated across the membrane."],
  name:"depolarization",
- desc:"The maroon line rises from the resting value up past zero.",
+ desc:"The maroon trace rises from the resting value up past zero.",
  pre:function(){only(["graph"]);segDraw(0,1);[1,2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t){t.style.opacity=0;});},
  play:function(a){return drawSeg(1,a,1100).then(function(){GLAB[0].style.opacity=1;});},
  post:function(){only(["graph"]);segDraw(0,1);segDraw(1,1);[2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t,i){t.style.opacity=i===0?1:0;});}},
 {title:"Up, back down, and below",
- text:["Watch the rest of the trace. Each part has its own word."],
- desc:"Labels appear in turn: overshoot above zero, repolarization on the way down, hyperpolarization below the resting value, and then the line returns to rest.",
+ text:["Watch the rest of the trace. Each phase has its own name."],
+ desc:"Labels appear in turn: overshoot above zero, repolarization on the way down, hyperpolarization below the resting value, and then the trace returns to rest.",
  auto:true,
  pre:function(){only(["graph"]);segDraw(0,1);segDraw(1,1);[2,3,4].forEach(function(i){segDraw(i,0);});GLAB.forEach(function(t,i){t.style.opacity=i===0?1:0;});},
  play:function(a){GLAB[1].style.opacity=1;return wait(700,a).then(function(){return drawSeg(2,a,900);}).then(function(){GLAB[2].style.opacity=1;return drawSeg(3,a,1100);}).then(function(){GLAB[3].style.opacity=1;return drawSeg(4,a,700);});},
  post:function(){only(["graph"]);[0,1,2,3,4].forEach(function(i){segDraw(i,1);});GLAB.forEach(function(t){t.style.opacity=1;});}},
-{title:"The words describe the change",
- text:["These words describe which way the line moved compared with rest, not whether the inside is positive or negative."],
- ask:"At the peak the inside is positive, and then it starts moving back toward zero while it is still positive. Which word describes that change?",
- ans:["Repolarization. The inside is still positive, but the membrane is heading back toward its resting value.","In the same way, a change from the resting value to a value that is still negative but closer to zero is a depolarization."],
+{title:"The terms describe direction",
+ text:["These terms describe the direction of the change relative to the resting potential, not whether the inside is positive or negative."],
+ ask:"At the peak the inside is positive. The membrane potential then starts moving back toward zero while the inside is still positive. Which term describes that change?",
+ ans:["Repolarization. The inside is still positive, but the membrane potential is returning toward its resting value.","In the same way, a change from the resting value to a value that is still negative but closer to zero is a depolarization."],
  desc:"The full trace with all four labels.",
  pre:function(){only(["graph"]);[0,1,2,3,4].forEach(function(i){segDraw(i,1);});GLAB.forEach(function(t){t.style.opacity=1;});},
  play:function(){return Promise.resolve();}},
 /* ---------- Section: the numbers ---------- */
-{sec:"Now the numbers",comp:"Competency 2",title:"How much of each ion",
- text:["Everything so far works without numbers. Now here are the real ones, in millimoles per liter (mM). Textbooks differ a little, but the pattern is the same."],
- ask:"Which ion is the odd one out in this table, and what else inside the cell carries charge but can never leave?",
- ans:["Potassium is the odd one out. It is the only ion crowded inside. Sodium, chloride and calcium are all crowded outside.","The large anions, negatively charged proteins and molecules such as ATP, stay inside because they are too big to cross. They are the negative charge left behind when potassium leaves."],
+{sec:"The numbers",comp:"Ion distribution and electrochemical gradients",title:"How much of each ion",
+ text:["The steps so far did not need numbers. Here are typical concentrations in millimoles per liter (mM). Values vary slightly between textbooks, but the pattern is the same."],
+ ask:"Which ion in this table is distributed differently from the others, and what else inside the cell carries charge but cannot cross the membrane?",
+ ans:["Potassium. It is the only ion in the table that is more concentrated inside than outside. Sodium, chloride and calcium are all more concentrated outside.","The large anions, which are negatively charged proteins and other molecules such as ATP, stay inside because they are too large to cross. They are the negative charge left behind when potassium leaves."],
  desc:"A table drawn as a cell membrane with inside and outside values: potassium 150 inside and 5 outside, sodium 15 inside and 145 outside, chloride 10 inside and 108 outside, calcium 0.0001 inside and 1 outside, and many large anions inside with almost none outside.",
  pre:function(){only(["conc"]);},play:function(){return Promise.resolve();}},
-{comp:"Competency 4",title:"Two pushes, one total",
- text:["Each ion feels two pushes. The concentration push comes from crowding and ignores charge. The electrical push comes from charge and ignores crowding. Added together, they are the electrochemical gradient."],
- ask:"The inside is negative. For potassium and for sodium, which way does the crowding push, and which way does the charge pull?",
- ans:["Potassium: crowding pushes it out, charge pulls it in. They oppose each other, and at rest there is a small net push out.","Sodium: crowding pushes it in and charge pulls it in. Both point the same way, so sodium is pushed in hard."],
- desc:"Arrows appear beside the potassium row pointing out for crowding and in for charge, and beside the sodium row both pointing in.",
+{comp:"Ion distribution and electrochemical gradients",title:"The electrochemical gradient",
+ text:["Two gradients act on every ion. The concentration gradient, also called the chemical gradient, depends only on the difference in the ion's concentration across the membrane. The electrical gradient depends only on the ion's charge and the membrane potential. Together they form the electrochemical gradient, which determines the direction of net movement."],
+ ask:"The inside is negative. For potassium and for sodium, which way does the concentration gradient act, and which way does the electrical gradient act?",
+ ans:["Potassium: the concentration gradient acts outward and the electrical gradient acts inward. They oppose each other, and at rest the result is a small net outward force.","Sodium: both the concentration gradient and the electrical gradient act inward, so the net inward force on sodium is large."],
+ desc:"Arrows appear beside the potassium row, one pointing out for the concentration gradient and one pointing in for the electrical gradient. Beside the sodium row, both arrows point in.",
  pre:function(){only(["conc"]);},play:function(){show(L.concarr);return Promise.resolve();},post:function(){only(["conc","concarr"]);}},
-{title:"The number for the charge",
- text:["The charge across the membrane is measured with a very fine electrode inside the cell and a reference outside. The number compares the inside with the outside."],
- desc:"An electrode slides into the cell. The meter reads minus 70 millivolts.",
+{title:"Measuring the membrane potential",
+ text:["The membrane potential is measured with a very fine microelectrode inside the cell and a reference electrode outside. The value is always stated as the inside relative to the outside."],
+ desc:"An electrode moves into the cell. The meter reads minus 70 millivolts.",
  auto:true,
  pre:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump","electrode"]);kState(6);signs("all");naState(3);place(probe,400,-10);meter.textContent="";},
  play:function(a){return tweenPath(probe,[[400,230]],1300,a).then(function(){meter.textContent=M+"70 mV";});},
  post:function(){only(["cell","anions","signs","kdoor","kdoor2","kdoor3","kions","naions","nadoor","pump","electrode"]);kState(6);signs("all");naState(3);place(probe,400,230);meter.textContent=M+"70 mV";}},
-{sec:"Balance points",comp:"Competency 5",title:"Potassium's balance point",
- text:["In the tug of war, potassium stopped moving on net when the charge pull matched the crowding push. The voltage where that happens is potassium's balance point."],
- ask:"The resting cell is at "+M+"70 mV. If potassium were the only ion that could cross, would its balance point be more negative or less negative than "+M+"70?",
- ans:["More negative: about "+M+"90 mV. Without sodium's small leak pulling the other way, the inside would get as negative as potassium alone can make it."],
+{sec:"Equilibrium potentials",comp:"Nernst equation",title:"Potassium's equilibrium potential",
+ text:["Earlier, net movement of potassium stopped when the electrical gradient became equal and opposite to the concentration gradient. The membrane potential at which that happens is potassium's equilibrium potential."],
+ ask:"The resting cell is at "+M+"70 mV. If potassium were the only ion that could cross the membrane, would the membrane potential settle more negative or less negative than "+M+"70 mV?",
+ ans:["More negative. The membrane potential would settle at potassium's equilibrium potential, about "+M+"90 mV. At rest, the small inward sodium leak is what keeps the membrane from reaching that value."],
  name:"equilibrium potential for potassium, E\u2096",
- desc:"A voltage line from minus 110 to plus 130 millivolts, with the membrane at minus 70. Potassium's balance point appears at about minus 90.",
+ desc:"A voltage line from minus 110 to plus 130 millivolts, with the membrane at minus 70. Potassium's equilibrium potential appears at about minus 90.",
  pre:function(){only(["nline","rest"]);setRest(-70);},play:function(){show(L.mK);return Promise.resolve();},post:function(){only(["nline","rest","mK"]);setRest(-70);}},
-{title:"Every ion has one",
- text:["Every ion has its own balance point: the voltage inside that would exactly cancel its crowding. Sodium's is about +60 mV. Chloride's is about "+M+"65 mV and calcium's is about +120 mV.","At "+M+"70 mV, potassium is 20 mV from its balance point, and sodium is 130 mV from its. That is why sodium's push is so much stronger."],
- desc:"The balance points for sodium, chloride and calcium appear on the voltage line.",
+{title:"Every ion has an equilibrium potential",
+ text:["Each ion has its own equilibrium potential, which depends on its concentrations inside and outside the cell. Sodium's is about +60 mV, chloride's is about "+M+"65 mV and calcium's is about +120 mV.","The difference between the membrane potential and an ion's equilibrium potential is the driving force on that ion. At "+M+"70 mV, potassium is 20 mV from its equilibrium potential and sodium is 130 mV from its, so the driving force on sodium is much larger."],
+ desc:"The equilibrium potentials for sodium, chloride and calcium appear on the voltage line.",
  auto:true,
  pre:function(){only(["nline","rest","mK"]);setRest(-70);},
  play:function(a){show(L.mNa);return wait(600,a).then(function(){show(L.mCl);return wait(600,a);}).then(function(){show(L.mCa);});},
  post:function(){only(["nline","rest","mK","mNa","mCl","mCa"]);setRest(-70);}},
-{title:"The Nernst equation, read in plain words",
- text:["This equation turns an ion's crowding into its balance point. You will learn to read it, not calculate with it. Watch each part light up."],
- desc:"The Nernst equation appears. Each part is highlighted in turn with a plain explanation below it.",
+{title:"The Nernst equation, term by term",
+ text:["The Nernst equation calculates an ion's equilibrium potential from its concentrations outside and inside the cell. In this course you need to read and interpret it, not calculate with it. Each term is highlighted in turn."],
+ desc:"The Nernst equation appears. Each term is highlighted in turn with a short explanation below it.",
  auto:true,
  pre:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="";eqNote2.textContent="";eqNote3.textContent="";eqK.textContent="";},
  play:function(a){
    function hi(idx,t1,t2,t3){eqParts.forEach(function(s,i){s.setAttribute("fill",idx.indexOf(i)>=0?MAROON:NAVY);});eqNote.textContent=t1;eqNote2.textContent=t2;eqNote3.textContent=t3||"";}
-   hi([0,1],"E is the balance point","the voltage inside compared with outside");
-   return wait(2200,a).then(function(){hi([5],"[out] \u00f7 [in] is the crowding","every tenfold difference is worth about 61 mV");return wait(2600,a);})
+   hi([0,1],"E is the equilibrium potential","the voltage inside compared with outside");
+   return wait(2200,a).then(function(){hi([5],"[out] \u00f7 [in] is the concentration ratio","each tenfold ratio is worth about 61 mV");return wait(2600,a);})
    .then(function(){hi([3],"z is the ion's charge","+1 for K and Na, "+M+"1 for Cl, +2 for Ca");return wait(2600,a);})
-   .then(function(){hi([2],"61 mV packs in constants","and body temperature, 37 \u00b0C (98.6 \u00b0F)");return wait(2600,a);})
-   .then(function(){hi([],"What it says:","it turns a concentration ratio into","the voltage that would exactly cancel it");});
+   .then(function(){hi([2],"61 mV combines physical constants","at body temperature, 37 \u00b0C (98.6 \u00b0F)");return wait(2600,a);})
+   .then(function(){hi([],"What it means:","it converts a concentration ratio into","the voltage that exactly balances it");});
  },
- post:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="What it says:";eqNote2.textContent="it turns a concentration ratio into";eqNote3.textContent="the voltage that would exactly cancel it";eqK.textContent="";}},
-{title:"Reading the equation",
- text:["Potassium is 150 mM inside and 5 mM outside, which gives about "+M+"90 mV."],
- ask:"Outside potassium rises from 5 to 10 mM. Does potassium's balance point get more negative or less negative?",
- ans:["Less negative, about "+M+"72 mV. With more potassium outside, the crowding push out is weaker, so less negative charge inside is needed to balance it. This is the whole story of high blood potassium, which comes up in the patients at the end."],
- desc:"The equation stays on screen. The value for potassium changes from about minus 90 to about minus 72 millivolts.",
- pre:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="";eqNote2.textContent="";eqNote3.textContent="";eqK.textContent="E for K with 5 mM outside: about "+M+"90 mV";},
+ post:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="What it means:";eqNote2.textContent="it converts a concentration ratio into";eqNote3.textContent="the voltage that exactly balances it";eqK.textContent="";}},
+{title:"Changing the outside concentration",
+ text:["With potassium at 150 mM inside and 5 mM outside, the Nernst equation gives about "+M+"90 mV."],
+ ask:"Outside potassium rises from 5 to 10 mM. Does potassium's equilibrium potential become more negative or less negative?",
+ ans:["Less negative, about "+M+"72 mV. With more potassium outside, the concentration gradient driving potassium out is smaller, so less negative charge inside is needed to balance it. This is why high blood potassium depolarizes cells, which you will see in the patient cases at the end."],
+ desc:"The equation stays on screen. The equilibrium potential for potassium changes from about minus 90 to about minus 72 millivolts.",
+ pre:function(){only(["eq"]);eqParts.forEach(function(s){s.setAttribute("fill",NAVY);});eqNote.textContent="";eqNote2.textContent="";eqNote3.textContent="";eqK.textContent="E for K+ with 5 mM outside: about "+M+"90 mV";},
  play:function(a){return wait(300,a).then(function(){eqK.textContent="E for K with 10 mM outside: about "+M+"72 mV";});},
  post:function(){only(["eq"]);eqK.textContent="E for K with 10 mM outside: about "+M+"72 mV";}},
-{sec:"Which way will it move?",comp:"Competency 6",title:"The rule",
- text:["If an ion's door is open, the ion moves toward its own balance point, and it drags the membrane with it. If the door is closed, nothing moves, however strong the pull."],
- ask:"The membrane is at "+M+"70 mV and sodium doors open. Which way does sodium move, and which way does the membrane go?",
- ans:["Sodium moves in, because "+M+"70 is far below sodium's balance point of +60. Each sodium brings a plus in, so the membrane moves up toward +60."],
- desc:"On the voltage line, an arrow runs from the membrane at minus 70 toward sodium's balance point at plus 60.",
+{sec:"Which way will it move?",comp:"Nernst equation",title:"Which way the membrane potential moves",
+ text:["When an ion's channels open, the net movement of that ion drives the membrane potential toward that ion's equilibrium potential. When its channels are closed, the ion cannot cross, however large its electrochemical gradient."],
+ ask:"The membrane is at "+M+"70 mV and sodium channels open. Which way does sodium move, and which way does the membrane potential change?",
+ ans:["Sodium moves in. At "+M+"70 mV the membrane potential is far below sodium's equilibrium potential of +60 mV, so both its concentration gradient and the electrical gradient act inward. Each sodium ion carries a positive charge in, so the membrane depolarizes toward +60 mV."],
+ desc:"On the voltage line, an arrow runs from the membrane potential at minus 70 toward sodium's equilibrium potential at plus 60.",
  pre:function(){only(["nline","rest","mNa","mK"]);setRest(-70);},
  play:function(){setMove(-70,60,"sodium moves in",NAVY);show(L.move);return Promise.resolve();},
  post:function(){only(["nline","rest","mNa","mK","move"]);setRest(-70);setMove(-70,60,"sodium moves in",NAVY);}},
-{title:"Same rule, new starting point",
- text:["Now the membrane has been pushed up to +30 mV."],
- ask:"At +30 mV, potassium doors open. Which way does potassium move, and how hard?",
- ans:["Out, and hard. At +30 mV, potassium is 120 mV from its balance point, far more than at rest. Potassium rushes out and pulls the membrane back down. This is how a cell recovers after an action potential."],
- desc:"The membrane marker sits at plus 30. An arrow runs from it toward potassium's balance point at minus 90.",
+{title:"The same principle at +30 mV",
+ text:["Now the membrane has been depolarized to +30 mV."],
+ ask:"At +30 mV, potassium channels open. Which way does potassium move, and how large is its driving force?",
+ ans:["Out, with a large driving force. At +30 mV the membrane potential is 120 mV from potassium's equilibrium potential, compared with only 20 mV at rest. Potassium leaves rapidly and carries positive charge out, which brings the membrane potential back down. This is how the membrane repolarizes during an action potential."],
+ desc:"The membrane potential marker sits at plus 30. An arrow runs from it toward potassium's equilibrium potential at minus 90.",
  pre:function(){only(["nline","rest","mNa","mK"]);setRest(30);},
  play:function(){setMove(30,-90,"potassium moves out",MAROON);show(L.move);return Promise.resolve();},
  post:function(){only(["nline","rest","mNa","mK","move"]);setRest(30);setMove(30,-90,"potassium moves out",MAROON);}},
-{sec:"Why rest is "+M+"70",comp:"Competencies 3 and 9",title:"A tug of war on the whole membrane",
- text:["Every ion pulls the membrane toward its own balance point, and the ion with the most open doors pulls hardest. At rest, a neuron is roughly 25 times more permeable to potassium than to sodium.","Watch what happens with only potassium doors, and then with a few sodium doors added."],
- desc:"The membrane marker starts at zero. With only potassium doors it slides to minus 90. When a few sodium doors are added, it settles at minus 70, with a big potassium arrow and a small sodium arrow.",
+{sec:"Why rest is "+M+"70",comp:"Resting membrane potential",title:"Permeability sets the resting potential",
+ text:["Each permeable ion drives the membrane potential toward its own equilibrium potential, and the ion with the highest permeability has the most influence. At rest, a neuron is roughly 25 times more permeable to potassium than to sodium.","Watch the membrane potential with only potassium channels open, and then with a few sodium channels added."],
+ desc:"The membrane potential marker starts at zero. With only potassium channels open it moves to minus 90. When a few sodium channels are added, it settles at minus 70, with a large potassium arrow and a small sodium arrow.",
  auto:true,
  pre:function(){only(["nline","rest","mK","mNa"]);setRest(0);setPull(0,0);},
  play:function(a){
    return tweenVal(0,-90,1600,a,setRest).then(function(){return wait(700,a);})
-   .then(function(){return tweenVal(-90,-70,1300,a,setRest);}).then(function(){show(L.pull);setPull(120,40,"potassium: many doors","sodium: few doors");});
+   .then(function(){return tweenVal(-90,-70,1300,a,setRest);}).then(function(){show(L.pull);setPull(120,40,"K+: high permeability","Na+: low permeability");});
  },
- post:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"potassium: many doors","sodium: few doors");}},
+ post:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"K+: high permeability","Na+: low permeability");}},
 {title:"The Goldman equation",
- text:["The Goldman equation is the same tug of war written as math. It is a weighted average of the balance points, where each ion's weight is how many open doors it has. Potassium's weight is biggest, so rest sits near "+M+"90, and sodium's small weight drags it to about "+M+"70."],
- ask:"A drug opens extra potassium leak doors. Where does the membrane go?",
- ans:["Closer to "+M+"90 mV. Potassium's team gets more players, so it pulls the membrane further toward its own balance point. The cell hyperpolarizes."],
- desc:"The membrane marker slides from minus 70 toward minus 90 as the potassium arrow grows.",
- pre:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"potassium: many doors","sodium: few doors");},
- play:function(a){return tweenVal(-70,-82,1300,a,function(v){setRest(v);setPull(150,30,"potassium: more doors","sodium: few doors");});}},
-{title:"Open the sodium doors instead",
- text:["Back at rest. Now imagine many sodium doors opening all at once."],
- ask:"Many sodium doors open at once. Where does the membrane go?",
- ans:["Up toward +60 mV. Suddenly sodium's team outnumbers potassium's, so the membrane swings toward sodium's balance point. That swing is how an action potential begins, which is the next lecture."],
- desc:"The membrane marker races from minus 70 toward plus 60 as the sodium arrow grows.",
- pre:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"potassium: many doors","sodium: few doors");},
- play:function(a){return tweenVal(-70,30,1300,a,function(v){setRest(v);setPull(30,150,"potassium","sodium: many doors open");});}},
-{comp:"Competency 7",title:"What the pump does, and what it does not",
- text:["The pump keeps the crowding steady over minutes to hours and adds a few millivolts directly. It does not set the "+M+"70 mV from moment to moment. The leak doors do that."],
- ask:"A poison stops the pump completely. Does the membrane potential collapse right away? What happens if you wait several hours?",
- ans:["Not right away. The membrane moves only a few millivolts at first, because the leak doors are still working with the crowding that is already there.","Over hours it drifts toward 0 mV. The leaks keep running with nothing to carry ions back, the crowding evens out, and without crowding nothing holds the charge apart. The pump is not the battery. It keeps the battery charged."],
- desc:"The membrane marker moves only slightly at first, from minus 70 to about minus 66. A label reads several hours later, and the marker drifts toward zero.",
+ text:["The Goldman equation calculates the membrane potential from the concentrations of several ions and the membrane's permeability to each. It works much like a weighted average of the equilibrium potentials, with each ion weighted by its permeability. Potassium's permeability is by far the largest, so the resting potential lies near "+M+"90 mV, and sodium's small permeability shifts it to about "+M+"70 mV."],
+ ask:"A drug opens additional potassium leak channels. What happens to the membrane potential?",
+ ans:["It moves closer to "+M+"90 mV. Potassium permeability increases, so the membrane potential moves closer to potassium's equilibrium potential. The cell hyperpolarizes."],
+ desc:"The membrane potential marker moves from minus 70 toward minus 90 as the potassium arrow grows.",
+ pre:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"K+: high permeability","Na+: low permeability");},
+ play:function(a){return tweenVal(-70,-82,1300,a,function(v){setRest(v);setPull(150,30,"K+: more channels","Na+: low permeability");});}},
+{title:"Opening many sodium channels",
+ text:["Start again from rest, and suppose many sodium channels open at the same time."],
+ ask:"Many sodium channels open at once. What happens to the membrane potential?",
+ ans:["It rises toward +60 mV. Sodium permeability now exceeds potassium permeability, so the membrane potential moves toward sodium's equilibrium potential. This rapid depolarization is the rising phase of an action potential, the topic of the next lecture."],
+ desc:"The membrane potential marker moves quickly from minus 70 toward plus 60 as the sodium arrow grows.",
+ pre:function(){only(["nline","rest","mK","mNa","pull"]);setRest(-70);setPull(120,40,"K+: high permeability","Na+: low permeability");},
+ play:function(a){return tweenVal(-70,30,1300,a,function(v){setRest(v);setPull(30,150,"K+","Na+: high permeability");});}},
+{comp:"Resting membrane potential",title:"What the pump does and does not do",
+ text:["The pump maintains the concentration gradients over minutes to hours and contributes a few millivolts to the membrane potential directly. It does not set the "+M+"70 mV resting potential from moment to moment; the leak channels do that."],
+ ask:"A poison stops the pump completely. Does the membrane potential collapse right away? What happens after several hours?",
+ ans:["Not right away. At first the membrane potential changes by only a few millivolts, because the leak channels are still open and the concentration gradients are still in place.","Over hours it drifts toward 0 mV. The leaks continue with nothing to move the ions back, so the concentration gradients run down, and without them nothing maintains the charge separation. Most of the resting potential comes from the leak channels; the pump's main role is to maintain the gradients those leaks depend on."],
+ desc:"The membrane potential marker moves only slightly at first, from minus 70 to about minus 66. A label reads several hours later, and the marker drifts toward zero.",
  pre:function(){only(["nline","rest","mK","mNa"]);setRest(-70);},
  play:function(a){return tweenVal(-70,-66,900,a,setRest).then(function(){return wait(900,a);}).then(function(){show(L.hours);return tweenVal(-66,-8,2400,a,setRest);});},
  post:function(){only(["nline","rest","mK","mNa","hours"]);setRest(-8);}},
 /* ---------- excitability and patients ---------- */
-{sec:"Why it matters",comp:"Competency 11",title:"Rest is the starting line",
- text:["A neuron fires when its membrane is pushed up to threshold, about "+M+"55 mV. The gap between rest and threshold is how big a push the cell needs. That is what excitability means."],
- ask:"Three neurons share a threshold of "+M+"55 mV. Cell A rests at "+M+"70, cell B at "+M+"80 and cell C at "+M+"62. Rank them from easiest to hardest to fire.",
- ans:["C, then A, then B. Cell C needs only 7 mV to reach threshold, A needs 15 and B needs 25.","A depolarized cell is usually more excitable. The catch: if a cell stays depolarized for a long time, its sodium channels get stuck with their plugs in, and it becomes less excitable. The first patient shows this."],
+{sec:"Why it matters",comp:"Resting membrane potential",title:"Resting potential and excitability",
+ text:["A neuron fires an action potential when its membrane is depolarized to threshold, about "+M+"55 mV. The difference between the resting potential and threshold is the depolarization needed to fire, and it determines how excitable the cell is."],
+ ask:"Three neurons have the same threshold, "+M+"55 mV. Cell A rests at "+M+"70, cell B at "+M+"80 and cell C at "+M+"62. Rank them from easiest to hardest to fire.",
+ ans:["C, then A, then B. Cell C needs a depolarization of only 7 mV to reach threshold, A needs 15 mV and B needs 25 mV.","A cell that is depolarized is usually more excitable. However, if a cell stays depolarized for a long time, the inactivation gates of its voltage-gated sodium channels stay closed, fewer channels are available to open, and the cell becomes less excitable. The first patient case shows this."],
  desc:"Three resting lines at minus 70, minus 80 and minus 62 below a dashed threshold line at minus 55. Arrows show the gap for each: 15, 25 and 7 millivolts.",
  pre:function(){only(["excite"]);},play:function(){show(L.exarr);return Promise.resolve();},post:function(){only(["excite","exarr"]);}},
 {sec:"Patients",title:"Patient 1: missed dialysis",
- text:["Mr. T is 67 and has kidney failure. He missed two dialysis sessions and comes in weak, with a slow, irregular pulse."],
- ask:"His kidneys are not removing potassium, so his blood potassium is 7.0 mM (normal 3.5 to 5.0). What happens to potassium's balance point, and then to his resting membrane potential?",
- ans:["More potassium outside weakens the crowding push, so potassium's balance point rises from about "+M+"90 to about "+M+"81 mV. Rest follows it up to about "+M+"65 mV, and his cells depolarize.","At first that brings them closer to threshold. If it lasts, the sodium channels stay plugged and the cells can barely fire. In the heart that means slow, disorganized conduction and a risk of cardiac arrest."],
- desc:"A lab card shows plasma potassium 7.0 millimolar with a normal range of 3.5 to 5.0. Potassium's balance point slides from minus 90 to minus 81, and the membrane marker slides from minus 70 to about minus 65.",
+ text:["Mr. T is 67 and has kidney failure. He missed two dialysis sessions and arrives weak, with a slow, irregular pulse."],
+ ask:"His kidneys are not removing potassium, so his blood potassium is 7.0 mM (normal 3.5 to 5.0). What happens to potassium's equilibrium potential, and then to his resting membrane potential?",
+ ans:["The higher potassium concentration outside makes the concentration gradient smaller, so potassium's equilibrium potential rises from about "+M+"90 to about "+M+"81 mV. The resting potential follows it to about "+M+"65 mV, so his cells are depolarized.","At first this brings the cells closer to threshold. If the depolarization persists, the sodium channels stay inactivated and the cells can barely fire action potentials. In the heart this causes slow, disorganized conduction and a risk of cardiac arrest."],
+ desc:"A lab card shows plasma potassium 7.0 millimolar with a normal range of 3.5 to 5.0. Potassium's equilibrium potential moves from minus 90 to minus 81, and the membrane potential marker moves from minus 70 to about minus 65.",
  pre:function(){only(["nline","rest","mK","mNa","labcard"]);setRest(-70);setMark(mK,-90);labT1.textContent="Plasma potassium";labT2.textContent="7.0 mM";labT3.textContent="normal range 3.5 to 5.0 mM";},
  play:function(a){return tweenVal(-90,-81,1300,a,function(v){setMark(mK,v);}).then(function(){return tweenVal(-70,-65,1100,a,setRest);});},
  post:function(){only(["nline","rest","mK","mNa","labcard"]);setMark(mK,-81);setRest(-65);labT1.textContent="Plasma potassium";labT2.textContent="7.0 mM";labT3.textContent="normal range 3.5 to 5.0 mM";}},
 {title:"Patient 1: the treatments",
- text:["The team gives three treatments: IV calcium gluconate, IV insulin with glucose, and emergency dialysis."],
- ask:"For each treatment, decide whether it protects the heart, lowers the potassium in his blood, or removes potassium from his body.",
- ans:["Calcium gluconate protects the heart. It does not change potassium at all. It raises the threshold of heart cells, which restores some distance between rest and threshold and buys time.","Insulin lowers the blood level by speeding up the pump, which moves potassium into cells. Glucose keeps his blood sugar from falling. The potassium is still in his body, so this lasts only hours.","Dialysis removes the potassium. It is the only one of the three that fixes the problem."],
+ text:["His care team gives three treatments: IV calcium gluconate, IV insulin with glucose, and emergency dialysis."],
+ ask:"For each treatment, state whether it protects the heart, lowers the potassium in his blood, or removes potassium from his body.",
+ ans:["Calcium gluconate protects the heart. It does not change the potassium level. It raises the threshold of cardiac cells, which restores some of the gap between the resting potential and threshold and buys time for other treatments.","Insulin lowers the blood potassium level by stimulating the sodium-potassium pump, which moves potassium into cells. The glucose prevents his blood sugar from falling too low. The potassium is still in his body, so the effect lasts only a few hours.","Dialysis removes potassium from his body. It is the only one of the three treatments that corrects the underlying problem."],
  desc:"The lab card for Mr. T stays on screen beside the voltage line.",
  pre:function(){only(["nline","rest","mK","mNa","labcard"]);setMark(mK,-81);setRest(-65);labT1.textContent="Plasma potassium";labT2.textContent="7.0 mM";labT3.textContent="normal range 3.5 to 5.0 mM";},
  play:function(){return Promise.resolve();}},
-{title:"Patient 2: the water pill",
- text:["Ms. R is 45 and takes furosemide, a diuretic, for heart failure. It makes her kidneys lose potassium. She has leg cramps and her legs feel weak."],
- ask:"Her blood potassium is 2.8 mM (normal 3.5 to 5.0). Predict what happens to potassium's balance point, to her resting membrane potential and to how easily her muscles fire.",
- ans:["Less potassium outside strengthens the crowding push, so potassium's balance point drops to about "+M+"105 mV, and rest follows it down to about "+M+"76 mV. Her muscle cells hyperpolarize.","A hyperpolarized cell is farther from threshold, so it needs a bigger push to fire. That is why her muscles feel weak. She needs potassium replacement, and if she takes digoxin, low potassium makes digoxin toxicity more likely."],
- desc:"A lab card shows plasma potassium 2.8 millimolar with a normal range of 3.5 to 5.0. Potassium's balance point slides to minus 105 and the membrane marker slides to about minus 76.",
+{title:"Patient 2: a diuretic",
+ text:["Ms. R is 45 and takes furosemide, a loop diuretic, for heart failure. It increases the amount of potassium her kidneys excrete. She has leg cramps and weakness in her legs."],
+ ask:"Her blood potassium is 2.8 mM (normal 3.5 to 5.0). Predict what happens to potassium's equilibrium potential, to her resting membrane potential and to how easily her muscle cells fire.",
+ ans:["The lower potassium concentration outside makes the concentration gradient larger, so potassium's equilibrium potential falls to about "+M+"105 mV, and the resting potential follows it down to about "+M+"76 mV. Her muscle cells are hyperpolarized.","A hyperpolarized cell is farther from threshold, so it needs a larger depolarization to fire, which contributes to her muscle weakness. She needs potassium replacement. If she also takes digoxin, low potassium makes digoxin toxicity more likely."],
+ desc:"A lab card shows plasma potassium 2.8 millimolar with a normal range of 3.5 to 5.0. Potassium's equilibrium potential moves to minus 105 and the membrane potential marker moves to about minus 76.",
  pre:function(){only(["nline","rest","mK","mNa","labcard"]);setRest(-70);setMark(mK,-90);labT1.textContent="Plasma potassium";labT2.textContent="2.8 mM";labT3.textContent="normal range 3.5 to 5.0 mM";},
  play:function(a){return tweenVal(-90,-105,1300,a,function(v){setMark(mK,v);}).then(function(){return tweenVal(-70,-76,1100,a,setRest);});},
  post:function(){only(["nline","rest","mK","mNa","labcard"]);setMark(mK,-105);setRest(-76);labT1.textContent="Plasma potassium";labT2.textContent="2.8 mM";labT3.textContent="normal range 3.5 to 5.0 mM";}},
-{title:"Patient 3: the numbed skin",
+{title:"Patient 3: a local anesthetic",
  text:["Before a femoral artery puncture in interventional radiology, the physician injects lidocaine into the skin. Lidocaine blocks voltage-gated sodium channels."],
- ask:"Does lidocaine change the resting membrane potential of the pain nerves in that skin? Why does the patient feel no pain from the needle?",
- ans:["The resting potential barely changes, because rest is set by the leak doors and lidocaine does not block them.","What lidocaine blocks is the door that turns a stimulus into a signal. The needle still nudges the membrane, but the voltage-gated sodium doors cannot open, so no pain signal is sent. A normal resting potential is necessary for a nerve to work, but it is not enough on its own."],
- desc:"The voltage-gated door is shown with a lidocaine block in it. A change in charge arrives, but the door stays shut and no signal is sent.",
- pre:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="leak door still open";show(lido);},
+ ask:"Does lidocaine change the resting membrane potential of the pain-sensing neurons in that skin? Why does the patient feel no pain from the needle?",
+ ans:["The resting potential barely changes, because the resting potential depends on the leak channels, and lidocaine does not block them.","Lidocaine blocks the voltage-gated sodium channels that generate action potentials. The needle still depolarizes the membrane, but sodium cannot pass through the blocked channels, so no action potentials are sent and no pain is felt. A normal resting potential is necessary for a neuron to signal, but it is not sufficient on its own."],
+ desc:"The voltage-gated channel is shown with lidocaine blocking it. A change in voltage arrives, but the channel is blocked and no action potential is produced.",
+ pre:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="leak channel still open";show(lido);},
  play:function(a){show(trigV);return wait(900,a).then(function(){show(noAP);});},
- post:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="leak door still open";show(lido);show(trigV);show(noAP);}},
-{sec:"Put it together",comp:"Review",title:"The whole story, with the real names",
- text:["Last one. Use the worksheet box to tell the whole story, this time with the science words and the numbers."],
+ post:function(){only(["gates"]);gatesReset();GATES[0].cap.textContent="leak channel still open";show(lido);show(trigV);show(noAP);}},
+{sec:"Put it together",comp:"Review",title:"The whole story, with the scientific terms",
+ text:["This is the last step. In the worksheet box, explain the whole story again, this time with the scientific terms and the numbers."],
  ask:"Explain the resting membrane potential from start to finish: where the ions are, why the inside is negative, why rest is about "+M+"70 mV, and what the pump does.",
- ans:["Potassium is concentrated inside and sodium, chloride and calcium outside, and the sodium potassium pump keeps it that way using ATP. At rest the membrane has many open potassium leak channels and few open sodium channels. Potassium diffuses out, leaving the large negative anions behind, so the inside becomes negative. The negative charge pulls potassium back until the forces balance at its equilibrium potential, about "+M+"90 mV. A small sodium leak pulls the membrane toward sodium's equilibrium potential of about +60 mV, so rest settles at about "+M+"70 mV. Raising outside potassium depolarizes the cell, lowering it hyperpolarizes the cell, and opening many sodium channels swings the membrane toward +60 mV, which is where the action potential begins."],
- desc:"The voltage line with every balance point and the membrane at minus 70.",
+ ans:["Potassium is concentrated inside the cell, and sodium, chloride and calcium are concentrated outside. The sodium-potassium pump uses ATP to maintain these gradients. At rest the membrane has many open potassium leak channels and few open sodium channels, so it is far more permeable to potassium. Potassium diffuses out down its concentration gradient and leaves the large anions behind, so the inside becomes negative. The electrical gradient draws potassium back in until it balances the concentration gradient at potassium's equilibrium potential, about "+M+"90 mV. The small sodium leak pulls the membrane potential toward sodium's equilibrium potential of about +60 mV, so the resting potential settles at about "+M+"70 mV. The pump also contributes a few millivolts directly. Raising extracellular potassium depolarizes the cell, lowering it hyperpolarizes the cell, and opening many sodium channels drives the membrane potential toward +60 mV, which is the rising phase of the action potential."],
+ desc:"The voltage line with every equilibrium potential and the membrane potential at minus 70.",
  pre:function(){only(["nline","rest","mK","mNa","mCl","mCa"]);setRest(-70);setMark(mK,-90);},
  play:function(){return Promise.resolve();}}
 ];
@@ -853,20 +854,20 @@ var V={
   gmech:{u:"https://www.youtube.com/watch?v=NaAwVrOEyss",n:"Neuron graded potential mechanism"}
 };
 var SUP={
-  "A door for potassium":[["Why does K\u207a want to leave?","mech","Listen for potassium moving from where it is crowded to where there is less of it."],["How does K\u207a cross at rest?","mech","Listen for the leak channels that stay open at rest."]],
-  "Every ball carries a charge":[["Why is there voltage across a cell membrane?","desc","Listen for charge separated across the membrane, with the inside negative compared with the outside."]],
-  "A tug of war at the door":[["Why is K\u207a pulled back in?","mech","Listen for opposite charges attracting."]],
-  "Only a few sodium doors":[["Why can some ions cross more easily?","mech","Listen for how the number of open channels sets permeability."]],
-  "Potassium has the most say":[["If Na\u207a wants in, why isn't the inside positive?","mech","Listen for how few sodium channels are open at rest."]],
-  "Build a machine":[["What is the pump actually doing?","mech","Listen for the pump keeping the gradients in place, not setting the voltage moment to moment."]],
-  "Most doors have gates":[["What makes a channel open?","lig","This one covers ligand-gated channels, where a chemical binding opens the door."]],
-  "The line starts to rise":[["What does depolarization mean?","graded","Listen for the membrane becoming less negative."],["How do ions make the membrane rise?","gmech","Listen for positive ions coming in through open channels and the voltage moving up."]],
+  "A channel for potassium":[["Why does K\u207a diffuse out?","mech","Listen for potassium moving from high concentration to low concentration."],["How does K\u207a cross at rest?","mech","Listen for the leak channels that stay open at rest."]],
+  "Each ion carries a charge":[["Why is there voltage across a cell membrane?","desc","Listen for charge separated across the membrane, with the inside negative compared with the outside."]],
+  "Two forces on potassium":[["What draws K\u207a back into the cell?","mech","Listen for the negative inside attracting the positive potassium ions (the electrical gradient)."]],
+  "Only a few sodium channels":[["Why can some ions cross more easily?","mech","Listen for how the number of open channels sets permeability."]],
+  "Potassium permeability dominates":[["If Na\u207a is driven inward, why isn't the inside positive?","mech","Listen for how few sodium channels are open at rest."]],
+  "The sodium-potassium pump":[["What is the pump actually doing?","mech","Listen for the pump keeping the gradients in place, not setting the voltage moment to moment."]],
+  "Most channels are gated":[["What makes a channel open?","lig","This one covers ligand-gated channels, which open when a chemical binds to them."]],
+  "The trace starts to rise":[["What does depolarization mean?","graded","Listen for the membrane becoming less negative."],["How do ions make the membrane rise?","gmech","Listen for positive ions coming in through open channels and the voltage moving up."]],
   "Up, back down, and below":[["What does hyperpolarization mean?","graded","Listen for the membrane becoming more negative than rest."]],
   "How much of each ion":[["Where are Na\u207a and K\u207a?","mech","Listen for potassium high inside, sodium high outside, and the anions trapped inside."]],
-  "Two pushes, one total":[["Which way will the ion actually move?","mech","Listen for the chemical and electrical forces added together."]],
-  "Potassium's balance point":[["Why doesn't K\u207a keep leaving?","mech","Listen for the chemical and electrical forces balancing."]],
-  "A tug of war on the whole membrane":[["Why is the resting potential close to potassium's balance point?","mech","Listen for how relative permeability decides where the membrane sits."]],
-  "Patient 1: missed dialysis":[["What happens if the potassium outside changes?","mech","The video sets up the potassium gradient. Use it to reason through Mr. T: a changed gradient changes potassium's balance point, which changes the resting potential."]]
+  "The electrochemical gradient":[["Which way will the ion actually move?","mech","Listen for the chemical and electrical forces added together."]],
+  "Potassium's equilibrium potential":[["Why doesn't K\u207a keep leaving?","mech","Listen for the chemical and electrical forces balancing."]],
+  "Permeability sets the resting potential":[["Why is the resting potential close to potassium's equilibrium potential?","mech","Listen for how relative permeability determines the resting potential."]],
+  "Patient 1: missed dialysis":[["What happens if the potassium outside changes?","mech","The video sets up the potassium gradient. Use it to reason through Mr. T: a changed gradient changes potassium's equilibrium potential, which changes the resting potential."]]
 };
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";

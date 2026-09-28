@@ -440,7 +440,7 @@ tx(gTz,846,TY+TH+42,"trigger zone","tm",15,"middle");
 
 /* toxin label for the patient step */
 var gTox=G("tox");
-tx(gTox,540,TY-40,"voltage-gated Na+ channels plugged","tm",15,"middle");
+tx(gTox,540,TY-40,"voltage-gated Na+ channels blocked","tm",15,"middle");
 
 /* ---- the trigger zone meter ---- */
 var gMeter=G("meter");
@@ -479,166 +479,166 @@ function peakX(t){return t.x+t.tau;}
 var DEN=["graph","tr","dend","gate","ion","cap"];
 var STEPS=[
 /* ---- 1. a small signal at the input ---- */
-{sec:"A small signal at the input",comp:"Competency 12",
- title:"Where this picks up",
- text:["Here is a dendrite on a neuron at rest, sitting at "+M+"70 mV. At its left end are chemically gated channels, the kind you met in the gating walkthrough, closed and waiting for a chemical from another cell.","The line across the top is a voltage tracing. It records the voltage at the spot where the channels are, moment by moment, the same kind of tracing you read in the resting potential walkthrough."],
+{sec:"Graded potentials on a dendrite",comp:"Competency 12",
+ title:"A dendrite at rest",
+ text:["This is a dendrite of a neuron at rest, with a membrane potential of "+M+"70 mV. At its left end are chemically gated channels, also called ligand-gated channels, which you saw in the channel gating walkthrough. They stay closed until a neurotransmitter released by another neuron binds to them.","The line across the top is a voltage tracing. It records the membrane potential at the site of these channels over time, the same kind of tracing you read in the resting potential walkthrough."],
  auto:true,
- desc:"A voltage tracing runs flat at minus 70 millivolts across the top. Below it, a dendrite is drawn as a long tube, with two gated channels at its left end, each blocked by a gold gate, and two sodium ions waiting outside.",
+ desc:"A voltage tracing runs flat at minus 70 millivolts across the top. Below it, a dendrite is drawn as a long tube, with two gated channels at its left end, each closed by a gold gate, and two sodium ions outside the cell.",
  pre:function(){S(DEN);},
- play:function(a){return trDraw(TR[0],curve([]).d,900,a).then(function(){cap("At rest, gates closed.");});},
- post:function(){S(DEN);trNow(TR[0],curve([]).d);cap("At rest, gates closed.");}},
+ play:function(a){return trDraw(TR[0],curve([]).d,900,a).then(function(){cap("At rest, channels closed");});},
+ post:function(){S(DEN);trNow(TR[0],curve([]).d);cap("At rest, channels closed");}},
 
-{title:"A chemical opens a few doors",
- text:["A chemical from a neighboring cell binds, and a few of these channels open. They let sodium through."],
+{title:"Sodium enters: depolarization",
+ text:["A neurotransmitter binds to these channels, and a few of them open. The open channels are permeable to sodium, so sodium ions move into the dendrite."],
  ask:"Sodium flows in through the open channels. Does the tracing move up or down, and why?",
- ans:["Up. Positive charge comes in, so the inside becomes less negative. The membrane moves toward sodium's balance point, about +60 mV, because sodium is the ion whose permeability just went up. That is the rule from the resting potential walkthrough.","It only moves a few millivolts, then the channels close and the tracing drifts back to rest. A small, local change like this is a graded potential. This one makes the inside less negative, so it is a depolarizing graded potential."],
+ ans:["Up. Positive charge enters the cell, so the inside becomes less negative. The membrane potential moves toward the equilibrium potential for sodium, about +60 mV, because sodium is the ion whose permeability increased. This is the same rule you used in the resting potential walkthrough.","Only a few channels opened, so the voltage changes by only a few millivolts, and when the channels close the membrane returns to rest. A small change in membrane potential confined to one region of the membrane is called a graded potential. This one makes the inside less negative, so it is a depolarizing graded potential. When a neurotransmitter produces it at a synapse, it is also called an excitatory postsynaptic potential, or EPSP, because it brings the neuron closer to firing an action potential."],
  name:"depolarizing graded potential",
  desc:"The gold gates open, two sodium ions pass into the dendrite, and the tracing rises a few millivolts above minus 70 and then falls back to rest.",
  pre:function(){S(DEN);},
- play:function(a){gatesOpen(true);return naIn(a).then(function(){return trDraw(TR[0],C_ONE.d,1100,a);}).then(function(){cap("Sodium in, the tracing rises.");});},
- post:function(){S(DEN);gatesOpen(true);NA.forEach(function(g,i){place(g,GATEX[i],TY+TH/2);});trNow(TR[0],C_ONE.d);cap("Sodium in, the tracing rises.");}},
+ play:function(a){gatesOpen(true);return naIn(a).then(function(){return trDraw(TR[0],C_ONE.d,1100,a);}).then(function(){cap("Sodium influx depolarizes the membrane");});},
+ post:function(){S(DEN);gatesOpen(true);NA.forEach(function(g,i){place(g,GATEX[i],TY+TH/2);});trNow(TR[0],C_ONE.d);cap("Sodium influx depolarizes the membrane");}},
 
-{title:"Push harder",
- text:["Now the same dendrite gets three stimuli, one after another: a weak one, a medium one, and a strong one. A stronger stimulus opens more channels, or holds them open longer."],
+{title:"Stimulus strength and size",
+ text:["The same dendrite now receives three stimuli in turn: a weak one, a medium one, and a strong one. A stronger stimulus opens more channels or holds them open longer.","Opening more channels raises the membrane's conductance, which is how easily ions can cross it. Conductance is the inverse of resistance: the more channels open, the lower the resistance to that ion and the more current flows into the cell."],
  ask:"What happens to the size of the change in voltage as the stimulus gets stronger?",
- ans:["It gets bigger. More open channels let more sodium in, so the weak stimulus depolarizes the membrane by about 3 mV, the medium one by about 7 mV, and the strong one by about 12 mV.","That is what graded means. There is no fixed size and no threshold to reach first. Any stimulus that opens channels makes one, and its size matches the stimulus. Each one lasts from a few milliseconds to tens of milliseconds, then the channels close and the membrane returns to rest."],
+ ans:["It gets bigger. More open channels let more sodium in, so the weak stimulus depolarizes the membrane by about 3 mV, the medium one by about 7 mV, and the strong one by about 12 mV.","This is why these signals are called graded potentials: their amplitude, or size, varies with the strength of the stimulus. Unlike an action potential, a graded potential has no threshold and no fixed size. Each one lasts from a few milliseconds to tens of milliseconds, and then the channels close and the membrane returns to rest."],
  name:"graded potential",
  desc:"Three bumps appear on the tracing in turn, labeled weak, 3 millivolts, medium, 7 millivolts, and strong, 12 millivolts. Each returns to minus 70 before the next.",
  pre:function(){S(DEN);gatesOpen(true);NA.forEach(function(g){g.setAttribute("display","none");});},
  play:function(a){
    return trDraw(TR[0],C_W.d,700,a).then(function(){lab(0,peakX(T1),Y(-67)-14,"weak, 3 mV");return trDraw(TR[1],C_MD.d,700,a);})
    .then(function(){lab(1,peakX(T2),Y(-63)-14,"medium, 7 mV");return trDraw(TR[2],C_S.d,700,a);})
-   .then(function(){lab(2,peakX(T3),Y(-58)-14,"strong, 12 mV");cap("Bigger stimulus, bigger change.");});},
+   .then(function(){lab(2,peakX(T3),Y(-58)-14,"strong, 12 mV");cap("Stronger stimulus, larger amplitude");});},
  post:function(){S(DEN);gatesOpen(true);NA.forEach(function(g){g.setAttribute("display","none");});trNow(TR[0],C_W.d);trNow(TR[1],C_MD.d);trNow(TR[2],C_S.d);
-   lab(0,peakX(T1),Y(-67)-14,"weak, 3 mV");lab(1,peakX(T2),Y(-63)-14,"medium, 7 mV");lab(2,peakX(T3),Y(-58)-14,"strong, 12 mV");cap("Bigger stimulus, bigger change.");}},
+   lab(0,peakX(T1),Y(-67)-14,"weak, 3 mV");lab(1,peakX(T2),Y(-63)-14,"medium, 7 mV");lab(2,peakX(T3),Y(-58)-14,"strong, 12 mV");cap("Stronger stimulus, larger amplitude");}},
 
-{title:"A door that goes the other way",
- text:["Some chemicals open a different kind of channel, one that lets potassium out of the cell instead of letting sodium in."],
+{title:"Potassium leaves: hyperpolarization",
+ text:["Some neurotransmitters open a different chemically gated channel, one that is permeable to potassium. Potassium then leaves the cell instead of sodium entering it."],
  ask:"Potassium leaves through the open channels. Which way does the tracing move this time?",
- ans:["Down. Positive charge leaves, so the inside becomes more negative than rest. The membrane moves toward potassium's balance point, about "+M+"90 mV. In this example it drops about 8 mV below rest, then returns.","This is a hyperpolarizing graded potential. It moves the membrane away from firing instead of toward it, which is how one cell can quiet another."],
+ ans:["Down. Positive charge leaves the cell, so the inside becomes more negative than it is at rest. The membrane potential moves toward the equilibrium potential for potassium, about "+M+"90 mV. In this example it falls about 8 mV below rest and then returns.","A change that makes the membrane potential more negative than rest is a hyperpolarization, so this is a hyperpolarizing graded potential. It moves the membrane potential farther from threshold. When a neurotransmitter produces it at a synapse, it is called an inhibitory postsynaptic potential, or IPSP, because it makes the neuron less likely to fire an action potential."],
  name:"hyperpolarizing graded potential",
  desc:"The channels are relabeled as gated potassium channels. Two potassium ions leave the dendrite through them, and the tracing dips about 8 millivolts below minus 70, then returns to rest.",
  pre:function(){S(DEN);gateLab.textContent="Gated potassium channels";},
- play:function(a){gatesOpen(true);return kOut(a).then(function(){return trDraw(TR[0],C_H.d,1100,a);}).then(function(){lab(0,peakX(T2),Y(-78)+24,"8 mV below rest");cap("Potassium out, the tracing dips.");});},
+ play:function(a){gatesOpen(true);return kOut(a).then(function(){return trDraw(TR[0],C_H.d,1100,a);}).then(function(){lab(0,peakX(T2),Y(-78)+24,"8 mV below rest");cap("Potassium efflux hyperpolarizes");});},
  post:function(){S(DEN);gateLab.textContent="Gated potassium channels";gatesOpen(true);NA.forEach(function(g){g.setAttribute("display","none");});KI.forEach(function(g,i){g.setAttribute("display","");place(g,GATEX[i],TY-58);});
-   trNow(TR[0],C_H.d);lab(0,peakX(T2),Y(-78)+24,"8 mV below rest");cap("Potassium out, the tracing dips.");}},
+   trNow(TR[0],C_H.d);lab(0,peakX(T2),Y(-78)+24,"8 mV below rest");cap("Potassium efflux hyperpolarizes");}},
 
 /* ---- 2. why it fades as it spreads ---- */
-{sec:"Why it fades as it spreads",comp:"Competency 12",
- title:"Charge spreads both ways",
- text:["Go back to sodium coming in at the left end. Once it is inside, that positive charge does not stay put."],
+{sec:"Why graded potentials fade",comp:"Competency 12",
+ title:"Local current flow",
+ text:["Return to the sodium entering at the left end of the dendrite. The positive charge it carries does not remain at the channels where it entered."],
  ask:"Where does the positive charge go after it enters the dendrite?",
- ans:["It spreads along the inside of the dendrite in both directions, away from the spot where it came in. Most of this dendrite lies to the right, so most of the charge heads toward the cell body.","This movement of charge through the cytoplasm is called local current flow. It is how a graded potential reaches places the channels never touched."],
+ ans:["It spreads along the inside of the dendrite in both directions, away from the spot where it came in. Most of this dendrite lies to the right, so most of the charge heads toward the cell body.","This movement of charge through the cytoplasm is called local current flow. It is how a graded potential spreads to parts of the membrane where no channels opened."],
  name:"local current flow",
  desc:"Plus signs start at the open channels and spread along the inside of the dendrite, one to the left and several to the right. The farther they travel, the smaller they get.",
  pre:function(){S(["dend","gate","charge","cap"]);gatesOpen(true);},
- play:function(a){return chSpread(a).then(function(){cap("Charge spreads out along the inside.");});},
- post:function(){S(["dend","gate","charge","cap"]);gatesOpen(true);chDone();cap("Charge spreads out along the inside.");}},
+ play:function(a){return chSpread(a).then(function(){cap("Local current flow in the cytoplasm");});},
+ post:function(){S(["dend","gate","charge","cap"]);gatesOpen(true);chDone();cap("Local current flow in the cytoplasm");}},
 
-{title:"Measure along the way",
- text:["Put four meters along the dendrite. Point 1 is right next to the open channels, and point 4 is farthest away."],
+{title:"Recording along the dendrite",
+ text:["Now the membrane potential is recorded by four meters placed along the dendrite. Point 1 is next to the open channels, and point 4 is farthest from them."],
  ask:"Will all four meters show the same change in voltage? If not, which will show the most?",
- ans:["No. Point 1 shows the biggest change, about 20 mV. Point 2 shows about 12 mV, point 3 about 7 mV, and point 4 only about 4 mV.","The same graded potential is smaller at every point farther from where it started. It fades with distance. The next two steps show why."],
+ ans:["No. Point 1 shows the biggest change, about 20 mV. Point 2 shows about 12 mV, point 3 about 7 mV, and point 4 only about 4 mV.","The same graded potential is smaller at every point farther from where it started. This loss of amplitude with distance is called decremental conduction. The next two steps show what causes it."],
  desc:"Four meters sit under the dendrite. They read 20 millivolts at point 1 next to the channels, 12 at point 2, 7 at point 3, and 4 at point 4, farthest away. A maroon band inside the dendrite narrows from left to right.",
  pre:function(){S(["dend","gate","taper","pts","cap"]);gatesOpen(true);},
  play:function(a){var v=["20 mV","12 mV","7 mV","4 mV"],k=0;
    return tweenVal(0,1,1200,a,function(t){taperSet(t);}).then(function(){
      function nxt(){if(k>=4)return Promise.resolve();var s=v.slice(0,k+1);pts(s);k++;return wait(300,a).then(nxt);}
-     return nxt();}).then(function(){pts(["20 mV","12 mV","7 mV","4 mV"]);cap("Largest near the channels.");});},
- post:function(){S(["dend","gate","taper","pts","cap"]);gatesOpen(true);taperSet(1);pts(["20 mV","12 mV","7 mV","4 mV"]);cap("Largest near the channels.");}},
+     return nxt();}).then(function(){pts(["20 mV","12 mV","7 mV","4 mV"]);cap("Amplitude decreases with distance");});},
+ post:function(){S(["dend","gate","taper","pts","cap"]);gatesOpen(true);taperSet(1);pts(["20 mV","12 mV","7 mV","4 mV"]);cap("Amplitude decreases with distance");}},
 
-{title:"A leaky hose",
- text:["Think of water running down a garden hose that has small holes along its length. The membrane of a dendrite is like that. It has open leak channels all along it, the same leak channels that set the resting potential."],
+{title:"Current leak",
+ text:["The membrane of the dendrite has open leak channels along its whole length, the same leak channels that set the resting potential. A garden hose with small holes along its length loses water in a similar way."],
  ask:"What happens to some of the positive charge as it travels past those open leak channels?",
  ans:["Some of it leaves. Positive charge escapes through the leak channels all along the way, so less and less of it is left to travel on.","This loss of charge across the membrane is called current leak. It is one of the two reasons a graded potential fades."],
  name:"current leak",
  desc:"Small plus signs slip out through three gaps in the lower wall of the dendrite, each marked with a maroon arrow pointing out of the cell.",
  pre:function(){S(["dend","gate","taper","leak","cap"]);gatesOpen(true);taperSet(1);},
- play:function(a){return Promise.all(LK.map(function(p,i){return wait(i*200,a).then(function(){return tweenPath(p,[[LEAKX[i],TY+TH+22]],900,a);});})).then(function(){cap("Charge leaks out along the way.");});},
- post:function(){S(["dend","gate","taper","leak","cap"]);gatesOpen(true);taperSet(1);LK.forEach(function(p,i){place(p,LEAKX[i],TY+TH+22);});cap("Charge leaks out along the way.");}},
+ play:function(a){return Promise.all(LK.map(function(p,i){return wait(i*200,a).then(function(){return tweenPath(p,[[LEAKX[i],TY+TH+22]],900,a);});})).then(function(){cap("Charge lost through leak channels");});},
+ post:function(){S(["dend","gate","taper","leak","cap"]);gatesOpen(true);taperSet(1);LK.forEach(function(p,i){place(p,LEAKX[i],TY+TH+22);});cap("Charge lost through leak channels");}},
 
-{title:"The cytoplasm pushes back",
- text:["The second reason is inside the dendrite. The cytoplasm is crowded with proteins and other molecules, and it resists the flow of charge moving through it, the way a thin wire resists electric current more than a thick one.","With charge leaking out through the membrane and slowed by the cytoplasm, the change in voltage is smaller at every point farther along."],
+{title:"Cytoplasmic resistance",
+ text:["The second cause is inside the dendrite. The cytoplasm is crowded with proteins and other molecules, and it resists the flow of charge through it, in the same way that a thin wire resists electric current more than a thick one.","Current, voltage, and resistance are related by Ohm's law: voltage equals current times resistance (V = I × R), so current equals voltage divided by resistance (I = V / R). For the same voltage, higher resistance means less current flows. Because charge is lost through the membrane and its flow is slowed by the cytoplasm, the change in voltage is smaller at every point farther along the dendrite."],
  name:"cytoplasmic resistance",
  auto:true,
  desc:"A label above the dendrite reads cytoplasmic resistance slows the flow. The maroon band inside narrows to almost nothing by the far end, and the leak arrows stay in place underneath.",
  pre:function(){S(["dend","gate","taper","leak","res","cap"]);gatesOpen(true);LK.forEach(function(p,i){place(p,LEAKX[i],TY+TH+22);});},
- play:function(a){return tweenVal(0,1,1200,a,function(t){taperSet(t);}).then(function(){cap("Two losses: leak and resistance.");});},
- post:function(){S(["dend","gate","taper","leak","res","cap"]);gatesOpen(true);LK.forEach(function(p,i){place(p,LEAKX[i],TY+TH+22);});taperSet(1);cap("Two losses: leak and resistance.");}},
+ play:function(a){return tweenVal(0,1,1200,a,function(t){taperSet(t);}).then(function(){cap("Current leak plus cytoplasmic resistance");});},
+ post:function(){S(["dend","gate","taper","leak","res","cap"]);gatesOpen(true);LK.forEach(function(p,i){place(p,LEAKX[i],TY+TH+22);});taperSet(1);cap("Current leak plus cytoplasmic resistance");}},
 
 {title:"A wider dendrite",
- text:["Now picture the same dendrite, twice as wide."],
+ text:["Now compare a dendrite that is twice as wide."],
  ask:"Will a graded potential travel farther or a shorter distance before it fades in the wider dendrite? Which of the two losses changes?",
- ans:["Farther. A wider tube gives charge more room to move, so the cytoplasm resists the flow less, and the graded potential spreads farther before it fades.","Current leak does not change, because leak depends on the open channels in the membrane, not on how wide the tube is. Only the cytoplasmic resistance goes down."],
+ ans:["Farther. A wider dendrite has a larger cross section for charge to flow through, so its cytoplasmic resistance is lower, and the graded potential spreads farther before it fades.","The loss that changes is cytoplasmic resistance. Current leak does not go down; a wider dendrite actually has a little more membrane, and so more leak channels, along each length. Cytoplasmic resistance falls much more than leak rises, so the net effect is that the graded potential travels farther."],
  desc:"The dendrite widens. The maroon band inside stays thicker at the far end than it did in the narrow dendrite, showing that the charge spreads farther.",
  pre:function(){S(["dend","gate","taper","res","cap"]);gatesOpen(true);taperSet(1);},
- play:function(a){tubeWide(true);taperSet.wide=true;return tweenVal(0,1,1200,a,function(t){taperSet(t);}).then(function(){cap("Wider tube, it spreads farther.");});},
- post:function(){S(["dend","gate","taper","res","cap"]);gatesOpen(true);tubeWide(true);taperSet.wide=true;taperSet(1);cap("Wider tube, it spreads farther.");}},
+ play:function(a){tubeWide(true);taperSet.wide=true;return tweenVal(0,1,1200,a,function(t){taperSet(t);}).then(function(){cap("Wider dendrite, lower resistance");});},
+ post:function(){S(["dend","gate","taper","res","cap"]);gatesOpen(true);tubeWide(true);taperSet.wide=true;taperSet(1);cap("Wider dendrite, lower resistance");}},
 
 /* ---- 3. what reaches the trigger zone ---- */
 {sec:"What reaches the trigger zone",comp:"Competencies 12 and 14",
- title:"The decision point",
- text:["At the far end of the dendrite is the cell body, and just past it is the trigger zone, the decision point you met in the neurons and glia walkthrough. The trigger zone fires an action potential only if the membrane there reaches threshold, about "+M+"55 mV.","From rest at "+M+"70 mV, that means the trigger zone has to depolarize by about 15 mV. What matters is how big the graded potential still is when it gets there, not how big it was where it started."],
+ title:"Threshold at the trigger zone",
+ text:["At the far end of the dendrite is the cell body, and just past it is the trigger zone, the axon hillock and initial segment you saw in the neurons and glia walkthrough. An action potential is generated there only if the membrane potential at the trigger zone reaches threshold, about "+M+"55 mV.","From rest at "+M+"70 mV, the trigger zone must depolarize by about 15 mV. The outcome depends on the amplitude of the graded potential when it arrives at the trigger zone, not its amplitude where it started."],
  auto:true,
- desc:"The dendrite now ends at a round cell body with a gold wedge beside it labeled trigger zone. The tracing now records the trigger zone, with a dashed threshold line at minus 55. A meter at lower left reads minus 70 millivolts.",
+ desc:"The dendrite now ends at a round cell body with a gold wedge beside it labeled trigger zone. The tracing now records the membrane potential at the trigger zone, with a dashed threshold line at minus 55. A meter at lower left reads minus 70 millivolts.",
  pre:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");},
  play:function(a){return trDraw(TR[0],curve([]).d,800,a).then(function(){cap("Threshold is about "+M+"55 mV.");});},
  post:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");trNow(TR[0],curve([]).d);cap("Threshold is about "+M+"55 mV.");}},
 
-{title:"One arrives",
- text:["A chemical opens channels far out on the dendrite and makes a 20 mV graded potential there. By the time it reaches the trigger zone, only 8 mV of it is left."],
- ask:"Rest is "+M+"70 mV and threshold is about "+M+"55 mV. Does the trigger zone fire?",
- ans:["No. "+M+"70 + 8 = "+M+"62 mV, which is still 7 mV short of threshold. The graded potential fades and the membrane returns to rest. No action potential is sent.","A graded potential that is too small to bring the trigger zone to threshold is called subthreshold."],
+{title:"One EPSP at the trigger zone",
+ text:["A synapse far out on the dendrite produces a 20 mV EPSP there. By the time it reaches the trigger zone, it has decreased to 8 mV."],
+ ask:"Rest is "+M+"70 mV and threshold is about "+M+"55 mV. Is an action potential generated?",
+ ans:["No. "+M+"70 + 8 = "+M+"62 mV, which is still 7 mV short of threshold. The graded potential fades and the membrane returns to rest, and no action potential is generated.","A graded potential that is too small to bring the trigger zone to threshold is called subthreshold."],
  name:"subthreshold",
  desc:"The trigger zone tracing rises 8 millivolts to minus 62, stays below the dashed threshold line, and falls back to rest. The meter reads minus 62 millivolts at the peak.",
  pre:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");},
- play:function(a){return Promise.all([trDraw(TR[0],C_TZ1.d,1100,a),tweenVal(-70,-62,700,a,function(v){mv(v);})]).then(function(){lab(0,480,118,"8 mV, reaches "+M+"62");cap("Below threshold. No action potential.");});},
- post:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");trNow(TR[0],C_TZ1.d);mv(-62);lab(0,480,118,"8 mV, reaches "+M+"62");cap("Below threshold. No action potential.");}},
+ play:function(a){return Promise.all([trDraw(TR[0],C_TZ1.d,1100,a),tweenVal(-70,-62,700,a,function(v){mv(v);})]).then(function(){lab(0,480,118,"8 mV, reaches "+M+"62");cap("Subthreshold: no action potential");});},
+ post:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");trNow(TR[0],C_TZ1.d);mv(-62);lab(0,480,118,"8 mV, reaches "+M+"62");cap("Subthreshold: no action potential");}},
 
-{title:"Two arrive together",
- text:["Now two synapses on the dendrite are active at the same moment, and each one delivers 8 mV to the trigger zone."],
- ask:"Does the trigger zone fire now? Show the arithmetic.",
- ans:["Yes. Graded potentials that overlap in time add together, so the trigger zone gets 8 + 8 = 16 mV. "+M+"70 + 16 = "+M+"54 mV, which is past threshold, so the trigger zone fires an action potential.","Adding graded potentials together is called summation, and a total big enough to reach threshold is suprathreshold. Real graded potentials that overlap add up to a little less than their plain sum, but the reasoning is the same. The synaptic integration walkthrough builds summation in detail."],
- name:"summation, suprathreshold",
- desc:"A dashed line shows one 8 millivolt graded potential alone. The solid tracing shows the two added together. It crosses the dashed threshold line and shoots up off the top of the scale as an action potential, to about plus 30 millivolts, then falls back to rest.",
+{title:"Two EPSPs at once",
+ text:["Now two synapses at different sites on the dendrite are active at the same time, and the EPSP from each one is 8 mV when it reaches the trigger zone."],
+ ask:"Is an action potential generated now? Show the arithmetic.",
+ ans:["Yes. Graded potentials that overlap in time add together, so the trigger zone depolarizes by 8 + 8 = 16 mV. "+M+"70 + 16 = "+M+"54 mV, which is past threshold, so an action potential is generated.","The adding together of graded potentials is called summation. When the graded potentials come from different synapses active at the same time, as here, it is spatial summation. When one synapse is activated again before its previous graded potential has faded, it is temporal summation. A total large enough to reach threshold is called suprathreshold. Real graded potentials that overlap add up to a little less than their simple sum, but the reasoning is the same. The synaptic integration walkthrough covers summation in detail."],
+ name:"spatial summation, suprathreshold",
+ desc:"A dashed line shows one 8 millivolt EPSP alone. The solid tracing shows the two added together. It crosses the dashed threshold line and shoots up off the top of the scale as an action potential, to about plus 30 millivolts, then falls back to rest.",
  pre:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");},
- play:function(a){trNow(TD[0],C_TZ1.d);lab(1,200,122,"dashed: each one alone");
-   return Promise.all([trDraw(TR[0],C_TZ2.d,1300,a),tweenVal(-70,-54,800,a,function(v){mv(v);})]).then(function(){lab(0,C_TZ2.x+110,GTOP+22,"to about +30 mV");cap("Together they reach threshold.");});},
+ play:function(a){trNow(TD[0],C_TZ1.d);lab(1,200,122,"dashed: one EPSP alone");
+   return Promise.all([trDraw(TR[0],C_TZ2.d,1300,a),tweenVal(-70,-54,800,a,function(v){mv(v);})]).then(function(){lab(0,C_TZ2.x+110,GTOP+22,"to about +30 mV");cap("Spatial summation reaches threshold");});},
  post:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");trNow(TD[0],C_TZ1.d);trNow(TR[0],C_TZ2.d);mv(-54);
-   lab(1,200,122,"dashed: each one alone");lab(0,C_TZ2.x+110,GTOP+22,"to about +30 mV");cap("Together they reach threshold.");}},
+   lab(1,200,122,"dashed: one EPSP alone");lab(0,C_TZ2.x+110,GTOP+22,"to about +30 mV");cap("Spatial summation reaches threshold");}},
 
-{title:"Add a brake",
- text:["Keep the same two synapses, each still delivering 8 mV. At the same moment, a third synapse opens potassium channels and delivers a hyperpolarizing graded potential of 5 mV to the trigger zone."],
- ask:"Does the trigger zone still fire?",
- ans:["No. 8 + 8 "+M+" 5 = 11 mV, and "+M+"70 + 11 = "+M+"59 mV. That is below threshold again, so no action potential is sent.","The trigger zone adds up everything that reaches it, the pushes toward firing and the pushes away from it, and the only question is whether the total reaches threshold. Next, the action potential walkthrough shows what happens once it does."],
- desc:"Two dashed lines show the separate inputs, one rising 16 millivolts and one dipping 5 millivolts. The solid tracing, their total, rises only to minus 59, below the threshold line, and returns to rest.",
+{title:"Adding an IPSP",
+ text:["The same two synapses are active, and each EPSP is still 8 mV at the trigger zone. At the same time, a third synapse opens potassium channels and produces an IPSP that is 5 mV at the trigger zone."],
+ ask:"Is an action potential still generated?",
+ ans:["No. 8 + 8 "+M+" 5 = 11 mV, and "+M+"70 + 11 = "+M+"59 mV. That is below threshold again, so no action potential is generated.","EPSPs and IPSPs sum at the trigger zone. Depolarizing inputs move the membrane potential toward threshold and hyperpolarizing inputs move it away, and an action potential is generated only if the net depolarization reaches threshold. The action potential walkthrough begins at that point."],
+ desc:"Two dashed lines show the separate inputs: the two EPSPs together, rising 16 millivolts, and the IPSP, dipping 5 millivolts. The solid tracing, their total, rises only to minus 59, below the threshold line, and returns to rest.",
  pre:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");},
- play:function(a){trNow(TD[0],C_TZE.d);trNow(TD[1],C_TZI.d);lab(1,peakX(TZ)+80,Y(-54)-6,"the two together");lab(2,peakX(TZ)+60,Y(-75)+22,"the brake, 5 mV");
-   return Promise.all([trDraw(TR[0],C_TZB.d,1100,a),tweenVal(-70,-59,700,a,function(v){mv(v);})]).then(function(){lab(0,220,122,"total, "+M+"59 mV");cap("Below threshold again.");});},
+ play:function(a){trNow(TD[0],C_TZE.d);trNow(TD[1],C_TZI.d);lab(1,peakX(TZ)+80,Y(-54)-6,"two EPSPs, 16 mV");lab(2,peakX(TZ)+60,Y(-75)+22,"IPSP, 5 mV");
+   return Promise.all([trDraw(TR[0],C_TZB.d,1100,a),tweenVal(-70,-59,700,a,function(v){mv(v);})]).then(function(){lab(0,220,122,"total, "+M+"59 mV");cap("Net input stays below threshold");});},
  post:function(){S(["graph","thr","tr","dend","tz","meter","cap"]);tubeLab.setAttribute("display","none");trNow(TD[0],C_TZE.d);trNow(TD[1],C_TZI.d);trNow(TR[0],C_TZB.d);mv(-59);
-   lab(1,peakX(TZ)+80,Y(-54)-6,"the two together");lab(2,peakX(TZ)+60,Y(-75)+22,"the brake, 5 mV");lab(0,220,122,"total, "+M+"59 mV");cap("Below threshold again.");}},
+   lab(1,peakX(TZ)+80,Y(-54)-6,"two EPSPs, 16 mV");lab(2,peakX(TZ)+60,Y(-75)+22,"IPSP, 5 mV");lab(0,220,122,"total, "+M+"59 mV");cap("Net input stays below threshold");}},
 
 /* ---- 4. patient ---- */
-{sec:"A patient",comp:"Competencies 12 and 14",
+{sec:"Patient case",comp:"Competencies 12 and 14",
  title:"Patient: the pufferfish meal",
- text:["A man eats pufferfish that was not prepared correctly. Within an hour his lips and tongue are numb, then his arms and legs grow weak. The toxin in the fish, tetrodotoxin, plugs voltage-gated sodium channels from the outside. It does not touch chemically gated or mechanically gated channels.","Recordings from one of his neurons: rest is still "+M+"70 mV. A weak stimulus still makes a small depolarization, about 5 mV, that fades. A strong stimulus makes about 20 mV, which goes past threshold, and it fades too. No action potential appears."],
+ text:["A man eats pufferfish that was not prepared correctly. Within an hour his lips and tongue are numb, then his arms and legs grow weak. The toxin in the fish, tetrodotoxin, blocks voltage-gated sodium channels from the outside of the cell. It does not block chemically gated or mechanically gated channels.","Recordings from one of his neurons show a resting potential of "+M+"70 mV, which is normal. A weak stimulus still produces a small depolarization, about 5 mV, that fades. A strong stimulus produces about 20 mV, which goes past threshold, and it also fades. No action potential appears."],
  ask:"Why do his graded potentials still happen, and what signal is missing?",
- ans:["His graded potentials still happen because they are made by chemically and mechanically gated channels, and the toxin does not block those. What is missing is the action potential. Even a depolarization that goes past threshold cannot trigger one, because the channels that make the action potential are the voltage-gated sodium channels the toxin has plugged.","So his nerves can still take in signals but cannot send them down an axon. The action potential walkthrough builds the action potential from those channels and finishes this case, including why the toxin can stop his breathing."],
- desc:"The tracing shows a small 5 millivolt bump that fades, then a larger 20 millivolt bump that rises above the dashed threshold line to about minus 50 and fades without an action potential. A label reads voltage-gated sodium channels plugged.",
+ ans:["His graded potentials still happen because they are made by chemically and mechanically gated channels, and the toxin does not block those. What is missing is the action potential. Even a depolarization that goes past threshold cannot trigger one, because the action potential depends on the voltage-gated sodium channels that the toxin has blocked.","So his neurons can still produce graded potentials in response to input, but they cannot generate action potentials to carry signals along their axons. The action potential walkthrough builds the action potential from those channels and finishes this case, including why the toxin can stop his breathing."],
+ desc:"The tracing shows a small 5 millivolt bump that fades, then a larger 20 millivolt bump that rises above the dashed threshold line to about minus 50 and fades without an action potential. A label reads voltage-gated sodium channels blocked.",
  pre:function(){S(["graph","thr","tr","dend","tz","tox","cap"]);tubeLab.setAttribute("display","none");},
- play:function(a){return trDraw(TR[0],C_TTXW.d,700,a).then(function(){lab(0,peakX(T1),Y(-65)-14,"weak, 5 mV");return trDraw(TR[1],C_TTXS.d,1200,a);}).then(function(){lab(1,494+120,Y(-50)-2,"strong, 20 mV, no spike");cap("Graded potentials, but no spike.");});},
- post:function(){S(["graph","thr","tr","dend","tz","tox","cap"]);tubeLab.setAttribute("display","none");trNow(TR[0],C_TTXW.d);trNow(TR[1],C_TTXS.d);lab(0,peakX(T1),Y(-65)-14,"weak, 5 mV");lab(1,494+120,Y(-50)-2,"strong, 20 mV, no spike");cap("Graded potentials, but no spike.");}},
+ play:function(a){return trDraw(TR[0],C_TTXW.d,700,a).then(function(){lab(0,peakX(T1),Y(-65)-14,"weak, 5 mV");return trDraw(TR[1],C_TTXS.d,1200,a);}).then(function(){lab(1,494+120,Y(-50)-2,"strong, 20 mV, no spike");cap("Graded potentials but no action potential");});},
+ post:function(){S(["graph","thr","tr","dend","tz","tox","cap"]);tubeLab.setAttribute("display","none");trNow(TR[0],C_TTXW.d);trNow(TR[1],C_TTXS.d);lab(0,peakX(T1),Y(-65)-14,"weak, 5 mV");lab(1,494+120,Y(-50)-2,"strong, 20 mV, no spike");cap("Graded potentials but no action potential");}},
 
 /* ---- 5. story check ---- */
-{sec:"Tell the story back",comp:"Competencies 12 and 14",
- title:"The whole story, with the science names",
- text:["A stimulus opens chemically or mechanically gated channels. Sodium coming in makes a depolarizing graded potential and potassium going out makes a hyperpolarizing one. The size matches the stimulus, with no threshold and no fixed size.","The charge spreads by local current flow and fades with distance, because of current leak across the membrane and cytoplasmic resistance inside. A wider process spreads it farther. At the trigger zone, graded potentials that overlap add together by summation. A subthreshold total fades away. A suprathreshold total fires an action potential."],
+{sec:"Review",comp:"Competencies 12 and 14",
+ title:"Summary with the scientific terms",
+ text:["A stimulus opens chemically or mechanically gated channels. Sodium entering produces a depolarizing graded potential, and potassium leaving produces a hyperpolarizing one. At a synapse these are EPSPs and IPSPs; in a sensory receptor, a graded potential produced by a stimulus such as stretch is called a receptor potential. The amplitude varies with the strength of the stimulus, and there is no threshold and no fixed size.","The charge spreads by local current flow and decreases with distance, which is decremental conduction, because of current leak across the membrane and cytoplasmic resistance inside. A wider process spreads it farther. At the trigger zone, graded potentials that overlap in time add together by spatial or temporal summation. A subthreshold total fades away, and a suprathreshold total generates an action potential."],
  ask:"Without scrolling back, explain why a graded potential that is 20 mV at the tip of a dendrite can fail to fire the neuron, and name two ways it could still reach threshold.",
- ans:["It fades on the way to the trigger zone, because charge leaks out through leak channels and the cytoplasm resists its flow, so much less than 20 mV may be left when it arrives. It could still reach threshold if other graded potentials arrive at the same time and add to it, or if it starts closer to the trigger zone or travels a wider process, so less of it is lost.","If any part of that was hard to recall, go back over it before you start the action potential walkthrough, which picks up right at the trigger zone."],
+ ans:["It fades on the way to the trigger zone, because charge leaks out through leak channels and the cytoplasm resists its flow, so much less than 20 mV may be left when it arrives. It could still reach threshold by summation, if EPSPs from other synapses arrive at the same time (spatial summation) or the same synapse is activated again in quick succession (temporal summation). It could also reach threshold if it started closer to the trigger zone or traveled along a wider process, so that less of it is lost.","If you could not recall part of this, review those steps before you start the action potential walkthrough, which begins at the trigger zone."],
  desc:"The dendrite, the cell body and trigger zone, and the tracing are all shown. The tracing replays two graded potentials adding up to threshold and firing.",
  pre:function(){S(["graph","thr","tr","dend","gate","taper","tz","meter","cap"]);tubeLab.setAttribute("display","none");gatesOpen(true);},
- play:function(a){return tweenVal(0,1,900,a,function(t){taperSet(t);}).then(function(){return Promise.all([trDraw(TR[0],C_TZ2.d,1200,a),tweenVal(-70,-54,800,a,function(v){mv(v);})]);}).then(function(){cap("Add up, reach threshold, fire.");});},
- post:function(){S(["graph","thr","tr","dend","gate","taper","tz","meter","cap"]);tubeLab.setAttribute("display","none");gatesOpen(true);taperSet(1);trNow(TR[0],C_TZ2.d);mv(-54);cap("Add up, reach threshold, fire.");}}
+ play:function(a){return tweenVal(0,1,900,a,function(t){taperSet(t);}).then(function(){return Promise.all([trDraw(TR[0],C_TZ2.d,1200,a),tweenVal(-70,-54,800,a,function(v){mv(v);})]);}).then(function(){cap("Summed EPSPs reach threshold");});},
+ post:function(){S(["graph","thr","tr","dend","gate","taper","tz","meter","cap"]);tubeLab.setAttribute("display","none");gatesOpen(true);taperSet(1);trNow(TR[0],C_TZ2.d);mv(-54);cap("Summed EPSPs reach threshold");}}
 ];
 
 /* ======================= support videos ======================= */
@@ -647,8 +647,8 @@ var V={
   gmech:{u:"https://www.youtube.com/watch?v=NaAwVrOEyss",n:"Neuron graded potential mechanism"}
 };
 var SUP={
-  "A chemical opens a few doors":[["What is a graded potential?","graded","Listen for a small change in the membrane voltage, and which way it goes."],["How do ions make the membrane rise?","gmech","Listen for positive ions coming in through open channels and the voltage moving up."]],
-  "A door that goes the other way":[["What does hyperpolarization mean?","graded","Listen for the membrane becoming more negative than rest."]]
+  "Sodium enters: depolarization":[["What is a graded potential?","graded","Listen for a small, local change in membrane potential and whether it is a depolarization or a hyperpolarization."],["How does sodium entry depolarize the membrane?","gmech","Listen for sodium ions entering through open channels and the membrane potential becoming less negative."]],
+  "Potassium leaves: hyperpolarization":[["What does hyperpolarization mean?","graded","Listen for the membrane potential becoming more negative than the resting potential."]]
 };
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";

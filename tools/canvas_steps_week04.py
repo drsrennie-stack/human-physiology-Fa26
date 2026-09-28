@@ -88,11 +88,11 @@ STEPS = [
 
  dict(title="Upload your Competency Study Guide", time="About 10 minutes",
   status="Turned in. Complete or not complete.",
-  intro="You turn in your guide with both colors on it, so I can see how the week went for you.",
+  intro="This is the Competency Study Guide you printed at the start of the week, or your own labeled pages, that you filled in during Step 2 and Step 3. You upload it here with both colors on it, so I can see how the week went for you.",
   todo=["Check that every box has your first color and your second color, whether you used the printed worksheet or your own paper.",
         "Photograph or scan every page, and put them in order, competency 1 first.",
         "Combine all the pages into one PDF. The assignment takes only one document, so a second upload replaces the first. A phone scanning app (Notes on iPhone, Google Drive or Adobe Scan on Android) makes the single PDF for you."],
-  links=[("How the Competency Study Guide works, if you want the details", "assignment-notesheet.html", "optional")],
+  links=[("How the Competency Study Guide works, if you want the details", "assignment-notesheet.html?week=4", "optional")],
   submit_here=["Upload the one file here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
           "Due " + DUE + ". Complete or not complete."],
   turnin=["Upload the one file to the <strong>Week 4 Competency Study Guide</strong> assignment in Canvas.",

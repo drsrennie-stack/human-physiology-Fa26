@@ -544,7 +544,7 @@ window.BIO005_EHR = {
     ],
     mar:[
       ['Balanced crystalloid','500 mL','Intravenous over 20 minutes','Nov 4, 0910','Given'],
-      ['Balanced crystalloid, second bolus','500 mL','Intravenous','Nov 4, 0940','NOT GIVEN, cancelled'],
+      ['Balanced crystalloid, second bolus','500 mL','Intravenous','Nov 4, 0940','NOT GIVEN, canceled'],
       ['Noradrenaline','0.05 micrograms/kg/min, titrated to 0.22','Intravenous infusion','Nov 4, 0950','Running'],
       ['Dobutamine','5 micrograms/kg/min','Intravenous infusion','Nov 4, 1600','Running'],
       ['Carvedilol','12.5 mg','Oral','Nov 4, evening dose','HELD']
@@ -559,13 +559,13 @@ window.BIO005_EHR = {
     ],
     coach:{
       predict:"He is about to be given 500 mL of fluid. His central venous pressure is already 14. Before you look: what happens to his cardiac output, and what happens to his oxygen saturation?",
-      read:"Nine hours, four sets of numbers, and two decisions. One of the decisions was to not give something, and it is on the medication record as cancelled. Find it.",
+      read:"Nine hours, four sets of numbers, and two decisions. One of the decisions was to not give something, and it is on the medication record as canceled. Find it.",
       lesson:["derived", "Mean arterial pressure and systemic vascular resistance are both calculated, not measured. Where should a calculated number sit on a chart, and what has to travel with it?"],
       vitals:"Chart the central venous pressure in the same column as the cardiac output every time. Neither means much alone.",
       io:"Nine hours, 2,400 mL in and 190 mL out. Before you judge that: what is his kidney being asked to do at a mean pressure of 58?",
       results:"You are asked to calculate a resistance. Take the numbers off your own flowsheet rather than out of the paragraph. Did you get the same answer twice?",
       problems:"Shock is not a problem list entry. What kind, what is your evidence, and would you be willing to change it at 1800?",
-      mar:"A bolus that was ordered and then cancelled is still on the record. Why does a chart keep the thing that did not happen?",
+      mar:"A bolus that was ordered and then canceled is still on the record. Why does a chart keep the thing that did not happen?",
       note:"Your plan should name the number you would titrate to and the number that would tell you the titration is not working."
     }
   },

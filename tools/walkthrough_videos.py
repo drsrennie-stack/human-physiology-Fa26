@@ -19,7 +19,8 @@ def videos(src):
     for m in re.finditer(r'(?:"([^"]+)"|SUP\["([^"]+)"\])\s*[:=]\s*\[((?:\["[^"]*","\w+","[^"]*"\],?)+)\]', sup):
         step = (m.group(1) or m.group(2)).replace('"+M+"', "−")
         for q, k, _ in re.findall(r'\["([^"]*)","(\w+)","([^"]*)"\]', m.group(3)):
-            out.append((step, q, N.get(k, ""), V.get(k, "")))
+            u = lambda t: re.sub(r"\\u([0-9a-fA-F]{4})", lambda z: chr(int(z.group(1), 16)), t)
+            out.append((u(step), u(q), N.get(k, ""), V.get(k, "")))
     # put them in the order the steps come in the walkthrough
     order = [t.replace('"+M+"', "\u2212") for t in re.findall(r'\n\{(?:sec:"[^"]*",comp:"[^"]*",\s*)?\s*title:"((?:[^"]|"\+M\+")*)"', src)]
     out.sort(key=lambda r: order.index(r[0]) if r[0] in order else 999)
