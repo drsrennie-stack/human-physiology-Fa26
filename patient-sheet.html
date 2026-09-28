@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your patient sheet &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <!-- ==========================================================
      THE PATIENT SHEET. One patient, fifteen weeks, one running record.
@@ -32,7 +33,7 @@
      assumes otherwise loses an hour of work.
      ========================================================== -->
 <style>
-:root{--navy:#1E3D4C;--rust:#A0522D;--rust-dark:#142a36;--page:#FAFAF9;--hair:rgba(30,61,76,.16)}
+:root{--navy:#1B2A4A;--maroon:#8C2F39;--navy-deep:#111C33;--page:#FAFAF9;--hair:rgba(27,42,74,.16)}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans-serif;
@@ -40,40 +41,40 @@ body{font-family:'Plus Jakarta Sans Variable','Plus Jakarta Sans',system-ui,sans
 .inner{max-width:860px;margin:0 auto}
 .skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:#fff;padding:12px 18px;font-weight:700;text-decoration:none;z-index:20}
 .skip:focus{left:0;top:0}
-a{color:var(--rust)}
-:focus-visible{outline:3px solid var(--rust);outline-offset:2px}
+a{color:var(--maroon)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:2px}
 
 header.brand{display:flex;align-items:center;gap:12px;padding:16px max(22px,4vw);
   border-bottom:1px solid var(--hair);margin:-34px max(-22px,-4vw) 24px;background:#fff}
 header.brand .bwm{font-weight:800;font-size:16px;color:var(--navy)}
-header.brand .bwm b{color:var(--rust)}
-header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#35505E}
+header.brand .bwm b{color:var(--maroon)}
+header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#39465E}
 
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--rust);margin:0 0 10px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
 h1{font-size:clamp(25px,4.2vw,34px);font-weight:800;letter-spacing:-.02em;margin:0 0 6px;line-height:1.1}
 .sub{margin:0 0 4px;font-weight:700}
 p{max-width:70ch}
 h2{font-size:18px;font-weight:800;margin:30px 0 6px;letter-spacing:-.01em}
-h2 .num{color:var(--rust);font-variant-numeric:tabular-nums;margin-right:9px}
+h2 .num{color:var(--maroon);font-variant-numeric:tabular-nums;margin-right:9px}
 h3{font-size:15px;font-weight:800;margin:0 0 6px}
-.note{font-size:13.5px;color:#35505E;max-width:66ch}
+.note{font-size:13.5px;color:#39465E;max-width:66ch}
 
 .idbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;
-  background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:10px 0 6px}
-.fld label{display:block;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin:0 0 4px}
+  background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(27,42,74,.10);margin:10px 0 6px}
+.fld label{display:block;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon);margin:0 0 4px}
 .fld input,.fld select{width:100%;font:inherit;font-size:14.5px;padding:8px 10px;
   border:1px solid var(--hair);border-radius:8px;background:#fff;color:var(--navy)}
 
-.card{background:#fff;border-radius:12px;padding:16px 18px 14px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:10px 0 4px}
+.card{background:#fff;border-radius:12px;padding:16px 18px 14px;box-shadow:0 1px 3px rgba(27,42,74,.10);margin:10px 0 4px}
 .card p:last-child{margin-bottom:0}
-.chart dt{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin:12px 0 3px}
+.chart dt{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon);margin:12px 0 3px}
 .chart dd{margin:0 0 3px}
 .chart dl{margin:0}
 
 /* one step of the walkthrough */
-.stp{background:#fff;border-radius:12px;padding:16px 18px 14px;box-shadow:0 1px 3px rgba(30,61,76,.10);margin:10px 0;break-inside:avoid}
+.stp{background:#fff;border-radius:12px;padding:16px 18px 14px;box-shadow:0 1px 3px rgba(27,42,74,.10);margin:10px 0;break-inside:avoid}
 .stp .q{font-weight:800;margin:0 0 8px}
-.stp .how{margin:0 0 10px;padding-left:20px;font-size:14px;color:#1E3D4C}
+.stp .how{margin:0 0 10px;padding-left:20px;font-size:14px;color:#1B2A4A}
 .stp .how li{margin:0 0 5px}
 .ans{width:100%;font:inherit;font-size:14.5px;line-height:1.55;padding:10px 12px;
   border:1px solid var(--hair);border-radius:8px;background:#fff;color:var(--navy);resize:vertical}
@@ -84,14 +85,14 @@ h3{font-size:15px;font-weight:800;margin:0 0 6px}
 
 table.loop{width:100%;border-collapse:collapse;margin:6px 0 0;font-size:14px}
 table.loop th,table.loop td{border:1px solid var(--hair);padding:7px 9px;text-align:left;vertical-align:top}
-table.loop th{background:#EDF1F3;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;width:24%}
+table.loop th{background:#EAEEF6;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;width:24%}
 table.loop td{height:66px}
 
 .btns{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
 .btn{font:inherit;display:inline-block;font-weight:800;text-decoration:none;border-radius:10px;padding:12px 18px;cursor:pointer}
-.btn.solid{background:var(--rust);color:#fff;border:1.5px solid var(--rust)}
-.btn.solid:hover{background:var(--rust-dark);border-color:var(--rust-dark)}
-.btn.line{background:#142a36;color:#FAFAF9;border:1.5px solid #142a36;box-shadow:0 6px 14px -5px rgba(30,61,76,.45),0 2px 5px -2px rgba(30,61,76,.30)}
+.btn.solid{background:var(--maroon);color:#fff;border:1.5px solid var(--maroon)}
+.btn.solid:hover{background:var(--navy-deep);border-color:var(--navy-deep)}
+.btn.line{background:#111C33;color:#FAFAF9;border:1.5px solid #111C33;box-shadow:0 6px 14px -5px rgba(27,42,74,.45),0 2px 5px -2px rgba(27,42,74,.30)}
 
 .wkblock{margin:0 0 34px}
 .wkrule{margin:34px 0 0;border:0;border-top:1px solid var(--hair)}
@@ -125,7 +126,7 @@ html.embedded{scrollbar-gutter:stable;scrollbar-width:thin}
 <body>
 <a class="skip" href="#main">Skip to the sheet</a>
 <header class="brand">
-  <svg width="28" height="34" viewBox="40 10 125 148" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#1E3D4C"/><circle cx="17" cy="8" r="4.2" fill="#A0522D"/><circle cx="26" cy="8" r="4.2" fill="#B8924A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#1E3D4C"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#A0522D"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#B8924A"/></g></svg>
+  <svg width="28" height="34" viewBox="40 10 125 148" role="img" aria-label="BIO 005 Human Physiology"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#1B2A4A"/><circle cx="17" cy="8" r="4.2" fill="#8C2F39"/><circle cx="26" cy="8" r="4.2" fill="#B8924A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#1B2A4A"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8C2F39"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#B8924A"/></g></svg>
   <span><span class="bwm">BIO <b>005</b></span><span class="bsub">Human Physiology &middot; Fall 2026</span></span>
 </header>
 
@@ -284,7 +285,7 @@ html.embedded{scrollbar-gutter:stable;scrollbar-width:thin}
       toolsBlock = '<h2><span class="num">&#9679;</span>Before you start</h2>' +
         '<div class="card"><ul>' + wk.tools.map(function(t){
           return '<li><strong>' + t[0] + '.</strong> ' + t[1] +
-                 (t[2] ? ' <em style="font-style:normal;font-weight:700;color:#A0522D">You build this properly in Week ' + t[2] + '.</em>' : '') + '</li>';
+                 (t[2] ? ' <em style="font-style:normal;font-weight:700;color:#8C2F39">You build this properly in Week ' + t[2] + '.</em>' : '') + '</li>';
         }).join('') + '</ul></div>';
     }
 

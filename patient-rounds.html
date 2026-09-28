@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rounds &middot; BIO 005 Human Physiology</title>
+<meta name="description" content="BIO 005: walk one step at a time through your patient's week and chart them as you go. The case moves forward, the chart fills up beside it, and you are told how to chart rather than what to chart.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<!--
+  ============================================================
+  BIO 005 Human Physiology, Fall 2026, Yuba College
+  patient-rounds.html
+
+  Sep 22 2026. Scrubs asked for three things and they are one thing.
+    1. Chart it on screen, laid out the way a hospital record lays a
+       patient out.
+    2. Walk them through the case and the charting as they go.
+    3. Tell them HOW to chart, never WHAT to chart, and direct by
+       asking questions that make them think.
+
+  So this is a stepped case on the left and a live chart on the
+  right. Each step moves the patient's story forward, or asks a
+  question, or teaches one piece of charting craft. The chart fills
+  up as they work and is the thing they hand in.
+
+  THE ORDER MATTERS AND IT IS ENFORCED, TWICE. Step 2 is a
+  prediction made before any result is visible. Until it is written,
+  the Results and Flowsheet tabs are locked. And the note itself
+  opens one part at a time as the steps reach it, so at step 2 there
+  is an arc and nothing else: the prediction asks about numbers that
+  are not on the screen yet and will not be until the student has
+  committed. Jumping down the step rail opens the note as far as the
+  step jumped to, so the rail is a shortcut and never a way round.
+  That is the same mechanism BIO005-patient-file.html uses and it is
+  the reason this assignment survives contact with a chatbot.
+
+  HOW, NOT WHAT. The teaching library near the bottom of the script
+  holds twelve charting lessons: filing against a time, charting a
+  weight, charting what you did not find, charting an output nobody
+  measured, a score charted as its parts, a set value against a
+  measured one, a held medication, a calculated number, closing a
+  problem, and so on. Each week names one. None of them says what
+  value to type.
+
+  TRANSCRIPTION IS CHECKED, NOT SUPPLIED. The student reads the
+  numbers out of the note and the results, exactly as a nurse reads
+  them off a monitor and a lab report, and types them into an empty
+  flowsheet. The app then compares what they typed against
+  bio005-chart-ehr.js and says which cells disagree. It never fills a
+  cell in. Free text rows, oxygen delivered, pupils, reflexes, are
+  marked as not auto-checked rather than being marked wrong for
+  wording.
+
+  WEEKS 1 AND 2 ARRIVE ALREADY FILED. Those two weeks were charted on
+  paper before this page existed and nobody should do them twice.
+  They render filled and read-only with a line saying so.
+
+  NOT AN IMITATION OF ANY VENDOR. Banner, activity tabs, a time
+  ordered flowsheet, a medication record and a step list down the
+  side are conventions every inpatient record shares. No vendor's
+  branding, colors or wording appears anywhere on this page.
+
+  SAVING. Everything typed is kept in localStorage under
+  bio005-rounds-v1-wN, and a save code can be copied out and pasted
+  back on another machine. Drawings are not saved, which is the other
+  reason to export the PDF every week.
+
+
+  Sep 22 2026, palette. The navy had a green cast that read as teal and
+  the accent was a brown sienna. Navy is now #1B2A4A, a dark navy, and
+  the accent is #8C2F39, a red maroon, which is also what the design
+  system originally called that token. Both were contrast checked before
+  they were applied: navy went from 11.49:1 to 14.22:1 on white, and the
+  accent from 5.62:1, which clears AA only, to 8.14:1, which clears AAA.
+  Every text pair on this page now reaches AAA.
+
+  STANDALONE ON PURPOSE. This sits in a Canvas module as an iframe,
+  so the site chrome is off it and the bar at the top is the only way
+  off the page.
+  ============================================================
+-->
+<style>
+/* Page-specific only. Palette values are PRIMARY, per palettes.md. */
+:root{
+  --navy:#1B2A4A; --navy-deep:#111C33; --navy-tint:#EAEEF6;
+  --gold:#B8924A; --terra:#A94A54; --terra-dark:#8C2F39;
+  --page:#FAFAF9; --card:#FFFFFF; --ink:#1B2A4A; --muted:#39465E;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+  --shadow-lift:0 8px 16px rgba(0,0,0,.10);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--page);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+em,i,cite,dfn,var{font-style:normal;font-weight:700}
+h1,h2,h3,h4{font-family:var(--display);font-weight:800;letter-spacing:-.02em;margin:0;line-height:1.18}
+p{margin:0 0 12px;max-width:72ch}
+ul,ol{margin:0 0 12px;padding-left:22px;max-width:72ch}
+li{margin:5px 0}
+a{color:var(--terra-dark);text-underline-offset:3px}
+a:hover{color:var(--navy-deep)}
+:focus-visible{outline:3px solid var(--terra-dark);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;z-index:120;background:var(--navy);color:#fff;padding:13px 20px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{max-width:1500px;margin:0 auto;padding:0 18px}
+
+button{font-family:inherit;font-size:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;
+  border-radius:10px;font-weight:800;font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;border:1.5px solid var(--navy);color:var(--navy);background:var(--card)}
+.btn:hover{background:var(--navy-tint)}
+.btn.pri{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.pri:hover{background:var(--navy-deep);color:#fff}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+
+/* banner */
+.banner{background:var(--navy);color:#fff;padding:14px 0 16px}
+.banner .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-start}
+.banner .who h1{font-size:23px}
+.banner .who p{color:#DCE3F0;font-size:13.5px;margin:4px 0 0;max-width:46ch}
+.bfields{display:flex;flex-wrap:wrap;gap:10px 24px;margin-left:auto;font-size:12.5px}
+.bf{min-width:120px}
+.bf .l{display:block;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#C9D4EA}
+.bf .v{display:block;color:#fff;font-weight:700}
+.bf.alert .v{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+/* layout */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:18px;margin:18px 0 40px;align-items:start}
+@media (max-width:1080px){ .cols{grid-template-columns:1fr} }
+
+.panel{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px}
+.panel + .panel{margin-top:16px}
+.plabel{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 8px}
+
+/* step rail */
+.rail{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.rail li{margin:0}
+.rail button{display:block;min-height:30px;padding:4px 9px;border-radius:7px;border:1px solid var(--navy-tint);
+  background:var(--card);color:var(--muted);font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.rail button:hover{background:var(--navy-tint);color:var(--navy)}
+.rail button[aria-current="step"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.rail button.done{border-color:var(--navy);color:var(--navy)}
+.rail button.done::before{content:"\2713\00a0";font-weight:800}
+.rail button[disabled]{opacity:.5;cursor:not-allowed}
+
+.prog{font-size:12.5px;color:var(--muted);margin:0 0 4px}
+.stepnum{font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 6px}
+.step h2{font-size:21px;margin:0 0 10px}
+.step .lede{font-size:16.5px}
+.say{font-size:16px;color:var(--ink)}
+.watch{border:1px solid var(--terra-dark);border-radius:10px;padding:12px 14px;margin:14px 0 0}
+.watch .plabel{margin-bottom:6px}
+.watch p:last-child{margin-bottom:0}
+
+/* beat cards, the story */
+.beat{border:1px solid var(--navy-tint);border-radius:10px;padding:12px 14px;margin:0 0 10px}
+.beat h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 5px}
+.beat p{margin:0;font-size:15px}
+
+/* fields */
+label.fl{display:block;font-size:13px;font-weight:700;color:var(--navy);margin:0 0 5px}
+.hint{font-size:13px;color:var(--muted);margin:0 0 8px}
+textarea,input[type=text]{width:100%;font-family:inherit;font-size:15px;color:var(--ink);background:var(--card);
+  border:1.5px solid var(--navy);border-radius:9px;padding:9px 11px;line-height:1.5}
+textarea{min-height:104px;resize:vertical}
+.count{font-size:12px;color:var(--muted);margin:5px 0 0}
+.qbox{margin:0 0 18px}
+.qbox:last-child{margin-bottom:0}
+
+/* the chart */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;border-bottom:1px solid var(--navy-tint);padding:0 0 10px}
+.tabs button{min-height:38px;padding:7px 13px;border-radius:8px;border:1px solid transparent;background:transparent;
+  color:var(--muted);font-size:13px;font-weight:800;cursor:pointer}
+.tabs button:hover{background:var(--navy-tint);color:var(--navy)}
+.tabs button[aria-selected="true"]{background:var(--navy);color:#fff}
+.tabs button[disabled]{opacity:.45;cursor:not-allowed}
+.tabs button .lk{font-weight:800}
+
+.locked{border:1px solid var(--terra-dark);border-radius:10px;padding:16px 18px}
+.locked p:last-child{margin-bottom:0}
+
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+table caption{text-align:left;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--terra-dark);padding:0 0 7px}
+th,td{border:1px solid var(--navy-tint);padding:5px 8px;text-align:left;vertical-align:top}
+thead th{background:var(--navy-tint);font-family:var(--display);font-size:10.5px;font-weight:800;color:var(--navy);line-height:1.25}
+tbody th{font-weight:600;background:var(--card)}
+tbody th .u{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+tr.grp th{background:var(--navy);color:#fff;font-family:var(--display);font-size:10.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase}
+td.val{font-weight:800;white-space:nowrap}
+td.ref{color:var(--muted);font-size:11.5px}
+td.flg{white-space:nowrap;font-weight:800;font-size:11.5px;color:var(--terra-dark)}
+tr.abn td.val{color:var(--terra-dark)}
+td.held{color:var(--terra-dark);font-weight:800}
+table input[type=text]{border-width:1px;border-radius:6px;padding:4px 6px;font-size:13px;min-width:74px}
+table input[readonly]{background:var(--navy-tint);border-style:solid;font-weight:700}
+td.ok input{border-color:var(--navy);border-width:2px}
+td.no input{border-color:var(--terra-dark);border-width:2px}
+.cellmsg{display:block;font-size:11px;font-weight:800;margin:3px 0 0}
+td.ok .cellmsg{color:var(--navy)}
+td.no .cellmsg{color:var(--terra-dark)}
+
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.flash{border:1px solid var(--navy);border-radius:10px;padding:11px 13px;margin:12px 0 0;font-size:14px}
+.flash.bad{border-color:var(--terra-dark)}
+.flash p:last-child{margin-bottom:0}
+
+.code{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+  border:1.5px solid var(--navy);border-radius:9px;padding:9px 11px;min-height:90px}
+
+.printonly{display:none}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (forced-colors:active){.panel,.beat,.watch,.locked,.flash{border:1px solid CanvasText}}
+
+@media print{
+  @page{size:letter portrait;margin:.55in}
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .skip,.backbar,.tabs,.rail,.btnrow,.noprint,.prog,.stepnum{display:none!important}
+  .banner{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 10px}
+  .banner .who p,.bf .l,.bf .v{color:#000}
+  .wrap{max-width:none;padding:0}
+  .cols{display:block;margin:0}
+  .panel{box-shadow:none;border:0;padding:0;margin:0 0 14px;break-inside:avoid}
+  .printonly{display:block}
+  .screenonly{display:none!important}
+  textarea,input[type=text]{border:0;border-bottom:1px solid #000;border-radius:0;padding:2px 0}
+  textarea{min-height:0;height:auto}
+  thead th,tr.grp th{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  th,td{border-color:#000}
+  td.flg,tr.abn td.val,td.held,.plabel,.stepnum{color:#000}
+  h2,h3{break-after:avoid}
+}
+</style>
+</head>
+<body>
+<nav class="backbar" aria-label="Leave this page" style="background:#1B2A4A;padding:10px max(18px,4vw)">
+  <a class="skip" href="#main">Skip to rounds</a>
+  <a href="https://yccd.instructure.com/courses/42616/modules" target="_top"
+     style="display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 17px;
+            border-radius:99px;background:#FFFFFF;border:2px solid #FFFFFF;color:#1B2A4A;
+            font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+            font-weight:700;font-size:13.5px;text-decoration:none">
+    <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2 4 8l6.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Canvas modules</a>
+</nav>
+
+<header class="banner"><div class="wrap">
+  <div class="who">
+    <h1 id="pname">Loading the chart</h1>
+    <p id="pline"></p>
+  </div>
+  <div class="bfields" id="bfields"></div>
+</div></header>
+
+<main class="wrap" id="main" tabindex="-1">
+<div class="cols">
+
+  <!-- ============ LEFT: rounds ============ -->
+  <div>
+    <section class="panel" aria-labelledby="rounds-h">
+      <p class="plabel" id="rounds-h">Rounds</p>
+      <p class="prog" id="prog"></p>
+      <ul class="rail" id="rail" aria-label="Steps in this week"></ul>
+
+      <div class="step" id="step" role="region" aria-live="polite" aria-atomic="false">
+        <p class="stepnum" id="stepnum"></p>
+        <h2 id="steph" tabindex="-1">&nbsp;</h2>
+        <div id="stepbody"></div>
+      </div>
+
+      <div class="btnrow noprint">
+        <button type="button" class="btn" id="prev">Back</button>
+        <button type="button" class="btn pri" id="next">Next step</button>
+      </div>
+      <p class="note" id="saved" aria-live="polite">Your typing is kept in this browser as you go.</p>
+    </section>
+  </div>
+
+  <!-- ============ RIGHT: the chart ============ -->
+  <div>
+    <section class="panel" aria-labelledby="chart-h">
+      <p class="plabel" id="chart-h">The chart</p>
+      <div class="tabs" role="tablist" aria-label="Chart activities" id="tabs"></div>
+      <div id="tabpanels"></div>
+    </section>
+  </div>
+
+</div>
+</main>
+
+<script src="bio005-patient-chart.js"></script>
+<script src="bio005-chart-ehr.js"></script>
+<script>
+(function () {
+'use strict';
+
+var C = window.BIO005_CHART, E = window.BIO005_EHR;
+var root = document.getElementById('stepbody');
+if (!C || !E || !root) { return; }
+
+/* ---------- which week ---------- */
+var m = /[?&]week=(\d{1,2})/.exec(location.search);
+var WK = m ? Math.max(1, Math.min(15, parseInt(m[1], 10))) : 1;
+var wk = C.weeks[WK], ex = E.weeks[WK];
+if (!wk || !ex) {
+  root.textContent = 'Week ' + WK + ' is missing from the chart. Tell Dr. Rennie, because that is a mistake and not a design choice.';
+  return;
+}
+var pKey = C.patientByWeek[WK] || 'A';
+var P = C.patients[pKey];
+var B = E.banner[pKey];
+var KEY = 'bio005-rounds-v1-w' + WK;
+var TRACKKEY = 'bio005-track-v1';
+
+/* ---------- saved state ---------- */
+var S = { v:1, week:WK, answers:{}, flow:{}, io:{}, done:{}, track:null, name:'', seen:-1 };
+try {
+  var raw = localStorage.getItem(KEY);
+  if (raw) { var got = JSON.parse(raw); if (got && got.week === WK) { S = Object.assign(S, got); } }
+} catch (e) {}
+try { if (!S.track) { S.track = localStorage.getItem(TRACKKEY); } } catch (e) {}
+
+var saveTimer = null;
+function flush() {
+  clearTimeout(saveTimer); saveTimer = null;
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+}
+/* A student who types and shuts the laptop should not lose the last sentence,
+   so the debounce is flushed the moment the page is hidden or unloaded. */
+window.addEventListener('pagehide', flush);
+window.addEventListener('beforeunload', flush);
+document.addEventListener('visibilitychange', function () { if (document.hidden) { flush(); } });
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function () {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(S));
+      document.getElementById('saved').textContent = 'Saved in this browser a moment ago. Export the PDF before you close it.';
+    } catch (e) {
+      document.getElementById('saved').textContent = 'This browser will not let the page save. Keep the tab open and export the PDF before you leave.';
+    }
+  }, 350);
+}
+
+/* ---------- small helpers ---------- */
+function esc(s) { return String(s == null ? '' : s); }
+function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+function nums(s) { var f = String(s).match(/-?\d+(?:\.\d+)?/g); return f ? f.join(' ') : ''; }
+
+/* ---------- the charting lessons. HOW, never WHAT. ---------- */
+var LESSONS = {
+  time: { title:'A vital sign is filed against a time, not a day',
+    how:'Every column on a flowsheet has a time at the top, and everything in that column was true at that time. Before you write a single value, write the time. Two sets of vitals taken four minutes apart are two columns, not one, because the whole reason anybody took the second set was to see what changed in those four minutes. A chart that loses the time has lost the finding.' },
+  weight: { title:'A weight is a vital sign, and it belongs in the grid',
+    how:'Weight goes in the flowsheet row with the heart rate and the blood pressure, not into a sentence in the note. It goes there because a weight is only ever useful next to another weight, and a row is what lets you see three of them at once. In a patient whose problem is water, the scale is often the most sensitive instrument on the unit and it costs nothing.' },
+  trend: { title:'A value goes in a column so it can become a row',
+    how:'One number is a fact. A row of numbers is a direction, and direction is what clinical reasoning runs on. That is the whole argument for a flowsheet: not tidiness, but the fact that a row can be read left to right in one second by someone who has never met the patient. File the value in the right row even when it feels lonely, because the row is what you are building.' },
+  source: { title:'A chart says where a number came from',
+    how:'A potassium from a laboratory, a potassium from a blood gas machine and a change on an ECG are three different kinds of evidence about the same ion, and they do not always agree. Good charting keeps them apart: the laboratory value in the laboratory row, the bedside value in the bedside row, the ECG in the note. When they disagree, the disagreement is the finding, and you can only see it if you did not merge them.' },
+  components: { title:'A score is charted as its parts',
+    how:'Scores are shorthand for several separate observations and the shorthand throws away most of the information. Chart the parts. A Glasgow Coma Scale charted as three components tells the next person which pathway changed; charted as a total it tells them almost nothing, and two patients with the same total can need completely different things.' },
+  absent: { title:'Chart what you looked for and did not find',
+    how:'A normal finding you actively checked is evidence, and it is evidence that disappears if you only write down abnormal things. No fasciculation, sensation intact, no casts in the urine: each of those took someone time and each of them rules something out. The next person cannot tell the difference between a thing that was normal and a thing nobody looked at unless you write it.' },
+  unmeasured: { title:'Chart the loss nobody measured, as unmeasured',
+    how:'Sweat, breath, stool, a bed that was changed: real fluid leaves by routes no chart has a column for. The honest entry is the words not measured, with a note of why. A blank looks like zero to the next reader and a guess looks like a measurement. Neither is true, and the difference will matter when someone adds the column up and cannot make it agree with the scale.' },
+  derived: { title:'A number you calculated is not a number you read',
+    how:'A mean arterial pressure, a resistance, an anion gap, an energy availability: these are worked out from other numbers and they inherit every error in them. Chart them where they can be seen next to their ingredients, and be ready to show the arithmetic. If you cannot point at the two or three values a derived number came from, you should not be acting on it.' },
+  closing: { title:'Closing a problem is a clinical act',
+    how:'Problems get opened easily and closed almost never, which is how a list becomes useless. Closing one means saying what resolved it and what evidence convinced you, in the same field where you wrote why you opened it. A list where nothing ever closes cannot be read at speed, and a list nobody reads at speed is not doing its job.' },
+  heldmed: { title:'A held medication stays on the record',
+    how:'There is a difference between a drug that was stopped and a drug that is being held, and the record must show which. Held means someone decided, today, that this patient should not have it, and it means someone has to decide again tomorrow. Delete it and the decision vanishes, and a drug that was deliberately withheld quietly comes back a week later because nobody knew it had been paused.' },
+  settings: { title:'A set value and a measured value are not the same row',
+    how:'On a ventilated patient some numbers were chosen by a person and some were produced by the patient. A set rate is an instruction; a measured rate is a response. Keep them in different rows and label them, because the interesting moment is always when the two stop matching, and you cannot see that moment if they share a line.' },
+  compare: { title:'A comparison is only as good as the grid it sits in',
+    how:'Putting two patients, or two days, side by side is the most powerful thing a chart can do and the easiest to do badly. It works when the rows mean the same thing in both columns: the same units, the same conditions, the same kind of measurement. It misleads when they do not. Before you compare, check that the rows line up, and say out loud what you are holding constant.' }
+};
+
+/* ---------- normalised comparison for the flowsheet check ---------- */
+var TEXTROWS = { o2:1, pupils:1, dtr:1, uo:1 };
+function matches(typed, want) {
+  var a = nums(typed), b = nums(want);
+  if (a && b) { return a === b; }
+  return String(typed).trim().toLowerCase().replace(/\s+/g, ' ') ===
+         String(want).replace(/<[^>]+>/g, '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+/* ---------- build the step list ---------- */
+var steps = [];
+steps.push({ id:'arrive', label:'Arrive', title:'Where you are, and who you are seeing' });
+steps.push({ id:'predict', label:'Predict', title:'Before you look at anything', gate:true });
+wk.chart.forEach(function (row, i) {
+  steps.push({ id:'beat' + i, label:row[0].split(',')[0].slice(0, 16), title:row[0], beat:i });
+});
+steps.push({ id:'lesson', label:'How to chart', title:LESSONS[ex.coach.lesson[0]].title });
+steps.push({ id:'vitals', label:'File vitals', title:'File this week into the flowsheet' });
+if (ex.io) { steps.push({ id:'io', label:'Intake and output', title:'Chart what went in and what came out' }); }
+steps.push({ id:'results', label:'Read results', title:'Read the results that were released' });
+steps.push({ id:'problems', label:'Problem list', title:'Update the problem list' });
+steps.push({ id:'mar', label:'Medications', title:'Read the medication record and the orders' });
+steps.push({ id:'draw', label:'Draw', title:'Draw the control loop' });
+steps.push({ id:'five', label:'Five questions', title:'The five questions' });
+steps.push({ id:'desk', label:'Your desk', title:'The question from your entry point' });
+steps.push({ id:'note', label:'Write the note', title:'Write your progress note' });
+steps.push({ id:'sign', label:'Sign and export', title:'Sign it, and take it with you' });
+
+var idx = 0;
+
+/* ---------- banner ---------- */
+document.getElementById('pname').textContent = P.name + ', ' + P.age;
+document.getElementById('pline').textContent = ex.location + '. ' + ex.encounterType + '.';
+(function () {
+  var f = document.getElementById('bfields');
+  [['Record number', B.mrn, 0], ['Sex', B.sex, 0], ['Date of birth', B.dob, 0],
+   ['Allergies', B.allergies, 1], ['Code status', B.code, 0], ['Isolation', B.isolation, 0],
+   ['Attending', B.attending, 0], ['Week', 'Week ' + WK + ', ' + wk.title, 0]].forEach(function (r) {
+    var d = el('div', 'bf' + (r[2] ? ' alert' : ''));
+    d.appendChild(el('span', 'l', r[0]));
+    d.appendChild(el('span', 'v', esc(r[1])));
+    f.appendChild(d);
+  });
+}());
+document.title = 'Rounds · Week ' + WK + ' · BIO 005 Human Physiology';
+
+/* ---------- the chart tabs ---------- */
+var TABS = [
+  { id:'notes',  name:'Notes' },
+  { id:'flow',   name:'Flowsheet', lock:true },
+  { id:'res',    name:'Results',   lock:true },
+  { id:'mar',    name:'Medications' },
+  { id:'ord',    name:'Orders' },
+  { id:'io',     name:'Intake and output' },
+  { id:'mine',   name:'My entries' }
+];
+var activeTab = 'notes';
+
+function predicted() { return !!(S.answers.predict && S.answers.predict.trim().length >= 80); }
+
+function buildTabs() {
+  var bar = document.getElementById('tabs');
+  bar.innerHTML = '';
+  TABS.forEach(function (t) {
+    var locked = t.lock && !predicted();
+    var b = el('button', null, esc(t.name) + (locked ? ' <span class="lk" aria-hidden="true">(locked)</span>' : ''));
+    b.type = 'button';
+    b.id = 'tab-' + t.id;
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', String(activeTab === t.id));
+    b.setAttribute('aria-controls', 'panel-' + t.id);
+    b.tabIndex = activeTab === t.id ? 0 : -1;
+    if (locked) { b.setAttribute('aria-describedby', 'lockmsg'); }
+    b.addEventListener('click', function () { activeTab = t.id; buildTabs(); paintChart(); });
+    b.addEventListener('keydown', function (e) {
+      var i = TABS.map(function (x) { return x.id; }).indexOf(activeTab), n = null;
+      if (e.key === 'ArrowRight') { n = (i + 1) % TABS.length; }
+      if (e.key === 'ArrowLeft') { n = (i - 1 + TABS.length) % TABS.length; }
+      if (e.key === 'Home') { n = 0; }
+      if (e.key === 'End') { n = TABS.length - 1; }
+      if (n !== null) { e.preventDefault(); activeTab = TABS[n].id; buildTabs(); paintChart();
+        var nb = document.getElementById('tab-' + activeTab); if (nb) { nb.focus(); } }
+    });
+    bar.appendChild(b);
+  });
+}
+
+/* ---------- chart panels ---------- */
+function flagWord(f) { return ({ H:'High', L:'Low', HH:'Critical high', LL:'Critical low' })[f] || ''; }
+
+/* The note opens one beat at a time, as the steps reach it. A student who
+   has not yet predicted has the arc and nothing else, which is the point:
+   the prediction at step 2 asks about numbers that are not on the screen
+   yet and will not be until they have committed. */
+function panelNotes() {
+  var h = '<h3>' + esc(wk.encounter) + '</h3>'
+    + '<p class="note">' + esc(wk.date) + ' &middot; ' + esc(wk.when) + '</p>'
+    + '<div class="beat"><h3>Why you are here</h3><p>' + wk.arc + '</p></div>';
+  if (S.seen < 0) {
+    return h + '<div class="locked"><p class="plabel">The note opens as you walk it</p>'
+      + '<p>Nothing has been handed to you yet. The chart arrives one part at a time as you move through '
+      + 'the steps, the same order the team saw it in, and everything you have already read stays here '
+      + 'for the rest of the week.</p></div>';
+  }
+  wk.chart.forEach(function (r, i) {
+    if (i > S.seen) { return; }
+    h += '<div class="beat"><h3>' + r[0] + '</h3><p>' + r[1] + '</p></div>';
+  });
+  if (S.seen < wk.chart.length - 1) {
+    h += '<p class="note">' + (wk.chart.length - 1 - S.seen) + ' more part'
+      + (wk.chart.length - 1 - S.seen === 1 ? '' : 's') + ' of the note open as you go on.</p>';
+  }
+  return h;
+}
+
+function panelResults() {
+  if (!predicted()) { return lockMsg(); }
+  var pans = (wk.panels && wk.panels.length) ? wk.panels : ex.panels;
+  if (!pans || !pans.length) { return '<p>No laboratory results were released this week. Everything you need is in the note.</p>'; }
+  return pans.map(function (p) {
+    var h = '<div class="tblwrap"><table><caption>' + p.name + (p.when ? ' &middot; collected ' + p.when : '') + '</caption>'
+      + '<thead><tr><th scope="col">Test</th><th scope="col">Result</th><th scope="col">Units</th>'
+      + '<th scope="col">Reference range</th><th scope="col">Flag</th></tr></thead><tbody>';
+    p.rows.forEach(function (r) {
+      var f = flagWord(r[4]);
+      h += '<tr' + (f ? ' class="abn"' : '') + '><th scope="row">' + r[0] + '</th>'
+        + '<td class="val">' + r[1] + '</td><td>' + (r[2] || '') + '</td>'
+        + '<td class="ref">' + (r[3] || '') + '</td><td class="flg">' + f + '</td></tr>';
+    });
+    return h + '</tbody></table></div>';
+  }).join('');
+}
+
+function lockMsg() {
+  return '<div class="locked" id="lockmsg"><p class="plabel">Locked until you have predicted</p>'
+    + '<p>There is nothing here yet, and that is deliberate. Step 2 asks what you expect before any result is on the screen, '
+    + 'because at the moment your own thinking matters most there should be nothing to read off. '
+    + 'Write your prediction and this opens.</p></div>';
+}
+
+function panelFlow() {
+  if (!predicted()) { return lockMsg(); }
+  var pre = ex.prefiled;
+  var h = pre
+    ? '<p class="note">You charted this week on paper already, so it arrives filed. Read across the rows; you are not asked to type it again.</p>'
+    : '<p class="note">Read the values out of the note and the results, then type them in. Nothing is filled in for you. '
+      + 'When you are finished, use Check my filing at the bottom.</p>';
+  h += '<div class="tblwrap"><table><caption>Flowsheet, week ' + WK + '</caption><thead><tr>'
+    + '<th scope="col">Measure</th>';
+  ex.flow.forEach(function (c) { h += '<th scope="col">' + esc(c.t) + '</th>'; });
+  h += '</tr></thead><tbody>';
+  E.groups.forEach(function (g) {
+    var any = g.rows.some(function (r) { return ex.flow.some(function (c) { return c[r[0]] != null; }); });
+    if (!any) { return; }
+    h += '<tr class="grp"><th scope="row" colspan="' + (ex.flow.length + 1) + '">' + g.name + '</th></tr>';
+    g.rows.forEach(function (r) {
+      if (!ex.flow.some(function (c) { return c[r[0]] != null; })) { return; }
+      h += '<tr><th scope="row">' + r[1] + '<span class="u">' + (r[2] || '') + '</span></th>';
+      ex.flow.forEach(function (c, ci) {
+        var want = c[r[0]];
+        if (want == null) { h += '<td aria-label="not taken"></td>'; return; }
+        var id = 'f-' + r[0] + '-' + ci;
+        var v = pre ? want.replace(/<[^>]+>/g, '') : esc(S.flow[id] || '');
+        h += '<td data-key="' + r[0] + '" data-ci="' + ci + '" data-id="' + id + '">'
+          + '<label class="vh" for="' + id + '">' + r[1] + ', ' + esc(c.t) + '</label>'
+          + '<input type="text" id="' + id + '" value="' + v.replace(/"/g, '&quot;') + '"'
+          + (pre ? ' readonly' : '') + ' autocomplete="off" spellcheck="false">'
+          + '</td>';
+      });
+      h += '</tr>';
+    });
+  });
+  h += '</tbody></table></div>';
+  if (!pre) {
+    h += '<div class="btnrow noprint"><button type="button" class="btn" id="checkflow">Check my filing</button></div>'
+      + '<div id="flowmsg" aria-live="polite"></div>';
+  }
+  return h;
+}
+
+function panelIO() {
+  if (!ex.io) { return '<p>Nothing was measured in or out at this encounter. A chart with no fluid balance on it is not an oversight here; ask yourself what would have to be true before anyone started one.</p>'; }
+  var pre = ex.prefiled;
+  var h = pre ? '<p class="note">Already charted on paper. Read it across.</p>'
+              : '<p class="note">Fill in what the note gives you. Work out the three totals and the running balance yourself; they are not in the note anywhere.</p>';
+  h += '<div class="tblwrap"><table><caption>Intake and output</caption><thead><tr><th scope="col">Measure</th>';
+  ex.io.forEach(function (c) { h += '<th scope="col">' + esc(c.t) + '</th>'; });
+  h += '</tr></thead><tbody>';
+  E.ioRows.forEach(function (r) {
+    h += '<tr><th scope="row">' + r[1] + '<span class="u">' + r[2] + '</span></th>';
+    ex.io.forEach(function (c, ci) {
+      var want = c[r[0]];
+      if (want == null) { h += '<td></td>'; return; }
+      var id = 'io-' + r[0] + '-' + ci;
+      var v = pre ? String(want).replace(/<[^>]+>/g, '') : esc(S.io[id] || '');
+      h += '<td data-key="' + r[0] + '" data-ci="' + ci + '" data-id="' + id + '">'
+        + '<label class="vh" for="' + id + '">' + r[1] + ', ' + esc(c.t) + '</label>'
+        + '<input type="text" id="' + id + '" value="' + v.replace(/"/g, '&quot;') + '"'
+        + (pre ? ' readonly' : '') + ' autocomplete="off" spellcheck="false"></td>';
+    });
+    h += '</tr>';
+  });
+  h += '</tbody></table></div>';
+  if (!pre) {
+    h += '<div class="btnrow noprint"><button type="button" class="btn" id="checkio">Check my totals</button></div>'
+      + '<div id="iomsg" aria-live="polite"></div>';
+  }
+  return h;
+}
+
+function panelMar() {
+  if (!ex.mar.length) { return '<p>No medications are recorded at this encounter. An empty medication record is still a record: it says somebody looked.</p>'; }
+  var h = '<div class="tblwrap"><table><caption>Medication administration record</caption><thead><tr>'
+    + '<th scope="col">Medication</th><th scope="col">Dose</th><th scope="col">Route</th>'
+    + '<th scope="col">Time</th><th scope="col">Status</th></tr></thead><tbody>';
+  ex.mar.forEach(function (r) {
+    var held = /HELD|NOT GIVEN|Stopped/.test(r[4]);
+    h += '<tr><th scope="row">' + r[0] + '</th><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3] + '</td>'
+      + '<td' + (held ? ' class="held"' : '') + '>' + r[4] + '</td></tr>';
+  });
+  return h + '</tbody></table></div>'
+    + '<p class="note">Home medications that are being held stay on this list on purpose. Deleting one deletes the decision.</p>';
+}
+
+function panelOrd() {
+  var h = '<div class="tblwrap"><table><caption>Orders</caption><thead><tr>'
+    + '<th scope="col">Order</th><th scope="col">Detail</th><th scope="col">Placed</th><th scope="col">Status</th>'
+    + '</tr></thead><tbody>';
+  ex.orders.forEach(function (r) {
+    h += '<tr><th scope="row">' + r[0] + '</th><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3] + '</td></tr>';
+  });
+  return h + '</tbody></table></div>';
+}
+
+function panelMine() {
+  var A = S.answers, h = '';
+  function put(label, txt) {
+    h += '<div class="beat"><h3>' + esc(label) + '</h3><p>' + (txt ? esc(txt).replace(/</g, '&lt;') : 'Not written yet.') + '</p></div>';
+  }
+  put('Prediction', A.predict);
+  put('How to chart, your answer', A.lesson);
+  put('Reading the results', A.results);
+  put('Problem list', A.problems);
+  put('Medications and orders', A.mar);
+  put('Your drawing, described', A.draw);
+  wk.five.forEach(function (q, i) { put('Question ' + (i + 1), A['q' + i]); });
+  put('From your desk', A.desk);
+  put('Subjective', A.noteS);
+  put('Objective', A.noteO);
+  put('Assessment', A.noteA);
+  put('Plan', A.noteP);
+  put('AI log', A.ai);
+  return h;
+}
+
+function paintChart() {
+  var host = document.getElementById('tabpanels');
+  host.innerHTML = '';
+  var body = { notes:panelNotes, flow:panelFlow, res:panelResults, mar:panelMar, ord:panelOrd, io:panelIO, mine:panelMine }[activeTab]();
+  var d = el('div', null, body);
+  d.id = 'panel-' + activeTab;
+  d.setAttribute('role', 'tabpanel');
+  d.setAttribute('aria-labelledby', 'tab-' + activeTab);
+  d.tabIndex = 0;
+  host.appendChild(d);
+  wireChart();
+}
+
+function wireChart() {
+  document.querySelectorAll('#tabpanels input[type=text]:not([readonly])').forEach(function (i) {
+    i.addEventListener('input', function () {
+      var td = i.closest('td');
+      td.className = '';
+      var msg = td.querySelector('.cellmsg'); if (msg) { msg.remove(); }
+      if (i.id.indexOf('f-') === 0) { S.flow[i.id] = i.value; } else { S.io[i.id] = i.value; }
+      save();
+    });
+  });
+  var cf = document.getElementById('checkflow');
+  if (cf) { cf.addEventListener('click', checkFlow); }
+  var ci = document.getElementById('checkio');
+  if (ci) { ci.addEventListener('click', checkIO); }
+}
+
+function checkCells(sel, source, msgHost, what) {
+  var ok = 0, bad = 0, blank = 0, skipped = 0;
+  document.querySelectorAll(sel).forEach(function (td) {
+    var key = td.dataset.key, c = parseInt(td.dataset.ci, 10), inp = td.querySelector('input');
+    if (!inp) { return; }
+    var want = String(source[c][key]).replace(/<[^>]+>/g, '');
+    var old = td.querySelector('.cellmsg'); if (old) { old.remove(); }
+    td.className = '';
+    if (!inp.value.trim()) { blank++; return; }
+    if (TEXTROWS[key] && !nums(want)) { skipped++; return; }
+    if (matches(inp.value, want)) { ok++; td.className = 'ok'; td.appendChild(el('span', 'cellmsg', 'Matches')); }
+    else { bad++; td.className = 'no'; td.appendChild(el('span', 'cellmsg', 'Check this one')); }
+  });
+  var host = document.getElementById(msgHost);
+  var cls = bad ? 'flash bad' : 'flash';
+  var lines = [];
+  lines.push('<strong>' + ok + '</strong> of the cells you filled match the chart.');
+  if (bad) { lines.push('<strong>' + bad + '</strong> do not. They are outlined; go back to the note and read them again rather than guessing.'); }
+  if (blank) { lines.push('<strong>' + blank + '</strong> are still empty.'); }
+  if (skipped) { lines.push('<strong>' + skipped + '</strong> are written in words, so they are not checked automatically. Read those back yourself.'); }
+  if (!bad && !blank) { lines.push('That is the whole of ' + what + ' filed correctly. The transcription is the work; well done for doing it by hand.'); }
+  host.innerHTML = '<div class="' + cls + '"><p>' + lines.join(' ') + '</p></div>';
+}
+function checkFlow() { checkCells('#tabpanels td[data-key][data-id^="f-"]', ex.flow, 'flowmsg', 'this week’s flowsheet'); }
+function checkIO() { checkCells('#tabpanels td[data-key][data-id^="io-"]', ex.io, 'iomsg', 'the fluid balance'); }
+
+/* ---------- step rendering ---------- */
+function field(key, label, hint, minChars, tall) {
+  var box = el('div', 'qbox');
+  var id = 'a-' + key;
+  box.appendChild(el('label', 'fl', esc(label)));
+  box.lastChild.setAttribute('for', id);
+  if (hint) { box.appendChild(el('p', 'hint', hint)); }
+  var ta = el('textarea');
+  ta.id = id;
+  ta.value = S.answers[key] || '';
+  if (tall) { ta.style.minHeight = '150px'; }
+  ta.setAttribute('aria-describedby', id + '-c');
+  box.appendChild(ta);
+  var c = el('p', 'count'); c.id = id + '-c';
+  function upd() {
+    var n = ta.value.trim().length;
+    c.textContent = minChars
+      ? (n >= minChars ? n + ' characters. That is enough to move on.' : n + ' of at least ' + minChars + ' characters.')
+      : n + ' characters.';
+  }
+  ta.addEventListener('input', function () { S.answers[key] = ta.value; upd(); save(); gateCheck(); });
+  upd();
+  box.appendChild(c);
+  return box;
+}
+
+function gateCheck() {
+  var s = steps[idx];
+  var nb = document.getElementById('next');
+  if (s && s.gate) {
+    var ready = predicted();
+    nb.disabled = !ready;
+    nb.textContent = ready ? 'Next step' : 'Write your prediction first';
+    buildTabs();
+    if (activeTab === 'flow' || activeTab === 'res') { paintChart(); }
+  } else {
+    nb.disabled = idx >= steps.length - 1;
+    nb.textContent = idx >= steps.length - 1 ? 'You are at the last step' : 'Next step';
+  }
+}
+
+function renderStep() {
+  var s = steps[idx];
+  root.innerHTML = '';
+  document.getElementById('stepnum').textContent = 'Step ' + (idx + 1) + ' of ' + steps.length;
+  document.getElementById('steph').textContent = s.title;
+  document.getElementById('prog').textContent =
+    'Week ' + WK + ', ' + wk.title + '. ' + P.name + '. ' + steps.length + ' steps, and you can come back to any of them.';
+
+  var c = ex.coach;
+
+  if (s.id === 'arrive') {
+    root.appendChild(el('p', 'lede', esc(ex.location) + '. ' + esc(ex.encounterType) + '.'));
+    root.appendChild(el('p', 'say', wk.arc));
+    if (wk.tools && wk.tools.length) {
+      var t = el('div', 'watch');
+      t.appendChild(el('p', 'plabel', 'Handed to you before you start'));
+      wk.tools.forEach(function (x) {
+        t.appendChild(el('p', null, '<strong>' + x[0] + '.</strong> ' + x[1]
+          + (x[2] ? ' <strong>You build this properly in Week ' + x[2] + '.</strong>' : '')));
+      });
+      root.appendChild(t);
+    }
+    root.appendChild(el('p', 'note', 'Work left to right: the steps run down this side, and the chart on the right fills up as you go. Nothing is filled in for you.'));
+
+  } else if (s.id === 'predict') {
+    root.appendChild(el('p', 'say', c.predict));
+    root.appendChild(field('predict', 'Your prediction',
+      'Say what you expect and why. You are not being marked on whether you are right, and a prediction you later abandon is worth more than one you never made. At least 80 characters.', 80));
+    var w = el('div', 'watch');
+    w.appendChild(el('p', 'plabel', 'Why this comes first'));
+    w.appendChild(el('p', null, 'The Flowsheet and Results tabs are locked until this is written. At the moment your own reasoning is what counts, there is nothing on the screen to read off, and nothing for anything else to read off either.'));
+    root.appendChild(w);
+
+  } else if (s.beat != null) {
+    if (s.beat > S.seen) { S.seen = s.beat; save(); paintChart(); }
+    var row = wk.chart[s.beat];
+    var b = el('div', 'beat');
+    b.appendChild(el('h3', null, row[0]));
+    b.appendChild(el('p', null, row[1]));
+    root.appendChild(b);
+    if (s.beat === 0) { root.appendChild(el('p', 'note', 'Read each part of the chart on its own before you read the next. This is the same order the team saw it in.')); }
+    if (s.beat === wk.chart.length - 1) { root.appendChild(el('p', 'note', 'That is the whole note. It stays available under the Notes tab for the rest of the week.')); }
+
+  } else if (s.id === 'lesson') {
+    var L = LESSONS[c.lesson[0]];
+    root.appendChild(el('p', 'say', L.how));
+    var lw = el('div', 'watch');
+    lw.appendChild(el('p', 'plabel', 'Now answer this'));
+    lw.appendChild(el('p', null, c.lesson[1]));
+    root.appendChild(lw);
+    root.appendChild(field('lesson', 'Your answer', 'Two or three sentences. This is about how a chart works, not about this patient.', 60));
+
+  } else if (s.id === 'vitals') {
+    root.appendChild(el('p', 'say', c.vitals));
+    root.appendChild(el('p', 'note', ex.prefiled
+      ? 'This week arrives already filed, because you charted it on paper. Open the Flowsheet tab and read across the rows.'
+      : 'Open the Flowsheet tab on the right and type this week’s values in. Read them out of the Notes and Results tabs; nothing is filled in for you. Then use Check my filing.'));
+    root.appendChild(openBtn('flow', 'Open the flowsheet'));
+
+  } else if (s.id === 'io') {
+    root.appendChild(el('p', 'say', c.io));
+    root.appendChild(el('p', 'note', 'Open the Intake and output tab. The three totals and the running balance are arithmetic, not lookups.'));
+    root.appendChild(openBtn('io', 'Open intake and output'));
+
+  } else if (s.id === 'results') {
+    root.appendChild(el('p', 'say', c.results));
+    root.appendChild(openBtn('res', 'Open the results'));
+    root.appendChild(field('results', 'Your answer',
+      'Answer the question above. Name the results you are using, with their values.', 80));
+
+  } else if (s.id === 'problems') {
+    root.appendChild(el('p', 'say', c.problems));
+    root.appendChild(field('problems', 'Problem list, added to or changed this week',
+      'Number them and keep the same numbers all term. For each one: the problem in your words, the evidence, and whether it is new, changed, or resolved.', 80, true));
+
+  } else if (s.id === 'mar') {
+    root.appendChild(el('p', 'say', c.mar));
+    root.appendChild(openBtn('mar', 'Open the medication record'));
+    root.appendChild(field('mar', 'Your answer', 'Answer the question above, using what is actually on the record.', 60));
+
+  } else if (s.id === 'draw') {
+    root.appendChild(el('p', 'say', 'Draw the control loop for this week on paper: the regulated variable, the sensor, the integrating centre, the effector, and where in the loop this patient is being pushed or is failing. Label every arrow with a direction.'));
+    root.appendChild(el('p', 'note', 'Photograph it and upload the photo with your PDF. Drawings are not saved by this page, which is the other reason to export every week.'));
+    root.appendChild(field('draw', 'Describe your drawing in words',
+      'The description is marked with the drawing. If you cannot describe it, the drawing is not finished.', 100, true));
+
+  } else if (s.id === 'five') {
+    root.appendChild(el('p', 'note', 'Everyone answers these five, whichever entry point you chose. A correct number with no explanation earns half credit, the same as every week.'));
+    wk.five.forEach(function (q, i) {
+      root.appendChild(field('q' + i, 'Question ' + (i + 1), q, 100, true));
+    });
+
+  } else if (s.id === 'desk') {
+    var tid = S.track, t = null;
+    C.tracks.forEach(function (x) { if (x.id === tid) { t = x; } });
+    if (!t) {
+      root.appendChild(el('p', 'say', 'You have not picked an entry point on this device yet. Pick the one you have used all term.'));
+      var sel = el('div', 'qbox');
+      C.tracks.forEach(function (x) {
+        var b = el('button', 'btn', esc(x.name));
+        b.type = 'button';
+        b.style.margin = '0 8px 8px 0';
+        b.addEventListener('click', function () {
+          S.track = x.id;
+          try { localStorage.setItem(TRACKKEY, x.id); } catch (e) {}
+          save(); renderStep();
+        });
+        sel.appendChild(b);
+      });
+      root.appendChild(sel);
+    } else {
+      var d = wk.tracks[t.id];
+      root.appendChild(el('p', 'plabel', t.name));
+      root.appendChild(el('p', 'say', d.data));
+      var dw = el('div', 'watch');
+      dw.appendChild(el('p', 'plabel', 'Work it'));
+      dw.appendChild(el('p', null, d.go));
+      root.appendChild(dw);
+      root.appendChild(field('desk', 'Your answer', 'From your desk, in your discipline’s language.', 150, true));
+    }
+
+  } else if (s.id === 'note') {
+    root.appendChild(el('p', 'say', c.note));
+    root.appendChild(el('p', 'note', 'Four fields, in the order every progress note in every hospital uses. Subjective is what the patient or the family says. Objective is what you measured or observed. Assessment is what you think is happening and why. Plan is what happens next and what would change it.'));
+    root.appendChild(field('noteS', 'Subjective', 'What the patient, or somebody at the bedside, said. If nobody could speak, say that.', 0));
+    root.appendChild(field('noteO', 'Objective', 'The numbers and the findings. Refer to your flowsheet rather than repeating it.', 0));
+    root.appendChild(field('noteA', 'Assessment', 'The physiology, in your words, with the evidence attached. This is the part that is marked.', 120, true));
+    root.appendChild(field('noteP', 'Plan', 'What happens next, and the one number that would change it.', 60));
+
+  } else if (s.id === 'sign') {
+    var nm = el('div', 'qbox');
+    nm.appendChild(el('label', 'fl', 'Your name, exactly as it appears in Canvas'));
+    nm.lastChild.setAttribute('for', 'signname');
+    var inp = el('input'); inp.type = 'text'; inp.id = 'signname'; inp.value = S.name || '';
+    inp.addEventListener('input', function () { S.name = inp.value; save(); });
+    nm.appendChild(inp);
+    root.appendChild(nm);
+    root.appendChild(field('ai', 'Your AI log for this week',
+      'What you asked, what you got, and what you did with it. One line saying you used none is a complete answer and has never cost anyone a mark.', 0));
+    var br = el('div', 'btnrow noprint');
+    var pb = el('button', 'btn pri', 'Export this week to PDF'); pb.type = 'button';
+    pb.addEventListener('click', function () { activeTab = 'mine'; buildTabs(); paintChart(); setTimeout(function () { window.print(); }, 120); });
+    var cb = el('button', 'btn', 'Show my save code'); cb.type = 'button';
+    cb.setAttribute('aria-expanded', 'false');
+    cb.setAttribute('aria-controls', 'codewrap');
+    var rb = el('button', 'btn', 'Paste a save code back in'); rb.type = 'button';
+    rb.setAttribute('aria-expanded', 'false');
+    rb.setAttribute('aria-controls', 'restorewrap');
+    br.appendChild(pb); br.appendChild(cb); br.appendChild(rb);
+    root.appendChild(br);
+
+    var cw = el('div', 'qbox'); cw.id = 'codewrap'; cw.hidden = true;
+    cw.appendChild(el('label', 'fl', 'Copy this and keep it somewhere you own'));
+    cw.lastChild.setAttribute('for', 'savecode');
+    var ta = el('textarea', 'code'); ta.id = 'savecode'; ta.readOnly = true;
+    cw.appendChild(ta);
+    root.appendChild(cw);
+    cb.addEventListener('click', function () {
+      var open = cw.hidden;
+      cw.hidden = !open;
+      cb.setAttribute('aria-expanded', String(open));
+      if (open) { try { ta.value = btoa(encodeURIComponent(JSON.stringify(S))); } catch (e) { ta.value = 'This browser could not make a code.'; } ta.focus(); }
+    });
+
+    var rw = el('div', 'qbox'); rw.id = 'restorewrap'; rw.hidden = true;
+    rw.appendChild(el('label', 'fl', 'Paste a code from another machine'));
+    rw.lastChild.setAttribute('for', 'restorecode');
+    var rta = el('textarea', 'code'); rta.id = 'restorecode';
+    rw.appendChild(rta);
+    var rgo = el('button', 'btn', 'Restore'); rgo.type = 'button'; rgo.style.marginTop = '10px';
+    rw.appendChild(rgo);
+    var rmsg = el('p', 'note'); rmsg.setAttribute('aria-live', 'polite');
+    rw.appendChild(rmsg);
+    root.appendChild(rw);
+    rb.addEventListener('click', function () {
+      var open = rw.hidden; rw.hidden = !open; rb.setAttribute('aria-expanded', String(open)); if (open) { rta.focus(); }
+    });
+    rgo.addEventListener('click', function () {
+      try {
+        var got = JSON.parse(decodeURIComponent(atob(rta.value.trim())));
+        if (!got || got.week !== WK) { rmsg.textContent = 'That code is for a different week. Open that week and paste it there.'; return; }
+        S = Object.assign(S, got); save(); rmsg.textContent = 'Restored. Your typing is back.'; renderStep(); paintChart();
+      } catch (e) { rmsg.textContent = 'That code did not read. Paste the whole thing, with no line breaks removed.'; }
+    });
+
+    root.appendChild(el('p', 'note', 'The PDF is the assignment. What sits in this browser is not a submission, and a browser that gets cleared takes your typing with it.'));
+  }
+
+  document.querySelectorAll('.rail button').forEach(function (b, i) {
+    b.setAttribute('aria-current', i === idx ? 'step' : 'false');
+    b.className = (i < idx || S.done[steps[i].id]) ? 'done' : '';
+  });
+  document.getElementById('prev').disabled = idx === 0;
+  gateCheck();
+  document.getElementById('steph').focus();
+}
+
+function openBtn(tab, label) {
+  var b = el('button', 'btn noprint', esc(label));
+  b.type = 'button';
+  b.addEventListener('click', function () {
+    activeTab = tab; buildTabs(); paintChart();
+    var p = document.getElementById('panel-' + tab); if (p) { p.focus(); }
+  });
+  var w = el('div', 'btnrow'); w.appendChild(b);
+  return w;
+}
+
+/* ---------- rail ---------- */
+(function () {
+  var r = document.getElementById('rail');
+  steps.forEach(function (s, i) {
+    var li = el('li');
+    var b = el('button', null, esc(s.label));
+    b.type = 'button';
+    b.addEventListener('click', function () {
+      idx = i;
+      /* Jumping down the rail opens the note as far as the step you jumped to,
+         so the rail is a shortcut and never a way past the prediction. */
+      for (var j = 0; j <= i; j++) {
+        if (steps[j].beat != null && steps[j].beat > S.seen) { S.seen = steps[j].beat; }
+      }
+      save(); renderStep(); paintChart();
+    });
+    li.appendChild(b);
+    r.appendChild(li);
+  });
+}());
+
+document.getElementById('next').addEventListener('click', function () {
+  S.done[steps[idx].id] = true; save();
+  if (idx < steps.length - 1) { idx++; renderStep(); }
+});
+document.getElementById('prev').addEventListener('click', function () {
+  if (idx > 0) { idx--; renderStep(); }
+});
+
+buildTabs();
+paintChart();
+renderStep();
+}());
+</script>
+<script>
+/* Canvas iframe height sender. */
+(function () {
+  var id = 'bio005-patient-rounds';
+  function post() {
+    try { parent.postMessage({ frame:id, id:id, height:document.documentElement.scrollHeight }, '*'); } catch (e) {}
+  }
+  if ('ResizeObserver' in window) { new ResizeObserver(post).observe(document.documentElement); }
+  window.addEventListener('load', post);
+  window.addEventListener('resize', post);
+  post();
+}());
+</script>
+</body>
+</html>

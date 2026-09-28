@@ -1,7 +1,229 @@
-If you already pushed week4-notes-and-worksheets.zip, delete these five files from the sheets folder on GitHub:
-sheets/BIO005-Week4-Worksheet-neurons-glia.pdf
-sheets/BIO005-Week4-Worksheet-rmp.pdf
-sheets/BIO005-Week4-Worksheet-channel-gating.pdf
-sheets/BIO005-Week4-Worksheet-graded-potentials.pdf
-sheets/BIO005-Week4-Worksheets-all.pdf
-If you have not pushed that zip yet, push it, then push this one and delete the five files above.
+PUSH THESE, September 22 2026, drop two
+BIO 005 Human Physiology, drsrennie-stack/human-physiology-Fa26
+
+THE CHARTING APP, plus the palette change you asked for.
+
+----------------------------------------------------------------------
+THE PALETTE, FIRST, BECAUSE IT TOUCHES AN EXTRA FILE
+----------------------------------------------------------------------
+
+Dark navy instead of teal, red maroon instead of the brown.
+
+  navy    #1E3D4C  ->  #1B2A4A   the green cast taken out
+  accent  #A0522D  ->  #8C2F39   red maroon, not sienna
+  terra   #C2734D  ->  #A94A54   the lighter accent, to match
+  ink     #35505E  ->  #39465E   the muted grey, bluer to match
+
+Both were contrast checked before they were applied, not after. The navy
+went from 11.49:1 to 14.22:1 on white. The accent went from 5.62:1,
+which clears AA and misses AAA, to 8.14:1, which clears AAA. That accent
+was the one thing standing between this whole build and AAA throughout,
+because it carries every eyebrow, every step number and every result
+flag. Every text pair on all six pages now reaches AAA.
+
+ONE THING TO DECIDE. assets/brand.css is in this drop and it was never
+migrated in August: it was still holding #0B1530 navy, #C9A14A gold,
+#8B3A2E maroon and #F5F1E8 under a token called --bone, which is cream.
+BRAND-MIGRATION.md calls that file the single source of truth for the
+repo, so I repainted it and the cream token now holds off-white. Upload
+it if you want the whole site to follow. Eleven other files still carry
+the old values in their own :root blocks, so until each is next touched
+the site will look like two palettes. Nothing fails AA in the meantime.
+
+----------------------------------------------------------------------
+
+AND THE CHARTING APP. An on-screen chart laid out the way a hospital
+record lays a patient out, that walks a student through the week one
+step at a time and teaches them how to chart rather than what to chart.
+
+This replaces the PUSH-THESE.txt you uploaded yesterday.
+
+I can see you pushed drop one already, all eight files, exactly as sent.
+Nothing of yours was overwritten and nothing was pushed for you. The one
+file I did not change, PUSH-THESE.txt, I took back from GitHub rather
+than shipping my stale copy of it.
+
+Drag all ten files into the GitHub web uploader at the repo root. The
+folders are already right: patient-chart-key.md goes inside instructor/,
+check_ehr_chart.js inside tools/, brand.css inside assets/, everything
+else at the root.
+
+----------------------------------------------------------------------
+NEW FILES
+----------------------------------------------------------------------
+
+patient-rounds.html
+  The charting app. Open it as patient-rounds.html?week=N.
+  Left side: the week walked one step at a time, sixteen to twenty steps
+  depending on the week, always in the same shape. Arrive, predict, the
+  note one beat at a time, one charting lesson, file the vitals, file
+  the fluid balance, read the results, the problem list, the medication
+  record, draw the loop, the five questions, your entry point, write the
+  note, sign and export.
+  Right side: the live chart, with a banner across the top and tabs for
+  Notes, Flowsheet, Results, Medications, Orders, Intake and output, and
+  My entries. It fills up as they work and it is what they hand in.
+  -> repo root, new file
+
+bio005-chart-ehr.js
+  The structured half of the chart: vital signs against a time, intake
+  and output, the medication administration record, the orders, the
+  banner for each patient, and the coaching for each step of each week.
+  bio005-patient-chart.js is NOT touched by any of this, so weeks 1 and
+  2 are still exactly what your students are working in.
+  -> repo root, new file
+
+tools/check_ehr_chart.js
+  Run it with: node tools/check_ehr_chart.js
+  It fails if a mean arterial pressure does not follow from its own
+  blood pressure or if a fluid column does not add up, and it lists any
+  interval value that runs past what the story says that week so a human
+  can confirm the direction. Current run: 37 pressures and 37 fluid sums
+  correct, 302 values straight from the case file, 104 written for the
+  flowsheet, 6 that legitimately run past the story because the patient
+  is recovering.
+  -> tools/, new file
+
+----------------------------------------------------------------------
+CHANGED FILES
+----------------------------------------------------------------------
+
+patient-chart-book.html
+  The printed book now matches the screen. A banner bar on every sheet
+  with the same fields in the same order, flowsheet rows grouped the way
+  the screen groups them and generated from the same file so they cannot
+  drift, a medication administration record with a Given or HELD column,
+  an active orders sheet, and the progress note on every week page in
+  the four fields every hospital note uses.
+  -> repo root, replaces
+
+assignment-apply.html
+  A button to Rounds in the top bar.
+  -> repo root, replaces
+
+assignment-patient-chart.html
+  Tells students that a week charted in Rounds is exported as a PDF and
+  slotted into the same place in the binder order.
+  -> repo root, replaces
+
+assets/brand.css
+  Repainted onto the new palette, and the cream token retired. Optional,
+  see the note at the top.
+  -> assets/, replaces
+
+assignment-patient-analysis.html
+  Repainted only. No content change since drop one.
+  -> repo root, replaces
+
+patient-sheet.html
+  Favicon link added, which was the one 404 on the site.
+  -> repo root, replaces
+
+instructor/patient-chart-key.md
+  New section 6: what the app marks by itself, what it does not mark,
+  what the gate is and why, and the three reasons a student's flowsheet
+  check keeps failing.
+  -> instructor/, replaces
+
+compliance-notes-patient-chart.md
+  The app audited in every state it can be in, not just as it loads.
+  -> repo root, replaces
+
+----------------------------------------------------------------------
+THE THREE THINGS YOU ASKED FOR, AND WHERE THEY ARE
+----------------------------------------------------------------------
+
+1. CHART IT ON SCREEN, LIKE A HOSPITAL RECORD.
+   Banner across the top with record number, allergies underlined, code
+   status and isolation. Activity tabs. A time ordered flowsheet with
+   grouped rows. A medication record that keeps held drugs on it with
+   the word HELD. Orders with their status. It carries no vendor's
+   branding, colors or wording anywhere; those are conventions every
+   inpatient record shares.
+
+2. WALK THEM THROUGH THE CASE AND THE CHARTING.
+   The note arrives one part at a time as steps rather than as a wall,
+   and every step that asks for something asks it as a question. Two
+   things are held back until the prediction at step 2 is written: the
+   Flowsheet and Results tabs, and the rest of the note. At step 2 they
+   have the arc and nothing else, so the prediction asks about numbers
+   that are genuinely not on the screen. Jumping down the step rail
+   opens the note as far as the step jumped to, so the rail is a
+   shortcut and never a way round.
+
+3. HOW TO CHART, NOT WHAT TO CHART.
+   Twelve charting lessons, one per week: filing against a time,
+   charting a weight, a value in a column becoming a row, where a number
+   came from, a score charted as its parts, charting what you looked for
+   and did not find, an unmeasured loss, a calculated number, closing a
+   problem, a held medication, a set value against a measured one, and
+   what makes a comparison fair. None of them says what value to type.
+   When they file the flowsheet the app checks it against the source and
+   says which cells disagree; it never fills one in.
+
+WEEKS 1 AND 2 ARRIVE ALREADY FILED, as you asked. Those two weeks were
+charted on paper, so their flowsheets render filled and read only with a
+line saying so, and their results panels are in the new file rather than
+in the case file, which stays untouched.
+
+----------------------------------------------------------------------
+CANVAS
+----------------------------------------------------------------------
+
+ONE NEW PAGE PER WEEK, or one page with the week in the URL. Paste into
+the HTML editor:
+
+<iframe src="https://drsrennie-stack.github.io/human-physiology-Fa26/patient-rounds.html?week=9"
+        title="Rounds: chart this week with your patient"
+        width="100%" height="2200" style="border:0;display:block"
+        loading="lazy"></iframe>
+
+Change week=9 for each week. The page sends its own height, so the frame
+resizes once it loads.
+
+IT NEEDS ROOM. Below about 1080 px the two columns stack, which works
+but means more scrolling inside the frame. If you can give the Canvas
+page a wide layout, do.
+
+----------------------------------------------------------------------
+THREE THINGS TO LOOK AT
+----------------------------------------------------------------------
+
+1. THE PREDICTION GATE IS THE ONLY ENFORCEMENT IN THE PAGE, and it is
+   set at 80 characters. If that turns out to be too blunt in week one,
+   it is one number in one place.
+
+2. 104 VALUES ARE NEW. A flowsheet needs more rows than a paragraph
+   does, so the interval vitals, the fluid volumes and the weights
+   between two stated weights are written rather than taken from the
+   case. The checker constrains them and lists them; run it with
+   --list-new to read all 104.
+
+3. THE BOOK IS STILL ABOUT FORTY SHEETS. Students who chart in Rounds
+   every week can hand in exported PDFs instead and never print it.
+   Worth deciding which you want before you post Week 3.
+
+----------------------------------------------------------------------
+WHAT I CHECKED BEFORE SENDING
+----------------------------------------------------------------------
+
+Clone current: fetched, and your push was found and read. The files you
+uploaded are byte for byte what I sent, so nothing of yours was lost.
+
+Weeks 1 and 2 of the case file: still untouched, and bio005-patient-
+chart.js is not in this drop at all.
+
+Arithmetic: 37 mean arterial pressures and 37 fluid columns checked by
+script and correct. All the acid-base, hemodynamic, respiratory, renal
+and nutrition working from drop one still stands and is in the key.
+
+Pages: all nine render with no JavaScript errors and no 404s over http.
+Zero axe-core violations against WCAG 2.2 AA, including the app in all
+seven of its tabs and at every one of its nineteen steps. No horizontal
+scroll at 320 px. Focus ring on every focusable element. No italics, no
+em dashes, target="_top" on every internal link, iframe height sender on
+every standalone page.
+
+Saving: typing survives a reload with no wait, because the save is
+flushed when the page is hidden and not only on a timer. The save code
+round trips. Drawings are not saved, and the page says so twice.
