@@ -36,6 +36,7 @@ window.BIO005_LAB = {
     1:  ['reference-range-lab.html',      'Open the reference range lab'],
     2:  ['enzyme-amylase-lab.html',       'Open the enzyme lab'],
     3:  ['osmosis-iv-fluids-lab.html',    'Open the osmosis and IV fluids lab'],
+    4:  ['lab-worksheet-week04.html',     'Open the Week 4 lab worksheet'],
     8:  ['lab-week08-hormone-cycle.html', 'Open the hormone cycle lab'],
     11: ['cbc-pcr-lab.html',              'Open the blood analysis lab'],
     13: ['pulmonary-function-lab.html',   'Open the pulmonary function lab'],
@@ -111,12 +112,16 @@ window.BIO005_LAB = {
           'Name one thing you now know you had confused, and say how you will catch that confusion next time.'] },
 
   /* ---------------------------------------------------------- 4 */
-  4: { title:'Electrical Signaling', kind:'physioex',
-    pex:{ name:'PhysioEx Exercise 3, Neurophysiology of Nerve Impulses',
+  /* Week 4 is graded on the Week 4 lab worksheet alone
+     (lab-worksheet-week04.html). sheetOnly hides parts 02 to 04 on the
+     instructions page so students see one set of directions, not two.
+     The record/corr/meta entries below are kept for reference only. */
+  4: { title:'Electrical Signaling', kind:'physioex', sheetOnly:true,
+    pex:{ name:'PhysioEx Exercise 3, Neurophysiology of Nerve Impulses, Activities 1 to 9',
       steps:[
-        'Run all activities: resting membrane potential, threshold and stimulus intensity, blocking the action potential, conduction velocity, and synaptic transmission.',
-        'In the resting potential activity, change extracellular potassium and record the membrane potential at each concentration rather than only noting the direction.',
-        'In the blocking activity, note which agent blocks where. Lidocaine, tetrodotoxin and ethanol do not act at the same place.'
+        'Run all nine activities: the resting membrane potential, receptor potential, threshold, the importance of voltage-gated Na<sup>+</sup> channels, the refractory periods, coding for stimulus intensity, conduction velocity, chemical synaptic transmission, and putting it all together.',
+        'After each activity, fill in its three boxes on the Week 4 lab worksheet while it is fresh: what you measured, what you found, and what you learned. Use your actual numbers.',
+        'Finish with the two look-back questions at the end of the worksheet.'
       ]},
     record:[
       'A table of extracellular potassium against measured resting membrane potential, with at least four points.',

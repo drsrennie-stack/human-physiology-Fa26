@@ -189,6 +189,17 @@ h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
   }
   document.getElementById('runbtns').innerHTML = btns.join('');
 
+  /* Weeks graded on their own worksheet: hide parts 02 to 04 so the
+     page and the worksheet never give two different sets of directions. */
+  if (k.sheetOnly){
+    ['rec-h','corr-h','meta-h'].forEach(function(id){
+      var h = document.getElementById(id), n = h;
+      while (n){ var next = n.nextElementSibling; n.hidden = true; n = next;
+        if (n && (n.tagName === 'H2')) break; }
+    });
+  }
+
+  if (!k.sheetOnly){
   document.getElementById('record').innerHTML =
     k.record.map(function(s){ return '<li>' + s + '</li>'; }).join('');
 
@@ -199,14 +210,25 @@ h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
 
   document.getElementById('meta').innerHTML =
     k.meta.map(function(s){ return '<li>' + s + '</li>'; }).join('');
+  }
 
   var turn = [];
   if (isPex){
     turn.push('<li><strong>PhysioEx must show complete in Pearson.</strong> It carries no points of its own and it is the gate. The worksheet is not graded without it.</li>');
   }
+  if (isPex){
+    turn.push('<li><strong>The PhysioEx Lab Report that Pearson generates is not your worksheet</strong> and earns no points. Upload your own worksheet.</li>');
+  }
+  if (k.sheetOnly){
+    turn.push('<li><strong>The worksheet is the whole lab.</strong> Fill in all three boxes for every activity and answer the two look-back questions at the end. Work on screen and save it as a PDF, or work on paper.</li>');
+    turn.push('<li><strong>Your own paper is fine.</strong> Label it the way the worksheet is labeled: your name, the week, and the activity number above each set of answers.</li>');
+  } else {
   turn.push('<li><strong>Your own paper is always fine.</strong> Label every page the way the worksheet is labeled: your name, the week, the lab, the part number, and a few words on what it asked.</li>');
   turn.push('<li><strong>All four parts.</strong> What you recorded, the clinical correlation answers, and the three look-back questions. A lab without part 4 is incomplete.</li>');
-  turn.push('<li>Handwritten, photographed or scanned into <strong>one PDF</strong>, in order, submitted here before <strong>10:00 pm</strong>. Wait for the Canvas confirmation screen.</li>');
+  }
+  turn.push(k.sheetOnly
+    ? '<li>One PDF, every page in order, uploaded to the Step 7 assignment in Canvas before <strong>10:00 pm</strong>. Wait for the Canvas confirmation screen.</li>'
+    : '<li>Handwritten, photographed or scanned into <strong>one PDF</strong>, in order, submitted here before <strong>10:00 pm</strong>. Wait for the Canvas confirmation screen.</li>');
   document.getElementById('turnin').innerHTML = turn.join('');
 
   document.getElementById('btns').innerHTML =
