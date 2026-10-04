@@ -59,8 +59,9 @@ PACKET = ('<br><span style="color:%s;font-size:0.92em;">If you printed the compe
 
 # Sep 27 2026, Scrubs: nothing has to be printed; own paper is fine if it is labeled.
 PAPER = ("<strong>Nothing has to be printed.</strong> You can do any of this on your own paper instead. "
-         "Label every page with your name, Week 4, the step, and the competency number or question number "
+         "Label every page with your name, Week %d, the step, and the competency number or question number "
          "each answer goes with, so your work can be matched to the right place.")
+PAPER_WEEK = [4]   # Oct 4 2026: set by build() so the label names the right week
 
 def a_link(label, path):
     extra = REPRINT if path.endswith(".pdf") else (PACKET if re.search(r"week-\d\d-competencies\.html$", path) else "")
@@ -90,7 +91,7 @@ def links_card(items):
     anypdf = ".pdf" in repr(items)
     lead = ("Do these in order. Each link opens the course site in a new tab, and Canvas stays open in this tab."
             + (" Anything marked Optional is up to you." if anyopt else "")
-            + (" " + PAPER if anypdf else ""))
+            + (" " + (PAPER % PAPER_WEEK[0]) if anypdf else ""))
     return ('<div style="%s"><h3 style="%s">What you need for this step</h3>'
             '<p style="%s">%s</p><ol style="margin:0;padding-left:1.4em;color:%s;">%s</ol></div>'
             % (CARD, H3, P % INK_SOFT, lead, NAVY, "".join(lis)))
@@ -183,7 +184,10 @@ def practice1(W, i, st):
     o.append(card(h3("How this is graded") + ul(D["grading"]) + p(D["grading_note"])))
     qs = '<ol style="margin:0 0 12px 0;padding-left:1.4em;color:%s;">%s</ol>' % (NAVY, "".join('<li style="%s">%s</li>' % (LI, link(html.escape(t), u)) for t, u in D["quizzes"]))
     o.append(card(h3("The two quizzes, in order") + qs + p(D["after"])))
-    o.append(p("<strong>Then:</strong> post about how it went in <strong>" + W.DISC4["title"] + "</strong>, the next item in this module."))
+    if getattr(W, "AFTER_PRACTICE", None):
+        o.append(p(W.AFTER_PRACTICE))
+    else:
+        o.append(p("<strong>Then:</strong> post about how it went in <strong>" + W.DISC4["title"] + "</strong>, the next item in this module."))
     o.append('<p style="margin:6px 0 0 0;font-size:0.85em;color:%s;">Dr. Sharilyn Rennie</p></div>' % INK_SOFT)
     return "".join(o) + "\n"
 
@@ -231,6 +235,7 @@ def practice2(W):
 
 def build(n):
     W = importlib.import_module("canvas_steps_week%02d" % n)
+    PAPER_WEEK[0] = n
     pages_dir = ROOT / "_canvas" / "pages"
     readme = ["Week %d Canvas module, top to bottom. Title each module item exactly as below, and paste "
               "the file into its body or description in the HTML editor." % n, "",
@@ -248,6 +253,8 @@ def build(n):
                 nd = "w%02d-10b-%s.html" % (n, slug(W.DISC4["title"]))
                 (pages_dir / nd).write_text(disc4(W, i), encoding="utf-8")
                 readme.append("Week %d, Step %d | %s   ->  %s  (Canvas DISCUSSION: paste into its description)" % (n, i, W.DISC4["title"], nd))
+            if hasattr(W, "EXTRA_ITEMS"):
+                for line in W.EXTRA_ITEMS: readme.append(line % dict(n=n, i=i))
             if hasattr(W, "PART2"):
                 P2 = W.PART2
                 n2 = "w%02d-10-%s.html" % (P2["week"], slug(P2["title"]))

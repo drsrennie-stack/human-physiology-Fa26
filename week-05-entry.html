@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 5, start here &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<meta name="description" content="Week 5 of BIO 005 on one page. Every step of the weekly loop, linked to this week's material.">
+<script>
+(function(){
+  var framed = false;
+  try { framed = (window.top !== window.self); } catch(e){ framed = true; }
+  if(framed) document.documentElement.className += " framed";
+}());
+</script>
+<style>
+/* Page-specific rules only. Palette tokens come from assets/brand.css,
+   the brand bar, footer, back link, eyebrow, display headline and
+   primary button from assets/brandbar.css.
+   Brand restyle Sep 24 2026: MedMasters editorial look, forked from
+   virtual-office.html. White cards on off-white with a shadow, radius
+   8px, no borders. Headings Open Sans 800. No italics. */
+em,i{font-style:normal}
+.loop-wrap{max-width:44rem;margin:0 auto;padding:0 20px}
+.topnav{padding:6px 0 0}
+#chipBack{display:none}
+.framed #chipBack{display:inline-flex}
+.framed #siteBack{display:none}
+.loop-head{padding:14px 0 8px}
+.loop-head .lede{margin-top:14px;color:var(--ink-soft);font-size:17px}
+.loop-head .lede + .lede{margin-top:12px}
+.loop-head .lede strong{color:var(--navy)}
+h2,h3{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.018em;color:var(--maroon-dark)}
+h2{margin-top:40px;font-size:clamp(21px,3vw,27px);line-height:1.2}
+h3{font-size:17px}
+.card{border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.card:hover{box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card-static:hover{box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.keybox{margin:20px 0 0;background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.keybox summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 16px;font-weight:700;color:var(--navy)}
+.keybox summary::-webkit-details-marker{display:none}
+.keybox summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.keybox[open] summary::before{transform:rotate(45deg)}
+.keybox summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
+.keybox .legend{margin:0;padding:4px 16px 16px}
+@media (prefers-reduced-motion:reduce){.keybox summary::before{transition:none}}
+.legend{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;font-weight:600}
+.legend li{display:flex;align-items:center;gap:8px}
+/* Swatches. Preview was slate gray, which is not a brand color; it is
+   now navy-tint with a navy edge so it still reads apart from the white
+   Use it boxes and the solid navy Learn boxes. */
+.sw{width:18px;height:18px;border-radius:var(--r-sm);display:inline-block;flex:none}
+.sw-prev{background:var(--navy-tint);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.sw-learn{background:var(--navy)}
+.sw-retr{background:var(--maroon)}
+.sw-check{background:var(--gold);box-shadow:inset 0 0 0 1px var(--navy)}
+.sw-assess{background:var(--white);box-shadow:inset 0 0 0 1px var(--navy)}
+/* Badges. W was orange, off brand. Now W navy, S maroon,
+   T gold with a navy-deep letter and a navy ring, because gold on a
+   white card is only 2.42:1 and the ring is what edges it.
+   White on navy 18.04:1, white on maroon 7.66:1, navy-deep on gold 8.16:1. */
+.wbadge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:var(--white);font-size:12px;font-weight:800;flex:none}
+.abadge{background:var(--maroon);color:var(--white)}
+.tbadge{background:var(--gold);color:var(--navy-deep);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.diagram{margin:24px 0 0;padding:0}
+.diagram svg{display:block;width:100%;max-width:30rem;height:auto;margin:0 auto}
+.timenote{margin:12px auto 0;max-width:30rem;font-size:15px;color:var(--ink-soft);text-align:center}
+.reentry{display:grid;gap:16px;margin:0;padding:0;list-style:none}
+.reentry .card{margin:0}
+.fix{padding:0}
+.fix summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:44px;padding:14px 20px;font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:17px;color:var(--maroon-dark)}
+.fix summary::-webkit-details-marker{display:none}
+.fix summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon-dark);border-bottom:2px solid var(--maroon-dark);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.fix[open] summary::before{transform:rotate(45deg)}
+.fix summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
+.fix-body{padding:0 20px 18px 40px}
+@media (prefers-reduced-motion:reduce){.fix summary::before{transition:none}}
+.reentry > li{list-style:none}
+
+.reentry p{margin:0}
+.chip{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--white);border-radius:4px;padding:4px 10px;margin:2px 0 10px}
+.chip-learn{background:var(--navy)}
+.chip-retr{background:var(--maroon)}
+.note{margin:20px 0 0}
+.words ol{margin:0;padding-left:22px}
+.words li{margin:6px 0}
+.words .t{color:var(--maroon-dark);font-weight:700}
+@media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
+.printbtn{margin:18px 0 0}
+
+.entry-meta{font-size:17px;margin:14px 0 0;color:var(--ink-soft)}
+.entry-how{margin:10px 0 0;font-size:17px;color:var(--ink-soft)}
+.entry-how a{font-weight:700;color:var(--maroon)}
+.entry-how a:hover{color:var(--maroon-dark)}
+/* Linked diagram boxes. Hover lifts the box on a shadow, the way the
+   cards do. Focus is a 3px maroon outline around the whole step, badges
+   included: maroon on the off-white page is 7.33:1. Gold used to be the
+   hover and focus edge, and gold on a light page is 2.32:1. */
+.diagram svg a{cursor:pointer;text-decoration:none;transition:filter 200ms ease}
+.diagram svg a:hover{filter:drop-shadow(0 6px 8px rgba(11,21,48,.28))}
+.diagram svg a:focus{outline:none}
+.diagram svg a:focus-visible{outline:3px solid #8B3A2E;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.diagram svg a{transition:none}}
+.steplist{background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);margin:24px 0 0}
+.steplist summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 16px;font-weight:700;color:var(--navy)}
+.steplist summary::-webkit-details-marker{display:none}
+.steplist summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+.steplist summary:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;border-radius:8px}
+.steplist[open] summary::before{transform:rotate(45deg)}
+.steplist ol{margin:0;padding:4px 20px 18px 40px}
+.steplist li{margin:8px 0}
+.steplist .soon{color:var(--ink-soft);font-weight:600}
+.steplist ul{margin:4px 0 0;padding-left:20px}
+@media (prefers-reduced-motion:reduce){.steplist summary::before{transition:none}}
+@media print{
+  html,body{background:#fff!important}
+  body{padding-bottom:0!important} /* bio005-back.js pads the body for its floating button; not on paper */
+  .skip,.topnav,.mm-brandbar,.mm-foot{display:none!important}
+  .keybox,.steplist{box-shadow:none!important}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+<style>
+/* The straight line: one numbered node per step on a navy line, a white
+   card beside it, and that step's pages listed inside the card.
+   Maroon link text on white 7.66:1, ink-soft on white 8.93:1. */
+.line{list-style:none;margin:24px 0 0;padding:0;position:relative;display:grid;gap:14px}
+.line::before{content:"";position:absolute;left:17px;top:20px;bottom:20px;width:2px;background:var(--navy)}
+.stop,.loopback{position:relative;padding-left:52px}
+.node{position:absolute;left:0;top:14px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+.k-prev .node{background:var(--navy-tint);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.k-learn .node{background:var(--navy);color:var(--white)}
+.k-retr .node{background:var(--maroon);color:var(--white)}
+.k-check .node{background:var(--gold);color:var(--navy-deep);box-shadow:inset 0 0 0 2px var(--navy)}
+.k-assess .node{background:var(--white);color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.scard,.lcard{background:var(--white);border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:14px 18px 16px}
+.phase{margin:0;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.shead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:2px}
+.shead h2{margin:0;font-size:20px;line-height:1.25;color:var(--navy)}
+.time{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.bdg{display:flex;gap:6px;margin-left:auto}
+.what{margin:8px 0 0;font-size:16px;line-height:1.55;color:var(--ink)}
+.ph{margin:12px 0 6px;font-size:13px;font-weight:700;color:var(--maroon-dark)}
+.pages{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pg{display:grid;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink);background:var(--white);transition:var(--motion)}
+a.pg:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+a.pg:focus-visible{outline:3px solid var(--maroon);outline-offset:2px}
+.pl{font-weight:700;font-size:16px;color:var(--maroon);display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+a.pg .pl::after{content:"\2192";font-weight:700}
+.pg-text .pl{color:var(--navy)}
+.pd{font-size:14px;line-height:1.45;color:var(--ink-soft)}
+.opt{font-size:12px;font-weight:700;color:var(--ink-soft);border:1px solid var(--ink-soft);border-radius:99px;padding:0 8px}
+.none{margin:0;font-size:15px;color:var(--ink-soft)}
+.loopback .node{background:var(--white);color:var(--maroon);box-shadow:inset 0 0 0 2px var(--maroon)}
+.lcard{border:1.5px dashed var(--maroon);box-shadow:none}
+.lcard p{margin:6px 0 0;font-size:15px;line-height:1.5}
+.lcard .lh{margin:0;font-weight:800;color:var(--maroon-dark);font-size:16px}
+.lcard a{color:var(--maroon);font-weight:700}
+.lcard .lgo{font-weight:700;color:var(--navy)}
+/* Sep 27 2026, Scrubs: each step card takes the color of its phase, the same
+   boxes as the weekly loop diagram: Preview navy-tint, Learn navy, Study it
+   maroon, Mastery Check gold, Use it white with a navy outline. The page
+   links inside stay white cards. White on navy 18.04:1, white on maroon
+   7.66:1, navy on gold 8.2:1, navy on navy-tint 16.3:1. */
+.k-prev .scard{background:var(--navy-tint);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.k-assess .scard{background:var(--white);box-shadow:inset 0 0 0 1.5px var(--navy),0 1px 3px rgba(11,21,48,.08)}
+.k-learn .scard{background:var(--navy)}
+.k-retr .scard{background:var(--maroon)}
+.k-check .scard{background:var(--gold);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.k-learn .scard>.phase,.k-learn .shead h2,.k-learn .time,.k-learn .what,.k-learn .ph,.k-learn .none,
+.k-retr .scard>.phase,.k-retr .shead h2,.k-retr .time,.k-retr .what,.k-retr .ph,.k-retr .none{color:#fff}
+.k-check .scard>.phase,.k-check .shead h2,.k-check .time,.k-check .what,.k-check .ph,.k-check .none{color:var(--navy-deep)}
+.k-prev .ph,.k-assess .ph{color:var(--maroon-dark)}
+.k-learn .bdg>*,.k-retr .bdg>*,.k-check .bdg>*{box-shadow:0 0 0 2px #fff}
+.k-learn .pg,.k-retr .pg,.k-check .pg{border-color:transparent}
+@media (prefers-reduced-motion:reduce){.pg,a.pg:hover{transition:none;transform:none}}
+@media (max-width:420px){.stop,.loopback{padding-left:46px}.node{width:32px;height:32px;font-size:14px}.line::before{left:15px}.bdg{margin-left:0}}
+@media print{.scard,.lcard,.pg{box-shadow:none!important}a.pg .pl::after{content:""}.k-learn .scard,.k-retr .scard,.k-check .scard,.k-prev .scard{background:#fff!important;border:1px solid #000}.k-learn .scard *,.k-retr .scard *,.k-check .scard *{color:#000!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to this week's steps</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<nav class="topnav" aria-label="Back"><div class="loop-wrap">
+  <a class="mm-back" id="siteBack" href="course.html" target="_top">&larr; Course home</a>
+  <a class="mm-back" id="chipBack" href="https://yccd.instructure.com/courses/42616/modules" target="_top">&larr; Back to Canvas modules</a>
+</div></nav>
+
+<main id="main">
+<header class="loop-head"><div class="loop-wrap">
+  <p class="mm-eyebrow">Week 5, start here</p>
+  <h1 class="mm-display"><span>Week 5</span>: Reflexes, and sensing the world.</h1>
+  <p class="entry-meta">Opens Monday, October 5. Your first discussion post is due Friday, October 9 at 10:00 pm, and everything else is due Sunday, October 11 at 10:00 pm.</p>
+  <p class="entry-how">Start at the top and work your way down. Each step lists the pages you need for it. Nothing has to be printed: you can work on your own paper, as long as you label every page with your name, the week, the step, and the competency or question number. Your patient this week is Patient 1. <a href="weekly-loop.html" target="_top">How the weekly loop works</a></p>
+</div></header>
+
+<div class="loop-wrap">
+<details class="keybox">
+<summary>What the colors and letters mean</summary>
+<ul class="legend">
+  <li><span class="sw sw-prev" aria-hidden="true"></span>Light navy: previewing the chapter</li>
+  <li><span class="sw sw-learn" aria-hidden="true"></span>Navy: learning it</li>
+  <li><span class="sw sw-retr" aria-hidden="true"></span>Maroon: pulling it back out of memory</li>
+  <li><span class="sw sw-check" aria-hidden="true"></span>Gold: checking what is solid</li>
+  <li><span class="sw sw-assess" aria-hidden="true"></span>White: showing what you know</li>
+  <li><span class="wbadge" aria-hidden="true">W</span>This step has a worksheet</li>
+  <li><span class="wbadge abadge" aria-hidden="true">S</span>You submit this in Canvas</li>
+  <li><span class="wbadge tbadge" aria-hidden="true">T</span>You track this all term</li>
+</ul>
+</details>
+
+<ol class="line" aria-label="This week's steps, in order">
+<li class="stop k-prev" id="s-preread"><span class="node" aria-hidden="true">1</span><div class="scard"><p class="phase">Preview</p><div class="shead"><h2><span class="mm-vh">Step 1. </span>Pre-read<span class="mm-vh">, has a worksheet</span><span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">30 min max</span><span class="bdg"><span class="wbadge" aria-hidden="true">W</span><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Look over the chapter before you learn it: the figures and the bold terms. Then fill in the pre-read worksheet. Stop at 30 minutes.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="week-05-preread.html" target="_top"><span class="pl">Pre-read and worksheet</span><span class="pd">The headings, the figures, and the pre-read worksheet you turn in. Already printed it? You do not need to print it again.</span></a></li></ul></div></li>
+<li class="stop k-learn" id="s-first"><span class="node" aria-hidden="true">2</span><div class="scard"><p class="phase">Learning</p><div class="shead"><h2><span class="mm-vh">Step 2. </span>First pass<span class="mm-vh">, has a worksheet</span></h2><span class="time">3 to 4 hours</span><span class="bdg"><span class="wbadge" aria-hidden="true">W</span></span></div><p class="what">Work through the six walkthroughs in order, typing each prediction into the worksheet on the right before you press Show me. Then use the written notes to fill in your Competency Study Guide in your first color.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="note-sheet.html?week=5" target="_top"><span class="pl">Competency Study Guide</span><span class="pd">Your worksheet for the week. Print it, or work the same prompts on your own paper. Already printed it from the Start here page? You do not need to print it again.</span></a></li><li><a class="pg" href="lecture-week.html?week=5" target="_top"><span class="pl">Walkthroughs</span><span class="pd">The six Week 5 walkthroughs, in order. Opens Monday, October 5 at 8:00 am.</span></a></li><li><a class="pg" href="week-05-notes.html" target="_top"><span class="pl">Written notes</span><span class="pd">Notes for each walkthrough in bullets, definitions and sequences, to study from after the walkthrough. Read them on screen, or print them: the PDF link is at the top of the notes page. If you already printed the notes, you do not need to print them again.</span></a></li></ul></div></li>
+<li class="stop k-learn" id="s-second"><span class="node" aria-hidden="true">3</span><div class="scard"><p class="phase">Learning</p><div class="shead"><h2><span class="mm-vh">Step 3. </span>Second pass</h2><span class="time">30 to 60 min</span><span class="bdg"></span></div><p class="what">Go back through the same walkthroughs and notes from First pass. Add to your Competency Study Guide in a second color.</p><p class="ph">Pages for this step</p><p class="none">No new pages. Use the ones from First pass.</p></div></li>
+<li class="stop k-learn" id="s-upload"><span class="node" aria-hidden="true">4</span><div class="scard"><p class="phase">Learning</p><div class="shead"><h2><span class="mm-vh">Step 4. </span>Upload your guide<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">10 min</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Upload the Competency Study Guide you printed at the start of the week, or your own labeled pages, now filled in with both colors from Steps 2 and 3. Scan or photograph every page, combine them into one PDF, and upload it to the Step 4 assignment in Canvas.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="https://yccd.instructure.com/courses/42616/modules" target="_top"><span class="pl">Upload your guide in Canvas</span><span class="pd">The Week 5, Step 4 assignment, in the Week 5 module. Upload one PDF with every page, competency 1 first.</span></a></li><li><a class="pg" href="assignment-notesheet.html?week=5" target="_top"><span class="pl">How the Competency Study Guide works<span class="opt">Optional</span></span><span class="pd">What to scan and how to make one PDF</span></a></li></ul></div></li>
+<li class="stop k-retr" id="s-study"><span class="node" aria-hidden="true">5</span><div class="scard"><p class="phase">Retrieval</p><div class="shead"><h2><span class="mm-vh">Step 5. </span>Study it</h2><span class="time">4 sessions of 30 to 45 min</span><span class="bdg"></span></div><p class="what">Pull the week back out of memory. Spread it over at least four days instead of one sitting.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="rx-cards.html?week=5&amp;only=1" target="_top"><span class="pl">Rx Cards</span><span class="pd">At least 20 cards a session and 60 cards a week</span></a></li><li><a class="pg" href="competency-brain-dump.html?week=5" target="_top"><span class="pl">Brain Dump</span><span class="pd">Pick a competency, close everything, write or draw all you can, then check it</span></a></li></ul></div></li>
+<li class="stop k-check" id="s-check"><span class="node" aria-hidden="true">6</span><div class="scard"><p class="phase">Checking</p><div class="shead"><h2><span class="mm-vh">Step 6. </span>Mastery Check<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">30 to 50 min per try, at least 3 tries</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Take the Mastery Check, about 30 questions a try. Do at least 3 tries with Study it in between, and aim for 80 percent before you stop. You can always do more. Turn in the report from every try.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="practice-exam.html?week=5&amp;n=30" target="_top"><span class="pl">Mastery Check</span><span class="pd">Set to Week 5 and 30 questions. Each try is a fresh set.</span></a></li><li><a class="pg" href="assignment-practice-log.html" target="_top"><span class="pl">How to submit your reports</span><span class="pd">Save each report as a PDF, or print your weekly practice log, which has every try in one PDF</span></a></li></ul></div></li>
+<li class="loopback"><span class="node" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg></span><div class="lcard"><p class="lh">Go around at least 3 times.</p><p>After each try, go back to <a href="#s-study">Study it</a> for the competencies the report lists, then take the Mastery Check again. Aim for 80 percent before you stop. You can always do more.</p><p>Could not start a competency at all? Go back to <a href="#s-second">Second pass</a> for that one.</p><p class="lgo">At least 3 tries and at 80 percent? Keep going down the line.</p></div></li>
+<li class="stop k-assess" id="s-lab"><span class="node" aria-hidden="true">7</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 7. </span>The lab<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">2 to 3 hours</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">There is no PhysioEx this week. Run the tests on yourself with the sensory and reflex lab, record your data, and turn it in.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="lab-week05-sensory-reflex.html" target="_top"><span class="pl">Sensory and reflex lab</span><span class="pd">Three pages to print, the tests to run, and the tables for your data. Print page 3 at 100 percent.</span></a></li></ul></div></li>
+<li class="stop k-assess" id="s-case"><span class="node" aria-hidden="true">8</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 8. </span>Your patient, in Rounds</h2><span class="time">About 1 hour 30 min</span><span class="bdg"></span></div><p class="what">Rounds is Camila&#x27;s online chart, laid out like a hospital record. Follow the steps down the left side: predict first, file the numbers, answer the five questions and your entry point&#x27;s question, and write your note. You type everything, so nothing is printed.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="patient-rounds.html?week=5" target="_top"><span class="pl">Rounds: Week 5</span><span class="pd">Everything for the case is here. Your earlier weeks are already filed.</span></a></li></ul></div></li>
+<li class="stop k-assess" id="s-patient"><span class="node" aria-hidden="true">9</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 9. </span>Check your chart<span class="mm-vh">, you track this all term</span></h2><span class="time">About 10 min</span><span class="bdg"><span class="wbadge tbadge" aria-hidden="true">T</span></span></div><p class="what">A quick check. In Rounds, click My entries and finish anything that says Not written yet. Then sign and click Export this week to PDF, and save it. You upload the whole chart once, in the week of Midterm 1.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="patient-rounds.html?week=5" target="_top"><span class="pl">Rounds: Week 5</span><span class="pd">Click My entries on the right to see anything still empty.</span></a></li></ul></div></li>
+<li class="stop k-assess" id="s-discussion"><span class="node" aria-hidden="true">10</span><div class="scard"><p class="phase">Use it</p><div class="shead"><h2><span class="mm-vh">Step 10. </span>Exam practice and Discussion 5<span class="mm-vh">, you submit this in Canvas</span></h2><span class="time">About 2 hours</span><span class="bdg"><span class="wbadge abadge" aria-hidden="true">S</span></span></div><p class="what">Two parts. In Discussion 5 you check last week&#x27;s two practice videos against the rubrics and the key, post your scores and analysis, and reply to two classmates. Then two new timed quizzes on this week&#x27;s material, one question each, recorded on Studio inside the quiz the same way as last week: 15 minutes building your model from memory, then 5 to 7 minutes teaching it. Your videos go to me only.</p><p class="ph">Pages for this step</p><ul class="pages"><li><a class="pg" href="discussion-week05.html" target="_top"><span class="pl">Discussion 5, exam practice part 2</span><span class="pd">Score last week&#x27;s videos and post your analysis. The rubrics and the key are in the Canvas discussion.</span></a></li><li><div class="pg pg-text"><span class="pl">Exam practice, Questions 1 and 2 (timed quizzes)</span><span class="pd">In the Week 5 module in Canvas. Same directions and timing as last week: 28 minutes each, and Question 2 opens after you submit Question 1.</span></div></li></ul></div></li>
+</ol>
+</div>
+</main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script>
+(function(){
+  var FRAME_ID = "bio005-week-05-entry";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){
+    try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){}
+  }
+  setTimeout(sendHeight, 400);
+  setTimeout(sendHeight, 1500);
+}());
+</script>
+</body>
+</html>

@@ -55,6 +55,12 @@ NOTES = {
      ("biol005-w04-ap-conduction-notes.html", "How action potentials carry information"),
      ("biol005-w04-synapse-notes.html", "The chemical synapse"),
      ("biol005-w04-synaptic-integration-notes.html", "Integration at the synapse")],
+ 5: [("biol005-w05-reflexes-walkthrough-notes.html", "Spinal reflexes"),
+     ("biol005-w05-sensory-coding-walkthrough-notes.html", "Sensory receptors and coding"),
+     ("biol005-w05-pathways-pain-walkthrough-notes.html", "Spinal pathways, touch and pain"),
+     ("biol005-w05-csf-bbb-walkthrough-notes.html", "Cerebrospinal fluid and the blood-brain barrier"),
+     ("biol005-w05-vision-walkthrough-notes.html", "Vision"),
+     ("biol005-w05-hearing-balance-walkthrough-notes.html", "Hearing, balance, taste and smell")],
 }
 
 # lecture notes keep the numbers they were first published under, even after

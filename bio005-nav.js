@@ -776,7 +776,7 @@
       return m ? parseInt(m[1], 10) : 0;
     }
     var pw = weekOfThisPage() || cur.n;
-    var LINE = { 4: 'week-04-entry.html' };
+    var LINE = { 4: 'week-04-entry.html', 5: 'week-05-entry.html' };
     var lineWeek = pw >= 4 ? pw : 0;
     function lineItem() {
       var f = LINE[lineWeek] || ('week-' + pad2(lineWeek) + '.html');
@@ -891,7 +891,9 @@
      week on the cell, so it opens with Week 2 rather than after it. */
   /* Sep 24 2026: Week 4 released from HOLD. Its pages still open on the normal
      rule, Monday September 28 at 8:00 am Pacific. */
-  var HOLD = window.BIO005_SITE.held = { 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+  /* Oct 4 2026: Week 5 released from HOLD. Its pages still open on the normal
+     rule, Monday October 5 at 8:00 am Pacific. */
+  var HOLD = window.BIO005_SITE.held = { 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
 
   var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
   var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 7,

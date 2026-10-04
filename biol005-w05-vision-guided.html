@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vision, step by step | BIOL 005 Week 5</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:rgba(11,21,48,0.16); --page:#FAFAF9; --card:#FFFFFF;
+  --locked:#454B58;
+  --shadow:0 1px 3px rgba(11,21,48,0.08); --shadow2:0 8px 16px rgba(11,21,48,0.10);
+  --head:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+/* Brand restyle Sep 24 2026. The shared brand bar and dark footer from
+   assets/brandbar.css, the virtual-office.html editorial type (tracked
+   maroon eyebrows, two-tone Open Sans 800 headline, maroon-dark
+   headings, uppercase maroon primary buttons at 4px radius) and cards
+   at 8px. Layout, animation, gating and the worksheet logic are
+   untouched. The brand bar is static here, not sticky, because the
+   figure column and the worksheet are already sticky and would slide
+   under it. */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.mm-brandbar{position:relative}
+.mm-brandbar .mm-wrap,.mm-foot .mm-wrap{max-width:1400px}
+.top{background:transparent;position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:16px 20px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.9vw,2rem);letter-spacing:-.022em;margin:0;flex:1 1 320px;line-height:1.15;color:var(--navy)}
+.top h1 .tone{color:var(--maroon)}
+.top .course{display:block;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px;line-height:1.4}
+.top-in > a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.top-in > a:hover{text-decoration:underline;color:var(--maroon-dark)}
+.jump{position:relative}
+.tbtn{font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,background 160ms ease}
+.tbtn:not(:disabled):hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
+.tbtn.primary{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.tbtn.primary:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+/* Locked: gray dashed, still white inside. #454B58 on white is 8.75:1.
+   The disabled attribute carries the state; the dash is the picture of it. */
+.tbtn:disabled,.tbtn.primary:disabled{opacity:1;background:#fff;color:var(--locked);border:1.5px dashed var(--locked);cursor:not-allowed;box-shadow:none;transform:none}
+/* Unlocked jump menu: gold-deep edge, the gold that works on a light page, 4.87:1. */
+#jumpBtn:not(:disabled){border-color:var(--gold-deep)}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:8px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:4px;padding:10px 12px;font:700 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:#fff;box-shadow:inset 0 0 0 1.5px var(--navy)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:#fff;box-shadow:var(--shadow2)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2;color:var(--maroon-dark)}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:8px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:8px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:8px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:.82rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:1.25rem;margin:0 0 4px;color:var(--maroon-dark)}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:4px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:8px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 5px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tbtn:not(:disabled):hover{transform:none}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 5</span><span class="tone">Vision</span>, step by step.</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=5" target="_top">Week 5 lectures</a>
+    <a href="biol005-w05-vision-walkthrough-notes.html" target="_blank" rel="noopener">Written notes<span class="sr"> (opens in a new tab)</span></a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn" aria-describedby="gateNote">Show me</button>
+      <span id="gateNote" class="sr" aria-live="polite"></span>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Type each prediction here before you click Show me. Show me stays locked until you do. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 5: Vision, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+/* Week 5 scene kit. Oct 4 2026. Shared helpers prepended to every Week 5
+   scene by tools/walkthroughs/assemble_w05.py. Same engine as Week 4: el,
+   tx, place, tweenPath, tweenVal, wait, markers and arrow come from the
+   shell. Everything here only draws and moves; no step logic lives here. */
+markers();
+var REG={};
+function G(n,p){var g=el("g",{},p||svg);REG[n]=g;return g;}
+function only(l){for(var k in REG)REG[k].setAttribute("display","none");l.forEach(function(k){if(REG[k])REG[k].setAttribute("display","");});}
+var GOLD="#C9A14A",TISS="#F6E9E6",FLUID="#E3F0F6",FLOW="#2F6F8F"; /* tissue, fluid and fluid-flow tints for figures only, never text */
+
+/* a line through points, optionally dashed */
+function poly(p,pts,col,w,dash){
+  var a={points:pts.map(function(q){return q[0]+","+q[1];}).join(" "),fill:"none",stroke:col||NAVY,"stroke-width":w||5,"stroke-linejoin":"round","stroke-linecap":"round"};
+  if(dash)a["stroke-dasharray"]=dash;
+  return el("polyline",a,p);
+}
+/* reveal a line from its start, then leave it solid */
+function reveal(line,dur,a){
+  var L=line.getTotalLength?line.getTotalLength():0;
+  if(!a||reduce||!L){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");return Promise.resolve();}
+  line.setAttribute("stroke-dasharray",L+" "+L);line.setAttribute("stroke-dashoffset",L);
+  return tweenVal(L,0,dur,a,function(v){line.setAttribute("stroke-dashoffset",v);}).then(function(){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");});
+}
+/* a traveling signal: a filled dot with a white rim */
+function dot(p,col,r){var g=el("g",{},p);el("circle",{r:r||11,fill:col||MAROON,stroke:"#fff","stroke-width":2.5},g);g.setAttribute("display","none");return g;}
+function run(g,pts,dur,a,keep){
+  g.setAttribute("display","");place(g,pts[0][0],pts[0][1]);
+  return tweenPath(g,pts.slice(1),dur,a).then(function(){if(!keep)g.setAttribute("display","none");});
+}
+function hide(list){list.forEach(function(g){g.setAttribute("display","none");});}
+/* a round badge with a sign or a short word inside */
+function badge(p,x,y,s,col,r){var g=el("g",{},p);el("circle",{r:r||16,fill:col||NAVY},g);var t=el("text",{"class":"iw","font-size":(r||16)+4},g);t.textContent=s;place(g,x,y);g._t=t;g._c=g.firstChild;return g;}
+function setBadge(g,s,col){g._t.textContent=s;g._c.setAttribute("fill",col);g.setAttribute("display","");}
+/* a white labeled box */
+function box(p,x,y,w,h,s,cls,size,stroke){
+  var g=el("g",{},p);
+  el("rect",{x:x,y:y,width:w,height:h,rx:8,fill:"#fff",stroke:stroke||NAVY,"stroke-width":2.5},g);
+  var lines=String(s).split("\n"),sz=size||15,y0=y+h/2-(lines.length-1)*(sz+3)/2+sz*0.35;
+  g._t=lines.map(function(l,i){return tx(g,x+w/2,y0+i*(sz+3),l,cls||"tn",sz,"middle");});
+  return g;
+}
+/* a spike train: n identical spikes spread across width w, baseline at y */
+function trainD(x,y,w,n,h){
+  if(n<=0)return "M"+x+" "+y+" h"+w;
+  var d="M"+x+" "+y,step=w/n,cx=x;
+  for(var i=0;i<n;i++){var sx=x+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+function trainPath(p,col,w){return el("path",{d:"",fill:"none",stroke:col||NAVY,"stroke-width":w||3,"stroke-linejoin":"round"},p);}
+/* spikes that only appear in part of a window: on from fraction f0 to f1, n spikes */
+function trainWin(x,y,w,f0,f1,n,h){
+  var a=x+w*f0,b=x+w*f1,d="M"+x+" "+y+" H"+a;
+  var step=(b-a)/Math.max(n,1);
+  for(var i=0;i<n;i++){var sx=a+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+/* grow a spike train across its window, left to right */
+function growTrain(path,fn,dur,a){
+  if(!a||reduce){path.setAttribute("d",fn(1));return Promise.resolve();}
+  return tweenVal(0,1,dur,a,function(k){path.setAttribute("d",fn(k));});
+}
+/* the caption line, drawn last so it sits on top */
+var CAP=null;
+function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
+function cap(s){if(CAP)CAP.textContent=s||"";}
+
+/* Vision. Oct 4 2026. Week 5 competencies 16 to 19. Figure one: an eye in
+   section with light coming from the left, the cornea, the lens on its
+   zonules and ciliary muscle, and the retina; the eyeball length and the
+   focal point change per step. Figure two: the pupillary light reflex.
+   Figure three: a rod with its cascade. Figure four: the visual pathway
+   from above, with visual fields. */
+
+/* ---- the eye ---- */
+var gEye=G("eye");
+var EX=520,EY=250;
+var ball=el("ellipse",{cx:EX,cy:EY,rx:200,ry:170,fill:"#fff",stroke:NAVY,"stroke-width":4},gEye);
+var cornea=el("path",{d:"",fill:"none",stroke:NAVY,"stroke-width":5},gEye);
+var retina=el("path",{d:"",fill:"none",stroke:MAROON,"stroke-width":6},gEye);
+var lens=el("ellipse",{cx:400,cy:EY,rx:20,ry:62,fill:TINT,stroke:NAVY,"stroke-width":3},gEye);
+var zon=[el("line",{stroke:INK2,"stroke-width":2},gEye),el("line",{stroke:INK2,"stroke-width":2},gEye)];
+var cil=[el("rect",{x:384,y:122,width:32,height:26,rx:6,fill:MAROON},gEye),el("rect",{x:384,y:352,width:32,height:26,rx:6,fill:MAROON},gEye)];
+tx(gEye,400,112,"ciliary muscle","tm",13,"middle");
+tx(gEye,330,EY+90,"lens","t",13,"middle");tx(gEye,290,96,"cornea","t",13,"middle");
+var retLab=tx(gEye,EX+150,EY-180,"retina","tm",14,"middle");
+var R=[el("polyline",{fill:"none",stroke:GDEEP,"stroke-width":3},gEye),el("polyline",{fill:"none",stroke:GDEEP,"stroke-width":3},gEye),el("polyline",{fill:"none",stroke:GDEEP,"stroke-width":3},gEye)];
+var fp=el("circle",{r:8,fill:GDEEP},gEye);
+var corr=el("path",{d:"",fill:TINT,stroke:NAVY,"stroke-width":3},gEye);
+var eyeT=tx(gEye,40,470,"","tn",15,"start");
+var E={len:200,round:0,fx:720};
+function eyeSet(len,round,fx,src){
+  E.len=len;E.round=round;
+  ball.setAttribute("rx",len);ball.setAttribute("cx",320+len);
+  var cx=320+len;
+  cornea.setAttribute("d","M330 160 Q"+(296)+" "+EY+" 330 340");
+  retina.setAttribute("d","M"+(cx+len*0.55)+" "+(EY-140)+" Q"+(cx+len+6)+" "+EY+" "+(cx+len*0.55)+" "+(EY+140));
+  retLab.setAttribute("x",cx+len*0.6);
+  lens.setAttribute("rx",20+16*round);lens.setAttribute("ry",62-6*round);
+  var slack=round>0.5;
+  zon[0].setAttribute("x1",400);zon[0].setAttribute("y1",EY-62+6*round);zon[0].setAttribute("x2",400);zon[0].setAttribute("y2",148);
+  zon[1].setAttribute("x1",400);zon[1].setAttribute("y1",EY+62-6*round);zon[1].setAttribute("x2",400);zon[1].setAttribute("y2",352);
+  zon.forEach(function(z){z.setAttribute("stroke-dasharray",slack?"3 5":"");});
+  cil.forEach(function(c,i){c.setAttribute("height",slack?34:26);c.setAttribute("y",i?352:(slack?114:122));});
+  var near=src==="near";
+  var ys=near?[EY-70,EY,EY+70]:[EY-60,EY,EY+60];
+  R.forEach(function(r,i){
+    var start=near?[60,EY]:[40,ys[i]];
+    var pts=[start,[312,ys[i]],[400,ys[i]*0.85+EY*0.15]];
+    var end=[fx,EY];
+    var dx=end[0]-400,dy=end[1]-pts[2][1];
+    var ext=fx<cx+len?[cx+len-8,pts[2][1]+dy*((cx+len-8-400)/dx)]:end;
+    r.setAttribute("points",pts.concat([end,ext]).map(function(q){return q[0]+","+q[1];}).join(" "));
+  });
+  fp.setAttribute("cx",fx);fp.setAttribute("cy",EY);
+}
+function eyeTween(a,from,to,dur,src){return tweenVal(0,1,dur,a,function(k){eyeSet(from[0]+(to[0]-from[0])*k,from[1]+(to[1]-from[1])*k,from[2]+(to[2]-from[2])*k,src);});}
+function lensDraw(kind){
+  if(kind==="concave")corr.setAttribute("d","M226 170 Q246 250 226 330 L250 330 Q232 250 250 170 Z");
+  else if(kind==="convex")corr.setAttribute("d","M238 170 Q212 250 238 330 Q264 250 238 170 Z");
+  else corr.setAttribute("d","");
+}
+
+/* ---- the pupillary light reflex ---- */
+var gPup=G("pup");
+function eyeIcon(cx,lab){el("ellipse",{cx:cx,cy:400,rx:70,ry:42,fill:"#fff",stroke:NAVY,"stroke-width":3},gPup);el("circle",{cx:cx,cy:400,r:30,fill:TINT,stroke:INK2,"stroke-width":2},gPup);var p=el("circle",{cx:cx,cy:400,r:20,fill:NAVY},gPup);tx(gPup,cx,470,lab,"t",14,"middle");return p;}
+var pupL=eyeIcon(250,"left eye"),pupR=eyeIcon(650,"right eye");
+box(gPup,330,60,240,70,"midbrain","tn",16);
+var aff=poly(gPup,[[250,358],[300,200],[400,130]],GDEEP,5);
+var eff=[poly(gPup,[[430,130],[330,230],[262,360]],NAVY,5),poly(gPup,[[470,130],[570,230],[638,360]],NAVY,5)];
+tx(gPup,150,240,"optic nerve (in)","tm",14,"start");tx(gPup,600,190,"oculomotor nerve (out)","tn",14,"start");
+var light=el("g",{},gPup);arrow(light,110,330,180,372,GDEEP,6);tx(light,60,320,"light","tm",14,"start");
+var pX=badge(gPup,276,280,"X",MAROON,14);
+var ps=[dot(gPup,GDEEP,9),dot(gPup,NAVY,9),dot(gPup,NAVY,9)];
+function pupils(l,r){pupL.setAttribute("r",l);pupR.setAttribute("r",r);}
+
+/* ---- the rod ---- */
+var gRod=G("rod");
+el("rect",{x:110,y:50,width:120,height:200,rx:20,fill:"#fff",stroke:NAVY,"stroke-width":4},gRod);
+for(var i=0;i<8;i++)el("line",{x1:124,y1:72+i*22,x2:216,y2:72+i*22,stroke:INK2,"stroke-width":3},gRod);
+el("rect",{x:120,y:250,width:100,height:150,rx:20,fill:"#fff",stroke:NAVY,"stroke-width":4},gRod);
+el("line",{x1:170,y1:400,x2:170,y2:450,stroke:NAVY,"stroke-width":6},gRod);
+tx(gRod,170,40,"outer segment, discs of rhodopsin","t",13,"middle");
+tx(gRod,236,330,"inner segment","t",13,"start");
+var chan=el("rect",{x:224,y:150,width:20,height:40,rx:4,fill:"#fff",stroke:NAVY,"stroke-width":3},gRod);
+var chanGate=el("rect",{x:226,y:166,width:16,height:8,fill:GDEEP},gRod);
+tx(gRod,252,148,"cGMP-gated","t",12,"start");tx(gRod,252,162,"cation channel","t",12,"start");
+var naIn=el("g",{},gRod);arrow(naIn,300,176,252,176,MAROON,5);tx(naIn,306,182,"Na+ in","tm",14,"start");
+var GLU=[];for(i=0;i<6;i++){var c=el("circle",{cx:140+i*12,cy:470+(i%2)*10,r:5,fill:GDEEP},gRod);GLU.push(c);}
+tx(gRod,240,480,"glutamate released","t",13,"start");
+var meter=box(gRod,40,410,0.1,0.1,"","tn",1);
+var mvT=tx(gRod,440,90,"","tn",22,"start"),cgT=tx(gRod,440,130,"","tn",18,"start");
+tx(gRod,440,60,"membrane potential","t",13,"start");
+var CASC=["photon","retinal changes shape","rhodopsin active","transducin (G protein)","phosphodiesterase","cGMP falls","channels close","hyperpolarized","less glutamate"];
+var CB=CASC.map(function(s,i){var col=i%2,row=Math.floor(i/2);var b=box(gRod,440+col*215,170+row*58,200,44,s,"tn",13);b.setAttribute("display","none");return b;});
+function rodState(dark){mvT.textContent=dark?M+"40 mV, depolarized":M+"70 mV, hyperpolarized";cgT.textContent=dark?"cGMP high, channels open":"cGMP low, channels closed";
+  chanGate.setAttribute("display",dark?"none":"");naIn.setAttribute("display",dark?"":"none");GLU.forEach(function(g,i){g.setAttribute("display",dark||i<2?"":"none");});}
+
+/* ---- the pathway and the fields ---- */
+var gVp=G("vp");
+el("circle",{cx:330,cy:420,r:50,fill:"#fff",stroke:NAVY,"stroke-width":3},gVp);el("circle",{cx:570,cy:420,r:50,fill:"#fff",stroke:NAVY,"stroke-width":3},gVp);
+tx(gVp,330,490,"left eye","t",13,"middle");tx(gVp,570,490,"right eye","t",13,"middle");
+var VT=[poly(gVp,[[300,390],[300,300],[340,240],[350,150],[330,60]],NAVY,4),
+        poly(gVp,[[360,390],[400,320],[450,260],[540,200],[560,150],[570,60]],MAROON,4),
+        poly(gVp,[[540,390],[500,320],[450,260],[360,200],[340,150],[330,62]],MAROON,4,"8 5"),
+        poly(gVp,[[600,390],[600,300],[560,240],[550,150],[570,62]],NAVY,4,"8 5")];
+VT[2]._dash="8 5";VT[3]._dash="8 5";
+el("ellipse",{cx:450,cy:262,rx:30,ry:14,fill:"none",stroke:INK2,"stroke-width":2},gVp);
+tx(gVp,490,268,"chiasm","t",13,"start");
+el("ellipse",{cx:345,cy:150,rx:26,ry:14,fill:TINT,stroke:INK2,"stroke-width":2},gVp);el("ellipse",{cx:555,cy:150,rx:26,ry:14,fill:TINT,stroke:INK2,"stroke-width":2},gVp);
+tx(gVp,300,154,"thalamus","t",12,"end");
+el("rect",{x:290,y:30,width:320,height:36,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":3},gVp);tx(gVp,450,54,"visual cortex","tn",14,"middle");
+var cutON=badge(gVp,300,350,"X",MAROON,14),cutCh=badge(gVp,450,262,"X",MAROON,14);
+/* fields */
+var gFld=G("fld");
+function field(cx,lab){el("circle",{cx:cx,cy:220,r:70,fill:"#fff",stroke:NAVY,"stroke-width":3},gFld);el("line",{x1:cx,y1:150,x2:cx,y2:290,stroke:INK2,"stroke-width":1.5,"stroke-dasharray":"5 5"},gFld);tx(gFld,cx,316,lab,"t",13,"middle");
+  return [el("path",{d:"M"+cx+" 150 A70 70 0 0 0 "+cx+" 290 Z",fill:NAVY,opacity:0},gFld),el("path",{d:"M"+cx+" 150 A70 70 0 0 1 "+cx+" 290 Z",fill:NAVY,opacity:0},gFld)];}
+tx(gFld,770,130,"what each eye sees","tn",14,"middle");
+var FL=field(720,"left eye"),FR=field(820,"right eye");
+function shade(a,b,c,d){FL[0].setAttribute("opacity",a);FL[1].setAttribute("opacity",b);FR[0].setAttribute("opacity",c);FR[1].setAttribute("opacity",d);}
+
+makeCap();
+function resetAll(){eyeSet(200,0,720,"far");lensDraw(null);eyeT.textContent="";hide(ps);pupils(20,20);light.setAttribute("display","none");pX.setAttribute("display","none");
+  rodState(true);CB.forEach(function(b){b.setAttribute("display","none");});cutON.setAttribute("display","none");cutCh.setAttribute("display","none");shade(0,0,0,0);cap("");}
+function S(l){only(l.concat(["cap"]));resetAll();}
+var RET=720; /* the retina of a normal eye is at x 720 */
+
+var STEPS=[
+{sec:"Focusing light",comp:"Competency 16",
+ title:"Light enters the eye",
+ text:["Light from a distant object arrives at the eye as parallel rays. To form a sharp image, the eye has to bend those rays so they meet at one point on the retina, the layer of photoreceptors at the back of the eye. Bending light is called refraction.","Two structures refract the light. The cornea, the clear curved front of the eye, does about two thirds of the bending, and its shape is fixed. The lens, behind the pupil, does the rest, and its shape can change."],
+ name:"refraction",
+ auto:true,
+ desc:"An eye in section with light coming from the left as three parallel gold rays. They bend at the cornea and the lens and meet at one point on the maroon retina at the back of the eye. The lens is held by zonule fibers attached to a ring of ciliary muscle, shown above and below it.",
+ pre:function(){S(["eye"]);},
+ play:function(a){return eyeTween(a,[200,0,820],[200,0,RET],900,"far").then(function(){cap("Rays meet on the retina");});}},
+
+{title:"Looking far away",
+ text:["The lens is elastic and would naturally round up. It is held in a ring of fibers, the zonules, which attach to the ciliary muscle around it."],
+ ask:"For a distant object, is the ciliary muscle contracted or relaxed, are the zonules taut or slack, and is the lens flat or round?",
+ ans:["The ciliary muscle is relaxed. The ring it forms is wide, so the zonules are pulled taut, and they stretch the lens flat. A flatter lens bends light less, which is all that parallel rays from a distant object need.","Relaxed muscle, taut zonules, flat lens. Looking far away is the resting state of the eye."],
+ desc:"The lens is thin and flat, the zonules are solid taut lines, and the ciliary muscle is small. The rays from a distant object focus on the retina.",
+ pre:function(){S(["eye"]);},
+ play:function(a){return wait(500,a).then(function(){eyeT.textContent="far: muscle relaxed, zonules taut, lens flat";cap("Far: relaxed, taut, flat");});}},
+
+{title:"Reading up close",
+ text:["Now the object is a page about 25 cm (10 inches) away. Rays from a near object spread apart as they reach the eye, so they need more bending to meet on the retina."],
+ ask:"What do the ciliary muscle, the zonules and the lens do now?",
+ ans:["The ciliary muscle contracts. The ring it forms gets smaller and moves in toward the lens, so the zonules go slack, and the elastic lens rounds up. A rounder lens bends light more, and the image lands back on the retina.","This is accommodation. It catches many people out, because the muscle is working when the zonules are slack: contracting the ciliary muscle loosens the zonules. Reading for a long time tires the eye for this reason."],
+ name:"accommodation",
+ desc:"Rays now start from a near point and spread out. The ciliary muscle thickens, the zonules turn into slack dashed lines, the lens becomes rounder, and the rays focus on the retina.",
+ pre:function(){S(["eye"]);eyeSet(200,0,800,"near");},
+ play:function(a){return eyeTween(a,[200,0,800],[200,1,RET],1200,"near").then(function(){eyeT.textContent="near: muscle contracted, zonules slack, lens round";cap("Near: contracted, slack, round");});}},
+
+{title:"A light in one eye",
+ text:["The iris controls how much light enters through the pupil. A circular muscle in the iris narrows the pupil when it contracts. A light is shone into the left eye only."],
+ ask:"What happens to the left pupil and to the right pupil, and what pathway does it?",
+ ans:["Both pupils constrict, the left one and the right one equally. Light activates the retina, the signal travels in the optic nerve to the midbrain, and the midbrain sends signals out on both sides in the oculomotor nerves, through parasympathetic neurons, to the circular muscle of each iris.","This is the pupillary light reflex. The response in the eye that was not lit is the consensual response. If light in the left eye made neither pupil constrict while light in the right eye made both constrict, the problem would be in the left optic nerve, the input side."],
+ name:"pupillary light reflex",
+ desc:"Two eyes at the bottom with large pupils, a midbrain box above. A gold arrow shines light into the left eye. A gold dot travels up the optic nerve to the midbrain, navy dots travel down the oculomotor nerves to both eyes, and both pupils shrink.",
+ pre:function(){S(["pup"]);light.setAttribute("display","");},
+ play:function(a){return run(ps[0],[[250,358],[300,200],[400,130]],900,a).then(function(){return Promise.all([run(ps[1],[[430,130],[330,230],[262,360]],800,a),run(ps[2],[[470,130],[570,230],[638,360]],800,a)]);}).then(function(){return tweenVal(20,10,500,a,function(r){pupils(r,r);});}).then(function(){cap("Both pupils constrict");});}},
+
+{sec:"Refractive errors",comp:"Competency 19",
+ title:"An eye that is too long",
+ text:["In this eye the cornea and lens are normal, but the eyeball is longer than usual, so the retina sits farther back."],
+ ask:"Where do the rays from a distant object focus, what does the person notice, and what lens corrects it?",
+ ans:["In front of the retina. By the time the light reaches the retina, the rays have crossed and spread again, so distant objects are blurred. Near objects are clear, because their spreading rays focus farther back, onto the retina. This is myopia, or nearsightedness. A cornea that is too curved does the same thing.","It is corrected with a concave lens, which spreads the rays a little before they enter the eye, so they meet farther back, on the retina."],
+ name:"myopia",
+ desc:"The eyeball stretches longer. The rays from a distant object meet at a point in front of the retina and spread out again before reaching it. A concave lens appears in front of the eye, and the focus moves back onto the retina.",
+ pre:function(){S(["eye"]);eyeSet(240,0,RET,"far");},
+ play:function(a){return wait(700,a).then(function(){lensDraw("concave");return eyeTween(a,[240,0,RET],[240,0,800],900,"far");}).then(function(){eyeT.textContent="focus in front of the retina; a concave lens moves it back";cap("Long eye: myopia, concave lens");});}},
+
+{title:"An eye that is too short",
+ text:["Now the eyeball is shorter than usual."],
+ ask:"Where do the rays focus now, what does the person notice, and what lens corrects it?",
+ ans:["Behind the retina. The rays reach the retina before they meet, so the image is blurred. A young person can often rescue distant vision by accommodating, but near objects, which need even more bending, are blurry. This is hyperopia, or farsightedness.","It is corrected with a convex lens, which starts bending the rays inward before they enter the eye, so they meet sooner, on the retina."],
+ name:"hyperopia",
+ desc:"The eyeball shortens. The rays have not yet met when they reach the retina; their meeting point would be behind it. A convex lens appears in front of the eye and the focus moves forward onto the retina.",
+ pre:function(){S(["eye"]);eyeSet(160,0,RET,"far");},
+ play:function(a){return wait(700,a).then(function(){lensDraw("convex");return eyeTween(a,[160,0,RET],[160,0,640],900,"far");}).then(function(){eyeT.textContent="focus behind the retina; a convex lens brings it forward";cap("Short eye: hyperopia, convex lens");});}},
+
+{title:"Reading at 60",
+ text:["A person with normal eyes at 20 starts holding the newspaper farther away at about 45. By 60 they need reading glasses. Their eyeball is the same length it always was."],
+ ask:"What has changed in the eye, and why does it affect near vision but not far vision?",
+ ans:["The lens has stiffened with age. When the ciliary muscle contracts and the zonules go slack, the lens no longer rounds up enough, so accommodation fails. Far vision does not need accommodation, so it is unaffected. This is presbyopia, and it is corrected with convex reading lenses.","A hyperopic 20-year-old also holds a page far away, but for a different reason: their eyeball is too short, and their lens still works. A test of distant acuity separates them, since the hyperopic eye may struggle at distance too. Astigmatism is different again: the cornea is curved unevenly, more in one direction than another, so lines in some directions blur. It needs a cylindrical lens that corrects only that direction."],
+ name:"presbyopia",
+ desc:"A normal length eye trying to focus on a near page. The ciliary muscle contracts but the lens stays nearly flat, so the rays focus behind the retina. A convex reading lens brings them forward.",
+ pre:function(){S(["eye"]);eyeSet(200,0.15,800,"near");},
+ play:function(a){return wait(700,a).then(function(){lensDraw("convex");return eyeTween(a,[200,0.15,800],[200,0.15,RET],800,"near");}).then(function(){eyeT.textContent="stiff lens cannot round up; a convex lens helps";cap("Stiff lens: presbyopia");});}},
+
+{sec:"Phototransduction",comp:"Competency 17",
+ title:"A rod in the dark",
+ text:["This is a rod, one of the two kinds of photoreceptor. Its outer segment is stacked with discs full of rhodopsin, the light-absorbing pigment. Rhodopsin is a protein, opsin, bound to a light-absorbing molecule, retinal, made from vitamin A.","In the dark, the cell holds a high level of cyclic GMP (cGMP), and cGMP keeps cation channels in the outer segment open. Sodium flows in all the time, so the rod sits at about "+M+"40 mV, depolarized compared with a typical neuron, and releases glutamate continuously from its base."],
+ name:"rhodopsin",
+ auto:true,
+ desc:"A rod cell with a stack of discs in its outer segment, an inner segment, and a base releasing six gold glutamate dots. An open channel in the outer segment has a maroon arrow of sodium flowing in. The readout says minus 40 millivolts, depolarized, cGMP high, channels open.",
+ pre:function(){S(["rod"]);},
+ play:function(a){return wait(300,a).then(function(){cap("Dark: depolarized, releasing glutamate");});}},
+
+{title:"Light hits rhodopsin",
+ text:["A photon is absorbed by retinal in one rhodopsin molecule."],
+ ask:"Follow the chain from the photon to the channel. What happens to cGMP, to the channels, and to the membrane potential?",
+ ans:["Retinal changes shape, which activates rhodopsin. Rhodopsin activates a G protein called transducin, which activates the enzyme phosphodiesterase. Phosphodiesterase breaks down cGMP, so cGMP falls, the cGMP-gated channels close, sodium stops coming in, and the rod hyperpolarizes toward "+M+"70 mV.","Each step amplifies the one before: one rhodopsin activates many transducins and each phosphodiesterase breaks down many cGMP molecules, which is why a rod can respond to a single photon. This is phototransduction, and it is the G protein cascade from the signaling unit in Week 2."],
+ name:"phototransduction",
+ desc:"A chain of boxes appears one by one: photon, retinal changes shape, rhodopsin active, transducin, phosphodiesterase, cGMP falls, channels close, hyperpolarized, less glutamate. The channel gate closes, the sodium arrow disappears, and the readout changes to minus 70 millivolts, cGMP low, channels closed.",
+ pre:function(){S(["rod"]);},
+ play:function(a){var k=0;function nxt(){if(k>=CB.length-1)return Promise.resolve();CB[k].setAttribute("display","");k++;return wait(260,a).then(nxt);}
+   return nxt().then(function(){rodState(false);GLU.forEach(function(g){g.setAttribute("display","");});cap("cGMP falls, channels close");});}},
+
+{title:"Releasing transmitter",
+ text:["The rod's base forms a synapse with a bipolar cell. A typical neuron releases more transmitter when it is depolarized."],
+ ask:"In the dark or in bright light: when does this photoreceptor release the most glutamate?",
+ ans:["In the dark. Light hyperpolarizes the rod, fewer voltage-gated calcium channels at its base are open, and glutamate release falls. So the signal the rod sends about light is a decrease in transmitter.","This surprises people, but it works: the bipolar cells read the change in glutamate, whether it goes up or down. Photoreceptors are graded the whole way, with no action potentials. The first action potentials in the visual pathway are fired by the ganglion cells, whose axons form the optic nerve."],
+ desc:"The rod in light, hyperpolarized, with only two glutamate dots left at its base.",
+ pre:function(){S(["rod"]);CB.forEach(function(b){b.setAttribute("display","");});rodState(false);GLU.forEach(function(g){g.setAttribute("display","");});},
+ play:function(a){return wait(500,a).then(function(){GLU.forEach(function(g,i){g.setAttribute("display",i<2?"":"none");});cap("Light means less glutamate");});}},
+
+{sec:"Rods, cones and the pathway",comp:"Competency 18",
+ title:"Seeing a dim star",
+ text:["Cones work in bright light and give color and fine detail. They are packed into the fovea, the center of the retina where your gaze falls, and each one often has its own line to a ganglion cell. Rods are far more sensitive, need only dim light, and dominate the rest of the retina. Many rods converge onto each ganglion cell."],
+ ask:"Astronomers say that to see a very faint star, you should look a little to one side of it. Why does that work?",
+ ans:["Looking to the side puts the star's image off the fovea, onto retina dominated by rods. Rods are much more sensitive than cones, and because many rods converge on one ganglion cell, their small responses add together until the ganglion cell fires.","The same convergence costs acuity: the ganglion cell cannot tell which of its many rods was hit, so detail is lost. Convergence buys sensitivity and costs acuity. The fovea makes the opposite trade, which is why you look straight at a word to read it."],
+ desc:"The eye figure, with the image falling slightly off the center of the retina.",
+ pre:function(){S(["eye"]);},
+ play:function(a){return wait(400,a).then(function(){eyeT.textContent="center: cones, acuity.  side: rods, sensitivity";cap("Convergence buys sensitivity");});}},
+
+{title:"Crossing at the chiasm",
+ text:["This view is from above. Each optic nerve leaves the back of an eye and the two meet at the optic chiasm. There, the fibers from the inner half of each retina, the half nearer the nose, cross to the other side. Fibers from the outer halves stay on their own side. From the chiasm, the optic tracts run to the thalamus, which relays to the visual cortex at the back of the brain."],
+ auto:true,
+ desc:"A view from above: two eyes at the bottom, optic nerves meeting at the chiasm in the center, then running to the thalamus and up to the visual cortex. Solid lines from the outer halves stay on their own side; maroon lines from the inner halves cross at the chiasm.",
+ pre:function(){S(["vp","fld"]);},
+ play:function(a){return Promise.all(VT.map(function(l){return reveal(l,1200,a);})).then(function(){cap("Inner halves cross at the chiasm");});}},
+
+{title:"Cutting the left optic nerve",
+ ask:"An injury cuts the left optic nerve, in front of the chiasm. What does the person lose? Shade it on the fields.",
+ text:["The fields on the right show what each eye sees, split into the half toward the nose and the half toward the side."],
+ ans:["All vision in the left eye, both halves of its field. Everything from that eye travels in that one nerve before any fibers cross, so cutting it before the chiasm blinds that eye and leaves the right eye completely normal.","The person notices this at once, because one eye going dark is obvious when the other is covered or when depth looks wrong."],
+ desc:"A maroon X sits on the left optic nerve. Both halves of the left eye's field are shaded; the right eye's field is clear.",
+ pre:function(){S(["vp","fld"]);},
+ play:function(a){cutON.setAttribute("display","");return tweenVal(0,0.6,800,a,function(o){shade(o,o,0,0);}).then(function(){cap("One nerve: one eye blind");});}},
+
+{title:"Pressure on the chiasm",
+ text:["The pituitary gland sits just below the optic chiasm. A pituitary tumor can grow up and press on the middle of the chiasm."],
+ ask:"Which fibers are crushed, and which half of each eye's field is lost?",
+ ans:["The crossing fibers, the ones from the inner half of each retina. The inner half of the retina sees the outer half of the visual field, the side toward the temple, because the lens flips the image. So each eye loses its outer field, on both sides. This is bitemporal hemianopia.","The person often does not notice for a long time, because central vision is spared and the loss creeps in from the edges. They may first realize it when they keep bumping into door frames or do not see cars coming from the side."],
+ name:"bitemporal hemianopia",
+ desc:"A maroon X sits on the middle of the chiasm. The outer half of each eye's field is shaded, the left half of the left eye's field and the right half of the right eye's field. The inner halves stay clear.",
+ pre:function(){S(["vp","fld"]);},
+ play:function(a){cutCh.setAttribute("display","");return tweenVal(0,0.6,800,a,function(o){shade(o,0,0,o);}).then(function(){cap("Chiasm: both outer fields lost");});}},
+
+{sec:"Review",comp:"Competencies 16 to 19",
+ title:"Summary with the scientific terms",
+ text:["The cornea and lens refract light onto the retina. For far vision the ciliary muscle relaxes, the zonules are taut and the lens is flat; for near vision the muscle contracts, the zonules slacken and the lens rounds up, which is accommodation. The pupillary light reflex constricts both pupils. A long eye is myopic and needs a concave lens, a short eye is hyperopic and needs a convex lens, presbyopia is a stiff lens, and astigmatism is an unevenly curved cornea.","In the dark, cGMP keeps channels open and the photoreceptor releases glutamate. Light starts the rhodopsin, transducin, phosphodiesterase cascade, cGMP falls, the cell hyperpolarizes and releases less glutamate. Rods converge for sensitivity, cones at the fovea give acuity, and the inner half of each retina crosses at the chiasm."],
+ ask:"Without scrolling back, explain why the ciliary muscle is working hardest when you read, and why light makes a photoreceptor release less transmitter rather than more.",
+ ans:["Reading needs a round lens. The lens only rounds up when the zonules go slack, and they only go slack when the ciliary muscle contracts, so near work keeps that muscle contracted. Light lowers cGMP, which closes the cation channels and hyperpolarizes the photoreceptor, and a hyperpolarized cell releases less transmitter.","If either one would not come, go back to those steps, then try the Competency Study Guide drawings from memory."],
+ desc:"The eye focusing a near object.",
+ pre:function(){S(["eye"]);eyeSet(200,0,800,"near");},
+ play:function(a){return eyeTween(a,[200,0,800],[200,1,RET],1000,"near").then(function(){cap("Bend the light, then transduce it");});}}
+];
+
+/* ======================= support videos ======================= */
+var V={};
+var SUP={};
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w05-vision-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);gateShow();clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+/* Sep 27 2026, Scrubs: an instructor preview. Add ?preview=1 to the address
+   to look through every step with nothing locked: no typing needed before
+   Show me, Next always on, and the topic menu open from the start. */
+var PREVIEW=/[?&]preview=1\b/.test(location.search);
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!PREVIEW&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  busy=false;renderCurrent();gateShow();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;busy=true;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    busy=false;playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+/* Sep 27 2026: Show me stays locked until a prediction is typed (at least 3 words) */
+var busy=false;
+function predWords(i){return ((store["p"+i]||"").trim().match(/\S+/g)||[]).length;}
+function gateShow(){
+  var s=STEPS[cur],gn=document.getElementById("gateNote");
+  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished||PREVIEW){gn.textContent="";return;}
+  var ok=predWords(cur)>=3;if(!busy&&!playBtn.hidden)playBtn.disabled=!ok;
+  gn.textContent=ok?"":"Type your prediction in the worksheet on the right, at least a few words, to unlock Show me.";
+}
+playBtn.addEventListener("click",function(){if(playBtn.disabled)return;runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, light enters the eye</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished||PREVIEW)unlockJump(false);
+if(PREVIEW)note("Preview mode: nothing is locked. Remove ?preview=1 from the address to see what students see.");
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w05-vision-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+<!-- A way back to the Week page, or to Canvas, on every page. -->
+<script src="bio005-back.js"></script>
+</body>
+</html>

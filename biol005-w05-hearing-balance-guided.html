@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hearing, balance, taste and smell, step by step | BIOL 005 Week 5</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:rgba(11,21,48,0.16); --page:#FAFAF9; --card:#FFFFFF;
+  --locked:#454B58;
+  --shadow:0 1px 3px rgba(11,21,48,0.08); --shadow2:0 8px 16px rgba(11,21,48,0.10);
+  --head:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+/* Brand restyle Sep 24 2026. The shared brand bar and dark footer from
+   assets/brandbar.css, the virtual-office.html editorial type (tracked
+   maroon eyebrows, two-tone Open Sans 800 headline, maroon-dark
+   headings, uppercase maroon primary buttons at 4px radius) and cards
+   at 8px. Layout, animation, gating and the worksheet logic are
+   untouched. The brand bar is static here, not sticky, because the
+   figure column and the worksheet are already sticky and would slide
+   under it. */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.mm-brandbar{position:relative}
+.mm-brandbar .mm-wrap,.mm-foot .mm-wrap{max-width:1400px}
+.top{background:transparent;position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:16px 20px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.9vw,2rem);letter-spacing:-.022em;margin:0;flex:1 1 320px;line-height:1.15;color:var(--navy)}
+.top h1 .tone{color:var(--maroon)}
+.top .course{display:block;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px;line-height:1.4}
+.top-in > a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.top-in > a:hover{text-decoration:underline;color:var(--maroon-dark)}
+.jump{position:relative}
+.tbtn{font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,background 160ms ease}
+.tbtn:not(:disabled):hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
+.tbtn.primary{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.tbtn.primary:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+/* Locked: gray dashed, still white inside. #454B58 on white is 8.75:1.
+   The disabled attribute carries the state; the dash is the picture of it. */
+.tbtn:disabled,.tbtn.primary:disabled{opacity:1;background:#fff;color:var(--locked);border:1.5px dashed var(--locked);cursor:not-allowed;box-shadow:none;transform:none}
+/* Unlocked jump menu: gold-deep edge, the gold that works on a light page, 4.87:1. */
+#jumpBtn:not(:disabled){border-color:var(--gold-deep)}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:8px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:4px;padding:10px 12px;font:700 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:#fff;box-shadow:inset 0 0 0 1.5px var(--navy)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:#fff;box-shadow:var(--shadow2)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2;color:var(--maroon-dark)}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:8px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:8px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:8px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:.82rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:1.25rem;margin:0 0 4px;color:var(--maroon-dark)}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:4px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:8px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 5px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tbtn:not(:disabled):hover{transform:none}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 5</span><span class="tone">Hearing and balance</span>, taste and smell, step by step.</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=5" target="_top">Week 5 lectures</a>
+    <a href="biol005-w05-hearing-balance-walkthrough-notes.html" target="_blank" rel="noopener">Written notes<span class="sr"> (opens in a new tab)</span></a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn" aria-describedby="gateNote">Show me</button>
+      <span id="gateNote" class="sr" aria-live="polite"></span>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Type each prediction here before you click Show me. Show me stays locked until you do. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 5: Hearing, balance, taste and smell, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+/* Week 5 scene kit. Oct 4 2026. Shared helpers prepended to every Week 5
+   scene by tools/walkthroughs/assemble_w05.py. Same engine as Week 4: el,
+   tx, place, tweenPath, tweenVal, wait, markers and arrow come from the
+   shell. Everything here only draws and moves; no step logic lives here. */
+markers();
+var REG={};
+function G(n,p){var g=el("g",{},p||svg);REG[n]=g;return g;}
+function only(l){for(var k in REG)REG[k].setAttribute("display","none");l.forEach(function(k){if(REG[k])REG[k].setAttribute("display","");});}
+var GOLD="#C9A14A",TISS="#F6E9E6",FLUID="#E3F0F6",FLOW="#2F6F8F"; /* tissue, fluid and fluid-flow tints for figures only, never text */
+
+/* a line through points, optionally dashed */
+function poly(p,pts,col,w,dash){
+  var a={points:pts.map(function(q){return q[0]+","+q[1];}).join(" "),fill:"none",stroke:col||NAVY,"stroke-width":w||5,"stroke-linejoin":"round","stroke-linecap":"round"};
+  if(dash)a["stroke-dasharray"]=dash;
+  return el("polyline",a,p);
+}
+/* reveal a line from its start, then leave it solid */
+function reveal(line,dur,a){
+  var L=line.getTotalLength?line.getTotalLength():0;
+  if(!a||reduce||!L){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");return Promise.resolve();}
+  line.setAttribute("stroke-dasharray",L+" "+L);line.setAttribute("stroke-dashoffset",L);
+  return tweenVal(L,0,dur,a,function(v){line.setAttribute("stroke-dashoffset",v);}).then(function(){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");});
+}
+/* a traveling signal: a filled dot with a white rim */
+function dot(p,col,r){var g=el("g",{},p);el("circle",{r:r||11,fill:col||MAROON,stroke:"#fff","stroke-width":2.5},g);g.setAttribute("display","none");return g;}
+function run(g,pts,dur,a,keep){
+  g.setAttribute("display","");place(g,pts[0][0],pts[0][1]);
+  return tweenPath(g,pts.slice(1),dur,a).then(function(){if(!keep)g.setAttribute("display","none");});
+}
+function hide(list){list.forEach(function(g){g.setAttribute("display","none");});}
+/* a round badge with a sign or a short word inside */
+function badge(p,x,y,s,col,r){var g=el("g",{},p);el("circle",{r:r||16,fill:col||NAVY},g);var t=el("text",{"class":"iw","font-size":(r||16)+4},g);t.textContent=s;place(g,x,y);g._t=t;g._c=g.firstChild;return g;}
+function setBadge(g,s,col){g._t.textContent=s;g._c.setAttribute("fill",col);g.setAttribute("display","");}
+/* a white labeled box */
+function box(p,x,y,w,h,s,cls,size,stroke){
+  var g=el("g",{},p);
+  el("rect",{x:x,y:y,width:w,height:h,rx:8,fill:"#fff",stroke:stroke||NAVY,"stroke-width":2.5},g);
+  var lines=String(s).split("\n"),sz=size||15,y0=y+h/2-(lines.length-1)*(sz+3)/2+sz*0.35;
+  g._t=lines.map(function(l,i){return tx(g,x+w/2,y0+i*(sz+3),l,cls||"tn",sz,"middle");});
+  return g;
+}
+/* a spike train: n identical spikes spread across width w, baseline at y */
+function trainD(x,y,w,n,h){
+  if(n<=0)return "M"+x+" "+y+" h"+w;
+  var d="M"+x+" "+y,step=w/n,cx=x;
+  for(var i=0;i<n;i++){var sx=x+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+function trainPath(p,col,w){return el("path",{d:"",fill:"none",stroke:col||NAVY,"stroke-width":w||3,"stroke-linejoin":"round"},p);}
+/* spikes that only appear in part of a window: on from fraction f0 to f1, n spikes */
+function trainWin(x,y,w,f0,f1,n,h){
+  var a=x+w*f0,b=x+w*f1,d="M"+x+" "+y+" H"+a;
+  var step=(b-a)/Math.max(n,1);
+  for(var i=0;i<n;i++){var sx=a+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+/* grow a spike train across its window, left to right */
+function growTrain(path,fn,dur,a){
+  if(!a||reduce){path.setAttribute("d",fn(1));return Promise.resolve();}
+  return tweenVal(0,1,dur,a,function(k){path.setAttribute("d",fn(k));});
+}
+/* the caption line, drawn last so it sits on top */
+var CAP=null;
+function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
+function cap(s){if(CAP)CAP.textContent=s||"";}
+
+/* Hearing, balance, taste and smell. Oct 4 2026. Week 5 competencies 20 to
+   23. Figures: the ear from canal to cochlea, with the cochlea drawn
+   unrolled; one hair cell enlarged; the basilar membrane as a strip; a head
+   for the Weber test and an ear for the Rinne test; one semicircular canal
+   and one macula; a taste cell beside an olfactory neuron with their
+   routes to the cortex. */
+
+/* ---- the ear ---- */
+var gEar=G("ear");
+el("rect",{x:40,y:200,width:170,height:60,fill:"#fff",stroke:NAVY,"stroke-width":3},gEar);
+tx(gEar,125,190,"ear canal","t",14,"middle");
+var tm=el("line",{x1:214,y1:180,x2:214,y2:280,stroke:MAROON,"stroke-width":6},gEar);
+tx(gEar,214,306,"tympanic membrane","tm",13,"middle");
+var oss=el("g",{},gEar);
+el("circle",{cx:250,cy:214,r:14,fill:INK2},oss);el("rect",{x:262,y:204,width:46,height:16,rx:8,fill:INK2},oss);el("rect",{x:306,y:206,width:16,height:40,rx:4,fill:INK2},oss);
+tx(gEar,282,180,"ossicles: malleus, incus, stapes","t",13,"middle");
+el("rect",{x:330,y:150,width:530,height:180,rx:22,fill:TINT,stroke:NAVY,"stroke-width":3},gEar);
+el("line",{x1:330,y1:240,x2:860,y2:240,stroke:MAROON,"stroke-width":4},gEar);
+var ow=el("line",{x1:330,y1:200,x2:330,y2:232,stroke:GDEEP,"stroke-width":7},gEar);
+var rw=el("line",{x1:330,y1:256,x2:330,y2:290,stroke:GDEEP,"stroke-width":7},gEar);
+tx(gEar,346,140,"oval window","tm",13,"start");tx(gEar,346,350,"round window","tm",13,"start");
+tx(gEar,600,140,"cochlea, drawn unrolled, full of fluid","tn",14,"middle");
+tx(gEar,700,234,"basilar membrane","tm",13,"middle");
+var wave=el("path",{d:"",fill:"none",stroke:MAROON,"stroke-width":4},gEar);
+var sw=dot(gEar,GDEEP,9);
+var gImp=G("imp");
+box(gImp,40,380,240,70,"eardrum area about\n20 times the oval window","tn",14);
+box(gImp,300,380,250,70,"same force on a smaller\narea: higher pressure","tn",14);
+
+/* ---- one hair cell ---- */
+var gHc=G("hc");
+el("rect",{x:360,y:220,width:180,height:200,rx:30,fill:"#fff",stroke:NAVY,"stroke-width":4},gHc);
+tx(gHc,350,330,"hair cell","tn",15,"end");
+var STC=[0,1,2,3].map(function(i){return el("line",{x1:390+i*40,y1:220,x2:390+i*40,y2:150-i*20,stroke:NAVY,"stroke-width":7,"stroke-linecap":"round"},gHc);});
+var tip=el("polyline",{fill:"none",stroke:GDEEP,"stroke-width":2.5},gHc);
+tx(gHc,620,120,"stereocilia, short to tall","t",13,"middle");
+var hk=el("g",{},gHc);arrow(hk,450,90,450,200,MAROON,5);tx(hk,470,100,"K+ enters","tm",14,"start");
+var hglu=[];for(var i=0;i<5;i++)hglu.push(el("circle",{cx:410+i*20,cy:440,r:5,fill:GDEEP},gHc));
+var nerve=poly(gHc,[[540,400],[700,440],[860,440]],NAVY,4);tx(gHc,860,470,"auditory nerve","t",13,"end");
+var hTrain=trainPath(gHc,MAROON,2.5);
+function bend(k){STC.forEach(function(s,i){s.setAttribute("x2",390+i*40+50*k);});tip.setAttribute("points",STC.map(function(s,i){return (390+i*40+50*k*0.9)+","+(158-i*20);}).join(" "));}
+
+/* ---- the basilar strip ---- */
+var gBm=G("bm");
+var strip=el("polygon",{points:"120,220 840,180 840,320 120,280",fill:TINT,stroke:NAVY,"stroke-width":3},gBm);
+tx(gBm,120,310,"base: narrow, stiff","t",14,"start");tx(gBm,840,350,"apex: wide, flexible","t",14,"end");
+tx(gBm,110,200,"near the oval window","t",13,"start");
+var peak=el("path",{d:"",fill:"none",stroke:MAROON,"stroke-width":5},gBm);
+var pkT=tx(gBm,480,120,"","tm",16,"middle");
+function peakAt(x,h){return "M120 250 C"+(x-160)+" 250 "+(x-60)+" "+(250-h)+" "+x+" "+(250-h)+" C"+(x+60)+" "+(250-h)+" "+(x+120)+" 250 840 250";}
+
+/* ---- Weber and Rinne ---- */
+var gWb=G("weber");
+var HEADS=[[170,"normal"],[450,"conductive loss, right ear"],[730,"sensorineural loss, right ear"]];
+var WA=[];
+HEADS.forEach(function(h){var cx=h[0];el("ellipse",{cx:cx,cy:230,rx:90,ry:110,fill:"#fff",stroke:NAVY,"stroke-width":3},gWb);
+  el("ellipse",{cx:cx-96,cy:240,rx:12,ry:24,fill:"#fff",stroke:NAVY,"stroke-width":3},gWb);el("ellipse",{cx:cx+96,cy:240,rx:12,ry:24,fill:"#fff",stroke:NAVY,"stroke-width":3},gWb);
+  el("rect",{x:cx-6,y:96,width:12,height:40,fill:GDEEP},gWb);tx(gWb,cx,380,h[1],"t",13,"middle");tx(gWb,cx-96,290,"R","t",13,"middle");tx(gWb,cx+96,290,"L","t",13,"middle");
+  WA.push(el("g",{},gWb));});
+tx(gWb,170,84,"","t",12,"middle");
+function weberArrows(){var spec=[[0,0],[1,0],[0,1]];/* [toR,toL] equal for normal */
+  WA[0].innerHTML="";arrow(WA[0],170,150,90,236,MAROON,4);arrow(WA[0],170,150,250,236,MAROON,4);
+  WA[1].innerHTML="";arrow(WA[1],450,150,370,236,MAROON,6);
+  WA[2].innerHTML="";arrow(WA[2],730,150,810,236,MAROON,6);}
+var wbT=tx(gWb,450,450,"","tn",15,"middle");
+var gRn=G("rinne");
+tx(gRn,450,60,"Rinne: which is heard longer?","tn",16,"middle");
+var RN=[["normal","air longer than bone"],["conductive loss","bone longer than air"],["sensorineural loss","air longer than bone, both shorter"]];
+var RNT=RN.map(function(r,i){box(gRn,60+i*270,110,240,60,r[0],"tn",15);return tx(gRn,180+i*270,210,"","tm",14,"middle");});
+function rinneShow(){RNT.forEach(function(t,i){t.textContent=RN[i][1];});}
+
+/* ---- balance ---- */
+var gCan=G("canal");
+el("circle",{cx:250,cy:250,r:150,fill:"none",stroke:NAVY,"stroke-width":30},gCan);
+el("circle",{cx:250,cy:250,r:150,fill:"none",stroke:TINT,"stroke-width":22},gCan);
+tx(gCan,250,80,"semicircular canal","tn",15,"middle");
+var cup=el("polygon",{points:"",fill:GDEEP},gCan);
+tx(gCan,420,262,"cupula","tm",14,"start");
+var endo=el("g",{},gCan);
+var endoArrow=arrow(endo,180,110,320,110,NAVY,5);
+var endoT=tx(endo,250,140,"endolymph","t",13,"middle");
+var head=el("g",{},gCan);arrow(head,560,140,700,140,MAROON,6);var headT=tx(head,630,124,"","tm",14,"middle");
+var spinT=tx(gCan,640,240,"","tn",15,"middle"),spinT2=tx(gCan,640,270,"","t",14,"middle");
+function cupula(k){var x=400,y=250;cup.setAttribute("points",(x-14)+","+(y)+" "+(x+14)+","+y+" "+(x+14+30*k)+","+(y-60)+" "+(x-14+30*k)+","+(y-60));}
+var gMac=G("mac");
+el("rect",{x:540,y:330,width:300,height:30,fill:"#fff",stroke:NAVY,"stroke-width":3},gMac);
+var otl=el("rect",{x:540,y:290,width:300,height:40,rx:6,fill:TINT,stroke:INK2,"stroke-width":2},gMac);
+for(i=0;i<8;i++)el("circle",{cx:560+i*36,cy:296,r:6,fill:GDEEP,"class":"oto"},gMac);
+var MH=[0,1,2,3,4].map(function(i){return el("line",{x1:570+i*60,y1:330,x2:570+i*60,y2:300,stroke:NAVY,"stroke-width":4},gMac);});
+tx(gMac,690,390,"macula: otoliths on a gel layer","tn",14,"middle");
+function tilt(k){otl.setAttribute("x",540+30*k);[].forEach.call(gMac.querySelectorAll(".oto"),function(c,i){c.setAttribute("cx",560+i*36+30*k);});MH.forEach(function(h,i){h.setAttribute("x2",570+i*60+20*k);});}
+
+/* ---- taste and smell ---- */
+var gCh=G("chem");
+box(gCh,350,40,200,50,"cortex","tn",15);
+box(gCh,370,230,160,46,"thalamus","tn",14);
+box(gCh,640,150,220,46,"limbic system","tm",14,MAROON);
+el("rect",{x:80,y:380,width:110,height:90,rx:24,fill:"#fff",stroke:NAVY,"stroke-width":3},gCh);tx(gCh,135,494,"taste cell (not a neuron)","t",13,"middle");
+el("line",{x1:700,y1:470,x2:700,y2:380,stroke:NAVY,"stroke-width":6},gCh);el("circle",{cx:700,cy:470,r:20,fill:NAVY},gCh);tx(gCh,700,510,"olfactory neuron","t",13,"middle");
+var tP=poly(gCh,[[190,420],[300,420],[340,330],[420,276],[440,230],[450,90]],NAVY,4);
+var sP=poly(gCh,[[700,380],[700,300],[560,90]],MAROON,4);
+var sL=poly(gCh,[[700,300],[750,196]],MAROON,4);
+tx(gCh,330,350,"brainstem","t",13,"end");tx(gCh,712,330,"olfactory bulb","t",13,"start");
+var naT=el("g",{},gCh);arrow(naT,135,330,135,378,MAROON,5);tx(naT,152,346,"Na+ enters directly","tm",14,"start");
+var cs=[dot(gCh,NAVY,9),dot(gCh,MAROON,9),dot(gCh,MAROON,9)];
+
+makeCap();
+function resetAll(){wave.setAttribute("d","");hide([sw].concat(cs));bend(0);hk.setAttribute("display","none");hglu.forEach(function(g){g.setAttribute("display","none");});hTrain.setAttribute("d","");
+  peak.setAttribute("d","");pkT.textContent="";WA.forEach(function(g){g.innerHTML="";});wbT.textContent="";RNT.forEach(function(t){t.textContent="";});
+  cupula(0);endo.setAttribute("display","none");head.setAttribute("display","none");spinT.textContent="";spinT2.textContent="";tilt(0);naT.setAttribute("display","none");cap("");}
+function S(l){only(l.concat(["cap"]));resetAll();}
+function waveD(k,len){var x0=330,pts="M"+x0+" 240";for(var x=0;x<=530*k;x+=6){var amp=len==="short"?18*Math.exp(-x/120):18*Math.sin(Math.PI*x/(530*k||1));pts+=" L"+(x0+x)+" "+(240+amp*Math.sin(x/14));}return pts;}
+
+var STEPS=[
+{sec:"From air to fluid",comp:"Competency 20",
+ title:"Sound is a pressure wave",
+ text:["Sound is a wave of pressure in the air: alternating regions where air molecules are pushed together and pulled apart. The number of waves per second is the frequency, which we hear as pitch, measured in hertz. The size of the pressure change is the amplitude, which we hear as loudness.","The wave travels down the ear canal and hits the tympanic membrane, the eardrum, which vibrates. Three tiny bones in the middle ear, the ossicles, carry the vibration to the oval window, a membrane-covered opening into the cochlea. The cochlea is a coiled tube filled with fluid, drawn here unrolled."],
+ auto:true,
+ desc:"From left to right: the ear canal, the maroon tympanic membrane, three gray ossicles, and the cochlea drawn as a long fluid-filled box with the basilar membrane running along its middle. The oval window and the round window are gold marks on its left end.",
+ pre:function(){S(["ear"]);},
+ play:function(a){return run(sw,[[40,230],[214,230],[250,214],[314,226],[330,216]],1200,a).then(function(){cap("Air, eardrum, ossicles, oval window");});}},
+
+{title:"Why the middle ear has bones",
+ text:["Sound in air does not pass easily into a liquid. Most of the energy of a sound wave hitting water simply reflects off the surface."],
+ ask:"The eardrum is about 20 times larger in area than the oval window. How does that help get sound into the cochlear fluid?",
+ ans:["The ossicles collect the force from the whole large eardrum and deliver it onto the small oval window. The same force on a much smaller area means a much higher pressure, and the lever action of the ossicles adds a little more. That raised pressure is enough to move the fluid in the cochlea.","Without it, most sound energy would bounce back at the air-fluid boundary. The ossicles are correcting for that mismatch between air and fluid, and when they are stiffened or broken, hearing drops sharply."],
+ desc:"Two boxes appear below the ear: eardrum area about 20 times the oval window, and same force on a smaller area, higher pressure.",
+ pre:function(){S(["ear"]);},
+ play:function(a){REG.imp.setAttribute("display","");return run(sw,[[214,230],[250,214],[314,226],[330,216]],900,a).then(function(){cap("Small window, high pressure");});}},
+
+{title:"Inside the cochlea",
+ text:["The stapes pushes the oval window in and pulls it out with each vibration. The fluid inside the cochlea cannot be compressed."],
+ ask:"If the fluid cannot be squeezed, what has to happen for the oval window to push in at all, and what does the pressure wave do to the basilar membrane?",
+ ans:["Something has to give at the other end: the round window bulges outward each time the oval window is pushed in. The pressure wave travels through the fluid and makes the basilar membrane, which runs along the length of the cochlea, move up and down.","The basilar membrane carries the hair cells. Its movement is what bends them, which is the next step."],
+ desc:"The oval window pushes in, a wave travels along the basilar membrane, and the round window bulges out into the middle ear.",
+ pre:function(){S(["ear"]);},
+ play:function(a){return tweenVal(0,1,1300,a,function(k){wave.setAttribute("d",waveD(k));rw.setAttribute("x1",330-10*k);rw.setAttribute("x2",330-10*k);}).then(function(){cap("Round window gives, membrane moves");});}},
+
+{title:"Bending the hair cells",
+ text:["Each hair cell has a bundle of stereocilia on top, arranged from short to tall. Fine tip links connect the tip of each one to the side of its taller neighbor, and the links pull on mechanically gated channels. The tops of the hair cells sit in endolymph, a fluid unusually high in potassium."],
+ ask:"The basilar membrane moves up and the stereocilia bend toward the tallest one. What happens to the channels, to the hair cell, and to the auditory nerve?",
+ ans:["The tip links stretch and pull the channels open. Because the endolymph is so high in potassium, potassium flows into the hair cell, which is unusual, and the cell depolarizes. Depolarization opens voltage-gated calcium channels at the base, and the hair cell releases more glutamate onto the sensory neurons of the auditory nerve, which fire faster.","Bending the other way closes the channels and hyperpolarizes the cell, so the cell's output follows the vibration. Like a photoreceptor, a hair cell makes graded receptor potentials, not action potentials."],
+ name:"hair cell transduction",
+ desc:"One hair cell is shown large, with four stereocilia from short to tall joined by a gold tip link line. The stereocilia bend toward the tallest, a maroon arrow shows potassium entering, gold glutamate dots appear at the base, and spikes appear on the auditory nerve.",
+ pre:function(){S(["hc"]);},
+ play:function(a){return tweenVal(0,1,700,a,bend).then(function(){hk.setAttribute("display","");hglu.forEach(function(g){g.setAttribute("display","");});return growTrain(hTrain,function(k){return trainWin(560,470,280,0,k,Math.round(8*k),26);},800,a);}).then(function(){cap("Bend, K+ in, glutamate out");});}},
+
+{title:"High and low pitch",
+ text:["The basilar membrane is not the same along its length. Near the oval window, at the base, it is narrow and stiff. At the far end, the apex, it is wide and flexible."],
+ ask:"Where along the membrane does a high-pitched sound make it vibrate most, and where does a low-pitched sound? How is loudness coded?",
+ ans:["A high-pitched sound makes it vibrate most near the base, where it is narrow and stiff. A low-pitched sound makes it vibrate most near the apex, where it is wide and flexible. So pitch is coded by place: which hair cells are bent the most tells the brain the frequency.","Loudness is coded by rate. A louder sound of the same pitch makes the membrane move farther at the same place, so those hair cells release more transmitter and the auditory nerve fibers fire faster, and more neighboring fibers join in. High-frequency hair cells near the base are usually the first lost with age and noise."],
+ name:"place coding of pitch",
+ desc:"The basilar membrane drawn as a strip, narrow at the base on the left and wide at the apex on the right. A peak appears near the base labeled high pitch, then moves to near the apex labeled low pitch.",
+ pre:function(){S(["bm"]);},
+ play:function(a){peak.setAttribute("d",peakAt(240,60));pkT.textContent="high pitch: peak near the base";pkT.setAttribute("x",240);
+   return wait(1000,a).then(function(){return tweenVal(240,720,1000,a,function(x){peak.setAttribute("d",peakAt(x,60));});}).then(function(){pkT.textContent="low pitch: peak near the apex";pkT.setAttribute("x",720);cap("Pitch by place, loudness by rate");});}},
+
+{sec:"Hearing loss",comp:"Competency 21",
+ title:"The Weber test",
+ text:["Hearing loss is either conductive, where sound cannot get through the outer or middle ear, as with earwax or fluid behind the eardrum, or sensorineural, where the cochlea or the auditory nerve is damaged.","In the Weber test, a vibrating tuning fork is placed on the middle of the forehead. The vibration travels through the skull bone straight to both cochleas, bypassing the outer and middle ear."],
+ ask:"Where is the sound heard louder in a person with a conductive loss in the right ear, and in a person with a sensorineural loss in the right ear?",
+ ans:["Conductive loss in the right ear: louder in the right ear, the bad one. The blocked middle ear stops room noise from reaching that cochlea and keeps the bone-conducted sound from escaping, while the cochlea itself is fine. Sensorineural loss in the right ear: louder in the left ear, the good one, because the damaged right cochlea or nerve cannot respond well.","With normal hearing, the sound is heard in the middle or equally in both ears. The two kinds of loss send the sound to opposite ears, so Weber alone tells you there is a difference between the ears but not which ear is the bad one. That is what the Rinne test is for."],
+ name:"Weber test",
+ desc:"Three heads from the front, each with a tuning fork on the forehead. Normal: arrows to both ears. Conductive loss in the right ear: a bold arrow to the right ear. Sensorineural loss in the right ear: a bold arrow to the left ear.",
+ pre:function(){S(["weber"]);},
+ play:function(a){return wait(500,a).then(function(){weberArrows();wbT.textContent="conductive: toward the bad ear.  sensorineural: toward the good ear";cap("Weber: two losses, opposite ears");});}},
+
+{title:"The Rinne test",
+ text:["In the Rinne test, the vibrating fork is held on the mastoid bone behind the ear until the sound fades, then moved beside the ear canal. The test compares bone conduction with air conduction in one ear."],
+ ask:"In a normal ear, which is heard longer, air or bone? And in an ear with a conductive loss?",
+ ans:["In a normal ear, air conduction is heard longer, because the eardrum and ossicles make air a better route into the cochlea than bone. With a conductive loss, bone conduction is heard longer than air, because bone bypasses the blocked outer or middle ear.","With a sensorineural loss, air is still heard longer than bone, as in a normal ear, but both are heard for a shorter time than normal. Put the two tests together and you can locate the loss: Weber points to an ear, and Rinne in that ear tells you which kind of loss it is."],
+ name:"Rinne test",
+ desc:"Three boxes: normal, air longer than bone; conductive loss, bone longer than air; sensorineural loss, air longer than bone, both shorter.",
+ pre:function(){S(["rinne"]);},
+ play:function(a){return wait(500,a).then(function(){rinneShow();cap("Rinne: bone longer means conductive");});}},
+
+{sec:"Balance",comp:"Competency 22",
+ title:"Turning the head",
+ text:["Each inner ear has three semicircular canals at right angles to one another, full of endolymph. In a swelling at the base of each canal, hair cells project into a gel flap, the cupula, which spans the canal like a door."],
+ ask:"You turn your head quickly to the right. What happens to the endolymph and the cupula?",
+ ans:["The canal turns with your head, but the endolymph inside lags behind because of its inertia. So relative to the canal, the fluid flows the opposite way, pushes on the cupula, and bends it. The hair cells in the cupula bend, which changes their firing.","The semicircular canals detect rotation, more precisely angular acceleration: speeding up or slowing down a turn. The three canals at right angles cover turning in any direction."],
+ name:"semicircular canals",
+ desc:"A ring-shaped canal with a gold cupula across it. A maroon arrow shows the head turning right. A navy arrow shows the endolymph lagging, and the cupula bends.",
+ pre:function(){S(["canal"]);},
+ play:function(a){head.setAttribute("display","");headT.textContent="head starts turning";endo.setAttribute("display","");endoArrow.setAttribute("x1",320);endoArrow.setAttribute("x2",180);
+   return tweenVal(0,-1,700,a,cupula).then(function(){spinT.textContent="cupula bends";spinT2.textContent="hair cells signal rotation";cap("Fluid lags, cupula bends");});}},
+
+{title:"Spinning, then stopping",
+ text:["Now you spin on a chair at a steady speed for half a minute, then stop suddenly."],
+ ask:"During the steady spin, what does the cupula do? And the instant you stop, what do you feel, and why?",
+ ans:["During the steady spin, the endolymph catches up and turns with the canal, so nothing pushes on the cupula, it returns upright, and the signal of turning fades even though you are still spinning. When you stop, the canal stops but the endolymph keeps moving, so it bends the cupula the other way.","The brain reads that as turning in the opposite direction, which is why you feel dizzy and the room seems to spin after you stop."],
+ desc:"During the steady spin, the cupula sits upright with no endolymph arrow. When the head stops, the endolymph arrow points forward and the cupula bends the other way.",
+ pre:function(){S(["canal"]);head.setAttribute("display","");headT.textContent="steady spin";},
+ play:function(a){spinT.textContent="steady: cupula upright";return wait(900,a).then(function(){headT.textContent="stop!";endo.setAttribute("display","");endoArrow.setAttribute("x1",180);endoArrow.setAttribute("x2",320);return tweenVal(0,1,700,a,cupula);}).then(function(){spinT.textContent="stop: cupula bends the other way";spinT2.textContent="you feel yourself turning";cap("Stopping feels like turning back");});}},
+
+{title:"Tilting the head",
+ text:["Two other structures, the utricle and the saccule, each hold a patch of hair cells called a macula. Their hairs project into a gel layer weighted with tiny calcium carbonate crystals, the otoliths."],
+ ask:"You tilt your head forward, or a car you are sitting in speeds up. What happens to the otolith layer, and what does that tell the brain?",
+ ans:["The heavy otolith layer slides under gravity or lags behind as the car accelerates, so it shifts relative to the hair cells beneath it and bends them. The brain reads which way the hairs bend as head position relative to gravity, or as linear acceleration.","The utricle mainly signals horizontal movement and head tilt, and the saccule vertical movement. A spin at a steady speed bends the cupula only at the start and does not shift the otoliths at all, which is how the two systems complement each other."],
+ name:"utricle and saccule",
+ desc:"A macula: a row of navy hair cells under a gel layer studded with gold otoliths. The gel layer slides to the right and the hair cells bend with it.",
+ pre:function(){S(["mac"]);},
+ play:function(a){return tweenVal(0,1,1000,a,tilt).then(function(){cap("Otoliths slide, hairs bend");});}},
+
+{sec:"Taste and smell",comp:"Competency 23",
+ title:"Salt on the tongue",
+ text:["Taste cells sit in taste buds. They are not neurons: they are specialized epithelial cells that pass their signal to sensory neurons. Sweet, bitter and umami are detected by G protein-coupled receptors on taste cells."],
+ ask:"Salty taste works differently. How could sodium itself signal the taste cell without any receptor protein binding it?",
+ ans:["Sodium enters the taste cell directly through open sodium channels in its membrane and depolarizes it. The depolarization leads to release of transmitter onto the sensory neuron. Sour taste works in a similar way, with hydrogen ions entering through ion channels.","From the sensory neurons, taste travels to the medulla, then to the thalamus, then to the gustatory cortex."],
+ desc:"A taste cell at the lower left with a maroon arrow showing sodium entering directly. A navy pathway runs from it through the brainstem and the thalamus to the cortex.",
+ pre:function(){S(["chem"]);REG.chem.querySelectorAll("polyline")[1].setAttribute("display","none");REG.chem.querySelectorAll("polyline")[2].setAttribute("display","none");},
+ play:function(a){naT.setAttribute("display","");return run(cs[0],[[190,420],[300,420],[340,330],[420,276],[440,230],[450,90]],1500,a).then(function(){cap("Salt: Na+ in, through the thalamus");});}},
+
+{title:"A smell and a memory",
+ text:["Olfactory receptor cells are neurons themselves. Each one carries one type of odorant receptor, a G protein-coupled receptor that raises cAMP, which opens cation channels and depolarizes the neuron. Their axons pass through the roof of the nasal cavity to the olfactory bulb."],
+ ask:"A smell can bring back a memory before you have even named the smell. Judging from the pathway, why?",
+ ans:["Smell is the only sense whose information reaches the cortex without first relaying in the thalamus. From the olfactory bulb, signals go straight to the olfactory cortex and directly into the limbic system, including the amygdala and the hippocampus, which handle emotion and memory.","So a smell reaches the parts of the brain for emotion and memory directly and quickly, while the route to conscious identification of the smell is separate."],
+ name:"olfactory pathway",
+ desc:"An olfactory neuron at the lower right. A maroon pathway runs from it through the olfactory bulb directly to the cortex, with a branch to the limbic system, and does not pass through the thalamus box.",
+ pre:function(){S(["chem"]);var p=REG.chem.querySelectorAll("polyline");p[1].setAttribute("display","none");p[2].setAttribute("display","none");},
+ play:function(a){var p=REG.chem.querySelectorAll("polyline");p[1].setAttribute("display","");p[2].setAttribute("display","");
+   return Promise.all([run(cs[1],[[700,380],[700,300],[560,90]],1200,a),run(cs[2],[[700,380],[700,300],[750,196]],1000,a)]).then(function(){cap("Smell skips the thalamus");});}},
+
+{sec:"Review",comp:"Competencies 20 to 23",
+ title:"Summary with the scientific terms",
+ text:["Sound vibrates the tympanic membrane, and the ossicles raise the pressure at the oval window so the wave enters the cochlear fluid. The basilar membrane moves, stereocilia bend, tip links open channels, potassium enters, and the hair cell releases glutamate onto the auditory nerve. Pitch is coded by place along the membrane and loudness by rate. Weber and Rinne together separate conductive from sensorineural loss.","Semicircular canals detect rotation through the cupula; the utricle and saccule detect head position and linear acceleration through the otoliths. Salty and sour tastes enter taste cells through ion channels; sweet, bitter, umami and smell use G protein-coupled receptors. Smell reaches the limbic system without a thalamic relay."],
+ ask:"Without scrolling back, a patient hears the Weber fork louder in the left ear, and in the left ear bone conduction lasts longer than air. Which kind of hearing loss is this, and in which ear?",
+ ans:["A conductive loss in the left ear. Weber lateralizes toward an ear with a conductive loss, and Rinne in that ear shows bone longer than air, which only happens when the outer or middle ear is blocked.","If you were unsure, go back to the two testing steps and draw the Weber heads and the Rinne results from memory."],
+ desc:"The hair cell bends and the auditory nerve fires.",
+ pre:function(){S(["hc"]);},
+ play:function(a){return tweenVal(0,1,700,a,bend).then(function(){hk.setAttribute("display","");return growTrain(hTrain,function(k){return trainWin(560,470,280,0,k,Math.round(8*k),26);},700,a);}).then(function(){cap("Bend, transduce, fire");});}}
+];
+
+/* ======================= support videos ======================= */
+var V={};
+var SUP={};
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w05-hearing-balance-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);gateShow();clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+/* Sep 27 2026, Scrubs: an instructor preview. Add ?preview=1 to the address
+   to look through every step with nothing locked: no typing needed before
+   Show me, Next always on, and the topic menu open from the start. */
+var PREVIEW=/[?&]preview=1\b/.test(location.search);
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!PREVIEW&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  busy=false;renderCurrent();gateShow();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;busy=true;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    busy=false;playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+/* Sep 27 2026: Show me stays locked until a prediction is typed (at least 3 words) */
+var busy=false;
+function predWords(i){return ((store["p"+i]||"").trim().match(/\S+/g)||[]).length;}
+function gateShow(){
+  var s=STEPS[cur],gn=document.getElementById("gateNote");
+  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished||PREVIEW){gn.textContent="";return;}
+  var ok=predWords(cur)>=3;if(!busy&&!playBtn.hidden)playBtn.disabled=!ok;
+  gn.textContent=ok?"":"Type your prediction in the worksheet on the right, at least a few words, to unlock Show me.";
+}
+playBtn.addEventListener("click",function(){if(playBtn.disabled)return;runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, sound is a pressure wave</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished||PREVIEW)unlockJump(false);
+if(PREVIEW)note("Preview mode: nothing is locked. Remove ?preview=1 from the address to see what students see.");
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w05-hearing-balance-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+<!-- A way back to the Week page, or to Canvas, on every page. -->
+<script src="bio005-back.js"></script>
+</body>
+</html>

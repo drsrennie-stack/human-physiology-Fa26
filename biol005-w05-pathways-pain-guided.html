@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spinal pathways, touch and pain, step by step | BIOL 005 Week 5</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:rgba(11,21,48,0.16); --page:#FAFAF9; --card:#FFFFFF;
+  --locked:#454B58;
+  --shadow:0 1px 3px rgba(11,21,48,0.08); --shadow2:0 8px 16px rgba(11,21,48,0.10);
+  --head:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+/* Brand restyle Sep 24 2026. The shared brand bar and dark footer from
+   assets/brandbar.css, the virtual-office.html editorial type (tracked
+   maroon eyebrows, two-tone Open Sans 800 headline, maroon-dark
+   headings, uppercase maroon primary buttons at 4px radius) and cards
+   at 8px. Layout, animation, gating and the worksheet logic are
+   untouched. The brand bar is static here, not sticky, because the
+   figure column and the worksheet are already sticky and would slide
+   under it. */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.mm-brandbar{position:relative}
+.mm-brandbar .mm-wrap,.mm-foot .mm-wrap{max-width:1400px}
+.top{background:transparent;position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:16px 20px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.9vw,2rem);letter-spacing:-.022em;margin:0;flex:1 1 320px;line-height:1.15;color:var(--navy)}
+.top h1 .tone{color:var(--maroon)}
+.top .course{display:block;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px;line-height:1.4}
+.top-in > a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.top-in > a:hover{text-decoration:underline;color:var(--maroon-dark)}
+.jump{position:relative}
+.tbtn{font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,background 160ms ease}
+.tbtn:not(:disabled):hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
+.tbtn.primary{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.tbtn.primary:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+/* Locked: gray dashed, still white inside. #454B58 on white is 8.75:1.
+   The disabled attribute carries the state; the dash is the picture of it. */
+.tbtn:disabled,.tbtn.primary:disabled{opacity:1;background:#fff;color:var(--locked);border:1.5px dashed var(--locked);cursor:not-allowed;box-shadow:none;transform:none}
+/* Unlocked jump menu: gold-deep edge, the gold that works on a light page, 4.87:1. */
+#jumpBtn:not(:disabled){border-color:var(--gold-deep)}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:8px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:4px;padding:10px 12px;font:700 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:#fff;box-shadow:inset 0 0 0 1.5px var(--navy)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:#fff;box-shadow:var(--shadow2)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2;color:var(--maroon-dark)}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:8px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:8px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:8px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:.82rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:1.25rem;margin:0 0 4px;color:var(--maroon-dark)}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:4px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:8px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 5px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tbtn:not(:disabled):hover{transform:none}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 5</span>Spinal pathways, <span class="tone">touch and pain</span>, step by step.</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=5" target="_top">Week 5 lectures</a>
+    <a href="biol005-w05-pathways-pain-walkthrough-notes.html" target="_blank" rel="noopener">Written notes<span class="sr"> (opens in a new tab)</span></a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn" aria-describedby="gateNote">Show me</button>
+      <span id="gateNote" class="sr" aria-live="polite"></span>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Type each prediction here before you click Show me. Show me stays locked until you do. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 5: Spinal pathways, touch and pain, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+/* Week 5 scene kit. Oct 4 2026. Shared helpers prepended to every Week 5
+   scene by tools/walkthroughs/assemble_w05.py. Same engine as Week 4: el,
+   tx, place, tweenPath, tweenVal, wait, markers and arrow come from the
+   shell. Everything here only draws and moves; no step logic lives here. */
+markers();
+var REG={};
+function G(n,p){var g=el("g",{},p||svg);REG[n]=g;return g;}
+function only(l){for(var k in REG)REG[k].setAttribute("display","none");l.forEach(function(k){if(REG[k])REG[k].setAttribute("display","");});}
+var GOLD="#C9A14A",TISS="#F6E9E6",FLUID="#E3F0F6",FLOW="#2F6F8F"; /* tissue, fluid and fluid-flow tints for figures only, never text */
+
+/* a line through points, optionally dashed */
+function poly(p,pts,col,w,dash){
+  var a={points:pts.map(function(q){return q[0]+","+q[1];}).join(" "),fill:"none",stroke:col||NAVY,"stroke-width":w||5,"stroke-linejoin":"round","stroke-linecap":"round"};
+  if(dash)a["stroke-dasharray"]=dash;
+  return el("polyline",a,p);
+}
+/* reveal a line from its start, then leave it solid */
+function reveal(line,dur,a){
+  var L=line.getTotalLength?line.getTotalLength():0;
+  if(!a||reduce||!L){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");return Promise.resolve();}
+  line.setAttribute("stroke-dasharray",L+" "+L);line.setAttribute("stroke-dashoffset",L);
+  return tweenVal(L,0,dur,a,function(v){line.setAttribute("stroke-dashoffset",v);}).then(function(){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");});
+}
+/* a traveling signal: a filled dot with a white rim */
+function dot(p,col,r){var g=el("g",{},p);el("circle",{r:r||11,fill:col||MAROON,stroke:"#fff","stroke-width":2.5},g);g.setAttribute("display","none");return g;}
+function run(g,pts,dur,a,keep){
+  g.setAttribute("display","");place(g,pts[0][0],pts[0][1]);
+  return tweenPath(g,pts.slice(1),dur,a).then(function(){if(!keep)g.setAttribute("display","none");});
+}
+function hide(list){list.forEach(function(g){g.setAttribute("display","none");});}
+/* a round badge with a sign or a short word inside */
+function badge(p,x,y,s,col,r){var g=el("g",{},p);el("circle",{r:r||16,fill:col||NAVY},g);var t=el("text",{"class":"iw","font-size":(r||16)+4},g);t.textContent=s;place(g,x,y);g._t=t;g._c=g.firstChild;return g;}
+function setBadge(g,s,col){g._t.textContent=s;g._c.setAttribute("fill",col);g.setAttribute("display","");}
+/* a white labeled box */
+function box(p,x,y,w,h,s,cls,size,stroke){
+  var g=el("g",{},p);
+  el("rect",{x:x,y:y,width:w,height:h,rx:8,fill:"#fff",stroke:stroke||NAVY,"stroke-width":2.5},g);
+  var lines=String(s).split("\n"),sz=size||15,y0=y+h/2-(lines.length-1)*(sz+3)/2+sz*0.35;
+  g._t=lines.map(function(l,i){return tx(g,x+w/2,y0+i*(sz+3),l,cls||"tn",sz,"middle");});
+  return g;
+}
+/* a spike train: n identical spikes spread across width w, baseline at y */
+function trainD(x,y,w,n,h){
+  if(n<=0)return "M"+x+" "+y+" h"+w;
+  var d="M"+x+" "+y,step=w/n,cx=x;
+  for(var i=0;i<n;i++){var sx=x+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+function trainPath(p,col,w){return el("path",{d:"",fill:"none",stroke:col||NAVY,"stroke-width":w||3,"stroke-linejoin":"round"},p);}
+/* spikes that only appear in part of a window: on from fraction f0 to f1, n spikes */
+function trainWin(x,y,w,f0,f1,n,h){
+  var a=x+w*f0,b=x+w*f1,d="M"+x+" "+y+" H"+a;
+  var step=(b-a)/Math.max(n,1);
+  for(var i=0;i<n;i++){var sx=a+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+/* grow a spike train across its window, left to right */
+function growTrain(path,fn,dur,a){
+  if(!a||reduce){path.setAttribute("d",fn(1));return Promise.resolve();}
+  return tweenVal(0,1,dur,a,function(k){path.setAttribute("d",fn(k));});
+}
+/* the caption line, drawn last so it sits on top */
+var CAP=null;
+function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
+function cap(s){if(CAP)CAP.textContent=s||"";}
+
+/* Spinal pathways, touch and pain. Oct 4 2026. Week 5 competencies 5, 13
+   and 14. Main figure: cortex, thalamus, medulla and spinal cord stacked
+   with the midline dashed down the middle and the right hand on the right.
+   Three tracts are drawn on it. Smaller figures carry the homunculus, the
+   two pain fibers, referred pain, and the dorsal horn gate. */
+
+var MID=450;
+var gLev=G("lev");
+el("line",{x1:MID,y1:20,x2:MID,y2:470,stroke:INK2,"stroke-width":1.5,"stroke-dasharray":"6 6"},gLev);
+tx(gLev,MID,486,"midline","t",13,"middle");
+el("rect",{x:130,y:30,width:640,height:56,rx:24,fill:"#fff",stroke:NAVY,"stroke-width":3},gLev);
+tx(gLev,140,24,"cortex","tn",15,"start");
+tx(gLev,290,64,"left hemisphere","t",13,"middle");tx(gLev,610,64,"right hemisphere","t",13,"middle");
+el("ellipse",{cx:360,cy:150,rx:46,ry:22,fill:TINT,stroke:INK2,"stroke-width":2},gLev);el("ellipse",{cx:540,cy:150,rx:46,ry:22,fill:TINT,stroke:INK2,"stroke-width":2},gLev);
+tx(gLev,240,156,"thalamus","t",14,"end");
+el("rect",{x:350,y:230,width:200,height:60,rx:14,fill:"#fff",stroke:NAVY,"stroke-width":3},gLev);
+tx(gLev,340,266,"medulla","t",14,"end");
+el("ellipse",{cx:MID,cy:400,rx:120,ry:56,fill:"#fff",stroke:NAVY,"stroke-width":3},gLev);
+tx(gLev,320,404,"spinal cord","t",14,"end");
+el("rect",{x:800,y:410,width:76,height:46,rx:18,fill:TISS,stroke:MAROON,"stroke-width":3},gLev);
+tx(gLev,838,478,"right hand","t",14,"middle");
+
+var DC=[[810,424],[620,390],[500,384],[500,262],[400,250],[372,150],[330,62]];
+var ST=[[810,436],[620,410],[500,410],[402,418],[402,300],[392,262],[350,150],[270,62]];
+var CS=[[210,62],[300,150],[400,282],[520,300],[540,420],[640,440],[810,446]];
+var gDC=G("dc"),gST=G("st"),gCS=G("cs");
+var lDC=poly(gDC,DC,NAVY,5),lST=poly(gST,ST,MAROON,5),lCS=poly(gCS,CS,GDEEP,5,"12 6");lCS._dash="12 6";
+[[500,384],[400,250],[372,150]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:8,fill:NAVY},gDC);});
+[[500,410],[350,150]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:8,fill:MAROON},gST);});
+[[540,420]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:8,fill:GDEEP},gCS);});
+var tDC=tx(gDC,580,238,"dorsal column: touch, position","tn",14,"start");
+var tST=tx(gST,140,340,"spinothalamic: pain, temperature","tm",14,"start");
+var tCS=tx(gCS,600,330,"corticospinal: voluntary movement","tm",14,"start");tCS.setAttribute("class","t");
+var gX=G("xs");
+var xDC=badge(gX,452,250,"X",NAVY,13),xST=badge(gX,452,418,"X",MAROON,13),xCS=badge(gX,452,292,"X",GDEEP,13);
+var sigA=dot(gLev,NAVY,9),sigB=dot(gLev,MAROON,9),sigC=dot(gLev,GDEEP,9);
+
+/* the hemisection */
+var gCut=G("cut");
+el("rect",{x:MID-122,y:340,width:122,height:120,fill:MAROON,opacity:.22},gCut);
+tx(gCut,MID-61,330,"left half cut","tm",15,"middle");
+var gLoss=G("loss");
+box(gLoss,10,180,230,70,"left side below the cut:\nfine touch and position lost\nmovement lost","tn",13);
+box(gLoss,660,180,230,70,"right side below the cut:\npain and temperature lost","tm",13,MAROON);
+
+/* homunculus */
+var gHom=G("hom");
+tx(gHom,60,50,"cortex given to each part","tn",16,"start");tx(gHom,520,50,"true size of each part","tn",16,"start");
+var HP=[["lips",150,22],["hand and fingers",170,26],["face",90,20],["trunk",40,90],["leg",40,110],["foot",40,30]];
+HP.forEach(function(h,i){var y=80+i*62;
+  el("rect",{x:60,y:y,width:0,height:36,rx:6,fill:MAROON},gHom).setAttribute("data-w",h[1]*2);
+  tx(gHom,60,y+54,h[0],"t",13,"start");
+  el("rect",{x:520,y:y,width:h[2]*2.4,height:36,rx:6,fill:NAVY},gHom);
+});
+function homGrow(k){[].forEach.call(gHom.querySelectorAll("rect[data-w]"),function(r){r.setAttribute("width",+r.getAttribute("data-w")*k);});}
+
+/* two pain fibers */
+var gFib=G("fib");
+tx(gFib,70,60,"stubbed toe","tm",15,"start");
+el("line",{x1:150,y1:120,x2:760,y2:120,stroke:NAVY,"stroke-width":7},gFib);
+for(var i=0;i<6;i++)el("rect",{x:190+i*96,y:110,width:80,height:20,rx:10,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gFib);
+el("line",{x1:150,y1:220,x2:760,y2:220,stroke:INK2,"stroke-width":3},gFib);
+tx(gFib,150,96,"A-delta fiber: thin, myelinated","tn",14,"start");tx(gFib,150,200,"C fiber: thinnest, unmyelinated","t",14,"start");
+tx(gFib,780,176,"spinal cord","t",14,"start");
+var fA=dot(gFib,NAVY,10),fC=dot(gFib,MAROON,10);
+el("line",{x1:150,y1:380,x2:760,y2:380,stroke:NAVY,"stroke-width":2.5},gFib);
+[0,0.25,0.5,0.75,1].forEach(function(k,i){var x=150+610*k;el("line",{x1:x,y1:372,x2:x,y2:388,stroke:NAVY,"stroke-width":2},gFib);tx(gFib,x,406,["0","","","","about 1 second"][i],"t",13,"middle");});
+var fT1=tx(gFib,200,350,"","tn",14,"start"),fT2=tx(gFib,560,350,"","tm",14,"start");
+var fM1=badge(gFib,190,380,"",NAVY,8),fM2=badge(gFib,640,380,"",MAROON,8);
+
+/* referred pain */
+var gRef=G("ref");
+box(gRef,640,40,220,60,"somatosensory cortex","tn",14);
+el("path",{d:"M120 300 c-30 -40 10 -70 40 -40 c30 -30 70 0 40 40 l-40 40 z",fill:TISS,stroke:MAROON,"stroke-width":3},gRef);
+tx(gRef,160,370,"heart","t",14,"middle");
+el("rect",{x:60,y:110,width:150,height:50,rx:20,fill:TISS,stroke:MAROON,"stroke-width":3},gRef);
+tx(gRef,135,96,"skin of the left arm","t",14,"middle");
+el("ellipse",{cx:450,cy:240,rx:90,ry:60,fill:"#fff",stroke:NAVY,"stroke-width":3},gRef);
+tx(gRef,450,320,"spinal cord segment","t",13,"middle");
+el("circle",{cx:470,cy:240,r:12,fill:NAVY},gRef);
+var rV=poly(gRef,[[200,290],[330,270],[462,246]],MAROON,4),rS=poly(gRef,[[210,135],[330,190],[462,234]],NAVY,4),rP=poly(gRef,[[482,240],[600,160],[700,100]],NAVY,5);
+var rMark=badge(gRef,135,135,"!",MAROON,16);
+var rsig=dot(gRef,MAROON,9);
+
+/* the gate */
+var gGate=G("gate");
+el("ellipse",{cx:450,cy:270,rx:300,ry:170,fill:"#fff",stroke:NAVY,"stroke-width":3},gGate);
+tx(gGate,450,92,"dorsal horn of the spinal cord","tn",15,"middle");
+var GN=poly(gGate,[[60,330],[300,330],[420,300]],MAROON,5);tx(gGate,64,354,"nociceptor (pain)","tm",14,"start");
+var GT=poly(gGate,[[60,190],[300,190],[380,230]],NAVY,8);tx(gGate,64,176,"large touch fiber","tn",14,"start");
+el("circle",{cx:394,cy:240,r:13,fill:INK2},gGate);tx(gGate,394,214,"inhibitory interneuron","t",13,"middle");
+var GI=poly(gGate,[[404,250],[470,286]],INK2,4);
+el("circle",{cx:490,cy:300,r:18,fill:NAVY},gGate);tx(gGate,520,340,"projection neuron","t",13,"start");
+var GP=poly(gGate,[[508,296],[640,220],[860,120]],NAVY,5);tx(gGate,860,104,"to the brain","t",13,"end");
+var gOut=tx(gGate,700,300,"","tm",16,"middle");
+var gsN=dot(gGate,MAROON,9),gsT=dot(gGate,NAVY,9),gsP=dot(gGate,NAVY,9);
+var gOp=G("op");
+box(gOp,560,410,260,40,"descending pathway from the brainstem","tn",13);
+poly(gOp,[[690,410],[560,330],[430,300]],GDEEP,4,"6 5");
+badge(gOp,430,300,"op",GDEEP,15);
+tx(gOp,280,430,"enkephalin acts before and after the synapse","tm",14,"middle");
+
+makeCap();
+function resetAll(){
+  hide([sigA,sigB,sigC,fA,fC,rsig,gsN,gsT,gsP]);[xDC,xST,xCS].forEach(function(b){b.setAttribute("display","none");});
+  tDC.setAttribute("display","");tST.setAttribute("display","");tCS.setAttribute("display","");
+  homGrow(0);fT1.textContent="";fT2.textContent="";fM1.setAttribute("display","none");fM2.setAttribute("display","none");
+  rMark.setAttribute("display","none");gOut.textContent="";cap("");
+}
+function S(l){only(l.concat(["cap"]));resetAll();}
+function draw(name,line,pts,d,dur,a){REG[name].setAttribute("display","");return Promise.all([reveal(line,dur,a),run(d,pts,dur,a)]);}
+
+/* ======================= steps ======================= */
+var STEPS=[
+{sec:"Inside the spinal cord",comp:"Competency 5",
+ title:"Gray matter and white matter",
+ text:["Cut across the spinal cord and you see two kinds of tissue. In the center is gray matter, shaped like a butterfly, made of neuron cell bodies, dendrites and synapses. Around it is white matter, made of myelinated axons running up and down the cord in bundles called tracts.","The gray matter is divided into horns. The dorsal horn, at the back, receives sensory input. The ventral horn, at the front, holds the cell bodies of the somatic motor neurons. In the thoracic and upper lumbar cord, a small lateral horn holds autonomic neurons. The white matter is divided into columns, and each column carries particular ascending and descending tracts.","On each side, at every level, a dorsal root brings sensory axons in and a ventral root takes motor axons out. The two roots join into one spinal nerve, which carries both. There are 31 pairs of spinal nerves."],
+ name:"gray matter and white matter",
+ auto:true,
+ desc:"The stacked levels are shown, with the spinal cord cross section at the bottom.",
+ pre:function(){S(["lev"]);},
+ play:function(a){return wait(300,a).then(function(){cap("Gray: synapses. White: tracts");});}},
+
+{title:"Where the cell bodies are",
+ text:["Think about one sensory neuron that carries touch from a fingertip, and one motor neuron that makes a muscle of the hand contract."],
+ ask:"Where is the cell body of each one: inside the spinal cord or outside it, and in which part?",
+ ans:["The sensory neuron's cell body is outside the cord, in the dorsal root ganglion, the swelling on the dorsal root. Its axon runs all the way from the fingertip, past the cell body, and into the cord. The motor neuron's cell body is inside the cord, in the ventral horn of the gray matter, and its axon leaves through the ventral root.","That is why damage to a dorsal root ganglion, as in shingles, affects sensation along one strip of skin, and why damage to the ventral horn, as in polio, causes weakness with no loss of sensation."],
+ name:"dorsal root ganglion",
+ desc:"The stacked levels remain, with the spinal cord cross section at the bottom.",
+ pre:function(){S(["lev"]);},
+ play:function(a){return wait(400,a).then(function(){cap("Sensory bodies out, motor bodies in");});}},
+
+{sec:"Three long pathways",comp:"Competency 5",
+ title:"Up and down the cord",
+ text:["Sensory information travels up the spinal cord to the brain in ascending pathways, and motor commands travel down in descending pathways. These long pathways are tracts: bundles of axons in the white matter.","The figure stacks the levels: the cortex at the top, the thalamus, the medulla of the brainstem, and one level of the spinal cord. The dashed line is the midline. Each side of the brain senses and moves the opposite side of the body, so every one of these pathways crosses the midline somewhere. Where it crosses is what this section is about."],
+ auto:true,
+ desc:"Four levels stacked from top to bottom: the cortex, two thalamus ovals, the medulla, and a spinal cord cross section, with a dashed midline down the center. The right hand sits at the lower right.",
+ pre:function(){S(["lev"]);},
+ play:function(a){return wait(300,a).then(function(){cap("Every long pathway crosses");});}},
+
+{title:"Fine touch from the right hand",
+ text:["A fingertip on the right hand feels the texture of a coin. The sensory neuron enters the cord on the right side."],
+ ask:"Trace this signal to the cortex. On which side does it travel up the cord, and at what level does it cross?",
+ ans:["It goes up the cord on the same side it entered, the right, without synapsing. The first neuron's axon climbs all the way to the medulla in the dorsal columns and synapses there. The second neuron crosses the midline in the medulla and runs up to the thalamus on the left. A third neuron carries it from the thalamus to the somatosensory cortex on the left.","This is the dorsal column pathway, which carries fine touch, vibration and the sense of where your limbs are, called proprioception. It crosses high, in the medulla."],
+ name:"dorsal column pathway",
+ desc:"A navy line runs from the right hand into the right side of the cord, climbs on the right to the medulla, crosses the midline there, synapses in the left thalamus, and ends in the left cortex. Three dots mark its synapses.",
+ pre:function(){S(["lev"]);},
+ play:function(a){return draw("dc",lDC,DC,sigA,1700,a).then(function(){cap("Same side up, crosses in the medulla");});}},
+
+{title:"Pain from the right hand",
+ text:["Now a pin pricks the same fingertip. Pain and temperature travel on a different pathway."],
+ ask:"Where does this signal synapse first, and at what level does it cross?",
+ ans:["It synapses almost right away, in the dorsal horn of the spinal cord where it enters. The second neuron crosses the midline within the cord, within a segment or two of where the signal came in, and then climbs the opposite side, the left, to the thalamus. A third neuron goes on to the cortex.","This is the spinothalamic tract, which carries pain and temperature. It crosses low, in the spinal cord, while the dorsal column pathway crosses high, in the medulla. That difference is what a doctor uses to find a lesion."],
+ name:"spinothalamic tract",
+ desc:"A maroon line runs from the right hand into the cord, synapses in the right dorsal horn, crosses the midline inside the cord, climbs the left side through the medulla to the left thalamus, and ends in the left cortex. The navy dorsal column line stays for comparison.",
+ pre:function(){S(["lev","dc"]);},
+ play:function(a){return draw("st",lST,ST,sigB,1700,a).then(function(){cap("Crosses low, in the cord");});}},
+
+{title:"Moving the right hand",
+ text:["The person decides to close the right hand. The command starts in the motor cortex."],
+ ask:"Which side of the motor cortex sends this command, and where does the pathway cross?",
+ ans:["The left motor cortex. Its axons descend through the brainstem, and most of them cross the midline at the bottom of the medulla, in the pyramids. They continue down the right side of the cord and synapse on motor neurons in the ventral horn, which run out to the muscles of the right hand.","This is the corticospinal tract, the main pathway for voluntary movement, especially fine movement of the hands. Its neurons in the cortex are upper motor neurons; the motor neurons in the cord are lower motor neurons."],
+ name:"corticospinal tract",
+ desc:"A gold dashed line leaves the left cortex, descends to the medulla, crosses the midline at the bottom of the medulla, descends the right side of the cord, synapses in the ventral horn and runs out to the right hand.",
+ pre:function(){S(["lev","dc","st"]);},
+ play:function(a){return draw("cs",lCS,CS,sigC,1700,a).then(function(){cap("Crosses at the bottom of the medulla");});}},
+
+{title:"Cutting half the cord",
+ text:["An injury cuts through the left half of the spinal cord at this level and leaves the right half intact. All three pathways are drawn for this level."],
+ ask:"Below the cut, which sensations and movements are lost on the left side of the body, and which on the right?",
+ ans:["On the left side: fine touch, vibration, position sense and voluntary movement are lost, because the dorsal columns and the corticospinal tract for the left side run on the left at this level and have not crossed yet. On the right side: pain and temperature are lost, because the spinothalamic fibers from the right side have already crossed into the left half of the cord.","This split pattern is called Brown-Séquard syndrome. It tells you the lesion is in the cord. In the brain all three pathways have already crossed, so a lesion there takes everything from the same side of the body."],
+ name:"Brown-Séquard syndrome",
+ desc:"The left half of the spinal cord is shaded maroon and labeled left half cut. Two boxes appear. Left side below the cut: fine touch and position lost, movement lost. Right side below the cut: pain and temperature lost.",
+ pre:function(){S(["lev","dc","st","cs","cut"]);},
+ play:function(a){[tDC,tST,tCS].forEach(function(t){t.setAttribute("display","none");});return wait(500,a).then(function(){REG.loss.setAttribute("display","");cap("A split pattern means the cord");});}},
+
+{sec:"Touch, from skin to cortex",comp:"Competency 13",
+ title:"The map in the cortex",
+ text:["Touch information ends in the primary somatosensory cortex, a strip of cortex just behind the central sulcus called the postcentral gyrus. Each part of the body has its own area of that strip, laid out in order like a map. Drawn as a body, the map is called the somatosensory homunculus."],
+ ask:"The lips and fingertips get far more cortex than the whole trunk. Why would the cortex be built that way?",
+ ans:["Because cortical area matches how many receptors a part has and how finely it needs to discriminate, not how big it is. The lips and fingertips are packed with small receptive fields, the same ones that give them two-point thresholds of a few millimeters, and every one of those neurons needs its own space in the cortex. The trunk has few, large receptive fields, so it needs little.","Your two-point measurements from lab predict the map: the sites with the finest thresholds are the ones that would be drawn largest."],
+ name:"somatosensory homunculus",
+ desc:"Two sets of bars. On the left, maroon bars show the cortex given to each part: long for lips and hand, medium for face, short for trunk, leg and foot. On the right, navy bars show true size: short for lips and hand, long for trunk and leg.",
+ pre:function(){S(["hom"]);},
+ play:function(a){return tweenVal(0,1,1200,a,homGrow).then(function(){cap("Cortex tracks receptors, not size");});}},
+
+{sec:"Pain and its modulation",comp:"Competency 14",
+ title:"Two waves of pain",
+ text:["You stub your toe. Two kinds of nociceptor fiber carry the signal to the spinal cord. A-delta fibers are thin and myelinated. C fibers are even thinner and have no myelin."],
+ ask:"Which signal reaches the cord first, and how does each one feel?",
+ ans:["The A-delta signal arrives first, because myelinated fibers conduct faster. It produces fast pain: sharp, prickling and easy to locate. The C fiber signal arrives a second or so later and produces slow pain: dull, aching or burning, harder to locate, and longer lasting.","That is why stubbing a toe gives a sharp jolt and then a throbbing ache. The same rule from the conduction velocity work in Week 4 explains it: myelin and diameter set the speed."],
+ name:"fast pain and slow pain",
+ desc:"Two fibers run from a stubbed toe at the left to the spinal cord at the right. A navy dot races along the myelinated A-delta fiber; a maroon dot creeps along the unmyelinated C fiber. On a time line below, a navy marker early reads sharp, fast pain and a maroon marker later reads dull, slow pain.",
+ pre:function(){S(["fib"]);},
+ play:function(a){return Promise.all([run(fA,[[150,120],[760,120]],700,a,true),run(fC,[[150,220],[760,220]],2600,a,true)]).then(function(){fM1.setAttribute("display","");fM2.setAttribute("display","");fT1.textContent="sharp, fast pain";fT2.textContent="dull, slow pain";cap("Myelin decides which arrives first");});}},
+
+{title:"Pain felt in the arm",
+ text:["A man having a heart attack feels pain spreading down the inside of his left arm, even though nothing is wrong with his arm."],
+ ask:"Why would the brain place pain from the heart in the skin of the arm?",
+ ans:["Sensory neurons from the heart and from the skin of the left arm enter the same segments of the spinal cord and converge on the same projection neurons. The brain receives the signal on that shared line and cannot tell which input started it. Signals on that line usually come from the skin, so the brain places the pain there.","This is referred pain, and it is explained by convergence. Each internal organ refers pain to a predictable patch of skin, which is why the location of referred pain helps with diagnosis."],
+ name:"referred pain",
+ desc:"A heart and the skin of the left arm each send a sensory line into one spinal cord segment, where both end on the same navy projection neuron. One line runs from that neuron to the somatosensory cortex. A dot travels from the heart, and an exclamation mark appears on the arm.",
+ pre:function(){S(["ref"]);},
+ play:function(a){return run(rsig,[[200,290],[330,270],[462,246],[482,240],[600,160],[700,100]],1600,a).then(function(){rMark.setAttribute("display","");cap("Shared line, brain guesses skin");});}},
+
+{title:"Rubbing a bumped shin",
+ text:["Inside the dorsal horn, a nociceptor excites a projection neuron that carries pain up to the brain. A large touch fiber from the same skin also enters here. It excites an inhibitory interneuron that synapses on the projection neuron."],
+ ask:"You bump your shin and rub it. What does rubbing do to the pain signal that reaches the brain, judging from this circuit?",
+ ans:["It reduces it. Rubbing fires the large touch fibers, which excite the inhibitory interneuron. The interneuron inhibits the projection neuron, so fewer pain signals get through to the brain even though the nociceptor is still firing.","This is the gate control theory of pain: activity in touch fibers can close a gate on pain transmission in the dorsal horn. It is part of why rubbing an injury, or the vibration of a TENS unit, can ease pain."],
+ name:"gate control theory",
+ desc:"Inside the dorsal horn, a maroon nociceptor line runs to a navy projection neuron. A thick navy touch fiber runs to a gray inhibitory interneuron, which connects to the projection neuron. Dots travel both inputs, and the label reads fewer signals to the brain.",
+ pre:function(){S(["gate"]);},
+ play:function(a){return Promise.all([run(gsN,[[60,330],[300,330],[420,300]],1000,a),run(gsT,[[60,190],[300,190],[380,230],[404,250],[470,286]],1000,a)]).then(function(){gOut.textContent="fewer signals to the brain";cap("Touch input closes the gate");});}},
+
+{title:"The body's own painkillers",
+ text:["Pathways descending from the brainstem can also turn pain down in the dorsal horn. They activate interneurons that release enkephalin, one of the body's endogenous opioids, the natural molecules that bind to the same receptors as morphine."],
+ ask:"The opioid acts on this circuit. Does it work before the synapse, after it, or both?",
+ ans:["Both. On the nociceptor's terminal, before the synapse, opioid receptors reduce calcium entry, so less transmitter, such as substance P and glutamate, is released. On the projection neuron, after the synapse, they open potassium channels and hyperpolarize it, so it is harder to bring to threshold.","These are the endogenous opioids: enkephalins, endorphins and dynorphins. They are part of why pain can be blunted during an emergency or intense exercise, and opioid drugs work by binding the same receptors."],
+ name:"endogenous opioids",
+ desc:"A gold dashed descending pathway from the brainstem reaches the synapse between the nociceptor and the projection neuron, marked op. A label says enkephalin acts before and after the synapse.",
+ pre:function(){S(["gate"]);},
+ play:function(a){REG.op.setAttribute("display","");return run(gsN,[[60,330],[300,330],[420,300]],900,a).then(function(){gOut.textContent="pain signal reduced";cap("Opioids act on both sides");});}},
+
+{sec:"Review",comp:"Competencies 5, 13 and 14",
+ title:"Summary with the scientific terms",
+ text:["Fine touch, vibration and position travel in the dorsal columns, up the same side, crossing in the medulla. Pain and temperature travel in the spinothalamic tract, crossing in the spinal cord. Voluntary movement descends in the corticospinal tract, crossing at the bottom of the medulla. A cut through half the cord gives Brown-Séquard syndrome. Inside the cord, gray matter holds the cell bodies and synapses, with sensory input in the dorsal horn and motor neurons in the ventral horn, and white matter holds the tracts. Sensory cell bodies sit in the dorsal root ganglia. Both sensory pathways relay in the thalamus and end on the somatosensory homunculus, where area tracks receptor density.","Fast pain travels in myelinated A-delta fibers and slow pain in unmyelinated C fibers. Referred pain comes from convergence. The dorsal horn gate and the endogenous opioids reduce pain transmission."],
+ ask:"Without scrolling back, a patient has lost pain sensation on the left leg and lost position sense on the right leg. Which side of the cord is damaged, and how do you know?",
+ ans:["The right half. Position sense travels up on the same side, so losing it on the right leg means the right dorsal columns are damaged. Pain crosses in the cord, so the pain fibers from the left leg are traveling on the right side above their entry, and losing left leg pain also points to the right half. Both findings agree on a right-sided cord lesion.","If you could not get there, redraw the three pathways from memory and cut them, the way your Competency Study Guide asks."],
+ desc:"All three pathways are drawn on the stacked levels.",
+ pre:function(){S(["lev","dc","st","cs"]);},
+ play:function(a){return Promise.all([run(sigA,DC,1300,a),run(sigB,ST,1300,a)]).then(function(){cap("Where it crosses locates the lesion");});}}
+];
+
+/* ======================= support videos ======================= */
+var V={};
+var SUP={};
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w05-pathways-pain-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);gateShow();clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+/* Sep 27 2026, Scrubs: an instructor preview. Add ?preview=1 to the address
+   to look through every step with nothing locked: no typing needed before
+   Show me, Next always on, and the topic menu open from the start. */
+var PREVIEW=/[?&]preview=1\b/.test(location.search);
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!PREVIEW&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  busy=false;renderCurrent();gateShow();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;busy=true;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    busy=false;playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+/* Sep 27 2026: Show me stays locked until a prediction is typed (at least 3 words) */
+var busy=false;
+function predWords(i){return ((store["p"+i]||"").trim().match(/\S+/g)||[]).length;}
+function gateShow(){
+  var s=STEPS[cur],gn=document.getElementById("gateNote");
+  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished||PREVIEW){gn.textContent="";return;}
+  var ok=predWords(cur)>=3;if(!busy&&!playBtn.hidden)playBtn.disabled=!ok;
+  gn.textContent=ok?"":"Type your prediction in the worksheet on the right, at least a few words, to unlock Show me.";
+}
+playBtn.addEventListener("click",function(){if(playBtn.disabled)return;runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, gray matter and white matter</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished||PREVIEW)unlockJump(false);
+if(PREVIEW)note("Preview mode: nothing is locked. Remove ?preview=1 from the address to see what students see.");
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w05-pathways-pain-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+<!-- A way back to the Week page, or to Canvas, on every page. -->
+<script src="bio005-back.js"></script>
+</body>
+</html>
