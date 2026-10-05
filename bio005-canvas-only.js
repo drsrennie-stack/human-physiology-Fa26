@@ -15,6 +15,33 @@
    without changing anything for students, add ?site=1 to a page address.
    Loaded by bio005-back.js, and directly by pages that do not load it.
    ============================================================ */
+/* Oct 5 2026: HOLD. Pages listed here show a "not open yet" notice instead
+   of their content, whatever Canvas says, until Scrubs has reviewed them.
+   Add ?preview=1 to the address to see a held page. To release a page, take
+   its pattern out of HOLD_PAGES (or empty the list). */
+(function () {
+  var HOLD_PAGES = [/\/biol005-w05-[a-z-]+-guided\.html$/];
+  if (/[?&]preview=1\b/.test(location.search)) return;
+  var held = HOLD_PAGES.some(function (r) { return r.test(location.pathname); });
+  if (!held) return;
+  function cover() {
+    var css = document.createElement('style');
+    css.textContent = 'body>*:not(.b5-held){display:none!important}html,body{background:#F7F8FA!important}';
+    document.head.appendChild(css);
+    var d = document.createElement('div');
+    d.className = 'b5-held';
+    d.setAttribute('role', 'main');
+    d.style.cssText = 'max-width:620px;margin:12vh auto 0;padding:30px 32px;background:#fff;border-radius:16px;' +
+      'box-shadow:0 4px 18px rgba(11,21,48,.10);font:16px/1.6 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#0B1530';
+    d.innerHTML = '<h1 style="font-size:28px;line-height:1.15;margin:0 0 10px;font-weight:800">This walkthrough is not open yet</h1>' +
+      '<p style="margin:0 0 12px">I am still finishing it. It will open soon, and I will post an announcement in Canvas when it does.</p>' +
+      '<p style="margin:0 0 22px">In the meantime, you can work on the pre-read, read the written notes, and start your Competency Study Guide.</p>' +
+      '<a href="https://yccd.instructure.com/courses/42616/modules" target="_top" style="display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:10px;background:#8B3A2E;color:#fff;text-decoration:none;font-weight:800">Back to Canvas</a>';
+    document.body.appendChild(d);
+  }
+  if (document.body) cover(); else document.addEventListener('DOMContentLoaded', cover);
+}());
+
 (function () {
   var ON = true;
   var CANVAS = 'https://yccd.instructure.com/courses/42616/modules';
@@ -26,6 +53,9 @@
   css.textContent =
     '.b5site,.b5nav,.b5foot,.mm-flinks,.mm-back,.b5-back,.b5-backwrap,.bd-dock,#siteBack,.framehead,' +
     'a.back,.chip-back,.b5-sitebar,.siteback{display:none!important}' +
+    /* Oct 5 2026: the Course tools dock (bio005-dock.js), its first-visit hint,
+       and Hootie (hootie.js), with its Stuck? nudge, are site navigation too. */
+    '.bd-launch,.bd-panel,.bd-scrim,.bd-hint,.dock-coach,.dc-mark,.hoo-btn,.hoo-panel,.hoo-nudge,#hoo-panel{display:none!important}' +
     '.mm-brandbar a{pointer-events:none;cursor:default}' +
     '.b5-nolink{color:inherit;text-decoration:none;cursor:default}' +
     '.b5-tocanvas{position:fixed;left:18px;bottom:18px;z-index:2147483000;display:inline-flex;align-items:center;' +
