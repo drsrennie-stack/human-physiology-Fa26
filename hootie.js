@@ -115,13 +115,13 @@
     {wk:3,  opens:'2026-09-21', closes:'2026-09-27', title:'Catch up on the cell',
      note:'A catch up week. Nothing new opens, and Week 2 stays open so you can finish it.'},
     {wk:4,  opens:'2026-09-28', closes:'2026-10-04', title:'Membrane potential, neurons and synapses'},
-    {wk:5,  opens:'2026-10-05', closes:'2026-10-11', title:'Reflexes, and sensing the world'},
-    {wk:6,  opens:'2026-10-12', closes:'2026-10-18', title:'Muscle, and how movement gets commanded'},
-    {wk:7,  opens:'2026-10-19', closes:'2026-10-25', title:'Hormones, the autonomic system, and reproduction'},
-    {wk:8,  opens:'2026-10-26', closes:'2026-11-01', title:'Midterm 1', exam:1,
-     note:'No new teaching. Monday to Wednesday is yours to review, and Midterm 1 runs Thursday to Sunday. Camila\'s chart and analysis are due Sunday, November 1, when Midterm 1 closes.'},
-    {wk:9,  opens:'2026-11-02', closes:'2026-11-08', title:'The heart as a pump'},
-    {wk:10, opens:'2026-11-09', closes:'2026-11-15', title:'Pressure, flow, and holding blood pressure steady'},
+    {wk:5,  opens:'2026-10-05', closes:'2026-10-18', title:'Reflexes, and sensing the world'},
+    {wk:6,  opens:'2026-10-19', closes:'2026-10-25', title:'Muscle, and how movement gets commanded'},
+    {wk:7,  opens:'2026-10-26', closes:'2026-11-01', title:'Hormones, the autonomic system, and reproduction'},
+    {wk:8,  opens:'2026-11-02', closes:'2026-11-08', title:'Midterm 1', exam:1,
+     note:'No new teaching. Monday to Wednesday is yours to review, and Midterm 1 runs Thursday to Sunday. Camila\'s chart and analysis are due Sunday, November 8, when Midterm 1 closes.'},
+    {wk:9,  opens:'2026-11-09', closes:'2026-11-15', title:'The heart as a pump'},
+    {wk:10, opens:'2026-11-09', closes:'2026-11-22', title:'Pressure, flow, and holding blood pressure steady'},
     {wk:11, opens:'2026-11-16', closes:'2026-11-22', title:'Blood and how the body defends itself',
      note:'The last day to drop with a W is Saturday, November 21.'},
     {wk:12, opens:'2026-11-23', closes:'2026-11-29', title:'Digestion, and how you use food for fuel',
@@ -137,7 +137,7 @@
     {n:3, title:'Systems in action',  weeks:[9,10,11,12,13,14,15]}
   ];
   var MIDTERMS = [
-    {n:1, opens:'2026-10-29', openTime:'8:00 am', closes:'2026-11-01', closeTime:'10:00 pm', covers:'Weeks 1 to 7', week:8},
+    {n:1, opens:'2026-11-05', openTime:'8:00 am', closes:'2026-11-08', closeTime:'10:00 pm', covers:'Weeks 1 to 7', week:8},
     {n:2, opens:'2026-12-14', openTime:'8:00 am', closes:'2026-12-16', closeTime:'10:00 pm', covers:'Weeks 9 to 14', week:15}
   ];
   function addDays(iso, n) {
@@ -447,7 +447,7 @@
 
       case 'chart':
         return '<p>You follow your patients by hand, in your ' + a('chart') + '. Each week you copy that week\'s numbers into your flowsheets and add what changed, your problem list, a drawing and your thinking, including what you worked out in that week\'s application case.</p>'
-          + '<p>There are two patients, one at a time. Until Midterm 1 you work only on Camila, Weeks 1 to 8. Her chart and her analysis are turned in on Sunday, November 1, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. The analysis is a recorded chart walk: 10 to 15 minutes on camera with only your handwritten chart, reasoning out loud from your own numbers, recorded in Canvas Studio and turned in with its transcript. Then you pick up Dale for Weeks 9 to 15, and his chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent.</p>'
+          + '<p>There are two patients, one at a time. Until Midterm 1 you work only on Camila, Weeks 1 to 8. Her chart and her analysis are turned in on Sunday, November 8, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. The analysis is a recorded chart walk: 10 to 15 minutes on camera with only your handwritten chart, reasoning out loud from your own numbers, recorded in Canvas Studio and turned in with its transcript. Then you pick up Dale for Weeks 9 to 15, and his chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent.</p>'
           + '<p>The weekly case itself is not uploaded; your thinking goes into the chart. ' + ilink('assignment-patient-chart.html', 'What you turn in, and when') + '.</p>';
 
       case 'study':

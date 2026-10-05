@@ -9,7 +9,7 @@ Text may use <strong> only. Everything else is escaped by the builder.
 
 WEEK = 5
 TITLE = "Reflexes, and sensing the world"
-DUE = "Sunday, October 11 at 10:00 pm"
+DUE = "Sunday, October 18 at 10:00 pm"
 
 STEPS = [
  dict(title="Pre-read, before anything else", time="30 minutes at most",
@@ -138,7 +138,7 @@ STEPS = [
           "Due " + DUE + "."]),
 
  dict(title="Your application case", time="About 1 hour 30 minutes",
-  status="Nothing uploaded this week. Camila's case ends at Midterm 1, and that week you upload the whole chart as one PDF, due Sunday, November 1.",
+  status="Nothing uploaded this week. Camila's case ends at Midterm 1, and that week you upload the whole chart as one PDF, due Sunday, November 8.",
   intro="Rounds is Camila's online chart, laid out like a hospital record. It walks you through this week's case one step at a time, "
         "and you type everything into it, so nothing is printed. Everything for the case is in Rounds, so it is the only page you need for this step.",
   todo=["Open Rounds for Week 5 and follow the steps down the left side, in order.",

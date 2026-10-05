@@ -7,13 +7,14 @@ scene file dropped in as the SCENE and STEPS blocks, and its names changed.
 Only the scene, the steps and the names differ between walkthroughs, which is
 the rule in guided-walkthrough-template.md.
 
-Support videos: none yet. Khan Academy could not be reached from the build
+Support videos: read from tools/walkthroughs/w05-videos.json (Oct 4 2026), which
+holds the links Dr. Rennie finds and sends. Earlier note: Khan Academy could not be reached from the build
 environment on Oct 4 2026, and the template says a URL that cannot be verified
 is left out rather than shipped. V and SUP are empty, so no Stuck? button shows.
 
 Run: python3 tools/walkthroughs/assemble_w05.py
 """
-import pathlib, re, html
+import pathlib, re, html, json
 R = pathlib.Path(__file__).resolve().parents[2]
 SHELL = (R / "biol005-w04-graded-potentials-guided.html").read_text(encoding="utf-8")
 KIT = (R / "tools/walkthroughs/w05-kit.js").read_text(encoding="utf-8")
@@ -37,7 +38,11 @@ def build(slug, title, h1, start):
     a = s.index("/* ======================= build scene"); b = s.index("/* ======================= support videos")
     s = s[:a] + KIT.rstrip() + "\n\n" + scene.rstrip() + "\n\n" + s[b:]
     a = s.index("var V={"); b = s.index("function supportHTML")
-    s = s[:a] + "var V={};\nvar SUP={};\n" + s[b:]
+    vids = json.loads((R / "tools/walkthroughs/w05-videos.json").read_text(encoding="utf-8")).get(slug, {})
+    old = "(Khan Academy video, '+esc(v.n)+'"
+    assert old in s
+    s = s.replace(old, "('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+'")
+    s = s[:a] + "var V=" + json.dumps(vids.get("V", {}), ensure_ascii=False) + ";\nvar SUP=" + json.dumps(vids.get("SUP", {}), ensure_ascii=False) + ";\n" + s[b:]
     t = html.escape(title, quote=False)
     for x, y in [("<title>Graded potentials, step by step | BIOL 005 Week 4</title>", "<title>%s, step by step | BIOL 005 Week 5</title>" % t),
                  ('<span class="tone">Graded</span> potentials, step by step.', h1),

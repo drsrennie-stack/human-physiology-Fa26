@@ -97,7 +97,7 @@ window.BIO005_WEEK_GRID = {
       sub:'The heart as a pump',
       lab:'Hormone cycle graphs', labNote:'No PhysioEx exercise, built worksheet',
       due:['check','lab','apply','disc','log'],
-      exam:{ n:1, covers:'Weeks 1 to 7', window:'Thu Oct 29 to Sun Nov 1' } },
+      exam:{ n:1, covers:'Weeks 1 to 7', window:'Thu Nov 5 to Sun Nov 8' } },
 
     { wk:9,  title:'Cardiac Function',
       sub:'Pressure, flow, and holding blood pressure steady',

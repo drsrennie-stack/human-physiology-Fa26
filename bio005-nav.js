@@ -437,12 +437,12 @@
     [2, '2026-09-14', '2026-09-20', 'The cell: structure, transport and signaling', 1],
     [3, '2026-09-21', '2026-09-27', 'Catch up on the cell', 1],
     [4, '2026-09-28', '2026-10-04', 'Membrane potential, neurons and synapses', 2],
-    [5, '2026-10-05', '2026-10-11', 'Reflexes, and sensing the world', 2],
-    [6, '2026-10-12', '2026-10-18', 'Muscle, and how movement gets commanded', 2],
-    [7, '2026-10-19', '2026-10-25', 'Hormones, the autonomic system, and reproduction', 2],
-    [8, '2026-10-26', '2026-11-01', 'Midterm 1', 2],
-    [9, '2026-11-02', '2026-11-08', 'The heart as a pump', 3],
-    [10, '2026-11-09', '2026-11-15', 'Pressure, flow, and holding blood pressure steady', 3],
+    [5, '2026-10-05', '2026-10-18', 'Reflexes, and sensing the world', 2],
+    [6, '2026-10-19', '2026-10-25', 'Muscle, and how movement gets commanded', 2],
+    [7, '2026-10-26', '2026-11-01', 'Hormones, the autonomic system, and reproduction', 2],
+    [8, '2026-11-02', '2026-11-08', 'Midterm 1', 2],
+    [9, '2026-11-09', '2026-11-15', 'The heart as a pump', 3],
+    [10, '2026-11-09', '2026-11-22', 'Pressure, flow, and holding blood pressure steady', 3],
     [11, '2026-11-16', '2026-11-22', 'Blood and how the body defends itself', 3],
     [12, '2026-11-23', '2026-11-29', 'Digestion, and how you use food for fuel', 3],
     [13, '2026-11-30', '2026-12-06', 'Breathing, gas transport, and the fast pH lever', 3],
@@ -740,9 +740,9 @@
                 + tool('assignment-discussion-01-metacognition.html', 'Discussion 1B', 'What the evidence told you about how you learned', 'Think About It &middot; 15%')
               : wn === 8 ? '' : tool('assignment-discussion.html?week=' + wn, 'Discussion ' + wn, 'Post by Friday, two replies by Sunday', 'Think About It &middot; 15%'))
           + tool('how-grading-works.html', 'How grading works', 'What counts, what it is worth')
-          + '</ul><h2>Patient file, the capstone</h2><p class="b5-lead">Two patients, one at a time: Camila in Weeks 1 to 8 and Dale in Weeks 9 to 15. Each week you add that week\'s numbers and your thinking by hand. <b>Nothing is turned in weekly.</b> Camila\'s chart and analysis come in on November 1, with Midterm 1, and Dale\'s on December 16.</p><ul>'
+          + '</ul><h2>Patient file, the capstone</h2><p class="b5-lead">Two patients, one at a time: Camila in Weeks 1 to 8 and Dale in Weeks 9 to 15. Each week you add that week\'s numbers and your thinking by hand. <b>Nothing is turned in weekly.</b> Camila\'s chart and analysis come in on November 8, with Midterm 1, and Dale\'s on December 16.</p><ul>'
           + tool('patient-chart-book.html', 'Your patient chart', 'One patient, all term. Add this week by hand', 'Use It &middot; 5%')
-          + tool('assignment-patient-chart.html', 'What you turn in, and when', 'Camila on Nov 1 with Midterm 1, Dale on Dec 16')
+          + tool('assignment-patient-chart.html', 'What you turn in, and when', 'Camila on Nov 8 with Midterm 1, Dale on Dec 16')
           + '</ul>' },
       check: { n: 4, name: 'Check', tag: 'No points',
         lead: 'Find the gaps before they cost you points. <b>A low score is information.</b>',

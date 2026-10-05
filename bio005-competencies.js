@@ -4169,7 +4169,7 @@ window.BIO005_MODULES = [
     ],
     "exam": "Midterm checkpoint",
     "examOpens": null,
-    "examCloses": "2026-11-01",
+    "examCloses": "2026-11-08",
     "focus": "Signal from sensor to effector, electrically and chemically. The same control loop, run first with ions and then with hormones."
   },
   {

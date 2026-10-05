@@ -870,7 +870,7 @@ def how_grading_works():
         p("Two exams, 17.5 percent each. " "Each midterm has three multiple choice questions, and you record yourself for the whole of each one. You get 10 minutes "
           "to plan and build a physiological model on a whiteboard, from memory with no notes, then 5 minutes to teach it out loud,"
           " and you finish by giving your answer. The model and your teaching are worth 75 percent of the points for that question, and your answer is worth 25 percent.")
-        + p("Midterm 1 covers Weeks 1 to 7, in a window from Thursday, October 29 to Sunday, November 1. Midterm 2 covers "
+        + p("Midterm 1 covers Weeks 1 to 7, in a window from Thursday, November 5 to Sunday, November 8. Midterm 2 covers "
             "Weeks 9 to 14, in a window from December 14 to 16. Each one is a window of several days rather than an hour, "
             "so you can pick your time.")))
     parts.append(cat("25 percent", "Investigation",

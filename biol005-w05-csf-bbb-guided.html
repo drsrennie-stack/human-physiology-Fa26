@@ -546,12 +546,12 @@ var STEPS=[
 ];
 
 /* ======================= support videos ======================= */
-var V={};
-var SUP={};
+var V={"men": {"u": "https://www.youtube.com/watch?v=CIkgQcmv0Xs", "n": "Meninges", "s": "2-Minute Neuroscience"}, "vent": {"u": "https://www.youtube.com/watch?v=9e9Lo0OPON4", "n": "Ventricles", "s": "2-Minute Neuroscience"}, "hydro": {"u": "https://www.youtube.com/watch?v=JLNI2upLi7I", "n": "Hydrocephalus", "s": "2-Minute Neuroscience"}, "bbb": {"u": "https://www.youtube.com/watch?v=e9sN9gOEdG4", "n": "Blood-brain barrier", "s": "2-Minute Neuroscience"}};
+var SUP={"Three membranes": [["What are the three meninges?", "men", "Listen for the dura, arachnoid and pia mater, from outside in."]], "Taking a sample": [["Where is the fluid sampled in a spinal tap?", "men", "Listen for the lumbar cistern, the space below the end of the cord."]], "The fluid around the brain": [["What are the ventricles?", "vent", "Listen for what cerebrospinal fluid does and where it is made."]], "Where it is made and where it goes": [["How does cerebrospinal fluid flow?", "vent", "Listen for the lateral, third and fourth ventricles and the cerebral aqueduct that connects them."]], "When the aqueduct is blocked": [["What is hydrocephalus?", "hydro", "Listen for what happens when cerebrospinal fluid builds up, and how it is treated."]], "Two kinds of capillary": [["What is the blood-brain barrier?", "bbb", "Listen for the tight junctions between endothelial cells and the astrocyte end-feet."]], "Drowsy or not": [["What is the blood-brain barrier?", "bbb", "Listen for which kinds of substances can and cannot cross."]], "Where the barrier is missing": [["What is the blood-brain barrier?", "bbb", "Listen for the circumventricular organs, the places with no barrier, and why."]]};
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
   return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
-    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
 }
 
 /* ======================= worksheet ======================= */

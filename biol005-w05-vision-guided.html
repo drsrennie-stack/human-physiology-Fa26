@@ -644,12 +644,12 @@ var STEPS=[
 ];
 
 /* ======================= support videos ======================= */
-var V={};
-var SUP={};
+var V={"pupil": {"u": "https://youtu.be/WwB2jyj2lYM", "n": "Pupillary light reflex", "s": "Khan Academy"}, "eye": {"u": "https://www.youtube.com/watch?v=nXgL7C7emDQ", "n": "The structure of the eye", "s": "Khan Academy"}, "photo": {"u": "https://www.youtube.com/watch?v=CqN-XIPhMpo", "n": "The phototransduction cascade", "s": "Khan Academy"}, "rodcone": {"u": "https://www.youtube.com/watch?v=_ElAuQyw4uA", "n": "Photoreceptors (rods vs cones)", "s": "Khan Academy"}, "vfield": {"u": "https://www.youtube.com/watch?v=aobWzlXIooQ", "n": "Visual field processing", "s": "Khan Academy"}, "retina": {"u": "https://www.youtube.com/watch?v=fZDAwXh54is", "n": "Retina", "s": "2-Minute Neuroscience"}};
+var SUP={"A light in one eye": [["How does the pupillary light reflex work?", "pupil", "Listen for the path from the optic nerve to the midbrain and back out through the oculomotor nerve, and why both pupils constrict."]], "Light enters the eye": [["What are the parts of the eye?", "eye", "Listen for the path of light through the cornea, pupil, lens and onto the retina."]], "A rod in the dark": [["How does phototransduction work?", "photo", "Listen for what keeps a rod depolarized in the dark."]], "Light hits rhodopsin": [["How does phototransduction work?", "photo", "Listen for each step from light hitting rhodopsin to the channels closing."]], "Seeing a dim star": [["How are rods and cones different?", "rodcone", "Listen for which works in dim light, which sees color, and where each is found."]], "Crossing at the chiasm": [["How does the brain process the visual field?", "vfield", "Listen for which fibers cross at the optic chiasm and which stay on the same side."]], "Pressure on the chiasm": [["How does the brain process the visual field?", "vfield", "Listen for what each half of the visual field sends to each side of the brain."]], "Releasing transmitter": [["What cells are in the retina?", "retina", "Listen for the path from rods and cones to bipolar cells to ganglion cells."]], "Center and surround": [["What cells are in the retina?", "retina", "Listen for the ganglion cells, whose axons form the optic nerve, and the fovea."]]};
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
   return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
-    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
 }
 
 /* ======================= worksheet ======================= */

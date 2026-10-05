@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # The exam windows, phrased so they read as a sentence after the week's own
 # subject rather than repeating it. Week 8's subject is already "Midterm 1".
-EXAM = {"w08": "The exam window is October 26 to 28.",
+EXAM = {"w08": "The exam window is November 2 to 4.",
         "w15": "The final window is December 14 to 16."}
 
 rows = []

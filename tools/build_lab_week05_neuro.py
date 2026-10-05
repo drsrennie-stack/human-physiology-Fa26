@@ -208,7 +208,7 @@ def build():
                 + field("m3", "Name one thing you would do differently the next time you examine someone.")
                 + '</section>\n'
                 '<section class="card" aria-labelledby="h-turn">\n<h2 id="h-turn">Turn it in</h2>\n'
-                '<p>Save this page as a PDF with the button below. Photograph your five drawings. If you worked on the printed worksheet, scan or photograph every page instead. Combine the PDF and the photos into one PDF and upload it to the Week 5 lab assignment in Canvas. Due Sunday, October 11 at 10:00 pm.</p>\n'
+                '<p>Save this page as a PDF with the button below. Photograph your five drawings. If you worked on the printed worksheet, scan or photograph every page instead. Combine the PDF and the photos into one PDF and upload it to the Week 5 lab assignment in Canvas. Due Sunday, October 18 at 10:00 pm.</p>\n'
                 '<button type="button" class="mm-btn" id="printBtn">Print or save as PDF</button>\n<p id="saved" aria-live="polite">Your answers save on this device as you type.</p>\n</section>\n</div></main>')
     s = s[:a] + "".join(main) + s[b:]
     s = re.sub(r"<title>[^<]*</title>", "<title>Week 5 lab, the neurological exam &middot; BIO 005 Human Physiology</title>", s, 1)

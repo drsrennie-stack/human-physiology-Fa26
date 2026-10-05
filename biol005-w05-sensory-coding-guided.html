@@ -623,12 +623,12 @@ var STEPS=[
 ];
 
 /* ======================= support videos ======================= */
-var V={};
-var SUP={};
+var V={"adapt": {"u": "https://www.youtube.com/watch?v=JC_TVyAMYE0", "n": "Sensory adaptation and amplification", "s": "Khan Academy"}, "soma": {"u": "https://www.youtube.com/watch?v=oOIqk5hXBt4", "n": "Peripheral somatosensation", "s": "Khan Academy"}};
+var SUP={"A stimulus that does not change": [["What is sensory adaptation?", "adapt", "Listen for receptors that stop responding to a stimulus that stays the same, and why that is useful."]], "Kinds of receptors": [["What kinds of receptors are in the skin?", "soma", "Listen for the different receptors and the kind of stimulus each one responds to."]]};
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
   return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
-    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> (Khan Academy video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
 }
 
 /* ======================= worksheet ======================= */

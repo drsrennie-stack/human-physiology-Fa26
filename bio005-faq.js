@@ -213,7 +213,7 @@ var BIO005_FAQ = [
  {
   "cat": "Grading",
   "q": "What is the patient chart?",
-  "a": "Two patients you follow by hand, one at a time. Camila Reyes carries Weeks 1 to 8 and Dale Whitcomb carries Weeks 9 to 15. Each week you copy that week&rsquo;s numbers into the patient&rsquo;s flowsheets and add what changed, your problem list, a drawing and your thinking, including what you worked out in that week&rsquo;s application case. Nothing is uploaded weekly.</p><p>Each patient&rsquo;s analysis is a recorded chart walk: you on camera with only your handwritten chart, reasoning out loud from your own numbers for 10 to 15 minutes, recorded in Canvas Studio and turned in with its transcript. Camila&rsquo;s chart and chart walk are turned in on Sunday, November 1, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. Dale&rsquo;s chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent. See <a href=\"assignment-patient-chart.html\">what you turn in, and when</a>."
+  "a": "Two patients you follow by hand, one at a time. Camila Reyes carries Weeks 1 to 8 and Dale Whitcomb carries Weeks 9 to 15. Each week you copy that week&rsquo;s numbers into the patient&rsquo;s flowsheets and add what changed, your problem list, a drawing and your thinking, including what you worked out in that week&rsquo;s application case. Nothing is uploaded weekly.</p><p>Each patient&rsquo;s analysis is a recorded chart walk: you on camera with only your handwritten chart, reasoning out loud from your own numbers for 10 to 15 minutes, recorded in Canvas Studio and turned in with its transcript. Camila&rsquo;s chart and chart walk are turned in on Sunday, November 8, with Midterm 1, and Midterm 1 includes a question about her, answered from memory. Dale&rsquo;s chart and chart walk are due Wednesday, December 16. Each is half of the 5 percent. See <a href=\"assignment-patient-chart.html\">what you turn in, and when</a>."
  },
  {
   "cat": "Grading",
@@ -493,7 +493,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "When is Midterm 1?",
-  "a": "The window runs Thursday, October 29 at 8:00 am to Sunday, November 1 at 10:00 pm. It covers Weeks 1 to 7. Week 8 has no new teaching, so Monday to Wednesday is yours to review before the window opens."
+  "a": "The window runs Thursday, November 5 at 8:00 am to Sunday, November 8 at 10:00 pm. It covers Weeks 1 to 7. Week 8 has no new teaching, so Monday to Wednesday is yours to review before the window opens."
  },
  {
   "cat": "Midterms",
@@ -503,7 +503,7 @@ var BIO005_FAQ = [
  {
   "cat": "Midterms",
   "q": "Is the midterm at a set time?",
-  "a": "No. Each midterm is a window, not an hour. Midterm 1 opens Thursday, October 29 at 8:00 am and closes Sunday, November 1 at 10:00 pm. Midterm 2 opens Monday, December 14 at 8:00 am and closes Wednesday, December 16 at 10:00 pm. You pick when inside the window."
+  "a": "No. Each midterm is a window, not an hour. Midterm 1 opens Thursday, November 5 at 8:00 am and closes Sunday, November 8 at 10:00 pm. Midterm 2 opens Monday, December 14 at 8:00 am and closes Wednesday, December 16 at 10:00 pm. You pick when inside the window."
  },
  {
   "cat": "Midterms",

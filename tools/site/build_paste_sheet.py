@@ -170,12 +170,12 @@ SECTIONS = [
 # it is obvious what is left rather than looking like an oversight.
 AHEAD = [
  ("Week 4",  "September 28 to October 4", "Membrane potential, neurons and synapses"),
- ("Week 5",  "October 5 to 11",           "Reflexes, and sensing the world"),
- ("Week 6",  "October 12 to 18",          "Muscle, and how movement gets commanded"),
- ("Week 7",  "October 19 to 25",          "Hormones, the autonomic system, and reproduction"),
- ("Week 8",  "October 26 to November 1",  "Midterm 1"),
- ("Week 9",  "November 2 to 8",           "The heart as a pump"),
- ("Week 10", "November 9 to 15",          "Pressure, flow, and holding blood pressure steady"),
+ ("Week 5",  "October 5 to 18",           "Reflexes, and sensing the world"),
+ ("Week 6",  "October 19 to 25",          "Muscle, and how movement gets commanded"),
+ ("Week 7",  "October 26 to November 1",          "Hormones, the autonomic system, and reproduction"),
+ ("Week 8",  "November 2 to 8",  "Midterm 1"),
+ ("Week 9",  "November 9 to 15",           "The heart as a pump"),
+ ("Week 10", "November 9 to 22",          "Pressure, flow, and holding blood pressure steady"),
  ("Week 11", "November 16 to 22",         "Blood and how the body defends itself"),
  ("Week 12", "November 23 to 29",         "Digestion, and how you use food for fuel"),
  ("Week 13", "November 30 to December 6", "Breathing, gas transport, and the fast pH lever"),

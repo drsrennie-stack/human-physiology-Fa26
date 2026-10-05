@@ -134,33 +134,33 @@ window.BIO005_WEEKS = [
     title:"Membrane potential, neurons and synapses",
     competencies:["w2-electrochemical-gradient", "w2-nernst", "w2-resting-potential", "w2-ion-channels", "w2-potential-terms", "w2-lab-membrane-potential", "w4-neuron-classes", "w4-neuron-regions", "w4-glia-functions", "w4-myelin", "w4-axonal-transport", "w4-graded-potentials", "w4-action-potential", "w4-threshold", "w4-intensity-coding", "w4-refractory", "w4-conduction-velocity", "w4-ion-disturbance", "w4-lab-ap-simulation", "w4-lab-nerve-conduction", "w5-synaptic-sequence", "w5-neurotransmitters", "w5-neurotransmitter-removal", "w5-postsynaptic-potentials", "w5-summation-integration", "w5-presynaptic-modulation", "w5-synaptic-plasticity", "w5-electrical-synapses", "w5-lab-synapse-sim"] },
 
-  { wk:5, opens:"2026-10-05", closes:"2026-10-11",
+  { wk:5, opens:"2026-10-05", closes:"2026-10-18",
     title:"Reflexes, and sensing the world",
-    note:"Heaviest week of Part 2, 25 competencies. Sensory and special senses sit here un-merged.",
+    note:"Oct 4 2026: the neuro unit now runs two weeks, Oct 5 to 18. Heaviest unit of Part 2, 25 competencies.",
     competencies:["w5-reflex-arc", "w5-stretch-reflex", "w5-golgi-tendon", "w5-withdrawal-reflex", "w5-spinal-pathways", "w5-csf-bbb", "w5-lab-reflex-testing", "w7-transduction", "w7-receptor-classes", "w7-stimulus-coding", "w7-receptive-fields", "w7-receptor-adaptation", "w7-somatosensory-pathways", "w7-pain-modulation", "w7-lab-tactile-mapping", "w7-vision-optics", "w7-phototransduction", "w7-visual-processing", "w7-vision-clinical", "w7-hearing-transduction", "w7-hearing-clinical", "w7-equilibrium", "w7-chemical-senses", "w7-lab-vision-tests", "w7-lab-hearing-tests"] },
 
-  { wk:6, opens:"2026-10-12", closes:"2026-10-18",
+  { wk:6, opens:"2026-10-19", closes:"2026-10-25",
     title:"Muscle, and how movement gets commanded",
     competencies:["w6-nmj", "w6-ec-coupling", "w6-crossbridge-cycle", "w6-calcium-regulation", "w6-relaxation", "w6-twitch", "w6-summation-tetanus", "w6-motor-units", "w6-length-tension", "w6-contraction-types", "w6-fiber-types", "w6-muscle-energetics", "w6-fatigue", "w6-muscle-adaptation", "w6-lab-emg-fatigue", "w6-lab-muscle-sim", "w8-motor-hierarchy", "w8-corticospinal", "w8-cerebellum-basal-ganglia", "w8-umn-lmn"] },
 
-  { wk:7, opens:"2026-10-19", closes:"2026-10-25",
+  { wk:7, opens:"2026-10-26", closes:"2026-11-01",
     title:"Hormones, the autonomic system, and reproduction",
     competencies:["w8-ans-organization", "w8-ans-divisions", "w8-ans-receptors", "w8-ans-tone", "w8-ans-pharmacology", "w8-lab-autonomic-testing", "w9-hormone-classes", "w9-hormone-transport", "w9-hormone-receptors", "w9-hormone-interactions", "w9-hormone-release", "w9-hypothalamic-pituitary", "w9-endocrine-pathology", "w9-posterior-pituitary", "w9-lab-hormone-assay", "w15-hpg-axis", "w15-male-reproductive", "w15-ovarian-cycle", "w15-uterine-cycle", "w15-pregnancy-hormones", "w15-parturition-lactation", "w15-lab-cycle-graphs"] },
 
-  { wk:8, opens:"2026-10-26", closes:"2026-11-01",
+  { wk:8, opens:"2026-11-02", closes:"2026-11-08",
     title:"Midterm 1",
     exam:true,
-    note:"Midterm 1 week. No new competencies, no Competency Study Guide, no discussion. The exam covers Weeks 1 to 7 and runs Thursday October 29 to Sunday November 1. Monday to Wednesday is review and unlimited practice exams.",
-    extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, multiple choice plus a model you present on video, Oct 29 to Nov 1", "Camila's patient chart and analysis, due Sun Nov 1"],
+    note:"Midterm 1 week. No new competencies, no Competency Study Guide, no discussion. The exam covers Weeks 1 to 7 and runs Thursday November 5 to Sunday November 8. Monday to Wednesday is review and unlimited practice exams.",
+    extras:["Review the competency lists for Weeks 1 to 7", "Practice exams, unlimited attempts", "Midterm 1, multiple choice plus a model you present on video, Nov 5 to 8", "Camila's patient chart and analysis, due Sun Nov 8"],
     competencies:[] },
 
-  { wk:9, opens:"2026-11-02", closes:"2026-11-08",
+  { wk:9, opens:"2026-11-09", closes:"2026-11-15",
     title:"The heart as a pump",
     competencies:["w6-smooth-muscle", "w6-smooth-regulation", "w6-cardiac-muscle", "w6-muscle-comparison", "w8-adrenal-medulla", "w10-pacemaker-potential", "w10-cardiac-ap", "w10-conduction-system", "w10-cardiac-refractory", "w10-ecg-basics", "w10-ecg-interpretation", "w10-lab-ecg", "w11-cardiac-cycle", "w11-pv-loop", "w11-heart-sounds", "w11-stroke-volume", "w11-cardiac-output", "w11-frank-starling", "w11-preload-afterload", "w11-cardiac-regulation", "w11-lab-heart-sounds"] },
 
-  { wk:10, opens:"2026-11-09", closes:"2026-11-15",
+  { wk:10, opens:"2026-11-09", closes:"2026-11-22",
     title:"Pressure, flow, and holding blood pressure steady",
-    note:"Veterans Day falls Wed Nov 11. Yuba observance still to confirm.",
+    note:"Oct 4 2026: runs two weeks, Nov 9 to 22, alongside Week 9 and then Week 11, so the neuro unit could have two weeks. Veterans Day falls Wed Nov 11. Yuba observance still to confirm.",
     competencies:["w9-adrenal-cortex", "w11-flow-resistance", "w11-vessel-function", "w11-blood-pressure", "w11-local-blood-flow", "w11-capillary-exchange", "w11-edema", "w11-venous-return", "w11-lab-bp-measurement", "w11-baroreflex", "w11-cv-hormonal", "w11-exercise-cv", "w11-shock-compensation"] },
 
   { wk:11, opens:"2026-11-16", closes:"2026-11-22",
@@ -264,7 +264,7 @@ window.BIO005_GRADING = {
     'Book problems', 'Mastery Check', 'Weekly practice log'
   ],
   exams: [
-    { n:1, covers:[1,2,3,4,5,6,7],       opens:'2026-10-26', closes:'2026-10-28', weight:17.5 },
+    { n:1, covers:[1,2,3,4,5,6,7],       opens:'2026-11-02', closes:'2026-11-04', weight:17.5 },
     { n:2, covers:[8,9,10,11,12,13,14],  opens:'2026-12-14', closes:'2026-12-16', weight:17.5 }
   ],
   retired: 'Retired as of Sep 7 2026: three midterms covering 1-5, 6-10 and 11-15; five unit exams; ' +
