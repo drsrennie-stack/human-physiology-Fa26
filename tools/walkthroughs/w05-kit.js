@@ -64,3 +64,24 @@ function growTrain(path,fn,dur,a){
 var CAP=null;
 function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
 function cap(s){if(CAP)CAP.textContent=s||"";}
+
+/* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */
+/* Oct 5 2026: while a step waits for the student's action, Next stays
+   locked for students (not in preview), so the action cannot be skipped. */
+function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+function waitOn(tgt,prm,a){
+  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
+  if(prm)prm.setAttribute("display","");
+  tgt.style.cursor="pointer";
+  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
+    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
+

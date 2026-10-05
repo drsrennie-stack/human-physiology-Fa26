@@ -143,6 +143,17 @@ button{font-family:var(--body)}
 
 /* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
 @media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* Oct 5 2026: Before you start card, and a video box students can see */
+.prep{margin:4px 0 16px;padding:16px 18px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10);max-width:72ch}
+.prep-h{margin:0 0 8px;font-family:var(--display,inherit);font-weight:800;font-size:1.05rem;color:var(--maroon,#8B3A2E)}
+.prep ol{margin:0 0 8px;padding-left:1.3em}.prep li{margin:0 0 6px;line-height:1.5}
+.prep a{color:var(--maroon,#8B3A2E);font-weight:700}
+.prep-then{margin:0;font-weight:700;color:var(--navy,#0B1530)}
+.support .lab{display:flex;align-items:center;gap:8px;font-size:.95rem!important;letter-spacing:0!important;text-transform:none!important;color:var(--navy,#0B1530)!important;font-weight:800!important}
+.support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
+.support a:hover{background:#FFC400!important}
+.support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -346,6 +357,26 @@ var CAP=null;
 function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
 function cap(s){if(CAP)CAP.textContent=s||"";}
 
+/* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */
+/* Oct 5 2026: while a step waits for the student's action, Next stays
+   locked for students (not in preview), so the action cannot be skipped. */
+function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+function waitOn(tgt,prm,a){
+  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
+  if(prm)prm.setAttribute("display","");
+  tgt.style.cursor="pointer";
+  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
+    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
+
 /* Cerebrospinal fluid and the blood-brain barrier. Oct 4 2026. Week 5
    competency 6. Figure one: the brain in section inside the skull, with a
    ventricle, the choroid plexus, the subarachnoid space and the arachnoid
@@ -548,9 +579,29 @@ var STEPS=[
 /* ======================= support videos ======================= */
 var V={"men": {"u": "https://www.youtube.com/watch?v=CIkgQcmv0Xs", "n": "Meninges", "s": "2-Minute Neuroscience"}, "vent": {"u": "https://www.youtube.com/watch?v=9e9Lo0OPON4", "n": "Ventricles", "s": "2-Minute Neuroscience"}, "hydro": {"u": "https://www.youtube.com/watch?v=JLNI2upLi7I", "n": "Hydrocephalus", "s": "2-Minute Neuroscience"}, "bbb": {"u": "https://www.youtube.com/watch?v=e9sN9gOEdG4", "n": "Blood-brain barrier", "s": "2-Minute Neuroscience"}};
 var SUP={"Three membranes": [["What are the three meninges?", "men", "Listen for the dura, arachnoid and pia mater, from outside in."]], "Taking a sample": [["Where is the fluid sampled in a spinal tap?", "men", "Listen for the lumbar cistern, the space below the end of the cord."]], "The fluid around the brain": [["What are the ventricles?", "vent", "Listen for what cerebrospinal fluid does and where it is made."]], "Where it is made and where it goes": [["How does cerebrospinal fluid flow?", "vent", "Listen for the lateral, third and fourth ventricles and the cerebral aqueduct that connects them."]], "When the aqueduct is blocked": [["What is hydrocephalus?", "hydro", "Listen for what happens when cerebrospinal fluid builds up, and how it is treated."]], "Two kinds of capillary": [["What is the blood-brain barrier?", "bbb", "Listen for the tight junctions between endothelial cells and the astrocyte end-feet."]], "Drowsy or not": [["What is the blood-brain barrier?", "bbb", "Listen for which kinds of substances can and cannot cross."]], "Where the barrier is missing": [["What is the blood-brain barrier?", "bbb", "Listen for the circumventricular organs, the places with no barrier, and why."]]};
+var PREP={"Protecting the brain": {"id": "protecting-the-brain", "h": "Protecting the brain", "fig": "open Silverthorn Fig. 10.3 (the central nervous system and the meninges) in your eText beside this section.", "review": false}, "Cerebrospinal fluid": {"id": "cerebrospinal-fluid", "h": "Cerebrospinal fluid", "fig": "open Silverthorn Fig. 10.4 (cerebrospinal fluid) in your eText beside this section.", "review": false}, "The blood-brain barrier": {"id": "the-blood-brain-barrier", "h": "The blood-brain barrier", "fig": "open Silverthorn Fig. 10.5 (the blood-brain barrier) in your eText beside this section.", "review": false}, "Review": {"id": "step-by-step-where-the-signal-travels", "h": "Step by step: where the signal travels", "fig": "open Silverthorn Fig. 10.4 (cerebrospinal fluid) and Fig. 10.5 (the blood-brain barrier) in your eText beside this section.", "review": true}};
+var PREP_NOTES="biol005-w05-csf-bbb-walkthrough-notes.html";
+var PREP_OST="section 13.3, Circulation and the Central Nervous System";
+
+function prepHTML(i){
+  var s=STEPS[i];if(!(i===0||s.sec))return "";
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),href=PREP_NOTES+"#"+P.id;
+  var notes='<a class="b5-keep" href="'+href+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=[];
+  if(P.review){
+    li.push("Reread the step-by-step sequences in your notes: "+notes+". Try to say each one out loud before you look.");
+    li.push("Look back at your Competency Study Guide for this walkthrough and fill in anything you missed.");
+  }else{
+    li.push("Read this part of your notes: "+notes+".");
+    li.push("Read it in your textbook. "+(P.fig?"In Silverthorn, "+esc(P.fig.replace(/^open Silverthorn /i,"look at ").replace(/ in your eText beside this section\.?$/,"."))+" ":"")+"If you are using OpenStax instead, read "+esc(PREP_OST)+".");
+    if(comp)li.push("Work on your Competency Study Guide: "+esc(comp)+". Do prompt A or prompt B for it.");
+  }
+  return '<div class="prep"><p class="prep-h">Before you start this part</p><ol>'+li.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ol><p class="prep-then">Then come back here, work through the steps, and make your predictions.</p></div>';
+}
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
-  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+  return '<div class="support"><p class="lab"><svg class="sarrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" focusable="false"><path d="M2 12 H30" stroke="#F2B705" stroke-width="5" stroke-linecap="round"/><path d="M24 4 L36 12 L24 20" fill="none" stroke="#F2B705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Watch this video if you need more help with this step</p><ul>'+list.map(function(x){var v=V[x[1]];
     return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
 }
 
@@ -614,7 +665,7 @@ function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;
 function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
 function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
 function renderNarr(i,revealed){
-  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+prepHTML(i)+paras(s.text);
   if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
   if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
   else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}

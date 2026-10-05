@@ -143,6 +143,17 @@ button{font-family:var(--body)}
 
 /* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
 @media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* Oct 5 2026: Before you start card, and a video box students can see */
+.prep{margin:4px 0 16px;padding:16px 18px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10);max-width:72ch}
+.prep-h{margin:0 0 8px;font-family:var(--display,inherit);font-weight:800;font-size:1.05rem;color:var(--maroon,#8B3A2E)}
+.prep ol{margin:0 0 8px;padding-left:1.3em}.prep li{margin:0 0 6px;line-height:1.5}
+.prep a{color:var(--maroon,#8B3A2E);font-weight:700}
+.prep-then{margin:0;font-weight:700;color:var(--navy,#0B1530)}
+.support .lab{display:flex;align-items:center;gap:8px;font-size:.95rem!important;letter-spacing:0!important;text-transform:none!important;color:var(--navy,#0B1530)!important;font-weight:800!important}
+.support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
+.support a:hover{background:#FFC400!important}
+.support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -346,6 +357,26 @@ var CAP=null;
 function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
 function cap(s){if(CAP)CAP.textContent=s||"";}
 
+/* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */
+/* Oct 5 2026: while a step waits for the student's action, Next stays
+   locked for students (not in preview), so the action cannot be skipped. */
+function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+function waitOn(tgt,prm,a){
+  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
+  if(prm)prm.setAttribute("display","");
+  tgt.style.cursor="pointer";
+  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
+    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
+
 /* Sensory receptors and coding. Oct 4 2026. Week 5 competencies 8 to 12.
    Panels shown and hidden per step: a sensory neuron with three recording
    boxes, three stimulus strengths, a body with the five receptor classes,
@@ -470,6 +501,22 @@ el("path",{d:"M720 334 q20 18 40 0 v86",fill:"none",stroke:NAVY,"stroke-width":6
 tx(K3,740,460,"nonneural receptor cell","tn",16,"middle");tx(K3,740,484,"hair cell; releases transmitter","t",14,"middle");
 function kindsShow(n){[K1,K2,K3].forEach(function(g,i){g.setAttribute("opacity",i<n?1:0.15);});}
 
+/* ---- Oct 5 2026: student actions in sensory coding ---- */
+var skinHit=el("rect",{x:40,y:120,width:150,height:150,fill:"transparent"},gNeu);
+var pressPrompt=promptAt(gNeu,196,330,["Click the skin to press","on the receptor"],112,262,92,212,40);
+var harderPrompt=promptAt(gNeu,196,330,["Click to press harder"],112,262,92,212,40);
+var strHit=SC.map(function(c){return el("rect",{x:c[0]-10,y:60,width:220,height:420,fill:"transparent"},gStr);});
+var strPrompt=SC.map(function(c,i){return promptAt(gStr,c[0]+20,500,["Click for the "+c[1]+" stimulus"],c[0]+100,470,c[0]+100,440,34);});
+var eyeHit=el("ellipse",{cx:120,cy:120,rx:60,ry:44,fill:"transparent"},gLine);
+var eyePrompt=promptAt(gLine,170,206,["Click to press on","the closed eye"],136,152,120,120,52);
+var fingHit=el("rect",{x:60,y:60,width:340,height:300,fill:"transparent"},gRf),armHit=el("rect",{x:480,y:60,width:340,height:300,fill:"transparent"},gRf);
+var fingPrompt=promptAt(gRf,70,450,["Click the fingertip to touch it","with the two points"],200,372,230,212,46);
+var armPrompt=promptAt(gRf,490,450,["Now click the forearm"],620,372,650,212,46);
+var latHit=el("rect",{x:250,y:110,width:400,height:90,fill:"transparent"},gLat);
+var latPrompt=promptAt(gLat,560,250,["Click to switch on","the inhibitory interneurons"],470,180,450,150,40);
+var adHit=el("rect",{x:200,y:60,width:520,height:70,fill:"transparent"},gAd);
+var adPrompt=promptAt(gAd,560,30,["Click to switch the stimulus on"],470,70,460,95,40);
+
 makeCap();
 function resetAll(){
   RT.forEach(function(p){p.setAttribute("d","");});press.setAttribute("display","none");thr.setAttribute("display","");sig.setAttribute("display","none");
@@ -485,54 +532,51 @@ function S(l){only(l.concat(["cap"]));resetAll();}
 var STEPS=[
 {sec:"From stimulus to signal",comp:"Competency 8",
  title:"A touch receptor in the skin",
- text:["Every sensory pathway starts the same way: a stimulus, a form of physical energy, acts on a sensory receptor. The receptor is a transducer. It converts the stimulus into a change in its own membrane potential, and if that change is big enough, a sensory neuron carries action potentials to the central nervous system, where the signal is integrated. Some signals reach conscious perception in the cerebral cortex; many are acted on without your awareness.", "This is one sensory neuron. Its receptor ending sits in the skin on the left, and its axon runs to the right toward the spinal cord. Just past the ending is the trigger zone, the first stretch of membrane with enough voltage-gated Na+ channels to fire an action potential. The three boxes will record the membrane potential at the ending, at the trigger zone, and farther along the axon."],
+ text:["Every sense starts the same way. Something in the world, like pressure, light, heat or a chemical, reaches a sensory receptor. The receptor turns it into an electrical change in its own membrane. If that change is big enough, a sensory neuron sends action potentials to your spinal cord and brain. This turning of a stimulus into an electrical signal is called transduction.", "The figure shows one sensory neuron. Its receptor ending sits in the skin on the left, and its axon runs to the right toward the spinal cord. Just past the ending is the trigger zone, the first part of the neuron that can fire an action potential. The three boxes at the top record the voltage at the ending, at the trigger zone, and farther along the axon."],
  auto:true,
  desc:"A sensory neuron runs across the middle of the figure. Its branched receptor ending is at the left, a gold trigger zone sits just past it, and a myelinated axon runs to the right. Three empty recording boxes sit above: at the ending, at the trigger zone, and along the axon. A dashed threshold line crosses the first box.",
  pre:function(){S(["neu"]);},
- play:function(a){RT[0].setAttribute("d",bump(0));return wait(300,a).then(function(){cap("Untouched skin, no signal");});}},
+ play:function(a){RT[0].setAttribute("d",bump(0));return wait(300,a).then(function(){cap("Nothing is touching the skin, so there is no signal.");});}},
 
 {title:"Three kinds of receptor",
- text:["Receptors are built in three ways. The simplest are bare nerve endings, the branched dendrites of a sensory neuron, like the receptors for pain and itch. In more complex neural receptors, the nerve ending is wrapped in connective tissue, like the onion-like layers of a Pacinian corpuscle that senses vibration. The third kind are nonneural receptors, such as the hair cells of the ear: modified epithelial cells that are not neurons at all.","Many receptors also rely on accessory structures that are not receptors themselves. The cornea and lens focus light onto the photoreceptors, and the hairs on your arm let touch receptors feel air moving just above the skin."],
+ text:["Receptors come in three kinds. The simplest are bare nerve endings, like the receptors for pain and itch. Some nerve endings are wrapped in layers of tissue, like the onion-like layers of the Pacinian corpuscle that senses vibration. And some receptors are not neurons at all but separate cells, like the hair cells in your ear.", "Many senses also use helper structures that are not receptors themselves. The clear front of the eye and the lens focus light onto the receptors, and the hairs on your arm let you feel air moving just above the skin."],
  ask:"A hair cell is not a neuron and cannot fire action potentials of its own. How could it still get a signal to the brain?",
- ans:["Through a synapse. A nonneural receptor sits right against the ending of a sensory neuron. When a stimulus changes its membrane potential, it changes how much neurotransmitter it releases onto that neuron, and the sensory neuron fires the action potentials.","So in a neural receptor the receptor potential spreads to the neuron's own trigger zone, and in a nonneural receptor the receptor potential changes transmitter release. Either way, the message reaches the brain as action potentials in a sensory neuron."],
+ ans:["Through a synapse. A receptor cell sits right up against the ending of a sensory neuron. When the stimulus changes the receptor cell's voltage, the cell changes how much neurotransmitter it releases onto the neuron, and the neuron fires the action potentials.", "So with a receptor that is a neuron, the electrical change spreads to the neuron's own trigger zone. With a receptor that is a separate cell, the electrical change controls how much transmitter is released. Either way, the message reaches the brain as action potentials in a sensory neuron."],
  name:"nonneural receptor",
  desc:"Three receptors appear in turn: a sensory neuron with bare branching nerve endings, labeled pain and itch; a nerve ending wrapped in onion-like layers, the Pacinian corpuscle for vibration; and a separate receptor cell with stereocilia, a hair cell, releasing gold transmitter dots onto a sensory neuron below it.",
  pre:function(){S(["kinds"]);kindsShow(0);},
- play:function(a){var k=0;function nxt(){if(k>=3)return Promise.resolve();k++;kindsShow(k);return wait(420,a).then(nxt);}return nxt().then(function(){cap("Bare, wrapped, or a separate cell");});}},
+ play:function(a){var k=0;function nxt(){if(k>=3)return Promise.resolve();k++;kindsShow(k);return wait(420,a).then(nxt);}return nxt().then(function(){cap("A receptor can be a bare ending, a wrapped ending, or a separate cell.");});}},
 {title:"Pressing on the ending",
- text:["A light pressure now pushes on the skin over the receptor ending. The membrane of the ending is full of mechanically gated cation channels, the same kind you met in the channel gating walkthrough."],
- ask:"What does the pressure do at the ending, and is the change in membrane potential there graded or all-or-none?",
- ans:["The pressure deforms the membrane and opens mechanically gated channels. Na+ flows in and the ending depolarizes. The change is graded: a light press makes a small depolarization and a firmer press a bigger one, and it fades as it spreads, like any graded potential. A graded potential produced in a sensory receptor is called a receptor potential.", "Converting the stimulus into a change in membrane potential is transduction. Here the stimulus opens channels directly; in other receptors it works through a second messenger. Most receptors depolarize as cations enter, a few hyperpolarize as K+ leaves, and photoreceptors are the odd case: light closes their cation channels. The smallest stimulus that activates a receptor is its threshold, and some receptors are so sensitive that one photon or one odorant molecule is enough."],
+ text:["The membrane of this receptor ending is full of channels that open when the membrane is pushed or bent, the same kind you met in the channel gating walkthrough. Click the skin to press on it."],
+ ask:"What does pressing do at the receptor ending? Does the change get bigger with a harder press, or is it all-or-nothing?",
+ ans:["The press bends the membrane and opens those channels. Positive sodium ions flow in, and the ending becomes less negative, which is called depolarizing. The change is graded: a light press makes a small change and a firmer press a bigger one, and it fades as it spreads. A graded change like this in a receptor is called a receptor potential.", "Most receptors depolarize like this when a stimulus arrives. The odd ones out are the photoreceptors in your eyes, where light closes channels instead. The smallest stimulus that can activate a receptor is its threshold, and some receptors are so sensitive that a single particle of light or a single odor molecule is enough."],
  name:"receptor potential",
- desc:"A maroon arrow presses down on the receptor ending. The first recording box shows a smooth bump that rises and then returns, staying below the dashed threshold line.",
- pre:function(){S(["neu"]);RT[0].setAttribute("d",bump(0));},
- play:function(a){press.setAttribute("display","");return tweenVal(0,0.55,900,a,function(k){RT[0].setAttribute("d",bump(k));}).then(function(){cap("Pressure, then a receptor potential");});}},
-
+ desc:"An arrow asks the student to click the skin to press on the receptor. When they do, a pressure arrow appears over the receptor ending, and the recording at the ending shows a small hump in the membrane potential that stays below the dashed threshold line.",
+ pre:function(){S(["neu"]);RT[0].setAttribute("d",bump(0));press.setAttribute("display","none");},
+ play:function(a){cap("");return waitOn(skinHit,pressPrompt,a).then(function(){press.setAttribute("display","");return tweenVal(0,0.55,900,a,function(k){RT[0].setAttribute("d",bump(k));});}).then(function(){cap("A small press makes a small change at the ending.");});}},
 {title:"Reaching the trigger zone",
  text:["The pressure gets firmer, so the receptor potential gets bigger. It spreads from the ending to the trigger zone."],
- ask:"When will this neuron fire action potentials, and what will the action potentials look like at the trigger zone compared with farther along the axon?",
- ans:["It fires only when the receptor potential is still above threshold when it reaches the trigger zone. Then the trigger zone fires action potentials for as long as the depolarization stays above threshold.","Every action potential is the same size, at the trigger zone and all the way along the axon, because each one is regenerated at every node. The trigger zone is where the information changes form: a graded signal whose size matched the stimulus becomes a train of identical, all-or-none spikes. From here on, size can no longer carry the message."],
+ ask:"When will this neuron fire action potentials? Will the action potentials at the trigger zone look different from the ones farther along the axon?",
+ ans:["Only when the receptor potential is still above threshold by the time it reaches the trigger zone. Then the trigger zone fires action potentials for as long as the signal stays above threshold.", "Every action potential is the same size, at the trigger zone and all the way along the axon. So this is where the message changes form: a graded signal whose size matched the stimulus becomes a series of identical spikes. From here on, the size of a spike cannot carry information about how strong the stimulus was."],
  desc:"The bump in the first box grows until it crosses threshold. A train of identical spikes appears in the trigger zone box and the same train appears in the axon box, while a dot travels along the axon.",
  pre:function(){S(["neu"]);press.setAttribute("display","");RT[0].setAttribute("d",bump(0.55));},
- play:function(a){return tweenVal(0.55,1,700,a,function(k){RT[0].setAttribute("d",bump(k));}).then(function(){return Promise.all([growTrain(RT[1],function(k){return trainWin(310,124,240,0,k,Math.round(7*k),70);},800,a),run(sig,[[290,AY],[860,AY]],1200,a)]);}).then(function(){RT[2].setAttribute("d",trainWin(610,124,240,0,1,7,70));cap("Above threshold: identical spikes");});}},
+ play:function(a){cap("");return waitOn(skinHit,harderPrompt,a).then(function(){return tweenVal(0.55,1,700,a,function(k){RT[0].setAttribute("d",bump(k));}).then(function(){return Promise.all([growTrain(RT[1],function(k){return trainWin(310,124,240,0,k,Math.round(7*k),70);},800,a),run(sig,[[290,AY],[860,AY]],1200,a)]);}).then(function(){RT[2].setAttribute("d",trainWin(610,124,240,0,1,7,70));cap("Above threshold, the neuron fires spikes that are all the same size.");});});}},
 
 {title:"Weak, medium and strong",
  text:["The same receptor now gets three stimuli of different strengths. Under each stimulus is the receptor potential it makes, and under that the action potentials leaving the trigger zone."],
  ask:"Every spike is the same height. So what tells the brain that the third stimulus was the strongest?",
- ans:["The firing frequency. A bigger stimulus makes a bigger receptor potential, which stays further above threshold at the trigger zone, so action potentials fire closer together, up to a maximum rate. This is frequency coding. At the axon terminal, more action potentials mean more neurotransmitter released.", "The number of receptors firing matters too. Receptors in an area do not all have the same threshold, so a weak stimulus activates only the most sensitive ones, and a stronger stimulus recruits more. Using many receptors together to carry information is population coding."],
+ ans:["How fast the neuron fires. A stronger stimulus makes a bigger receptor potential, which stays further above threshold, so the action potentials come closer together, up to a top speed. This is called frequency coding. More action potentials also means more neurotransmitter is released at the other end.", "The number of receptors that respond matters too. Receptors in an area do not all have the same threshold, so a weak stimulus activates only the most sensitive ones and a stronger stimulus brings in more. Using many receptors together like this is called population coding."],
  name:"frequency coding",
- desc:"Three columns: weak, medium and strong stimulus bars of increasing height. Under each, a receptor potential bump of matching size. Under that, spike trains of equal height with 2, 5 and 10 spikes.",
- pre:function(){S(["str"]);SRP.forEach(function(p,i){p.setAttribute("d",rp(SC[i],1));});},
- play:function(a){return Promise.all(SC.map(function(c,i){return growTrain(SSP[i],function(k){return trainWin(c[0],420,200,0.2,0.2+0.6*k,Math.max(0,Math.round(c[3]*k)),60);},1000,a);})).then(function(){cap("Stronger stimulus, higher frequency");});}},
-
-/* ---- classes ---- */
+ desc:"Three columns, weak, medium and strong. Each shows a stimulus and the receptor potential it makes. The student clicks each stimulus in turn, and under it a train of identical action potentials appears: a few spikes for the weak stimulus, more for the medium, and the most, packed closest together, for the strong.",
+ pre:function(){S(["str"]);SRP.forEach(function(p,i){p.setAttribute("d",rp(SC[i],1));});SSP.forEach(function(p){p.setAttribute("d","");});},
+ play:function(a){cap("");var k=0;function one(){if(k>=3)return Promise.resolve();var i=k,c=SC[i];k++;return waitOn(strHit[i],strPrompt[i],a).then(function(){return growTrain(SSP[i],function(q){return trainWin(c[0],420,200,0.2,0.2+0.6*q,Math.max(0,Math.round(c[3]*q)),60);},900,a);}).then(one);}return one().then(function(){cap("A stronger stimulus makes the neuron fire faster.");});}},
 {sec:"Kinds of receptors",comp:"Competency 9",
  title:"Kinds of receptors",
- text:["Each receptor has an adequate stimulus, the form of energy it responds to best. Your textbook sorts receptors into four groups by their adequate stimulus: chemoreceptors respond to chemicals that bind them, such as O2, pH, glucose, and the molecules of taste and smell; mechanoreceptors respond to mechanical energy, such as pressure, stretch, vibration, gravity, acceleration and sound; thermoreceptors respond to temperature; and photoreceptors respond to light.", "Receptors for stimuli strong enough to damage tissue, nociceptors, are often counted as a fifth class. Your textbook covers them with pain, because they respond to damaging stimuli of several kinds. Your competency uses all five. Most of these receptors sit inside the body and report on conditions you are never aware of."],
+ text:["Each receptor has one kind of stimulus it responds to best, called its adequate stimulus. Your textbook sorts receptors into four groups this way. Chemoreceptors respond to chemicals, like oxygen, acid, sugar, and the molecules you taste and smell. Mechanoreceptors respond to pushing, stretching, vibration, gravity, motion and sound. Thermoreceptors respond to temperature. Photoreceptors respond to light.", "Receptors that respond to anything strong enough to damage tissue are called nociceptors, and they are often counted as a fifth group. Your competency uses all five. Most receptors are inside your body and report on things you never notice."],
  auto:true,
  desc:"A body outline with five numbered markers: at the eye, the neck, the top of the head, the hand and the foot. A list on the right names each receptor class, its stimulus and its location.",
  pre:function(){S(["body"]);},
- play:function(a){var k=0;function nxt(){if(k>=5)return Promise.resolve();k++;classes(k);return wait(350,a).then(nxt);}return nxt().then(function(){cap("Classified by stimulus");});}},
+ play:function(a){var k=0;function nxt(){if(k>=5)return Promise.resolve();k++;classes(k);return wait(350,a).then(nxt);}return nxt().then(function(){cap("Each kind of receptor responds best to one kind of stimulus.");});}},
 
 {title:"A stretch sensor in an artery",
  text:["The walls of the carotid arteries in the neck contain sensory endings that fire faster when rising blood pressure stretches the wall."],
@@ -541,93 +585,107 @@ var STEPS=[
  name:"mechanoreceptor",
  desc:"The body outline with all five classes marked and listed.",
  pre:function(){S(["body"]);classes(5);},
- play:function(a){return wait(300,a).then(function(){cap("Stretch: a mechanoreceptor");});}},
+ play:function(a){return wait(300,a).then(function(){cap("Stretch is a mechanical stimulus, so this is a mechanoreceptor.");});}},
 
 /* ---- coding ---- */
 {sec:"What the brain is told",comp:"Competency 10",
  title:"Pressing on a closed eye",
  text:["Two sensory pathways are drawn. One runs from the eye to the visual cortex at the back of the brain. The other runs from the back of the hand to the somatosensory cortex.", "A receptor is most sensitive to its adequate stimulus, but a strong enough stimulus of another kind can activate it too. Pressing on a closed eyelid pushes on the eyeball, which is a mechanical stimulus, not light."],
  ask:"What do you perceive when you press on a closed eye, and why?",
- ans:["You see flashes or patches of light, the way a blow to the eye makes you see stars. The pressure is strong enough to activate the photoreceptors, and every signal on that pathway arrives in the visual cortex, which reads anything it receives as light. The same pressure on the hand is felt as pressure, because that pathway ends in the somatosensory cortex.", "The brain identifies the modality by which receptors are active and where their pathway ends, not by what the stimulus actually was. This is labeled line coding. A cold receptor that is depolarized artificially is still felt as cold. Within a modality there are also qualities, such as the red, green and blue that different photoreceptors respond to best."],
+ ans:["You see flashes of light, the way you see stars if you get hit in the eye. The pressure is strong enough to activate the light receptors, and every signal on that pathway goes to the visual part of your brain, which reads anything it receives as light. The same press on your hand feels like pressure, because that pathway goes to the part of the brain for touch.", "So the brain knows what kind of sense it is getting, called the modality, by which pathway the signal comes in on, not by what the stimulus really was. This is called labeled line coding. A cold receptor that is switched on artificially is still felt as cold."],
  name:"labeled line coding",
- desc:"A navy line runs from the eye to a box labeled visual cortex and a maroon line from the back of the hand to a box labeled somatosensory cortex. Arrows press on the eye and the hand, dots travel each line, and the boxes read perceived: a flash of light, and perceived: pressure on the hand.",
+ desc:"Two pathways: one from the eye to the visual cortex, one from the back of the hand to the somatosensory cortex. An arrow asks the student to click to press on the closed eye. A press arrow appears on the eye and on the hand, a dot travels each pathway, and labels appear: perceived, a flash of light; perceived, pressure on the hand.",
  pre:function(){S(["line"]);},
- play:function(a){pressEye.setAttribute("display","");pressHand.setAttribute("display","");
-   return Promise.all([run(lsig1,[[166,120],[360,120],[560,70]],1100,a),run(lsig2,[[170,275],[360,275],[560,200]],1100,a)]).then(function(){perc1.setAttribute("display","");perc2.setAttribute("display","");cap("The line decides the sensation");});}},
-
+ play:function(a){cap("");return waitOn(eyeHit,eyePrompt,a).then(function(){pressEye.setAttribute("display","");pressHand.setAttribute("display","");return Promise.all([run(lsig1,[[166,120],[360,120],[560,70]],1100,a),run(lsig2,[[170,275],[360,275],[560,200]],1100,a)]);}).then(function(){perc1.setAttribute("display","");perc2.setAttribute("display","");cap("The brain decides what you feel by which pathway brings the signal.");});}},
 {title:"Location and the brain's map",
  text:["Location is coded by which receptive fields are active. The sensory cortex is laid out like a map: input from neighboring receptors is processed in neighboring areas of cortex. Stimulating the hand area of the cortex during brain surgery is felt as a touch on the hand, even though nothing touches it."],
  ask:"After an arm is amputated, a person may still feel pain in a hand that is no longer there. Using the map, how could that happen?",
- ans:["The pathway from the hand still exists, and the brain still reads any signal on it as coming from the hand. In one form of phantom limb pain, the secondary sensory neurons in the spinal cord that used to receive input from the hand become hyperactive and fire on their own. The brain places that activity where it always has: in the hand.", "Hearing is the exception to location by receptive field. Hair cells in the ear have no receptive fields, so the brain locates a sound by timing: a sound from the right reaches the right ear a fraction of a millisecond before the left, and the brain uses that difference to compute where it came from."],
+ ans:["The pathway from the hand is still there, and the brain still reads any signal on it as coming from the hand. In one kind of phantom limb pain, the neurons in the spinal cord that used to receive messages from the hand start firing on their own, and the brain puts that feeling where it always has: in the hand.", "Hearing is different. The hair cells in your ear do not have receptive fields, so the brain finds where a sound came from by timing instead. A sound from your right reaches your right ear a tiny fraction of a second before your left ear, and the brain uses that difference to work out the direction."],
  name:"phantom limb pain",
  desc:"The two labeled lines remain. The hand pathway is lit along its length with no press on the hand.",
  pre:function(){S(["line"]);},
- play:function(a){return run(lsig2,[[260,275],[360,275],[560,200]],900,a).then(function(){perc2.setAttribute("display","");perc2.textContent="perceived: something on the hand";cap("Felt where the line begins");});}},
+ play:function(a){return run(lsig2,[[260,275],[360,275],[560,200]],900,a).then(function(){perc2.setAttribute("display","");perc2.textContent="perceived: something on the hand";cap("The brain feels it where that pathway usually starts.");});}},
 
 /* ---- receptive fields ---- */
 {sec:"Receptive fields and acuity",comp:"Competency 11",
  title:"Two points on the skin",
- text:["The area that changes one sensory neuron's firing is its receptive field. The first neuron in a sensory pathway is the primary, or first-order, sensory neuron; it synapses on a secondary, or second-order, neuron in the central nervous system. When several primary neurons converge on one secondary neuron, their small fields merge into one large secondary receptive field, and weak stimuli in different parts of it can sum to fire the secondary neuron.", "On the arm, many primary neurons converge on each secondary neuron. On the fingertip, there is little convergence, as little as one primary neuron to one secondary neuron. Each circle on the figure is one secondary receptive field. A caliper with two points about 20 mm apart is placed on each patch. Your lab this week measures this as two-point discrimination."],
+ text:["The patch of skin that can make one sensory neuron fire is called its receptive field. The first neuron in a pathway passes its message to a second neuron in the spinal cord or brain. When many first neurons connect to the same second neuron, their small patches add up into one big receptive field.", "On the forearm, many first neurons connect to each second neuron, so the fields are big. On the fingertip, very few do, so the fields are small. Each circle on the figure is one of those fields. Click to touch each patch of skin with two points about 20 mm apart, like the two-point test you do in lab this week."],
  ask:"Will the person feel one point or two on the fingertip, and on the arm? Explain with the circles.",
- ans:["Two on the fingertip, one on the arm. On the fingertip, the two points land in separate secondary receptive fields, so two separate pathways carry signals to the brain and it reads two points. On the arm, both points land inside one large secondary receptive field, so only one signal goes to the brain, and it cannot tell two touches from one.", "On the arms and legs, two points as far apart as about 20 mm can feel like one, while on the fingertips points a few millimeters apart are felt as two. Less convergence means smaller fields and finer acuity."],
+ ans:["Two on the fingertip, and one on the forearm. On the fingertip, the two points land in two different small fields, so two separate signals go to the brain and it feels two points. On the forearm, both points land inside one big field, so only one signal goes to the brain and it cannot tell two touches from one.", "On your arms and legs, two points as far apart as about 20 mm can feel like one, while on your fingertips points just a few millimeters apart feel like two. Fewer neurons sharing each field means smaller fields and finer feeling, which is called acuity."],
  name:"convergence and receptive fields",
- desc:"Two pink skin patches. The fingertip patch is covered with thirty small circles, the back patch with four large circles. Two gold dots 10 millimeters apart sit on each. On the fingertip they fall in different circles; on the back both fall in one circle. Labels read two points and one point.",
- pre:function(){S(["rf"]);},
- play:function(a){CAL.forEach(function(g){g.setAttribute("display","");});return wait(700,a).then(function(){rfA.textContent="felt as two points";rfB.textContent="felt as one point";cap("Small fields, fine acuity");});}},
-
+ desc:"Two patches of skin: the fingertip, covered with many small circles that are receptive fields, and the forearm, with four large circles. The student clicks the fingertip and two gold caliper points appear in two different small circles, labeled felt as two points. Then they click the forearm and the two points land inside one large circle, labeled felt as one point.",
+ pre:function(){S(["rf"]);CAL.forEach(function(g){g.setAttribute("display","none");});rfA.textContent="";rfB.textContent="";},
+ play:function(a){cap("");return waitOn(fingHit,fingPrompt,a).then(function(){CAL[0].setAttribute("display","");rfA.textContent="felt as two points";return waitOn(armHit,armPrompt,a);}).then(function(){CAL[1].setAttribute("display","");rfB.textContent="felt as one point";cap("Small circles on the fingertip let you feel two points.");});}},
 {title:"Sharpening the edges",
  text:["A pin presses on the skin. Three primary sensory neurons respond, and each one's response is proportional to how hard the stimulus presses in its field: the middle one, right under the pin, fires the most."],
  ask:"The secondary neuron in the middle pathway inhibits the secondary neurons on either side of it. What do the three signals sent on to the brain look like after it does?",
- ans:["The middle signal goes through strong, while the two side signals are suppressed, much more than before. The secondary neuron closest to the stimulus turns down its neighbors, probably by opening K+ or Cl- channels in them so they hyperpolarize, and lets its own pathway through. The contrast between the center and the edges grows, so the stimulus is easier to locate.", "This is lateral inhibition, and in vision it sharpens the edges you see. Comparing the signals from several receptors this way is another example of population coding."],
+ ans:["The middle signal still gets through strongly, but the two side signals drop much more than before. The neuron closest to the pin calms its neighbors through inhibitory interneurons and lets its own signal through. That makes the difference between the center and the edges bigger, so it is easier to tell exactly where the pin is.", "This is called lateral inhibition. In vision, it is what makes edges look sharp."],
  name:"lateral inhibition",
- desc:"Three neurons labeled left, middle and right. Bars at the bottom first show firing rates of medium, high and medium. Gray inhibitory interneurons appear from the middle neuron to both sides, and the side bars shrink to short while the middle bar stays tall.",
- pre:function(){S(["lat"]);bars([110,170,110]);},
- play:function(a){latInh.setAttribute("display","");return tweenVal(0,1,1000,a,function(k){bars([110-80*k,170-20*k,110-80*k]);}).then(function(){cap("Center kept, edges suppressed");});}},
-
-/* ---- adaptation ---- */
+ desc:"Three bars show the signals from three sensory neurons under a pin, the middle one tallest. The student clicks to switch on the inhibitory interneurons. Gray interneurons appear between the pathways, and the two side bars shrink much more than the middle one, so the middle signal stands out.",
+ pre:function(){S(["lat"]);bars([110,170,110]);latInh.setAttribute("display","none");},
+ play:function(a){cap("");return waitOn(latHit,latPrompt,a).then(function(){latInh.setAttribute("display","");return tweenVal(0,1,1000,a,function(k){bars([110-80*k,170-20*k,110-80*k]);});}).then(function(){cap("The middle signal stays strong and the edges drop away.");});}},
 {sec:"Adaptation",comp:"Competency 12",
  title:"A stimulus that does not change",
- text:["Duration is coded by how long the action potentials last: a longer stimulus gives a longer train. But if a stimulus is held steady, some receptors stop responding. That is adaptation. Here a stimulus is switched on, held perfectly steady, then switched off, while two different receptors record it."],
+ text:["The longer a stimulus lasts, the longer the neuron keeps firing. But if a stimulus is held perfectly steady, some receptors stop responding to it. This is called adaptation.", "Here a stimulus is switched on, held steady, then switched off, while two different receptors record it. Click to switch the stimulus on and watch both."],
  ask:"Will both receptors keep firing the whole time the stimulus is on? Sketch what you expect each one to do.",
- ans:["No. One fires rapidly at first, then slows and keeps firing for as long as the stimulus lasts. The other fires when the stimulus starts and stops if the stimulus stays constant, and often fires briefly again when it is removed.", "Slowly adapting receptors are tonic receptors: baroreceptors, irritant receptors, some touch receptors and proprioceptors, the parameters the body has to watch continuously. Rapidly adapting receptors are phasic receptors, tuned to change. Smell is the classic example: you smell your cologne when you put it on, and an hour later you do not, though others still can. Adaptation can come from K+ channels opening to repolarize the receptor, from Na+ channels inactivating, or from changes in biochemical pathways. Accessory structures help too: tiny muscles in the middle ear dampen the bones' vibration during loud noise."],
+ ans:["No. The tonic receptor fires quickly at first, then slows a little, and keeps firing for as long as the stimulus lasts. The phasic receptor fires when the stimulus starts, goes quiet while it stays steady, and often fires again briefly when it stops.", "Tonic receptors watch things the body has to track all the time, like blood pressure and the position of your joints. Phasic receptors are tuned to change. Smell is the classic example: you notice your cologne when you put it on, and an hour later you do not, even though other people still can."],
  name:"tonic and phasic receptors",
- desc:"A gold bar shows a steady stimulus held over time. The navy tonic trace below fires spikes the whole time the bar is on, slowing slightly. The maroon phasic trace below that fires a burst at the start, nothing in the middle, and a few spikes at the end.",
- pre:function(){S(["adapt"]);},
- play:function(a){return Promise.all([growTrain(AT,tonicD,1600,a),growTrain(AP,phasicD,1600,a)]).then(function(){adT1.setAttribute("display","");adT2.setAttribute("display","");cap("Tonic keeps reporting, phasic reports change");});}},
-
+ desc:"A gold bar shows a stimulus that is switched on, held steady, then switched off. The student clicks to switch it on. Below, the tonic receptor fires quickly, then a little slower, and keeps firing the whole time. The phasic receptor fires a burst at the start, goes quiet while the stimulus stays steady, and fires briefly again when it is switched off.",
+ pre:function(){S(["adapt"]);AT.setAttribute("d","");AP.setAttribute("d","");adT1.setAttribute("display","none");adT2.setAttribute("display","none");},
+ play:function(a){cap("");return waitOn(adHit,adPrompt,a).then(function(){return Promise.all([growTrain(AT,tonicD,1600,a),growTrain(AP,phasicD,1600,a)]);}).then(function(){adT1.setAttribute("display","");adT2.setAttribute("display","");cap("One receptor keeps reporting. The other only reports the change.");});}},
 {title:"Swapping the jobs",
  text:["The body monitors some things continuously, such as blood pressure or irritants in the airways, and other things only when they change, such as a new smell."],
  ask:"Irritant receptors in the airways are tonic, not phasic. Why does that matter, and what would go wrong if blood pressure were monitored by a phasic receptor?",
- ans:["An irritant that stays in the airway keeps doing harm, so a tonic receptor keeps reporting it for as long as it is there and keeps the protective response, such as coughing, going. A phasic receptor would report it once and fall silent while the damage continued.", "The same goes for blood pressure. A phasic baroreceptor would report a drop only at the moment it happened and then go quiet, so a pressure that stayed low would go unreported and the reflexes that correct it would switch off. Once a phasic receptor has adapted, the only ways to get a new signal are a stronger stimulus or removing the stimulus so the receptor can reset."],
+ ans:["Something irritating that stays in your airway keeps doing harm, so a tonic receptor keeps reporting it and keeps you coughing for as long as it is there. A phasic receptor would report it once and then go quiet while the damage continued.", "The same goes for blood pressure. A phasic receptor would report a drop only at the moment it happened and then go quiet, so a pressure that stayed low would go unreported and the body would stop correcting it."],
  desc:"The tonic and phasic tracings remain on screen for comparison.",
  pre:function(){S(["adapt"]);AT.setAttribute("d",tonicD(1));AP.setAttribute("d",phasicD(1));},
- play:function(a){adT1.setAttribute("display","");adT2.setAttribute("display","");return wait(400,a).then(function(){cap("Match the receptor to the job");});}},
+ play:function(a){adT1.setAttribute("display","");adT2.setAttribute("display","");return wait(400,a).then(function(){cap("Steady things need tonic receptors. Changes need phasic ones.");});}},
 
 {title:"Tuning out the radio",
  text:["While you study, you stop noticing the radio. Then someone says your name and you hear it immediately."],
  ask:"Is that receptor adaptation? Where in the pathway could the radio be getting turned down?",
- ans:["No. The hair cells in your ear are still responding to the radio the whole time, so the receptors have not adapted. Higher up the pathway, in the secondary and higher neurons, inhibitory modulation turns the signal down until it is below your perceptual threshold, the level of stimulus you need to become aware of it. Turning down an unimportant, repeated stimulus this way is habituation.","When the stimulus suddenly matters, you can focus your attention and override the inhibition. So adaptation happens at the receptor, and habituation happens in the central nervous system."],
+ ans:["No. The hair cells in your ear keep responding to the radio the whole time, so the receptors have not adapted. Instead, neurons higher up in the brain turn the signal down until it is below the level you notice. Tuning out a repeated, unimportant stimulus this way is called habituation.", "When the sound suddenly matters, like your name, you can pay attention and turn it back up. So adaptation happens in the receptor, and habituation happens in the brain."],
  name:"perceptual threshold",
  desc:"The tonic and phasic tracings remain on screen for comparison.",
  pre:function(){S(["adapt"]);AT.setAttribute("d",tonicD(1));AP.setAttribute("d",phasicD(1));},
- play:function(a){return wait(400,a).then(function(){cap("Receptors firing, brain not listening");});}},
+ play:function(a){return wait(400,a).then(function(){cap("The receptors still fire, but the brain turns the signal down.");});}},
 
 {sec:"Review",comp:"Competencies 8 to 12",
  title:"Summary with the scientific terms",
  text:["A stimulus acts on a receptor: a bare nerve ending, an encapsulated ending, or a nonneural cell that releases transmitter onto a sensory neuron. Transduction opens or closes channels and makes a graded receptor potential; above threshold, the sensory neuron fires action potentials. Receptors are grouped by their adequate stimulus as chemo-, mechano-, thermo- and photoreceptors, with nociceptors for damaging stimuli.", "Modality is coded by the labeled line, location by receptive fields and the cortical map (and for sound, by timing), intensity by frequency coding and population coding, and duration by how long firing lasts. Convergence makes large receptive fields; little convergence and lateral inhibition give fine acuity. Tonic receptors keep reporting; phasic receptors adapt. Habituation turns signals down in the central nervous system."],
  ask:"Without scrolling back, explain why you stop smelling your own cologne, and how that differs from no longer noticing a radio while you study.",
- ans:["Smell uses phasic receptors, which adapt: the olfactory receptors themselves stop responding to a steady odor. With the radio, the hair cells keep responding; the signal is turned down by inhibitory modulation in the brain until it falls below your perceptual threshold, which is habituation, and your attention can override it.", "If part of this would not come back, look at those steps again, then try your Competency Study Guide boxes from memory."],
+ ans:["Your smell receptors are phasic: they stop responding to a smell that stays the same, which is adaptation in the receptors themselves. With the radio, the receptors in your ear keep responding, and your brain turns the signal down below what you notice, which is habituation, and paying attention can turn it back up.", "If part of this did not come back to you, go back to those steps, then try your Competency Study Guide boxes from memory."],
  desc:"The sensory neuron returns, with a receptor potential in the first box and identical spikes in the other two.",
  pre:function(){S(["neu"]);press.setAttribute("display","");},
- play:function(a){return tweenVal(0,1,700,a,function(k){RT[0].setAttribute("d",bump(k));}).then(function(){RT[1].setAttribute("d",trainWin(310,124,240,0,1,7,70));RT[2].setAttribute("d",trainWin(610,124,240,0,1,7,70));cap("Graded in, frequency out");});}}
+ play:function(a){return tweenVal(0,1,700,a,function(k){RT[0].setAttribute("d",bump(k));}).then(function(){RT[1].setAttribute("d",trainWin(310,124,240,0,1,7,70));RT[2].setAttribute("d",trainWin(610,124,240,0,1,7,70));cap("A graded signal goes in, and a rate of firing comes out.");});}}
 ];
 
 /* ======================= support videos ======================= */
 var V={"adapt": {"u": "https://www.youtube.com/watch?v=JC_TVyAMYE0", "n": "Sensory adaptation and amplification", "s": "Khan Academy"}, "soma": {"u": "https://www.youtube.com/watch?v=oOIqk5hXBt4", "n": "Peripheral somatosensation", "s": "Khan Academy"}};
 var SUP={"A stimulus that does not change": [["What is sensory adaptation?", "adapt", "Listen for receptors that stop responding to a stimulus that stays the same, and why that is useful."]], "Kinds of receptors": [["What kinds of receptors are in the skin?", "soma", "Listen for the different receptors and the kind of stimulus each one responds to."]]};
+var PREP={"From stimulus to signal": {"id": "receptors-and-transduction", "h": "Receptors and transduction", "fig": "open Silverthorn Fig. 11.1 (sensory receptors) and Fig. 11.6 in your eText beside this section.", "review": false}, "Kinds of receptors": {"id": "receptor-classes", "h": "Receptor classes", "fig": "open Silverthorn Table 11.2 (types of sensory receptors) in your eText beside this section.", "review": false}, "What the brain is told": {"id": "what-the-brain-is-told", "h": "What the brain is told", "fig": "open Silverthorn Fig. 11.3 (sensory pathways) and Fig. 11.4 (localization of sound) in your eText beside this section.", "review": false}, "Receptive fields and acuity": {"id": "receptive-fields-and-acuity", "h": "Receptive fields and acuity", "fig": "open Silverthorn Fig. 11.2 (receptive fields) and Fig. 11.5 (lateral inhibition) in your eText beside this section.", "review": false}, "Adaptation": {"id": "adaptation-and-habituation", "h": "Adaptation and habituation", "fig": "open Silverthorn Fig. 11.7 (receptor adaptation) in your eText beside this section.", "review": false}, "Review": {"id": "step-by-step-where-the-signal-travels", "h": "Step by step: where the signal travels", "fig": "open Silverthorn Fig. 11.6 (coding for stimulus intensity and duration) and Fig. 11.5 (lateral inhibition) in your eText beside this section.", "review": true}};
+var PREP_NOTES="biol005-w05-sensory-coding-walkthrough-notes.html";
+var PREP_OST="section 14.1, Sensory Perception, the first part on sensory receptors";
+
+function prepHTML(i){
+  var s=STEPS[i];if(!(i===0||s.sec))return "";
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),href=PREP_NOTES+"#"+P.id;
+  var notes='<a class="b5-keep" href="'+href+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=[];
+  if(P.review){
+    li.push("Reread the step-by-step sequences in your notes: "+notes+". Try to say each one out loud before you look.");
+    li.push("Look back at your Competency Study Guide for this walkthrough and fill in anything you missed.");
+  }else{
+    li.push("Read this part of your notes: "+notes+".");
+    li.push("Read it in your textbook. "+(P.fig?"In Silverthorn, "+esc(P.fig.replace(/^open Silverthorn /i,"look at ").replace(/ in your eText beside this section\.?$/,"."))+" ":"")+"If you are using OpenStax instead, read "+esc(PREP_OST)+".");
+    if(comp)li.push("Work on your Competency Study Guide: "+esc(comp)+". Do prompt A or prompt B for it.");
+  }
+  return '<div class="prep"><p class="prep-h">Before you start this part</p><ol>'+li.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ol><p class="prep-then">Then come back here, work through the steps, and make your predictions.</p></div>';
+}
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
-  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+  return '<div class="support"><p class="lab"><svg class="sarrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" focusable="false"><path d="M2 12 H30" stroke="#F2B705" stroke-width="5" stroke-linecap="round"/><path d="M24 4 L36 12 L24 20" fill="none" stroke="#F2B705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Watch this video if you need more help with this step</p><ul>'+list.map(function(x){var v=V[x[1]];
     return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
 }
 
@@ -691,7 +749,7 @@ function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;
 function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
 function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
 function renderNarr(i,revealed){
-  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+prepHTML(i)+paras(s.text);
   if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
   if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
   else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}

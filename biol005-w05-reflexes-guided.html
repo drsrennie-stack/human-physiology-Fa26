@@ -143,6 +143,17 @@ button{font-family:var(--body)}
 
 /* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
 @media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* Oct 5 2026: Before you start card, and a video box students can see */
+.prep{margin:4px 0 16px;padding:16px 18px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10);max-width:72ch}
+.prep-h{margin:0 0 8px;font-family:var(--display,inherit);font-weight:800;font-size:1.05rem;color:var(--maroon,#8B3A2E)}
+.prep ol{margin:0 0 8px;padding-left:1.3em}.prep li{margin:0 0 6px;line-height:1.5}
+.prep a{color:var(--maroon,#8B3A2E);font-weight:700}
+.prep-then{margin:0;font-weight:700;color:var(--navy,#0B1530)}
+.support .lab{display:flex;align-items:center;gap:8px;font-size:.95rem!important;letter-spacing:0!important;text-transform:none!important;color:var(--navy,#0B1530)!important;font-weight:800!important}
+.support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
+.support a:hover{background:#FFC400!important}
+.support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -345,6 +356,26 @@ function growTrain(path,fn,dur,a){
 var CAP=null;
 function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
 function cap(s){if(CAP)CAP.textContent=s||"";}
+
+/* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */
+/* Oct 5 2026: while a step waits for the student's action, Next stays
+   locked for students (not in preview), so the action cannot be skipped. */
+function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+function waitOn(tgt,prm,a){
+  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
+  if(prm)prm.setAttribute("display","");
+  tgt.style.cursor="pointer";
+  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
+    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
 
 /* Spinal reflexes. Oct 4 2026. Week 5 competencies 1 to 4, with the reflex
    grading and latency ideas from competency 7. Main figure: the thigh
@@ -634,25 +665,7 @@ function kneeJerk(a,o){o=o||{};
 /* ---- Oct 5 2026: student actions. waitOn holds a step until the student
    clicks the target (or presses Enter), with a pulsing gold ring and an arrow
    pointing at it. With animation off it goes straight on. ---- */
-/* Oct 5 2026: while a step waits for the student's action, Next stays
-   locked for students (not in preview), so the action cannot be skipped. */
-function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
-function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
-  var g=el("g",{},parent);
-  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
-  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
-  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
-  g.setAttribute("display","none");g._ring=ring;return g;}
-function waitOn(tgt,prm,a){
-  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
-  if(prm)prm.setAttribute("display","");
-  tgt.style.cursor="pointer";
-  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
-    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
-    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
-    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
-    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
-
+/* waitOn, promptAt and lockNext now live in w05-kit.js */
 /* the knee figure, part two: a spindle readout, a foot to push, muscle signs */
 var kTrainG=el("g",{},gKnee);
 tx(kTrainG,60,64,"spindle sensory neuron, firing","tm",14,"start");
@@ -723,6 +736,35 @@ var RAISE=[-32,72];
 var soleHit=el("rect",{x:40,y:200,width:820,height:200,fill:"transparent"},gFoot);
 var solePrompt=promptAt(gFoot,330,150,["Click to stroke the sole","of each foot"],250,300,180,338,30);
 
+/* ---- Oct 5 2026: the four ways to sort a reflex, as a mind map ---- */
+var gMap=G("four2");
+var MC=[450,262];
+var BR=[
+ {q:"What does it control?",qx:150,qy:150,leaves:[["Somatic","skeletal muscle,","like the knee jerk",40,30],["Autonomic","smooth muscle, heart,","glands",230,30]]},
+ {q:"Where is it handled?",qx:530,qy:150,leaves:[["Spinal","in the","spinal cord",500,30],["Cranial","in the","brain",690,30]]},
+ {q:"Born with it or learned?",qx:150,qy:330,leaves:[["Innate","you are","born with it",40,396],["Learned","comes from","experience",230,396]]},
+ {q:"How many connections?",qx:530,qy:330,leaves:[["Monosynaptic","one connection","(synapse)",500,396],["Polysynaptic","two or more","connections",690,396]]}];
+var MAPL=[];
+BR.forEach(function(b,i){
+  var qcx=b.qx+110,qcy=b.qy+22;
+  el("line",{x1:MC[0],y1:MC[1],x2:qcx,y2:qcy,stroke:INK2,"stroke-width":3},gMap);
+  var lv=b.leaves.map(function(L){
+    var lx=L[3]+85,ly=L[4]+(L[4]<200?66:0);
+    var ln=el("line",{x1:qcx,y1:b.qy+(L[4]<200?0:44),x2:lx,y2:ly,stroke:"#C9CED8","stroke-width":3},gMap);
+    var g=el("g",{},gMap);
+    var r=el("rect",{x:L[3],y:L[4],width:170,height:66,rx:12,fill:"#fff",stroke:"#C9CED8","stroke-width":2.5},g);
+    tx(g,L[3]+85,L[4]+22,L[0],"tn",16,"middle");tx(g,L[3]+85,L[4]+41,L[1],"t",12.5,"middle");tx(g,L[3]+85,L[4]+57,L[2],"t",12.5,"middle");
+    return {r:r,ln:ln};});
+  var qb=el("rect",{x:b.qx,y:b.qy,width:220,height:44,rx:22,fill:NAVY},gMap);
+  var qt=el("text",{x:qcx,y:qcy+6,"class":"iw","font-size":15,"text-anchor":"middle"},gMap);qt.textContent=b.q;
+  MAPL.push(lv);});
+el("ellipse",{cx:MC[0],cy:MC[1],rx:92,ry:36,fill:MAROON},gMap);
+var mct=el("text",{x:MC[0],y:MC[1]+7,"class":"iw","font-size":20,"text-anchor":"middle"},gMap);mct.textContent="A reflex";
+var MAPPICK=[1,1,0,1];
+function mapPick(n){MAPL.forEach(function(lv,i){lv.forEach(function(o,j){var on=i<n&&MAPPICK[i]===j;
+  o.r.setAttribute("stroke",on?MAROON:"#C9CED8");o.r.setAttribute("stroke-width",on?5:2.5);o.r.setAttribute("fill",on?"#FBF1EF":"#fff");
+  o.ln.setAttribute("stroke",on?MAROON:"#C9CED8");o.ln.setAttribute("stroke-width",on?5:3);});});}
+
 makeCap();
 
 function resetAll(){
@@ -788,9 +830,9 @@ var STEPS=[
  ask:"Shine a light in someone's eye and the pupil constricts. Give this reflex a label from each of the four ways of sorting.",
  ans:["It is autonomic, because the muscle that narrows the pupil is smooth muscle in the colored part of the eye, the iris. It is cranial, because the decision is made in the brain, not the spinal cord. It is innate: babies are born with it, and it is checked in every newborn exam. And it is polysynaptic. In fact every autonomic reflex is, because the path out of the brain or spinal cord always uses two motor neurons in a row, so there is always more than one connection. Only reflexes that move skeletal muscle can be monosynaptic.", "Autonomic reflexes are also called visceral reflexes, because many involve the internal organs. Some, like emptying the bladder, are handled in the spinal cord, and toilet training is the brain learning to override that simple reflex. Others are handled in the brain, which controls heart rate, blood pressure, breathing, body temperature and reflexes like swallowing, coughing, sneezing and vomiting. Knowing where a reflex is handled tells you where to look when it fails."],
  name:"autonomic reflex",
- desc:"Four rows show the four ways to sort a reflex, each with two choices: somatic or autonomic, spinal or cranial, innate or learned, monosynaptic or polysynaptic. For the pupillary reflex, autonomic, cranial, innate and polysynaptic are outlined in maroon.",
- pre:function(){S(["four","cap"]);fourPick(false);},
- play:function(a){return wait(500,a).then(function(){fourPick(true);cap("The pupil reflex gets one label from each row.");});}},
+ desc:"A mind map with A reflex in a maroon oval at the center and four navy branches, each a question: What does it control? Where is it handled? Born with it or learned? How many connections? Each question splits into two answer boxes with a short explanation: somatic or autonomic, spinal or cranial, innate or learned, monosynaptic or polysynaptic. After the prediction, the pupil reflex's answer on each branch lights up in maroon one at a time: autonomic, cranial, innate, polysynaptic.",
+ pre:function(){S(["four2","cap"]);mapPick(0);},
+ play:function(a){var k=0;function nxt(){if(k>=4)return Promise.resolve();k++;mapPick(k);return wait(550,a).then(nxt);}return nxt().then(function(){cap("The pupil reflex gets one answer on each branch.");});}},
 {sec:"The stretch reflex",comp:"Competency 2",
  title:"A sensor inside the muscle",
  text:["Your muscles have their own sensors that tell your spinal cord and brain where your body is and how hard it is working. Two of them matter most here: the muscle spindle and the Golgi tendon organ.", "A muscle spindle is a tiny capsule tucked in among the ordinary muscle fibers, lying alongside them. Inside it are a few small special fibers, and a sensory nerve ending is wrapped around their middle. Almost every skeletal muscle has many spindles.", "Even when your muscle is relaxed, the middle of the spindle is a little bit stretched, so its sensory neuron is always sending some signals. Watch the readout at the top: a few signals at rest."],
@@ -965,9 +1007,29 @@ var STEPS=[
 /* ======================= support videos ======================= */
 var V={"arc": {"u": "https://youtu.be/Qiv8dUp_I3c", "n": "Reflex arc", "s": "Khan Academy"}, "gto": {"u": "https://youtu.be/CzeAcc39Cyo", "n": "Golgi tendon organ", "s": "Khan Academy"}, "wx": {"u": "https://youtu.be/bY0oQnflmog", "n": "Withdrawal and crossed extensor reflexes", "s": "Khan Academy"}, "spindle": {"u": "https://www.youtube.com/watch?v=Ya-3XHBWDqs", "n": "Muscle stretch reflex", "s": "Khan Academy"}, "umn": {"u": "https://www.youtube.com/watch?v=aASSUcUSBro", "n": "Upper motor neurons", "s": "Khan Academy"}};
 var SUP={"Every reflex follows one path": [["What are the parts of a reflex arc?", "arc", "Listen for the five parts in order: receptor, sensory neuron, integrating center, motor neuron, effector."]], "Where the signal goes": [["What are the parts of a reflex arc?", "arc", "Listen for where the sensory neuron enters the cord and where the motor neuron leaves it."]], "A sensor in the tendon": [["What does a Golgi tendon organ sense?", "gto", "Listen for where the tendon organ sits, in series at the junction of muscle and tendon, and that it senses tension rather than stretch."]], "Lifting a heavier load": [["What does the Golgi tendon organ do to its own muscle?", "gto", "Listen for the inhibitory interneuron and the muscle being told to relax as tension rises."]], "Stepping on a tack": [["How do the withdrawal and crossed extensor reflexes work?", "wx", "Listen for the pain signal entering the cord and spreading to interneurons on both sides."]], "The right leg": [["How do the withdrawal and crossed extensor reflexes work?", "wx", "Listen for which muscles contract and which relax in the leg that stepped on the tack."]], "The left leg": [["How do the withdrawal and crossed extensor reflexes work?", "wx", "Listen for the signal crossing the cord and the other leg straightening to take the weight."]], "A sensor inside the muscle": [["How does a muscle spindle detect stretch?", "spindle", "Listen for where spindles sit in the muscle and what makes their sensory neurons fire."]], "Stretch the muscle": [["How does the stretch reflex work?", "spindle", "Listen for the spindle afferent synapsing directly on the motor neuron to the same muscle."]], "Upper or lower motor neuron": [["What do upper motor neurons do?", "umn", "Listen for where upper motor neurons start and end, and how they control the lower motor neurons in the cord."]]};
+var PREP={"The reflex arc": {"id": "the-reflex-arc", "h": "The reflex arc", "fig": "open Silverthorn Fig. 10.7 (spinal reflexes) and Fig. 14.1 (neural reflexes) in your eText beside this section.", "review": false}, "Kinds of reflexes": {"id": "kinds-of-reflexes", "h": "Kinds of reflexes", "fig": "open Silverthorn Table 14.1 (classification of neural reflexes) and Fig. 14.1c (autonomic reflexes) in your eText beside this section.", "review": false}, "The stretch reflex": {"id": "the-stretch-reflex", "h": "The stretch reflex", "fig": "open Silverthorn Fig. 14.2, Fig. 14.4 (the stretch reflex) and Fig. 14.5 (the knee jerk reflex) in your eText beside this section.", "review": false}, "The Golgi tendon organ": {"id": "the-golgi-tendon-organ", "h": "The Golgi tendon organ", "fig": "open Silverthorn Fig. 14.3 (Golgi tendon organs) in your eText beside this section.", "review": false}, "Withdrawal and crossed extensor": {"id": "withdrawal-and-crossed-extensor-reflexes", "h": "Withdrawal and crossed extensor reflexes", "fig": "open Silverthorn Fig. 14.6 (the crossed extensor reflex) in your eText beside this section.", "review": false}, "Testing reflexes": {"id": "testing-reflexes", "h": "Testing reflexes", "fig": "", "review": false}, "Review": {"id": "step-by-step-where-the-signal-travels", "h": "Step by step: where the signal travels", "fig": "open Silverthorn Fig. 14.5 (the knee jerk reflex), Fig. 14.2 (muscle spindles and alpha-gamma coactivation), Fig. 14.3 (Golgi tendon organs) and Fig. 14.6 (the crossed extensor reflex) in your eText beside this section.", "review": true}};
+var PREP_NOTES="biol005-w05-reflexes-walkthrough-notes.html";
+var PREP_OST="section 14.3, Motor Responses, the part on reflexes";
+
+function prepHTML(i){
+  var s=STEPS[i];if(!(i===0||s.sec))return "";
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),href=PREP_NOTES+"#"+P.id;
+  var notes='<a class="b5-keep" href="'+href+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=[];
+  if(P.review){
+    li.push("Reread the step-by-step sequences in your notes: "+notes+". Try to say each one out loud before you look.");
+    li.push("Look back at your Competency Study Guide for this walkthrough and fill in anything you missed.");
+  }else{
+    li.push("Read this part of your notes: "+notes+".");
+    li.push("Read it in your textbook. "+(P.fig?"In Silverthorn, "+esc(P.fig.replace(/^open Silverthorn /i,"look at ").replace(/ in your eText beside this section\.?$/,"."))+" ":"")+"If you are using OpenStax instead, read "+esc(PREP_OST)+".");
+    if(comp)li.push("Work on your Competency Study Guide: "+esc(comp)+". Do prompt A or prompt B for it.");
+  }
+  return '<div class="prep"><p class="prep-h">Before you start this part</p><ol>'+li.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ol><p class="prep-then">Then come back here, work through the steps, and make your predictions.</p></div>';
+}
 function supportHTML(t){
   var list=SUP[t];if(!list)return "";
-  return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'+list.map(function(x){var v=V[x[1]];
+  return '<div class="support"><p class="lab"><svg class="sarrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" focusable="false"><path d="M2 12 H30" stroke="#F2B705" stroke-width="5" stroke-linecap="round"/><path d="M24 4 L36 12 L24 20" fill="none" stroke="#F2B705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Watch this video if you need more help with this step</p><ul>'+list.map(function(x){var v=V[x[1]];
     return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span></li>';}).join("")+'</ul></div>';
 }
 
@@ -1031,7 +1093,7 @@ function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;
 function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
 function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
 function renderNarr(i,revealed){
-  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+paras(s.text);
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+prepHTML(i)+paras(s.text);
   if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
   if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
   else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}

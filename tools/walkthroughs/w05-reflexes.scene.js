@@ -286,25 +286,7 @@ function kneeJerk(a,o){o=o||{};
 /* ---- Oct 5 2026: student actions. waitOn holds a step until the student
    clicks the target (or presses Enter), with a pulsing gold ring and an arrow
    pointing at it. With animation off it goes straight on. ---- */
-/* Oct 5 2026: while a step waits for the student's action, Next stays
-   locked for students (not in preview), so the action cannot be skipped. */
-function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
-function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
-  var g=el("g",{},parent);
-  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
-  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
-  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
-  g.setAttribute("display","none");g._ring=ring;return g;}
-function waitOn(tgt,prm,a){
-  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
-  if(prm)prm.setAttribute("display","");
-  tgt.style.cursor="pointer";
-  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
-    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
-    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
-    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
-    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
-
+/* waitOn, promptAt and lockNext now live in w05-kit.js */
 /* the knee figure, part two: a spindle readout, a foot to push, muscle signs */
 var kTrainG=el("g",{},gKnee);
 tx(kTrainG,60,64,"spindle sensory neuron, firing","tm",14,"start");
@@ -375,6 +357,35 @@ var RAISE=[-32,72];
 var soleHit=el("rect",{x:40,y:200,width:820,height:200,fill:"transparent"},gFoot);
 var solePrompt=promptAt(gFoot,330,150,["Click to stroke the sole","of each foot"],250,300,180,338,30);
 
+/* ---- Oct 5 2026: the four ways to sort a reflex, as a mind map ---- */
+var gMap=G("four2");
+var MC=[450,262];
+var BR=[
+ {q:"What does it control?",qx:150,qy:150,leaves:[["Somatic","skeletal muscle,","like the knee jerk",40,30],["Autonomic","smooth muscle, heart,","glands",230,30]]},
+ {q:"Where is it handled?",qx:530,qy:150,leaves:[["Spinal","in the","spinal cord",500,30],["Cranial","in the","brain",690,30]]},
+ {q:"Born with it or learned?",qx:150,qy:330,leaves:[["Innate","you are","born with it",40,396],["Learned","comes from","experience",230,396]]},
+ {q:"How many connections?",qx:530,qy:330,leaves:[["Monosynaptic","one connection","(synapse)",500,396],["Polysynaptic","two or more","connections",690,396]]}];
+var MAPL=[];
+BR.forEach(function(b,i){
+  var qcx=b.qx+110,qcy=b.qy+22;
+  el("line",{x1:MC[0],y1:MC[1],x2:qcx,y2:qcy,stroke:INK2,"stroke-width":3},gMap);
+  var lv=b.leaves.map(function(L){
+    var lx=L[3]+85,ly=L[4]+(L[4]<200?66:0);
+    var ln=el("line",{x1:qcx,y1:b.qy+(L[4]<200?0:44),x2:lx,y2:ly,stroke:"#C9CED8","stroke-width":3},gMap);
+    var g=el("g",{},gMap);
+    var r=el("rect",{x:L[3],y:L[4],width:170,height:66,rx:12,fill:"#fff",stroke:"#C9CED8","stroke-width":2.5},g);
+    tx(g,L[3]+85,L[4]+22,L[0],"tn",16,"middle");tx(g,L[3]+85,L[4]+41,L[1],"t",12.5,"middle");tx(g,L[3]+85,L[4]+57,L[2],"t",12.5,"middle");
+    return {r:r,ln:ln};});
+  var qb=el("rect",{x:b.qx,y:b.qy,width:220,height:44,rx:22,fill:NAVY},gMap);
+  var qt=el("text",{x:qcx,y:qcy+6,"class":"iw","font-size":15,"text-anchor":"middle"},gMap);qt.textContent=b.q;
+  MAPL.push(lv);});
+el("ellipse",{cx:MC[0],cy:MC[1],rx:92,ry:36,fill:MAROON},gMap);
+var mct=el("text",{x:MC[0],y:MC[1]+7,"class":"iw","font-size":20,"text-anchor":"middle"},gMap);mct.textContent="A reflex";
+var MAPPICK=[1,1,0,1];
+function mapPick(n){MAPL.forEach(function(lv,i){lv.forEach(function(o,j){var on=i<n&&MAPPICK[i]===j;
+  o.r.setAttribute("stroke",on?MAROON:"#C9CED8");o.r.setAttribute("stroke-width",on?5:2.5);o.r.setAttribute("fill",on?"#FBF1EF":"#fff");
+  o.ln.setAttribute("stroke",on?MAROON:"#C9CED8");o.ln.setAttribute("stroke-width",on?5:3);});});}
+
 makeCap();
 
 function resetAll(){
@@ -440,9 +451,9 @@ var STEPS=[
  ask:"Shine a light in someone's eye and the pupil constricts. Give this reflex a label from each of the four ways of sorting.",
  ans:["It is autonomic, because the muscle that narrows the pupil is smooth muscle in the colored part of the eye, the iris. It is cranial, because the decision is made in the brain, not the spinal cord. It is innate: babies are born with it, and it is checked in every newborn exam. And it is polysynaptic. In fact every autonomic reflex is, because the path out of the brain or spinal cord always uses two motor neurons in a row, so there is always more than one connection. Only reflexes that move skeletal muscle can be monosynaptic.", "Autonomic reflexes are also called visceral reflexes, because many involve the internal organs. Some, like emptying the bladder, are handled in the spinal cord, and toilet training is the brain learning to override that simple reflex. Others are handled in the brain, which controls heart rate, blood pressure, breathing, body temperature and reflexes like swallowing, coughing, sneezing and vomiting. Knowing where a reflex is handled tells you where to look when it fails."],
  name:"autonomic reflex",
- desc:"Four rows show the four ways to sort a reflex, each with two choices: somatic or autonomic, spinal or cranial, innate or learned, monosynaptic or polysynaptic. For the pupillary reflex, autonomic, cranial, innate and polysynaptic are outlined in maroon.",
- pre:function(){S(["four","cap"]);fourPick(false);},
- play:function(a){return wait(500,a).then(function(){fourPick(true);cap("The pupil reflex gets one label from each row.");});}},
+ desc:"A mind map with A reflex in a maroon oval at the center and four navy branches, each a question: What does it control? Where is it handled? Born with it or learned? How many connections? Each question splits into two answer boxes with a short explanation: somatic or autonomic, spinal or cranial, innate or learned, monosynaptic or polysynaptic. After the prediction, the pupil reflex's answer on each branch lights up in maroon one at a time: autonomic, cranial, innate, polysynaptic.",
+ pre:function(){S(["four2","cap"]);mapPick(0);},
+ play:function(a){var k=0;function nxt(){if(k>=4)return Promise.resolve();k++;mapPick(k);return wait(550,a).then(nxt);}return nxt().then(function(){cap("The pupil reflex gets one answer on each branch.");});}},
 {sec:"The stretch reflex",comp:"Competency 2",
  title:"A sensor inside the muscle",
  text:["Your muscles have their own sensors that tell your spinal cord and brain where your body is and how hard it is working. Two of them matter most here: the muscle spindle and the Golgi tendon organ.", "A muscle spindle is a tiny capsule tucked in among the ordinary muscle fibers, lying alongside them. Inside it are a few small special fibers, and a sensory nerve ending is wrapped around their middle. Almost every skeletal muscle has many spindles.", "Even when your muscle is relaxed, the middle of the spindle is a little bit stretched, so its sensory neuron is always sending some signals. Watch the readout at the top: a few signals at rest."],
