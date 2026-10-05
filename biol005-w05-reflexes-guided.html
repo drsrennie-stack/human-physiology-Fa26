@@ -540,6 +540,189 @@ var pen=dot(gFoot,GDEEP,8);
 function toeAngle(f,deg){f.toe.setAttribute("transform","rotate("+deg+" "+(f.x+266)+" 280)");}
 function strokeSole(f,a){return run(pen,[[f.x+20,338],[f.x+250,338],[f.x+290,320]],900,a);}
 
+/* ---- Oct 5 2026: the knee jerk as a real leg. The student taps the tendon
+   with the hammer, the signal runs to the cord and back, the quadriceps
+   shortens and the lower leg kicks. ---- */
+var gKnee=G("knee");
+var KP=[436,330];
+/* the cord, top right */
+var KC=[730,140];
+el("circle",{cx:KC[0],cy:KC[1],r:74,fill:"#fff",stroke:NAVY,"stroke-width":3},gKnee);
+el("path",{d:"M690 100 Q705 95 712 120 L720 140 L740 140 L748 120 Q755 95 770 100 L760 135 Q790 150 780 185 Q765 195 748 180 L740 160 L720 160 L712 180 Q695 195 680 185 Q670 150 700 135 Z",fill:TINT,stroke:INK2,"stroke-width":2},gKnee);
+tx(gKnee,KC[0],KC[1]+98,"spinal cord","tn",15,"middle");
+/* dorsal root with its ganglion, ventral root */
+el("line",{x1:700,y1:112,x2:590,y2:70,stroke:MAROON,"stroke-width":4},gKnee);
+el("ellipse",{cx:612,cy:78,rx:22,ry:13,fill:"#fff",stroke:MAROON,"stroke-width":3},gKnee);
+tx(gKnee,612,52,"dorsal root","tm",13,"middle");
+el("line",{x1:705,y1:178,x2:600,y2:224,stroke:NAVY,"stroke-width":4},gKnee);
+tx(gKnee,600,250,"ventral root","tn",13,"middle");
+/* the thigh: femur, quadriceps on top, hamstrings underneath */
+el("rect",{x:70,y:314,width:376,height:32,rx:16,fill:"#EFE6D8",stroke:INK2,"stroke-width":2.5},gKnee);
+var kQuad=el("ellipse",{cx:250,cy:288,rx:178,ry:28,fill:TISS,stroke:MAROON,"stroke-width":3},gKnee);
+var kHam=el("ellipse",{cx:240,cy:372,rx:166,ry:24,fill:TISS,stroke:MAROON,"stroke-width":3},gKnee);
+var kSpin=el("ellipse",{cx:250,cy:288,rx:34,ry:7,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gKnee);
+tx(gKnee,96,250,"quadriceps: straightens the knee","tm",14,"start");
+tx(gKnee,96,418,"hamstrings: bend the knee","t",14,"start");
+tx(gKnee,250,312,"spindle","tn",11,"middle");
+el("line",{x1:420,y1:292,x2:452,y2:302,stroke:INK2,"stroke-width":6,"stroke-linecap":"round"},gKnee);
+/* the lower leg turns at the knee */
+var kLow=el("g",{},gKnee);
+el("rect",{x:416,y:338,width:38,height:180,rx:18,fill:"#EFE6D8",stroke:INK2,"stroke-width":2.5},kLow);
+el("path",{d:"M412 360 Q380 430 412 500 L418 500 L418 360 Z",fill:TISS,stroke:MAROON,"stroke-width":2},kLow);
+el("rect",{x:410,y:506,width:96,height:26,rx:12,fill:"#EFE6D8",stroke:INK2,"stroke-width":2.5},kLow);
+var kTendon=el("line",{x1:462,y1:318,x2:456,y2:378,stroke:INK2,"stroke-width":7,"stroke-linecap":"round"},kLow);
+el("ellipse",{cx:460,cy:306,rx:11,ry:16,fill:"#fff",stroke:INK2,"stroke-width":2.5},kLow);
+el("circle",{cx:KP[0],cy:KP[1],r:22,fill:"#E6DCCB",stroke:INK2,"stroke-width":2.5},gKnee);
+var kTlab=el("g",{},gKnee);
+el("line",{x1:470,y1:350,x2:520,y2:338,stroke:INK2,"stroke-width":1.5},kTlab);
+tx(kTlab,524,342,"patellar tendon","t",13,"start");
+tx(gKnee,482,300,"kneecap","t",12,"start");
+function legAngle(d){kLow.setAttribute("transform","rotate("+d+" "+KP[0]+" "+KP[1]+")");}
+/* the neurons */
+var KSN=[[262,284],[300,210],[560,64],[612,78],[700,112],[712,150],[716,168]];
+var KMN=[[716,176],[705,186],[600,226],[430,246],[330,268]];
+var KIN=[[716,168],[742,176]];
+var KHM=[[742,182],[650,262],[500,420],[320,394]];
+var kSN=poly(gKnee,KSN,MAROON,3.5),kMN=poly(gKnee,KMN,NAVY,3.5);
+var kInhG=el("g",{},gKnee);poly(kInhG,KIN,INK2,3);poly(kInhG,KHM,NAVY,3,"7 6");
+var kSyn=badge(gKnee,716,172,"",GDEEP,9);
+var kD1=dot(gKnee,MAROON,10),kD2=dot(gKnee,NAVY,10),kD3=dot(gKnee,INK2,8);
+var kLabs=el("g",{},gKnee);
+tx(kLabs,410,150,"sensory neuron","tm",14,"start");
+tx(kLabs,470,268,"motor neuron","tn",14,"start");
+var kFive=el("g",{},gKnee);
+[[250,262,"1 receptor: spindle"],[400,128,"2 sensory neuron"],[730,30,"3 integrating center: cord"],[540,214,"4 motor neuron"],[150,226,"5 effector: quadriceps"]].forEach(function(f){var b=badge(kFive,f[0],f[1],f[2].charAt(0),MAROON,12);tx(kFive,f[0]+18,f[1]+5,f[2].slice(2),"tm",13,"start");});
+var kOne=el("g",{},gKnee);el("circle",{cx:716,cy:172,r:22,fill:"none",stroke:GDEEP,"stroke-width":4},kOne);tx(kOne,790,250,"one synapse","tm",15,"middle");
+var kCut=el("g",{},gKnee);el("line",{x1:568,y1:46,x2:600,y2:92,stroke:MAROON,"stroke-width":6},kCut);el("line",{x1:600,y1:46,x2:568,y2:92,stroke:MAROON,"stroke-width":6},kCut);tx(kCut,584,122,"cut","tm",14,"middle");
+/* the hammer, and the prompt to use it */
+var kHam2=el("g",{style:"cursor:pointer"},gKnee);
+el("rect",{x:-60,y:-90,width:150,height:150,fill:"transparent"},kHam2);
+el("rect",{x:6,y:-6,width:90,height:12,rx:5,fill:INK2,transform:"rotate(-35)"},kHam2);
+el("path",{d:"M-14 -16 L14 -16 L18 16 L-18 16 Z",fill:NAVY,transform:"rotate(-35)"},kHam2);
+var KH0=[520,410],KH1=[476,374];
+place(kHam2,KH0[0],KH0[1]);
+var kPrompt=el("g",{},gKnee);
+var kRing=el("circle",{cx:KH0[0],cy:KH0[1],r:34,fill:"none",stroke:GOLD,"stroke-width":4},kPrompt);
+el("path",{d:"M600 392 Q582 396 566 404",fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},kPrompt);
+tx(kPrompt,606,380,"Use the hammer to tap","tm",17,"start");
+tx(kPrompt,606,402,"the patellar tendon","tm",17,"start");
+var kHint=null;
+function kneeReset(){if(typeof kneeExtras==="function")kneeExtras();legAngle(0);kQuad.setAttribute("ry",28);kHam.setAttribute("ry",24);kSpin.setAttribute("rx",34);place(kHam2,KH0[0],KH0[1]);
+  [kD1,kD2,kD3].forEach(function(d){d.setAttribute("display","none");});kSyn.setAttribute("display","none");kTendon.setAttribute("stroke",INK2);}
+/* wait for the student to use the hammer; with no animation, go straight on */
+function waitTap(a){
+  if(!a||reduce){kPrompt.setAttribute("display","none");return Promise.resolve();}
+  kPrompt.setAttribute("display","");
+  return new Promise(function(res){
+    var my=runId,done=false,t;setTimeout(function(){if(!done&&typeof lockNext==="function")lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId&&typeof lockNext==="function")lockNext(false);kHam2.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);kPrompt.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|A/.test((e.target.tagName||""))){e.preventDefault();fin();}}
+    kHam2.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    var k=0;t=setInterval(function(){if(my!==runId){fin();return;}k++;kRing.setAttribute("r",30+((k%10)<5?(k%5):5-(k%5))*2);},70);
+  });
+}
+function strike(a){return tweenPath(kHam2,[KH1],180,a).then(function(){kTendon.setAttribute("stroke",GDEEP);kSpin.setAttribute("rx",42);return tweenPath(kHam2,[KH0],220,a);});}
+/* the whole knee jerk: tendon, spindle, sensory neuron, one synapse, motor neuron, kick */
+function kneeJerk(a,o){o=o||{};
+  return strike(a).then(function(){return run(kD1,o.cut?KSN.slice(0,3).concat([[584,68]]):KSN,o.cut?700:1100,a,!!o.cut);})
+  .then(function(){if(o.cut)return "stop";kSyn.setAttribute("display","");
+    var inh=o.inhibit?run(kD3,KIN.concat(KHM),900,a).then(function(){kHam.setAttribute("ry",20);}):Promise.resolve();
+    return Promise.all([run(kD2,KMN,900,a),inh]);})
+  .then(function(r){if(r==="stop")return;kQuad.setAttribute("ry",36);
+    return tweenVal(0,-34,260,a,legAngle).then(function(){return wait(250,a);}).then(function(){return tweenVal(-34,0,650,a,legAngle);}).then(function(){kQuad.setAttribute("ry",28);});});}
+
+/* ---- Oct 5 2026: student actions. waitOn holds a step until the student
+   clicks the target (or presses Enter), with a pulsing gold ring and an arrow
+   pointing at it. With animation off it goes straight on. ---- */
+/* Oct 5 2026: while a step waits for the student's action, Next stays
+   locked for students (not in preview), so the action cannot be skipped. */
+function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+function waitOn(tgt,prm,a){
+  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
+  if(prm)prm.setAttribute("display","");
+  tgt.style.cursor="pointer";
+  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
+    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
+
+/* the knee figure, part two: a spindle readout, a foot to push, muscle signs */
+var kTrainG=el("g",{},gKnee);
+tx(kTrainG,60,64,"spindle sensory neuron, firing","tm",14,"start");
+el("line",{x1:60,y1:96,x2:360,y2:96,stroke:"#D9DCE3","stroke-width":1.5},kTrainG);
+var kTr=trainPath(kTrainG,MAROON,2.5);
+function kRest(k){return trainWin(60,96,300,0,k,Math.round(5*k),22);}
+function kFast(k){return trainWin(60,96,300,0,k,Math.round(18*k),22);}
+var kPushHit=el("rect",{x:395,y:330,width:130,height:215,fill:"transparent"},kLow);
+var kPromptS=promptAt(gKnee,560,446,["Push the foot back to","stretch the quadriceps"],512,500,458,519,36);
+var kQb=badge(gKnee,330,262,"+",MAROON,13),kHb=badge(gKnee,330,402,"",NAVY,13);setBadge(kHb,M,NAVY);
+var kHrel=tx(gKnee,360,446,"hamstrings relax","tn",14,"start");
+function kneeExtras(){kTrainG.setAttribute("display","none");kTr.setAttribute("d","");kPromptS.setAttribute("display","none");
+  kQb.setAttribute("display","none");kHb.setAttribute("display","none");kHrel.setAttribute("display","none");kQuad.setAttribute("rx",178);}
+function stretchReflex(a){
+  return Promise.all([tweenVal(0,26,700,a,legAngle),tweenVal(178,192,700,a,function(v){kQuad.setAttribute("rx",v);}),tweenVal(34,46,700,a,function(v){kSpin.setAttribute("rx",v);})])
+  .then(function(){return growTrain(kTr,kFast,800,a);})
+  .then(function(){return run(kD1,KSN,900,a);})
+  .then(function(){kSyn.setAttribute("display","");return run(kD2,KMN,800,a);})
+  .then(function(){kQuad.setAttribute("ry",36);kQb.setAttribute("display","");
+    return Promise.all([tweenVal(26,0,700,a,legAngle),tweenVal(192,178,700,a,function(v){kQuad.setAttribute("rx",v);}),tweenVal(46,34,700,a,function(v){kSpin.setAttribute("rx",v);})]);})
+  .then(function(){kQuad.setAttribute("ry",28);});}
+
+/* ---- two real legs for the withdrawal and crossed extensor reflexes ---- */
+var gLegs2=G("legs2");
+el("line",{x1:60,y1:488,x2:840,y2:488,stroke:INK2,"stroke-width":3},gLegs2);
+el("ellipse",{cx:450,cy:110,rx:118,ry:78,fill:"#fff",stroke:NAVY,"stroke-width":4},gLegs2);
+el("line",{x1:450,y1:32,x2:450,y2:188,stroke:INK2,"stroke-width":1.5,"stroke-dasharray":"6 6"},gLegs2);
+tx(gLegs2,450,24,"spinal cord","tn",15,"middle");
+LIN.forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:9,fill:INK2},gLegs2);});
+function makeLeg(hx,hy,lab){
+  var L={hx:hx,hy:hy,_th:0,_sh:0};
+  var g=el("g",{},gLegs2);
+  tx(g,hx,hy-34,lab,"tn",17,"middle");
+  el("circle",{cx:hx,cy:hy-8,r:22,fill:"#E6DCCB",stroke:INK2,"stroke-width":2.5},g);
+  L.thigh=el("g",{},g);
+  L.fl=el("ellipse",{cx:hx-22,cy:hy+62,rx:10,ry:50,fill:TISS,stroke:MAROON,"stroke-width":2.5},L.thigh);
+  L.ex=el("ellipse",{cx:hx+22,cy:hy+62,rx:10,ry:50,fill:TISS,stroke:MAROON,"stroke-width":2.5},L.thigh);
+  el("rect",{x:hx-14,y:hy,width:28,height:128,rx:14,fill:"#EFE6D8",stroke:INK2,"stroke-width":2.5},L.thigh);
+  tx(L.thigh,hx-38,hy+40,"flexors","t",12,"end");tx(L.thigh,hx+38,hy+40,"extensors","t",12,"start");
+  L.shin=el("g",{},L.thigh);
+  el("rect",{x:hx-12,y:hy+122,width:24,height:126,rx:12,fill:"#EFE6D8",stroke:INK2,"stroke-width":2.5},L.shin);
+  el("rect",{x:hx-14,y:hy+240,width:72,height:22,rx:10,fill:"#EFE6D8",stroke:INK2,"stroke-width":2.5},L.shin);
+  el("circle",{cx:hx,cy:hy+125,r:15,fill:"#E6DCCB",stroke:INK2,"stroke-width":2.5},L.thigh);
+  L.bF=badge(L.thigh,hx-22,hy+18,"",MAROON,15);L.bE=badge(L.thigh,hx+22,hy+18,"",NAVY,15);
+  L.bF.setAttribute("display","none");L.bE.setAttribute("display","none");
+  return L;}
+var LR=makeLeg(200,226,"right leg"),LL=makeLeg(700,226,"left leg");
+function legPose(L,th,sh){L._th=th;L._sh=sh;L.thigh.setAttribute("transform","rotate("+th+" "+L.hx+" "+L.hy+")");L.shin.setAttribute("transform","rotate("+sh+" "+L.hx+" "+(L.hy+125)+")");}
+function legTo(L,th,sh,dur,a){var t0=L._th,s0=L._sh;return tweenVal(0,1,dur,a,function(k){legPose(L,t0+(th-t0)*k,s0+(sh-s0)*k);});}
+function musc(L,f,e){L.fl.setAttribute("rx",f?15:10);L.ex.setAttribute("rx",e?15:10);}
+var tack=el("g",{},gLegs2);
+el("polygon",{points:"212,488 226,466 240,488",fill:GDEEP},tack);
+el("rect",{x:196,y:452,width:64,height:40,fill:"transparent"},tack);
+tx(gLegs2,270,482,"tack","t",13,"start");
+var tackPrompt=promptAt(gLegs2,300,420,["Click the tack to","step on it"],242,462,226,476,28);
+var dN=dot(gLegs2,MAROON,9);
+/* the old two-column badges now live on the new legs */
+bRF=LR.bF;bRE=LR.bE;bLF=LL.bF;bLE=LL.bE;
+/* the crossing paths, rerouted to the new legs */
+(function(){var l=REG.cross.childNodes;
+  l[0].setAttribute("points","226,470 150,420 150,180 300,130 420,110");
+  l[2].setAttribute("points","480,110 600,130 684,236");
+  l[3].setAttribute("points","420,110 300,150 186,236");}());
+function legsReset(){legPose(LR,0,0);legPose(LL,0,0);musc(LR,0,0);musc(LL,0,0);tackPrompt.setAttribute("display","none");}
+var RAISE=[-32,72];
+
+/* the plantar response: the student strokes each sole */
+var soleHit=el("rect",{x:40,y:200,width:820,height:200,fill:"transparent"},gFoot);
+var solePrompt=promptAt(gFoot,330,150,["Click to stroke the sole","of each foot"],250,300,180,338,30);
+
 makeCap();
 
 function resetAll(){
@@ -563,235 +746,220 @@ var STEPS=[
 /* ---- 1. the arc ---- */
 {sec:"The reflex arc",comp:"Competency 1",
  title:"A tap below the knee",
- text:["A reflex hammer taps the tendon just below the kneecap, and the lower leg kicks forward. It happens before the person has decided anything, and it happens the same way every time.","On the left are two muscle groups of the thigh: the quadriceps on top, which straightens the knee, and the hamstrings below, which bend it. On the right is a cross section of the spinal cord, with the dorsal root entering at the back and the ventral root leaving at the front."],
+ text:["A reflex hammer taps the tendon just below the kneecap, and the lower leg kicks forward. It happens before the person has decided anything, and it happens the same way every time.", "The figure shows a leg from the side, bent at the knee. The quadriceps runs along the top of the thigh and straightens the knee; the hamstrings run underneath and bend it. The patellar tendon runs from the kneecap to the shinbone. At the top right is a cross section of the spinal cord, with the dorsal root entering at the back and the ventral root leaving at the front. Use the hammer and watch what happens."],
  auto:true,
- desc:"Two thigh muscles are drawn on the left, the quadriceps on top and the hamstrings below, each ending in a tendon. A hammer taps the quadriceps tendon. On the right is a spinal cord cross section with gray matter shaped like a butterfly, a dorsal root at the back and a ventral root at the front.",
- pre:function(){S(W(["hammer"]));},
- play:function(a){return tap(a).then(function(){cap("Tap the tendon, the leg kicks");});}},
-
+ desc:"A leg drawn from the side, bent at the knee, with the quadriceps along the top of the thigh, the hamstrings underneath, the kneecap, and the patellar tendon running to the shinbone. A spinal cord cross section sits at the top right. A gold arrow points to a reflex hammer with the words Use the hammer to tap the patellar tendon. When the student clicks the hammer, it strikes the tendon, the quadriceps thickens, and the lower leg swings forward and back.",
+ pre:function(){S(["knee","cap"]);kneeReset();kSN.setAttribute("display","none");kMN.setAttribute("display","none");kInhG.setAttribute("display","none");kLabs.setAttribute("display","none");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");},
+ play:function(a){cap("");return waitTap(a).then(function(){return strike(a);}).then(function(){kQuad.setAttribute("ry",36);return tweenVal(0,-34,260,a,legAngle);}).then(function(){return wait(250,a);}).then(function(){return tweenVal(-34,0,650,a,legAngle);}).then(function(){kQuad.setAttribute("ry",28);cap("You tapped the tendon, and the leg kicked.");});}},
 {title:"Where the signal goes",
  text:["The tap stretches the quadriceps for a moment. Somewhere a sensor detects that stretch, and somewhere a decision is made to contract the same muscle."],
  ask:"Trace the path you think the signal takes from the stretched muscle to the muscle contracting. Where does it have to go, and where is the decision made?",
- ans:["Into the spinal cord and straight back out. A sensory neuron carries the signal from a stretch receptor in the muscle through the dorsal root into the cord. Inside the cord it synapses on a motor neuron, and the motor neuron carries the signal out through the ventral root to the quadriceps, which contracts. The brain is not in this loop, which is why the kick comes before you know about the tap.","A pathway with these five parts is a reflex arc: a receptor, a sensory (afferent) neuron, an integrating center, here the spinal cord, a motor (efferent) neuron, and an effector, here the quadriceps. Sensory information always enters the cord through the dorsal root, and motor output always leaves through the ventral root."],
+ ans:["Into the spinal cord and straight back out. A sensory neuron carries the message from a stretch sensor in the quadriceps into the spinal cord through the dorsal root, the back root. Inside the cord it passes the message to a motor neuron, which carries it back out through the ventral root, the front root, to the quadriceps. The quadriceps contracts and the leg kicks. The brain is not part of this loop, which is why your leg kicks before you even know you were tapped.", "A path with these five parts is called a reflex arc: a receptor, a sensory neuron, an integrating center where the decision is made (here, the spinal cord), a motor neuron, and an effector, the muscle or gland that responds (here, the quadriceps). Sensory messages always come into the cord through the dorsal root, and motor messages always leave through the ventral root."],
  name:"reflex arc",
- desc:"A maroon sensory neuron runs from a spindle inside the quadriceps, through the dorsal root and its ganglion, into the gray matter, down to a navy motor neuron in the ventral horn. The motor neuron leaves through the ventral root and runs back to the quadriceps. A dot travels the loop, the quadriceps thickens, and labels number the five parts.",
- pre:function(){S(W(["hammer","spin","five","sig","sign"]));},
- play:function(a){return tap(a).then(function(){return Promise.all([drawIn("ia",1300,a),run(dA,IA,1300,a)]);}).then(function(){return Promise.all([drawIn("mne",1000,a),run(dB,MNE,1000,a)]);})
-   .then(function(){bulge(quad,true,QY,QH);signs("+",null);FL.forEach(function(t){t.setAttribute("display","");});cap("Receptor, sensory, center, motor, effector");});}},
-
+ desc:"The leg and cord with the neurons drawn in: a maroon sensory neuron from the spindle in the quadriceps up through the dorsal root and its ganglion into the cord, and a navy motor neuron from the ventral horn out through the ventral root back to the quadriceps. The student taps the tendon with the hammer; a maroon dot runs up the sensory neuron, a gold synapse lights in the cord, a navy dot runs back down the motor neuron, the quadriceps thickens and the leg kicks. Numbered labels then name the five parts of the reflex arc.",
+ pre:function(){S(["knee","cap"]);kneeReset();kSN.setAttribute("display","");kMN.setAttribute("display","");kInhG.setAttribute("display","none");kLabs.setAttribute("display","");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");},
+ play:function(a){cap("");return waitTap(a).then(function(){return kneeJerk(a);}).then(function(){kLabs.setAttribute("display","none");kFive.setAttribute("display","");cap("The signal went from the muscle to the cord and back.");});}},
 {title:"Counting synapses",
  text:["Look at the path inside the gray matter on the figure. The sensory neuron enters, runs down to the ventral horn, and ends on the motor neuron."],
- ask:"How many synapses does the knee jerk signal cross inside the cord? What does that number buy, and what does it cost?",
- ans:["One. The pathway has only two neurons, a sensory afferent and an efferent somatic motor neuron, joined by a single synapse in the spinal cord (the synapse between the motor neuron and the muscle is not counted). That makes it a monosynaptic reflex. Every synapse adds a short delay, roughly half a millisecond, so one synapse makes this the fastest kind of reflex there is.", "What it costs is flexibility. Most reflexes have three or more neurons and at least two synapses, with interneurons between the sensory and motor neurons, which makes them polysynaptic reflexes. Interneurons allow divergence, so one stimulus can reach many targets, and convergence, so input from many sources can modify the response, and they can excite or inhibit."],
+ ask:"How many connections, or synapses, does the knee jerk signal cross inside the spinal cord? Why does having so few make it fast, and what can a reflex with only one connection not do?",
+ ans:["Just one. There are only two neurons, the sensory neuron and the motor neuron, and they connect once inside the spinal cord. (The connection between the motor neuron and the muscle does not count here.) A reflex with one connection is called monosynaptic. Each connection adds a tiny delay, about half a thousandth of a second, so one connection makes this the fastest kind of reflex.", "The trade-off is that it can only do one simple thing. Most reflexes have extra neurons in the middle, called interneurons, so they have two or more connections; these are called polysynaptic. Interneurons let one signal spread to many muscles, let several signals combine, and can calm a neuron down as well as excite it. A one-connection reflex can do none of that."],
  name:"monosynaptic reflex",
- desc:"The sensory neuron and the motor neuron are shown meeting at a single point in the ventral horn, marked as one synapse.",
- pre:function(){S(W(["spin","ia","mne","sig"]));},
- play:function(a){return run(dA,IA,1100,a,true).then(function(){cap("One synapse in the cord: monosynaptic");});}},
-
+ desc:"The student taps the tendon again. As the signal passes through the cord, a gold ring circles the single point where the sensory neuron meets the motor neuron, labeled one synapse.",
+ pre:function(){S(["knee","cap"]);kneeReset();kSN.setAttribute("display","");kMN.setAttribute("display","");kInhG.setAttribute("display","none");kLabs.setAttribute("display","");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");},
+ play:function(a){cap("");return waitTap(a).then(function(){return kneeJerk(a);}).then(function(){kOne.setAttribute("display","");cap("Only one connection inside the cord.");});}},
 {title:"Cutting the dorsal root",
  text:["An injury cuts the dorsal root on this side at this level of the cord, and leaves the ventral root intact."],
  ask:"After the cut, does the knee jerk still happen? Can the person feel the tap? Can they still straighten the knee on purpose?",
- ans:["The knee jerk is lost, because the sensory signal can no longer enter the cord, so the arc is broken at step 2. The person cannot feel the tap either, because the same dorsal root carries that information on its way up to the brain.","But they can still straighten the knee on purpose. Voluntary commands come down the cord from the brain to the same motor neurons, and those motor neurons still reach the muscle through the intact ventral root. A cut ventral root would give the opposite pattern for movement: the tap would still be felt, but neither the reflex nor voluntary movement would reach the muscle. Keeping sensation and movement separate is how a lesion is located."],
- desc:"A maroon X cuts the dorsal root. A dot traveling along the sensory neuron stops at the cut and never reaches the cord. The motor neuron and the ventral root are intact.",
- pre:function(){S(W(["hammer","spin","ia","mne","cut","sig"]));},
- play:function(a){return tap(a).then(function(){return run(dA,IA.slice(0,3),900,a,true);}).then(function(){cap("No signal in, no reflex, no feeling");});}},
-
+ ans:["The knee jerk is gone, because the message from the muscle can no longer get into the spinal cord. The person also cannot feel the tap, because that same back root carries the feeling up toward the brain.", "But they can still straighten the knee on purpose. Commands from the brain travel down the spinal cord to the same motor neurons, and those still reach the muscle through the front root, which is not cut. If the front root were cut instead, the opposite would happen: they could feel the tap, but neither the reflex nor a voluntary kick would reach the muscle. Checking feeling and movement separately like this is how clinicians figure out where an injury is."],
+ desc:"A maroon X cuts the dorsal root. The student taps the tendon; the maroon dot runs up the sensory neuron and stops at the cut. Nothing reaches the cord, the quadriceps stays the same, and the leg does not move.",
+ pre:function(){S(["knee","cap"]);kneeReset();kSN.setAttribute("display","");kMN.setAttribute("display","");kInhG.setAttribute("display","none");kLabs.setAttribute("display","");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","");kPrompt.setAttribute("display","none");},
+ play:function(a){cap("");return waitTap(a).then(function(){return kneeJerk(a,{cut:true});}).then(function(){cap("The signal stops at the cut, so the leg does not move.");});}},
 {sec:"Kinds of reflexes",comp:"Competency 1",
  title:"Every reflex follows one path",
- text:["Every neural reflex follows the same pathway: a stimulus activates a sensory receptor, sensory afferent neurons carry action potentials to the central nervous system, the CNS integrates the information and selects a response, and efferent neurons direct the muscles or glands that carry it out. Many reflexes use negative feedback, and some have a feedforward part that starts the response before the stimulus arrives, like bracing yourself before a collision."],
+ text:["Every reflex your nervous system makes follows the same five-part path. Something happens, like a tap or a hot stove; that is the stimulus. A sensor picks it up. A sensory neuron carries the message to your spinal cord or brain. The spinal cord or brain decides what to do. Then a motor neuron carries the order out to a muscle or gland, which responds.", "Most reflexes work to undo a change, which is called negative feedback. Some also get a head start, which is called feedforward: you brace yourself before a collision, before anything has even hit you."],
  name:"reflex pathway",
  auto:true,
  desc:"Boxes light up in order along the path of every neural reflex: stimulus, receptor, sensory neuron, integrating center in the CNS, efferent neuron, target, response. A second row shows that in autonomic reflexes the efferent side is two neurons, preganglionic and postganglionic, with a synapse in an autonomic ganglion.",
  pre:function(){S(["flow","cap"]);flowShow(0);flowAuto(false);},
- play:function(a){var k=0;function nxt(){if(k>=7)return Promise.resolve();k++;flowShow(k);return wait(260,a).then(nxt);}return nxt().then(function(){flowAuto(true);cap("Receptor to target, every time");});}},
+ play:function(a){var k=0;function nxt(){if(k>=7)return Promise.resolve();k++;flowShow(k);return wait(260,a).then(nxt);}return nxt().then(function(){flowAuto(true);cap("Every reflex uses this same path.");});}},
 
 {title:"Four ways to sort a reflex",
- text:["Reflexes are sorted four ways, and any one reflex gets a label from each. By the efferent division: somatic reflexes use somatic motor neurons and skeletal muscle, like the knee jerk; autonomic reflexes use autonomic neurons to control smooth muscle, cardiac muscle, glands and adipose tissue. By where they are integrated: spinal reflexes in the spinal cord, which the brain can modulate but is not needed for, and cranial reflexes in the brain. By when they develop: innate reflexes are genetically determined, like the rooting reflex a newborn shows when its cheek is stroked, and learned, or conditioned, reflexes come from experience, like Pavlov's dogs salivating at the sound of a bell. By the number of neurons: monosynaptic or polysynaptic."],
+ text:["Scientists sort reflexes in four ways, and every reflex gets one label from each.", "First, what does it control? Somatic reflexes move skeletal muscles, like the knee jerk. Autonomic reflexes control smooth muscle, the heart, glands and fat tissue.", "Second, where is the decision made? Spinal reflexes are handled in the spinal cord. Cranial reflexes are handled in the brain.", "Third, were you born with it? Innate reflexes are built in, like a newborn turning toward a touch on the cheek. Learned reflexes come from experience, like Pavlov's dogs drooling when they heard the bell that meant food.", "Fourth, how many neurons are in the path? Monosynaptic reflexes have one connection, called a synapse, between the sensory and motor neuron. Polysynaptic reflexes have two or more."],
  ask:"Shine a light in someone's eye and the pupil constricts. Give this reflex a label from each of the four ways of sorting.",
- ans:["It is an autonomic reflex, because its effector is smooth muscle in the iris, controlled by parasympathetic neurons. It is a cranial reflex, integrated in the brain rather than the spinal cord. It is innate: it is one of the reflexes tested in every newborn exam. And it is polysynaptic. In fact every autonomic reflex is: the efferent side always has two neurons, a preganglionic neuron from the CNS and a postganglionic neuron from an autonomic ganglion, so there is at least one synapse in the CNS and another in the ganglion. Only somatic motor reflexes can be monosynaptic.", "Autonomic reflexes are also called visceral reflexes, because they often involve the internal organs. Some, like urination and defecation, are spinal reflexes that the brain modulates; toilet training is a learned control laid over that simple spinal reflex. Others are integrated in the brain: the hypothalamus, thalamus and brain stem coordinate heart rate, blood pressure, breathing, eating, water balance and body temperature, and the brain stem holds the centers for salivating, vomiting, sneezing, coughing, swallowing and gagging. Sorting a reflex this way also tells you where to look when it fails."],
+ ans:["It is autonomic, because the muscle that narrows the pupil is smooth muscle in the colored part of the eye, the iris. It is cranial, because the decision is made in the brain, not the spinal cord. It is innate: babies are born with it, and it is checked in every newborn exam. And it is polysynaptic. In fact every autonomic reflex is, because the path out of the brain or spinal cord always uses two motor neurons in a row, so there is always more than one connection. Only reflexes that move skeletal muscle can be monosynaptic.", "Autonomic reflexes are also called visceral reflexes, because many involve the internal organs. Some, like emptying the bladder, are handled in the spinal cord, and toilet training is the brain learning to override that simple reflex. Others are handled in the brain, which controls heart rate, blood pressure, breathing, body temperature and reflexes like swallowing, coughing, sneezing and vomiting. Knowing where a reflex is handled tells you where to look when it fails."],
  name:"autonomic reflex",
  desc:"Four rows show the four ways to sort a reflex, each with two choices: somatic or autonomic, spinal or cranial, innate or learned, monosynaptic or polysynaptic. For the pupillary reflex, autonomic, cranial, innate and polysynaptic are outlined in maroon.",
  pre:function(){S(["four","cap"]);fourPick(false);},
- play:function(a){return wait(500,a).then(function(){fourPick(true);cap("Pupil: autonomic, cranial, innate, polysynaptic");});}},
+ play:function(a){return wait(500,a).then(function(){fourPick(true);cap("The pupil reflex gets one label from each row.");});}},
 {sec:"The stretch reflex",comp:"Competency 2",
  title:"A sensor inside the muscle",
- text:["Skeletal muscle reflexes run on information from proprioceptors, receptors in muscles, joint capsules and ligaments that report body position, movement and effort. The two that matter most are the muscle spindle and the Golgi tendon organ. Both are nerve endings inside connective tissue capsules, and both use mechanically gated cation channels. Joint receptors contribute less than was once thought: people with artificial joints still make fine movements.", "Muscle spindles are scattered among the ordinary contractile fibers, the extrafusal fibers, and lie parallel to them; every skeletal muscle has many, except one muscle in the jaw. Each spindle is a capsule around a few small intrafusal fibers, whose ends can contract but whose central region has no myofibrils. Sensory endings wrap that central region. At the muscle's resting length the center is already stretched enough to fire them, so spindle sensory neurons are tonically active and slowly adapting."],
+ text:["Your muscles have their own sensors that tell your spinal cord and brain where your body is and how hard it is working. Two of them matter most here: the muscle spindle and the Golgi tendon organ.", "A muscle spindle is a tiny capsule tucked in among the ordinary muscle fibers, lying alongside them. Inside it are a few small special fibers, and a sensory nerve ending is wrapped around their middle. Almost every skeletal muscle has many spindles.", "Even when your muscle is relaxed, the middle of the spindle is a little bit stretched, so its sensory neuron is always sending some signals. Watch the readout at the top: a few signals at rest."],
  name:"muscle spindle",
  auto:true,
- desc:"The spindle inside the quadriceps is drawn as a small capsule lying parallel to the muscle, with a gold sensory ending wrapped around its middle. A readout above shows the spindle afferent firing a few evenly spaced spikes at rest.",
- pre:function(){S(W(["spin","ia","tr1"]));},
- play:function(a){return growTrain(tr1,function(k){return trainWin(66,56,308,0,k,Math.round(5*k),26);},900,a).then(function(){cap("Spindles fire even at rest");});}},
-
+ desc:"The leg figure, with the muscle spindle inside the quadriceps and its maroon sensory neuron running to the spinal cord. A readout at the top left draws the spindle sensory neuron firing a few evenly spaced spikes while the leg hangs at rest.",
+ pre:function(){S(["knee","cap"]);kneeReset();kneeExtras();kSN.setAttribute("display","");kMN.setAttribute("display","none");kInhG.setAttribute("display","none");kLabs.setAttribute("display","none");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");kTrainG.setAttribute("display","");},
+ play:function(a){return growTrain(kTr,kRest,1100,a).then(function(){cap("The spindle sends signals even when you are still.");});}},
 {title:"Stretch the muscle",
  text:["Try it on a friend whose eyes are closed: their arm is held out, elbow bent, palm up, holding a book. You suddenly add a second book. Or the quadriceps is pulled longer by a tendon tap."],
  ask:"What happens to the spindle's firing rate, and what does the stretched muscle do in response?",
- ans:["The added weight pulls the hand down and stretches the biceps and its spindles. The spindle afferents fire faster, and in the spinal cord they synapse directly on the alpha motor neurons of that same muscle. The biceps contracts and brings the arm back up, and as the stretch is undone, the spindles slow down again.", "This is the stretch reflex, a protective reflex that prevents damage from overstretching. It is negative feedback on muscle length: stretch is the disturbance, and the response opposes it. The knee jerk is the same reflex, set off by a tap."],
+ ans:["The extra weight pulls the hand down, which stretches the biceps and the spindles inside it. The spindles fire faster. In the spinal cord, their sensory neurons connect directly to the motor neurons of that same muscle, so the biceps contracts and lifts the arm back up. As the stretch goes away, the spindles slow down again.", "This is the stretch reflex. It protects a muscle from being overstretched, and it works by undoing the change: the muscle is stretched, so it pulls back. The knee jerk is the same reflex, set off by a tap instead of a weight."],
  name:"stretch reflex",
- desc:"The quadriceps is stretched. The spindle readout jumps from a few spikes to many closely packed spikes. A dot runs along the sensory neuron into the cord and back out along the motor neuron, and the quadriceps thickens, marked with a plus sign.",
- pre:function(){S(W(["spin","ia","mne","tr1","sig","sign"]));tr1.setAttribute("d",R1(0));},
- play:function(a){return growTrain(tr1,R1,700,a).then(function(){return run(dA,IA,1100,a);}).then(function(){return run(dB,MNE,900,a);}).then(function(){bulge(quad,true,QY,QH);signs("+",null);cap("Stretch in, contraction out");});}},
-
+ desc:"A gold arrow asks the student to push the foot back to stretch the quadriceps. When they click the lower leg, the knee bends further, the quadriceps and the spindle inside it lengthen, and the readout fills with closely packed spikes. A maroon dot runs up the sensory neuron, a navy dot runs back down the motor neuron, the quadriceps thickens with a plus sign, and the leg swings back to where it started.",
+ pre:function(){S(["knee","cap"]);kneeReset();kneeExtras();kSN.setAttribute("display","");kMN.setAttribute("display","");kInhG.setAttribute("display","none");kLabs.setAttribute("display","");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");kTrainG.setAttribute("display","");kTr.setAttribute("d",kRest(1));},
+ play:function(a){cap("");return waitOn(kPushHit,kPromptS,a).then(function(){return stretchReflex(a);}).then(function(){cap("Stretch the muscle, and it pulls back.");});}},
 {title:"The muscle on the other side",
- text:["Movement at a joint is controlled by groups of synergistic and antagonistic muscles linked by diverging and converging interneuron pathways in the cord; the set of pathways controlling one joint is a myotatic unit. The hamstrings pull the knee the opposite way from the quadriceps. And no neuron ever inhibits a skeletal muscle directly: excitation always means contraction, and a skeletal muscle relaxes only when its motor neuron stops exciting it."],
- ask:"So what must happen to the hamstrings while the quadriceps contracts, and where must that be arranged?",
- ans:["The hamstrings have to relax, and since a muscle cannot be inhibited at the muscle, it has to be arranged inside the spinal cord. The spindle afferent branches as it enters the cord. Some branches excite the quadriceps motor neurons; others synapse on inhibitory interneurons, which suppress the motor neurons to the hamstrings. With no excitation, the hamstrings relax and the quadriceps contracts unopposed.", "This is reciprocal inhibition, the polysynaptic branch of the knee jerk. Without that interneuron, both muscles would contract together, the knee would stiffen, and the kick would be weak."],
+ text:["Muscles work in pairs around a joint. The quadriceps straightens the knee, and the hamstrings bend it, so they pull in opposite directions.", "One more fact you need: nerves can only tell a skeletal muscle to contract. There is no signal that tells a muscle to relax. A muscle relaxes only when its motor neuron goes quiet."],
+ ask:"While the quadriceps contracts, what has to happen to the hamstrings so the knee can straighten? Where in the body is that decided?",
+ ans:["The hamstrings have to relax, or they would fight the quadriceps and the knee could not straighten. Because a muscle cannot be told to relax directly, this is arranged inside the spinal cord. The sensory neuron from the spindle splits into branches. Some branches excite the motor neurons to the quadriceps. Others connect to a small calming neuron, an inhibitory interneuron, which quiets the motor neurons to the hamstrings. With no signal coming in, the hamstrings relax.", "This is called reciprocal inhibition. Without that calming neuron, both muscles would contract at once, the knee would stiffen, and the kick would be weak."],
  name:"reciprocal inhibition",
- desc:"A gray inhibitory interneuron sits in the middle of the gray matter. The sensory signal splits: one dot goes to the quadriceps motor neuron, which thickens the quadriceps and earns a plus sign; another goes through the interneuron to the dashed hamstring motor neuron, and the hamstrings get a minus sign.",
- pre:function(){S(W(["spin","ia","mne","sig","sign"]));},
- play:function(a){return run(dA,IA.slice(0,6),900,a).then(function(){return Promise.all([run(dB,MNE,900,a),drawIn("inh",700,a),run(dC,INH,700,a)]);}).then(function(){return drawIn("mnf",700,a);}).then(function(){bulge(quad,true,QY,QH);signs("+",M);cap("Agonist excited, antagonist inhibited");});}},
-
+ desc:"The leg figure with a gray inhibitory interneuron in the cord and a dashed navy motor neuron to the hamstrings. The student taps the tendon with the hammer. The sensory signal splits: one dot goes to the quadriceps motor neuron and the quadriceps thickens with a plus sign; another goes through the interneuron to the hamstring motor neuron, and the hamstrings thin with a minus sign and the label hamstrings relax. The leg kicks.",
+ pre:function(){S(["knee","cap"]);kneeReset();kneeExtras();kSN.setAttribute("display","");kMN.setAttribute("display","");kInhG.setAttribute("display","");kLabs.setAttribute("display","");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");},
+ play:function(a){cap("");return waitTap(a).then(function(){return kneeJerk(a,{inhibit:true});}).then(function(){kQb.setAttribute("display","");kHb.setAttribute("display","");kHrel.setAttribute("display","");cap("The quadriceps contracts while the hamstrings relax.");});}},
 {title:"Keeping the spindle taut",
  text:["During a strong voluntary contraction, the quadriceps shortens. The spindle lies alongside the working fibers, so it shortens too."],
  ask:"If only the alpha motor neurons fired, what would happen to the spindle and to the information it sends?",
- ans:["The spindle would go slack. A slack spindle is not stretched, so its afferent would fall silent, and the cord would lose information about the muscle's length just when that information matters.","Gamma motor neurons prevent this. They contract the two ends of the intrafusal fibers, which keeps the middle of the spindle stretched as the muscle shortens. The brain fires alpha and gamma motor neurons together, which is called alpha-gamma coactivation, so the spindle keeps reporting at every muscle length."],
+ ans:["The spindle would go loose. A loose spindle is not stretched, so it would go quiet, and the spinal cord would lose track of the muscle's length right when it matters most.", "Special motor neurons called gamma motor neurons fix this. They tighten the two ends of the fibers inside the spindle, which keeps its middle stretched while the whole muscle shortens. The brain fires the regular motor neurons and the gamma motor neurons together, which is called alpha-gamma coactivation, so the spindle keeps reporting at every length."],
  name:"alpha-gamma coactivation",
  desc:"The quadriceps thickens and shortens, and the spindle flattens to a thin slack line while its readout drops to almost nothing. Then a gold dashed gamma motor neuron fires into the ends of the spindle, the spindle returns to its full shape, and the readout recovers.",
  pre:function(){S(W(["spin","ia","tr1","sig"]));tr1.setAttribute("d",R1(0.2));},
- play:function(a){bulge(quad,true,QY,QH);spinSlack(true);tr1.setAttribute("d",trainWin(66,56,308,0,1,1,26));cap("Slack spindle, almost silent");
-   return wait(900,a).then(function(){return Promise.all([drawIn("gam",1000,a),run(dD,GAM,1000,a)]);}).then(function(){spinSlack(false);tr1.setAttribute("d",R1(0.3));cap("Gamma neurons keep it taut");});}},
+ play:function(a){bulge(quad,true,QY,QH);spinSlack(true);tr1.setAttribute("d",trainWin(66,56,308,0,1,1,26));cap("A loose spindle goes almost quiet.");
+   return wait(900,a).then(function(){return Promise.all([drawIn("gam",1000,a),run(dD,GAM,1000,a)]);}).then(function(){spinSlack(false);tr1.setAttribute("d",R1(0.3));cap("Gamma motor neurons keep the spindle tight.");});}},
 
 /* ---- 3. the tendon organ ---- */
 {sec:"The Golgi tendon organ",comp:"Competency 3",
  title:"A sensor in the tendon",
- text:["The second proprioceptor sits where the muscle fibers join the tendon. A Golgi tendon organ is a capsule of tendon collagen fibers with free nerve endings wound between them. It lies in series with the muscle fibers, so when the muscle contracts, the tendon is pulled tight like a stretched elastic, the collagen squeezes the nerve endings, and they fire.", "The tendon organ responds mainly to the tension the muscle creates, especially when a muscle is pulling without shortening, and it is relatively insensitive to stretch. The spindle reports length; the tendon organ reports tension."],
+ text:["The second sensor sits where the muscle joins its tendon. A Golgi tendon organ is a small bundle of tendon fibers with nerve endings woven between them.", "When the muscle pulls, the tendon tightens like a stretched rubber band, the fibers squeeze the nerve endings, and they fire. So the tendon organ mostly tells you how hard the muscle is pulling, and is not very sensitive to stretch.", "To keep the two sensors straight: the spindle reports how long the muscle is, and the tendon organ reports how hard it is pulling."],
  name:"Golgi tendon organ",
  auto:true,
  desc:"A small gold zigzag at the junction of the quadriceps and its tendon marks the tendon organ. Its gold afferent runs up and into the dorsal root, beside the spindle afferent.",
  pre:function(){S(W(["gto","ib"]));},
- play:function(a){return wait(300,a).then(function(){cap("In series: it feels tension");});}},
+ play:function(a){return wait(300,a).then(function(){cap("The tendon organ feels how hard the muscle pulls.");});}},
 
 {title:"Lifting a heavier load",
  text:["You hold a load with the knee straight and the load is slowly increased. The quadriceps contracts harder and harder to hold it."],
  ask:"As tension rises, what does the tendon organ afferent do, and what does its reflex do to the quadriceps?",
- ans:["Its firing rate climbs with the tension. In the classic model, its signal excites an inhibitory interneuron in the cord, which inhibits the motor neurons of the same muscle, so the reflex reduces the force the muscle makes. This is the Golgi tendon reflex, also called autogenic inhibition: the spindle reflex makes its own muscle contract, and the tendon organ reflex makes its own muscle relax. If the load keeps climbing, it can make the muscle give way.", "Your textbook adds an update: research now shows the tendon organ's main job is reporting muscle tension to integrating centers in the CNS, which combine it with spindle information to fine-tune posture and movement, rather than mainly acting as a protective reflex. Your competency asks you to contrast its reflex with the spindle's, so know the reflex, and know that its biggest role is information."],
+ ans:["It fires faster and faster as the pull on the tendon grows. In the classic textbook picture, its signal reaches a calming neuron in the spinal cord, which quiets the motor neurons to that same muscle, so the muscle eases off. This is the Golgi tendon reflex, also called autogenic inhibition. Notice it is the opposite of the spindle: the spindle reflex makes its own muscle contract, and the tendon organ reflex makes its own muscle relax.", "Your textbook adds an update. Researchers now think the tendon organ's main job is to report how hard the muscle is pulling to the spinal cord and brain, which combine it with spindle information to fine-tune posture and movement. Know the reflex for your competency, and know that its biggest job is sending information."],
  name:"Golgi tendon reflex",
  desc:"The quadriceps thickens as the load increases. The tendon organ readout at the bottom fills with more and more spikes. A gold dot runs into the cord, through an inhibitory interneuron, onto the quadriceps motor neuron, and the quadriceps gets a minus sign.",
  pre:function(){S(W(["gto","mne","tr2","sig","sign"]));bulge(quad,true,QY,QH);},
- play:function(a){return growTrain(tr2,function(k){return trainWin(66,448,308,0,1,Math.round(2+14*k),26);},1100,a).then(function(){return Promise.all([drawIn("ib",1100,a),run(dD,IB,1100,a)]);}).then(function(){bulge(quad,false,QY,QH);signs(M,null);cap("Tension high: own muscle inhibited");});}},
+ play:function(a){return growTrain(tr2,function(k){return trainWin(66,448,308,0,1,Math.round(2+14*k),26);},1100,a).then(function(){return Promise.all([drawIn("ib",1100,a),run(dD,IB,1100,a)]);}).then(function(){bulge(quad,false,QY,QH);signs(M,null);cap("High tension tells the muscle to ease off.");});}},
 
 {title:"Spindle or tendon organ",
  text:["The knee is held perfectly still while the load slowly increases. The muscle is working harder, but its length does not change. Both readouts are shown."],
  ask:"Which afferent's firing rises more, the spindle's or the tendon organ's, and why?",
- ans:["The tendon organ's. The muscle's length stays the same, so the spindle, which reports length, fires at a steady rate, kept taut by gamma motor neurons. The tension rises, so the tendon organ, which reports tension, fires faster and faster.", "Position is the reason: something in series feels the whole pull of the contraction whether or not the muscle changes length, and something in parallel only changes when the muscle gets longer or shorter. When you pick up a heavy weight, all four are active at once: alpha motor neurons, gamma motor neurons, spindle afferents and tendon organ afferents."],
+ ans:["The tendon organ's. The muscle stays the same length, so the spindle, which reports length, keeps firing at a steady rate. The pull on the tendon keeps rising, so the tendon organ, which reports pull, fires faster and faster.", "Where each sensor sits explains this. The tendon organ is in line with the muscle, so it feels the whole pull whether or not the muscle changes length. The spindle lies alongside the muscle fibers, so it only changes when the muscle gets longer or shorter. When you lift something heavy, all of these are active at once: the regular motor neurons, the gamma motor neurons, the spindles and the tendon organs."],
  desc:"The spindle readout at the top stays at a steady, moderate rate. The tendon organ readout at the bottom rises from a few spikes to many.",
  pre:function(){S(W(["spin","gto","ia","ib","tr1","tr2"]));bulge(quad,true,QY,QH);tr1.setAttribute("d",R1(0.25));tr2.setAttribute("d",trainWin(66,448,308,0,1,2,26));},
- play:function(a){return growTrain(tr2,function(k){return trainWin(66,448,308,0,1,Math.round(2+14*k),26);},1300,a).then(function(){cap("Length steady, tension rising");});}},
+ play:function(a){return growTrain(tr2,function(k){return trainWin(66,448,308,0,1,Math.round(2+14*k),26);},1300,a).then(function(){cap("Same length, but the pull keeps rising.");});}},
 
 /* ---- 4. withdrawal and crossed extensor ---- */
 {sec:"Withdrawal and crossed extensor",comp:"Competency 4",
  title:"Stepping on a tack",
- text:["A person standing on both feet steps on a tack with the right foot. Nociceptors, the receptors for damaging stimuli, fire in the skin of that foot, and their sensory neurons enter the cord.","The figure has changed: the cord is at the top, and each leg is shown as a column of flexors, which bend the joints and lift the foot, and extensors, which straighten the joints and bear weight."],
+ text:["A person standing on both feet steps on a tack with the right foot. Nociceptors, the receptors for damaging stimuli, fire in the skin of that foot, and their sensory neurons enter the cord.","The figure has changed: the cord is at the top, and below it two legs stand on the floor, seen from the side. On each thigh the flexors at the back bend the hip and knee and lift the foot, and the extensors at the front straighten the joints and bear weight. Click the tack to step on it."],
  auto:true,
- desc:"A small spinal cord cross section sits at the top center. Below it, the right leg is on the left of the figure and the left leg on the right, each drawn as a column split into flexors and extensors. A gold tack sits under the right foot.",
- pre:function(){S(["legs","cap"]);},
- play:function(a){return wait(300,a).then(function(){cap("Nociceptors fire in the right foot");});}},
-
+ desc:"Two legs stand side by side on a floor line, seen from the side, under a small spinal cord at the top center. The right leg is on the left of the figure and the left leg on the right. Each thigh has flexors at the back and extensors at the front. A gold tack sits under the right foot, and an arrow asks the student to click it. When they do, a maroon dot runs from the right foot up into the spinal cord.",
+ pre:function(){S(["legs2","cap"]);legsReset();legSigns(0);},
+ play:function(a){cap("");return waitOn(tack,tackPrompt,a).then(function(){return run(dN,[[226,470],[150,420],[150,180],[300,130],[420,110]],1100,a);}).then(function(){cap("Pain receptors in the right foot fire.");});}},
 {title:"The right leg",
  text:["The signal from the nociceptors reaches the cord on the right side, and the primary sensory neuron diverges onto many interneurons."],
  ask:"Which muscles in the right leg contract and which relax, and what does the cord need in order to do both?",
- ans:["The right flexors contract and lift the foot off the tack, and the right extensors relax. Some interneurons excite the alpha motor neurons to the flexors; others activate inhibitory interneurons that silence the motor neurons to the extensors, the same reciprocal inhibition as in the knee jerk. The signal spreads to several segments, so the hip, knee and ankle all flex.", "This is the flexion reflex, or withdrawal reflex. It is polysynaptic, so it takes longer than the monosynaptic stretch reflex. One branch of the same sensory neuron also starts up ascending pathways to the brain for the sensation of pain and for adjusting posture."],
+ ans:["The muscles that bend the right leg, the flexors, contract and lift the foot off the tack, and the muscles that straighten it, the extensors, relax. Inside the spinal cord, some interneurons excite the motor neurons to the flexors, and others quiet the motor neurons to the extensors, the same trick as in the knee jerk. The signal also spreads up and down the cord, so the hip, knee and ankle all bend together.", "This is the withdrawal reflex, also called the flexion reflex. Because it goes through several connections, it is a little slower than the knee jerk. A branch of the same sensory neuron also carries the message up to the brain, which is when you feel the pain."],
  name:"withdrawal reflex",
- desc:"A maroon line runs from the tack up into the cord and through interneurons. The right flexors get a maroon plus sign and the right extensors a navy minus sign.",
- pre:function(){S(["legs","cross","cap"]);var l=REG.cross.childNodes;l[1].setAttribute("display","none");l[2].setAttribute("display","none");l[3].setAttribute("display","none");},
- play:function(a){var l=REG.cross.childNodes;return reveal(l[0],900,a).then(function(){l[3].setAttribute("display","");return reveal(l[3],700,a);}).then(function(){legSigns(1);cap("Right flexors on, right extensors off");});}},
-
+ desc:"The student clicks the tack again. A maroon line runs from the tack into the cord and through interneurons, and a navy line runs back down to the right thigh. The right flexors thicken with a plus sign, the right extensors get a minus sign, and the right leg bends at the hip and knee, lifting the foot off the tack.",
+ pre:function(){S(["legs2","cross","cap"]);legsReset();legSigns(0);var l=REG.cross.childNodes;l[1].setAttribute("display","none");l[2].setAttribute("display","none");l[3].setAttribute("display","none");},
+ play:function(a){cap("");var l=REG.cross.childNodes;return waitOn(tack,tackPrompt,a).then(function(){return reveal(l[0],900,a);}).then(function(){l[3].setAttribute("display","");return reveal(l[3],700,a);}).then(function(){legSigns(1);musc(LR,1,0);return legTo(LR,RAISE[0],RAISE[1],700,a);}).then(function(){cap("The right leg bends and lifts off the tack.");});}},
 {title:"The left leg",
  text:["The right foot is now off the ground. The whole body's weight is about to land on the left leg."],
  ask:"At that same moment, what must the left leg's muscles do, and how does the signal get there?",
- ans:["The left leg does the opposite: its extensors contract to straighten it and hold the weight, and its flexors are inhibited. Interneurons carry the signal across the midline of the cord to the alpha motor neurons on the other side.", "This is the crossed extensor reflex, a postural reflex that keeps your balance when one foot leaves the ground. Divergence lets one stimulus control two sets of antagonistic muscles on both sides and also tell the brain, which is more typical of our reflexes than the simple knee jerk."],
+ ans:["The left leg does the opposite: the muscles that straighten it contract, to hold your weight, and the muscles that bend it relax. Interneurons carry the signal across the middle of the spinal cord to the motor neurons on the other side.", "This is the crossed extensor reflex. It keeps you from falling when one foot leaves the ground. One stimulus, the tack, ends up controlling muscles in both legs and also tells the brain, and that kind of spreading is more typical of our reflexes than the simple knee jerk."],
  name:"crossed extensor reflex",
- desc:"A gray interneuron line crosses the dashed midline of the cord, and a navy line runs down to the left leg. The left extensors get a maroon plus sign and the left flexors a navy minus sign, opposite to the right leg.",
- pre:function(){S(["legs","cross","cap"]);legSigns(1);var l=REG.cross.childNodes;l[1].setAttribute("display","none");l[2].setAttribute("display","none");},
- play:function(a){var l=REG.cross.childNodes;l[1].setAttribute("display","");return reveal(l[1],600,a).then(function(){l[2].setAttribute("display","");return reveal(l[2],800,a);}).then(function(){legSigns(2);cap("Left extensors on: weight held");});}},
-
+ desc:"The right leg is lifted. A gray interneuron line crosses the dashed midline of the cord and a navy line runs down to the left thigh. The left extensors thicken with a plus sign and the left flexors get a minus sign, so the left leg stays straight and holds the body's weight.",
+ pre:function(){S(["legs2","cross","cap"]);legsReset();legSigns(1);musc(LR,1,0);legPose(LR,RAISE[0],RAISE[1]);var l=REG.cross.childNodes;l[1].setAttribute("display","none");l[2].setAttribute("display","none");},
+ play:function(a){var l=REG.cross.childNodes;l[1].setAttribute("display","");return reveal(l[1],600,a).then(function(){l[2].setAttribute("display","");return reveal(l[2],800,a);}).then(function(){legSigns(2);musc(LL,0,1);cap("The left leg straightens to hold your weight.");});}},
 {title:"Why it cannot be monosynaptic",
  text:["Count along the shortest path in the figure, from the nociceptor's sensory neuron to a motor neuron for the left leg's extensors."],
- ask:"How many synapses are on that path at the least, and why can this response never be monosynaptic?",
- ans:["At least two, and usually more: the sensory neuron synapses on an interneuron, which crosses the midline and synapses on the motor neuron, often with more interneurons between. The withdrawal side also needs interneurons, for inhibition and to reach several segments.","A monosynaptic arc cannot do any of what this response needs. A sensory neuron's transmitter only excites, so inhibiting the right extensors and left flexors needs inhibitory interneurons. Its axon does not cross the midline or spread up and down the cord, so reaching the other leg and several joints needs interneurons too."],
+ ask:"How many connections are on that path at the very least? Why can't this reflex work with only one connection?",
+ ans:["At least two connections, and usually more. The sensory neuron connects to an interneuron, which crosses the middle of the spinal cord and connects to the motor neuron, often with more interneurons in between. The withdrawal side needs interneurons too.", "A one-connection reflex could not do what this response needs. A sensory neuron can only excite, so relaxing the right extensors and the left flexors needs calming interneurons. A sensory neuron also does not cross to the other side of the cord or spread up and down it, so reaching the other leg and several joints needs interneurons as well."],
  desc:"The crossed path is highlighted: sensory neuron to interneuron to crossing interneuron to the left extensor motor neuron.",
- pre:function(){S(["legs","cross","cap"]);legSigns(2);},
- play:function(a){return wait(400,a).then(function(){cap("Interneurons: inhibit, cross, spread");});}},
-
+ pre:function(){S(["legs2","cross","cap"]);legsReset();legSigns(2);musc(LR,1,0);musc(LL,0,1);legPose(LR,RAISE[0],RAISE[1]);},
+ play:function(a){return wait(400,a).then(function(){cap("This path needs several connections, not one.");});}},
 {title:"Without the crossed half",
  text:["Imagine the crossing interneurons were not working, as the X on the figure shows, while the withdrawal half still worked."],
  ask:"A fraction of a second after stepping on the tack, what would this person's body be doing?",
- ans:["The right leg would still flex and lift off the tack. But the left leg would get no signal to stiffen, so when all the weight came down on it, the knee would buckle and the person would likely fall.","That is why the two reflexes are taught as a pair. Withdrawal protects the injured foot, and the crossed extensor reflex protects the rest of the body from the withdrawal."],
- desc:"A maroon X blocks the crossed path in the cord. The right leg has its flexor plus and extensor minus. The left leg has no signs at all.",
- pre:function(){S(["legs","cross","crossoff","cap"]);legSigns(1);REG.cross.childNodes[2].setAttribute("display","none");},
- play:function(a){return wait(400,a).then(function(){cap("Right leg lifts, left leg buckles");});}},
-
+ ans:["The right leg would still bend and lift off the tack. But the left leg would get no signal to straighten, so when all the weight came down on it, the knee would give way and the person would probably fall.", "That is why these two reflexes are taught together. The withdrawal reflex protects the hurt foot, and the crossed extensor reflex protects the rest of the body from falling over."],
+ desc:"A maroon X blocks the crossed path in the cord. The right leg is lifted with its flexor plus and extensor minus. The left leg gets no signal, so its extensors do not tighten and it bends at the hip and knee, buckling under the weight.",
+ pre:function(){S(["legs2","cross","crossoff","cap"]);legsReset();legSigns(1);musc(LR,1,0);legPose(LR,RAISE[0],RAISE[1]);REG.cross.childNodes[2].setAttribute("display","none");},
+ play:function(a){return legTo(LL,-14,38,700,a).then(function(){cap("The right leg lifts, and the left leg gives way.");});}},
 {title:"When inhibition fails",
- text:["Tetanus, or lockjaw, comes from a bacterium in soil that enters through a wound. Its toxin, tetanospasmin, is taken up into the axon terminals of somatic motor neurons by endocytosis and carried backward along the axon to the cell body in the spinal cord. There it is released and blocks neurotransmitter release at inhibitory synapses. The inhibitory transmitters of the CNS, such as glycine and GABA, normally hyperpolarize their target neurons."],
+ text:["Tetanus, also called lockjaw, is caused by a bacterium that lives in soil and gets in through a wound. It makes a toxin that travels into the motor neurons and all the way back to their cell bodies in the spinal cord.", "There, the toxin blocks the synapses that calm other neurons down, the inhibitory synapses. Those synapses normally release chemicals such as glycine and GABA that make a neuron less likely to fire."],
  ask:"Using the knee jerk and withdrawal circuits, explain why blocking inhibitory synapses would cause rigid, uncontrollable muscle spasms, starting in the jaw.",
- ans:["Every reflex circuit relies on inhibitory interneurons to keep antagonist motor neurons quiet. With those synapses blocked, nothing turns the alpha motor neurons off: the motor neurons to both muscles of each pair fire, agonists and antagonists contract together, and the muscles lock rigid. The jaw closes and will not open, and the spasms can spread to the whole body, including the muscles of breathing.","That is why patients may need a drug that blocks acetylcholine receptors at the neuromuscular junction, which paralyzes the muscles while a ventilator breathes for them, and why tetanus is now rare where people are immunized. It is a dramatic demonstration that relaxing a skeletal muscle depends entirely on inhibition inside the spinal cord."],
+ ans:["Every reflex circuit depends on calming interneurons to keep the opposite muscle quiet. With those synapses blocked, nothing can switch the motor neurons off, so both muscles of every pair contract at the same time and lock the body rigid. The jaw clamps shut, which is where the name lockjaw comes from, and the spasms can spread to the whole body, including the muscles used for breathing.", "Patients may need a drug that temporarily paralyzes their muscles while a breathing machine breathes for them. Tetanus is rare where people get the vaccine. It shows clearly that letting a skeletal muscle relax depends completely on calming signals inside the spinal cord."],
  name:"tetanus",
- desc:"The two-legs figure with interneurons in the cord, standing for the inhibitory synapses that tetanus toxin blocks.",
- pre:function(){S(["legs","cap"]);legSigns(0);},
- play:function(a){[bRF,bRE,bLF,bLE].forEach(function(b){setBadge(b,"+",MAROON);});return wait(500,a).then(function(){cap("No inhibition: everything contracts");});}},
-
-/* ---- 5. testing ---- */
+ desc:"Both legs stand straight. Every muscle group, flexors and extensors on both legs, thickens and gets a maroon plus sign, because without inhibitory synapses nothing relaxes and the legs are held rigid.",
+ pre:function(){S(["legs2","cap"]);legsReset();legSigns(0);},
+ play:function(a){[bRF,bRE,bLF,bLE].forEach(function(b){setBadge(b,"+",MAROON);});musc(LR,1,1);musc(LL,1,1);return wait(500,a).then(function(){cap("Nothing can relax, so every muscle tightens.");});}},
 {sec:"Testing reflexes",comp:"Competencies 1 and 7",
  title:"Grading a tendon reflex",
  text:["Clinicians grade a deep tendon reflex such as the knee jerk on a scale from 0 to 4+. 0 is absent, 1+ is less than usual, 2+ is normal, 3+ is brisker than usual, and 4+ is very brisk, often with clonus, a rhythmic jerking that repeats after one tap. For a reflex to be normal, every neuron in the pathway must conduct normally, the neuromuscular junction must transmit normally, and the muscle must contract normally."],
  ask:"One patient's knee jerk is 0. Another's is 4+ with clonus. Where along the pathway could the problem be in each?",
- ans:["An absent reflex means the arc itself is broken somewhere: at the receptor, the sensory neuron or dorsal root, that segment of the cord, the motor neuron or ventral root, the neuromuscular junction, or the muscle. A very brisk reflex with clonus usually means the arc is intact but the brain's control over it is not, as after a stroke or a spinal cord injury above that level, which points to an upper motor neuron lesion.", "Not every abnormal reflex is neuromuscular: a slow relaxation phase of the ankle reflex suggests hypothyroidism. Compare left with right, since a difference between sides matters more than one number."],
+ ans:["A 0, no reflex at all, means the reflex path itself is broken somewhere: the sensor, the sensory neuron, that part of the spinal cord, the motor neuron, the connection to the muscle, or the muscle. A 4+ with clonus usually means the reflex path works but the brain has lost its control over it, as after a stroke or a spinal cord injury above that level. That points to an upper motor neuron problem.", "Not every unusual reflex is a nerve problem: an ankle reflex that relaxes slowly can be a sign of an underactive thyroid. Always compare the left side with the right, because a difference between sides matters more than any one number."],
  name:"reflex grading",
  desc:"Five boxes along the bottom show the grading scale: 0 absent, 1+ less than usual, 2+ normal, 3+ brisker than usual, 4+ very brisk with clonus. The 0 box and then the 4+ box are outlined in maroon.",
  pre:function(){S(W(["spin","ia","mne","scale"]));},
- play:function(a){gradeHi(0);return wait(800,a).then(function(){gradeHi(4);cap("0: arc broken. 4+: control lost");});}},
+ play:function(a){gradeHi(0);return wait(800,a).then(function(){gradeHi(4);cap("0 means no reflex. 4+ means far too strong.");});}},
 
 {title:"Muscle tone",
  text:["A resting muscle is never completely limp. Muscle tone is its resistance to being stretched even when relaxed, and examiners check it by moving a relaxed limb."],
  ask:"What keeps a resting muscle slightly contracted, and what happens to its tone if the dorsal roots serving that muscle are cut?",
- ans:["Tonic firing. The spindles are slightly stretched even at rest, so their sensory neurons fire continuously, and that steady input keeps alpha motor neurons firing continuously onto the extrafusal fibers. Cut the dorsal roots and that input disappears: the muscle goes limp, or flaccid, and its tendon reflex is gone too, even though the motor neurons are intact.", "Absent tone or increased tone both usually point to a problem in the neural pathways. Low tone with absent reflexes points to a break in the arc; high tone points somewhere else, which the next steps show."],
+ ans:["The spindles. They are slightly stretched even at rest, so they keep sending signals, and that steady input keeps the motor neurons sending a small, steady signal to the muscle. That is muscle tone. Cut the back roots and the input disappears: the muscle goes completely limp, called flaccid, and its reflex is gone too, even though the motor neurons themselves are fine.", "Tone that is too low or too high usually means a problem in the nerve pathways. Low tone with no reflexes points to a break in the reflex path. High tone points somewhere else, which the next steps show."],
  name:"muscle tone",
  desc:"The spindle afferent fires a steady, slow train, and a dot travels the arc at a low rate, keeping the quadriceps slightly firm.",
  pre:function(){S(W(["spin","ia","mne","tr1","sig"]));},
- play:function(a){return growTrain(tr1,function(k){return trainWin(66,56,308,0,k,Math.round(5*k),26);},900,a).then(function(){return run(dA,IA,1000,a);}).then(function(){cap("Spindles at rest keep the tone");});}},
+ play:function(a){return growTrain(tr1,function(k){return trainWin(66,56,308,0,k,Math.round(5*k),26);},900,a).then(function(){return run(dA,IA,1000,a);}).then(function(){cap("Resting spindle signals keep a little tension in the muscle.");});}},
 
 {title:"The brain turns reflexes up and down",
- text:["Spinal reflexes run without the brain, but the brain is always adjusting them. Descending pathways from the brain, including some from the reticular formation of the brain stem, which helps set muscle tone and stretch reflexes, end on spinal motor neurons and interneurons, and on gamma motor neurons, and most of their net effect is to hold spinal reflexes in check.","An examiner tapping a weak knee jerk often asks the patient to hook the fingers of both hands together and pull hard at the moment of the tap. This is the Jendrassik maneuver."],
+ text:["Spinal reflexes do not need the brain to work, but the brain is always adjusting them. Pathways coming down from the brain to the spinal cord mostly keep reflexes held back, so they do not overreact.", "When a patient's knee jerk is weak, the examiner often asks them to hook their fingers together and pull hard at the moment of the tap. This trick is called the Jendrassik maneuver."],
  ask:"Why would pulling on your own hands make your knee jerk bigger?",
- ans:["Pulling hard on the hands is thought to raise activity in descending pathways, which makes the spinal motor neurons more excitable and, through gamma motor neurons, makes the spindles more sensitive to stretch. The same tap then produces a bigger reflex. It also takes the patient's attention off the knee.","If a weak reflex gets bigger with reinforcement, the arc itself is intact. If it stays absent, the arc is broken somewhere. You can try this in lab with a partner."],
+ ans:["Pulling hard on your hands is thought to make the pathways coming down from the brain more active. That makes the spinal motor neurons readier to fire, and through the gamma motor neurons it makes the spindles more sensitive to stretch. So the same tap produces a bigger kick. It also takes the patient's attention off their knee.", "If a weak reflex gets bigger with this trick, the reflex path itself is working. If it stays absent, the path is broken somewhere. You can try this in lab with a partner."],
  name:"Jendrassik maneuver",
  desc:"The knee jerk arc is shown, with the reflex grading scale below. The outline moves from 1+ up to 2+ as the reflex is reinforced.",
  pre:function(){S(W(["hammer","spin","ia","mne","scale","sig","sign"]));gradeHi(1);},
- play:function(a){return tap(a).then(function(){return run(dA,IA,900,a);}).then(function(){return run(dB,MNE,700,a);}).then(function(){gradeHi(2);bulge(quad,true,QY,QH);signs("+",null);cap("Reinforced: a bigger reflex");});}},
+ play:function(a){return tap(a).then(function(){return run(dA,IA,900,a);}).then(function(){return run(dB,MNE,700,a);}).then(function(){gradeHi(2);bulge(quad,true,QY,QH);signs("+",null);cap("Pulling on your hands makes the kick bigger.");});}},
 
 {title:"Stroking the sole of the foot",
  text:["Stroke the outer edge of an adult's sole firmly, from heel to toes, and the toes curl down. That is the normal flexor plantar response. In some patients, the same stroke makes the big toe extend upward and the other toes fan out."],
  ask:"That upward big toe appears after damage to the corticospinal tract. Why would losing a pathway from the brain change a reflex that is integrated in the spinal cord?",
- ans:["Because the corticospinal tract normally shapes how the spinal cord answers this stimulus. With that input gone, the cord's circuit gives a different, more primitive response: the big toe extends. This is the Babinski sign, and it is one of the clearest signs of an upper motor neuron lesion, damage to the motor pathway in the brain or the cord above the reflex.","Infants normally show it until about the age of one to two, while their corticospinal tracts are still maturing. In an adult it is never normal."],
+ ans:["Because the pathway from the brain, the corticospinal tract, normally shapes how the spinal cord responds to this touch. Without it, the spinal cord falls back on a more primitive response, and the big toe goes up. This is the Babinski sign, one of the clearest signs of an upper motor neuron problem, meaning damage to the motor pathway in the brain or the spinal cord above the reflex.", "Babies normally show it until about age one to two, while that pathway is still maturing. In an adult it is never normal."],
  name:"Babinski sign",
- desc:"Two feet seen from the side. A gold dot strokes along the sole of each. On the left, the normal adult, the toes curl down. On the right, the Babinski sign, the big toe extends upward.",
+ desc:"Two feet seen from the side, and an arrow asking the student to click to stroke the sole of each foot. When they do, a gold dot strokes along each sole. On the left, the normal adult, the toes curl down. On the right, the Babinski sign, the big toe extends upward.",
  pre:function(){S(["foot","cap"]);toeAngle(FT[0],0);toeAngle(FT[1],0);},
- play:function(a){return strokeSole(FT[0],a).then(function(){return tweenVal(0,25,500,a,function(v){toeAngle(FT[0],v);});}).then(function(){return strokeSole(FT[1],a);}).then(function(){return tweenVal(0,-35,500,a,function(v){toeAngle(FT[1],v);});}).then(function(){cap("Toe up: upper motor neuron sign");});}},
+ play:function(a){cap("");return waitOn(soleHit,solePrompt,a).then(function(){return strokeSole(FT[0],a);}).then(function(){return tweenVal(0,25,500,a,function(v){toeAngle(FT[0],v);});}).then(function(){return strokeSole(FT[1],a);}).then(function(){return tweenVal(0,-35,500,a,function(v){toeAngle(FT[1],v);});}).then(function(){cap("The big toe going up points to damage in the brain's pathway.");});}},
 {title:"Upper or lower motor neuron",
- text:["Upper motor neurons are the neurons in the brain whose axons run down the corticospinal tract. Lower motor neurons are the motor neurons in the ventral horn that run out to the muscles. Both kinds of damage cause weakness, but they look different at the bedside.","A lower motor neuron lesion gives weakness with low tone, reduced or absent reflexes, and over weeks, wasting of the muscle and small visible twitches called fasciculations. An upper motor neuron lesion gives weakness with high tone, called spasticity, brisk reflexes, often clonus, and a Babinski sign."],
+ text:["Two kinds of motor neurons control a muscle. Upper motor neurons start in the brain and run down the spinal cord. Lower motor neurons start in the spinal cord and run out to the muscle.", "Damage to either one makes the muscle weak, but they look different when a clinician examines the patient. Damage to the lower motor neuron makes the muscle floppy, with weak or missing reflexes, and over weeks the muscle shrinks and can show small twitches. Damage to the upper motor neuron makes the muscle stiff, called spasticity, with reflexes that are too strong, often repeated jerking called clonus, and a Babinski sign."],
  ask:"A patient has a weak left leg, a 4+ left knee jerk with clonus, and a Babinski sign on the left. Is this an upper or a lower motor neuron lesion, and why are the reflexes brisk instead of weak?",
- ans:["An upper motor neuron lesion, in the brain or the spinal cord above the lumbar segments that run the leg. The reflex arc for the leg is intact, so the knee jerk still works, but the descending pathways that normally hold it in check are damaged, so it is exaggerated. That release from the brain's control also explains the high tone and the Babinski sign.","A lower motor neuron lesion breaks the arc itself at its last link, so the reflex weakens or disappears instead."],
+ ans:["An upper motor neuron problem, in the brain or in the spinal cord above the part that controls the leg. The reflex path for the leg still works, so the knee jerk still happens, but the pathways from the brain that normally hold it back are damaged, so it is too strong. Losing that control from the brain also explains the stiff muscles and the Babinski sign.", "A lower motor neuron problem breaks the reflex path itself at its last step, so the reflex gets weaker or disappears instead."],
  name:"upper and lower motor neurons",
  desc:"The grading scale with 4+ outlined in maroon, beneath the knee jerk arc.",
  pre:function(){S(W(["spin","ia","mne","scale"]));},
- play:function(a){gradeHi(4);return wait(500,a).then(function(){cap("Brisk and spastic: upper motor neuron");});}},
+ play:function(a){gradeHi(4);return wait(500,a).then(function(){cap("Strong reflexes and stiff muscles point to the brain's pathway.");});}},
 
 {title:"Reflex or reaction",
  text:["In your lab this week you time two responses. The knee jerk appears a few tens of milliseconds after the tap. Catching a dropped ruler takes about 150 to 250 milliseconds."],
  ask:"Both responses start with a stimulus and end with a muscle contracting. Why does catching the ruler take several times longer?",
- ans:["Because its path is much longer and crosses many more synapses. The knee jerk goes into the cord and straight back out across one synapse. Catching the ruler starts in the eyes, travels to the visual cortex, then through areas that recognize the ruler is falling and decide to grab it, to the motor cortex, down the spinal cord, and out to the hand. Every synapse and every extra centimeter of axon adds time.","Latency is how you tell a reflex from a voluntary response. A response that comes too fast to have been routed through the brain is a reflex."],
+ ans:["Because its path is much longer and has many more connections. The knee jerk goes into the spinal cord and straight back out through one connection. Catching the ruler starts in your eyes, goes to the part of the brain that handles vision, then to areas that recognize the ruler is falling and decide to grab it, then to the part that controls movement, down the spinal cord, and out to your hand. Every connection and every extra bit of nerve adds time.", "This delay, called latency, is how you tell a reflex from a voluntary response. A response that comes too fast to have gone through the brain is a reflex."],
  desc:"A time line runs from 0 to 250 milliseconds. A maroon marker labeled knee jerk sits at about 30 milliseconds, and a navy marker labeled catching a ruler sits at about 200 milliseconds.",
  pre:function(){S(W(["time"]));},
- play:function(a){lat1.setAttribute("display","");latT1.setAttribute("display","");return wait(700,a).then(function(){lat2.setAttribute("display","");latT2.setAttribute("display","");cap("Fewer synapses, shorter latency");});}},
+ play:function(a){lat1.setAttribute("display","");latT1.setAttribute("display","");return wait(700,a).then(function(){lat2.setAttribute("display","");latT2.setAttribute("display","");cap("Fewer connections means a faster response.");});}},
 
 /* ---- review ---- */
 {sec:"Review",comp:"Competencies 1 to 4 and 7",
  title:"Summary with the scientific terms",
  text:["A reflex arc has five parts: receptor, sensory neuron, integrating center, motor neuron, effector. Sensory signals enter the cord through the dorsal root and motor signals leave through the ventral root. The stretch reflex is monosynaptic: a muscle spindle, in parallel with the muscle fibers, reports stretch and excites its own muscle, while an inhibitory interneuron relaxes the antagonist, which is reciprocal inhibition. Gamma motor neurons keep the spindle taut during contraction.","The Golgi tendon organ, in series at the tendon, reports tension; in the classic reflex it inhibits its own muscle, though its main role is informing the CNS. The withdrawal reflex flexes the injured limb and the crossed extensor reflex stiffens the other one; both are polysynaptic because they need inhibition, crossing and spread.","Reflexes are sorted by efferent division (somatic or autonomic), where they are integrated (spinal or cranial), whether they are innate or learned, and number of neurons (monosynaptic or polysynaptic); all autonomic reflexes are polysynaptic. Spindles at rest keep muscle tone. The brain holds spinal reflexes in check: reinforcement makes a reflex bigger, and an upper motor neuron lesion gives brisk reflexes, clonus, spasticity and a Babinski sign, while a lower motor neuron lesion gives weak or absent reflexes and low tone."],
  ask:"Without scrolling back, explain why the stretch reflex makes its own muscle contract while the tendon organ reflex makes its own muscle relax, and say what each one is protecting.",
- ans:["The spindle reports length. When the muscle is stretched, its reflex contracts that muscle to bring it back to its set length, which protects posture and the joint from collapsing under a sudden stretch. The tendon organ reports tension. When the force on the tendon gets high, its reflex inhibits that muscle through an interneuron, which protects the muscle and tendon from forces that could injure them.","If part of this would not come back, look at those steps again before your Competency Study Guide, and draw the circuits from memory before you check them."],
+ ans:["The spindle reports the muscle's length. When the muscle is stretched, its reflex makes that same muscle contract to bring it back, which protects posture and keeps a joint from collapsing under a sudden stretch. The tendon organ reports how hard the muscle is pulling. When that pull gets very high, its reflex makes that same muscle ease off, through a calming interneuron, which protects the muscle and tendon from being injured.", "If part of this did not come back to you, go back to those steps before your Competency Study Guide, and draw the circuits from memory before you check them."],
  desc:"The full figure: both muscles, the spindle and the tendon organ, and the cord with the sensory neuron, both motor neurons, the inhibitory interneuron and the tendon organ afferent.",
  pre:function(){S(W(["spin","gto","ia","ib","mne","mnf","inh","sign","sig"]));},
- play:function(a){return run(dA,IA,1000,a).then(function(){bulge(quad,true,QY,QH);signs("+",M);cap("Length and tension, two reflexes");});}}
+ play:function(a){return run(dA,IA,1000,a).then(function(){bulge(quad,true,QY,QH);signs("+",M);cap("One sensor reports length, the other reports pull.");});}}
 ];
 
 /* ======================= support videos ======================= */
