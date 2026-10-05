@@ -157,6 +157,8 @@ a.wstep:hover{background:var(--navy-tint)}
 .lcard .lw{display:block;font-size:10.5px;font-weight:800;letter-spacing:.16em;
   text-transform:uppercase;color:var(--maroon);margin-top:7px}
 
+.dw-later{margin-top:12px}
+.dw [hidden]{display:none}
 .partline{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink-soft);margin:30px 0 4px}
 """
@@ -206,7 +208,73 @@ def later_week(w):
                esc(pretty(w["opens"]))))
 
 
-def build_home():
+def week_link(w):
+    """Where a week's card sends a student. Weeks 1 to 3 have overview pages;
+    from Week 4 on, the steps page is the week's front door, and the week page
+    stands in until a steps page exists."""
+    n = int(w["key"][1:])
+    for f in ("week-%02d-entry.html" % n, "week-%02d.html" % n):
+        if os.path.exists(os.path.join(OUT, f)):
+            return f
+    return "week-%02d.html" % n
+
+
+def dated_week(w):
+    """Oct 4 2026: one week, both faces. The page script shows the open card
+    once the week's Monday arrives and the locked card before it, so the home
+    page follows the calendar without being rebuilt. With no script, the build
+    date decides."""
+    today = datetime.date.today().isoformat()
+    is_open = w["opens"] <= today
+    if w["key"] in STEPS:
+        card = open_week(w, expanded=False)
+    else:
+        card = (
+'<details class="wk">'
+'<summary><div class="wkhead">'
+'<p class="lab">%(label)s</p><h3>%(title)s</h3><p class="dates">%(dates)s%(note)s</p>'
+'</div><span class="wkright"><span class="open">Open now</span>'
+'<span class="chev">%(chev)s</span></span></summary>'
+'<div class="wkbody">'
+'<a class="wkopen" href="%(href)s">Open %(label)s, step by step %(arrow)s</a>'
+'</div></details>'
+        ) % dict(label=esc(w["label"]), title=esc(w["title"]), dates=esc(span(w)),
+                 note=(". " + esc(w["note"])) if w.get("note") else "",
+                 href=week_link(w), arrow=ARROW, chev=CHEV)
+    return ('<div class="dw" data-opens="%s" data-due="%s">'
+            '<div class="dw-open"%s>%s</div>'
+            '<ul class="later dw-later" role="list"%s>%s</ul></div>'
+            % (w["opens"], w["due"], "" if is_open else " hidden", card,
+               " hidden" if is_open else "", later_week(w)))
+
+
+DATED_JS = r"""<script>
+/* Oct 4 2026: show each week by today's date in Pacific time. A week opens on
+   its Monday; the newest open week starts unfolded, earlier ones folded. */
+(function(){
+  var now = new Date();
+  var t = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles', year:'numeric', month:'2-digit', day:'2-digit'}).format(now);
+  var cards = [].slice.call(document.querySelectorAll('.dw')), open = [];
+  cards.forEach(function(c){
+    var isOpen = c.getAttribute('data-opens') <= t;
+    c.querySelector('.dw-open').hidden = !isOpen;
+    c.querySelector('.dw-later').hidden = isOpen;
+    var d = c.querySelector('details'); if (d) d.open = false;
+    if (isOpen) open.push(c);
+  });
+  var cur = open.filter(function(c){ return c.getAttribute('data-due') >= t; });
+  (cur.length ? cur : open.slice(-1)).forEach(function(c){ var d = c.querySelector('details'); if (d) d.open = true; });
+  var lede = document.querySelector('.hero .lede');
+  if (lede && open.length) {
+    var labs = open.map(function(c){ return c.querySelector('.lab').textContent; });
+    var first = labs[0].match(/\d+/)[0], last = labs[labs.length-1].match(/\d+(?!.*\d)/)[0];
+    lede.textContent = 'Start here reading, then the weeks in order. ' + (labs.length === 1 ? labs[0] + ' is open now.' : 'Weeks ' + first + ' to ' + last + ' are open now.');
+  }
+}());
+</script>"""
+
+
+def build_home_v1():
     out = []
     out.append('<p class="lede">The whole course, in the order you do it. It is the '
                'same material as Canvas, under the same names, so you can switch '
@@ -234,13 +302,8 @@ def build_home():
         if not rows:
             continue
         out.append('<p class="partline">%s</p>' % esc(PARTS[part]))
-        live = [w for w in rows if w["key"] in LIVE]
-        later = [w for w in rows if w["key"] not in LIVE]
-        for w in live:
-            out.append(open_week(w, expanded=(w is live[-1])))
-        if later:
-            out.append('<ul class="later" role="list">%s</ul>'
-                       % "".join(later_week(w) for w in later))
+        for w in rows:
+            out.append(dated_week(w))
 
     body = "\n".join(out) + """
 <section class="band" style="margin-top:34px">
@@ -253,13 +316,176 @@ def build_home():
     <a class="b sec" href="%s" target="_blank" rel="noopener">Open Canvas<span class="vh"> (opens in a new tab)</span></a>
   </div>
 </section>
-""" % MODULES
+""" % MODULES + DATED_JS
 
     page = kit.page(
         slug="course-home", title="Course home", eyebrow="Human Physiology \u00b7 Fall 2026",
         h1="Your course,", h1_tail="start to finish.",
-        blurb="Start here reading, then the weeks in order. Week 1 and Weeks 2 and 3 are open now.",
+        blurb="Start here reading, then the weeks in order.",
         body=body, wide=True, home_is_self=True, extra_css=HOME_CSS)
+    io.open(os.path.join(OUT, "course.html"), "w", encoding="utf-8").write(page)
+    print("course.html            %6d bytes" % len(page))
+
+
+
+# ---------------------------------------------------------------- Oct 5 2026
+# The course home, rebuilt around one question a student brings to it: where
+# am I and what do I do now. The current week leads, with a strip of days that
+# shows today and the due day; every week follows as one compact row with its
+# status; the reference pages sit below. Everything is decided in the browser
+# from today's date in Pacific time, so the page never needs rebuilding for the
+# calendar. A week's front door is its overview page (Weeks 1 to 3) or its steps
+# page (Week 4 on), falling back to the week page.
+HOME2_CSS = """
+.now{display:grid;gap:18px;margin:6px 0 30px}
+.nowcard{background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(11,21,48,.10);padding:26px 28px}
+.nowcard .wkno{font-family:var(--display);font-weight:800;font-size:15px;color:var(--maroon);margin:0 0 4px}
+.nowcard h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,4.2vw,40px);line-height:1.08;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px;max-width:22ch}
+.nowcard .span{font-size:16px;color:var(--ink-soft);margin:0 0 20px}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:0 0 10px;max-width:620px}
+.day{border-radius:10px;padding:8px 0 9px;text-align:center;background:var(--navy-tint);color:var(--ink-soft)}
+.day b{display:block;font-family:var(--display);font-size:18px;font-weight:800;color:var(--navy);line-height:1.1}
+.day span{display:block;font-size:11.5px;font-weight:700}
+.day.past{background:#F3F4F6;opacity:.55}
+.day.today{background:var(--maroon);color:#fff}
+.day.today b{color:#fff}
+.day.due{box-shadow:inset 0 0 0 3px var(--gold)}
+.dueline{font-size:16px;color:var(--navy);margin:4px 0 22px}
+.dueline b{font-weight:800}
+.go2{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:14px 26px;border-radius:10px;background:var(--maroon);color:#fff;font-family:var(--display);font-weight:800;font-size:17px;text-decoration:none}
+.go2:hover{background:var(--maroon-dark)}
+.go2:focus-visible,.wrow a:focus-visible,.refs a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.nextline{font-size:15.5px;color:var(--ink-soft);margin:0}
+.nextline b{color:var(--navy)}
+.sech{font-family:var(--display);font-weight:800;font-size:22px;color:var(--navy);margin:38px 0 12px;letter-spacing:-.01em}
+.weeks{list-style:none;margin:0;padding:0;background:#fff;border-radius:16px;box-shadow:0 2px 12px rgba(11,21,48,.08);overflow:hidden}
+.wrow{border-top:1px solid #EEF0F4}
+.wrow:first-child{border-top:0}
+.wrow a,.wrow .wl{display:grid;grid-template-columns:5.2em 1fr auto;gap:14px;align-items:center;padding:14px 20px;text-decoration:none;color:inherit}
+.wrow a:hover{background:var(--navy-tint)}
+.wrow .n{font-family:var(--display);font-weight:800;font-size:14px;color:var(--ink-soft)}
+.wrow .t{font-weight:700;font-size:15.5px;color:var(--navy);line-height:1.35}
+.wrow .d{display:block;font-weight:500;font-size:13.5px;color:var(--ink-soft)}
+.st{font-size:13px;font-weight:800;border-radius:999px;padding:5px 12px;white-space:nowrap}
+.st.done{background:#EEF0F4;color:var(--ink-soft)}
+.st.cur{background:var(--maroon);color:#fff}
+.st.later{background:transparent;color:var(--ink-soft);font-weight:700}
+.wrow.future .t,.wrow.future .n{color:#8A92A3}
+.wrow.cur{background:#FBF6F5}
+.wrow.exam .t::after{content:"";}
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.refs a{display:block;background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(11,21,48,.07);padding:14px 18px;text-decoration:none;color:inherit;height:100%}
+.refs a:hover{background:var(--navy-tint)}
+.refs .t{display:block;font-weight:800;color:var(--navy);font-size:15.5px}
+.refs .d{display:block;font-size:13.5px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.canvasnote{margin:34px 0 0;font-size:15px;color:var(--ink-soft)}
+.canvasnote a{color:var(--maroon);font-weight:800}
+@media (max-width:640px){
+  .nowcard{padding:20px 18px}
+  .days{gap:4px}.day b{font-size:16px}.day span{font-size:10.5px}
+  .wrow a,.wrow .wl{grid-template-columns:1fr auto;padding:13px 16px}
+  .wrow .n{grid-column:1/-1;margin-bottom:-8px}
+  .refs{grid-template-columns:1fr}
+}
+"""
+
+HOME2_JS = r"""<script>
+(function(){
+  var W = JSON.parse(document.getElementById('weekdata').textContent);
+  var t = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  function d(iso){ var p=iso.split('-'); return new Date(Date.UTC(+p[0],+p[1]-1,+p[2])); }
+  function fmt(iso,o){ return d(iso).toLocaleDateString('en-US',Object.assign({timeZone:'UTC'},o)); }
+  function long(iso){ return fmt(iso,{weekday:'long',month:'long',day:'numeric'}); }
+  function md(iso){ return fmt(iso,{month:'long',day:'numeric'}); }
+  function days(a,b){ return Math.round((d(b)-d(a))/864e5); }
+  var cur = W.filter(function(w){ return w.opens<=t && t<=w.due; });
+  var now = document.getElementById('now');
+  now.innerHTML = '';
+  if (!cur.length){
+    var nx = W.filter(function(w){ return w.opens>t; })[0];
+    now.innerHTML = '<div class="nowcard"><h2>' + (nx ? 'Next up: '+nx.label : 'The term is complete') + '</h2><p class="span">' + (nx ? nx.title+'. Opens '+long(nx.opens)+'.' : 'Thank you for a great term.') + '</p></div>';
+  }
+  cur.forEach(function(w){
+    var n = days(w.opens,w.due)+1, cells='';
+    for (var i=0;i<n;i++){
+      var x = new Date(d(w.opens).getTime()+i*864e5).toISOString().slice(0,10);
+      var cls = 'day'+(x<t?' past':'')+(x===t?' today':'')+(x===w.due?' due':'');
+      cells += '<div class="'+cls+'"><span>'+fmt(x,{weekday:'short'})+'</span><b>'+fmt(x,{day:'numeric'})+'</b>'+(x===t?'<span>Today</span>':(x===w.due?'<span>Due</span>':'<span>&nbsp;</span>'))+'</div>';
+    }
+    var left = days(t,w.due);
+    var leftTxt = left===0 ? 'Due today' : (left===1 ? '1 day left' : left+' days left');
+    now.insertAdjacentHTML('beforeend',
+      '<section class="nowcard" aria-label="This week"><p class="wkno">'+w.label+(cur.length>1?'':', this week')+'</p><h2>'+w.title+'</h2>'
+      + '<p class="span">'+md(w.opens)+' to '+md(w.due)+(n>7?', two weeks on one unit':'')+'</p>'
+      + '<div class="days" role="img" aria-label="'+leftTxt+'. Due '+long(w.due)+'.">'+cells+'</div>'
+      + '<p class="dueline"><b>'+leftTxt+'.</b> '+(w.exam? w.exam : 'Everything is due '+long(w.due)+' at 10:00 pm.')+'</p>'
+      + '<a class="go2" href="'+w.href+'">'+(w.exam?'Get ready for '+w.label:'Start '+w.label)+'</a></section>');
+  });
+  var nx2 = W.filter(function(w){ return w.opens>t; })[0];
+  if (nx2 && cur.length) now.insertAdjacentHTML('beforeend','<p class="nextline">Next: <b>'+nx2.label+', '+nx2.title+'</b>, opens '+long(nx2.opens)+'.</p>');
+  [].slice.call(document.querySelectorAll('.wrow')).forEach(function(r){
+    var w = W[+r.getAttribute('data-i')], st = r.querySelector('.st');
+    r.classList.remove('cur','future','done');
+    if (w.opens>t){ r.classList.add('future'); st.className='st later'; st.textContent='Opens '+md(w.opens);
+      var a=r.querySelector('a'); if(a){ var s=document.createElement('div'); s.className='wl'; s.innerHTML=a.innerHTML; a.replaceWith(s);} }
+    else if (t<=w.due){ r.classList.add('cur'); st.className='st cur'; st.textContent='This week'; }
+    else { r.classList.add('done'); st.className='st done'; st.textContent='Open to review'; }
+  });
+}());
+</script>"""
+
+
+def home_href(w):
+    if w["key"] in ("w01", "w02"):
+        return "%s-overview.html" % w["key"]
+    return week_link(w)
+
+
+EXAM_NOTE = {"w08": "Midterm 1 is open Thursday, November 5 at 8:00 am to Sunday, November 8 at 10:00 pm. Monday to Wednesday is for review and practice exams.",
+             "w15": "The final is open Monday, December 14 at 8:00 am to Wednesday, December 16 at 10:00 pm."}
+
+
+def build_home():
+    import json
+    data = []
+    rows = []
+    for part in sorted(PARTS):
+        ws = [w for w in WEEKS if w["part"] == part]
+        if not ws:
+            continue
+        rows.append('<li class="wpart"><span class="vh">%s</span></li>' % esc(PARTS[part]))
+        for w in ws:
+            i = len(data)
+            href = home_href(w)
+            data.append(dict(label=w["label"], title=w["title"], opens=w["opens"], due=w["due"],
+                             href=href, exam=EXAM_NOTE.get(w["key"], "")))
+            rows.append(
+                '<li class="wrow" data-i="%d"><a href="%s"><span class="n">%s</span>'
+                '<span class="t">%s<span class="d">%s</span></span>'
+                '<span class="st later">Opens %s</span></a></li>'
+                % (i, href, esc(w["label"]), esc(w["title"]), esc(span(w)), esc(pretty(w["opens"]))))
+    rows = [r for r in rows if 'wpart' not in r]
+    refs = [x for x in START_HERE if not x["t"].lower().startswith("week 1 discussion")]
+    body = (
+        '<div class="now" id="now"><div class="nowcard"><h2>Your weeks are listed below.</h2>'
+        '<p class="span">Open the week marked This week to start.</p></div></div>'
+        '<script type="application/json" id="weekdata">%s</script>'
+        '<h2 class="sech">All fifteen weeks</h2>'
+        '<ol class="weeks" role="list">%s</ol>'
+        '<h2 class="sech">Course information</h2>'
+        '<ul class="refs" role="list">%s</ul>'
+        '<p class="canvasnote">Everything graded is turned in through Canvas. '
+        'When a step ends in an upload, it sends you to Canvas for that one thing. '
+        '<a href="%s" target="_blank" rel="noopener">Open Canvas<span class="vh"> (opens in a new tab)</span></a></p>'
+        % (json.dumps(data, ensure_ascii=False).replace("</", "<\\/"), "".join(rows),
+           "".join('<li><a href="%s"><span class="t">%s</span><span class="d">%s</span></a></li>'
+                   % (x["f"], esc(x["t"]), esc(x["d"])) for x in refs), MODULES)
+    ) + HOME2_JS
+    page = kit.page(
+        slug="course-home", title="Course home", eyebrow="Human Physiology \u00b7 Fall 2026",
+        h1="Your course,", h1_tail="week by week.",
+        blurb="Where you are, what is due, and every week in order.",
+        body=body, wide=True, home_is_self=True, extra_css=HOME_CSS + HOME2_CSS)
     io.open(os.path.join(OUT, "course.html"), "w", encoding="utf-8").write(page)
     print("course.html            %6d bytes" % len(page))
 

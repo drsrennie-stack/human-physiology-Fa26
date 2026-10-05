@@ -20,6 +20,13 @@ Out:  _canvas/pages/w04-00-start-here.html   (paste into the Canvas page's HTML 
 """
 import json, sys, html, pathlib
 
+# Oct 5 2026, Scrubs: Canvas is home. Students work down the Canvas module and
+# each item opens one site page. With CANVAS_ONLY on, Start here offers no
+# second route through the website. Set it to False to bring the two routes back.
+CANVAS_ONLY = True
+TWO_WAYS = ('<p style="margin:14px auto 0;font-family:%s;font-size:15.5px;line-height:1.6;color:#0B1530;max-width:54ch">You can work this week two ways, and they hold the same steps in the same order under the same names. You turn everything in on Canvas either way. Pick whichever one suits how you like to work.</p>')
+ONE_WAY = ('<p style="margin:14px auto 0;font-family:%s;font-size:15.5px;line-height:1.6;color:#0B1530;max-width:54ch">Work down this module from top to bottom. Each item opens the page for that step, and you turn in the work for it here in Canvas.</p>')
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://drsrennie-stack.github.io/human-physiology-Fa26/"
 sys.path.insert(0, str(ROOT / "tools"))
@@ -116,17 +123,18 @@ def build(n):
       '<p style="margin:0 0 12px;font-family:%s;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8B3A2E">BIO 005 &middot; %s</p>' % (F, e(data["n_of"])) +
       '<h2 style="margin:0 auto;font-family:%s;font-size:34px;font-weight:800;letter-spacing:-.025em;color:#0B1530;line-height:1.1;max-width:22ch">Week %d: <span style="color:#8B3A2E">%s.</span></h2>' % (FH, n, e(data["title"])) +
       '<p style="margin:16px auto 0;font-family:%s;font-size:17px;line-height:1.6;color:#414B5C;max-width:54ch">%s</p>' % (F, dates) +
-      '<p style="margin:14px auto 0;font-family:%s;font-size:15.5px;line-height:1.6;color:#0B1530;max-width:54ch">You can work this week two ways, and they hold the same steps in the same order under the same names. You turn everything in on Canvas either way. Pick whichever one suits how you like to work.</p>' % F +
+      (TWO_WAYS if not CANVAS_ONLY else ONE_WAY) % F +
       '</div>'
       '<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:stretch;margin:30px 0 26px">' +
       bigcard("#8B3A2E", "&#8592;", "#E0BC6C", "left", "Stay in Canvas",
               "Work down this module from top to bottom. Each item opens the page for that step and is where you turn in the work for it. When you finish a page, press <b>Next</b> at the bottom.",
               "https://yccd.instructure.com/courses/42616/modules", "Go to the modules", "#FFFFFF", "#8B3A2E", "_top",
               "Or press Next at the bottom of this page to start Step 1.") +
+      ("" if CANVAS_ONLY else
       bigcard("#0B1530", "&#8594;", "#C9A14A", "right", "Use the Week %d page" % n,
               "The whole week on one page, as one line of steps from the pre-read to the discussion, with the pages for each step listed under it.",
               entry, "Open the Week %d page" % n, "#C9A14A", "#060A18", "_blank",
-              "It opens in a new tab, so Canvas stays open behind it for turning in your work.") +
+              "It opens in a new tab, so Canvas stays open behind it for turning in your work.")) +
       '</div>' +
       '<div style="%s">' % CARD +
       '<p style="%s">This week, in order: the steps in this module</p>' % EYEBROW +
