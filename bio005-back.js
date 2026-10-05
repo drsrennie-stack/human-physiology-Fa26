@@ -1,3 +1,14 @@
+/* Oct 5 2026: Canvas is home. Load bio005-canvas-only.js from beside this
+   file; it hides the site navigation and turns links to other site pages into
+   plain text. Its ON switch turns the whole site back on. */
+(function(){
+  if (window.__b5CanvasOnlyLoading) return; window.__b5CanvasOnlyLoading = true;
+  var me = document.currentScript && document.currentScript.src;
+  var src = me ? me.replace(/bio005-back\.js(\?.*)?$/, 'bio005-canvas-only.js') : 'bio005-canvas-only.js';
+  if (document.querySelector('script[src*="bio005-canvas-only.js"]')) return;
+  var t = document.createElement('script'); t.src = src; t.defer = true;
+  (document.head || document.documentElement).appendChild(t);
+}());
 /* ============================================================
    BIO 005 Human Physiology, Fall 2026
    bio005-back.js
