@@ -453,6 +453,23 @@ var adT1=tx(gAd,470,280,"keeps firing while the stimulus lasts","t",14,"middle")
 function phasicD(k){var x0=100,w=740,y=330,h=40,d="M"+x0+" "+y;var on=[204,214,224,236],off=[724,736];var all=on.concat(off);all.forEach(function(sx){if(sx<=x0+w*k)d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;});return d+" H"+(x0+w*k);}
 function tonicD(k){var x0=100,w=740,y=210,h=40,d="M"+x0+" "+y;for(var sx=206;sx<720;sx+=18+((sx-200)/40)){if(sx<=x0+w*k)d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}return d+" H"+(x0+w*k);}
 
+/* Oct 4 2026: three kinds of receptor. */
+var gKinds=G("kinds");
+var K1=el("g",{},gKinds),K2=el("g",{},gKinds),K3=el("g",{},gKinds);
+el("line",{x1:150,y1:420,x2:150,y2:220,stroke:NAVY,"stroke-width":6},K1);
+[[150,220,100,140],[150,220,150,120],[150,220,200,140],[125,180,90,170],[175,180,210,170]].forEach(function(q){el("line",{x1:q[0],y1:q[1],x2:q[2],y2:q[3],stroke:NAVY,"stroke-width":4,"stroke-linecap":"round"},K1);});
+tx(K1,150,460,"bare nerve endings","tn",16,"middle");tx(K1,150,484,"pain, itch","t",14,"middle");
+el("line",{x1:450,y1:420,x2:450,y2:250,stroke:NAVY,"stroke-width":6},K2);
+[70,56,42,28,14].forEach(function(r){el("ellipse",{cx:450,cy:200,rx:r,ry:r*1.5,fill:"none",stroke:INK2,"stroke-width":2.5},K2);});
+el("line",{x1:450,y1:250,x2:450,y2:170,stroke:NAVY,"stroke-width":4},K2);
+tx(K2,450,460,"ending in a capsule","tn",16,"middle");tx(K2,450,484,"Pacinian corpuscle, vibration","t",14,"middle");
+el("rect",{x:690,y:170,width:100,height:130,rx:22,fill:"#fff",stroke:MAROON,"stroke-width":3},K3);
+[0,1,2,3].forEach(function(i){el("line",{x1:705+i*22,y1:170,x2:705+i*22,y2:120-i*10,stroke:MAROON,"stroke-width":5,"stroke-linecap":"round"},K3);});
+var K3s=[0,1,2].map(function(i){return el("circle",{cx:715+i*20,cy:320,r:5,fill:GDEEP},K3);});
+el("path",{d:"M720 334 q20 18 40 0 v86",fill:"none",stroke:NAVY,"stroke-width":6},K3);
+tx(K3,740,460,"nonneural receptor cell","tn",16,"middle");tx(K3,740,484,"hair cell; releases transmitter","t",14,"middle");
+function kindsShow(n){[K1,K2,K3].forEach(function(g,i){g.setAttribute("opacity",i<n?1:0.15);});}
+
 makeCap();
 function resetAll(){
   RT.forEach(function(p){p.setAttribute("d","");});press.setAttribute("display","none");thr.setAttribute("display","");sig.setAttribute("display","none");
@@ -479,10 +496,9 @@ var STEPS=[
  ask:"A hair cell is not a neuron and cannot fire action potentials of its own. How could it still get a signal to the brain?",
  ans:["Through a synapse. A nonneural receptor sits right against the ending of a sensory neuron. When a stimulus changes its membrane potential, it changes how much neurotransmitter it releases onto that neuron, and the sensory neuron fires the action potentials.","So in a neural receptor the receptor potential spreads to the neuron's own trigger zone, and in a nonneural receptor the receptor potential changes transmitter release. Either way, the message reaches the brain as action potentials in a sensory neuron."],
  name:"nonneural receptor",
- desc:"The sensory neuron with its branched receptor ending stays on screen, standing for the simplest kind of receptor.",
- pre:function(){S(["neu"]);},
- play:function(a){return wait(400,a).then(function(){cap("Bare ending, capsule, or a separate cell");});}},
-
+ desc:"Three receptors appear in turn: a sensory neuron with bare branching nerve endings, labeled pain and itch; a nerve ending wrapped in onion-like layers, the Pacinian corpuscle for vibration; and a separate receptor cell with stereocilia, a hair cell, releasing gold transmitter dots onto a sensory neuron below it.",
+ pre:function(){S(["kinds"]);kindsShow(0);},
+ play:function(a){var k=0;function nxt(){if(k>=3)return Promise.resolve();k++;kindsShow(k);return wait(420,a).then(nxt);}return nxt().then(function(){cap("Bare, wrapped, or a separate cell");});}},
 {title:"Pressing on the ending",
  text:["A light pressure now pushes on the skin over the receptor ending. The membrane of the ending is full of mechanically gated cation channels, the same kind you met in the channel gating walkthrough."],
  ask:"What does the pressure do at the ending, and is the change in membrane potential there graded or all-or-none?",

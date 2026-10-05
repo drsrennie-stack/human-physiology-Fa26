@@ -163,6 +163,35 @@ var gCrossOff=G("crossoff");
 el("line",{x1:520,y1:90,x2:560,y2:150,stroke:MAROON,"stroke-width":5},gCrossOff);
 el("line",{x1:560,y1:90,x2:520,y2:150,stroke:MAROON,"stroke-width":5},gCrossOff);
 
+/* Oct 4 2026: figures for the reflex pathway, the four ways to sort a
+   reflex, and the plantar response. */
+var gFlow=G("flow");
+tx(gFlow,40,40,"every neural reflex","tn",17,"start");
+var FLB=[["stimulus",40,60,130],["receptor",200,60,130],["sensory neuron",360,60,160],["integrating center (CNS)",550,60,250],
+         ["efferent neuron",550,190,250],["target: muscle or gland",290,190,230],["response",80,190,160]];
+var FLX=FLB.map(function(f){var b=box(gFlow,f[1],f[2],f[3],52,f[0],"tn",14);b.setAttribute("opacity",0.15);return b;});
+var FLA=[[170,86,198,86],[330,86,358,86],[520,86,548,86],[675,112,675,188],[550,216,522,216],[290,216,242,216]].map(function(q){var g=el("g",{opacity:0.15},gFlow);arrow(g,q[0],q[1],q[2],q[3],NAVY,3);return g;});
+tx(gFlow,40,320,"autonomic reflexes: the efferent side is two neurons","tm",16,"start");
+var FLAU=[["preganglionic neuron",40,340,200],["autonomic ganglion",290,340,190],["postganglionic neuron",530,340,210]].map(function(f){var b=box(gFlow,f[1],f[2],f[3],52,f[0],"tn",14,MAROON);b.setAttribute("opacity",0.15);return b;});
+var FLAA=[[240,366,288,366],[480,366,528,366]].map(function(q){var g=el("g",{opacity:0.15},gFlow);arrow(g,q[0],q[1],q[2],q[3],MAROON,3);return g;});
+tx(gFlow,40,430,"smooth muscle, cardiac muscle, glands, adipose tissue","t",14,"start");
+function flowShow(n){FLX.forEach(function(b,i){b.setAttribute("opacity",i<n?1:0.15);});FLA.forEach(function(g,i){g.setAttribute("opacity",i<n-1?1:0.15);});}
+function flowAuto(on){FLAU.concat(FLAA).forEach(function(g){g.setAttribute("opacity",on?1:0.15);});}
+var gFour=G("four");
+var FR=[["efferent division","somatic","autonomic"],["where integrated","spinal","cranial"],["when it develops","innate","learned"],["number of neurons","monosynaptic","polysynaptic"]];
+var FPICK=[1,1,0,1];
+var FCH=FR.map(function(r,i){var y=40+i*102;tx(gFour,60,y+32,r[0],"tn",17,"start");return [box(gFour,330,y,220,54,r[1],"t",16),box(gFour,580,y,220,54,r[2],"t",16)];});
+function fourPick(on){FCH.forEach(function(p,i){p.forEach(function(b,j){var hit=on&&FPICK[i]===j;b.firstChild.setAttribute("stroke",hit?MAROON:NAVY);b.firstChild.setAttribute("stroke-width",hit?5:2.5);});});}
+var gFoot=G("foot");
+function footAt(x0,lab){var g=el("g",{},gFoot);
+  el("path",{d:"M"+x0+" 330 h250 q30 0 30 -25 v-20 q0 -22 -26 -22 h-60 q-40 -58 -120 -68 q-62 0 -74 66 z",fill:TISS,stroke:MAROON,"stroke-width":3},g);
+  var toe=el("g",{},g);el("rect",{x:x0+262,y:268,width:64,height:24,rx:12,fill:TISS,stroke:MAROON,"stroke-width":3},toe);
+  tx(g,x0+150,384,lab,"tn",16,"middle");return {toe:toe,x:x0};}
+var FT=[footAt(60,"normal adult: toes curl down"),footAt(490,"Babinski sign: big toe goes up")];
+var pen=dot(gFoot,GDEEP,8);
+function toeAngle(f,deg){f.toe.setAttribute("transform","rotate("+deg+" "+(f.x+266)+" 280)");}
+function strokeSole(f,a){return run(pen,[[f.x+20,338],[f.x+250,338],[f.x+290,320]],900,a);}
+
 makeCap();
 
 function resetAll(){
@@ -220,16 +249,22 @@ var STEPS=[
  play:function(a){return tap(a).then(function(){return run(dA,IA.slice(0,3),900,a,true);}).then(function(){cap("No signal in, no reflex, no feeling");});}},
 
 {sec:"Kinds of reflexes",comp:"Competency 1",
- title:"Four ways to sort a reflex",
- text:["Every neural reflex follows the same pathway: a stimulus activates a sensory receptor, sensory afferent neurons carry action potentials to the central nervous system, the CNS integrates the information and selects a response, and efferent neurons direct the muscles or glands that carry it out. Many reflexes use negative feedback, and some have a feedforward part that starts the response before the stimulus arrives, like bracing yourself before a collision.", "Reflexes are sorted four ways, and any one reflex gets a label from each. By the efferent division: somatic reflexes use somatic motor neurons and skeletal muscle, like the knee jerk; autonomic reflexes use autonomic neurons to control smooth muscle, cardiac muscle, glands and adipose tissue. By where they are integrated: spinal reflexes in the spinal cord, which the brain can modulate but is not needed for, and cranial reflexes in the brain. By when they develop: innate reflexes are genetically determined, like the rooting reflex a newborn shows when its cheek is stroked, and learned, or conditioned, reflexes come from experience, like Pavlov's dogs salivating at the sound of a bell. By the number of neurons: monosynaptic or polysynaptic."],
+ title:"Every reflex follows one path",
+ text:["Every neural reflex follows the same pathway: a stimulus activates a sensory receptor, sensory afferent neurons carry action potentials to the central nervous system, the CNS integrates the information and selects a response, and efferent neurons direct the muscles or glands that carry it out. Many reflexes use negative feedback, and some have a feedforward part that starts the response before the stimulus arrives, like bracing yourself before a collision."],
+ name:"reflex pathway",
+ auto:true,
+ desc:"Boxes light up in order along the path of every neural reflex: stimulus, receptor, sensory neuron, integrating center in the CNS, efferent neuron, target, response. A second row shows that in autonomic reflexes the efferent side is two neurons, preganglionic and postganglionic, with a synapse in an autonomic ganglion.",
+ pre:function(){S(["flow","cap"]);flowShow(0);flowAuto(false);},
+ play:function(a){var k=0;function nxt(){if(k>=7)return Promise.resolve();k++;flowShow(k);return wait(260,a).then(nxt);}return nxt().then(function(){flowAuto(true);cap("Receptor to target, every time");});}},
+
+{title:"Four ways to sort a reflex",
+ text:["Reflexes are sorted four ways, and any one reflex gets a label from each. By the efferent division: somatic reflexes use somatic motor neurons and skeletal muscle, like the knee jerk; autonomic reflexes use autonomic neurons to control smooth muscle, cardiac muscle, glands and adipose tissue. By where they are integrated: spinal reflexes in the spinal cord, which the brain can modulate but is not needed for, and cranial reflexes in the brain. By when they develop: innate reflexes are genetically determined, like the rooting reflex a newborn shows when its cheek is stroked, and learned, or conditioned, reflexes come from experience, like Pavlov's dogs salivating at the sound of a bell. By the number of neurons: monosynaptic or polysynaptic."],
  ask:"Shine a light in someone's eye and the pupil constricts. Give this reflex a label from each of the four ways of sorting.",
  ans:["It is an autonomic reflex, because its effector is smooth muscle in the iris, controlled by parasympathetic neurons. It is a cranial reflex, integrated in the brain rather than the spinal cord. It is innate: it is one of the reflexes tested in every newborn exam. And it is polysynaptic. In fact every autonomic reflex is: the efferent side always has two neurons, a preganglionic neuron from the CNS and a postganglionic neuron from an autonomic ganglion, so there is at least one synapse in the CNS and another in the ganglion. Only somatic motor reflexes can be monosynaptic.", "Autonomic reflexes are also called visceral reflexes, because they often involve the internal organs. Some, like urination and defecation, are spinal reflexes that the brain modulates; toilet training is a learned control laid over that simple spinal reflex. Others are integrated in the brain: the hypothalamus, thalamus and brain stem coordinate heart rate, blood pressure, breathing, eating, water balance and body temperature, and the brain stem holds the centers for salivating, vomiting, sneezing, coughing, swallowing and gagging. Sorting a reflex this way also tells you where to look when it fails."],
  name:"autonomic reflex",
- desc:"The thigh muscles and the spinal cord cross section stay on screen while the four ways of sorting reflexes are described.",
- pre:function(){S(W(["spin","ia","mne"]));},
- play:function(a){return wait(400,a).then(function(){cap("Effector, center, learned, synapses");});}},
-
-/* ---- 2. the stretch reflex ---- */
+ desc:"Four rows show the four ways to sort a reflex, each with two choices: somatic or autonomic, spinal or cranial, innate or learned, monosynaptic or polysynaptic. For the pupillary reflex, autonomic, cranial, innate and polysynaptic are outlined in maroon.",
+ pre:function(){S(["four","cap"]);fourPick(false);},
+ play:function(a){return wait(500,a).then(function(){fourPick(true);cap("Pupil: autonomic, cranial, innate, polysynaptic");});}},
 {sec:"The stretch reflex",comp:"Competency 2",
  title:"A sensor inside the muscle",
  text:["Skeletal muscle reflexes run on information from proprioceptors, receptors in muscles, joint capsules and ligaments that report body position, movement and effort. The two that matter most are the muscle spindle and the Golgi tendon organ. Both are nerve endings inside connective tissue capsules, and both use mechanically gated cation channels. Joint receptors contribute less than was once thought: people with artificial joints still make fine movements.", "Muscle spindles are scattered among the ordinary contractile fibers, the extrafusal fibers, and lie parallel to them; every skeletal muscle has many, except one muscle in the jaw. Each spindle is a capsule around a few small intrafusal fibers, whose ends can contract but whose central region has no myofibrils. Sensory endings wrap that central region. At the muscle's resting length the center is already stretched enough to fire them, so spindle sensory neurons are tonically active and slowly adapting."],
@@ -380,10 +415,9 @@ var STEPS=[
  ask:"That upward big toe appears after damage to the corticospinal tract. Why would losing a pathway from the brain change a reflex that is integrated in the spinal cord?",
  ans:["Because the corticospinal tract normally shapes how the spinal cord answers this stimulus. With that input gone, the cord's circuit gives a different, more primitive response: the big toe extends. This is the Babinski sign, and it is one of the clearest signs of an upper motor neuron lesion, damage to the motor pathway in the brain or the cord above the reflex.","Infants normally show it until about the age of one to two, while their corticospinal tracts are still maturing. In an adult it is never normal."],
  name:"Babinski sign",
- desc:"The spinal cord is shown with the corticospinal input marked as lost. A caption names the Babinski sign.",
- pre:function(){S(W(["cord"]));},
- play:function(a){return wait(500,a).then(function(){cap("Toe up: upper motor neuron sign");});}},
-
+ desc:"Two feet seen from the side. A gold dot strokes along the sole of each. On the left, the normal adult, the toes curl down. On the right, the Babinski sign, the big toe extends upward.",
+ pre:function(){S(["foot","cap"]);toeAngle(FT[0],0);toeAngle(FT[1],0);},
+ play:function(a){return strokeSole(FT[0],a).then(function(){return tweenVal(0,25,500,a,function(v){toeAngle(FT[0],v);});}).then(function(){return strokeSole(FT[1],a);}).then(function(){return tweenVal(0,-35,500,a,function(v){toeAngle(FT[1],v);});}).then(function(){cap("Toe up: upper motor neuron sign");});}},
 {title:"Upper or lower motor neuron",
  text:["Upper motor neurons are the neurons in the brain whose axons run down the corticospinal tract. Lower motor neurons are the motor neurons in the ventral horn that run out to the muscles. Both kinds of damage cause weakness, but they look different at the bedside.","A lower motor neuron lesion gives weakness with low tone, reduced or absent reflexes, and over weeks, wasting of the muscle and small visible twitches called fasciculations. An upper motor neuron lesion gives weakness with high tone, called spasticity, brisk reflexes, often clonus, and a Babinski sign."],
  ask:"A patient has a weak left leg, a 4+ left knee jerk with clonus, and a Babinski sign on the left. Is this an upper or a lower motor neuron lesion, and why are the reflexes brisk instead of weak?",

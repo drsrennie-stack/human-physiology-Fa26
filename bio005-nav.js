@@ -472,7 +472,9 @@
      Delete a week from this list to put it back on the normal Monday rule. */
   var UNLOCK = {
     2: '2026-09-16T20:00:00-07:00',
-    3: '2026-09-16T20:00:00-07:00'
+    3: '2026-09-16T20:00:00-07:00',
+    /* Oct 4 2026: Week 5 opens Tuesday October 6 at 8:00 am Pacific. */
+    5: '2026-10-06T08:00:00-07:00'
   };
   function weekUnlock(w) {
     var iso = UNLOCK[w[0]];
@@ -892,8 +894,15 @@
   /* Sep 24 2026: Week 4 released from HOLD. Its pages still open on the normal
      rule, Monday September 28 at 8:00 am Pacific. */
   /* Oct 4 2026: Week 5 released from HOLD. Its pages still open on the normal
-     rule, Monday October 5 at 8:00 am Pacific. */
+     rule, except that its unlock is Tuesday October 6 at 8:00 am Pacific (see UNLOCK). */
   var HOLD = window.BIO005_SITE.held = { 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+
+  /* Oct 4 2026: a page listed here opens at its own moment, ahead of its week.
+     Week 5's notes and Competency Study Guide prompts open Monday October 5 at
+     8:00 am so students can print them and start; the walkthroughs (the lessons
+     page) still open Tuesday October 6 at 8:00 am with the rest of the week. */
+  var EARLY = { 'week-05-notes.html': '2026-10-05T08:00:00-07:00',
+                'week-05-notesheet-prompts.html': '2026-10-05T08:00:00-07:00' };
 
   var MANUAL_HOLD = true;   /* clinical-physiology-lab-manual.html stays down until she says otherwise */
   var LAB_PAGES = { 'enzyme-amylase-lab.html': 2, 'osmosis-iv-fluids-lab.html': 3, 'lab-week08-hormone-cycle.html': 7,
@@ -985,12 +994,14 @@
     if (!n || n < 1 || n > 15) return;
     var w = window.BIO005_SITE.weeks[n - 1];
     var held = !!HOLD[n];
+    var early = EARLY[file] ? new Date(EARLY[file]) : null;
+    if (early && !held && new Date() >= early) return;
     if (w.open && !held) return;
 
     var B = base();
     /* Say the moment the week actually unlocks, not the Monday rule, because a
        week on the UNLOCK exception list opens on a different day and hour. */
-    var mon = w.unlock.toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric',
+    var mon = (early || w.unlock).toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric',
                                                  hour: 'numeric', minute: '2-digit',
                                                  timeZone: 'America/Los_Angeles' });
     var line = w.open && held

@@ -41,7 +41,7 @@ STEPS = [
         "in one color as you go.",
   todo=["Choose how you will do your Competency Study Guide, in the Choose one box below: the printed worksheet, or your own paper. Pick two pens you can tell apart.",
         "Read the Week 5 competencies first, so you know what you are looking for.",
-        "The walkthroughs and notes open Monday, October 5 at 8:00 am. Before then the lessons link shows a Get ready page.",
+        "Your Competency Study Guide and the written notes are ready Monday, October 5 at 8:00 am, so you can print them and get started. The walkthroughs open Tuesday, October 6 at 8:00 am; before then the lessons link shows a Get ready page.",
         "Open the Week 5 lessons and work through the six walkthroughs in order. Give spinal reflexes the most time, since it is the biggest topic of the week. The order is spinal reflexes, then sensory receptors and coding, "
         "then spinal pathways, touch and pain, then cerebrospinal fluid and the blood-brain barrier, then vision, then hearing, "
         "balance, taste and smell.",
@@ -54,8 +54,8 @@ STEPS = [
                            ("The Study Guide, one competency to a page, for bigger boxes (PDF)", "sheets/BIO005-note-sheet-week-05-tall.pdf")]),
                dict(name="Use your own paper", text="The same competencies and the same prompts on one page. Work them in a notebook or on blank paper.",
                     links=[("The Week 5 competency list", "week-05-competencies.html")])]),
-         ("The Week 5 walkthroughs, in order (opens Monday, October 5 at 8:00 am)", "lecture-week.html?week=5"),
-         dict(title="Choose one: how you will read the Week 5 written notes (they open Monday, October 5 at 8:00 am)",
+         ("The Week 5 walkthroughs, in order (opens Tuesday, October 6 at 8:00 am)", "lecture-week.html?week=5"),
+         dict(title="Choose one: how you will read the Week 5 written notes (ready Monday, October 5 at 8:00 am)",
               options=[dict(name="On screen", text="The notes for each walkthrough, one page each.",
                             links=[("The Week 5 written notes", "week-05-notes.html")]),
                        dict(name="On paper", text="The same notes, all in one PDF, in two columns to save paper.",

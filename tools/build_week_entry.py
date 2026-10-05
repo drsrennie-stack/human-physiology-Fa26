@@ -41,6 +41,11 @@ STEPS = [
  ('patient','Your patient',"Document this week's findings",'About 30 min','assess',('T',)),
  ('discussion','The discussion','What your check showed, what you changed','About 1 hour','assess',('S',)),
 ]
+def wsteps(week):
+    # Oct 4 2026: a week may leave steps out (Week 5 has no patient case); the
+    # rest keep their order and are numbered in sequence.
+    return [t for t in STEPS if t[0] in week['steps']]
+
 PHASE = {'prev':'Preview','learn':'Learning','retr':'Retrieval','check':'Checking','assess':'Use it'}
 
 def esc(s): return html.escape(s, quote=True)
@@ -159,11 +164,11 @@ BADGE_CLS = {'W': 'wbadge', 'S': 'wbadge abadge', 'T': 'wbadge tbadge'}
 BADGE_SR = {'W': 'has a worksheet', 'S': 'you submit this in Canvas', 'T': 'you track this all term'}
 
 def uses_line(week):
-    return all('pages' in week['steps'][k] for k, *_ in STEPS)
+    return all('pages' in week['steps'][k] for k, *_ in wsteps(week))
 
 def line(week):
     out = ['<ol class="line" aria-label="This week\'s steps, in order">']
-    for i, (key, title, sub, time, kind, letters) in enumerate(STEPS, 1):
+    for i, (key, title, sub, time, kind, letters) in enumerate(wsteps(week), 1):
         st = week['steps'][key]
         title = st.get('title', title); time = st.get('time', time)
         letters = tuple(st.get('badges', letters))
@@ -358,7 +363,7 @@ def build(n):
         style=STYLE
     page=page.replace('__STYLE__',style).replace('__KEY__',KEY).replace('__BODY__',body)
     out=ROOT/f'week-{n:02d}-entry.html'; out.write_text(page,encoding='utf-8')
-    missing=[title for key,title,*_ in STEPS if not w['steps'][key]['link']]
+    missing=[title for key,title,*_ in wsteps(w) if not w['steps'][key]['link']]
     print(f'built {out.name}' + (f'  NOT POSTED YET: {", ".join(missing)}' if missing else ''))
 
 STYLE = r"""<style>
@@ -492,7 +497,7 @@ def dock_steps():
     for k, w in DATA['weeks'].items():
         if not uses_line(w): continue
         steps = []
-        for key, title, sub, time, kind, letters in STEPS:
+        for key, title, sub, time, kind, letters in wsteps(w):
             st = w['steps'][key]
             steps.append({'key': key, 'title': st.get('title', title), 'time': st.get('time', time), 'what': st['what'],
                           'pages': [{'label': g['label'], 'href': g.get('href'), 'desc': g.get('desc', ''), 'opt': bool(g.get('optional'))} for g in st['pages']]})

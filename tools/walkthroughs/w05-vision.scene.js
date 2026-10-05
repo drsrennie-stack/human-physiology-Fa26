@@ -112,6 +112,30 @@ tx(gFld,770,130,"what each eye sees","tn",14,"middle");
 var FL=field(720,"left eye"),FR=field(820,"right eye");
 function shade(a,b,c,d){FL[0].setAttribute("opacity",a);FL[1].setAttribute("opacity",b);FR[0].setAttribute("opacity",c);FR[1].setAttribute("opacity",d);}
 
+/* Oct 4 2026: aqueous humor flow, and a ganglion cell's center and surround. */
+var gAq=G("aq");
+el("path",{d:"M300 80 Q170 250 300 420",fill:"none",stroke:NAVY,"stroke-width":5},gAq);
+tx(gAq,190,250,"cornea","t",14,"end");
+el("rect",{x:300,y:60,width:30,height:150,rx:10,fill:INK2,opacity:.75},gAq);el("rect",{x:300,y:290,width:30,height:150,rx:10,fill:INK2,opacity:.75},gAq);
+tx(gAq,340,60,"iris","t",14,"start");
+el("ellipse",{cx:420,cy:250,rx:55,ry:120,fill:TINT,stroke:NAVY,"stroke-width":3},gAq);tx(gAq,420,250,"lens","t",14,"middle");
+el("rect",{x:350,y:30,width:70,height:40,rx:10,fill:MAROON,opacity:.8},gAq);el("rect",{x:350,y:430,width:70,height:40,rx:10,fill:MAROON,opacity:.8},gAq);
+tx(gAq,430,40,"ciliary epithelium makes aqueous humor","tm",14,"start");
+var aqFill=el("path",{d:"M300 80 Q170 250 300 420 Z",fill:FLUID,opacity:.55},gAq);
+tx(gAq,250,470,"anterior chamber","t",14,"middle");
+el("circle",{cx:292,cy:70,r:12,fill:"#fff",stroke:FLOW,"stroke-width":3},gAq);tx(gAq,282,30,"canal of Schlemm","tn",14,"end");
+var aqD=[dot(gAq,FLOW,7),dot(gAq,FLOW,7),dot(gAq,FLOW,7)];
+var aqX=badge(gAq,292,70,"X",MAROON,14);
+var aqT=tx(gAq,650,300,"","tm",16,"middle");
+function aqFlow(a){return Promise.all(aqD.map(function(d,i){return wait(i*250,a).then(function(){return run(d,[[385,60],[340,150],[300,250],[250,180],[292,70]],1300,a);});}));}
+var gCs=G("cs");
+function csField(cx,lab){el("circle",{cx:cx,cy:200,r:110,fill:"#fff",stroke:NAVY,"stroke-width":3},gCs);el("circle",{cx:cx,cy:200,r:45,fill:"#fff",stroke:NAVY,"stroke-width":2.5,"stroke-dasharray":"6 5"},gCs);tx(gCs,cx,72,lab,"tn",15,"middle");tx(gCs,cx,205,"center","t",12,"middle");tx(gCs,cx,140,"surround","t",12,"middle");}
+csField(230,"light spot on the center");csField(650,"even light on the whole field");
+var csSpot=el("circle",{cx:230,cy:200,r:38,fill:GDEEP,opacity:.55},gCs);
+var csWide=el("circle",{cx:650,cy:200,r:108,fill:GDEEP,opacity:.35},gCs);
+var csT1=trainPath(gCs,MAROON,2.5),csT2=trainPath(gCs,MAROON,2.5);
+tx(gCs,230,470,"strong response","tm",14,"middle");tx(gCs,650,470,"weak response","t",14,"middle");
+
 makeCap();
 function resetAll(){eyeSet(200,0,720,"far");lensDraw(null);eyeT.textContent="";hide(ps);pupils(20,20);light.setAttribute("display","none");pX.setAttribute("display","none");
   rodState(true);CB.forEach(function(b){b.setAttribute("display","none");});cutON.setAttribute("display","none");cutCh.setAttribute("display","none");shade(0,0,0,0);cap("");}
@@ -187,10 +211,9 @@ var STEPS=[
  ask:"If the drainage through the canal of Schlemm is blocked, what happens inside the eye, and why would that matter for vision?",
  ans:["Aqueous humor keeps being secreted but cannot leave, so it accumulates and the pressure inside the eye, intraocular pressure, rises. Raised pressure is a risk factor for glaucoma, a disease in which the optic nerve degenerates. Treatments either reduce how much fluid is secreted or increase how much drains out.", "Glaucoma is the leading cause of blindness worldwide. Pressure is not the whole story: not everyone with high pressure develops glaucoma, and some people with glaucoma have normal pressure. Compare this with cerebrospinal fluid and hydrocephalus: a fluid made continuously builds up whenever its drainage is blocked."],
  name:"glaucoma",
- desc:"The eye in section, standing for the anterior chamber in front of the lens.",
- pre:function(){S(["eye"]);},
- play:function(a){return wait(400,a).then(function(){cap("Made constantly, drained or it builds");});}},
-
+ desc:"The front of the eye in section: cornea, iris, lens, and the ciliary epithelium behind the iris. Blue dots of aqueous humor flow from the ciliary epithelium through the pupil into the anterior chamber and out at the canal of Schlemm. Then a maroon X blocks the canal and the chamber fills darker as pressure rises.",
+ pre:function(){S(["aq"]);aqX.setAttribute("display","none");aqT.textContent="";aqFill.setAttribute("opacity",.55);},
+ play:function(a){return aqFlow(a).then(function(){aqX.setAttribute("display","");aqT.textContent="drainage blocked: pressure rises";return tweenVal(.55,.95,800,a,function(v){aqFill.setAttribute("opacity",v);});}).then(function(){cap("Made constantly, drained or it builds");});}},
 {sec:"Phototransduction",comp:"Competency 17",
  title:"A rod in the dark",
  text:["Light must pass through the inner layers of the retina to reach the photoreceptors, which sit at the back against the retinal pigment epithelium, a dark layer that absorbs stray light and helps form a blood-retinal barrier. There are two kinds of photoreceptor, rods and cones. Each has an outer segment stacked with membrane disks holding visual pigment, an inner segment with the nucleus and organelles, and a synaptic terminal that releases glutamate onto bipolar cells.", "The rod's pigment is rhodopsin: a protein, opsin, with a light-absorbing molecule, retinal, made from vitamin A, tucked into it. In the dark, cyclic GMP (cGMP) is high and keeps cyclic nucleotide-gated (CNG) channels open, so Na+ and Ca2+ flow in, while K+ leaks out. Cation entry outweighs K+ loss, so the rod sits at about −40 mV. At that potential, voltage-gated Ca2+ channels in the terminal are open and the rod releases glutamate continuously."],
@@ -234,10 +257,9 @@ var STEPS=[
  ask:"A small spot of light shines only on the center of an on-center field. Then the light spreads evenly over the whole field. How does the ganglion cell respond each time?",
  ans:["To the spot in the center, it fires strongly. To light spread evenly over both center and surround, it responds only weakly, because the surround inhibits what the center excites. So the retina reports contrast, not the absolute amount of light, which makes edges and weak stimuli easier to detect.", "There are several kinds of ganglion cell. Large M cells are most sensitive to movement; smaller P cells to form and fine detail. A rare third kind contains its own pigment, melanopsin, and sends light information to the brain's circadian clock, the suprachiasmatic nucleus. It is most sensitive to blue light, which is why screens at night can suppress melatonin."],
  name:"center-surround receptive field",
- desc:"The eye in section, standing for the retina at its back.",
- pre:function(){S(["eye"]);},
- play:function(a){return wait(400,a).then(function(){cap("The retina reports contrast");});}},
-
+ desc:"Two ganglion cell receptive fields, each a center inside a ring-shaped surround. On the left, a light spot falls only on the center and the ganglion cell fires a dense train of spikes. On the right, even light covers the whole field and the cell fires only a few spikes.",
+ pre:function(){S(["cs"]);csSpot.setAttribute("display","none");csWide.setAttribute("display","none");csT1.setAttribute("d","");csT2.setAttribute("d","");},
+ play:function(a){csSpot.setAttribute("display","");return growTrain(csT1,function(k){return trainWin(120,440,220,0,k,Math.round(14*k),40);},900,a).then(function(){csWide.setAttribute("display","");return growTrain(csT2,function(k){return trainWin(540,440,220,0,k,Math.round(3*k),40);},900,a);}).then(function(){cap("The retina reports contrast");});}},
 {title:"Crossing at the chiasm",
  text:["This view is from above. Each optic nerve leaves the back of an eye and the two meet at the optic chiasm, where the fibers from the inner half of each retina, the half nearer the nose, cross to the other side, and fibers from the outer halves stay on their own side. The result is that the left half of the visual field from both eyes is processed in the right side of the brain, and the right half in the left side.", "Most fibers then synapse in the lateral geniculate body of the thalamus, which is layered so neighboring parts of the visual field are processed together, and go on to the visual cortex in the occipital lobe, where information is sorted by form, color and movement. Some fibers go to the midbrain for eye movements and the pupillary reflex. Where the two eyes' fields overlap, the binocular zone, the brain combines two slightly different views into depth perception; the edges seen by only one eye are the monocular zone."],
  name:"optic chiasm",

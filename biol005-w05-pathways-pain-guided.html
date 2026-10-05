@@ -448,6 +448,60 @@ poly(gOp,[[690,410],[560,330],[430,300]],GDEEP,4,"6 5");
 badge(gOp,430,300,"op",GDEEP,15);
 tx(gOp,280,430,"enkephalin acts before and after the synapse","tm",14,"middle");
 
+/* Oct 4 2026: a large spinal cord cross section, the four regions, a clot
+   in the medulla, the skin's receptors, and the temperature scale. */
+var gXs=G("xs");
+var XC=[470,250];
+el("ellipse",{cx:XC[0],cy:XC[1],rx:230,ry:165,fill:"#fff",stroke:NAVY,"stroke-width":4},gXs);
+var XT=el("g",{},gXs);
+el("ellipse",{cx:470,cy:118,rx:44,ry:30,fill:NAVY,opacity:.22},XT);
+el("ellipse",{cx:268,cy:240,rx:22,ry:62,fill:NAVY,opacity:.22},XT);el("ellipse",{cx:672,cy:240,rx:22,ry:62,fill:NAVY,opacity:.22},XT);
+el("ellipse",{cx:322,cy:262,rx:20,ry:46,fill:MAROON,opacity:.22},XT);el("ellipse",{cx:618,cy:262,rx:20,ry:46,fill:MAROON,opacity:.22},XT);
+el("ellipse",{cx:470,cy:388,rx:56,ry:22,fill:MAROON,opacity:.22},XT);
+var XG=el("path",{d:"M380 150 Q400 140 420 170 L445 225 L495 225 L520 170 Q540 140 560 150 L540 215 Q600 240 590 320 Q560 345 520 320 L495 280 L445 280 L420 320 Q380 345 350 320 Q340 240 400 215 Z",fill:TINT,stroke:INK2,"stroke-width":2.5},gXs);
+el("circle",{cx:470,cy:252,r:6,fill:"#fff",stroke:INK2,"stroke-width":2},gXs);
+el("line",{x1:395,y1:160,x2:150,y2:120,stroke:NAVY,"stroke-width":5},gXs);
+el("ellipse",{cx:215,cy:130,rx:30,ry:18,fill:"#fff",stroke:NAVY,"stroke-width":3},gXs);
+el("line",{x1:380,y1:320,x2:150,y2:360,stroke:NAVY,"stroke-width":5},gXs);
+el("line",{x1:150,y1:120,x2:70,y2:240,stroke:NAVY,"stroke-width":5},gXs);el("line",{x1:150,y1:360,x2:70,y2:240,stroke:NAVY,"stroke-width":5},gXs);
+el("line",{x1:70,y1:240,x2:20,y2:240,stroke:NAVY,"stroke-width":7},gXs);
+var XL=el("g",{},gXs);
+tx(XL,215,100,"dorsal root ganglion","t",13,"middle");tx(XL,250,170,"dorsal root","t",13,"middle");tx(XL,250,372,"ventral root","t",13,"middle");tx(XL,30,268,"spinal nerve","t",13,"start");
+tx(XL,470,162,"posterior horn","tm",13,"middle");tx(XL,470,312,"anterior horn","tm",13,"middle");tx(XL,600,236,"lateral horn","t",12,"start");
+var XTL=el("g",{},gXs);
+tx(XTL,470,96,"ascending","tn",13,"middle");tx(XTL,740,200,"ascending (outer)","tn",13,"start");tx(XTL,740,330,"descending (inner)","tm",13,"start");tx(XTL,470,440,"descending","tm",13,"middle");
+var XB=[badge(gXs,215,130,"",MAROON,10),badge(gXs,430,300,"",MAROON,10)];
+var XBT=[tx(gXs,90,70,"sensory cell bodies: outside the cord","tm",14,"start"),tx(gXs,470,486,"motor cell bodies: anterior horn","tm",14,"middle")];
+function xsMode(tracts,labels,bodies){XT.setAttribute("display",tracts?"":"none");XTL.setAttribute("display",tracts?"":"none");XL.setAttribute("display",labels?"":"none");XB.concat(XBT).forEach(function(g){g.setAttribute("display",bodies?"":"none");});}
+var gReg=G("regions");
+var REGN=[["C","cervical",NAVY],["T","thoracic",MAROON],["L","lumbar",GDEEP],["S","sacral",INK2]];
+REGN.forEach(function(r,i){el("rect",{x:800,y:40+i*110,width:40,height:100,rx:8,fill:r[2],opacity:.85},gReg);tx(gReg,820,95+i*110,r[0],"iw",18,"middle");tx(gReg,792,95+i*110,r[1],"t",13,"end");});
+var gClot=G("clot");
+el("ellipse",{cx:520,cy:278,rx:26,ry:16,fill:MAROON},gClot);
+tx(gClot,560,312,"clot, lower right medulla","tm",14,"start");
+box(gClot,30,230,250,64,"left side of the body:\npain and temperature","tm",14,MAROON);
+box(gClot,620,380,250,64,"right side of the body:\nproprioception","tn",14);
+var gSkin=G("skin");
+el("rect",{x:60,y:70,width:780,height:90,fill:"#F9E3DC",stroke:MAROON,"stroke-width":2},gSkin);
+el("rect",{x:60,y:160,width:780,height:240,fill:TISS,stroke:MAROON,"stroke-width":2},gSkin);
+el("rect",{x:60,y:400,width:780,height:60,fill:"#FFF6E0",stroke:GDEEP,"stroke-width":2},gSkin);
+tx(gSkin,846,120,"epidermis","t",12,"start");tx(gSkin,846,280,"dermis","t",12,"start");tx(gSkin,846,436,"deep","t",12,"start");
+function nerve(x,y){el("line",{x1:x,y1:y,x2:x,y2:470,stroke:NAVY,"stroke-width":3},gSkin);}
+nerve(130,170);[[130,170,100,90],[130,170,130,80],[130,170,160,90]].forEach(function(q){el("line",{x1:q[0],y1:q[1],x2:q[2],y2:q[3],stroke:NAVY,"stroke-width":3},gSkin);});
+nerve(280,165);[255,280,305].forEach(function(x){el("circle",{cx:x,cy:154,r:9,fill:GDEEP},gSkin);});
+nerve(430,215);el("ellipse",{cx:430,cy:192,rx:16,ry:26,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gSkin);
+nerve(590,440);[34,24,14].forEach(function(r){el("ellipse",{cx:590,cy:420,rx:r,ry:r*0.8,fill:"none",stroke:INK2,"stroke-width":2},gSkin);});
+nerve(740,320);el("ellipse",{cx:740,cy:300,rx:40,ry:10,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gSkin);
+var SKL=[[130,"free nerve endings","temperature, pain, hair"],[280,"Merkel","steady pressure, texture"],[430,"Meissner","flutter, stroking"],[590,"Pacinian","vibration"],[740,"Ruffini","skin stretch"]];
+SKL.forEach(function(r){tx(gSkin,r[0],40,r[1],"tn",13,"middle");tx(gSkin,r[0],58,r[2],"t",11,"middle");});
+var skinRing=el("circle",{cx:280,cy:154,r:40,fill:"none",stroke:MAROON,"stroke-width":4},gSkin);
+var gTemp=G("temp");
+function TX(t){return 100+(t-10)*15.5;}
+[[10,37,NAVY,"cold receptors"],[37,45,GDEEP,"warm receptors"],[45,55,MAROON,"nociceptors: painful heat"]].forEach(function(b){el("rect",{x:TX(b[0]),y:200,width:TX(b[1])-TX(b[0]),height:50,fill:b[2],opacity:.85},gTemp);tx(gTemp,(TX(b[0])+TX(b[1]))/2,b[2]===GDEEP?160:190,b[3],"tn",14,"middle");});
+[[10,50],[20,68],[30,86],[37,"98.6"],[45,113],[55,131]].forEach(function(t){el("line",{x1:TX(t[0]),y1:250,x2:TX(t[0]),y2:262,stroke:NAVY,"stroke-width":2},gTemp);tx(gTemp,TX(t[0]),282,t[0]+" °C","t",13,"middle");tx(gTemp,TX(t[0]),300,"("+t[1]+" °F)","t",12,"middle");});
+var tChili=el("g",{},gTemp);arrow(tChili,TX(48),400,TX(46),262,MAROON,4);tx(tChili,TX(48),420,"chili: capsaicin opens TRPV1","tm",14,"middle");
+var tMint=el("g",{},gTemp);arrow(tMint,TX(18),400,TX(20),262,NAVY,4);tx(tMint,TX(18),420,"mint: menthol opens TRPM8","tn",14,"middle");
+
 makeCap();
 function resetAll(){
   hide([sigA,sigB,sigC,fA,fC,rsig,gsN,gsT,gsP]);[xDC,xST,xCS].forEach(function(b){b.setAttribute("display","none");});
@@ -461,32 +515,37 @@ function draw(name,line,pts,d,dur,a){REG[name].setAttribute("display","");return
 /* ======================= steps ======================= */
 var STEPS=[
 {sec:"Inside the spinal cord",comp:"Competency 5",
- title:"Gray matter and white matter",
- text:["The spinal cord is divided into four regions named for the vertebrae beside them: cervical, thoracic, lumbar and sacral. Each region is made of segments, and each segment gives rise to a pair of spinal nerves, one on each side. Just before a spinal nerve joins the cord, it splits into two roots. The dorsal root carries sensory information in, and its swelling, the dorsal root ganglion, holds the cell bodies of the sensory neurons. The ventral root carries information out to muscles and glands.","In cross section, the cord has an H-shaped core of gray matter, where the cell bodies and synapses are, surrounded by white matter, made mostly of myelinated axons. The gray matter is divided into horns. In the dorsal, or posterior, horns, incoming sensory fibers synapse on interneurons, in separate nuclei for somatic and visceral information. The ventral, or anterior, horns hold the cell bodies of motor neurons, in somatic motor and autonomic nuclei; the autonomic nuclei sit in a small lateral horn.","The white matter is divided into columns, each made of tracts. Ascending tracts carry sensory information up to the brain in the dorsal white matter and the outer part of the lateral white matter. Descending tracts carry commands down from the brain in the ventral white matter and the inner part of the lateral white matter. Propriospinal tracts stay within the cord."],
+ title:"Regions, segments and roots",
+ text:["The spinal cord is divided into four regions named for the vertebrae beside them: cervical, thoracic, lumbar and sacral. Each region is made of segments, and each segment gives rise to a pair of spinal nerves, one on each side. Just before a spinal nerve joins the cord, it splits into two roots. The dorsal root carries sensory information in, and its swelling, the dorsal root ganglion, holds the cell bodies of the sensory neurons. The ventral root carries information out to muscles and glands."],
+ name:"spinal nerve",
+ auto:true,
+ desc:"A large spinal cord cross section with the four regions of the cord shown as colored blocks at the right: cervical, thoracic, lumbar and sacral. On the left, a dorsal root with its ganglion and a ventral root join to form a spinal nerve.",
+ pre:function(){S(["xs","regions"]);xsMode(false,true,false);},
+ play:function(a){return wait(400,a).then(function(){cap("Four regions, paired spinal nerves");});}},
+
+{title:"Gray matter and white matter",
+ text:["In cross section, the cord has an H-shaped core of gray matter, where the cell bodies and synapses are, surrounded by white matter, made mostly of myelinated axons. The gray matter is divided into horns. In the dorsal, or posterior, horns, incoming sensory fibers synapse on interneurons, in separate nuclei for somatic and visceral information. The ventral, or anterior, horns hold the cell bodies of motor neurons, in somatic motor and autonomic nuclei; the autonomic nuclei sit in a small lateral horn.", "The white matter is divided into columns, each made of tracts. Ascending tracts carry sensory information up to the brain in the dorsal white matter and the outer part of the lateral white matter. Descending tracts carry commands down from the brain in the ventral white matter and the inner part of the lateral white matter. Propriospinal tracts stay within the cord."],
  name:"gray matter and white matter",
  auto:true,
- desc:"The stacked levels are shown, with the spinal cord cross section at the bottom.",
- pre:function(){S(["lev"]);},
- play:function(a){return wait(300,a).then(function(){cap("Gray: synapses. White: tracts");});}},
-
+ desc:"The cross section with its H-shaped gray matter. Shaded areas appear in the white matter: navy for ascending tracts in the dorsal and outer lateral white matter, maroon for descending tracts in the inner lateral and ventral white matter.",
+ pre:function(){S(["xs"]);xsMode(false,true,false);},
+ play:function(a){return wait(500,a).then(function(){xsMode(true,true,false);cap("Gray: synapses. White: tracts");});}},
 {title:"Horns, roots, tracts and columns",
  text:["Four words describe the parts of a spinal cord cross section, and they are easy to mix up: horns, roots, tracts and columns."],
  ask:"Which of the four are gray matter, which are white matter, and which one is not inside the cord at all?",
  ans:["Horns are gray matter: regions of cell bodies and synapses. Tracts are white matter: bundles of axons running up or down the cord, and a column is a group of tracts. Roots are not inside the cord at all. They are the two branches of a spinal nerve just before it joins the cord: the dorsal root brings sensory information in, and the ventral root takes motor commands out.","The cord is also an integrating center in its own right. In a spinal reflex, a signal passes from a sensory neuron through the gray matter to an efferent neuron with no input from the brain, while interneurons usually send a copy of the sensory information up a tract to the brain too."],
  name:"columns and tracts",
- desc:"The stacked levels remain, with the spinal cord cross section at the bottom.",
- pre:function(){S(["lev"]);},
- play:function(a){return wait(400,a).then(function(){cap("Horns gray, tracts white, roots outside");});}},
-
+ desc:"The cross section without labels, then labeled: posterior, anterior and lateral horns in the gray matter, ascending and descending tracts in the white matter, and the dorsal root, its ganglion, the ventral root and the spinal nerve outside the cord.",
+ pre:function(){S(["xs"]);xsMode(true,false,false);},
+ play:function(a){return wait(500,a).then(function(){xsMode(true,true,false);cap("Horns gray, tracts white, roots outside");});}},
 {title:"Where the cell bodies are",
  text:["Think about one sensory neuron that carries touch from a fingertip, and one motor neuron that makes a muscle of the hand contract."],
  ask:"Where is the cell body of each one: inside the spinal cord or outside it, and in which part?",
  ans:["The sensory neuron's cell body is outside the cord, in the dorsal root ganglion, the swelling on the dorsal root. Its axon runs all the way from the fingertip, past the cell body, and into the cord. The motor neuron's cell body is inside the cord, in the ventral horn of the gray matter, and its axon leaves through the ventral root.","That is why damage to a dorsal root ganglion, as in shingles, affects sensation along one strip of skin, and why damage to the ventral horn, as in polio, causes weakness with no loss of sensation."],
  name:"dorsal root ganglion",
- desc:"The stacked levels remain, with the spinal cord cross section at the bottom.",
- pre:function(){S(["lev"]);},
- play:function(a){return wait(400,a).then(function(){cap("Sensory bodies out, motor bodies in");});}},
-
+ desc:"Two maroon dots appear: one in the dorsal root ganglion, labeled sensory cell bodies outside the cord, and one in the anterior horn, labeled motor cell bodies.",
+ pre:function(){S(["xs"]);xsMode(false,true,false);},
+ play:function(a){return wait(500,a).then(function(){xsMode(false,true,true);cap("Sensory bodies out, motor bodies in");});}},
 {sec:"Three long pathways",comp:"Competency 5",
  title:"Up and down the cord",
  text:["Sensory information travels up the spinal cord to the brain in ascending pathways, and motor commands travel down in descending pathways. These long pathways are tracts: bundles of axons in the white matter.","The figure stacks the levels: the cortex at the top, the thalamus, the medulla of the brainstem, and one level of the spinal cord. The dashed line is the midline. Each side of the brain senses and moves the opposite side of the body, so every one of these pathways crosses the midline somewhere. Where it crosses is what this section is about."],
@@ -536,20 +595,18 @@ var STEPS=[
  ask:"On which side of the body will pain and temperature be abnormal, and on which side will proprioception be abnormal?",
  ans:["Pain and temperature will be abnormal on the left side. Their secondary neurons crossed in the spinal cord, so the fibers passing through the right medulla carry pain from the left side of the body. Proprioception will be abnormal on the right side. Those fibers have not crossed yet when they enter the lower medulla; they synapse and cross there.", "The same rule works at every level: below the crossing point, a lesion affects the same side; above it, the opposite side."],
  name:"ipsilateral and contralateral",
- desc:"The stacked levels with the dorsal column and spinothalamic pathways drawn, and the lower right medulla marked.",
+ desc:"The stacked levels with both sensory pathways. A maroon clot appears in the lower right medulla, with two labels: left side of the body, pain and temperature; right side of the body, proprioception.",
  pre:function(){S(["lev","dc","st"]);},
- play:function(a){return wait(400,a).then(function(){cap("Pain left, proprioception right");});}},
-
+ play:function(a){return wait(400,a).then(function(){REG.clot.setAttribute("display","");cap("Pain left, proprioception right");});}},
 {sec:"Touch, from skin to cortex",comp:"Competency 13",
  title:"Receptors in the skin",
  text:["Touch receptors respond to stretch, steady pressure, flutter or stroking, vibration and texture, and they come in several forms. Free nerve endings sense temperature, noxious stimuli and hair movement. Meissner corpuscles, near the surface, sense flutter and stroking and adapt quickly. Pacinian corpuscles, deep in the skin, sense vibration, have large receptive fields and adapt quickly, which is why you stop feeling your shirt. Ruffini corpuscles, deep, sense skin stretch and adapt slowly. Merkel receptors, near the surface, sense steady pressure and texture and adapt slowly."],
  ask:"A person reads Braille with a fingertip. Which of these receptors does most of the work, and why are fingertips so good at it?",
  ans:["Merkel receptors. They report steady pressure and texture and keep reporting while the finger rests on a dot, because they adapt slowly. Each one is a nonneural Merkel cell paired with the enlarged ending of a sensory neuron. Pressure on the skin opens Piezo2 channels in the Merkel cell, it depolarizes, and it releases transmitter onto the sensory neuron. Merkel receptors are densest in the fingertips.", "Practice changes the brain too: people who read Braille develop a larger area of somatosensory cortex for the fingertips."],
  name:"Merkel receptor",
- desc:"The bars comparing cortical area with true size remain on screen.",
- pre:function(){S(["hom"]);homGrow(1);},
- play:function(a){return wait(400,a).then(function(){cap("Texture: Merkel receptors");});}},
-
+ desc:"A slice of skin in three layers with five receptors: free nerve endings reaching into the epidermis, Merkel receptors at the base of the epidermis, a Meissner corpuscle just below, a Pacinian corpuscle deep down, and a Ruffini corpuscle in the dermis. A maroon ring circles the Merkel receptors.",
+ pre:function(){S(["skin"]);skinRing.setAttribute("display","none");},
+ play:function(a){return wait(500,a).then(function(){skinRing.setAttribute("display","");cap("Texture: Merkel receptors");});}},
 {title:"The map in the cortex",
  text:["Touch information ends in the primary somatic sensory cortex, in the parietal lobe, on the strip just behind the central sulcus, the postcentral gyrus. Each part of the body has its own region there, its sensory field, laid out in order like a map; drawn as a body, it is the somatosensory homunculus, first mapped by stimulating the cortex of awake patients during surgery. The brain has no pain receptors, so this is possible. Within each body part's region, columns of neurons are devoted to particular kinds of receptor."],
  ask:"The lips and fingertips get far more cortex than the whole trunk. Why would the cortex be built that way?",
@@ -565,10 +622,9 @@ var STEPS=[
  ask:"Chili peppers feel hot in your mouth, and mint feels cool, even at room temperature. How could a chemical feel like a temperature?",
  ans:["Because the receptors use ion channels that respond to both. Heat-sensing nerve endings use TRPV1 channels, which open with damaging heat and also with capsaicin, the chemical in chili peppers. A related channel, TRPM8, opens with cold and also with menthol. The labeled line does the rest: whatever opens those channels is felt as heat or cold.", "TRP channels are also used by nociceptors, which ties temperature and pain together. The discovery of these channels, and of the Piezo channels for touch, won the 2021 Nobel Prize in Physiology or Medicine."],
  name:"TRP channels",
- desc:"The fast and slow fibers figure, standing for the nerve endings that carry temperature.",
- pre:function(){S(["fib"]);},
- play:function(a){return wait(400,a).then(function(){cap("Capsaicin opens the heat channel");});}},
-
+ desc:"A temperature scale from 10 °C (50 °F) to 55 °C (131 °F): cold receptors below 37 °C (98.6 °F), warm receptors from 37 to 45 °C (98.6 to 113 °F), and nociceptors for painful heat above that. Arrows show menthol opening TRPM8 at the cold end and capsaicin opening TRPV1 at the hot end.",
+ pre:function(){S(["temp"]);tChili.setAttribute("display","none");tMint.setAttribute("display","none");},
+ play:function(a){tMint.setAttribute("display","");return wait(500,a).then(function(){tChili.setAttribute("display","");cap("Capsaicin opens the heat channel");});}},
 {title:"Two waves of pain",
  text:["Nociceptors are free nerve endings found in the skin, joints, muscles, bones and internal organs, but not in the brain or spinal cord. They respond to strong stimuli that cause or could cause tissue damage. Their signals travel to the dorsal horn in two kinds of fiber. A-delta fibers are small and myelinated and conduct at about 12 to 30 meters per second. C fibers are small and unmyelinated and conduct at only about 0.5 to 2 meters per second. For comparison, the large myelinated A-beta fibers that carry touch conduct at 30 to 70 meters per second.", "You stub your toe, far from the spinal cord."],
  ask:"Which signal reaches the cord first, and how does each one feel?",

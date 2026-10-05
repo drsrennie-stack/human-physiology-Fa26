@@ -182,6 +182,10 @@ a{color:var(--maroon-dark);font-weight:700}
 .tick{display:inline-block;width:13px;height:13px;border:1.2px solid var(--navy);
       border-radius:2px;vertical-align:-2px}
 .meta .cl{display:inline-block;border-bottom:1px solid var(--muted);width:70px}
+/* Oct 4 2026: in the prompt column, the pass color blanks stack one under the
+   other so the second blank can never run past the column into the drawing box. */
+.info .meta{flex-direction:column;align-items:flex-start;gap:6px}
+.info .meta span{max-width:100%}
 
 /* ONE OPEN BOX.
    Sep 7 2026, Scrubs' call: the four prescribed boxes are gone. The prompt on
@@ -307,11 +311,15 @@ a{color:var(--maroon-dark);font-weight:700}
 .picklab{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
   color:var(--rust,#8B3A2E);margin:11px 0 6px}
 .prompts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pk{position:relative;padding:8px 10px 8px 46px;border:1px solid var(--hair);border-radius:6px;
+/* Oct 4 2026: the tick box, the letter and the prompt sit on one row, the box
+   and letter lined up with the first line of the prompt, instead of being
+   placed absolutely, which let the letter crowd the box. */
+.pk{display:grid;grid-template-columns:13px auto 1fr;column-gap:7px;align-items:start;
+  padding:8px 10px;border:1px solid var(--hair);border-radius:6px;
   font-size:11.5px;line-height:1.42}
-.pk .tick{position:absolute;left:10px;top:8px;width:13px;height:13px;
-  border:1.2px solid var(--navy);border-radius:2px;display:inline-block}
-.pk .lt{position:absolute;left:31px;top:7px;font-weight:800;color:var(--rust,#8B3A2E);font-size:11.5px}
+.pk .tick{width:13px;height:13px;margin-top:2.5px;
+  border:1.2px solid var(--navy);border-radius:2px;display:block}
+.pk .lt{font-weight:800;color:var(--rust,#8B3A2E);font-size:11.5px;line-height:1.42}
 .pk .tx{display:block}
 .pk .pq{font-weight:800;margin:0 0 4px}
 .pk .pdo{margin:0;padding-left:1.1em}.pk .pdo li{margin:0 0 2px}
@@ -321,9 +329,10 @@ a{color:var(--maroon-dark);font-weight:700}
 @media print{
   .picklab{font-size:7.6pt;margin:0.07in 0 0.04in}
   .prompts{gap:0.08in}
-  .pk{font-size:6.8pt;line-height:1.24;padding:0.04in 0.055in 0.04in 0.29in;border:.5pt solid #999}
-  .pk .tick{left:0.05in;top:0.05in;width:7.5pt;height:7.5pt;border:.7pt solid #000}
-  .pk .lt{left:0.185in;top:0.042in;font-size:7pt}
+  .pk{font-size:6.8pt;line-height:1.24;padding:0.04in 0.055in;column-gap:0.045in;
+    grid-template-columns:7.5pt auto 1fr;border:.5pt solid #999}
+  .pk .tick{width:7.5pt;height:7.5pt;margin-top:0.6pt;border:.7pt solid #000}
+  .pk .lt{font-size:6.8pt;line-height:1.24}
   /* the left column has to fit whatever the longest prompt pair is */
   .info .can{font-size:7.4pt;line-height:1.3}
   .info .ptitle h2{font-size:9.6pt;line-height:1.16}
