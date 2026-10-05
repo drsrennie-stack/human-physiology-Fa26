@@ -37,6 +37,7 @@ window.BIO005_LAB = {
     2:  ['enzyme-amylase-lab.html',       'Open the enzyme lab'],
     3:  ['osmosis-iv-fluids-lab.html',    'Open the osmosis and IV fluids lab'],
     4:  ['lab-worksheet-week04.html',     'Open the Week 4 lab worksheet'],
+    5:  ['lab-week05-neuro-exam.html',    'Open the Week 5 neurological exam lab'],
     8:  ['lab-week08-hormone-cycle.html', 'Open the hormone cycle lab'],
     11: ['cbc-pcr-lab.html',              'Open the blood analysis lab'],
     13: ['pulmonary-function-lab.html',   'Open the pulmonary function lab'],

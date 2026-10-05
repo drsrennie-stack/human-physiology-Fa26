@@ -201,8 +201,8 @@ def disc4(W, i):
     o.append(card(h3("Before you post") + p(D["rule"])))
     o.append(card(h3("What to write in your post") + p("Answer each one in two or three sentences.") + ol(D["post"])))
     o.append(card(h3("Replies") + p(D["replies"])))
-    o.append(p("<strong>Next week:</strong> Discussion 5 is part 2. You get the rubrics and the key, score your own "
-               "work, and write about what it shows you."))
+    o.append(p(D.get("next", "<strong>Next week:</strong> Discussion 5 is part 2. You get the rubrics and the key, score your own "
+               "work, and write about what it shows you.")))
     o.append('<p style="margin:6px 0 0 0;font-size:0.85em;color:%s;">Dr. Sharilyn Rennie</p></div>' % INK_SOFT)
     return "".join(o) + "\n"
 

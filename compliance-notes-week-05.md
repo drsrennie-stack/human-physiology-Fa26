@@ -18,6 +18,6 @@ No page contains italics, an em dash, or the Lora font.
 2. The notes PDFs and the pre-read PDF were printed from Chromium, not through tools/make_pdf.py, because weasyprint could not be installed here. They are not tagged PDF/UA. Rerunning `python3 tools/make_notes_pdf.py 5` and adding the pre-read to the JOBS list in make_pdf.py on a machine with weasyprint will replace them with tagged versions.
 3. No hand screen reader pass with NVDA or VoiceOver. Automated checks only, the same as Week 4.
 4. The figures use three new tints for tissue and fluid, declared once in tools/walkthroughs/w05-kit.js. They are fills only and never carry text.
-5. The Week 5 lab page, lab-week05-sensory-reflex.html, was not changed. It has no tendon reflex grading test, and it includes an orthostatic test that belongs with the autonomic material, now Week 7.
+5. The Week 5 lab is now lab-week05-neuro-exam.html, built from the Week 4 lab worksheet shell, so it saves, folds and prints the same way. Every table cell a student types in has its own label for screen readers. The drawing boxes are marked as images with a description, and the drawings are done on paper. The University of Utah NeuroLogic Exam videos are linked, not copied; only the site index, the cranial nerve normal and abnormal pages, and the motor abnormal page were verified, so the other parts send students to the site index. Those videos are third-party and their captions were not checked.
 
 Dr. Sharilyn Rennie
