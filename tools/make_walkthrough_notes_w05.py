@@ -18,6 +18,45 @@ from walkthrough_notes_w05 import NOTES
 
 e = base.e
 
+# Oct 4 2026: which Silverthorn (9th ed.) figure to open in the eText beside each
+# section. Figure numbers only; no publisher images are reproduced.
+FIGS = {
+ ("reflexes","Step by step: where the signal travels"): "Fig. 14.5 (the knee jerk reflex), Fig. 14.2 (muscle spindles and alpha-gamma coactivation), Fig. 14.3 (Golgi tendon organs) and Fig. 14.6 (the crossed extensor reflex)",
+ ("reflexes","The reflex arc"): "Fig. 10.7 (spinal reflexes) and Fig. 14.1 (neural reflexes)",
+ ("reflexes","Kinds of reflexes"): "Table 14.1 (classification of neural reflexes) and Fig. 14.1c (autonomic reflexes)",
+ ("reflexes","Skeletal muscle reflexes and proprioceptors"): "Fig. 14.2 (muscle spindles)",
+ ("reflexes","The stretch reflex"): "Fig. 14.2, Fig. 14.4 (the stretch reflex) and Fig. 14.5 (the knee jerk reflex)",
+ ("reflexes","The Golgi tendon organ"): "Fig. 14.3 (Golgi tendon organs)",
+ ("reflexes","Withdrawal and crossed extensor reflexes"): "Fig. 14.6 (the crossed extensor reflex)",
+ ("reflexes","The brain's control of spinal reflexes"): "Fig. 14.7 (integration of muscle reflexes) and Fig. 14.10 (the corticospinal tract)",
+ ("sensory-coding","Step by step: where the signal travels"): "Fig. 11.6 (coding for stimulus intensity and duration) and Fig. 11.5 (lateral inhibition)",
+ ("sensory-coding","Receptors and transduction"): "Fig. 11.1 (sensory receptors) and Fig. 11.6",
+ ("sensory-coding","Receptor classes"): "Table 11.2 (types of sensory receptors)",
+ ("sensory-coding","What the brain is told"): "Fig. 11.3 (sensory pathways) and Fig. 11.4 (localization of sound)",
+ ("sensory-coding","Receptive fields and acuity"): "Fig. 11.2 (receptive fields) and Fig. 11.5 (lateral inhibition)",
+ ("sensory-coding","Adaptation and habituation"): "Fig. 11.7 (receptor adaptation)",
+ ("pathways-pain","Step by step: where the signal travels"): "Fig. 11.8 (somatosensory pathways), Fig. 14.10 (the corticospinal tract) and Fig. 11.11 (referred pain)",
+ ("pathways-pain","Inside the spinal cord"): "Fig. 10.6 (organization of the spinal cord)",
+ ("pathways-pain","Three long pathways"): "Fig. 11.8 and Fig. 14.10",
+ ("pathways-pain","Where these pathways go in the brain"): "Fig. 10.13 (functional areas of the cerebral cortex) and Fig. 11.3 (sensory pathways)",
+ ("pathways-pain","Somatic senses and their receptors"): "Fig. 11.10 (sensory receptors in the skin) and Fig. 11.9 (the somatosensory cortex)",
+ ("pathways-pain","Pain and its modulation"): "Table 11.3 (classes of somatosensory nerve fibers) and Fig. 11.11 (referred pain)",
+ ("csf-bbb","Step by step: where the signal travels"): "Fig. 10.4 (cerebrospinal fluid) and Fig. 10.5 (the blood-brain barrier)",
+ ("csf-bbb","Protecting the brain"): "Fig. 10.3 (the central nervous system and the meninges)",
+ ("csf-bbb","Cerebrospinal fluid"): "Fig. 10.4 (cerebrospinal fluid)",
+ ("csf-bbb","The blood-brain barrier"): "Fig. 10.5 (the blood-brain barrier)",
+ ("vision","Step by step: where the signal travels"): "Fig. 11.31 (phototransduction in rods), Fig. 11.25 (pathways for vision and the pupillary reflex) and Fig. 11.26 (optics of the eye)",
+ ("vision","Structures of the eye"): "Fig. 11.23 (external anatomy of the eye) and Fig. 11.24 (the eye)",
+ ("vision","Focusing light"): "Fig. 11.26 (optics of the eye)",
+ ("vision","Photoreceptors and phototransduction"): "Fig. 11.29 (rods and cones), Fig. 11.30 (light absorption by visual pigments) and Fig. 11.31 (phototransduction in rods)",
+ ("vision","Processing in the retina and beyond"): "Fig. 11.28 (the retina), Fig. 11.32 (visual fields) and Fig. 11.33 (binocular vision)",
+ ("hearing-balance","Step by step: where the signal travels"): "Fig. 11.18 (signal transduction in hair cells), Fig. 11.20 (the auditory pathways), Fig. 11.22 (equilibrium pathways), Fig. 11.13 (taste) and Fig. 11.12 (the olfactory system)",
+ ("hearing-balance","Hearing"): "Fig. 11.18 (signal transduction in hair cells), the figure on sensory coding for pitch, and Fig. 11.20 (the auditory pathways)",
+ ("hearing-balance","Balance (equilibrium)"): "Fig. 11.21 (equilibrium) and Fig. 11.22 (equilibrium pathways)",
+ ("hearing-balance","Taste and smell"): "Fig. 11.12 (the olfactory system) and Fig. 11.13 (taste)",
+}
+FIGNOTE = '<p class="figref"><b>In your textbook:</b> open Silverthorn %s in your eText beside this section.</p>\n'
+
 def page(n):
     s = base.SHELL[:base.HEAD_END] + base.STYLE_ADD + base.SHELL[base.HEAD_END:]
     s = re.sub(r"<title>[^<]*</title>", "<title>%s, written notes &middot; BIO 005 Human Physiology</title>" % e(n["title"]), s, 1)
@@ -31,7 +70,8 @@ def page(n):
             '<div class="use"><p><b>How to use these notes.</b> Work through <a href="%s" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. '
             'Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>\n' % n["walk"]]
     for t, blocks in n["sections"]:
-        body.append("<section>\n<h2>%s</h2>\n" % e(t) + "".join(base.block(x) for x in blocks) + "</section>\n")
+        fig = FIGS.get((n["slug"], t))
+        body.append("<section>\n<h2>%s</h2>\n" % e(t) + (FIGNOTE % e(fig) if fig else "") + "".join(base.block(x) for x in blocks) + "</section>\n")
     body.append("</div></main>")
     s = s[:a] + head + "\n" + "".join(body) + s[b:]
     s = s.replace("Week 4", "Week 5")
