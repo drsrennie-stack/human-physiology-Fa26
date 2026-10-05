@@ -193,6 +193,8 @@ def build():
             '<p class="meta"><strong>2 to 3 hours.</strong> Graded. Investigate It, 25 percent of your grade across the term.</p>\n'
             '<p>This week you run the parts of a real neurological exam on a partner: mental status, the cranial nerves, motor, reflexes, sensory, and coordination and gait. Then you test the special senses by hand. For every part you write down what the test checks and what normal looks like, and you draw the pathway it tests. Then you watch one patient with an abnormal finding in the University of Utah NeuroLogic Exam videos and work out where the problem is.</p>\n'
             '<p>The videos come from NeuroLogic Exam: An Anatomical Approach, by the University of Utah, shared under a Creative Commons license. ' + ulink(UTAH_INDEX, "The whole site, listed by exam") + '. Each part of the exam has a Normal Exam and an Abnormal Examples page.</p>\n</header>\n'
+            # Oct 5 2026: own words, at the top of the worksheet.
+            '<section class="card" aria-labelledby="h-own">\n  <h2 id="h-own">Write every answer in your own words</h2>\n  <p>Do not copy from the book, the notes, a website, a classmate or an AI tool, even if you change a few words. Read the source, look away, and then write what you understood. If you cannot say it without looking, that tells you what to go back and study. Your own words, even rough ones, are what I want to see.</p>\n</section>\n\n'
             '<section class="card" aria-labelledby="h-need">\n<h2 id="h-need">What you need</h2>\n<ul>\n'
             '<li>A partner who agrees to be examined. A family member or a friend is fine. You are learning the exam, not diagnosing anyone.</li>\n'
             '<li>Your phone flashlight, a tissue, coffee or soap to smell, a flavored jelly bean or hard candy, a clean toothpick or an opened paperclip, a capped pen, a ruler, and a rubber kitchen spatula if you have one.</li>\n'
@@ -218,6 +220,10 @@ def build():
         s = s.replace(x, y)
     for bad in ("\u2014", "<em", "<i>", "Lora", "font-style:italic"):
         assert bad not in s, bad
+    # Oct 5 2026: answers are typed, not pasted (bio005-nopaste.js).
+    if "bio005-nopaste.js" not in s:
+        i = s.rfind("</body>")
+        s = s[:i] + '<script src="bio005-nopaste.js" defer></script>\n' + s[i:]
     (ROOT / "lab-week05-neuro-exam.html").write_text(s, encoding="utf-8")
     print("built lab-week05-neuro-exam.html")
 
