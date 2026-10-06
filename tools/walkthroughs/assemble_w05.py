@@ -50,6 +50,7 @@ STYLE_ADD = """
 .readbox:empty{display:none}
 .zoombtn{position:absolute;top:10px;right:10px;z-index:2;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--navy,#0B1530);background:#fff;color:var(--navy,#0B1530);font:800 .82rem/1 var(--body,inherit);cursor:pointer;box-shadow:0 2px 8px rgba(11,21,48,.15)}
 .zoombtn:hover{background:var(--navy,#0B1530);color:#fff}
+.support .seen{display:block;font-weight:600;font-size:.86rem;color:var(--maroon-dark,#6E2D24);margin:2px 0 0 14px}
 /* Oct 5 2026: Enlarge and Watch again sit in a bar under the figure, not over it, so they never cover a label or a caption. */
 .scene-wrap{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;column-gap:4px;row-gap:8px;padding:0 0 8px}
 .scene-wrap > #scene{flex:0 0 100%}
@@ -123,11 +124,37 @@ function prepHTML(i){
 
 KIT = (R / "tools/walkthroughs/w05-kit.js").read_text(encoding="utf-8")
 
+def _vid(u):
+    m = re.search(r"(?:v=|youtu\.be/)([^&?#]+)", u)
+    return m.group(1) if m else u
+
+def prior_for(slug):
+    """video id -> title of the first earlier walkthrough that sends students to it"""
+    allv = json.loads((R / "tools/walkthroughs/w05-videos.json").read_text(encoding="utf-8"))
+    out = {}
+    for w in WALKS:
+        if w[0] == slug:
+            break
+        d = allv.get(w[0], {})
+        used = {x[1] for lst in d.get("SUP", {}).values() for x in lst}
+        for k in used:
+            out.setdefault(_vid(d["V"][k]["u"]), w[1])
+    return out
+
+SEEN_JS = r"""function seenNote(id){
+  var v=V[id];if(!v)return "";var me=STEPS[cur]?STEPS[cur].title:"";
+  for(var j=0;j<cur;j++){var l=SUP[STEPS[j].title];if(l&&l.some(function(x){return x[1]===id;}))return '<span class="seen">You have already been sent to this video, on step '+(j+1)+', '+esc(STEPS[j].title)+'. If you watched it then, skip ahead to the part you need.</span>';}
+  var m=String(v.u).match(/(?:v=|youtu\.be\/)([^&?#]+)/),k=m?m[1]:v.u;
+  if(PRIOR[k])return '<span class="seen">You have already been sent to this video in the '+esc(PRIOR[k])+' walkthrough. If you watched it then, skip ahead to the part you need.</span>';
+  return "";
+}
+"""
+
 # slug, plain title (for <title> and worksheet), h1 html, start-over sublabel
 WALKS = [
  ("reflexes", "Spinal reflexes", '<span class="tone">Spinal reflexes</span>, step by step.', "Step 1, a tap below the knee"),
  ("sensory-coding", "Sensory receptors and coding", '<span class="tone">Sensory receptors</span> and coding, step by step.', "Step 1, a touch receptor in the skin"),
- ("pathways-pain", "Spinal pathways, touch and pain", 'Spinal pathways, <span class="tone">touch and pain</span>, step by step.', "Step 1, gray matter and white matter"),
+ ("pathways-pain", "Spinal pathways, touch and pain", 'Spinal pathways, <span class="tone">touch and pain</span>, step by step.', "Step 1, regions, segments and roots"),
  ("csf-bbb", "Cerebrospinal fluid and the blood-brain barrier", '<span class="tone">Cerebrospinal fluid</span> and the blood-brain barrier, step by step.', "Step 1, the fluid around the brain"),
  ("vision", "Vision", '<span class="tone">Vision</span>, step by step.', "Step 1, light enters the eye"),
  ("hearing-balance", "Hearing, balance, taste and smell", '<span class="tone">Hearing and balance</span>, taste and smell, step by step.', "Step 1, sound is a pressure wave"),
@@ -184,6 +211,12 @@ def build(slug, title, h1, start):
             prep[sec] = dict(secs_notes[key], review=(sec == "Review"))
     a = s.index("var V={"); b = s.index("function supportHTML")
     s = s[:a] + "var V=" + json.dumps(vids.get("V", {}), ensure_ascii=False) + ";\nvar SUP=" + json.dumps(vids.get("SUP", {}), ensure_ascii=False) + ";\n" + s[b:]
+    # Oct 5 2026, Scrubs: tell students when a Stuck? video is one they have
+    # already been sent to, earlier in this walkthrough or in an earlier one.
+    s = s.replace("var SUP=", "var PRIOR=" + json.dumps(prior_for(slug), ensure_ascii=False) + ";\n" + SEEN_JS + "var SUP=", 1)
+    x = "class=\"look\">'+esc(x[2])+'</span></li>'"
+    assert s.count(x) == 1, (slug, "look")
+    s = s.replace(x, "class=\"look\">'+esc(x[2])+'</span>'+seenNote(x[1])+'</li>'")
     a2 = s.index("function supportHTML")
     s = s[:a2] + "var PREP=" + json.dumps(prep, ensure_ascii=False) + ";\nvar PREP_NOTES=" + json.dumps(notes_f) + ";\nvar PREP_OST=" + json.dumps(OSTAX[slug]) + ";\n" + PREP_JS + s[a2:]
     t = html.escape(title, quote=False)
