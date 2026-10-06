@@ -154,6 +154,11 @@ button{font-family:var(--body)}
 .support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
 .support a:hover{background:#FFC400!important}
 .support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
+.readbox{margin:14px 0 0;padding:14px 16px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10)}
+.readbox:empty{display:none}
+.readbox .rb-h{margin:0 0 6px;font-weight:800;color:var(--maroon,#8B3A2E);font-size:.98rem}
+.readbox ul{margin:0;padding-left:1.1em}.readbox li{margin:0 0 4px;line-height:1.45;font-size:.92rem}
+.readbox a{color:var(--maroon,#8B3A2E);font-weight:700}
 </style>
 </head>
 <body>
@@ -193,6 +198,7 @@ button{font-family:var(--body)}
         <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
       </div>
       <p class="sr" id="sceneDesc" aria-live="polite"></p>
+      <div class="readbox" id="readBox"></div>
     </div>
     <div class="text-col">
     <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
@@ -1011,6 +1017,18 @@ var PREP={"The reflex arc": {"id": "the-reflex-arc", "h": "The reflex arc", "fig
 var PREP_NOTES="biol005-w05-reflexes-walkthrough-notes.html";
 var PREP_OST="section 14.3, Motor Responses, the part on reflexes";
 
+function figText(P){return (P.fig||"").replace(/^open Silverthorn /i,"").replace(/ in your eText beside this section\.?$/,"");}
+function readHTML(i){
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),notes='<a class="b5-keep" href="'+PREP_NOTES+"#"+P.id+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=['<li><b>Your notes:</b> '+notes+'</li>'];
+  if(!P.review){
+    if(P.fig)li.push('<li><b>Silverthorn:</b> '+esc(figText(P))+'</li>');
+    li.push('<li><b>OpenStax:</b> '+esc(PREP_OST.charAt(0).toUpperCase()+PREP_OST.slice(1))+'</li>');
+    if(comp)li.push('<li><b>Competency Study Guide:</b> '+esc(comp)+', prompt A or B</li>');
+  }
+  return '<p class="rb-h">Stuck? Read about this part here</p><ul>'+li.join("")+'</ul>';
+}
 function prepHTML(i){
   var s=STEPS[i];if(!(i===0||s.sec))return "";
   var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
@@ -1098,7 +1116,7 @@ function renderNarr(i,revealed){
   if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
   else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
   h+=supportHTML(s.title);
-  narr.innerHTML='<div class="fadein">'+h+'</div>';
+  narr.innerHTML='<div class="fadein">'+h+'</div>';var rb=document.getElementById("readBox");if(rb)rb.innerHTML=readHTML(i);
 }
 function setScene(i,revealed){
   runId++;var s=STEPS[i];

@@ -17,6 +17,72 @@ Run: python3 tools/walkthroughs/assemble_w05.py
 import pathlib, re, html, json
 R = pathlib.Path(__file__).resolve().parents[2]
 SHELL = (R / "biol005-w04-graded-potentials-guided.html").read_text(encoding="utf-8")
+
+# Oct 5 2026: walkthrough sections whose notes section has a different name.
+PREP_MAP = {
+  "reflexes": {"Withdrawal and crossed extensor": "Withdrawal and crossed extensor reflexes", "Review": "Step by step: where the signal travels"},
+  "sensory-coding": {"From stimulus to signal": "Receptors and transduction", "Kinds of receptors": "Receptor classes", "Adaptation": "Adaptation and habituation", "Review": "Step by step: where the signal travels"},
+  "pathways-pain": {"Touch, from skin to cortex": "Somatic senses and their receptors", "Temperature and pain": "Somatic senses and their receptors", "Review": "Step by step: where the signal travels"},
+  "csf-bbb": {"Review": "Step by step: where the signal travels"},
+  "vision": {"Refractive errors": "Focusing light", "Phototransduction": "Photoreceptors and phototransduction", "Rods, cones and the pathway": "Processing in the retina and beyond", "Review": "Step by step: where the signal travels"},
+  "hearing-balance": {"From air to fluid": "Hearing", "Hearing loss": "Hearing loss and the tuning fork tests", "Balance": "Balance (equilibrium)", "Review": "Step by step: where the signal travels"},
+}
+OSTAX = {
+  "reflexes": "section 14.3, Motor Responses, the part on reflexes",
+  "sensory-coding": "section 14.1, Sensory Perception, the first part on sensory receptors",
+  "pathways-pain": "section 13.2, The Central Nervous System, the part on the spinal cord, and section 14.2, Central Processing",
+  "csf-bbb": "section 13.3, Circulation and the Central Nervous System",
+  "vision": "section 14.1, Sensory Perception, the part on vision",
+  "hearing-balance": "section 14.1, Sensory Perception, the parts on hearing, balance, taste and smell",
+}
+STYLE_ADD = """
+/* Oct 5 2026: Before you start card, and a video box students can see */
+.prep{margin:4px 0 16px;padding:16px 18px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10);max-width:72ch}
+.prep-h{margin:0 0 8px;font-family:var(--display,inherit);font-weight:800;font-size:1.05rem;color:var(--maroon,#8B3A2E)}
+.prep ol{margin:0 0 8px;padding-left:1.3em}.prep li{margin:0 0 6px;line-height:1.5}
+.prep a{color:var(--maroon,#8B3A2E);font-weight:700}
+.prep-then{margin:0;font-weight:700;color:var(--navy,#0B1530)}
+.support .lab{display:flex;align-items:center;gap:8px;font-size:.95rem!important;letter-spacing:0!important;text-transform:none!important;color:var(--navy,#0B1530)!important;font-weight:800!important}
+.support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
+.support a:hover{background:#FFC400!important}
+.support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
+.readbox{margin:14px 0 0;padding:14px 16px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10)}
+.readbox:empty{display:none}
+.readbox .rb-h{margin:0 0 6px;font-weight:800;color:var(--maroon,#8B3A2E);font-size:.98rem}
+.readbox ul{margin:0;padding-left:1.1em}.readbox li{margin:0 0 4px;line-height:1.45;font-size:.92rem}
+.readbox a{color:var(--maroon,#8B3A2E);font-weight:700}
+"""
+PREP_JS = r"""
+function figText(P){return (P.fig||"").replace(/^open Silverthorn /i,"").replace(/ in your eText beside this section\.?$/,"");}
+function readHTML(i){
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),notes='<a class="b5-keep" href="'+PREP_NOTES+"#"+P.id+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=['<li><b>Your notes:</b> '+notes+'</li>'];
+  if(!P.review){
+    if(P.fig)li.push('<li><b>Silverthorn:</b> '+esc(figText(P))+'</li>');
+    li.push('<li><b>OpenStax:</b> '+esc(PREP_OST.charAt(0).toUpperCase()+PREP_OST.slice(1))+'</li>');
+    if(comp)li.push('<li><b>Competency Study Guide:</b> '+esc(comp)+', prompt A or B</li>');
+  }
+  return '<p class="rb-h">Stuck? Read about this part here</p><ul>'+li.join("")+'</ul>';
+}
+function prepHTML(i){
+  var s=STEPS[i];if(!(i===0||s.sec))return "";
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),href=PREP_NOTES+"#"+P.id;
+  var notes='<a class="b5-keep" href="'+href+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=[];
+  if(P.review){
+    li.push("Reread the step-by-step sequences in your notes: "+notes+". Try to say each one out loud before you look.");
+    li.push("Look back at your Competency Study Guide for this walkthrough and fill in anything you missed.");
+  }else{
+    li.push("Read this part of your notes: "+notes+".");
+    li.push("Read it in your textbook. "+(P.fig?"In Silverthorn, "+esc(P.fig.replace(/^open Silverthorn /i,"look at ").replace(/ in your eText beside this section\.?$/,"."))+" ":"")+"If you are using OpenStax instead, read "+esc(PREP_OST)+".");
+    if(comp)li.push("Work on your Competency Study Guide: "+esc(comp)+". Do prompt A or prompt B for it.");
+  }
+  return '<div class="prep"><p class="prep-h">Before you start this part</p><ol>'+li.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ol><p class="prep-then">Then come back here, work through the steps, and make your predictions.</p></div>';
+}
+"""
+
 KIT = (R / "tools/walkthroughs/w05-kit.js").read_text(encoding="utf-8")
 
 # slug, plain title (for <title> and worksheet), h1 html, start-over sublabel
@@ -42,7 +108,37 @@ def build(slug, title, h1, start):
     old = "(Khan Academy video, '+esc(v.n)+'"
     assert old in s
     s = s.replace(old, "('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+'")
+    a3 = """'</h2>'+paras(s.text);"""
+    assert a3 in s
+    s = s.replace(a3, """'</h2>'+prepHTML(i)+paras(s.text);""")
+    a4 = """return '<div class="support"><p class="lab">Stuck? Watch a short explanation</p><ul>'"""
+    assert a4 in s
+    s = s.replace(a4, """return '<div class="support"><p class="lab"><svg class="sarrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" focusable="false"><path d="M2 12 H30" stroke="#F2B705" stroke-width="5" stroke-linecap="round"/><path d="M24 4 L36 12 L24 20" fill="none" stroke="#F2B705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Watch this video if you need more help with this step</p><ul>'""")
+    s = s.replace("</style>", STYLE_ADD + "</style>", 1)
+    a5 = '<p class="sr" id="sceneDesc" aria-live="polite"></p>'
+    assert s.count(a5) == 1
+    s = s.replace(a5, a5 + '\n      <div class="readbox" id="readBox"></div>')
+    a6 = """narr.innerHTML='<div class="fadein">'+h+'</div>';"""
+    assert s.count(a6) == 1
+    s = s.replace(a6, a6 + """var rb=document.getElementById("readBox");if(rb)rb.innerHTML=readHTML(i);""")
+
+    # Oct 5 2026: a Before you start card at the start of each section, tying
+    # the walkthrough to its notes, the book and the Competency Study Guide.
+    notes_f = "biol005-w05-%s-walkthrough-notes.html" % slug
+    nh = (R / notes_f).read_text(encoding="utf-8")
+    secs_notes = {}
+    for sid, h2, rest in re.findall(r'<section id="([^"]+)">\s*<h2>([^<]+)</h2>(.{0,900})', nh, re.S):
+        fm = re.search(r'<p class="figref"><b>In your textbook:</b>\s*(.*?)</p>', rest, re.S)
+        secs_notes[html.unescape(h2)] = {"id": sid, "h": html.unescape(h2), "fig": html.unescape(re.sub(r"<[^>]+>", "", fm.group(1))).strip() if fm else ""}
+    prep = {}
+    for sec in re.findall(r'\{sec:"([^"]+)"', scene):
+        key = PREP_MAP.get(slug, {}).get(sec, sec)
+        if key in secs_notes:
+            prep[sec] = dict(secs_notes[key], review=(sec == "Review"))
+    a = s.index("var V={"); b = s.index("function supportHTML")
     s = s[:a] + "var V=" + json.dumps(vids.get("V", {}), ensure_ascii=False) + ";\nvar SUP=" + json.dumps(vids.get("SUP", {}), ensure_ascii=False) + ";\n" + s[b:]
+    a2 = s.index("function supportHTML")
+    s = s[:a2] + "var PREP=" + json.dumps(prep, ensure_ascii=False) + ";\nvar PREP_NOTES=" + json.dumps(notes_f) + ";\nvar PREP_OST=" + json.dumps(OSTAX[slug]) + ";\n" + PREP_JS + s[a2:]
     t = html.escape(title, quote=False)
     for x, y in [("<title>Graded potentials, step by step | BIOL 005 Week 4</title>", "<title>%s, step by step | BIOL 005 Week 5</title>" % t),
                  ('<span class="tone">Graded</span> potentials, step by step.', h1),
