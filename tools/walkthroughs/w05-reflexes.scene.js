@@ -298,7 +298,7 @@ var kPushHit=el("rect",{x:395,y:330,width:130,height:215,fill:"transparent"},kLo
 var kPromptS=promptAt(gKnee,560,446,["Push the foot back to","stretch the quadriceps"],512,500,458,519,36);
 var kQb=badge(gKnee,330,262,"+",MAROON,13),kHb=badge(gKnee,330,402,"",NAVY,13);setBadge(kHb,M,NAVY);
 var kHrel=tx(gKnee,360,446,"hamstrings relax","tn",14,"start");
-function kneeExtras(){kTrainG.setAttribute("display","none");kTr.setAttribute("d","");kPromptS.setAttribute("display","none");
+function kneeExtras(){if(typeof kGradeG!=="undefined"){kGradeG.setAttribute("display","none");kPullTxt.setAttribute("display","none");kPullTxt2.setAttribute("display","none");}kTrainG.setAttribute("display","none");kTr.setAttribute("d","");kPromptS.setAttribute("display","none");
   kQb.setAttribute("display","none");kHb.setAttribute("display","none");kHrel.setAttribute("display","none");kQuad.setAttribute("rx",178);}
 function stretchReflex(a){
   return Promise.all([tweenVal(0,26,700,a,legAngle),tweenVal(178,192,700,a,function(v){kQuad.setAttribute("rx",v);}),tweenVal(34,46,700,a,function(v){kSpin.setAttribute("rx",v);})])
@@ -385,6 +385,38 @@ var MAPPICK=[1,1,0,1];
 function mapPick(n){MAPL.forEach(function(lv,i){lv.forEach(function(o,j){var on=i<n&&MAPPICK[i]===j;
   o.r.setAttribute("stroke",on?MAROON:"#C9CED8");o.r.setAttribute("stroke-width",on?5:2.5);o.r.setAttribute("fill",on?"#FBF1EF":"#fff");
   o.ln.setAttribute("stroke",on?MAROON:"#C9CED8");o.ln.setAttribute("stroke-width",on?5:3);});});}
+
+/* ---- Oct 5 2026: reflex grades on the real leg ---- */
+var kGradeG=el("g",{},gKnee);
+var GRD=[["0","no kick",0],["1+","weak",-12],["2+","normal",-34],["3+","brisk",-48],["4+","clonus",-56]];
+var kGB=GRD.map(function(g,i){var x=60+i*68,b=el("g",{style:"cursor:pointer"},kGradeG);
+  var r=el("rect",{x:x,y:52,width:60,height:40,rx:9,fill:"#fff",stroke:NAVY,"stroke-width":2.5},b);
+  var t=el("text",{x:x+30,y:79,"class":"tn","font-size":18,"text-anchor":"middle"},b);t.textContent=g[0];
+  tx(b,x+30,108,g[1],"t",12,"middle");b._r=r;return b;});
+var kGPrompt=promptAt(kGradeG,60,150,["Click a grade to see","what that reflex looks like"],140,100,128,72,36);
+function gradeOn(n){kGB.forEach(function(b,i){b._r.setAttribute("stroke",i===n?MAROON:NAVY);b._r.setAttribute("stroke-width",i===n?5:2.5);b._r.setAttribute("fill",i===n?"#FBF1EF":"#fff");});}
+var kBusy=false;
+function kickGrade(n,a){
+  if(kBusy)return Promise.resolve();kBusy=true;gradeOn(n);kneeReset();kneeExtras();kGradeG.setAttribute("display","");
+  var ang=GRD[n][2];
+  return strike(a).then(function(){if(!ang)return wait(500,a);kQuad.setAttribute("ry",ang<-40?38:(ang<-20?34:30));
+      return tweenVal(0,ang,ang<-40?180:260,a,legAngle).then(function(){return tweenVal(ang,0,600,a,legAngle);})
+      .then(function(){if(n<4)return;var seq=[-26,-18,-12];var k=0;function beat(){if(k>=seq.length)return Promise.resolve();var v=seq[k++];return tweenVal(0,v,140,a,legAngle).then(function(){return tweenVal(v,0,220,a,legAngle);}).then(beat);}return beat();});})
+    .then(function(){kQuad.setAttribute("ry",28);kBusy=false;})
+    .catch(function(){kBusy=false;});}
+var kGradeShown=-1;
+var kGradeCap=["Grade 0: no reflex at all.","Grade 1+: weaker than usual.","Grade 2+: a normal reflex.","Grade 3+: brisker than usual.","Grade 4+: very brisk, and the leg keeps jerking. That is clonus."];
+function gradePlay(a){
+  if(!a||reduce){gradeOn(2);return Promise.resolve();}
+  kGPrompt.setAttribute("display","");
+  return new Promise(function(res){var my=runId,first=true;setTimeout(function(){lockNext(true);},0);
+    kGB.forEach(function(b,i){b.onclick=function(){if(my!==runId)return;kGPrompt.setAttribute("display","none");
+      kickGrade(i,true).then(function(){if(my!==runId)return;cap(kGradeCap[i]);if(first){first=false;lockNext(false);res();}});};});
+    var t=setInterval(function(){if(my!==runId){clearInterval(t);res();}},200);});}
+/* reinforcement: tap, then pull your hands and tap again */
+var kPullTxt=tx(gKnee,60,150,"Now hook your fingers together and pull hard,","tm",15,"start");
+var kPullTxt2=tx(gKnee,60,170,"then tap the tendon again.","tm",15,"start");
+function weakKick(a){return strike(a).then(function(){kQuad.setAttribute("ry",31);return tweenVal(0,-12,260,a,legAngle);}).then(function(){return tweenVal(-12,0,500,a,legAngle);}).then(function(){kQuad.setAttribute("ry",28);});}
 
 makeCap();
 
@@ -563,14 +595,13 @@ var STEPS=[
  play:function(a){[bRF,bRE,bLF,bLE].forEach(function(b){setBadge(b,"+",MAROON);});musc(LR,1,1);musc(LL,1,1);return wait(500,a).then(function(){cap("Nothing can relax, so every muscle tightens.");});}},
 {sec:"Testing reflexes",comp:"Competencies 1 and 7",
  title:"Grading a tendon reflex",
- text:["Clinicians grade a deep tendon reflex such as the knee jerk on a scale from 0 to 4+. 0 is absent, 1+ is less than usual, 2+ is normal, 3+ is brisker than usual, and 4+ is very brisk, often with clonus, a rhythmic jerking that repeats after one tap. For a reflex to be normal, every neuron in the pathway must conduct normally, the neuromuscular junction must transmit normally, and the muscle must contract normally."],
+ text:["Clinicians grade a tendon reflex like the knee jerk on a scale from 0 to 4+. 0 means there is no reflex at all. 1+ is weaker than usual, 2+ is normal, 3+ is brisker than usual, and 4+ is very brisk, often with clonus, where the leg keeps jerking several times after a single tap.", "For a reflex to be normal, every neuron in the path has to work, the connection between nerve and muscle has to work, and the muscle has to contract normally. Click each grade to see what it looks like."],
  ask:"One patient's knee jerk is 0. Another's is 4+ with clonus. Where along the pathway could the problem be in each?",
  ans:["A 0, no reflex at all, means the reflex path itself is broken somewhere: the sensor, the sensory neuron, that part of the spinal cord, the motor neuron, the connection to the muscle, or the muscle. A 4+ with clonus usually means the reflex path works but the brain has lost its control over it, as after a stroke or a spinal cord injury above that level. That points to an upper motor neuron problem.", "Not every unusual reflex is a nerve problem: an ankle reflex that relaxes slowly can be a sign of an underactive thyroid. Always compare the left side with the right, because a difference between sides matters more than any one number."],
  name:"reflex grading",
- desc:"Five boxes along the bottom show the grading scale: 0 absent, 1+ less than usual, 2+ normal, 3+ brisker than usual, 4+ very brisk with clonus. The 0 box and then the 4+ box are outlined in maroon.",
- pre:function(){S(W(["spin","ia","mne","scale"]));},
- play:function(a){gradeHi(0);return wait(800,a).then(function(){gradeHi(4);cap("0 means no reflex. 4+ means far too strong.");});}},
-
+ desc:"The leg figure with five grade buttons across the top: 0, no kick; 1+, weak; 2+, normal; 3+, brisk; 4+, clonus. An arrow asks the student to click a grade. Each click taps the tendon and the leg shows that grade: no movement for 0, a small kick for 1+, a normal kick for 2+, a bigger, faster kick for 3+, and for 4+ a big kick followed by several smaller repeated jerks. The caption names the grade.",
+ pre:function(){S(["knee","cap"]);kneeReset();kneeExtras();kSN.setAttribute("display","none");kMN.setAttribute("display","none");kInhG.setAttribute("display","none");kLabs.setAttribute("display","none");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");kGradeG.setAttribute("display","");gradeOn(-1);kGPrompt.setAttribute("display","none");},
+ play:function(a){cap("");return gradePlay(a);}},
 {title:"Muscle tone",
  text:["A resting muscle is never completely limp. Muscle tone is its resistance to being stretched even when relaxed, and examiners check it by moving a relaxed limb."],
  ask:"What keeps a resting muscle slightly contracted, and what happens to its tone if the dorsal roots serving that muscle are cut?",
@@ -585,10 +616,9 @@ var STEPS=[
  ask:"Why would pulling on your own hands make your knee jerk bigger?",
  ans:["Pulling hard on your hands is thought to make the pathways coming down from the brain more active. That makes the spinal motor neurons readier to fire, and through the gamma motor neurons it makes the spindles more sensitive to stretch. So the same tap produces a bigger kick. It also takes the patient's attention off their knee.", "If a weak reflex gets bigger with this trick, the reflex path itself is working. If it stays absent, the path is broken somewhere. You can try this in lab with a partner."],
  name:"Jendrassik maneuver",
- desc:"The knee jerk arc is shown, with the reflex grading scale below. The outline moves from 1+ up to 2+ as the reflex is reinforced.",
- pre:function(){S(W(["hammer","spin","ia","mne","scale","sig","sign"]));gradeHi(1);},
- play:function(a){return tap(a).then(function(){return run(dA,IA,900,a);}).then(function(){return run(dB,MNE,700,a);}).then(function(){gradeHi(2);bulge(quad,true,QY,QH);signs("+",null);cap("Pulling on your hands makes the kick bigger.");});}},
-
+ desc:"The leg and cord with the reflex path drawn in. The student taps the tendon and the leg gives only a small kick, labeled a weak kick, about 1+. A message then says: now hook your fingers together and pull hard, then tap the tendon again. On the second tap the signal runs up the sensory neuron and back down the motor neuron, and the leg gives a full normal kick.",
+ pre:function(){S(["knee","cap"]);kneeReset();kneeExtras();kSN.setAttribute("display","none");kMN.setAttribute("display","none");kInhG.setAttribute("display","none");kLabs.setAttribute("display","none");kFive.setAttribute("display","none");kOne.setAttribute("display","none");kCut.setAttribute("display","none");kPrompt.setAttribute("display","none");kSN.setAttribute("display","");kMN.setAttribute("display","");},
+ play:function(a){cap("");return waitTap(a).then(function(){return weakKick(a);}).then(function(){cap("A weak kick, about 1+.");kPullTxt.setAttribute("display","");kPullTxt2.setAttribute("display","");return waitTap(a);}).then(function(){kPullTxt.setAttribute("display","none");kPullTxt2.setAttribute("display","none");return kneeJerk(a);}).then(function(){cap("Pulling on your hands made the kick bigger.");});}},
 {title:"Stroking the sole of the foot",
  text:["Stroke the outer edge of an adult's sole firmly, from heel to toes, and the toes curl down. That is the normal flexor plantar response. In some patients, the same stroke makes the big toe extend upward and the other toes fan out."],
  ask:"That upward big toe appears after damage to the corticospinal tract. Why would losing a pathway from the brain change a reflex that is integrated in the spinal cord?",
