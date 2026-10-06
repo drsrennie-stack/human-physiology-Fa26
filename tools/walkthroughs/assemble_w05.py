@@ -46,11 +46,43 @@ STYLE_ADD = """
 .support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
 .support a:hover{background:#FFC400!important}
 .support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
-.readbox{margin:14px 0 0;padding:14px 16px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10)}
+.readbox{margin:0 0 18px;padding:14px 16px;background:#FBF6F5;border-radius:12px}
 .readbox:empty{display:none}
+.zoombtn{position:absolute;top:10px;right:10px;z-index:2;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--navy,#0B1530);background:#fff;color:var(--navy,#0B1530);font:800 .82rem/1 var(--body,inherit);cursor:pointer;box-shadow:0 2px 8px rgba(11,21,48,.15)}
+.zoombtn:hover{background:var(--navy,#0B1530);color:#fff}
+.zoombtn:focus-visible,.zoomclose:focus-visible{outline:3px solid var(--gold,#C9A14A);outline-offset:3px}
+.zoomov{position:fixed;inset:0;z-index:2147483600;background:#F7F8FA;display:flex;flex-direction:column;padding:12px 16px 16px}
+.zoomov[hidden]{display:none}
+.zoombar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.zoomtip{font-weight:700;color:var(--navy,#0B1530);font-size:.95rem}
+.zoomclose{min-height:44px;padding:0 20px;border-radius:999px;border:0;background:var(--maroon,#8B3A2E);color:#fff;font:800 .95rem/1 var(--body,inherit);cursor:pointer}
+.zoomstage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.zoomstage svg{width:min(100%, calc((100vh - 90px) * 900 / 560));height:auto;max-height:calc(100vh - 90px);background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(11,21,48,.12)}
 .readbox .rb-h{margin:0 0 6px;font-weight:800;color:var(--maroon,#8B3A2E);font-size:.98rem}
 .readbox ul{margin:0;padding-left:1.1em}.readbox li{margin:0 0 4px;line-height:1.45;font-size:.92rem}
 .readbox a{color:var(--maroon,#8B3A2E);font-weight:700}
+"""
+ZOOM_HTML = r"""
+<div class="zoomov" id="zoomOv" role="dialog" aria-modal="true" aria-label="Enlarged figure" hidden>
+  <div class="zoombar"><span class="zoomtip">The figure still works here: click the things it asks you to.</span>
+  <button type="button" class="zoomclose" id="zoomClose">Close</button></div>
+  <div class="zoomstage" id="zoomStage"></div>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById("zoomBtn"),ov=document.getElementById("zoomOv"),stage=document.getElementById("zoomStage"),
+      close=document.getElementById("zoomClose"),svg=document.getElementById("scene");
+  if(!btn||!ov||!svg)return;
+  var home=svg.parentNode,next=svg.nextSibling;
+  function open(){stage.appendChild(svg);ov.hidden=false;document.body.style.overflow="hidden";close.focus();}
+  function shut(){home.insertBefore(svg,next);ov.hidden=true;document.body.style.overflow="";btn.focus();}
+  btn.addEventListener("click",open);close.addEventListener("click",shut);
+  ov.addEventListener("click",function(e){if(e.target===ov)shut();});
+  document.addEventListener("keydown",function(e){if(!ov.hidden&&e.key==="Escape"){e.preventDefault();shut();}});
+  /* moving to another step brings the figure home first */
+  ["backBtn","nextBtn"].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener("click",function(){if(!ov.hidden)shut();},true);});
+}());
+</script>
 """
 PREP_JS = r"""
 function figText(P){return (P.fig||"").replace(/^open Silverthorn /i,"").replace(/ in your eText beside this section\.?$/,"");}
@@ -115,9 +147,18 @@ def build(slug, title, h1, start):
     assert a4 in s
     s = s.replace(a4, """return '<div class="support"><p class="lab"><svg class="sarrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" focusable="false"><path d="M2 12 H30" stroke="#F2B705" stroke-width="5" stroke-linecap="round"/><path d="M24 4 L36 12 L24 20" fill="none" stroke="#F2B705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Watch this video if you need more help with this step</p><ul>'""")
     s = s.replace("</style>", STYLE_ADD + "</style>", 1)
+    # Oct 5 2026: an Enlarge button opens the live figure full screen.
+    a8 = '<button type="button" class="watch" id="watchBtn" hidden>Watch again</button>'
+    assert s.count(a8) == 1
+    s = s.replace(a8, '<button type="button" class="zoombtn" id="zoomBtn" aria-haspopup="dialog">Enlarge</button>\n        ' + a8)
+    s = s.replace("</body>", ZOOM_HTML + "</body>", 1)
     a5 = '<p class="sr" id="sceneDesc" aria-live="polite"></p>'
     assert s.count(a5) == 1
-    s = s.replace(a5, a5 + '\n      <div class="readbox" id="readBox"></div>')
+    # Oct 5 2026: the reading box sits at the top of the right-hand column,
+    # above the worksheet, so it never covers the figure or the step text.
+    a7 = '<h2 id="wsTitle">Your worksheet</h2>'
+    assert s.count(a7) == 1
+    s = s.replace(a7, '<div class="readbox" id="readBox"></div>\n    ' + a7)
     a6 = """narr.innerHTML='<div class="fadein">'+h+'</div>';"""
     assert s.count(a6) == 1
     s = s.replace(a6, a6 + """var rb=document.getElementById("readBox");if(rb)rb.innerHTML=readHTML(i);""")
