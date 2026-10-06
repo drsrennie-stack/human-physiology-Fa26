@@ -66,7 +66,8 @@ PAPER_WEEK = [4]   # Oct 4 2026: set by build() so the label names the right wee
 def a_link(label, path):
     extra = REPRINT if path.endswith(".pdf") else (PACKET if re.search(r"week-\d\d-competencies\.html$", path) else "")
     return ('<a href="%s%s" target="_blank" rel="noopener" style="%s">%s</a> %s%s'
-            % (SITE, html.escape(path, quote=True), LINK, txt(label), NOTE, extra))
+            % ("" if path.startswith("http") else SITE, html.escape(path, quote=True), LINK, txt(label),
+               NOTE.replace("opens the course site in a new tab", "opens in a new tab") if path.startswith("http") else NOTE, extra))
 
 def links_card(items):
     """Sep 25 2026, Scrubs: every item is numbered, so students know they do all of

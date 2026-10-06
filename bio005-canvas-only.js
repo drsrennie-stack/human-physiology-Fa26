@@ -71,6 +71,8 @@
   function sitePage(a) {
     var h = a.getAttribute('href');
     if (!h || h.charAt(0) === '#' || /^(mailto:|tel:|javascript:)/i.test(h)) return false;
+    /* a walkthrough's own Before you start link to its notes stays live */
+    if (a.classList && a.classList.contains('b5-keep')) return false;
     var u;
     try { u = new URL(h, location.href); } catch (e) { return false; }
     if (u.origin !== location.origin) return false;

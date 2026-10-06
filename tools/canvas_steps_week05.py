@@ -17,20 +17,30 @@ STEPS = [
   intro="A quick look ahead, not a full read. You look at the headings and figures and answer a few short questions, "
         "so the walkthroughs make more sense when you get to them.",
   todo=["Choose how you will do the pre-read, in the Choose one box below: on screen, or on paper.",
-        "Read closely: in Silverthorn Chapter 14, Integrative Physiology I: Control of Body Movement, only the part on neural reflexes "
-        "and skeletal muscle reflexes; and in Chapter 10, The Central Nervous System, only the parts on cerebrospinal fluid, the "
-        "blood-brain barrier and the spinal cord. Then in Chapter 11, Sensory Physiology, read the general properties of sensory "
-        "systems and the somatic senses, including pain, and only skim the special senses, using the figures and the chapter's Visual Summary.",
+        "<strong>If you have the Silverthorn textbook,</strong> read these parts closely. In Chapter 14, read the part on reflexes: the automatic movements your body makes without you deciding to, like your leg kicking when the doctor taps your knee. "
+        "In Chapter 10, read about the fluid and the three thin layers that cushion and protect your brain and spinal cord, the barrier that controls what can pass from your blood into your brain, and the spinal cord itself. "
+        "Then in Chapter 11, read how your body senses things in general, and how you feel touch, temperature and pain. For vision, hearing, balance, taste and smell, just look at the figures and read the summary at the end of the chapter.",
+        "<strong>If you are using the free OpenStax book instead,</strong> read these five sections. 13.2 shows how the brain and spinal cord are built; focus on the spinal cord. "
+        "13.3 covers the fluid and layers that protect the brain and spinal cord, and the barrier between your blood and your brain. "
+        "14.1 explains how your senses pick up information, including vision, hearing, balance, taste and smell. "
+        "14.2 follows that information as it travels up the spinal cord to the brain. 14.3 covers how your brain and spinal cord control movement, including reflexes.",
+        "<strong>About the figures, if you use OpenStax.</strong> The pre-read names figures by their number in Silverthorn, and OpenStax numbers its pictures differently. So for each one, look for a picture of the same thing in those OpenStax sections. "
+        "If you cannot find a matching picture, write your own list instead: on a sheet of paper, list each picture you did find in those sections and write one sentence about what it shows. Upload that page with your pre-read.",
         "Answer the questions on the pre-read in a few words each. Short answers are fine.",
         "Save the page as a PDF with the button at the bottom, or photograph your paper copy."],
   note="Chapter numbers are for the 9th edition. Other editions number things differently, so go by the chapter "
        "title and the topic, and use the search in your eText.",
-  links=[dict(title="Choose one: how you will do the pre-read",
+  links=[dict(title="Choose one: your textbook",
+      options=[dict(name="Silverthorn, if you bought it", text="Human Physiology: An Integrated Approach, 9th edition. This is the textbook for the course. You read it online through Pearson, from the Pearson link in Canvas. The list above tells you which parts to read.",
+                    links=[]),
+               dict(name="OpenStax, free, if you did not buy the textbook", text="Anatomy and Physiology 2e. A free online textbook that covers the same physiology. The list above tells you which five sections to read, and what to do when a picture does not match.",
+                    links=[("The free OpenStax textbook, Anatomy and Physiology 2e", "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction")])]),
+         dict(title="Choose one: how you will do the pre-read",
       options=[dict(name="On screen", text="Type your answers on the page, then save it as a PDF with the button at the bottom.",
                     links=[("Open the Week 5 pre-read", "week-05-preread.html")]),
                dict(name="On paper", text="Print it, answer by hand, then photograph or scan it.",
                     links=[("The Week 5 pre-read, to print (PDF)", "sheets/BIO005-Week5-Preread.pdf")])])],
-  submit_here=["Upload your PDF or photo here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>.",
+  submit_here=["Upload your PDF or photo here, with <strong>Start Assignment</strong> at the top of this page, then <strong>Submit Assignment</strong>. If you used OpenStax and made a handwritten figure sheet, upload it with your pre-read.",
           "Due " + DUE + ". Complete or not complete."],
   turnin=["Upload the PDF or photo to the <strong>Week 5 pre-read</strong> assignment in Canvas.",
           "Due " + DUE + ". Complete or not complete."]),
