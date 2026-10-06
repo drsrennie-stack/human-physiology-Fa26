@@ -100,7 +100,7 @@ el("line",{x1:700,y1:470,x2:700,y2:380,stroke:NAVY,"stroke-width":6},gCh);el("ci
 var tP=poly(gCh,[[190,420],[300,420],[340,330],[420,276],[440,230],[450,90]],NAVY,4);
 var sP=poly(gCh,[[700,380],[700,300],[560,90]],MAROON,4);
 var sL=poly(gCh,[[700,300],[750,196]],MAROON,4);
-tx(gCh,330,350,"brainstem","t",13,"end");tx(gCh,712,330,"olfactory bulb","t",13,"start");
+tx(gCh,348,352,"brainstem","t",13,"start");tx(gCh,712,330,"olfactory bulb","t",13,"start");
 var naT=el("g",{},gCh);arrow(naT,135,330,135,378,MAROON,5);tx(naT,152,346,"Na+ enters directly","tm",14,"start");
 var cs=[dot(gCh,NAVY,9),dot(gCh,MAROON,9),dot(gCh,MAROON,9)];
 

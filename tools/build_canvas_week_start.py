@@ -103,7 +103,12 @@ def build(n):
     F = "'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
     FH = "'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
     SH = "box-shadow:0 10px 24px -8px rgba(11,21,48,.35),0 3px 8px -3px rgba(11,21,48,.25)"
-    dates = (('Opens %s. Everything is due %s at 10:00 pm Pacific, except your first discussion post, '
+    # Oct 5 2026: a week whose discussion replies are due before the week closes
+    # (Week 5) names the reply date too, so this line matches the due list below.
+    dates = (('Opens %s. Everything is due %s at 10:00 pm Pacific, except Discussion %s: your post is due %s '
+              'and your two replies are due %s, both at 10:00 pm.' % (e(data["opens"]), e(data["closes"]), n, e(data["discussion_first_post"]), e(data["discussion_replies"])))
+             if data.get("discussion_replies") else
+             ('Opens %s. Everything is due %s at 10:00 pm Pacific, except your first discussion post, '
               'which is due %s at 10:00 pm.' % (e(data["opens"]), e(data["closes"]), e(data["discussion_first_post"])))
              if data.get("discussion_first_post") else
              'Opens %s. Everything is due %s at 10:00 pm Pacific.' % (e(data["opens"]), e(data["closes"])))

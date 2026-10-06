@@ -353,7 +353,7 @@ __BODY__
 def build(n):
     w=dict(DATA['weeks'][str(n)]); w['n']=n
     page=PAGE.format(n=n, nn=f'{n:02d}', title=esc(w['title']), opens=esc(w['opens']), closes=esc(w['closes']),
-                     meta=(('Opens %s. Your first discussion post is due %s at 10:00 pm, and everything else is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['discussion_first_post']), esc(w['closes']))) if w.get('discussion_first_post') else ('Opens %s. Everything is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['closes'])))), patient=esc(w['patient_label']))
+                     meta=(('Opens %s. Your Discussion %s post is due %s and your two replies are due %s, both at 10:00 pm. Everything else is due %s at 10:00 pm.' % (esc(w['opens']), n, esc(w['discussion_first_post']), esc(w['discussion_replies']), esc(w['closes']))) if w.get('discussion_replies') else ('Opens %s. Your first discussion post is due %s at 10:00 pm, and everything else is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['discussion_first_post']), esc(w['closes']))) if w.get('discussion_first_post') else ('Opens %s. Everything is due %s at 10:00 pm.' % (esc(w['opens']), esc(w['closes'])))), patient=esc(w['patient_label']))
     if uses_line(w):
         body=line(w); style=STYLE+'\n'+LINE_STYLE
         page=page.replace('Start at the top and work your way down. Click any step to open it.','Start at the top and work your way down. Each step lists the pages you need for it. Nothing has to be printed: you can work on your own paper, as long as you label every page with your name, the week, the step, and the competency or question number.')

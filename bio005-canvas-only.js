@@ -21,6 +21,11 @@
    its pattern out of HOLD_PAGES (or empty the list). */
 (function () {
   var HOLD_PAGES = [/\/biol005-w05-[a-z-]+-guided\.html$/];
+  /* Oct 5 2026, Scrubs: all six Week 5 walkthroughs open on their own at
+     Tuesday, October 6, 8:00 am Pacific (15:00 UTC), the time Canvas Step 2
+     gives. Before then a held page says when it opens. */
+  var RELEASE_AT = Date.UTC(2026, 9, 6, 15, 0, 0);
+  if (Date.now() >= RELEASE_AT) return;
   if (/[?&]preview=1\b/.test(location.search)) return;
   var held = HOLD_PAGES.some(function (r) { return r.test(location.pathname); });
   if (!held) return;
@@ -34,7 +39,7 @@
     d.style.cssText = 'max-width:620px;margin:12vh auto 0;padding:30px 32px;background:#fff;border-radius:16px;' +
       'box-shadow:0 4px 18px rgba(11,21,48,.10);font:16px/1.6 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#0B1530';
     d.innerHTML = '<h1 style="font-size:28px;line-height:1.15;margin:0 0 10px;font-weight:800">This walkthrough is not open yet</h1>' +
-      '<p style="margin:0 0 12px">I am still finishing it. It will open soon, and I will post an announcement in Canvas when it does.</p>' +
+      '<p style="margin:0 0 12px">It opens on Tuesday, October 6 at 8:00 am Pacific. Come back then.</p>' +
       '<p style="margin:0 0 22px">In the meantime, you can work on the pre-read, read the written notes, and start your Competency Study Guide.</p>' +
       '<a href="https://yccd.instructure.com/courses/42616/modules" target="_top" style="display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:10px;background:#8B3A2E;color:#fff;text-decoration:none;font-weight:800">Back to Canvas</a>';
     document.body.appendChild(d);

@@ -33,8 +33,8 @@ var swell=el("ellipse",{cx:430,cy:242,rx:0,ry:0,fill:FLUID,stroke:NAVY,"stroke-w
 
 /* ---- two capillaries ---- */
 var gCap=G("caps");
-tx(gCap,220,40,"capillary elsewhere in the body","tn",15,"middle");
-tx(gCap,650,40,"capillary in the brain","tn",15,"middle");
+tx(gCap,220,24,"capillary elsewhere in the body","tn",15,"middle");
+tx(gCap,650,24,"capillary in the brain","tn",15,"middle");
 function capil(cx,tight){
   el("circle",{cx:cx,cy:240,r:150,fill:"#fff",stroke:NAVY,"stroke-width":3},gCap);
   el("circle",{cx:cx,cy:240,r:110,fill:TISS,stroke:MAROON,"stroke-width":3},gCap);
@@ -51,7 +51,7 @@ tx(gAst,830,90,"astrocyte feet","tm",13,"middle");
 /* four things arriving at the brain capillary: from the blood outward */
 var MOL=[["O2",NAVY,0],["glucose",GDEEP,1],["protein",MAROON,2],["drug",INK2,3]];
 var MG=MOL.map(function(m){var g=el("g",{},gCap);el("rect",{x:-34,y:-14,width:68,height:28,rx:14,fill:m[1]},g);var t=el("text",{"class":"iw","font-size":13},g);t.textContent=m[0];g.setAttribute("display","none");return g;});
-var ME=[[650,200,650,40],[650,240,870,240],[650,280,650,320],[650,240,440,240]];
+var ME=[[650,200,650,54],[650,240,870,240],[650,280,650,320],[650,240,440,240]];
 var gTr=G("glut");
 badge(gTr,780,240,"T",GDEEP,13);tx(gTr,780,272,"GLUT1","tm",13,"middle");
 var outT=tx(gCap,450,490,"","tn",15,"middle");

@@ -429,7 +429,7 @@ var opT1=tx(gOp,300,268,"before the synapse","tm",13,"middle"),opT2=tx(gOp,560,3
 var opHit=el("rect",{x:550,y:400,width:280,height:60,fill:"transparent"},gOp);
 var pOp=promptAt(gGate,150,470,["Click the brainstem pathway","to switch it on"],556,436,690,430,40);
 
-makeCap();CAP.setAttribute("x",24);CAP.setAttribute("text-anchor","start");
+makeCap();
 function resetAll(){
   hide([sigA,sigB,sigC,fA,fC,rsig,gsN,gsT,gsI,xIn,xOut,sN,sI,sM,sU].concat(mkSig));
   [xBodS,xBodM,xBodST,xBodMT,XWM].forEach(function(g){g.setAttribute("display","none");});

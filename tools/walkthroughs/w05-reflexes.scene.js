@@ -244,7 +244,7 @@ tx(kLabs,410,150,"sensory neuron","tm",14,"start");
 tx(kLabs,470,268,"motor neuron","tn",14,"start");
 var kFive=el("g",{},gKnee);
 [[250,262,"1 receptor: spindle"],[400,128,"2 sensory neuron"],[730,30,"3 integrating center: cord"],[540,214,"4 motor neuron"],[150,226,"5 effector: quadriceps"]].forEach(function(f){var b=badge(kFive,f[0],f[1],f[2].charAt(0),MAROON,12);tx(kFive,f[0]+18,f[1]+5,f[2].slice(2),"tm",13,"start");});
-var kOne=el("g",{},gKnee);el("circle",{cx:716,cy:172,r:22,fill:"none",stroke:GDEEP,"stroke-width":4},kOne);tx(kOne,790,250,"one synapse","tm",15,"middle");
+var kOne=el("g",{},gKnee);el("circle",{cx:716,cy:172,r:22,fill:"none",stroke:GDEEP,"stroke-width":4},kOne);tx(kOne,796,196,"one synapse","tm",15,"start");
 var kCut=el("g",{},gKnee);el("line",{x1:568,y1:46,x2:600,y2:92,stroke:MAROON,"stroke-width":6},kCut);el("line",{x1:600,y1:46,x2:568,y2:92,stroke:MAROON,"stroke-width":6},kCut);tx(kCut,584,122,"cut","tm",14,"middle");
 /* the hammer, and the prompt to use it */
 var kHam2=el("g",{style:"cursor:pointer"},gKnee);

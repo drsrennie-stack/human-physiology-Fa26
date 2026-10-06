@@ -62,7 +62,8 @@ function growTrain(path,fn,dur,a){
 }
 /* the caption line, drawn last so it sits on top */
 var CAP=null;
-function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
+/* Oct 5 2026: centered on the full figure now that no button sits over its corner */
+function makeCap(){var g=G("cap");CAP=tx(g,450,528,"","tn",18,"middle");return g;}
 function cap(s){if(CAP)CAP.textContent=s||"";}
 
 /* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */

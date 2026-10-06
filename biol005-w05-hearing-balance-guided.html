@@ -158,6 +158,10 @@ button{font-family:var(--body)}
 .readbox:empty{display:none}
 .zoombtn{position:absolute;top:10px;right:10px;z-index:2;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--navy,#0B1530);background:#fff;color:var(--navy,#0B1530);font:800 .82rem/1 var(--body,inherit);cursor:pointer;box-shadow:0 2px 8px rgba(11,21,48,.15)}
 .zoombtn:hover{background:var(--navy,#0B1530);color:#fff}
+/* Oct 5 2026: Enlarge and Watch again sit in a bar under the figure, not over it, so they never cover a label or a caption. */
+.scene-wrap{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;column-gap:4px;row-gap:8px;padding:0 0 8px}
+.scene-wrap > #scene{flex:0 0 100%}
+.scene-wrap .zoombtn,.scene-wrap .watch{position:static;box-shadow:none;margin-right:8px}
 .zoombtn:focus-visible,.zoomclose:focus-visible{outline:3px solid var(--gold,#C9A14A);outline-offset:3px}
 .zoomov{position:fixed;inset:0;z-index:2147483600;background:#F7F8FA;display:flex;flex-direction:column;padding:12px 16px 16px}
 .zoomov[hidden]{display:none}
@@ -373,7 +377,8 @@ function growTrain(path,fn,dur,a){
 }
 /* the caption line, drawn last so it sits on top */
 var CAP=null;
-function makeCap(){var g=G("cap");CAP=tx(g,392,528,"","tn",18,"middle");return g;}
+/* Oct 5 2026: centered on the full figure now that no button sits over its corner */
+function makeCap(){var g=G("cap");CAP=tx(g,450,528,"","tn",18,"middle");return g;}
 function cap(s){if(CAP)CAP.textContent=s||"";}
 
 /* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */
@@ -498,7 +503,7 @@ el("line",{x1:700,y1:470,x2:700,y2:380,stroke:NAVY,"stroke-width":6},gCh);el("ci
 var tP=poly(gCh,[[190,420],[300,420],[340,330],[420,276],[440,230],[450,90]],NAVY,4);
 var sP=poly(gCh,[[700,380],[700,300],[560,90]],MAROON,4);
 var sL=poly(gCh,[[700,300],[750,196]],MAROON,4);
-tx(gCh,330,350,"brainstem","t",13,"end");tx(gCh,712,330,"olfactory bulb","t",13,"start");
+tx(gCh,348,352,"brainstem","t",13,"start");tx(gCh,712,330,"olfactory bulb","t",13,"start");
 var naT=el("g",{},gCh);arrow(naT,135,330,135,378,MAROON,5);tx(naT,152,346,"Na+ enters directly","tm",14,"start");
 var cs=[dot(gCh,NAVY,9),dot(gCh,MAROON,9),dot(gCh,MAROON,9)];
 
@@ -668,7 +673,7 @@ var STEPS=[
 ];
 
 /* ======================= support videos ======================= */
-var V={"loss": {"u": "https://youtu.be/FgF91K7dU8Y", "n": "Conductive vs sensorineural hearing loss", "s": "Khan Academy"}, "aud1": {"u": "https://www.youtube.com/watch?v=6GB_kcdVMQo", "n": "Auditory structure, part 1", "s": "Khan Academy"}, "aud2": {"u": "https://www.youtube.com/watch?v=B2vtvtqZwwQ", "n": "Auditory structure, part 2", "s": "Khan Academy"}, "audproc": {"u": "https://www.youtube.com/watch?v=peSLM4XObBE", "n": "Auditory processing", "s": "Khan Academy"}, "gust": {"u": "https://www.youtube.com/watch?v=-vp1X7_u3KU", "n": "Gustation, structure and function", "s": "Khan Academy"}, "olf": {"u": "https://www.youtube.com/watch?v=5-McqAO8_Qw", "n": "Olfaction, structure and function", "s": "Khan Academy"}, "vest": {"u": "https://www.youtube.com/watch?v=P3aYqxGesqs", "n": "Vestibular system", "s": "2-Minute Neuroscience"}};
+var V={"loss": {"u": "https://youtu.be/FgF91K7dU8Y", "n": "Weber and Rinne tests", "s": "AMBOSS"}, "aud1": {"u": "https://www.youtube.com/watch?v=6GB_kcdVMQo", "n": "Auditory structure, part 1", "s": "Khan Academy"}, "aud2": {"u": "https://www.youtube.com/watch?v=B2vtvtqZwwQ", "n": "Auditory structure, part 2", "s": "Khan Academy"}, "audproc": {"u": "https://www.youtube.com/watch?v=peSLM4XObBE", "n": "Auditory processing", "s": "Khan Academy"}, "gust": {"u": "https://www.youtube.com/watch?v=-vp1X7_u3KU", "n": "Gustation, structure and function", "s": "Khan Academy"}, "olf": {"u": "https://www.youtube.com/watch?v=5-McqAO8_Qw", "n": "Olfaction, structure and function", "s": "Khan Academy"}, "vest": {"u": "https://www.youtube.com/watch?v=P3aYqxGesqs", "n": "Vestibular system", "s": "2-Minute Neuroscience"}};
 var SUP={"The Weber test": [["What is the difference between conductive and sensorineural hearing loss?", "loss", "Listen for where each kind of loss happens, before the cochlea or in the cochlea and nerve, and which ear the sound moves toward."]], "The Rinne test": [["What is the difference between conductive and sensorineural hearing loss?", "loss", "Listen for air conduction versus bone conduction, and which one is louder in each kind of loss."]], "Sound is a pressure wave": [["How is the ear built?", "aud1", "Listen for the outer, middle and inner ear and what each part does."]], "Why the middle ear has bones": [["How is the ear built?", "aud1", "Listen for the eardrum and the three small bones carrying vibration to the inner ear."]], "Inside the cochlea": [["What is inside the cochlea?", "aud2", "Listen for the fluid-filled chambers, the basilar membrane and the hair cells."]], "Bending the hair cells": [["What is inside the cochlea?", "aud2", "Listen for how bending the hair cells turns sound into a nerve signal."]], "High and low pitch": [["How does the brain tell high pitch from low?", "audproc", "Listen for where along the basilar membrane high and low sounds are detected."]], "Salty and sour": [["How does taste work?", "gust", "Listen for the five basic tastes and how taste cells detect them."]], "Sweet, bitter and umami": [["How does taste work?", "gust", "Listen for the tastes that use receptors on the taste cell surface."]], "A smell and a memory": [["How does smell work?", "olf", "Listen for the olfactory receptors, the olfactory bulb, and where smell goes in the brain."]], "The balance organs": [["How does the vestibular system work?", "vest", "Listen for the semicircular canals and the two otolith organs."]], "Turning the head": [["How does the vestibular system work?", "vest", "Listen for endolymph moving in a canal when the head turns."]], "Tilting the head": [["How does the vestibular system work?", "vest", "Listen for the otolith organs sensing tilt and straight-line movement."]]};
 var PREP={"From air to fluid": {"id": "hearing", "h": "Hearing", "fig": "open Silverthorn Fig. 11.18 (signal transduction in hair cells), the figure on sensory coding for pitch, and Fig. 11.20 (the auditory pathways) in your eText beside this section.", "review": false}, "Hearing loss": {"id": "hearing-loss-and-the-tuning-fork-tests", "h": "Hearing loss and the tuning fork tests", "fig": "", "review": false}, "Balance": {"id": "balance-equilibrium", "h": "Balance (equilibrium)", "fig": "open Silverthorn Fig. 11.21 (equilibrium) and Fig. 11.22 (equilibrium pathways) in your eText beside this section.", "review": false}, "Taste and smell": {"id": "taste-and-smell", "h": "Taste and smell", "fig": "open Silverthorn Fig. 11.12 (the olfactory system) and Fig. 11.13 (taste) in your eText beside this section.", "review": false}, "Review": {"id": "step-by-step-where-the-signal-travels", "h": "Step by step: where the signal travels", "fig": "open Silverthorn Fig. 11.18 (signal transduction in hair cells), Fig. 11.20 (the auditory pathways), Fig. 11.22 (equilibrium pathways), Fig. 11.13 (taste) and Fig. 11.12 (the olfactory system) in your eText beside this section.", "review": true}};
 var PREP_NOTES="biol005-w05-hearing-balance-walkthrough-notes.html";

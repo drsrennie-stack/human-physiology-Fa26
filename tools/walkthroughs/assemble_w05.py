@@ -50,6 +50,10 @@ STYLE_ADD = """
 .readbox:empty{display:none}
 .zoombtn{position:absolute;top:10px;right:10px;z-index:2;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--navy,#0B1530);background:#fff;color:var(--navy,#0B1530);font:800 .82rem/1 var(--body,inherit);cursor:pointer;box-shadow:0 2px 8px rgba(11,21,48,.15)}
 .zoombtn:hover{background:var(--navy,#0B1530);color:#fff}
+/* Oct 5 2026: Enlarge and Watch again sit in a bar under the figure, not over it, so they never cover a label or a caption. */
+.scene-wrap{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;column-gap:4px;row-gap:8px;padding:0 0 8px}
+.scene-wrap > #scene{flex:0 0 100%}
+.scene-wrap .zoombtn,.scene-wrap .watch{position:static;box-shadow:none;margin-right:8px}
 .zoombtn:focus-visible,.zoomclose:focus-visible{outline:3px solid var(--gold,#C9A14A);outline-offset:3px}
 .zoomov{position:fixed;inset:0;z-index:2147483600;background:#F7F8FA;display:flex;flex-direction:column;padding:12px 16px 16px}
 .zoomov[hidden]{display:none}
