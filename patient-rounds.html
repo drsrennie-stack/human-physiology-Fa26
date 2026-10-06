@@ -160,6 +160,7 @@ button{font-family:inherit;font-size:inherit}
 .beat{border:1px solid var(--navy-tint);border-radius:10px;padding:12px 14px;margin:0 0 10px}
 .beat h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-dark);margin:0 0 5px}
 .beat p{margin:0;font-size:15px}
+.beat .qtext{margin:0 0 6px;font-weight:700;color:var(--navy)}
 
 /* fields */
 label.fl{display:block;font-size:13px;font-weight:700;color:var(--navy);margin:0 0 5px}
@@ -675,9 +676,9 @@ function panelOrd() {
 
 function entriesHtml(st, wkw) {
   var A = st.answers || {}, L = st.log || {}, h = '';
-  function put(label, key) {
+  function put(label, key, prompt) {
     var txt = A[key];
-    h += '<div class="beat"><h3>' + esc(label) + '</h3><p>' + (txt ? esc(txt).replace(/&/g, '&amp;').replace(/</g, '&lt;') : 'Not written yet.') + '</p>'
+    h += '<div class="beat"><h3>' + esc(label) + '</h3>' + (prompt ? '<p class="qtext">' + prompt + '</p>' : '') + '<p>' + (txt ? esc(txt).replace(/&/g, '&amp;').replace(/</g, '&lt;') : 'Not written yet.') + '</p>'
       + (txt ? stampLine(L['a-' + key]) : '') + '</div>';
   }
   put('Prediction', 'predict');
@@ -686,7 +687,7 @@ function entriesHtml(st, wkw) {
   put('Problem list', 'problems');
   put('Medications and orders', 'mar');
   put('Your drawing, described', 'draw');
-  (wkw.five || []).forEach(function (q, i) { put('Question ' + (i + 1), 'q' + i); });
+  (wkw.five || []).forEach(function (q, i) { put('Question ' + (i + 1), 'q' + i, q); });
   put('From your desk', 'desk');
   put('Subjective', 'noteS');
   put('Objective', 'noteO');
@@ -699,7 +700,22 @@ function entriesHtml(st, wkw) {
   if (st.name) { h += '<div class="beat"><h3>Signed</h3><p>' + esc(st.name).replace(/</g, '&lt;') + '</p>' + stampLine(L.name) + '</div>'; }
   return h;
 }
-function panelMine() { return activityHtml(S) + entriesHtml(S, wk); }
+/* Oct 6 2026: the filed flowsheet and fluid balance, as read-only tables.
+   Used by My entries (so Export this week prints them) and by the whole
+   case export. Before this, the one-week export printed only a time stamp
+   under Flowsheet and Intake and output, not the numbers. */
+function weekTables(exw, st, w) {
+  if (!exw || !exw.flow) { return ''; }
+  var rowsDef = [], h = '';
+  E.groups.forEach(function (g) {
+    var rs = g.rows.filter(function (r) { return exw.flow.some(function (c) { return c[r[0]] != null; }); });
+    if (rs.length) { rowsDef.push({ grp:g.name }); rowsDef = rowsDef.concat(rs); }
+  });
+  h += staticTable(exw.flow, rowsDef, function (k, ci) { return (st.flow || {})['f-' + k + '-' + ci]; }, 'Flowsheet, week ' + w);
+  if (exw.io) { h += staticTable(exw.io, E.ioRows, function (k, ci) { return (st.io || {})['io-' + k + '-' + ci]; }, 'Intake and output, week ' + w); }
+  return h;
+}
+function panelMine() { return activityHtml(S) + weekTables(E.weeks[WK], S, WK) + entriesHtml(S, wk); }
 
 function paintChart() {
   var host = document.getElementById('tabpanels');
@@ -1047,13 +1063,7 @@ function printCase() {
       return;
     }
     h += activityHtml(st);
-    var rowsDef = [];
-    E.groups.forEach(function (g) {
-      var rs = g.rows.filter(function (r) { return exw.flow.some(function (c) { return c[r[0]] != null; }); });
-      if (rs.length) { rowsDef.push({ grp:g.name }); rowsDef = rowsDef.concat(rs); }
-    });
-    h += staticTable(exw.flow, rowsDef, function (k, ci) { return (st.flow || {})['f-' + k + '-' + ci]; }, 'Flowsheet, week ' + w);
-    if (exw.io) { h += staticTable(exw.io, E.ioRows, function (k, ci) { return (st.io || {})['io-' + k + '-' + ci]; }, 'Intake and output, week ' + w); }
+    h += weekTables(exw, st, w);
     h += entriesHtml(st, wkw) + '</section>';
   });
   host.innerHTML = h;

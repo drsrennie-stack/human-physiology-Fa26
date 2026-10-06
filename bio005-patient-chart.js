@@ -376,9 +376,9 @@ window.BIO005_CHART = {
       ['Conscious level','0640 Glasgow Coma Scale 13 (eyes 3, verbal 4, motor 6): drowsy, oriented to person and place but not to time. 1000 GCS 14. 1400 GCS 15, fully oriented.'],
       ['Reflexes, September 22','Patellar 1+ and ankle 1+, symmetric, at 0640; 2+ and symmetric by 1400. Plantar response flexor throughout. Pupils 4 mm, brisk and equal.'],
       ['Sensory testing, September 22','Light touch and vibration intact at both great toes. A 10 g monofilament was felt at all nine sites on each foot.'],
-      ['Sitting up, 0740','Supine 96/58 with HR 128. At one minute sitting 78/44 with HR 138. She felt faint and was laid flat.'],
+      ['Sitting up, 0740','Supine 96/58 with HR 128. At one minute sitting 78/44 with HR 138. She felt faint and was laid flat. From 0640 to 1400 she took nothing by mouth, received 5,000 mL of intravenous fluid, and passed 980 mL of urine; nothing else was measured out. Lying flat, her heart rate was 112 at 1000. At 1400 it was 96, with a blood pressure of 108/62.'],
       ['Vision','She reports that everything has looked soft for about two weeks and that she stopped wearing her contact lenses because they were not helping. Bedside distance acuity September 22: 20/60 both eyes. October 20: 20/20 both eyes, same prescription, no treatment given to her eyes.'],
-      ['Breathing','RR 32, deep and regular, unchanged through the morning.']
+      ['Breathing','RR 32, deep and regular, unchanged through the morning. By 1400 it had slowed to 24.']
     ],
     panels:[
       { name:'Bedside sensory and reflex testing', when:'September 22, 0810', rows:[
