@@ -10,6 +10,7 @@ printing rules. The PDFs come from tools/make_notes_pdf.py 5.
 
 Run: python3 tools/make_walkthrough_notes_w05.py
 """
+import re
 import html, pathlib, re, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
@@ -71,7 +72,7 @@ def page(n):
             'Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>\n' % n["walk"]]
     for t, blocks in n["sections"]:
         fig = FIGS.get((n["slug"], t))
-        body.append("<section>\n<h2>%s</h2>\n" % e(t) + (FIGNOTE % e(fig) if fig else "") + "".join(base.block(x) for x in blocks) + "</section>\n")
+        body.append("<section id=\"%s\">\n<h2>%s</h2>\n" % (re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-"), e(t)) + (FIGNOTE % e(fig) if fig else "") + "".join(base.block(x) for x in blocks) + "</section>\n")
     body.append("</div></main>")
     s = s[:a] + head + "\n" + "".join(body) + s[b:]
     s = s.replace("Week 4", "Week 5")

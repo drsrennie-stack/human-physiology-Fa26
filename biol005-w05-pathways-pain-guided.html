@@ -510,7 +510,7 @@ var pin=el("g",{},gLev);el("line",{x1:860,y1:350,x2:860,y2:388,stroke:INK2,"stro
 
 /* the three pathways */
 var DC=[[866,400],[782,404],[612,406],[575,394],[520,380],[478,372],[466,352],[466,268],[446,254],[446,206],[408,154],[300,32]];
-var ST=[[866,402],[782,416],[612,412],[575,396],[520,384],[484,392],[452,428],[372,428],[414,368],[424,350],[424,206],[396,158],[250,40]];
+var ST=[[866,402],[782,416],[612,412],[575,396],[520,384],[484,392],[460,420],[440,424],[388,416],[414,368],[424,350],[424,206],[396,158],[250,40]];
 var CS=[[200,46],[352,176],[408,212],[408,288],[486,300],[486,370],[528,404],[488,432],[520,446],[612,424],[782,428],[866,414]];
 var gDC=G("dc",gLev),gST=G("st",gLev),gCS=G("cs",gLev);
 var lDC=poly(gDC,DC,NAVY,5),lST=poly(gST,ST,MAROON,5),lCS=poly(gCS,CS,GDEEP,5,"12 6");lCS._dash="12 6";
@@ -568,24 +568,99 @@ function bodyShade(left,right,lt,rt,level){
 
 /* ======================= skin receptors (step 11) ======================= */
 var gSkin=G("skin");
-el("rect",{x:40,y:110,width:700,height:70,fill:"#F9E3DC",stroke:MAROON,"stroke-width":2},gSkin);
-el("rect",{x:40,y:180,width:700,height:220,fill:TISS,stroke:MAROON,"stroke-width":2},gSkin);
-el("rect",{x:40,y:400,width:700,height:56,fill:"#FFF6E0",stroke:GDEEP,"stroke-width":2},gSkin);
-tx(gSkin,746,150,"epidermis","t",12,"start");tx(gSkin,746,290,"dermis","t",12,"start");tx(gSkin,746,432,"deep layer","t",12,"start");
+el("rect",{x:40,y:110,width:610,height:70,fill:"#F9E3DC",stroke:MAROON,"stroke-width":2},gSkin);
+el("rect",{x:40,y:180,width:610,height:220,fill:TISS,stroke:MAROON,"stroke-width":2},gSkin);
+el("rect",{x:40,y:400,width:610,height:56,fill:"#FFF6E0",stroke:GDEEP,"stroke-width":2},gSkin);
+tx(gSkin,656,150,"epidermis","t",12,"start");tx(gSkin,656,290,"dermis","t",12,"start");tx(gSkin,656,432,"deep layer","t",12,"start");
 function nerve(x,y,col){return el("line",{x1:x,y1:y,x2:x,y2:456,stroke:col||NAVY,"stroke-width":3},gSkin);}
-nerve(130,190);[[130,190,100,130],[130,190,130,120],[130,190,160,130]].forEach(function(q){el("line",{x1:q[0],y1:q[1],x2:q[2],y2:q[3],stroke:NAVY,"stroke-width":3},gSkin);});
-var mkN=nerve(280,186);var MK=[255,280,305].map(function(x){return el("circle",{cx:x,cy:176,r:9,fill:GDEEP},gSkin);});
-nerve(430,230);el("ellipse",{cx:430,cy:208,rx:16,ry:26,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gSkin);
-nerve(540,440);[30,21,12].forEach(function(r){el("ellipse",{cx:540,cy:420,rx:r,ry:r*0.8,fill:"none",stroke:INK2,"stroke-width":2},gSkin);});
-nerve(670,320);el("ellipse",{cx:670,cy:300,rx:40,ry:10,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gSkin);
-var SKL=[[130,"free nerve endings","temperature, pain, hair"],[280,"Merkel","steady pressure, texture"],[430,"Meissner","flutter, stroking"],[540,"Pacinian","vibration"],[670,"Ruffini","skin stretch"]];
+/* Oct 5 2026: all five receptors can be tested, each with its own stimulus,
+   and each one's firing is drawn on a short line under the skin, so the
+   student sees which ones keep firing (adapt slowly) and which go quiet. */
+var fnN=nerve(90,190);var FN=[[90,190,60,130],[90,190,90,120],[90,190,120,130]].map(function(q){return el("line",{x1:q[0],y1:q[1],x2:q[2],y2:q[3],stroke:NAVY,"stroke-width":3},gSkin);});
+var mkN=nerve(235,186);var MK=[210,235,260].map(function(x){return el("circle",{cx:x,cy:176,r:9,fill:GDEEP},gSkin);});
+var msN=nerve(362,230);var msE=el("ellipse",{cx:362,cy:208,rx:16,ry:26,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gSkin);
+var pcN=nerve(460,440);var PC=[30,21,12].map(function(r){return el("ellipse",{cx:460,cy:420,rx:r,ry:r*0.8,fill:"none",stroke:INK2,"stroke-width":2},gSkin);});
+var rfN=nerve(560,320);var rfE=el("ellipse",{cx:560,cy:300,rx:40,ry:10,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gSkin);
+var SKL=[[90,"free nerve endings","temperature, pain, hair"],[235,"Merkel","steady pressure, texture"],[362,"Meissner","flutter, stroking"],[460,"Pacinian","vibration"],[560,"Ruffini","skin stretch"]];
 SKL.forEach(function(r){tx(gSkin,r[0],36,r[1],"tn",13,"middle");tx(gSkin,r[0],54,r[2],"t",11,"middle");});
-var skinRing=el("circle",{cx:280,cy:176,r:42,fill:"none",stroke:MAROON,"stroke-width":4},gSkin);
-var braille=el("g",{},gSkin);el("rect",{x:240,y:64,width:80,height:18,rx:6,fill:"#fff",stroke:NAVY,"stroke-width":2.5},braille);el("ellipse",{cx:280,cy:88,rx:12,ry:8,fill:"#fff",stroke:NAVY,"stroke-width":2.5},braille);
-var brT=tx(gSkin,330,82,"a Braille dot on a page","t",12,"start");
-var mkSig=[dot(gSkin,MAROON,7),dot(gSkin,MAROON,7),dot(gSkin,MAROON,7)];
-var brHit=el("rect",{x:226,y:56,width:110,height:52,fill:"transparent"},gSkin);
-var pBr=promptAt(gSkin,380,480,["Click the Braille dot to press","the fingertip onto it"],300,100,280,84,34);
+var skinRing=el("circle",{cx:235,cy:176,r:42,fill:"none",stroke:MAROON,"stroke-width":4},gSkin);
+/* the stimuli */
+var braille=el("g",{},gSkin);el("rect",{x:195,y:64,width:80,height:18,rx:6,fill:"#fff",stroke:NAVY,"stroke-width":2.5},braille);el("ellipse",{cx:235,cy:88,rx:12,ry:8,fill:"#fff",stroke:NAVY,"stroke-width":2.5},braille);tx(braille,235,77,"Braille page","t",10,"middle");
+var heatG=el("g",{},gSkin);el("ellipse",{cx:90,cy:112,rx:42,ry:9,fill:MAROON,opacity:.35},heatG);[68,90,112].forEach(function(x){el("path",{d:"M"+x+" 102 q-6 -8 0 -14 q6 -8 0 -14",fill:"none",stroke:MAROON,"stroke-width":2.5},heatG);});
+var feather=el("g",{},gSkin);el("path",{d:"M-34 0 Q-6 -16 30 -4 Q-4 6 -34 0 Z",fill:"#fff",stroke:NAVY,"stroke-width":2.5},feather);el("line",{x1:-34,y1:0,x2:28,y2:-4,stroke:NAVY,"stroke-width":1.5},feather);
+var phone=el("g",{},gSkin);el("rect",{x:-26,y:-12,width:52,height:20,rx:5,fill:NAVY},phone);el("rect",{x:-20,y:-8,width:40,height:12,rx:2,fill:"#fff"},phone);
+var buzz=el("g",{},gSkin);[[-36,0],[36,0]].forEach(function(q){el("path",{d:"M"+(460+q[0])+" 88 l"+(q[0]<0?-6:6)+" -6 M"+(460+q[0])+" 96 l"+(q[0]<0?-8:8)+" 0",stroke:GDEEP,"stroke-width":2.5,fill:"none"},buzz);});
+var pull=el("g",{},gSkin);arrow(pull,518,300,482,300,MAROON,4);arrow(pull,602,300,638,300,MAROON,4);
+/* one firing line under each receptor */
+var TRY=[
+ {k:"free",x:90,chip:"warm it",sp:[.1,.2,.3,.4,.5,.6,.7,.8,.9],cap:"Free nerve endings keep firing while the skin stays warm."},
+ {k:"merkel",x:235,chip:null,sp:[.1,.2,.3,.4,.5,.6,.7,.8,.9],cap:"Merkel receptors keep firing while the dot presses."},
+ {k:"meis",x:362,chip:"stroke it",sp:[.06,.13,.2,.27,.34],cap:"Meissner fires while the feather moves, then goes quiet."},
+ {k:"pac",x:460,chip:"buzz it",sp:[.05,.09,.13,.17,.21,.25,.29,.33,.37,.41,.45,.49],cap:"Pacinian fires while it buzzes, then goes quiet."},
+ {k:"ruf",x:560,chip:"stretch it",sp:[.12,.24,.36,.48,.6,.72,.84],cap:"Ruffini keeps firing while the skin stays stretched."}];
+function trK(x,y,w,sp,h,k){var d="M"+x+" "+y;sp.forEach(function(f){if(f<=k){var sx=x+w*f;d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}});return d+" H"+(x+w*k);}
+TRY.forEach(function(t){
+  el("line",{x1:t.x-40,y1:500,x2:t.x+40,y2:500,stroke:INK2,"stroke-width":1,opacity:.5},gSkin);
+  t.tr=el("path",{d:"",fill:"none",stroke:MAROON,"stroke-width":2.5,"stroke-linejoin":"round"},gSkin);
+  t.sig=dot(gSkin,MAROON,7);t.slow=t.sp[t.sp.length-1]>0.8;t.tag=tx(gSkin,t.x,474,"","tn",11,"middle");
+  var g=el("g",{tabindex:"0",role:"button"},gSkin);t.btn=g;
+  if(t.chip){t.box=el("rect",{x:t.x-38,y:66,width:76,height:26,rx:13,fill:"#FFF6D6",stroke:GOLD,"stroke-width":3},g);t.lab=tx(g,t.x,84,t.chip,"tn",13,"middle");}
+  else{t.box=el("rect",{x:t.x-46,y:58,width:92,height:44,rx:12,fill:"transparent",stroke:GOLD,"stroke-width":3},g);}
+  g.setAttribute("aria-label",t.chip?(t.chip+": test the "+SKL[TRY.indexOf(t)][1]):"press the Braille dot: test the Merkel receptors");
+});
+var mkSig=TRY.map(function(t){return t.sig;});
+function skinIdle(){
+  fnN.setAttribute("stroke",NAVY);FN.forEach(function(l){l.setAttribute("stroke",NAVY);});
+  mkN.setAttribute("stroke",NAVY);MK.forEach(function(m){m.setAttribute("fill",GDEEP);});
+  msN.setAttribute("stroke",NAVY);msE.setAttribute("fill","#fff");
+  pcN.setAttribute("stroke",NAVY);PC.forEach(function(e){e.setAttribute("stroke",INK2);});
+  rfN.setAttribute("stroke",NAVY);rfE.setAttribute("rx",40);rfE.setAttribute("fill","#fff");
+  [heatG,feather,phone,buzz,pull].forEach(function(g){g.setAttribute("display","none");});
+}
+function skinOn(t){
+  skinRing.setAttribute("cx",t.x);skinRing.setAttribute("cy",t.k==="pac"?420:t.k==="ruf"?300:t.k==="meis"?208:t.k==="free"?150:176);skinRing.setAttribute("display","");
+  if(t.k==="free"){fnN.setAttribute("stroke",MAROON);FN.forEach(function(l){l.setAttribute("stroke",MAROON);});}
+  if(t.k==="merkel"){mkN.setAttribute("stroke",MAROON);MK.forEach(function(m){m.setAttribute("fill",MAROON);});}
+  if(t.k==="meis"){msN.setAttribute("stroke",MAROON);msE.setAttribute("fill","#F3C9C0");}
+  if(t.k==="pac"){pcN.setAttribute("stroke",MAROON);PC.forEach(function(e){e.setAttribute("stroke",MAROON);});}
+  if(t.k==="ruf"){rfN.setAttribute("stroke",MAROON);rfE.setAttribute("fill","#F3C9C0");}
+}
+function trDone(t){t.tr.setAttribute("d",trK(t.x-40,500,80,t.sp,20,1));t.tag.textContent=t.slow?"kept firing":"went quiet";}
+/* run one receptor's test: the stimulus, the receptor lighting up, its spikes */
+function skinTest(t,a){
+  cap("");skinIdle();place(braille,0,0);skinOn(t);var T=2400,y0=t.k==="pac"?440:t.k==="ruf"?320:t.k==="meis"?234:190;
+  var stim;
+  if(t.k==="free"){heatG.setAttribute("display","");stim=wait(T,a);}
+  else if(t.k==="merkel"){stim=tweenVal(0,24,300,a,function(v){place(braille,0,v);}).then(function(){return wait(T-300,a);});}
+  else if(t.k==="meis"){feather.setAttribute("display","");stim=tweenVal(312,412,T*0.38,a,function(v){place(feather,v,104);}).then(function(){return wait(T*0.62,a);});}
+  else if(t.k==="pac"){phone.setAttribute("display","");buzz.setAttribute("display","");place(phone,460,98);
+    stim=tweenVal(0,1,T*0.5,a,function(k){place(phone,460+(Math.floor(k*40)%2?3:-3),98);}).then(function(){buzz.setAttribute("display","none");place(phone,460,98);return wait(T*0.5,a);});}
+  else{pull.setAttribute("display","");stim=tweenVal(40,58,500,a,function(v){rfE.setAttribute("rx",v);}).then(function(){return wait(T-500,a);});}
+  var sp=Promise.all(t.sp.map(function(f){return wait(f*T,a).then(function(){return run(t.sig,[[t.x,y0],[t.x,456]],500,a);});}));
+  var tr=growTrain(t.tr,function(k){return trK(t.x-40,500,80,t.sp,20,k);},T,a);
+  return Promise.all([stim,sp,tr]).then(function(){trDone(t);cap(t.cap);});
+}
+/* a tested button turns gray with a check mark */
+function chipDone(t,on){t.btn.setAttribute("display","");if(!t.chip){t.box.setAttribute("display",on?"none":"");return;}
+  t.box.setAttribute("fill",on?"#EEF0F3":"#FFF6D6");t.box.setAttribute("stroke",on?INK2:GOLD);t.box.setAttribute("stroke-width",on?1.5:3);t.lab.textContent=(on?"\u2713 ":"")+t.chip;}
+/* wait until every receptor has been tested, in any order */
+function skinAll(a){
+  TRY.forEach(function(t){t.tr.setAttribute("d","");t.tag.textContent="";chipDone(t,false);});
+  if(!a||reduce){TRY.forEach(trDone);skinIdle();skinRing.setAttribute("display","none");TRY.forEach(function(t){chipDone(t,true);});cap("Slow to adapt: kept firing. Fast to adapt: went quiet.");return Promise.resolve();}
+  cap("Click each gold button to test that receptor.");
+  return new Promise(function(res){
+    var my=runId,left=TRY.length,busyT=false,k=0;setTimeout(function(){lockNext(true);},0);
+    var pulse=setInterval(function(){if(my!==runId){stop();return;}k++;TRY.forEach(function(t){if(!t.done)t.box.setAttribute("stroke-width",(k%10)<5?3:5);});},90);
+    function stop(){clearInterval(pulse);TRY.forEach(function(t){t.btn.removeEventListener("click",t.h);t.btn.removeEventListener("keydown",t.kh);t.btn.style.cursor="";});}
+    TRY.forEach(function(t){t.done=false;t.btn.style.cursor="pointer";
+      t.h=function(){if(busyT||t.done||my!==runId)return;busyT=true;if(t.chip)t.btn.setAttribute("display","none");else t.box.setAttribute("display","none");
+        skinTest(t,a).then(function(){busyT=false;t.done=true;left--;if(my!==runId)return;skinIdle();place(braille,0,0);skinRing.setAttribute("display","none");chipDone(t,true);
+          if(left===0){stop();lockNext(false);return wait(1600,a).then(function(){cap("Slow to adapt: kept firing. Fast to adapt: went quiet.");res();});}
+          return wait(1400,a).then(function(){if(my===runId&&!busyT)cap("Good. "+left+" more to test. Click a gold button.");});});};
+      t.kh=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();t.h();}};
+      t.btn.addEventListener("click",t.h);t.btn.addEventListener("keydown",t.kh);});
+  });
+}
 
 /* ======================= the cortex map (step 12) ======================= */
 var gHom=G("hom");
@@ -765,7 +840,7 @@ function resetAll(){
   rMark.setAttribute("display","none");refArm.setAttribute("fill",TISS);
   place(finger,0,0);chem.setAttribute("display","none");chemL.setAttribute("display","none");infTr.setAttribute("d",trainWin(610,150,250,0,1,0,50));
   gTr.setAttribute("d","");place(rubHand,62,250);
-  skinRing.setAttribute("display","none");place(braille,0,0);mkN.setAttribute("stroke",NAVY);MK.forEach(function(m){m.setAttribute("fill",GDEEP);});
+  skinRing.setAttribute("display","none");place(braille,0,0);skinIdle();TRY.forEach(function(t){t.tr.setAttribute("d","");t.tag.textContent="";chipDone(t,false);});
   cap("");
 }
 function S(l){only(l.concat(["cap"]));resetAll();}
@@ -830,11 +905,11 @@ var STEPS=[
 {title:"Pain from the right hand",
  text:["Now a pin pricks the same fingertip. Pain, temperature and coarse touch travel on a different pathway."],
  ask:"Where does this signal synapse first, and at what level does it cross?",
- ans:["It synapses almost right away, in the dorsal horn of the spinal cord where it enters. The second neuron crosses the midline inside the spinal cord, within a segment or two, and climbs the opposite side, the left, to the thalamus. A third neuron goes on to the somatosensory cortex. Branches also go to the limbic system and the hypothalamus, which is why pain can bring emotional distress and body reactions such as nausea, sweating or fainting.","This is the spinothalamic tract, for pain, temperature and coarse touch. It crosses low, in the spinal cord, while the dorsal column pathway crosses high, in the medulla. That difference is what lets a doctor find where an injury is."],
+ ans:["It synapses almost right away, in the dorsal horn of the spinal cord where it enters. The second neuron crosses the midline inside the spinal cord, within a segment or two. It crosses in a thin band of white matter just in front of the central canal, the small hole in the middle of the gray matter. This band is the anterior white commissure. Then the second neuron climbs the opposite side, the left, to the thalamus. A third neuron goes on to the somatosensory cortex. Branches also go to the limbic system and the hypothalamus, which is why pain can bring emotional distress and body reactions such as nausea, sweating or fainting.","This is the spinothalamic tract, for pain, temperature and coarse touch. It crosses low, in the spinal cord, while the dorsal column pathway crosses high, in the medulla. That difference is what lets a doctor find where an injury is."],
  name:"spinothalamic tract",
- desc:"The navy fine touch pathway stays for comparison. The student clicks the pin over the right fingertip. A maroon line then runs from the hand into the cord, synapses in the right dorsal horn, crosses the midline inside the cord, climbs the left side through the brainstem to the left thalamus, and ends in the cortex on the left.",
+ desc:"The navy fine touch pathway stays for comparison. The student clicks the pin over the right fingertip. A maroon line then runs from the hand into the cord, synapses in the right dorsal horn, crosses the midline just in front of the central canal, climbs the left side through the brainstem to the left thalamus, and ends in the cortex on the left.",
  pre:function(){S(["lev"]);showPaths(["dc"]);pin.setAttribute("display","");hits([pinHit],LEVHIT);},
- play:function(a){return waitOn(pinHit,pPin,a).then(function(){return draw("st",lST,ST,sigB,1900,a);}).then(function(){cap("Pain crosses low, in the cord, close to where it enters.");});}},
+ play:function(a){return waitOn(pinHit,pPin,a).then(function(){return draw("st",lST,ST,sigB,1900,a);}).then(function(){cap("Pain crosses in the cord, just in front of the central canal.");});}},
 
 {title:"Moving the right hand",
  text:["The person decides to close the right hand. The command starts in the motor cortex, the strip of cortex that controls movement."],
@@ -865,14 +940,13 @@ var STEPS=[
 
 {sec:"Touch, from skin to cortex",comp:"Competency 13",
  title:"Receptors in the skin",
- text:["Touch receptors respond to stretch, steady pressure, flutter or stroking, vibration and texture, and they come in several forms. Free nerve endings sense temperature, damaging stimuli and hair movement. Meissner corpuscles, near the surface, sense flutter and stroking and adapt quickly. Pacinian corpuscles, deep in the skin, sense vibration, have large receptive fields and adapt quickly, which is why you stop feeling your shirt soon after you put it on. Ruffini corpuscles, deep in the skin, sense stretch and adapt slowly. Merkel receptors, near the surface, sense steady pressure and texture and adapt slowly."],
+ text:["Touch receptors respond to stretch, steady pressure, flutter or stroking, vibration and texture, and they come in several forms. Free nerve endings sense temperature, damaging stimuli and hair movement. Meissner corpuscles, near the surface, sense flutter and stroking and adapt quickly. Pacinian corpuscles, deep in the skin, sense vibration, have large receptive fields and adapt quickly, which is why you stop feeling your shirt soon after you put it on. Ruffini corpuscles, deep in the skin, sense stretch and adapt slowly. Merkel receptors, near the surface, sense steady pressure and texture and adapt slowly.","Test all five. Click each gold button above the skin to give that receptor its stimulus, and watch its firing line under the skin. Does it keep firing for as long as the stimulus lasts, or fire at first and then go quiet?"],
  ask:"A person reads Braille with a fingertip. Which of these receptors does most of the work, and why are fingertips so good at it?",
- ans:["Merkel receptors. They report steady pressure and texture, and they keep reporting while the finger rests on a dot, because they adapt slowly. Each one is a Merkel cell, which is not a neuron, paired with the enlarged ending of a sensory neuron. Pressure on the skin opens Piezo2 channels in the Merkel cell, the cell depolarizes, and it releases transmitter onto the sensory neuron. Merkel receptors are packed most densely in the fingertips.","Practice changes the brain too. People who read Braille develop a larger area of somatosensory cortex for the fingertips."],
+ ans:["Merkel receptors. They report steady pressure and texture, and they keep reporting while the finger rests on a dot, because they adapt slowly. Each one is a Merkel cell, which is not a neuron, paired with the enlarged ending of a sensory neuron. Pressure on the skin opens Piezo2 channels in the Merkel cell, the cell depolarizes, and it releases transmitter onto the sensory neuron. Merkel receptors are packed most densely in the fingertips.","Your five tests showed the difference. The free nerve endings, Merkel receptors and Ruffini endings kept firing for as long as the stimulus lasted; they adapt slowly. Meissner corpuscles fired only while the feather moved, and Pacinian corpuscles only while the phone buzzed; they adapt quickly and go quiet when nothing changes.","Practice changes the brain too. People who read Braille develop a larger area of somatosensory cortex for the fingertips."],
  name:"Merkel receptor",
- desc:"A slice of fingertip skin in three layers with five receptors: free nerve endings reaching into the epidermis, Merkel receptors at the base of the epidermis, a Meissner corpuscle just below, a Pacinian corpuscle deep down, and a Ruffini corpuscle in the dermis. A Braille dot sits above the skin. When the student clicks it, the dot presses into the skin over the Merkel receptors, they light up, a maroon ring circles them, and signals travel down their nerve for as long as the dot presses.",
+ desc:"A slice of fingertip skin in three layers with five receptors: free nerve endings reaching into the epidermis, Merkel receptors at the base of the epidermis, a Meissner corpuscle just below, a Pacinian corpuscle deep down, and a Ruffini corpuscle in the dermis. Above the skin sit a stimulus for each receptor: warmth for the free nerve endings, a Braille dot for the Merkel receptors, a feather for the Meissner corpuscle, a buzzing phone for the Pacinian corpuscle, and a pull on the skin for the Ruffini ending. A short firing line sits under each receptor. The student tests each one in any order: the receptor lights up and its firing line fills with spikes. The free nerve endings, Merkel receptors and Ruffini ending keep firing for the whole stimulus; the Meissner corpuscle fires only while the feather moves, and the Pacinian corpuscle only while the phone buzzes.",
  pre:function(){S(["skin"]);},
- play:function(a){return waitOn(brHit,pBr,a).then(function(){return tweenVal(0,24,300,a,function(v){place(braille,0,v);});}).then(function(){MK.forEach(function(m){m.setAttribute("fill",MAROON);});mkN.setAttribute("stroke",MAROON);skinRing.setAttribute("display","");
-   return Promise.all(mkSig.map(function(d,i){return wait(i*380,a).then(function(){return run(d,[[280,190],[280,456]],1100,a);});}));}).then(function(){cap("Merkel receptors keep firing while the dot presses.");});}},
+ play:function(a){return skinAll(a);}},
 
 {title:"The map in the cortex",
  text:["Touch information ends in the primary somatic sensory cortex, in the parietal lobe, on the strip of cortex just behind the central sulcus, called the postcentral gyrus. Each part of the body has its own region there, laid out in order like a map. Drawn as a body, this map is the somatosensory homunculus. It was first mapped by stimulating the cortex of awake patients during brain surgery, which is possible because the brain itself has no pain receptors. Within each body part's region, columns of neurons are devoted to particular kinds of receptor."],
