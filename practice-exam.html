@@ -304,7 +304,7 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
             <label class="chk"><input type="radio" name="mode" value="cumulative"><span class="wt"><strong>Cumulative exam.</strong> <span class="cnt">A midterm block or the whole course.</span></span></label>
           </div>
           <div class="pillrow" id="presets" hidden style="margin-top:10px">
-            <button type="button" class="pill sm" data-weeks="1,2,3,4,5,6,7">Midterm 1, weeks 1 to 7</button>
+            <button type="button" class="pill sm" data-weeks="1,2,3,4,5,6,7">Midterm 1, weeks 1 to 8</button>
             <button type="button" class="pill sm" data-weeks="8,9,10,11,12,13,14">Midterm 2, weeks 8 to 14</button>
             <button type="button" class="pill sm" data-weeks="opened">Everything opened so far</button>
             <button type="button" class="pill sm" data-weeks="all">Whole course</button>
@@ -1005,6 +1005,14 @@ function applyDeepLink(){
       if(one){ one.checked = true; setup.modeChanged(); }
       $$('#weeks input').forEach(function(c){ c.checked = (Number(c.value)===w); });
     }
+  }
+  /* Oct 18 2026: ?mid=1 opens the Midterm 1 review set up: Cumulative exam with the
+     Midterm 1 weeks ticked (site weeks 1 to 7, which students read as Weeks 1 to 8). */
+  if(/[?&]mid=1(&|$)/.test(location.search)){
+    var cu = document.querySelector('#modes input[value="cumulative"]');
+    if(cu){ cu.checked = true; setup.modeChanged(); }
+    var mp = document.querySelector('#presets .pill[data-weeks="1,2,3,4,5,6,7"]');
+    if(mp) mp.click();
   }
   var q = /[?&]n=(10|20|30|50|60|75)/.exec(location.search);
   if(q){

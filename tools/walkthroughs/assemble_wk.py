@@ -172,6 +172,15 @@ def build(week, slug):
     x = "class=\"look\">'+esc(x[2])+'</span></li>'"
     assert s.count(x) == 1, (slug, "look")
     s = s.replace(x, "class=\"look\">'+esc(x[2])+'</span>'+seenNote(x[1])+'</li>'")
+    # Oct 18 2026: every video names its creator on a visible badge (credit); Dr. Rennie's own Loom lectures sit first, badge filled navy.
+    # Her entries carry no listen-for line, so that line is left out when it is empty.
+    y = "'+esc(x[0])+'<span class=\"sr\">"
+    assert s.count(y) == 1, (slug, "sr")
+    s = s.replace(y, "'+esc(x[0])+('<span class=\"by'+(v.s===\"Dr. Rennie\"?' me':'')+'\" aria-hidden=\"true\">'+esc(v.s||'Khan Academy')+'</span>')+'<span class=\"sr\">")
+    z = "<span class=\"look\">'+esc(x[2])+'</span>'+seenNote"
+    assert s.count(z) == 1, (slug, "look2")
+    s = s.replace(z, "'+(x[2]?'<span class=\"look\">'+esc(x[2])+'</span>':'')+seenNote")
+    s = s.replace("</style>", ".support .by{margin-left:4px;padding:2px 8px;border-radius:999px;border:1.5px solid #0B1530;color:#0B1530;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;line-height:1.2;white-space:nowrap;flex:none}.support .by.me{background:#0B1530;color:#FFFFFF}</style>", 1)
     a2 = s.index("function supportHTML")
     s = s[:a2] + "var PREP=" + json.dumps(prep, ensure_ascii=False) + ";\nvar PREP_NOTES=" + json.dumps(notes_f) + ";\nvar PREP_OST=" + json.dumps(ost) + ";\n" + PREP_JS + s[a2:]
     t = html.escape(title, quote=False)

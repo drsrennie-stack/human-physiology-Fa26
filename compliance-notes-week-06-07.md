@@ -42,3 +42,7 @@ All 56 page loads (each page as a student and in preview) were opened in headles
 4. Third-party videos are linked, not copied, and their captions were not checked.
 
 Reviewer: Dr. Sharilyn Rennie
+
+## Update, October 18, 2026: Dr. Rennie's videos
+
+The muscle and endocrine walkthroughs now list Dr. Rennie's own Loom lectures first on the steps they match, and each section of the written notes (and the notes PDFs) names the same videos as links. Each video button carries a visible "Dr. Rennie" label in white on navy (#FFFFFF on #0B1530, 18.0:1, AAA) and a screen reader name that says it is a Dr. Rennie video and opens in a new tab. Placement was checked against each Loom video's own title and summary; the videos themselves were not watched from the build environment, and their captions were not checked. All eight walkthroughs were replayed by the automated student and pass.

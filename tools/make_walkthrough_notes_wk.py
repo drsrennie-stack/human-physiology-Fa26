@@ -52,6 +52,31 @@ def load(week):
     return out
 
 
+VIDNOTE = '<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> %s.</p>\n'
+
+
+def my_videos(week, n):
+    """Oct 18 2026: notes heading -> Dr. Rennie's own videos on the walkthrough steps in that part, in step order."""
+    vf = ROOT / "tools/walkthroughs" / ("w%02d-%s.videos.json" % (week, n["slug"]))
+    sf = ROOT / "tools/walkthroughs" / ("w%02d-%s.scene.js" % (week, n["slug"]))
+    if not vf.exists():
+        return {}
+    d = json.loads(vf.read_text(encoding="utf-8"))
+    pmap = n.get("prep_map", {})
+    out, cur = {}, None
+    for kind, val in re.findall(r'\b(sec|title):"([^"]+)"', sf.read_text(encoding="utf-8")):
+        if kind == "sec":
+            cur = pmap.get(val, val)
+            continue
+        for _, k, _ in d["SUP"].get(val, []):
+            v = d["V"].get(k, {})
+            if v.get("s") == "Dr. Rennie" and cur:
+                lst = out.setdefault(cur, [])
+                if v["u"] not in [x["u"] for x in lst]:
+                    lst.append(v)
+    return out
+
+
 def page(week, n):
     s = base.SHELL[:base.HEAD_END] + base.STYLE_ADD + base.SHELL[base.HEAD_END:]
     s = re.sub(r"<title>[^<]*</title>", "<title>%s, written notes &middot; BIO 005 Human Physiology</title>" % e(n["title"]), s, count=1)
@@ -64,10 +89,13 @@ def page(week, n):
     body = ['<main id="main"><div class="wrap notes">\n',
             '<div class="use"><p><b>How to use these notes.</b> Work through <a href="%s" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. '
             'Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>\n' % n["walk"]]
+    mine = my_videos(week, n)
     for sec in n["sections"]:
         t = sec["h"]
+        vids = mine.get(t, [])
+        vline = (VIDNOTE % ", ".join('<a href="%s" target="_blank" rel="noopener">%s<span class="mm-vh"> (Dr. Rennie video, opens in a new tab)</span></a>' % (v["u"], e(v["n"])) for v in vids)) if vids else ""
         body.append("<section id=\"%s\">\n<h2>%s</h2>\n" % (re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-"), e(t))
-                    + (FIGNOTE % e(sec["book"]) if sec.get("book") else "")
+                    + (FIGNOTE % e(sec["book"]) if sec.get("book") else "") + vline
                     + "".join(base.block(tuple(x)) for x in sec["blocks"]) + "</section>\n")
     body.append("</div></main>")
     s = s[:a] + head + "\n" + "".join(body) + s[b:]

@@ -495,7 +495,7 @@
 
     /* ---------- 3 APPLY ---------- */
     /* Sep 24 2026: Week 8 is the Midterm 1 week, no teaching, no lab, case or discussion. */
-    if (wn === 8) t.push({ g: '3 Apply', name: 'Midterm 1', sub: 'In Canvas, Thursday Oct 29 8:00 am to Sunday Nov 1 10:00 pm. Show Me What You Know, 17.5%',
+    if (wn === 8) t.push({ g: '3 Apply', name: 'Midterm 1', sub: 'In Canvas, Thursday Nov 5 8:00 am to Sunday Nov 8 10:00 pm Pacific. Show Me What You Know, 17.5%',
              url: BASE + 'week-08.html#apply', icon: 'target', tone: 'gold',
              kw: 'midterm exam test draw teach video window' });
     if (wn !== 8) t.push({ g: '3 Apply', name: 'This week\'s lab', sub: 'What to run, what to record, and how to turn it in. Investigate It, 25%',
