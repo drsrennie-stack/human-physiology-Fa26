@@ -77,6 +77,43 @@ def my_videos(week, n):
     return out
 
 
+# Oct 18 2026, her call: the on-screen notes should look like the PDF. So these pages
+# turn off the site's reading mode and folding (every section stays open), drop the
+# dark header band, and set the notes on a white sheet with the PDF's running head,
+# maroon section headings and two columns inside each section on a wide screen.
+PAPER_CSS = """<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+"""
+
+
 def page(week, n):
     s = base.SHELL[:base.HEAD_END] + base.STYLE_ADD + base.SHELL[base.HEAD_END:]
     s = re.sub(r"<title>[^<]*</title>", "<title>%s, written notes &middot; BIO 005 Human Physiology</title>" % e(n["title"]), s, count=1)
@@ -85,7 +122,7 @@ def page(week, n):
     head = ('<header class="top"><div class="wrap">\n  <p class="eyebrow">BIO 005 · Week %d · Written notes</p>\n'
             '  <h1>%s</h1>\n  <p>The written notes for the %s walkthrough. %s.</p>\n'
             '  <p><b>To print:</b> <a href="%s" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>. Already printed the Week %d notes? You do not need to print these again.</p>\n'
-            '</div></header>\n' % (week, e(n["title"]), e(n["title"].lower()), e(n["comps"]), pdf, week))
+            '</div></header>\n' % (week, e(n["title"]), e(re.sub(r"^the ", "", n["title"].lower())), e(n["comps"]), pdf, week))
     body = ['<main id="main"><div class="wrap notes">\n',
             '<div class="use"><p><b>How to use these notes.</b> Work through <a href="%s" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. '
             'Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>\n' % n["walk"]]
@@ -100,6 +137,14 @@ def page(week, n):
     body.append("</div></main>")
     s = s[:a] + head + "\n" + "".join(body) + s[b:]
     s = s.replace("Week 4", "Week %d" % week)
+    assert s.count('<html lang="en">') == 1 and s.count("<body>") == 1
+    s = s.replace('<html lang="en">', '<html lang="en" data-fold="off">', 1)
+    s = s.replace("<body>", '<body class="paper" data-no-reading-mode data-collapse="off">', 1)
+    s = s.replace('<script src="bio005-collapse.js"></script>', "")
+    s = s.replace("</head>", PAPER_CSS + "</head>", 1)
+    k = '  <p class="eyebrow">BIO 005 · Week %d · Written notes</p>\n' % week
+    assert s.count(k) == 1
+    s = s.replace(k, k + '  <p class="pkick">BIO 005 Human Physiology · Week %d notes · Dr. Sharilyn Rennie</p>\n' % week)
     for bad in ("—", "<em", "<i>", "Lora"):
         assert bad not in s, (n["slug"], bad)
     (ROOT / n["file"]).write_text(relabel(s), encoding="utf-8")
