@@ -208,15 +208,15 @@ window.BIO005_EHR = {
       ['Spirometry','Sports medicine','Aug 12','Resulted']
     ],
     coach:{
-      predict:"Before you open anything: she is a nineteen year old athlete at a preseason physical and nothing is wrong with her. What do you expect her resting heart rate to be, and why?",
-      read:"Read this one slowly even though nothing is wrong. It is the only entry all term where every number is normal, and every column you fill in for the next seven weeks gets compared back to this one.",
-      lesson:["time", "Her standing blood pressure was taken one minute after the supine one. Why would a chart insist on recording that minute?"],
-      vitals:"A resting heart rate of 52 in an athlete is not the same finding as a resting heart rate of 52 in someone who has never trained. File it, and notice the chart cannot yet tell you which one you are looking at.",
-      io:"Nothing was measured in or out today. What would have to be true of a visit for intake and output to be worth charting at all?",
-      results:"This panel is normal. That is not the same as proving she is well. What would a panel have to show before you would call someone healthy?",
-      problems:"A problem list can be empty. If you cannot name a problem from this chart, write none, and say what you would need to see before you opened one.",
-      mar:"She is on no medications. Why is an empty medication record still worth printing on a chart?",
-      note:"Your assessment today is a baseline statement. Say what she can do, not what is wrong, because nothing is."
+      predict:'Before you open anything: Camila is a nineteen year old athlete at a preseason physical, and nothing is wrong with her. What do you expect her resting heart rate to be, and why?',
+      read:'Read Camila\'s first entry slowly even though nothing is wrong. It is the only entry all term where every number is normal, and every column you fill in for the next seven weeks gets compared back to this one.',
+      lesson:["time", 'Camila\'s standing blood pressure was taken one minute after the one taken lying down. Why would a chart insist on recording that one minute?'],
+      vitals:'A resting heart rate of 52 in an athlete like Camila does not mean the same thing as a resting heart rate of 52 in someone who has never trained. Record it, and notice that the chart cannot yet tell you which of those two you are looking at.',
+      io:'Nothing was measured going in or out for Camila today. What would have to be true of a visit for intake and output to be worth charting at all?',
+      results:'Camila\'s panel is normal, but that does not prove she is well. What would a panel have to show before you would call someone healthy?',
+      problems:'A problem list can be empty. If you cannot name a problem from Camila\'s chart, write none, and say what you would need to see before you opened one.',
+      mar:'Camila takes no medications. Why is an empty medication record still worth printing on her chart?',
+      note:'Your assessment of Camila today is a baseline statement. Describe what she can do rather than what is wrong, because nothing is wrong.'
     }
   },
 
@@ -258,15 +258,15 @@ window.BIO005_EHR = {
       ['Nothing by mouth','Until reviewed','Sep 18, 1800','Active']
     ],
     coach:{
-      predict:"She trained twice in the heat, sweated hard through both sessions, and drank about five liters of plain water. Before you look at her weight: up, down, or the same?",
-      read:"Her intake is charted and her output is not. That is real, it happens on every ward, and one of this week's questions turns on the gap.",
-      lesson:["weight", "Her weight is on the vital signs flowsheet and not in the note. What does putting it in the grid let you do that a sentence would not?"],
-      vitals:"File the weight and put it beside the August weight. Two numbers, five weeks apart, and between them is the whole case.",
-      io:"Five liters in and an output nobody wrote down. What is the honest thing to chart in the urine row, and why is a blank better than a guess?",
-      results:"Read the sodium and the measured osmolality together rather than one after the other. What are they telling you twice?",
-      problems:"You can open a problem here without knowing the cause. What can you name from the chart alone?",
-      mar:"She was given salt water after drinking water all day. Before you judge it, what would you want to know about the concentration of what she was given?",
-      note:"Your assessment has to account for a weight that went up on a day of heavy sweating. Do not smooth that over."
+      predict:'Camila trained twice in the heat, sweated hard through both sessions, and drank about five liters of plain water. Before you look at her weight, predict whether it went up, went down, or stayed the same.',
+      read:'Camila\'s intake is charted and her output is not. That really happens on every ward, and one of this week\'s questions depends on that gap.',
+      lesson:["weight", 'Camila\'s weight is on the vital signs flowsheet, not in the note. What does putting it in the grid let you do that a sentence in a note would not?'],
+      vitals:'Record Camila\'s weight and put it beside her August weight. The change between those two numbers, taken five weeks apart, is what this whole case is about.',
+      io:'Camila took in five liters, and nobody wrote down her output. What is the honest thing to chart in the urine row, and why is leaving it blank better than guessing?',
+      results:'Read Camila\'s sodium and her measured osmolality together rather than one after the other. What is the one thing both numbers are telling you?',
+      problems:'You can open a problem for Camila without knowing the cause. What can you name from her chart alone?',
+      mar:'Camila was given salt water after drinking plain water all day. Before you judge that choice, what would you want to know about the concentration of the salt water she was given?',
+      note:'Your assessment has to explain why Camila\'s weight went up on a day of heavy sweating. Do not leave that out or play it down.'
     }
   },
 
@@ -293,15 +293,15 @@ window.BIO005_EHR = {
       ['Continuous cardiac monitoring','Nursing','Sep 22, 0650','Active']
     ],
     coach:{
-      predict:"Four days ago she weighed 63.5 kg and was overloaded with water. She has been passing very large volumes of urine since. Before you look: what has her weight done, and what has happened inside her cells?",
-      read:"Nothing new opens this week. Everything you need was taught in Week 2, and this is the same physiology on a much harder patient. If a question feels like it needs something you have not met, read it again.",
-      lesson:["trend", "Three weights now sit in one row: 61, 63.5 and 55 kg. What can you see in a row that you could not see in three separate notes?"],
-      vitals:"File today's weight, then run your eye along the whole row before you move on. Which of the three numbers is the one you would have wanted first?",
-      io:"One hour of fluid is charted. At this rate, how long would it take to replace a six liter deficit, and what does that arithmetic tell you about the plan?",
-      results:"Two numbers on this panel belong to a system you reach in Week 15. The chart tells you which and tells you to leave them alone. Which two, and how did you know?",
-      problems:"You can now name several problems you could not name on Tuesday. Write the evidence beside each, because in four weeks you will not remember why you opened it.",
-      mar:"The first liter is isotonic saline and she is profoundly hyperosmolar. What question would you ask the person who wrote that order?",
-      note:"Your assessment is about where water has gone, not about what she is called. A diagnosis is not required and is not what is being marked."
+      predict:'Four days ago Camila weighed 63.5 kg and was overloaded with water. She has been passing very large volumes of urine since then. Before you look, predict what her weight has done and what has happened inside her cells.',
+      read:'No new topics open this week. Everything you need for Camila was taught in Week 2, and this is the same physiology in a much sicker patient. If a question seems to need something you have not learned, read it again.',
+      lesson:["trend", 'Camila\'s three weights now sit in one row: 61, 63.5 and 55 kg. What can you see in a row that you could not see in three separate notes?'],
+      vitals:'Record Camila\'s weight today, then look along the whole row before you move on. Which of the three numbers is the one you would have wanted first?',
+      io:'One hour of fluid is charted for Camila. At this rate, how long would it take to replace a six liter deficit, and what does that arithmetic tell you about her plan?',
+      results:'Two numbers on Camila\'s panel belong to a body system you reach in Week 15. The chart tells you which two they are and tells you to leave them alone. Which two are they, and how did you know?',
+      problems:'You can now name several problems for Camila that you could not name on Tuesday. Write the evidence beside each one, because in four weeks you will not remember why you opened it.',
+      mar:'Camila\'s first liter is isotonic saline, and she is profoundly hyperosmolar. What question would you ask the person who wrote that order?',
+      note:'Your assessment of Camila is about where her water has gone, not about the name of her condition. A diagnosis is not required, and it is not what is being graded.'
     }
   },
 
@@ -330,15 +330,15 @@ window.BIO005_EHR = {
       ['12 lead ECG on arrival and at 4 hours','Cardiology','Sep 22, 0700','Resulted twice']
     ],
     coach:{
-      predict:"Her potassium was 5.4 on arrival. She has been losing potassium in her urine for three weeks. Before you look at the next two values: which way does the number go over the next four hours, and which way does her total body potassium go?",
-      read:"Three potassium values four hours apart, and almost none of the movement is potassium entering or leaving her. File all three before you try to explain any of them.",
-      lesson:["source", "The potassium in the flowsheet came from a laboratory and the ECG changes came from a machine at the bedside. Which one is closer to the membrane, and why does a chart keep both?"],
-      vitals:"Put the potassium row and the ECG findings in the same columns. One is measuring the serum and one is watching what the serum is doing to a cell.",
-      io:"Fluid has been running for four hours. How much of what went in do you think is still in her bloodstream, and what would you need to know to answer properly?",
-      results:"A value inside the reference range at 0900 is not reassurance here. What is it on its way to?",
-      problems:"Open a problem for the potassium even though the arrival value was high. In the evidence field, say which direction the danger is now coming from.",
-      mar:"The protocol says hold the insulin below a certain potassium. Before you read the number: what do you think insulin does to where potassium sits?",
-      note:"Your plan should contain one thing you would stop, not only things you would give."
+      predict:'Camila\'s potassium was 5.4 on arrival, and she has been losing potassium in her urine for three weeks. Before you look at the next two values, predict which way the number goes over the next four hours, and which way her total body potassium goes.',
+      read:'Camila has three potassium values four hours apart, and almost none of the change comes from potassium entering or leaving her body. Record all three before you try to explain any of them.',
+      lesson:["source", 'The potassium on Camila\'s flowsheet came from a laboratory, and the ECG changes came from a machine at her bedside. Which one is closer to what is happening at the cell membrane, and why does a chart keep both?'],
+      vitals:'Put Camila\'s potassium row and her ECG findings in the same columns. The potassium measures her serum, and the ECG shows what that serum is doing to her heart cells.',
+      io:'Fluid has been running into Camila for four hours. How much of what went in do you think is still in her bloodstream, and what would you need to know to answer properly?',
+      results:'Camila\'s value inside the reference range at 0900 is not reassuring here. Where is it heading?',
+      problems:'Open a problem for Camila\'s potassium even though her arrival value was high. In the evidence field, say which direction the danger is coming from now.',
+      mar:'The protocol says to hold Camila\'s insulin below a certain potassium. Before you read the number, what do you think insulin does to whether potassium sits inside or outside her cells?',
+      note:'Your plan for Camila should include one thing you would stop, not only things you would give.'
     }
   },
 
@@ -368,15 +368,15 @@ window.BIO005_EHR = {
       ['Lie and stand blood pressure','Nursing','Sep 22, 0740','Resulted']
     ],
     coach:{
-      predict:"She is drowsy, her blood pressure is 96/58 and she is about to be sat upright for the first time. What do you expect her blood pressure and her heart rate to do in the first minute?",
-      read:"Three loops are on this page and none of them needed a doctor to run. One protects her brain, one defends her blood pressure, and one quietly changed the shape of a lens.",
-      lesson:["components", "The Glasgow Coma Scale is charted as three numbers, not one. What does E3 V4 M6 tell a nurse at handover that a total of 13 does not?"],
-      vitals:"Chart the scale as its parts. Then chart the reflex grades, which are also a number standing in for an observation someone made with their hands.",
-      io:"Nothing about her fluid chart explains her conscious level this morning. What on this page does?",
-      results:"The sitting blood pressure is the result that matters most this week and it came from a nurse with a cuff, not from a laboratory. Why did nobody order it?",
-      problems:"One problem you open today resolves by this afternoon and one does not resolve for four weeks. Which is which, and how can you tell so early?",
-      mar:"No drug was given for any of the three findings this week. What does that tell you about where the problem actually sits?",
-      note:"Your assessment should say what her reflexes tell you and, just as clearly, what they cannot."
+      predict:'Camila is drowsy, her blood pressure is 96/58, and she is about to be sat upright for the first time. What do you expect her blood pressure and her heart rate to do in the first minute?',
+      read:'This page shows three automatic processes in Camila\'s body, and none of them needed a doctor to make them happen. One protects her brain, one defends her blood pressure, and one quietly changed the shape of the lens in her eye.',
+      lesson:["components", 'The Glasgow Coma Scale is charted as three numbers, not one. What does Camila\'s E3 V4 M6 tell a nurse at handover that a total of 13 does not?'],
+      vitals:'Chart Camila\'s Glasgow Coma Scale as its three separate parts. Then chart her reflex grades, which are also numbers standing in for an observation someone made with their hands.',
+      io:'Nothing in Camila\'s fluid chart explains her level of consciousness this morning. What on this page does explain it?',
+      results:'The sitting blood pressure is the result that matters most for Camila this week, and it came from a nurse with a cuff, not from a laboratory. Why did nobody order it?',
+      problems:'One problem you open for Camila today resolves by this afternoon, and one does not resolve for four weeks. Which is which, and how can you tell this early?',
+      mar:'Camila was given no drug for any of the three findings this week. What does that tell you about where the problem actually sits?',
+      note:'Your assessment of Camila should say what her reflexes tell you and, just as clearly, what they cannot tell you.'
     }
   },
 
@@ -402,15 +402,15 @@ window.BIO005_EHR = {
       ['Repeat DEXA body composition','Sports medicine','Oct 10, Nov 20','Resulted twice']
     ],
     coach:{
-      predict:"She survived, she is four days in, and she is about to stand up. Before you read the assessment: do you expect her weakness to be worse in her hands or in her hips, and why?",
-      read:"Her force comes back before her muscle does. Both numbers are on this chart, and the gap between them is the week.",
-      lesson:["absent", "The motor examination charts no fasciculation, normal tone and intact sensation. Why does a chart record things that were not found?"],
-      vitals:"There is a function row on this flowsheet that is not a vital sign in any textbook. Grip strength is a physiological measurement and it belongs in the grid with the rest.",
-      io:"Nothing is being measured in or out now. What replaced fluid balance as the number worth following this week?",
-      results:"A creatine kinase of 340 is raised and it is not the answer. What would a much higher value have meant, and what does this one rule out?",
-      problems:"Weakness is a finding, not a problem. How would you write it so that you could be shown wrong?",
-      mar:"Her medication record has changed shape completely since Week 4. What kind of medicine is she on now, and what does that say about where she is in the illness?",
-      note:"Your plan should say what she is allowed to do this week, in words she could act on without calling anyone."
+      predict:'Camila survived, she is four days into her stay, and she is about to stand up. Before you read the assessment, do you expect her weakness to be worse in her hands or in her hips, and why?',
+      read:'Camila\'s strength comes back before her muscle size does. Both numbers are on this chart, and the gap between them is what this week is about.',
+      lesson:["absent", 'Camila\'s motor examination records no fasciculation (muscle twitching), normal tone and intact sensation. Why does a chart record things that were not found?'],
+      vitals:'This flowsheet has a function row that is not a vital sign in any textbook. Camila\'s grip strength is a physiological measurement, and it belongs in the grid with her other numbers.',
+      io:'Nothing is being measured in or out for Camila now. What number replaced fluid balance as the one worth following this week?',
+      results:'Camila\'s creatine kinase of 340 is raised, but it is not what explains her weakness. What would a much higher value have meant, and what does this value rule out?',
+      problems:'Weakness is a finding, not a problem. How would you word Camila\'s weakness on the problem list so that the statement could be tested and shown to be wrong?',
+      mar:'Camila\'s medication record looks completely different from Week 4. What kind of medicine is she on now, and what does that say about where she is in her illness?',
+      note:'Your plan should tell Camila what she is allowed to do this week, in words she could act on without calling anyone.'
     }
   },
 
@@ -438,15 +438,15 @@ window.BIO005_EHR = {
       ['Dietitian review, energy availability','Sports medicine','Oct 20','Completed']
     ],
     coach:{
-      predict:"Her periods stopped at the end of August and have not come back. Her ovaries are normal on ultrasound. Before you look at the panel: do you expect her FSH to be high or low, and what would each answer mean?",
-      read:"Three axes are being read on one page: the pancreas, the thyroid and the reproductive axis. Two of them were never the problem, and telling which is the skill.",
-      lesson:["derived", "Energy availability is not measured, it is calculated from an intake, a training cost and a lean mass. How should a chart show a number nobody read off a machine?"],
-      vitals:"Her standing blood pressure barely moves and her heart rate rises by 16. Compare that with the same test on September 22. What recovered?",
-      io:"Nothing to chart here. Which of her three axes would you have most wanted a fluid chart for, and why did nobody need one?",
-      results:"A thyroid result that moves twice with no treatment is a result about something other than the thyroid. What would have happened if someone had treated the 6.2?",
-      problems:"At least one problem on your list should close this week. Closing a problem is a clinical act. What is your evidence for closing it?",
-      mar:"Two insulins, given at different times, doing different jobs. Before you read why: what does a pancreas do between meals that it does not do after one?",
-      note:"Your plan has to mention food. If it does not, read the energy availability line again."
+      predict:'Camila\'s periods stopped at the end of August and have not come back, and her ovaries look normal on ultrasound. Before you look at the panel, do you expect her FSH to be high or low, and what would each answer mean?',
+      read:'This page looks at three of Camila\'s hormone systems at once: the pancreas, the thyroid and the reproductive axis. Two of them were never the problem, and the skill this week is telling which two.',
+      lesson:["derived", 'Camila\'s energy availability is not measured. It is calculated from her food intake, her training cost and her lean mass. How should a chart show a number that nobody read off a machine?'],
+      vitals:'When Camila stands, her blood pressure barely changes and her heart rate rises by 16. Compare that with the same test on September 22. What recovered?',
+      io:'There is nothing to chart here for Camila. Which of her three hormone systems would you most have wanted a fluid chart for, and why did nobody need one?',
+      results:'When a thyroid result changes twice with no treatment, it is telling you about something other than the thyroid. What would have happened to Camila if someone had treated the 6.2?',
+      problems:'At least one problem on Camila\'s list should close this week. Closing a problem is a clinical decision. What is your evidence for closing it?',
+      mar:'Camila takes two insulins, at different times, to do different jobs. Before you read why, what does a pancreas do between meals that it does not do after one?',
+      note:'Your plan for Camila has to mention food. If it does not, read the energy availability line again.'
     }
   },
 
@@ -471,15 +471,15 @@ window.BIO005_EHR = {
       ['Clearance for full training and competition','Sports medicine','Nov 25','Completed']
     ],
     coach:{
-      predict:"You are about to close her file. Before you read the discharge summary: name the one thing about her that will still be true in ten years.",
-      read:"Nothing new opens this week either. Read the seven entries you already have as one person, which is a different job from reading them one at a time.",
-      lesson:["closing", "Closing a chart means saying which problems are resolved, which are permanent, and which were never problems. Why is that third category the one that teaches you something?"],
-      vitals:"Three columns, four months apart, in one grid. Run your finger along the weight row and say out loud what happened to her.",
-      io:"No fluid chart at a clinic visit. Which single measurement replaced it as the thing worth checking every three months?",
-      results:"Her A1c of 7.1 covers the last three months, which includes the weeks before anyone knew. What can that number report, and what can it not?",
-      problems:"Go back through the whole list and mark each entry active, resolved, or never a problem. How many are in the third group?",
-      mar:"Her medication list is two drugs and it will not get shorter. What does a permanent medication list change about how she is followed?",
-      note:"Write this one as a handover to someone who has never met her, because that is what it is."
+      predict:'You are about to close Camila\'s file. Before you read the discharge summary, name the one thing about her that will still be true in ten years.',
+      read:'Nothing new opens this week either. Read the seven entries you already have on Camila as the story of one person, which is a different job from reading them one at a time.',
+      lesson:["closing", 'Closing Camila\'s chart means saying which problems are resolved, which are permanent, and which were never problems. Why is that third group the one that teaches you something?'],
+      vitals:'This grid shows three columns, four months apart. Run your finger along Camila\'s weight row and say out loud what happened to her.',
+      io:'There is no fluid chart at a clinic visit. Which single measurement replaced it as the thing worth checking on Camila every three months?',
+      results:'Camila\'s A1c of 7.1 covers the last three months, which includes the weeks before anyone knew she had diabetes. What can that number tell you, and what can it not?',
+      problems:'Go back through Camila\'s whole problem list and mark each entry active, resolved, or never a problem. How many are in the third group?',
+      mar:'Camila\'s medication list has two drugs, and it will not get shorter. What does a permanent medication list change about how she is followed?',
+      note:'Write this note as a handover to someone who has never met Camila, because that is exactly what it is.'
     }
   },
 
@@ -517,15 +517,15 @@ window.BIO005_EHR = {
       ['Hold lisinopril, spironolactone and metformin','Medicine','Nov 4, 0900','Active']
     ],
     coach:{
-      predict:"A 68 year old man with a heart that ejects 30 percent arrives with four days of fever. Before you look at anything: is his cardiac output going to be high, low, or normal, and what should it be?",
-      read:"A new patient, and he arrives already carrying four problems. Read his home medication list before his vital signs; three of the numbers on this page make no sense without it.",
-      lesson:["heldmed", "Three of his home medications are charted as HELD, not removed. What is the difference, and who needs to see it?"],
-      vitals:"File the heart rate of 118, then go back to the medication record and see what he took at 0700. That is the most useful thing you will do today. What does it change?",
-      io:"Twenty milliliters of urine in two hours. What is that per hour per kilogram, and is it enough?",
-      results:"His cardiac output sits inside the normal range. Chart it anyway. What should a man with a temperature of 38.9 degrees Celsius be producing?",
-      problems:"Four of his problems existed before this morning. Open them anyway and mark them chronic. Why do the acute ones only make sense against them?",
-      mar:"He took a beta blocker at 0700 and arrived at 0840 with a heart rate of 118. What would that heart rate have been without the drug?",
-      note:"Your assessment has to hold two ideas at once: he is underfilled where it matters and overfilled where you can see it."
+      predict:'Dale is a 68 year old man whose heart pumps out 30 percent of the blood in his left ventricle with each beat, and he arrives with four days of fever. Before you look at anything, predict whether his cardiac output will be high, low, or normal, and what it should be.',
+      read:'Dale is a new patient, and he arrives already living with four health problems. Read his home medication list before his vital signs, because three of the numbers on this page make no sense without it.',
+      lesson:["heldmed", 'Three of Dale\'s home medications are charted as HELD, not removed. What is the difference, and who needs to see it?'],
+      vitals:'Enter Dale\'s heart rate of 118, then go back to the medication record and see what he took at 0700. That is the most useful thing you will do today. How does it change what that heart rate means?',
+      io:'Dale passed twenty milliliters of urine in two hours. What is that in milliliters per hour per kilogram, and is it enough?',
+      results:'Dale\'s cardiac output is inside the normal range. Chart it anyway. How much should a man with a temperature of 38.9 degrees Celsius be pumping?',
+      problems:'Four of Dale\'s problems existed before this morning. Add them to his problem list anyway and mark them chronic. Why do his acute problems only make sense when you read them alongside the chronic ones?',
+      mar:'Dale took a beta blocker at 0700 and arrived at 0840 with a heart rate of 118. What would his heart rate have been without the drug?',
+      note:'Your assessment of Dale has to explain two things at the same time: not enough blood is filling his arteries and reaching his organs, where it matters, and yet he is overloaded with fluid in the places you can see.'
     }
   },
 
@@ -558,15 +558,15 @@ window.BIO005_EHR = {
       ['Hold carvedilol while on vasopressor support','Medicine','Nov 4, 1000','Active']
     ],
     coach:{
-      predict:"He is about to be given 500 mL of fluid. His central venous pressure is already 14. Before you look: what happens to his cardiac output, and what happens to his oxygen saturation?",
-      read:"Nine hours, four sets of numbers, and two decisions. One of the decisions was to not give something, and it is on the medication record as canceled. Find it.",
-      lesson:["derived", "Mean arterial pressure and systemic vascular resistance are both calculated, not measured. Where should a calculated number sit on a chart, and what has to travel with it?"],
-      vitals:"Chart the central venous pressure in the same column as the cardiac output every time. Neither means much alone.",
-      io:"Nine hours, 2,400 mL in and 190 mL out. Before you judge that: what is his kidney being asked to do at a mean pressure of 58?",
-      results:"You are asked to calculate a resistance. Take the numbers off your own flowsheet rather than out of the paragraph. Did you get the same answer twice?",
-      problems:"Shock is not a problem list entry. What kind, what is your evidence, and would you be willing to change it at 1800?",
-      mar:"A bolus that was ordered and then canceled is still on the record. Why does a chart keep the thing that did not happen?",
-      note:"Your plan should name the number you would titrate to and the number that would tell you the titration is not working."
+      predict:'Dale is about to be given 500 mL of fluid, and his central venous pressure is already 14. Before you look, predict what happens to his cardiac output and what happens to his oxygen saturation.',
+      read:'Dale\'s chart covers nine hours, four sets of numbers, and two decisions. One of those decisions was not to give something, and it is on the medication record as canceled. Find it.',
+      lesson:["derived", 'Dale\'s mean arterial pressure and systemic vascular resistance are both calculated, not measured directly. Where should a calculated number go on a chart, and what information has to go with it?'],
+      vitals:'Each time, chart Dale\'s central venous pressure in the same column as his cardiac output. Neither number means much on its own.',
+      io:'Over nine hours, Dale took in 2,400 mL and put out 190 mL. Before you judge that, what are his kidneys being asked to do at a mean arterial pressure of 58?',
+      results:'You are asked to calculate Dale\'s vascular resistance. Take the numbers from your own flowsheet rather than from the paragraph. Did you get the same answer both times?',
+      problems:'The single word shock is not enough for Dale\'s problem list. What kind of shock is it, what is your evidence, and would you be willing to change it at 1800?',
+      mar:'A fluid bolus that was ordered for Dale and then canceled is still on his record. Why does a chart keep a record of something that did not happen?',
+      note:'Your plan for Dale should name the number you would titrate the drug to, and the number that would tell you the titration is not working.'
     }
   },
 
@@ -599,15 +599,15 @@ window.BIO005_EHR = {
       ['Droplet precautions','Infection control','Nov 4','Active until the organism was identified']
     ],
     coach:{
-      predict:"He has the right antibiotic in him from hour one. Before you look at Day 3: is his white cell count higher or lower than the 19.4 he arrived with?",
-      read:"Two things are happening to him and they need separating: there is an organism, and there is what his body is doing about the organism. The antibiotic treats one of them.",
-      lesson:["trend", "His temperature is charted at Day 1, Day 3 and Day 5 in one row. What does the shape of that row tell you that any single value could not?"],
-      vitals:"The temperature row is the one to chart carefully this week. Day 3 is lower than Day 1. Is that better news or worse?",
-      io:"His urine output is rising while he is still critically ill. What else on the chart changed at the same time?",
-      results:"His white cell count fell with nothing done to it. Chart both counts side by side and look at the band forms. What are they saying?",
-      problems:"Mark on your list which problems are the organism and which are the response. Which list is longer?",
-      mar:"Paracetamol was given twice for fever and then stopped. If fever is a defended set point, what were you doing when you gave it?",
-      note:"Your assessment should say why he was still deteriorating three days after the correct antibiotic was given."
+      predict:'Dale has had the right antibiotic in him since the first hour. Before you look at Day 3, predict whether his white cell count is higher or lower than the 19.4 he arrived with.',
+      read:'Two separate things are happening to Dale, and you need to keep them apart. One is the organism infecting him, and the other is what his body is doing in response to it. The antibiotic treats only one of them.',
+      lesson:["trend", 'Dale\'s temperature is charted for Day 1, Day 3 and Day 5 in one row. What does the pattern across that row tell you that any single value could not?'],
+      vitals:'The temperature row is the one to chart carefully this week. Dale\'s temperature on Day 3 is lower than on Day 1. Is that better news or worse?',
+      io:'Dale\'s urine output is rising even though he is still critically ill. What else on his chart changed at the same time?',
+      results:'Dale\'s white cell count fell without any treatment aimed at it. Chart both counts side by side and look at the band forms, the immature neutrophils. What are they telling you?',
+      problems:'On Dale\'s problem list, mark which problems come from the organism and which come from his body\'s response to it. Which list is longer?',
+      mar:'Dale was given paracetamol twice for fever, and then it was stopped. If fever is a set point that the body actively defends, what were you doing when you gave it?',
+      note:'Your assessment should explain why Dale was still getting worse three days after he was given the correct antibiotic.'
     }
   },
 
@@ -642,15 +642,15 @@ window.BIO005_EHR = {
       ['Gastric residual volume every 4 hours','Nursing','Nov 8','Active']
     ],
     coach:{
-      predict:"He has eaten nothing for five days and is about to be fed. Before you look at the electrolytes: which way do his phosphate, magnesium and potassium move once the feed starts?",
-      read:"He is not eating and he is burning about 600 kcal a day more than a man his size should at rest. The fuel is coming from him.",
-      lesson:["unmeasured", "Some of what he loses each day never reaches an intake and output chart. Where would you record a loss you cannot measure, and what should you write?"],
-      vitals:"Watch the weight row across these four columns and hold it against the running fluid total. They disagree and both are right. Which do you believe?",
-      io:"On Day 10 his net balance is negative for the first time. What on the medication record made that possible?",
-      results:"Three electrolytes fell together within two days of food arriving. Chart them in one column so the pattern is visible rather than described. What single event explains all three?",
-      problems:"Open a problem for the feeding itself. Something given to help him caused a new one. Does that change how you would write it?",
-      mar:"Metformin has been held since Day 1 and nobody has restarted it. What would you want to check before anyone did?",
-      note:"Your plan should say what you would feed and what you would not, and why the difference matters to a man on a ventilator."
+      predict:'Dale has eaten nothing for five days and is about to be fed. Before you look at his electrolytes, predict which way his phosphate, magnesium and potassium will move once the feed starts.',
+      read:'Dale is not eating, and he is burning about 600 kcal a day more than a resting man his size should. That fuel is coming from his own body.',
+      lesson:["unmeasured", 'Some of the fluid Dale loses each day never shows up on an intake and output chart. Where would you record a loss you cannot measure, and what should you write?'],
+      vitals:'Follow Dale\'s weight across these four columns and compare it with his running fluid total. The two disagree, and both are correct. Which one do you believe?',
+      io:'On Day 10, Dale\'s net fluid balance is negative for the first time. What on the medication record made that possible?',
+      results:'Three of Dale\'s electrolytes fell together within two days of food arriving. Chart them in one column so you can see the pattern instead of reading a description of it. What single event explains all three?',
+      problems:'Open a problem on Dale\'s list for the feeding itself. Something given to help him caused a new problem. Does that change how you would write it?',
+      mar:'Dale\'s metformin has been held since Day 1, and nobody has restarted it. What would you want to check before anyone did?',
+      note:'Your plan should say what you would feed Dale and what you would not, and why that difference matters for a man on a ventilator.'
     }
   },
 
@@ -683,15 +683,15 @@ window.BIO005_EHR = {
       ['Chest radiograph daily','Radiology','Nov 4 onward','Active']
     ],
     coach:{
-      predict:"At 0400 on Day 2 his bicarbonate is 16 and his carbon dioxide is 38. Before you apply any formula: is his breathing keeping up with his acid, or falling behind?",
-      read:"His lung fails in two stages and they are not the same problem. First it gets wet, which is Week 10. Then it gets stiff, which is Week 11.",
-      lesson:["settings", "From the third column on, this flowsheet has ventilator rows in it. Which of those numbers did a person choose and which did his body produce? Why must a chart show the difference?"],
-      vitals:"File the ventilator settings in their own group, away from the vital signs. What would go wrong if a set rate sat in the same row as a measured one?",
-      io:"His fluid balance is still strongly positive on Day 2. What is that doing to the lung you are about to ventilate?",
-      results:"The 0400 gas on Day 2 decided everything that followed. Chart it, then apply the formula in the tools box. What did that answer tell the team to do at 0505?",
-      problems:"You can name what his lung is doing without naming a syndrome. Try it. Which is more useful at handover?",
-      mar:"He was paralysed briefly so the mechanics could be measured. Why does a plateau pressure need a patient who is not breathing?",
-      note:"Your assessment should say why a rising carbon dioxide was allowed on purpose in one column and was an emergency in another."
+      predict:'At 0400 on Day 2, Dale\'s bicarbonate is 16 and his carbon dioxide is 38. Before you apply any formula, decide: is his breathing keeping up with his acid, or falling behind?',
+      read:'Dale\'s lung fails in two stages, and they are different problems. First it fills with fluid, which you studied in Week 10. Then it becomes stiff, which you studied in Week 11.',
+      lesson:["settings", 'From the third column on, Dale\'s flowsheet includes ventilator rows. Which of those numbers did a person choose, and which did his body produce? Why does a chart need to show the difference?'],
+      vitals:'File Dale\'s ventilator settings in their own group, separate from his vital signs. What would go wrong if the rate set on the ventilator sat in the same row as the rate he is actually breathing?',
+      io:'Dale\'s fluid balance is still strongly positive on Day 2. What is that extra fluid doing to the lung you are about to ventilate?',
+      results:'Dale\'s 0400 blood gas on Day 2 decided everything that followed. Chart it, then apply the formula in the tools box. What did that answer tell the team to do at 0505?',
+      problems:'You can describe what Dale\'s lung is doing without naming a syndrome. Try it. Which version is more useful at handover?',
+      mar:'Dale was paralyzed briefly so his lung mechanics could be measured. Why does measuring a plateau pressure require a patient who is not breathing on his own?',
+      note:'In your assessment, explain why Dale\'s rising carbon dioxide was allowed on purpose in one column of the flowsheet and was an emergency in another.'
     }
   },
 
@@ -728,15 +728,15 @@ window.BIO005_EHR = {
       ['Daily weight on the bed scale','Nursing','Nov 4 onward','Active']
     ],
     coach:{
-      predict:"His blood pressure is low and his kidney has stopped. Before you look at the central venous pressure: is the problem what is arriving at the kidney, what is leaving it, or both?",
-      read:"Everyone will tell you his kidney failed because it was not getting enough blood. Look at the central venous pressure column and ask what a filter does when the pressure downstream of it rises.",
-      lesson:["compare", "Two sets of urine indices, two days apart, saying opposite things. What has to be true of a chart before a comparison like that is trustworthy?"],
-      vitals:"The weight row and the running fluid total are the argument this week. Chart both. Which one do you believe, and what are the other one's blind spots?",
-      io:"On Day 6 the chart says plus 7.4 liters and the scale says plus 3 kilograms. Where are the other four?",
-      results:"Two sets of urine indices, two days apart, saying opposite things about the tubule. What changed between them?",
-      problems:"His kidney problem is not new. Write the chronic one and the acute one as two entries. Why do they need different evidence?",
-      mar:"Two of his home medications have been held for fifteen days and one of them normally protects his kidney. What is the argument for holding it anyway?",
-      note:"Your plan should contain a number that would make you stop the diuretic, not only a reason to continue it."
+      predict:'Dale\'s blood pressure is low and his kidney has stopped working. Before you look at his central venous pressure, decide: is the problem what is arriving at his kidney, what is leaving it, or both?',
+      read:'The usual explanation is that Dale\'s kidney failed because it was not getting enough blood. Look at the central venous pressure column as well, and ask what happens to a filter when the pressure downstream of it rises.',
+      lesson:["compare", 'Dale has two sets of urine indices, taken two days apart, that say opposite things. What has to be true of a chart before you can trust a comparison like that?'],
+      vitals:'This week, the case turns on Dale\'s weight row and his running fluid total. Chart both. Which one do you believe, and what can the other one not see?',
+      io:'On Day 6, Dale\'s fluid chart says plus 7.4 liters and the scale says plus 3 kilograms. Where are the other four?',
+      results:'Dale\'s two sets of urine indices, taken two days apart, say opposite things about his tubule. What changed between them?',
+      problems:'Dale\'s kidney problem is not new. Write his chronic kidney problem and his acute one as two separate entries. Why does each one need different evidence?',
+      mar:'Two of Dale\'s home medications have been held for fifteen days, and one of them normally protects his kidney. What is the argument for holding it anyway?',
+      note:'Your plan for Dale should include a number that would make you stop the diuretic, not only a reason to continue it.'
     }
   },
 
@@ -762,15 +762,15 @@ window.BIO005_EHR = {
       ['Arterial blood gas, serial','Laboratory','Both patients','Resulted']
     ],
     coach:{
-      predict:"Both patients improved, and both of them left a treatment behind in their blood. Before you calculate anything: what do you think went into both of them in large volumes, and what did it carry?",
-      read:"This is the last entry and it is the first one again, twice. You were told in Week 3 and again in Week 9 to notice two numbers and leave them alone. Pick them up now.",
-      lesson:["compare", "Six gases from two different people, in one grid. What makes that a fair comparison, and what would make it a misleading one?"],
-      vitals:"Chart all six in one flowsheet. The comparison is the assignment, and it only works if the rows line up.",
-      io:"Camila got six liters in twelve hours and Dale about nine over three days. Which of them had less time to deal with it?",
-      results:"One correction on this page, the albumin correction, changes the answer in one patient and not the other. Which, and why?",
-      problems:"Add one final problem to each list: the one the treatment created. Both patients have one.",
-      mar:"The same bag of fluid appears on both medication records. What is actually in it, and what does the body do with each of its two ions?",
-      note:"Write one assessment that covers both people. That is the point of the week, and the end of term analysis asks for it at greater length."
+      predict:'Camila and Dale both improved, and in both of them the treatment left its own mark on their blood. Before you calculate anything, what do you think was given to both of them in large volumes, and what did it carry?',
+      read:'This is the last entry, and it takes you back to the start of both cases. In Week 3 with Camila and again in Week 10 with Dale, you were told to notice two numbers and leave them alone. Now it is time to work with them.',
+      lesson:["compare", 'This grid holds six blood gases from two different people, Camila and Dale. What makes that a fair comparison, and what would make it a misleading one?'],
+      vitals:'Chart all six of Camila\'s and Dale\'s gases in one flowsheet. The comparison is the assignment, and it only works if the rows line up.',
+      io:'Camila got six liters in twelve hours, and Dale got about nine over three days. Which of them had less time to deal with it?',
+      results:'One correction on this page, the albumin correction, changes the answer for one patient but not the other. Which patient, Camila or Dale, and why?',
+      problems:'Add one final problem to both Camila\'s list and Dale\'s list: the one their treatment created. Each of them has one.',
+      mar:'The same bag of fluid appears on both Camila\'s and Dale\'s medication records. What is actually in it, and what does the body do with each of its two ions?',
+      note:'Write one assessment that covers both Camila and Dale. Comparing them is the point of this week, and the end of term analysis asks for the same thing at greater length.'
     }
   }
 
