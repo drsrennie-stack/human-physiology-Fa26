@@ -119,6 +119,9 @@ window.BIO005_EHR = {
       ['pupils','Pupils','mm and reaction','2 to 5 mm, brisk and equal'],
       ['dtr','Deep tendon reflexes','grade','2+ and symmetric']
     ]},
+    { id:'func', name:'Function', rows:[
+      ['grip','Grip strength, right hand','kg','compare with the patient\'s own baseline']
+    ]},
     { id:'hemo',  name:'Hemodynamics', rows:[
       ['cvp','Central venous pressure','mmHg','2 to 8'],
       ['co','Cardiac output','L/min','4 to 8'],
@@ -347,10 +350,10 @@ window.BIO005_EHR = {
     location:'Emergency department, then medical ward',
     encounterType:'Inpatient, day 1',
     flow:[
-      { t:'Sep 22, 0640', hr:'128', bp:'96/58', map:'71', rr:'32', gcs:'13', pupils:'4 mm, brisk and equal', dtr:'1+ symmetric' },
+      { t:'Sep 22, 0640', hr:'128', bp:'96/58', map:'71', rr:'32', gcs:'E3 V4 M6 (13)', pupils:'4 mm, brisk and equal', dtr:'1+ symmetric' },
       { t:'Sep 22, 0740 sitting', hr:'138', bp:'78/44', map:'55' },
-      { t:'Sep 22, 1000', hr:'112', rr:'32', gcs:'14' },
-      { t:'Sep 22, 1400', hr:'96', bp:'108/62', map:'77', rr:'24', gcs:'15', dtr:'2+ symmetric' }
+      { t:'Sep 22, 1000', hr:'112', rr:'32', gcs:'E4 V4 M6 (14)' },
+      { t:'Sep 22, 1400', hr:'96', bp:'108/62', map:'77', rr:'24', gcs:'E4 V5 M6 (15)', dtr:'2+ symmetric' }
     ],
     io:[
       { t:'Sep 22, 0640 to 1400', oral:'0', iv:'5,000', totalIn:'5,000', urine:'980', other:'0', totalOut:'980', net:'+4,020', cum:'+4,020' }
@@ -364,8 +367,7 @@ window.BIO005_EHR = {
       ['Hourly neurological observations','Nursing','Sep 22, 0700','Active'],
       ['Limit the fall in plasma osmolality to about 3 mOsm/kg per hour','Medicine','Sep 22, 0700','Active'],
       ['Bedside visual acuity','Nursing','Sep 22, 0800','Resulted'],
-      ['10 g monofilament and 128 Hz vibration testing, both feet','Nursing','Sep 22, 0810','Resulted'],
-      ['Lie and stand blood pressure','Nursing','Sep 22, 0740','Resulted']
+      ['10 g monofilament and 128 Hz vibration testing, both feet','Nursing','Sep 22, 0810','Resulted']
     ],
     coach:{
       predict:'Camila is drowsy, her blood pressure is 96/58, and she is about to be sat upright for the first time. What do you expect her blood pressure and her heart rate to do in the first minute?',
@@ -375,7 +377,7 @@ window.BIO005_EHR = {
       io:'Nothing in Camila\'s fluid chart explains her level of consciousness this morning. What on this page does explain it?',
       results:'The sitting blood pressure is the result that matters most for Camila this week, and it came from a nurse with a cuff, not from a laboratory. Why did nobody order it?',
       problems:'One problem you open for Camila today resolves by this afternoon, and one does not resolve for four weeks. Which is which, and how can you tell this early?',
-      mar:'Camila was given no drug for any of the three findings this week. What does that tell you about where the problem actually sits?',
+      mar:'Nothing in Camila\'s medication record was given to treat her reflexes, her vision or her level of consciousness. Her fluid and insulin were aimed at the cause underneath. What does that tell you about where those three problems actually sit?',
       note:'Your assessment of Camila should say what her reflexes tell you and, just as clearly, what they cannot tell you.'
     }
   },
@@ -385,9 +387,9 @@ window.BIO005_EHR = {
     location:'Medical ward, then outpatient clinic',
     encounterType:'Inpatient day 4, then follow-up',
     flow:[
-      { t:'Sep 25, day 4', hr:'88', bp:'112/68', map:'83', rr:'16', temp:'36.9 (98.4)', spo2:'98', o2:'Room air', wt:'56.5 (125)', gcs:'15', dtr:'2+ symmetric' },
-      { t:'Oct 10', hr:'72', bp:'110/70', map:'83', wt:'58 (128)' },
-      { t:'Nov 20', hr:'62', bp:'110/66', map:'81', wt:'59 (130)' }
+      { t:'Sep 25, day 4', grip:'22', hr:'88', bp:'112/68', map:'83', rr:'16', temp:'36.9 (98.4)', spo2:'98', o2:'Room air', wt:'56.5 (125)', gcs:'15', dtr:'2+ symmetric' },
+      { t:'Oct 10', grip:'27', hr:'72', bp:'110/70', map:'83', wt:'58 (128)' },
+      { t:'Nov 20', grip:'31', hr:'62', bp:'110/66', map:'81', wt:'59 (130)' }
     ],
     io:null,
     mar:[
@@ -420,6 +422,7 @@ window.BIO005_EHR = {
     encounterType:'Outpatient follow-up',
     flow:[
       { t:'Sep 22, admission', hr:'128', bp:'96/58', map:'71', temp:'36.4 (97.5)' },
+      { t:'Sep 22, sitting 1 min', hr:'138', bp:'78/44', map:'55' },
       { t:'Nov 3, clinic supine', hr:'68', bp:'118/72', map:'87', rr:'14', temp:'36.7 (98.1)', spo2:'99', o2:'Room air', wt:'58.5 (129)' },
       { t:'Nov 3, standing 1 min', hr:'84', bp:'114/76', map:'89' },
       { t:'Dec 5, clinic', hr:'64', bp:'112/70', map:'84', wt:'59 (130)' }
@@ -439,9 +442,9 @@ window.BIO005_EHR = {
     ],
     coach:{
       predict:'Camila\'s periods stopped at the end of August and have not come back, and her ovaries look normal on ultrasound. Before you look at the panel, do you expect her FSH to be high or low, and what would each answer mean?',
-      read:'This page looks at three of Camila\'s hormone systems at once: the pancreas, the thyroid and the reproductive axis. Two of them were never the problem, and the skill this week is telling which two.',
+      read:'This page looks at three of Camila\'s hormone systems at once: the pancreas, the thyroid and the reproductive axis. One of them was never the problem, and the skill this week is telling which one.',
       lesson:["derived", 'Camila\'s energy availability is not measured. It is calculated from her food intake, her training cost and her lean mass. How should a chart show a number that nobody read off a machine?'],
-      vitals:'When Camila stands, her blood pressure barely changes and her heart rate rises by 16. Compare that with the same test on September 22. What recovered?',
+      vitals:'When Camila stands, her blood pressure barely changes and her heart rate rises by 16. Compare that with what happened when she sat up on September 22, which is now in the column beside it. What recovered?',
       io:'There is nothing to chart here for Camila. Which of her three hormone systems would you most have wanted a fluid chart for, and why did nobody need one?',
       results:'When a thyroid result changes twice with no treatment, it is telling you about something other than the thyroid. What would have happened to Camila if someone had treated the 6.2?',
       problems:'At least one problem on Camila\'s list should close this week. Closing a problem is a clinical decision. What is your evidence for closing it?',
@@ -455,9 +458,9 @@ window.BIO005_EHR = {
     location:'Outpatient clinic, discharge review',
     encounterType:'Case closure',
     flow:[
-      { t:'Aug 12, baseline', hr:'52', bp:'108/64', map:'79', rr:'12', temp:'36.8 (98.2)', spo2:'99', o2:'Room air', wt:'61 (134)' },
+      { t:'Aug 12, baseline', grip:'32', hr:'52', bp:'108/64', map:'79', rr:'12', temp:'36.8 (98.2)', spo2:'99', o2:'Room air', wt:'61 (134)' },
       { t:'Sep 22, arrival', hr:'128', bp:'96/58', map:'71', rr:'32', temp:'36.4 (97.5)', spo2:'99', o2:'Room air', wt:'55 (121)', gcs:'13' },
-      { t:'Dec 5, clinic', hr:'64', bp:'112/70', map:'84', rr:'14', temp:'36.8 (98.2)', spo2:'99', o2:'Room air', wt:'59 (130)', gcs:'15' }
+      { t:'Dec 5, clinic', grip:'31', hr:'64', bp:'112/70', map:'84', rr:'14', temp:'36.8 (98.2)', spo2:'99', o2:'Room air', wt:'59 (130)', gcs:'15' }
     ],
     io:null,
     mar:[
@@ -472,9 +475,9 @@ window.BIO005_EHR = {
     ],
     coach:{
       predict:'You are about to close Camila\'s file. Before you read the discharge summary, name the one thing about her that will still be true in ten years.',
-      read:'Nothing new opens this week either. Read the seven entries you already have on Camila as the story of one person, which is a different job from reading them one at a time.',
+      read:'No new topic opens this week either. Read the seven entries you already have on Camila as the story of one person, which is a different job from reading them one at a time.',
       lesson:["closing", 'Closing Camila\'s chart means saying which problems are resolved, which are permanent, and which were never problems. Why is that third group the one that teaches you something?'],
-      vitals:'This grid shows three columns, four months apart. Run your finger along Camila\'s weight row and say out loud what happened to her.',
+      vitals:'This grid shows three columns spanning four months. Run your finger along Camila\'s weight row and say out loud what happened to her.',
       io:'There is no fluid chart at a clinic visit. Which single measurement replaced it as the thing worth checking on Camila every three months?',
       results:'Camila\'s A1c of 7.1 covers the last three months, which includes the weeks before anyone knew she had diabetes. What can that number tell you, and what can it not?',
       problems:'Go back through Camila\'s whole problem list and mark each entry active, resolved, or never a problem. How many are in the third group?',

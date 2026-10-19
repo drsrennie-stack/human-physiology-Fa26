@@ -139,3 +139,15 @@ Tab order was walked programmatically on each page and the focused element, its 
 Reviewed by Claude, September 21, 2026, using axe-core in headless Chromium plus programmatic contrast, focus and tab order measurement on the rendered pages.
 
 Not yet reviewed by a human with a screen reader. Section 6 item 2 is the gap.
+
+## Update, October 19, 2026: Rounds, Weeks 5 to 8
+
+Files: `bio005-patient-chart.js`, `bio005-chart-ehr.js`, `patient-rounds.html`.
+
+- A Function group (grip strength) was added to the flowsheet. It uses the same table markup as every other group: a row header, a visually hidden label on every input, and the same Check my filing message in the `aria-live` region.
+- Coaching prompts now sit in a white card with a "Think about this" label, so they stand out from the rest of the step. Prompt text #6E2D24 on white is 10.18:1 and the label #8B3A2E on white is 7.66:1, both AAA. The label is CSS generated text, so a screen reader may or may not read it; nothing depends on it.
+- The Glasgow Coma Scale check now accepts the scale charted as its three parts (E3 V4 M6), with or without the total. The result is still announced as text in the live region, not by color alone.
+- A second results panel and one note row were added to Week 5, and one flowsheet column to Week 7. They use the existing table and note markup, so nothing new needs a separate check.
+- Verified in headless Chromium for Weeks 5 to 8: no script errors, flowsheet headers render, the check marks cells and announces the count. No manual screen reader pass yet; section 6 item 2 still stands.
+
+Reviewer: Claude, October 19, 2026.

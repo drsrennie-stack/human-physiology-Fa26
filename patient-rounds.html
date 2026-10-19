@@ -446,7 +446,21 @@ var LESSONS = {
 
 /* ---------- normalized comparison for the flowsheet check ---------- */
 var TEXTROWS = { o2:1, pupils:1, dtr:1, uo:1 };
-function matches(typed, want) {
+/* A Glasgow Coma Scale can be charted as its parts (E3 V4 M6), with or without the total.
+   When the note gives the parts, the parts are what is checked; when it gives only a total,
+   either the total or parts that add up to it will match. */
+function gcsMatch(typed, want) {
+  var a = (String(typed).match(/\d+/g) || []).map(Number), b = (String(want).match(/\d+/g) || []).map(Number);
+  var total = b.length >= 3 ? b[0] + b[1] + b[2] : b[0];
+  if (a.length >= 3) {
+    var s = a[0] + a[1] + a[2];
+    if ((a.length > 3 && a[3] !== s) || s !== total) { return false; }
+    return b.length >= 3 ? (a[0] === b[0] && a[1] === b[1] && a[2] === b[2]) : true;
+  }
+  return a.length === 1 && b.length < 3 && a[0] === total;
+}
+function matches(typed, want, key) {
+  if (key === 'gcs') { return gcsMatch(typed, want); }
   var a = nums(typed), b = nums(want);
   if (a && b) { return a === b; }
   return String(typed).trim().toLowerCase().replace(/\s+/g, ' ') ===
@@ -590,8 +604,10 @@ function panelFlow() {
   var h = pre
     ? '<p class="note">You already charted this week on paper, so the values are filled in for you. Read across the rows. You do not need to type them again.</p>'
     : '<p class="note">Find the values in the note and the results, then type them in yourself. Nothing is filled in for you. '
-      + 'When you finish, click Check my filing at the bottom.</p>';
-  h += '<div class="tblwrap"><table><caption>Flowsheet, week ' + WK + '</caption><thead><tr>'
+      + 'When you finish, click Check my filing at the bottom.</p>'
+      + '<p class="note"><strong>Mean arterial pressure:</strong> if the note gives it, copy it. If it does not, work it out from the blood pressure: '
+      + 'diastolic + (systolic &minus; diastolic) &divide; 3, rounded to a whole number. For 120/80, that is 80 + 40 &divide; 3 = 93.</p>';
+  h += '<div class="tblwrap"><table><caption>Flowsheet, Week ' + (window.BIO005_WL ? BIO005_WL(WK) : WK) + '</caption><thead><tr>'
     + '<th scope="col">Measure</th>';
   ex.flow.forEach(function (c) { h += '<th scope="col">' + esc(c.t) + '</th>'; });
   h += '</tr></thead><tbody>';
@@ -715,8 +731,8 @@ function weekTables(exw, st, w) {
     var rs = g.rows.filter(function (r) { return exw.flow.some(function (c) { return c[r[0]] != null; }); });
     if (rs.length) { rowsDef.push({ grp:g.name }); rowsDef = rowsDef.concat(rs); }
   });
-  h += staticTable(exw.flow, rowsDef, function (k, ci) { return (st.flow || {})['f-' + k + '-' + ci]; }, 'Flowsheet, week ' + w);
-  if (exw.io) { h += staticTable(exw.io, E.ioRows, function (k, ci) { return (st.io || {})['io-' + k + '-' + ci]; }, 'Intake and output, week ' + w); }
+  h += staticTable(exw.flow, rowsDef, function (k, ci) { return (st.flow || {})['f-' + k + '-' + ci]; }, 'Flowsheet, Week ' + (window.BIO005_WL ? BIO005_WL(w) : w));
+  if (exw.io) { h += staticTable(exw.io, E.ioRows, function (k, ci) { return (st.io || {})['io-' + k + '-' + ci]; }, 'Intake and output, Week ' + (window.BIO005_WL ? BIO005_WL(w) : w)); }
   return h;
 }
 function panelMine() { return activityHtml(S) + weekTables(E.weeks[WK], S, WK) + entriesHtml(S, wk); }
@@ -761,16 +777,16 @@ function checkCells(sel, source, msgHost, what) {
     td.className = '';
     if (!inp.value.trim()) { blank++; return; }
     if (TEXTROWS[key] && !nums(want)) { skipped++; return; }
-    if (matches(inp.value, want)) { ok++; td.className = 'ok'; td.appendChild(el('span', 'cellmsg', 'Matches')); }
+    if (matches(inp.value, want, key)) { ok++; td.className = 'ok'; td.appendChild(el('span', 'cellmsg', 'Matches')); }
     else { bad++; td.className = 'no'; td.appendChild(el('span', 'cellmsg', 'Check this one')); }
   });
   var host = document.getElementById(msgHost);
   var cls = bad ? 'flash bad' : 'flash';
   var lines = [];
   lines.push('<strong>' + ok + '</strong> of the cells you filled match the chart.');
-  if (bad) { lines.push('<strong>' + bad + '</strong> do not match. They are outlined. Go back to the note and read those values again instead of guessing.'); }
-  if (blank) { lines.push('<strong>' + blank + '</strong> are still empty.'); }
-  if (skipped) { lines.push('<strong>' + skipped + '</strong> are written in words, so the page does not check them. Compare those with the note yourself.'); }
+  if (bad) { lines.push('<strong>' + bad + '</strong> ' + (bad === 1 ? 'does' : 'do') + ' not match. ' + (bad === 1 ? 'It is' : 'They are') + ' outlined. Go back to the note and read those values again instead of guessing.'); }
+  if (blank) { lines.push('<strong>' + blank + '</strong> ' + (blank === 1 ? 'is' : 'are') + ' still empty.'); }
+  if (skipped) { lines.push('<strong>' + skipped + '</strong> ' + (skipped === 1 ? 'is' : 'are') + ' written in words, so the page does not check them. Compare those with the note yourself.'); }
   if (!bad && !blank) { lines.push('You filed all of ' + what + ' correctly. Good work reading the values and entering them yourself.'); }
   host.innerHTML = '<div class="' + cls + '"><p>' + lines.join(' ') + '</p></div>';
 }

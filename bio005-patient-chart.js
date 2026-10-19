@@ -369,16 +369,17 @@ window.BIO005_CHART = {
      resolves without treatment, which is the point. */
   5: {
     title:'Reflexes, and Sensing the World',
-    date:'September 22, and October 20', when:'The first morning, and four weeks later',
+    date:'September 22 and 23, and October 20', when:'The first morning, the next day, and four weeks later',
     encounter:'Neurological, reflex and sensory assessment',
     arc:'This week Camila\'s chart shows three automatic processes in her body, and none of them needed a doctor to make them happen. One protects her brain, one defends her blood pressure, and one changed the shape of the lens in her eye. Nobody noticed that last change until she stopped wearing her contact lenses. Two of the three recover on their own, and the question for you is what you would need to measure to tell which two.',
     chart:[
-      ['Conscious level','0640 Glasgow Coma Scale 13 (eyes 3, verbal 4, motor 6): drowsy, oriented to person and place but not to time. 1000 GCS 14. 1400 GCS 15, fully oriented.'],
+      ['Conscious level','0640: Camila\'s Glasgow Coma Scale was 13 (eyes 3, verbal 4, motor 6). She was drowsy, oriented to person and place but not to time. 1000: GCS 14 (eyes 4, verbal 4, motor 6). Her eyes were open on their own, but she was still unsure of the time. 1400: GCS 15 (eyes 4, verbal 5, motor 6), fully oriented.'],
       ['Reflexes, September 22','Patellar 1+ and ankle 1+, symmetric, at 0640; 2+ and symmetric by 1400. Plantar response flexor throughout. Pupils 4 mm, brisk and equal.'],
       ['Sensory testing, September 22','Light touch and vibration intact at both great toes. A 10 g monofilament was felt at all nine sites on each foot.'],
-      ['Sitting up, 0740','Supine 96/58 with HR 128. At one minute sitting 78/44 with HR 138. She felt faint and was laid flat. From 0640 to 1400 she took nothing by mouth, received 5,000 mL of intravenous fluid, and passed 980 mL of urine; nothing else was measured out. Lying flat, her heart rate was 112 at 1000. At 1400 it was 96, with a blood pressure of 108/62.'],
+      ['Sitting up, 0740','On arrival at 0640, Camila\'s heart rate was 128 and her blood pressure 96/58. At 0740, still lying flat (supine), they were the same: 96/58 with HR 128. At one minute sitting 78/44 with HR 138. She felt faint and was laid flat. From 0640 to 1400 she took nothing by mouth, received 5,000 mL of intravenous fluid, and passed 980 mL of urine; nothing else was measured out. Lying flat, her heart rate was 112 at 1000. At 1400 it was 96, with a blood pressure of 108/62.'],
       ['Vision','She reports that everything has looked soft for about two weeks and that she stopped wearing her contact lenses because they were not helping. Bedside distance acuity September 22: 20/60 both eyes. October 20: 20/20 both eyes, same prescription, no treatment given to her eyes.'],
-      ['Breathing','RR 32, deep and regular, unchanged through the morning. By 1400 it had slowed to 24.']
+      ['Breathing','RR 32, deep and regular, unchanged through the morning. By 1400 it had slowed to 24.'],
+      ['The osmolality order, 0700','The team ordered that Camila\'s plasma osmolality fall by no more than about 3 mOsm/kg per hour. While her plasma stayed concentrated over the past three weeks, her brain cells added solute of their own so they would not shrink, and they cannot clear that solute in an hour. Lowering her osmolality slowly gives them time to catch up. This is the usual explanation for the order, although researchers still debate everything that causes brain swelling during treatment.']
     ],
     panels:[
       { name:'Bedside sensory and reflex testing', when:'September 22, 0810', rows:[
@@ -389,6 +390,16 @@ window.BIO005_CHART = {
         ['10 g monofilament, 9 sites per foot','felt at 9 of 9','','felt at 9 of 9',''],
         ['Distance acuity, both eyes','20/60','','20/20','L'],
         ['Pupil size and reaction','4 mm, brisk and equal','','2 to 5 mm, brisk','']
+      ]},
+      { name:'Chemistry from the first day', when:'September 22', rows:[
+        ['Glucose, 0645','642','mg/dL','70 to 99','HH'],
+        ['Glucose, 0900','486','mg/dL','70 to 99','HH'],
+        ['Glucose, 1100','372','mg/dL','70 to 99','H'],
+        ['Glucose, 1800','198','mg/dL','70 to 99','H'],
+        ['Serum osmolality (measured), 0645','305','mOsm/kg','275 to 295','H'],
+        ['Arterial pH, 0645','7.09','','7.35 to 7.45','LL'],
+        ['PaCO<sub>2</sub>, 0645','14','mmHg','35 to 45','LL'],
+        ['Bicarbonate, 0645','4','mEq/L','22 to 29','LL']
       ]}
     ],
     five:[
@@ -401,13 +412,13 @@ window.BIO005_CHART = {
     tracks:{
       nursing:{ data:'The Glasgow Coma Scale is scored from three separate observations: eye opening out of 4, best verbal response out of 5, and best motor response out of 6. Camila scored E3 V4 M6 at 0640.',
         go:'The Glasgow Coma Scale is a set of reflexes and responses. It does not measure consciousness directly. For each of its three parts, say whether you are testing a sensory pathway, a motor pathway, or the brain\'s integration of the two. Then explain what Camila\'s E3 V4 M6 tells you that a total of 13 on its own does not, and name a different combination that also adds up to 13 but would worry you far more.' },
-      medicine:{ data:'Large myelinated fibers carry vibration and light touch, and they conduct at roughly 35 to 75 m/s. Small, thinly myelinated and unmyelinated fibers carry pain and temperature, and they conduct at roughly 0.5 to 30 m/s. Nerve conduction studies record only the large fibers, and the monofilament test Camila had also tests the large fibers.',
+      medicine:{ data:'Large myelinated fibers carry vibration and light touch, and they conduct at roughly 35 to 75 m/s. Small, thinly myelinated and unmyelinated fibers carry pain and temperature, and they conduct at roughly 0.5 to 30 m/s. Nerve conduction studies record only the large fibers, and the monofilament test Camila had also tests the large fibers. Camila\'s symptoms recorded before this admission: about three weeks of passing very large volumes of urine and drinking constantly, and about two weeks of everything looking soft.',
         go:'Camila\'s monofilament and vibration tests are normal today, and a nerve conduction study would be normal too. Explain exactly what those normal results do and do not rule out, and name the group of nerve fibers that neither test can detect. Then say which of her symptoms over the last three weeks, if any, could already have been a small fiber symptom, and write the question you would ask Camila to find out.' },
       radiology:{ data:'An ocular B-scan ultrasound directly measures the length of the eye from front to back (axial length) and the thickness of the lens, in millimeters. Refractive error, the focusing error that glasses or contacts correct, is worked out from those measurements plus the curve of the cornea. No imaging test measures visual acuity, which is how clearly Camila can read an eye chart.',
-        go:'Describe what an ocular ultrasound would physically measure in Camila\'s eye on September 22 and again on October 20, and predict the difference between the two. Then, of her two vision numbers, the acuity and the lens thickness, say which is a direct measurement and which is an inference. Use that to explain why her prescription was the wrong thing to change in September.' },
-      rt:{ data:'Central chemoreceptors in the medulla respond to the pH of cerebrospinal fluid. Peripheral chemoreceptors in the carotid and aortic bodies respond to the oxygen, carbon dioxide and hydrogen ion levels in arterial blood. Hydrogen ions cross the blood brain barrier poorly, but carbon dioxide crosses it freely. Camila\'s arterial pH is 7.09 and her respiratory rate is 32.',
-        go:'Camila\'s drive to breathe is enormous, but the acid causing it mostly cannot get into the cerebrospinal fluid that the central chemoreceptors sample. Say which group of chemoreceptors is doing most of the work here, and why. Then say what happens to the central chemoreceptor drive over the next few hours as her carbon dioxide falls, and what that predicts about her respiratory rate as she is treated.' },
-      exercise:{ data:'Before Camila got sick, she could balance on one leg with her eyes closed for over 30 seconds. That was recorded at her preseason physical. On hospital day 2 she managed 4 seconds.',
+        go:'Describe what an ocular ultrasound would physically measure in Camila\'s eye on September 22 and again on October 20, and predict the difference between the two. Then, of the two numbers, Camila\'s acuity and the lens thickness an ultrasound would report, say which is a direct measurement and which is an inference. Use that to explain why her prescription was the wrong thing to change in September.' },
+      rt:{ data:'Central chemoreceptors in the medulla respond to the pH of cerebrospinal fluid. Peripheral chemoreceptors in the carotid and aortic bodies respond to the oxygen, carbon dioxide and hydrogen ion levels in arterial blood. Hydrogen ions cross the blood brain barrier poorly, but carbon dioxide crosses it freely. On arrival Camila\'s arterial pH was 7.09, her PaCO<sub>2</sub> was 14 mmHg, and her respiratory rate was 32.',
+        go:'Camila\'s drive to breathe is enormous, but the acid causing it mostly cannot get into the cerebrospinal fluid that the central chemoreceptors sample. Say which group of chemoreceptors is doing most of the work here, and why. Then say what happens to the central chemoreceptor drive over the next few hours as her acid clears and her carbon dioxide rises back toward normal, and what that predicts about her respiratory rate as she is treated.' },
+      exercise:{ data:'Before Camila got sick, she could balance on one leg with her eyes closed for over 30 seconds. That was recorded at her preseason physical. On hospital day 2, September 23, she managed 4 seconds.',
         go:'Name the three sensory systems that keep a person upright, and say what each one contributes. Then say which one closing your eyes removes, and use Camila\'s 4 seconds to argue which of the other two is most likely impaired. Name the bedside test that would tell those two apart, and say what you would expect it to show in Camila.' }
     }
   },
@@ -415,15 +426,15 @@ window.BIO005_CHART = {
   /* ---------------------------------------------------------- 6 */
   6: {
     title:'Muscle, and How Movement Gets Commanded',
-    date:'September 25 to October 10', when:'Hospital day 4 through two weeks after discharge',
+    date:'September 25 to November 20', when:'Hospital day 4 through about eight weeks after discharge',
     encounter:'Mobility assessment and follow-up',
     arc:'Camila is out of danger now, but she cannot get up from a chair without pushing off with her arms. Three weeks of catabolism (her body breaking down its own tissue, muscle included, for fuel) and four days in bed have cost her more strength than she expected. As she recovers, her strength comes back before her muscle size does. That tells you the nerve signal that drives the muscle and the muscle itself recover on different schedules.',
     chart:[
-      ['Day 4 assessment','Stands from a chair slowly, using both arms. Walks 40 m with a frame, limited by fatigue rather than breathlessness. Grip strength 22 kg on the right; 32 kg at the preseason physical.'],
+      ['Day 4 assessment','Stands from a chair slowly, using both arms. Walks 40 m with a frame, limited by fatigue rather than breathlessness. Grip strength 22 kg on the right; 32 kg at the preseason physical. Vital signs on day 4: HR 88, BP 112/68, RR 16, temperature 36.9 &deg;C (98.4 &deg;F), SpO<sub>2</sub> 98% on room air, weight 56.5 kg (125 lb). Alert and oriented, GCS 15.'],
       ['Motor examination','Power 4 out of 5 in hip flexion and knee extension, 5 out of 5 at the ankle and in the hands. Tone normal. Reflexes 2+ and symmetric. No fasciculation. Sensation intact.'],
       ['Body composition','Repeat DEXA October 10: lean soft tissue 41.2 kg, from 45.1 kg in August.'],
-      ['October 10','Walking normally. Grip 27 kg. Reports that stairs are the thing that still tells her she was ill.'],
-      ['November 20','Grip 31 kg. Repeat DEXA lean soft tissue 43.1 kg.']
+      ['October 10','Walking normally. Grip 27 kg. Reports that stairs are the thing that still tells her she was ill. HR 72, BP 110/70, weight 58 kg (128 lb).'],
+      ['November 20','Grip 31 kg. Repeat DEXA lean soft tissue 43.1 kg. HR 62, BP 110/66, weight 59 kg (130 lb).']
     ],
     panels:[
       { name:'Muscle chemistry', when:'September 25', rows:[
@@ -468,21 +479,20 @@ window.BIO005_CHART = {
     encounter:'Endocrine, autonomic and reproductive follow-up',
     arc:'This is the entry where Camila\'s diagnosis is actually made, and where the hormones that made her so sick are named. It is also where a thyroid result changes twice even though her thyroid was never the problem. And it is where a period that stopped in August turns out to be a signal from her hypothalamus that she has been eating too little for how hard she trains.',
     chart:[
-      ['Diagnostic','C-peptide less than 0.1 ng/mL. GAD-65 antibodies positive. Islet antigen 2 antibodies positive. Diagnosis: type 1 diabetes.'],
-      ['Stress hormones, on arrival','Cortisol 32 &micro;g/dL. Glucagon elevated. Catecholamines not measured but clinically evident: heart rate 128, cool peripheries, capillary refill 4 seconds.'],
+      ['Diagnostic','C-peptide less than 0.1 ng/mL, far below the bottom of a typical fasting reference range (about 0.8 ng/mL; ranges vary by laboratory). GAD-65 antibodies positive. Islet antigen 2 antibodies positive. Diagnosis: type 1 diabetes.'],
+      ['Stress hormones, on arrival','Cortisol 32 &micro;g/dL (a typical morning reference range is about 5 to 25; ranges vary by laboratory). Glucagon elevated. Catecholamines not measured but clinically evident: heart rate 128, blood pressure 96/58, cool peripheries, capillary refill 4 seconds. Temperature 36.4 &deg;C (97.5 &deg;F).'],
       ['Thyroid','Sep 22: TSH 0.8 mIU/L, free T4 1.0 ng/dL, free T3 low. Sep 28: TSH 6.2. Nov 3: TSH 2.1, free T4 1.1, free T3 normal. No thyroid treatment was given at any point.'],
       ['Reproductive history','Last menstrual period August 30, regular before that. No pregnancy possible. Menses returned November 28.'],
       ['Energy availability, October 20','Reported intake about 1,900 kcal/day. Training cost about 800 kcal/day. Lean mass 41.2 kg. Below roughly 30 kcal per kg of lean mass per day, GnRH pulses are reliably suppressed in study conditions.'],
-      ['Autonomic testing, November 3','Resting HR 68. Supine 118/72 with HR 68; standing at one minute 114/76 with HR 84. Beat to beat heart rate variation with deep breathing preserved.'],
-      ['Treatment','Insulin infusion, then transitioned to basal and bolus insulin before discharge.']
+      ['Autonomic testing, November 3','Resting HR 68. Supine 118/72 with HR 68; standing at one minute 114/76 with HR 84. Beat to beat heart rate variation with deep breathing preserved. For comparison, on September 22 Camila was sat up rather than stood: lying flat 96/58 with HR 128, and at one minute sitting 78/44 with HR 138. Other vital signs lying down: RR 14, temperature 36.7 &deg;C (98.1 &deg;F), SpO<sub>2</sub> 99% on room air. Weight 58.5 kg (129 lb).'],
+      ['Treatment','Insulin infusion, then transitioned to basal and bolus insulin before discharge. Seen in clinic December 5: HR 64, BP 112/70, weight 59 kg (130 lb).']
     ],
     panels:[
       { name:'Reproductive axis', when:'October 20', rows:[
         ['Follicle stimulating hormone','2.4','IU/L','3.5 to 12.5 (follicular)','L'],
         ['Luteinizing hormone','1.8','IU/L','2.4 to 12.6 (follicular)','L'],
         ['Estradiol','18','pg/mL','30 to 100 (follicular)','L'],
-        ['Prolactin','11','ng/mL','4 to 23',''],
-        ['TSH','2.1','mIU/L','0.4 to 4.0','']
+        ['Prolactin','11','ng/mL','4 to 23','']
       ]},
       { name:'Pelvic ultrasound', when:'October 20', rows:[
         ['Endometrial thickness','3','mm','8 to 12 before ovulation','L'],
@@ -524,10 +534,11 @@ window.BIO005_CHART = {
     encounter:'Discharge summary and case closure',
     arc:'This is Midterm 1 week, so nothing new opens and no new material is asked of you. This entry is your review. You have seven chart entries about Camila, and this time you read them together as the story of one person. Then you hand her over, because in Week 10 you pick up a patient who is nothing like her.',
     chart:[
-      ['Discharge summary, September 22 to September 27','Admitted with new type 1 diabetes and a severe metabolic disturbance. Treated with intravenous fluid, an insulin infusion and potassium replacement. Transitioned to basal and bolus insulin on day 3. Discharged on day 6, walking with a frame, on twice daily basal insulin with mealtime bolus doses.'],
+      ['Discharge summary, September 22 to September 27','Admitted with new type 1 diabetes and a severe metabolic disturbance. Treated with intravenous fluid, an insulin infusion and potassium replacement. Transitioned to basal and bolus insulin on day 4. Discharged on day 6, walking with a frame, on once nightly basal insulin (glargine) with mealtime bolus doses (lispro).'],
       ['Where she is on December 5','Weight 59 kg (130 lb), against 61 kg in August and 55 kg on arrival. Grip 31 kg against 32 kg in August. Menses returned November 28. Cleared for full training November 25, playing again since December 1.'],
       ['The numbers that have not gone back','Lean soft tissue 43.1 kg against 45.1 kg in August. C-peptide still undetectable, and it will stay that way.'],
-      ['What she says','That the week she cannot remember is the part that frightens her, and that she wants to know whether it will happen again.']
+      ['What she says','That the week she cannot remember is the part that frightens her, and that she wants to know whether it will happen again.'],
+      ['Vital signs at three visits','August 12 preseason physical: HR 52, BP 108/64, RR 12, temperature 36.8 &deg;C (98.2 &deg;F), SpO<sub>2</sub> 99% on room air, weight 61 kg (134 lb). September 22 arrival: HR 128, BP 96/58, RR 32, temperature 36.4 &deg;C (97.5 &deg;F), SpO<sub>2</sub> 99% on room air, weight 55 kg (121 lb), GCS 13. December 5 clinic: HR 64, BP 112/70, RR 14, temperature 36.8 &deg;C (98.2 &deg;F), SpO<sub>2</sub> 99% on room air, weight 59 kg (130 lb), GCS 15.']
     ],
     panels:[
       { name:'December 5 review panel', when:'December 5', rows:[
@@ -554,7 +565,7 @@ window.BIO005_CHART = {
         go:'Write the handover for Camila, and write it as physiology rather than as a list of events. Name the three things about her that will still be true in a year, the two that were true only while she was in the hospital, and the one early warning sign you would want that nurse to act on without waiting for a clinic appointment. Back up each one with a number from her file.' },
       medicine:{ data:'At the close of Camila\'s file, her problem list has active problems, resolved problems, and one that was never a problem at all.',
         go:'Write Camila\'s problem list. For each entry, say the week you could first have named it, the evidence that named it, and whether it is active, resolved, or was never a problem. Then answer the question she actually asked, whether this will happen again, in three sentences, and make sure every clinical claim in those sentences can be traced to a number in her file.' },
-      radiology:{ data:'Across her whole file, Camila had one screening ECG, two DEXA scans, one pelvic ultrasound, and no cross sectional imaging, such as CT or MRI, at all.',
+      radiology:{ data:'Across her whole file, Camila had a screening ECG in August, two ECGs on the morning she arrived, a bedside ultrasound of her inferior vena cava that same morning, three DEXA scans (August, October 10 and November 20), one pelvic ultrasound, and no cross sectional imaging, such as CT or MRI, at all.',
         go:'Name the one study in Camila\'s whole file that actually changed what was done for her, and defend your choice. Then name the study that came closest to being unnecessary, and say what question it was answering that a number already on the chart had answered first. Finish by naming one study that was not done and should have been, or say plainly that there is none.' },
       rt:{ data:'Camila arrived breathing 32 times a minute, deeply and without effort, with a normal oxygen saturation. Nobody had to do anything to manage her airway at any point in the admission.',
         go:'Camila\'s breathing was the most obvious abnormal sign when she arrived, and it needed no treatment. Explain why, and be precise about what her breathing was accomplishing. Then say exactly what would have had to change, in her numbers or in her muscles, for her respiratory rate of 32 to become the reason to intubate her, and name the measurement that would have caught that change first.' },
@@ -1010,7 +1021,7 @@ window.BIO005_CHART = {
         go:'Write a handover for Camila and one for Dale, and build each one around what is happening in their bodies rather than a list of events in order. For each patient, name the one number you would want checked first on the receiving unit, the one thing that will still be true in a year, and the one early warning sign you would want acted on without waiting for a review. Then write one sentence for each patient saying what the treatment did to them that the illness did not.' },
       medicine:{ data:'The delta ratio and the albumin correction are both in the tools box above. Camila\'s chloride went from 96 to 112 over twelve hours. Dale\'s went from 98 to 114 over three days. Both of them received 0.9 percent sodium chloride.',
         go:'Work out the delta ratio for Camila between her two gases, and for Dale between his arrival gas and his Day 7 gas, showing the arithmetic for each. Say what each result reveals. Then explain why 0.9 percent saline does this: name what is actually in the bag and what the body does with each of its two ions. Finally, say what you would have given instead and why its anion behaves differently.' },
-      radiology:{ data:'Across both files, Camila had one screening ECG, two DEXA scans and one pelvic ultrasound. Dale had chest films on Days 1, 2 and 3, a CT of the chest and abdomen on Day 2, serial bedside ultrasound, and two echocardiograms.',
+      radiology:{ data:'Across both files, Camila had a screening ECG, two ECGs on the morning she arrived, a bedside ultrasound of her inferior vena cava, three DEXA scans and one pelvic ultrasound. Dale had chest films on Days 1, 2 and 3, a CT of the chest and abdomen on Day 2, serial bedside ultrasound, and two echocardiograms.',
         go:'Read Camila\'s file and Dale\'s file as one. Name the single study across both patients that most changed what was done, and defend your choice. Then name the single study that did the most harm, explain exactly how the harm happened at the tissue level, and say what question it was answering that a number already on the chart had answered first. Finish by naming one study that was not done in either patient and should have been, or say plainly that there is none.' },
       rt:{ data:'Camila\'s PaCO<sub>2</sub> rose from 14 to 26 mmHg between 0645 and 1800 on September 22, and the team was pleased. Dale\'s PaCO<sub>2</sub> rose from 30 to 38 mmHg between Day 1 and 0400 on Day 2, and the team intubated him. The two rises are about the same size.',
         go:'The same number moved the same way in Camila and in Dale, and it meant opposite things. Explain why, using Winter\'s formula for each patient and saying what the expected value was in each case. Then say what a rising PaCO<sub>2</sub> tells you about the breathing muscles when the acid load has not changed, and name the bedside observation in Dale\'s chart, not a number, that told the team the same thing at 0400.' },
