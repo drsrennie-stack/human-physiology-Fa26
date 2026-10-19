@@ -113,6 +113,7 @@ header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing
   </div>
 </div>
 </main>
+<script src="bio005-week-label.js"></script>
 <script>
 (function(){
   var TITLES = ["How physiology works and what keeps you steady", "The cell: structure, transport and signaling", "Catch up on the cell", "Membrane potential, neurons and synapses", "Reflexes, and sensing the world", "Muscle, and how movement gets commanded", "Hormones, the autonomic system, and reproduction", "Midterm 1", "The heart as a pump", "Pressure, flow, and holding blood pressure steady", "Blood and how the body defends itself", "Digestion, and how you use food for fuel", "Breathing, gas transport, and the fast pH lever", "The kidney and body fluid balance", "The slow pH lever, putting it together, and the final"];
@@ -126,8 +127,8 @@ header.brand .bsub{display:block;font-size:10.5px;font-weight:700;letter-spacing
   for (var i = 0; i < DUE.length; i++) { if (dueOf(i) >= now) { cur = i + 1; break; } }
   var w = m ? Math.max(1, Math.min(15, parseInt(m[1],10))) : cur;
   var pad = (w < 10 ? "0" : "") + w;
-  document.title = "Competency Study Guide \u00b7 Week " + w + " \u00b7 BIO 005 Human Physiology";
-  document.getElementById("wkline").textContent = "Week " + w + " \u00b7 " + TITLES[w-1];
+  document.title = "Competency Study Guide \u00b7 Week " + (window.BIO005_WL?BIO005_WL(w):w) + " \u00b7 BIO 005 Human Physiology";
+  document.getElementById("wkline").textContent = "Week " + (window.BIO005_WL?BIO005_WL(w):w) + " \u00b7 " + TITLES[w-1];
   document.getElementById("dueline").textContent = "Due " + DUE[w-1] + " at 10:00 pm";
   /* Weeks 1 to 3 keep their original instructions; Week 4 on gets the new ones */
   if (w >= 4) {

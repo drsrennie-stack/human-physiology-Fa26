@@ -470,6 +470,14 @@
      16 September. Week 3 opens nothing new, it is the week to finish the
      cell, so holding it shut behind Week 2 would only get in the way.
      Delete a week from this list to put it back on the normal Monday rule. */
+  /* Oct 18 2026: the number a student reads follows the Canvas calendar
+     numbering (see bio005-week-label.js); this copy keeps nav working on
+     pages that do not load that file. Keep the two maps the same. */
+  function WL(n) {
+    if (window.BIO005_WL) return window.BIO005_WL(n);
+    var M = { 6: 7, 7: 8, 8: 9, 9: 10 }, k = parseInt(n, 10);
+    return (k in M) ? M[k] : n;
+  }
   var UNLOCK = {
     2: '2026-09-16T20:00:00-07:00',
     3: '2026-09-16T20:00:00-07:00',
@@ -675,7 +683,7 @@
       var d = w.n === cur.n ? 'This week' : (lk ? 'Opens ' + fmtShort(w.opens) : (w.past ? 'Closed ' + fmtShort(w.closes) : 'Open'));
       weeksHtml += '<li><a class="' + cls.trim() + '" href="' + B + w.file + '" target="_top"'
         + (file === w.file ? ' aria-current="page"' : '') + '>'
-        + '<span class="b5-t">Week ' + w.n + '</span><span class="b5-d">' + w.title + '</span>'
+        + '<span class="b5-t">Week ' + WL(w.n) + '</span><span class="b5-d">' + w.title + '</span>'
         + '<span class="b5-d">' + d + (w.n === cur.n ? '<span class="b5vh">, current</span>' : '') + (lk ? '<span class="b5vh">, not open yet</span>' : '') + '</span></a></li>';
     }
     weeksHtml += '</ul>';
@@ -765,7 +773,7 @@
         + '<span class="b5-n" aria-hidden="true">' + S.n + '</span>' + S.name
         + (stageOn === key ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
         + '<div class="b5panel" id="b5-' + key + '-panel" hidden>'
-        + '<h2>Stage ' + S.n + ' of 4, Week ' + wn + ' &middot; ' + S.tag + '</h2><p class="b5-lead">' + S.lead + '</p>' + S.html + '</div></li>';
+        + '<h2>Stage ' + S.n + ' of 4, Week ' + WL(wn) + ' &middot; ' + S.tag + '</h2><p class="b5-lead">' + S.lead + '</p>' + S.html + '</div></li>';
     }
 
     /* Sep 27 2026, Scrubs: from Week 4 on, a week is one straight line of
@@ -784,7 +792,7 @@
       var f = LINE[lineWeek] || ('week-' + pad2(lineWeek) + '.html');
       var here = (file === f);
       return '<li class="b5-stage' + (here ? ' b5-on' : '') + '"><a href="' + B + f + '" target="_top"' + (here ? ' aria-current="page"' : '') + '>'
-        + 'Week ' + lineWeek + ' steps<span class="b5-sub">in order</span></a></li>';
+        + 'Week ' + WL(lineWeek) + ' steps<span class="b5-sub">in order</span></a></li>';
     }
 
     var nav = document.createElement('nav');
@@ -792,7 +800,7 @@
     nav.setAttribute('aria-label', 'Course sections');
     nav.innerHTML = '<div class="b5site-in"><ul>'
       + '<li class="' + (sec === 'home' ? 'b5-on' : '') + '"><a class="b5-home" href="' + B + 'course.html" target="_top"' + (sec === 'home' ? ' aria-current="page"' : '') + '>' + MARK + 'Home</a></li>'
-      + item('thisweek', cur.file, 'This week', 'Week ' + cur.n)
+      + item('thisweek', cur.file, 'This week', 'Week ' + WL(cur.n))
       + '<li class="' + (sec === 'weeks' ? 'b5-on' : '') + '"><button type="button" id="b5-weeks-btn" aria-expanded="false" aria-controls="b5-weeks-panel">Weeks' + CARET + (sec === 'weeks' ? '<span class="b5vh"> (current section)</span>' : '') + '</button>'
       + '<div class="b5panel" id="b5-weeks-panel" hidden>' + weeksHtml + '</div></li>'
       + (lineWeek ? lineItem() : stageItem('learn') + stageItem('practice') + stageItem('apply') + stageItem('check'))
@@ -895,7 +903,9 @@
      rule, Monday September 28 at 8:00 am Pacific. */
   /* Oct 4 2026: Week 5 released from HOLD. Its pages still open on the normal
      rule, except that its unlock is Tuesday October 6 at 8:00 am Pacific (see UNLOCK). */
-  var HOLD = window.BIO005_SITE.held = { 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
+  /* Oct 17 2026: Weeks 6 and 7 released from HOLD. Their pages open on the normal
+     rule, Monday October 19 and Monday October 26 at 8:00 am Pacific. */
+  var HOLD = window.BIO005_SITE.held = { 8:1, 9:1, 10:1, 11:1, 12:1, 13:1, 14:1, 15:1 };
 
   /* Oct 4 2026: a page listed here opens at its own moment, ahead of its week.
      Week 5's notes and Competency Study Guide prompts open Monday October 5 at
@@ -985,7 +995,7 @@
         var wk = window.BIO005_SITE.weeks[k - 1];
         if (!wk || (wk.open && !HOLD[k])) return;
         var row = li.querySelector('.labrow');
-        if (row) row.innerHTML = '<span class="b5-opens">' + (wk.open ? 'Not open yet' : 'Opens ' + fmtShort(wk.opens)) + '<span class="b5vh">, Week ' + k + ' lab not open yet</span></span>';
+        if (row) row.innerHTML = '<span class="b5-opens">' + (wk.open ? 'Not open yet' : 'Opens ' + fmtShort(wk.opens)) + '<span class="b5vh">, Week ' + WL(k) + ' lab not open yet</span></span>';
       });
       return;
     }
@@ -1005,30 +1015,30 @@
                                                  hour: 'numeric', minute: '2-digit',
                                                  timeZone: 'America/Los_Angeles' });
     var line = w.open && held
-      ? 'Week ' + n + ' is not open yet.'
-      : 'Week ' + n + ' opens <b>' + mon + ' Pacific</b>.';
+      ? 'Week ' + WL(n) + ' is not open yet.'
+      : 'Week ' + WL(n) + ' opens <b>' + mon + ' Pacific</b>.';
 
     var main = document.querySelector('main, [role="main"]') || document.body;
     /* the page's own masthead carries the week h1; hide it so the gate card is the only heading */
     hideAroundMain(main);
-    document.title = 'Week ' + n + ' opens ' + fmtShort(w.opens) + ' · BIO 005 Human Physiology';
+    document.title = 'Week ' + WL(n) + ' opens ' + fmtShort(w.opens) + ' · BIO 005 Human Physiology';
     gateCss();
     var cur = window.BIO005_SITE.current;
-    main.innerHTML = '<div class="b5gate"><p class="eb">' + PARTS[w.part] + ' · Week ' + n + ' of 15</p>'
+    main.innerHTML = '<div class="b5gate"><p class="eb">' + PARTS[w.part] + ' · Week ' + WL(n) + ' of 15</p>'
       + '<h1>' + w.title + '</h1>'
       + '<div class="card"><p style="margin:0">' + line + '</p></div>'
       /* Sep 25 2026, Scrubs: before a week opens, this page holds only the
          directions and the two ways to do the guide. Nothing else. */
       + (n === 8
         ? '<h2>Until then</h2><p class="or">Keep working the week you are in. The Midterm 1 practice exam is in Course tools, under Study tools.</p></div>'
-        : '<h2>Get ready for Week ' + n + '</h2>'
+        : '<h2>Get ready for Week ' + WL(n) + '</h2>'
       + '<p class="or">The week opens Monday. To be ready, choose how you will do your Competency Study Guide: print the worksheet, or set up your own paper from the competency list. Both have the same competencies and the same prompts.</p>'
       + '<div class="pick">'
       + '<a href="' + B + 'sheets/BIO005-note-sheet-week-' + pad2(n) + '.pdf" target="_blank" rel="noopener"><span class="k">Choice 1: print it</span>'
-      + '<span class="t">Week ' + n + ' Competency Study Guide (PDF)</span>'
+      + '<span class="t">Week ' + WL(n) + ' Competency Study Guide (PDF)</span>'
       + '<span class="d">The ready-made worksheet, with a box for each competency to draw in. Print it and fill it in. Opens in a new tab.</span></a>'
       + '<a href="' + B + 'week-' + pad2(n) + '-competencies.html" target="_top"><span class="k">Choice 2: use your own paper</span>'
-      + '<span class="t">Week ' + n + ' competency list</span>'
+      + '<span class="t">Week ' + WL(n) + ' competency list</span>'
       + '<span class="d">Every competency with the same prompts. Work them on your own paper or in a notebook.</span></a>'
       + '</div></div>');
     var h = main.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); }

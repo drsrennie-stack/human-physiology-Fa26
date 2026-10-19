@@ -16,19 +16,23 @@
    Loaded by bio005-back.js, and directly by pages that do not load it.
    ============================================================ */
 /* Oct 5 2026: HOLD. Pages listed here show a "not open yet" notice instead
-   of their content, whatever Canvas says, until Scrubs has reviewed them.
-   Add ?preview=1 to the address to see a held page. To release a page, take
-   its pattern out of HOLD_PAGES (or empty the list). */
+   of their content, whatever Canvas says, until their release moment.
+   Add ?preview=1 to the address to see a held page. To release a week early,
+   take its row out of HOLDS. */
 (function () {
-  var HOLD_PAGES = [/\/biol005-w05-[a-z-]+-guided\.html$/];
-  /* Oct 5 2026, Scrubs: all six Week 5 walkthroughs open on their own at
-     Tuesday, October 6, 8:00 am Pacific (15:00 UTC), the time Canvas Step 2
-     gives. Before then a held page says when it opens. */
-  var RELEASE_AT = Date.UTC(2026, 9, 6, 15, 0, 0);
-  if (Date.now() >= RELEASE_AT) return;
+  /* Oct 17 2026: one row per week, so each week's walkthroughs open on their own
+     at the time its Canvas Step 2 gives: [pattern, release moment, when it opens].
+     Week 5 opened Tuesday, October 6; Weeks 6 and 7 open Monday at 8:00 am Pacific
+     (15:00 UTC, still daylight time). Before then a held page says when it opens. */
+  var HOLDS = [
+    [/\/biol005-w05-[a-z-]+-guided\.html$/, Date.UTC(2026, 9, 6, 15, 0, 0), 'Tuesday, October 6 at 8:00 am Pacific'],
+    [/\/biol005-w06-[a-z-]+-guided\.html$/, Date.UTC(2026, 9, 19, 15, 0, 0), 'Monday, October 19 at 8:00 am Pacific'],
+    [/\/biol005-w07-[a-z-]+-guided\.html$/, Date.UTC(2026, 9, 26, 15, 0, 0), 'Monday, October 26 at 8:00 am Pacific']
+  ];
   if (/[?&]preview=1\b/.test(location.search)) return;
-  var held = HOLD_PAGES.some(function (r) { return r.test(location.pathname); });
-  if (!held) return;
+  var row = null;
+  HOLDS.forEach(function (h) { if (h[0].test(location.pathname) && Date.now() < h[1]) row = h; });
+  if (!row) return;
   function cover() {
     var css = document.createElement('style');
     css.textContent = 'body>*:not(.b5-held){display:none!important}html,body{background:#F7F8FA!important}';
@@ -39,8 +43,8 @@
     d.style.cssText = 'max-width:620px;margin:12vh auto 0;padding:30px 32px;background:#fff;border-radius:16px;' +
       'box-shadow:0 4px 18px rgba(11,21,48,.10);font:16px/1.6 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#0B1530';
     d.innerHTML = '<h1 style="font-size:28px;line-height:1.15;margin:0 0 10px;font-weight:800">This walkthrough is not open yet</h1>' +
-      '<p style="margin:0 0 12px">It opens on Tuesday, October 6 at 8:00 am Pacific. Come back then.</p>' +
-      '<p style="margin:0 0 22px">In the meantime, you can work on the pre-read, read the written notes, and start your Competency Study Guide.</p>' +
+      '<p style="margin:0 0 12px">It opens on ' + row[2] + '. Come back then.</p>' +
+      '<p style="margin:0 0 22px">In the meantime, you can finish last week\'s work and look over the pre-read.</p>' +
       '<a href="https://yccd.instructure.com/courses/42616/modules" target="_top" style="display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:10px;background:#8B3A2E;color:#fff;text-decoration:none;font-weight:800">Back to Canvas</a>';
     document.body.appendChild(d);
   }

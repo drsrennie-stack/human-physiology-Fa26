@@ -1,3 +1,10 @@
+/* Oct 18 2026: the week number a student reads follows the Canvas calendar
+   numbering. bio005-week-label.js holds the map; this copy covers pages that
+   do not load it. Keep the two the same. */
+if (!window.BIO005_WL) {
+  window.BIO005_WEEK_LABELS = window.BIO005_WEEK_LABELS || { 6: 7, 7: 8, 8: 9, 9: 10 };
+  window.BIO005_WL = function (n) { var k = parseInt(n, 10); return (k in window.BIO005_WEEK_LABELS) ? window.BIO005_WEEK_LABELS[k] : n; };
+}
 /* Oct 5 2026: Canvas is home. Load bio005-canvas-only.js from beside this
    file; it hides the site navigation and turns links to other site pages into
    plain text. Its ON switch turns the whole site back on. */
@@ -201,7 +208,7 @@
     var own = CANVAS_PAGE[fileName().toLowerCase()];
     if (own) return own;
     var n = weekOfPage();
-    if (n && CANVAS_WEEK[n]) return { href: CANVAS_WEEK[n], label: 'Back to Week ' + n + ' in Canvas' };
+    if (n && CANVAS_WEEK[n]) return { href: CANVAS_WEEK[n], label: 'Back to Week ' + (window.BIO005_WL?BIO005_WL(n):n) + ' in Canvas' };
     if (n) return { href: CANVAS_HOME, label: 'Back to the Canvas modules' };
     return { href: HOME, label: 'Course home' };
   }
@@ -335,7 +342,7 @@
       var h = '';
       if (hub) {
         h += '<a class="b5-pill" href="' + hub.f + (hub.step ? '#' + hub.step : '') + '" target="_top">' + ARROW +
-             '<span>Back to the Week ' + hub.w + ' steps</span></a>';
+             '<span>Back to the Week ' + (window.BIO005_WL?BIO005_WL(hub.w):hub.w) + ' steps</span></a>';
       }
       h += '<a class="b5-pill b5-pill2" href="' + canvasTarget() + '" target="_top"><span>Go to Canvas</span></a>';
       wrap.innerHTML = h;

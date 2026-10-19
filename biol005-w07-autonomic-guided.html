@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The autonomic nervous system, step by step | BIOL 005 Week 8</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24; --gold:#C9A14A; --gold-deep:#8A6D33;
+  --ink2:#414B5C; --line:rgba(11,21,48,0.16); --page:#FAFAF9; --card:#FFFFFF;
+  --locked:#454B58;
+  --shadow:0 1px 3px rgba(11,21,48,0.08); --shadow2:0 8px 16px rgba(11,21,48,0.10);
+  --head:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+/* Brand restyle Sep 24 2026. The shared brand bar and dark footer from
+   assets/brandbar.css, the virtual-office.html editorial type (tracked
+   maroon eyebrows, two-tone Open Sans 800 headline, maroon-dark
+   headings, uppercase maroon primary buttons at 4px radius) and cards
+   at 8px. Layout, animation, gating and the worksheet logic are
+   untouched. The brand bar is static here, not sticky, because the
+   figure column and the worksheet are already sticky and would slide
+   under it. */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--navy);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+em,i,cite,address,dfn{font-style:normal}
+a{color:var(--maroon);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;z-index:50;text-decoration:none}
+.skip:focus{top:12px;color:#fff}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button{font-family:var(--body)}
+.mm-brandbar{position:relative}
+.mm-brandbar .mm-wrap,.mm-foot .mm-wrap{max-width:1400px}
+.top{background:transparent;position:relative;z-index:5}
+.top-in{max-width:1400px;margin:0 auto;padding:16px 20px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.top h1{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,2.9vw,2rem);letter-spacing:-.022em;margin:0;flex:1 1 320px;line-height:1.15;color:var(--navy)}
+.top h1 .tone{color:var(--maroon)}
+.top .course{display:block;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon);margin:0 0 8px;line-height:1.4}
+.top-in > a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--maroon)}
+.top-in > a:hover{text-decoration:underline;color:var(--maroon-dark)}
+.jump{position:relative}
+.tbtn{font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,background 160ms ease}
+.tbtn:not(:disabled):hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
+.tbtn.primary{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.tbtn.primary:hover{background:var(--maroon-dark);border-color:var(--maroon-dark)}
+/* Locked: gray dashed, still white inside. #454B58 on white is 8.75:1.
+   The disabled attribute carries the state; the dash is the picture of it. */
+.tbtn:disabled,.tbtn.primary:disabled{opacity:1;background:#fff;color:var(--locked);border:1.5px dashed var(--locked);cursor:not-allowed;box-shadow:none;transform:none}
+/* Unlocked jump menu: gold-deep edge, the gold that works on a light page, 4.87:1. */
+#jumpBtn:not(:disabled){border-color:var(--gold-deep)}
+.jump-menu{position:absolute;right:0;top:calc(100% + 6px);width:min(420px,90vw);background:#fff;border-radius:8px;box-shadow:var(--shadow2);padding:10px;z-index:20;max-height:70vh;overflow:auto}
+.jump-menu ol{list-style:none;margin:0;padding:0}
+.jump-menu button{display:block;width:100%;text-align:left;background:#fff;border:0;border-radius:4px;padding:10px 12px;font:700 .95rem var(--body);color:var(--navy);cursor:pointer}
+.jump-menu button:hover,.jump-menu button:focus-visible{background:#fff;box-shadow:inset 0 0 0 1.5px var(--navy)}
+.jump-menu .cn{display:block;font-weight:500;font-size:.82rem;color:var(--ink2)}
+.layout{max-width:1400px;margin:0 auto;padding:18px 20px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.stage{padding:18px}
+.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--navy-tint);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--navy);width:0;transition:width .3s}
+.count{font-weight:700;font-size:.9rem;color:var(--ink2);white-space:nowrap}
+.scene-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#fff;position:relative}
+#scene{display:block;width:100%;height:auto;max-height:62vh}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;align-items:start}
+.scene-col{position:sticky;top:12px}
+.watch{position:absolute;right:10px;bottom:10px;font:800 .78rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:0 16px;border-radius:4px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;box-shadow:var(--shadow)}
+.watch:hover{background:#fff;box-shadow:var(--shadow2)}
+@media (max-width:1250px){.stage-grid{grid-template-columns:1fr}.scene-col{top:0;z-index:3;background:#fff;padding-bottom:8px}#scene{max-height:38vh}}
+.nolab text{opacity:0}
+.narr{padding:0 4px;min-height:120px}
+.narr .sec{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--maroon)}
+.narr h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 8px;line-height:1.2;color:var(--maroon-dark)}
+.narr p{margin:0 0 10px;max-width:72ch}
+.fadein{animation:fin .45s ease both}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ask{background:#fff;border:1px solid var(--maroon);border-radius:8px;padding:12px 16px;margin:6px 0 12px;max-width:72ch}
+.ask .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon)}
+.ask p{margin:0;font-weight:700;font-size:1.08rem}
+.ask .hint{font-weight:500;font-size:.92rem;color:var(--ink2);margin-top:6px}
+.answer{border-radius:8px;background:#fff;border:1px solid var(--line);padding:12px 16px;margin:0 0 12px;max-width:72ch}
+.answer .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--navy)}
+.answer p:last-child{margin-bottom:0}
+.name{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;padding:3px 12px;font-weight:700;font-size:.92rem}
+.support{margin:4px 0 12px;max-width:72ch}
+.support .lab{margin:0 0 6px;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
+.support ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.support a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:8px;background:#fff;box-shadow:var(--shadow);color:var(--navy);font-weight:700;text-decoration:none}
+.support a:hover{box-shadow:var(--shadow2);color:var(--navy)}
+.support .look{display:block;font-weight:500;font-size:.88rem;color:var(--ink2);margin:2px 0 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:8px 4px 0}
+.controls .tbtn{min-height:48px;padding:0 22px;font-size:.82rem}
+.ws{padding:18px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.ws h2{font-family:var(--head);font-weight:800;letter-spacing:-.018em;font-size:1.25rem;margin:0 0 4px;color:var(--maroon-dark)}
+.ws .sub{margin:0 0 14px;color:var(--ink2);font-size:.92rem}
+.field{margin:0 0 14px}
+.field label{display:block;font-weight:700;font-size:.95rem;margin:0 0 5px}
+.field input,.field textarea{width:100%;font:1rem var(--body);color:var(--navy);border:1px solid var(--ink2);border-radius:4px;padding:9px 11px;background:#fff}
+.field textarea{min-height:110px;resize:vertical;line-height:1.45}
+.entry{border-radius:8px;box-shadow:var(--shadow);padding:14px;margin:0 0 14px;background:#fff}
+.entry .q{margin:0 0 10px;font-weight:600}
+.entry .num{display:block;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin:0 0 5px}
+.ws-empty{color:var(--ink2);margin:0 0 14px}
+.ws-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.ws-actions .tbtn{width:100%}
+.saved{font-size:.88rem;color:var(--ink2);margin:6px 0 0}
+#allAnswers{margin-top:12px}
+#allAnswers .entry{box-shadow:none;border:1px solid var(--line)}
+.ws-toggle{display:none}
+.print-only{display:none}
+@media (max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  .ws{position:static;max-height:none}
+  .ws-toggle{display:inline-flex;align-items:center}
+  .ws.collapsed .ws-body{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.tbtn:not(:disabled):hover{transform:none}}
+.layer{transition:opacity .45s ease}
+.off{opacity:0;pointer-events:none}
+/* svg text */
+.t{font-family:var(--body);font-weight:700;fill:#414B5C}
+.tn{font-family:var(--body);font-weight:800;fill:#0B1530}
+.tm{font-family:var(--body);font-weight:800;fill:#8B3A2E}
+.iw{font-family:var(--body);font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pcopy{display:none}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .top,.stage,.skip,.ws-actions,.ws-toggle,.ws .sub,#currentEntry,#wsCount,#allToggle{display:none!important}
+  .layout{display:block;padding:0}
+  .ws{box-shadow:none;position:static;max-height:none;overflow:visible;padding:0}
+  .print-only{display:block}
+  #allAnswers{display:block!important}
+  .entry{box-shadow:none;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .field textarea,.field input{display:none}
+  .pcopy{display:block;border:1px solid #888;border-radius:6pt;min-height:40pt;padding:5pt 7pt;white-space:pre-wrap;margin-top:3pt}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* Oct 5 2026: Before you start card, and a video box students can see */
+.prep{margin:4px 0 16px;padding:16px 18px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(11,21,48,.10);max-width:72ch}
+.prep-h{margin:0 0 8px;font-family:var(--display,inherit);font-weight:800;font-size:1.05rem;color:var(--maroon,#8B3A2E)}
+.prep ol{margin:0 0 8px;padding-left:1.3em}.prep li{margin:0 0 6px;line-height:1.5}
+.prep a{color:var(--maroon,#8B3A2E);font-weight:700}
+.prep-then{margin:0;font-weight:700;color:var(--navy,#0B1530)}
+.support .lab{display:flex;align-items:center;gap:8px;font-size:.95rem!important;letter-spacing:0!important;text-transform:none!important;color:var(--navy,#0B1530)!important;font-weight:800!important}
+.support a{background:#FFD23F!important;color:#0B1530!important;box-shadow:0 2px 10px rgba(11,21,48,.18)!important}
+.support a:hover{background:#FFC400!important}
+.support a:focus-visible{outline:3px solid #0B1530;outline-offset:2px}
+.readbox{margin:0 0 18px;padding:14px 16px;background:#FBF6F5;border-radius:12px}
+.readbox:empty{display:none}
+.zoombtn{position:absolute;top:10px;right:10px;z-index:2;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--navy,#0B1530);background:#fff;color:var(--navy,#0B1530);font:800 .82rem/1 var(--body,inherit);cursor:pointer;box-shadow:0 2px 8px rgba(11,21,48,.15)}
+.zoombtn:hover{background:var(--navy,#0B1530);color:#fff}
+.support .seen{display:block;font-weight:600;font-size:.86rem;color:var(--maroon-dark,#6E2D24);margin:2px 0 0 14px}
+/* Oct 5 2026: Enlarge and Watch again sit in a bar under the figure, not over it, so they never cover a label or a caption. */
+.scene-wrap{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;column-gap:4px;row-gap:8px;padding:0 0 8px}
+.scene-wrap > #scene{flex:0 0 100%}
+.scene-wrap .zoombtn,.scene-wrap .watch{position:static;box-shadow:none;margin-right:8px}
+.zoombtn:focus-visible,.zoomclose:focus-visible{outline:3px solid var(--gold,#C9A14A);outline-offset:3px}
+.zoomov{position:fixed;inset:0;z-index:2147483600;background:#F7F8FA;display:flex;flex-direction:column;padding:12px 16px 16px}
+.zoomov[hidden]{display:none}
+.zoombar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+.zoomtip{font-weight:700;color:var(--navy,#0B1530);font-size:.95rem}
+.zoomclose{min-height:44px;padding:0 20px;border-radius:999px;border:0;background:var(--maroon,#8B3A2E);color:#fff;font:800 .95rem/1 var(--body,inherit);cursor:pointer}
+.zoomstage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.zoomstage svg{width:min(100%, calc((100vh - 90px) * 900 / 560));height:auto;max-height:calc(100vh - 90px);background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(11,21,48,.12)}
+/* Oct 5 2026: #scene carries its own max-height (62vh, 38vh on narrow screens), which outranks the rule above and kept the enlarged figure at its normal size. This beats it. */
+.zoomstage #scene{width:min(100%, calc((100vh - 90px) * 900 / 560));max-height:calc(100vh - 90px)}
+.readbox .rb-h{margin:0 0 6px;font-weight:800;color:var(--maroon,#8B3A2E);font-size:.98rem}
+.readbox ul{margin:0;padding-left:1.1em}.readbox li{margin:0 0 4px;line-height:1.45;font-size:.92rem}
+.readbox a{color:var(--maroon,#8B3A2E);font-weight:700}
+</style>
+</head>
+<body>
+<a class="skip" href="#narr">Skip to the lesson</a>
+
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<header class="top">
+  <div class="top-in">
+    <h1><span class="course">BIOL 005 Human Physiology, Week 8</span><span class="tone">The autonomic</span> nervous system, step by step.</h1>
+    <div class="jump">
+      <button type="button" class="tbtn" id="jumpBtn" aria-expanded="false" aria-controls="jumpMenu" disabled>Topics unlock when you finish</button>
+      <div class="jump-menu" id="jumpMenu" hidden><ol id="jumpList"></ol></div>
+    </div>
+    <button type="button" class="tbtn ws-toggle" id="wsToggle" aria-expanded="true" aria-controls="wsBody">Worksheet</button>
+    <a href="lecture-week.html?week=7" target="_top">Week 8 lectures</a>
+    <a href="biol005-w07-autonomic-walkthrough-notes.html" target="_blank" rel="noopener">Written notes<span class="sr"> (opens in a new tab)</span></a>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="card stage" id="main">
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+      <span class="count" id="stepCount">Step 1 of 1</span>
+    </div>
+    <div class="stage-grid">
+    <div class="scene-col">
+      <div class="scene-wrap">
+        <svg id="scene" viewBox="0 0 900 560" aria-hidden="true" focusable="false"></svg>
+        <button type="button" class="zoombtn" id="zoomBtn" aria-haspopup="dialog">Enlarge</button>
+        <button type="button" class="watch" id="watchBtn" hidden>Watch again</button>
+      </div>
+      <p class="sr" id="sceneDesc" aria-live="polite"></p>
+    </div>
+    <div class="text-col">
+    <section class="narr" id="narr" aria-labelledby="stepTitle"></section>
+    <div class="controls">
+      <button type="button" class="tbtn" id="backBtn">Back</button>
+      <button type="button" class="tbtn primary" id="playBtn" aria-describedby="gateNote">Show me</button>
+      <span id="gateNote" class="sr" aria-live="polite"></span>
+      <button type="button" class="tbtn" id="replayBtn" hidden>Replay</button>
+      <button type="button" class="tbtn" id="nextBtn">Next</button>
+    </div>
+    </div>
+    </div>
+  </main>
+
+  <aside class="card ws" id="ws" aria-labelledby="wsTitle">
+    <div class="readbox" id="readBox"></div>
+    <h2 id="wsTitle">Your worksheet</h2>
+    <div class="ws-body" id="wsBody">
+      <p class="sub">Type each prediction here before you click Show me. Show me stays locked until you do. When you finish, save it as a PDF and upload it to the Canvas assignment. Your answers save in this browser as you type.</p>
+      <div class="print-only"><p><b>BIOL 005 Week 8: The autonomic nervous system, prediction worksheet</b></p><p id="printDate"></p></div>
+      <div class="field">
+        <label for="stuName">Your name</label>
+        <input type="text" id="stuName" autocomplete="name">
+        <div class="pcopy" id="stuNameCopy"></div>
+      </div>
+      <p class="count" id="wsCount"></p>
+      <div id="currentEntry"></div>
+      <div class="ws-actions">
+        <button type="button" class="tbtn" id="allToggle" aria-expanded="false" aria-controls="allAnswers">See all my answers</button>
+        <button type="button" class="tbtn primary" id="pdfBtn">Save as PDF for Canvas</button>
+        <p class="saved" id="savedNote" aria-live="polite"></p>
+      </div>
+      <div id="allAnswers" hidden></div>
+    </div>
+  </aside>
+</div>
+
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var NAVY="#0B1530",MAROON="#8B3A2E",GDEEP="#8A6D33",INK2="#414B5C",TINT="#ECEFF4",DEEP="#060A18";
+var M="\u2212";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("scene");
+function el(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,cls,size,anchor){var t=el("text",{x:x,y:y,"class":cls||"t","font-size":size||18,"text-anchor":anchor||"start"},p);t.textContent=s;return t;}
+function place(g,x,y){g.setAttribute("transform","translate("+x+" "+y+")");g._x=x;g._y=y;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+var runId=0;
+function tweenPath(g,pts,dur,anim){
+  if(!anim||reduce){var q=pts[pts.length-1];place(g,q[0],q[1]);return Promise.resolve();}
+  return new Promise(function(res){
+    var segs=[],tot=0,prev=[g._x,g._y];
+    pts.forEach(function(q){var d=Math.hypot(q[0]-prev[0],q[1]-prev[1]);segs.push({a:prev,b:q,d:d});tot+=d;prev=q;});
+    var t0=performance.now(),my=runId;
+    function f(now){
+      if(my!==runId){res();return;}
+      var t=Math.min(1,(now-t0)/dur),dist=ease(t)*tot;
+      for(var i=0;i<segs.length;i++){var s=segs[i];if(dist<=s.d||i===segs.length-1){var r=s.d?Math.min(1,dist/s.d):1;place(g,s.a[0]+(s.b[0]-s.a[0])*r,s.a[1]+(s.b[1]-s.a[1])*r);break;}dist-=s.d;}
+      if(t<1)requestAnimationFrame(f);else res();
+    }
+    requestAnimationFrame(f);
+  });
+}
+function tweenVal(from,to,dur,anim,cb){
+  if(!anim||reduce){cb(to);return Promise.resolve();}
+  return new Promise(function(res){var t0=performance.now(),my=runId;
+    function f(now){if(my!==runId){res();return;}var t=Math.min(1,(now-t0)/dur);cb(from+(to-from)*ease(t));if(t<1)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);});
+}
+function wait(ms,anim){return (anim&&!reduce)?new Promise(function(r){setTimeout(r,ms);}):Promise.resolve();}
+function markers(){
+  var d=el("defs",{},svg);
+  [["am",MAROON],["an",NAVY],["ag",INK2]].forEach(function(m){
+    var mk=el("marker",{id:m[0],viewBox:"0 0 10 10",refX:"7",refY:"5",markerWidth:"3.6",markerHeight:"3.6",orient:"auto-start-reverse"},d);
+    el("path",{d:"M0 0 L10 5 L0 10 Z",fill:m[1]},mk);
+  });
+}
+function arrow(p,x1,y1,x2,y2,col,w){var m=col===MAROON?"am":(col===NAVY?"an":"ag");return el("line",{x1:x1,y1:y1,x2:x2,y2:y2,stroke:col,"stroke-width":w||6,"stroke-linecap":"round","marker-end":"url(#"+m+")"},p);}
+function ionK(p){var g=el("g",{},p);el("circle",{r:14,fill:MAROON},g);var t=el("text",{"class":"iw","font-size":14},g);t.textContent="K";return g;}
+function ionNa(p){var g=el("g",{},p);el("circle",{r:14,fill:NAVY},g);var t=el("text",{"class":"iw","font-size":12},g);t.textContent="Na";return g;}
+function anion(p,x,y){var g=el("g",{},p);el("rect",{x:x-22,y:y-15,width:44,height:30,rx:10,fill:INK2},g);var t=el("text",{x:x,y:y+1,"class":"iw","font-size":24},g);t.textContent=M;return g;}
+
+/* ======================= build scene ======================= */
+/* Week 5 scene kit. Oct 4 2026. Shared helpers prepended to every Week 5
+   scene by tools/walkthroughs/assemble_w05.py. Same engine as Week 4: el,
+   tx, place, tweenPath, tweenVal, wait, markers and arrow come from the
+   shell. Everything here only draws and moves; no step logic lives here. */
+markers();
+var REG={};
+function G(n,p){var g=el("g",{},p||svg);REG[n]=g;return g;}
+function only(l){for(var k in REG)REG[k].setAttribute("display","none");l.forEach(function(k){if(REG[k])REG[k].setAttribute("display","");});}
+var GOLD="#C9A14A",TISS="#F6E9E6",FLUID="#E3F0F6",FLOW="#2F6F8F"; /* tissue, fluid and fluid-flow tints for figures only, never text */
+
+/* a line through points, optionally dashed */
+function poly(p,pts,col,w,dash){
+  var a={points:pts.map(function(q){return q[0]+","+q[1];}).join(" "),fill:"none",stroke:col||NAVY,"stroke-width":w||5,"stroke-linejoin":"round","stroke-linecap":"round"};
+  if(dash)a["stroke-dasharray"]=dash;
+  return el("polyline",a,p);
+}
+/* reveal a line from its start, then leave it solid */
+function reveal(line,dur,a){
+  var L=line.getTotalLength?line.getTotalLength():0;
+  if(!a||reduce||!L){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");return Promise.resolve();}
+  line.setAttribute("stroke-dasharray",L+" "+L);line.setAttribute("stroke-dashoffset",L);
+  return tweenVal(L,0,dur,a,function(v){line.setAttribute("stroke-dashoffset",v);}).then(function(){line.removeAttribute("stroke-dashoffset");if(line._dash)line.setAttribute("stroke-dasharray",line._dash);else line.removeAttribute("stroke-dasharray");});
+}
+/* a traveling signal: a filled dot with a white rim */
+function dot(p,col,r){var g=el("g",{},p);el("circle",{r:r||11,fill:col||MAROON,stroke:"#fff","stroke-width":2.5},g);g.setAttribute("display","none");return g;}
+function run(g,pts,dur,a,keep){
+  g.setAttribute("display","");place(g,pts[0][0],pts[0][1]);
+  return tweenPath(g,pts.slice(1),dur,a).then(function(){if(!keep)g.setAttribute("display","none");});
+}
+function hide(list){list.forEach(function(g){g.setAttribute("display","none");});}
+/* a round badge with a sign or a short word inside */
+function badge(p,x,y,s,col,r){var g=el("g",{},p);el("circle",{r:r||16,fill:col||NAVY},g);var t=el("text",{"class":"iw","font-size":(r||16)+4},g);t.textContent=s;place(g,x,y);g._t=t;g._c=g.firstChild;return g;}
+function setBadge(g,s,col){g._t.textContent=s;g._c.setAttribute("fill",col);g.setAttribute("display","");}
+/* a white labeled box */
+function box(p,x,y,w,h,s,cls,size,stroke){
+  var g=el("g",{},p);
+  el("rect",{x:x,y:y,width:w,height:h,rx:8,fill:"#fff",stroke:stroke||NAVY,"stroke-width":2.5},g);
+  var lines=String(s).split("\n"),sz=size||15,y0=y+h/2-(lines.length-1)*(sz+3)/2+sz*0.35;
+  g._t=lines.map(function(l,i){return tx(g,x+w/2,y0+i*(sz+3),l,cls||"tn",sz,"middle");});
+  return g;
+}
+/* a spike train: n identical spikes spread across width w, baseline at y */
+function trainD(x,y,w,n,h){
+  if(n<=0)return "M"+x+" "+y+" h"+w;
+  var d="M"+x+" "+y,step=w/n,cx=x;
+  for(var i=0;i<n;i++){var sx=x+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+function trainPath(p,col,w){return el("path",{d:"",fill:"none",stroke:col||NAVY,"stroke-width":w||3,"stroke-linejoin":"round"},p);}
+/* spikes that only appear in part of a window: on from fraction f0 to f1, n spikes */
+function trainWin(x,y,w,f0,f1,n,h){
+  var a=x+w*f0,b=x+w*f1,d="M"+x+" "+y+" H"+a;
+  var step=(b-a)/Math.max(n,1);
+  for(var i=0;i<n;i++){var sx=a+step*(i+0.5);d+=" H"+(sx-3)+" L"+sx+" "+(y-h)+" L"+(sx+3)+" "+y;}
+  return d+" H"+(x+w);
+}
+/* grow a spike train across its window, left to right */
+function growTrain(path,fn,dur,a){
+  if(!a||reduce){path.setAttribute("d",fn(1));return Promise.resolve();}
+  return tweenVal(0,1,dur,a,function(k){path.setAttribute("d",fn(k));});
+}
+/* the caption line, drawn last so it sits on top */
+var CAP=null;
+/* Oct 5 2026: centered on the full figure now that no button sits over its corner */
+function makeCap(){var g=G("cap");CAP=tx(g,450,528,"","tn",18,"middle");return g;}
+function cap(s){if(CAP)CAP.textContent=s||"";}
+
+/* ---- Oct 5 2026: student actions, shared by every Week 5 walkthrough ---- */
+/* Oct 5 2026: while a step waits for the student's action, Next stays
+   locked for students (not in preview), so the action cannot be skipped. */
+function lockNext(on){var nb=document.getElementById("nextBtn");if(!nb||(typeof PREVIEW!=="undefined"&&PREVIEW))return;if(on)nb.disabled=true;else nb.disabled=false;}
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  el("path",{d:"M"+(x-6)+" "+(y-6)+" Q"+((x+ax)/2)+" "+(y-14)+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){tx(g,x,y+i*22,l,"tm",17,"start");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+function waitOn(tgt,prm,a){
+  if(!a||reduce){if(prm)prm.setAttribute("display","none");return Promise.resolve();}
+  if(prm)prm.setAttribute("display","");
+  tgt.style.cursor="pointer";
+  return new Promise(function(res){var my=runId,done=false,k=0,t;setTimeout(function(){if(!done)lockNext(true);},0);
+    function fin(){if(done)return;done=true;clearInterval(t);if(my===runId)lockNext(false);tgt.removeEventListener("click",fin);document.removeEventListener("keydown",key,true);if(prm)prm.setAttribute("display","none");res();}
+    function key(e){if((e.key==="Enter"||e.key===" ")&&!/TEXTAREA|INPUT|BUTTON|SELECT|^A$/.test(e.target.tagName||"")){e.preventDefault();fin();}}
+    tgt.addEventListener("click",fin);document.addEventListener("keydown",key,true);
+    t=setInterval(function(){if(my!==runId){fin();return;}k++;if(prm&&prm._ring){var r0=+prm._ring.getAttribute("data-r");prm._ring.setAttribute("r",r0+((k%10)<5?(k%5):5-(k%5))*2);}},70);});}
+
+function promptAt(parent,x,y,lines,ax,ay,rx,ry,rr){
+  var g=el("g",{},parent);
+  var ring=el("circle",{cx:rx,cy:ry,r:rr,"data-r":rr,fill:"none",stroke:GOLD,"stroke-width":4},g);
+  var w=0;lines.forEach(function(l){w=Math.max(w,l.length*17*0.56);});
+  var h=(lines.length-1)*22, top=y-15, bot=y+h+5, sx, sy;
+  if(ax>=x+w){sx=x+w+8;sy=y-6;}
+  else if(ax<=x){sx=x-8;sy=y-6;}
+  else if(ay>bot){sx=Math.min(Math.max(ax,x+12),x+w-12);sy=bot+6;}
+  else{sx=Math.min(Math.max(ax,x+12),x+w-12);sy=top-6;}
+  var cx=(sx+ax)/2,cy=(sy+ay)/2-12;
+  el("path",{d:"M"+sx+" "+sy+" Q"+cx+" "+cy+" "+ax+" "+ay,fill:"none",stroke:GDEEP,"stroke-width":4,"marker-end":"url(#ag)"},g);
+  lines.forEach(function(l,i){var t=tx(g,x,y+i*22,l,"tm",17,"start");t.setAttribute("stroke","#fff");t.setAttribute("stroke-width","5");t.setAttribute("stroke-linejoin","round");t.setAttribute("paint-order","stroke");});
+  g.setAttribute("display","none");g._ring=ring;return g;}
+
+/* The autonomic nervous system. Oct 17 2026. Week 8 walkthrough 1 of 4.
+   Week 8 competencies 1 to 5, with one step for competency 6 (lab).
+   Panels, each shown and hidden per step:
+   - path: the somatic motor pathway (one neuron to skeletal muscle) above the
+     autonomic pathway (preganglionic neuron, ganglion, postganglionic neuron
+     to the heart), with cut sites on both nerves
+   - body: the brain and spinal cord from the side with the sympathetic chain,
+     and the heart, stomach and bladder, for where each division leaves
+   - div: one sympathetic neuron spreading through the chain beside one
+     parasympathetic neuron running to a ganglion in the stomach wall
+   - hg: a heart and a length of gut with both divisions, and two situations
+   - syn: four pathways (parasympathetic to the heart, sympathetic to a blood
+     vessel, a sweat gland and the adrenal medulla) with transmitter and
+     receptor labels at every synapse and ending
+   - adr: an arteriole, the heart and a bronchiole with alpha-1, beta-1 and
+     beta-2 receptors
+   - dial: a heart with the vagus and sympathetic nerves and a rate dial
+   - ves: an arteriole with sympathetic tone only
+   - rsa: lungs with breathing, vagal firing and heart rate traces
+   - drug: a body with six organs and three drugs
+   Every step the student acts in uses promptAt and waitOn from w05-kit.js,
+   so Next stays locked until the student has done the action. Sympathetic is
+   maroon, parasympathetic navy, somatic gold throughout. */
+
+/* ---- a heart with its great vessels; o._g is scaled to beat ---- */
+function heartAt(p,cx,cy,s){
+  var o=el("g",{},p);place(o,cx,cy);var g=el("g",{transform:"scale("+s+")"},o);o._g=g;o._s=s;
+  el("rect",{x:-38,y:-72,width:16,height:34,rx:4,fill:"#DDE1EA",stroke:NAVY,"stroke-width":2.5},g);
+  el("path",{d:"M-12 -44 L-12 -68 Q-12 -86 6 -86 L30 -86 Q46 -86 46 -70 L46 -58 L32 -58 L32 -70 L6 -70 L6 -44 Z",fill:"#F2D6CF",stroke:MAROON,"stroke-width":2.5},g);
+  el("path",{d:"M-8 -44 C-44 -58 -72 -26 -64 6 C-58 36 -28 60 8 80 C34 58 62 30 64 -4 C66 -36 40 -56 14 -44 C6 -40 -2 -40 -8 -44 Z",fill:TISS,stroke:MAROON,"stroke-width":3},g);
+  el("path",{d:"M10 -38 C4 0 8 44 8 76",fill:"none",stroke:"#C98F84","stroke-width":2},g);
+  el("path",{d:"M-34 -30 C-24 0 -20 22 -12 50",fill:"none",stroke:MAROON,"stroke-width":1.5,opacity:.5},g);
+  return o;
+}
+function beatOnce(h,dur,a){return tweenVal(0,1,dur,a,function(k){h._g.setAttribute("transform","scale("+(h._s*(1+0.09*Math.sin(Math.PI*Math.min(1,k/0.4))))+")");});}
+function beats(h,n,period,a){var p=Promise.resolve();for(var i=0;i<n;i++)p=p.then(function(){return beatOnce(h,period,a);});return p;}
+function cutMark(p,x,y){var g=el("g",{},p);el("circle",{cx:x,cy:y,r:9,fill:"#fff"},g);el("line",{x1:x-10,y1:y+12,x2:x-2,y2:y-12,stroke:MAROON,"stroke-width":3.5,"stroke-linecap":"round"},g);el("line",{x1:x+2,y1:y+12,x2:x+10,y2:y-12,stroke:MAROON,"stroke-width":3.5,"stroke-linecap":"round"},g);g.setAttribute("display","none");return g;}
+function showAll(l,on){l.forEach(function(g){g.setAttribute("display",on?"":"none");});}
+
+/* ======================= path: somatic and autonomic (steps 1 to 3) ======================= */
+var gPath=G("path");
+tx(gPath,86,30,"spinal cord","tn",14,"middle");
+el("rect",{x:50,y:44,width:72,height:440,rx:30,fill:"#fff",stroke:NAVY,"stroke-width":4},gPath);
+el("rect",{x:72,y:72,width:28,height:384,rx:14,fill:TINT,stroke:INK2,"stroke-width":1.5},gPath);
+tx(gPath,480,84,"Somatic motor pathway","tn",16,"middle");
+tx(gPath,480,284,"Autonomic pathway","tn",16,"middle");
+/* somatic motor neuron to skeletal muscle */
+var Y1=150,Y2=360;
+el("line",{x1:100,y1:Y1,x2:708,y2:Y1,stroke:GDEEP,"stroke-width":5},gPath);
+for(var xm=150;xm<=640;xm+=70)el("rect",{x:xm,y:Y1-8,width:54,height:16,rx:8,fill:"#fff",stroke:GDEEP,"stroke-width":2.5},gPath);
+[[722,Y1-16],[726,Y1],[722,Y1+16]].forEach(function(q){el("line",{x1:708,y1:Y1,x2:q[0],y2:q[1],stroke:GDEEP,"stroke-width":3},gPath);el("circle",{cx:q[0],cy:q[1],r:4,fill:GDEEP},gPath);});
+el("circle",{cx:86,cy:Y1,r:14,fill:GDEEP},gPath);
+var gMus=el("g",{},gPath);
+el("rect",{x:728,y:112,width:152,height:76,rx:24,fill:TISS,stroke:MAROON,"stroke-width":3},gMus);
+for(var xs=746;xs<=862;xs+=9)el("line",{x1:xs,y1:122,x2:xs,y2:178,stroke:"#D9AFA6","stroke-width":2},gMus);
+tx(gPath,400,184,"somatic motor neuron","t",14,"middle");
+tx(gPath,804,212,"skeletal muscle","tm",14,"middle");
+var tSomRes=tx(gPath,804,236,"","tm",13,"middle");
+/* autonomic: preganglionic, ganglion, postganglionic, heart */
+el("line",{x1:96,y1:Y2,x2:400,y2:Y2,stroke:NAVY,"stroke-width":4},gPath);
+for(xm=140;xm<=340;xm+=60)el("rect",{x:xm,y:Y2-6,width:40,height:12,rx:6,fill:"#fff",stroke:NAVY,"stroke-width":2},gPath);
+el("circle",{cx:86,cy:Y2,r:12,fill:NAVY},gPath);
+var pGang=el("ellipse",{cx:430,cy:Y2,rx:46,ry:32,fill:"#F4F5F8",stroke:NAVY,"stroke-width":3},gPath);
+el("circle",{cx:404,cy:Y2,r:5,fill:NAVY},gPath);el("circle",{cx:446,cy:Y2,r:12,fill:NAVY},gPath);
+el("line",{x1:458,y1:Y2,x2:690,y2:Y2,stroke:NAVY,"stroke-width":3},gPath);
+[612,638,664,690].forEach(function(x){el("circle",{cx:x,cy:Y2,r:5.5,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gPath);});
+var hP=heartAt(gPath,802,350,0.9);
+tx(gPath,240,392,"preganglionic neuron","t",13,"middle");
+tx(gPath,430,414,"autonomic ganglion","t",13,"middle");
+tx(gPath,575,392,"postganglionic neuron","t",13,"middle");
+tx(gPath,802,450,"heart: cardiac muscle","tm",14,"middle");
+tx(gPath,802,468,"(also smooth muscle, glands, fat)","t",12,"middle");
+var tHeartRes=tx(gPath,802,492,"","tm",13,"middle");
+var sCount=badge(gPath,400,124,"1",GDEEP,13),aCount1=badge(gPath,240,334,"1",NAVY,13),aCount2=badge(gPath,575,334,"2",NAVY,13);
+var sDot=dot(gPath,GOLD,10),aDot1=dot(gPath,NAVY,9),aDot2=dot(gPath,NAVY,9);
+var cutS=cutMark(gPath,530,Y1),cutA=cutMark(gPath,530,Y2);
+var somHit=el("circle",{cx:86,cy:Y1,r:30,fill:"transparent"},gPath);
+var preHit=el("circle",{cx:86,cy:Y2,r:30,fill:"transparent"},gPath);
+var somCutHit=el("circle",{cx:530,cy:Y1,r:30,fill:"transparent"},gPath);
+var autCutHit=el("circle",{cx:530,cy:Y2,r:30,fill:"transparent"},gPath);
+var pSom=promptAt(gPath,150,236,["Click the somatic motor","neuron to fire it"],104,170,86,Y1,30);
+var pPre=promptAt(gPath,150,466,["Click the autonomic neuron","in the cord to fire it"],104,382,86,Y2,30);
+var pCutS=promptAt(gPath,590,236,["Click here to cut","the somatic nerve"],548,172,530,Y1,30);
+var pCutA=promptAt(gPath,200,466,["Click here to cut the nerve to the heart"],512,384,530,Y2,30);
+function musTense(on){gMus.setAttribute("transform",on?"translate(880 150) scale(.9 1.06) translate(-880 -150)":"");}
+
+/* ======================= body: where each division leaves (step 4) ======================= */
+var gBody=G("body");
+el("path",{d:"M70 92 C52 60 70 22 118 16 C160 8 214 16 236 46 C252 70 246 98 222 106 C200 112 186 104 176 108 L160 110 C130 116 84 114 70 92 Z",fill:"#DDE1EA",stroke:NAVY,"stroke-width":3},gBody);
+[[100,40,120,60],[150,26,160,52],[200,34,196,62],[90,80,118,78],[214,72,200,90]].forEach(function(q){el("path",{d:"M"+q[0]+" "+q[1]+" Q"+((q[0]+q[2])/2+8)+" "+((q[1]+q[3])/2)+" "+q[2]+" "+q[3],fill:"none",stroke:INK2,"stroke-width":2,"stroke-linecap":"round"},gBody);});
+el("ellipse",{cx:216,cy:110,rx:24,ry:13,fill:"#DDE1EA",stroke:NAVY,"stroke-width":2.5},gBody);
+var bStem=el("path",{d:"M166 104 L194 104 L192 150 L170 150 Z",fill:"#fff",stroke:NAVY,"stroke-width":3},gBody);
+el("rect",{x:170,y:148,width:22,height:310,rx:10,fill:"#fff",stroke:NAVY,"stroke-width":3},gBody);
+tx(gBody,148,70,"brain","tn",14,"middle");
+tx(gBody,158,136,"brainstem","t",12,"end");
+[["cervical",182],["thoracic",272],["lumbar",367],["sacral",428]].forEach(function(r){tx(gBody,158,r[1],r[0],"t",12,"end");});
+[[150,205],[205,330],[330,395],[395,452]].forEach(function(r){el("line",{x1:164,y1:r[0]+3,x2:164,y2:r[1]-3,stroke:INK2,"stroke-width":2},gBody);});
+var tlShade=el("rect",{x:170,y:205,width:22,height:190,fill:MAROON,opacity:.4},gBody);
+var csShade=el("g",{},gBody);el("path",{d:"M166 104 L194 104 L192 150 L170 150 Z",fill:NAVY,opacity:.4},csShade);el("rect",{x:170,y:395,width:22,height:57,fill:NAVY,opacity:.4},csShade);
+var tTL=tx(gBody,20,300,"thoracolumbar","tm",13,"start");
+var tCS1=tx(gBody,20,156,"craniosacral","tn",13,"start"),tCS2=tx(gBody,20,454,"craniosacral","tn",13,"start");
+/* the sympathetic chain */
+el("line",{x1:214,y1:162,x2:214,y2:448,stroke:MAROON,"stroke-width":2},gBody);
+for(var yc=170;yc<=440;yc+=30)el("ellipse",{cx:214,cy:yc,rx:7,ry:9,fill:"#fff",stroke:MAROON,"stroke-width":2},gBody);
+tx(gBody,206,478,"sympathetic chain ganglia","t",12,"start");
+/* organs */
+var hB=heartAt(gBody,612,198,0.62);
+el("path",{d:"M612 352 C612 372 650 372 652 390 C654 408 600 410 598 394",fill:"none",stroke:MAROON,"stroke-width":16,"stroke-linecap":"round"},gBody);
+el("path",{d:"M612 352 C612 372 650 372 652 390 C654 408 600 410 598 394",fill:"none",stroke:TISS,"stroke-width":11,"stroke-linecap":"round"},gBody);
+el("path",{d:"M560 290 C540 300 545 340 575 350 C610 362 650 352 660 330 C668 312 650 300 636 310 C620 322 600 320 594 300 C590 288 572 284 560 290 Z",fill:TISS,stroke:MAROON,"stroke-width":3},gBody);
+el("ellipse",{cx:612,cy:452,rx:30,ry:22,fill:"#FFF6E0",stroke:GDEEP,"stroke-width":3},gBody);
+tx(gBody,690,204,"heart","tn",14,"start");tx(gBody,678,332,"stomach and intestine","tn",14,"start");tx(gBody,656,458,"bladder","tn",14,"start");
+/* legend */
+el("line",{x1:600,y1:34,x2:640,y2:34,stroke:MAROON,"stroke-width":4},gBody);tx(gBody,650,39,"sympathetic","tm",14,"start");
+el("line",{x1:600,y1:58,x2:640,y2:58,stroke:NAVY,"stroke-width":4},gBody);tx(gBody,650,63,"parasympathetic","tn",14,"start");
+el("line",{x1:600,y1:84,x2:640,y2:84,stroke:INK2,"stroke-width":4.5},gBody);tx(gBody,650,89,"thick: preganglionic","t",12,"start");
+el("line",{x1:600,y1:106,x2:640,y2:106,stroke:INK2,"stroke-width":2},gBody);tx(gBody,650,111,"thin: postganglionic","t",12,"start");
+/* the two divisions' pathways */
+var gSymB=el("g",{},gBody),gParB=el("g",{},gBody);
+var SB=[poly(gSymB,[[192,215],[214,215]],MAROON,4.5),poly(gSymB,[[214,215],[380,204],[556,198]],MAROON,2.5),
+        poly(gSymB,[[192,300],[214,300],[300,318]],MAROON,4.5),poly(gSymB,[[300,318],[450,330],[548,324]],MAROON,2.5),
+        poly(gSymB,[[192,380],[214,380]],MAROON,4.5),poly(gSymB,[[214,380],[400,430],[580,446]],MAROON,2.5)];
+el("ellipse",{cx:300,cy:318,rx:9,ry:9,fill:"#fff",stroke:MAROON,"stroke-width":2.5},gSymB);
+tx(gSymB,300,344,"collateral ganglion","t",11,"middle");
+var PB=[poly(gParB,[[194,122],[330,120],[470,140],[584,170]],NAVY,4.5),poly(gParB,[[592,172],[612,192]],NAVY,2.5),
+        poly(gParB,[[470,140],[520,240],[576,300]],NAVY,4.5),poly(gParB,[[584,304],[602,318]],NAVY,2.5),
+        poly(gParB,[[192,425],[400,466],[580,456]],NAVY,4.5),poly(gParB,[[588,455],[606,452]],NAVY,2.5)];
+[[588,171],[580,302],[584,455]].forEach(function(q){el("ellipse",{cx:q[0],cy:q[1],rx:7,ry:6,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gParB);});
+tx(gParB,330,108,"vagus nerve","tn",13,"middle");
+var tlHit=el("rect",{x:140,y:205,width:90,height:190,fill:"transparent"},gBody);
+var bsHit=el("circle",{cx:180,cy:126,r:28,fill:"transparent"},gBody);
+var pTL=promptAt(gBody,290,262,["Click the thoracic and","lumbar part of the cord"],238,292,192,300,44);
+var pBS=promptAt(gBody,290,60,["Now click the brainstem"],206,112,180,126,30);
+
+/* ======================= div: one neuron, many targets (step 5) ======================= */
+var gDiv=G("div");
+tx(gDiv,230,36,"Sympathetic","tm",17,"middle");tx(gDiv,690,36,"Parasympathetic","tn",17,"middle");
+el("line",{x1:460,y1:20,x2:460,y2:470,stroke:INK2,"stroke-width":1.5,"stroke-dasharray":"6 6"},gDiv);
+el("rect",{x:40,y:62,width:36,height:400,rx:16,fill:"#fff",stroke:NAVY,"stroke-width":3},gDiv);
+tx(gDiv,40,56,"spinal cord","t",12,"start");
+el("line",{x1:150,y1:92,x2:150,y2:428,stroke:MAROON,"stroke-width":3},gDiv);
+var DG=[110,170,230,290,350,410];
+DG.forEach(function(y){el("ellipse",{cx:150,cy:y,rx:12,ry:15,fill:"#fff",stroke:MAROON,"stroke-width":2.5},gDiv);});
+tx(gDiv,150,452,"sympathetic chain","t",12,"middle");
+el("circle",{cx:58,cy:230,r:11,fill:MAROON},gDiv);
+el("line",{x1:69,y1:230,x2:138,y2:230,stroke:MAROON,"stroke-width":4.5},gDiv);
+var brUp=poly(gDiv,[[158,230],[158,110]],MAROON,4.5),brDn=poly(gDiv,[[158,230],[158,350]],MAROON,4.5);
+var DPOST=[];
+[110,170,230,290,350].forEach(function(y){[[-22],[14]].forEach(function(o){var l=poly(gDiv,[[164,y],[300,y+o[0]*0.6],[404,y+o[0]]],MAROON,2.5);l.setAttribute("opacity",.2);DPOST.push(l);
+  var c=el("circle",{cx:410,cy:y+o[0],r:6,fill:TISS,stroke:MAROON,"stroke-width":2,opacity:.3},gDiv);DPOST.push(c);});});
+var tDivS=tx(gDiv,260,486,"","tm",14,"middle");
+el("rect",{x:480,y:200,width:44,height:100,rx:12,fill:"#fff",stroke:NAVY,"stroke-width":3},gDiv);
+tx(gDiv,502,322,"brainstem","t",12,"middle");
+el("circle",{cx:502,cy:250,r:11,fill:NAVY},gDiv);
+el("line",{x1:513,y1:250,x2:742,y2:250,stroke:NAVY,"stroke-width":4.5},gDiv);
+el("path",{d:"M730 196 C700 226 708 300 760 320 C812 340 870 320 880 280 C888 250 870 226 850 234 C830 244 810 238 804 212 C798 190 750 180 730 196 Z",fill:TISS,stroke:MAROON,"stroke-width":3},gDiv);
+el("ellipse",{cx:752,cy:252,rx:11,ry:13,fill:"#fff",stroke:NAVY,"stroke-width":2.5},gDiv);
+var PPOST=[];
+[[800,232],[804,276]].forEach(function(q){var l=poly(gDiv,[[762,252],q],NAVY,2.5);l.setAttribute("opacity",.2);PPOST.push(l);var c=el("circle",{cx:q[0]+4,cy:q[1],r:6,fill:"#fff",stroke:NAVY,"stroke-width":2,opacity:.3},gDiv);PPOST.push(c);});
+tx(gDiv,800,358,"stomach","tm",14,"middle");
+tx(gDiv,800,380,"ganglion in the organ wall","t",12,"middle");
+var tDivP=tx(gDiv,690,486,"","tn",14,"middle");
+var dvS=dot(gDiv,MAROON,9),dvU=dot(gDiv,MAROON,8),dvD=dot(gDiv,MAROON,8),dvP=dot(gDiv,NAVY,9);
+var symPreHit=el("circle",{cx:58,cy:230,r:28,fill:"transparent"},gDiv);
+var parPreHit=el("circle",{cx:502,cy:250,r:28,fill:"transparent"},gDiv);
+var pSymPre=promptAt(gDiv,100,486,["Click the sympathetic neuron in the cord"],74,254,58,230,28);
+var pParPre=promptAt(gDiv,520,440,["Now click the parasympathetic","neuron in the brainstem"],508,276,502,250,28);
+function divReset(){DPOST.forEach(function(e){e.setAttribute("opacity",e.tagName==="circle"?.3:.2);});PPOST.forEach(function(e){e.setAttribute("opacity",e.tagName==="circle"?.3:.2);});brUp.setAttribute("display","none");brDn.setAttribute("display","none");tDivS.textContent="";tDivP.textContent="";}
+
+/* ======================= hg: heart and gut (step 6) ======================= */
+var gHG=G("hg");
+var hH=heartAt(gHG,210,300,1.0);
+var hgSymH=poly(gHG,[[40,430],[120,392],[166,344]],MAROON,4),hgParH=poly(gHG,[[40,170],[140,206],[184,240]],NAVY,4);
+tx(gHG,40,158,"vagus (parasympathetic)","tn",12,"start");tx(gHG,40,452,"sympathetic","tm",12,"start");
+var GX0=470,GX1=860,GY=300,GW=34;
+var gutBand=el("path",{d:"",fill:"none",stroke:"#EBC9C1","stroke-width":14,"stroke-linejoin":"round"},gHG);
+var gutLum=el("path",{d:"",fill:"#FFF6E0",stroke:MAROON,"stroke-width":3,"stroke-linejoin":"round"},gHG);
+function gutD(p,dep){var top=[],bot=[];for(var x=GX0;x<=GX1;x+=10){var d=dep*Math.exp(-Math.pow((x-p)/34,2)),c=GY+16*Math.sin((x-GX0)/62);top.push(x+" "+(c-GW+d).toFixed(1));bot.unshift(x+" "+(c+GW-d).toFixed(1));}return "M"+top.join(" L")+" L"+bot.join(" L")+" Z";}
+function gutDraw(p,dep){var d=gutD(p,dep);gutLum.setAttribute("d",d);gutBand.setAttribute("d",d);}
+var drops=el("g",{},gHG);[[520,282],[580,318],[640,280],[700,320],[760,284],[820,316]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:5,fill:FLUID,stroke:FLOW,"stroke-width":1.5},drops);});
+var hgSymG=poly(gHG,[[470,450],[560,416],[606,340]],MAROON,4),hgParG=poly(gHG,[[470,170],[560,200],[606,262]],NAVY,4);
+tx(gHG,470,158,"vagus (parasympathetic)","tn",12,"start");tx(gHG,470,472,"sympathetic","tm",12,"start");
+tx(gHG,665,384,"stomach and intestine","t",13,"middle");
+var hgRH=tx(gHG,210,412,"","tm",15,"middle"),hgRG=tx(gHG,665,412,"","tm",15,"middle");
+var btnD=el("g",{},gHG);el("circle",{cx:330,cy:60,r:30,fill:MAROON},btnD);var bdT=el("text",{"class":"iw","font-size":34,x:330,y:62},btnD);bdT.textContent="!";
+tx(gHG,330,114,"a car swerves at you","tn",13,"middle");
+var btnM=el("g",{},gHG);el("circle",{cx:570,cy:60,r:30,fill:"#fff",stroke:GDEEP,"stroke-width":3},btnM);el("circle",{cx:570,cy:60,r:18,fill:"none",stroke:GDEEP,"stroke-width":1.5},btnM);
+tx(gHG,570,114,"resting after a meal","tn",13,"middle");
+el("circle",{cx:330,cy:60,r:34,fill:"transparent"},btnD);el("circle",{cx:570,cy:60,r:34,fill:"transparent"},btnM);
+var pDanger=promptAt(gHG,390,190,["Click the danger sign"],352,82,330,60,36);
+var pMeal=promptAt(gHG,620,190,["Now click the meal"],590,84,570,60,36);
+function hgNerves(s,p){[hgSymH,hgSymG].forEach(function(l){l.setAttribute("opacity",s?1:.3);l.setAttribute("stroke-width",s?6:4);});[hgParH,hgParG].forEach(function(l){l.setAttribute("opacity",p?1:.3);l.setAttribute("stroke-width",p?6:4);});}
+function peristalsis(n,dep,a){var p=Promise.resolve();for(var i=0;i<n;i++)p=p.then(function(){return tweenVal(GX0-40,GX1+40,1300,a,function(v){gutDraw(v,dep);});});return p.then(function(){gutDraw(0,0);});}
+
+/* ======================= syn: transmitters and receptors (steps 7, 8, 10, 16) ======================= */
+var gSyn=G("syn");
+el("rect",{x:30,y:40,width:50,height:440,rx:20,fill:"#fff",stroke:NAVY,"stroke-width":3},gSyn);
+tx(gSyn,55,30,"CNS","tn",14,"middle");
+tx(gSyn,30,500,"brainstem and spinal cord","t",12,"start");
+var R=[95,210,325,435];
+/* row 1: parasympathetic to the heart */
+el("circle",{cx:55,cy:R[0],r:10,fill:NAVY},gSyn);
+el("line",{x1:65,y1:R[0],x2:540,y2:R[0],stroke:NAVY,"stroke-width":4.5},gSyn);
+el("ellipse",{cx:560,cy:R[0],rx:24,ry:18,fill:"#F4F5F8",stroke:NAVY,"stroke-width":2.5},gSyn);el("circle",{cx:568,cy:R[0],r:8,fill:NAVY},gSyn);
+el("line",{x1:576,y1:R[0],x2:700,y2:R[0],stroke:NAVY,"stroke-width":3},gSyn);el("circle",{cx:700,cy:R[0],r:5,fill:NAVY},gSyn);
+var hS=heartAt(gSyn,770,92,0.45);
+tx(gSyn,812,98,"heart","tn",13,"start");
+tx(gSyn,110,119,"parasympathetic (vagus nerve)","tn",12,"start");
+/* rows 2 and 3: sympathetic to a blood vessel and a sweat gland */
+[1,2].forEach(function(i){var y=R[i];el("circle",{cx:55,cy:y,r:10,fill:MAROON},gSyn);el("line",{x1:65,y1:y,x2:180,y2:y,stroke:MAROON,"stroke-width":4.5},gSyn);
+  el("ellipse",{cx:200,cy:y,rx:22,ry:18,fill:"#F4F5F8",stroke:MAROON,"stroke-width":2.5},gSyn);el("circle",{cx:206,cy:y,r:8,fill:MAROON},gSyn);
+  el("line",{x1:214,y1:y,x2:700,y2:y,stroke:MAROON,"stroke-width":3},gSyn);el("circle",{cx:700,cy:y,r:5,fill:MAROON},gSyn);
+  tx(gSyn,250,y+24,"sympathetic","tm",12,"start");});
+[604,630,656,682].forEach(function(x){el("circle",{cx:x,cy:R[1],r:5,fill:"#fff",stroke:MAROON,"stroke-width":2},gSyn);});
+var tVar=tx(gSyn,643,R[1]-14,"varicosities","t",12,"middle");
+el("rect",{x:712,y:R[1]-24,width:90,height:48,rx:10,fill:TISS,stroke:MAROON,"stroke-width":2},gSyn);
+el("rect",{x:712,y:R[1]-12,width:90,height:24,fill:"#F7E1DC"},gSyn);
+el("line",{x1:712,y1:R[1]-12,x2:802,y2:R[1]-12,stroke:MAROON,"stroke-width":1.5},gSyn);el("line",{x1:712,y1:R[1]+12,x2:802,y2:R[1]+12,stroke:MAROON,"stroke-width":1.5},gSyn);
+tx(gSyn,812,R[1]+4,"blood vessel","tn",13,"start");
+el("line",{x1:716,y1:R[2]-34,x2:796,y2:R[2]-34,stroke:INK2,"stroke-width":2},gSyn);
+el("line",{x1:756,y1:R[2]-34,x2:756,y2:R[2]+2,stroke:MAROON,"stroke-width":3},gSyn);
+[[748,R[2]+8],[764,R[2]+12],[752,R[2]+20]].forEach(function(q){el("ellipse",{cx:q[0],cy:q[1],rx:11,ry:7,fill:TISS,stroke:MAROON,"stroke-width":2.5},gSyn);});
+tx(gSyn,812,R[2]+4,"sweat gland","tn",13,"start");
+/* row 4: sympathetic straight to the adrenal medulla */
+el("circle",{cx:55,cy:R[3],r:10,fill:MAROON},gSyn);
+el("line",{x1:65,y1:R[3],x2:744,y2:R[3],stroke:MAROON,"stroke-width":4.5},gSyn);
+el("path",{d:"M724 456 L760 398 L798 456 Z",fill:"#FFF6E0",stroke:GDEEP,"stroke-width":3},gSyn);
+el("path",{d:"M742 448 L760 418 L780 448 Z",fill:"#F2D6CF",stroke:MAROON,"stroke-width":2},gSyn);
+el("path",{d:"M720 474 C730 456 790 456 800 474",fill:"none",stroke:GDEEP,"stroke-width":3},gSyn);
+tx(gSyn,812,428,"adrenal","tn",13,"start");tx(gSyn,812,444,"medulla","tn",13,"start");
+tx(gSyn,250,R[3]+24,"sympathetic","tm",12,"start");
+var epiG=el("g",{},gSyn);[[0,0],[12,8],[4,16],[18,20]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:4.5,fill:GOLD,stroke:GDEEP,"stroke-width":1.5},epiG);});
+var neG=el("g",{},gSyn);[[604,R[1]+10],[630,R[1]+8],[656,R[1]+11],[682,R[1]+9],[694,R[1]-8]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:3,fill:MAROON},neG);});
+/* label slots */
+var gl1=tx(gSyn,560,66,"","tn",12,"middle"),gl2=tx(gSyn,200,181,"","tm",12,"middle"),gl3=tx(gSyn,200,296,"","tm",12,"middle");
+var el1=tx(gSyn,636,121,"","tn",12,"middle"),el2=tx(gSyn,560,236,"","tm",12,"middle"),el3=tx(gSyn,612,351,"","tm",12,"middle"),el4=tx(gSyn,612,411,"","tm",12,"middle");
+var tEpi=tx(gSyn,600,488,"","tm",13,"middle");
+var SYNL=[gl1,gl2,gl3,el1,el2,el3,el4,tEpi];
+var SYNT={gl1:"ACh on nicotinic receptors",gl2:"ACh on nicotinic receptors",gl3:"ACh on nicotinic receptors",
+  el1:"ACh on muscarinic receptors",el2:"norepinephrine on adrenergic receptors",el3:"ACh on muscarinic receptors",el4:"ACh on nicotinic receptors",tEpi:"epinephrine into the blood, as a hormone"};
+function synShow(keys){var m={gl1:gl1,gl2:gl2,gl3:gl3,el1:el1,el2:el2,el3:el3,el4:el4,tEpi:tEpi};SYNL.forEach(function(t){t.textContent="";});keys.forEach(function(k){m[k].textContent=SYNT[k];});}
+function synAdd(k){var m={gl1:gl1,gl2:gl2,gl3:gl3,el1:el1,el2:el2,el3:el3,el4:el4,tEpi:tEpi};m[k].textContent=SYNT[k];}
+var sy=[dot(gSyn,NAVY,8),dot(gSyn,NAVY,8),dot(gSyn,MAROON,8),dot(gSyn,MAROON,8),dot(gSyn,MAROON,8),dot(gSyn,MAROON,8),dot(gSyn,MAROON,8)];
+var SYP=[[[55,R[0]],[548,R[0]]],[[568,R[0]],[700,R[0]]],[[55,R[1]],[194,R[1]]],[[206,R[1]],[700,R[1]]],[[55,R[2]],[194,R[2]]],[[206,R[2]],[700,R[2]]],[[55,R[3]],[752,R[3]]]];
+function synRun(i,a,dur){return run(sy[i],SYP[i],dur||900,a);}
+function epiFlow(a){epiG.setAttribute("display","");return tweenVal(0,1,900,a,function(k){place(epiG,770+k*40,444+k*30);});}
+var g2Hit=el("circle",{cx:200,cy:R[1],r:30,fill:"transparent"},gSyn),g1Hit=el("circle",{cx:560,cy:R[0],r:30,fill:"transparent"},gSyn);
+var e1Hit=el("circle",{cx:700,cy:R[0],r:26,fill:"transparent"},gSyn),e2Hit=el("circle",{cx:690,cy:R[1],r:26,fill:"transparent"},gSyn);
+var e3Hit=el("circle",{cx:704,cy:R[2],r:26,fill:"transparent"},gSyn),adHit=el("circle",{cx:760,cy:432,r:30,fill:"transparent"},gSyn);
+var cnsHit=el("rect",{x:26,y:40,width:58,height:440,fill:"transparent"},gSyn);
+var SYNHIT=[g2Hit,g1Hit,e1Hit,e2Hit,e3Hit,adHit,cnsHit];
+var pG2=promptAt(gSyn,250,276,["Click the sympathetic ganglion"],216,232,200,R[1],30);
+var pG1=promptAt(gSyn,250,160,["Now click the parasympathetic ganglion"],540,118,560,R[0],30);
+var pE1=promptAt(gSyn,250,160,["Click the end of the parasympathetic neuron"],682,116,700,R[0],26);
+var pE2=promptAt(gSyn,250,276,["Now click the end at the blood vessel"],672,232,690,R[1],26);
+var pE3=promptAt(gSyn,250,390,["Click the ending at the sweat gland"],686,346,704,R[2],26);
+var pAd=promptAt(gSyn,250,390,["Now click the adrenal medulla"],732,420,760,432,30);
+var pCNS=promptAt(gSyn,110,276,["Click the CNS to send a signal","down all four pathways"],80,262,55,262,34);
+
+/* ======================= adr: alpha and beta receptors (step 9) ======================= */
+var gAdr=G("adr");
+var AC=[160,450,740],AY=262;
+tx(gAdr,160,50,"arteriole","tn",15,"middle");tx(gAdr,450,50,"heart","tn",15,"middle");tx(gAdr,740,50,"bronchiole (small airway)","tn",15,"middle");
+[160,450].forEach(function(x){el("line",{x1:x,y1:70,x2:x,y2:156,stroke:MAROON,"stroke-width":3},gAdr);[112,136].forEach(function(y){el("circle",{cx:x,cy:y,r:5,fill:"#fff",stroke:MAROON,"stroke-width":2},gAdr);});});
+tx(gAdr,172,92,"sympathetic neuron","tm",12,"start");tx(gAdr,462,92,"sympathetic neuron","tm",12,"start");
+el("rect",{x:672,y:98,width:136,height:26,rx:13,fill:"#F7E1DC",stroke:MAROON,"stroke-width":2},gAdr);
+tx(gAdr,740,88,"epinephrine in the blood","t",12,"middle");
+el("circle",{cx:160,cy:AY,r:80,fill:"#fff",stroke:INK2,"stroke-width":2},gAdr);
+el("circle",{cx:160,cy:AY,r:66,fill:TISS,stroke:MAROON,"stroke-width":2},gAdr);
+var lumA=el("circle",{cx:160,cy:AY,r:46,fill:"#F7E1DC",stroke:MAROON,"stroke-width":1.5},gAdr);
+var hA=heartAt(gAdr,450,AY,0.85);
+el("circle",{cx:740,cy:AY,r:80,fill:"#fff",stroke:INK2,"stroke-width":2},gAdr);
+el("circle",{cx:740,cy:AY,r:66,fill:TISS,stroke:MAROON,"stroke-width":2},gAdr);
+var lumB=el("circle",{cx:740,cy:AY,r:28,fill:"#fff",stroke:NAVY,"stroke-width":2},gAdr);
+var AL=AC.map(function(x){return [tx(gAdr,x,372,"","tn",15,"middle"),tx(gAdr,x,396,"","tm",14,"middle"),tx(gAdr,x,414,"","tm",14,"middle"),tx(gAdr,x,440,"","t",12,"middle")];});
+var ADT=[["alpha-1 receptors","smooth muscle contracts,","the vessel narrows","second messengers: IP3 and Ca2+"],["beta-1 receptors","faster, stronger beats","","second messenger: cAMP"],["beta-2 receptors","smooth muscle relaxes,","the airway widens","second messenger: cAMP"]];
+function adrShow(i,on){AL[i].forEach(function(t,j){t.textContent=on?ADT[i][j]:"";});}
+var adD=[dot(gAdr,MAROON,6),dot(gAdr,MAROON,6),dot(gAdr,GOLD,6)];
+var aHit=AC.map(function(x){return el("circle",{cx:x,cy:AY,r:80,fill:"transparent"},gAdr);});
+var pA1=promptAt(gAdr,40,486,["Click the arteriole"],120,348,160,AY,86);
+var pA2=promptAt(gAdr,320,486,["Now click the heart"],430,352,450,AY,86);
+var pA3=promptAt(gAdr,560,486,["Now click the bronchiole"],720,352,740,AY,86);
+
+/* ======================= dial: dual innervation of the heart (step 11) ======================= */
+var gDial=G("dial");
+var hD=heartAt(gDial,320,282,1.2);
+el("circle",{cx:272,cy:248,r:7,fill:GOLD,stroke:GDEEP,"stroke-width":2},gDial);
+tx(gDial,256,266,"SA node","t",12,"end");
+poly(gDial,[[40,90],[150,120],[222,182],[268,240]],NAVY,5);
+poly(gDial,[[40,460],[150,430],[232,380],[282,332]],MAROON,5);
+tx(gDial,40,74,"vagus nerve (parasympathetic)","tn",14,"start");
+tx(gDial,40,490,"sympathetic nerves","tm",14,"start");
+var cutV=cutMark(gDial,110,109),cutY=cutMark(gDial,110,441);
+var DC=[680,300],DR=140;
+function dAng(v){return (180+(v-40)/120*180)*Math.PI/180;}
+function dPt(v,r){var t=dAng(v);return [DC[0]+r*Math.cos(t),DC[1]+r*Math.sin(t)];}
+el("path",{d:"M"+(DC[0]-DR)+" "+DC[1]+" A"+DR+" "+DR+" 0 0 1 "+(DC[0]+DR)+" "+DC[1],fill:"none",stroke:INK2,"stroke-width":3},gDial);
+[40,60,80,100,120,140,160].forEach(function(v){var a=dPt(v,DR-10),b=dPt(v,DR),c=dPt(v,DR+20);el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:INK2,"stroke-width":2.5},gDial);tx(gDial,c[0],c[1]+5,String(v),"t",13,"middle");});
+tx(gDial,566,324,"slower","t",12,"middle");tx(gDial,794,324,"faster","t",12,"middle");
+var needle=el("line",{x1:DC[0],y1:DC[1],x2:DC[0],y2:DC[1]-DR+24,stroke:NAVY,"stroke-width":5,"stroke-linecap":"round"},gDial);
+el("circle",{cx:DC[0],cy:DC[1],r:9,fill:NAVY},gDial);
+var dRead=tx(gDial,DC[0],350,"70","tn",30,"middle"),dUnit=tx(gDial,DC[0],372,"beats per minute","t",13,"middle");
+var mVag=el("g",{},gDial),mSym=el("g",{},gDial);
+(function(){var a=dPt(100,DR+4),b=dPt(100,DR-14);el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:NAVY,"stroke-width":6},mVag);a=dPt(66,DR+4);b=dPt(66,DR-14);el("line",{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:MAROON,"stroke-width":6},mSym);})();
+var dRes1=tx(gDial,DC[0],412,"","tn",14,"middle"),dRes2=tx(gDial,DC[0],436,"","tm",14,"middle");
+function needleTo(v){var p=dPt(v,DR-24);needle.setAttribute("x2",p[0]);needle.setAttribute("y2",p[1]);}
+var vagHit=el("circle",{cx:110,cy:109,r:26,fill:"transparent"},gDial),symHit=el("circle",{cx:110,cy:441,r:26,fill:"transparent"},gDial);
+var pVag=promptAt(gDial,300,40,["Click the vagus nerve to cut it"],132,100,110,109,28);
+var pSymC=promptAt(gDial,330,470,["Now click the sympathetic nerves"],134,444,110,441,28);
+
+/* ======================= ves: a vessel with one input (step 12) ======================= */
+var gVes=G("ves");
+el("rect",{x:80,y:40,width:520,height:90,rx:8,fill:"#fff",stroke:INK2,"stroke-width":1.5},gVes);
+tx(gVes,90,60,"sympathetic signals","t",13,"start");
+var vTr=trainPath(gVes,MAROON,2.5);
+el("line",{x1:80,y1:186,x2:600,y2:186,stroke:MAROON,"stroke-width":3},gVes);
+[140,220,300,380,460,540].forEach(function(x){el("circle",{cx:x,cy:186,r:6,fill:"#fff",stroke:MAROON,"stroke-width":2.5},gVes);});
+tx(gVes,80,172,"sympathetic neuron with varicosities","tm",13,"start");
+var vTop=el("rect",{x:80,y:0,width:520,height:18,fill:TISS,stroke:MAROON,"stroke-width":2},gVes);
+var vBot=el("rect",{x:80,y:0,width:520,height:18,fill:TISS,stroke:MAROON,"stroke-width":2},gVes);
+var vLum=el("rect",{x:80,y:0,width:520,height:0,fill:"#F7E1DC"},gVes);
+var rbc=el("g",{},gVes);[150,250,350,450,550].forEach(function(x){el("ellipse",{cx:x,cy:300,rx:12,ry:7,fill:"#E9B8AE",stroke:MAROON,"stroke-width":1.2},rbc);});
+function vesR(r){vTop.setAttribute("y",300-r-18);vBot.setAttribute("y",300+r);vLum.setAttribute("y",300-r);vLum.setAttribute("height",2*r);}
+tx(gVes,340,408,"arteriole, with smooth muscle in its wall","t",13,"middle");
+var vRes1=tx(gVes,340,452,"","tn",15,"middle"),vRes2=tx(gVes,340,474,"","tm",14,"middle");
+var bPlus=el("g",{},gVes);el("circle",{cx:730,cy:110,r:32,fill:"#FFF6D6",stroke:GOLD,"stroke-width":3},bPlus);var tp=el("text",{"class":"iw","font-size":34,x:730,y:110,fill:NAVY,style:"fill:#0B1530"},bPlus);tp.textContent="+";
+tx(gVes,730,166,"more signals","tn",14,"middle");
+var bMinus=el("g",{},gVes);el("circle",{cx:730,cy:250,r:32,fill:"#FFF6D6",stroke:GOLD,"stroke-width":3},bMinus);var tmn=el("text",{"class":"iw","font-size":34,x:730,y:250,style:"fill:#0B1530"},bMinus);tmn.textContent=M;
+tx(gVes,730,306,"fewer signals","tn",14,"middle");
+el("circle",{cx:730,cy:110,r:36,fill:"transparent"},bPlus);el("circle",{cx:730,cy:250,r:36,fill:"transparent"},bMinus);
+var pPlus=promptAt(gVes,620,30,["Click the plus sign"],700,88,730,110,36);
+var pMinus=promptAt(gVes,600,470,["Now click the minus sign"],712,282,730,250,36);
+function vTrain(n){return function(k){return trainWin(90,116,500,0,k,Math.round(n*k),40);};}
+
+/* ======================= rsa: heart rate with each breath (step 13) ======================= */
+var gRsa=G("rsa");
+var gLung=el("g",{},gRsa);
+el("line",{x1:150,y1:110,x2:150,y2:176,stroke:NAVY,"stroke-width":6,"stroke-linecap":"round"},gLung);
+el("path",{d:"M140 176 C100 164 70 222 72 300 C74 350 110 362 142 342 Z",fill:TISS,stroke:MAROON,"stroke-width":3},gLung);
+el("path",{d:"M160 176 C200 164 230 222 228 300 C226 350 190 362 158 342 Z",fill:TISS,stroke:MAROON,"stroke-width":3},gLung);
+[[150,176,118,214],[118,214,104,256],[118,214,126,262],[150,176,182,214],[182,214,196,256],[182,214,174,262]].forEach(function(q){el("line",{x1:q[0],y1:q[1],x2:q[2],y2:q[3],stroke:NAVY,"stroke-width":3,"stroke-linecap":"round"},gLung);});
+el("path",{d:"M56 372 Q150 336 244 372",fill:"none",stroke:INK2,"stroke-width":2.5},gRsa);
+tx(gRsa,150,404,"lungs","tn",14,"middle");tx(gRsa,150,422,"and diaphragm","t",12,"middle");
+var RX0=330,RX1=870,RW=RX1-RX0,NB=3;
+for(var b=0;b<NB;b++)el("rect",{x:RX0+RW/NB*b,y:80,width:RW/NB/2,height:380,fill:TINT,opacity:.8},gRsa);
+tx(gRsa,RX0,48,"breathing","tn",14,"start");tx(gRsa,RX0+RW/NB*0.25,72,"in","t",12,"middle");tx(gRsa,RX0+RW/NB*0.75,72,"out","t",12,"middle");
+tx(gRsa,RX0,214,"vagus signals to the SA node","tn",14,"start");
+tx(gRsa,RX0,336,"heart rate","tn",14,"start");
+el("line",{x1:RX0,y1:466,x2:RX1,y2:466,stroke:INK2,"stroke-width":1.5},gRsa);tx(gRsa,(RX0+RX1)/2,486,"time: three breaths","t",12,"middle");
+var rBr=el("path",{d:"",fill:"none",stroke:NAVY,"stroke-width":3},gRsa),rVg=el("path",{d:"",fill:"none",stroke:NAVY,"stroke-width":2,"stroke-linejoin":"round"},gRsa),rHr=el("path",{d:"",fill:"none",stroke:MAROON,"stroke-width":3.5},gRsa);
+function rPh(x){return ((x-RX0)/(RW/NB))%1;}
+function rsaD(k){var xe=RX0+RW*k,b="",h="",x;
+  for(x=RX0;x<=xe;x+=3){var ph=rPh(x),yb=170-60*(1-Math.cos(2*Math.PI*ph))/2,yh=440-56*(1-Math.cos(2*Math.PI*(ph-0.08)))/2;b+=(b?" L":"M")+x.toFixed(1)+" "+yb.toFixed(1);h+=(h?" L":"M")+x.toFixed(1)+" "+yh.toFixed(1);}
+  var v="M"+RX0+" 280";for(x=RX0+6;x<=xe;){var p=rPh(x),gap=(p<0.5)?30:9;v+=" H"+(x-2)+" L"+x+" 240 L"+(x+2)+" 280";x+=gap;}v+=" H"+xe.toFixed(1);
+  return [b,v,h];}
+function rsaSet(k){var d=rsaD(k);rBr.setAttribute("d",d[0]);rVg.setAttribute("d",d[1]);rHr.setAttribute("d",d[2]);var ph=rPh(RX0+RW*Math.min(k,0.999));gLung.setAttribute("transform","translate(150 260) scale("+(1+0.07*(1-Math.cos(2*Math.PI*ph))/2)+") translate(-150 -260)");}
+var lungHit=el("circle",{cx:150,cy:262,r:80,fill:"transparent"},gRsa);
+var pLung=promptAt(gRsa,40,470,["Click the lungs to breathe"],120,346,150,262,84);
+
+/* ======================= drug: beta blockers and atropine (steps 14, 15) ======================= */
+var gDrug=G("drug");
+el("rect",{x:78,y:158,width:22,height:220,rx:10,fill:"#fff",stroke:INK2,"stroke-width":2.5},gDrug);
+el("rect",{x:300,y:158,width:22,height:220,rx:10,fill:"#fff",stroke:INK2,"stroke-width":2.5},gDrug);
+el("path",{d:"M120 150 L280 150 Q296 154 296 172 L292 440 L108 440 L104 172 Q104 154 120 150 Z",fill:"#fff",stroke:INK2,"stroke-width":2.5},gDrug);
+el("rect",{x:186,y:130,width:28,height:22,fill:"#fff",stroke:INK2,"stroke-width":2.5},gDrug);
+el("circle",{cx:200,cy:90,r:44,fill:"#fff",stroke:INK2,"stroke-width":2.5},gDrug);
+var PUP=[184,216].map(function(x){el("ellipse",{cx:x,cy:84,rx:12,ry:8,fill:"#fff",stroke:NAVY,"stroke-width":2},gDrug);el("circle",{cx:x,cy:84,r:6.5,fill:TINT,stroke:NAVY,"stroke-width":1.5},gDrug);return el("circle",{cx:x,cy:84,r:2.5,fill:NAVY},gDrug);});
+el("path",{d:"M188 110 Q200 118 212 110",fill:"none",stroke:INK2,"stroke-width":2.5,"stroke-linecap":"round"},gDrug);
+el("ellipse",{cx:234,cy:116,rx:9,ry:6,fill:"#FFF6E0",stroke:GDEEP,"stroke-width":2},gDrug);
+var saliva=el("g",{},gDrug);[[200,124],[208,129]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:3,fill:FLUID,stroke:FLOW,"stroke-width":1.2},saliva);});
+el("path",{d:"M190 176 C160 170 136 200 136 250 C136 285 160 292 190 278 Z",fill:TISS,stroke:MAROON,"stroke-width":2},gDrug);
+el("path",{d:"M210 176 C240 170 264 200 264 250 C264 285 240 292 210 278 Z",fill:TISS,stroke:MAROON,"stroke-width":2},gDrug);
+var AIR=[poly(gDrug,[[200,150],[200,188]],NAVY,5),poly(gDrug,[[200,188],[178,210],[162,240]],NAVY,5),poly(gDrug,[[178,210],[180,250]],NAVY,5),poly(gDrug,[[200,188],[222,210],[238,240]],NAVY,5),poly(gDrug,[[222,210],[220,250]],NAVY,5)];
+var hDr=heartAt(gDrug,214,276,0.38);
+el("path",{d:"M150 360 C150 345 250 345 250 360 C250 375 150 375 150 390 C150 405 250 405 250 420",fill:"none",stroke:MAROON,"stroke-width":15,"stroke-linecap":"round"},gDrug);
+el("path",{d:"M150 360 C150 345 250 345 250 360 C250 375 150 375 150 390 C150 405 250 405 250 420",fill:"none",stroke:"#F2D6CF","stroke-width":10,"stroke-linecap":"round"},gDrug);
+el("path",{d:"M150 318 C140 336 168 346 190 340 C206 336 214 322 206 314 C196 324 176 326 170 312 Z",fill:TISS,stroke:MAROON,"stroke-width":2},gDrug);
+var sweat=el("g",{},gDrug);[[328,230],[332,246],[326,262]].forEach(function(q){el("circle",{cx:q[0],cy:q[1],r:3.5,fill:FLUID,stroke:FLOW,"stroke-width":1.2},sweat);});
+[[1,148,84],[2,252,130],[3,124,226],[4,256,300],[5,270,392],[6,346,214]].forEach(function(q){badge(gDrug,q[1],q[2],String(q[0]),INK2,10);});
+var ORG=["pupil","salivary glands","airways","heart","gut","sweat glands"];
+var DRY=[190,232,274,316,358,400];
+var DEF=ORG.map(function(o,i){badge(gDrug,452,DRY[i]-5,String(i+1),INK2,10);tx(gDrug,470,DRY[i],o,"tn",14,"start");return tx(gDrug,610,DRY[i],"","tm",14,"start");});
+var DRUGS=[[490,"propranolol","blocks beta-1 and beta-2"],[640,"metoprolol","blocks mainly beta-1"],[790,"atropine","blocks muscarinic"]];
+var DBTN=DRUGS.map(function(d){var g=el("g",{},gDrug);el("rect",{x:d[0]-40,y:44,width:80,height:32,rx:16,fill:"#fff",stroke:GDEEP,"stroke-width":2.5},g);el("path",{d:"M"+d[0]+" 44 L"+(d[0]-24)+" 44 A16 16 0 0 0 "+(d[0]-24)+" 76 L"+d[0]+" 76 Z",fill:MAROON},g);
+  tx(gDrug,d[0],98,d[1],"tn",13,"middle");tx(gDrug,d[0],114,d[2],"t",11,"middle");el("rect",{x:d[0]-48,y:34,width:96,height:52,fill:"transparent"},g);return g;});
+var EFF={prop:["little change","little change","narrow: wheezing in asthma","slower, weaker beats","little change","little change"],
+  meto:["little change","little change","mostly spared at usual doses","slower, weaker beats","little change","little change"],
+  atro:["dilates, and near vision blurs","dry mouth","widen a little","faster","slower: constipation","less sweat: hot, dry skin"]};
+function drugShow(k){DEF.forEach(function(t,i){t.textContent=k?EFF[k][i]:"";});}
+function airW(w){AIR.forEach(function(l){l.setAttribute("stroke-width",w);});}
+function pupR(r){PUP.forEach(function(p){p.setAttribute("r",r);});}
+var pProp=promptAt(gDrug,452,150,["Click propranolol"],478,84,490,60,34);
+var pMeto=promptAt(gDrug,452,150,["Now click metoprolol"],620,86,640,60,34);
+var pAtro=promptAt(gDrug,452,150,["Click atropine"],770,86,790,60,34);
+
+makeCap();
+function resetAll(){
+  hide([sDot,aDot1,aDot2,dvS,dvU,dvD,dvP,epiG,neG].concat(sy).concat(adD));
+  /* path */
+  musTense(false);[sCount,aCount1,aCount2,cutS,cutA].forEach(function(g){g.setAttribute("display","none");});tSomRes.textContent="";tHeartRes.textContent="";pGang.setAttribute("fill","#F4F5F8");
+  [hP,hB,hH,hS,hA,hD,hDr].forEach(function(h){h._g.setAttribute("transform","scale("+h._s+")");});
+  /* body */
+  [tlShade,csShade,tTL,tCS1,tCS2,gSymB,gParB].forEach(function(g){g.setAttribute("display","none");});
+  /* div */
+  divReset();
+  /* hg */
+  hgNerves(false,false);gutDraw(0,0);drops.setAttribute("display","none");hgRH.textContent="";hgRG.textContent="";
+  /* syn */
+  synShow([]);tVar.setAttribute("display","none");
+  /* adr */
+  [0,1,2].forEach(function(i){adrShow(i,false);});lumA.setAttribute("r",46);lumB.setAttribute("r",28);
+  /* dial */
+  cutV.setAttribute("display","none");cutY.setAttribute("display","none");needleTo(70);dRead.textContent="70";dRead.setAttribute("font-size",30);mVag.setAttribute("display","none");mSym.setAttribute("display","none");dRes1.textContent="";dRes2.textContent="";
+  /* ves */
+  vesR(36);vTr.setAttribute("d",vTrain(9)(1));vRes1.textContent="resting tone";vRes2.textContent="partly contracted";
+  /* rsa */
+  rsaSet(0);rBr.setAttribute("d","");rVg.setAttribute("d","");rHr.setAttribute("d","");
+  /* drug */
+  drugShow(null);airW(5);pupR(2.5);saliva.setAttribute("display","");sweat.setAttribute("display","");
+  cap("");
+}
+function S(l){only(l.concat(["cap"]));resetAll();}
+
+/* ======================= steps ======================= */
+var STEPS=[
+{sec:"Two efferent pathways",comp:"Competency 1",
+ title:"Two ways out of the central nervous system",
+ text:["Commands leave the brain and spinal cord along two kinds of pathway. The somatic motor division controls skeletal muscle, the muscle you move on purpose. The autonomic division controls the tissues the nervous system runs without your deciding to: cardiac muscle in the heart, smooth muscle in blood vessels, airways and the gut, many glands, and some fat tissue. The autonomic division is also called the visceral nervous system, because it runs the internal organs.","You already know the somatic motor neuron from Week 7. Its cell body sits in the ventral horn of the spinal cord, and its axon runs all the way to the muscle, where it releases acetylcholine at the neuromuscular junction. Click the somatic motor neuron in the spinal cord to fire it."],
+ name:"somatic motor and autonomic divisions",
+ auto:true,
+ desc:"Two pathways leave a tall outline of the spinal cord at the left. Above, the somatic motor pathway: one gold neuron with its cell body in the cord and a long myelinated axon that ends on a striped skeletal muscle fiber at the right. Below, the autonomic pathway: a navy neuron runs from the cord to an oval ganglion, and a second navy neuron runs from the ganglion to a heart at the right, with a row of beads near its end. When the student clicks the somatic motor neuron, a gold dot runs along its axon to the muscle, and the muscle shortens.",
+ pre:function(){S(["path"]);},
+ play:function(a){return waitOn(somHit,pSom,a).then(function(){return run(sDot,[[86,Y1],[708,Y1]],1300,a);}).then(function(){musTense(true);sCount.setAttribute("display","");cap("One neuron carries the command from the cord to the muscle.");});}},
+
+{title:"Counting the neurons",
+ text:["Now look at the autonomic pathway below it. It also starts with a cell body in the gray matter of the spinal cord, but this axon does not reach the heart."],
+ ask:"Fire the autonomic pathway. How many neurons does the signal pass through between the spinal cord and the heart, and where is the cell body of the last one?",
+ ans:["Two. The first neuron, the preganglionic neuron, has its cell body in the central nervous system. Its axon leaves the cord and ends in an autonomic ganglion, a cluster of nerve cell bodies outside the central nervous system. There it synapses on the second neuron, the postganglionic neuron, whose cell body sits in the ganglion. The postganglionic axon carries the signal the rest of the way to the heart.","So the somatic pathway has one neuron and no synapse between the cord and its target, while the autonomic pathway has two neurons in a row with a synapse in the ganglion. The ganglion is more than a relay. One preganglionic neuron can connect to many postganglionic neurons there, so one signal from the cord can spread to many cells, and some ganglia act as small integrating centers of their own."],
+ name:"preganglionic and postganglionic neurons",
+ desc:"The two pathways from the first step. The student clicks the autonomic neuron's cell body in the cord. A navy dot runs along the preganglionic axon to the ganglion, the ganglion lights up, and a second navy dot runs along the postganglionic axon to the heart, which beats. Badges numbered 1 and 2 appear over the two autonomic neurons, and a badge numbered 1 over the somatic motor neuron.",
+ pre:function(){S(["path"]);},
+ play:function(a){return waitOn(preHit,pPre,a).then(function(){return run(aDot1,[[86,Y2],[404,Y2]],900,a);}).then(function(){pGang.setAttribute("fill","#DDE1EA");return wait(300,a);}).then(function(){return run(aDot2,[[446,Y2],[690,Y2]],800,a);}).then(function(){return beats(hP,2,600,a);}).then(function(){[sCount,aCount1,aCount2].forEach(function(g){g.setAttribute("display","");});cap("Two neurons in a row, with a synapse in the ganglion.");});}},
+
+{title:"Cutting the nerves",
+ text:["Each pathway ends on a different kind of tissue. The somatic motor neuron ends on skeletal muscle, and somatic motor neurons can only excite their muscle. This autonomic neuron ends on cardiac muscle, and autonomic neurons can either excite or inhibit their targets."],
+ ask:"An injury cuts both nerves. What happens to the skeletal muscle, and what happens to the heart?",
+ ans:["The skeletal muscle is paralyzed. It has no rhythm of its own, so with no somatic motor neuron to excite it, it stays limp, and over the following weeks it wastes away. The heart keeps beating, because its pacemaker cells start each beat by themselves. The autonomic nerves only speed up or slow down a beat that is already there. A transplanted heart, whose nerves were cut during the surgery, beats on its own in its new owner.","Many smooth muscles also contract on their own to some degree, so the autonomic division adjusts organs that are already working rather than starting them from zero. The somatic motor neuron, by contrast, starts every contraction of its muscle."],
+ name:"effector tissues",
+ desc:"The two pathways again, with a gold ring on each nerve. The student clicks the somatic nerve, a cut appears, a gold dot runs from the cord and stops at the cut, and the label under the muscle reads no signal arrives, so it stays limp. Then the student clicks the nerve to the heart, a cut appears there, and the heart keeps beating, labeled keeps beating on its own.",
+ pre:function(){S(["path"]);},
+ play:function(a){return waitOn(somCutHit,pCutS,a).then(function(){cutS.setAttribute("display","");return run(sDot,[[86,Y1],[518,Y1]],900,a);}).then(function(){tSomRes.textContent="no signal, so it stays limp";return waitOn(autCutHit,pCutA,a);}).then(function(){cutA.setAttribute("display","");return beats(hP,3,800,a);}).then(function(){tHeartRes.textContent="keeps beating on its own";cap("Skeletal muscle stops. The heart keeps its own beat.");});}},
+
+{sec:"Sympathetic and parasympathetic",comp:"Competency 2",
+ title:"Where each division leaves",
+ text:["The autonomic division has two branches, the sympathetic division and the parasympathetic division. They differ in where their preganglionic neurons leave the central nervous system and in where their ganglia sit. The figure shows the brain and spinal cord from the side, the sympathetic chain beside the cord, and three organs at the right: the heart, the stomach and intestine, and the bladder.","Click the thoracic and lumbar part of the cord, and then click the brainstem, to send each division out."],
+ ask:"For each division, are the ganglia close to the spinal cord or close to the organ? Which division then has the longer preganglionic axons?",
+ ans:["Sympathetic preganglionic neurons leave the thoracic and lumbar regions of the spinal cord, so this is called the thoracolumbar division. Most of their ganglia lie in two chains running along both sides of the spinal cord, the sympathetic chain ganglia. A few, the collateral ganglia, sit along the aorta in the abdomen, which is still far from the organs. So sympathetic pathways have short preganglionic axons and long postganglionic axons.","Parasympathetic preganglionic neurons leave the brainstem, in cranial nerves, and the sacral region at the bottom of the cord, so this is called the craniosacral division. The vagus nerve, cranial nerve X, carries parasympathetic fibers to the organs of the chest and most of the abdomen. Parasympathetic ganglia lie on or in the walls of the organs they control. So parasympathetic pathways have long preganglionic axons and short postganglionic axons."],
+ name:"thoracolumbar and craniosacral divisions",
+ desc:"The brain and spinal cord seen from the side, labeled brainstem, cervical, thoracic, lumbar and sacral, with the sympathetic chain of small ganglia running beside the cord. At the right are a heart, a stomach with intestine, and a bladder. The student clicks the thoracic and lumbar cord, which shades maroon and is labeled thoracolumbar; maroon pathways then run a short way to the chain or to a collateral ganglion and then a long way to each organ. Then the student clicks the brainstem, which shades navy along with the sacral cord, labeled craniosacral; navy pathways run a long way, in the vagus nerve and from the sacral cord, to small ganglia on the heart, the stomach and the bladder, and then a short way into each organ.",
+ pre:function(){S(["body"]);},
+ play:function(a){return waitOn(tlHit,pTL,a).then(function(){tlShade.setAttribute("display","");tTL.setAttribute("display","");gSymB.setAttribute("display","");return Promise.all(SB.map(function(l){return reveal(l,1100,a);}));}).then(function(){return waitOn(bsHit,pBS,a);}).then(function(){csShade.setAttribute("display","");tCS1.setAttribute("display","");tCS2.setAttribute("display","");gParB.setAttribute("display","");return Promise.all(PB.map(function(l){return reveal(l,1100,a);}));}).then(function(){cap("Sympathetic ganglia lie near the cord, parasympathetic in organs.");});}},
+
+{title:"One neuron, many targets",
+ text:["Where the ganglion sits changes how far one preganglionic neuron's signal can spread. On the left, one sympathetic preganglionic neuron enters the sympathetic chain. On the right, one parasympathetic preganglionic neuron runs from the brainstem to a ganglion in the wall of the stomach."],
+ ask:"Fire each one. Which division spreads one signal to more of the body, and how does the position of its ganglia make that possible?",
+ ans:["The sympathetic division. Its preganglionic axon branches inside the chain, running up and down to ganglia at several levels, and synapses on many postganglionic neurons. Each of those sends its axon to a different place, so one signal from the cord reaches tissues across much of the body at once. That widespread response suits an emergency.","The parasympathetic preganglionic neuron travels all the way to one organ and synapses on a few postganglionic neurons inside it, so its effect stays in that organ. The parasympathetic division can act on one organ at a time."],
+ name:"divergence",
+ desc:"On the left, a strip of spinal cord, a chain of six sympathetic ganglia, and faint fibers fanning out to ten small targets. On the right, the brainstem and a stomach with one small ganglion in its wall. The student clicks the sympathetic neuron in the cord: a dot enters the chain, branches run up and down to five ganglia, and all ten postganglionic fibers light up, labeled many targets at many levels. Then the student clicks the parasympathetic neuron in the brainstem: a dot runs the long way to the ganglion in the stomach wall, and only its two short fibers light up, labeled one organ.",
+ pre:function(){S(["div"]);},
+ play:function(a){return waitOn(symPreHit,pSymPre,a).then(function(){return run(dvS,[[58,230],[150,230]],600,a);}).then(function(){brUp.setAttribute("display","");brDn.setAttribute("display","");return Promise.all([reveal(brUp,700,a),reveal(brDn,700,a),run(dvU,[[158,230],[158,110]],700,a),run(dvD,[[158,230],[158,350]],700,a)]);}).then(function(){DPOST.forEach(function(e){e.setAttribute("opacity",1);});tDivS.textContent="many targets at many levels";return waitOn(parPreHit,pParPre,a);}).then(function(){return run(dvP,[[502,250],[752,252]],1100,a);}).then(function(){PPOST.forEach(function(e){e.setAttribute("opacity",1);});tDivP.textContent="one organ";cap("One sympathetic neuron reaches many targets at once.");});}},
+
+{title:"Heart and gut",
+ text:["Most organs receive fibers from both divisions, and the two usually have opposite effects. Click each situation at the top to see what each division does to the heart and the gut."],
+ ask:"What does each division do to heart rate, and what does each do to the movement and secretions of the gut?",
+ ans:["The sympathetic division speeds up the heart and makes each beat stronger, and it slows the movement of the gut and reduces its secretions. The parasympathetic division slows the heart and increases the movement of the gut, called motility, and its secretions.","The sympathetic pattern is called fight-or-flight: in a crisis, the heart and skeletal muscles get priority, and digestion can wait. The parasympathetic pattern is called rest-and-digest. Your textbook points out that these labels simplify things. Both divisions are active most of the time, and the body usually shifts the balance between them rather than switching one on and the other off."],
+ name:"fight-or-flight and rest-and-digest",
+ desc:"A heart on the left and a length of gut on the right, each with a navy vagus fiber and a maroon sympathetic fiber. At the top are two buttons: a danger sign, labeled a car swerves at you, and a plate, labeled resting after a meal. The student clicks the danger sign: the maroon fibers light up, the heart beats fast, the gut lies still with no secretions, and the labels read heart rate goes up and gut movement and secretion go down. Then the student clicks the plate: the navy fibers light up, the heart beats slowly, waves of contraction travel along the gut, drops of secretion appear, and the labels read heart rate goes down and gut movement and secretion go up.",
+ pre:function(){S(["hg"]);},
+ play:function(a){return waitOn(btnD,pDanger,a).then(function(){hgNerves(true,false);hgRH.textContent="heart rate goes up";hgRG.textContent="movement and secretion go down";return beats(hH,6,380,a);}).then(function(){return wait(400,a);}).then(function(){return waitOn(btnM,pMeal,a);}).then(function(){hgNerves(false,true);hgRH.textContent="heart rate goes down";hgRG.textContent="movement and secretion go up";drops.setAttribute("display","");return Promise.all([beats(hH,3,1000,a),peristalsis(2,18,a)]);}).then(function(){cap("Sympathetic speeds the heart; parasympathetic speeds the gut.");});}},
+
+{sec:"Transmitters and receptors",comp:"Competency 3",
+ title:"The synapse in the ganglion",
+ text:["The figure now shows four autonomic pathways, one per row: parasympathetic to the heart, and sympathetic to a blood vessel, to a sweat gland and to the adrenal medulla. Every synapse and every ending along them uses a particular transmitter and a particular receptor.","Click the sympathetic ganglion in the second row, then the parasympathetic ganglion in the first row."],
+ ask:"What transmitter do preganglionic neurons release in the ganglion, and what kind of receptor does it bind on the postganglionic neuron? Is it different in the two divisions?",
+ ans:["It is the same in both divisions. Preganglionic neurons release acetylcholine (ACh), and it binds nicotinic receptors on the postganglionic neuron. A nicotinic receptor is a ligand-gated channel. When ACh binds, the channel opens and lets Na+ in and K+ out, and because more Na+ enters than K+ leaves, the postganglionic neuron depolarizes and fires.","You met nicotinic receptors at the neuromuscular junction. The nicotinic receptors in autonomic ganglia are a different subtype, built from different subunits, so a drug can block one kind without blocking the other. Neurons that release ACh are called cholinergic neurons, and the receptors that bind it are cholinergic receptors."],
+ name:"nicotinic cholinergic receptors",
+ desc:"Four rows run from a column for the central nervous system on the left. Row 1, navy: a long parasympathetic preganglionic axon to a ganglion near the heart, then a short postganglionic axon to the heart. Row 2, maroon: a short sympathetic preganglionic axon to a ganglion near the cord, then a long postganglionic axon with beads, varicosities, ending on a blood vessel. Row 3, maroon: the same pattern ending on a coiled sweat gland. Row 4, maroon: a preganglionic axon running straight to the adrenal medulla, which sits on top of a kidney. The student clicks the sympathetic ganglion in row 2: a dot runs to it, and the label ACh on nicotinic receptors appears over the ganglia in rows 2 and 3. Then the student clicks the parasympathetic ganglion in row 1, and the same label appears there.",
+ pre:function(){S(["syn"]);},
+ play:function(a){return waitOn(g2Hit,pG2,a).then(function(){return synRun(2,a,600);}).then(function(){synAdd("gl2");synAdd("gl3");return waitOn(g1Hit,pG1,a);}).then(function(){return synRun(0,a,1000);}).then(function(){synAdd("gl1");cap("Both divisions use ACh on nicotinic receptors in the ganglion.");});}},
+
+{title:"The ending on the target",
+ text:["A postganglionic axon does not end in one terminal. Near its target it swells into a string of beads called varicosities, each filled with vesicles of transmitter. Transmitter released from a varicosity diffuses through the fluid to any nearby cells that have receptors for it, so one axon can affect many cells along its length.","Click the end of the parasympathetic neuron at the heart, then the end of the sympathetic neuron at the blood vessel."],
+ ask:"What transmitter does each postganglionic neuron release, and what family of receptor does each one act on?",
+ ans:["Most parasympathetic postganglionic neurons release ACh, which binds muscarinic receptors on the target cell. Muscarinic receptors are G protein-coupled receptors, so the response comes through second messengers and is slower than at a nicotinic channel. On the pacemaker cells of the heart's SA node, ACh binds the M2 subtype, which opens K+ channels and reduces Ca2+ entry, so the cells take longer to reach threshold and the heart rate slows.","Most sympathetic postganglionic neurons release norepinephrine, which binds adrenergic receptors, also G protein-coupled. Neurons that release norepinephrine are called adrenergic neurons. There are two main families of adrenergic receptor, alpha and beta, with subtypes in each.","The signals are ended differently, too. ACh is broken down in the synapse by the enzyme acetylcholinesterase. Norepinephrine diffuses away, or it is taken back up into the varicosity and broken down by the enzyme monoamine oxidase (MAO)."],
+ name:"muscarinic and adrenergic receptors",
+ desc:"The four pathways, with ACh on nicotinic receptors labeled at the ganglia. The student clicks the end of the parasympathetic neuron at the heart: a dot runs down the short postganglionic axon, the heart beats, and the label ACh on muscarinic receptors appears. Then the student clicks the end of the sympathetic neuron at the blood vessel: a dot runs down the long axon, small dots of transmitter puff out of the four varicosities, labeled varicosities, and the label norepinephrine on adrenergic receptors appears.",
+ pre:function(){S(["syn"]);synShow(["gl1","gl2","gl3"]);},
+ play:function(a){return waitOn(e1Hit,pE1,a).then(function(){return synRun(1,a,600);}).then(function(){synAdd("el1");return beats(hS,2,700,a);}).then(function(){return waitOn(e2Hit,pE2,a);}).then(function(){return synRun(3,a,1000);}).then(function(){tVar.setAttribute("display","");neG.setAttribute("display","");synAdd("el2");return wait(500,a);}).then(function(){cap("The heart gets ACh, and the vessel gets norepinephrine.");});}},
+
+{title:"Alpha and beta receptors",
+ text:["Norepinephrine from sympathetic neurons, and epinephrine from the adrenal medulla carried in the blood, both bind adrenergic receptors. Yet the same signal can make one smooth muscle contract and another relax. Click the arteriole, then the heart, then the bronchiole."],
+ ask:"Adrenergic signals make the smooth muscle of most arterioles contract but make the smooth muscle of the bronchioles relax. How can one kind of signal have opposite effects?",
+ ans:["Because the receptors differ, and each type is linked to a different second messenger pathway. Arteriole smooth muscle has alpha-1 receptors. They activate a G protein that raises IP3 and Ca2+ inside the cell, so the muscle contracts and the vessel narrows. Bronchiole smooth muscle has beta-2 receptors. They raise cAMP, which relaxes the muscle, so the airway widens. Beta-2 receptors also relax the smooth muscle of some blood vessels, such as those in skeletal muscle.","The heart has beta-1 receptors. They raise cAMP too, and in the heart that makes the SA node fire faster and each contraction stronger.","The receptors also differ in which molecule they respond to best. Alpha-1 receptors respond more strongly to norepinephrine, beta-2 receptors respond more strongly to epinephrine, and beta-1 receptors respond about equally to both. Bronchiole smooth muscle has few sympathetic nerve endings, so its beta-2 receptors respond mainly to epinephrine in the blood."],
+ name:"alpha and beta adrenergic receptors",
+ desc:"Three targets side by side. On the left, an arteriole in cross section with a ring of smooth muscle around its open center, and a sympathetic neuron above it. In the middle, the heart with a sympathetic neuron above it. On the right, a bronchiole in cross section with a ring of smooth muscle around a small airway, and a blood vessel above it labeled epinephrine in the blood. The student clicks each one in turn. The arteriole's center shrinks, labeled alpha-1 receptors, smooth muscle contracts and the vessel narrows, with IP3 and Ca2+ as second messengers. The heart beats faster and harder, labeled beta-1 receptors, with cAMP. The bronchiole's airway opens wider, labeled beta-2 receptors, smooth muscle relaxes and the airway widens, with cAMP.",
+ pre:function(){S(["adr"]);},
+ play:function(a){return waitOn(aHit[0],pA1,a).then(function(){return run(adD[0],[[160,150],[160,200]],400,a);}).then(function(){adrShow(0,true);return tweenVal(46,24,700,a,function(v){lumA.setAttribute("r",v);});}).then(function(){return waitOn(aHit[1],pA2,a);}).then(function(){return run(adD[1],[[450,150],[450,190]],400,a);}).then(function(){adrShow(1,true);return beats(hA,4,420,a);}).then(function(){return waitOn(aHit[2],pA3,a);}).then(function(){return run(adD[2],[[740,124],[740,200]],500,a);}).then(function(){adrShow(2,true);return tweenVal(28,48,700,a,function(v){lumB.setAttribute("r",v);});}).then(function(){cap("The receptor, not the molecule, decides the response.");});}},
+
+{title:"Two exceptions",
+ text:["Two sympathetic pathways break the pattern you just learned. Click the ending at the sweat gland, then the adrenal medulla."],
+ ask:"What transmitter reaches the sweat gland, and what does the adrenal medulla do differently from the other sympathetic pathways?",
+ ans:["Most sweat glands are controlled by sympathetic neurons, but these postganglionic neurons release ACh, not norepinephrine, and it binds muscarinic receptors on the gland. They are called sympathetic cholinergic neurons. That is why a drug that blocks muscarinic receptors reduces sweating.","The adrenal medulla, the inner part of the adrenal gland that sits on each kidney, has no postganglionic neurons. Sympathetic preganglionic neurons run straight to it and release ACh onto nicotinic receptors on its chromaffin cells. Chromaffin cells are modified postganglionic neurons with no axons. Instead of releasing transmitter onto a nearby cell, they secrete epinephrine, with some norepinephrine, into the blood, where it travels as a hormone (a neurohormone) to adrenergic receptors all over the body. That is why the adrenal medulla is described as a modified sympathetic ganglion."],
+ name:"sympathetic cholinergic neurons and the adrenal medulla",
+ desc:"The four pathways with the earlier labels in place. The student clicks the ending at the sweat gland: a dot runs to it and the label ACh on muscarinic receptors appears. Then the student clicks the adrenal medulla: a dot runs straight from the cord to it with no ganglion on the way, the label ACh on nicotinic receptors appears over it, and gold dots of epinephrine flow out of it, labeled epinephrine into the blood, as a hormone.",
+ pre:function(){S(["syn"]);synShow(["gl1","gl2","gl3","el1","el2"]);tVar.setAttribute("display","");},
+ play:function(a){return waitOn(e3Hit,pE3,a).then(function(){return synRun(5,a,900);}).then(function(){synAdd("el3");return waitOn(adHit,pAd,a);}).then(function(){return synRun(6,a,1100);}).then(function(){synAdd("el4");return epiFlow(a);}).then(function(){synAdd("tEpi");cap("Sweat glands get ACh. The adrenal medulla makes a hormone.");});}},
+
+{sec:"Dual innervation and tone",comp:"Competencies 4 and 6",
+ title:"A heart with two inputs",
+ text:["When an organ receives fibers from both divisions, it has dual innervation. Many autonomic neurons also fire all the time at a low rate, so the organ is always getting some signal. This steady signal is called autonomic tone, and turning it up or down moves the organ either way, like turning a dial.","The heart is the clearest example. Its pacemaker, the SA node, starts beats on its own, and with no nerves acting on it, it fires at roughly 90 to 110 beats per minute, about 100. A resting heart beats more slowly, about 70 beats per minute. Click the vagus nerve to cut it, then click the sympathetic nerves to cut them."],
+ ask:"Predict the heart rate after each cut. Which division is pulling harder on the resting heart?",
+ ans:["Cutting the vagus nerve, which carries the parasympathetic supply, makes the heart rate rise to the pacemaker's own rate, about 100 beats per minute. Cutting the sympathetic nerves slows the heart only a little. So at rest the parasympathetic division dominates: steady vagal tone holds the heart well below the rate it would set on its own.","The two divisions act on the SA node in opposite directions. Norepinephrine on beta-1 receptors makes the pacemaker cells depolarize faster, while ACh on muscarinic receptors hyperpolarizes them and slows their depolarization. During exercise, vagal tone falls and sympathetic firing rises, so the rate climbs well above 100.","When two divisions oppose each other like this, it is called antagonistic control. Removing one division from a dually innervated organ leaves the other unopposed, so the organ moves the way the remaining division pushes it."],
+ name:"autonomic tone",
+ desc:"A large heart with its SA node marked, the navy vagus nerve reaching it from the upper left and maroon sympathetic nerves from the lower left. At the right, a dial from 40 to 160 beats per minute with its needle at 70. The student clicks the vagus nerve: a cut appears, the needle swings up to 100, the heart beats faster, and the label reads vagus cut: about 100, the SA node's own rate. The vagus is then restored and the needle returns to 70. The student clicks the sympathetic nerves: a cut appears, the needle drops just below 70, and the label reads sympathetic cut: a little slower than 70.",
+ pre:function(){S(["dial"]);},
+ play:function(a){return waitOn(vagHit,pVag,a).then(function(){cutV.setAttribute("display","");return Promise.all([tweenVal(70,100,1200,a,function(v){needleTo(v);dRead.textContent=String(Math.round(v));}),beats(hD,3,600,a)]);}).then(function(){mVag.setAttribute("display","");dRes1.textContent="Vagus cut: about 100, the SA node's own rate";return wait(1200,a);}).then(function(){cutV.setAttribute("display","none");return tweenVal(100,70,600,a,function(v){needleTo(v);dRead.textContent=String(Math.round(v));});}).then(function(){return waitOn(symHit,pSymC,a);}).then(function(){cutY.setAttribute("display","");return tweenVal(70,66,700,a,function(v){needleTo(v);});}).then(function(){dRead.textContent="under 70";dRead.setAttribute("font-size",24);mSym.setAttribute("display","");dRes2.textContent="Sympathetic cut: a little slower than 70";cap("At rest, vagal tone holds the heart below its own rate.");});}},
+
+{title:"A vessel with one input",
+ text:["Not every organ receives both divisions. Most blood vessels receive only sympathetic neurons, and so do sweat glands. The sympathetic neurons to the arterioles fire steadily at rest, which keeps the smooth muscle in the vessel wall partly contracted. Click the plus sign to raise the firing rate, then the minus sign to lower it."],
+ ask:"With only one input, how can the nervous system both narrow and widen this arteriole?",
+ ans:["By changing the rate of that one input. More sympathetic signals release more norepinephrine onto alpha-1 receptors, the smooth muscle contracts harder, and the vessel narrows, called vasoconstriction. Fewer signals than the resting rate let the smooth muscle relax, and the vessel widens, called vasodilation. Because the resting firing sits in the middle, a single division can move the vessel either way. That steady resting signal is sympathetic tone.","This is why sympathetic tone matters so much for blood pressure. If the sympathetic signal to the vessels is lost, as after some spinal cord injuries high in the cord, the vessels widen and blood pressure can fall."],
+ name:"sympathetic tone",
+ desc:"A recording box at the top shows a steady spike train of sympathetic signals. Below it, a sympathetic neuron with varicosities runs along an arteriole drawn lengthwise, with red blood cells inside and smooth muscle in its walls. At the right are a plus button, more signals, and a minus button, fewer signals. The label under the vessel reads resting tone, partly contracted. The student clicks the plus button: the spikes crowd together, the vessel narrows, and the label reads narrower, so less blood flows. Then the student clicks the minus button: the spikes thin out below the resting rate, the vessel widens past its resting size, and the label reads wider, so more blood flows.",
+ pre:function(){S(["ves"]);},
+ play:function(a){return waitOn(bPlus,pPlus,a).then(function(){vRes1.textContent="more signals";vRes2.textContent="";return Promise.all([growTrain(vTr,vTrain(22),800,a),tweenVal(36,22,800,a,vesR)]);}).then(function(){vRes2.textContent="narrower, so less blood flows";return waitOn(bMinus,pMinus,a);}).then(function(){vRes1.textContent="fewer signals";vRes2.textContent="";return Promise.all([growTrain(vTr,vTrain(3),800,a),tweenVal(22,52,900,a,vesR)]);}).then(function(){vRes2.textContent="wider, so more blood flows";cap("One input, turned up or down, moves the vessel both ways.");});}},
+
+{title:"Heart rate with each breath",
+ text:["In lab you will measure the balance between the two divisions by recording heart rate beat by beat. Even at rest, the time between beats is not perfectly even, and part of that variation follows breathing. Click the lungs to start breathing, and watch the three recordings line up. The shaded bands mark each breath in."],
+ ask:"Heart rate rises as you breathe in and falls as you breathe out. Which division's signal to the heart changes with each breath, and why that one?",
+ ans:["The parasympathetic signal in the vagus nerve. As you breathe in, the brainstem briefly turns down vagal activity to the SA node, so the heart speeds up. As you breathe out, vagal activity returns and the heart slows. This rhythm is called respiratory sinus arrhythmia. It is normal, and it is usually largest in young, healthy people.","It is the vagus because only the vagus acts fast enough to change the rate within a single breath. ACh acting on muscarinic receptors at the SA node takes effect within about a second and wears off just as quickly, while sympathetic effects work through cAMP and build up and fade over several seconds. So a large rise and fall in heart rate with each breath shows strong vagal tone, which you will measure in lab as heart rate variability."],
+ name:"respiratory sinus arrhythmia",
+ desc:"Lungs and the diaphragm on the left. On the right, three recordings share one time axis covering three breaths, with shaded bands marking each breath in: a breathing trace, a spike train of vagus signals to the SA node, and a heart rate trace. The student clicks the lungs. The lungs swell and shrink three times while all three traces draw from left to right. During each breath in, the breathing trace rises, the vagus spikes thin out and the heart rate rises; during each breath out, the vagus spikes crowd together and the heart rate falls.",
+ pre:function(){S(["rsa"]);},
+ play:function(a){return waitOn(lungHit,pLung,a).then(function(){return tweenVal(0,1,5200,a,rsaSet);}).then(function(){rsaSet(1);cap("Breathing in turns the vagus down, so the heart speeds up.");});}},
+
+{sec:"Autonomic drugs",comp:"Competency 5",
+ title:"A beta blocker",
+ text:["Each organ uses particular receptors, so a drug that blocks one receptor affects every organ that uses it. Beta blockers block beta-adrenergic receptors. They are prescribed for high blood pressure and some heart conditions. By blocking beta-1 receptors on the heart, they slow it and weaken each beat, so the heart pumps less blood each minute and blood pressure falls.","Click propranolol, which blocks both beta-1 and beta-2 receptors, and then metoprolol, which blocks mainly beta-1 receptors."],
+ ask:"A patient with high blood pressure also has asthma. What could propranolol do to the airways, and why would metoprolol be the safer choice?",
+ ans:["Propranolol also blocks the beta-2 receptors on the smooth muscle of the airways. Those receptors normally relax the airways in response to epinephrine, so blocking them can narrow the airways and bring on wheezing or an asthma attack. Metoprolol is beta-1 selective, also called cardioselective, so at usual doses it acts mainly on the heart and largely spares the airways. The selectivity is not complete, and at high doses it can block beta-2 receptors too.","The heart effect is the one the prescriber wanted. The airway effect is a side effect, and you can predict it just from knowing which receptors are in the airways."],
+ name:"beta blockers",
+ desc:"A body outline with six numbered organs: the pupils, a salivary gland near the jaw, the airways in the lungs, the heart, the gut, and sweat glands on the arm. A table at the right lists the six organs, and three capsules sit above it: propranolol, blocks beta-1 and beta-2; metoprolol, blocks mainly beta-1; and atropine, blocks muscarinic. The student clicks propranolol: the airways narrow, the heart beats slowly, and the table reads airways narrow, wheezing in asthma, and heart slower, weaker beats, with little change elsewhere. Then the student clicks metoprolol: the airways return to normal and the table reads airways mostly spared at usual doses, with the heart still slower and weaker.",
+ pre:function(){S(["drug"]);},
+ play:function(a){return waitOn(DBTN[0],pProp,a).then(function(){drugShow("prop");return Promise.all([tweenVal(5,2,600,a,airW),beats(hDr,2,1000,a)]);}).then(function(){return wait(500,a);}).then(function(){return waitOn(DBTN[1],pMeto,a);}).then(function(){drugShow("meto");return Promise.all([tweenVal(2,5,600,a,airW),beats(hDr,2,1000,a)]);}).then(function(){cap("A nonselective beta blocker reaches the airways too.");});}},
+
+{title:"Atropine",
+ text:["Atropine blocks muscarinic receptors. That blocks the parasympathetic division at every target, and the sympathetic cholinergic neurons to the sweat glands as well. It is given to treat a dangerously slow heart rate. Click atropine."],
+ ask:"A patient with a very slow heart rate gets atropine. What happens at the pupil, the salivary glands, the heart and the gut, and which of these is the effect being treated?",
+ ans:["The heart speeds up, because the vagal tone that was slowing it is blocked at the muscarinic receptors of the SA node. That is the effect being treated, and everything else is a side effect. The pupils dilate, because the parasympathetic signal that constricts them is blocked, and near vision blurs, because the muscle that focuses the lens for close work is also under parasympathetic control. The mouth goes dry, because saliva secretion depends on parasympathetic signals. Gut movement slows, which can cause constipation. Sweating decreases, because sweat glands use muscarinic receptors too, so the skin can become hot and dry.","To keep only the heart effect, a drug would have to block only the muscarinic receptors in the heart, or reach only the heart. Drugs are often designed around this problem. For example, an inhaled muscarinic blocker is used to widen the airways in some lung diseases, because breathing it in keeps most of the drug in the lungs."],
+ name:"muscarinic antagonists",
+ desc:"The same body and table. The student clicks atropine. The pupils widen, the saliva and sweat drops disappear, the airways widen slightly, and the heart beats faster. The table reads pupil dilates, and near vision blurs; salivary glands, dry mouth; airways widen a little; heart faster; gut slower, constipation; sweat glands, less sweat, hot, dry skin.",
+ pre:function(){S(["drug"]);},
+ play:function(a){return waitOn(DBTN[2],pAtro,a).then(function(){drugShow("atro");saliva.setAttribute("display","none");sweat.setAttribute("display","none");return Promise.all([tweenVal(2.5,5.5,600,a,pupR),tweenVal(5,6.5,600,a,airW),beats(hDr,5,420,a)]);}).then(function(){cap("Atropine blocks parasympathetic effects in every organ.");});}},
+
+{sec:"Review",comp:"Competencies 1 to 5",
+ title:"Summary with the scientific terms",
+ text:["A somatic motor pathway has one neuron from the central nervous system to skeletal muscle, and it can only excite the muscle. An autonomic pathway has two neurons, preganglionic and postganglionic, with a synapse in an autonomic ganglion, and it excites or inhibits cardiac muscle, smooth muscle, glands and some fat tissue. The sympathetic division is thoracolumbar, with most ganglia in the sympathetic chain beside the cord. The parasympathetic division is craniosacral, with ganglia on or in the organs. Preganglionic neurons of both divisions release ACh onto nicotinic receptors. Parasympathetic postganglionic neurons release ACh onto muscarinic receptors, and most sympathetic postganglionic neurons release norepinephrine onto alpha or beta adrenergic receptors. The exceptions are the sweat glands, which get ACh on muscarinic receptors, and the adrenal medulla, which secretes epinephrine into the blood.","Most organs receive both divisions, usually with opposite effects, and tone lets even a single input move an organ either way. At rest, vagal tone holds the heart below the SA node's own rate. A drug acts on every organ that has the receptor it targets: beta blockers on beta receptors, and atropine on muscarinic receptors. Click the CNS to send a signal down all four pathways."],
+ ask:"Without scrolling back: a drug blocks only the nicotinic receptors in autonomic ganglia. What happens to the resting heart rate and to the width of most arterioles, and why are skeletal muscles not affected?",
+ ans:["The heart rate rises toward the SA node's own rate, because the drug blocks both divisions at their ganglia, and the parasympathetic division was the one holding the resting heart down. Most arterioles widen, because they depend on sympathetic tone alone, and losing it relaxes their smooth muscle, so blood pressure falls. Skeletal muscle keeps working, because the nicotinic receptors at the neuromuscular junction are a different subtype from those in the ganglia, and the somatic pathway has no ganglion in it at all.","If you could not get there, redraw the four pathways from the figure with the transmitter and receptor at every synapse and ending, the way your Competency Study Guide asks."],
+ desc:"The four pathways with no labels. The student clicks the column for the central nervous system. Dots run down all four rows at once: through the ganglia in rows 1 to 3 and out to the heart, the blood vessel and the sweat gland, and straight to the adrenal medulla in row 4. As they arrive, every label appears: ACh on nicotinic receptors at each ganglion and at the adrenal medulla, ACh on muscarinic receptors at the heart and sweat gland, norepinephrine on adrenergic receptors at the blood vessel, and epinephrine flowing into the blood.",
+ pre:function(){S(["syn"]);},
+ play:function(a){return waitOn(cnsHit,pCNS,a).then(function(){return Promise.all([synRun(0,a,1000),synRun(2,a,500),synRun(4,a,500),synRun(6,a,1400)]);}).then(function(){synAdd("gl1");synAdd("gl2");synAdd("gl3");synAdd("el4");return Promise.all([synRun(1,a,500),synRun(3,a,1000),synRun(5,a,1000),epiFlow(a)]);}).then(function(){synAdd("el1");synAdd("el2");synAdd("el3");synAdd("tEpi");tVar.setAttribute("display","");neG.setAttribute("display","");cap("Each synapse uses its own transmitter and receptor.");});}}
+];
+
+/* ======================= support videos ======================= */
+var V={"avs": {"u": "https://www.youtube.com/watch?v=ye28W_OygOw", "n": "Autonomic vs somatic nervous system", "s": "Khan Academy"}, "symp": {"u": "https://www.youtube.com/watch?v=FNHRSXe5do8", "n": "2-Minute Neuroscience: Sympathetic Nervous System", "s": "2-Minute Neuroscience"}, "para": {"u": "https://www.youtube.com/watch?v=ADnWvmOlBZk", "n": "2-Minute Neuroscience: Parasympathetic Nervous System", "s": "2-Minute Neuroscience"}, "heart": {"u": "https://www.youtube.com/watch?v=KiouveG278Y", "n": "Autonomic nervous system effects on the heart", "s": "Khan Academy"}};
+var PRIOR={"lRJd56BCidg": "The neuromuscular junction and contraction", "Vs0tZV35_pw": "The neuromuscular junction and contraction", "zopoN2i7ALQ": "The neuromuscular junction and contraction", "E6SuVmeqs2o": "The neuromuscular junction and contraction", "L-_MvjcH0xk": "The neuromuscular junction and contraction", "LiOfeSsjrB8": "The neuromuscular junction and contraction", "vv6WBeqw2Nc": "The neuromuscular junction and contraction", "MZJ6kTKDFmw": "The neuromuscular junction and contraction", "bYGxGdu9MsQ": "The neuromuscular junction and contraction", "SauhB2fYQkM": "The neuromuscular junction and contraction", "HHNxde6LUKc": "Twitches, summation and motor units", "0TBDV16Engw": "Twitches, summation and motor units", "ZzU3X3aywj8": "Twitches, summation and motor units", "Rmz7dw4t6M8": "Twitches, summation and motor units", "FOoSK_MzsBc": "Twitches, summation and motor units", "aIL6IIUNluQ": "Twitches, summation and motor units", "EdIDjohXpms": "Twitches, summation and motor units", "vXb0ZvkFkS8": "Twitches, summation and motor units", "xUr6tS7QSdM": "Fuel, fiber types and fatigue", "gQG19wxe68Q": "Fuel, fiber types and fatigue", "Y2HMgLEijS8": "Fuel, fiber types and fatigue", "BjUCshleMxo": "Fuel, fiber types and fatigue", "lfeXuK8pbFw": "Fuel, fiber types and fatigue", "Z_q2cm9LVH0": "Fuel, fiber types and fatigue", "dt5yRpCnEVg": "Fuel, fiber types and fatigue", "mcAQWW-kuS4": "Fuel, fiber types and fatigue", "7upHDhAmkqU": "How movement gets commanded", "OD2KPSGZ1No": "How movement gets commanded", "Ma4i6nH3qMQ": "How movement gets commanded", "aASSUcUSBro": "How movement gets commanded", "Mmev06nabvk": "How movement gets commanded", "3n8UjH9h_8I": "How movement gets commanded", "Fir-v6EoZNE": "How movement gets commanded", "kOnk9Hh20eg": "How movement gets commanded", "WKBREYS9C9g": "How movement gets commanded"};
+function seenNote(id){
+  var v=V[id];if(!v)return "";var me=STEPS[cur]?STEPS[cur].title:"";
+  for(var j=0;j<cur;j++){var l=SUP[STEPS[j].title];if(l&&l.some(function(x){return x[1]===id;}))return '<span class="seen">You have already been sent to this video, on step '+(j+1)+', '+esc(STEPS[j].title)+'. If you watched it then, skip ahead to the part you need.</span>';}
+  var m=String(v.u).match(/(?:v=|youtu\.be\/)([^&?#]+)/),k=m?m[1]:v.u;
+  if(PRIOR[k])return '<span class="seen">You have already been sent to this video in the '+esc(PRIOR[k])+' walkthrough. If you watched it then, skip ahead to the part you need.</span>';
+  return "";
+}
+var SUP={"Two ways out of the central nervous system": [["What is the difference between the somatic and autonomic nervous systems?", "avs", "Listen for which muscles each division controls, and which ones you control on purpose."]], "Counting the neurons": [["What is the difference between the somatic and autonomic nervous systems?", "avs", "Listen for the targets of each division, then compare with the one neuron and two neurons in the figure."]], "Where each division leaves": [["Where does the sympathetic division come from?", "symp", "Listen for the thoracic and lumbar cord and the chain of ganglia close to the spinal cord."], ["Where does the parasympathetic division come from?", "para", "Listen for the brainstem and sacral cord, the vagus nerve, and ganglia near or in the organs."]], "One neuron, many targets": [["How is the sympathetic division built?", "symp", "Listen for the chain ganglia, which let one signal from the cord reach many levels."]], "Heart and gut": [["What does the parasympathetic division do?", "para", "Listen for rest-and-digest, and why the textbook calls that label a simplification."], ["How do the two divisions change the heart?", "heart", "Listen for which division speeds the heart and which slows it."]], "The synapse in the ganglion": [["What transmitters does the sympathetic division use?", "symp", "Listen for acetylcholine released by preganglionic neurons in the ganglia."]], "The ending on the target": [["What transmitters does the sympathetic division use?", "symp", "Listen for norepinephrine from most postganglionic neurons."], ["What transmitter does the parasympathetic division use?", "para", "Listen for acetylcholine at both the ganglion and the target."]], "Two exceptions": [["Why is the adrenal medulla different?", "symp", "Listen for sympathetic neurons that run straight from the spinal cord to the adrenal medulla, and for postganglionic neurons that use acetylcholine."]], "A heart with two inputs": [["How do the two divisions change the heart rate?", "heart", "Listen for the SA node, and for the vagus nerve slowing it while sympathetic nerves speed it up."]], "Heart rate with each breath": [["How does the vagus nerve slow the heart?", "heart", "Listen for the parasympathetic effect on the SA node, the one that changes with each breath."]]};
+var PREP={"Two efferent pathways": {"id": "two-efferent-pathways", "h": "Two efferent pathways", "fig": "Chapter 12, the parts on autonomic pathways with two efferent neurons and on the somatic motor division", "review": false}, "Sympathetic and parasympathetic": {"id": "sympathetic-and-parasympathetic", "h": "Sympathetic and parasympathetic", "fig": "Chapter 12, the part on where the sympathetic and parasympathetic branches originate", "review": false}, "Transmitters and receptors": {"id": "transmitters-and-receptors", "h": "Transmitters and receptors", "fig": "Chapter 12, the parts on autonomic neurotransmitters, autonomic receptor subtypes and the adrenal medulla", "review": false}, "Dual innervation and tone": {"id": "dual-innervation-and-tone", "h": "Dual innervation and tone", "fig": "Chapter 12, the parts on antagonistic control and tonic control by the autonomic division", "review": false}, "Autonomic drugs": {"id": "autonomic-drugs", "h": "Autonomic drugs", "fig": "Chapter 12, the part on autonomic agonists and antagonists", "review": false}, "Review": {"id": "step-by-step-where-the-signal-travels", "h": "Step by step: where the signal travels", "fig": "Chapter 12, the parts on the autonomic division and the somatic motor division", "review": true}};
+var PREP_NOTES="biol005-w07-autonomic-walkthrough-notes.html";
+var PREP_OST="section 15.1, Divisions of the Autonomic Nervous System, section 15.2, Autonomic Reflexes and Homeostasis, and section 15.4, Drugs that Affect the Autonomic System";
+
+function figText(P){return P.fig||"";}
+function readHTML(i){
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),notes='<a class="b5-keep" href="'+PREP_NOTES+"#"+P.id+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=['<li><b>Your notes:</b> '+notes+'</li>'];
+  if(!P.review){
+    if(P.fig)li.push('<li><b>Silverthorn:</b> '+esc(figText(P))+'</li>');
+    li.push('<li><b>OpenStax:</b> '+esc(PREP_OST.charAt(0).toUpperCase()+PREP_OST.slice(1))+'</li>');
+    if(comp)li.push('<li><b>Competency Study Guide:</b> '+esc(comp)+', prompt A or B</li>');
+  }
+  return '<p class="rb-h">Stuck? Read about this part here</p><ul>'+li.join("")+'</ul>';
+}
+function prepHTML(i){
+  var s=STEPS[i];if(!(i===0||s.sec))return "";
+  var sec=sectionOf(i),P=PREP[sec];if(!P)return "";
+  var comp=compOf(i),href=PREP_NOTES+"#"+P.id;
+  var notes='<a class="b5-keep" href="'+href+'" target="_blank" rel="noopener">'+esc(P.h)+'</a>';
+  var li=[];
+  if(P.review){
+    li.push("Reread the step-by-step sequences in your notes: "+notes+". Try to say each one out loud before you look.");
+    li.push("Look back at your Competency Study Guide for this walkthrough and fill in anything you missed.");
+  }else{
+    li.push("Read this part of your notes: "+notes+".");
+    li.push("Read it in your textbook. "+(P.fig?"In Silverthorn, read "+esc(P.fig)+". ":"")+"If you are using OpenStax instead, read "+esc(PREP_OST)+".");
+    if(comp)li.push("Work on your Competency Study Guide: "+esc(comp)+". Do prompt A or prompt B for it.");
+  }
+  return '<div class="prep"><p class="prep-h">Before you start this part</p><ol>'+li.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ol><p class="prep-then">Then come back here, work through the steps, and make your predictions.</p></div>';
+}
+function supportHTML(t){
+  var list=SUP[t];if(!list)return "";
+  return '<div class="support"><p class="lab"><svg class="sarrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" focusable="false"><path d="M2 12 H30" stroke="#F2B705" stroke-width="5" stroke-linecap="round"/><path d="M24 4 L36 12 L24 20" fill="none" stroke="#F2B705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Watch this video if you need more help with this step</p><ul>'+list.map(function(x){var v=V[x[1]];
+    return '<li><a href="'+v.u+'" target="_blank" rel="noopener"><span aria-hidden="true">\ud83c\udfa5</span>'+esc(x[0])+'<span class="sr"> ('+esc(v.s||'Khan Academy')+' video, '+esc(v.n)+', opens in a new tab)</span></a><span class="look">'+esc(x[2])+'</span>'+seenNote(x[1])+'</li>';}).join("")+'</ul></div>';
+}
+
+/* ======================= worksheet ======================= */
+var KEY="bio005-w07-autonomic-guided-v1";
+var store={};try{store=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){store={};}
+var st=store.state||{step:0,revealed:{}};
+function persist(){try{store.state=st;localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var predIdx=[];STEPS.forEach(function(s,i){if(s.ask)predIdx.push(i);});
+function pnum(i){return predIdx.indexOf(i)+1;}
+function entryHTML(i,withResult,prefix){
+  var s=STEPS[i],n=pnum(i),id=prefix+i;
+  var h='<div class="entry"><span class="num">Prediction '+n+' of '+predIdx.length+': '+esc(s.title)+'</span><p class="q">'+esc(s.ask)+'</p>'+
+  '<div class="field"><label for="'+id+'p">What do you predict?</label><textarea id="'+id+'p" data-k="p'+i+'"></textarea><div class="pcopy"></div></div>';
+  if(withResult){h+='<div class="field"><label for="'+id+'r">What actually happened? Were you right, and if not, what would you change?</label><textarea id="'+id+'r" data-k="r'+i+'"></textarea><div class="pcopy"></div></div>';}
+  return h+'</div>';
+}
+function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function wire(root){
+  root.querySelectorAll("textarea[data-k]").forEach(function(ta){
+    var k=ta.getAttribute("data-k");ta.value=store[k]||"";mirror(ta);
+    ta.addEventListener("input",function(){store[k]=ta.value;mirror(ta);syncTwins(ta);gateShow();clearTimeout(wire.t);wire.t=setTimeout(function(){persist();note("Saved in this browser.");},400);});
+  });
+}
+function mirror(ta){var c=ta.nextElementSibling;if(c&&c.classList.contains("pcopy"))c.textContent=ta.value;}
+function syncTwins(ta){var k=ta.getAttribute("data-k");document.querySelectorAll('textarea[data-k="'+k+'"]').forEach(function(o){if(o!==ta){o.value=ta.value;mirror(o);}});}
+function note(t){document.getElementById("savedNote").textContent=t;}
+var nameIn=document.getElementById("stuName");
+nameIn.value=store.name||"";document.getElementById("stuNameCopy").textContent=nameIn.value;
+nameIn.addEventListener("input",function(){store.name=nameIn.value;document.getElementById("stuNameCopy").textContent=nameIn.value;persist();});
+function renderCurrent(){
+  var i=cur,box=document.getElementById("currentEntry"),cnt=document.getElementById("wsCount");
+  var done=predIdx.filter(function(j){return (store["p"+j]||"").trim();}).length;
+  cnt.textContent=done+" of "+predIdx.length+" predictions written";
+  if(STEPS[i].ask){box.innerHTML=entryHTML(i,!!st.revealed[i],"cur");wire(box);}
+  else{box.innerHTML='<p class="ws-empty">No prediction on this step. Watch, read, and click Next.</p>';}
+}
+function renderAll(){var box=document.getElementById("allAnswers");box.innerHTML=predIdx.map(function(i){return entryHTML(i,true,"all");}).join("");wire(box);}
+document.getElementById("allToggle").addEventListener("click",function(){
+  var box=document.getElementById("allAnswers"),open=box.hidden;
+  if(open)renderAll();box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Hide all my answers":"See all my answers";
+});
+document.getElementById("pdfBtn").addEventListener("click",function(){
+  renderAll();document.getElementById("printDate").textContent="Name: "+(nameIn.value||"")+"    Date: "+new Date().toLocaleDateString();
+  note("In the print window, choose Save as PDF, then upload the PDF to the Canvas assignment.");
+  setTimeout(function(){window.print();},50);
+});
+window.addEventListener("afterprint",function(){var t=document.getElementById("allToggle");if(t.getAttribute("aria-expanded")!=="true")document.getElementById("allAnswers").hidden=true;});
+window.addEventListener("beforeprint",function(){renderAll();document.getElementById("allAnswers").hidden=false;});
+var wsT=document.getElementById("wsToggle");
+wsT.addEventListener("click",function(){var ws=document.getElementById("ws"),c=ws.classList.toggle("collapsed");wsT.setAttribute("aria-expanded",String(!c));});
+
+/* ======================= player ======================= */
+var cur=0;
+/* Sep 27 2026, Scrubs: an instructor preview. Add ?preview=1 to the address
+   to look through every step with nothing locked: no typing needed before
+   Show me, Next always on, and the topic menu open from the start. */
+var PREVIEW=/[?&]preview=1\b/.test(location.search);
+var narr=document.getElementById("narr"),playBtn=document.getElementById("playBtn"),replayBtn=document.getElementById("replayBtn"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn");
+function sectionOf(i){for(var j=i;j>=0;j--){if(STEPS[j].sec)return STEPS[j].sec;}return "";}
+function compOf(i){for(var j=i;j>=0;j--){if(STEPS[j].comp)return STEPS[j].comp;}return "";}
+function paras(a){return a.map(function(t){return "<p>"+esc(t)+"</p>";}).join("");}
+function renderNarr(i,revealed){
+  var s=STEPS[i],h='<p class="sec">'+esc(sectionOf(i))+(compOf(i)?", "+esc(compOf(i)):"")+'</p><h2 id="stepTitle" tabindex="-1">'+esc(s.title)+'</h2>'+prepHTML(i)+paras(s.text);
+  if(s.ask){h+='<div class="ask"><p class="lab">Predict</p><p>'+esc(s.ask)+'</p><p class="hint">'+(st.finished?'Type your prediction in the worksheet on the right, then click Show me.':'Type your prediction in the worksheet on the right. Show me unlocks once you have written it, and Next unlocks after you see what happens.')+'</p></div>';}
+  if(revealed&&s.ans){h+='<div class="answer"><p class="lab">What happened</p>'+paras(s.ans)+(s.name?'<p>The science name: <span class="name">'+esc(s.name)+'</span></p>':'')+'</div>';}
+  else if(s.name&&(s.auto||revealed)&&!s.ans){h+='<p>The science name: <span class="name">'+esc(s.name)+'</span></p>';}
+  h+=supportHTML(s.title);
+  narr.innerHTML='<div class="fadein">'+h+'</div>';var rb=document.getElementById("readBox");if(rb)rb.innerHTML=readHTML(i);
+}
+function setScene(i,revealed){
+  runId++;var s=STEPS[i];
+  if(revealed){if(s.post)s.post();else{s.pre();s.play(false);}}else{s.pre();}
+}
+function goTo(i,focus){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));st.step=cur;persist();
+  var s=STEPS[cur],rev=!!st.revealed[cur];
+  document.getElementById("stepCount").textContent="Step "+(cur+1)+" of "+STEPS.length;
+  document.getElementById("barFill").style.width=((cur+1)/STEPS.length*100)+"%";
+  backBtn.disabled=cur===0;nextBtn.disabled=cur===STEPS.length-1||(!st.finished&&!PREVIEW&&!!s.ask&&!rev);
+  setScene(cur,rev&&!s.auto);
+  renderNarr(cur,rev&&!s.auto);
+  document.getElementById("sceneDesc").textContent=s.desc||"";
+  playBtn.hidden=!!s.auto||rev;
+  replayBtn.hidden=!(rev||s.auto);document.getElementById("watchBtn").hidden=replayBtn.hidden;
+  playBtn.textContent="Show me";playBtn.disabled=false;replayBtn.disabled=false;
+  busy=false;renderCurrent();gateShow();
+  if(focus){var h=document.getElementById("stepTitle");if(h)h.focus();}
+  if(s.auto){runPlay(true);}
+}
+function runPlay(auto){
+  var i=cur,s=STEPS[i];
+  runId++;s.pre();
+  var my=runId;busy=true;playBtn.disabled=true;replayBtn.disabled=true;
+  s.play(true).then(function(){
+    if(my!==runId)return;
+    busy=false;playBtn.disabled=false;replayBtn.disabled=false;
+    if(!auto){st.revealed[i]=true;if(i===STEPS.length-1){st.finished=true;unlockJump(true);}persist();renderNarr(i,true);playBtn.hidden=true;replayBtn.hidden=false;document.getElementById("watchBtn").hidden=false;renderCurrent();nextBtn.disabled=cur===STEPS.length-1;
+      var a=narr.querySelector(".answer");if(a){a.setAttribute("tabindex","-1");a.focus();}
+    }
+  });
+}
+/* Sep 27 2026: Show me stays locked until a prediction is typed (at least 3 words) */
+var busy=false;
+function predWords(i){return ((store["p"+i]||"").trim().match(/\S+/g)||[]).length;}
+function gateShow(){
+  var s=STEPS[cur],gn=document.getElementById("gateNote");
+  if(!s||!s.ask||s.auto||st.revealed[cur]||st.finished||PREVIEW){gn.textContent="";return;}
+  var ok=predWords(cur)>=3;if(!busy&&!playBtn.hidden)playBtn.disabled=!ok;
+  gn.textContent=ok?"":"Type your prediction in the worksheet on the right, at least a few words, to unlock Show me.";
+}
+playBtn.addEventListener("click",function(){if(playBtn.disabled)return;runPlay(false);});
+document.getElementById("watchBtn").addEventListener("click",function(){replayBtn.click();});
+replayBtn.addEventListener("click",function(){var s=STEPS[cur];if(s.auto){runPlay(true);}else{runId++;s.pre();var my=runId;replayBtn.disabled=true;s.play(true).then(function(){if(my===runId)replayBtn.disabled=false;});}});
+backBtn.addEventListener("click",function(){goTo(cur-1,true);});
+nextBtn.addEventListener("click",function(){goTo(cur+1,true);});
+
+/* jump menu */
+var jl=document.getElementById("jumpList"),jb=document.getElementById("jumpBtn"),jm=document.getElementById("jumpMenu");
+STEPS.forEach(function(s,i){if(!s.sec)return;var li=document.createElement("li"),b=document.createElement("button");b.type="button";
+  b.innerHTML=esc(s.sec)+'<span class="cn">'+esc(s.comp||"")+', starts at step '+(i+1)+' and continues in order</span>';
+  b.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(i,true);});li.appendChild(b);jl.appendChild(li);});
+var li0=document.createElement("li"),b0=document.createElement("button");b0.type="button";b0.innerHTML='Start over from the beginning<span class="cn">Step 1, two ways out of the central nervous system</span>';
+b0.addEventListener("click",function(){jm.hidden=true;jb.setAttribute("aria-expanded","false");goTo(0,true);});li0.appendChild(b0);jl.insertBefore(li0,jl.firstChild);
+function unlockJump(announce){jb.disabled=false;jb.textContent="Jump to a topic";if(announce)note("You finished the walk-through. You can now jump back to any topic from the menu at the top.");}
+window.__unlock=unlockJump;
+if(st.finished||PREVIEW)unlockJump(false);
+if(PREVIEW)note("Preview mode: nothing is locked. Remove ?preview=1 from the address to see what students see.");
+jb.addEventListener("click",function(){var o=jm.hidden;jm.hidden=!o;jb.setAttribute("aria-expanded",String(o));if(o){var f=jm.querySelector("button");if(f)f.focus();}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!jm.hidden){jm.hidden=true;jb.setAttribute("aria-expanded","false");jb.focus();}});
+document.addEventListener("click",function(e){if(!jm.hidden&&!jm.contains(e.target)&&e.target!==jb){jm.hidden=true;jb.setAttribute("aria-expanded","false");}});
+
+goTo(st.step||0,false);
+})();
+</script>
+<script>
+(function(){
+  var FRAME_ID="biol005-w07-autonomic-guided";
+  function sendHeight(){var h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);try{window.parent.postMessage({id:FRAME_ID,height:h},"*");}catch(e){}}
+  window.addEventListener("load",sendHeight);window.addEventListener("resize",sendHeight);
+  if("ResizeObserver" in window){new ResizeObserver(sendHeight).observe(document.body);}
+})();
+</script>
+<!-- A way back to the Week page, or to Canvas, on every page. -->
+<script src="bio005-back.js"></script>
+
+<div class="zoomov" id="zoomOv" role="dialog" aria-modal="true" aria-label="Enlarged figure" hidden>
+  <div class="zoombar"><span class="zoomtip">The figure still works here: click the things it asks you to.</span>
+  <button type="button" class="zoomclose" id="zoomClose">Close</button></div>
+  <div class="zoomstage" id="zoomStage"></div>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById("zoomBtn"),ov=document.getElementById("zoomOv"),stage=document.getElementById("zoomStage"),
+      close=document.getElementById("zoomClose"),svg=document.getElementById("scene");
+  if(!btn||!ov||!svg)return;
+  var home=svg.parentNode,next=svg.nextSibling;
+  function open(){stage.appendChild(svg);ov.hidden=false;document.body.style.overflow="hidden";close.focus();}
+  function shut(){home.insertBefore(svg,next);ov.hidden=true;document.body.style.overflow="";btn.focus();}
+  btn.addEventListener("click",open);close.addEventListener("click",shut);
+  ov.addEventListener("click",function(e){if(e.target===ov)shut();});
+  document.addEventListener("keydown",function(e){if(!ov.hidden&&e.key==="Escape"){e.preventDefault();shut();}});
+  /* moving to another step brings the figure home first */
+  ["backBtn","nextBtn"].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener("click",function(){if(!ov.hidden)shut();},true);});
+}());
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How movement gets commanded, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 7 · Written notes</p>
+  <h1>How movement gets commanded</h1>
+  <p>The written notes for the how movement gets commanded walkthrough. Week 7 competencies 17 to 20.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week6-Walkthrough-Notes-motor-control.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>. Already printed the Week 7 notes? You do not need to print these again.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Work through <a href="biol005-w06-motor-control-guided.html" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>
+<section id="step-by-step-from-command-to-contraction">
+<h2>Step by step: from command to contraction</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 14, the parts on the integration of muscle movement in the CNS and on voluntary movements.</p>
+<h3>Reaching for a glass: the stages of a voluntary movement</h3>
+<ol>
+  <li>Decide: the association areas of the cortex decide to reach for the glass.</li>
+  <li>Plan: the association areas work out the plan together with the basal ganglia and the cerebellum. The basal ganglia and the cerebellum send their output back to the cortex by way of the thalamus.</li>
+  <li>Start: the primary motor cortex, the precentral gyrus of the frontal lobe, starts the movement.</li>
+  <li>Carry out: the command travels down the corticospinal tract, and the brainstem pathways adjust posture, all ending on lower motor neurons in the spinal cord. The lower motor neurons fire and the arm and hand muscles contract.</li>
+  <li>Adjust: muscle spindles, tendon organs and joint receptors send feedback up to the cerebellum and the cortex. The cerebellum compares the movement with the intended one and sends corrections to the motor cortex (through the thalamus) and to the brainstem while the movement is still going on.</li>
+</ol>
+<h3>The corticospinal pathway, neuron by neuron</h3>
+<ol>
+  <li>Upper motor neuron: its cell body is a pyramidal cell in the primary motor cortex, the precentral gyrus, just in front of the central sulcus.</li>
+  <li>Its axon runs down through the internal capsule, a narrow band of white matter between the thalamus and the basal ganglia.</li>
+  <li>It continues down through the brainstem: the midbrain, the pons and the medulla.</li>
+  <li>At the bottom of the medulla, in the pyramids, about 85 to 90 percent of the axons cross the midline: the pyramidal decussation.</li>
+  <li>The crossed axons descend on the opposite side of the cord in the lateral corticospinal tract. The few that do not cross descend in the anterior corticospinal tract.</li>
+  <li>Synapse: in the ventral horn, on a lower motor neuron, directly or through an interneuron.</li>
+  <li>Lower motor neuron: its cell body is in the ventral horn. Its axon leaves through the ventral root, runs in the spinal nerve, and releases acetylcholine at the neuromuscular junction. The muscle contracts.</li>
+</ol>
+<h3>The cerebellum correcting a reach</h3>
+<ol>
+  <li>As the reach starts, the left motor cortex sends a copy of its command down to the pons, which passes it across to the right half of the cerebellum.</li>
+  <li>The moving right arm sends feedback from its muscle spindles, tendon organs and joints up the cord to the right half of the cerebellum. The inner ear adds information about balance.</li>
+  <li>The cerebellum compares the intended movement with the actual one.</li>
+  <li>When they do not match, it sends a correction to the left motor cortex, by way of the thalamus, and to the brainstem.</li>
+  <li>The command is adjusted while the hand is still moving, so it slows and stops on the glass.</li>
+</ol>
+<h3>The basal ganglia loop</h3>
+<ol>
+  <li>The cortex sends its possible movements to the basal ganglia.</li>
+  <li>The basal ganglia, supplied with dopamine by the substantia nigra in the midbrain, release the brake on the chosen movement and keep holding back the others. They work mostly by inhibition.</li>
+  <li>Their output goes to the thalamus, and the thalamus passes it back up to the motor cortex.</li>
+  <li>The motor cortex sends the chosen movement down the corticospinal tract.</li>
+</ol>
+</section>
+<section id="levels-of-motor-control">
+<h2>Levels of motor control</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 14, the part on the integration of muscle movement in the CNS.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Level</th><th scope="col">What it contributes to a voluntary movement</th></tr></thead><tbody>
+<tr><th scope="row">Spinal cord (lowest)</th><td>Runs spinal reflexes on its own, and holds the lower motor neurons that every command must pass through. Holds networks for rhythmic movements such as stepping (central pattern generators).</td></tr>
+<tr><th scope="row">Brainstem (middle)</th><td>Keeps posture and balance through postural reflexes, with information from the inner ear, the eyes and the body. Its own pathways run down to the lower motor neurons.</td></tr>
+<tr><th scope="row">Cerebral cortex (top)</th><td>Decides on, plans and starts voluntary movements. The primary motor cortex sends the command down the corticospinal tract.</td></tr>
+<tr><th scope="row">Cerebellum (beside)</th><td>Compares the intended movement with feedback and corrects it. Coordinates timing and force, and learns skills. Does not send commands down to the muscles.</td></tr>
+<tr><th scope="row">Basal ganglia (beside)</th><td>Select and start the wanted movement and hold back unwanted ones, in a loop back to the cortex through the thalamus. No pathway of their own to the spinal cord.</td></tr>
+</tbody></table></div>
+<ul>
+  <li>A reflex can run in the spinal cord alone. A voluntary movement uses all three levels, with the cerebellum and the basal ganglia shaping it.</li>
+  <li>Only the motor cortex and the brainstem send commands down the cord, and both end on the lower motor neurons.</li>
+  <li>Cutting the cord in the neck, above the segments for the arm, takes away voluntary movement and the brainstem's control of posture below the cut. Once the period of spinal shock right after the injury passes, spinal reflexes below the cut, such as withdrawal from a pinprick, still work and are often brisker than normal.</li>
+</ul>
+<dl>
+  <dt>Spinal shock</dt><dd>The loss of reflexes below a spinal cord injury for days to weeks right after it happens.</dd>
+  <dt>Central pattern generator</dt><dd>A network of neurons in the spinal cord that produces a rhythmic movement, such as the stepping of walking. The brain starts, stops and adjusts it.</dd>
+</dl>
+</section>
+<section id="the-corticospinal-pathway">
+<h2>The corticospinal pathway</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 14, the part on voluntary movements, and Chapter 10, the part on the motor cortex.</p>
+<ul>
+  <li>The primary motor cortex is a map of the body, like the touch map just behind it, with large areas for the hands and the face.</li>
+  <li>Two neurons carry the command: the upper motor neuron, from the cortex to the cord, and the lower motor neuron, from the ventral horn to the muscle.</li>
+  <li>The axons are packed tightly in the internal capsule, so a small stroke there can weaken the whole opposite side of the body.</li>
+  <li>Because of the pyramids, the corticospinal tract is also called the pyramidal tract.</li>
+  <li>The lower motor neuron is the final common path: every signal that makes a skeletal muscle contract, from a reflex, the brainstem or the cortex, passes through it. It adds up its excitatory and inhibitory inputs and fires only if the sum reaches threshold. If it is lost, the muscle cannot contract for any reason.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Where the damage is</th><th scope="col">Side of the body that is weak</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Left motor cortex (stroke)</th><td>Right</td><td>Above the crossing: these fibers would have crossed to the right</td></tr>
+<tr><th scope="row">Left medulla, just above the place where the pyramids cross</th><td>Right</td><td>Still above the crossing</td></tr>
+<tr><th scope="row">Left half of the spinal cord</th><td>Left</td><td>Below the crossing: these fibers came from the right cortex and already crossed</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Damage above the crossing weakens the opposite side of the body; damage below it weakens the same side.</li>
+  <li>Weakness of one side of the body is hemiparesis; complete paralysis of one side is hemiplegia.</li>
+  <li>A cortex stroke and a low medulla lesion both weaken the opposite side. The face helps tell them apart: a cortex stroke often weakens the face too, while low medulla damage usually spares it, because the fibers to the face muscles leave the pathway higher in the brainstem.</li>
+  <li>Half the cord cut gives the Brown-Séquard pattern from Week 5: weakness and loss of touch and position sense on the same side, loss of pain and temperature on the other side.</li>
+</ul>
+</section>
+<section id="cerebellum-and-basal-ganglia">
+<h2>Cerebellum and basal ganglia</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 14, the part on voluntary movements, and Chapter 10, the parts on the cerebellum and the basal ganglia.</p>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Cerebellum</th><th scope="col">Basal ganglia</th></tr></thead><tbody>
+<tr><th scope="row">Where</th><td>Back of the brain, below the cerebrum, behind the brainstem</td><td>Clusters of gray matter deep in each half of the brain, beside the thalamus; the substantia nigra is in the midbrain</td></tr>
+<tr><th scope="row">Job</th><td>Compares the intended movement with feedback and corrects it; timing, coordination, balance, learning skills; each half works with the same side of the body</td><td>Select and start the wanted movement and hold back unwanted ones</td></tr>
+<tr><th scope="row">Input</th><td>A copy of the command from the cortex, through the pons; feedback from muscles, tendons and joints; balance from the inner ear</td><td>Plans from the cortex; dopamine from the substantia nigra</td></tr>
+<tr><th scope="row">Output</th><td>Back to the motor cortex through the thalamus, and to the brainstem</td><td>Back to the motor cortex through the thalamus</td></tr>
+<tr><th scope="row">Tremor when damaged</th><td>Intention tremor: during a movement toward a target, worst near the end; gone at rest</td><td>Resting tremor (Parkinson disease): at rest, eases when the hand moves</td></tr>
+<tr><th scope="row">Other signs</th><td>Overshoot (dysmetria); clumsy, unsteady movements and walking (ataxia)</td><td>Slow to start; slow, small movements (bradykinesia); stiffness (rigidity); shuffling steps, little facial expression</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Intention tremor</dt><dd>A tremor that appears during a movement toward a target and grows near the end. Points to the cerebellum.</dd>
+  <dt>Dysmetria</dt><dd>Misjudging the distance of a movement, so the hand overshoots or falls short.</dd>
+  <dt>Ataxia</dt><dd>Clumsy, poorly coordinated movement, including an unsteady walk.</dd>
+  <dt>Resting tremor</dt><dd>A tremor at rest that eases with movement. Points to the basal ganglia, as in Parkinson disease.</dd>
+  <dt>Bradykinesia</dt><dd>Slowness of movement.</dd>
+  <dt>Rigidity</dt><dd>Stiffness felt when someone else moves the limb.</dd>
+</dl>
+<ul>
+  <li>Basal ganglia that let too little through: movements hard to start, slow and small (Parkinson disease). Too much: unwanted movements break out (Huntington disease, with jerky, dance-like movements).</li>
+  <li>Parkinson disease: the dopamine neurons of the substantia nigra die. Treatment is L-dopa, a precursor that crosses the blood-brain barrier and is made into dopamine in the brain; dopamine itself cannot cross.</li>
+  <li>Alcohol affects the cerebellum early, which is why roadside tests ask for walking heel to toe or touching the nose. Years of heavy drinking can permanently damage the cerebellum and leave an unsteady walk.</li>
+  <li>When a tremor appears tells you the structure: during movement for the cerebellum, at rest for the basal ganglia.</li>
+</ul>
+</section>
+<section id="upper-and-lower-motor-neuron-signs">
+<h2>Upper and lower motor neuron signs</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 14, the part on voluntary movements.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Finding</th><th scope="col">Upper motor neuron damage</th><th scope="col">Lower motor neuron damage</th></tr></thead><tbody>
+<tr><th scope="row">Strength</th><td>Weak</td><td>Weak</td></tr>
+<tr><th scope="row">Tone</th><td>High: stiff, resists fast stretch (spasticity)</td><td>Low: floppy (flaccid)</td></tr>
+<tr><th scope="row">Tendon reflexes</th><td>Brisk, often with clonus</td><td>Weak or absent</td></tr>
+<tr><th scope="row">Muscle bulk</th><td>Little wasting at first; slow loss from disuse</td><td>Marked wasting (atrophy)</td></tr>
+<tr><th scope="row">Twitches at rest</th><td>None</td><td>Fasciculations</td></tr>
+<tr><th scope="row">Sole stroke</th><td>Big toe goes up (Babinski sign)</td><td>No Babinski sign</td></tr>
+<tr><th scope="row">Examples</th><td>Stroke, spinal cord injury above that level</td><td>Polio, a crushed peripheral nerve</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Weakness alone does not locate the damage. Reflexes are a good first check, because they go in opposite directions.</li>
+  <li>Upper motor neuron damage: the reflex arc is intact but the brain's pathways that hold it back are gone, so reflexes are brisk. Right after a stroke or cord injury the limb can be floppy with weak reflexes for a while; stiffness and brisk reflexes develop over days to weeks.</li>
+  <li>Lower motor neuron damage: the last step of the reflex arc is broken, so the reflex weakens or disappears, and the muscle loses its nerve supply and wastes.</li>
+  <li>Polio destroys ventral horn motor neurons: weak, floppy, wasted muscles with sensation spared. A single injured nerve gives the same signs only in the muscles it supplies.</li>
+  <li>ALS (amyotrophic lateral sclerosis): upper and lower motor neurons die, sensation is spared. Wasting and fasciculations appear together with brisk reflexes and sometimes a Babinski sign, in more than one part of the body. Speech, swallowing and breathing muscles weaken; breathing failure is the most common cause of death.</li>
+</ul>
+<h3>Putting it together: a patient with right-sided weakness</h3>
+<ol>
+  <li>Brisk reflexes and a Babinski sign on the right: upper motor neuron damage.</li>
+  <li>Weakness on the right: if the damage is above the crossing, it is on the left side.</li>
+  <li>The right side of the face droops too: the damage is in the brain, not the cord, because the fibers to the face never go down into the cord.</li>
+  <li>Answer: an upper motor neuron lesion in the left side of the brain, such as a stroke in the left motor cortex or internal capsule.</li>
+</ol>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>

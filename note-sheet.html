@@ -458,6 +458,7 @@ a{color:var(--maroon-dark);font-weight:700}
   <p>Dr. Sharilyn Rennie</p>
 </div></div>
 
+<script src="bio005-week-label.js"></script>
 <script src="assets/bio005-sheet-data.js"></script>
 <script src="assets/bio005-prompts.js"></script>
 <script>
@@ -533,7 +534,7 @@ a{color:var(--maroon-dark);font-weight:700}
   for (var i = 1; i <= 15; i++){
     var o = document.createElement("option");
     o.value = i;
-    o.textContent = "Week " + i + ", " + (SITE_TITLES[i] || "");
+    o.textContent = "Week " + (window.BIO005_WL?BIO005_WL(i):i) + ", " + (SITE_TITLES[i] || "");
     sel.appendChild(o);
   }
   sel.value = week;
@@ -604,7 +605,7 @@ a{color:var(--maroon-dark);font-weight:700}
        PDF gets exactly one h1. */
     /* Sep 25 2026: the blank guide is not tied to a week, so its runner says so. */
     var rtxt = BLANK ? 'BIO 005 &middot; Competency Study Guide &middot; Week ______'
-                     : 'BIO 005 &middot; Week ' + wk + ' &middot; Competency Study Guide';
+                     : 'BIO 005 &middot; Week ' + (window.BIO005_WL?BIO005_WL(wk):wk) + ' &middot; Competency Study Guide';
     var runner = first
       ? '<p class="runner" role="presentation">' + rtxt + '</p>'
       : '<span class="runner">' + rtxt + '</span>';
@@ -632,7 +633,7 @@ a{color:var(--maroon-dark);font-weight:700}
 
   if (!w || !w.items || !w.items.length){
     host.innerHTML = '<div class="sheetpage"><p class="can">The competency list for Week ' +
-                     week + ' is not loaded. Open the week page in Canvas.</p></div>';
+                     (window.BIO005_WL?BIO005_WL(week):week) + ' is not loaded. Open the week page in Canvas.</p></div>';
   } else {
     var out = [];
     for (var k = 0; k < w.items.length; k += per){
@@ -671,17 +672,17 @@ a{color:var(--maroon-dark);font-weight:700}
   }
 
   document.getElementById("eyebrow").innerHTML =
-    "BIO 005 &middot; Week " + week + " &middot; " + esc(title);
+    "BIO 005 &middot; Week " + (window.BIO005_WL?BIO005_WL(week):week) + " &middot; " + esc(title);
   document.getElementById("h1").textContent = BLANK
     ? "Blank Competency Study Guide."
-    : "Your Week " + week + " Competency Study Guide, already built.";
+    : "Your Week " + (window.BIO005_WL?BIO005_WL(week):week) + " Competency Study Guide, already built.";
 
   var nItems = w && w.items ? w.items.length : 0;
   document.getElementById("cnt").textContent = nItems
     ? nItems + (nItems === 1 ? " competency" : " competencies") + ", " +
       pages + (pages === 1 ? " sheet of paper" : " sheets of paper")
     : "";
-  document.title = "BIO 005 Week " + week + " Competency Study Guide";
+  document.title = "BIO 005 Week " + (window.BIO005_WL?BIO005_WL(week):week) + " Competency Study Guide";
 
   document.getElementById("compbtn").href =
     "week-" + String(week).padStart(2,"0") + "-competencies.html";

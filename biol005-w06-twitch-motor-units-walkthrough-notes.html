@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Twitches, summation and motor units, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 7 · Written notes</p>
+  <h1>Twitches, summation and motor units</h1>
+  <p>The written notes for the twitches, summation and motor units walkthrough. Week 7 competencies 6 to 10, with part of 16.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week6-Walkthrough-Notes-twitch-motor-units.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>. Already printed the Week 7 notes? You do not need to print these again.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Work through <a href="biol005-w06-twitch-motor-units-guided.html" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>
+<section id="step-by-step-from-one-shock-to-a-full-contraction">
+<h2>Step by step: from one shock to a full contraction</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 13, the parts on the muscle twitch, summation and tetanus, and motor units.</p>
+<h3>One twitch, step by step</h3>
+<ol>
+  <li>A single stimulus, from the motor neuron or from a stimulator, fires one action potential in the muscle fiber. It lasts only a few milliseconds.</li>
+  <li>Latent period: the action potential spreads down the T tubules, the Ca2+ release channels of the sarcoplasmic reticulum open, Ca2+ binds troponin, tropomyosin moves aside, and crossbridges begin to form. Tension has not risen yet.</li>
+  <li>Contraction phase: Ca2+ is high, more and more crossbridges cycle, and tension rises to a peak.</li>
+  <li>The Ca2+ pump in the sarcoplasmic reticulum membrane, SERCA, uses ATP to pull Ca2+ back out of the cytosol. Ca2+ starts to fall before tension peaks.</li>
+  <li>Relaxation phase: as Ca2+ leaves troponin, tropomyosin covers the binding sites again, crossbridges let go, and tension falls back to zero. This is the longest phase.</li>
+</ol>
+<h3>Summation and tetanus, step by step</h3>
+<ol>
+  <li>A second action potential arrives before the fiber has fully relaxed.</li>
+  <li>Some Ca2+ from the first one is still in the cytosol, because SERCA has not finished pumping it back.</li>
+  <li>The second release adds to what is left over, so Ca2+ rises higher than after one action potential.</li>
+  <li>More troponin has Ca2+ bound, more crossbridges pull at once, and tension climbs above a single twitch: summation.</li>
+  <li>At a higher frequency, the pumps fall further behind. Tension climbs and dips with each stimulus: unfused tetanus.</li>
+  <li>At the highest frequency, Ca2+ stays high between stimuli and tension reaches a smooth plateau: fused tetanus, the strongest contraction the fiber can make.</li>
+  <li>The action potentials themselves never add together. They are all-or-none and have a refractory period.</li>
+</ol>
+<h3>Recruiting motor units, step by step</h3>
+<ol>
+  <li>The brain or a reflex sends excitatory input to the pool of motor neurons for one muscle in the ventral horn of the spinal cord.</li>
+  <li>The smallest motor neurons reach threshold first, because they need the least synaptic input. They fire their small motor units of slow oxidative fibers. The force is small and finely controlled.</li>
+  <li>As the input grows, medium motor neurons reach threshold and add their fast oxidative-glycolytic fibers.</li>
+  <li>With still more input, the largest motor neurons fire and add their many fast glycolytic fibers. The force jumps.</li>
+  <li>Motor neurons that are already active also fire faster, so their twitches summate toward tetanus.</li>
+  <li>In a long steady contraction, the nervous system takes turns among motor units so some rest while others work.</li>
+</ol>
+<h3>Lifting a load, step by step</h3>
+<ol>
+  <li>The muscle is stimulated and tension starts to rise. At first the muscle does not change length.</li>
+  <li>If the load is smaller than the most tension the muscle can make, tension rises until it equals the load.</li>
+  <li>Then the muscle shortens and moves the load, with tension steady at the level of the load: a concentric isotonic contraction.</li>
+  <li>If the load is more than the muscle can make, tension rises to its maximum and the muscle stays the same length: an isometric contraction.</li>
+  <li>If the load is a little more than the tension the muscle is making, the active muscle is stretched while it keeps pulling: an eccentric contraction.</li>
+</ol>
+</section>
+<section id="the-muscle-twitch">
+<h2>The muscle twitch</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 13, the part on the muscle twitch.</p>
+<p>A twitch is a single contraction and relaxation cycle of a muscle fiber, produced by a single action potential. A twitch tracing plots tension against time, with the stimulus marked on the time axis.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Phase</th><th scope="col">What is happening</th><th scope="col">What limits how long it lasts</th></tr></thead><tbody>
+<tr><th scope="row">Latent period</th><td>Tension is flat. The action potential spreads into the T tubules, Ca2+ is released from the sarcoplasmic reticulum, binds troponin, and tropomyosin moves aside</td><td>Excitation-contraction coupling, the time it takes to get Ca2+ onto troponin and crossbridges cycling</td></tr>
+<tr><th scope="row">Contraction phase</th><td>Tension rises to a peak as more crossbridges cycle</td><td>How long Ca2+ stays high, and how fast the crossbridges cycle</td></tr>
+<tr><th scope="row">Relaxation phase</th><td>Tension falls back to zero</td><td>How fast SERCA pumps Ca2+ back into the sarcoplasmic reticulum. It is the longest phase</td></tr>
+</tbody></table></div>
+<ul>
+  <li>The muscle action potential lasts only a few milliseconds and is finished before tension even starts to rise.</li>
+  <li>Tension follows the Ca2+ in the cytosol, not the action potential. Ca2+ starts falling before tension peaks.</li>
+  <li>If SERCA is slowed, Ca2+ stays high longer, the relaxation phase gets much longer and the peak a little higher. The latent period does not change.</li>
+  <li>Relaxation costs energy: SERCA uses ATP to move Ca2+ against its gradient.</li>
+  <li>Because the electrical event is so short and the contraction so long, a second action potential can arrive while the fiber is still contracting. That makes summation possible.</li>
+</ul>
+<dl>
+  <dt>Twitch</dt><dd>One contraction and relaxation of a fiber in response to one action potential.</dd>
+  <dt>Latent period</dt><dd>The delay between the muscle action potential and the start of tension, while excitation-contraction coupling happens.</dd>
+  <dt>SERCA</dt><dd>The Ca2+ ATPase in the sarcoplasmic reticulum membrane that pumps Ca2+ out of the cytosol and ends a contraction.</dd>
+</dl>
+</section>
+<section id="summation-and-tetanus">
+<h2>Summation and tetanus</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 13, the part on summation and tetanus.</p>
+<p>The force of one fiber is graded by how often it is stimulated. The faster the stimuli come, the less time SERCA has to clear Ca2+ between them.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Stimulus frequency</th><th scope="col">Ca2+ between stimuli</th><th scope="col">Tension</th></tr></thead><tbody>
+<tr><th scope="row">Low</th><td>Falls all the way back to rest</td><td>Separate twitches</td></tr>
+<tr><th scope="row">A second stimulus during relaxation</th><td>Some is left over, so the second release adds to it</td><td>Summation: the second contraction climbs higher than one twitch</td></tr>
+<tr><th scope="row">Higher</th><td>Never falls to rest, rises and falls with each stimulus</td><td>Unfused (incomplete) tetanus: tension climbs and dips with each stimulus</td></tr>
+<tr><th scope="row">Highest</th><td>Stays high</td><td>Fused (complete) tetanus: a smooth plateau, the most tension the fiber can make</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Summation comes from Ca2+ building up in the cytosol and more crossbridges pulling at once. It does not come from action potentials adding together; they are all-or-none and have a refractory period.</li>
+  <li>In fused tetanus, the tension stops dipping before the Ca2+ does. Ca2+ still rises and falls a little with each stimulus, but never drops low enough for many crossbridges to let go.</li>
+  <li>Everyday movements use trains of action potentials and tetanic contractions, not single twitches.</li>
+  <li>The disease tetanus is something else: a toxin from Clostridium tetani blocks inhibitory neurons in the spinal cord, so motor neurons fire without control and muscles lock in spasm.</li>
+</ul>
+<dl>
+  <dt>Summation</dt><dd>A contraction added onto one that has not finished relaxing, giving more tension than a single twitch.</dd>
+  <dt>Unfused tetanus</dt><dd>Tension that stays raised but rises and falls with each stimulus. Also called incomplete tetanus.</dd>
+  <dt>Fused tetanus</dt><dd>A smooth, maximal plateau of tension at a high stimulus frequency. Also called complete tetanus.</dd>
+</dl>
+</section>
+<section id="motor-units-and-recruitment">
+<h2>Motor units and recruitment</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 13, the part on motor units.</p>
+<p>A motor unit is one somatic motor neuron and all the skeletal muscle fibers it innervates. Each fiber is innervated by only one motor neuron, but one motor neuron branches to many fibers.</p>
+<ul>
+  <li>When the motor neuron fires, every fiber in its unit gives a full twitch, and no other fibers do.</li>
+  <li>The fibers of one unit are spread through the muscle, not bunched together, so even one small unit pulls on the whole muscle evenly.</li>
+  <li>All the fibers in one motor unit are the same fiber type.</li>
+  <li>Muscles for fine, precise movement, such as the eye muscles and the small muscles of the hand, have small motor units with only a few fibers each. Each added unit adds a small step of force.</li>
+  <li>Muscles for gross movement and support, such as the calf muscle, have large motor units with hundreds to thousands of fibers each. Each added unit adds a big step of force.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Motor neuron</th><th scope="col">Its fibers</th><th scope="col">Recruited</th></tr></thead><tbody>
+<tr><th scope="row">Small</th><td>A few slow oxidative fibers: slow, fatigue-resistant, small force</td><td>First, for light efforts</td></tr>
+<tr><th scope="row">Medium</th><td>More fast oxidative-glycolytic fibers: fast, fairly fatigue-resistant</td><td>As effort increases</td></tr>
+<tr><th scope="row">Large</th><td>Many fast glycolytic fibers: fast, the most force, tire quickly</td><td>Last, for the heaviest efforts</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Recruitment</dt><dd>Adding more motor units to increase the force of a whole muscle.</dd>
+  <dt>Size principle</dt><dd>Motor units are recruited in order of size, smallest first, because small motor neurons reach threshold with less synaptic input.</dd>
+  <dt>Asynchronous recruitment</dt><dd>Taking turns among motor units during a long steady contraction, so some rest while others work and the muscle is slower to fatigue.</dd>
+</dl>
+<p>The nervous system grades the force of a whole muscle in two ways: how many motor units are active (recruitment) and how fast each one fires (summation and tetanus). Picking up a paper cup uses only small units; lifting a gallon of milk adds medium and then large units.</p>
+<h3>Stimulus voltage in the lab (Competency 16)</h3>
+<ul>
+  <li>In PhysioEx Exercise 2 a stimulator shocks a whole muscle, and you raise the voltage step by step.</li>
+  <li>Below threshold, no fibers respond and there is no twitch.</li>
+  <li>Threshold stimulus: the lowest voltage that produces a visible twitch, because only a few fibers reach threshold.</li>
+  <li>Between threshold and maximal, more fibers respond with each step, so the twitch gets stronger. Each fiber still follows the all-or-none rule.</li>
+  <li>Maximal stimulus: the lowest voltage at which every fiber responds. Higher voltages add no more force.</li>
+  <li>Raising the voltage on a whole muscle works much like recruiting motor units in the body: force grows because more fibers take part.</li>
+</ul>
+</section>
+<section id="length-and-tension">
+<h2>Length and tension</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 13, the part on the length-tension relationship.</p>
+<p>The active tension a fiber makes depends on the length of its sarcomeres before it contracts, because crossbridges form only where myosin heads overlap thin filaments.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Sarcomere length</th><th scope="col">Filaments</th><th scope="col">Active tension</th></tr></thead><tbody>
+<tr><th scope="row">Too short (about 1.5 micrometers)</th><td>Thin filaments from the two sides overlap each other and get in each other's way; thick filaments press against the Z discs</td><td>Lower</td></tr>
+<tr><th scope="row">Best (about 2.0 to 2.2 micrometers)</th><td>Every myosin head can reach a thin filament, and the thin filaments have room to slide</td><td>Greatest</td></tr>
+<tr><th scope="row">Too long (about 3.2 micrometers)</th><td>Thin filaments barely overlap the ends of the thick filaments, so few heads can reach actin</td><td>Lower, and zero once there is no overlap</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Tension falls at both ends of the curve, for different reasons: too short, the filaments jam; too long, there is too little overlap.</li>
+  <li>The 2.0 to 2.2 micrometer plateau in the textbook curve comes from classic measurements of frog muscle. Human thin filaments are a little longer, so human muscle works best at a slightly longer sarcomere length.</li>
+  <li>In the body, the way muscles attach to bones keeps their resting length close to the best overlap.</li>
+  <li>Bend your wrist all the way forward and make a fist: the finger flexors are already short, and the grip is weaker.</li>
+  <li>A muscle pulled far past its resting length can form few crossbridges and makes only a little force.</li>
+</ul>
+<dl>
+  <dt>Length-tension relationship</dt><dd>The active tension a sarcomere makes depends on its length when it is stimulated, and is greatest at the length with the best filament overlap.</dd>
+</dl>
+</section>
+<section id="isometric-and-isotonic-contraction">
+<h2>Isometric and isotonic contraction</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 13, the part on the mechanics of body movement, isotonic and isometric contractions.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Contraction</th><th scope="col">Muscle length</th><th scope="col">Tension compared with the load</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">Isotonic, concentric</th><td>Shortens</td><td>Equal to the load, which is less than the muscle's maximum</td><td>Curling a dumbbell up</td></tr>
+<tr><th scope="row">Isometric</th><td>Stays the same</td><td>Equal to the load (holding still), or the load is more than the muscle can make</td><td>Holding a weight still; pushing on a wall</td></tr>
+<tr><th scope="row">Eccentric</th><td>Lengthens while active</td><td>A little less than the load</td><td>Lowering a dumbbell slowly; walking downstairs</td></tr>
+</tbody></table></div>
+<ul>
+  <li>In every contraction that moves a load, tension first rises until it equals the load, with no change in length, and only then does the muscle shorten.</li>
+  <li>An isometric contraction uses ATP the whole time, even though nothing moves.</li>
+  <li>In an isometric contraction the sarcomeres shorten slightly as they stretch the tendons and connective tissue, the series elastic elements, but the muscle as a whole does not change length.</li>
+  <li>Eccentric work, such as walking downhill or lowering weights, is the kind most likely to cause delayed onset muscle soreness a day or two later.</li>
+</ul>
+<h3>The force-velocity relationship</h3>
+<ul>
+  <li>With the muscle fully activated, the speed of shortening falls as the load rises.</li>
+  <li>With almost no load, the muscle shortens fastest.</li>
+  <li>When the load equals the most tension the muscle can make, the speed is zero and the contraction is isometric.</li>
+  <li>This is why you can throw a light ball much faster than a heavy one.</li>
+</ul>
+<dl>
+  <dt>Isotonic contraction</dt><dd>A contraction that moves a load. Concentric when the muscle shortens, eccentric when the active muscle lengthens.</dd>
+  <dt>Isometric contraction</dt><dd>A contraction that makes tension without changing the length of the muscle.</dd>
+  <dt>Force-velocity relationship</dt><dd>The heavier the load, the slower a muscle shortens; at the muscle's maximum tension, shortening stops.</dd>
+</dl>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>

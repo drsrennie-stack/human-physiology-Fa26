@@ -292,6 +292,7 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
      no site chrome: no nav bar, no course tools dock, no Hootie, no floating
      back widget. Back to Canvas modules, target _top, is the only way off it.
      assets/bio005-sheet-data.js stays: it is the prompt data, not navigation. -->
+<script src="bio005-week-label.js"></script>
 <script src="assets/bio005-sheet-data.js"></script>
 <script src="assets/bio005-prompts.js"></script>
 <script>
@@ -343,7 +344,7 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
         var list = px ? BIO005_PROMPT.steps(px) : checklist(it[side]);
         if (!list.length) return;
         POOL.push({ id: wk + ':' + it.n + ':' + side, week: parseInt(wk,10),
-                    wtitle: w.title || ('Week ' + wk), name: it.name, can: it.can,
+                    wtitle: w.title || ('Week ' + (window.BIO005_WL?BIO005_WL(wk):wk)), name: it.name, can: it.can,
                     side: side.toUpperCase(), prompt: it[side], px: px, list: list, it: it, s: side });
       });
     });
@@ -368,7 +369,7 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
     Object.keys(seen).sort(function(a,b){ return a-b; }).forEach(function(w){
       var o = document.createElement('option');
       o.value = w;
-      o.textContent = (w === '0' ? 'Optional review' : 'Week ' + w) + ': ' + seen[w];
+      o.textContent = (w === '0' ? 'Optional review' : 'Week ' + (window.BIO005_WL?BIO005_WL(w):w)) + ': ' + seen[w];
       sel.appendChild(o);
     });
     /* Sep 27 2026, Scrubs: start on this week, not a fixed week. ?week=N in the
@@ -421,7 +422,7 @@ footer .role{margin:3px 0 0;color:var(--navy-72);font-size:14px}
         box.classList.remove('rolling');
         current = pick;
         $('cName').textContent = pick.name;
-        $('cWeek').textContent = (pick.week === 0 ? 'Optional review' : 'Week ' + pick.week)
+        $('cWeek').textContent = (pick.week === 0 ? 'Optional review' : 'Week ' + (window.BIO005_WL?BIO005_WL(pick.week):pick.week))
                                  + ' · Prompt ' + pick.side;
         if (pick.px) $('promptText').innerHTML = BIO005_PROMPT.html(pick.px);
         else $('promptText').textContent = pick.prompt;

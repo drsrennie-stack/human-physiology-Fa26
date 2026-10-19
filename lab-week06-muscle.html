@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 7 lab, how muscle makes force &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brand.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<meta name="description" content="Week 7 lab worksheet for BIO 005: PhysioEx Exercise 3, Activities 1 to 9.">
+<style>
+:root{--slate:#414B5C}
+/* Brand restyle Sep 24 2026: MedMasters editorial look, forked from
+   virtual-office.html. Chrome, back link, eyebrow, display headline and
+   primary button come from assets/brandbar.css. White cards on the
+   off-white page, radius 8px, lifted on a shadow, no borders. Headings
+   Open Sans 800 in maroon-dark. A chosen answer stays white and gets a
+   navy outline and a lift, never a tinted fill. No italics. */
+body{background:var(--offwhite);color:var(--navy);font-family:var(--body);margin:0}
+em,i{font-style:normal}
+.wrap{max-width:46rem;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:var(--white);padding:8px 12px;z-index:90;outline:3px solid var(--navy)}
+.topnav{padding:6px 0 0}
+.pagehead{padding:14px 0 8px}
+.pagehead .mm-display{margin:0 0 14px}
+.meta{font-size:17px;margin:0 0 12px;color:var(--slate)}
+.meta strong{color:var(--navy)}
+p{font-size:17px;line-height:1.6;margin:0 0 12px}
+.card{background:var(--white);border:0;border-radius:8px;box-shadow:0 1px 3px rgba(11,21,48,.08);padding:22px 24px;margin:22px 0}
+.card:hover{transform:none;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+h2{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.018em;font-size:clamp(21px,3vw,25px);line-height:1.2;margin:0 0 8px;color:var(--maroon-dark)}
+.sub{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:18px;color:var(--maroon-dark);margin:24px 0 10px}
+.lead{color:var(--slate);margin:0 0 16px}
+.note{font-size:15px;color:var(--slate);margin:10px 0 0}
+fieldset{border:0;padding:0;margin:0 0 18px}
+legend{font-weight:700;font-size:17px;line-height:1.5;margin:0 0 8px;padding:0}
+.choices{display:flex;flex-wrap:wrap;gap:8px 10px;margin-left:-10px}
+.choices label{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:16px;cursor:pointer;
+  padding:4px 14px 4px 10px;background:var(--white);border:1.5px solid transparent;border-radius:8px;
+  transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease}
+.choices input{width:20px;height:20px;accent-color:var(--navy)}
+.q{margin:0 0 20px}
+.q label{display:block;font-weight:700;font-size:17px;line-height:1.5;margin:0 0 4px}
+.q .where{display:block;font-size:15px;color:var(--slate);margin:0 0 8px}
+textarea{display:block;width:100%;box-sizing:border-box;min-height:5.5em;padding:10px 12px;border:1px solid var(--line-control);border-radius:4px;font:16px/1.5 var(--body);color:var(--navy);background:var(--white);resize:vertical}
+textarea:focus-visible,input:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.term{font-weight:800}
+.act{font-family:"Open Sans","Plus Jakarta Sans",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;font-size:18px;color:var(--maroon-dark);margin:0 0 12px}
+.opts{margin:6px 0 0;padding:0;list-style:none}
+.opts li{margin:0 0 4px}
+.opts label{display:flex;gap:10px;align-items:flex-start;min-height:44px;font-size:16px;line-height:1.5;cursor:pointer;
+  padding:6px 12px;margin:0 -12px;background:var(--white);border:1.5px solid transparent;border-radius:8px;
+  transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease}
+.opts input,.checks input{width:20px;height:20px;margin-top:3px;accent-color:var(--navy);flex:none}
+.checks{list-style:none;margin:8px 0 0;padding:0}
+.checks li{margin:0 0 2px}
+.checks label{display:flex;gap:10px;align-items:flex-start;min-height:40px;font-size:16px;line-height:1.5;cursor:pointer;
+  padding:4px 10px;margin:0 -10px;background:var(--white);border:1.5px solid transparent;border-radius:8px;
+  transition:box-shadow 200ms ease,transform 200ms ease,border-color 200ms ease}
+/* Chosen: white inside, navy outline, lifted. Navy on white is 18.04:1. */
+.choices label:has(input:checked),
+.opts label:has(input:checked),
+.checks label:has(input:checked){border-color:var(--navy);box-shadow:0 6px 14px rgba(11,21,48,.14);transform:translateY(-1px)}
+details.rub{margin:12px 0 0;border:1px solid var(--line);border-radius:8px;padding:0 14px}
+details.rub summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:10px;list-style:none;font-weight:700;color:var(--maroon-dark)}
+details.rub summary::-webkit-details-marker{display:none}
+details.rub summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--maroon);border-bottom:2px solid var(--maroon);transform:rotate(-45deg);transition:transform 200ms ease;flex:none}
+details.rub[open] summary::before{transform:rotate(45deg)}
+.steps{margin:0 0 12px;padding-left:22px}
+.steps li{font-size:17px;line-height:1.6;margin:6px 0}
+.steps li::marker{color:var(--maroon);font-weight:800}
+.prompt{font-size:17px;line-height:1.6;font-weight:600;margin:0 0 10px}
+@media print{details.rub{border:1px solid #414B5C}}
+.printcopy{display:none}
+#saved{font-size:15px;color:var(--slate);margin:10px 0 0}
+.mm-btn{margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}
+  .choices label:has(input:checked),.opts label:has(input:checked),.checks label:has(input:checked){transform:none}}
+@media print{
+  @page{size:letter;margin:0.6in}
+  body{background:#fff}
+  body{padding-bottom:0!important} /* bio005-back.js pads the body for its floating button; not on paper */
+  .skip,.topnav,.mm-btn,#saved,.mm-brandbar,.mm-foot{display:none!important}
+  .card{box-shadow:none;border:1px solid #414B5C;break-inside:avoid;margin:14px 0;padding:14px 16px}
+  .choices label,.opts label,.checks label{box-shadow:none!important;transform:none!important}
+  textarea{display:none}
+  .printcopy{display:block;border:1px solid #414B5C;border-radius:6px;min-height:4.5em;padding:8px 10px;white-space:pre-wrap;font-size:14px;line-height:1.5}
+  .q{break-inside:avoid}
+  p,legend,.q label{font-size:14px}
+  .mm-display{font-size:26px}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* Week 5 neuro exam lab, Oct 4 2026 */
+.tbl{overflow-x:auto;margin:0 0 14px}
+table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+th,td{border:1px solid var(--line-control);padding:7px 9px;text-align:left;vertical-align:top}
+thead th{background:var(--navy-tint,#ECEFF4)}
+td input{width:100%;box-sizing:border-box;min-height:40px;padding:6px 8px;border:1px solid var(--line-control);border-radius:4px;font:15px/1.4 var(--body)}
+.draw{border:1px solid var(--line-control);border-radius:8px;min-height:230px;padding:10px 12px;margin:0 0 14px;background:#fff}
+.dlab{font-size:14px;color:#414B5C}
+.abn h3{margin-top:10px}
+.safe{font-size:15px;color:#414B5C}
+textarea.tall{min-height:8em}
+.target{display:flex;gap:7.5cm;align-items:center;font-size:30px;font-weight:800;margin:6px 0 12px;color:#000}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media print{td input{border:0;border-bottom:1px solid #000;border-radius:0}.draw{min-height:2.6in;border:1px solid #000;break-inside:avoid}table{font-size:9pt}th,td{border:1px solid #000}}
+
+/* Week 7 and 7 labs, Oct 17 2026 */
+.act{margin:0 0 6px}
+.rec{background:#fff;border-radius:8px;margin:6px 0 4px}
+.rec .q label{color:var(--maroon-dark)}
+td input{min-width:5em}
+.parthead{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:clamp(22px,3.2vw,27px);color:var(--navy);margin:34px 0 4px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the worksheet</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+<nav class="topnav" aria-label="Back"><div class="wrap">
+  <a class="mm-back" href="week-06.html" target="_top">&larr; Week 7 start page</a>
+</div></nav>
+<main id="main"><div class="wrap">
+<header class="pagehead">
+<p class="mm-eyebrow">Week 7 lab</p>
+<h1 class="mm-display">How muscle <span>makes force</span>.</h1>
+<p class="meta"><strong>2 to 3 hours.</strong> Graded. Investigate It, 25 percent of your grade across the term.</p>
+<p>This week you run PhysioEx Exercise 2, Skeletal Muscle Physiology, where you stimulate an isolated muscle and record its twitches, summation, tetanus, fatigue, length-tension curve and load-velocity curve. Then you tire out your own hand with a clothespin and compare. Last, one clinical case puts the simulation back into a real body.</p>
+</header>
+<section class="card" aria-labelledby="h-own">
+  <h2 id="h-own">Write every answer in your own words</h2>
+  <p>Do not copy from the book, the notes, a website, a classmate or an AI tool, even if you change a few words. Read the source, look away, and then write what you understood. If you cannot say it without looking, that tells you what to go back and study. Your own words, even rough ones, are what I want to see.</p>
+</section>
+
+<section class="card" aria-labelledby="h-need">
+<h2 id="h-need">What you need</h2>
+<ul>
+<li>PhysioEx, from the Pearson link in Canvas. Open Exercise 2, Skeletal Muscle Physiology.</li>
+<li>For the grip test at home: a spring clothespin, the kind that pinches, and a timer such as the one on your phone. A partner to keep time helps but is not needed. No clothespin? Squeeze a tennis ball or a rolled-up pair of socks in your fist instead, and say which you used.</li>
+<li>Paper and a pen for your two graphs, or the printed worksheet. You can type everything else on this page.</li>
+</ul>
+</section>
+<section class="card" aria-labelledby="h-how">
+  <h2 id="h-how">What goes in each box</h2>
+  <ol class="steps">
+    <li><strong>What did you measure?</strong> Name what you changed and what you recorded, with units.</li>
+    <li><strong>What were your findings?</strong> Give the actual results, with numbers. What went up, what went down, and what stayed the same.</li>
+    <li><strong>What did you learn?</strong> Explain why the results came out that way, using the physiology from this week. This is the most important box.</li>
+  </ol>
+  <p class="note">Your worksheet is graded once PhysioEx shows each activity complete. The PhysioEx Lab Report that Pearson makes is not this worksheet and earns no points.</p>
+</section>
+<h2 class="parthead">Part 1. PhysioEx Exercise 2, Skeletal Muscle Physiology</h2>
+<p>Run every activity in Exercise 2, in the order PhysioEx lists them. Pearson sometimes renumbers activities, so go by the topic named below.</p>
+<section class="card" aria-labelledby="h-a1">
+<h2 id="h-a1">Activity 1</h2>
+<p class="act">The muscle twitch and the latent period</p>
+<div class="q"><label for="a1m">What did you measure?</label><textarea id="a1m" name="a1m"></textarea></div>
+<div class="q"><label for="a1f">What were your findings?</label><textarea id="a1f" name="a1f"></textarea></div>
+<div class="q"><label for="a1l">What did you learn?</label><textarea id="a1l" name="a1l" class="tall"></textarea></div>
+<div class="rec">
+<div class="q"><label for="a1x">How long was the latent period you measured, in milliseconds, and what is happening inside the fiber during it?</label><textarea id="a1x" name="a1x"></textarea></div>
+</div>
+</section>
+<section class="card" aria-labelledby="h-a2">
+<h2 id="h-a2">Activity 2</h2>
+<p class="act">The effect of stimulus voltage</p>
+<div class="q"><label for="a2m">What did you measure?</label><textarea id="a2m" name="a2m"></textarea></div>
+<div class="q"><label for="a2f">What were your findings?</label><textarea id="a2f" name="a2f"></textarea></div>
+<div class="q"><label for="a2l">What did you learn?</label><textarea id="a2l" name="a2l" class="tall"></textarea></div>
+<div class="rec">
+<div class="q"><label for="a2x">Your threshold voltage and your maximal voltage. In one or two sentences, say what happens to the force between them, and why, in terms of how many fibers are responding.</label><textarea id="a2x" name="a2x"></textarea></div>
+</div>
+</section>
+<section class="card" aria-labelledby="h-a3">
+<h2 id="h-a3">Activity 3</h2>
+<p class="act">The effect of stimulus frequency: treppe and wave summation</p>
+<div class="q"><label for="a3m">What did you measure?</label><textarea id="a3m" name="a3m"></textarea></div>
+<div class="q"><label for="a3f">What were your findings?</label><textarea id="a3f" name="a3f"></textarea></div>
+<div class="q"><label for="a3l">What did you learn?</label><textarea id="a3l" name="a3l" class="tall"></textarea></div>
+<div class="rec">
+<div class="q"><label for="a3x">The stimulus frequency, or the time between two stimuli, at which summation began.</label><textarea id="a3x" name="a3x"></textarea></div>
+</div>
+</section>
+<section class="card" aria-labelledby="h-a4">
+<h2 id="h-a4">Activity 4</h2>
+<p class="act">Tetanus</p>
+<div class="q"><label for="a4m">What did you measure?</label><textarea id="a4m" name="a4m"></textarea></div>
+<div class="q"><label for="a4f">What were your findings?</label><textarea id="a4f" name="a4f"></textarea></div>
+<div class="q"><label for="a4l">What did you learn?</label><textarea id="a4l" name="a4l" class="tall"></textarea></div>
+<div class="rec">
+<div class="q"><label for="a4x">The stimulus frequency at which tetanus was complete, with no dips left between stimuli. What is happening to calcium inside the fiber at that frequency?</label><textarea id="a4x" name="a4x"></textarea></div>
+</div>
+</section>
+<section class="card" aria-labelledby="h-a5">
+<h2 id="h-a5">Activity 5</h2>
+<p class="act">Fatigue</p>
+<div class="q"><label for="a5m">What did you measure?</label><textarea id="a5m" name="a5m"></textarea></div>
+<div class="q"><label for="a5f">What were your findings?</label><textarea id="a5f" name="a5f"></textarea></div>
+<div class="q"><label for="a5l">What did you learn?</label><textarea id="a5l" name="a5l" class="tall"></textarea></div>
+<div class="rec">
+<div class="q"><label for="a5x">How long it took the force to fall by the amount you chose, and what that amount was. Record the time, not just the shape of the trace.</label><textarea id="a5x" name="a5x"></textarea></div>
+</div>
+</section>
+<section class="card" aria-labelledby="h-a6">
+<h2 id="h-a6">Activity 6</h2>
+<p class="act">The length-tension relationship</p>
+<div class="q"><label for="a6m">What did you measure?</label><textarea id="a6m" name="a6m"></textarea></div>
+<div class="q"><label for="a6f">What were your findings?</label><textarea id="a6f" name="a6f"></textarea></div>
+<div class="q"><label for="a6l">What did you learn?</label><textarea id="a6l" name="a6l" class="tall"></textarea></div>
+<div class="rec">
+<div class="draw" role="img" aria-label="Empty box for your drawing: Your length-tension curve, by hand: muscle length on the x axis, active force on the y axis. Plot every point you took, enough to see both sides of the curve, and mark the resting length."><span class="dlab">Draw it on paper: Your length-tension curve, by hand: muscle length on the x axis, active force on the y axis. Plot every point you took, enough to see both sides of the curve, and mark the resting length.</span></div>
+<div class="q"><label for="a6x">At which length was active force highest? Why does force fall at lengths shorter and longer than that?</label><textarea id="a6x" name="a6x"></textarea></div>
+</div>
+</section>
+<section class="card" aria-labelledby="h-a7">
+<h2 id="h-a7">Activity 7</h2>
+<p class="act">Isotonic contractions and the load-velocity relationship</p>
+<div class="q"><label for="a7m">What did you measure?</label><textarea id="a7m" name="a7m"></textarea></div>
+<div class="q"><label for="a7f">What were your findings?</label><textarea id="a7f" name="a7f"></textarea></div>
+<div class="q"><label for="a7l">What did you learn?</label><textarea id="a7l" name="a7l" class="tall"></textarea></div>
+<div class="rec">
+<div class="q"><label for="a7x">At which load did the muscle stop shortening, and what kind of contraction was it then?</label><textarea id="a7x" name="a7x"></textarea></div>
+</div>
+</section>
+<h2 class="parthead">Part 2. Grip fatigue, at home</h2>
+<section class="card" aria-labelledby="h-p2">
+<h2 id="h-p2">Squeeze until your hand tires</h2>
+<p>PhysioEx shows fatigue in an isolated muscle. This part shows it in yours. There is no surface EMG at home, so you count instead, and Part 2 asks what an EMG would have shown.</p>
+<ol class="steps">
+<li>Hold the clothespin between the tip of your thumb and the tip of your index finger of the hand you write with. Rest your forearm on a table.</li>
+<li>Start the timer. Squeeze the clothespin all the way closed and let it open, as fast as you can, for 2 minutes without stopping.</li>
+<li>Count the squeezes in every 15 seconds, or have your partner count while you squeeze, and write each count in the table.</li>
+<li>Put the clothespin down and rest for 2 minutes. Then count one more 15 seconds.</li>
+</ol>
+<p class="safe">A burning feeling in your forearm is expected and goes away with rest. Stop if you feel sharp pain, and skip this part if you have a hand or wrist injury. Say so on your worksheet instead.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Time</th><th scope="col">Squeezes</th></tr></thead><tbody>
+<tr><th scope="row">0 to 15 seconds</th><td><label class="vh" for="g1_1">0 to 15 seconds, Squeezes</label><input type="text" id="g1_1" name="g1_1"></td></tr>
+<tr><th scope="row">15 to 30 seconds</th><td><label class="vh" for="g2_1">15 to 30 seconds, Squeezes</label><input type="text" id="g2_1" name="g2_1"></td></tr>
+<tr><th scope="row">30 to 45 seconds</th><td><label class="vh" for="g3_1">30 to 45 seconds, Squeezes</label><input type="text" id="g3_1" name="g3_1"></td></tr>
+<tr><th scope="row">45 to 60 seconds</th><td><label class="vh" for="g4_1">45 to 60 seconds, Squeezes</label><input type="text" id="g4_1" name="g4_1"></td></tr>
+<tr><th scope="row">60 to 75 seconds</th><td><label class="vh" for="g5_1">60 to 75 seconds, Squeezes</label><input type="text" id="g5_1" name="g5_1"></td></tr>
+<tr><th scope="row">75 to 90 seconds</th><td><label class="vh" for="g6_1">75 to 90 seconds, Squeezes</label><input type="text" id="g6_1" name="g6_1"></td></tr>
+<tr><th scope="row">90 to 105 seconds</th><td><label class="vh" for="g7_1">90 to 105 seconds, Squeezes</label><input type="text" id="g7_1" name="g7_1"></td></tr>
+<tr><th scope="row">105 to 120 seconds</th><td><label class="vh" for="g8_1">105 to 120 seconds, Squeezes</label><input type="text" id="g8_1" name="g8_1"></td></tr>
+<tr><th scope="row">After 2 minutes of rest, 15 seconds</th><td><label class="vh" for="g9_1">After 2 minutes of rest, 15 seconds, Squeezes</label><input type="text" id="g9_1" name="g9_1"></td></tr>
+</tbody></table></div>
+<div class="draw" role="img" aria-label="Empty box for your drawing: Your fatigue graph, by hand: time on the x axis and squeezes per 15 seconds on the y axis, with the after-rest count as a separate point."><span class="dlab">Draw it on paper: Your fatigue graph, by hand: time on the x axis and squeezes per 15 seconds on the y axis, with the after-rest count as a separate point.</span></div>
+<div class="q"><label for="g1">Describe what happened to your count over the 2 minutes, with numbers. By how much did it fall from the first 15 seconds to the last?</label><textarea id="g1" name="g1"></textarea></div>
+<div class="q"><label for="g2">After 2 minutes of rest, how much came back? What does that tell you about the cause: something that recovers in minutes, or damage to the muscle?</label><textarea id="g2" name="g2" class="tall"></textarea></div>
+<div class="q"><label for="g3">Suppose you had held the clothespin closed with the same steady force instead of squeezing it over and over. For a while the force would stay the same even as the muscle tired. What would your nervous system have to do to keep the force the same, and what would a surface EMG recording show as it did?</label><textarea id="g3" name="g3" class="tall"></textarea></div>
+<div class="q"><label for="g4">Name one cause of fatigue inside the muscle fibers and one cause in the nervous system. Which one do you think limited your count, and why?</label><textarea id="g4" name="g4" class="tall"></textarea></div>
+</section>
+<h2 class="parthead">Part 3. Clinical correlation</h2>
+<section class="card" aria-labelledby="h-cc">
+<h2 id="h-cc">Sore on Wednesday, not on Monday</h2>
+<p>An athlete does a session of downhill running on Monday and feels fine that evening. Soreness begins Tuesday afternoon, peaks Wednesday and is gone by Friday. Blood lactate returns to its resting level within about an hour of any hard session. Downhill running loads the thigh muscles while they are lengthening.</p>
+<div class="q"><label for="c1">Use the lactate time course to rule something out. Say plainly what it rules out.</label><textarea id="c1" name="c1"></textarea></div>
+<div class="q"><label for="c2">Name what a lengthening contraction does mechanically that a shortening one does not, and connect it to your length-tension curve from Activity 6.</label><textarea id="c2" name="c2" class="tall"></textarea></div>
+<div class="q"><label for="c3">Explain the delay of about two days in terms of what has to happen after the damage before you feel it.</label><textarea id="c3" name="c3" class="tall"></textarea></div>
+</section>
+<section class="card" aria-labelledby="h-look">
+<h2 id="h-look">Look back at your thinking</h2>
+<div class="q"><label for="m1">What did you predict tetanus would look like before you produced one?</label><textarea id="m1" name="m1"></textarea></div>
+<div class="q"><label for="m2">Where on your own length-tension curve did you expect peak force, and where was it?</label><textarea id="m2" name="m2" class="tall"></textarea></div>
+<div class="q"><label for="m3">Say one thing about muscle you believed on Monday that you would now state differently.</label><textarea id="m3" name="m3"></textarea></div>
+</section>
+<section class="card" aria-labelledby="h-turn">
+<h2 id="h-turn">Turn it in</h2>
+<p>Save this page as a PDF with the button below. Photograph your two graphs. If you worked on the printed worksheet, scan or photograph every page instead. Combine everything into one PDF and upload it to the Week 7 lab assignment in Canvas. Due Sunday, October 25 at 10:00 pm.</p>
+<button type="button" class="mm-btn" id="printBtn">Print or save as PDF</button>
+<p id="saved" aria-live="polite">Your answers save on this device as you type.</p>
+</section>
+</div></main>
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="ai-in-this-course.html" target="_blank" rel="noopener">How AI is used in this course <span aria-hidden="true">&#8599;</span><span class="mm-vh"> Opens the course site in a new tab.</span></a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+<script>
+(function(){
+  var KEY = "bio005-w06-lab";
+  var fields = [].slice.call(document.querySelectorAll("textarea, input[type=text], input[type=radio], input[type=checkbox]"));
+  function load(){
+    var data = {};
+    try { data = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ data = {}; }
+    fields.forEach(function(f){
+      if(f.type === "radio"){ if(data[f.name] === f.value) f.checked = true; }
+      else if(f.type === "checkbox"){ f.checked = data[f.name] === true; }
+      else if(typeof data[f.name] === "string"){ f.value = data[f.name]; }
+    });
+  }
+  function save(){
+    var data = {};
+    fields.forEach(function(f){
+      if(f.type === "radio"){ if(f.checked) data[f.name] = f.value; }
+      else if(f.type === "checkbox"){ data[f.name] = f.checked; }
+      else { data[f.name] = f.value; }
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
+  }
+  load();
+  fields.forEach(function(f){ f.addEventListener(f.type === "textarea" || f.tagName === "TEXTAREA" ? "input" : "change", save); });
+
+  function fillPrintCopies(){
+    [].forEach.call(document.querySelectorAll("textarea"), function(t){
+      var c = t.nextElementSibling;
+      if(!c || !c.classList || !c.classList.contains("printcopy")){
+        c = document.createElement("div");
+        c.className = "printcopy";
+        c.setAttribute("aria-hidden", "true");
+        t.parentNode.insertBefore(c, t.nextSibling);
+      }
+      c.textContent = t.value;
+    });
+  }
+  window.addEventListener("beforeprint", function(){ fillPrintCopies(); [].forEach.call(document.querySelectorAll("details"), function(d){ d.open = true; }); });
+  document.getElementById("printBtn").addEventListener("click", function(){ fillPrintCopies(); window.print(); });
+}());
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script>
+(function(){
+  var FRAME_ID = "bio005-week-06-lab";
+  function sendHeight(){
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+                     document.body.offsetHeight, document.documentElement.offsetHeight);
+    try{ window.parent.postMessage({ id: FRAME_ID, frameId: FRAME_ID, type: "resize", height: h }, "*"); }catch(e){}
+  }
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  if(typeof ResizeObserver !== "undefined"){ try{ new ResizeObserver(sendHeight).observe(document.body); }catch(e){} }
+  setTimeout(sendHeight, 400);
+}());
+</script>
+<script src="bio005-nopaste.js" defer></script>
+</body>
+</html>

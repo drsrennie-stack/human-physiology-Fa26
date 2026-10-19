@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The autonomic nervous system, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 8 · Written notes</p>
+  <h1>The autonomic nervous system</h1>
+  <p>The written notes for the the autonomic nervous system walkthrough. Week 8 competencies 1 to 5.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week7-Walkthrough-Notes-autonomic.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>. Already printed the Week 8 notes? You do not need to print these again.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Work through <a href="biol005-w07-autonomic-guided.html" target="_top">the walkthrough</a> first, writing each prediction on your worksheet before you press Show me. Then read these notes to fill in anything you missed, and use them to review. They are the same facts in a form you can study from, not a copy of the walkthrough.</p></div>
+<section id="step-by-step-where-the-signal-travels">
+<h2>Step by step: where the signal travels</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 12, the parts on the autonomic division and the somatic motor division.</p>
+<h3>A somatic motor command, step by step</h3>
+<ol>
+  <li>The cell body of the somatic motor neuron sits in the ventral horn of the spinal cord (or in the brainstem).</li>
+  <li>Its single, myelinated axon leaves through the ventral root and runs all the way to a skeletal muscle. There is no synapse between the cord and the muscle.</li>
+  <li>At the neuromuscular junction it releases acetylcholine (ACh), which binds nicotinic receptors on the muscle fiber.</li>
+  <li>The muscle fiber depolarizes and contracts. A somatic motor neuron can only excite its muscle.</li>
+</ol>
+<h3>A parasympathetic signal to the heart, step by step</h3>
+<ol>
+  <li>The preganglionic neuron's cell body sits in the brainstem.</li>
+  <li>Its long axon travels in the vagus nerve (cranial nerve X) to a ganglion on the heart.</li>
+  <li>In the ganglion it releases ACh onto nicotinic receptors on the postganglionic neuron, which depolarizes and fires.</li>
+  <li>The short postganglionic axon reaches the SA node and releases ACh from its varicosities.</li>
+  <li>ACh binds M2 muscarinic receptors on the pacemaker cells. K+ channels open and less Ca2+ enters, so the cells take longer to reach threshold.</li>
+  <li>The heart rate slows.</li>
+  <li>Acetylcholinesterase breaks down the ACh, ending the signal.</li>
+</ol>
+<h3>A sympathetic signal to an arteriole, step by step</h3>
+<ol>
+  <li>The preganglionic neuron's cell body sits in the lateral horn of the thoracic or lumbar spinal cord.</li>
+  <li>Its short axon leaves through the ventral root and enters a ganglion of the sympathetic chain beside the cord.</li>
+  <li>It releases ACh onto nicotinic receptors on postganglionic neurons. It can branch up and down the chain and reach many of them.</li>
+  <li>The long postganglionic axon runs to the arteriole and swells into varicosities along the vessel wall.</li>
+  <li>The varicosities release norepinephrine, which binds alpha-1 receptors on the smooth muscle.</li>
+  <li>IP3 and Ca2+ rise inside the smooth muscle cells, the muscle contracts, and the arteriole narrows.</li>
+  <li>Norepinephrine diffuses away or is taken back into the varicosity and broken down by monoamine oxidase (MAO).</li>
+</ol>
+<h3>A sympathetic signal to a sweat gland, step by step</h3>
+<ol>
+  <li>The preganglionic neuron leaves the thoracic or lumbar cord and synapses in a chain ganglion, releasing ACh onto nicotinic receptors.</li>
+  <li>The postganglionic neuron, a sympathetic cholinergic neuron, runs to the sweat gland.</li>
+  <li>It releases ACh, not norepinephrine, onto muscarinic receptors on the gland, and the gland secretes sweat.</li>
+</ol>
+<h3>A sympathetic signal through the adrenal medulla, step by step</h3>
+<ol>
+  <li>The preganglionic neuron leaves the thoracic cord and runs straight to the adrenal medulla, with no ganglion on the way.</li>
+  <li>It releases ACh onto nicotinic receptors on chromaffin cells, which are modified postganglionic neurons without axons.</li>
+  <li>The chromaffin cells secrete epinephrine, with some norepinephrine, into the blood.</li>
+  <li>Epinephrine travels as a neurohormone to adrenergic receptors throughout the body, for example beta-2 receptors on bronchiole smooth muscle, which relaxes and widens the airway.</li>
+</ol>
+<h3>Heart rate with each breath, step by step</h3>
+<ol>
+  <li>You breathe in.</li>
+  <li>The brainstem briefly turns down vagal (parasympathetic) firing to the SA node.</li>
+  <li>Less ACh reaches the M2 receptors, and the heart speeds up within about a beat.</li>
+  <li>You breathe out, vagal firing returns, and the heart slows.</li>
+  <li>This rise and fall is respiratory sinus arrhythmia, and its size reflects vagal tone.</li>
+</ol>
+</section>
+<section id="two-efferent-pathways">
+<h2>Two efferent pathways</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 12, the parts on autonomic pathways with two efferent neurons and on the somatic motor division.</p>
+<p>The efferent (output) side of the peripheral nervous system has two divisions. The somatic motor division controls skeletal muscle. The autonomic division, also called the visceral nervous system, controls cardiac muscle, smooth muscle, many glands, and some adipose (fat) tissue.</p>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Somatic motor</th><th scope="col">Autonomic</th></tr></thead><tbody>
+<tr><th scope="row">Neurons from the CNS to the target</th><td>One</td><td>Two in series: preganglionic and postganglionic</td></tr>
+<tr><th scope="row">Synapse outside the CNS</th><td>None before the target</td><td>In an autonomic ganglion</td></tr>
+<tr><th scope="row">Effector</th><td>Skeletal muscle</td><td>Cardiac muscle, smooth muscle, glands, some adipose tissue</td></tr>
+<tr><th scope="row">Effect on the target</th><td>Excitatory only</td><td>Excitatory or inhibitory</td></tr>
+<tr><th scope="row">Transmitter at the target</th><td>ACh on nicotinic receptors</td><td>ACh on muscarinic receptors, or norepinephrine on adrenergic receptors</td></tr>
+<tr><th scope="row">If the nerve is cut</th><td>The muscle is paralyzed and wastes away</td><td>The heart and many smooth muscles keep working on their own</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Preganglionic neuron</dt><dd>The first autonomic neuron. Its cell body is in the brain or spinal cord, and its axon ends in an autonomic ganglion.</dd>
+  <dt>Autonomic ganglion</dt><dd>A cluster of nerve cell bodies outside the CNS, where the preganglionic neuron synapses on postganglionic neurons. One preganglionic neuron can reach many postganglionic neurons there (divergence), and some ganglia work as small integrating centers.</dd>
+  <dt>Postganglionic neuron</dt><dd>The second autonomic neuron. Its cell body is in the ganglion, and its axon runs to the target tissue.</dd>
+</dl>
+<ul>
+  <li>The heart's pacemaker cells start each beat on their own, so autonomic nerves speed up or slow down a heart that is already beating. A transplanted heart, with its nerves cut, still beats.</li>
+  <li>Skeletal muscle has no rhythm of its own, so every contraction starts with a somatic motor neuron.</li>
+</ul>
+</section>
+<section id="sympathetic-and-parasympathetic">
+<h2>Sympathetic and parasympathetic</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 12, the part on where the sympathetic and parasympathetic branches originate.</p>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Sympathetic</th><th scope="col">Parasympathetic</th></tr></thead><tbody>
+<tr><th scope="row">Where preganglionic neurons leave the CNS</th><td>Thoracic and lumbar spinal cord (thoracolumbar)</td><td>Brainstem, in cranial nerves, and sacral spinal cord (craniosacral)</td></tr>
+<tr><th scope="row">Where the ganglia are</th><td>Mostly in the sympathetic chain ganglia, two chains beside the spinal cord; a few collateral ganglia along the aorta</td><td>On or in the walls of the target organs</td></tr>
+<tr><th scope="row">Preganglionic axon</th><td>Short</td><td>Long</td></tr>
+<tr><th scope="row">Postganglionic axon</th><td>Long</td><td>Short</td></tr>
+<tr><th scope="row">Spread of one signal</th><td>Wide: one preganglionic neuron branches through the chain to many postganglionic neurons</td><td>Local: one organ at a time</td></tr>
+<tr><th scope="row">Heart rate</th><td>Increases, and beats are stronger</td><td>Decreases</td></tr>
+<tr><th scope="row">Gut movement (motility) and secretion</th><td>Decrease</td><td>Increase</td></tr>
+<tr><th scope="row">Situation it suits</th><td>Fight-or-flight</td><td>Rest-and-digest</td></tr>
+</tbody></table></div>
+<ul>
+  <li>The vagus nerve, cranial nerve X, carries parasympathetic fibers to the organs of the chest and most of the abdomen.</li>
+  <li>Fight-or-flight and rest-and-digest are simplified labels. Both divisions are active most of the time, and the body usually shifts the balance between them rather than switching one off.</li>
+  <li>In a crisis the sympathetic division gives priority to the heart and skeletal muscle, and digestion waits.</li>
+</ul>
+</section>
+<section id="transmitters-and-receptors">
+<h2>Transmitters and receptors</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 12, the parts on autonomic neurotransmitters, autonomic receptor subtypes and the adrenal medulla.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Where</th><th scope="col">Transmitter</th><th scope="col">Receptor</th></tr></thead><tbody>
+<tr><th scope="row">Every autonomic ganglion, both divisions</th><td>ACh</td><td>Nicotinic (a ligand-gated channel)</td></tr>
+<tr><th scope="row">Parasympathetic postganglionic ending</th><td>ACh</td><td>Muscarinic (G protein-coupled)</td></tr>
+<tr><th scope="row">Most sympathetic postganglionic endings</th><td>Norepinephrine</td><td>Alpha or beta adrenergic (G protein-coupled)</td></tr>
+<tr><th scope="row">Sympathetic ending on most sweat glands</th><td>ACh</td><td>Muscarinic</td></tr>
+<tr><th scope="row">Adrenal medulla (chromaffin cells)</th><td>ACh from the preganglionic neuron</td><td>Nicotinic; the cells then secrete epinephrine into the blood</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th scope="col">Receptor</th><th scope="col">Responds best to</th><th scope="col">Example location</th><th scope="col">Response</th></tr></thead><tbody>
+<tr><th scope="row">Nicotinic (ganglionic)</th><td>ACh</td><td>Postganglionic neurons in all autonomic ganglia; adrenal medulla</td><td>Na+ in, more than K+ out: the neuron depolarizes and fires</td></tr>
+<tr><th scope="row">Muscarinic M2</th><td>ACh</td><td>SA node of the heart</td><td>K+ channels open and Ca2+ entry falls: heart rate slows</td></tr>
+<tr><th scope="row">Muscarinic</th><td>ACh</td><td>Most parasympathetic targets; most sweat glands</td><td>Depends on the tissue, through second messengers</td></tr>
+<tr><th scope="row">Alpha-1</th><td>Norepinephrine more than epinephrine</td><td>Smooth muscle of most blood vessels</td><td>IP3 and Ca2+ rise: the muscle contracts and the vessel narrows</td></tr>
+<tr><th scope="row">Beta-1</th><td>Norepinephrine and epinephrine about equally</td><td>Heart</td><td>cAMP rises: faster and stronger beats</td></tr>
+<tr><th scope="row">Beta-2</th><td>Epinephrine more than norepinephrine</td><td>Bronchiole smooth muscle; some blood vessels, such as those in skeletal muscle</td><td>cAMP rises: the muscle relaxes, so the airway or vessel widens</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Varicosities</dt><dd>Swellings along the end of a postganglionic axon, filled with vesicles. Transmitter diffuses from them to any nearby cells with receptors, so one axon affects many cells.</dd>
+  <dt>Cholinergic</dt><dd>Releasing or responding to ACh.</dd>
+  <dt>Adrenergic</dt><dd>Releasing or responding to norepinephrine or epinephrine.</dd>
+  <dt>Chromaffin cells</dt><dd>The cells of the adrenal medulla: modified sympathetic postganglionic neurons with no axons, which secrete epinephrine (and some norepinephrine) into the blood as a neurohormone.</dd>
+</dl>
+<ul>
+  <li>The nicotinic receptors in autonomic ganglia are a different subtype from those at the neuromuscular junction, so a drug can block one without the other.</li>
+  <li>ACh is broken down by acetylcholinesterase. Norepinephrine diffuses away or is taken back into the varicosity and broken down by monoamine oxidase (MAO).</li>
+  <li>Bronchiole smooth muscle has few sympathetic endings, so its beta-2 receptors respond mainly to epinephrine from the adrenal medulla.</li>
+  <li>The response is set by the receptor, not by the molecule: the same adrenergic signal narrows an arteriole (alpha-1) and widens a bronchiole (beta-2).</li>
+  <li>The adrenal medulla is described as a modified sympathetic ganglion.</li>
+</ul>
+</section>
+<section id="dual-innervation-and-tone">
+<h2>Dual innervation and tone</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 12, the parts on antagonistic control and tonic control by the autonomic division.</p>
+<dl>
+  <dt>Dual innervation</dt><dd>An organ receives fibers from both divisions.</dd>
+  <dt>Antagonistic control</dt><dd>The two divisions have opposite effects on the same organ, as on the heart rate.</dd>
+  <dt>Autonomic tone</dt><dd>A steady, low rate of firing at rest. Turning it up or down moves the organ in either direction.</dd>
+</dl>
+<ul>
+  <li>With no nerves acting on it, the SA node fires at about 100 beats per minute (roughly 90 to 110). The resting heart beats at about 70.</li>
+  <li>Cutting or blocking the vagus nerve raises the heart rate to the SA node's own rate, about 100. Cutting the sympathetic supply at rest slows the heart only a little. So at rest the parasympathetic division dominates the heart.</li>
+  <li>Removing one division from a dually innervated organ leaves the other unopposed, so the organ moves the way the remaining division pushes it.</li>
+  <li>During exercise, vagal tone falls and sympathetic firing rises, and the heart rate climbs above 100.</li>
+  <li>Most blood vessels and the sweat glands receive only sympathetic neurons. Steady sympathetic tone keeps arteriole smooth muscle partly contracted. More firing narrows the vessel (vasoconstriction); less firing than at rest widens it (vasodilation).</li>
+  <li>Losing sympathetic tone to the vessels, as after some injuries high in the spinal cord, widens them and can drop blood pressure.</li>
+</ul>
+<h3>Heart rate with each breath (lab: autonomic testing)</h3>
+<ul>
+  <li>Heart rate rises during inspiration and falls during expiration. This is respiratory sinus arrhythmia, and it is normal, usually largest in young, healthy people.</li>
+  <li>It comes from the vagus nerve: vagal activity is turned down with each breath in and returns with each breath out.</li>
+  <li>Only the vagus acts fast enough to change the rate within one breath. ACh at the SA node takes effect within about a second and wears off as quickly, while sympathetic effects through cAMP build and fade over several seconds.</li>
+  <li>A large beat-to-beat variation with breathing means strong vagal tone. You measure it in lab as heart rate variability.</li>
+</ul>
+</section>
+<section id="autonomic-drugs">
+<h2>Autonomic drugs</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 12, the part on autonomic agonists and antagonists.</p>
+<p>A drug that blocks a receptor acts on every organ that uses that receptor. Knowing which receptor dominates in each organ lets you predict both the effect a drug is given for and its side effects.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Drug</th><th scope="col">Blocks</th><th scope="col">Wanted effect</th><th scope="col">Side effects to predict</th></tr></thead><tbody>
+<tr><th scope="row">Propranolol (nonselective beta blocker)</th><td>Beta-1 and beta-2</td><td>Slower, weaker heartbeat; lower blood pressure</td><td>Airway narrowing and wheezing, dangerous in asthma (beta-2 on bronchiole smooth muscle)</td></tr>
+<tr><th scope="row">Metoprolol (beta-1 selective, cardioselective)</th><td>Mainly beta-1</td><td>Slower, weaker heartbeat; lower blood pressure</td><td>Airways mostly spared at usual doses; selectivity is not complete at high doses</td></tr>
+<tr><th scope="row">Atropine (muscarinic antagonist)</th><td>Muscarinic</td><td>Faster heart rate in a dangerously slow heart</td><td>Dilated pupils and blurred near vision, dry mouth, slower gut and constipation, less sweating with hot, dry skin</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Beta blockers treat high blood pressure and some heart conditions by blocking beta-1 receptors on the heart, so it pumps less blood each minute.</li>
+  <li>Atropine blocks the parasympathetic division at every target, and the sympathetic cholinergic neurons to the sweat glands too. It speeds the heart by blocking the vagal tone at the SA node.</li>
+  <li>Near vision blurs with atropine because the muscle that focuses the lens for close work is under parasympathetic control.</li>
+  <li>Drugs are often designed to reach one organ. An inhaled muscarinic blocker widens the airways in some lung diseases, because breathing it in keeps most of the drug in the lungs.</li>
+</ul>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+<script src="bio005-collapse.js"></script>
+</body>
+</html>
