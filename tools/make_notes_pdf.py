@@ -34,6 +34,9 @@ from weasyprint import HTML
 import pikepdf
 
 ROOT = M.ROOT
+# Oct 18 2026: the week number printed on the PDF follows the Canvas numbering (tools/week_label.py);
+# file names keep the site number.
+from week_label import L as WLAB
 OUT = M.OUT
 SITE = "drsrennie-stack.github.io/human-physiology-Fa26/"
 
@@ -61,6 +64,15 @@ NOTES = {
      ("biol005-w05-csf-bbb-walkthrough-notes.html", "Cerebrospinal fluid and the blood-brain barrier"),
      ("biol005-w05-vision-walkthrough-notes.html", "Vision"),
      ("biol005-w05-hearing-balance-walkthrough-notes.html", "Hearing, balance, taste and smell")],
+ # Oct 17 2026: Weeks 6 and 7, one walkthrough notes page per topic.
+ 6: [("biol005-w06-nmj-contraction-walkthrough-notes.html", "The neuromuscular junction and contraction"),
+     ("biol005-w06-twitch-motor-units-walkthrough-notes.html", "Twitches, summation and motor units"),
+     ("biol005-w06-fuel-fatigue-walkthrough-notes.html", "Fuel, fiber types and fatigue"),
+     ("biol005-w06-motor-control-walkthrough-notes.html", "How movement gets commanded")],
+ 7: [("biol005-w07-autonomic-walkthrough-notes.html", "The autonomic nervous system"),
+     ("biol005-w07-hormones-walkthrough-notes.html", "How hormones work"),
+     ("biol005-w07-pituitary-walkthrough-notes.html", "The hypothalamus and pituitary"),
+     ("biol005-w07-reproduction-walkthrough-notes.html", "Reproductive hormones")],
 }
 
 # lecture notes keep the numbers they were first published under, even after
@@ -181,7 +193,7 @@ def main():
         for i, (f, t) in enumerate(NOTES[w], 1):
             if not (ROOT / f).exists():
                 print("missing", f); continue
-            html = asyncio.run(build_one(f, t, w))
+            html = asyncio.run(build_one(f, t, WLAB(w)))
             doc = HTML(string=html, base_url=str(ROOT) + '/').render(pdf_variant='pdf/ua-1')
             if f.endswith("-walkthrough-notes.html"):
                 name = "notes/BIO005-Week%d-Walkthrough-Notes-%s.pdf" % (w, f.replace("biol005-w%02d-" % w, "").replace("-walkthrough-notes.html", ""))
@@ -192,14 +204,14 @@ def main():
             target = OUT / name
             target.parent.mkdir(parents=True, exist_ok=True)
             doc.write_pdf(target, pdf_variant='pdf/ua-1', uncompressed_pdf=False)
-            M.stamp(target, "BIO 005 Week %d notes: %s" % (w, t), "Written notes for %s, printable, two columns" % t)
+            M.stamp(target, "BIO 005 Week %d notes: %s" % (WLAB(w), t), "Written notes for %s, printable, two columns" % t)
             print("  ", name, M.audit(target))
             docs.append(doc)
         if len(docs) > 1:
             # one packet for the week: the same pages, rendered once, tagged as one document
             pk = OUT / ("notes/BIO005-Week%d-Notes-all.pdf" % w)
             docs[0].copy([pg for d in docs for pg in d.pages]).write_pdf(pk, pdf_variant='pdf/ua-1', uncompressed_pdf=False)
-            M.stamp(pk, "BIO 005 Week %d notes, all lectures" % w, "Every written notes page for Week %d, in teaching order, printable" % w)
+            M.stamp(pk, "BIO 005 Week %d notes, all lectures" % WLAB(w), "Every written notes page for Week %d, in teaching order, printable" % WLAB(w))
             print("   packet", pk.name, M.audit(pk))
 
 if __name__ == "__main__":

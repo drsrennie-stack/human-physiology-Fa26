@@ -305,6 +305,7 @@ td.no .cellmsg{color:var(--terra-dark)}
 </div>
 </main>
 
+<script src="bio005-week-label.js"></script>
 <script src="bio005-patient-chart.js"></script>
 <script src="bio005-chart-ehr.js"></script>
 <script>
@@ -320,7 +321,7 @@ var m = /[?&]week=(\d{1,2})/.exec(location.search);
 var WK = m ? Math.max(1, Math.min(15, parseInt(m[1], 10))) : 1;
 var wk = C.weeks[WK], ex = E.weeks[WK];
 if (!wk || !ex) {
-  root.textContent = 'Week ' + WK + ' is missing from the chart. Tell Dr. Rennie, because that is a mistake and not a design choice.';
+  root.textContent = 'Week '+(window.BIO005_WL?BIO005_WL(WK):WK)+ ' is missing from the chart. Tell Dr. Rennie, because that is a mistake and not a design choice.';
   return;
 }
 var pKey = C.patientByWeek[WK] || 'A';
@@ -477,14 +478,14 @@ document.getElementById('pline').textContent = ex.location + '. ' + ex.encounter
   var f = document.getElementById('bfields');
   [['Record number', B.mrn, 0], ['Sex', B.sex, 0], ['Date of birth', B.dob, 0],
    ['Allergies', B.allergies, 1], ['Code status', B.code, 0], ['Isolation', B.isolation, 0],
-   ['Attending', B.attending, 0], ['Week', 'Week ' + WK + ', ' + wk.title, 0]].forEach(function (r) {
+   ['Attending', B.attending, 0], ['Week', 'Week ' + (window.BIO005_WL?BIO005_WL(WK):WK) + ', ' + wk.title, 0]].forEach(function (r) {
     var d = el('div', 'bf' + (r[2] ? ' alert' : ''));
     d.appendChild(el('span', 'l', r[0]));
     d.appendChild(el('span', 'v', esc(r[1])));
     f.appendChild(d);
   });
 }());
-document.title = 'Rounds · Week ' + WK + ' · BIO 005 Human Physiology';
+document.title = 'Rounds · Week ' + (window.BIO005_WL?BIO005_WL(WK):WK) + ' · BIO 005 Human Physiology';
 
 /* ---------- the chart tabs ---------- */
 var TABS = [
@@ -820,7 +821,7 @@ function renderStep() {
   document.getElementById('stepnum').textContent = 'Step ' + (idx + 1) + ' of ' + steps.length;
   document.getElementById('steph').textContent = s.title;
   document.getElementById('prog').textContent =
-    'Week ' + WK + ', ' + wk.title + '. ' + P.name + '. ' + steps.length + ' steps, and you can come back to any of them.';
+    'Week ' + (window.BIO005_WL?BIO005_WL(WK):WK) + ', ' + wk.title + '. ' + P.name + '. ' + steps.length + ' steps, and you can come back to any of them.';
 
   var c = ex.coach;
 
@@ -832,7 +833,7 @@ function renderStep() {
       t.appendChild(el('p', 'plabel', 'Handed to you before you start'));
       wk.tools.forEach(function (x) {
         t.appendChild(el('p', null, '<strong>' + x[0] + '.</strong> ' + x[1]
-          + (x[2] ? ' <strong>You build this properly in Week ' + x[2] + '.</strong>' : '')));
+          + (x[2] ? ' <strong>You build this properly in Week '+(window.BIO005_WL?BIO005_WL(x[2]):x[2])+ '.</strong>' : '')));
       });
       root.appendChild(t);
     }
@@ -1057,9 +1058,9 @@ function printCase() {
     try { st = JSON.parse(localStorage.getItem('bio005-rounds-v1-w' + w) || 'null'); } catch (e) {}
     if (w === WK) { st = S; }
     if (exw.prefiled) { return; }
-    h += '<section class="cweek"><h2>Week ' + w + ': ' + esc(wkw.title) + '</h2>';
+    h += '<section class="cweek"><h2>Week '+(window.BIO005_WL?BIO005_WL(w):w)+ ': ' + esc(wkw.title) + '</h2>';
     if (!st || !st.answers) {
-      h += '<p><strong>Nothing charted in Rounds for this week in this browser.</strong> If you charted it on another computer, open Week ' + w + ' in Rounds here, paste that week\'s save code, and export again.</p></section>';
+      h += '<p><strong>Nothing charted in Rounds for this week in this browser.</strong> If you charted it on another computer, open Week '+(window.BIO005_WL?BIO005_WL(w):w)+ ' in Rounds here, paste that week\'s save code, and export again.</p></section>';
       return;
     }
     h += activityHtml(st);

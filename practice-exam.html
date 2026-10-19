@@ -416,6 +416,7 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
 
 <dialog class="xdlg" id="xdlg" aria-label="Practice exam"></dialog>
 
+<script src="bio005-week-label.js"></script>
 <script src="bio005-exam-bank.js"></script>
 <script>
 (function(){
@@ -455,10 +456,10 @@ function masteryBlockHTML(a, tag){
   function row(ok, text){ return '<li><span class="'+(ok?'ok':'no')+'">'+(ok?'Met':'Not yet')+':</span> '+text+'</li>'; }
   var head;
   if(m.rule.goal){
-    head = !m.ok ? 'This try is practice. It does not count as a Week '+m.week+' Mastery Check try yet.'
-      : m.okScore ? 'This counts as a Week '+m.week+' Mastery Check try, and you reached the 80 percent goal. Save this report. Do at least '+m.rule.tries+' tries in all.'
-      : 'This counts as a Week '+m.week+' Mastery Check try. Save this report, go back to Study it for the competencies below, then try again. Do at least '+m.rule.tries+' tries, and aim for 80 percent before you stop.';
-  } else head = m.ok ? 'This attempt meets the Week '+m.week+' Mastery Check standard.' : 'This attempt is practice. It does not meet the Week '+m.week+' Mastery Check standard yet.';
+    head = !m.ok ? 'This try is practice. It does not count as a Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check try yet.'
+      : m.okScore ? 'This counts as a Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check try, and you reached the 80 percent goal. Save this report. Do at least '+m.rule.tries+' tries in all.'
+      : 'This counts as a Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check try. Save this report, go back to Study it for the competencies below, then try again. Do at least '+m.rule.tries+' tries, and aim for 80 percent before you stop.';
+  } else head = m.ok ? 'This attempt meets the Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check standard.' : 'This attempt is practice. It does not meet the Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check standard yet.';
   return '<div class="mstd"><'+tag+'>'+esc(head)+'</'+tag+'><ul>'+
     row(m.okN, m.n+' questions answered. The minimum is '+m.rule.minQ+'.')+
     row(m.okScore, (Math.floor(m.score*1000)/10)+' percent. '+(m.rule.goal?'The goal is ':'The standard is ')+Math.round(m.rule.pass*100)+' percent or higher.')+
@@ -470,7 +471,7 @@ function compTableHTML(a){
   if(m){ ids=m.comps.map(function(c){ return c.id; }); }
   else { ids=Object.keys(a.byComp||{}).filter(function(id){ return COMP[id]; }).sort(function(x,y){ return COMP[x].week-COMP[y].week; }); }
   var rows=ids.map(function(id){ var c=COMP[id], v=(a.byComp||{})[id]||[0,0]; var p=v[1]?v[0]/v[1]:null;
-    return '<tr><td>'+esc(c.name)+(m?'':' <small>(Week '+c.week+')</small>')+'</td><td class="n">'+v[1]+'</td><td class="n">'+(Math.round(v[0]*10)/10)+'</td><td class="n">'+(p==null?'not tested':pct(p)+'%')+'</td></tr>'; }).join('');
+    return '<tr><td>'+esc(c.name)+(m?'':' <small>(Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+')</small>')+'</td><td class="n">'+v[1]+'</td><td class="n">'+(Math.round(v[0]*10)/10)+'</td><td class="n">'+(p==null?'not tested':pct(p)+'%')+'</td></tr>'; }).join('');
   return '<table><caption class="vh">Questions and score for each competency</caption><thead><tr><th scope="col">Competency</th><th scope="col" class="n">Questions</th><th scope="col" class="n">Points earned</th><th scope="col" class="n">Score</th></tr></thead><tbody>'+rows+'</tbody></table>';
 }
 var TYPE_NAME = { mc:'Multiple choice', ma:'Multiple answer', tf:'True or false, then fix it', bd:'Brain dump', app:'Application' };
@@ -493,7 +494,7 @@ function fmtDate(iso){ var d=new Date(iso); return d.toLocaleDateString('en-US',
 function fmtDateTime(iso){ var d=new Date(iso); return d.toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'America/Los_Angeles'})+' Pacific'; }
 function load(key, dflt){ try{ var v=localStorage.getItem(key); return v?JSON.parse(v):dflt; }catch(e){ return dflt; } }
 function save(key, v){ try{ localStorage.setItem(key, JSON.stringify(v)); return true; }catch(e){ return false; } }
-function weeksLabel(ws){ ws=ws.slice().sort(function(a,b){return a-b;}); if(ws.length===1) return 'Week '+ws[0]; var runs=[],s=ws[0],p=ws[0]; for(var i=1;i<=ws.length;i++){ if(ws[i]===p+1){p=ws[i];continue;} runs.push(s===p?String(s):s+' to '+p); s=p=ws[i]; } return 'Weeks '+runs.join(', '); }
+function weeksLabel(ws){ ws=ws.slice().sort(function(a,b){return a-b;}); if(ws.length===1) return 'Week '+(window.BIO005_WL?BIO005_WL(ws[0]):ws[0]); var runs=[],s=ws[0],p=ws[0]; for(var i=1;i<=ws.length;i++){ if(ws[i]===p+1){p=ws[i];continue;} runs.push(s===p?String((window.BIO005_WL?BIO005_WL(s):s)):(window.BIO005_WL?BIO005_WL(s):s)+' to '+(window.BIO005_WL?BIO005_WL(p):p)); s=p=ws[i]; } return 'Weeks '+runs.join(', '); }
 function todayOpened(){ var now=new Date(); return BANK.weeks.filter(function(w){ return new Date(w.opens+'T08:00:00-07:00') <= now; }).map(function(w){return w.n;}); }
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
 function hash(s){ var h=5381; for(var i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))|0; } return (h>>>0).toString(36); }
@@ -613,7 +614,7 @@ var setup = {
       p.weeks.forEach(function(n){
         var w=WEEK[n];
         var lab=el('label',{class:'chk'});
-        lab.innerHTML='<input type="checkbox" name="week" value="'+n+'"><span class="wn">Week '+n+'</span><span class="wt">'+esc(w.title)+' <span class="cnt">('+(compCountByWeek[n]||0)+' competencies)</span></span>';
+        lab.innerHTML='<input type="checkbox" name="week" value="'+n+'"><span class="wn">Week '+(window.BIO005_WL?BIO005_WL(n):n)+'</span><span class="wt">'+esc(w.title)+' <span class="cnt">('+(compCountByWeek[n]||0)+' competencies)</span></span>';
         wk.appendChild(lab);
       });
     });
@@ -676,9 +677,9 @@ var setup = {
     var tr=weekTrends(h.attempts); var tw=Object.keys(tr).map(Number).sort(function(x,y){return x-y;});
     $('#trendcard').hidden = !tw.length;
     var tb2=$('#trends tbody'); tb2.innerHTML='';
-    tw.forEach(function(w){ var seq=tr[w]; var ch=pct(seq[seq.length-1].p)-pct(seq[0].p); var row=el('tr'); row.innerHTML='<td><strong>Week '+w+'</strong><br><span class="note">'+esc(WEEK[w].title)+'</span></td><td class="num">'+seq.length+'</td><td>'+seq.map(function(x){ return pct(x.p)+'%'; }).join(' <span class="dot" aria-hidden="true">&rarr;</span> ')+'</td><td class="num">'+(seq.length>1?((ch>=0?'+':'')+ch+' pts'):'')+'</td><td>'+(seq.length>1?trendWord(ch):'First attempt')+'</td>'; tb2.appendChild(row); });
+    tw.forEach(function(w){ var seq=tr[w]; var ch=pct(seq[seq.length-1].p)-pct(seq[0].p); var row=el('tr'); row.innerHTML='<td><strong>Week '+(window.BIO005_WL?BIO005_WL(w):w)+'</strong><br><span class="note">'+esc(WEEK[w].title)+'</span></td><td class="num">'+seq.length+'</td><td>'+seq.map(function(x){ return pct(x.p)+'%'; }).join(' <span class="dot" aria-hidden="true">&rarr;</span> ')+'</td><td class="num">'+(seq.length>1?((ch>=0?'+':'')+ch+' pts'):'')+'</td><td>'+(seq.length>1?trendWord(ch):'First attempt')+'</td>'; tb2.appendChild(row); });
     var lift=biggestLift(h.attempts).slice(0,8); var lo=$('#lift'); lo.innerHTML='';
-    lift.forEach(function(g,i){ var c=COMP[g.id]; var li=el('li'); li.innerHTML='<span class="n">'+(i+1)+'</span><span><strong>'+esc(c.name)+'</strong> <span class="note">(Week '+c.week+', about '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+' per attempt, '+pct(g.r)+' percent right so far)</span><small>'+esc(c.can)+'</small></span>'; lo.appendChild(li); });
+    lift.forEach(function(g,i){ var c=COMP[g.id]; var li=el('li'); li.innerHTML='<span class="n">'+(i+1)+'</span><span><strong>'+esc(c.name)+'</strong> <span class="note">(Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+', about '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+' per attempt, '+pct(g.r)+' percent right so far)</span><small>'+esc(c.can)+'</small></span>'; lo.appendChild(li); });
     if(!lift.length) lo.innerHTML='<li><span class="n">&#10003;</span><span>Nothing is costing you points across your recent attempts.</span></li>';
     /* gap card */
     if(h.attempts.length){
@@ -704,12 +705,12 @@ var setup = {
 function gapsHTML(a, compact){
   var h='';
   h+='<div class="bars">';
-  a.weeks.slice().sort(function(x,y){return x-y;}).forEach(function(w){ var v=a.byWeek[w]; if(!v) return; var p=v[1]?v[0]/v[1]:0; h+='<div class="bar"><span class="lab">Week '+w+'<small>'+esc(WEEK[w].title)+'</small></span><span class="track" aria-hidden="true"><span class="fill'+(p<0.7?' low':'')+'" style="width:'+pct(p)+'%;display:block"></span></span><span class="pct">'+pct(p)+'%</span></div>'; });
+  a.weeks.slice().sort(function(x,y){return x-y;}).forEach(function(w){ var v=a.byWeek[w]; if(!v) return; var p=v[1]?v[0]/v[1]:0; h+='<div class="bar"><span class="lab">Week '+(window.BIO005_WL?BIO005_WL(w):w)+'<small>'+esc(WEEK[w].title)+'</small></span><span class="track" aria-hidden="true"><span class="fill'+(p<0.7?' low':'')+'" style="width:'+pct(p)+'%;display:block"></span></span><span class="pct">'+pct(p)+'%</span></div>'; });
   h+='</div>';
   var gaps=priorityGaps(a);
   if(gaps.length){
     h+='<p class="startline">Do not study everything again. Start here. These lift your score the most.</p><ol class="gaps">';
-    gaps.slice(0, compact?5:10).forEach(function(g,i){ var c=COMP[g.id]; h+='<li><span class="n">'+(i+1)+'</span><span><strong>'+esc(c.name)+'</strong> <span class="note">(Week '+c.week+', cost you '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+')</span><small>'+esc(c.can)+'</small></span></li>'; });
+    gaps.slice(0, compact?5:10).forEach(function(g,i){ var c=COMP[g.id]; h+='<li><span class="n">'+(i+1)+'</span><span><strong>'+esc(c.name)+'</strong> <span class="note">(Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+', cost you '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+')</span><small>'+esc(c.can)+'</small></span></li>'; });
     h+='</ol>';
   } else h+='<p class="startline">Every competency on this attempt was fully correct.</p>';
   if(a.quad && !compact){
@@ -770,7 +771,7 @@ var runner = {
     var card=$('#xcard', runner.host); card.innerHTML='';
     if(runner.i>=runner.items.length){ runner.finish(card); return; }
     var it=runner.items[runner.i]; var c=COMP[it.competencyId];
-    var meta=el('div',{class:'meta'}); meta.innerHTML='<span class="tag type">'+TYPE_NAME[it.type]+'</span><span class="tag">Week '+it.week+'</span><span class="tag dok">'+DOK_NAME[it.dok]+'</span>';
+    var meta=el('div',{class:'meta'}); meta.innerHTML='<span class="tag type">'+TYPE_NAME[it.type]+'</span><span class="tag">Week '+(window.BIO005_WL?BIO005_WL(it.week):it.week)+'</span><span class="tag dok">'+DOK_NAME[it.dok]+'</span>';
     card.appendChild(meta);
     views[it.type](card, it, c);
     window.scrollTo(0,0); try{ runner.host.scrollTop=0; }catch(e){}
@@ -791,7 +792,7 @@ var runner = {
     h+=masteryBlockHTML(a,'h3');
     h+='<h3>Score by week</h3>'+gapsHTML(a,false);
     h+='<p class="note" style="margin-top:12px">A word on honesty. Nothing here is graded, and the list above is only as good as your answers. Guess when you are guessing, mark low confidence when you feel it, and tick only the brain dump components you really wrote. That is what makes the list point at the right things.</p>';
-    if(a.miscon && a.miscon.length){ h+='<h3>Watch these: wrong while confident</h3><ul>'+a.miscon.map(function(id){ return '<li><strong>'+esc(COMP[id].name)+'</strong> <span class="note">(Week '+COMP[id].week+')</span></li>'; }).join('')+'</ul><p class="note">A confident wrong answer usually means a misconception rather than a blank. Those are worth fixing first because they will not go away on their own.</p>'; }
+    if(a.miscon && a.miscon.length){ h+='<h3>Watch these: wrong while confident</h3><ul>'+a.miscon.map(function(id){ return '<li><strong>'+esc(COMP[id].name)+'</strong> <span class="note">(Week '+(window.BIO005_WL?BIO005_WL(COMP[id].week):COMP[id].week)+')</span></li>'; }).join('')+'</ul><p class="note">A confident wrong answer usually means a misconception rather than a blank. Those are worth fixing first because they will not go away on their own.</p>'; }
     h+='<h3>Save your results</h3><p>The report lists the competencies to review, not the questions, so you can upload it to Canvas when I ask for it. Your name goes on the report only. It is not stored anywhere.</p><div class="namebox"><label for="rname"><strong>Your name</strong></label><input type="text" id="rname" autocomplete="name" placeholder="Name for the report"></div>';
     h+='<div class="xactions"><button type="button" class="btn" id="saverep">Open my results report</button><button type="button" class="btn gold" id="againgaps">Practice my gaps</button><button type="button" class="btn ghost" id="done">Done</button></div></div>';
     card.innerHTML=h;
@@ -926,10 +927,10 @@ var views = {
 var report = {
   html:function(a){
     var css=report.css();
-    var weeksRows=a.weeks.map(function(w){ var v=a.byWeek[w]||[0,0]; var p=v[1]?v[0]/v[1]:0; return '<tr><td>Week '+w+'. '+esc(WEEK[w].title)+'</td><td class="n">'+v[1]+'</td><td class="n"><span class="bar'+(p<0.7?' low':'')+'" style="width:'+Math.round(p*120)+'px"></span>'+pct(p)+'%</td></tr>'; }).join('');
+    var weeksRows=a.weeks.map(function(w){ var v=a.byWeek[w]||[0,0]; var p=v[1]?v[0]/v[1]:0; return '<tr><td>Week '+(window.BIO005_WL?BIO005_WL(w):w)+'. '+esc(WEEK[w].title)+'</td><td class="n">'+v[1]+'</td><td class="n"><span class="bar'+(p<0.7?' low':'')+'" style="width:'+Math.round(p*120)+'px"></span>'+pct(p)+'%</td></tr>'; }).join('');
     var review=Object.keys(a.byComp).map(function(id){ var v=a.byComp[id]; return {id:id, r:v[1]?v[0]/v[1]:0, n:v[1]}; }).filter(function(x){ return x.r<1; }).sort(function(x,y){ return x.r-y.r || COMP[x.id].week-COMP[y.id].week; });
     var solid=Object.keys(a.byComp).filter(function(id){ var v=a.byComp[id]; return v[1] && v[0]/v[1]>=1; }).length;
-    var reviewRows=review.map(function(x){ var c=COMP[x.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+c.week+', '+esc(c.topic)+', '+pct(x.r)+' percent on '+x.n+' item'+(x.n===1?'':'s')+(a.miscon&&a.miscon.indexOf(x.id)>=0?', answered with confidence':'')+')<small>'+esc(c.can)+'</small></li>'; }).join('');
+    var reviewRows=review.map(function(x){ var c=COMP[x.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+', '+esc(c.topic)+', '+pct(x.r)+' percent on '+x.n+' item'+(x.n===1?'':'s')+(a.miscon&&a.miscon.indexOf(x.id)>=0?', answered with confidence':'')+')<small>'+esc(c.can)+'</small></li>'; }).join('');
     var types=Object.keys(a.types||{}).map(function(t){ return TYPE_NAME[t]+' '+a.types[t]; }).join(', ');
     return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice exam results, '+esc(weeksLabel(a.weeks))+', BIO 005</title><style>'+css+'</style></head><body><div class="wrap">'+
       '<div class="btns"><button class="p" onclick="window.print()">Print or save as PDF</button><button onclick="(function(){var b=new Blob([document.documentElement.outerHTML],{type:\'text/html\'});var l=document.createElement(\'a\');l.href=URL.createObjectURL(b);l.download=\'bio005-practice-results-'+a.date.slice(0,10)+'.html\';document.body.appendChild(l);l.click();l.remove();})()">Download as HTML</button></div>'+
@@ -951,7 +952,7 @@ var report = {
     /* per week summary: attempts that included that week, first and latest score for that week */
     var perWeek={};
     attempts.forEach(function(a){ a.weeks.forEach(function(w){ var v=a.byWeek&&a.byWeek[w]; if(!v||!v[1]) return; var p=v[0]/v[1]; if(!perWeek[w]) perWeek[w]={n:0,first:p,latest:p,best:p,items:0,firstDate:a.date,latestDate:a.date}; var r=perWeek[w]; r.n++; r.latest=p; r.latestDate=a.date; r.best=Math.max(r.best,p); r.items+=v[1]; }); });
-    var weekRows=Object.keys(perWeek).map(Number).sort(function(x,y){return x-y;}).map(function(w){ var r=perWeek[w]; var ch=pct(r.latest)-pct(r.first); return '<tr><td>Week '+w+'. '+esc(WEEK[w].title)+'</td><td class="n">'+r.n+'</td><td class="n">'+r.items+'</td><td class="n">'+pct(r.first)+'%</td><td class="n">'+pct(r.latest)+'%</td><td class="n">'+pct(r.best)+'%</td><td class="n">'+(r.n>1?((ch>=0?'+':'')+ch+' pts, '+trendWord(ch)):'first attempt')+'</td></tr>'; }).join('');
+    var weekRows=Object.keys(perWeek).map(Number).sort(function(x,y){return x-y;}).map(function(w){ var r=perWeek[w]; var ch=pct(r.latest)-pct(r.first); return '<tr><td>Week '+(window.BIO005_WL?BIO005_WL(w):w)+'. '+esc(WEEK[w].title)+'</td><td class="n">'+r.n+'</td><td class="n">'+r.items+'</td><td class="n">'+pct(r.first)+'%</td><td class="n">'+pct(r.latest)+'%</td><td class="n">'+pct(r.best)+'%</td><td class="n">'+(r.n>1?((ch>=0?'+':'')+ch+' pts, '+trendWord(ch)):'first attempt')+'</td></tr>'; }).join('');
     var rows=attempts.map(function(a,i){ return '<tr><td class="n">'+(i+1)+'</td><td>'+esc(fmtDate(a.date))+'</td><td>'+esc(weeksLabel(a.weeks))+(a.label?' ('+esc(a.label)+')':'')+'</td><td class="n">'+a.n+'</td><td class="n">'+pct(a.score)+'%</td><td class="n">'+(a.conf?a.conf.toFixed(1):'')+'</td></tr>'; }).join('');
     /* improvement on the most recent week set */
     var last=attempts[attempts.length-1]; var key=last.weeks.slice().sort().join(','); var same=attempts.filter(function(a){ return a.weeks.slice().sort().join(',')===key; });
@@ -961,7 +962,7 @@ var report = {
     /* competencies still under 70 percent across the last six attempts */
     var acc={}; attempts.slice(-6).forEach(function(a){ Object.keys(a.byComp||{}).forEach(function(id){ var v=a.byComp[id]; if(!acc[id]) acc[id]=[0,0]; acc[id][0]+=v[0]; acc[id][1]+=v[1]; }); });
     var weak=Object.keys(acc).map(function(id){ return {id:id, r:acc[id][0]/acc[id][1], n:acc[id][1]}; }).filter(function(x){ return x.r<0.7; }).sort(function(x,y){ return x.r-y.r; }).slice(0,12);
-    var weakRows=weak.map(function(x){ var c=COMP[x.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+c.week+', '+pct(x.r)+' percent over '+x.n+' item'+(x.n===1?'':'s')+')</li>'; }).join('');
+    var weakRows=weak.map(function(x){ var c=COMP[x.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+', '+pct(x.r)+' percent over '+x.n+' item'+(x.n===1?'':'s')+')</li>'; }).join('');
     var stamp=hash(attempts.map(function(a){ return a.id+':'+Math.round(a.score*1000); }).join('|'));
     return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice log, BIO 005</title><style>'+css+'</style></head><body><div class="wrap">'+
       '<div class="btns"><button class="p" onclick="window.print()">Print or save as PDF</button><button onclick="(function(){var b=new Blob([document.documentElement.outerHTML],{type:\'text/html\'});var l=document.createElement(\'a\');l.href=URL.createObjectURL(b);l.download=\'bio005-practice-log-'+now.toISOString().slice(0,10)+'.html\';document.body.appendChild(l);l.click();l.remove();})()">Download as HTML</button></div>'+
@@ -970,7 +971,7 @@ var report = {
       '<h2>Am I improving?</h2><p>'+trend+'</p>'+
       '<div class="box"><p class="eyebrow">For your discussion post (no scores needed)</p><p>Improving: <strong>'+verdict+'</strong>. Attempts this week: <strong>'+recent.length+'</strong>. What I changed about how I study: ______. Did it help: ______. What I will do differently next: ______.</p></div>'+
       '<h2>Score by week</h2><p>Each row is one week of the course. First and latest are your first and most recent scores on that week\'s questions.</p><table><thead><tr><th>Week</th><th class="n">Attempts</th><th class="n">Items</th><th class="n">First</th><th class="n">Latest</th><th class="n">Best</th><th class="n">Change</th></tr></thead><tbody>'+weekRows+'</tbody></table>'+
-      '<h2>Biggest lift</h2><p>Average points each competency cost per attempt over the last six attempts. Fixing the top of this list raises the score the most.</p>'+(function(){ var l=biggestLift(attempts).slice(0,8); return l.length?'<ol>'+l.map(function(g){ var c=COMP[g.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+c.week+', about '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+' per attempt)</li>'; }).join('')+'</ol>':'<p>Nothing is costing points right now.</p>'; })()+
+      '<h2>Biggest lift</h2><p>Average points each competency cost per attempt over the last six attempts. Fixing the top of this list raises the score the most.</p>'+(function(){ var l=biggestLift(attempts).slice(0,8); return l.length?'<ol>'+l.map(function(g){ var c=COMP[g.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+', about '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+' per attempt)</li>'; }).join('')+'</ol>':'<p>Nothing is costing points right now.</p>'; })()+
       '<h2>Every attempt</h2><table><thead><tr><th class="n">#</th><th>Date</th><th>Weeks</th><th class="n">Questions</th><th class="n">Score</th><th class="n">Confidence</th></tr></thead><tbody>'+rows+'</tbody></table>'+
       '<h2>Still below 70 percent</h2>'+(weak.length?'<p>Across your last six attempts. Start your studying here.</p><ol>'+weakRows+'</ol>':'<p>Nothing is sitting below 70 percent across your recent attempts.</p>')+
       '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder on this device. Log stamp '+esc(stamp)+'. Practice results carry no points; the log is so I can reach out before an exam if it would help.</p></div></body></html>';

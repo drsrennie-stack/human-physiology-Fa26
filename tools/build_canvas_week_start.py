@@ -156,7 +156,8 @@ def build(n):
       '<p style="margin:6px 0 0 0;font-size:0.85em;color:%s;">Dr. Sharilyn Rennie</p>' % INK_SOFT +
       '</div>')
     path = ROOT / ("_canvas/pages/w%s-00-start-here.html" % nn)
-    path.write_text(out + "\n", encoding="utf-8")
+    from week_label import relabel, LABEL   # Oct 18 2026: Canvas week numbers
+    path.write_text((relabel(out) if n in LABEL else out) + "\n", encoding="utf-8")
     print("built", path.relative_to(ROOT))
 
 if __name__ == "__main__":

@@ -421,6 +421,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 <p class="foot"><span>BIO 005 Human Physiology &middot; Yuba College &middot; Fall 2026</span><span>Dr. Sharilyn Rennie</span></p>
 </div></main>
 
+<script src="bio005-week-label.js"></script>
 <script src="bio005-competencies.js"></script>
 <script src="os/bio005-card-bank.js"></script>
 <script>
@@ -630,7 +631,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var sel = $('weeks'); sel.innerHTML = '';
     var groups = [
       ['c', 'All weeks so far (earlier weeks keep coming back)', function(n, t){ return (n === 1 ? 'Week 1' : 'Weeks 1 to ' + n) + (t ? ': ' + t : ''); }],
-      ['o', 'One week at a time', function(n, t){ return 'Week ' + n + ' only' + (t ? ': ' + t : ''); }]
+      ['o', 'One week at a time', function(n, t){ return 'Week ' + (window.BIO005_WL?BIO005_WL(n):n) + ' only' + (t ? ': ' + t : ''); }]
     ];
     groups.forEach(function(g){
       var og = document.createElement('optgroup'); og.label = g[1];
@@ -734,7 +735,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     list.slice(0, 12).forEach(function(w){
       var li = document.createElement('li');
       var t = document.createElement('div'); t.className = 'wt';
-      var b = document.createElement('b'); b.textContent = w.comp.name + ' (Week ' + w.comp.week + ')';
+      var b = document.createElement('b'); b.textContent = w.comp.name + ' (Week '+(window.BIO005_WL?BIO005_WL(w.comp.week):w.comp.week)+ ')';
       var sp = document.createElement('span'); sp.textContent = w.cards + ' weak card' + (w.cards === 1 ? '' : 's') + ': ' + w.misses + ' missed, ' + w.hard + ' rated Hard';
       t.appendChild(b); t.appendChild(sp);
       var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn';
@@ -822,7 +823,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var r = S.cards[cur.key] || { st:'new' };
     $('prog').textContent = (done + 1) + ' of ' + total;
     $('meterfill').style.width = Math.round(100 * done / total) + '%';
-    $('mWeek').textContent = 'Week ' + cur.week;
+    $('mWeek').textContent = 'Week ' + (window.BIO005_WL?BIO005_WL(cur.week):cur.week);
     $('mTopic').textContent = cur.topic;
     $('mLevel').textContent = 'Level ' + cur.dok;
     $('mState').textContent = r.st === 'new' ? 'New card' : r.st === 'learn' ? 'Relearning' : 'Review';
@@ -856,7 +857,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     v.className = 'verdict ' + (firstRight ? 'right' : 'wrong');
     $('vh').textContent = firstRight ? 'Right.' : 'Not this one. The answer is ' + (cur.ci + 1) + ': ' + cur.options[cur.ci];
     $('vx').textContent = cur.x;
-    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (Week ' + cur.comp.week + ')';
+    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (Week '+(window.BIO005_WL?BIO005_WL(cur.comp.week):cur.comp.week)+ ')';
     v.hidden = false;
     /* rating buttons, with what each would do */
     var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5 };
@@ -932,7 +933,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     ids.forEach(function(id){
       var c = compById[id]; var li = document.createElement('li');
       li.innerHTML = '<b></b><span></span>';
-      li.firstChild.textContent = c.name + ' (Week ' + c.week + ', missed ' + sess.missed[id] + ')';
+      li.firstChild.textContent = c.name + ' (Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+ ', missed ' + sess.missed[id] + ')';
       li.lastChild.textContent = c.can;
       ul.appendChild(li);
     });

@@ -274,6 +274,12 @@ def build(n):
             (pages_dir / name).write_text(page(W, i, st, prev_t, next_t), encoding="utf-8")
             readme.append("Week %d, Step %d | %s   ->  %s  (Canvas PAGE)" % (n, i, t, name))
     (pages_dir / ("w%02d-README.txt" % n)).write_text("\n".join(readme) + "\n", encoding="utf-8")
+    # Oct 18 2026: weeks after the two-week reflexes unit are read by students with the Canvas number.
+    from week_label import relabel, LABEL
+    if n in LABEL:
+        for f in pages_dir.glob("w%02d-*" % n):
+            if "-00-start-here" in f.name: continue   # build_canvas_week_start.py relabels its own page
+            f.write_text(relabel(f.read_text(encoding="utf-8")), encoding="utf-8")
     print("\n".join(readme))
 
 if __name__ == "__main__":
