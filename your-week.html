@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your week, every week · BIO 005 Human Physiology</title>
+<meta name="description" content="Part 2 of BIO 005, week by week: what each online week asks for, with dates, labs, the case worksheet and the Mastery Check.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* YOUR WEEK, EVERY WEEK, Part 2 (Weeks 9 to 15). The pattern of an
+   online week, then each week as a card. Reads bio005-part2-data.js.
+   Additional page; it changes nothing else. */
+:root{--navy:#0B1530;--rust:#8B3A2E;--gold:#C9A14A;--gold2:#DCB45C;--ink:#1f2a44;--mute:#5c6577;--rule:#d9dde5;--page:#FAFAF9}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:8px 12px;border-radius:6px;z-index:50}.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.eb{font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.hero{background:var(--navy);color:#fff;border-radius:14px;padding:22px 24px;margin:20px 0 14px}
+.hero .eb{color:var(--gold2)}
+.hero h1{margin:4px 0 0;font-size:clamp(28px,5vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.hero h1 span{color:var(--gold2)}
+.pattern{background:var(--navy);color:#fff;border-radius:14px;padding:22px 24px;margin:0 0 14px}
+.pattern h2{margin:4px 0 14px;font-size:20px;font-weight:800}
+.online{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px 14px;margin:0 0 16px;font-size:14px;line-height:1.5;color:#dfe5f2}
+.online .ic{flex:0 0 40px;height:40px;border-radius:10px;background:var(--gold);color:var(--navy);font-weight:800;font-size:22px;display:inline-flex;align-items:center;justify-content:center}
+.online b{color:#fff}
+.beats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.beat{background:#fff;color:var(--ink);border-radius:10px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.beat .n{display:inline-flex;width:30px;height:30px;border-radius:8px;background:var(--gold);color:var(--navy);font-weight:800;align-items:center;justify-content:center;margin-right:8px}
+.beat h3{display:inline;font-size:15px;font-weight:800;margin:0;vertical-align:middle}
+.beat .when{display:block;margin:6px 0 0;font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:700}
+.beat p{margin:6px 0 0;font-size:13px;line-height:1.5;color:var(--mute)}
+.beat .g{display:inline-block;margin:8px 0 0;font-family:"DM Sans",sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:999px;background:#F2E8D8;color:#6E5018}
+.beat .g.no{background:#eceef2;color:var(--mute)}
+.pattern p.note{margin:14px 0 0;font-size:14px;line-height:1.5;color:#dfe5f2}
+.pattern p.note b{color:#fff}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px;font-size:14px}
+.bar a.pill{display:inline-block;padding:7px 14px;border-radius:999px;background:#fff;border:1px solid var(--rule);color:var(--navy);text-decoration:none;font-weight:700;font-size:13px}
+.bar a.pill.on{background:var(--rust);border-color:var(--rust);color:#fff}
+.bar .sp{flex:1}
+.wk{display:grid;grid-template-columns:120px minmax(0,1fr);gap:0 18px;padding:22px 0 24px;border-top:1px solid var(--rule)}
+@media (max-width:640px){.wk{grid-template-columns:1fr}}
+.wk.dark{background:var(--navy);color:#fff;border-radius:14px;padding:22px 20px 24px;border-top:0;margin:8px 0}
+.wk .big{font-size:72px;font-weight:800;line-height:.9;color:var(--rust);letter-spacing:-.04em}
+.wk.dark .big{color:var(--gold2)}
+.wk h2{margin:4px 0 2px;font-size:22px;font-weight:800;letter-spacing:-.01em}
+.wk .dates{font-size:14px;color:var(--mute)}.wk.dark .dates{color:#c9d1e3}
+.wk .open{display:inline-block;margin:10px 0 12px;padding:8px 14px;border-radius:999px;background:var(--rust);color:#fff;text-decoration:none;font-weight:700;font-size:13px}
+.wk.dark .open{background:var(--gold);color:var(--navy)}
+.card{background:#fff;color:var(--ink);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:14px 16px;transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.10)}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+.row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 12px;padding:8px 0;border-top:1px solid var(--rule);font-size:14px;line-height:1.45}
+.row:first-child{border-top:0;padding-top:0}
+.row .k{font-family:"DM Sans",sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:700;padding-top:3px}
+.row ul{margin:0;padding:0;list-style:none}.row li{margin:0 0 3px}
+.row a{color:var(--navy);font-weight:700;text-decoration:none;border-bottom:1px solid var(--gold)}
+.row a:hover{color:var(--rust)}
+.soon{color:var(--mute);font-weight:600}.soon:after{content:" · not posted yet";font-family:"DM Sans",sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.flag{display:inline-block;margin:8px 0 0;padding:6px 10px;border-radius:8px;background:#FBF3E4;border:1px solid var(--gold);color:#6E5018;font-size:13px;font-weight:600}
+.wk.dark .flag{background:rgba(255,255,255,.08);border-color:var(--gold2);color:#fff}
+.exam{background:var(--rust);color:#fff;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.5}
+.exam b{display:block;font-size:18px;font-weight:800;margin:0 0 4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.foot{font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-align:center;padding:10px 0 30px}
+@media print{.hero,.pattern,.wk.dark{background:#fff!important;color:#000!important;border:1px solid #000}.wk.dark .big,.hero h1 span,.pattern .eb,.hero .eb{color:#000!important}.wk .open,.bar{display:none}.card{box-shadow:none;border:1px solid #000}.exam{background:#fff;color:#000;border:1px solid #000}.online{background:#fff;color:#000}.online .ic{background:#fff;border:1px solid #000;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#weeks">Skip to the weeks</a>
+<main class="wrap">
+  <header class="hero">
+    <p class="eb">BIO 005 · Human Physiology · Online · Fall 2026 · Part 2</p>
+    <h1>Your <span>week</span>, every week</h1>
+  </header>
+
+  <section class="pattern" aria-labelledby="pat">
+    <p class="eb">The pattern</p>
+    <h2 id="pat">What happens in each online week</h2>
+    <div class="online"><span class="ic" aria-hidden="true">@</span><span><b>There is nothing to attend.</b> Every week opens Monday at 12:00 am and closes Sunday at 11:59 pm. You choose when in the week you do each piece. The order below is the order that works, because each step sets up the next one.</span></div>
+    <div class="beats" id="beats"></div>
+    <p class="note"><b>Before anything else</b> print the note sheet and watch the lecture with it. <b>Every day</b> do some cards. <b>In the middle of the week</b> run the lab. <b>At the end</b> post, reply, and take the Mastery Check with nothing open. The Learning Guide has every link for the open week on one page.</p>
+  </section>
+
+  <div class="bar">
+    <a class="pill on" href="your-week.html" target="_top" aria-current="page">Week by week</a>
+    <a class="pill" href="learning-guide.html" target="_top">Learning Guide</a>
+    <a class="pill" href="course-schedule.html" target="_top">All fifteen weeks</a>
+    <span class="sp"></span>
+    <a class="pill" href="#" id="printBtn">Print schedule</a>
+  </div>
+
+  <div id="weeks"></div>
+  <p class="foot">Dr. Sharilyn Rennie · BIO 005 Human Physiology · Yuba College</p>
+</main>
+
+<script src="bio005-part2-data.js"></script>
+<script>
+(function(){
+  var D = window.BIO005_PART2; if(!D){return;}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function pd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+  function fmt(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+  var today=new Date(); today.setHours(0,0,0,0);
+  document.getElementById('beats').innerHTML = D.loop.map(function(b){
+    return '<div class="beat"><span class="n" aria-hidden="true">'+b.n+'</span><h3>'+esc(b.name)+'</h3><span class="when">'+esc(b.when)+'</span><p>'+esc(b.what)+'</p><span class="g'+(/^Not/.test(b.graded)?' no':'')+'">'+esc(b.graded)+'</span></div>';
+  }).join('');
+  function link(label,url){ if(!url) return '<span class="soon">'+esc(label)+'</span>'; var ext=/^https?:/.test(url); return '<a href="'+esc(url)+'"'+(ext?' target="_blank" rel="noopener"':' target="_top"')+'>'+esc(label)+(ext?'<span class="sr"> (opens in a new tab)</span>':'')+'</a>'; }
+  function row(k,inner){return '<div class="row"><span class="k">'+k+'</span><div>'+inner+'</div></div>';}
+  var out = D.weeks.map(function(w,i){
+    var dark = i%2===1; var open = today>=pd(w.opens) && today<=pd(w.closes);
+    var obs = D.observances.filter(function(o){var d=pd(o.date);return d>=pd(w.opens)&&d<=pd(w.closes);}).map(function(o){return o.name+' ('+fmt(pd(o.date))+')';});
+    var body;
+    if(w.exam){
+      body = '<div class="exam"><b>'+esc(D.midterm2.label)+' · '+fmt(pd(D.midterm2.opens))+' to '+fmt(pd(D.midterm2.closes))+'</b>Covers '+esc(D.midterm2.covers)+'. '+esc(w.note)+'</div>'
+        + '<div class="card" style="margin-top:10px">'
+        + row('Lecture', link(w.study.label,w.study.url)+' · '+link(w.noteSheet.label,w.noteSheet.url))
+        + row('Review', link('Competency lists, Weeks 9 to 14',D.always.packet)+' · '+link('Randomized practice exam, all weeks',D.always.practiceAll)+' · '+link('Rx Cards',D.always.rx))
+        + '</div>';
+    } else {
+      body = '<div class="card">'
+        + row('Lecture', link(w.noteSheet.label,w.noteSheet.url)+' · '+link(w.lectureVideo.label,w.lectureVideo.url)+' · '+link(w.study.label,w.study.url)+'<br><span style="font-size:13px;color:var(--mute)">Fill the note sheet in during the lecture and submit it; that is the notes grade.</span>')
+        + row('Cards', link('Rx Cards',D.always.rx)+'<span style="font-size:13px;color:var(--mute)"> · graded by weekly count: '+D.cardBands.map(function(x){return x[0]+' '+x[1];}).join(', ')+'</span>')
+        + row('Lab', link(w.lab.label,w.lab.url))
+        + row('Discussion', link(w.discussion.label,w.discussion.url)+'<br><span style="font-size:13px;color:var(--mute)">Post by Friday 10:00 pm, two replies by Sunday 10:00 pm.</span>')
+        + row('Check', link('Mastery Check, Week '+w.wk,w.mastery)+' · '+link('Randomized practice exam',w.practice)+' · '+link('Competencies',w.competencies)+' · '+link('Notes',w.notes))
+        + '</div>';
+    }
+    var flags = (w.note?'<span class="flag">'+esc(w.note)+'</span>':'') ;
+    return '<section class="wk'+(dark?' dark':'')+'" aria-labelledby="w'+w.wk+'"><div><span class="big" aria-hidden="true">'+(w.wk<10?'0'+w.wk:w.wk)+'</span></div><div>'
+      + '<h2 id="w'+w.wk+'">'+esc(w.title)+'</h2><p class="dates">Week '+w.wk+' · '+fmt(pd(w.opens))+' to '+fmt(pd(w.closes))+(open?' · <b>open now</b>':'')+(obs.length?' · '+esc(obs.join(', '))+', nothing due':'')+'</p>'
+      + '<a class="open" href="'+esc(w.page)+'" target="_top">Open the Week '+w.wk+' page →</a>'
+      + body + (flags?'<div>'+flags+'</div>':'') + '</div></section>';
+  });
+  document.getElementById('weeks').innerHTML = out.join('');
+  document.getElementById('printBtn').addEventListener('click',function(e){e.preventDefault();window.print();});
+  var id='bio005-your-week';
+  function send(){var h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);try{parent.postMessage({type:'resize',id:id,frameId:id,frame:id,height:h},'*');}catch(e){}}
+  window.addEventListener('load',send); window.addEventListener('resize',send);
+  if(window.ResizeObserver){new ResizeObserver(send).observe(document.body);}
+  send();
+})();
+</script>
+</body>
+</html>

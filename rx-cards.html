@@ -305,6 +305,15 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <h2 id="wk-h">What you did this week</h2>
     <p class="sub" id="wkline">Cards answered each day, and how many you got right first time. Five days a week is the goal.</p>
     <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
+    <div class="card" id="reportcard" style="margin-top:14px">
+      <h3 style="margin:0 0 6px">Your weekly card report</h3>
+      <p class="sub" style="margin:0 0 10px">Cards are graded by how many you work each week, Monday to Sunday: 70 is a D, 105 a C, 175 a B, 350 an A. Put your name in once and this page keeps a running count for you. Print the report on Sunday and upload it to Canvas.</p>
+      <label for="rxName" style="display:block;font-weight:700;font-size:14px;margin:0 0 4px">Your name, as it appears in Canvas</label>
+      <input type="text" id="rxName" autocomplete="name" style="font:inherit;padding:8px 10px;border:1.5px solid #8C90A0;border-radius:8px;max-width:22rem;width:100%">
+      <p class="sub" id="rxBand" style="margin:10px 0 6px" aria-live="polite"></p>
+      <div class="btnrow"><button type="button" class="btn" id="rxReport">Print this week's report</button></div>
+      <p class="sub" id="rxSync" style="margin:8px 0 0;font-size:13px"></p>
+    </div>
   </section>
 
   <section aria-labelledby="set-h">
@@ -420,6 +429,14 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
 <p class="foot"><span>BIO 005 Human Physiology &middot; Yuba College &middot; Fall 2026</span><span>Dr. Sharilyn Rennie</span></p>
 </div></main>
+<section id="rxSheet" hidden aria-label="Weekly card report, print view"></section>
+<style>
+#rxSheet{font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#0B1530;padding:24px}
+#rxSheet h1{font-size:22px;margin:0 0 2px}#rxSheet .eb{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8B3A2E;font-weight:700;margin:0 0 10px}
+#rxSheet table{border-collapse:collapse;width:100%;max-width:640px;margin:10px 0}#rxSheet th,#rxSheet td{border:1px solid #0B1530;padding:6px 10px;text-align:left;font-size:14px}
+#rxSheet .band{font-size:20px;font-weight:800;margin:10px 0}#rxSheet .code{font-family:ui-monospace,Menlo,monospace;font-size:14px}
+@media print{body.rx-print > *{display:none !important}body.rx-print #rxSheet{display:block !important}}
+</style>
 
 <script src="bio005-week-label.js"></script>
 <script src="bio005-competencies.js"></script>
@@ -747,7 +764,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   /* ---------- the weekly minimum ----------
      60 cards a week is required, Monday to Sunday. Every answer counts,
      including a missed card seen again. */
-  var WEEK_MIN = 60;
+  var WEEK_MIN = 70;
   function weekCount(){
     var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
     var n = 0;
@@ -764,7 +781,54 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       ? 'This week: ' + n + ' cards. You have met the required minimum of ' + WEEK_MIN + '. Keep going, because the more cards you do, the better you will do.'
       : 'This week: ' + n + ' of the required ' + WEEK_MIN + ' cards (Monday to Sunday). ' + WEEK_MIN + ' is the minimum. The more cards you do, the better you will do.';
   }
-  function renderGoal(){ $('goalline').textContent = goalText(); }
+  function renderGoal(){ $('goalline').textContent = goalText(); renderBand(); }
+
+  /* ---------- weekly card report: bands, print sheet, optional sync to the instructor's sheet ----------
+     CARD_LOG_URL: paste the Google Apps Script web app URL here (see rx-cards-sheet-setup.txt in the drop).
+     Leave it empty and the page only keeps the local log and the printable report. */
+  var CARD_LOG_URL = '';
+  var BANDS = [[350,'A'],[175,'B'],[105,'C'],[70,'D']];
+  function bandFor(n){ for (var i = 0; i < BANDS.length; i++) if (n >= BANDS[i][0]) return BANDS[i][1]; return 'below D'; }
+  function nextBand(n){ for (var i = BANDS.length - 1; i >= 0; i--) if (n < BANDS[i][0]) return BANDS[i]; return null; }
+  function weekDays(){
+    var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    var out = [];
+    for (var i = 0; i < 7; i++) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() + i);
+      var k = x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0');
+      out.push({ key:k, label:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][x.getDay()] + ' ' + (x.getMonth()+1) + '/' + x.getDate(), seen:(S.log[k]||{}).seen||0, right:(S.log[k]||{}).right||0 }); }
+    return out;
+  }
+  function hash(str){ var h = 5381; for (var i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0; return ('000000' + h.toString(36).toUpperCase()).slice(-6); }
+  function renderBand(){
+    var el = $('rxBand'); if (!el) return;
+    var n = weekCount(), b = bandFor(n), nx = nextBand(n);
+    el.innerHTML = '<strong>This week: ' + n + ' cards</strong>, Monday to Sunday. That is ' + (b === 'below D' ? 'below the D line (70)' : 'a <strong>' + b + '</strong>') + (nx ? '. ' + (nx[0] - n) + ' more reaches ' + nx[1] + '.' : '. Top band.');
+  }
+  (function(){ var nm = $('rxName'); if (!nm) return; nm.value = S.name || ''; nm.addEventListener('change', function(){ S.name = nm.value.trim(); save(); syncDay(true); }); })();
+  function syncDay(force){
+    if (!CARD_LOG_URL || !S.name) { var sy = $('rxSync'); if (sy) sy.textContent = CARD_LOG_URL ? 'Add your name and your daily counts are sent to Dr. Rennie automatically.' : ''; return; }
+    var k = today(), L = S.log[k] || {seen:0,right:0};
+    S.synced = S.synced || {};
+    if (!force && S.synced[k] === L.seen) return;
+    var body = JSON.stringify({ name:S.name, date:k, seen:L.seen, right:L.right, week:weekCount(), band:bandFor(weekCount()), code:hash(S.name + '|' + k + '|' + L.seen + '|' + L.right) });
+    try { fetch(CARD_LOG_URL, { method:'POST', mode:'no-cors', body:body, headers:{'Content-Type':'text/plain'} }).then(function(){ S.synced[k] = L.seen; save(); var sy = $('rxSync'); if (sy) sy.textContent = 'Today\'s count was sent to Dr. Rennie at ' + new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}) + '.'; }).catch(function(){}); } catch(e) {}
+  }
+  var syncTimer = null;
+  function scheduleSync(){ if (!CARD_LOG_URL) return; clearTimeout(syncTimer); syncTimer = setTimeout(function(){ syncDay(false); }, 4000); }
+  (function(){ var b = $('rxReport'); if (!b) return; b.addEventListener('click', function(){
+    var nm = ($('rxName').value || '').trim(); if (!nm) { $('rxName').focus(); $('rxBand').innerHTML = '<strong>Enter your name first.</strong> It prints on the report.'; return; }
+    S.name = nm; save();
+    var days = weekDays(), total = 0, right = 0; days.forEach(function(d){ total += d.seen; right += d.right; });
+    var code = hash(nm + '|' + days.map(function(d){ return d.key + ':' + d.seen; }).join(',') + '|' + total);
+    var rows = days.map(function(d){ return '<tr><td>' + d.label + '</td><td>' + d.seen + '</td><td>' + d.right + '</td></tr>'; }).join('');
+    $('rxSheet').innerHTML = '<p class="eb">BIO 005 Human Physiology · Rx Cards · weekly report</p><h1>' + nm.replace(/</g,'&lt;') + '</h1><p>Week of ' + days[0].label + ' to ' + days[6].label + ' · printed ' + new Date().toLocaleString() + '</p>'
+      + '<table><tr><th>Day</th><th>Cards answered</th><th>Right first time</th></tr>' + rows + '<tr><th>Week total</th><th>' + total + '</th><th>' + right + '</th></tr></table>'
+      + '<p class="band">Band this week: ' + bandFor(total) + ' (' + total + ' cards; 70 D, 105 C, 175 B, 350 A)</p>'
+      + '<p>Report code: <span class="code">' + code + '</span>. The code is computed from the name, the dates and the counts above; it changes if any of them is edited after printing.</p>'
+      + '<p style="font-size:12px;color:#414B5C">Counts come from the Rx Cards log on the device this was printed from. Dr. Sharilyn Rennie · Yuba College · Fall 2026</p>';
+    $('rxSheet').hidden = false; document.body.classList.add('rx-print'); window.print();
+  }); window.addEventListener('afterprint', function(){ document.body.classList.remove('rx-print'); $('rxSheet').hidden = true; }); })();
+  setTimeout(function(){ syncDay(false); }, 1500);
   function renderWeek(){
     var el = $('week'), studied = 0; el.innerHTML = '';
     var names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], t0 = startOfToday();
@@ -871,6 +935,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     sess.seen++; dayLog().seen++;
     if (firstRight) { sess.right++; dayLog().right++; }
     else { var id = cur.comp.id; sess.missed[id] = (sess.missed[id] || 0) + 1; }
+    renderBand(); scheduleSync();
     if (!S.cards[cur.key]) dayLog().newc++;
     save();
     $('rate').querySelector('button' + (firstRight ? ':nth-child(3)' : ':first-child')).focus();

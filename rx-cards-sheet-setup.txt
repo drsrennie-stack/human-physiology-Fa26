@@ -1,0 +1,65 @@
+Rx Cards: sending every student's daily count to a Google Sheet you own
+=======================================================================
+
+What this gives you: a sheet with one row per student per day (name, date, cards answered,
+right first time, running week total, band, report code). It fills in by itself whenever a
+student who has entered their name answers cards. Nobody can lose it, and you can sort by
+name on Sunday night and read the week off in one column.
+
+Ten minutes, once.
+
+1. Go to sheets.google.com and make a new blank sheet. Name it "BIO 005 Rx Cards log".
+   In row 1 type these headers across A to H:
+   timestamp   name   date   seen   right   week_total   band   code
+
+2. In that sheet choose Extensions > Apps Script. Delete whatever is in the editor and
+   paste this, exactly:
+
+----------------------------------------------------------------------
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheets()[0];
+  var d = {};
+  try { d = JSON.parse(e.postData.contents); } catch (err) { return ContentService.createTextOutput("bad"); }
+  var name = String(d.name || "").slice(0, 80);
+  var date = String(d.date || "").slice(0, 10);
+  if (!name || !date) return ContentService.createTextOutput("skip");
+  // one row per student per day: update it if it already exists, otherwise append
+  var rows = sh.getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    if (String(rows[i][1]) === name && String(rows[i][2]) === date) {
+      sh.getRange(i + 1, 1, 1, 8).setValues([[new Date(), name, date, d.seen, d.right, d.week, d.band, d.code]]);
+      return ContentService.createTextOutput("ok");
+    }
+  }
+  sh.appendRow([new Date(), name, date, d.seen, d.right, d.week, d.band, d.code]);
+  return ContentService.createTextOutput("ok");
+}
+----------------------------------------------------------------------
+
+3. Click Deploy > New deployment. Click the gear next to "Select type" and choose Web app.
+   Description: Rx cards log. Execute as: Me. Who has access: Anyone.
+   Click Deploy, approve the permissions (it will warn that the app is unverified; choose
+   Advanced, then Go to the project), and copy the Web app URL. It ends in /exec.
+
+4. Open rx-cards.html, find this line near the weekly report code:
+        var CARD_LOG_URL = '';
+   and paste the URL between the quotes:
+        var CARD_LOG_URL = 'https://script.google.com/macros/s/....../exec';
+   Push rx-cards.html.
+
+That is all. From then on, each time a student with a name entered answers cards, the page
+sends that day's running count about four seconds after they stop. The sheet keeps one row per
+student per day and overwrites it with the latest count, so the sheet is always current.
+
+Notes
+- Students who never type their name do not appear in the sheet; their only record is the
+  printed weekly report, which carries the report code.
+- "seen" is cards answered that day, including cards they have seen before. That is the
+  number the bands are built on (70 D, 105 C, 175 B, 350 A per week, Monday to Sunday).
+- The page sends over a one-way request (no-cors), so it cannot read a reply. If the URL is
+  wrong nothing breaks for the student; the row just never arrives. Test it yourself first:
+  enter your own name, answer three cards, wait ten seconds, look at the sheet.
+- If you ever change the Apps Script code, you must make a New deployment (not "edit") and
+  paste the new URL, or the old code keeps running.
+- The sheet holds student names, so keep it in your own Drive and do not share it.
