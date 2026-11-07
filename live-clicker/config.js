@@ -33,6 +33,8 @@ window.ROOMS = {
   "Respiratory": ["resp4", "resp4b", "resp4c"],
   "Lower limb":  ["limb4", "limb4b", "limb4c"],
   "Lymphatic":   ["lymph4", "lymph4b", "lymph4c"],
+  "Digestive":   ["gi4", "gi4b", "gi4c"],
+  "Blood vessels": ["flow4", "flow4b", "flow4c"],
   "Heart, W9 (BIO 005)": ["heart9", "heart9b", "heart9c"],
   "Vessels, W10 (BIO 005)": ["vessels10", "vessels10b", "vessels10c"],
   "Cardiac":     [window.SESSION]
