@@ -367,8 +367,8 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     notes.push(L('All the notes for ' + wk + ' on one page', w.notes, 'doc', '', 'Reference'));
     notes.push(L('Competency list, ' + wk, w.competencies, 'target', '', 'Reference'));
     var videos = [L('Lecture video, ' + wk, lv.url, 'video', '', 'Pre-work'),
-      vids ? L(vids.label, vids.url, 'play', 't', 'Reference') : L("Dr. Rennie's videos for " + wk, '', 'play', 't'),
-      L("All of Dr. Rennie's videos, every week", A.videos, 'play', 't', 'Reference')];
+      vids ? L(vids.label, vids.url, 'play', 't', 'Recommended') : L('Concept videos, ' + wk, '', 'play', 't'),
+      L('Concept videos, all of Part 2', A.videos, 'play', 't', 'Reference')];
     var tools = [];
     tools.push(L('All of it on one sheet, ' + wk, w.ungraded, 'print', 'b', 'Recommended'));
     if (w.cases && !w.pathway) tools.push(L('Wiggers diagram template, to print', 'wiggers-template.html', 'print', 'b', 'Reference'));
@@ -382,7 +382,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       + ROW(1, 't1', 'Do this first', 'Pre-work', '', 'Watch the lecture and read the written notes before any assignment. Everything you turn in this unit builds on them. The optional tools under the notes help it stick.', preWork(w).map(function (x) { return CK(x, w.wk); }).concat([reinforce(w)]))
       + ROW(2, 't2', 'Turn these in', 'Assignments', '', adesc, assignments(w).map(function (x) { return CK(x, w.wk); }))
       + ROW(3, 't3', 'Read and review', 'Your notes', '', 'The written notes for this unit, each part labeled with its competency numbers. Print the PDF if you like paper.', notes)
-      + ROW(4, 't4', 'Watch', 'Your videos', '', "The lecture video, plus Dr. Rennie's short videos by topic.", videos)
+      + ROW(4, 't4', 'Watch', 'Your videos', '', "The lecture video, and Dr. Rennie's short concept videos in one player. Press play once and the unit runs through, or start at the topic you need.", videos)
       + ROW(5, 't5', 'Practice with', 'Learning tools', '', 'Practice exams and reference sheets. Recommended, not graded.', tools)
       + ROW(6, 't6', 'Need', 'Help', ' with something?', 'Everything is online, so questions go on the Virtual Office board where the whole class can read the answer.', [
           L('Virtual Office, the question board', D.virtualOffice, 'chat', 't'),
@@ -402,7 +402,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     S('Your week, every week', A.yourWeek, 'steps', 't'), S('All fifteen weeks', A.schedule, 'cal'), S('My syllabus', A.syllabus, 'doc'),
     S('Canvas modules', D.canvasModules, 'grid', 'g'), S('Contact Dr. Rennie', D.virtualOffice, 'chat', 'b')].join('');
   document.getElementById('more').innerHTML = [
-    S("Dr. Rennie's videos, every week", A.videos, 'play', 't'), S('How every week works', A.howWeeks, 'steps', 'g'),
+    S('Concept videos, Part 2', A.videos, 'play', 't'), S('How every week works', A.howWeeks, 'steps', 'g'),
     S('Print this week', A.printPack, 'print', 'g'), S('Accessibility', A.accessibility, 'access', 'b')].join('');
   var sel = document.getElementById('wkSel');
   sel.innerHTML = weeks.map(function (w) { return '<option value="' + w.wk + '">' + w.wk + '</option>'; }).join('');

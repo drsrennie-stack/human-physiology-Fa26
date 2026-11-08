@@ -58,7 +58,7 @@ window.BIO005_PART2 = {
       page: "week-09.html", competencies: "week-09-competencies.html", notes: "week-09-notes.html", prompts: "note-sheet.html?week=9",
       topicNotes: [{ label: "The heart", url: "biol005-w09-heart-notes.html", pdf: "notes/BIO005-Week9-Notes-heart.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "https://yccd.instructure.com/courses/42616/modules" },
-      videos: { label: "Dr. Rennie's heart videos, by topic", url: "physiology-videos.html#wk9h" },
+      videos: { label: "Concept videos, Week 9: press play once, or start at any topic", url: "concept-videos-part2.html?week=9" },
       study: { label: "Click-through slides: The heart as a pump", url: "li/w9/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w9/BIO005-W09-Lecture-Sheet-Heart-as-a-Pump.pdf" },
       lab: { label: "Clinical lab: The heart (calculations, EKG, heart sounds, biomarkers)", url: "cardiac-lab.html" },
@@ -71,7 +71,7 @@ window.BIO005_PART2 = {
       page: "week-10.html", competencies: "week-10-competencies.html", notes: "week-10-notes.html", prompts: "note-sheet.html?week=10",
       topicNotes: [{ label: "Blood vessels and blood pressure", url: "biol005-w10-vessels-bp-notes.html", pdf: "notes/BIO005-Week10-Notes-vessels-bp.pdf" }],
       lectureVideo: { label: "Walk-through lecture video: hemodynamics, blood pressure and shock", url: "https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129" },
-      videos: { label: "The lecture video, by chapter", url: "physiology-videos.html#wk10h" },
+      videos: { label: "Concept videos, Week 10: press play once, or start at any topic", url: "concept-videos-part2.html?week=10" },
       study: { label: "Click-through slides: Pressure, flow and blood pressure", url: "li/w10/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w10/BIO005-W10-Lecture-Sheet-Pressure-Flow-BP.pdf" },
       lab: { label: "Clinical lab: Hemodynamics (resistance, the pressure numbers, standing up, predicting the system)", url: "hemodynamics-lab.html" },
@@ -87,7 +87,7 @@ window.BIO005_PART2 = {
     { wk: 11, opens: "2026-11-16", closes: "2026-11-22", title: "Blood and how the body defends itself",
       page: "week-11.html", competencies: "week-11-competencies.html", notes: "week-11-notes.html", prompts: "note-sheet.html?week=11",
       topicNotes: [{ label: "Blood", url: "biol005-w11-blood-notes.html", pdf: "notes/BIO005-Week11-Notes-blood.pdf" }, { label: "Lymph and immunity", url: "biol005-w11-lymph-immunity-notes.html", pdf: "notes/BIO005-Week11-Notes-lymph-immunity.pdf" }],
-      videos: { label: "Dr. Rennie's blood and lymphatic videos, by topic", url: "physiology-videos.html#wk11h" },
+      videos: { label: "Concept videos, Week 11: press play once, or start at any topic", url: "concept-videos-part2.html?week=11" },
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: Blood and defense", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
@@ -116,7 +116,7 @@ window.BIO005_PART2 = {
       note: "Thanksgiving week. Thursday and Friday are holidays and nothing is due on them." },
 
     { wk: 13, opens: "2026-11-30", closes: "2026-12-06", title: "Breathing, gas transport, and the fast pH lever",
-      videos: { label: "Dr. Rennie's breathing and acid-base videos, by topic", url: "physiology-videos.html#wk13h" },
+      videos: { label: "Concept videos, Week 13: press play once, or start at any topic", url: "concept-videos-part2.html?week=13" },
       page: "week-13.html", competencies: "week-13-competencies.html", notes: "week-13-notes.html", prompts: "note-sheet.html?week=13",
       topicNotes: [{ label: "Breathing and gas transport", url: "biol005-w13-breathing-notes.html", pdf: "notes/BIO005-Week13-Notes-breathing.pdf" }, { label: "Acid-base balance", url: "biol005-w13-acid-base-notes.html", pdf: "notes/BIO005-Week13-Notes-acid-base.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "" },
@@ -169,6 +169,6 @@ window.BIO005_PART2 = {
     printPack: "week-print-pack.html", practiceAll: "practice-exam.html",
     schedule: "course-schedule.html", syllabus: "syllabus-fall2026.html", studyWithMe: "study-with-me.html",
     studyCalendar: "study-with-me-calendar.html", virtualOfficePage: "virtual-office.html", accessibility: "accessibility.html",
-    howWeeks: "how-every-week-works.html", home: "index.html", videos: "physiology-videos.html", yourWeek: "your-week.html", guide: "learning-guide.html"
+    howWeeks: "how-every-week-works.html", home: "index.html", videos: "concept-videos-part2.html", yourWeek: "your-week.html", guide: "learning-guide.html"
   }
 };
