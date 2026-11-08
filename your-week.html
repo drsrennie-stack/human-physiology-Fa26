@@ -84,7 +84,7 @@ a{color:var(--rust)}
     <h2 id="pat">What happens in each online week</h2>
     <div class="online"><span class="ic" aria-hidden="true">@</span><span><b>There is nothing to attend.</b> Every week opens Monday at 12:00 am and closes Sunday at 11:59 pm. You choose when in the week you do each piece. The order below is the order that works, because each step sets up the next one.</span></div>
     <div class="beats" id="beats"></div>
-    <p class="note"><b>Before anything else</b> print the note sheet and watch the lecture with it. <b>Every day</b> do some cards. <b>In the middle of the week</b> run the lab. <b>At the end</b> post, reply, and take the Mastery Check with nothing open. The Learning Guide has every link for the open week on one page.</p>
+    <p class="note"><b>From Week 10 on</b> you pick a target, 70, 80, 90 or 100 percent, on the drawing, the cases, the lab, the project and the Mastery Check, and your score is the level your work shows. <a href="choose-your-pathway.html" target="_top">How the mastery pathway works</a>. Week 9 runs as posted, with its discussion. The Learning Guide has every link for the open week on one page.</p>
   </section>
 
   <div class="bar">
@@ -121,6 +121,13 @@ a{color:var(--rust)}
         + '<div class="card" style="margin-top:10px">'
         + row('Lecture', link(w.study.label,w.study.url)+' · '+link(w.noteSheet.label,w.noteSheet.url))
         + row('Review', link('Competency lists, Weeks 9 to 14',D.always.packet)+' · '+link('Randomized practice exam, all weeks',D.always.practiceAll)+' · '+link('Rx Cards',D.always.rx))
+        + '</div>';
+    } else if(w.pathway){
+      /* Nov 8 2026: the mastery pathway weeks */
+      body = '<div class="card">'
+        + row('Lecture', link(w.lectureVideo.label,w.lectureVideo.url)+' · '+link(w.study.label,w.study.url)+' · '+link(w.noteSheet.label,w.noteSheet.url)+'<br><span style="font-size:13px;color:var(--mute)">The note sheet, the slides and Rx Cards are recommended, not required.</span>')
+        + row('Pick a target', link(w.drawing.label,w.drawing.url)+' · '+link(w.cases.label,w.cases.url)+' · '+link(w.lab.label,w.lab.url)+(w.stations?' · '+link(w.stations.label,w.stations.url):'')+' · '+link(w.project.label,w.project.url)+'<br><span style="font-size:13px;color:var(--mute)">70, 80, 90 or 100 percent on each one, with one revision. '+link('How the mastery pathway works',D.pathwayPage)+'</span>')
+        + row('Check', link('Mastery Check, Week '+w.wk,w.mastery)+' · '+link('Know-It Check, in Canvas (required, score not graded)',w.knowIt||D.canvasModules)+' · '+link('Randomized practice exam',w.practice)+' · '+link('Competencies',w.competencies)+' · '+link('Notes',w.notes))
         + '</div>';
     } else {
       body = '<div class="card">'

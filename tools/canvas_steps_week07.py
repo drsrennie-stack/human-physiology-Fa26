@@ -178,8 +178,8 @@ STEPS = [
   links=[("Rounds: Week 7", "patient-rounds.html?week=7")],
   turnin=None),
 
- dict(title="Exam practice, two timed questions", time="About 2 hours",
-  status="Complete or incomplete. The answer keys are on the quizzes and in Discussion 7, so those pages are pasted from the private paste sheet, not built from this file.",
+ dict(title="Exam practice, one case", time="About 2 hours",
+  status="Complete or incomplete. Oct 30 2026: the midterm format, one handwritten case, no video required. The page is pasted from the private paste sheet, not built from this file.",
   intro="", todo=[], links=[], turnin=None),
 ]
 

@@ -20,6 +20,7 @@ window.BIO005_PART2 = {
   canvasModules: "https://yccd.instructure.com/courses/42616/modules",
   canvasDiscussions: "https://yccd.instructure.com/courses/42616/discussion_topics",
   virtualOffice: "https://yccd.instructure.com/courses/42616/discussion_topics/711800",
+  pathwayPage: "choose-your-pathway.html",
   midterm2: { label: "Midterm 2", opens: "2026-12-14", closes: "2026-12-16", covers: "Weeks 9 to 14" },
   lastDrop: "2026-11-21",
   observances: [
@@ -33,50 +34,65 @@ window.BIO005_PART2 = {
 
   /* The loop every week runs on. Days are suggested pacing. The hard deadlines are the discussion
      post (Friday 10:00 pm), replies (Sunday 10:00 pm), and everything else at the week close (Sunday 11:59 pm). */
+  /* Nov 8 2026: from Week 10 the week runs on the mastery pathway. Every graded piece
+     has a target, 70, 80, 90 or 100 percent, and one revision. Week 9 runs as posted. */
   loop: [
-    { n: 1, when: "Monday to Wednesday", name: "Lecture and note sheet",
-      what: "Print the note sheet. Watch the walk-through lecture and fill the sheet in as the boxes are revealed. Submit your completed sheet in Canvas; that is your notes grade. The written course notes and the competency prompts are there for the read-through version.", graded: "Graded, note sheet" },
+    { n: 1, when: "Early in the week", name: "Lecture and drawing",
+      what: "Watch the lecture. The note sheet and the click-through slides are recommended. Then do the lecture drawing by hand: normal, disrupted, and the fix.", graded: "Graded, drawing, pick a target" },
     { n: 2, when: "Every day, a little", name: "Rx Cards",
-      what: "Cards are graded by volume, Monday to Sunday: 70 is a D, 105 a C, 175 a B, 350 an A. Enter your name once in the cards page so your daily count is kept for you, and print the weekly report on Sunday.", graded: "Graded, card report" },
-    { n: 3, when: "Wednesday to Friday", name: "Clinical lab",
-      what: "An interactive lab with cases. You calculate or read, then explain what it means in your own words; the check does not open until you have written your interpretation. Print to PDF and upload.", graded: "Graded, lab" },
-    { n: 4, when: "Post Friday 10:00 pm, replies Sunday 10:00 pm", name: "Discussion",
-      what: "A different question each week. Your post uses the week's physiology; your second reply says what you got wrong in your first post and what changed your mind.", graded: "Graded, discussion" },
-    { n: 5, when: "By Sunday 11:59 pm", name: "Mastery Check",
-      what: "The full set of questions on the week's competencies, nothing open. It is not done until every question is answered.", graded: "Graded, Mastery Check" },
-    { n: 6, when: "Any time, as often as you like", name: "Randomized practice exam",
-      what: "A shuffled exam drawn from the week's pool, with a gap finder that tells you which competency to go back to. Not graded; this is how you find out before the Mastery Check does.", graded: "Not graded" }
+      what: "Spaced recall, a few minutes a day. Recommended, not required.", graded: "Not graded, recommended" },
+    { n: 3, when: "Midweek", name: "Two cases",
+      what: "Two cases on the week's topic, in the midterm format: decide, draw three panels, and answer the challenge question. Handwritten.", graded: "Graded, cases, pick a target" },
+    { n: 4, when: "Midweek", name: "Lab",
+      what: "PhysioEx or one of Dr. Rennie's labs. Calculate or read, then explain what it means. Print to PDF and upload.", graded: "Graded, lab, pick a target" },
+    { n: 5, when: "By Sunday", name: "Mastery Check",
+      what: "Pick your target, answer the questions for that level and every level below it, and upload the report. Two graded attempts; the second uses different questions.", graded: "Graded, Mastery Check, pick a target" },
+    { n: 6, when: "When one is open", name: "Project",
+      what: "A few projects through the rest of the term, such as the Wiggers diagram, the GI map and the renal map. They take the place of the weekly discussion.", graded: "Graded, project, pick a target" }
   ],
 
   weeks: [
     { wk: 9, opens: "2026-11-09", closes: "2026-11-15", title: "The heart as a pump",
       page: "week-09.html", competencies: "week-09-competencies.html", notes: "week-09-notes.html", prompts: "note-sheet.html?week=9",
       lectureVideo: { label: "Walk-through lecture video", url: "https://yccd.instructure.com/courses/42616/modules" },
+      videos: { label: "Dr. Rennie's heart videos, by topic", url: "physiology-videos.html#wk9" },
       study: { label: "Click-through slides: The heart as a pump", url: "li/w9/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w9/BIO005-W09-Lecture-Sheet-Heart-as-a-Pump.pdf" },
       lab: { label: "Clinical lab: The heart (calculations, EKG, heart sounds, biomarkers)", url: "cardiac-lab.html" },
-      discussion: { label: "Discussion 9: The engineering team", url: "discussion-w9-engineering.html" },
+      discussion: { label: "Discussion 9: Present your cases", url: "discussion-w9-cases.html" },
+      cases: { label: "Two cases: a Wiggers diagram case and a cardiac lab case", url: "week09-wiggers-cases.html", url2: "week09-cardiac-lab-cases.html" },
       mastery: "practice-exam.html?week=9", practice: "practice-exam.html?week=9", ungraded: "ungraded-sheet.html?week=9",
       note: "Veterans Day is Wednesday, November 11. Nothing is due that day." },
 
-    { wk: 10, opens: "2026-11-09", closes: "2026-11-22", title: "Pressure, flow, and holding blood pressure steady",
+    { wk: 10, opens: "2026-11-11", closes: "2026-11-22", title: "Pressure, flow, and holding blood pressure steady",
       page: "week-10.html", competencies: "week-10-competencies.html", notes: "week-10-notes.html", prompts: "note-sheet.html?week=10",
-      lectureVideo: { label: "Walk-through lecture video", url: "https://yccd.instructure.com/courses/42616/modules" },
+      lectureVideo: { label: "Walk-through lecture video: hemodynamics, blood pressure and shock", url: "https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129" },
+      videos: { label: "The lecture video, by chapter", url: "physiology-videos.html#wk10" },
       study: { label: "Click-through slides: Pressure, flow and blood pressure", url: "li/w10/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w10/BIO005-W10-Lecture-Sheet-Pressure-Flow-BP.pdf" },
       lab: { label: "Clinical lab: Hemodynamics (resistance, the pressure numbers, standing up, predicting the system)", url: "hemodynamics-lab.html" },
       discussion: { label: "Discussion 10", url: "" },
-      mastery: "practice-exam.html?week=10", practice: "practice-exam.html?week=10", ungraded: "ungraded-sheet.html?week=10",
-      note: "This week runs two weeks, November 9 to 22, beside Week 9 and then Week 11. The last day to drop is Saturday, November 21." },
+      mastery: "mastery-pathway.html?week=10", practice: "practice-exam.html?week=10", ungraded: "ungraded-sheet.html?week=10",
+      pathway: true, knowIt: "",
+      stations: { label: "Lab stations: the cuff and the ankle-brachial index", url: "bp-stations.html" },
+      drawing: { label: "Lecture drawing: standing up", url: "week10-drawing.html" },
+      cases: { label: "Two cases: swollen ankles, and a fall from a bike", url: "week10-cases.html" },
+      project: { label: "Project", url: "" },
+      note: "Opens Wednesday, November 11, and runs to November 22, beside Week 9 and then Week 11. The mastery pathway starts this week. The last day to drop is Saturday, November 21." },
 
     { wk: 11, opens: "2026-11-16", closes: "2026-11-22", title: "Blood and how the body defends itself",
       page: "week-11.html", competencies: "week-11-competencies.html", notes: "week-11-notes.html", prompts: "note-sheet.html?week=11",
+      videos: { label: "Dr. Rennie's blood and lymphatic videos, by topic", url: "physiology-videos.html#wk11" },
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: Blood and defense", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
       lab: { label: "Clinical lab: Blood (CBC and PCR pattern lab)", url: "cbc-pcr-lab.html" },
       discussion: { label: "Discussion 11", url: "" },
-      mastery: "practice-exam.html?week=11", practice: "practice-exam.html?week=11", ungraded: "ungraded-sheet.html?week=11",
+      mastery: "mastery-pathway.html?week=11", practice: "practice-exam.html?week=11", ungraded: "ungraded-sheet.html?week=11",
+      pathway: true, knowIt: "",
+      drawing: { label: "Lecture drawing: out of breath on the stairs", url: "week11-drawing.html" },
+      cases: { label: "Two cases: a clot after a flight, and the wrong unit of blood", url: "week11-cases.html" },
+      project: { label: "Project", url: "" },
       note: "Last day to drop with a grade: Saturday, November 21." },
 
     { wk: 12, opens: "2026-11-23", closes: "2026-11-29", title: "Digestion, and how you use food for fuel",
@@ -86,7 +102,11 @@ window.BIO005_PART2 = {
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
       lab: { label: "Clinical lab: Digestion and metabolism", url: "" },
       discussion: { label: "Discussion 12", url: "" },
-      mastery: "practice-exam.html?week=12", practice: "practice-exam.html?week=12", ungraded: "ungraded-sheet.html?week=12",
+      mastery: "mastery-pathway.html?week=12", practice: "practice-exam.html?week=12", ungraded: "ungraded-sheet.html?week=12",
+      pathway: true, knowIt: "",
+      drawing: { label: "Lecture drawing", url: "" },
+      cases: { label: "Two cases", url: "" },
+      project: { label: "Project", url: "" },
       note: "Thanksgiving week. Thursday and Friday are holidays and nothing is due on them." },
 
     { wk: 13, opens: "2026-11-30", closes: "2026-12-06", title: "Breathing, gas transport, and the fast pH lever",
@@ -96,7 +116,11 @@ window.BIO005_PART2 = {
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
       lab: { label: "Clinical lab: Breathing (spirometry, oxygen transport)", url: "" },
       discussion: { label: "Discussion 13", url: "" },
-      mastery: "practice-exam.html?week=13", practice: "practice-exam.html?week=13", ungraded: "ungraded-sheet.html?week=13",
+      mastery: "mastery-pathway.html?week=13", practice: "practice-exam.html?week=13", ungraded: "ungraded-sheet.html?week=13",
+      pathway: true, knowIt: "",
+      drawing: { label: "Lecture drawing", url: "" },
+      cases: { label: "Two cases", url: "" },
+      project: { label: "Project", url: "" },
       note: "" },
 
     { wk: 14, opens: "2026-12-07", closes: "2026-12-13", title: "The kidney and body fluid balance",
@@ -106,7 +130,11 @@ window.BIO005_PART2 = {
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
       lab: { label: "Clinical lab: The kidney", url: "" },
       discussion: { label: "Discussion 14", url: "" },
-      mastery: "practice-exam.html?week=14", practice: "practice-exam.html?week=14", ungraded: "ungraded-sheet.html?week=14",
+      mastery: "mastery-pathway.html?week=14", practice: "practice-exam.html?week=14", ungraded: "ungraded-sheet.html?week=14",
+      pathway: true, knowIt: "",
+      drawing: { label: "Lecture drawing", url: "" },
+      cases: { label: "Two cases", url: "" },
+      project: { label: "Project", url: "" },
       note: "Last full week before Midterm 2." },
 
     { wk: 15, opens: "2026-12-14", closes: "2026-12-16", title: "The slow pH lever, putting it together, and Midterm 2",
@@ -116,7 +144,11 @@ window.BIO005_PART2 = {
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
       lab: { label: "No lab this week", url: "" },
       discussion: { label: "No discussion this week", url: "" },
-      mastery: "practice-exam.html?week=15", practice: "practice-exam.html", ungraded: "ungraded-sheet.html?week=15",
+      mastery: "mastery-pathway.html?week=15", practice: "practice-exam.html", ungraded: "ungraded-sheet.html?week=15",
+      pathway: true, knowIt: "",
+      drawing: { label: "Lecture drawing", url: "" },
+      cases: { label: "Two cases", url: "" },
+      project: { label: "Project", url: "" },
       note: "Three days only. Midterm 2 runs Monday, December 14 to Wednesday, December 16 and covers Weeks 9 to 14." }
   ],
 
@@ -127,6 +159,6 @@ window.BIO005_PART2 = {
     printPack: "week-print-pack.html", practiceAll: "practice-exam.html",
     schedule: "course-schedule.html", syllabus: "syllabus-fall2026.html", studyWithMe: "study-with-me.html",
     studyCalendar: "study-with-me-calendar.html", virtualOfficePage: "virtual-office.html", accessibility: "accessibility.html",
-    howWeeks: "how-every-week-works.html", home: "index.html", yourWeek: "your-week.html", guide: "learning-guide.html"
+    howWeeks: "how-every-week-works.html", home: "index.html", videos: "physiology-videos.html", yourWeek: "your-week.html", guide: "learning-guide.html"
   }
 };

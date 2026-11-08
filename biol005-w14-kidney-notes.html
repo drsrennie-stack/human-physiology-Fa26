@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The kidney, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800;margin-right:6px}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 14 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 14 notes · Dr. Sharilyn Rennie</p>
+  <h1>The kidney</h1>
+  <p>Kidney functions, the nephron segment by segment, filtration, reabsorption, secretion and excretion, the filtration membrane, net filtration pressure and the regulation of GFR, clearance with inulin and creatinine, proximal reabsorption, transport maximum and the renal threshold for glucose, tubular secretion, the countercurrent multiplier and exchanger, ADH and urine concentration, the renin angiotensin aldosterone system and natriuretic peptides at the nephron, potassium handling, the micturition reflex, and the urinalysis and renal calculation labs. Week 14 competencies 2 to 20.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week14-Notes-kidney.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.</p><p><b>Your textbook:</b> Silverthorn Chapter 20, The Kidneys. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 25, The Urinary System.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="cref"><b>Competency 3:</b> <a href="week-14-competencies.html#h-w13-nephron-function" target="_top">Nephron structure and function</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the part on the anatomy of the urinary system.</p>
+<p>The urinary system is two kidneys, two ureters, the bladder and the urethra. Each kidney has an outer cortex and an inner medulla. The medulla is divided into cone-shaped renal pyramids. Their tips (papillae) drain into minor calyces, then major calyces, then the renal pelvis, which narrows into the ureter.</p>
+<h3>Blood flow through the kidney, step by step</h3>
+<ol>
+  <li>The renal artery branches from the aorta. The kidneys receive about 20% to 25% of cardiac output.</li>
+  <li>Smaller arteries run between the pyramids toward the cortex and branch into afferent arterioles.</li>
+  <li>Each afferent arteriole feeds a glomerulus, a ball of capillaries.</li>
+  <li>Blood leaves the glomerulus through the efferent arteriole.</li>
+  <li>The efferent arteriole branches into peritubular capillaries around the tubules in the cortex, or into the vasa recta, long looped capillaries beside the loops of Henle in the medulla.</li>
+  <li>Blood drains into the renal vein and back to the inferior vena cava.</li>
+</ol>
+<p>Two capillary beds in a row let the kidney filter at the first and reabsorb at the second.</p>
+<h3>Parts of the nephron, in the order fluid passes through them</h3>
+<ol>
+  <li>Renal corpuscle: the glomerulus inside Bowman's (glomerular) capsule. Filtrate enters the capsular space.</li>
+  <li>Proximal convoluted tubule, in the cortex.</li>
+  <li>Loop of Henle (nephron loop): descending limb, thin ascending limb and thick ascending limb.</li>
+  <li>Distal convoluted tubule, back in the cortex, where the tubule touches its own arterioles.</li>
+  <li>Collecting duct, shared by several nephrons, running down through the medulla to a papilla.</li>
+</ol>
+<p>Each kidney has about one million nephrons.</p>
+<dl>
+  <dt>Juxtaglomerular apparatus</dt><dd>The spot where the end of the thick ascending limb passes between its own afferent and efferent arterioles. It contains the macula densa, tubule cells that sense NaCl in the tubular fluid, and the granular (juxtaglomerular) cells in the afferent arteriole wall, which secrete renin.</dd>
+  <dt>Mesangial cells</dt><dd>Contractile cells among the glomerular capillary loops. They change how much capillary surface is open for filtration.</dd>
+  <dt>Principal cells</dt><dd>Cells of the late distal tubule and collecting duct that reabsorb Na+ and water and secrete K+, under the control of aldosterone and ADH.</dd>
+  <dt>Intercalated cells</dt><dd>Cells of the same segments that secrete H+ or HCO3- for acid-base balance and can reabsorb K+.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">Feature</th><th scope="col">Cortical nephron</th><th scope="col">Juxtamedullary nephron</th></tr></thead><tbody>
+<tr><th scope="row">Share of nephrons</th><td>About 80%</td><td>About 20%</td></tr>
+<tr><th scope="row">Where the glomerulus sits</th><td>Outer cortex</td><td>Deep cortex, next to the medulla</td></tr>
+<tr><th scope="row">Loop of Henle</th><td>Short; reaches only the outer medulla</td><td>Long; reaches deep into the inner medulla</td></tr>
+<tr><th scope="row">Capillaries after the glomerulus</th><td>Peritubular capillaries</td><td>Peritubular capillaries and vasa recta</td></tr>
+<tr><th scope="row">What it can do</th><td>Filtration and most reabsorption</td><td>The same, plus building the medullary gradient needed for concentrated urine</td></tr>
+</tbody></table></div>
+</section>
+<section id="kidney-functions-and-the-four-renal-processes">
+<h2>Kidney functions and the four renal processes</h2>
+<p class="cref"><b>Competencies 2, 3 and 4:</b> <a href="week-14-competencies.html#h-w13-kidney-functions" target="_top">Kidney functions</a>; <a href="week-14-competencies.html#h-w13-nephron-function" target="_top">Nephron structure and function</a>; <a href="week-14-competencies.html#h-w13-renal-processes" target="_top">Three renal processes</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the parts on the functions of the kidneys and on the four renal processes.</p>
+<p>The kidneys keep the blood's composition steady. They change what leaves in the urine so that the body's water, salts and acids stay in balance across a wide range of food and fluid intake.</p>
+<ul>
+  <li>Water balance and blood volume: urine volume rises or falls so extracellular fluid volume stays close to normal.</li>
+  <li>Osmolarity: by making dilute or concentrated urine, the kidneys keep plasma osmolarity near 290 mOsm/L (texts often round this to 300).</li>
+  <li>Electrolyte balance: Na+, K+, Ca2+, phosphate and other ions are held within narrow ranges.</li>
+  <li>Acid-base balance: the kidneys secrete H+ and reabsorb and make HCO3-, working with the lungs to keep blood pH at 7.35 to 7.45.</li>
+  <li>Waste excretion: urea (from protein breakdown), creatinine (from creatine in muscle), uric acid, and foreign substances such as many drugs.</li>
+  <li>Blood pressure: the kidneys change blood volume, and they release renin, which starts the renin angiotensin aldosterone system.</li>
+  <li>Hormone production: erythropoietin (drives red blood cell production), renin (an enzyme that starts a hormone cascade), and calcitriol, the active form of vitamin D, which the kidney finishes making.</li>
+  <li>During a long fast the kidneys also make some glucose (gluconeogenesis).</li>
+</ul>
+<h3>Each nephron segment and its main job</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Segment</th><th scope="col">Main job</th><th scope="col">Key transporters or controls</th></tr></thead><tbody>
+<tr><th scope="row">Renal corpuscle</th><td>Filters about 20% of the plasma that enters</td><td>Pressure; a size and charge barrier</td></tr>
+<tr><th scope="row">Proximal tubule</th><td>Reabsorbs about two thirds of the Na+ and water, normally all glucose and amino acids, most HCO3-; secretes H+, NH4+, drugs</td><td>Na+-K+-ATPase, Na+ symporters, Na+-H+ exchanger, aquaporin-1</td></tr>
+<tr><th scope="row">Descending limb</th><td>Water leaves, little solute does; fluid becomes concentrated</td><td>Aquaporin-1; always water permeable</td></tr>
+<tr><th scope="row">Thin ascending limb</th><td>NaCl leaves passively; no water</td><td>Impermeable to water</td></tr>
+<tr><th scope="row">Thick ascending limb</th><td>Reabsorbs about 25% of the Na+; no water, so fluid becomes dilute</td><td>Na+-K+-2Cl- symporter (blocked by loop diuretics)</td></tr>
+<tr><th scope="row">Early distal convoluted tubule</th><td>Reabsorbs NaCl and Ca2+; no water</td><td>Na+-Cl- symporter (blocked by thiazides); PTH raises Ca2+ uptake</td></tr>
+<tr><th scope="row">Late distal tubule and collecting duct</th><td>Reabsorbs the last few percent of Na+ and adjusts K+, H+ and water to the body's needs</td><td>Principal cells (aldosterone, ADH); intercalated cells (H+, HCO3-, K+)</td></tr>
+</tbody></table></div>
+<h3>The four processes</h3>
+<dl>
+  <dt>Filtration</dt><dd>Bulk flow of fluid from the glomerular capillaries into Bowman's capsule. The filtrate is plasma without most of its proteins.</dd>
+  <dt>Reabsorption</dt><dd>Movement of a substance from the tubule lumen back into the blood of the peritubular capillaries and vasa recta. (Absorption means a first entry into the body, as from the gut.)</dd>
+  <dt>Secretion</dt><dd>Movement of a substance from the blood into the tubule lumen, adding to what was filtered. It removes the substance from the blood.</dd>
+  <dt>Excretion</dt><dd>Loss of the substance from the body in the urine, which drains through the calyces and renal pelvis.</dd>
+</dl>
+<p>For any solute, the amount excreted equals the amount filtered, minus the amount reabsorbed, plus the amount secreted. Written as an equation: excretion = filtration - reabsorption + secretion.</p>
+<p>A recycling center works the same way. Everything small enough falls onto the belt (filtration), workers pull off what is worth keeping (reabsorption), others add items that were missed (secretion), and what is left goes to the landfill (excretion).</p>
+<ul>
+  <li>Glomerular filtration rate (GFR) averages about 125 mL/min in men (about 180 L of filtrate a day) and about 105 mL/min in women (about 150 L a day).</li>
+  <li>Plasma volume is about 3 L. In just 30 minutes, about 3.75 L of filtrate enters the proximal tubules, more than the whole plasma volume, so most of it must be returned to the blood.</li>
+  <li>About 99% of the filtrate is reabsorbed, so urine output is usually about 1 to 2 L a day (1% of 180 L is 1.8 L).</li>
+  <li>Renal blood flow is about 1.0 to 1.25 L/min. Plasma is a little over half of blood, so renal plasma flow is about 625 mL/min.</li>
+  <li>Filtration fraction is the share of the plasma reaching the glomeruli that is filtered: GFR / renal plasma flow. With typical values, 125 / 625 = 0.20, or 20%. The normal range is about 16% to 20%, and it changes with health and disease.</li>
+  <li>If GFR is too high, fluid rushes through the tubules too fast to reabsorb what the body needs, and useful substances are lost in the urine. If GFR is too low, nearly all the filtrate is reabsorbed, and wastes are not cleared.</li>
+</ul>
+</section>
+<section id="filtration-and-gfr">
+<h2>Filtration and GFR</h2>
+<p class="cref"><b>Competencies 5, 6 and 7:</b> <a href="week-14-competencies.html#h-w13-filtration-membrane" target="_top">Filtration membrane and selectivity</a>; <a href="week-14-competencies.html#h-w13-gfr-forces" target="_top">Net filtration pressure and GFR</a>; <a href="week-14-competencies.html#h-w13-gfr-regulation" target="_top">Regulation of GFR</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the parts on filtration across the glomerulus, glomerular filtration rate and autoregulation of GFR.</p>
+<h3>The filtration membrane</h3>
+<p>Filtrate crosses three layers in a row. Size holds back cells and most proteins. Negative charges in the layers also repel albumin, which is itself negatively charged.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Layer</th><th scope="col">Structure</th><th scope="col">What it holds back</th></tr></thead><tbody>
+<tr><th scope="row">Capillary endothelium</th><td>Large pores (fenestrations)</td><td>Blood cells and platelets</td></tr>
+<tr><th scope="row">Basement membrane (basal lamina)</th><td>Acellular mesh of fine collagen fibers and proteoglycans carrying negative charges</td><td>Most plasma proteins, by size and charge</td></tr>
+<tr><th scope="row">Podocytes of Bowman's capsule</th><td>Foot processes (pedicels) wrapped around the capillaries, with filtration slits bridged by a thin slit membrane</td><td>The remaining proteins; the final size filter</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th scope="col">Plasma component</th><th scope="col">In the filtrate?</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Red cells, white cells, platelets</th><td>No</td><td>Too large for the fenestrations</td></tr>
+<tr><th scope="row">Albumin and larger proteins</th><td>Almost none; well under 1% of plasma albumin</td><td>Too large, and repelled by negative charge</td></tr>
+<tr><th scope="row">Water, ions, glucose, amino acids, water-soluble vitamins, urea, ammonia, creatinine</th><td>Yes, at about the same concentration as plasma</td><td>Small enough to pass freely</td></tr>
+<tr><th scope="row">Very small proteins and peptides such as insulin</th><td>Yes, then taken back up in the proximal tubule</td><td>Small enough to pass</td></tr>
+<tr><th scope="row">Myoglobin released from damaged muscle</th><td>Yes</td><td>A small protein</td></tr>
+<tr><th scope="row">A drug carried on albumin</th><td>Only the unbound part</td><td>The bound part stays with the albumin</td></tr>
+</tbody></table></div>
+<p>The glomerulus filters far more fluid than other capillaries for three reasons. Its capillaries are long and extensive, and mesangial cells adjust how much of that surface is open. Its membrane is thin and porous, much leakier than ordinary capillaries because of the large fenestrations. And its blood pressure stays high, because the efferent arteriole is narrower than the afferent arteriole and resists outflow.</p>
+<h3>Net filtration pressure</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Pressure</th><th scope="col">Typical value</th><th scope="col">Effect on filtration</th></tr></thead><tbody>
+<tr><th scope="row">Glomerular capillary hydrostatic pressure (blood pressure in the glomerulus)</th><td>55 mmHg</td><td>Pushes fluid out; favors filtration</td></tr>
+<tr><th scope="row">Capsular hydrostatic pressure (fluid already in Bowman's capsule and the tubule)</th><td>15 mmHg</td><td>Pushes back; opposes filtration</td></tr>
+<tr><th scope="row">Colloid osmotic pressure (albumin, globulins and fibrinogen in plasma)</th><td>30 mmHg</td><td>Pulls water into the blood; opposes filtration</td></tr>
+</tbody></table></div>
+<p>Net filtration pressure = glomerular hydrostatic pressure - capsular pressure - colloid osmotic pressure. With typical values, 55 - 15 - 30 = 10 mmHg. This small push, acting across a large and leaky surface, filters about 125 mL each minute. GFR depends on net filtration pressure and on the filtration coefficient, which reflects surface area and permeability.</p>
+<ul>
+  <li>Worked change: a kidney stone blocks a ureter and capsular pressure rises to 20 mmHg. Net filtration pressure becomes 55 - 20 - 30 = 5 mmHg, half of normal, and GFR in that kidney falls.</li>
+  <li>Worked change: after severe blood loss, glomerular pressure falls to 45 mmHg. Net filtration pressure becomes 45 - 15 - 30 = 0 mmHg, and in this simple model filtration stops.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Change</th><th scope="col">Effect on GFR</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Afferent arteriole constricts</th><td>Falls</td><td>Less pressure reaches the glomerulus</td></tr>
+<tr><th scope="row">Afferent arteriole dilates</th><td>Rises</td><td>More pressure reaches the glomerulus</td></tr>
+<tr><th scope="row">Efferent arteriole constricts (moderately)</th><td>Rises; renal blood flow falls</td><td>Blood backs up and glomerular pressure rises</td></tr>
+<tr><th scope="row">Efferent arteriole dilates</th><td>Falls</td><td>Blood leaves easily and glomerular pressure drops</td></tr>
+<tr><th scope="row">Very low arterial pressure</th><td>Falls</td><td>Glomerular hydrostatic pressure falls</td></tr>
+<tr><th scope="row">Blocked ureter</th><td>Falls</td><td>Capsular pressure rises</td></tr>
+<tr><th scope="row">Low plasma protein</th><td>Rises</td><td>Less colloid osmotic pressure opposes filtration</td></tr>
+<tr><th scope="row">Mesangial cells contract</th><td>Falls</td><td>Less surface area for filtration</td></tr>
+</tbody></table></div>
+<p>Very strong efferent constriction slows blood flow so much that GFR eventually falls too.</p>
+<p>Damaged glomeruli leak plasma proteins into the filtrate, and the protein is lost in the urine (proteinuria). Plasma albumin falls, so plasma colloid osmotic pressure falls, and capillaries in the tissues filter more fluid than they take back. Interstitial fluid builds up as edema. The kidneys also hold on to salt and water, which adds to the swelling; experts still debate how much of that comes from a drop in blood volume and how much from the damaged kidney itself. GFR is often normal early on and can fall as the disease goes on. Heavy proteinuria, low plasma albumin and edema are the core features of nephrotic syndrome.</p>
+<h3>Regulation of GFR</h3>
+<p>GFR stays nearly constant while mean arterial pressure is between about 80 and 180 mmHg, even when blood pressure rises during exercise. The controls work in two ways: by changing blood flow into and out of the glomerulus (the diameters of the afferent and efferent arterioles), and by changing the capillary surface area open for filtration (mesangial cells). Nerves and hormones can override autoregulation when the body needs to save fluid or raise blood pressure.</p>
+<h3>Myogenic response, step by step</h3>
+<ol>
+  <li>Blood pressure rises and stretches the wall of the afferent arteriole.</li>
+  <li>Stretch-gated ion channels in its smooth muscle open, the cells depolarize, and voltage-gated Ca2+ channels let Ca2+ in.</li>
+  <li>The smooth muscle contracts and the afferent arteriole narrows.</li>
+  <li>The added resistance keeps glomerular pressure, and so GFR, close to normal.</li>
+  <li>When blood pressure falls, the arteriole is stretched less, relaxes and widens, which protects GFR in the other direction. The response takes seconds.</li>
+</ol>
+<h3>Tubuloglomerular feedback, step by step</h3>
+<ol>
+  <li>GFR rises, so fluid flows faster through the tubule.</li>
+  <li>The proximal tubule and loop have less time to reabsorb, so more Na+, Cl- and water reach the macula densa at the end of the thick ascending limb.</li>
+  <li>The macula densa cells sense the extra NaCl.</li>
+  <li>They release paracrine signals onto the afferent arteriole next to them.</li>
+  <li>The afferent arteriole constricts.</li>
+  <li>Glomerular pressure and GFR fall back toward normal.</li>
+</ol>
+<p>The exact paracrine signals are still being studied. ATP and adenosine from the macula densa, along with less nitric oxide (a vasodilator), are the leading explanations. Tubuloglomerular feedback is slower than the myogenic response.</p>
+<h3>Sympathetic control</h3>
+<p>Sympathetic neurons release norepinephrine onto alpha-1 receptors, which are plentiful in the smooth muscle of the afferent arterioles. Norepinephrine also acts on beta-1 receptors on the granular cells, which then release renin.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Level of sympathetic firing</th><th scope="col">What the arterioles do</th><th scope="col">Effect on GFR</th></tr></thead><tbody>
+<tr><th scope="row">Low, at rest</th><td>Both arterioles dilated; autoregulation in charge</td><td>Normal</td></tr>
+<tr><th scope="row">Moderate</th><td>Afferent and efferent constrict about equally</td><td>Falls only slightly</td></tr>
+<tr><th scope="row">Strong, as in hemorrhage or hard exercise</th><td>Afferent constriction dominates</td><td>Falls sharply</td></tr>
+</tbody></table></div>
+<p>Lower renal blood flow has two results: urine output falls, which saves fluid, and more blood is free for the heart, brain and working muscles.</p>
+<h3>Hormonal control</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Hormone or signal</th><th scope="col">Main action</th><th scope="col">Effect on GFR</th></tr></thead><tbody>
+<tr><th scope="row">Angiotensin II</th><td>Constricts arterioles; at moderate levels the efferent one more</td><td>Helps hold GFR up when pressure is low; falls at high levels</td></tr>
+<tr><th scope="row">Prostaglandins</th><td>Dilate the afferent arteriole</td><td>Rises, protecting GFR</td></tr>
+<tr><th scope="row">Atrial natriuretic peptide</th><td>Dilates the afferent arteriole and relaxes mesangial cells</td><td>Rises</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Textbooks describe angiotensin II's effect on GFR differently, because it depends on how much is present and which arteriole responds more.</li>
+  <li>Drugs that block prostaglandin production, such as NSAIDs, can lower GFR in a person who is dehydrated or already has kidney disease.</li>
+</ul>
+</section>
+<section id="renal-clearance">
+<h2>Renal clearance</h2>
+<p class="cref"><b>Competencies 8 and 9:</b> <a href="week-14-competencies.html#h-w13-renal-clearance" target="_top">Renal clearance</a>; <a href="week-14-competencies.html#h-w13-clearance-inference" target="_top">Clearance and handling inference</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the part on excretion and clearance.</p>
+<p>Clearance is the volume of plasma completely cleared of a substance by the kidneys each minute. It is a rate in mL/min, not an amount of the substance. It lets you measure GFR and tell how the nephron handles a solute.</p>
+<p>Clearance = (urine concentration × urine flow rate) / plasma concentration, or C = (U × V) / P. U and P must be in the same units, and V is in mL/min.</p>
+<dl>
+  <dt>Inulin</dt><dd>A plant polysaccharide given by infusion. It is filtered freely and is neither reabsorbed nor secreted, so its clearance equals GFR. It is the reference method but is used mainly in research.</dd>
+  <dt>Creatinine</dt><dd>A waste product made at a fairly steady rate from creatine in muscle. It is filtered freely and a small amount is secreted, so creatinine clearance slightly overestimates GFR. It needs no infusion, so it is the usual clinical estimate.</dd>
+  <dt>Estimated GFR (eGFR)</dt><dd>A value calculated from plasma creatinine with an equation that adjusts for age and sex. An eGFR of 90 mL/min/1.73 m2 or higher is normal. Below 60 for three months or longer indicates chronic kidney disease.</dd>
+</dl>
+<h3>Worked example</h3>
+<ol>
+  <li>Data: urine creatinine 125 mg/dL, urine flow 1.0 mL/min, plasma creatinine 1.0 mg/dL.</li>
+  <li>Multiply U by V: 125 mg/dL × 1.0 mL/min.</li>
+  <li>Divide by P: (125 × 1.0) / 1.0 = 125 mL/min. The mg/dL units cancel.</li>
+  <li>A creatinine clearance of 125 mL/min is a normal GFR.</li>
+</ol>
+<h3>What clearance tells you about handling</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Clearance compared with GFR</th><th scope="col">Meaning</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">Equal to GFR</th><td>Filtered only (or reabsorption and secretion cancel out)</td><td>Inulin</td></tr>
+<tr><th scope="row">Less than GFR</th><td>Net reabsorption</td><td>Urea, Na+</td></tr>
+<tr><th scope="row">Zero</th><td>Filtered and completely reabsorbed</td><td>Glucose at normal plasma levels</td></tr>
+<tr><th scope="row">Greater than GFR</th><td>Net secretion</td><td>Penicillin, para-aminohippurate (PAH)</td></tr>
+</tbody></table></div>
+<h3>Worked example: is it reabsorbed or secreted?</h3>
+<ol>
+  <li>Data for a drug: urine concentration 500 mg/dL, urine flow 1.0 mL/min, plasma concentration 2.0 mg/dL, GFR 125 mL/min.</li>
+  <li>Clearance = (500 × 1.0) / 2.0 = 250 mL/min.</li>
+  <li>250 mL/min is twice the GFR of 125 mL/min, so the kidney removes the drug faster than filtration alone could.</li>
+  <li>The drug is net secreted.</li>
+</ol>
+<ul>
+  <li>The comparison shows net handling only. A clearance below GFR means reabsorption is larger than any secretion, not that no secretion happens.</li>
+  <li>PAH is filtered and secreted so completely that very little stays in the blood leaving the kidney, so its clearance estimates renal plasma flow, about 625 mL/min.</li>
+  <li>Plasma creatinine is normally about 0.6 to 1.2 mg/dL in adults, higher in people with more muscle. As GFR falls, plasma creatinine rises: when GFR halves, plasma creatinine roughly doubles once it levels off.</li>
+</ul>
+</section>
+<section id="reabsorption-and-secretion-along-the-tubule">
+<h2>Reabsorption and secretion along the tubule</h2>
+<p class="cref"><b>Competencies 10, 11 and 12:</b> <a href="week-14-competencies.html#h-w13-proximal-reabsorption" target="_top">Proximal tubule reabsorption</a>; <a href="week-14-competencies.html#h-w13-renal-threshold" target="_top">Transport maximum and renal threshold</a>; <a href="week-14-competencies.html#h-w13-tubular-secretion" target="_top">Tubular secretion</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the parts on reabsorption, saturation of renal transport and secretion.</p>
+<p>Reabsorbed substances take one of two routes. In the paracellular route they pass between cells, through the tight junctions. In the transcellular route they cross the apical membrane (facing the lumen), the cytoplasm, and the basolateral membrane (facing the interstitial fluid). The two membranes carry different transport proteins, and the tight junctions keep them from mixing, which is why transport runs in one direction.</p>
+<dl>
+  <dt>Primary active transport</dt><dd>Uses ATP directly. The basolateral Na+-K+-ATPase is the main example; Na+ reabsorption by the kidneys uses about 6% of the body's ATP at rest.</dd>
+  <dt>Secondary active transport</dt><dd>Uses the energy of the Na+ gradient, not ATP, to move another substance uphill. A symporter moves both in the same direction; an antiporter (exchanger) moves them in opposite directions.</dd>
+  <dt>Glomerulotubular balance</dt><dd>The proximal tubule reabsorbs a fairly constant fraction of what is filtered, so its reabsorption rises and falls with GFR.</dd>
+</dl>
+<h3>Proximal tubule reabsorption, step by step</h3>
+<ol>
+  <li>Na+-K+-ATPase pumps in the basolateral membrane move Na+ out of the cell into the interstitial fluid. This keeps Na+ inside the cell low and the inside of the cell negative.</li>
+  <li>Filtered Na+ in the lumen now has a steep electrochemical gradient into the cell.</li>
+  <li>Na+ enters through apical symporters and carries glucose (on sodium-glucose cotransporters, SGLT), amino acids and phosphate uphill with it. This is secondary active transport.</li>
+  <li>Na+ also enters on the Na+-H+ exchanger, which secretes H+ into the lumen. That H+ is how filtered HCO3- is recovered.</li>
+  <li>Glucose and amino acids leave across the basolateral membrane by facilitated diffusion (glucose on GLUT carriers).</li>
+  <li>The reabsorbed solutes raise the osmolarity of the interstitial fluid, so water follows by osmosis, through aquaporin-1 channels and between cells.</li>
+  <li>As water leaves, the solutes left behind (Cl-, K+, Ca2+, Mg2+, urea) become more concentrated in the lumen and diffuse out. Cl- moving out between the cells makes the interstitial side more negative, which pulls K+, Ca2+ and Mg2+ out by the same route.</li>
+  <li>Water and solutes move from the interstitial fluid into the peritubular capillaries. Their low hydrostatic pressure and high colloid osmotic pressure, left over from filtration, favor this uptake.</li>
+</ol>
+<p>Proximal reabsorption is isosmotic. The proximal tubule is so permeable to water that water follows solute almost in step, so the fluid leaving it is still about 300 mOsm/L, the same as plasma. Its volume has fallen by about two thirds, but its osmolarity has not changed.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Filtered substance</th><th scope="col">Share reabsorbed in the proximal tubule</th></tr></thead><tbody>
+<tr><th scope="row">Water, Na+, K+</th><td>About 65%</td></tr>
+<tr><th scope="row">Glucose, amino acids</th><td>Normally 100%</td></tr>
+<tr><th scope="row">HCO3-</th><td>About 80% to 90%</td></tr>
+<tr><th scope="row">Cl-, urea</th><td>About 50%</td></tr>
+<tr><th scope="row">Ca2+, Mg2+, phosphate</th><td>Variable</td></tr>
+</tbody></table></div>
+<h3>Recovering filtered HCO3-, step by step</h3>
+<ol>
+  <li>CO2 enters a proximal tubule cell from the blood or the tubular fluid, or is made by the cell's own metabolism.</li>
+  <li>The enzyme carbonic anhydrase combines CO2 with water to form carbonic acid (H2CO3), which splits into H+ and HCO3-.</li>
+  <li>The apical Na+-H+ exchanger secretes the H+ into the lumen as Na+ enters the cell.</li>
+  <li>In the lumen, the H+ joins a filtered HCO3- to form carbonic acid, which breaks down to CO2 and water. The CO2 diffuses into the cell and can be used again.</li>
+  <li>The HCO3- made inside the cell leaves across the basolateral membrane, with Na+, into the blood.</li>
+  <li>For each H+ secreted, one Na+ and one HCO3- return to the blood, so the filtered buffer is kept.</li>
+</ol>
+<ul>
+  <li>The early proximal tubule reabsorbs Na+ along with glucose, amino acids and HCO3-. The late proximal tubule reabsorbs Na+ mainly with Cl-.</li>
+  <li>Small filtered proteins and peptides are taken in by endocytosis and broken down to amino acids.</li>
+</ul>
+<h3>Transport maximum and renal threshold</h3>
+<dl>
+  <dt>Saturation</dt><dd>Carriers can move only so many molecules per second. Once every carrier is busy, more substrate cannot speed transport.</dd>
+  <dt>Transport maximum (Tm)</dt><dd>The highest rate at which the tubule can reabsorb a substance, in mg/min, reached when all its carriers are saturated. For glucose in both kidneys together it is about 375 mg/min.</dd>
+  <dt>Renal threshold</dt><dd>The plasma concentration at which a substance first appears in the urine. For glucose it is about 180 mg/dL (some sources give 180 to 200).</dd>
+  <dt>Filtered load</dt><dd>The amount filtered per minute: GFR × plasma concentration.</dd>
+</dl>
+<h3>Glucose in the urine, step by step</h3>
+<ol>
+  <li>Normal fasting plasma glucose is about 70 to 99 mg/dL. All the filtered glucose is reabsorbed and none appears in the urine.</li>
+  <li>As plasma glucose rises, filtered load rises in proportion, because glucose is filtered freely.</li>
+  <li>Above about 180 mg/dL, the carriers in some nephrons are saturated and glucose starts to stay in the tubule. This is the renal threshold.</li>
+  <li>As plasma glucose keeps rising, every nephron reaches its transport maximum. From then on, each extra milligram filtered is excreted.</li>
+  <li>Glucose left in the tubule holds water by osmosis, so urine volume rises (osmotic diuresis). This is why untreated diabetes mellitus causes glucose in the urine, frequent urination, thirst and dehydration.</li>
+</ol>
+<p>The threshold sits below the plasma glucose at which the whole kidney reaches Tm because nephrons are not identical. Some saturate earlier than others, so glucose begins to spill before the average nephron is full. With a GFR of 125 mL/min (1.25 dL/min), the filtered load reaches 375 mg/min at a plasma glucose of 375 / 1.25 = 300 mg/dL, yet glucose first appears in the urine at about 180 mg/dL. In pregnancy, glucose can appear in the urine without diabetes, partly because GFR rises and more glucose is filtered.</p>
+<h3>Tubular secretion</h3>
+<p>Secretion moves substances from the peritubular capillaries into the lumen, mostly by active transport. It clears substances faster than filtration alone, including those carried on plasma proteins, and it controls K+ and H+ levels.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Secreted substance</th><th scope="col">Main site</th><th scope="col">Why it matters</th></tr></thead><tbody>
+<tr><th scope="row">H+</th><td>Proximal tubule (Na+-H+ exchanger); intercalated cells (H+-ATPase)</td><td>Acid-base balance</td></tr>
+<tr><th scope="row">K+</th><td>Principal cells of the late distal tubule and collecting duct</td><td>Sets how much K+ is excreted</td></tr>
+<tr><th scope="row">NH4+ (ammonium)</th><td>Proximal tubule, made from glutamine</td><td>Carries acid out; new HCO3- is made at the same time</td></tr>
+<tr><th scope="row">Organic anions: penicillin and many other drugs, PAH</th><td>Proximal tubule, organic anion transporters</td><td>Clears drugs and wastes</td></tr>
+<tr><th scope="row">Organic cations: some creatinine, some drugs</th><td>Proximal tubule, organic cation transporters</td><td>Clears drugs and wastes</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Drugs that use the same carrier compete. Probenecid slows penicillin secretion and was once given to keep penicillin in the blood longer.</li>
+  <li>Because the kidney clears many drugs, people with low GFR often need their drug doses adjusted.</li>
+  <li>Proximal tubule cells break glutamine down into NH4+ and HCO3-. NH4+ can take the place of H+ on the Na+-H+ exchanger and is secreted, and the new HCO3- enters the blood. Most ammonia from amino acid breakdown is first turned into less toxic urea by the liver.</li>
+  <li>Secreted and filtered drugs end up in the urine, which is why urine is used for drug testing: performance-enhancing drugs in athletes (such as anabolic steroids, EPO and stimulants) and alcohol or illegal drugs.</li>
+</ul>
+</section>
+<section id="making-dilute-or-concentrated-urine">
+<h2>Making dilute or concentrated urine</h2>
+<p class="cref"><b>Competencies 13 and 14:</b> <a href="week-14-competencies.html#h-w13-countercurrent" target="_top">Countercurrent mechanism</a>; <a href="week-14-competencies.html#h-w13-adh-water-balance" target="_top">Antidiuretic hormone and urine concentration</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, Integrative Physiology II: Fluid and Electrolyte Balance, the parts on water reabsorption, vasopressin and the countercurrent multiplier.</p>
+<p>Urine osmolarity can range from about 50 to about 1200 mOsm/L while plasma stays near 300. The long loops and vasa recta of juxtamedullary nephrons build and keep a gradient of Na+, Cl- and urea in the medullary interstitial fluid, from about 300 mOsm/L near the cortex to about 1200 mOsm/L deep in the medulla. ADH then sets how much water the collecting duct lets out into that gradient.</p>
+<dl>
+  <dt>Countercurrent flow</dt><dd>Fluid in two parallel tubes flowing in opposite directions, as in the two limbs of the loop of Henle or the down and up halves of the vasa recta.</dd>
+  <dt>Obligatory water reabsorption</dt><dd>Water that must follow solute, in the proximal tubule and descending limb, which are always permeable to water. About 90% of water reabsorption is obligatory.</dd>
+  <dt>Facultative water reabsorption</dt><dd>Water reabsorbed only as needed, in the late distal tubule and collecting duct, under ADH control. It is the last 10% or so of water reabsorbed, roughly 10 to 20 L a day.</dd>
+</dl>
+<h3>The countercurrent multiplier, step by step</h3>
+<ol>
+  <li>Fluid leaves the proximal tubule at about 300 mOsm/L and enters the descending limb.</li>
+  <li>The descending limb is permeable to water but not very permeable to solute. As it passes through saltier and saltier medulla, water leaves by osmosis, and the fluid inside reaches about 1200 mOsm/L at the bend.</li>
+  <li>The ascending limb is impermeable to water. In the thin ascending limb, NaCl moves out passively, down its concentration gradient.</li>
+  <li>In the thick ascending limb, Na+-K+-2Cl- symporters move Na+, K+ and Cl- from the fluid into the cells, and from there they pass into the interstitial fluid, with no water following. Some K+ leaks back into the lumen through K+ channels.</li>
+  <li>That salt raises the osmolarity of the medullary interstitial fluid, which pulls more water out of the descending limb next to it.</li>
+  <li>As fluid keeps flowing, each pass adds to the gradient. The pumps make only a modest difference at any one level, but the hairpin shape multiplies it into a 300 to 1200 mOsm/L gradient from top to bottom.</li>
+  <li>Fluid leaving the loop is hyposmotic, about 100 to 150 mOsm/L (sources differ), which is why the thick ascending limb is called the diluting segment.</li>
+  <li>Urea adds to the gradient, as described in urea recycling below. Urea makes up about half of the osmolarity of the inner medulla.</li>
+</ol>
+<h3>Each limb of the loop and the collecting duct</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Segment</th><th scope="col">Water</th><th scope="col">Solutes</th><th scope="col">Tubular fluid</th></tr></thead><tbody>
+<tr><th scope="row">Descending limb</th><td>Permeable (aquaporin-1)</td><td>Low permeability to NaCl</td><td>Rises from 300 to about 1200 mOsm/L</td></tr>
+<tr><th scope="row">Thin ascending limb</th><td>Impermeable</td><td>NaCl leaves passively</td><td>Falls as it rises</td></tr>
+<tr><th scope="row">Thick ascending limb</th><td>Impermeable</td><td>NaCl pumped out (Na+-K+-2Cl-)</td><td>Falls to about 100 to 150 mOsm/L</td></tr>
+<tr><th scope="row">Early distal tubule</th><td>Impermeable</td><td>NaCl pumped out (Na+-Cl-)</td><td>Falls further</td></tr>
+<tr><th scope="row">Late distal tubule and collecting duct</th><td>Only with ADH (aquaporin-2)</td><td>Na+ reabsorbed; urea leaves the inner medullary part</td><td>About 50 to 1200 mOsm/L, set by ADH</td></tr>
+</tbody></table></div>
+<h3>Urea recycling, step by step</h3>
+<ol>
+  <li>The cortical and outer medullary collecting ducts let water out when ADH is present but hold on to urea, so urea in the lumen becomes more and more concentrated.</li>
+  <li>In the inner medulla the collecting duct has urea transporters, and ADH makes it more permeable to urea. Urea diffuses out into the interstitial fluid.</li>
+  <li>Some of that urea diffuses into the thin limbs of the loop of Henle and travels back around the loop to the collecting duct.</li>
+  <li>Each pass leaves more urea trapped in the inner medulla, which adds to the gradient that draws water out of the collecting duct.</li>
+</ol>
+<h3>The countercurrent exchanger, step by step</h3>
+<ol>
+  <li>Blood enters the descending vasa recta at about 300 mOsm/L.</li>
+  <li>As it runs down into the medulla, NaCl and urea diffuse in and water diffuses out, so the blood comes to match the salty interstitial fluid.</li>
+  <li>At the bend the vessel turns back toward the cortex.</li>
+  <li>On the way up, NaCl and urea diffuse back out into the interstitial fluid and water diffuses in.</li>
+  <li>Blood leaves only slightly more concentrated than it entered. It carries away the water reabsorbed from the loop and collecting duct but leaves most of the solute in the medulla.</li>
+</ol>
+<p>The loop of Henle builds the gradient by countercurrent multiplication, and the vasa recta preserve it by countercurrent exchange. Exchange is passive, and the slow blood flow in the vasa recta helps. A straight capillary running through the medulla would wash the gradient away.</p>
+<h3>Dilute urine when ADH is low, step by step</h3>
+<ol>
+  <li>Fluid leaves the loop of Henle already dilute, at about 100 to 150 mOsm/L.</li>
+  <li>The early distal tubule removes more NaCl but is not permeable to water and is not regulated by ADH, so the fluid becomes more dilute.</li>
+  <li>With little ADH, the late distal tubule and collecting duct stay impermeable to water while they keep reabsorbing some solute.</li>
+  <li>Urine reaches the renal pelvis as dilute as about 50 to 70 mOsm/L, four or more times more dilute than plasma, in a large volume.</li>
+</ol>
+<h3>ADH and concentrated urine during dehydration, step by step</h3>
+<ol>
+  <li>Water loss, for example sweating without drinking, raises plasma osmolarity. A rise of only about 1% is enough to start the response.</li>
+  <li>Osmoreceptors in the hypothalamus lose water, shrink, and fire more.</li>
+  <li>They excite neurosecretory neurons in the supraoptic and paraventricular nuclei of the hypothalamus that make ADH (antidiuretic hormone, also called vasopressin).</li>
+  <li>ADH travels down their axons and is released from the posterior pituitary into the blood.</li>
+  <li>ADH binds V2 receptors on the basolateral membrane of principal cells in the late distal tubule and collecting duct.</li>
+  <li>The receptor activates a G protein (Gs), which turns on adenylyl cyclase. cAMP rises and activates protein kinase A.</li>
+  <li>Protein kinase A phosphorylates aquaporin-2, and vesicles holding these water channels fuse with the apical membrane (exocytosis), so water can now enter the cells from the lumen.</li>
+  <li>As the collecting duct runs down through the medullary gradient, water moves from the lumen into the cells, leaves through aquaporin-3 and aquaporin-4 channels in the basolateral membrane, and is carried off by the vasa recta.</li>
+  <li>The kidney makes a small volume of concentrated urine, up to about 1200 mOsm/L, about four times plasma. At maximal ADH, urine falls to about 400 to 500 mL a day.</li>
+  <li>The water kept in the body lowers plasma osmolarity, osmoreceptor firing falls, and ADH release falls. This is negative feedback.</li>
+</ol>
+<ul>
+  <li>When ADH is low, aquaporin-2 channels are pulled back into the cell by endocytosis. The collecting duct becomes nearly impermeable to water, and the dilute fluid from the loop leaves as a large volume of dilute urine.</li>
+  <li>A large fall in blood volume or pressure also triggers ADH release, through stretch receptors in the atria and baroreceptors in the carotid sinus and aortic arch.</li>
+  <li>In diabetes insipidus, ADH is missing or the kidney cannot respond to it, and a person can pass up to about 20 L of dilute urine a day.</li>
+</ul>
+</section>
+<section id="hormones-that-adjust-sodium-and-potassium">
+<h2>Hormones that adjust sodium and potassium</h2>
+<p class="cref"><b>Competencies 15, 16 and 17:</b> <a href="week-14-competencies.html#h-w13-raas" target="_top">Renin angiotensin aldosterone system</a>; <a href="week-14-competencies.html#h-w13-natriuretic-peptides" target="_top">Natriuretic peptides</a>; <a href="week-14-competencies.html#h-w13-potassium-handling" target="_top">Potassium handling</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, Integrative Physiology II: Fluid and Electrolyte Balance, the parts on aldosterone, the renin angiotensin system, natriuretic peptides and potassium balance.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Hormone</th><th scope="col">Stimulus</th><th scope="col">Speed</th><th scope="col">Action on the kidney</th></tr></thead><tbody>
+<tr><th scope="row">Angiotensin II</th><td>Low blood volume or pressure, through renin</td><td>Fast</td><td>More Na+-H+ exchange and HCO3- reabsorption in the proximal tubule; arteriole constriction</td></tr>
+<tr><th scope="row">Aldosterone</th><td>Angiotensin II; high plasma K+</td><td>Slow (new proteins)</td><td>More Na+ reabsorption and K+ secretion by principal cells; more H+ secretion by intercalated cells</td></tr>
+<tr><th scope="row">ADH</th><td>High plasma osmolarity; low blood volume</td><td>Fast</td><td>Water permeability of the late distal tubule and collecting duct</td></tr>
+<tr><th scope="row">Atrial natriuretic peptide</th><td>Atrial stretch</td><td>Fast</td><td>Higher GFR; less Na+ reabsorption</td></tr>
+<tr><th scope="row">Parathyroid hormone</th><td>Low plasma Ca2+</td><td>Fast</td><td>Less phosphate reabsorption (proximal tubule), more Ca2+ reabsorption (distal tubule), more calcitriol made</td></tr>
+</tbody></table></div>
+<h3>Renin angiotensin aldosterone system at the kidney, step by step</h3>
+<ol>
+  <li>Blood pressure or volume falls, for example after blood loss or dehydration.</li>
+  <li>The granular cells of the afferent arteriole receive three signals: less stretch of the arteriole wall, less NaCl reaching the macula densa (which signals them by paracrines), and more sympathetic firing on their beta-1 receptors.</li>
+  <li>The granular cells secrete renin into the blood.</li>
+  <li>Renin cuts angiotensinogen, a plasma protein made by the liver, into angiotensin I.</li>
+  <li>Angiotensin-converting enzyme (ACE) on blood vessel endothelium, especially plentiful in the lungs, converts angiotensin I to angiotensin II.</li>
+  <li>Angiotensin II constricts arterioles throughout the body, raising blood pressure. In the kidney it constricts the efferent arteriole, which helps hold GFR up while pressure is low.</li>
+  <li>Angiotensin II speeds Na+-H+ exchange in the proximal tubule, so more Na+ and water are reabsorbed.</li>
+  <li>Angiotensin II stimulates the adrenal cortex to secrete aldosterone. It also triggers thirst and ADH release, covered with fluid balance.</li>
+  <li>Aldosterone enters principal cells and binds a receptor inside the cell. Over hours, the cell makes more ENaC Na+ channels and more ROMK K+ channels for the apical membrane, and more Na+-K+-ATPase pumps for the basolateral membrane. It also keeps existing ENaC channels open longer.</li>
+  <li>Principal cells reabsorb more Na+ and secrete more K+. Water follows the Na+ when ADH is also present.</li>
+  <li>Blood volume and pressure rise, which removes the stimulus for renin. This is negative feedback.</li>
+</ol>
+<ul>
+  <li>ACE inhibitors lower blood pressure by blocking the conversion of angiotensin I to angiotensin II, so less aldosterone is made as well.</li>
+</ul>
+<h3>Natriuretic peptides, step by step</h3>
+<ol>
+  <li>Blood volume rises and stretches the atria.</li>
+  <li>Atrial muscle cells release atrial natriuretic peptide (ANP). Stretched ventricles release a related hormone, brain natriuretic peptide (BNP).</li>
+  <li>ANP dilates the afferent arteriole and relaxes mesangial cells, so GFR rises.</li>
+  <li>ANP reduces Na+ reabsorption in the collecting duct.</li>
+  <li>ANP inhibits renin release, aldosterone secretion and ADH secretion.</li>
+  <li>More Na+ (natriuresis) and more water (diuresis) leave in the urine, and blood volume falls toward normal.</li>
+</ol>
+<p>ANP opposes RAAS at almost every step: RAAS holds on to Na+ and water when pressure is low, and ANP lets them go when volume is high. Blood BNP is measured when heart failure is suspected, because stretched ventricles release more of it.</p>
+<h3>Potassium handling</h3>
+<p>Normal plasma K+ is 3.5 to 5.0 mEq/L. High and low values both change the resting membrane potential of heart and muscle cells, so K+ is held in a tight range.</p>
+<ul>
+  <li>Most filtered K+ is reabsorbed in the proximal tubule and loop of Henle, whatever the body's needs.</li>
+  <li>Regulation happens later, in the principal cells of the late distal tubule and collecting duct, mainly by changing how much K+ they secrete.</li>
+  <li>When K+ is low, intercalated cells reabsorb some K+ with an H+-K+-ATPase.</li>
+</ul>
+<h3>K+ secretion by a principal cell, step by step</h3>
+<ol>
+  <li>The basolateral Na+-K+-ATPase pumps K+ from the interstitial fluid into the cell.</li>
+  <li>Na+ enters from the lumen through apical ENaC channels, which leaves the lumen negatively charged.</li>
+  <li>K+ leaves the cell through apical K+ channels (ROMK) into the lumen, driven by its high concentration in the cell and by the negative lumen.</li>
+  <li>Tubular flow carries the secreted K+ away, keeping K+ in the lumen low so secretion continues.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Signal</th><th scope="col">Effect on K+ secretion</th></tr></thead><tbody>
+<tr><th scope="row">High plasma K+</th><td>Increases it, directly by speeding the Na+-K+-ATPase and indirectly by stimulating aldosterone release</td></tr>
+<tr><th scope="row">Aldosterone</th><td>Increases it, by adding ENaC channels, pumps and K+ channels</td></tr>
+<tr><th scope="row">More Na+ and fluid reaching the collecting duct</th><td>Increases it</td></tr>
+<tr><th scope="row">Low plasma K+</th><td>Decreases it; intercalated cells reabsorb K+</td></tr>
+</tbody></table></div>
+<p>Loop and thiazide diuretics block NaCl reabsorption upstream, so more Na+ and fluid reach the collecting duct. Principal cells then take up more Na+ through ENaC and secrete more K+, and the fall in blood volume raises aldosterone. Both effects increase K+ loss, so these are potassium-wasting diuretics, and low plasma K+ (hypokalemia) is a known side effect. Potassium-sparing diuretics can raise plasma K+ instead.</p>
+<h3>Diuretics</h3>
+<p>A diuretic increases urine flow (diuresis), usually by slowing Na+ reabsorption so that water stays in the tubule with it. Lower blood volume lowers blood pressure, which is why diuretics treat hypertension.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Diuretic</th><th scope="col">How it works</th><th scope="col">Type</th></tr></thead><tbody>
+<tr><th scope="row">Loop diuretics (furosemide)</th><td>Block the Na+-K+-2Cl- symporter in the thick ascending limb</td><td>K+ wasting</td></tr>
+<tr><th scope="row">Thiazides</th><td>Block the Na+-Cl- symporter in the early distal tubule</td><td>K+ wasting</td></tr>
+<tr><th scope="row">Spironolactone, amiloride</th><td>Block the aldosterone receptor or ENaC in principal cells</td><td>K+ sparing</td></tr>
+<tr><th scope="row">Osmotic diuretics (mannitol)</th><td>Filtered but not reabsorbed, so they hold water in the proximal tubule and descending limb</td><td>Osmotic</td></tr>
+<tr><th scope="row">Carbonic anhydrase inhibitors (acetazolamide)</th><td>Slow H+ secretion and HCO3- and Na+ reabsorption in the proximal tubule</td><td>K+ wasting; weak</td></tr>
+<tr><th scope="row">Caffeine</th><td>Slows Na+ reabsorption</td><td>Mild natural diuretic</td></tr>
+<tr><th scope="row">Alcohol</th><td>Inhibits ADH release, so less water is reabsorbed</td><td>Natural diuretic</td></tr>
+</tbody></table></div>
+</section>
+<section id="micturition">
+<h2>Micturition</h2>
+<p class="cref"><b>Competency 18:</b> <a href="week-14-competencies.html#h-w13-micturition" target="_top">Micturition</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the part on micturition.</p>
+<p>Urine flows from the collecting ducts into the renal pelvis, down the ureters by peristalsis, and into the bladder. The bladder wall is smooth muscle called the detrusor. Two sphincters keep the bladder closed while it fills.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Sphincter</th><th scope="col">Muscle</th><th scope="col">Control</th></tr></thead><tbody>
+<tr><th scope="row">Internal sphincter</th><td>Smooth muscle at the bladder neck, continuous with the bladder wall</td><td>Involuntary; kept closed during filling by sympathetic fibers in the hypogastric nerve; pulled open when the detrusor contracts</td></tr>
+<tr><th scope="row">External sphincter</th><td>Skeletal muscle around the urethra</td><td>Voluntary; held closed by somatic motor neurons in the pudendal nerve</td></tr>
+</tbody></table></div>
+<h3>The micturition reflex, step by step</h3>
+<ol>
+  <li>As the bladder fills, its wall stretches. Stretch receptors fire strongly once it holds roughly 200 to 400 mL.</li>
+  <li>Sensory neurons in the pelvic nerves carry the signal to the sacral spinal cord (S2 to S4).</li>
+  <li>Parasympathetic neurons leaving the sacral cord in the pelvic splanchnic nerves fire and release acetylcholine, and the detrusor contracts. Sympathetic output to the bladder is inhibited.</li>
+  <li>As the bladder contracts and changes shape, it pulls the internal sphincter open.</li>
+  <li>At the same time, the somatic motor neurons that keep the external sphincter contracted are inhibited, so it relaxes.</li>
+  <li>Urine flows out through the urethra.</li>
+</ol>
+<p>In infants the reflex runs on its own. Toilet training adds control from the brain. Centers in the pons and the cerebral cortex can delay urination by keeping the external sphincter contracted and inhibiting the reflex, or start it by relaxing the sphincter and helping the reflex along. During filling, sympathetic fibers from the lumbar cord (hypogastric nerve) relax the detrusor and contract the internal sphincter, which helps the bladder stay relaxed and closed.</p>
+<ul>
+  <li>After a spinal cord injury above the sacral segments, the reflex can still empty the bladder, but the brain can no longer start or delay it.</li>
+</ul>
+</section>
+<section id="labs-urinalysis-and-renal-calculations">
+<h2>Labs: urinalysis and renal calculations</h2>
+<p class="cref"><b>Competencies 19 and 20:</b> <a href="week-14-competencies.html#h-w13-lab-urinalysis" target="_top">Urinalysis</a>; <a href="week-14-competencies.html#h-w13-lab-renal-calculation" target="_top">Renal function calculation</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 20, the parts on urinalysis and clearance.</p>
+<p>Urine is a fluid biopsy of the urinary tract. It is used to diagnose kidney and urinary tract disease, to check that treatment of a urinary tract infection (UTI) is working, and to detect body-wide disorders such as diabetes. It can show substances cleared too fast to raise blood levels, and a 24-hour collection reflects the whole day better than one blood sample. It is cheap and painless.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Specimen</th><th scope="col">When it is used</th></tr></thead><tbody>
+<tr><th scope="row">First morning</th><td>Holds 6 to 8 hours of urine; the most concentrated, so abnormal findings are most likely to show</td></tr>
+<tr><th scope="row">Random</th><td>No preparation; used for routine screens and drug testing</td></tr>
+<tr><th scope="row">Midstream clean catch</th><td>Cuts contamination from the skin and genital tract; used when infection is suspected and for culture</td></tr>
+<tr><th scope="row">Timed or double voided</th><td>The bladder is emptied and that urine discarded, then urine from a set period is collected</td></tr>
+<tr><th scope="row">24-hour</th><td>The first void is discarded, then every void for 24 hours is kept; a missed void spoils the test</td></tr>
+<tr><th scope="row">Catheter</th><td>A sterile sample from an indwelling or a newly placed catheter</td></tr>
+</tbody></table></div>
+<p>A urinalysis is often ordered in pregnancy, before surgery, for abdominal pain, painful urination (dysuria), blood in the urine or frequent urination, and to monitor chronic kidney disease and diabetes. Fluid of uncertain origin after pelvic surgery can be tested for urea and creatinine to tell urine from other drainage.</p>
+<p>A urinalysis has three parts: a physical exam, a chemical exam with a dipstick, and a microscopic exam of the sediment. Each abnormal result points to a step in urine formation that failed, or to a problem outside the kidney.</p>
+<ul>
+  <li>Color: pale yellow to amber, from the pigment urochrome. Pale urine is dilute and dark urine is concentrated. Red can mean blood, beets or some drugs; green can come from a Pseudomonas infection; dark yellow to orange suggests bilirubin; B vitamins turn urine bright yellow.</li>
+  <li>Clarity: clear. Cloudy urine can come from white cells (pus), bacteria or red cells, and sometimes harmlessly from crystals or diet.</li>
+  <li>Odor: mild. A fruity, acetone smell suggests ketones (as in diabetic ketoacidosis), a foul smell suggests infection, and a fecal smell suggests an abnormal connection between the bowel and urinary tract.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Test</th><th scope="col">Normal</th><th scope="col">Abnormal result suggests</th><th scope="col">Process involved</th></tr></thead><tbody>
+<tr><th scope="row">Specific gravity</th><td>1.005 to 1.030 (usually 1.010 to 1.025)</td><td>High: dehydration, or glucose or protein in the urine. Low: overhydration, diabetes insipidus, or kidneys that cannot concentrate</td><td>Concentrating ability (gradient and ADH)</td></tr>
+<tr><th scope="row">pH</th><td>4.5 to 8.0, average about 6</td><td>Acidic: acidosis, starvation, dehydration, high-meat diet. Alkaline: UTI with urea-splitting bacteria, plant-rich diet, after meals, alkalosis</td><td>H+ secretion and HCO3- reabsorption</td></tr>
+<tr><th scope="row">Glucose</th><td>Negative</td><td>Plasma glucose above the renal threshold, as in diabetes mellitus; sometimes pregnancy</td><td>Reabsorption past its transport maximum</td></tr>
+<tr><th scope="row">Protein</th><td>Negative to trace (about 0 to 8 mg/dL)</td><td>Leaky filtration membrane (glomerular disease, diabetes, preeclampsia); briefly after hard exercise or fever</td><td>Filtration barrier</td></tr>
+<tr><th scope="row">Ketones</th><td>Negative</td><td>Heavy fat breakdown: poorly controlled diabetes, fasting, very low carbohydrate diet, alcoholism</td><td>High plasma ketones being filtered</td></tr>
+<tr><th scope="row">Blood</th><td>Negative</td><td>Red cells from stones, infection, tumor, trauma or glomerular damage, or free hemoglobin or myoglobin</td><td>Filtration barrier, or bleeding lower in the tract</td></tr>
+<tr><th scope="row">Leukocyte esterase</th><td>Negative</td><td>White cells in the urine: infection or inflammation, including UTIs without symptoms</td><td>Infection</td></tr>
+<tr><th scope="row">Nitrite</th><td>Negative</td><td>Bacteria that turn nitrate into nitrite, such as E. coli</td><td>Infection</td></tr>
+<tr><th scope="row">Bilirubin</th><td>Negative</td><td>Liver disease or blocked bile ducts</td><td>Outside the kidney</td></tr>
+<tr><th scope="row">Urobilinogen</th><td>A small amount, about 0.1 to 1.0 mg/dL (Ehrlich units)</td><td>Rapid red cell breakdown or liver disease</td><td>Outside the kidney</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Specific gravity compares the density of urine with distilled water (1.000). It tracks osmolarity, but heavy molecules such as glucose and protein push it up out of proportion. It runs lower in newborns and in older adults, whose kidneys concentrate less.</li>
+  <li>The blood pad reacts with the heme in both hemoglobin and myoglobin. A speckled pattern suggests intact red cells, and an even color suggests free hemoglobin or myoglobin. A positive test with no red cells on microscopy points to red cells breaking open in the blood, or to muscle breakdown (rhabdomyolysis, from extreme exercise or long immobility). Vitamin C in the urine can give a falsely low blood or glucose result.</li>
+  <li>Protein is one of the most important dipstick signs of kidney disease. Conditions that damage the glomeruli include post-streptococcal infection, bacterial endocarditis, HIV and hepatitis B and C, lupus, vasculitis, diabetes, high blood pressure, some cancers and inherited disorders such as Alport syndrome. The dipstick detects mainly albumin, so the light-chain (Bence Jones) proteins of multiple myeloma need a separate test. A positive result is often followed by a 24-hour urine protein; normal is under 150 mg a day, often about 50 to 80 mg at rest.</li>
+  <li>Not every UTI organism makes nitrite (Enterococcus does not, for example), and urine must sit in the bladder for a few hours for nitrite to build up. A negative nitrite does not rule out infection, while a positive one strengthens a positive leukocyte esterase.</li>
+  <li>Only conjugated bilirubin, which is water soluble, is filtered. Ketones and bilirubin appear because their plasma levels are high, so the kidney is reporting a problem elsewhere.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Cause</th><th scope="col">Urine bilirubin</th><th scope="col">Urine urobilinogen</th></tr></thead><tbody>
+<tr><th scope="row">Rapid red cell breakdown (hemolysis)</th><td>Negative</td><td>Increased</td></tr>
+<tr><th scope="row">Liver cell disease</th><td>Positive</td><td>Normal or increased</td></tr>
+<tr><th scope="row">Blocked bile ducts (gallstones)</th><td>Positive</td><td>Decreased or absent</td></tr>
+</tbody></table></div>
+<h3>Microscopic findings</h3>
+<p>The sample is spun in a centrifuge and the sediment is examined. Casts are cylinders made of a protein (Tamm-Horsfall protein, also called uromodulin) secreted by cells of the thick ascending limb. They form in the distal tubule and collecting duct, where urine is most concentrated, and take the tubule's shape. They form best in acidic, concentrated, slowly flowing urine. Cells trapped in a cast came from the kidney itself.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Finding</th><th scope="col">Normal</th><th scope="col">What more suggests</th></tr></thead><tbody>
+<tr><th scope="row">Red blood cells</th><td>0 to 2 per high-power field</td><td>Bleeding: bladder, ureter or urethra problems, stones, tumors, trauma, glomerulonephritis</td></tr>
+<tr><th scope="row">White blood cells</th><td>0 to 5 per high-power field</td><td>Infection or inflammation of the bladder, kidney or both</td></tr>
+<tr><th scope="row">Epithelial cells</th><td>A few</td><td>Many squamous cells mean contamination; bladder cells can mean infection or a tumor</td></tr>
+<tr><th scope="row">Bacteria</th><td>None in a clean sample</td><td>Infection; confirm with a culture</td></tr>
+<tr><th scope="row">Hyaline casts</th><td>A few</td><td>Protein only; more after hard exercise or dehydration</td></tr>
+<tr><th scope="row">Red cell casts</th><td>None</td><td>Bleeding from the glomerulus, as in glomerulonephritis</td></tr>
+<tr><th scope="row">White cell casts</th><td>None</td><td>Inflammation in the kidney itself: pyelonephritis, post-streptococcal glomerulonephritis, lupus nephritis</td></tr>
+<tr><th scope="row">Renal tubular cells or their casts</th><td>None</td><td>Injury to the tubule cells, as in acute tubular necrosis</td></tr>
+<tr><th scope="row">Granular casts</th><td>None, or a few after hard exercise</td><td>Breakdown of cells in casts; kidney disease</td></tr>
+<tr><th scope="row">Fatty casts, oval fat bodies</th><td>None</td><td>Nephrotic syndrome</td></tr>
+<tr><th scope="row">Waxy casts</th><td>None</td><td>Very slow tubular flow; chronic kidney failure, diabetic kidney disease</td></tr>
+<tr><th scope="row">Crystals</th><td>Some can be normal</td><td>Stone risk; uric acid crystals with gout; calcium oxalate or phosphate with parathyroid disorders or malabsorption</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Uric acid and cystine crystals form in acidic urine; calcium phosphate and magnesium ammonium phosphate crystals form in alkaline urine; calcium oxalate forms in acidic to neutral urine. Which urine pH helps prevent stones depends on the stone type.</li>
+  <li>Crystals cause no pain. Pain comes from a formed stone blocking the tract.</li>
+  <li>Culture and sensitivity: more than 100,000 bacteria per mL indicates infection, and fewer than 10,000 per mL is negative. The sample is collected before antibiotics start and processed within about an hour or refrigerated. A preliminary report takes about 24 hours and a final one 48 to 72 hours. It names the organism and lists each antibiotic as susceptible, intermediate or resistant, with the minimum inhibitory concentration (MIC).</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Case</th><th scope="col">Key findings</th><th scope="col">Interpretation</th></tr></thead><tbody>
+<tr><th scope="row">Man, 42, painful urination</th><td>Dark red, cloudy; blood 3+, leukocyte esterase 3+, nitrite negative; many white cells, red cells and bacteria</td><td>Likely UTI; negative nitrite may mean an organism that does not make nitrite, or urine that did not sit long in the bladder; send a culture and sensitivity</td></tr>
+<tr><th scope="row">Soldier, 24, very sore after training</th><td>Pale yellow; blood 3+; no red cells on microscopy</td><td>Myoglobin from muscle breakdown (exercise-induced rhabdomyolysis)</td></tr>
+<tr><th scope="row">Woman, 30, near the end of pregnancy</th><td>Protein 3+, glucose 1+</td><td>Heavy protein raises concern for preeclampsia (checked with blood pressure); glucose is common in pregnancy and may or may not mean gestational diabetes</td></tr>
+</tbody></table></div>
+<h3>Renal calculations</h3>
+<dl>
+  <dt>Filtered load</dt><dd>GFR × plasma concentration (P), in mg/min.</dd>
+  <dt>Excretion rate</dt><dd>Urine concentration (U) × urine flow rate (V), in mg/min.</dd>
+  <dt>Clearance</dt><dd>(U × V) / P, in mL/min.</dd>
+  <dt>Net reabsorption or secretion</dt><dd>Filtered load minus excretion rate. A positive result means net reabsorption; a negative result means net secretion.</dd>
+  <dt>Urine flow from a 24-hour collection</dt><dd>Total volume divided by 1440 minutes. For example, 1440 mL in 24 hours is 1.0 mL/min.</dd>
+</dl>
+<p>Convert mg/dL to mg/mL by dividing by 100. Example: with a GFR of 125 mL/min and plasma glucose of 100 mg/dL (1.0 mg/mL), filtered load is 125 mg/min. Urine glucose is zero, so all 125 mg/min is reabsorbed.</p>
+<h3>Clinical case, step by step</h3>
+<ol>
+  <li>A 60-year-old man with long-standing diabetes collects urine for 24 hours. Urine flow is 1.0 mL/min, urine creatinine is 100 mg/dL, and plasma creatinine is 2.0 mg/dL. His dipstick shows protein.</li>
+  <li>Creatinine clearance = (100 mg/dL × 1.0 mL/min) / 2.0 mg/dL = 50 mL/min.</li>
+  <li>This estimates his GFR at about 50 mL/min, well below normal. If it stays below 60 for three months, he meets the definition of chronic kidney disease.</li>
+  <li>His plasma creatinine is above the adult normal of about 0.6 to 1.2 mg/dL, because fewer working nephrons filter less creatinine and it builds up.</li>
+  <li>The protein in his urine shows a leaky filtration membrane. The low GFR and proteinuria together point to diabetic damage to the glomeruli.</li>
+</ol>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>

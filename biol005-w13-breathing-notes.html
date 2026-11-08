@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Breathing and gas transport, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 13 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 13 notes · Dr. Sharilyn Rennie</p>
+  <h1>Breathing and gas transport</h1>
+  <p>Need-to-know respiratory anatomy, Boyle's law and the pressures of quiet and forced breathing, intrapleural pressure with pneumothorax and atelectasis, compliance, surfactant and airway resistance, lung volumes, spirometry patterns and dead space, partial pressures, diffusion and ventilation-perfusion matching, oxygen and carbon dioxide transport with the oxyhemoglobin curve and the Bohr and Haldane effects, oxygen content in anemia and carbon monoxide poisoning, the respiratory centers and chemoreceptors, exercise and altitude, the ventilatory response lab, and the respiratory terms. Week 13 competencies 1 to 22.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week13-Notes-breathing.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.</p><p><b>Your textbook:</b> Silverthorn Chapter 18, Mechanics of Breathing, and Chapter 19, Gas Exchange and Transport. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 22, The Respiratory System.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="cref"><b>Competency 1:</b> <a href="week-13-competencies.html#h-w12-respiratory-functions" target="_top">Functions and functional zones</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 18, the parts on the functions of the respiratory system and the anatomy of the respiratory system.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/0dAFSt32YFg" target="_blank" rel="noopener">Functions of the respiratory system<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/VFolUeulCfM" target="_blank" rel="noopener">Internal versus external respiration<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/m4QpoY1go7E" target="_blank" rel="noopener">Steps of respiration<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/B3PD1ztBlxQ" target="_blank" rel="noopener">4 steps of collective respiration<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Respiration happens in four steps, and these notes follow them in order. This section covers only the structures you need to picture to follow the physiology.</p>
+<h3>The four steps of respiration</h3>
+<ol>
+  <li>Ventilation (breathing): air moves between the atmosphere and the alveoli.</li>
+  <li>External respiration: O2 and CO2 are exchanged between alveolar air and the blood in the pulmonary capillaries.</li>
+  <li>Gas transport: the blood carries O2 to the tissues and CO2 back to the lungs.</li>
+  <li>Internal respiration: O2 and CO2 are exchanged between the blood in the systemic capillaries and the cells.</li>
+</ol>
+<p>Cellular respiration, the use of O2 by mitochondria to make ATP, is a separate process inside cells. It is why the four steps are needed, and it is where the CO2 comes from.</p>
+<h3>What the respiratory system does</h3>
+<ul>
+  <li>Gas exchange: brings in O2 and removes CO2.</li>
+  <li>pH regulation: changes blood pH by changing how much CO2 is breathed off.</li>
+  <li>Protection: traps and removes inhaled particles and microbes.</li>
+  <li>Vocalization: air moving past the vocal folds makes sound.</li>
+  <li>Other jobs: smell, the respiratory pump that helps venous return, and angiotensin converting enzyme (ACE) on lung capillaries, which turns angiotensin I into angiotensin II.</li>
+</ul>
+<h3>Conducting zone and respiratory zone</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Conducting zone</th><th scope="col">Respiratory zone</th></tr></thead><tbody>
+<tr><th scope="row">Structures</th><td>Nasal cavity, pharynx, larynx, trachea, bronchi and bronchioles, down to the terminal bronchioles</td><td>Respiratory bronchioles, alveolar ducts, alveolar sacs and alveoli</td></tr>
+<tr><th scope="row">Gas exchange</th><td>None</td><td>Yes, across the alveolar walls</td></tr>
+<tr><th scope="row">Job</th><td>Carries air, and warms, humidifies and filters it</td><td>Exchanges O2 and CO2 with the blood</td></tr>
+<tr><th scope="row">Wall</th><td>Cartilage in the trachea and bronchi; smooth muscle without cartilage in the bronchioles</td><td>A very thin epithelium wrapped in capillaries</td></tr>
+<tr><th scope="row">Lining</th><td>Ciliated epithelium with mucus-secreting goblet cells in most of it</td><td>Type I and type II alveolar cells, with alveolar macrophages</td></tr>
+</tbody></table></div>
+<p>Air reaching the alveoli is warmed to 37 °C (98.6 °F) and saturated with water vapor. Mucus traps particles, and cilia sweep it up to the pharynx to be swallowed (the mucociliary escalator). Cigarette smoke slows the cilia, so smokers cough to clear mucus.</p>
+<dl>
+  <dt>Bronchi and bronchioles</dt><dd>The trachea, held open by C-shaped cartilage rings, splits into right and left primary bronchi, which branch again and again. Tubes narrower than about 1 mm, with no cartilage, are bronchioles. Their walls are mostly smooth muscle, so they can narrow and widen.</dd>
+  <dt>Alveoli</dt><dd>Tiny air sacs at the ends of the airways, hundreds of millions of them, with a total surface area of roughly 70 square meters.</dd>
+  <dt>Type I alveolar cells</dt><dd>Very thin, flat cells forming most of the alveolar wall. Gases diffuse across them.</dd>
+  <dt>Type II alveolar cells</dt><dd>Smaller, rounder cells that make surfactant and can divide to repair the wall. Alveolar macrophages roam the surface and eat particles and microbes.</dd>
+  <dt>Respiratory membrane</dt><dd>The barrier between alveolar air and blood: a type I cell, a fused basement membrane, and the capillary endothelium. In most places it is less than 1 µm thick.</dd>
+</dl>
+<h3>The lungs, the pleura and the breathing muscles</h3>
+<dl>
+  <dt>Lungs</dt><dd>The right lung has three lobes and the left has two, leaving room for the heart. Lung tissue is elastic and always tends to recoil inward.</dd>
+  <dt>Pleural sacs</dt><dd>Each lung sits in its own closed sac. The visceral pleura covers the lung, and the parietal pleura lines the chest wall and diaphragm. A thin film of pleural fluid between them lets the layers slide but holds them together, like water between two panes of glass.</dd>
+  <dt>Diaphragm</dt><dd>A dome of skeletal muscle under the lungs and the main muscle of inspiration, supplied by the phrenic nerves (spinal cord levels C3 to C5).</dd>
+  <dt>External intercostals</dt><dd>Lift the ribs up and out during inspiration.</dd>
+  <dt>Internal intercostals</dt><dd>Pull the ribs down and in during forced expiration.</dd>
+  <dt>Accessory muscles of inspiration</dt><dd>The scalene and sternocleidomastoid muscles of the neck, which lift the upper ribs and sternum. The scalenes help a little even in quiet breathing and work much harder in forced inspiration, when the sternocleidomastoids join in.</dd>
+  <dt>Abdominal muscles</dt><dd>The rectus abdominis, external and internal obliques, and transversus abdominis, which push the abdominal organs up against the diaphragm in forced expiration.</dd>
+</dl>
+<p>All the breathing muscles are skeletal muscle with no rhythm of their own, so every breath depends on nerve signals, normally from the brainstem.</p>
+</section>
+<section id="how-air-moves-boyle-s-law-and-the-breathing-cycle">
+<h2>How air moves: Boyle's law and the breathing cycle</h2>
+<p class="cref"><b>Competency 2:</b> <a href="week-13-competencies.html#h-w12-ventilation-mechanics" target="_top">Pressure gradients and airflow</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 18, the parts on the gas laws and on ventilation, including inspiration and expiration.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/WMckTUj3qgk" target="_blank" rel="noopener">Pulmonary ventilation (normal ventilation)<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/57hYFjXDrL4" target="_blank" rel="noopener">Pressure and volume (Boyle's law)<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/cWdyVqYB55k" target="_blank" rel="noopener">Charles's law<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/ckw7hM7a4DU" target="_blank" rel="noopener">Air flow and pressure<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/piqUNWs81oc" target="_blank" rel="noopener">Air flow and pressure, syringe analogy<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/3HAIzOF257k" target="_blank" rel="noopener">Requirements for ventilation, and quiet versus forced respiration<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/zgNmWZveGJ8" target="_blank" rel="noopener">Describe pre-inspiration (rest)<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/62obqbK_av8" target="_blank" rel="noopener">Describe inspiration<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/jgkZ_yi6WEo" target="_blank" rel="noopener">Describe expiration<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/EvbvGoIPgO4" target="_blank" rel="noopener">Muscles of respiration and air flow, part 1<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/NnPRhpcpiHg" target="_blank" rel="noopener">Muscles of respiration and air flow, part 2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/-HNym03oEbg" target="_blank" rel="noopener">Non-thoracic effects of changes in abdominal pressure<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Air flows from higher to lower pressure, the same rule that moves blood: flow = pressure gradient ÷ resistance. The body cannot change atmospheric pressure, so it changes the pressure inside the alveoli by changing the volume of the chest.</p>
+<dl>
+  <dt>Boyle's law</dt><dd>At a constant temperature, the pressure of a gas in a closed container is inversely related to its volume: P1 × V1 = P2 × V2. A bigger container means lower pressure; a smaller one means higher pressure.</dd>
+  <dt>Charles's law</dt><dd>At a constant pressure, the volume of a gas rises with its absolute temperature (in kelvin). Cool inhaled air warms in the airways and expands a little, one reason spirometry results are corrected to body temperature.</dd>
+  <dt>Atmospheric pressure</dt><dd>760 mmHg at sea level, written as 0 mmHg in respiratory physiology, so -1 mmHg means 759 mmHg.</dd>
+  <dt>Alveolar pressure</dt><dd>The air pressure inside the alveoli (intrapulmonary pressure).</dd>
+  <dt>Intrapleural pressure</dt><dd>The pressure in the pleural fluid, below atmospheric throughout quiet breathing.</dd>
+  <dt>Transpulmonary pressure</dt><dd>Alveolar minus intrapleural pressure, the difference across the lung wall that holds the lung open.</dd>
+</dl>
+<p>Worked example: a sealed syringe holds 10 mL of air at 760 mmHg. Pull the plunger out to 20 mL and the pressure becomes 760 × 10 ÷ 20 = 380 mmHg. With the tip open, the pressure drop pulls air in. The chest works the same way, with the breathing muscles as the hand on the plunger.</p>
+<h3>What ventilation needs</h3>
+<ul>
+  <li>An open airway to the alveoli.</li>
+  <li>A sealed pleural space, so the lungs follow the chest wall.</li>
+  <li>Working breathing muscles and the nerves that drive them.</li>
+  <li>Lungs that stretch (compliance) and spring back (elastic recoil).</li>
+  <li>Low airway resistance.</li>
+</ul>
+<h3>Pressures through one quiet breath</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Point in the breath</th><th scope="col">Alveolar pressure</th><th scope="col">Intrapleural pressure</th><th scope="col">Air flow</th></tr></thead><tbody>
+<tr><th scope="row">At rest, before inspiration</th><td>0 mmHg (equal to atmospheric)</td><td>About -3 mmHg</td><td>None</td></tr>
+<tr><th scope="row">Middle of inspiration</th><td>About -1 mmHg</td><td>Falling</td><td>In</td></tr>
+<tr><th scope="row">End of inspiration</th><td>0 mmHg</td><td>About -6 mmHg</td><td>None; about 500 mL has entered</td></tr>
+<tr><th scope="row">Middle of expiration</th><td>About +1 mmHg</td><td>Rising</td><td>Out</td></tr>
+<tr><th scope="row">End of expiration</th><td>0 mmHg</td><td>About -3 mmHg</td><td>None</td></tr>
+</tbody></table></div>
+<p>These are Silverthorn's round numbers. Some textbooks give a resting intrapleural pressure of about -4 mmHg (756 mmHg), and real values vary between people.</p>
+<h3>Pre-inspiration (rest between breaths)</h3>
+<p>The muscles are relaxed, alveolar pressure equals atmospheric, and no air flows. The inward pull of the lungs and outward pull of the chest wall hold intrapleural pressure at about -3 mmHg. The air in the lungs is the functional residual capacity, about 2,300 mL in a young man.</p>
+<h3>Quiet inspiration, step by step</h3>
+<ol>
+  <li>Inspiratory neurons in the medulla activate motor neurons in the spinal cord, which fire through the phrenic nerves to the diaphragm and the intercostal nerves to the external intercostals.</li>
+  <li>The diaphragm contracts and flattens. The external intercostals lift the ribs up and out.</li>
+  <li>The thoracic cavity enlarges in all three directions, mostly from the diaphragm.</li>
+  <li>The chest wall pulls the parietal pleura out, and the pleural fluid pulls the lung along. Intrapleural pressure falls from about -3 to about -6 mmHg.</li>
+  <li>The lungs expand, so by Boyle's law alveolar pressure falls to about -1 mmHg.</li>
+  <li>Air flows down the gradient from the atmosphere through the airways into the alveoli.</li>
+  <li>As air enters, alveolar pressure climbs back to 0 mmHg and flow stops. About 500 mL has come in.</li>
+</ol>
+<h3>Quiet expiration, step by step</h3>
+<ol>
+  <li>The inspiratory neurons stop firing, and the diaphragm and external intercostals relax.</li>
+  <li>The diaphragm springs back into its dome, and the ribs drop down and in.</li>
+  <li>With the muscles relaxed, elastic recoil of the stretched lungs makes the thoracic cavity smaller.</li>
+  <li>Alveolar volume falls, so by Boyle's law alveolar pressure rises to about +1 mmHg.</li>
+  <li>Air flows out of the alveoli, through the airways, to the atmosphere.</li>
+  <li>When alveolar pressure is back to 0 mmHg, flow stops, and intrapleural pressure is back to about -3 mmHg.</li>
+</ol>
+<p>Quiet expiration is passive. No muscle contracts; the lungs empty by recoil, like a stretched rubber band let go.</p>
+<h3>Quiet versus forced breathing</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Quiet breathing</th><th scope="col">Forced breathing</th></tr></thead><tbody>
+<tr><th scope="row">Inspiration</th><td>Diaphragm and external intercostals, with some help from the scalenes</td><td>The same muscles contract harder, and the sternocleidomastoids and scalenes help lift the chest</td></tr>
+<tr><th scope="row">Expiration</th><td>Passive, by elastic recoil</td><td>Active: internal intercostals pull the ribs down and in, and abdominal muscles push the diaphragm up</td></tr>
+<tr><th scope="row">Pressure swings</th><td>About 1 mmHg each way in the alveoli</td><td>Much larger, so more air moves faster</td></tr>
+<tr><th scope="row">When</th><td>At rest</td><td>Exercise, coughing, sneezing, playing a wind instrument, lung disease</td></tr>
+</tbody></table></div>
+<h3>Abdominal pressure beyond breathing</h3>
+<p>Contracting the abdominal muscles against a closed glottis (the Valsalva maneuver) raises pressure in the abdomen and chest. This helps push out feces, urine and a baby in childbirth and braces the trunk for lifting; coughs and sneezes release the same pressure suddenly. The high chest pressure also squeezes the large veins and briefly lowers venous return, so hard straining can cause lightheadedness.</p>
+</section>
+<section id="the-pleural-seal-compliance-surfactant-and-airway-resistance">
+<h2>The pleural seal, compliance, surfactant and airway resistance</h2>
+<p class="cref"><b>Competencies 3, 4, 5 and 6:</b> <a href="week-13-competencies.html#h-w12-intrapleural-pressure" target="_top">Intrapleural pressure</a>; <a href="week-13-competencies.html#h-w12-compliance" target="_top">Compliance and elastic recoil</a>; <a href="week-13-competencies.html#h-w12-surfactant" target="_top">Surfactant and surface tension</a>; <a href="week-13-competencies.html#h-w12-airway-resistance" target="_top">Airway resistance</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 18, the parts on intrapleural pressure, lung compliance and elastance, surfactant, and airway diameter.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/Cr6RRa5wfxA" target="_blank" rel="noopener">What is a pneumothorax?<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/rOE3Se9MJyc" target="_blank" rel="noopener">What is atelectasis?<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/7TltDmM9UAY" target="_blank" rel="noopener">Pulmonary compliance and surface tension<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/-ltu3AqKIAg" target="_blank" rel="noopener">Describe airflow resistance<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<h3>Why intrapleural pressure is below atmospheric</h3>
+<p>Two forces pull in opposite directions on the sealed pleural space. The elastic lungs try to recoil inward, and the chest wall tries to spring outward. Pleural fluid cannot stretch, so the opposing pulls create a slight suction, about 3 mmHg below atmospheric at rest. This suction holds the lungs stretched open against the chest wall.</p>
+<h3>Pneumothorax, step by step</h3>
+<ol>
+  <li>The pleural seal breaks, from a stab wound or broken rib, or from a weak spot on the lung surface that ruptures.</li>
+  <li>Air follows its pressure gradient into the pleural cavity, from the atmosphere or the alveoli.</li>
+  <li>Intrapleural pressure rises to atmospheric (0 mmHg).</li>
+  <li>Nothing holds the lung against the chest wall, so the lung recoils inward and collapses.</li>
+  <li>The chest wall on that side springs slightly outward.</li>
+  <li>The collapsed lung cannot ventilate. The other lung keeps working, because each lung has its own pleural sac.</li>
+</ol>
+<ul>
+  <li>A spontaneous pneumothorax can happen with no injury, often in tall, thin young adults, when small air blisters (blebs) on the lung burst.</li>
+  <li>Tension pneumothorax: damaged tissue acts as a one-way valve, so air enters with each breath but cannot leave. Pressure builds, shifts the heart and great vessels, squeezes the other lung and lowers venous return. It is an emergency.</li>
+  <li>Removing the air, usually through a chest tube, restores the negative pressure, and the lung re-expands.</li>
+  <li>Blood (hemothorax) or fluid (pleural effusion) in the pleural cavity can also press on the lung.</li>
+</ul>
+<h3>Atelectasis</h3>
+<p>Atelectasis is the collapse of alveoli in part or all of a lung, and the pleural seal can be intact. Collapsed alveoli still receive blood but no air, so that blood leaves without picking up O2.</p>
+<ul>
+  <li>Blocked airway: a mucus plug, tumor or inhaled object blocks a bronchus, the trapped air is absorbed, and the alveoli beyond collapse.</li>
+  <li>Outside pressure: a pneumothorax, pleural effusion or large tumor compresses the lung.</li>
+  <li>Too little surfactant, as in premature newborns.</li>
+  <li>Shallow breathing after surgery, or with pain or sedation, lets small alveoli at the lung bases close. Deep breaths, coughing, walking and an incentive spirometer reopen them.</li>
+</ul>
+<h3>Compliance and elastic recoil</h3>
+<dl>
+  <dt>Compliance</dt><dd>How easily the lungs stretch: compliance = change in volume ÷ change in pressure. High compliance means a small pressure change gives a large volume change.</dd>
+  <dt>Elastic recoil (elastance)</dt><dd>How strongly the lungs spring back after being stretched. It comes from elastin fibers and from the surface tension of the fluid lining the alveoli.</dd>
+</dl>
+<p>A stiff lung has low compliance and strong recoil; a floppy lung has the reverse. Healthy lungs need both to fill easily and empty passively.</p>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Pulmonary fibrosis</th><th scope="col">Emphysema</th></tr></thead><tbody>
+<tr><th scope="row">What happens</th><td>Scar tissue (collagen) replaces lung tissue, from dusts such as asbestos or silica, some drugs, or unknown causes</td><td>Alveolar walls and their elastin are destroyed, mostly by cigarette smoke, and alveoli merge into large air spaces</td></tr>
+<tr><th scope="row">Compliance</th><td>Decreased (stiff)</td><td>Increased (floppy)</td></tr>
+<tr><th scope="row">Elastic recoil</th><td>Increased</td><td>Decreased</td></tr>
+<tr><th scope="row">Hardest part of breathing</th><td>Inspiration, because expanding stiff lungs takes more work</td><td>Expiration: weak recoil pushes air out poorly, and small airways that lost their elastin support collapse and trap air</td></tr>
+<tr><th scope="row">Spirometry pattern</th><td>Restrictive</td><td>Obstructive</td></tr>
+<tr><th scope="row">Gas exchange</th><td>A thicker membrane slows diffusion</td><td>Less surface area</td></tr>
+</tbody></table></div>
+<h3>Surface tension and the law of LaPlace</h3>
+<p>A thin layer of fluid lines every alveolus. At an air-water surface, water molecules pull on each other more strongly than on the air, which creates surface tension. It pulls the alveolar wall inward and resists stretching, so it makes up a large share of lung recoil.</p>
+<p>The law of LaPlace says the pressure inside a bubble equals two times its surface tension divided by its radius: P = 2T ÷ r. In plain words, with equal surface tension the smaller bubble has the higher inward pressure and tends to collapse. Without help, small alveoli would collapse and empty into larger ones.</p>
+<h3>How surfactant fixes the problem</h3>
+<ul>
+  <li>Surfactant, a mix of phospholipids and proteins from type II alveolar cells, slips between the surface water molecules and lowers surface tension.</li>
+  <li>It is more concentrated in small alveoli, so it lowers surface tension most where collapse is most likely.</li>
+  <li>Small and large alveoli end up at similar pressures and inflate evenly.</li>
+  <li>Compliance rises and the work of breathing falls.</li>
+</ul>
+<h3>Infant respiratory distress syndrome, step by step</h3>
+<ol>
+  <li>Type II cells start making surfactant at about 25 weeks of gestation and usually make enough by about 34 weeks.</li>
+  <li>A baby born before that has too little surfactant, so alveolar surface tension is high.</li>
+  <li>Small alveoli collapse at the end of each expiration, and the lungs are stiff.</li>
+  <li>Every breath must reopen collapsed alveoli, like blowing up a new balloon each time, so the work of breathing is very high.</li>
+  <li>Too few alveoli stay open for gas exchange. The baby becomes hypoxic and tires.</li>
+</ol>
+<ul>
+  <li>Signs: fast breathing, flaring nostrils, grunting, and chest wall retractions with each breath.</li>
+  <li>Care can include artificial surfactant given into the airway and breathing support that keeps alveoli open. Before an expected early birth, the mother may get corticosteroids, which speed fetal surfactant production.</li>
+  <li>Also called neonatal respiratory distress syndrome or hyaline membrane disease.</li>
+</ul>
+<h3>Airway resistance</h3>
+<p>The main determinant of airway resistance is airway radius. Resistance is proportional to 1 divided by the radius to the fourth power (Poiseuille's law), so halving the radius raises resistance 16 times. In healthy lungs most resistance is in the nose, trachea and bronchi, because the many bronchioles side by side have a huge total cross-section. The bronchioles are where resistance changes, because their walls are smooth muscle without cartilage.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Factor</th><th scope="col">Effect on the bronchioles</th><th scope="col">Effect on airflow</th></tr></thead><tbody>
+<tr><th scope="row">Parasympathetic nerves (ACh on muscarinic receptors)</th><td>Constrict</td><td>Decreases</td></tr>
+<tr><th scope="row">Histamine and leukotrienes (allergy), irritants such as smoke and dust</th><td>Constrict</td><td>Decreases</td></tr>
+<tr><th scope="row">Mucus, as in chronic bronchitis and asthma</th><td>Narrows the open space</td><td>Decreases</td></tr>
+<tr><th scope="row">Swelling (edema) of the airway wall</th><td>Narrows the open space</td><td>Decreases</td></tr>
+<tr><th scope="row">Sympathetic stimulation: epinephrine on beta-2 receptors</th><td>Dilate</td><td>Increases</td></tr>
+<tr><th scope="row">High PCO2 in the airway</th><td>Dilate</td><td>Increases</td></tr>
+</tbody></table></div>
+<p>Sympathetic nerves to the bronchioles are sparse. Most sympathetic bronchodilation comes from epinephrine released by the adrenal medulla, acting on beta-2 receptors. Inhaled asthma relievers act on the same receptors.</p>
+<h3>An asthma attack, step by step</h3>
+<ol>
+  <li>A trigger, such as an allergen, exercise, cold air, smoke or infection, reaches the airways of a sensitive person.</li>
+  <li>Mast cells and other immune cells release histamine, leukotrienes and other inflammatory chemicals.</li>
+  <li>Bronchiolar smooth muscle contracts (bronchospasm), the wall swells, and thick mucus is secreted.</li>
+  <li>Airway radius falls, so resistance rises steeply.</li>
+  <li>Expiration is hardest, because rising chest pressure squeezes the narrowed airways further. Air is trapped and the person wheezes.</li>
+  <li>FEV1 falls. The narrowing usually reverses with treatment.</li>
+</ol>
+</section>
+<section id="lung-volumes-spirometry-and-ventilation">
+<h2>Lung volumes, spirometry and ventilation</h2>
+<p class="cref"><b>Competencies 7, 8, 9 and 10:</b> <a href="week-13-competencies.html#h-w12-lung-volumes" target="_top">Lung volumes and capacities</a>; <a href="week-13-competencies.html#h-w12-spirometry-patterns" target="_top">Obstructive and restrictive patterns</a>; <a href="week-13-competencies.html#h-w12-dead-space" target="_top">Alveolar ventilation and dead space</a>; <a href="week-13-competencies.html#h-w12-lab-spirometry" target="_top">Spirometry</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 18, the parts on lung volumes and capacities and on alveolar ventilation.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/jdTsEsL89CQ" target="_blank" rel="noopener">Spirometry<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/R2_ztY8Byrs" target="_blank" rel="noopener">Minute ventilation<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/bFX1AMh144s" target="_blank" rel="noopener">Alveolar ventilation<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>A spirometer measures the air breathed in and out, and its tracing is a spirogram. There are four lung volumes. A capacity is the sum of two or more volumes.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Volume or capacity</th><th scope="col">What it is</th><th scope="col">Men</th><th scope="col">Women</th></tr></thead><tbody>
+<tr><th scope="row">Tidal volume (VT)</th><td>One quiet breath</td><td>500 mL</td><td>500 mL</td></tr>
+<tr><th scope="row">Inspiratory reserve volume (IRV)</th><td>Extra air in after a quiet inspiration</td><td>3,000 mL</td><td>1,900 mL</td></tr>
+<tr><th scope="row">Expiratory reserve volume (ERV)</th><td>Extra air out after a quiet expiration</td><td>1,100 mL</td><td>700 mL</td></tr>
+<tr><th scope="row">Residual volume (RV)</th><td>Air left after a maximal expiration</td><td>1,200 mL</td><td>1,100 mL</td></tr>
+<tr><th scope="row">Inspiratory capacity (IC) = VT + IRV</th><td>Most air in from the end of a quiet expiration</td><td>3,500 mL</td><td>2,400 mL</td></tr>
+<tr><th scope="row">Functional residual capacity (FRC) = ERV + RV</th><td>Air left at the end of a quiet expiration</td><td>2,300 mL</td><td>1,800 mL</td></tr>
+<tr><th scope="row">Vital capacity (VC) = IRV + VT + ERV</th><td>Most air moved in one breath</td><td>4,600 mL</td><td>3,100 mL</td></tr>
+<tr><th scope="row">Total lung capacity (TLC) = VC + RV</th><td>Air in the lungs after a maximal inspiration</td><td>5,800 mL</td><td>4,200 mL</td></tr>
+</tbody></table></div>
+<p>These are typical values for healthy young adults. Real values rise with height and fall with age, and women's are smaller mainly because of body size. Results are compared with predicted values from equations based on sex, age and height.</p>
+<ul>
+  <li>Residual volume cannot be breathed out, so a simple spirometer cannot measure RV, FRC or TLC. Those need other methods, such as helium dilution or body plethysmography.</li>
+  <li>Residual volume helps keep the alveoli open and lets gas exchange go on between breaths.</li>
+</ul>
+<h3>Forced vital capacity and FEV1</h3>
+<dl>
+  <dt>Forced vital capacity (FVC)</dt><dd>The volume blown out as hard and fast as possible after the deepest possible breath in.</dd>
+  <dt>FEV1</dt><dd>Forced expiratory volume in one second: the part of the FVC blown out in the first second.</dd>
+  <dt>FEV1/FVC ratio</dt><dd>The fraction of the FVC that comes out in the first second. Healthy young adults blow out about 80% of their FVC in the first second, and the ratio falls slowly with age.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Obstructive pattern</th><th scope="col">Restrictive pattern</th></tr></thead><tbody>
+<tr><th scope="row">The problem</th><td>Air cannot get out fast, because airways are narrowed or collapse</td><td>The lungs or chest wall cannot expand fully</td></tr>
+<tr><th scope="row">Examples</th><td>Asthma, COPD (chronic bronchitis and emphysema), cystic fibrosis</td><td>Pulmonary fibrosis, severe scoliosis, neuromuscular disease, severe obesity</td></tr>
+<tr><th scope="row">FEV1</th><td>Decreased a lot</td><td>Decreased</td></tr>
+<tr><th scope="row">FVC</th><td>Normal or decreased</td><td>Decreased</td></tr>
+<tr><th scope="row">FEV1/FVC</th><td>Low, below 0.70</td><td>Normal or high</td></tr>
+<tr><th scope="row">RV and TLC</th><td>Normal or increased, from trapped air</td><td>Decreased</td></tr>
+</tbody></table></div>
+<p>Worked examples. Patient A: FEV1 2.0 L, FVC 4.0 L, ratio 2.0 ÷ 4.0 = 0.50, below 0.70, so obstructive. Patient B: FEV1 2.4 L, FVC 2.8 L, ratio 2.4 ÷ 2.8 = 0.86, which is normal, but the FVC is only 2.8 ÷ 4.6 × 100 = about 61% of the 4.6 L predicted for this patient, so the pattern suggests restriction.</p>
+<ul>
+  <li>The 0.70 cutoff is the common simple rule. Many labs now use the lower limit of normal for the person's age, so a slightly low ratio in an older adult can be normal.</li>
+  <li>Spirometry can suggest restriction, but confirming it requires measuring TLC.</li>
+  <li>Asthma obstruction usually improves a lot after an inhaled bronchodilator; COPD obstruction improves less and does not fully return to normal.</li>
+</ul>
+<h3>Minute ventilation, alveolar ventilation and dead space</h3>
+<dl>
+  <dt>Minute ventilation</dt><dd>Total air moved per minute: tidal volume × breathing rate.</dd>
+  <dt>Anatomic dead space</dt><dd>The volume of the conducting zone, about 150 mL in an adult (roughly 1 mL per pound of ideal body weight). Air that stops there never reaches the alveoli.</dd>
+  <dt>Alveolar ventilation</dt><dd>Fresh air reaching the alveoli per minute: (tidal volume - dead space) × breathing rate. This is what matters for gas exchange.</dd>
+  <dt>Physiological dead space</dt><dd>Anatomic dead space plus alveoli that get air but no blood (alveolar dead space). In healthy lungs it nearly equals the anatomic dead space.</dd>
+</dl>
+<p>Worked example at rest: minute ventilation = 500 mL × 12 breaths per minute = 6,000 mL per minute. Alveolar ventilation = (500 - 150) mL × 12 = 4,200 mL per minute. Each breath brings only about 350 mL of fresh air into the roughly 2,300 mL already in the lungs, replacing about 15% of alveolar air, which keeps alveolar PO2 and PCO2 steady between breaths.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Breathing pattern</th><th scope="col">Tidal volume × rate</th><th scope="col">Minute ventilation</th><th scope="col">Alveolar ventilation</th></tr></thead><tbody>
+<tr><th scope="row">Normal</th><td>500 mL × 12</td><td>6,000 mL/min</td><td>(500 - 150) × 12 = 4,200 mL/min</td></tr>
+<tr><th scope="row">Rapid and shallow</th><td>250 mL × 24</td><td>6,000 mL/min</td><td>(250 - 150) × 24 = 2,400 mL/min</td></tr>
+<tr><th scope="row">Slow and deep</th><td>750 mL × 8</td><td>6,000 mL/min</td><td>(750 - 150) × 8 = 4,800 mL/min</td></tr>
+</tbody></table></div>
+<p>All three move 6,000 mL per minute, but the dead space takes 150 mL out of every breath, so more breaths means more wasted air. Slow deep breathing ventilates the alveoli best. Rapid shallow breathing, for example from pain after chest or abdominal surgery, can underventilate the alveoli even when minute ventilation looks normal.</p>
+<h3>Spirometry lab, step by step</h3>
+<ol>
+  <li>Sit upright, wear the nose clip, and seal your lips around a clean mouthpiece.</li>
+  <li>Breathe quietly until the tracing is steady. Each quiet breath is the tidal volume.</li>
+  <li>After a quiet inspiration, breathe in as deeply as you can. The extra rise is the IRV.</li>
+  <li>After a quiet expiration, breathe out as far as you can. The extra drop is the ERV.</li>
+  <li>For the forced test, breathe in fully, then blow out as hard and fast as you can until no more air comes out (at least 6 seconds for an adult). Do at least three tries and use the largest FVC and FEV1.</li>
+  <li>Calculate VC = IRV + VT + ERV, IC = VT + IRV, and FEV1/FVC.</li>
+  <li>Compare with predicted values: percent predicted = measured ÷ predicted × 100. About 80% or higher has traditionally been read as normal.</li>
+</ol>
+<ul>
+  <li>RV, FRC and TLC cannot come from this tracing. A TLC made with a typical RV is only an estimate.</li>
+  <li>Common errors: weak effort, air leaking around the mouthpiece, coughing, or not breathing in fully first.</li>
+</ul>
+</section>
+<section id="gas-exchange-partial-pressures-diffusion-and-ventilation-perfusion-matching">
+<h2>Gas exchange: partial pressures, diffusion and ventilation-perfusion matching</h2>
+<p class="cref"><b>Competencies 11, 12 and 13:</b> <a href="week-13-competencies.html#h-w12-partial-pressures" target="_top">Partial pressures</a>; <a href="week-13-competencies.html#h-w12-gas-diffusion" target="_top">Diffusion at the respiratory membrane</a>; <a href="week-13-competencies.html#h-w12-va-q-matching" target="_top">Ventilation perfusion matching</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 19, the part on gas exchange in the lungs and tissues, and Chapter 18, the part on matching ventilation to alveolar blood flow.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/DMctNaKD2LA" target="_blank" rel="noopener">Gas exchange<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/lc6KdpWx_j4" target="_blank" rel="noopener">Dalton's law<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/kMyKAZIKHOk" target="_blank" rel="noopener">PO2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/q2t1XM9DyDg" target="_blank" rel="noopener">PCO2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/HBoOLYc7DTU" target="_blank" rel="noopener">Henry's law<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/S5lWX01Wwc8" target="_blank" rel="noopener">Fick's law of diffusion<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/9TgKSxVhSLQ" target="_blank" rel="noopener">Diffusion time<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/PQO4-kupVvI" target="_blank" rel="noopener">Ventilation-perfusion coupling, part 1<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/p8mvsd7_fJ8" target="_blank" rel="noopener">Ventilation-perfusion coupling, part 2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/x7gaHYqn_vM" target="_blank" rel="noopener">Ventilation-perfusion coupling, part 3<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/kWWQ5stu1qs" target="_blank" rel="noopener">Ventilation-perfusion coupling, part 4<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<h3>Dalton's law and partial pressure</h3>
+<p>Dalton's law says the total pressure of a gas mixture is the sum of the pressures of each gas in it. Partial pressure = total pressure × the fraction of the mixture that gas makes up. Dry air is about 78% N2, 21% O2 and 0.04% CO2. Each gas moves down its own partial pressure gradient, whatever the other gases do.</p>
+<h3>Worked calculation: PO2 from the air to the alveoli</h3>
+<ol>
+  <li>Dry air at sea level: PO2 = 760 mmHg × 0.21 = about 160 mmHg.</li>
+  <li>Inhaled air is humidified. Water vapor at 37 °C (98.6 °F) has a partial pressure of 47 mmHg, which takes up part of the total.</li>
+  <li>Humidified inspired air: PO2 = (760 - 47) × 0.21 = 713 × 0.21 = about 150 mmHg.</li>
+  <li>In the alveoli, O2 keeps diffusing into the blood and CO2 keeps arriving from it, and fresh air mixes with the air already there. Alveolar PO2 settles at about 100 mmHg and PCO2 at about 40 mmHg.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Location</th><th scope="col">PO2 (mmHg)</th><th scope="col">PCO2 (mmHg)</th></tr></thead><tbody>
+<tr><th scope="row">Dry air at sea level</th><td>160</td><td>0.3</td></tr>
+<tr><th scope="row">Humidified air in the trachea</th><td>150</td><td>Almost 0</td></tr>
+<tr><th scope="row">Alveolar air</th><td>100</td><td>40</td></tr>
+<tr><th scope="row">Arterial blood</th><td>About 95 (normal 80 to 100)</td><td>40 (normal 35 to 45)</td></tr>
+<tr><th scope="row">Resting tissue cells</th><td>40 or less</td><td>46 or more</td></tr>
+<tr><th scope="row">Venous blood leaving resting tissue</th><td>40</td><td>46</td></tr>
+</tbody></table></div>
+<p>Arterial PO2 is a little below alveolar PO2 because some venous blood, mostly from the bronchial veins draining the lung tissue, joins the pulmonary veins, and ventilation and blood flow are not perfectly matched everywhere. Arterial PO2 also drifts down with age.</p>
+<h3>Gas exchange at the lungs and tissues, step by step</h3>
+<ol>
+  <li>Venous blood (PO2 40, PCO2 46 mmHg) reaches the pulmonary capillaries.</li>
+  <li>O2 diffuses from the alveoli (100) into the blood; CO2 diffuses from the blood (46) into the alveoli (40).</li>
+  <li>Blood leaving the alveoli matches alveolar air (PO2 100, PCO2 40 mmHg). After mixing with a little venous blood, it enters the systemic arteries at a PO2 of about 95 and a PCO2 of 40.</li>
+  <li>In the systemic capillaries, O2 diffuses into the cells and CO2 diffuses out of them into the blood.</li>
+  <li>Blood leaves the tissues at a PO2 of 40 and a PCO2 of 46 and returns to the right heart.</li>
+</ol>
+<p>The CO2 gradient at the lung (6 mmHg) is ten times smaller than the O2 gradient (60 mmHg), yet CO2 exchanges just as well, because it is far more soluble.</p>
+<h3>Henry's law and Fick's law</h3>
+<dl>
+  <dt>Henry's law</dt><dd>The amount of a gas that dissolves in a liquid is proportional to its partial pressure and its solubility. CO2 is about 20 times more soluble in water than O2. At a PO2 of 100 mmHg only about 0.3 mL of O2 dissolves in 100 mL of blood, far too little for the body, which is why hemoglobin is needed.</dd>
+  <dt>Fick's law of diffusion</dt><dd>Diffusion across a membrane is faster with more surface area, a bigger partial pressure gradient and a more soluble gas, and slower with a thicker membrane.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">Factor</th><th scope="col">Normal lung</th><th scope="col">What lowers it</th><th scope="col">Examples</th></tr></thead><tbody>
+<tr><th scope="row">Surface area</th><td>Roughly 70 square meters</td><td>Fewer alveoli</td><td>Emphysema, removal of part of a lung</td></tr>
+<tr><th scope="row">Partial pressure gradient</th><td>Alveolar PO2 100 versus venous 40 mmHg</td><td>Lower alveolar PO2</td><td>High altitude, hypoventilation</td></tr>
+<tr><th scope="row">Membrane thickness</th><td>Less than 1 µm</td><td>Thicker barrier or fluid in the way</td><td>Fibrosis, pulmonary edema, pneumonia</td></tr>
+<tr><th scope="row">Solubility</th><td>CO2 about 20 times O2</td><td>Fixed for each gas</td><td>O2 transfer suffers first</td></tr>
+</tbody></table></div>
+<p>Because CO2 diffuses so much more easily, a diffusion problem shows up first as low arterial PO2 (hypoxemia) with a normal or even low PCO2. The low O2 makes the person breathe harder, which blows off CO2.</p>
+<h3>Pulmonary edema, step by step</h3>
+<ol>
+  <li>Pulmonary capillary pressure rises, for example when a failing left ventricle lets blood back up into the lungs.</li>
+  <li>More fluid filters into the interstitial space between capillaries and alveoli, and the diffusion distance increases.</li>
+  <li>In severe edema, fluid floods the alveoli themselves.</li>
+  <li>O2 transfer falls first, and arterial PO2 drops.</li>
+</ol>
+<h3>Diffusion time</h3>
+<p>At rest a red blood cell spends about 0.75 second in a pulmonary capillary, but its PO2 matches alveolar air within about the first 0.25 second, a wide safety margin. In heavy exercise the trip can shorten to about 0.25 second. Healthy lungs still finish loading, but with a thickened membrane, as in fibrosis, arterial PO2 can be normal at rest and fall during exertion.</p>
+<h3>Matching ventilation to perfusion</h3>
+<p>Gas exchange works best when the air reaching each group of alveoli matches the blood flowing past them. For the whole lung at rest, alveolar ventilation is about 4 L per minute and pulmonary blood flow about 5 L per minute, a ventilation-perfusion ratio (V/Q) of about 0.8.</p>
+<p>Standing up, both ventilation and blood flow are greater at the bottom of the lungs, but blood flow increases more. The top has more air than blood (high V/Q), and the base more blood than air (low V/Q). Local responses fine-tune the match region by region.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Local change in the alveoli</th><th scope="col">Response</th><th scope="col">Result</th></tr></thead><tbody>
+<tr><th scope="row">PO2 falls (too little air for the blood)</th><td>Pulmonary arterioles supplying them constrict</td><td>Blood goes to better-ventilated alveoli</td></tr>
+<tr><th scope="row">PO2 rises</th><td>Pulmonary arterioles dilate</td><td>More blood to well-ventilated alveoli</td></tr>
+<tr><th scope="row">PCO2 rises (too little air for the blood)</th><td>Bronchioles serving them dilate</td><td>More air arrives to carry off the CO2</td></tr>
+<tr><th scope="row">PCO2 falls (too much air for the blood)</th><td>Bronchioles constrict</td><td>Air goes to alveoli with more blood flow</td></tr>
+</tbody></table></div>
+<p>Pulmonary arterioles respond to low O2 the opposite way from systemic arterioles, which dilate to bring blood to a tissue short of O2. Pulmonary arterioles constrict (hypoxic pulmonary vasoconstriction), so blood avoids alveoli where it cannot load O2.</p>
+<h3>A partly blocked airway, step by step</h3>
+<ol>
+  <li>Mucus partly blocks a bronchiole, and ventilation to the alveoli beyond falls.</li>
+  <li>Their alveolar PO2 falls and their PCO2 rises.</li>
+  <li>Low PO2 constricts the local pulmonary arterioles, sending blood to well-ventilated alveoli.</li>
+  <li>High PCO2 dilates the local bronchioles, letting in more air past the partial block.</li>
+  <li>The match improves, and arterial PO2 falls less than it otherwise would.</li>
+</ol>
+<h3>When the match fails</h3>
+<dl>
+  <dt>Shunt (V/Q near 0)</dt><dd>Blood flows past alveoli that get no air, as in pneumonia or atelectasis, and that O2-poor blood causes hypoxemia. Extra O2 helps little with a true shunt, because the shunted blood never meets it.</dd>
+  <dt>Alveolar dead space (V/Q very high)</dt><dd>Alveoli get air but no blood, as when a pulmonary embolism blocks a pulmonary artery.</dd>
+  <dt>Widespread low O2</dt><dd>When the whole lung is hypoxic (severe COPD, altitude), pulmonary arterioles constrict everywhere, causing pulmonary hypertension, and over time the right ventricle can fail (cor pulmonale).</dd>
+</dl>
+</section>
+<section id="oxygen-transport-and-the-oxyhemoglobin-curve">
+<h2>Oxygen transport and the oxyhemoglobin curve</h2>
+<p class="cref"><b>Competencies 14, 15 and 17:</b> <a href="week-13-competencies.html#h-w12-oxygen-transport" target="_top">Oxygen transport and the oxyhemoglobin curve</a>; <a href="week-13-competencies.html#h-w12-hb-curve-shifts" target="_top">Curve shifts</a>; <a href="week-13-competencies.html#h-w12-bohr-haldane" target="_top">Bohr and Haldane effects</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 19, the part on gas transport in the blood, including oxygen binding to hemoglobin and the oxyhemoglobin dissociation curve.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/verQfqZdoPs" target="_blank" rel="noopener">Gas transport<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/q4aAh6_grVM" target="_blank" rel="noopener">O2-Hb dissociation curve, part 1<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/lgmw2JrHKZ4" target="_blank" rel="noopener">O2-Hb dissociation curve, part 2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/E5Ysubpf9AA" target="_blank" rel="noopener">O2 loading and unloading<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/z52Wo-pNYjE" target="_blank" rel="noopener">O2 loading and unloading of fetal hemoglobin<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/x0WzgobImaM" target="_blank" rel="noopener">O2 loading and unloading during exercise<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>More than 98% of the O2 in blood is bound to hemoglobin (Hb) inside red blood cells, and less than 2% is dissolved in plasma. Each Hb has four heme groups, and the iron in each heme binds one O2, so one Hb carries up to four O2.</p>
+<p>Hb and O2 form oxyhemoglobin (HbO2), and the reaction runs both ways. By the law of mass action, high PO2 in the lungs pushes O2 onto Hb (loading), and low PO2 in the tissues lets it come off (unloading). Only dissolved O2 creates PO2, so Hb soaking up O2 in the lungs keeps plasma PO2 low and lets more O2 diffuse in.</p>
+<dl>
+  <dt>Saturation</dt><dd>The percent of hemoglobin's O2 binding sites holding O2. Arterial saturation (SaO2) is normally about 95 to 100%. A pulse oximeter estimates it through the skin (SpO2).</dd>
+  <dt>Oxyhemoglobin dissociation curve</dt><dd>A graph of hemoglobin saturation against PO2. It is S-shaped (sigmoid).</dd>
+  <dt>P50</dt><dd>The PO2 at which hemoglobin is 50% saturated, about 27 mmHg for adult hemoglobin. A higher P50 means a right shift and weaker binding.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">PO2 (mmHg)</th><th scope="col">Saturation</th><th scope="col">Where you find it</th></tr></thead><tbody>
+<tr><th scope="row">100</th><td>About 98%</td><td>Alveolar air and arterial blood</td></tr>
+<tr><th scope="row">60</th><td>About 90%</td><td>Lower edge of the flat part</td></tr>
+<tr><th scope="row">40</th><td>About 75%</td><td>Venous blood leaving resting tissue</td></tr>
+<tr><th scope="row">27</th><td>50%</td><td>The P50</td></tr>
+<tr><th scope="row">20</th><td>About 30 to 35%</td><td>Venous blood leaving hard-working muscle</td></tr>
+</tbody></table></div>
+<h3>Why the curve is S-shaped</h3>
+<ul>
+  <li>At very low PO2, deoxyhemoglobin binds O2 weakly, so the curve starts slowly.</li>
+  <li>Once one heme binds O2, the molecule changes shape and the other hemes bind O2 more easily (cooperative binding), so the middle of the curve is steep.</li>
+  <li>As the last sites fill, few are left free, and the curve levels into a plateau.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Part of the curve</th><th scope="col">PO2 range</th><th scope="col">Advantage</th></tr></thead><tbody>
+<tr><th scope="row">Flat upper part</th><td>About 60 to 100 mmHg</td><td>Safety margin for loading: alveolar PO2 can fall a lot, at altitude or in mild lung disease, and Hb stays about 90% saturated</td></tr>
+<tr><th scope="row">Steep lower part</th><td>About 10 to 40 mmHg</td><td>Unloading: a small drop in tissue PO2 releases a lot of O2, so busier tissues automatically get more</td></tr>
+</tbody></table></div>
+<p>At rest, blood gives up only about 25% of its O2, falling from about 98% to 75% saturation, and the rest is a venous reserve. In hard-working muscle, PO2 can fall to 20 mmHg or lower, saturation to about 30 to 35%, and the blood gives up two-thirds or more of its O2.</p>
+<h3>Shifts of the curve</h3>
+<p>A right shift means weaker binding: at any PO2, Hb holds less O2, so more is released to the tissues. A left shift means tighter binding: Hb loads easily but releases less.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Change</th><th scope="col">Shift</th><th scope="col">Hemoglobin's hold on O2</th><th scope="col">Effect on the tissues</th></tr></thead><tbody>
+<tr><th scope="row">H+ rises (pH falls)</th><td>Right</td><td>Weaker</td><td>More O2 unloaded</td></tr>
+<tr><th scope="row">PCO2 rises</th><td>Right</td><td>Weaker</td><td>More O2 unloaded</td></tr>
+<tr><th scope="row">Temperature rises</th><td>Right</td><td>Weaker</td><td>More O2 unloaded</td></tr>
+<tr><th scope="row">2,3-BPG rises</th><td>Right</td><td>Weaker</td><td>More O2 unloaded</td></tr>
+<tr><th scope="row">pH rises, PCO2 falls, cooler, or less 2,3-BPG</th><td>Left</td><td>Stronger</td><td>Less O2 unloaded</td></tr>
+<tr><th scope="row">Carbon monoxide on some hemes; fetal hemoglobin</th><td>Left</td><td>Stronger</td><td>Less O2 unloaded</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Bohr effect</dt><dd>The right shift caused by H+ and CO2. H+ binds hemoglobin and changes its shape, lowering its O2 affinity. CO2 does the same by forming H+ and by binding hemoglobin directly. In the tissues this helps unload O2. In the lungs, as CO2 is breathed off and pH rises, affinity rises and loading improves.</dd>
+  <dt>2,3-bisphosphoglycerate (2,3-BPG)</dt><dd>Made by red blood cells during glycolysis. It binds deoxyhemoglobin and lowers its O2 affinity. It rises over a day or two of ongoing hypoxia (high altitude, anemia, chronic lung disease).</dd>
+</dl>
+<h3>Loading and unloading during exercise</h3>
+<p>Working muscle is low in O2 and makes CO2, H+ and heat, so blood there sits on the steep part of a right-shifted curve and releases far more O2. In the lungs, with lower PCO2 and cooler blood, the curve shifts back and loading stays near normal.</p>
+<h3>Fetal hemoglobin</h3>
+<p>Fetal hemoglobin (HbF) has two gamma chains in place of the two beta chains of adult hemoglobin. It binds 2,3-BPG weakly, so its O2 affinity is higher and its curve lies left of the mother's. In the placenta, where PO2 is low, fetal blood can still load the O2 that maternal hemoglobin unloads, and fetal CO2 entering maternal blood shifts the mother's curve right. Adult hemoglobin replaces most HbF in the first months after birth.</p>
+</section>
+<section id="carbon-dioxide-transport-the-haldane-effect-and-oxygen-content">
+<h2>Carbon dioxide transport, the Haldane effect and oxygen content</h2>
+<p class="cref"><b>Competencies 16, 17 and 18:</b> <a href="week-13-competencies.html#h-w12-co2-transport" target="_top">Carbon dioxide transport</a>; <a href="week-13-competencies.html#h-w12-bohr-haldane" target="_top">Bohr and Haldane effects</a>; <a href="week-13-competencies.html#h-w12-oxygen-content" target="_top">Oxygen content versus partial pressure</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 19, the parts on carbon dioxide transport and on oxygen transport in the blood.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/kPCGrOywP9E" target="_blank" rel="noopener">Transport of CO2 (CO2 loading)<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>At rest the body makes about 200 mL of CO2 per minute. It must be removed, because CO2 forms acid (H+) in body fluids, and very high levels depress the nervous system.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Form</th><th scope="col">Share of CO2 carried</th><th scope="col">Where</th></tr></thead><tbody>
+<tr><th scope="row">Dissolved CO2</th><td>About 7%</td><td>Plasma and red cell fluid</td></tr>
+<tr><th scope="row">Bound to hemoglobin (carbaminohemoglobin)</th><td>About 23%</td><td>On amino groups of the globin chains, not the iron</td></tr>
+<tr><th scope="row">Bicarbonate (HCO3-)</th><td>About 70%</td><td>Made in red blood cells, carried mostly in plasma</td></tr>
+</tbody></table></div>
+<p>These are Silverthorn's figures; other textbooks give slightly different splits, such as 10, 20 and 70%. CO2 binds globin, not heme, so it does not compete with O2 for the same site.</p>
+<p>The key reaction: CO2 + H2O form carbonic acid (H2CO3), which splits into H+ and HCO3-, and it runs both ways. It is slow in plasma and very fast in red cells, where the enzyme carbonic anhydrase speeds it.</p>
+<h3>CO2 loading in a systemic capillary, step by step</h3>
+<ol>
+  <li>Tissue PCO2 (46 mmHg or more) is above that of arriving blood (40 mmHg), so CO2 diffuses from the cells into the plasma.</li>
+  <li>A little stays dissolved in plasma. Most diffuses on into the red blood cells.</li>
+  <li>Some binds the globin chains as carbaminohemoglobin.</li>
+  <li>Most combines with water, helped by carbonic anhydrase, to form carbonic acid, which splits into H+ and HCO3-.</li>
+  <li>Hemoglobin binds and buffers the H+. H+ binding also lowers hemoglobin's O2 affinity (the Bohr effect), so more O2 goes to the tissue.</li>
+  <li>HCO3- leaves the red cell through a bicarbonate-chloride exchanger (band 3 protein) as Cl- moves in. This chloride shift keeps the charges balanced.</li>
+  <li>The HCO3- travels in the plasma to the lungs.</li>
+</ol>
+<h3>CO2 unloading in a pulmonary capillary, step by step</h3>
+<ol>
+  <li>Venous blood arrives at a PCO2 of 46 mmHg, above alveolar PCO2 (40 mmHg), so dissolved CO2 diffuses into the alveoli.</li>
+  <li>As plasma PCO2 falls, CO2 diffuses out of the red cells and on into the alveoli.</li>
+  <li>O2 binds hemoglobin, which then releases its H+ and bound CO2 (the Haldane effect).</li>
+  <li>HCO3- moves back into the red cell as Cl- moves out: the chloride shift in reverse.</li>
+  <li>HCO3- joins the released H+ to form carbonic acid, and carbonic anhydrase turns it into CO2 and water.</li>
+  <li>That CO2 diffuses into the alveoli and is breathed out.</li>
+</ol>
+<p>Arterial blood still carries a large amount of CO2, mostly as HCO3-. This bicarbonate is the main buffer in plasma and the other extracellular fluid, normally about 22 to 26 mEq/L in plasma.</p>
+<h3>The Bohr and Haldane effects together</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Bohr effect</th><th scope="col">Haldane effect</th></tr></thead><tbody>
+<tr><th scope="row">The rule</th><td>More CO2 and H+ means weaker O2 binding (right shift)</td><td>Less O2 bound means more CO2 and H+ bound</td></tr>
+<tr><th scope="row">At the tissues</th><td>CO2 and H+ from the cells help hemoglobin release O2</td><td>As O2 leaves, deoxyhemoglobin picks up more CO2 and H+</td></tr>
+<tr><th scope="row">At the lungs</th><td>As CO2 is breathed off and pH rises, O2 binds more strongly</td><td>As O2 binds, hemoglobin releases CO2 and H+</td></tr>
+</tbody></table></div>
+<p>Both effects come from the same shape change in hemoglobin. At each site, moving one gas makes it easier to move the other gas the way it needs to go.</p>
+<h3>Oxygen content versus PO2 and saturation</h3>
+<dl>
+  <dt>PO2</dt><dd>The pressure of O2 dissolved in plasma. It drives diffusion and sets saturation, but it does not tell you how much O2 the blood holds.</dd>
+  <dt>Saturation</dt><dd>The percent of hemoglobin sites holding O2. It does not tell you how much hemoglobin there is.</dd>
+  <dt>O2 content</dt><dd>Total O2 in the blood, bound plus dissolved, in mL of O2 per 100 mL of blood (mL/dL). Normal arterial blood holds about 20 mL/dL.</dd>
+</dl>
+<p>O2 content = (Hb in g/dL × 1.34 × saturation) + (0.003 × PO2). Each gram of fully saturated hemoglobin carries about 1.34 mL of O2, and each mmHg of PO2 dissolves about 0.003 mL of O2 in 100 mL of blood.</p>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Healthy</th><th scope="col">Anemia</th><th scope="col">Carbon monoxide poisoning</th></tr></thead><tbody>
+<tr><th scope="row">Hemoglobin</th><td>15 g/dL</td><td>7.5 g/dL</td><td>15 g/dL</td></tr>
+<tr><th scope="row">Arterial PO2</th><td>95 mmHg</td><td>95 mmHg</td><td>95 mmHg</td></tr>
+<tr><th scope="row">Sites holding O2</th><td>98%</td><td>98%</td><td>About 50%, with CO on most of the rest</td></tr>
+<tr><th scope="row">O2 content</th><td>15 × 1.34 × 0.98 + 0.3 = about 20 mL/dL</td><td>7.5 × 1.34 × 0.98 + 0.3 = about 10 mL/dL</td><td>15 × 1.34 × 0.50 + 0.3 = about 10 mL/dL</td></tr>
+<tr><th scope="row">Unloading in the tissues</th><td>Normal</td><td>Normal curve, but less O2 to give</td><td>Worse: CO shifts the curve left, so the bound O2 is held tightly</td></tr>
+</tbody></table></div>
+<p>In anemia, PO2, saturation and the pulse oximeter reading are normal; the blood just has half the hemoglobin and carries about half the O2.</p>
+<p>Carbon monoxide binds heme more than 200 times as tightly as O2, so even a little in the air takes over many sites. PO2 stays normal, so the peripheral chemoreceptors are barely stimulated and breathing may not speed up. A standard pulse oximeter cannot tell CO-bound from O2-bound hemoglobin, so SpO2 can read falsely normal; CO-oximetry on a blood sample gives the true value. High-concentration O2 speeds the release of CO.</p>
+<ul>
+  <li>Healthy arterial blood holds about 20 mL/dL and venous blood from resting tissue (75% saturated) about 15 mL/dL, so resting tissues take about 5 mL/dL, the 25% extraction described earlier.</li>
+  <li>Extra O2 adds very little content when saturation is already 98%; it mostly raises the small dissolved amount.</li>
+</ul>
+</section>
+<section id="control-of-breathing-respiratory-centers-and-chemoreceptors">
+<h2>Control of breathing: respiratory centers and chemoreceptors</h2>
+<p class="cref"><b>Competencies 19 and 20:</b> <a href="week-13-competencies.html#h-w12-respiratory-centers" target="_top">Respiratory centers</a>; <a href="week-13-competencies.html#h-w12-chemoreceptors" target="_top">Chemoreceptor control</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 19, the part on the regulation of ventilation.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/movk9rvExQg" target="_blank" rel="noopener">Neural control of breathing<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/ToIJTrp0XuY" target="_blank" rel="noopener">Respiratory centers of the brainstem, part 1<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/UFKO_U66S_I" target="_blank" rel="noopener">Respiratory centers of the brainstem, part 2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/S76ketntjFE" target="_blank" rel="noopener">Central and peripheral inputs to the respiratory system, part 1<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/_vcJ43p8wCw" target="_blank" rel="noopener">Central and peripheral inputs to the respiratory system, part 2<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/A7p2gR0a1NQ" target="_blank" rel="noopener">Central and peripheral inputs to the respiratory system, part 3<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/35kvDVBb3t8" target="_blank" rel="noopener">Central and peripheral inputs to the respiratory system, part 4<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/EcGA07LWawQ" target="_blank" rel="noopener">Chemoreceptors and gas levels (CO2 and O2, the primary stimulus to breathe)<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/IzQxqgPu2uE" target="_blank" rel="noopener">Voluntary control of breathing<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Each automatic breath starts as a burst of action potentials from brainstem neurons. Sensory inputs adjust it, and the cortex can override it for a while.</p>
+<h3>The respiratory centers</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Center</th><th scope="col">Location</th><th scope="col">Role</th></tr></thead><tbody>
+<tr><th scope="row">Dorsal respiratory group (DRG)</th><td>Medulla, in the nucleus tractus solitarius</td><td>Mostly inspiratory neurons driving the diaphragm through the phrenic nerves. Receives chemoreceptor and stretch receptor input through cranial nerves IX and X.</td></tr>
+<tr><th scope="row">Ventral respiratory group (VRG)</th><td>Medulla, in front of and beside the DRG</td><td>Neurons for inspiration and active expiration; drives accessory and expiratory muscles in forced breathing and the muscles that keep the throat open. Contains the pre-Bötzinger complex, the rhythm generator.</td></tr>
+<tr><th scope="row">Pontine respiratory group (PRG), formerly the pneumotaxic center</th><td>Upper pons</td><td>Fine-tunes the rhythm, helps end each inspiration, and smooths the switch to expiration.</td></tr>
+<tr><th scope="row">Apneustic center</th><td>Lower pons</td><td>An older term for an area that promotes inspiration; whether it is a separate center in humans is uncertain.</td></tr>
+</tbody></table></div>
+<p>The older names come from animal experiments. The current view is that a neuron network in the medulla generates the rhythm and the pons modifies it.</p>
+<h3>How the rhythm is generated, step by step</h3>
+<ol>
+  <li>Pacemaker-like neurons in the pre-Bötzinger complex of the medulla fire on their own.</li>
+  <li>They switch on inspiratory neurons in the DRG and VRG, whose firing ramps up over about 2 seconds.</li>
+  <li>The ramp recruits more motor neurons in the phrenic and intercostal nerves, so the diaphragm and external intercostals contract smoothly and inspiration begins.</li>
+  <li>The inspiratory neurons shut off abruptly, helped by input from the pons and from lung stretch receptors.</li>
+  <li>The muscles relax, and quiet expiration happens passively over about 3 seconds.</li>
+  <li>The cycle repeats about 12 to 20 times per minute in an adult at rest.</li>
+</ol>
+<h3>Inputs that modify the rhythm</h3>
+<dl>
+  <dt>Pulmonary stretch receptors</dt><dd>In airway smooth muscle. When the lungs are well inflated, they signal through the vagus nerve to end inspiration (the Hering-Breuer inflation reflex). In adults this acts mainly at large tidal volumes, as in exercise; it matters more in infants.</dd>
+  <dt>Irritant receptors</dt><dd>In the airway lining. Dust, smoke, cold air and chemicals trigger coughing or sneezing and can constrict the bronchioles.</dd>
+  <dt>Proprioceptors</dt><dd>In moving muscles and joints; they help raise breathing when exercise starts.</dd>
+  <dt>Higher brain centers</dt><dd>The cortex gives voluntary control for speaking, singing and breath holding. The limbic system and hypothalamus change breathing with emotion, pain and body temperature (crying, fear, anxiety, fever).</dd>
+</dl>
+<h3>Voluntary control and its limit</h3>
+<p>You can hold your breath or breathe fast on purpose because the cortex signals the respiratory motor neurons in the spinal cord directly, bypassing the brainstem. The control is temporary: during a breath hold, CO2 builds until the chemoreceptor drive wins at the breaking point.</p>
+<h3>Central and peripheral chemoreceptors</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Central chemoreceptors</th><th scope="col">Peripheral chemoreceptors</th></tr></thead><tbody>
+<tr><th scope="row">Location</th><td>Surface of the medulla, bathed in cerebrospinal fluid (CSF)</td><td>Carotid bodies where each common carotid artery splits; aortic bodies on the aortic arch</td></tr>
+<tr><th scope="row">Nerve to the centers</th><td>None needed; they sit in the brainstem</td><td>Glossopharyngeal nerve (IX) from the carotid bodies; vagus nerve (X) from the aortic bodies</td></tr>
+<tr><th scope="row">Main stimulus</th><td>H+ in the CSF, formed from arterial CO2</td><td>Arterial PO2 below about 60 mmHg, rising PCO2, rising plasma H+</td></tr>
+<tr><th scope="row">Respond to low O2?</th><td>No</td><td>Yes; the only O2 sensors that drive breathing</td></tr>
+<tr><th scope="row">Respond to H+ from metabolic acids?</th><td>Little, because plasma H+ crosses the blood-brain barrier poorly</td><td>Yes, mainly the carotid bodies</td></tr>
+</tbody></table></div>
+<h3>The central chemoreceptor response to CO2, step by step</h3>
+<ol>
+  <li>Arterial PCO2 rises, for example during a breath hold.</li>
+  <li>CO2 crosses the blood-brain barrier into the CSF and forms carbonic acid, which releases H+.</li>
+  <li>The H+ stimulates the central chemoreceptors, which signal the respiratory centers.</li>
+  <li>The centers increase the rate and depth of breathing.</li>
+  <li>More CO2 is breathed off, and arterial PCO2 falls back toward 40 mmHg (negative feedback).</li>
+</ol>
+<h3>The carotid body response to low O2, step by step</h3>
+<ol>
+  <li>Arterial PO2 falls below about 60 mmHg.</li>
+  <li>In the glomus cells of the carotid body, O2-sensitive K+ channels close.</li>
+  <li>With less K+ leaving, the glomus cell depolarizes.</li>
+  <li>Voltage-gated Ca2+ channels open and Ca2+ enters.</li>
+  <li>The cell releases neurotransmitter onto sensory neurons of the glossopharyngeal nerve.</li>
+  <li>The signal reaches the respiratory centers in the medulla, which increase ventilation.</li>
+</ol>
+<h3>Why CO2 is the main drive to breathe</h3>
+<ul>
+  <li>Arterial PCO2 is held near 40 mmHg breath by breath, and a rise of a few mmHg produces a large increase in ventilation.</li>
+  <li>Low O2 adds little drive until PO2 falls below about 60 mmHg, because above that hemoglobin is still about 90% saturated.</li>
+  <li>CSF has much less protein to buffer H+ than blood, so a small rise in CO2 gives a relatively large rise in CSF H+.</li>
+  <li>In some people with severe COPD who retain CO2 long term, CSF bicarbonate rises and the central chemoreceptors adapt, so the response to low O2 matters relatively more, and O2 is given carefully to a target saturation. Experts now think the extra rise in PCO2 these patients can have on too much O2 comes mainly from worse V/Q matching and the Haldane effect, more than from losing a hypoxic drive.</li>
+</ul>
+</section>
+<section id="exercise-altitude-the-ventilation-lab-and-respiratory-terms">
+<h2>Exercise, altitude, the ventilation lab and respiratory terms</h2>
+<p class="cref"><b>Competencies 21 and 22:</b> <a href="week-13-competencies.html#h-w12-ventilation-adaptation" target="_top">Ventilation in exercise and at altitude</a>; <a href="week-13-competencies.html#h-w12-lab-ventilation-response" target="_top">Ventilatory response testing</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 19, the parts on gas exchange and the regulation of ventilation; Chapter 25, Integrative Physiology III: Exercise, the part on ventilatory responses to exercise.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/VJjcf9QUkro" target="_blank" rel="noopener">Respiratory terminology: dyspnea, eupnea and more<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/lmac_c7CRXQ" target="_blank" rel="noopener">Respiratory terminology: hypercarbia, hypercapnia and more<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/RK-Ge-0nLFE" target="_blank" rel="noopener">Respiratory terminology: respiratory alkalosis and acidosis<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/MzdpFvdfh_E" target="_blank" rel="noopener">Hypoxia<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<h3>Ventilation in exercise, step by step</h3>
+<ol>
+  <li>Within seconds of starting, before blood gases change, ventilation jumps, driven by feedforward signals from the motor cortex and from proprioceptors in moving muscles and joints.</li>
+  <li>Over a few minutes it rises gradually to a steady level matching the O2 used and CO2 made. Tidal volume rises first, then rate.</li>
+  <li>In moderate exercise, arterial PO2, PCO2 and pH stay close to normal. This is hyperpnea, not hyperventilation, so the chemoreceptors are not the main trigger.</li>
+  <li>In hard exercise, above the ventilatory threshold, lactic acid adds H+. The carotid bodies respond, ventilation outpaces CO2 production, and arterial PCO2 falls.</li>
+  <li>When exercise stops, ventilation drops quickly, then returns slowly to resting while the body uses extra O2 to recover.</li>
+</ol>
+<p>Minute ventilation can rise from about 6 L per minute at rest to more than 100 L per minute in fit adults. Exactly which signals match it so closely to exercise is still debated.</p>
+<h3>Altitude</h3>
+<p>Air at altitude is still 21% O2, but total pressure is lower. At about 5,500 m (18,000 ft), barometric pressure is about half of sea level, about 380 mmHg. Dry-air PO2 = 380 × 0.21 = about 80 mmHg. Humidified, PO2 = (380 - 47) × 0.21 = about 70 mmHg, and alveolar PO2 is lower still.</p>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Acute exposure (hours)</th><th scope="col">Chronic exposure (days to weeks)</th></tr></thead><tbody>
+<tr><th scope="row">Ventilation</th><td>Peripheral chemoreceptors sense low PO2, and ventilation rises</td><td>Rises further over several days (ventilatory acclimatization)</td></tr>
+<tr><th scope="row">PCO2 and pH</th><td>Extra breathing blows off CO2, and respiratory alkalosis develops, which holds back the rise in breathing</td><td>The kidneys excrete more HCO3-, pH moves back toward normal, and that brake is released</td></tr>
+<tr><th scope="row">Hemoglobin curve</th><td>Alkalosis shifts it left</td><td>2,3-BPG rises within days and shifts it right, helping unloading</td></tr>
+<tr><th scope="row">Red blood cells</th><td>No change yet</td><td>The kidneys release more erythropoietin (EPO), and red cell count and hematocrit rise over weeks</td></tr>
+<tr><th scope="row">Pulmonary circulation</th><td>Hypoxic vasoconstriction throughout the lungs raises pulmonary artery pressure</td><td>Pulmonary hypertension can persist</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Heart rate and cardiac output rise on arrival.</li>
+  <li>Acute mountain sickness brings headache, nausea, fatigue and poor sleep. Serious forms are high-altitude pulmonary edema (HAPE) and high-altitude cerebral edema (HACE). Going down is the most important treatment.</li>
+</ul>
+<h3>Ventilatory response lab, step by step</h3>
+<ol>
+  <li>Record resting rate and depth (or tidal volume) for one minute as the baseline.</li>
+  <li>Do one maneuver: hyperventilation, breath holding, or rebreathing into a bag.</li>
+  <li>Record rate and depth until breathing returns to baseline.</li>
+  <li>Explain each result by what happened to CO2.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Test</th><th scope="col">What happens to CO2</th><th scope="col">Breathing afterward</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Hyperventilation (fast, deep breathing for about a minute)</th><td>PCO2 falls (hypocapnia)</td><td>Slower and shallower, sometimes a brief pause (apnea)</td><td>Low CO2 removes the chemoreceptor drive until CO2 builds back up</td></tr>
+<tr><th scope="row">Breath holding</th><td>PCO2 rises and PO2 falls</td><td>Faster and deeper</td><td>Rising CO2 stimulates the chemoreceptors and mainly sets the breaking point; falling O2 adds to it</td></tr>
+<tr><th scope="row">Breath holding after hyperventilation</th><td>Starts lower, so it takes longer to reach the breaking point</td><td>Longer hold, then faster and deeper breathing</td><td>The drive starts from a lower CO2</td></tr>
+<tr><th scope="row">Rebreathing from a bag</th><td>PCO2 rises steadily; PO2 falls</td><td>Depth, then rate, increase steadily</td><td>Rising CO2 is the main stimulus</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Lightheadedness and tingling in fingers and lips during hyperventilation come from low CO2, which constricts brain arterioles, and from the alkalosis, which lowers ionized Ca2+ and makes nerves more excitable.</li>
+  <li>Never hyperventilate before swimming underwater. Low CO2 delays the urge to breathe, so PO2 can fall far enough to cause fainting first (shallow water blackout).</li>
+  <li>With a CO2 absorber in the rebreathing bag, CO2 stays near normal while O2 falls, and breathing rises far less until PO2 gets low, which shows that CO2 is the main drive.</li>
+  <li>Stop any test and sit down if you feel dizzy.</li>
+</ul>
+<h3>Respiratory terms</h3>
+<dl>
+  <dt>Eupnea</dt><dd>Normal, quiet breathing at rest.</dd>
+  <dt>Hyperpnea</dt><dd>Deeper, faster breathing that matches a higher metabolic rate, as in exercise. Arterial PCO2 stays about normal.</dd>
+  <dt>Hyperventilation</dt><dd>Breathing more than metabolism requires, so arterial PCO2 falls.</dd>
+  <dt>Hypoventilation</dt><dd>Breathing less than metabolism requires, so arterial PCO2 rises.</dd>
+  <dt>Tachypnea</dt><dd>Fast breathing, often shallow; in an adult, more than about 20 breaths per minute.</dd>
+  <dt>Bradypnea</dt><dd>Abnormally slow breathing; in an adult, fewer than about 12 breaths per minute.</dd>
+  <dt>Apnea</dt><dd>No breathing, as in a breath hold or the pauses of sleep apnea.</dd>
+  <dt>Dyspnea</dt><dd>The feeling of difficult breathing or not getting enough air (shortness of breath).</dd>
+  <dt>Orthopnea</dt><dd>Dyspnea when lying flat that eases on sitting up, common in heart failure.</dd>
+  <dt>Hypercapnia (hypercarbia)</dt><dd>Arterial PCO2 above 45 mmHg.</dd>
+  <dt>Hypocapnia (hypocarbia)</dt><dd>Arterial PCO2 below 35 mmHg.</dd>
+  <dt>Hypoxemia</dt><dd>Low arterial PO2, below about 80 mmHg.</dd>
+  <dt>Hypoxia</dt><dd>Too little O2 reaching or being used by the tissues.</dd>
+  <dt>Cyanosis</dt><dd>A bluish color of the skin and mucous membranes when much of the hemoglobin is deoxygenated.</dd>
+  <dt>Respiratory acidosis and alkalosis</dt><dd>pH falls when hypoventilation retains CO2 (acidosis) and rises when hyperventilation removes CO2 (alkalosis). Buffers, compensation and all four acid-base disorders are in the Acid-base balance notes.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">Type of hypoxia</th><th scope="col">The problem</th><th scope="col">Examples</th></tr></thead><tbody>
+<tr><th scope="row">Hypoxic (hypoxemic) hypoxia</th><td>Low arterial PO2</td><td>High altitude, hypoventilation, diffusion problems, V/Q mismatch</td></tr>
+<tr><th scope="row">Anemic hypoxia</th><td>Too little O2 carried, with normal PO2</td><td>Anemia, carbon monoxide poisoning</td></tr>
+<tr><th scope="row">Ischemic (circulatory or stagnant) hypoxia</th><td>Too little blood flow</td><td>Heart failure, shock, a blocked artery</td></tr>
+<tr><th scope="row">Histotoxic hypoxia</th><td>Cells cannot use the O2 delivered</td><td>Cyanide poisoning</td></tr>
+</tbody></table></div>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>

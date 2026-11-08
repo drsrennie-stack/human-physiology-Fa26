@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluid and electrolyte balance, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800;margin-right:6px}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 14 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 14 notes · Dr. Sharilyn Rennie</p>
+  <h1>Fluid and electrolyte balance</h1>
+  <p>Total body water and the fluid compartments, the ions of the ICF and ECF, electrolytes and osmotic power, osmolarity and tonicity, water intake and output, osmosis and capillary pressures, thirst and ADH, sodium and ECF volume through the renin-angiotensin-aldosterone system and ANP, potassium and the resting membrane potential, calcium homeostasis through PTH, calcitriol and calcitonin, chloride, phosphate and magnesium, and volume, osmolarity and electrolyte disorders. Week 14 competencies 1 and 21.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week14-Notes-fluid-electrolytes.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.</p><p><b>Your textbook:</b> Silverthorn Chapter 21, Integrative Physiology II: Fluid and Electrolyte Balance. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 26, Fluid, Electrolyte, and Acid-Base Balance.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the opening part on fluid and electrolyte homeostasis, which names the organs that sense and correct volume and osmolarity.</p>
+<p>These are the structures you need to picture to follow the physiology. The kidney appears here only at the whole-body level, because the nephron has its own set of notes.</p>
+<h3>Barriers between the fluid compartments</h3>
+<dl>
+  <dt>Cell (plasma) membrane</dt><dd>Separates the fluid inside cells from the fluid around them. Water crosses it easily, through the lipid bilayer and through aquaporin water channels. Most ions cross only through channels and transporters.</dd>
+  <dt>Capillary wall</dt><dd>A single layer of endothelial cells that separates plasma from interstitial fluid. Water, ions and small solutes pass between the cells, but most plasma proteins cannot.</dd>
+  <dt>Lymphatic capillaries</dt><dd>Thin-walled vessels in the tissues that collect the fluid left between cells and return it to the blood.</dd>
+</dl>
+<h3>Sensors and hormone sources</h3>
+<dl>
+  <dt>Hypothalamus</dt><dd>Holds the osmoreceptors that sense the concentration of the extracellular fluid, the thirst center, and the neurons that make antidiuretic hormone (ADH).</dd>
+  <dt>Posterior pituitary</dt><dd>Stores ADH made by the hypothalamic neurons and releases it into the blood.</dd>
+  <dt>Baroreceptors</dt><dd>Stretch receptors in the carotid sinus and aortic arch that sense blood pressure. Stretch receptors in the walls of the atria sense how full the blood volume is.</dd>
+  <dt>Granular (juxtaglomerular) cells</dt><dd>Modified smooth muscle cells in the walls of the afferent arterioles of the kidney. They secrete renin.</dd>
+  <dt>Adrenal cortex</dt><dd>The outer layer of each adrenal gland, on top of the kidney. Its outermost zone (the zona glomerulosa) secretes aldosterone.</dd>
+  <dt>Atrial muscle cells</dt><dd>Heart muscle cells in the atrial walls that secrete atrial natriuretic peptide (ANP) when they are stretched.</dd>
+  <dt>Parathyroid glands</dt><dd>Usually four small glands on the back of the thyroid. Their chief cells secrete parathyroid hormone (PTH).</dd>
+  <dt>C cells (parafollicular cells)</dt><dd>Cells scattered in the thyroid gland that secrete calcitonin.</dd>
+  <dt>Liver</dt><dd>Makes angiotensinogen, the protein that renin acts on, and performs the first step in activating vitamin D.</dd>
+  <dt>Lungs</dt><dd>The endothelium of the lung capillaries is rich in angiotensin-converting enzyme (ACE).</dd>
+</dl>
+<h3>Organs that take in, store or remove water and ions</h3>
+<dl>
+  <dt>Kidneys</dt><dd>Filter plasma at the glomerulus, then reabsorb most of the filtrate. The distal tubule and collecting duct fine-tune how much water, Na+, K+ and Ca2+ leave in the urine, under hormone control.</dd>
+  <dt>Principal cells</dt><dd>Cells lining the collecting duct. They are the main target of ADH (water) and aldosterone (Na+ in, K+ out).</dd>
+  <dt>Gastrointestinal tract</dt><dd>The small intestine absorbs most of the water, ions and nutrients we take in. Water and ions are also lost from it in vomiting and diarrhea.</dd>
+  <dt>Bone</dt><dd>The body's reservoir of Ca2+ and phosphate. Osteoclasts break down bone matrix and release these ions; osteoblasts build new matrix.</dd>
+  <dt>Skin and lungs</dt><dd>Lose water by evaporation all the time, and the skin also loses water and salt in sweat.</dd>
+  <dt>Salivary glands</dt><dd>Make less saliva when the blood is concentrated, which is why the mouth feels dry.</dd>
+</dl>
+</section>
+<section id="body-water-and-the-fluid-compartments">
+<h2>Body water and the fluid compartments</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on fluid and electrolyte homeostasis; the body fluid compartments are first introduced in the chapter on membrane dynamics.</p>
+<p>Water is the largest single part of the body. How much of your body mass is water depends on age, sex, body mass and the amount of body fat, because different tissues hold very different amounts of water.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Who</th><th scope="col">Water, % of body mass</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Infant</th><td>About 73 to 75%</td><td>Low body fat and low bone mass</td></tr>
+<tr><th scope="row">Young adult male</th><td>About 60%</td><td>More skeletal muscle</td></tr>
+<tr><th scope="row">Young adult female</th><td>About 50%</td><td>More body fat and less skeletal muscle</td></tr>
+<tr><th scope="row">Older adult</th><td>About 45%</td><td>Less muscle and relatively more fat</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Adipose tissue is the least hydrated tissue, less than 20% water. Bone holds more water than fat, and skeletal muscle is about 75% water.</li>
+  <li>More muscle means more total body water. More fat means a lower percentage of water.</li>
+  <li>Most of the difference between people is in the intracellular fluid, because muscle cells hold a lot of water and fat cells hold very little.</li>
+  <li>After infancy the share of water falls gradually through life. Older adults have a smaller water reserve, so a given water loss affects them more.</li>
+</ul>
+<h3>Two main compartments</h3>
+<dl>
+  <dt>Intracellular fluid (ICF)</dt><dd>The water inside cells, about two-thirds of total body water. It is not one pool but trillions of tiny separate compartments, one per cell.</dd>
+  <dt>Extracellular fluid (ECF)</dt><dd>All the water outside cells, about one-third of total body water. It has two subcompartments.</dd>
+  <dt>Plasma</dt><dd>The fluid part of the blood, inside the blood vessels.</dd>
+  <dt>Interstitial fluid (IF)</dt><dd>The fluid in the spaces between cells in the tissues. It bathes every cell.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">Compartment</th><th scope="col">Share</th><th scope="col">Volume in a 70 kg adult</th></tr></thead><tbody>
+<tr><th scope="row">Total body water</th><td>About 60% of body mass</td><td>About 42 L</td></tr>
+<tr><th scope="row">Intracellular fluid</th><td>About two-thirds of body water</td><td>About 28 L</td></tr>
+<tr><th scope="row">Extracellular fluid</th><td>About one-third of body water</td><td>About 14 L</td></tr>
+<tr><th scope="row">Interstitial fluid</th><td>About 75 to 80% of the ECF</td><td>About 11 L</td></tr>
+<tr><th scope="row">Plasma</th><td>About 20 to 25% of the ECF</td><td>About 3 L</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Textbooks round these numbers differently. Some use 40 L of total water (25 L ICF, 15 L ECF, 12 L interstitial, 3 L plasma). Sixty percent of 70 kg is 42 L. The proportions are what you need to know.</li>
+  <li>In terms of body mass, the ICF is about 40% and the ECF about 20%.</li>
+</ul>
+</section>
+<section id="what-is-dissolved-in-body-fluids">
+<h2>What is dissolved in body fluids</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn The chapter on membrane dynamics, the part on the distribution of solutes in the body fluid compartments, and Chapter 21, the part on fluid and electrolyte homeostasis.</p>
+<p>Water is the universal solvent of the body. The substances dissolved in it are solutes, and they fall into two groups depending on whether they break apart into ions in water.</p>
+<dl>
+  <dt>Nonelectrolyte</dt><dd>A molecule held together by bonds (usually covalent) that keep it from splitting apart in water, so it makes no charged particles. Examples: glucose, lipids, creatinine and urea.</dd>
+  <dt>Electrolyte</dt><dd>A compound that dissociates (splits) into ions in water. Because ions are charged, the solution can conduct an electrical current. Examples: inorganic salts, inorganic and organic acids and bases, and some proteins.</dd>
+  <dt>Cation</dt><dd>A positively charged ion, such as Na+, K+, Ca2+ or Mg2+.</dd>
+  <dt>Anion</dt><dd>A negatively charged ion, such as Cl-, HCO3- or HPO42-.</dd>
+  <dt>Milliequivalents per liter (mEq/L)</dt><dd>The unit for electrolyte concentration. It counts electrical charges in 1 L of solution. For an ion with one charge, such as Na+, 1 mmol equals 1 mEq; for Ca2+, with two charges, 1 mmol equals 2 mEq.</dd>
+</dl>
+<h3>Osmotic power</h3>
+<p>The osmotic effect of a solute depends on how many particles it makes, not on how big or what kind they are. An electrolyte splits into two or more ions, so each unit of it pulls water more strongly than a unit of a nonelectrolyte.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Solute</th><th scope="col">What happens in water</th><th scope="col">Particles per unit</th></tr></thead><tbody>
+<tr><th scope="row">Glucose (nonelectrolyte)</th><td>Stays as one molecule</td><td>1</td></tr>
+<tr><th scope="row">NaCl (electrolyte)</th><td>Splits into Na+ and Cl-</td><td>2</td></tr>
+<tr><th scope="row">MgCl2 (electrolyte)</th><td>Splits into Mg2+ and two Cl-</td><td>3</td></tr>
+</tbody></table></div>
+<ul>
+  <li>So NaCl gives twice as many particles as the same number of glucose molecules, and electrolytes have the greatest ability to cause fluid shifts.</li>
+  <li>Water moves by osmosis from the side with fewer solute particles (lower osmolarity) to the side with more (higher osmolarity).</li>
+  <li>You can describe this two ways that say the same thing. Water moves to dilute the more concentrated side. Or water moves down its own concentration gradient, from where there is more water to where there is less.</li>
+</ul>
+<h3>ICF and ECF have different ions</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Solute</th><th scope="col">ECF (plasma values)</th><th scope="col">ICF</th></tr></thead><tbody>
+<tr><th scope="row">Na+</th><td>About 135 to 145 mEq/L; chief cation</td><td>About 10 to 15 mEq/L</td></tr>
+<tr><th scope="row">K+</th><td>About 3.5 to 5.0 mEq/L</td><td>About 140 to 150 mEq/L; chief cation</td></tr>
+<tr><th scope="row">Cl-</th><td>About 96 to 106 mEq/L; chief anion</td><td>Low</td></tr>
+<tr><th scope="row">HCO3-</th><td>About 22 to 26 mEq/L</td><td>Lower</td></tr>
+<tr><th scope="row">Free Ca2+</th><td>About 1.1 to 1.3 mmol/L ionized (2.2 to 2.6 mEq/L)</td><td>About 0.0001 mmol/L, roughly 10,000 times lower</td></tr>
+<tr><th scope="row">Mg2+</th><td>About 1.4 to 1.8 mEq/L</td><td>Much higher; second most plentiful cation in cells</td></tr>
+<tr><th scope="row">Phosphate (HPO42-)</th><td>Low</td><td>High; chief anion</td></tr>
+<tr><th scope="row">Proteins</th><td>High in plasma, low in interstitial fluid</td><td>Highest; about three times the plasma amount</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Plasma and interstitial fluid are nearly alike. The main difference is protein: plasma proteins, mostly albumin, are too large to cross most capillary walls.</li>
+  <li>Plasma proteins carry negative charges. Every fluid stays electrically neutral, so plasma holds slightly fewer Cl- ions than interstitial fluid to balance the extra negative charge on its proteins.</li>
+  <li>Na+ and K+ are nearly mirror images across the cell membrane. The Na+/K+-ATPase uses ATP to pump 3 Na+ out of the cell and 2 K+ in, which keeps Na+ low and K+ high inside cells.</li>
+  <li>Electrolytes are the most numerous dissolved particles, so they set most of the osmolarity and drive most fluid shifts. By mass, though, most dissolved material is large molecules: proteins and nonelectrolytes such as phospholipids, cholesterol and triglycerides. These make up about 90% of the dissolved mass in plasma, 60% in interstitial fluid and 97% in the ICF.</li>
+</ul>
+</section>
+<section id="osmolarity-tonicity-and-how-water-moves-between-compartments">
+<h2>Osmolarity, tonicity and how water moves between compartments</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn The chapter on membrane dynamics, the parts on osmosis and tonicity, and the chapter on blood flow and the control of blood pressure, the part on capillary exchange.</p>
+<dl>
+  <dt>Osmosis</dt><dd>The movement of water across a membrane toward the side with the higher concentration of solute particles.</dd>
+  <dt>Osmolarity</dt><dd>The number of osmotically active particles (osmoles) per liter of solution, written mOsm/L. It counts every particle, whether or not it can cross a membrane.</dd>
+  <dt>Osmolality</dt><dd>The same idea per kilogram of water, written mOsm/kg. Labs report plasma osmolality. In body fluids the two numbers are almost the same.</dd>
+  <dt>Tonicity</dt><dd>What a solution does to the volume of a cell placed in it. It has no units and depends only on nonpenetrating solutes, the ones that cannot cross the cell membrane.</dd>
+  <dt>Isotonic, hypotonic, hypertonic</dt><dd>In an isotonic solution a cell keeps its volume. In a hypotonic solution water enters and the cell swells. In a hypertonic solution water leaves and the cell shrinks.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Osmolarity</th><th scope="col">Tonicity</th></tr></thead><tbody>
+<tr><th scope="row">Describes</th><td>Concentration of all solute particles</td><td>Effect on cell volume</td></tr>
+<tr><th scope="row">Units</th><td>mOsm/L</td><td>None; it is a comparison</td></tr>
+<tr><th scope="row">Counts</th><td>Every particle</td><td>Only particles that cannot enter the cell</td></tr>
+<tr><th scope="row">Compares</th><td>Any two solutions</td><td>A solution with a cell</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Normal saline (0.9% NaCl) is isosmotic and isotonic. Na+ is pumped back out of cells as fast as it leaks in, so it acts as a nonpenetrating solute, and cells keep their volume.</li>
+  <li>A urea solution at 300 mOsm is isosmotic but hypotonic. Urea crosses cell membranes, water follows it in, and the cells swell.</li>
+  <li>A 5% dextrose (glucose) IV solution is isosmotic in the bag. Once infused, cells take up and use the glucose, leaving free water behind, so in the body it acts like a hypotonic solution.</li>
+</ul>
+<p>In healthy people the osmolality of body fluids is held at about 280 to 300 mOsm/kg, often rounded to 300 mOsm in textbook problems. Because water crosses cell membranes freely, every compartment has the same osmolality, except for the first few minutes after something changes in one of them.</p>
+<h3>Water moving between the ECF and cells, step by step</h3>
+<ol>
+  <li>Extra NaCl enters the ECF, for example from a salty meal absorbed by the small intestine.</li>
+  <li>The ECF now has a higher osmolality than the ICF.</li>
+  <li>Water moves by osmosis out of the cells, across their plasma membranes, into the interstitial fluid.</li>
+  <li>The cells shrink and the ECF volume grows until the osmolality is equal on both sides again.</li>
+</ol>
+<ul>
+  <li>The reverse happens when the ECF is diluted: water moves into the cells and they swell.</li>
+  <li>So the solute concentration of the ECF, mostly its Na+ concentration, decides the volume of the ICF.</li>
+</ul>
+<h3>Water moving between plasma and interstitial fluid</h3>
+<p>Across the capillary wall, two opposing pressures (often called Starling forces) decide whether fluid leaves or enters the blood. Hydrostatic pressure is the pressure a fluid exerts against the walls holding it. In a resting column of fluid it comes from gravity and rises with depth; in capillaries it comes mostly from the pumping of the heart.</p>
+<dl>
+  <dt>Capillary hydrostatic pressure</dt><dd>The blood pressure inside the capillary. It pushes protein-free fluid out into the interstitial space. In textbook values it is about 32 mm Hg at the arterial end and about 15 mm Hg at the venous end.</dd>
+  <dt>Colloid osmotic pressure (oncotic pressure)</dt><dd>The osmotic pull of plasma proteins, mainly albumin, which stay in the blood. It pulls water back into the capillary, about 25 mm Hg along the whole length.</dd>
+  <dt>Interstitial pressures</dt><dd>The hydrostatic and colloid osmotic pressures of the interstitial fluid are small, close to zero, and are often left out of simple calculations.</dd>
+</dl>
+<ol>
+  <li>At the arterial end, capillary hydrostatic pressure (about 32 mm Hg) is higher than colloid osmotic pressure (about 25 mm Hg), so fluid filters out of the plasma into the interstitial fluid.</li>
+  <li>Along the capillary, friction lowers the hydrostatic pressure, while the protein pull stays about the same.</li>
+  <li>At the venous end, colloid osmotic pressure is higher than hydrostatic pressure (about 15 mm Hg), so fluid is reabsorbed into the blood.</li>
+  <li>Slightly more fluid is filtered than reabsorbed, about 3 L per day across the body. Lymphatic vessels collect this fluid and return it to the blood.</li>
+</ol>
+<ul>
+  <li>The arterial-end and venous-end picture is a simplification. Many capillaries filter along most of their length, and the lymphatics carry back what is left.</li>
+  <li>Edema, swelling from excess interstitial fluid, happens when filtration outpaces return: high capillary pressure (as in heart failure), low plasma protein (as in liver disease or severe malnutrition), or blocked lymphatics.</li>
+</ul>
+<h3>The coffee shop analogy</h3>
+<ul>
+  <li>Two coffee shops share an open door, which stands for a semipermeable membrane.</li>
+  <li>Shop A smells of fresh cinnamon rolls, and people drift over from Shop B. These people are water molecules pulled toward the side with more solute: osmotic pressure.</li>
+  <li>Shop A fills up. The crowd pushes against the walls and some people push back out toward Shop B, where there is room. That push of a crowded fluid against its boundaries is hydrostatic pressure.</li>
+  <li>Shop B has live jazz, and some people stay for the music or come back for it. The jazz stands for plasma proteins such as albumin, whose colloid osmotic pressure holds water in the blood vessels and pulls it back in.</li>
+</ul>
+<h3>The path through the compartments</h3>
+<p>Anything traveling between the outside world and a cell passes through plasma and interstitial fluid on the way. Plasma and interstitial fluid exchange across capillary walls, driven by hydrostatic and colloid osmotic pressures. Interstitial fluid and ICF exchange across plasma membranes, depending on what the membrane lets through.</p>
+<ul>
+  <li>Water moves both ways across cell membranes in large amounts.</li>
+  <li>Ion movement across cell membranes is restricted, because ions need channels or transporters.</li>
+  <li>Nutrients, respiratory gases and wastes move mostly one way: glucose and O2 into cells, CO2 and metabolic wastes out.</li>
+  <li>Lungs: O2 enters the blood plasma, then the interstitial fluid, then the cells. CO2 travels the reverse path from the cells to the plasma and leaves through the lungs.</li>
+  <li>GI tract: nutrients, water and ions are absorbed into the plasma, then pass to the interstitial fluid and the cells. Water and ions also move back and forth between these compartments.</li>
+  <li>Kidneys: water and ions reabsorbed by the kidneys return to the plasma and exchange with the interstitial fluid and cells. Nitrogenous wastes travel from the cells to the interstitial fluid to the plasma and leave in the urine.</li>
+  <li>Each step follows a concentration gradient, so the plasma and interstitial fluid are constantly changing as substances pass through.</li>
+</ul>
+</section>
+<section id="water-balance-intake-output-thirst-and-adh">
+<h2>Water balance: intake, output, thirst and ADH</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the parts on water balance, on vasopressin and the control of water reabsorption, and on behavioral mechanisms (thirst).</p>
+<p>For proper hydration, water intake must equal water output. Intake varies a lot from person to person and is shaped by habit; a typical adult takes in and loses about 2,500 mL per day. The values below vary with diet, climate and activity.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Water in</th><th scope="col">About</th><th scope="col">Water out</th><th scope="col">About</th></tr></thead><tbody>
+<tr><th scope="row">Drinks</th><td>1,500 mL (60%)</td><td>Urine</td><td>1,500 mL (60%)</td></tr>
+<tr><th scope="row">Food</th><td>750 mL (30%)</td><td>Insensible loss from lungs and skin</td><td>700 mL (28%)</td></tr>
+<tr><th scope="row">Metabolic water</th><td>250 mL (10%)</td><td>Sweat</td><td>200 mL (8%)</td></tr>
+<tr><th scope="row"></th><td></td><td>Feces</td><td>100 mL (4%)</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Metabolic water (water of oxidation)</dt><dd>Water made by cells when they break down nutrients in aerobic respiration.</dd>
+  <dt>Insensible water loss</dt><dd>Water lost without our noticing: vapor in expired air from the lungs, and water diffusing through the skin and evaporating. It is not sweat.</dd>
+  <dt>Obvious (sensible) water loss</dt><dd>Water we can measure or notice: sweat, feces and urine. Urine is the largest share, about 60%.</dd>
+  <dt>Obligatory water loss</dt><dd>The water we lose no matter what: insensible losses, water in feces with undigested food residue, and a minimum of about 500 mL of urine per day to carry the end products of metabolism out of the body. This is why we must drink every day.</dd>
+</dl>
+<ul>
+  <li>The volume and concentration of urine change with fluid intake, diet and water lost by other routes. On a hot day with heavy sweating, the kidneys put out less urine to keep the balance.</li>
+  <li>Healthy kidneys start excreting extra water about 30 minutes after you drink it. The delay is the time it takes to turn down ADH.</li>
+  <li>This water diuresis (high urine flow) peaks about 1 hour after drinking and falls to its lowest level by about 3 hours.</li>
+</ul>
+<h3>Two controls on water</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Plasma osmolality</th><th scope="col">Thirst</th><th scope="col">ADH</th><th scope="col">Kidneys</th></tr></thead><tbody>
+<tr><th scope="row">Rises</th><td>Stimulated, so you drink</td><td>Released</td><td>Conserve water and excrete a small volume of concentrated urine</td></tr>
+<tr><th scope="row">Falls</th><td>Inhibited</td><td>Inhibited</td><td>Excrete a large volume of dilute urine</td></tr>
+</tbody></table></div>
+<p>Water usually follows Na+ by osmosis, wherever the membrane lets water cross. But thirst and ADH do not move sodium. They correct osmolality by adding or removing water, independently of the sodium-regulating hormones.</p>
+<h3>Thirst: the control on intake</h3>
+<p>Thirst is the driving force for water intake. The controller is the thirst center in the hypothalamus, and it has several inputs.</p>
+<ul>
+  <li>Osmoreceptors in the hypothalamus. When ECF osmolality rises, these cells lose water and shrink, and the change in membrane stretch makes them fire. They respond to a rise of only a few percent (about 1 to 3%).</li>
+  <li>Dry mouth. Concentrated plasma draws less water into the salivary glands, so they make less saliva.</li>
+  <li>A large drop in blood volume or pressure, as in hemorrhage. Baroreceptors directly activate the thirst center, and angiotensin II from the renin-angiotensin system also acts on the hypothalamus to cause thirst. The drop has to be fairly large, roughly 5 to 10% or more, compared with the rise of only a few percent in osmolality that triggers the osmoreceptors.</li>
+</ul>
+<ol>
+  <li>Water loss raises plasma osmolality.</li>
+  <li>Osmoreceptors in the hypothalamus shrink and signal the thirst center.</li>
+  <li>The thirst center produces the sensation of thirst, and you drink.</li>
+  <li>Wetting of the mouth and throat, and stretch of the stomach and intestine, quench thirst before the water is absorbed.</li>
+  <li>The absorbed water lowers plasma osmolality, and the osmoreceptors stop signaling.</li>
+</ol>
+<ul>
+  <li>Early quenching is intentional. Absorption takes time, and stopping early keeps us from drinking more than we need.</li>
+  <li>Thirst is good at getting us to drink but is not a reliable gauge of need, especially during exercise. It can be quenched long before the lost fluid is replaced.</li>
+  <li>Older adults and confused patients may not notice thirst or act on it, so they are at risk of dehydration.</li>
+  <li>Patients with kidney or heart disease who are fluid overloaded can still feel thirsty while they have too much fluid on board.</li>
+</ul>
+<h3>ADH: the control on output</h3>
+<p>Antidiuretic hormone (ADH), also called vasopressin, is made by neurons in the hypothalamus and released from the posterior pituitary. The amount of water reabsorbed in the collecting ducts of the kidney is proportional to the amount of ADH released.</p>
+<ol>
+  <li>Plasma osmolality rises.</li>
+  <li>Osmoreceptors in the hypothalamus shrink and stimulate the ADH-making neurons.</li>
+  <li>The posterior pituitary releases ADH into the blood.</li>
+  <li>ADH binds V2 receptors on the principal cells of the collecting duct.</li>
+  <li>Through cAMP, vesicles carrying aquaporin-2 water channels fuse with the apical membrane (the side facing the urine).</li>
+  <li>Water moves out of the duct, through the principal cells, and back into the blood, drawn by the concentrated interstitial fluid of the kidney medulla.</li>
+  <li>A small volume of concentrated urine is excreted, up to about 1,200 mOsm/kg.</li>
+  <li>The retained water lowers plasma osmolality, and the osmoreceptors cut back ADH release (negative feedback).</li>
+</ol>
+<ul>
+  <li>With high ADH, as much water as possible is reabsorbed from the collecting duct, but never all of it, because the obligatory urine volume still has to leave.</li>
+  <li>With low ADH, the aquaporins are pulled back out of the apical membrane. Water reaching the collecting duct cannot cross and keeps flowing past, so a large volume of dilute urine is excreted, as dilute as about 50 mOsm/kg.</li>
+  <li>Low ECF osmolality inhibits ADH release, and water is released in the urine. High ECF osmolality stimulates ADH, and water is held.</li>
+</ul>
+<h3>ADH and blood volume</h3>
+<p>Larger changes in blood volume or pressure also control ADH. A drop in blood pressure stimulates ADH release directly, through baroreceptors in the atria and large blood vessels, and indirectly, because angiotensin II from the renin-angiotensin-aldosterone system stimulates ADH release.</p>
+<ul>
+  <li>Conditions that trigger ADH release by reducing blood volume: excessive sweating, vomiting, diarrhea, severe blood loss, traumatic burns and prolonged fever.</li>
+  <li>At the high concentrations seen in these conditions, ADH also constricts arterioles (through V1 receptors), which raises blood pressure directly. This is where the name vasopressin comes from.</li>
+</ul>
+</section>
+<section id="electrolyte-balance-sodium-ecf-volume-and-potassium">
+<h2>Electrolyte balance: sodium, ECF volume and potassium</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the parts on sodium balance and ECF volume (aldosterone, angiotensin II and natriuretic peptides) and on potassium balance.</p>
+<p>Electrolyte balance usually means salt balance. Na+, K+, Ca2+ and phosphate are held within tight limits, and properly working kidneys are what prevent most electrolyte disorders.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Where salts come from</th><th scope="col">What salts do</th><th scope="col">Where salts are lost</th></tr></thead><tbody>
+<tr><th scope="row">Food and fluids; we get plenty, because our taste for salt is far greater than our need</th><td>Direct fluid shifts between compartments</td><td>Sweat</td></tr>
+<tr><th scope="row">Small amounts made in metabolism; breakdown of nucleic acids and bone releases phosphate</th><td>Provide minerals needed for excitability, secretion and membrane permeability</td><td>Feces and urine</td></tr>
+<tr><th scope="row"></th><td>Support many cell activities</td><td>Vomit, and large amounts in diarrhea</td></tr>
+</tbody></table></div>
+<h3>Sodium sets the ECF volume</h3>
+<p>Na+ is the main solute of the ECF, and water follows it by osmosis. So the total amount of Na+ in the body sets the ECF volume, while water balance sets the Na+ concentration. A plasma Na+ value mostly tells you about water balance, not about how much sodium the body holds.</p>
+<h3>Renin-angiotensin-aldosterone system (RAAS), step by step</h3>
+<ol>
+  <li>Blood pressure or ECF volume falls, for example after hemorrhage or dehydration.</li>
+  <li>The granular cells in the afferent arterioles of the kidney sense less stretch, and sympathetic nerves and the macula densa (which senses less NaCl reaching the distal tubule) add to the signal. The granular cells release renin into the blood.</li>
+  <li>Renin converts angiotensinogen, a plasma protein made by the liver, into angiotensin I.</li>
+  <li>Angiotensin-converting enzyme (ACE), found on blood vessel endothelium and especially in the lungs, converts angiotensin I into angiotensin II.</li>
+  <li>Angiotensin II constricts arterioles, stimulates thirst and ADH release in the hypothalamus, increases Na+ reabsorption in the proximal tubule, and stimulates the adrenal cortex.</li>
+  <li>The adrenal cortex secretes aldosterone.</li>
+  <li>Aldosterone acts on the principal cells of the distal nephron, adding Na+ channels and Na+/K+-ATPase pumps. More Na+ is reabsorbed into the blood and more K+ is secreted into the urine.</li>
+  <li>Water follows the reabsorbed Na+ (with ADH present), so ECF volume and blood pressure rise.</li>
+  <li>The rise in pressure reduces renin release (negative feedback).</li>
+</ol>
+<h3>Atrial natriuretic peptide (ANP), step by step</h3>
+<ol>
+  <li>Blood volume rises and stretches the walls of the atria.</li>
+  <li>Atrial muscle cells release ANP. The ventricles release a related hormone, brain natriuretic peptide (BNP).</li>
+  <li>In the kidney, ANP raises the glomerular filtration rate and reduces Na+ reabsorption in the collecting duct.</li>
+  <li>ANP inhibits the release of renin, aldosterone and ADH.</li>
+  <li>More Na+ and water leave in the urine (natriuresis and diuresis), and blood vessels dilate.</li>
+  <li>Blood volume and pressure fall, and atrial stretch falls.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">RAAS</th><th scope="col">ANP</th></tr></thead><tbody>
+<tr><th scope="row">Trigger</th><td>Low blood pressure or volume</td><td>High blood volume (atrial stretch)</td></tr>
+<tr><th scope="row">Source</th><td>Kidney (renin), liver, lungs, adrenal cortex</td><td>Atrial muscle cells</td></tr>
+<tr><th scope="row">Na+ in the urine</th><td>Less</td><td>More</td></tr>
+<tr><th scope="row">Blood vessels</th><td>Constrict</td><td>Dilate</td></tr>
+<tr><th scope="row">ECF volume</th><td>Rises</td><td>Falls</td></tr>
+</tbody></table></div>
+<h3>Potassium balance</h3>
+<p>About 98% of the body's K+ is inside cells, so plasma K+ is a small pool, normally about 3.5 to 5.0 mEq/L. Small changes in it matter, because the K+ gradient across the cell membrane sets the resting membrane potential of nerve and muscle cells.</p>
+<ol>
+  <li>A meal is absorbed and plasma K+ starts to rise.</li>
+  <li>Insulin, released after the meal, speeds up the Na+/K+-ATPase and moves K+ into cells. This is a fast, short-term buffer. Epinephrine does the same.</li>
+  <li>Cells of the adrenal cortex sense the high plasma K+ directly and secrete aldosterone.</li>
+  <li>Aldosterone acts on principal cells in the distal nephron, adding K+ channels and Na+/K+-ATPase pumps, so more K+ is secreted into the urine.</li>
+  <li>Plasma K+ returns to normal.</li>
+</ol>
+<ul>
+  <li>Because aldosterone both saves Na+ and gets rid of K+, too much aldosterone tends to lower plasma K+, and too little lets it rise.</li>
+</ul>
+<h3>Why plasma K+ matters for the resting membrane potential</h3>
+<p>At rest the cell membrane is most permeable to K+, through K+ leak channels, so the resting membrane potential (about -70 mV in a neuron, about -90 mV in heart and skeletal muscle) lies close to the K+ equilibrium potential. Changing plasma K+ changes the gradient, and that changes how excitable the cell is.</p>
+<ol>
+  <li>Plasma K+ rises (hyperkalemia).</li>
+  <li>The K+ gradient across the membrane is smaller, so less K+ leaks out of the cell.</li>
+  <li>The resting membrane potential becomes less negative (depolarizes) and moves closer to threshold.</li>
+  <li>At first, nerve and muscle cells become more excitable.</li>
+  <li>If the depolarization lasts, the inactivation gates of voltage-gated Na+ channels stay closed, and the cells cannot fire normal action potentials.</li>
+  <li>Muscles weaken, conduction in the heart slows, and dangerous arrhythmias or cardiac arrest can follow.</li>
+</ol>
+<ul>
+  <li>In hypokalemia, the larger K+ gradient makes the resting potential more negative (hyperpolarized). Cells need a bigger stimulus to reach threshold, so muscles weaken and heart rhythm becomes abnormal.</li>
+</ul>
+</section>
+<section id="calcium-homeostasis">
+<h2>Calcium homeostasis</h2>
+<p class="cref"><b>Competency 1:</b> <a href="week-14-competencies.html#h-w9-calcium-homeostasis" target="_top">Calcium homeostasis</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn The chapter on endocrine control of growth and metabolism, the part on calcium balance (parathyroid hormone, calcitriol and calcitonin).</p>
+<p>About 99% of the body's calcium is in bone, stored with phosphate as hydroxyapatite crystals. The small amount in plasma is tightly controlled because Ca2+ is needed for neurotransmitter release, contraction of all three muscle types, blood clotting, and as a second messenger inside cells.</p>
+<ul>
+  <li>Total plasma calcium is normally about 8.5 to 10.5 mg/dL (about 2.1 to 2.6 mmol/L). Lab ranges vary slightly.</li>
+  <li>About half of plasma calcium is ionized (free Ca2+), the active form, about 4.5 to 5.3 mg/dL (1.1 to 1.3 mmol/L). About 40% is bound to albumin, and the rest is bound to small anions such as phosphate and citrate.</li>
+  <li>Ca2+ in the ECF helps keep voltage-gated Na+ channels closed. When plasma Ca2+ falls, these channels open more easily, so nerves and muscles become more excitable and can fire on their own (tetany). When Ca2+ is high, excitability falls.</li>
+</ul>
+<dl>
+  <dt>Parathyroid hormone (PTH)</dt><dd>A peptide hormone from the chief cells of the parathyroid glands. It raises plasma Ca2+ and lowers plasma phosphate.</dd>
+  <dt>Calcium-sensing receptor</dt><dd>A receptor on the parathyroid chief cells that detects plasma Ca2+. When Ca2+ falls, it stops holding back PTH secretion.</dd>
+  <dt>Calcitriol</dt><dd>1,25-dihydroxyvitamin D3, the active form of vitamin D. It acts like a steroid hormone, turning on genes, mainly in the intestine.</dd>
+  <dt>Calcitonin</dt><dd>A peptide hormone from the C cells of the thyroid, released when plasma Ca2+ is high.</dd>
+  <dt>Bone resorption</dt><dd>Breakdown of bone matrix by osteoclasts, which releases Ca2+ and phosphate into the blood.</dd>
+</dl>
+<h3>Making calcitriol, step by step</h3>
+<ol>
+  <li>Ultraviolet light on the skin converts a cholesterol derivative into vitamin D3 (cholecalciferol). Vitamin D also comes from the diet.</li>
+  <li>The liver adds a hydroxyl group, making 25-hydroxyvitamin D.</li>
+  <li>The proximal tubule of the kidney adds a second hydroxyl group, making calcitriol. PTH stimulates the enzyme that does this step.</li>
+</ol>
+<h3>The response to falling plasma calcium, step by step</h3>
+<ol>
+  <li>Plasma Ca2+ falls.</li>
+  <li>The calcium-sensing receptors on the chief cells of the parathyroid glands detect the drop, and the chief cells secrete PTH.</li>
+  <li>In bone, PTH acts through osteoblasts to increase the number and activity of osteoclasts. Bone resorption releases Ca2+ and phosphate into the blood.</li>
+  <li>In the kidney, PTH increases Ca2+ reabsorption in the distal tubule, so less Ca2+ is lost in the urine.</li>
+  <li>Also in the kidney, PTH reduces phosphate reabsorption in the proximal tubule, so more phosphate is excreted. This keeps the phosphate released from bone from building up and binding the new Ca2+.</li>
+  <li>PTH stimulates the kidney to make calcitriol.</li>
+  <li>In the small intestine, calcitriol increases absorption of Ca2+ (and phosphate) from food. This effect is slower, because calcitriol works by turning on genes.</li>
+  <li>Plasma Ca2+ rises back to normal, and the calcium-sensing receptors turn PTH secretion down (negative feedback).</li>
+</ol>
+<h3>The response to rising plasma calcium</h3>
+<ol>
+  <li>Plasma Ca2+ rises.</li>
+  <li>The parathyroid chief cells reduce PTH secretion, so bone resorption, kidney Ca2+ reabsorption and calcitriol production all fall.</li>
+  <li>The C cells of the thyroid release calcitonin, which inhibits osteoclasts and increases Ca2+ excretion by the kidney.</li>
+  <li>Plasma Ca2+ falls back to normal.</li>
+</ol>
+<ul>
+  <li>Calcitonin plays only a minor role in day-to-day calcium balance in adult humans. People whose thyroid has been removed keep normal plasma calcium, as long as their parathyroid glands remain. PTH is the main controller.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Hormone</th><th scope="col">Released when</th><th scope="col">Bone</th><th scope="col">Kidney</th><th scope="col">Intestine</th></tr></thead><tbody>
+<tr><th scope="row">PTH</th><td>Ca2+ is low</td><td>More resorption, Ca2+ and phosphate released</td><td>Keeps Ca2+, excretes phosphate, makes calcitriol</td><td>Indirect, through calcitriol</td></tr>
+<tr><th scope="row">Calcitriol</th><td>PTH stimulates its production</td><td>Helps PTH mobilize bone Ca2+</td><td>Increases Ca2+ reabsorption</td><td>More Ca2+ and phosphate absorbed</td></tr>
+<tr><th scope="row">Calcitonin</th><td>Ca2+ is high</td><td>Less resorption</td><td>More Ca2+ excreted</td><td>No major effect</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Plasma calcium and phosphate often move in opposite directions. PTH raises Ca2+ while making the kidney excrete phosphate, and a high plasma phosphate binds free Ca2+ and lowers it.</li>
+</ul>
+</section>
+<section id="chloride-phosphate-and-magnesium">
+<h2>Chloride, phosphate and magnesium</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on fluid and electrolyte homeostasis, and the chapter on endocrine control of growth and metabolism, the part on calcium and phosphate balance.</p>
+<p>These three are regulated mainly by the kidneys and are covered here at an introductory level.</p>
+<dl>
+  <dt>Chloride (Cl-)</dt><dd>The main anion of the ECF, normally about 96 to 106 mEq/L. Much of it follows Na+, either moving passively along the electrical gradient Na+ creates or carried with Na+ by cotransporters, so it is regulated largely alongside sodium. It also forms the HCl of gastric juice and is exchanged for HCO3- in red blood cells (the chloride shift).</dd>
+  <dt>Phosphate</dt><dd>Normally about 2.5 to 4.5 mg/dL (about 0.8 to 1.5 mmol/L) in adult plasma. Most of the body's phosphate is in bone with calcium; the rest is in cells, where it is the chief anion. It is part of ATP, DNA and RNA, and phospholipids, and it works as a buffer inside cells. The kidneys excrete the excess, PTH increases its excretion, and calcitriol increases its absorption from the gut.</dd>
+  <dt>Magnesium (Mg2+)</dt><dd>Normally about 1.7 to 2.2 mg/dL in plasma, which is about 1.4 to 1.8 mEq/L (0.7 to 0.9 mmol/L). Labs use any of these units. About half or more of the body's Mg2+ is in bone, and most of the rest is inside cells, where it is the second most plentiful cation after K+. It is a cofactor for many enzymes, especially those that use ATP, including the Na+/K+-ATPase, and it affects nerve and muscle excitability.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">Disorder</th><th scope="col">Main causes</th><th scope="col">Main effects</th></tr></thead><tbody>
+<tr><th scope="row">Hyperchloremia (high Cl-)</th><td>Dehydration; more Cl- retained or taken in, such as large amounts of saline; overactive parathyroid glands (PTH lowers bicarbonate reabsorption, so the kidney keeps Cl- in its place)</td><td>No direct symptoms of its own; goes along with pH changes</td></tr>
+<tr><th scope="row">Hypochloremia (low Cl-)</th><td>Vomiting (loss of stomach HCl); loop and thiazide diuretics; taking in too much alkaline substance</td><td>No direct symptoms of its own; goes along with pH changes</td></tr>
+<tr><th scope="row">Hyperphosphatemia (high phosphate)</th><td>Kidney failure (less excreted); too little PTH; increased absorption</td><td>Phosphate binds Ca2+, so the symptoms are mostly those of low calcium: tingling, cramps, tetany</td></tr>
+<tr><th scope="row">Hypophosphatemia (low phosphate)</th><td>Less absorbed from the intestine; more lost in urine; too much PTH</td><td>Muscle weakness, because cells run short of ATP; when too much PTH is the cause, signs of high calcium may also appear</td></tr>
+<tr><th scope="row">Hypermagnesemia (high Mg2+)</th><td>Rare; kidney failure; too many Mg2+-containing supplements, antacids or laxatives</td><td>Lethargy, depressed CNS function, coma, respiratory depression, cardiac arrest</td></tr>
+<tr><th scope="row">Hypomagnesemia (low Mg2+)</th><td>Alcohol use disorder, chronic diarrhea, severe malnutrition, diuretics</td><td>Tremors, increased neuromuscular excitability, convulsions</td></tr>
+</tbody></table></div>
+<ul>
+  <li>With phosphate disorders, the symptoms often come more from the change in calcium than from the phosphate itself. Treating a phosphate disorder means watching calcium too, and looking for the cause in kidney function, PTH or vitamin D.</li>
+  <li>Acid-base balance, including how chloride, bicarbonate and K+ shift with pH, is covered in the acid-base notes.</li>
+</ul>
+</section>
+<section id="volume-osmolarity-and-electrolyte-disorders">
+<h2>Volume, osmolarity and electrolyte disorders</h2>
+<p class="cref"><b>Competency 21:</b> <a href="week-14-competencies.html#h-w13-volume-osmolarity" target="_top">Volume and osmolarity disturbances</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the parts on the integrated control of volume and osmolarity and on disturbances of volume and osmolarity.</p>
+<p>To classify a fluid disturbance, ask two questions. Did the ECF volume go up or down? And is the ECF that remains hyperosmotic, isosmotic or hypoosmotic compared with normal (about 300 mOsm)? Volume tells you about the body's Na+ and water content. Osmolarity tells you whether water will shift into or out of cells.</p>
+<ol>
+  <li>Decide whether fluid was lost from or added to the ECF.</li>
+  <li>Compare what was lost or added with normal body fluid. If more water than salt was lost, or more salt than water was added, the ECF becomes hyperosmotic. If more salt than water was lost, or plain water was added, it becomes hypoosmotic.</li>
+  <li>Predict the shift. Hyperosmotic ECF pulls water out of cells, and cells shrink. Hypoosmotic ECF lets water move into cells, and cells swell. Isosmotic changes stay in the ECF, and cells keep their volume.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Disturbance</th><th scope="col">Example causes</th><th scope="col">ECF volume</th><th scope="col">Osmolality (ECF and ICF)</th><th scope="col">ICF volume</th></tr></thead><tbody>
+<tr><th scope="row">Isosmotic volume loss</th><td>Hemorrhage; burns (plasma lost); many cases of vomiting and diarrhea</td><td>Falls</td><td>No change</td><td>No change</td></tr>
+<tr><th scope="row">Hyperosmotic volume loss</th><td>Heavy sweating; water deprivation; diabetes insipidus; uncontrolled diabetes mellitus</td><td>Falls</td><td>Rises in both</td><td>Falls; water leaves cells</td></tr>
+<tr><th scope="row">Hypoosmotic volume loss</th><td>Salt lost faster than water: aldosterone deficiency, some diuretics, losses replaced only partly with plain water</td><td>Falls</td><td>Falls in both</td><td>Rises; water enters cells</td></tr>
+<tr><th scope="row">Isosmotic volume gain</th><td>Too much isotonic saline IV; salt and water retained together in heart or kidney failure</td><td>Rises</td><td>No change</td><td>No change</td></tr>
+<tr><th scope="row">Hyperosmotic volume gain</th><td>Hypertonic saline IV; drinking seawater</td><td>Rises</td><td>Rises in both</td><td>Falls; water leaves cells</td></tr>
+<tr><th scope="row">Hypoosmotic volume gain</th><td>Drinking a large amount of water quickly; too much ADH; kidney failure</td><td>Rises</td><td>Falls in both</td><td>Rises; water enters cells</td></tr>
+</tbody></table></div>
+<ul>
+  <li>The name describes the ECF that is left, not the fluid that was lost. Sweat has fewer solutes than plasma, so heavy sweating leaves the ECF hyperosmotic.</li>
+  <li>Water crosses cell membranes freely, so the ICF always ends up at the same osmolality as the ECF. What differs from row to row is whether the cells gain or lose water.</li>
+  <li>In isosmotic gain, all the extra fluid stays in the ECF, much of it in the interstitial space, so edema can form. In hyperosmotic gain, water pulled out of the cells adds to the ECF, so the ECF grows by more than the volume taken in. In hypoosmotic loss, water moving into the cells shrinks the ECF even further.</li>
+  <li>In hemorrhage, water and solutes are lost together, so the loss is isosmotic and no water shifts out of cells at first.</li>
+  <li>In heavy sweating, more water than solute is lost. Water moves from the cells into the ECF to keep the osmolality of the two compartments equal.</li>
+</ul>
+<h3>Dehydration</h3>
+<p>Dehydration is fluid loss, of water alone or of water together with electrolytes. Causes include hemorrhage, severe burns, prolonged vomiting or diarrhea, profuse sweating, water deprivation and diuretic use. Endocrine disorders cause it too: diabetes insipidus (too little ADH or kidneys that do not respond to it) and diabetes mellitus (glucose in the urine pulls water with it).</p>
+<div class="tbl"><table><thead><tr><th scope="col">Stage</th><th scope="col">Signs and symptoms</th></tr></thead><tbody>
+<tr><th scope="row">Early</th><td>Sticky oral mucosa (cotton mouth), thirst, dry flushed skin, low urine output (oliguria)</td></tr>
+<tr><th scope="row">Prolonged</th><td>Weight loss, fever, mental status changes</td></tr>
+<tr><th scope="row">Severe</th><td>Hypovolemic shock: blood volume too low to maintain normal circulation</td></tr>
+</tbody></table></div>
+<h3>Hypotonic hydration (cellular overhydration), step by step</h3>
+<ol>
+  <li>A person drinks an extraordinary amount of water quickly, or has kidney insufficiency and cannot excrete water normally.</li>
+  <li>The extra water dilutes the ECF. The total Na+ is normal, but its concentration is low (hyponatremia).</li>
+  <li>The ECF is now hypoosmotic to the cells.</li>
+  <li>Water moves by osmosis into the tissue cells.</li>
+  <li>The cells swell. Brain cells are the most dangerous to swell, because the skull leaves no room (cerebral edema).</li>
+  <li>Nausea, vomiting, muscle cramps, disorientation, convulsions, coma and death can follow.</li>
+</ol>
+<ul>
+  <li>Red blood cells placed in pure water in a test tube swell and burst (hemolysis). In the body, the main danger of hypotonic hydration is brain swelling.</li>
+  <li>Severe cases are treated with hypertonic saline given into a vein, which reverses the osmotic gradient and pulls water out of the cells. It is given slowly and carefully, because correcting the sodium too fast can damage the brain.</li>
+</ul>
+<h3>Sodium, potassium and calcium disorders</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Disorder</th><th scope="col">Plasma level</th><th scope="col">Main causes</th><th scope="col">Main effects</th></tr></thead><tbody>
+<tr><th scope="row">Hypernatremia</th><td>Na+ above 145 mEq/L</td><td>Water lost and not replaced; uncommon in healthy people who can drink, more common in infants and confused older adults; too much sodium-containing IV fluid</td><td>Thirst; brain cells shrink, causing confusion and lethargy that can progress to coma; increased neuromuscular irritability (twitching, convulsions)</td></tr>
+<tr><th scope="row">Hyponatremia</th><td>Na+ below 135 mEq/L</td><td>Water retention, including too much ADH or excess water intake; solute loss from vomiting, diarrhea, burns or diuretics; kidney disease</td><td>Brain swelling with confusion, convulsions and coma; muscle twitching; if water is also lost, low blood volume and pressure, even circulatory shock</td></tr>
+<tr><th scope="row">Hyperkalemia</th><td>K+ above 5.0 mEq/L</td><td>Kidney failure; too little aldosterone; rapid IV infusion of K+; cell injury releasing K+</td><td>Nausea, vomiting, diarrhea; muscle weakness up to flaccid paralysis; bradycardia, arrhythmias, depressed heart function and cardiac arrest</td></tr>
+<tr><th scope="row">Hypokalemia</th><td>K+ below 3.5 mEq/L</td><td>Vomiting or diarrhea; too little intake (starvation); diuretics</td><td>Arrhythmias, flattened T waves on the ECG, muscle weakness, confusion, nausea and vomiting</td></tr>
+<tr><th scope="row">Hypercalcemia</th><td>Total Ca above 10.5 mg/dL</td><td>Overactive parathyroid glands; too much vitamin D; some cancers</td><td>Lower nerve and muscle excitability with weakness; arrhythmias; kidney stones; confusion; nausea and vomiting</td></tr>
+<tr><th scope="row">Hypocalcemia</th><td>Total Ca below 8.5 mg/dL</td><td>Burns (Ca2+ trapped in damaged tissue); underactive parathyroid glands; vitamin D deficiency; kidney tubule disease; diarrhea</td><td>Higher nerve and muscle excitability: tingling, tremors, muscle cramps, tetany; confusion; weaker heart contraction and arrhythmias; fractures if bone is drained over time</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Read the level against the normal range: Na+ 135 to 145 mEq/L, K+ 3.5 to 5.0 mEq/L, total Ca 8.5 to 10.5 mg/dL. Exact cutoffs vary slightly between labs.</li>
+  <li>Na+ disorders act mostly through the brain, because they change ECF osmolarity and make brain cells shrink or swell.</li>
+  <li>K+ disorders act mostly through the heart and muscles, because they change the resting membrane potential.</li>
+  <li>Ca2+ disorders act through excitability in the opposite direction from what many students expect: low Ca2+ makes nerves and muscles more excitable, and high Ca2+ makes them less excitable.</li>
+</ul>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>

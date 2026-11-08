@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lymph and how the body defends itself, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 11 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 11 notes · Dr. Sharilyn Rennie</p>
+  <h1>Lymph and how the body defends itself</h1>
+  <p>The need-to-know anatomy of lymphatic vessels, tissues and organs, then how lymph forms and returns about 3 L a day to the blood, how nodes and the spleen filter, the innate barriers, cells and proteins, inflammation and fever step by step, B cells, T cells, MHC and clonal selection, antibody classes and jobs, immune memory and immunization, hypersensitivity, autoimmunity, immunodeficiency, sepsis, and SJS and TEN. Week 11 competencies 13 to 19.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week11-Notes-lymph-immunity.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.</p><p><b>Your textbook:</b> Silverthorn Chapter 7, The Immune System, and Chapter 16, the part on the lymphatic system. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 21, The Lymphatic and Immune System.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the part on the lymphatic system, and Chapter 7, the parts on lymphoid tissues and the cells of the immune system.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/ev4JcnqUwWg" target="_blank" rel="noopener">Lymphatic vessels<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/6M9b3h2lzGA" target="_blank" rel="noopener">Where lymphatic capillaries are not found<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/08pHWGVgOgI" target="_blank" rel="noopener">Structure of a lymphatic collecting vessel<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/J4wKE5kcgRw" target="_blank" rel="noopener">Trunks that empty into the thoracic duct<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/g2Y9Vnl8VuQ" target="_blank" rel="noopener">Lymphatic tissues<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/gbYo4QoXgag" target="_blank" rel="noopener">Lymphatic follicles (nodules)<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/Qm1tXQJdB3o" target="_blank" rel="noopener">Primary lymphatic organs<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/pJorKElfgG8" target="_blank" rel="noopener">Secondary lymphatic organs<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/IQ6seG93V1s" target="_blank" rel="noopener">The three types of lymphocytes<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>The lymphatic system has three parts: a one-way network of vessels, the fluid inside them (lymph), and lymphatic tissues and organs packed with immune cells. You only need enough anatomy here to follow where lymph goes and where immune cells meet invaders. The rest of these notes are physiology.</p>
+<h3>The vessels, smallest to largest</h3>
+<ol>
+  <li>Lymphatic capillaries start as blind-ended tubes in the spaces between cells. They pick up the fluid the blood capillaries leave behind.</li>
+  <li>Collecting vessels receive lymph from the capillaries. Their walls have the same three layers as veins, only thinner, and they have even more valves. Lymph nodes sit along their course.</li>
+  <li>Lymphatic trunks form where collecting vessels merge. Each drains one large region of the body.</li>
+  <li>Two collecting ducts receive the trunks: the thoracic duct and the right lymphatic duct.</li>
+  <li>Each duct empties into the venous blood where the internal jugular vein meets the subclavian vein, the thoracic duct on the left side and the right lymphatic duct on the right.</li>
+</ol>
+<dl>
+  <dt>Superficial collecting vessels</dt><dd>Run in the subcutaneous tissue beside the superficial veins and drain the skin.</dd>
+  <dt>Deep collecting vessels</dt><dd>Run with the deep arteries and drain muscles and organs.</dd>
+  <dt>Lacteals</dt><dd>The lymphatic capillaries in the center of each intestinal villus. They absorb dietary fat, which turns the lymph milky white. This lymph is called chyle.</dd>
+</dl>
+<ul>
+  <li>Lymphatic capillaries are in nearly every tissue that has blood capillaries.</li>
+  <li>They are absent from tissues with no blood vessels (epidermis, cartilage, cornea), from bone and red bone marrow, and from the brain and spinal cord.</li>
+</ul>
+<h3>The nine trunks and which duct they feed</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Trunk</th><th scope="col">How many</th><th scope="col">Drains</th><th scope="col">Empties into</th></tr></thead><tbody>
+<tr><th scope="row">Jugular</th><td>Right and left</td><td>Head and neck</td><td>Right one: right lymphatic duct. Left one: thoracic duct</td></tr>
+<tr><th scope="row">Subclavian</th><td>Right and left</td><td>Upper limb</td><td>Right one: right lymphatic duct. Left one: thoracic duct</td></tr>
+<tr><th scope="row">Bronchomediastinal</th><td>Right and left</td><td>Thoracic organs</td><td>Right one: right lymphatic duct. Left one: thoracic duct</td></tr>
+<tr><th scope="row">Lumbar</th><td>Right and left</td><td>Lower limbs and pelvis</td><td>Thoracic duct</td></tr>
+<tr><th scope="row">Intestinal</th><td>One</td><td>Digestive organs</td><td>Thoracic duct</td></tr>
+</tbody></table></div>
+<ul>
+  <li>The thoracic duct begins in the abdomen at a sac called the cisterna chyli, which collects the lumbar and intestinal trunks. It drains everything below the diaphragm plus the left upper quarter of the body.</li>
+  <li>The right lymphatic duct drains only the right upper quarter: the right arm and the right side of the head, neck and chest. In many people the right trunks empty into the veins separately instead of first joining into one duct.</li>
+</ul>
+<h3>Lymphatic tissue</h3>
+<ul>
+  <li>Reticular connective tissue forms the framework of every lymphatic tissue and organ except the thymus. Its fine fibers make a mesh where cells can sit and fluid can filter through.</li>
+  <li>Lymphocytes are the leukocytes that dominate lymphatic tissue. Macrophages and dendritic cells sit in the mesh too.</li>
+  <li>A lymphatic follicle (nodule) is a dense ball of lymphocytes. Its pale center, the germinal center, is where B cells multiply and turn into antibody-making plasma cells when they meet their antigen.</li>
+  <li>Clusters of follicles in mucous membranes are called mucosa-associated lymphatic tissue (MALT). Examples are the tonsils in the pharynx, the Peyer patches in the wall of the ileum, and the appendix.</li>
+  <li>The walls of the pharynx are a good place for lymphocytes because everything you breathe in and swallow passes there first. Tonsillitis is inflammation of the tonsils, usually from a viral or streptococcal infection.</li>
+</ul>
+<h3>Lymphatic organs</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Organ</th><th scope="col">Type</th><th scope="col">Need-to-know structure</th></tr></thead><tbody>
+<tr><th scope="row">Red bone marrow</th><td>Primary</td><td>Makes all lymphocytes. B cells and NK cells mature here.</td></tr>
+<tr><th scope="row">Thymus</th><td>Primary</td><td>In the upper chest, above the heart. Outer cortex and inner medulla. Large and active in children, then shrinks after puberty and is replaced by fat.</td></tr>
+<tr><th scope="row">Lymph nodes</th><td>Secondary</td><td>Bean-shaped. Clusters in the cervical (neck), axillary (armpit) and inguinal (groin) regions, and deep in the chest, abdomen and mesentery.</td></tr>
+<tr><th scope="row">Spleen</th><td>Secondary</td><td>Largest single mass of lymphatic tissue, in the upper left abdomen. White pulp is lymphocytes around small arteries. Red pulp is blood-filled sinusoids and cords of macrophages.</td></tr>
+<tr><th scope="row">Tonsils and other MALT</th><td>Secondary</td><td>Unencapsulated follicles in mucous membranes.</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Primary lymphatic organ</dt><dd>Where lymphocytes are made and mature: red bone marrow and thymus.</dd>
+  <dt>Secondary lymphatic organ</dt><dd>Where mature lymphocytes wait and meet antigen: lymph nodes, spleen and MALT.</dd>
+</dl>
+<h3>The three types of lymphocytes</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Lymphocyte</th><th scope="col">Share of blood lymphocytes</th><th scope="col">Where it matures</th><th scope="col">Main job</th></tr></thead><tbody>
+<tr><th scope="row">T cell</th><td>About 80%, the majority</td><td>Thymus (from stem cells that leave the marrow)</td><td>Cell-mediated immunity</td></tr>
+<tr><th scope="row">B cell</th><td>About 10 to 15%</td><td>Red bone marrow (stem cells that stay there)</td><td>Humoral immunity: becomes plasma cells that make antibodies</td></tr>
+<tr><th scope="row">Natural killer (NK) cell</th><td>The rest, about 5 to 10%</td><td>Red bone marrow</td><td>Innate killing of foreign cells, virus-infected cells and cancer cells</td></tr>
+</tbody></table></div>
+<p>These percentages vary from source to source and person to person, so treat them as approximate. All three come from lymphoid stem cells in red bone marrow, a process called lymphopoiesis.</p>
+</section>
+<section id="lymph-formation-and-return-to-the-blood">
+<h2>Lymph formation and return to the blood</h2>
+<p class="cref"><b>Competency 13:</b> <a href="week-11-competencies.html#h-w11-lymph-return" target="_top">Lymphatic return</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the parts on the lymphatic system and on edema.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://youtu.be/CPc1NwKWQN0" target="_blank" rel="noopener">Lymphatic system contributions to homeostasis<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/ZntN4tfciP4" target="_blank" rel="noopener">What lymph is<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/JiLbuR__4ms" target="_blank" rel="noopener">Disorders of the lymphatic system<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<h3>What the lymphatic system does for homeostasis</h3>
+<ul>
+  <li>Returns fluid. It brings back the fluid that leaves blood capillaries and is not reabsorbed, which keeps blood volume and blood pressure up and keeps tissues from swelling.</li>
+  <li>Returns protein. Plasma proteins that leak out of capillaries cannot get back into blood capillaries. Lymph is their only route home.</li>
+  <li>Absorbs fat. Lacteals carry dietary fat from the small intestine to the blood.</li>
+  <li>Defends the body. Lymph passes through nodes where immune cells check it for microbes, damaged cells and cancer cells.</li>
+</ul>
+<h3>Where lymph comes from</h3>
+<p>At the arteriole end of a blood capillary, blood pressure pushes fluid out into the interstitial space (the space between cells). At the venule end, the pull of plasma proteins (colloid osmotic pressure) draws most of it back. Across the body as a whole, filtration is a little larger than reabsorption, so about 3 L a day of fluid stays behind, along with some protein. This arteriole-end, venule-end picture is a simplified model, and newer research shows many capillaries reabsorb less than it suggests. Once that fluid enters a lymphatic capillary it is called lymph.</p>
+<dl>
+  <dt>Interstitial fluid</dt><dd>The fluid between cells. It is plasma minus most of the proteins.</dd>
+  <dt>Lymph</dt><dd>Interstitial fluid that has entered a lymphatic vessel. It can carry proteins, fat (from the gut), white blood cells, cell debris and microbes.</dd>
+</dl>
+<h3>Lymphatic capillaries compared with blood capillaries</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Feature</th><th scope="col">Blood capillary</th><th scope="col">Lymphatic capillary</th></tr></thead><tbody>
+<tr><th scope="row">Shape</th><td>Part of a loop from arteriole to venule</td><td>Blind-ended tube, closed at one end</td></tr>
+<tr><th scope="row">Endothelial cells</th><td>Joined edge to edge</td><td>Overlap loosely, forming one-way flaps</td></tr>
+<tr><th scope="row">Anchoring filaments</th><td>None</td><td>Tie the cells to nearby tissue and pull the flaps open when tissue swells</td></tr>
+<tr><th scope="row">What can enter</th><td>Water and small solutes</td><td>Water, proteins, fat droplets, cells, microbes</td></tr>
+<tr><th scope="row">Pressure inside</th><td>Higher, driven by the heart</td><td>Very low, no pump</td></tr>
+<tr><th scope="row">Direction of flow</th><td>Filters fluid out and takes most back</td><td>Only takes fluid in</td></tr>
+</tbody></table></div>
+<h3>How fluid gets into a lymphatic capillary, step by step</h3>
+<ol>
+  <li>Fluid filtered from blood capillaries builds up in the interstitial space, and pressure there rises.</li>
+  <li>The swelling tissue pulls on the anchoring filaments, which tug the overlapping endothelial cells apart.</li>
+  <li>Fluid, protein and anything else small enough flows between the flaps into the capillary.</li>
+  <li>Pressure inside the lymphatic capillary rises above the pressure outside and pushes the flaps shut, so lymph cannot leak back out.</li>
+</ol>
+<h3>What keeps lymph moving</h3>
+<p>Lymph flows under very low pressure with no heart to push it. It depends on squeezing from outside and from its own walls, and the valves make sure every squeeze moves it toward the heart.</p>
+<ul>
+  <li>Valves in collecting vessels and trunks let lymph go only one way.</li>
+  <li>Smooth muscle in the vessel walls contracts in rhythm when a segment fills and stretches, pushing lymph to the next segment.</li>
+  <li>The skeletal muscle pump: contracting muscles squeeze the vessels between them, the same way they move blood in veins.</li>
+  <li>The respiratory pump: breathing in lowers pressure in the chest and raises it in the abdomen, which draws lymph up toward the thoracic duct.</li>
+  <li>Pulsing of nearby arteries squeezes the deep vessels that run beside them.</li>
+  <li>Fast blood flow in the subclavian veins helps draw lymph out of the ducts where they join.</li>
+</ul>
+<h3>One drop of lymph back to the blood, step by step</h3>
+<ol>
+  <li>Fluid and protein left in the interstitial space enter a lymphatic capillary.</li>
+  <li>Lymph flows into a collecting vessel and passes through one or more lymph nodes, where it is filtered.</li>
+  <li>Collecting vessels merge into a lymphatic trunk.</li>
+  <li>The trunk empties into the thoracic duct or the right lymphatic duct.</li>
+  <li>The duct empties into the venous blood at the junction of the internal jugular and subclavian veins, and the fluid and protein are back in the plasma.</li>
+</ol>
+<h3>Lymph nodes as filters, step by step</h3>
+<ol>
+  <li>Several afferent lymphatic vessels bring lymph into the node on its rounded side.</li>
+  <li>Lymph moves through the subcapsular sinus, then through sinuses in the cortex, where follicles of B cells sit and T cells fill the deeper cortex.</li>
+  <li>Fixed macrophages on the reticular fibers engulf microbes, debris and some cancer cells. Dendritic cells show captured antigen to the lymphocytes.</li>
+  <li>Lymph passes through the medullary sinuses, past cords of macrophages and plasma cells.</li>
+  <li>Fewer efferent vessels leave at the hilum (the indented side). Because more vessels enter than leave, lymph slows down inside the node and spends more time being cleaned.</li>
+</ol>
+<h3>The spleen as a blood filter</h3>
+<p>Lymph nodes filter lymph. The spleen filters blood. Blood enters through the splenic artery, passes through arteries wrapped in white pulp, where lymphocytes check it for bloodborne antigens, and then empties into the red pulp. In the red pulp, red cells must squeeze through narrow slits to reach the splenic sinusoids and veins. Old, stiff or damaged red cells get stuck and are eaten by macrophages. Blood then leaves through the splenic vein to the hepatic portal vein.</p>
+<ul>
+  <li>White pulp: immune responses to antigens in the blood.</li>
+  <li>Red pulp: removes worn-out red cells and platelets, and recycles their iron.</li>
+  <li>Stores a reserve of platelets, roughly a third of the body's supply, and some blood.</li>
+  <li>Makes blood cells in the fetus.</li>
+</ul>
+<h3>When lymph or lymphatic organs go wrong</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Problem</th><th scope="col">What happens</th><th scope="col">Result</th></tr></thead><tbody>
+<tr><th scope="row">Lymphedema</th><td>Lymph vessels or nodes are removed or damaged, for example nodes taken from an armpit during breast cancer surgery</td><td>Fluid and protein from that region have nowhere to go, so the limb slowly swells</td></tr>
+<tr><th scope="row">Filariasis (elephantiasis)</th><td>Mosquito-borne parasitic worms lodge in and block lymphatic vessels</td><td>Massive swelling, most often of the legs or genitals, with thickened skin. Antiparasitic drugs clear the worms but cannot repair damaged vessels, so elevation, compression and careful skin care are used to limit swelling and infection.</td></tr>
+<tr><th scope="row">Lymphadenitis</th><td>Nodes filtering an infection fill with dividing lymphocytes and inflammation</td><td>Swollen, tender, movable nodes (swollen glands)</td></tr>
+<tr><th scope="row">Metastasis</th><td>Cancer cells leave a tumor, travel in lymph and lodge in nodes</td><td>Firm, often painless nodes. Doctors check the first node that drains the tumor (the sentinel node) to stage a cancer.</td></tr>
+<tr><th scope="row">Lymphoma</th><td>Cancer of lymphocytes in lymphatic tissue (Hodgkin and non-Hodgkin types)</td><td>Painless, enlarged nodes</td></tr>
+<tr><th scope="row">Splenomegaly</th><td>Mononucleosis or leukemia fills the spleen with cells and it enlarges</td><td>A big, soft spleen can rupture with a blow, causing severe internal bleeding. This is why people with mono avoid contact sports.</td></tr>
+</tbody></table></div>
+<p>A person can live without a spleen because macrophages in the liver and red bone marrow take over removing old red cells, and other lymphatic tissue carries on the immune work. The cost is a higher risk of severe, fast-moving infection, especially from bacteria with a sugar capsule, such as Streptococcus pneumoniae. People who have had a splenectomy receive extra vaccines for this reason.</p>
+</section>
+<section id="innate-defenses">
+<h2>Innate defenses</h2>
+<p class="cref"><b>Competency 14:</b> <a href="week-11-competencies.html#h-w15-innate-immunity" target="_top">Innate defenses</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the parts on innate immunity and on the cells of the immune system.</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://youtu.be/Bui92W4ltRA" target="_blank" rel="noopener">Dr. Rennie: Cells that attack foreign, virus-infected and cancer cells<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/qkIfYwnaYqc" target="_blank" rel="noopener">Ninja Nerd: Immunology, immune system overview<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/80Q-OPDjoE8" target="_blank" rel="noopener">Ninja Nerd: Inflammation, part 3, complement proteins<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/cKSWHMRPOoI" target="_blank" rel="noopener">Ninja Nerd: Inflammation, part 4, toll-like receptors and interferons<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>The immune system has two arms that work together. Innate immunity is ready before you meet a germ. Adaptive immunity learns the exact germ and remembers it. Innate defenses are nonspecific because they recognize features shared by whole groups of microbes, not one particular microbe. They are immediate because the barriers, cells and proteins are already in place.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Feature</th><th scope="col">Innate</th><th scope="col">Adaptive</th></tr></thead><tbody>
+<tr><th scope="row">Speed</th><td>Minutes to hours</td><td>Days on first exposure</td></tr>
+<tr><th scope="row">What it recognizes</th><td>Patterns shared by many microbes</td><td>One specific antigen</td></tr>
+<tr><th scope="row">Memory</th><td>No</td><td>Yes, faster and stronger the next time</td></tr>
+<tr><th scope="row">Main players</th><td>Barriers, phagocytes, NK cells, complement, interferons</td><td>B cells, T cells, antibodies</td></tr>
+</tbody></table></div>
+<h3>Physical barriers</h3>
+<ul>
+  <li>Skin: layers of keratinized cells joined tightly together, constantly shed, which carries microbes away.</li>
+  <li>Mucous membranes line the airways, gut and urinary and reproductive tracts. Sticky mucus traps microbes.</li>
+  <li>Cilia in the airways sweep mucus up to the throat to be swallowed or coughed out (the mucociliary escalator).</li>
+  <li>Flushing: tears, saliva, urine flow and vomiting wash microbes out.</li>
+  <li>Normal bacteria on skin and in the gut take up space and nutrients that harmful microbes would need.</li>
+</ul>
+<h3>Chemical defenses</h3>
+<ul>
+  <li>Acid: sweat and sebum keep the skin slightly acidic, and stomach acid (pH about 2) kills most swallowed microbes.</li>
+  <li>Lysozyme in tears, saliva and mucus breaks down bacterial cell walls.</li>
+  <li>Defensins and other antimicrobial peptides punch holes in microbial membranes.</li>
+  <li>Complement proteins and interferons, described below, circulate in blood and tissue fluid.</li>
+</ul>
+<h3>Cellular defenses</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Cell</th><th scope="col">What it does</th></tr></thead><tbody>
+<tr><th scope="row">Neutrophil</th><td>Most numerous white cell in blood. First phagocyte to arrive at an infection. Short-lived. Dead neutrophils are the main part of pus.</td></tr>
+<tr><th scope="row">Macrophage</th><td>A monocyte that has left the blood and grown larger. Eats microbes and debris, releases cytokines that call in other cells, and presents antigen to T cells.</td></tr>
+<tr><th scope="row">Dendritic cell</th><td>Captures antigen in tissues, carries it to a lymph node and presents it to T cells. The main bridge from innate to adaptive immunity.</td></tr>
+<tr><th scope="row">NK cell</th><td>Kills virus-infected and cancer cells. Releases perforin, which makes pores in the target's membrane, and granzymes, enzymes that enter and trigger apoptosis (programmed cell death).</td></tr>
+<tr><th scope="row">Eosinophil</th><td>Attacks parasites too large to eat and helps control allergic reactions.</td></tr>
+<tr><th scope="row">Mast cell and basophil</th><td>Release histamine and other chemicals that start inflammation.</td></tr>
+</tbody></table></div>
+<p>NK cells do not need to recognize a specific antigen. Healthy body cells display MHC I molecules (explained in the adaptive immunity section). Many virus-infected and cancer cells stop displaying normal MHC I, and NK cells kill cells that are missing it.</p>
+<dl>
+  <dt>Phagocytosis</dt><dd>A cell surrounds a particle with its membrane, pulls it inside in a vesicle and digests it with lysosome enzymes.</dd>
+  <dt>Cytokine</dt><dd>A small protein that immune cells use to signal each other. Interleukins, interferons and tumor necrosis factor are examples.</dd>
+  <dt>Chemotaxis</dt><dd>Movement of a cell toward a chemical signal.</dd>
+</dl>
+<h3>Toll-like receptors</h3>
+<p>Toll-like receptors (TLRs) are pattern recognition receptors on macrophages, dendritic cells and other cells. Each one recognizes a molecule that microbes have and human cells do not, called a pathogen-associated molecular pattern. When a TLR binds its pattern, the cell switches on genes for cytokines and starts inflammation.</p>
+<ul>
+  <li>TLR4 recognizes lipopolysaccharide, a molecule in the outer wall of gram-negative bacteria.</li>
+  <li>TLR5 recognizes flagellin, the protein of bacterial flagella.</li>
+  <li>TLR3 recognizes double-stranded RNA made by many viruses.</li>
+</ul>
+<h3>Complement</h3>
+<p>Complement is a group of about 30 plasma proteins, mostly made by the liver, that circulate in an inactive form. Once the first protein is activated, each one activates the next, so the signal grows at every step. The cascade can start three ways: antibodies bound to a microbe (classical pathway), microbial surfaces directly (alternative pathway), or a plasma protein that binds sugars on microbes (lectin pathway). All three converge on splitting the protein C3.</p>
+<ul>
+  <li>Opsonization: the fragment C3b coats the microbe, and phagocytes have receptors for it, so coated microbes get eaten much faster.</li>
+  <li>Inflammation: the fragments C3a and C5a make mast cells release histamine, and C5a draws neutrophils in by chemotaxis.</li>
+  <li>Lysis: C5b joins C6 through C9 to form the membrane attack complex, a pore that lets water rush into the microbe until it bursts.</li>
+  <li>Clearing immune complexes: C3b also coats antigen and antibody clumps so they are carried to the liver and spleen and removed. Poor clearance of these clumps is part of type III hypersensitivity.</li>
+</ul>
+<h3>Interferons</h3>
+<p>A cell infected by a virus usually cannot save itself, but it can warn its neighbors. It releases type I interferons (interferon alpha and beta). These bind receptors on nearby cells, which then make antiviral proteins that block viral replication if the virus arrives. A different interferon, interferon gamma, comes from T cells and NK cells and strongly activates macrophages.</p>
+</section>
+<section id="inflammation-and-fever">
+<h2>Inflammation and fever</h2>
+<p class="cref"><b>Competency 15:</b> <a href="week-11-competencies.html#h-w15-inflammation" target="_top">Inflammation and fever</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the parts on inflammation and on the innate response to bacterial invasion.</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://youtu.be/LArxUakFsFs" target="_blank" rel="noopener">Ninja Nerd: Inflammation, part 1, vascular events<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/yTIZpzoaIT0" target="_blank" rel="noopener">Ninja Nerd: Inflammation, part 2, cellular events<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Inflammation is the local response to injury or infection. Its job is to bring defensive cells and proteins to the spot, wall off the damage and start repair. It happens in two waves: changes in the blood vessels first, then the arrival of white cells.</p>
+<h3>Vascular events, step by step</h3>
+<ol>
+  <li>Bacteria enter a cut. Resident macrophages detect them with their toll-like receptors, and damaged cells and mast cells release chemicals.</li>
+  <li>Mast cells release histamine. Macrophages and damaged cells release cytokines, prostaglandins and other mediators. Bradykinin forms in the tissue fluid.</li>
+  <li>Arterioles in the area dilate, so more blood flows into the capillary beds.</li>
+  <li>Capillary walls become leaky as endothelial cells pull apart from each other.</li>
+  <li>Plasma and plasma proteins leak into the interstitial space. This fluid, called exudate, carries complement, antibodies and clotting proteins to the site.</li>
+  <li>Fibrinogen in the exudate turns into fibrin, which forms a mesh that walls off the area and slows the spread of bacteria.</li>
+  <li>Lymphatic capillaries take up the extra fluid and carry antigen and debris to the nearest lymph nodes.</li>
+</ol>
+<h3>Cellular events, step by step</h3>
+<ol>
+  <li>Cytokines make endothelial cells near the injury display adhesion molecules called selectins.</li>
+  <li>Neutrophils passing in the blood catch on the selectins and roll slowly along the vessel wall.</li>
+  <li>Neutrophil adhesion proteins (integrins) bind tightly to the endothelium, and the cell stops.</li>
+  <li>The neutrophil squeezes between endothelial cells and out of the vessel, a step called diapedesis.</li>
+  <li>It follows the trail of chemicals such as C5a and bacterial products to the infection (chemotaxis).</li>
+  <li>Neutrophils arrive within hours and phagocytize bacteria, then die. The bone marrow releases extra neutrophils, so the blood neutrophil count rises.</li>
+  <li>Monocytes arrive later, become macrophages, and eat bacteria, dead neutrophils and debris.</li>
+  <li>Dead cells, bacteria and fluid that collect make up pus. Once the cause is cleared, cells such as fibroblasts repair the tissue.</li>
+</ol>
+<h3>The cardinal signs and why each happens</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Sign</th><th scope="col">Latin name</th><th scope="col">Cause</th></tr></thead><tbody>
+<tr><th scope="row">Redness</th><td>Rubor</td><td>Dilated arterioles bring more blood into the area</td></tr>
+<tr><th scope="row">Heat</th><td>Calor</td><td>More warm blood from the body core flows through the area</td></tr>
+<tr><th scope="row">Swelling</th><td>Tumor</td><td>Leaky capillaries let fluid and protein into the tissue, and the protein holds the water there</td></tr>
+<tr><th scope="row">Pain</th><td>Dolor</td><td>Bradykinin and prostaglandins stimulate pain receptors, and swelling presses on them</td></tr>
+<tr><th scope="row">Loss of function</th><td>Functio laesa</td><td>Pain and swelling limit use of the part</td></tr>
+</tbody></table></div>
+<h3>Fever, step by step</h3>
+<p>Normal core temperature averages about 37 °C (98.6 °F). A fever is generally a temperature of 38 °C (100.4 °F) or higher. In a fever, the body is not losing control of its temperature. The hypothalamus raises its own set point on purpose and then defends the new, higher value.</p>
+<ol>
+  <li>Pyrogens (fever-causing substances) appear. Bacterial products such as lipopolysaccharide are exogenous pyrogens.</li>
+  <li>Macrophages respond by releasing endogenous pyrogens, the cytokines interleukin 1, interleukin 6 and tumor necrosis factor alpha.</li>
+  <li>These cytokines reach the hypothalamus through the blood and trigger the local production of prostaglandin E2.</li>
+  <li>Prostaglandin E2 raises the hypothalamic set point, for example from 37 °C (98.6 °F) to 39 °C (102.2 °F).</li>
+  <li>The body is now colder than its new set point, so the person feels chilled. Skin blood vessels constrict, shivering starts, and the person reaches for blankets.</li>
+  <li>Body temperature climbs until it matches the new set point and stays there while the pyrogens remain.</li>
+  <li>When the infection is controlled, pyrogen levels fall and the set point drops back to normal.</li>
+  <li>The body is now warmer than the set point, so skin vessels dilate and sweating begins until temperature returns to normal. This is the fever breaking.</li>
+</ol>
+<h3>Why a moderate fever helps</h3>
+<ul>
+  <li>Many bacteria and viruses grow best at normal body temperature and slow down when it rises.</li>
+  <li>The liver and spleen take up iron and zinc from the blood, which bacteria need to grow.</li>
+  <li>Phagocytes and lymphocytes work faster, and tissue repair speeds up.</li>
+  <li>A very high fever is dangerous. Above about 41 °C (105.8 °F), proteins begin to lose their shape and the brain can be harmed.</li>
+</ul>
+<p>Drugs such as aspirin, ibuprofen and acetaminophen lower fever by blocking prostaglandin synthesis, which lets the set point fall.</p>
+</section>
+<section id="adaptive-immunity-b-cells-and-t-cells">
+<h2>Adaptive immunity: B cells and T cells</h2>
+<p class="cref"><b>Competency 16:</b> <a href="week-11-competencies.html#h-w15-adaptive-immunity" target="_top">Adaptive immunity</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the parts on acquired immunity, lymphocytes, antigen presentation and the MHC.</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://youtu.be/9D22ZoyPdhM" target="_blank" rel="noopener">Dr. Rennie: Lymphopoiesis<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/SAECT5vdl24" target="_blank" rel="noopener">Dr. Rennie: T cells and cell-mediated immunity<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/NzzQMsrlwYI" target="_blank" rel="noopener">Dr. Rennie: B cells and humoral immunity<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/7_hiaCq2rew" target="_blank" rel="noopener">Ninja Nerd: Immunology, adaptive immunity<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/JeV-HuPq7CI" target="_blank" rel="noopener">Ninja Nerd: Immunology, T cell development<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Adaptive immunity is aimed at one specific antigen. It is slower than innate immunity the first time, but it builds memory. It has two branches. Humoral immunity is run by B cells and the antibodies they make, and it works in the body fluids (humors). Cell-mediated immunity is run by T cells, which act on other cells directly.</p>
+<dl>
+  <dt>Antigen</dt><dd>Any molecule that triggers an adaptive immune response, usually a protein or a large sugar on a microbe, a toxin or a foreign cell.</dd>
+  <dt>Epitope</dt><dd>The small part of an antigen that one receptor or antibody actually binds. One microbe has many epitopes.</dd>
+  <dt>Antigen-presenting cell</dt><dd>A cell that breaks antigen into fragments and displays them to T cells. Dendritic cells, macrophages and B cells do this.</dd>
+</dl>
+<h3>How lymphocytes are made and trained</h3>
+<ol>
+  <li>Lymphoid stem cells in red bone marrow divide to make new lymphocytes.</li>
+  <li>As each B cell or T cell develops, it shuffles pieces of its receptor genes. The result is one receptor shape per cell, and millions of different shapes across the whole population, made before any germ is met.</li>
+  <li>B cells and NK cells finish maturing in the bone marrow.</li>
+  <li>Future T cells travel in the blood to the thymus. In the thymic cortex they multiply, and only those whose receptors can recognize the body's own MHC molecules survive (positive selection).</li>
+  <li>Mostly in the medulla, T cells that bind strongly to the body's own proteins are destroyed (negative selection). This is how self-tolerance is built. Most developing T cells die in the thymus.</li>
+  <li>Surviving mature T cells leave the thymus and settle in lymph nodes, the spleen and MALT, along with B cells.</li>
+</ol>
+<p>The reticular epithelial cells of the thymus make this possible. They form a barrier around the developing T cells in the cortex, secrete hormones such as thymosin and thymopoietin that drive T cell development, and display self proteins during selection.</p>
+<h3>MHC: how T cells see antigen</h3>
+<p>T cells cannot see a whole microbe. They only recognize small pieces of protein (peptides) held up on the surface of a cell by MHC molecules (major histocompatibility complex). In humans these are also called HLA, human leukocyte antigens, which is what is matched for organ transplants.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Feature</th><th scope="col">MHC I</th><th scope="col">MHC II</th></tr></thead><tbody>
+<tr><th scope="row">Found on</th><td>All nucleated cells (not red blood cells)</td><td>Mainly antigen-presenting cells: dendritic cells, macrophages and B cells</td></tr>
+<tr><th scope="row">Shows peptides from</th><td>Proteins made inside the cell, including viral and cancer proteins</td><td>Material the cell engulfed from outside</td></tr>
+<tr><th scope="row">Read by</th><td>Cytotoxic T cells (CD8 cells)</td><td>Helper T cells (CD4 cells)</td></tr>
+<tr><th scope="row">Message</th><td>This is what I am making inside</td><td>This is what I found outside</td></tr>
+</tbody></table></div>
+<h3>Antigen presentation, step by step</h3>
+<ol>
+  <li>A dendritic cell in the skin engulfs a bacterium by phagocytosis.</li>
+  <li>Inside, lysosome enzymes break the bacterial proteins into short peptides.</li>
+  <li>The peptides are loaded onto MHC II molecules, which move to the cell surface.</li>
+  <li>The dendritic cell travels through lymphatic vessels to a lymph node.</li>
+  <li>In the node, a helper T cell whose receptor fits that peptide on MHC II binds to it. The dendritic cell also gives a second, costimulatory signal. Both signals are needed, which helps prevent attacks on harmless or self antigens.</li>
+  <li>The helper T cell is activated, divides, and releases cytokines such as interleukin 2 that activate B cells, cytotoxic T cells and macrophages.</li>
+</ol>
+<h3>Clonal selection, step by step</h3>
+<ol>
+  <li>Before infection, there are only a few lymphocytes with receptors for any one antigen.</li>
+  <li>The antigen binds the lymphocytes whose receptors fit. Only these are selected. All others are left alone.</li>
+  <li>With help from helper T cell cytokines, the selected cells divide again and again, making a clone of identical cells (clonal expansion). This takes several days.</li>
+  <li>Most of the clone become effector cells that fight now: plasma cells, helper T cells or cytotoxic T cells.</li>
+  <li>Some become memory cells that live for years.</li>
+  <li>When the infection is cleared, most effector cells die by apoptosis. The memory cells stay, so the next response starts from a much larger group of cells.</li>
+</ol>
+<h3>Humoral immunity, step by step</h3>
+<ol>
+  <li>A naive B cell in a lymph node binds its antigen with its B cell receptor, which is an antibody held on its membrane.</li>
+  <li>The B cell takes in the antigen, breaks it down and displays the peptides on its MHC II.</li>
+  <li>A helper T cell already activated by the same antigen binds the B cell and releases cytokines.</li>
+  <li>The B cell divides in the germinal center of a follicle.</li>
+  <li>Its daughters become plasma cells, which secrete large amounts of antibody, and memory B cells.</li>
+  <li>Antibodies travel in blood and lymph and bind the antigen wherever it is in the body fluids.</li>
+</ol>
+<h3>Cell-mediated immunity, step by step</h3>
+<ol>
+  <li>A virus infects a body cell and the cell makes viral proteins.</li>
+  <li>The infected cell breaks some viral proteins into peptides and displays them on MHC I.</li>
+  <li>A cytotoxic T cell with a matching receptor binds the peptide on MHC I. With interleukin 2 from helper T cells it divides into a clone.</li>
+  <li>Each cytotoxic T cell attaches to an infected cell and releases perforin and granzymes, or uses a surface protein called Fas ligand, to trigger apoptosis.</li>
+  <li>The infected cell dies before the virus can finish copying itself, and the T cell detaches to kill another target.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Feature</th><th scope="col">Humoral</th><th scope="col">Cell-mediated</th></tr></thead><tbody>
+<tr><th scope="row">Cell responsible</th><td>B cell, which becomes a plasma cell</td><td>T cells, mainly cytotoxic T cells</td></tr>
+<tr><th scope="row">Target</th><td>Antigens in body fluids: bacteria, toxins, viruses outside cells</td><td>Body cells that are infected, cancerous or transplanted</td></tr>
+<tr><th scope="row">Antigen recognized</th><td>Whole antigen, directly</td><td>Peptide on MHC</td></tr>
+<tr><th scope="row">How the target is eliminated</th><td>Antibodies mark or disable it, then phagocytes and complement finish it</td><td>The T cell kills the cell by triggering apoptosis</td></tr>
+<tr><th scope="row">Helper T cells needed</th><td>Yes, for most antigens</td><td>Yes</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Helper T cells sit at the center of both branches. This is why losing them, as in HIV infection, weakens all of adaptive immunity.</li>
+  <li>Regulatory T cells slow the response down once the threat is gone and help prevent attacks on self.</li>
+</ul>
+</section>
+<section id="antibody-structure-and-function">
+<h2>Antibody structure and function</h2>
+<p class="cref"><b>Competency 17:</b> <a href="week-11-competencies.html#h-w15-antibodies" target="_top">Antibody structure and function</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the part on antibodies.</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://youtu.be/zg61a3BoR8Y" target="_blank" rel="noopener">Ninja Nerd: Immunology, antibody structure and function<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>An antibody, also called an immunoglobulin (Ig), is a Y-shaped protein made by plasma cells. Each part of the Y has a job. The tips grab the antigen, and the stem tells the rest of the immune system what to do with it.</p>
+<h3>Structure</h3>
+<ul>
+  <li>Four polypeptide chains: two identical heavy chains and two identical light chains, held together by disulfide bonds.</li>
+  <li>Variable regions at the tips of both arms. Their amino acid sequence differs from one antibody to the next, so they form two identical binding sites shaped to fit one epitope.</li>
+  <li>Constant regions make up the rest of the molecule, including the stem (the Fc region). The stem is the same within a class and decides what the antibody can do, such as bind complement or bind receptors on phagocytes and mast cells.</li>
+  <li>A flexible hinge where the arms meet the stem lets the two arms reach two antigens at once.</li>
+</ul>
+<h3>The five classes</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Class</th><th scope="col">Form</th><th scope="col">Where and when</th><th scope="col">Main role</th></tr></thead><tbody>
+<tr><th scope="row">IgG</th><td>Monomer</td><td>Most abundant in plasma, about 75 to 80% of antibodies. Main antibody of the secondary response.</td><td>Opsonizes, activates complement, neutralizes. The only class that crosses the placenta.</td></tr>
+<tr><th scope="row">IgM</th><td>Pentamer (five units)</td><td>First antibody made in a primary response. A single-unit form also serves as the receptor on naive B cells.</td><td>Strong agglutination and complement activation. Anti-A and anti-B blood type antibodies are mostly IgM.</td></tr>
+<tr><th scope="row">IgA</th><td>Dimer in secretions</td><td>Tears, saliva, mucus, breast milk</td><td>Guards mucous membranes by blocking microbes from attaching</td></tr>
+<tr><th scope="row">IgE</th><td>Monomer</td><td>Very low in plasma, bound to mast cells and basophils</td><td>Triggers histamine release. Allergy and defense against parasites.</td></tr>
+<tr><th scope="row">IgD</th><td>Monomer</td><td>On the surface of naive B cells</td><td>Acts as a B cell receptor. Its full role is still not well understood.</td></tr>
+</tbody></table></div>
+<h3>What antibodies do</h3>
+<p>Antibodies do not kill anything on their own. They disable a target or mark it so that other parts of the immune system destroy it.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Action</th><th scope="col">How it works</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">Neutralization</th><td>Antibodies cover the parts a toxin or virus uses to attach to cells</td><td>Antibodies to tetanus toxin keep it from binding nerve cells</td></tr>
+<tr><th scope="row">Agglutination</th><td>Each antibody has two or more binding sites, so it links cells into clumps</td><td>Red cells clumping when the wrong blood type is given</td></tr>
+<tr><th scope="row">Precipitation</th><td>Antibodies link soluble antigens into large complexes that fall out of solution and are easy to eat</td><td>Clearing dissolved toxins</td></tr>
+<tr><th scope="row">Opsonization</th><td>Phagocytes have receptors for the antibody stem, so coated microbes are eaten faster</td><td>IgG on bacteria</td></tr>
+<tr><th scope="row">Complement activation</th><td>The protein C1 binds the stems of IgG or IgM attached to a target and starts the classical pathway</td><td>Membrane attack complex bursts a bacterium</td></tr>
+<tr><th scope="row">Activating other cells</th><td>NK cells kill antibody-coated cells. IgE on mast cells triggers histamine release.</td><td>Killing virus-infected cells, allergic reactions</td></tr>
+</tbody></table></div>
+</section>
+<section id="immune-memory-and-immunization">
+<h2>Immune memory and immunization</h2>
+<p class="cref"><b>Competency 18:</b> <a href="week-11-competencies.html#h-w15-immune-memory" target="_top">Immune memory and immunization</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the parts on memory cells, the primary and secondary responses, and immunization.</p>
+<p>The first meeting with an antigen trains the immune system, and the memory cells it leaves behind make every later meeting faster and stronger. Vaccines use this to give protection without the illness.</p>
+<h3>Primary and secondary responses</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Feature</th><th scope="col">Primary response</th><th scope="col">Secondary response</th></tr></thead><tbody>
+<tr><th scope="row">When</th><td>First exposure to the antigen</td><td>Any later exposure</td></tr>
+<tr><th scope="row">Delay before antibody appears</th><td>Several days</td><td>About 1 to 3 days</td></tr>
+<tr><th scope="row">Peak</th><td>About 1 to 2 weeks after exposure</td><td>Higher, often many times higher, and sooner</td></tr>
+<tr><th scope="row">Main antibody</th><td>IgM first, then IgG</td><td>Mostly IgG</td></tr>
+<tr><th scope="row">How tightly antibodies bind</th><td>Lower</td><td>Higher, because B cells fine-tune their antibodies with each round</td></tr>
+<tr><th scope="row">How long antibody stays high</th><td>Falls off fairly quickly</td><td>Stays high much longer</td></tr>
+<tr><th scope="row">Cells that start it</th><td>Small number of naive lymphocytes</td><td>Large pool of memory cells that activate quickly</td></tr>
+</tbody></table></div>
+<p>The secondary response is often fast enough to wipe out the microbe before you feel sick. That is what it means to be immune to a disease.</p>
+<h3>Active and passive immunity</h3>
+<dl>
+  <dt>Active immunity</dt><dd>Your own B and T cells respond to an antigen and make memory cells. It takes days to weeks to develop but can last for years or for life.</dd>
+  <dt>Passive immunity</dt><dd>You receive antibodies made by someone else. It works at once but makes no memory cells, so it fades in weeks to months as the antibodies are broken down.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Natural</th><th scope="col">Artificial</th></tr></thead><tbody>
+<tr><th scope="row">Active</th><td>Getting the infection and recovering</td><td>A vaccine</td></tr>
+<tr><th scope="row">Passive</th><td>IgG crossing the placenta to the fetus, and IgA in breast milk</td><td>Injected antibodies, such as immune globulin after a rabies exposure or antivenom after a snakebite</td></tr>
+</tbody></table></div>
+<h3>How a vaccine works, step by step</h3>
+<ol>
+  <li>The vaccine delivers the antigen without the disease. It may be a killed or weakened microbe, an inactivated toxin (toxoid), a purified protein, or mRNA that tells your cells to make one microbial protein for a short time.</li>
+  <li>Antigen-presenting cells take up the antigen and present it to helper T cells in nearby lymph nodes.</li>
+  <li>B cells and T cells that fit the antigen go through clonal selection, a primary response.</li>
+  <li>Memory B and T cells remain after the response ends.</li>
+  <li>A booster dose triggers a secondary response, which raises antibody levels higher and makes more memory cells.</li>
+  <li>If the real microbe arrives later, memory cells launch a secondary response before the infection can take hold.</li>
+</ol>
+<ul>
+  <li>A newborn is protected for its first months by its mother's IgG, which slowly fades, and breastfed babies also receive IgA in milk. Many childhood vaccines are timed to start as this protection wanes.</li>
+  <li>When enough people in a community are immune, a microbe cannot spread easily, which also protects those who cannot be vaccinated (herd immunity).</li>
+</ul>
+</section>
+<section id="immune-dysfunction">
+<h2>Immune dysfunction</h2>
+<p class="cref"><b>Competency 19:</b> <a href="week-11-competencies.html#h-w15-immune-dysfunction" target="_top">Immune dysfunction</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the part on when the immune system goes wrong (allergies, autoimmune disease and immunodeficiency).</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://youtu.be/nQYATo46FfY" target="_blank" rel="noopener">Armando Hasudungan: Type I hypersensitivity<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/Em0Wi07dj4E" target="_blank" rel="noopener">Armando Hasudungan: Type II hypersensitivity<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/NKnAXcM5Ly0" target="_blank" rel="noopener">Armando Hasudungan: Type III hypersensitivity<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/fOhKTTmDuYw" target="_blank" rel="noopener">Medicosis Perfectionalis: Type IV hypersensitivity, making a granuloma<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>The immune system can fail in three ways. It can react too strongly to something harmless, it can attack the body itself, or it can be too weak to protect the body.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Problem</th><th scope="col">What the immune system is doing wrong</th><th scope="col">Examples</th></tr></thead><tbody>
+<tr><th scope="row">Hypersensitivity (including allergy)</th><td>Overreacting to a harmless antigen, or reacting in a way that damages tissue</td><td>Hay fever, anaphylaxis, poison ivy rash</td></tr>
+<tr><th scope="row">Autoimmunity</th><td>Attacking self antigens because self-tolerance has failed</td><td>Type 1 diabetes, rheumatoid arthritis, lupus</td></tr>
+<tr><th scope="row">Immunodeficiency</th><td>Not responding enough</td><td>SCID, HIV infection and AIDS</td></tr>
+</tbody></table></div>
+<h3>The four types of hypersensitivity</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Type</th><th scope="col">Mechanism</th><th scope="col">Timing</th><th scope="col">Example</th></tr></thead><tbody>
+<tr><th scope="row">I, immediate (allergic)</th><td>IgE on mast cells and basophils, histamine release</td><td>Minutes</td><td>Anaphylaxis to peanuts, hay fever, allergic asthma</td></tr>
+<tr><th scope="row">II, cytotoxic</th><td>IgG or IgM bind antigens on a cell's surface, then complement and phagocytes destroy that cell</td><td>Minutes to hours</td><td>Hemolytic transfusion reaction from mismatched ABO blood</td></tr>
+<tr><th scope="row">III, immune complex</th><td>Antigen and antibody clump in the blood, lodge in vessel walls, joints or kidneys, and trigger complement and neutrophils there</td><td>Hours to days</td><td>Lupus damaging the kidneys, post-streptococcal glomerulonephritis</td></tr>
+<tr><th scope="row">IV, delayed (cell-mediated)</th><td>Helper and cytotoxic T cells and macrophages, no antibody</td><td>24 to 72 hours</td><td>TB skin test, poison ivy contact dermatitis</td></tr>
+</tbody></table></div>
+<h3>Type I, step by step</h3>
+<ol>
+  <li>Sensitization: on first exposure, an allergen such as pollen is presented to helper T cells, which push B cells to make IgE against it. There are no symptoms yet.</li>
+  <li>The IgE binds by its stem to receptors on mast cells and basophils, which now stay primed.</li>
+  <li>On a later exposure, the allergen binds and cross-links the IgE molecules on a mast cell.</li>
+  <li>The mast cell degranulates, releasing histamine, and soon makes leukotrienes and prostaglandins.</li>
+  <li>Arterioles dilate, capillaries leak, bronchiole smooth muscle contracts and mucus increases, causing hives, swelling, sneezing, wheezing or itching.</li>
+  <li>In anaphylaxis, the release happens all over the body. Widespread vasodilation and leaky capillaries drop blood pressure, and the airway narrows. Epinephrine is the emergency treatment because it constricts blood vessels and opens the airways.</li>
+</ol>
+<h3>Type II and type III in more detail</h3>
+<ul>
+  <li>Type II: in a transfusion of the wrong ABO type, the recipient's anti-A or anti-B antibodies bind the donor red cells, which agglutinate, activate complement and burst (hemolysis). Hemolytic disease of the newborn from Rh antibodies is also type II.</li>
+  <li>Type III: the damage comes from where the complexes land, not from the antigen itself. Complement and neutrophils attack the tissue where the complexes are trapped, which explains why lupus can inflame the kidneys, joints and skin at the same time.</li>
+</ul>
+<h3>Type IV and granulomas</h3>
+<p>In a TB skin test, a small amount of tuberculosis protein is placed under the skin. In a person whose T cells have met TB before, memory helper T cells recognize it, release cytokines such as interferon gamma, and call in macrophages. A firm, raised area appears in 48 to 72 hours. If an antigen cannot be cleared, as with TB bacteria inside macrophages, activated macrophages pack together around it and some fuse into giant cells, forming a walled-off ball called a granuloma.</p>
+<h3>Autoimmunity</h3>
+<p>Autoimmune disease starts when tolerance to self breaks down, so lymphocytes that should have been removed or held in check attack the body's own antigens. The exact triggers are not fully known, and genes, sex hormones and infections all play a part. Autoimmune diseases are more common in women.</p>
+<ul>
+  <li>Molecular mimicry: a microbial antigen looks like a self antigen. After strep throat, antibodies against the bacteria can also bind heart tissue, causing rheumatic fever.</li>
+  <li>Hidden antigens: some self proteins, such as those inside the eye or in sperm, are normally out of the immune system's sight. Injury can expose them.</li>
+  <li>Type 1 diabetes: T cells destroy the insulin-making beta cells of the pancreas.</li>
+  <li>Graves disease: antibodies stimulate the TSH receptor, so the thyroid overproduces hormone.</li>
+  <li>Myasthenia gravis: antibodies block and destroy acetylcholine receptors at the neuromuscular junction, causing muscle weakness.</li>
+  <li>Multiple sclerosis: T cells attack myelin in the central nervous system.</li>
+  <li>Rheumatoid arthritis and lupus: immune attack on joints, and in lupus on many tissues at once.</li>
+</ul>
+<h3>Immunodeficiency</h3>
+<dl>
+  <dt>Primary immunodeficiency</dt><dd>Inherited. Severe combined immunodeficiency (SCID) leaves a child with few or no working B and T cells, so even mild infections become life-threatening.</dd>
+  <dt>Acquired immunodeficiency</dt><dd>Develops later in life. Causes include HIV infection, cancer chemotherapy, high-dose corticosteroids, drugs that prevent transplant rejection, malnutrition and loss of the spleen.</dd>
+</dl>
+<ol>
+  <li>HIV binds the CD4 protein and infects helper T cells, along with some macrophages and dendritic cells.</li>
+  <li>The virus copies itself inside these cells and kills them. Over years, helper T cells are lost faster than the body can replace them.</li>
+  <li>As the CD4 count falls, B cells and cytotoxic T cells get less help, so both humoral and cell-mediated immunity weaken.</li>
+  <li>AIDS is diagnosed when the CD4 count drops below 200 cells/µL or an AIDS-defining illness appears. A normal adult CD4 count is roughly 500 to 1,500 cells/µL.</li>
+  <li>Opportunistic infections take hold, caused by microbes a healthy immune system easily controls, such as Pneumocystis pneumonia.</li>
+</ol>
+</section>
+<section id="clinical-connections-sepsis-and-sjs-and-ten">
+<h2>Clinical connections: sepsis and SJS and TEN</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 7, the parts on inflammation and on cell-mediated immunity.</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://youtu.be/OgQ6avlpBRY" target="_blank" rel="noopener">Armando Hasudungan: The sepsis pathway<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/emOgJCoUy6Q" target="_blank" rel="noopener">Khan Academy (optional, not tested): Sepsis, from SIRS to multiple organ dysfunction<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://youtu.be/pJzjMSyJUC8" target="_blank" rel="noopener">Understanding Stevens-Johnson syndrome and toxic epidermal necrolysis<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<h3>Sepsis</h3>
+<p>Sepsis is life-threatening organ dysfunction caused by a dysregulated body response to an infection. The infection starts it, but the body's own inflammatory response, spread through the whole body instead of staying local, causes most of the damage. It is the same inflammation from these notes, happening everywhere at once.</p>
+<ol>
+  <li>An infection, often in the lungs, urinary tract, abdomen or skin, spreads microbes or their products into the blood.</li>
+  <li>Toll-like receptors on macrophages and other cells throughout the body bind these products, for example lipopolysaccharide from gram-negative bacteria.</li>
+  <li>The cells release large amounts of cytokines, such as tumor necrosis factor alpha, interleukin 1 and interleukin 6.</li>
+  <li>Blood vessels all over the body dilate, so total peripheral resistance and blood pressure fall.</li>
+  <li>Capillaries everywhere become leaky. Plasma moves into the tissues, blood volume drops, and tissues swell.</li>
+  <li>The clotting system is activated in small vessels throughout the body, which blocks capillaries and uses up clotting factors and platelets (disseminated intravascular coagulation).</li>
+  <li>Tissues get too little oxygen and switch to anaerobic metabolism, and blood lactate rises.</li>
+  <li>Organs begin to fail: the kidneys make less urine, the lungs fill with fluid, and confusion develops as the brain is underperfused.</li>
+  <li>Septic shock is sepsis in which low blood pressure persists despite fluids, so drugs are needed to keep mean arterial pressure at 65 mmHg or higher, and lactate is above 2 mmol/L.</li>
+</ol>
+<ul>
+  <li>Temperature can go either way in sepsis: a fever above 38 °C (100.4 °F) or a low temperature below 36 °C (96.8 °F).</li>
+  <li>Heart rate and breathing rate rise as the body tries to keep oxygen delivery up.</li>
+</ul>
+<h3>Stevens-Johnson syndrome (SJS) and toxic epidermal necrolysis (TEN)</h3>
+<p>SJS and TEN are rare, severe reactions of the skin and mucous membranes, usually triggered by a drug. Common triggers include some anticonvulsants, allopurinol and sulfonamide antibiotics. Experts now treat them as one disease on a spectrum, separated by how much skin is lost, and it is a type IV, T cell driven reaction.</p>
+<ol>
+  <li>A person starts a new drug. The reaction usually begins days to a few weeks later.</li>
+  <li>Cytotoxic T cells and NK cells recognize the drug, or a drug bound to the person's own proteins, as foreign.</li>
+  <li>Flu-like symptoms such as fever and sore throat often appear first.</li>
+  <li>In the skin, these cells release killing proteins that trigger mass apoptosis of keratinocytes, the main cells of the epidermis, and a painful red or purple rash spreads.</li>
+  <li>The dead epidermis separates from the dermis, forms blisters and peels away. The mouth, eyes and genital mucosa are also affected.</li>
+  <li>With the barrier gone, the person loses fluid and heat through the skin and is open to infection, much like a person with a large burn.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Diagnosis</th><th scope="col">Body surface area with detached skin</th></tr></thead><tbody>
+<tr><th scope="row">SJS</th><td>Under 10%</td></tr>
+<tr><th scope="row">SJS and TEN overlap</th><td>10 to 30%</td></tr>
+<tr><th scope="row">TEN</th><td>Over 30%</td></tr>
+</tbody></table></div>
+<p>The first step in care is stopping the drug that caused it. Patients are often treated in a burn unit, because the problems, fluid loss, heat loss and infection, are the same as after a severe burn.</p>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>

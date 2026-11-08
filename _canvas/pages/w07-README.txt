@@ -10,4 +10,4 @@ Week 8, Step 6 | Mastery Check, and upload your report   ->  w07-06-mastery-chec
 Week 8, Step 7 | Lab, hormones and the autonomic system   ->  w07-07-lab-hormones-and-the-autonomic-system-ASSIGNMENT.html  (Canvas ASSIGNMENT: paste into its description)
 Week 8, Step 8 | Your application case   ->  w07-08-your-application-case.html  (Canvas PAGE)
 Week 8, Step 9 | Check your chart   ->  w07-09-check-your-chart.html  (Canvas PAGE)
-Week 8, Step 10 | Exam practice, two timed questions   ->  w07-10-discussion-prompt.html  (Canvas DISCUSSION: paste into its description)
+Week 8, Step 10 | Exam practice, one case   ->  private paste sheet, item 17  (Canvas ASSIGNMENT, file upload: paste into its description)

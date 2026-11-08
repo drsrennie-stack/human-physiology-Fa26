@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 10 Stations: Cuff and Ankle Index · BIO 005 Human Physiology</title>
+<meta name="description" content="Week 10 circuit stations: take blood pressures by listening for Korotkoff sounds, and work out the ankle-brachial index for simulated patients.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+:root{--deep:#060B1A;--navy:#0B1530;--rust:#8B3A2E;--rust-d:#7A2E24;--gold:#B8924A;--gold2:#E3C27D;--ink:#1f2a44;--mute:#414B5C;--rule:#E1E3E8;--page:#FAFAF9}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+.skip{position:absolute;left:-999px;top:8px;background:var(--deep);color:#fff;padding:10px 14px;border-radius:8px;z-index:50;font-weight:700}.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.band{background:linear-gradient(120deg,#060B1A 0%,#0E1A33 60%,#1B2A4A 100%);color:#fff;padding:28px 20px 24px}
+.in{max-width:920px;margin:0 auto}
+.eyebrow{margin:0;color:var(--gold2);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+h1{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 0;letter-spacing:-.02em}
+h1 span{color:#C9624C}
+.band p.lead{margin:10px 0 0;color:#DCE2EE;max-width:64ch}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.pills li{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);border:1px solid var(--gold2);border-radius:999px;padding:4px 12px}
+main{max-width:920px;margin:0 auto;padding:20px 20px 40px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:20px 22px;margin:0 0 16px}
+.card h2{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:22px;color:var(--deep);margin:0 0 8px;line-height:1.2}
+.card h3{font-size:15px;font-weight:800;color:var(--rust);margin:16px 0 6px;letter-spacing:.02em}
+.kicker{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+.num{font-family:"Open Sans",system-ui,sans-serif;font-size:52px;font-weight:800;color:var(--rust-d);line-height:1;margin:0 0 4px}
+ul.tight,ol.tight{margin:6px 0 0;padding-left:1.25em}ul.tight li,ol.tight li{margin:0 0 6px}
+table{border-collapse:collapse;width:100%;margin:8px 0 0;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+tbody th{color:var(--deep);white-space:nowrap}
+tbody th b{display:block;font-family:"Open Sans",system-ui,sans-serif;font-size:22px;color:var(--rust-d)}
+.note{font-size:14px;color:var(--mute);margin:8px 0 0}
+.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 0}
+.panels div{border:1.5px dashed #9AA0AC;border-radius:10px;min-height:240px;padding:10px;font-weight:800;color:var(--mute);font-size:13px}
+@media (max-width:640px){.panels{grid-template-columns:1fr}.panels div{min-height:140px}}
+a{color:var(--rust)}
+.sig{text-align:center;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:18px 0 0}
+@media print{body{background:#fff;color:#000}.band{background:none;color:#000;padding:0 0 8px;border-bottom:2px solid #000}.eyebrow,h1 span,.band p.lead,.pills li{color:#000;border-color:#000}
+ .card{box-shadow:none;border-color:#999;break-inside:avoid}.card h3,.kicker,.num,tbody th b{color:#000}.skip,.noprint{display:none!important}.panels div{min-height:520px;border-color:#000}a{color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" target="_self">Skip to the page</a>
+<header class="band"><div class="in">
+<p class="eyebrow">BIO 005 Human Physiology &middot; Week 10 &middot; Lab circuit</p>
+<h1>The cuff and the <span>ankle index</span></h1>
+<p class="lead">Two stations: take three blood pressures by sound, then work out blood flow to the legs for five patients.</p>
+<ul class="pills"><li>Station 1 and 2</li><li>Simulated patients</li><li>Print to PDF</li></ul>
+</div></header>
+<main id="main">
+
+<style>
+.st{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:18px;align-items:start}
+@media (max-width:760px){.st{grid-template-columns:1fr}}
+.gauge{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:999px;border:0;background:var(--deep);color:#fff;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:12.5px;cursor:pointer}
+.btn.sec{background:#fff;color:var(--deep);border:1.5px solid var(--deep)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.big{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:26px;color:var(--deep)}
+.res{width:100%;border-collapse:collapse;font-size:14.5px;margin:8px 0 0}.res th,.res td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+.ok{color:#1d5e3a;font-weight:800}.no{color:var(--rust-d);font-weight:800}
+label.f{display:block;font-weight:700;margin:12px 0 4px}textarea,input[type=number],select{width:100%;font:inherit;padding:8px 10px;border:1px solid #9AA0AC;border-radius:8px;background:#fff;color:var(--ink)}
+input[type=number]{max-width:140px}
+.pt{border:1px solid var(--rule);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+@media print{.btnrow,.noprint{display:none!important}}
+</style>
+
+<div class="card"><p class="kicker">Week 10 circuit</p><h2>Two stations on this page</h2><ul class="tight">
+<li><b>Station 1, the cuff:</b> take three blood pressures by listening for the Korotkoff sounds. Each one is a new patient.</li>
+<li><b>Station 2, the ankle-brachial index:</b> work out blood flow to the legs for five patients and decide who has peripheral artery disease.</li>
+<li>The other stations are in the <a href="hemodynamics-lab.html" target="_top">Week 10 lab</a>: the calculations, capillary exchange and standing up, then the PhysioEx.</li>
+<li>When you finish, print this page to PDF. Your results and answers print with it.</li></ul>
+<label class="f" for="stName">Your name, as it appears in Canvas</label><input type="text" id="stName" autocomplete="name"></div>
+
+<div class="card"><p class="kicker">Station 1</p><h2>Take a blood pressure by sound</h2>
+<p>Press <b>Inflate</b>. The cuff pumps up above the systolic pressure and then lets air out slowly, about 3 mmHg per heartbeat. Watch the needle and listen. Press <b>First sound</b> when the tapping starts, and <b>Sounds gone</b> when it stops. You pass a patient when both readings are within 5 mmHg. Use headphones. Can&rsquo;t use sound? Turn on the flash.</p>
+<div class="st"><div>
+<svg class="gauge" id="kgG" viewBox="0 0 300 300" role="img" aria-labelledby="kgGt"><title id="kgGt">Cuff pressure gauge, 0 to 300 mmHg</title>
+<circle cx="150" cy="150" r="140" fill="#fff" stroke="#0B1530" stroke-width="4"/><g id="kgTicks"></g>
+<line id="kgN" x1="150" y1="150" x2="150" y2="34" stroke="#8B3A2E" stroke-width="4" stroke-linecap="round"/><circle cx="150" cy="150" r="9" fill="#0B1530"/>
+<text x="150" y="215" text-anchor="middle" font-size="15" fill="#414B5C">mmHg</text><circle id="kgF" cx="150" cy="250" r="12" fill="#B8924A" opacity="0"/></svg>
+<p class="small" id="kgNum" hidden></p></div><div>
+<div class="btnrow"><button class="btn" type="button" id="kgInf">Inflate</button><button class="btn sec" type="button" id="kgFirst" disabled>First sound</button><button class="btn sec" type="button" id="kgGone" disabled>Sounds gone</button></div>
+<div class="btnrow"><label style="display:inline-flex;gap:6px;align-items:center;font-weight:700" for="kgFlash"><input type="checkbox" id="kgFlash"> Flash with each sound</label>
+<label style="display:inline-flex;gap:6px;align-items:center;font-weight:700" for="kgShow"><input type="checkbox" id="kgShow"> Show the number (if you can&rsquo;t read the dial)</label></div>
+<p id="kgLive" role="status" aria-live="polite" class="note">Press Inflate to start patient 1.</p>
+<table class="res"><caption class="sr">Your blood pressure readings</caption><thead><tr><th scope="col">Patient</th><th scope="col">You heard</th><th scope="col">True value</th><th scope="col">Result</th></tr></thead><tbody id="kgRes"></tbody></table>
+</div></div>
+<label class="f" for="kg_q1">Why do the sounds start at the systolic pressure? Explain what the artery and the blood are doing under the cuff at that moment.</label><textarea id="kg_q1" rows="3"></textarea>
+<label class="f" for="kg_q2">Why do the sounds disappear at the diastolic pressure?</label><textarea id="kg_q2" rows="3"></textarea>
+<label class="f" for="kg_q3">For one of your patients, work out the pulse pressure and the mean arterial pressure. Show your numbers.</label><textarea id="kg_q3" rows="3"></textarea></div>
+
+<div class="card"><p class="kicker">Station 2</p><h2>The ankle-brachial index</h2>
+<p>A narrowed leg artery drops the pressure beyond it. Comparing the systolic pressure at the ankle with the one in the arm shows how well blood reaches the legs.</p>
+<ol class="tight"><li>For each leg, divide the higher of its two ankle pressures (dorsalis pedis or posterior tibial) by the higher of the two arm pressures.</li>
+<li>Round to two decimals, then decide what it means.</li></ol>
+<table class="res"><caption>What the index means (resting, adults)</caption><thead><tr><th scope="col">Index</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><td>above 1.40</td><td>Stiff, hard-to-compress arteries (often diabetes or kidney disease); the reading is not reliable</td></tr>
+<tr><td>1.00 to 1.40</td><td>Normal</td></tr><tr><td>0.91 to 0.99</td><td>Borderline</td></tr>
+<tr><td>0.90 or below</td><td>Peripheral artery disease</td></tr><tr><td>0.40 or below</td><td>Severe peripheral artery disease</td></tr></tbody></table>
+<div id="abiBox"></div>
+<div class="btnrow noprint"><button class="btn" type="button" id="abiCheck">Check my answers</button><button class="btn sec" type="button" id="abiNew">New patients</button></div>
+<p id="abiLive" role="status" aria-live="polite" class="note"></p>
+<label class="f" for="abi_q1">Pick your patient with the lowest index. Using pressure, flow and resistance, explain why a narrowed artery in the thigh lowers the pressure at the ankle but not in the arm.</label><textarea id="abi_q1" rows="4"></textarea>
+<label class="f" for="abi_q2">Why would that person&rsquo;s calf hurt when walking and ease with rest? Explain it with oxygen supply and demand.</label><textarea id="abi_q2" rows="3"></textarea></div>
+
+<div class="card noprint"><p class="kicker">Turn it in</p><h2>Print to PDF</h2><p>Pass three cuff patients and check all five index patients. Then print this page and choose Save as PDF. Upload it with your Week 10 lab.</p>
+<div class="btnrow"><button class="btn" type="button" onclick="window.print()">Print or save as PDF</button></div></div>
+
+<script>
+(function(){
+ /* ---------- Station 1: Korotkoff simulator ---------- */
+ var N=document.getElementById('kgN'),num=document.getElementById('kgNum'),live=document.getElementById('kgLive'),fl=document.getElementById('kgF');
+ var bI=document.getElementById('kgInf'),bF=document.getElementById('kgFirst'),bG=document.getElementById('kgGone'),res=document.getElementById('kgRes');
+ var ticks='';for(var v=0;v<=300;v+=10){var a=(-135+v*270/300)*Math.PI/180,big=v%50===0,r1=big?112:120,r2=132;
+  ticks+='<line x1="'+(150+r1*Math.sin(a))+'" y1="'+(150-r1*Math.cos(a))+'" x2="'+(150+r2*Math.sin(a))+'" y2="'+(150-r2*Math.cos(a))+'" stroke="#0B1530" stroke-width="'+(big?3:1.5)+'"/>';
+  if(big)ticks+='<text x="'+(150+92*Math.sin(a))+'" y="'+(156-92*Math.cos(a))+'" text-anchor="middle" font-size="16" font-weight="700" fill="#0B1530">'+v+'</text>';}
+ document.getElementById('kgTicks').innerHTML=ticks;
+ var ac=null,pt=0,P=0,run=false,sbp=0,dbp=0,hr=72,heard=null,gone=null,last=0,nextBeat=0,raf=0;
+ function A(){if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();return ac;}
+ function tap(loud,muffled){var c=A(),t=c.currentTime,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();o.type='triangle';o.frequency.value=muffled?60:95;f.type='lowpass';f.frequency.value=muffled?180:420;
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.25+0.6*loud,t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t+(muffled?0.12:0.07));o.connect(f);f.connect(g);g.connect(c.destination);o.start(t);o.stop(t+0.15);}
+ function needle(p){var a=-135+Math.max(0,Math.min(300,p))*270/300;N.setAttribute('transform','rotate('+a+' 150 150)');
+  if(document.getElementById('kgShow').checked){num.hidden=false;num.textContent=Math.round(p)+' mmHg';}else num.hidden=true;}
+ function patient(){sbp=100+Math.round(Math.random()*80);dbp=Math.max(55,Math.min(sbp-25,Math.round(sbp*0.55+Math.random()*25)));hr=60+Math.round(Math.random()*30);}
+ bI.addEventListener('click',function(){if(run)return;if(pt>=3){pt=0;res.innerHTML='';}patient();pt++;var c=A();if(c.state==='suspended')c.resume();
+  heard=gone=null;P=0;run=true;bI.disabled=true;bF.disabled=bG.disabled=false;live.textContent='Patient '+pt+': inflating. Listen once the needle starts falling.';
+  var target=sbp+30+Math.round(Math.random()*10),t0=performance.now();
+  (function up(){var e=(performance.now()-t0)/1000;P=Math.min(target,e*120);needle(P);if(P<target){raf=requestAnimationFrame(up);}else{last=performance.now();nextBeat=last+400;down();}})();});
+ function down(){var now=performance.now(),dt=(now-last)/1000;last=now;var rate=3*hr/60;P-=rate*dt;
+  var bounce=0;if(now>=nextBeat){nextBeat=now+60000/hr;
+   if(P<sbp&&P>dbp){var x=(sbp-P)/(sbp-dbp);tap(x<0.15?0.5:x<0.6?1:0.6,x>0.85);if(document.getElementById('kgFlash').checked){fl.setAttribute('opacity','1');setTimeout(function(){fl.setAttribute('opacity','0');},110);}}
+   if(P<sbp+25&&P>dbp-15)bounce=2+4*Math.max(0,1-Math.abs(P-(dbp+(sbp-dbp)/3))/((sbp-dbp)));}
+  needle(P+bounce);if(bounce)setTimeout(function(){needle(P);},90);
+  if(P>20&&run){raf=requestAnimationFrame(down);}else finish();}
+ function finish(){run=false;bI.disabled=false;bF.disabled=bG.disabled=true;needle(0);
+  var okS=heard!==null&&Math.abs(heard-sbp)<=5,okD=gone!==null&&Math.abs(gone-dbp)<=5,ok=okS&&okD;
+  res.insertAdjacentHTML('beforeend','<tr><td>'+pt+'</td><td>'+(heard!==null?Math.round(heard):'none')+' / '+(gone!==null?Math.round(gone):'none')+'</td><td>'+sbp+' / '+dbp+'</td><td class="'+(ok?'ok':'no')+'">'+(ok?'Passed':'Not yet')+'</td></tr>');
+  live.textContent='Patient '+pt+(ok?' passed. ':' not passed. ')+'The true pressure was '+sbp+' over '+dbp+'. '+(pt<3?'Press Inflate for the next patient.':'Done. Press Inflate to start a new set of three.');}
+ bF.addEventListener('click',function(){if(run&&heard===null){heard=P;live.textContent='First sound marked. Now listen for the sounds to stop.';}});
+ bG.addEventListener('click',function(){if(run&&heard!==null&&gone===null){gone=P;P=20;}});
+ needle(0);
+ /* ---------- Station 2: ankle-brachial index ---------- */
+ var box=document.getElementById('abiBox'),pats=[];
+ function r(a,b){return a+Math.round(Math.random()*(b-a));}
+ var names=['Patient A','Patient B','Patient C','Patient D','Patient E'];
+ function make(){pats=[];var kinds=['normal','pad','borderline','severe','stiff'].sort(function(){return Math.random()-0.5;});
+  kinds.forEach(function(k,i){var arm=[r(118,146),0];arm[1]=arm[0]+r(-8,8);var hi=Math.max(arm[0],arm[1]);
+   function leg(k){var f={normal:[1.02,1.22],pad:[0.55,0.85],borderline:[0.92,0.98],severe:[0.25,0.38],stiff:[1.45,1.65]}[k];var x=f[0]+Math.random()*(f[1]-f[0]);var top=Math.round(hi*x);return [top,top-r(2,10)].sort(function(){return Math.random()-0.5;});}
+   var bad=Math.random()<0.5?'R':'L',R=leg(bad==='R'?k:(k==='stiff'?'stiff':'normal')),L=leg(bad==='L'?k:(k==='stiff'?'stiff':'normal'));
+   pats.push({name:names[i],arm:arm,R:R,L:L,hi:hi,age:r(52,78)});});
+  box.innerHTML=pats.map(function(p,i){return '<div class="pt"><b>'+p.name+'</b>, age '+p.age+'. Arm systolic: right '+p.arm[0]+', left '+p.arm[1]+' mmHg. Right ankle: '+p.R[0]+' and '+p.R[1]+'. Left ankle: '+p.L[0]+' and '+p.L[1]+' mmHg.'+
+   ['R','L'].map(function(s){var nm=s==='R'?'Right':'Left';return '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:end"><div><label class="f" for="abi'+i+s+'">'+nm+' leg index</label><input type="number" step="0.01" id="abi'+i+s+'"></div>'+
+    '<div style="flex:1;min-width:200px"><label class="f" for="abm'+i+s+'">'+nm+' leg meaning</label><select id="abm'+i+s+'"><option value="">Choose</option><option value="stiff">Above 1.40: stiff arteries</option><option value="normal">Normal</option><option value="borderline">Borderline</option><option value="pad">Peripheral artery disease</option><option value="severe">Severe peripheral artery disease</option></select></div></div>';}).join('')+'</div>';}).join('');
+  document.getElementById('abiLive').textContent='';}
+ function cls(x){return x>1.40?'stiff':x>=1.00?'normal':x>=0.91?'borderline':x>0.40?'pad':'severe';}
+ document.getElementById('abiCheck').addEventListener('click',function(){var right=0,tot=0,msg=[];
+  pats.forEach(function(p,i){['R','L'].forEach(function(s){tot++;var t=Math.max.apply(null,p[s])/p.hi,tv=Math.round(t*100)/100,v=parseFloat(document.getElementById('abi'+i+s).value),m=document.getElementById('abm'+i+s).value;
+   var ok=Math.abs(v-tv)<=0.02&&m===cls(tv);if(ok)right++;else msg.push(p.name+' '+(s==='R'?'right':'left')+': index '+tv.toFixed(2)+', '+{stiff:'stiff arteries',normal:'normal',borderline:'borderline',pad:'peripheral artery disease',severe:'severe peripheral artery disease'}[cls(tv)]);});});
+  document.getElementById('abiLive').textContent=right+' of '+tot+' legs right.'+(msg.length?' Check these: '+msg.join('; ')+'. Remember: higher ankle pressure for that leg, divided by the higher arm pressure.':' All correct.');});
+ document.getElementById('abiNew').addEventListener('click',make);make();
+})();
+</script>
+
+<p class="sig">Dr. Sharilyn Rennie</p>
+</main>
+<script>
+(function () {
+  var id = 'bio005-bp-stations';
+  function send() { var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    try { parent.postMessage({ type: 'resize', id: id, frameId: id, height: h }, '*'); } catch (e) {} }
+  window.addEventListener('load', send); window.addEventListener('resize', send);
+  if (window.ResizeObserver) new ResizeObserver(send).observe(document.body);
+})();
+</script>
+</body>
+</html>

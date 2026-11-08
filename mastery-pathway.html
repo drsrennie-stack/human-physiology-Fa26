@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mastery Check · Choose Your Target · BIO 005 Human Physiology</title>
+<meta name="description" content="The BIO 005 Mastery Check for Weeks 10 to 15: choose your target level, answer the questions for that level, and print your report.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<style>
+/* Nov 8 2026. The Mastery Check on the mastery pathway (Weeks 10 to 15).
+   The student picks a target, 70, 80, 90 or 100. The check draws questions
+   from bio005-exam-bank.js in levels that build on each other:
+     70  Foundational  depth 1 (recall and explain), one per competency
+     80  Mechanistic   depth 2 (cause and effect, regulation), 10 questions
+     90  Applied       depth 3 (predict a disturbance), 10 questions
+     100 Integrated    application cases, 4 from this week and 2 from an
+                       earlier Part 2 week, so two systems meet
+   A level is met at 80 percent or better on its questions, and every level
+   below it must be met too. The score is the highest level met. Below the
+   foundational level the score is the percent correct on the foundational
+   questions, up to 69. Two graded attempts per week; the second draws
+   questions the first did not use. Saved in this browser only; the printed
+   report is the record. */
+:root{--deep:#060B1A;--navy:#0B1530;--rust:#8B3A2E;--rust-d:#7A2E24;--gold:#B8924A;--gold2:#E3C27D;--ink:#1f2a44;--mute:#414B5C;--rule:#E1E3E8;--page:#FAFAF9;--ok:#1E5A3A;--okbg:#EAF3EE;--no:#7A2E24;--nobg:#F9EDEA}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+.skip{position:absolute;left:-999px;top:8px;background:var(--deep);color:#fff;padding:10px 14px;border-radius:8px;z-index:50;font-weight:700}.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.band{background:linear-gradient(120deg,#060B1A 0%,#0E1A33 60%,#1B2A4A 100%);color:#fff;padding:28px 20px 24px}
+.in{max-width:900px;margin:0 auto}
+.eyebrow{margin:0;color:var(--gold2);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+h1{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 0;letter-spacing:-.02em}
+h1 span{color:#C9624C}
+.band p.lead{margin:10px 0 0;color:#DCE2EE;max-width:62ch}
+main{max-width:900px;margin:0 auto;padding:20px 20px 40px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:20px 22px;margin:0 0 16px}
+.card h2{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:22px;color:var(--deep);margin:0 0 8px}
+.card h3{font-size:16px;color:var(--rust);margin:16px 0 6px}
+.kicker{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+ul.tight{margin:6px 0 0;padding-left:1.2em}ul.tight li{margin:0 0 4px}
+.targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:10px 0 0;border:0;padding:0}
+.targets legend{font-weight:800;color:var(--deep);margin:0 0 8px;padding:0}
+.tg{position:relative}
+.tg input{position:absolute;opacity:0;width:1px;height:1px}
+.tg label{display:block;height:100%;padding:14px 16px;border:2px solid var(--rule);border-radius:12px;background:#fff;cursor:pointer}
+.tg label b{display:block;font-family:"Open Sans",system-ui,sans-serif;font-size:26px;font-weight:800;color:var(--rust-d);line-height:1}
+.tg label span{display:block;font-weight:800;color:var(--deep);margin:4px 0 2px}
+.tg label small{display:block;font-size:13px;color:var(--mute);line-height:1.4}
+.tg input:checked+label{border-color:var(--deep);background:#F2F3F6}
+.tg input:focus-visible+label{outline:3px solid var(--gold);outline-offset:2px}
+.field{display:block;font-weight:700;margin:14px 0 4px}
+input[type=text]{font:inherit;width:100%;max-width:420px;min-height:44px;padding:8px 12px;border:1px solid #9AA0AC;border-radius:8px}
+.btn{font:inherit;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;min-height:46px;padding:10px 20px;border-radius:999px;border:2px solid var(--deep);background:var(--deep);color:#fff;cursor:pointer}
+.btn:hover{background:#1B2A4A;border-color:#1B2A4A}
+.btn.ghost{background:#fff;color:var(--deep)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.msg{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:#F2F3F6;font-weight:600}
+.msg.warn{background:var(--nobg);color:var(--no)}
+.attempt{display:inline-block;margin:0 0 10px;padding:4px 12px;border-radius:999px;background:var(--gold2);color:var(--deep);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.lvlhead{margin:22px 0 10px;padding:0 0 6px;border-bottom:1px solid var(--rule)}
+.lvlhead h2{margin:0;font-family:"Open Sans",system-ui,sans-serif;font-size:20px;color:var(--deep)}
+.lvlhead p{margin:2px 0 0;color:var(--mute);font-size:14px}
+fieldset.q{border:1px solid var(--rule);border-radius:12px;background:#fff;margin:0 0 12px;padding:14px 18px}
+fieldset.q legend{float:left;width:100%;padding:0;margin:0 0 8px;font-weight:800;color:var(--deep)}
+fieldset.q legend .num{color:var(--rust);margin-right:6px}
+fieldset.q .case{clear:both;margin:0 0 8px;padding:10px 12px;background:#F7F6F3;border-radius:8px;font-size:14.5px}
+fieldset.q .opts{clear:both;display:grid;gap:6px}
+fieldset.q .opt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;cursor:pointer}
+fieldset.q .opt input{margin-top:4px;flex:none;width:18px;height:18px}
+fieldset.q .hint{clear:both;margin:0 0 6px;font-size:13px;color:var(--mute)}
+.res{clear:both;margin:10px 0 0;padding:10px 12px;border-radius:8px;font-size:14px}
+.res.ok{background:var(--okbg);color:var(--ok)}.res.no{background:var(--nobg);color:var(--no)}
+.res b{display:block}
+.res .why{color:var(--ink);margin:6px 0 0}
+table{border-collapse:collapse;width:100%;margin:8px 0 0;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{color:var(--deep)}
+td.n,th.n{text-align:right}
+.met{color:var(--ok);font-weight:800}.notmet{color:var(--no);font-weight:800}
+.big{font-family:"Open Sans",system-ui,sans-serif;font-size:44px;font-weight:800;color:var(--deep);line-height:1;margin:4px 0}
+.sig{text-align:center;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:18px 0 0}
+@media print{.band{background:none;color:#000;padding:0 0 10px}.eyebrow,h1 span,.band p.lead{color:#000}.btnrow,.skip,#setup{display:none!important}
+ .card,fieldset.q{box-shadow:none;break-inside:avoid;border-color:#999}.res.ok,.res.no{background:none;border:1px solid #999;color:#000}.attempt{background:none;border:1px solid #000}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" target="_self">Skip to the Mastery Check</a>
+<header class="band"><div class="in">
+  <p class="eyebrow" id="eb">BIO 005 Human Physiology · Mastery Check</p>
+  <h1 id="h1">Choose your <span>target</span></h1>
+  <p class="lead" id="lead">Pick the level you are aiming for. You answer the questions for that level and every level below it.</p>
+</div></header>
+
+<main id="main">
+  <div id="setup">
+    <div class="card">
+      <p class="attempt" id="attemptTag"></p>
+      <h2>Before you start</h2>
+      <ul class="tight">
+        <li>Do the pre-work first: the lecture video, the click-through slides and the notes for this week. Every question comes from them.</li>
+        <li>Close your notes, the book, other tabs and any AI tool, and keep them closed until you submit.</li>
+        <li>Your score is the highest level you show, not the level you pick.</li>
+        <li>A level counts when you get at least 80 percent of its questions right, and every level below it counts too. Below the 70 level, your score is your percent correct on the foundational questions, up to 69 percent.</li>
+        <li>You get two graded attempts. Your second attempt uses different questions.</li>
+        <li>Print your report as a PDF when you finish and upload it in Canvas.</li>
+      </ul>
+      <label class="field" for="name">Your name, as it appears in Canvas</label>
+      <input type="text" id="name" autocomplete="name">
+      <fieldset class="targets" id="targets">
+        <legend>Choose your target</legend>
+      </fieldset>
+      <div class="btnrow"><button class="btn" type="button" id="start">Start the Mastery Check</button></div>
+      <p class="msg warn" id="setupMsg" role="alert" hidden></p>
+    </div>
+  </div>
+  <form id="exam" hidden novalidate></form>
+  <div id="report" hidden tabindex="-1"></div>
+  <p class="sig">Dr. Sharilyn Rennie · BIO 005 · Yuba College</p>
+</main>
+
+<script src="bio005-exam-bank.js"></script>
+<script>
+(function () {
+  var BANK = window.BIO005_EXAM_BANK;
+  var m = /[?&]week=(\d{1,2})/.exec(location.search);
+  var WK = m ? parseInt(m[1], 10) : 10;
+  if (!(WK >= 10 && WK <= 15)) { WK = 10; }
+  var week = BANK.weeks.filter(function (w) { return w.n === WK; })[0];
+  var comps = BANK.competencies.filter(function (c) { return c.week === WK; });
+  var COMP = {}; BANK.competencies.forEach(function (c) { COMP[c.id] = c; });
+  var KEY = 'bio005-pathway-v1-w' + WK;
+  var LEVELS = [
+    { pct: 70, name: 'Foundational', can: 'Identify and explain the essential mechanisms.', head: 'Foundational questions', sub: 'Recall and explain the essential physiology.' },
+    { pct: 80, name: 'Mechanistic', can: 'Also explain cause and effect, including how it is regulated.', head: 'Mechanistic questions', sub: 'Cause and effect, and how the body regulates it.' },
+    { pct: 90, name: 'Applied', can: 'Also predict what happens when something is disturbed.', head: 'Applied questions', sub: 'Predict the response to a disturbance.' },
+    { pct: 100, name: 'Integrated', can: 'Also analyze new cases where more than one system is involved.', head: 'Integrated cases', sub: 'New cases where this week meets an earlier week.' }
+  ];
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || { attempts: [] }; } catch (e) { return { attempts: [] }; } }
+  function save(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) | 0; } return (h >>> 0).toString(36).toUpperCase(); }
+
+  document.getElementById('eb').textContent = 'BIO 005 Human Physiology · Week ' + WK + ' · Mastery Check';
+  document.getElementById('lead').textContent = 'Week ' + WK + ': ' + week.title + '. Pick the level you are aiming for. You answer the questions for that level and every level below it.';
+  document.title = 'Week ' + WK + ' Mastery Check · Choose Your Target · BIO 005 Human Physiology';
+
+  var state = load();
+  var graded = state.attempts.filter(function (a) { return a.graded; }).length;
+  var attemptNo = graded + 1;
+  document.getElementById('attemptTag').textContent = attemptNo <= 2 ? 'Graded attempt ' + attemptNo + ' of 2' : 'Practice only: both graded attempts are used';
+
+  document.getElementById('targets').insertAdjacentHTML('beforeend', LEVELS.map(function (L, i) {
+    return '<div class="tg"><input type="radio" name="target" id="t' + L.pct + '" value="' + i + '"><label for="t' + L.pct + '"><b>' + L.pct + '%</b><span>' + L.name + '</span><small>' + esc(L.can) + '</small></label></div>';
+  }).join(''));
+
+  /* question draw */
+  var usedBefore = {}; state.attempts.forEach(function (a) { (a.ids || []).forEach(function (id) { usedBefore[id] = 1; }); });
+  function pool(fn, weeks) { return BANK.items.filter(function (q) { return (weeks || [WK]).indexOf(q.week) >= 0 && fn(q); }); }
+  function pickFrom(list, n, taken, spread) {
+    var fresh = list.filter(function (q) { return !taken[q.id] && !usedBefore[q.id]; });
+    var old = list.filter(function (q) { return !taken[q.id] && usedBefore[q.id]; });
+    var out = [], perComp = {};
+    var present = []; list.forEach(function (q) { if (present.indexOf(q.competencyId) < 0) { present.push(q.competencyId); } });
+    function go(src) {
+      shuffle(src);
+      if (spread) { src.sort(function (a, b) { return (perComp[a.competencyId] || 0) - (perComp[b.competencyId] || 0); }); }
+      for (var i = 0; i < src.length && out.length < n; i++) {
+        var q = src[i]; if (taken[q.id]) { continue; }
+        if (spread && (perComp[q.competencyId] || 0) > Math.min.apply(null, present.map(function (id) { return perComp[id] || 0; }))) { continue; }
+        out.push(q); taken[q.id] = 1; perComp[q.competencyId] = (perComp[q.competencyId] || 0) + 1;
+      }
+    }
+    for (var pass = 0; pass < 4 && out.length < n; pass++) { go(fresh.filter(function (q) { return !taken[q.id]; })); }
+    for (pass = 0; pass < 4 && out.length < n; pass++) { go(old.filter(function (q) { return !taken[q.id]; })); }
+    return out;
+  }
+  function draw(top) {
+    var taken = {}, bands = [];
+    var objective = function (q) { return q.type === 'mc' || q.type === 'ma' || q.type === 'tf'; };
+    /* foundational: one depth 1 question per competency */
+    var f = [];
+    comps.forEach(function (c) {
+      var got = pickFrom(pool(function (q) { return q.competencyId === c.id && q.dok === 1 && (q.type === 'mc' || q.type === 'tf'); }), 1, taken);
+      if (!got.length) { got = pickFrom(pool(function (q) { return q.competencyId === c.id && q.dok === 2 && q.type === 'mc'; }), 1, taken); }
+      f = f.concat(got);
+    });
+    if (f.length < 12) { f = f.concat(pickFrom(pool(function (q) { return q.dok === 1 && (q.type === 'mc' || q.type === 'tf'); }), 12 - f.length, taken)); }
+    bands.push(shuffle(f));
+    if (top >= 1) { bands.push(pickFrom(pool(function (q) { return q.dok === 2 && objective(q); }), 10, taken, true)); }
+    if (top >= 2) { bands.push(pickFrom(pool(function (q) { return q.dok === 3 && q.type === 'mc'; }), 10, taken, true)); }
+    if (top >= 3) {
+      var here = pickFrom(pool(function (q) { return q.type === 'app'; }), 4, taken);
+      var earlierWeeks = []; for (var w = 9; w < WK; w++) { earlierWeeks.push(w); }
+      var before = earlierWeeks.length ? pickFrom(pool(function (q) { return q.type === 'app'; }, earlierWeeks), 2, taken) : [];
+      if (before.length < 2) { here = here.concat(pickFrom(pool(function (q) { return q.type === 'app'; }), 2 - before.length, taken)); }
+      bands.push(shuffle(here.concat(before)));
+    }
+    return bands;
+  }
+
+  /* exam */
+  var CUR = null;
+  function optionsHTML(q, k) {
+    if (q.type === 'tf') {
+      return '<p class="hint">True or false?</p><div class="opts">' + ['True', 'False'].map(function (t, i) {
+        return '<label class="opt"><input type="radio" name="' + k + '" value="' + i + '"><span>' + t + '</span></label>'; }).join('') + '</div>';
+    }
+    var multi = q.type === 'ma';
+    return (multi ? '<p class="hint">Select every answer that is correct.</p>' : '') + '<div class="opts">' + q.options.map(function (o, i) {
+      return '<label class="opt"><input type="' + (multi ? 'checkbox' : 'radio') + '" name="' + k + '" value="' + i + '"><span>' + esc(o) + '</span></label>'; }).join('') + '</div>';
+  }
+  function stemOf(q) { return q.type === 'tf' ? q.statement : q.stem; }
+  function startExam() {
+    var t = document.querySelector('input[name=target]:checked');
+    var msg = document.getElementById('setupMsg');
+    if (!document.getElementById('name').value.trim()) { msg.textContent = 'Type your name first. It prints on your report.'; msg.hidden = false; document.getElementById('name').focus(); return; }
+    if (!t) { msg.textContent = 'Choose your target first.'; msg.hidden = false; document.querySelector('input[name=target]').focus(); return; }
+    msg.hidden = true;
+    var top = +t.value, bands = draw(top), n = 0;
+    CUR = { top: top, bands: bands, name: document.getElementById('name').value.trim(), started: new Date().toISOString(), graded: attemptNo <= 2, no: attemptNo };
+    var h = '<div class="card"><p class="attempt">' + (CUR.graded ? 'Graded attempt ' + attemptNo + ' of 2' : 'Practice only') + '</p><h2>Week ' + WK + ' Mastery Check, target ' + LEVELS[top].pct + '%</h2>'
+      + '<p>' + esc(CUR.name) + '. Answer every question, then press Submit at the bottom. Notes, the book, other tabs and AI stay closed.</p></div>';
+    bands.forEach(function (b, bi) {
+      h += '<div class="lvlhead"><h2>' + LEVELS[bi].head + ' <span class="sr">for the ' + LEVELS[bi].pct + ' percent level</span></h2><p>' + esc(LEVELS[bi].sub) + ' ' + b.length + ' questions.</p></div>';
+      b.forEach(function (q) {
+        n++; var k = 'q' + n; q._k = k;
+        h += '<fieldset class="q" id="f' + k + '"><legend><span class="num">' + n + '.</span>' + esc(stemOf(q)) + '</legend>'
+          + (q.case ? '<p class="case">' + esc(q.case) + '</p>' : '') + optionsHTML(q, k) + '<div class="out"></div></fieldset>';
+      });
+    });
+    h += '<div class="card"><div class="btnrow"><button class="btn" type="submit">Submit my answers</button></div><p class="msg warn" id="examMsg" role="alert" hidden></p></div>';
+    var f = document.getElementById('exam'); f.innerHTML = h; f.hidden = false;
+    document.getElementById('setup').hidden = true;
+    f.querySelector('legend').scrollIntoView({ block: 'start' });
+    f.querySelector('input').focus();
+    send();
+  }
+  function answerOf(q) {
+    var ins = Array.prototype.slice.call(document.querySelectorAll('input[name=' + q._k + ']:checked')).map(function (x) { return +x.value; });
+    return ins;
+  }
+  function isRight(q, a) {
+    if (q.type === 'tf') { return a.length === 1 && (a[0] === 0) === !!q.truth; }
+    if (q.type === 'ma') { var c = q.correct.slice().sort().join(','); return a.slice().sort().join(',') === c; }
+    return a.length === 1 && a[0] === q.correct;
+  }
+  function correctText(q) {
+    if (q.type === 'tf') { return q.truth ? 'True' : 'False'; }
+    if (q.type === 'ma') { return q.correct.map(function (i) { return q.options[i]; }).join(' · '); }
+    return q.options[q.correct];
+  }
+  function submit(ev) {
+    ev.preventDefault();
+    var missing = [];
+    CUR.bands.forEach(function (b) { b.forEach(function (q) { if (!answerOf(q).length) { missing.push(+q._k.slice(1)); } }); });
+    var em = document.getElementById('examMsg');
+    if (missing.length) { em.textContent = 'Answer every question first. Still empty: ' + missing.join(', ') + '.'; em.hidden = false; document.getElementById('fq' + missing[0]).scrollIntoView({ block: 'center' }); return; }
+    var res = CUR.bands.map(function (b) { var r = 0; b.forEach(function (q) { q._a = answerOf(q); q._ok = isRight(q, q._a); if (q._ok) { r++; } }); return { right: r, n: b.length, met: b.length > 0 && r / b.length >= 0.8 - 1e-9 }; });
+    var earned, reached = -1;
+    for (var i = 0; i < res.length; i++) { if (res[i].met) { reached = i; } else { break; } }
+    if (reached >= 0) { earned = LEVELS[reached].pct; }
+    else { earned = Math.min(69, Math.round(100 * res[0].right / res[0].n)); }
+    var ids = []; CUR.bands.forEach(function (b) { b.forEach(function (q) { ids.push(q.id); }); });
+    var finished = new Date();
+    state.attempts.push({ date: finished.toISOString(), target: LEVELS[CUR.top].pct, earned: earned, ids: ids, graded: CUR.graded });
+    save(state);
+    report(res, reached, earned, ids, finished);
+  }
+  function report(res, reached, earned, ids, when) {
+    var code = 'W' + WK + '-' + hash(ids.join('|') + CUR.name + when.toISOString());
+    var whenTxt = when.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles' }) + ' Pacific';
+    var rows = res.map(function (r, i) {
+      return '<tr><th scope="row">' + LEVELS[i].pct + '% ' + LEVELS[i].name + '</th><td class="n">' + r.right + ' of ' + r.n + '</td><td class="n">' + Math.round(100 * r.right / r.n) + '%</td><td class="' + (r.met ? 'met' : 'notmet') + '">' + (r.met ? 'Met' : 'Not yet') + '</td></tr>';
+    }).join('');
+    var next = reached === CUR.top ? 'You met your target.'
+      : (reached >= 0 ? 'You met the ' + LEVELS[reached].name + ' level. The next level needs 80 percent of its questions right.' : 'You have not met the Foundational level yet, so your score is your percent correct on the foundational questions, up to 69 percent.');
+    var h = '<div class="card"><p class="attempt">' + (CUR.graded ? 'Graded attempt ' + CUR.no + ' of 2' : 'Practice only, not graded') + '</p>'
+      + '<p class="kicker">Week ' + WK + ' Mastery Check report</p><h2>' + esc(CUR.name) + '</h2>'
+      + '<p>' + esc(whenTxt) + ' · Report code ' + code + '</p>'
+      + '<p>Target ' + LEVELS[CUR.top].pct + '%. Your score:</p><p class="big">' + earned + '%</p><p>' + esc(next) + '</p>'
+      + '<table><caption class="sr">Results by level</caption><thead><tr><th scope="col">Level</th><th scope="col" class="n">Right</th><th scope="col" class="n">Percent</th><th scope="col">80% or better</th></tr></thead><tbody>' + rows + '</tbody></table>'
+      + (CUR.graded && CUR.no === 1 ? '<p style="margin-top:12px"><b>Your second attempt</b> uses different questions. Before you take it, go back to the competencies you missed below. You can choose a different target.</p>' : '')
+      + '<div class="btnrow"><button class="btn" type="button" id="printBtn">Print or save as PDF</button>'
+      + (state.attempts.filter(function (a) { return a.graded; }).length < 2 ? '<a class="btn ghost" href="mastery-pathway.html?week=' + WK + '" target="_top" style="text-decoration:none;display:inline-flex;align-items:center">Start my second attempt</a>' : '')
+      + '</div><p class="small" style="font-size:13px;color:#414B5C;margin-top:10px">Upload this PDF to the Week ' + WK + ' Mastery Check assignment in Canvas.</p></div>';
+    var missed = {};
+    CUR.bands.forEach(function (b) { b.forEach(function (q) {
+      var box = document.querySelector('#f' + q._k + ' .out');
+      var why = q.why || '';
+      box.innerHTML = '<div class="res ' + (q._ok ? 'ok' : 'no') + '"><b>' + (q._ok ? 'Right.' : 'Not this time. The answer is: ' + esc(correctText(q))) + '</b><p class="why">' + esc(why) + '</p></div>';
+      if (!q._ok) { missed[q.competencyId] = 1; }
+      Array.prototype.slice.call(document.querySelectorAll('input[name=' + q._k + ']')).forEach(function (x) { x.disabled = true; });
+    }); });
+    var mc = Object.keys(missed).map(function (id) { return COMP[id] ? COMP[id].name : id; });
+    if (mc.length) { h += '<div class="card"><h2>Competencies to go back to</h2><ul class="tight">' + mc.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'; }
+    h += '<div class="card"><h2>Every question, with the answer</h2><p>Your answers are below with the correct answer and why. They print with this report.</p></div>';
+    var rep = document.getElementById('report'); rep.innerHTML = h; rep.hidden = false;
+    var f = document.getElementById('exam'); f.querySelector('.card:last-child').hidden = true;
+    rep.parentNode.insertBefore(rep, f);
+    document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+    rep.focus(); rep.scrollIntoView({ block: 'start' });
+    send();
+  }
+  document.getElementById('start').addEventListener('click', startExam);
+  document.getElementById('exam').addEventListener('submit', submit);
+
+  var id = 'bio005-mastery-pathway';
+  function send() { var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); try { parent.postMessage({ type: 'resize', id: id, frameId: id, height: h }, '*'); } catch (e) {} }
+  window.addEventListener('load', send); window.addEventListener('resize', send);
+  if (window.ResizeObserver) { new ResizeObserver(send).observe(document.body); }
+})();
+</script>
+</body>
+</html>

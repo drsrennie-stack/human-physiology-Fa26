@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acid-base balance, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 13 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 13 notes · Dr. Sharilyn Rennie</p>
+  <h1>Acid-base balance</h1>
+  <p>Blood pH and why it stays at 7.35 to 7.45, where H+ comes from, the bicarbonate, phosphate and protein buffers, how the lungs and kidneys control pH, the four acid-base disorders and their causes, compensation, and reading an arterial blood gas with the ROME and tic-tac-toe methods. Week 13 competencies 23 and 24 and Week 15 competencies 1 to 4.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week13-Notes-acid-base.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.</p><p><b>Your textbook:</b> Silverthorn Chapter 21, Integrative Physiology II: Fluid and Electrolyte Balance, the part on acid-base balance. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 26, Fluid, Electrolyte, and Acid-Base Balance, the parts on acid-base balance and its disorders.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on acid-base balance, with the respiratory control centers and chemoreceptors from Chapter 18 and the nephron from Chapter 19.</p>
+<p>Three organ systems hold blood pH steady: the chemical buffers in the body fluids, the lungs with the brainstem centers that drive them, and the kidneys. You only need to picture a few structures to follow the physiology in these notes.</p>
+<dl>
+  <dt>Alveoli</dt><dd>The tiny air sacs of the lungs, wrapped in capillaries. CO2 diffuses from the blood into the alveoli and is breathed out.</dd>
+  <dt>Respiratory centers</dt><dd>Groups of neurons in the medulla oblongata and pons of the brainstem. They set the rate and depth of breathing by firing the phrenic nerves to the diaphragm and the intercostal nerves to the rib muscles.</dd>
+  <dt>Central chemoreceptors</dt><dd>Sensory neurons on the surface of the medulla, bathed in cerebrospinal fluid (CSF). They respond to the H+ that forms when CO2 enters the CSF.</dd>
+  <dt>Carotid bodies</dt><dd>Small clusters of peripheral chemoreceptor cells where each common carotid artery splits in the neck. They sense blood H+, PCO2 and low PO2, and signal the medulla through the glossopharyngeal nerve (cranial nerve IX).</dd>
+  <dt>Aortic bodies</dt><dd>Peripheral chemoreceptors on the arch of the aorta. They signal the medulla through the vagus nerve (cranial nerve X).</dd>
+  <dt>Red blood cells</dt><dd>Carry hemoglobin, a strong protein buffer, and are packed with carbonic anhydrase, the enzyme that turns CO2 and water into carbonic acid.</dd>
+  <dt>Nephron</dt><dd>The working unit of the kidney: the glomerulus filters the blood, and the tubule (proximal tubule, loop of Henle, distal tubule) and the collecting duct it drains into change the filtrate into urine.</dd>
+  <dt>Proximal tubule</dt><dd>The first part of the tubule. Its cells have a brush border of microvilli facing the filtrate, and they do most of the bicarbonate reclaiming and ammonia production.</dd>
+  <dt>Intercalated cells</dt><dd>Cells scattered among the principal cells of the distal tubule and collecting duct. Type A intercalated cells secrete H+. Type B intercalated cells secrete HCO3-.</dd>
+  <dt>Peritubular capillaries</dt><dd>The capillaries wrapped around the tubule. Bicarbonate made or reclaimed by tubule cells enters the blood here.</dd>
+  <dt>Radial artery</dt><dd>The artery at the thumb side of the wrist. It is the usual site for drawing an arterial blood gas sample.</dd>
+</dl>
+<p>Two parts of the gut matter for the disorders later on. The stomach's parietal cells secrete hydrochloric acid (HCl), so vomiting removes acid. The pancreas and intestine secrete bicarbonate-rich fluid, so severe diarrhea removes base.</p>
+</section>
+<section id="ph-and-where-h-comes-from">
+<h2>pH and where H+ comes from</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the parts on acid-base balance, why pH is tightly regulated and the sources of acids and bases in the body.</p>
+<p>pH is a measure of how many free hydrogen ions (H+) are in a fluid. The scale is logarithmic and runs backward: a lower pH means more H+, and a drop of 1 pH unit means 10 times more H+. Normal arterial blood at pH 7.40 holds only about 40 nanomoles of H+ per liter, so small changes in that tiny amount matter.</p>
+<h3>Normal pH in different fluids</h3>
+<p>Almost every chemical reaction in the body is affected by the pH around it, and the best pH differs from one fluid to another (blood, CSF, urine, the fluid inside cells). Cells run more acidic than blood because they constantly make acidic metabolites and CO2, and CO2 combines with water to form carbonic acid (H2CO3).</p>
+<div class="tbl"><table><thead><tr><th scope="col">Fluid</th><th scope="col">Typical pH</th></tr></thead><tbody>
+<tr><th scope="row">Arterial blood</th><td>7.35 to 7.45 (average 7.40)</td></tr>
+<tr><th scope="row">Venous blood and interstitial fluid</th><td>About 7.35</td></tr>
+<tr><th scope="row">Intracellular fluid</th><td>About 7.0</td></tr>
+</tbody></table></div>
+<h3>Acidosis and alkalosis</h3>
+<dl>
+  <dt>Acidosis (acidemia)</dt><dd>Arterial blood pH below 7.35.</dd>
+  <dt>Alkalosis (alkalemia)</dt><dd>Arterial blood pH above 7.45.</dd>
+  <dt>Physiological acidosis</dt><dd>Chemically, pH 7.0 is neutral, so blood at pH 7.2 is not acidic in the chemistry sense. It is still called acidosis because it is more acidic than normal blood. Any arterial pH below 7.35, including one between 7.0 and 7.35, counts as acidosis in the body.</dd>
+</dl>
+<p>Strictly, acidemia and alkalemia name the blood pH, while acidosis and alkalosis name the process causing it. Most nursing and clinical sources use the words interchangeably, and these notes do the same.</p>
+<h3>Why pH is held at 7.35 to 7.45</h3>
+<ul>
+  <li>H+ binds to proteins and changes their shape. Enzymes, channels, transporters and hemoglobin all work properly only in a narrow pH range.</li>
+  <li>Acidosis depresses the central nervous system. Patients become confused and lethargic, and severe acidosis leads to coma.</li>
+  <li>Alkalosis makes neurons too excitable. Patients feel tingling and muscle twitching, and severe alkalosis causes tetany (sustained muscle spasm) and convulsions.</li>
+  <li>pH changes shift K+ between cells and plasma. Acidosis often comes with a high plasma K+ (hyperkalemia), which can disturb heart rhythm.</li>
+  <li>The absolute limits for life are a blood pH of about 6.8 to 7.8. Below 6.8, central nervous system depression leads to coma and death. Above 7.8, the nervous system becomes so excitable that tetany and convulsions follow, and death results from respiratory arrest.</li>
+</ul>
+<h3>Where H+ comes from</h3>
+<p>A small amount of acid comes from food. Most H+ is made by the body itself as a by-product of metabolism, so the body is always adding acid to the blood and always has to remove it.</p>
+<ul>
+  <li>Aerobic respiration makes CO2. CO2 is the largest single source of acid, because it combines with water to form carbonic acid, which releases H+. The lungs remove it, so it is called a volatile acid.</li>
+  <li>Breaking down phosphorus-containing proteins and other molecules releases phosphoric acid into the ECF.</li>
+  <li>Breaking down sulfur-containing amino acids (methionine and cysteine) produces sulfuric acid.</li>
+  <li>Anaerobic breakdown of glucose produces lactic acid, for example in hard exercise or shock.</li>
+  <li>Fat metabolism produces organic acids: fatty acids and ketone bodies. Ketone production rises in uncontrolled diabetes and in starvation.</li>
+  <li>Loading CO2 into the blood for transport as HCO3- releases H+ inside red blood cells.</li>
+</ul>
+<p>Phosphoric, sulfuric, lactic and keto acids are called fixed (nonvolatile) acids. The lungs cannot breathe them off. The kidneys excrete their H+ in the urine, and the liver and other tissues can also use lactic acid and ketoacids as fuel, which removes them.</p>
+<h3>Three lines of defense, in order</h3>
+<ol>
+  <li>Chemical buffers act first, within a fraction of a second. They bind or release H+ and resist the change in pH, but they do not remove acid from the body.</li>
+  <li>The respiratory centers in the brainstem act next, within about 1 to 3 minutes, by changing the rate and depth of breathing and so the amount of CO2 in the blood.</li>
+  <li>The kidneys act last. They are the most powerful regulators, because they can excrete H+ and make new HCO3-, but they need hours to days to change pH.</li>
+</ol>
+<p>The lungs and kidneys are sometimes called the physiological buffer systems, to set them apart from the chemical buffers.</p>
+</section>
+<section id="buffer-systems">
+<h2>Buffer systems</h2>
+<p class="cref"><b>Competency 23:</b> <a href="week-13-competencies.html#h-w13-buffer-systems" target="_top">Buffer systems</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on buffer systems: proteins, phosphate and bicarbonate.</p>
+<p>A chemical buffer system is one or more compounds that resist a change in pH when a strong acid or base is added. Buffers do this by binding H+ when the pH drops and releasing H+ when the pH rises. They work instantly, but they only hold H+; they do not get rid of it.</p>
+<h3>Chemistry review: acids and bases</h3>
+<dl>
+  <dt>Acid</dt><dd>A proton donor. It releases H+ into solution.</dd>
+  <dt>Base</dt><dd>A proton acceptor. It binds H+, as HCO3- does.</dd>
+  <dt>Strong acid</dt><dd>Dissociates completely and frees all its H+ into the water, so it changes pH a lot. HCl is an example.</dd>
+  <dt>Weak acid</dt><dd>Dissociates only partly, so it frees some H+ and changes pH much less. Carbonic acid is an example. Weak acids and their partner bases make good buffers because they can give up or take back H+ as needed.</dd>
+</dl>
+<p>The acidity of a solution depends only on the free (unbound) H+. H+ that a buffer has bound does not count toward pH.</p>
+<h3>1. The bicarbonate buffer system</h3>
+<p>This system is a mix of carbonic acid (H2CO3), a weak acid, and its salt sodium bicarbonate (NaHCO3), which supplies bicarbonate ion (HCO3-), a weak base. It is the main buffer of the ECF, and it is the only buffer directly linked to breathing.</p>
+<p>The reaction runs both ways: CO2 + H2O form H2CO3, and H2CO3 splits into H+ + HCO3-. The enzyme carbonic anhydrase speeds up the CO2 and water step. It is found in red blood cells, kidney tubule cells and many other cells.</p>
+<ul>
+  <li>When something adds acid to the blood, HCO3- binds the extra H+ and forms carbonic acid, which breaks down into CO2 and water. A strong acid has been traded for a weak one.</li>
+  <li>When something adds base to the blood, carbonic acid releases H+, which neutralizes the base.</li>
+  <li>Either way the change in pH is kept small.</li>
+</ul>
+<p>Bicarbonate is the dominant ECF buffer for two reasons. Its concentration in plasma is high (22 to 26 mEq/L). And both of its ends are adjustable: the lungs control CO2 and the kidneys control HCO3-, so the system can be reset instead of running out.</p>
+<h3>2. The phosphate buffer system</h3>
+<p>The phosphate system works the same way as the bicarbonate system with different parts. Sodium dihydrogen phosphate (NaH2PO4) acts as the weak acid, and sodium monohydrogen phosphate (Na2HPO4) acts as the weak base.</p>
+<ul>
+  <li>H2PO4- releases H+ when the pH rises.</li>
+  <li>HPO4 2- binds H+ when the pH falls and becomes H2PO4-.</li>
+  <li>Its concentration in the ECF is much lower than bicarbonate, so it does little buffering of blood plasma.</li>
+  <li>It is very effective in the intracellular fluid and in urine, where phosphate concentrations are higher.</li>
+</ul>
+<h3>3. The protein buffer system</h3>
+<p>Proteins in plasma and inside cells are the most plentiful buffers in the body. About three quarters of all the buffering power of body fluids is inside cells, and most of it comes from intracellular proteins. Hemoglobin inside red blood cells is an important example.</p>
+<ul>
+  <li>Carboxyl groups (COOH) are organic acid groups. They release H+ (becoming COO-) when the pH begins to rise.</li>
+  <li>Amino groups (NH2) bind H+ (becoming NH3+) when the pH begins to fall.</li>
+  <li>Because the same protein can act as an acid or a base, depending on the pH around it, proteins are called amphoteric molecules.</li>
+</ul>
+<h3>Hemoglobin buffers the H+ from CO2 transport, step by step</h3>
+<ol>
+  <li>CO2 from the tissues diffuses into a red blood cell.</li>
+  <li>Carbonic anhydrase combines CO2 with water to form carbonic acid.</li>
+  <li>Carbonic acid splits into H+ and HCO3-.</li>
+  <li>Hemoglobin binds the H+, so the H+ does not lower the blood pH much.</li>
+  <li>HCO3- leaves the red blood cell in exchange for Cl- (the chloride shift) and travels in the plasma.</li>
+  <li>In the lungs the steps run in reverse, and the CO2 is breathed out.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Buffer</th><th scope="col">Where it works best</th><th scope="col">Speed</th></tr></thead><tbody>
+<tr><th scope="row">Bicarbonate</th><td>ECF, especially blood plasma</td><td>Instant</td></tr>
+<tr><th scope="row">Phosphate</th><td>Intracellular fluid and urine</td><td>Instant</td></tr>
+<tr><th scope="row">Protein, including hemoglobin</th><td>Inside cells and in red blood cells; plasma proteins in blood</td><td>Instant</td></tr>
+</tbody></table></div>
+<p>All three chemical buffers act within a fraction of a second. Their limit is capacity, not speed: once a buffer's partner base is used up, it cannot take more H+ until the lungs or kidneys restore it.</p>
+</section>
+<section id="respiratory-control-of-ph">
+<h2>Respiratory control of pH</h2>
+<p class="cref"><b>Competency 24:</b> <a href="week-13-competencies.html#h-w13-respiratory-ph-control" target="_top">Respiratory control of pH</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on how ventilation compensates for pH disturbances.</p>
+<p>The lungs control pH by controlling how much CO2 stays in the blood. Because CO2, carbonic acid, H+ and HCO3- are all in one equilibrium, changing CO2 changes H+. This works by the law of mass action: adding a substance on one side pushes the reaction toward the other side, and removing it pulls the reaction back.</p>
+<p>CO2 + H2O form H2CO3, which splits into H+ + HCO3-.</p>
+<ul>
+  <li>Breathing less (hypoventilation) leaves more CO2 in the blood. The reaction shifts toward H+, so more H+ forms and the pH falls.</li>
+  <li>Breathing more (hyperventilation) removes more CO2. The reaction shifts back toward CO2, H+ is used up, and the pH rises.</li>
+  <li>The lungs remove only CO2, the volatile acid. They cannot excrete fixed acids such as lactic acid or ketoacids.</li>
+</ul>
+<h3>How the chemoreceptors read pH</h3>
+<dl>
+  <dt>Central chemoreceptors</dt><dd>In the medulla. Plasma H+ crosses the blood-brain barrier poorly, but CO2 crosses easily. CO2 entering the CSF forms carbonic acid, and the H+ it releases stimulates these receptors. They respond mainly to changes in arterial PCO2.</dd>
+  <dt>Peripheral chemoreceptors</dt><dd>In the carotid and aortic bodies. They respond directly to a rise in plasma H+ and to a rise in PCO2. They also respond to a large drop in PO2, below about 60 mmHg.</dd>
+</dl>
+<h3>Rising acid speeds up breathing, step by step</h3>
+<ol>
+  <li>Acid builds up in the blood, for example ketoacids in uncontrolled diabetes, and plasma H+ rises.</li>
+  <li>The carotid bodies and aortic bodies detect the higher H+.</li>
+  <li>They send more impulses to the medulla, through the glossopharyngeal nerves from the carotid bodies and the vagus nerves from the aortic bodies.</li>
+  <li>The respiratory centers in the medulla and pons increase their output.</li>
+  <li>Motor neurons in the phrenic nerves and intercostal nerves fire faster, and the diaphragm and intercostal muscles contract harder and more often.</li>
+  <li>Breathing becomes deeper and faster, and more CO2 is exhaled.</li>
+  <li>Arterial PCO2 falls, the equilibrium shifts toward CO2, H+ is used up, and the pH rises back toward normal.</li>
+</ol>
+<h3>Retained CO2 speeds up breathing, step by step</h3>
+<ol>
+  <li>Arterial PCO2 rises, for example while holding the breath.</li>
+  <li>CO2 crosses the blood-brain barrier into the CSF.</li>
+  <li>Carbonic anhydrase helps it combine with water to form carbonic acid, which releases H+ in the CSF.</li>
+  <li>The H+ stimulates the central chemoreceptors in the medulla.</li>
+  <li>The respiratory centers increase the rate and depth of breathing.</li>
+  <li>The extra CO2 is breathed off and the pH returns toward normal.</li>
+</ol>
+<p>This is a negative feedback loop. When pH rises instead (too little acid), the chemoreceptors fire less, breathing slows, CO2 builds up, and the pH comes back down. The respiratory response starts within minutes, and it is fast because the lungs can change CO2 with every breath.</p>
+<p>Arterial PCO2 is the single best measure of how well the lungs are doing their pH job. Its normal range is 35 to 45 mmHg.</p>
+</section>
+<section id="renal-control-of-ph">
+<h2>Renal control of pH</h2>
+<p class="cref"><b>Week 15 competency 1:</b> <a href="week-15-competencies.html#h-w13-renal-ph-control" target="_top">Renal control of pH</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the parts on how the kidneys use ammonia and phosphate buffers, how the proximal tubule secretes H+ and reabsorbs HCO3-, and how the distal nephron controls acid excretion.</p>
+<p>The kidneys are the main way the body excretes fixed acid and makes new bicarbonate. They do three jobs: they secrete H+ into the urine, they reclaim the bicarbonate that was filtered, and they make new bicarbonate to replace what buffers have used up. Most of this work starts with the same reaction inside the tubule cell, in which carbonic anhydrase turns CO2 and water into H+ and HCO3-.</p>
+<dl>
+  <dt>H+ secretion</dt><dd>Moving H+ from the tubule cell into the filtrate. In the proximal tubule a Na+-H+ exchanger trades one Na+ in for one H+ out. In the distal nephron, type A intercalated cells pump H+ out with an H+-ATPase and an H+-K+-ATPase.</dd>
+  <dt>Reclaiming bicarbonate</dt><dd>Putting filtered HCO3- back into the blood. This prevents a loss of base but does not add any new base.</dd>
+  <dt>New bicarbonate</dt><dd>HCO3- added to the blood beyond what was filtered. This replaces the base that buffers used up when they absorbed fixed acid.</dd>
+</dl>
+<h3>Reclaiming filtered bicarbonate in the proximal tubule, step by step</h3>
+<ol>
+  <li>HCO3- is filtered at the glomerulus and enters the proximal tubule in the filtrate.</li>
+  <li>Inside the tubule cell, carbonic anhydrase combines CO2 and water into carbonic acid, which splits into H+ and HCO3-.</li>
+  <li>The Na+-H+ exchanger on the apical (lumen) membrane secretes the H+ into the filtrate and brings Na+ into the cell.</li>
+  <li>In the filtrate, the secreted H+ combines with a filtered HCO3- to form carbonic acid.</li>
+  <li>Carbonic anhydrase on the brush border breaks the carbonic acid into CO2 and water.</li>
+  <li>CO2 diffuses into the tubule cell and is used to make more H+ and HCO3-.</li>
+  <li>The HCO3- made in the cell leaves across the basolateral membrane with Na+ and enters the peritubular capillaries.</li>
+  <li>Net result: one filtered HCO3- disappears from the filtrate and one HCO3- enters the blood. The H+ is recycled, so no acid has left the body.</li>
+</ol>
+<p>The proximal tubule reclaims most of the filtered bicarbonate this way, and the distal nephron reclaims nearly all of the rest. Normal urine contains almost no bicarbonate.</p>
+<h3>Urine buffers: phosphate and ammonia</h3>
+<p>Free H+ in the urine cannot go very far, because urine pH cannot fall much below about 4.5. To excrete a large acid load, the kidneys pass the secreted H+ to buffers in the filtrate. Each H+ that leaves bound to a urine buffer means one new HCO3- has been added to the blood.</p>
+<dl>
+  <dt>Phosphate buffer in urine</dt><dd>Filtered HPO4 2- binds secreted H+ and leaves in the urine as H2PO4-. The amount is limited by how much phosphate is filtered.</dd>
+  <dt>Ammonia buffer in urine</dt><dd>Proximal tubule cells break down the amino acid glutamine into ammonium (NH4+) and HCO3-. The NH4+ is secreted and excreted in the urine. In the collecting duct, ammonia (NH3) also diffuses into the filtrate and traps secreted H+ as NH4+. The kidneys can increase ammonia production during acidosis, so this is the buffer that can grow to meet a large acid load.</dd>
+</dl>
+<h3>Making new bicarbonate with the phosphate buffer, step by step</h3>
+<ol>
+  <li>In a type A intercalated cell, carbonic anhydrase combines CO2 and water into carbonic acid, which splits into H+ and HCO3-.</li>
+  <li>The H+-ATPase on the apical membrane pumps the H+ into the filtrate.</li>
+  <li>The H+ binds filtered HPO4 2- and forms H2PO4-, which stays in the filtrate and leaves in the urine.</li>
+  <li>The HCO3- leaves the cell across the basolateral membrane in exchange for Cl-.</li>
+  <li>It enters the peritubular capillaries as new bicarbonate.</li>
+</ol>
+<h3>Making new bicarbonate from glutamine, step by step</h3>
+<ol>
+  <li>Proximal tubule cells take up glutamine from the filtrate and the blood.</li>
+  <li>Inside the cell, glutamine is broken down into NH4+ and HCO3-.</li>
+  <li>The NH4+ is secreted into the filtrate, taking the place of H+ on the Na+-H+ exchanger, and is excreted in the urine.</li>
+  <li>The HCO3- crosses the basolateral membrane into the peritubular capillaries as new bicarbonate.</li>
+</ol>
+<h3>When the blood is too alkaline</h3>
+<p>In alkalosis the kidneys do the reverse. Type B intercalated cells secrete HCO3- into the filtrate (in exchange for Cl-) and return H+ to the blood, and less filtered bicarbonate is reclaimed. Bicarbonate leaves in the urine and the blood pH falls back toward normal.</p>
+<h3>Why renal control is slower but more complete</h3>
+<ul>
+  <li>It is slower because it depends on the kidneys changing their transporter activity and their ammonia production. Renal compensation takes hours to start and several days to reach its full effect.</li>
+  <li>It is more complete because the kidneys actually remove H+ from the body and add or remove HCO3-. The lungs can only change CO2, and they cannot excrete fixed acids.</li>
+  <li>Kidneys that are failing cannot do these jobs, so a person with kidney disease cannot compensate well for a respiratory disorder and tends to build up fixed acid.</li>
+</ul>
+<p>Normal plasma HCO3- is 22 to 26 mEq/L. Because the kidneys set this value, a bicarbonate outside the range points to a metabolic disorder or to renal compensation.</p>
+</section>
+<section id="the-four-acid-base-disorders">
+<h2>The four acid-base disorders</h2>
+<p class="cref"><b>Week 15 competency 2:</b> <a href="week-15-competencies.html#h-w13-acid-base-disorders" target="_top">The four acid base disorders</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on acid-base disturbances.</p>
+<p>Every disorder is named twice. Acidosis or alkalosis tells you which way the pH has gone. Respiratory or metabolic tells you where the problem started: with CO2 (the lungs) or with HCO3- and fixed acids (everything else).</p>
+<h3>Respiratory disorders</h3>
+<p>Respiratory disorders happen when the respiratory system fails to do its pH job. They are diagnosed from arterial PCO2, which normally stays between 35 and 45 mmHg.</p>
+<ul>
+  <li>Respiratory acidosis: PCO2 above 45 mmHg and pH below 7.35. The person is not breathing off CO2 fast enough, because breathing is shallow or slow, or because gas exchange is hampered by lung disease such as pneumonia, cystic fibrosis or emphysema.</li>
+  <li>Respiratory alkalosis: PCO2 below 35 mmHg and pH above 7.45. The person is breathing off CO2 faster than the body makes it (hyperventilation). The faster you breathe, the more CO2 you unload. Common triggers are anxiety, stress and pain.</li>
+</ul>
+<h3>Metabolic disorders</h3>
+<p>Metabolic disorders are all the acid-base problems except those caused by too much or too little CO2. They show up as a plasma HCO3- outside 22 to 26 mEq/L.</p>
+<ul>
+  <li>Metabolic acidosis: pH below 7.35 and HCO3- below 22 mEq/L. Either fixed acid has built up and used up bicarbonate, or bicarbonate has been lost from the body.</li>
+  <li>Metabolic alkalosis: pH above 7.45 and HCO3- above 26 mEq/L. Either acid has been lost from the body or too much base has been taken in.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Disorder</th><th scope="col">pH</th><th scope="col">Primary change</th><th scope="col">Common causes</th></tr></thead><tbody>
+<tr><th scope="row">Respiratory acidosis</th><td>Below 7.35</td><td>PaCO2 above 45 mmHg</td><td>Hypoventilation: COPD and emphysema, pneumonia, cystic fibrosis, opioid or sedative overdose, weak breathing muscles, blocked airway</td></tr>
+<tr><th scope="row">Respiratory alkalosis</th><td>Above 7.45</td><td>PaCO2 below 35 mmHg</td><td>Hyperventilation: anxiety or panic, stress, pain, fever, high altitude</td></tr>
+<tr><th scope="row">Metabolic acidosis</th><td>Below 7.35</td><td>HCO3- below 22 mEq/L</td><td>Diabetic ketoacidosis, starvation ketosis, lactic acid in shock or hard exercise, severe diarrhea, kidney failure, toxic alcohols, alcoholic ketoacidosis</td></tr>
+<tr><th scope="row">Metabolic alkalosis</th><td>Above 7.45</td><td>HCO3- above 26 mEq/L</td><td>Vomiting, gastric (nasogastric) suctioning, taking too many antacids, some diuretics</td></tr>
+</tbody></table></div>
+<p>The pH values above describe a disorder before compensation. Compensation can bring the pH back toward or into the normal range, as the next section explains.</p>
+<h3>Why these causes make sense</h3>
+<ul>
+  <li>Vomiting and gastric suctioning remove HCl from the stomach. For every H+ the parietal cells secrete, they send one HCO3- into the blood, so losing stomach acid leaves extra bicarbonate behind.</li>
+  <li>Severe diarrhea removes bicarbonate-rich intestinal and pancreatic fluid, so the blood loses base.</li>
+  <li>In diabetic ketoacidosis, cells cannot take up glucose without insulin, so the body breaks down fat and the liver makes ketoacids faster than the body can clear them. Bicarbonate is used up buffering them.</li>
+  <li>In shock, poorly perfused tissues switch to anaerobic metabolism and make lactic acid.</li>
+  <li>In kidney failure, the kidneys can no longer excrete fixed acid or make new bicarbonate.</li>
+  <li>Chloride often tracks pH problems. Vomiting loses Cl- along with H+, so a low plasma Cl- often comes with metabolic alkalosis. Abnormal chloride levels usually cause no symptoms of their own, but they point to a pH disturbance.</li>
+</ul>
+<h3>Signs that follow from the pH</h3>
+<ul>
+  <li>Acidosis depresses the nervous system: headache, confusion, lethargy, and in severe cases coma.</li>
+  <li>In metabolic acidosis the lungs compensate with deep, rapid breathing. In diabetic ketoacidosis this pattern is called Kussmaul respirations.</li>
+  <li>Alkalosis excites the nervous system: numbness and tingling around the mouth and in the fingers, muscle twitching and cramps, and in severe cases tetany and seizures.</li>
+  <li>Alkalosis makes more plasma Ca2+ bind to plasma proteins, so free Ca2+ falls. This is part of why neurons and muscles become overexcitable.</li>
+</ul>
+</section>
+<section id="compensation">
+<h2>Compensation</h2>
+<p class="cref"><b>Week 15 competency 3:</b> <a href="week-15-competencies.html#h-w13-acid-base-compensation" target="_top">Compensation</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the parts on renal and respiratory compensation in acid-base disturbances.</p>
+<p>When one system causes a pH problem, the other system tries to correct it. This is called compensation. The respiratory system compensates for metabolic disorders, and the kidneys compensate for respiratory disorders. Compensation moves the pH back toward normal, and you can see it on an arterial blood gas as a change in PaCO2 or HCO3-.</p>
+<p>A system cannot compensate for itself. The lungs cannot fix a respiratory disorder, and kidneys that are failing cannot fix a metabolic acidosis caused by kidney failure.</p>
+<h3>Respiratory compensation for metabolic disorders</h3>
+<p>High H+ levels stimulate the respiratory centers, and low H+ levels quiet them. The lungs respond within minutes, and the response builds over several hours.</p>
+<dl>
+  <dt>Metabolic acidosis, compensated by the lungs</dt><dd>The problem starts with low pH and low HCO3-. Breathing becomes faster and deeper to blow off CO2, which is acid. PaCO2 falls below 35 mmHg and the pH climbs back toward normal. Compare this with respiratory acidosis, where depressed breathing is the cause of the problem, not the response.</dd>
+  <dt>Metabolic alkalosis, compensated by the lungs</dt><dd>The problem starts with high pH and high HCO3-. Breathing becomes slower and shallower so CO2 builds up and adds acid. PaCO2 rises, often above 45 mmHg. The pH often stays above 7.45, at least at first, because this compensation is limited.</dd>
+</dl>
+<p>Respiratory compensation for alkalosis is limited. Slowing breathing also lowers PO2, and once PO2 drops far enough the peripheral chemoreceptors drive breathing back up.</p>
+<h3>Renal compensation for respiratory disorders</h3>
+<p>Here the acid-base problem is respiratory in origin. Hypoventilation leads to acidosis (high CO2), and hyperventilation leads to alkalosis (low CO2). The kidneys respond over hours to days.</p>
+<dl>
+  <dt>Respiratory acidosis, compensated by the kidneys</dt><dd>PaCO2 is high, which caused the acidosis. HCO3- is also high, which shows the kidneys are secreting more H+ and keeping and making bicarbonate to offset the acid.</dd>
+  <dt>Respiratory alkalosis, compensated by the kidneys</dt><dd>The pH is high and PaCO2 is low. HCO3- falls, because the kidneys reclaim less of it and secrete more, so it leaves in the urine.</dd>
+</dl>
+<h3>Primary changes and compensating changes</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Primary disorder</th><th scope="col">Primary change</th><th scope="col">Compensating change</th><th scope="col">Who compensates</th></tr></thead><tbody>
+<tr><th scope="row">Respiratory acidosis</th><td>PaCO2 up</td><td>HCO3- up</td><td>Kidneys, over days</td></tr>
+<tr><th scope="row">Respiratory alkalosis</th><td>PaCO2 down</td><td>HCO3- down</td><td>Kidneys, over days</td></tr>
+<tr><th scope="row">Metabolic acidosis</th><td>HCO3- down</td><td>PaCO2 down</td><td>Lungs, within minutes to hours</td></tr>
+<tr><th scope="row">Metabolic alkalosis</th><td>HCO3- up</td><td>PaCO2 up</td><td>Lungs, within minutes to hours</td></tr>
+</tbody></table></div>
+<p>In a single (simple) disorder, the compensating value moves in the same direction as the primary value. That keeps the ratio of HCO3- to CO2, and so the pH, closer to normal. At pH 7.40 this ratio is about 20 to 1 (HCO3- 24 mEq/L to 1.2 mmol/L of dissolved CO2).</p>
+<h3>Three levels of compensation</h3>
+<dl>
+  <dt>Uncompensated</dt><dd>The pH is abnormal, one value (PaCO2 or HCO3-) is abnormal, and the other value is still normal. The compensating system has not responded yet.</dd>
+  <dt>Partially compensated</dt><dd>The pH is still abnormal, and both PaCO2 and HCO3- are abnormal. The compensating system is working but has not brought the pH back into range.</dd>
+  <dt>Fully compensated</dt><dd>The pH is back in the normal range of 7.35 to 7.45, but both PaCO2 and HCO3- are still abnormal. The pH usually sits on the side of 7.40 where the original problem was.</dd>
+</dl>
+<p>Compensation rarely brings the pH all the way back to 7.40, and the body does not overcompensate. Physiology and critical care texts point out that a normal pH with both values abnormal can also mean two disorders are present at once (a mixed disorder). The nursing ABG methods below use the fully compensated label for this pattern.</p>
+</section>
+<section id="reading-an-arterial-blood-gas">
+<h2>Reading an arterial blood gas</h2>
+<p class="cref"><b>Week 15 competencies 2, 3 and 4:</b> <a href="week-15-competencies.html#h-w13-acid-base-disorders" target="_top">The four acid base disorders</a>; <a href="week-15-competencies.html#h-w13-acid-base-compensation" target="_top">Compensation</a>; <a href="week-15-competencies.html#h-w13-lab-abg-interpretation" target="_top">Arterial blood gas interpretation</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 21, the part on acid-base disturbances and how they are diagnosed from pH, PCO2 and HCO3-.</p>
+<p class="figref"><b>Videos for this part:</b> <a href="https://www.youtube.com/watch?v=51adnbdpBqo" target="_blank" rel="noopener">RegisteredNurseRN: ABG interpretation, the ROME method<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.youtube.com/watch?v=mmgOyIr5oek" target="_blank" rel="noopener">RegisteredNurseRN: ABG interpretation, the tic-tac-toe method<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>An arterial blood gas (ABG) measures pH, PaCO2 and HCO3- in arterial blood. The sample is usually drawn from the radial artery and analyzed right away. Arterial blood is used because it shows what the lungs have just done to the blood before the tissues change it.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Value</th><th scope="col">Normal range</th><th scope="col">Low means</th><th scope="col">High means</th></tr></thead><tbody>
+<tr><th scope="row">pH</th><td>7.35 to 7.45</td><td>Acidosis</td><td>Alkalosis</td></tr>
+<tr><th scope="row">PaCO2</th><td>35 to 45 mmHg</td><td>Alkalosis (base)</td><td>Acidosis (acid)</td></tr>
+<tr><th scope="row">HCO3-</th><td>22 to 26 mEq/L</td><td>Acidosis (acid)</td><td>Alkalosis (base)</td></tr>
+</tbody></table></div>
+<p>Notice that PaCO2 runs backward. CO2 is an acid, so a high PaCO2 pushes toward acidosis. HCO3- is a base, so a high HCO3- pushes toward alkalosis.</p>
+<h3>The ROME method</h3>
+<p>ROME stands for Respiratory Opposite, Metabolic Equal. In a respiratory problem, pH and PaCO2 move in opposite directions. In a metabolic problem, pH and HCO3- move in the same (equal) direction.</p>
+<ol>
+  <li>Look at the pH. Below 7.35 is acidosis and above 7.45 is alkalosis. If it is normal, note whether it is on the acid side (7.35 to 7.39) or the base side (7.41 to 7.45) of 7.40.</li>
+  <li>Look at the PaCO2. If it is abnormal and moves opposite to the pH (pH down with PaCO2 up, or pH up with PaCO2 down), the problem is respiratory.</li>
+  <li>Look at the HCO3-. If it is abnormal and moves in the same direction as the pH (both down or both up), the problem is metabolic.</li>
+  <li>Name the disorder: respiratory or metabolic, acidosis or alkalosis.</li>
+  <li>Check the other value for compensation. If it is normal, the disorder is uncompensated.</li>
+  <li>If the other value is abnormal and moving to offset the problem, and the pH is still abnormal, the disorder is partially compensated.</li>
+  <li>If both values are abnormal and the pH is back in the normal range, the disorder is fully compensated. Use the side of 7.40 the pH sits on to decide which value is the primary problem.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Disorder</th><th scope="col">pH</th><th scope="col">PaCO2</th><th scope="col">HCO3-</th></tr></thead><tbody>
+<tr><th scope="row">Respiratory acidosis</th><td>Down</td><td>Up (opposite)</td><td>Normal, or up if compensating</td></tr>
+<tr><th scope="row">Respiratory alkalosis</th><td>Up</td><td>Down (opposite)</td><td>Normal, or down if compensating</td></tr>
+<tr><th scope="row">Metabolic acidosis</th><td>Down</td><td>Normal, or down if compensating</td><td>Down (equal)</td></tr>
+<tr><th scope="row">Metabolic alkalosis</th><td>Up</td><td>Normal, or up if compensating</td><td>Up (equal)</td></tr>
+</tbody></table></div>
+<h3>The tic-tac-toe method</h3>
+<p>This method sorts each value into a grid with three columns: Acid, Normal and Base. The value that lands in the same column as the pH is the cause.</p>
+<ol>
+  <li>Draw three columns and label them Acid, Normal and Base.</li>
+  <li>Place the pH. Below 7.35 goes under Acid, 7.35 to 7.45 under Normal, and above 7.45 under Base.</li>
+  <li>Place the PaCO2. Above 45 mmHg goes under Acid, 35 to 45 under Normal, and below 35 under Base. Remember that CO2 runs backward.</li>
+  <li>Place the HCO3-. Below 22 mEq/L goes under Acid, 22 to 26 under Normal, and above 26 under Base.</li>
+  <li>Find the value in the same column as the pH and draw a line through them. If it is PaCO2, the disorder is respiratory. If it is HCO3-, the disorder is metabolic.</li>
+  <li>Name the disorder from the column: Acid means acidosis and Base means alkalosis.</li>
+  <li>Look at the leftover value. If it is under Normal, the disorder is uncompensated.</li>
+  <li>If the leftover value is in the opposite column and the pH is still abnormal, the disorder is partially compensated.</li>
+  <li>If the pH is under Normal, put it on the Acid side when it is 7.35 to 7.39 and on the Base side when it is 7.41 to 7.45. The value in that column is the cause, and the disorder is fully compensated.</li>
+</ol>
+<h3>Worked example 1: uncompensated</h3>
+<p>A patient is brought in after an opioid overdose and is breathing slowly. ABG: pH 7.28, PaCO2 55 mmHg, HCO3- 25 mEq/L.</p>
+<ol>
+  <li>pH 7.28 is below 7.35, so this is acidosis (Acid column).</li>
+  <li>PaCO2 55 is above 45, so it is acid. It went up while the pH went down, which is opposite: respiratory.</li>
+  <li>HCO3- 25 is within 22 to 26 (Normal column).</li>
+  <li>PaCO2 shares the Acid column with the pH, so this is respiratory acidosis.</li>
+  <li>HCO3- is normal, so the kidneys have not responded yet.</li>
+  <li>Interpretation: uncompensated respiratory acidosis. The slow breathing caused by the opioid is leaving CO2 in the blood. This fits a problem that started only minutes to hours ago.</li>
+</ol>
+<h3>Worked example 2: partially compensated</h3>
+<p>A patient with type 1 diabetes has missed insulin doses and is breathing deeply and rapidly. ABG: pH 7.32, PaCO2 30 mmHg, HCO3- 15 mEq/L.</p>
+<ol>
+  <li>pH 7.32 is below 7.35, so this is acidosis (Acid column).</li>
+  <li>HCO3- 15 is below 22, so it is acid. It went down along with the pH, which is equal: metabolic.</li>
+  <li>HCO3- shares the Acid column with the pH, so this is metabolic acidosis.</li>
+  <li>PaCO2 30 is below 35, in the Base column. It is abnormal and sits in the column opposite the pH, so the lungs are compensating by blowing off CO2.</li>
+  <li>The pH is still below 7.35, so compensation is not complete.</li>
+  <li>Interpretation: partially compensated metabolic acidosis. Ketoacids from diabetic ketoacidosis have used up bicarbonate, and the deep, rapid Kussmaul breathing is the respiratory compensation.</li>
+</ol>
+<h3>Worked example 3: fully compensated</h3>
+<p>A patient with long-standing COPD comes to clinic for a routine visit. ABG: pH 7.36, PaCO2 56 mmHg, HCO3- 31 mEq/L.</p>
+<ol>
+  <li>pH 7.36 is within 7.35 to 7.45, so it is normal. It is below 7.40, so it sits on the acid side.</li>
+  <li>PaCO2 56 is above 45, so it is acid. It matches the acid side of the pH.</li>
+  <li>HCO3- 31 is above 26, so it is base. It sits in the column opposite the acid problem, so it is the compensation.</li>
+  <li>The value that matches the pH is PaCO2, so the primary problem is respiratory acidosis.</li>
+  <li>Both PaCO2 and HCO3- are abnormal, but the pH is back in the normal range.</li>
+  <li>Interpretation: fully compensated respiratory acidosis. Damaged lungs retain CO2 all the time, and over days the kidneys have kept and made enough bicarbonate to bring the pH back into range.</li>
+</ol>
+<h3>A stepwise physiology approach with expected values</h3>
+<p>Critical care texts use a two-stage approach that also checks whether the compensation is the right size. It goes beyond what the ROME and tic-tac-toe methods test, and it is here for students who want to go further.</p>
+<p>Stage I identifies the primary disorder using pH and PaCO2.</p>
+<ol>
+  <li>Rule 1: an acid-base problem is present if the PaCO2 or the pH is outside its normal range. A normal pH does not rule out a problem.</li>
+  <li>Rule 2: if both pH and PaCO2 are abnormal, compare their directions. If they move in the same direction, the primary disorder is metabolic: both low is metabolic acidosis, both high is metabolic alkalosis. If they move in opposite directions, the primary disorder is respiratory.</li>
+  <li>Rule 3: if only one of them is abnormal, suspect a mixed disorder, with one acidosis and one alkalosis. If the pH is normal, the direction of PaCO2 names the respiratory part: PaCO2 up is respiratory acidosis, PaCO2 down is respiratory alkalosis. If the PaCO2 is normal, the direction of the pH names the metabolic part: pH up is metabolic alkalosis, pH down is metabolic acidosis. Because the lungs start compensating within minutes, this approach reads a normal PaCO2 in a metabolic disorder as a sign of a second, respiratory problem. The ROME and tic-tac-toe methods call the same pattern uncompensated.</li>
+</ol>
+<p>Stage II checks the compensation by comparing the measured value with the value expected from normal compensation.</p>
+<ol>
+  <li>Rule 4: for a primary metabolic disorder, calculate the expected PaCO2. For metabolic acidosis, expected PaCO2 = (1.5 × HCO3-) + 8, give or take 2 (Winter's formula). For metabolic alkalosis, expected PaCO2 = (0.7 × HCO3-) + 21, give or take 2. If the measured PaCO2 matches, the lungs are compensating as expected. If it is higher than expected, a respiratory acidosis is also present. If it is lower, a respiratory alkalosis is also present.</li>
+  <li>Rule 5: for a primary respiratory disorder, calculate the expected pH. For respiratory acidosis, acute expected pH = 7.40 minus 0.008 × (PaCO2 minus 40), and chronic expected pH = 7.40 minus 0.003 × (PaCO2 minus 40). For respiratory alkalosis, acute expected pH = 7.40 plus 0.008 × (40 minus PaCO2), and chronic expected pH = 7.40 plus 0.003 × (40 minus PaCO2).</li>
+  <li>Compare the measured pH with the two expected values. If it matches the acute value, the disorder is acute and uncompensated. If it matches the chronic value, the kidneys have compensated. If it falls between the two, the disorder is partially compensated.</li>
+  <li>If the measured pH falls outside both expected values, a metabolic disorder is also present. In respiratory acidosis, a pH lower than the acute value means an added metabolic acidosis, and a pH higher than the chronic value means an added metabolic alkalosis. In respiratory alkalosis, a pH higher than the acute value means an added metabolic alkalosis, and a pH lower than the chronic value means an added metabolic acidosis.</li>
+</ol>
+<p>Applied to worked example 2: expected PaCO2 = (1.5 × 15) + 8 = 30.5, give or take 2, so about 28.5 to 32.5 mmHg. The measured PaCO2 of 30 fits, so the lungs are compensating as expected and no second disorder is present.</p>
+<p>Applied to worked example 1: acute expected pH = 7.40 minus 0.008 × (55 minus 40) = 7.40 minus 0.12 = 7.28. The measured pH is 7.28, so the disorder is acute and uncompensated. Applied to worked example 3: chronic expected pH = 7.40 minus 0.003 × (56 minus 40) = 7.40 minus 0.048 = about 7.35, close to the measured 7.36, so the kidneys have compensated. The acute value would have been 7.40 minus 0.128 = about 7.27.</p>
+<h3>Matching an ABG to a cause</h3>
+<div class="tbl"><table><thead><tr><th scope="col">ABG pattern</th><th scope="col">Plausible cause</th></tr></thead><tbody>
+<tr><th scope="row">pH low, PaCO2 high, HCO3- normal</th><td>Opioid overdose, severe asthma attack, blocked airway</td></tr>
+<tr><th scope="row">pH normal to low, PaCO2 high, HCO3- high</th><td>Long-standing COPD</td></tr>
+<tr><th scope="row">pH high, PaCO2 low, HCO3- normal</th><td>Panic attack, pain, first day at high altitude</td></tr>
+<tr><th scope="row">pH low, PaCO2 low, HCO3- low</th><td>Diabetic ketoacidosis, lactic acidosis in shock, severe diarrhea</td></tr>
+<tr><th scope="row">pH high, PaCO2 normal or high, HCO3- high</th><td>Repeated vomiting, nasogastric suctioning, antacid overuse</td></tr>
+</tbody></table></div>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>

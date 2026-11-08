@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digestion and absorption, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 12 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 12 notes · Dr. Sharilyn Rennie</p>
+  <h1>Digestion and absorption</h1>
+  <p>The need-to-know anatomy of the GI tract, the four digestive processes and motility patterns, swallowing and vomiting, the enteric nervous system, short and long reflexes, the GI hormones and the cephalic, gastric and intestinal phases, saliva and gastric acid with mucosal protection and ulcers, pancreatic juice and bile, the digestion and absorption of carbohydrates, proteins and fats, the liver and the enterohepatic circulation, the large intestine, microbiome and defecation reflex, and the digestive enzyme lab. Week 12 competencies 7 to 17.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week12-Notes-digestion.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.</p><p><b>Your textbook:</b> Silverthorn Chapter 22, The Digestive System. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 23, The Digestive System.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the part on the anatomy of the digestive system.</p>
+<p>The gastrointestinal (GI) tract, or alimentary canal, is one tube from mouth to anus: mouth, pharynx, esophagus, stomach, small intestine and large intestine. The accessory organs (teeth, tongue, salivary glands, liver, gallbladder, pancreas) touch the food or send secretions into the tract through ducts. The space inside the tube is the lumen.</p>
+<ul>
+  <li>In a living person the tract is about 5 to 7 m (16.5 to 23 ft) long, because its smooth muscle holds steady partial contraction (tone). After death the muscle relaxes and it measures about 7 to 9 m (23 to 29.5 ft).</li>
+</ul>
+<h3>The four layers of the wall</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Layer</th><th scope="col">What it is</th><th scope="col">Why it matters</th></tr></thead><tbody>
+<tr><th scope="row">Mucosa</th><td>Epithelium, a thin connective tissue layer (lamina propria) and a thin smooth muscle layer (muscularis mucosae)</td><td>The epithelium secretes and absorbs. The lamina propria holds capillaries, lymphatic capillaries and lymphatic tissue (MALT).</td></tr>
+<tr><th scope="row">Submucosa</th><td>Connective tissue with larger blood and lymph vessels</td><td>Holds the submucosal plexus, which mainly controls secretion</td></tr>
+<tr><th scope="row">Muscularis externa</th><td>Inner circular and outer longitudinal smooth muscle; the stomach adds an inner oblique layer</td><td>The myenteric plexus between the two layers mainly controls movement</td></tr>
+<tr><th scope="row">Serosa</th><td>Visceral peritoneum: connective tissue covered by simple squamous mesothelium</td><td>The esophagus has adventitia (connective tissue only) instead</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Epithelium: nonkeratinized stratified squamous in the mouth, pharynx, esophagus and anal canal (resists wear); simple columnar from stomach to large intestine (secretes and absorbs).</li>
+  <li>Tight junctions seal columnar cells together and limit leakage between them. The lining is renewed about every 5 to 7 days.</li>
+  <li>Exocrine cells release mucus, fluid and enzymes into the lumen. Scattered enteroendocrine cells release GI hormones into the blood.</li>
+  <li>MALT (mucosa-associated lymphatic tissue) runs the whole length, most in the tonsils, small intestine, appendix and large intestine.</li>
+  <li>Skeletal muscle forms the mouth, pharynx, upper esophagus (and part of the middle) and external anal sphincter, so swallowing starts and defecation ends under voluntary control. Smooth muscle does the rest.</li>
+</ul>
+<h3>The sphincters, from top to bottom</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Sphincter</th><th scope="col">Where</th><th scope="col">Muscle</th></tr></thead><tbody>
+<tr><th scope="row">Upper esophageal sphincter</th><td>Pharynx to esophagus</td><td>Skeletal</td></tr>
+<tr><th scope="row">Lower esophageal sphincter (cardiac sphincter)</th><td>Esophagus to stomach</td><td>Smooth; a zone of thickened muscle rather than a separate ring</td></tr>
+<tr><th scope="row">Pyloric sphincter</th><td>Stomach to duodenum</td><td>Smooth</td></tr>
+<tr><th scope="row">Sphincter of the hepatopancreatic ampulla (sphincter of Oddi)</th><td>Where bile and pancreatic juice enter the duodenum</td><td>Smooth</td></tr>
+<tr><th scope="row">Ileocecal sphincter (valve)</th><td>Ileum to cecum</td><td>Smooth</td></tr>
+<tr><th scope="row">Internal anal sphincter</th><td>Anal canal</td><td>Smooth, involuntary</td></tr>
+<tr><th scope="row">External anal sphincter</th><td>Anal canal</td><td>Skeletal, voluntary</td></tr>
+</tbody></table></div>
+<h3>The organs</h3>
+<dl>
+  <dt>Mouth and pharynx</dt><dd>Parotid, submandibular and sublingual salivary glands empty into the mouth through ducts. Food passes mouth, oropharynx, laryngopharynx, esophagus. The nasopharynx carries air only.</dd>
+  <dt>Esophagus</dt><dd>A collapsible tube about 25 cm (10 inches) long behind the trachea. It crosses the diaphragm at the esophageal hiatus (about T10).</dd>
+  <dt>Stomach</dt><dd>A J-shaped sac below the diaphragm: cardia, fundus, body and pyloric part (antrum, canal, pylorus). Folds called rugae flatten as it fills.</dd>
+  <dt>Small intestine</dt><dd>Duodenum (shortest, C-shaped, mostly retroperitoneal, about 25 to 30 cm or 10 to 12 inches), jejunum (about 1 m, 3 ft) and ileum (longest, about 2 m, 6 ft), ending at the ileocecal sphincter.</dd>
+  <dt>Large intestine</dt><dd>About 1.5 m (5 ft) long, 6.5 cm (2.5 inches) wide: cecum and appendix; ascending, transverse, descending and sigmoid colon; rectum (about 15 cm, 6 inches); anal canal (last 2 to 3 cm). Three bands of longitudinal muscle (teniae coli) gather the wall into pouches (haustra).</dd>
+  <dt>Pancreas</dt><dd>Behind the stomach (retroperitoneal), head in the curve of the duodenum. Acini (about 99%) make pancreatic juice; islets (about 1%) make insulin, glucagon, somatostatin and pancreatic polypeptide.</dd>
+  <dt>Pancreatic ducts</dt><dd>The main pancreatic duct joins the common bile duct at the hepatopancreatic ampulla (ampulla of Vater), which opens into the duodenum at the major duodenal papilla. A smaller accessory duct opens just above it.</dd>
+  <dt>Liver and gallbladder</dt><dd>The liver lies under the diaphragm, mostly upper right. The gallbladder, a pear-shaped sac under the liver, stores and concentrates bile.</dd>
+</dl>
+<h3>Surface area in the small intestine</h3>
+<ul>
+  <li>Circular folds (plicae circulares): permanent ridges of mucosa and submucosa starting in the duodenum just past its smooth first part and ending about mid-ileum. They add surface and make chyme spiral.</li>
+  <li>Villi: finger-like projections of mucosa, about 20 to 40 per square millimeter. Each core holds an arteriole, capillaries, a venule and a lymphatic capillary (lacteal).</li>
+  <li>Microvilli: projections of each absorptive cell's apical membrane, forming the brush border, which holds the brush border enzymes.</li>
+  <li>Intestinal glands (crypts of Lieberkühn): pits between villi with stem cells that renew the lining, goblet cells (mucus), Paneth cells (lysozyme; help control gut bacteria) and enteroendocrine cells: S cells (secretin), I cells (cholecystokinin), K cells (GIP).</li>
+  <li>Duodenal (Brunner) glands in the submucosa secrete alkaline mucus. Peyer patches (aggregated lymphatic follicles) cluster in the ileum.</li>
+  <li>The large intestine has no circular folds or villi, but its absorptive cells have microvilli, and goblet cells are plentiful.</li>
+</ul>
+<h3>Blood flow and the peritoneum</h3>
+<ul>
+  <li>Blood from the stomach, intestines, pancreas and spleen drains into the hepatic portal vein, which takes absorbed nutrients, drugs and microbes to the liver before the rest of the body.</li>
+  <li>The peritoneum, the largest serous membrane, has a parietal layer lining the wall and a visceral layer covering organs, with lubricating fluid in the peritoneal cavity between.</li>
+  <li>Its folds (greater and lesser omentum, mesentery, mesocolon, falciform ligament) hold organs in place and carry vessels and nerves. The mesentery and mesocolon hold the intestines loosely so they can move.</li>
+  <li>Retroperitoneal organs lie behind it: kidneys, most of the duodenum, pancreas, and ascending and descending colon.</li>
+  <li>Ascites: in liver disease, pancreatic disease or cancer, the peritoneal cavity can fill with several liters of fluid that may need draining.</li>
+  <li>Peritonitis: acute inflammation of the peritoneum, usually from microbes entering through a wound, a ruptured appendix, a perforated intestine or a peritoneal dialysis catheter. It can be life threatening. Inflamed surfaces rubbing together cause a painful, less dangerous form.</li>
+</ul>
+</section>
+<section id="the-four-digestive-processes-and-how-the-gut-moves">
+<h2>The four digestive processes and how the gut moves</h2>
+<p class="cref"><b>Competencies 7 and 8:</b> <a href="week-12-competencies.html#h-w14-digestive-processes" target="_top">Four digestive processes</a>; <a href="week-12-competencies.html#h-w14-gi-motility" target="_top">Motility patterns</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on the four digestive processes, GI motility, and the cephalic phase (chewing and swallowing).</p>
+<p>Physiology groups the work of the GI tract into four processes: motility, secretion, digestion and absorption. Anatomy courses often list six (ingestion, secretion, mixing and propulsion, digestion, absorption, defecation). The lists describe the same work, because ingestion, mixing and propulsion, and defecation are all motility.</p>
+<dl>
+  <dt>Motility</dt><dd>Movement of the gut wall that mixes contents and pushes them along: chewing, swallowing, churning, defecation.</dd>
+  <dt>Secretion</dt><dd>Release of water, ions (acid, bicarbonate), enzymes, mucus and bile into the lumen, and hormones into the blood. Roughly 7 liters a day.</dd>
+  <dt>Digestion</dt><dd>Breakdown of food. Mechanical digestion (chewing, churning) makes smaller pieces. Chemical digestion uses enzymes to split molecules by hydrolysis (breaking a bond by adding water) into absorbable units.</dd>
+  <dt>Absorption</dt><dd>Movement from the lumen across the epithelium into blood or lymph. Vitamins, minerals, water and free cholesterol are absorbed without chemical digestion; carbohydrates, proteins, lipids and nucleic acids must be digested first.</dd>
+</dl>
+<div class="tbl"><table><thead><tr><th scope="col">Region</th><th scope="col">Motility</th><th scope="col">Secretion</th><th scope="col">Digestion</th><th scope="col">Absorption</th></tr></thead><tbody>
+<tr><th scope="row">Mouth</th><td>Chewing; start of swallowing</td><td>Saliva</td><td>Starch (salivary amylase); lingual lipase is released but acts mostly in the stomach</td><td>Almost none</td></tr>
+<tr><th scope="row">Esophagus</th><td>Peristalsis</td><td>Mucus only</td><td>None</td><td>None</td></tr>
+<tr><th scope="row">Stomach</th><td>Storage, mixing, slow emptying</td><td>HCl, pepsinogen, intrinsic factor, gastric lipase, mucus, gastrin</td><td>Protein begins; some fat</td><td>A little water, alcohol, some drugs such as aspirin</td></tr>
+<tr><th scope="row">Small intestine</th><td>Segmentation, peristalsis, MMC</td><td>Pancreatic juice, bile, mucus, fluid, hormones</td><td>Most digestion, finished at the brush border</td><td>Most nutrients, water, ions, vitamins</td></tr>
+<tr><th scope="row">Large intestine</th><td>Haustral churning, mass movements, defecation</td><td>Mucus, K+, HCO3-</td><td>Bacterial fermentation</td><td>Water, Na+, Cl-, bacterial vitamins</td></tr>
+</tbody></table></div>
+<h3>How GI smooth muscle keeps a rhythm</h3>
+<ul>
+  <li>Gap junctions join GI smooth muscle cells, so a region contracts as a unit.</li>
+  <li>Interstitial cells of Cajal, pacemaker cells between the muscle layers, make slow waves: cycles of depolarization that do not cause contraction alone. Slow waves run about 3 per minute in the stomach and 12 per minute in the duodenum.</li>
+  <li>When a slow wave reaches threshold, action potentials fire, Ca2+ enters and the muscle contracts. Nerves and hormones change how often threshold is reached and how strong contractions are.</li>
+  <li>Sphincters stay contracted (tonic contraction) and relax only to let contents pass.</li>
+</ul>
+<h3>Motility patterns compared</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Pattern</th><th scope="col">What happens</th><th scope="col">When</th><th scope="col">Purpose</th></tr></thead><tbody>
+<tr><th scope="row">Peristalsis</th><td>Contraction behind the contents, relaxation ahead, moving one way</td><td>Esophagus; stomach; short stretches of small intestine; colon</td><td>Pushes contents forward</td></tr>
+<tr><th scope="row">Segmentation</th><td>Short segments of circular muscle contract and relax in alternation, no traveling wave</td><td>Small intestine after a meal</td><td>Mixes chyme with enzymes and against the absorptive surface; little forward movement</td></tr>
+<tr><th scope="row">Migrating motor complex (MMC)</th><td>Strong contractions that start in the stomach and travel slowly to the colon</td><td>Between meals, about every 90 to 120 minutes; stops when you eat</td><td>Sweeps leftover food, debris and bacteria toward the colon (housekeeping)</td></tr>
+<tr><th scope="row">Mass movement</th><td>Strong wave along a long stretch of colon</td><td>Three or four times a day, during or soon after a meal</td><td>Moves feces into the rectum</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Segmentation is slightly faster near the duodenum than farther down, so chyme drifts slowly toward the ileum.</li>
+  <li>Motilin from the upper small intestine is released in cycles during fasting and helps start each MMC.</li>
+</ul>
+<h3>Chewing and swallowing</h3>
+<p>Chewing (mastication) is voluntary and partly reflexive. It makes smaller pieces, which gives enzymes more surface, and mixes them with saliva into a soft mass called a bolus. Swallowing (deglutition) starts voluntarily and finishes as a reflex run by the swallowing center in the medulla and lower pons.</p>
+<h3>The swallowing reflex, step by step</h3>
+<ol>
+  <li>The tongue presses against the hard palate and pushes the bolus into the oropharynx. This step is voluntary.</li>
+  <li>The bolus touches pressure receptors in the oropharynx, and sensory signals reach the swallowing center in the medulla and lower pons. From here the sequence is an involuntary reflex.</li>
+  <li>The soft palate and uvula rise and close the nasopharynx, so food cannot enter the nasal cavity.</li>
+  <li>The larynx rises, the epiglottis folds over the glottis, and the vocal folds close, sealing the airway. Breathing pauses.</li>
+  <li>The upper esophageal sphincter relaxes, pharyngeal muscles push the bolus into the esophagus, the sphincter closes, and the airway reopens.</li>
+  <li>A peristaltic wave travels down the esophagus: circular muscle contracts behind the bolus while longitudinal muscle shortens the segment ahead.</li>
+  <li>The lower esophageal sphincter relaxes, the bolus enters the stomach, and the sphincter closes to keep acid out.</li>
+</ol>
+<ul>
+  <li>A solid bolus reaches the stomach in about 4 to 8 seconds; liquids in about 1 second.</li>
+  <li>The esophagus secretes only mucus, for lubrication, and does not digest or absorb. Its upper third is skeletal muscle, its middle third mixed, its lower third smooth.</li>
+  <li>Gastroesophageal reflux disease (GERD): a lower esophageal sphincter that does not close well lets acid back into the esophagus (heartburn).</li>
+  <li>Hiatal hernia: part of the stomach pushes up through the esophageal hiatus, which can weaken the barrier to reflux.</li>
+  <li>Tongue tie (ankyloglossia): a short or stiff lingual frenulum limits tongue movement and can impair speech; it can be corrected surgically.</li>
+</ul>
+<h3>The stomach: storing, mixing and emptying</h3>
+<ul>
+  <li>When food arrives, the upper stomach relaxes (receptive relaxation), so a meal enters with little rise in pressure, and the rugae flatten.</li>
+  <li>Peristaltic waves start in the body and strengthen toward the antrum, mixing food with gastric juice into a thick liquid called chyme.</li>
+  <li>Each wave pushes a little chyme through the pyloric sphincter. The rest hits the nearly closed pylorus and is pushed back (retropulsion), which adds mixing.</li>
+  <li>The stomach usually empties in 2 to 4 hours. Carbohydrate leaves fastest, then protein, then fat, because fat and protein in the duodenum trigger the strongest braking signals (such as CCK).</li>
+  <li>Pylorospasm in infants: the pyloric sphincter fails to relax normally, the stomach overfills, and the baby vomits. Drugs that relax the sphincter treat it.</li>
+  <li>Pyloric stenosis in infants: a thickened sphincter narrows the outlet. The hallmark is projectile vomiting, and it needs surgery.</li>
+</ul>
+<h3>Vomiting, step by step</h3>
+<p>Vomiting (emesis) is forceful expulsion of the contents of the stomach, and sometimes the duodenum, through the mouth. Strong triggers are irritation or stretching of the stomach, unpleasant sights, general anesthesia, dizziness, and drugs such as morphine and digitalis.</p>
+<ol>
+  <li>Sensory signals reach the vomiting center in the medulla. Drugs and toxins in the blood are usually detected first by the chemoreceptor trigger zone in the area postrema, a nearby part of the medulla that relays to the vomiting center.</li>
+  <li>The vomiting center sends commands to the upper GI tract, diaphragm and abdominal muscles.</li>
+  <li>The glottis closes and the soft palate rises, protecting the airway.</li>
+  <li>Contractions in the upper small intestine push some duodenal contents back into the stomach.</li>
+  <li>The diaphragm and abdominal muscles contract together and squeeze the stomach.</li>
+  <li>The esophageal sphincters relax, and the contents are forced out through the esophagus and mouth.</li>
+</ol>
+<ul>
+  <li>Prolonged vomiting is serious, especially in infants and older adults: losing acidic gastric juice causes metabolic alkalosis, fluid loss causes dehydration, and acid damages the esophagus and tooth enamel.</li>
+</ul>
+</section>
+<section id="nerves-hormones-and-the-three-phases">
+<h2>Nerves, hormones and the three phases</h2>
+<p class="cref"><b>Competencies 9 and 10:</b> <a href="week-12-competencies.html#h-w14-gi-regulation" target="_top">Neural and hormonal regulation</a>; <a href="week-12-competencies.html#h-w14-digestive-phases" target="_top">Phases of digestive control</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on regulation of GI function (the enteric nervous system and GI peptides) and on the cephalic, gastric and intestinal phases.</p>
+<p>The GI tract is controlled by its own nervous system, the autonomic nervous system, hormones, and local signals (paracrines). Much of the control is feedforward: food in one region prepares regions farther along before it arrives.</p>
+<h3>The enteric nervous system</h3>
+<ul>
+  <li>The enteric nervous system (ENS), about 100 million neurons in the gut wall from esophagus to anus, is sometimes called the brain of the gut. It can run reflexes with no input from the brain.</li>
+  <li>The myenteric (Auerbach) plexus, between the circular and longitudinal muscle, mainly controls motility: how often and how strongly the muscle contracts.</li>
+  <li>The submucosal (Meissner) plexus mainly controls epithelial secretion and local blood flow. This split of jobs is a simplification; the plexuses work together.</li>
+  <li>Sensory neurons in the mucosa carry chemoreceptors (acid, peptides, fat) and mechanoreceptors (stretch). Interneurons link the plexuses. Motor neurons act on smooth muscle, secretory cells and endocrine cells.</li>
+  <li>ENS transmitters include acetylcholine (ACh), mostly excitatory, and inhibitory ones such as vasoactive intestinal peptide (VIP) and nitric oxide.</li>
+</ul>
+<h3>Autonomic input</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Parasympathetic</th><th scope="col">Sympathetic</th></tr></thead><tbody>
+<tr><th scope="row">Nerves</th><td>Vagus nerve (cranial nerve X) from the esophagus through about the first two thirds of the transverse colon; pelvic splanchnic nerves from the sacral cord to the rest of the large intestine</td><td>Preganglionic neurons from the thoracic and upper lumbar cord</td></tr>
+<tr><th scope="row">Where it acts</th><td>Preganglionic fibers synapse on neurons in the two plexuses</td><td>Postganglionic fibers act on ENS neurons, and directly on some smooth muscle and vessels</td></tr>
+<tr><th scope="row">Effect</th><td>More secretion and motility</td><td>Less secretion and motility, tighter sphincters, less gut blood flow</td></tr>
+<tr><th scope="row">When</th><td>Rest and digest; seeing and smelling food</td><td>Exercise and stress; anger, fear and anxiety slow digestion</td></tr>
+</tbody></table></div>
+<h3>Short and long reflexes</h3>
+<dl>
+  <dt>Short reflex</dt><dd>Starts and ends in the ENS; every neuron involved is in the gut wall.</dd>
+  <dt>Long reflex</dt><dd>Integrated in the central nervous system. Signals travel to the brain, often in the vagus, and return in autonomic fibers to the ENS.</dd>
+  <dt>Cephalic reflex</dt><dd>A long reflex that starts outside the gut, from the sight, smell, taste or thought of food.</dd>
+  <dt>Vagovagal reflex</dt><dd>A long reflex whose sensory and motor fibers both run in the vagus.</dd>
+</dl>
+<h3>A short reflex, step by step</h3>
+<ol>
+  <li>Food stretches the wall, or chemicals in chyme touch the mucosa.</li>
+  <li>Mechanoreceptors or chemoreceptors activate ENS sensory neurons.</li>
+  <li>These signal interneurons in the myenteric and submucosal plexuses.</li>
+  <li>Interneurons activate ENS motor neurons.</li>
+  <li>Motor neurons change smooth muscle, gland or endocrine cell activity in the same stretch of wall.</li>
+</ol>
+<h3>A long reflex, step by step</h3>
+<ol>
+  <li>A stimulus is detected in the gut (stretch, chemicals) or outside it (sight, smell, taste, thought of food).</li>
+  <li>Sensory signals travel to the CNS; from the gut, mostly in vagal sensory fibers to the medulla.</li>
+  <li>The brainstem integrates the input.</li>
+  <li>Output travels in parasympathetic (mainly vagal) or sympathetic fibers to the ENS plexuses.</li>
+  <li>ENS neurons change smooth muscle contraction and gland secretion.</li>
+</ol>
+<ul>
+  <li>Gastrocolic reflex: food entering the stomach increases colon motility and mass movements.</li>
+  <li>Gastroileal reflex: food in the stomach increases ileal motility and relaxes the ileocecal sphincter.</li>
+  <li>Enterogastric reflex: chyme in the duodenum reduces gastric motility and secretion.</li>
+</ul>
+<h3>The GI hormones</h3>
+<p>Enteroendocrine cells sense the lumen contents and release hormones into the blood, which carries them to the stomach, pancreas, liver, gallbladder, intestine and brain. Most belong to the gastrin family (gastrin, CCK) or the secretin family (secretin, VIP, GIP, GLP-1).</p>
+<div class="tbl"><table><thead><tr><th scope="col">Hormone</th><th scope="col">Source</th><th scope="col">Stimulus</th><th scope="col">Main actions</th></tr></thead><tbody>
+<tr><th scope="row">Gastrin</th><td>G cells, mostly pyloric antrum (also duodenum)</td><td>Peptides and amino acids in the stomach; stretch; vagal gastrin-releasing peptide</td><td>Acid secretion (directly and through histamine); growth of gastric lining; gastric motility</td></tr>
+<tr><th scope="row">Secretin</th><td>S cells, duodenum</td><td>Acid (H+) in the duodenum</td><td>Bicarbonate from pancreatic and bile ducts; inhibits gastric acid and emptying; pancreatic growth; strengthens CCK</td></tr>
+<tr><th scope="row">Cholecystokinin (CCK)</th><td>I cells (CCK cells), duodenum and jejunum</td><td>Fatty acids and amino acids</td><td>Pancreatic enzymes; gallbladder contraction; relaxes sphincter of Oddi; slows gastric emptying; satiety; pancreatic growth; strengthens secretin</td></tr>
+<tr><th scope="row">GIP (glucose-dependent insulinotropic peptide)</th><td>K cells, duodenum and jejunum</td><td>Glucose, fatty acids, amino acids</td><td>Insulin release; may slow gastric acid and emptying (minor in humans)</td></tr>
+<tr><th scope="row">GLP-1 (glucagon-like peptide 1)</th><td>L cells, ileum and colon</td><td>Mixed meal, especially carbohydrate and fat</td><td>Insulin release, less glucagon; slows gastric emptying; satiety</td></tr>
+<tr><th scope="row">Motilin</th><td>M cells, duodenum and jejunum</td><td>Fasting, in cycles</td><td>Starts the MMC; stomach and intestinal motility</td></tr>
+</tbody></table></div>
+<ul>
+  <li>GIP and GLP-1 are incretins: insulin rises more after swallowed glucose than after the same glucose given into a vein, because these gut hormones also stimulate the beta cells. GLP-1 mimics are used in type 2 diabetes and weight management.</li>
+  <li>Secretin and CCK brake the stomach, so the duodenum is not sent more chyme than it can neutralize and digest.</li>
+  <li>Histamine: paracrine from ECL (enterochromaffin-like) cells; stimulates parietal cells through H2 receptors.</li>
+  <li>Somatostatin: paracrine from D cells of the stomach and intestine (also the islets); inhibits gastrin and acid, a general brake.</li>
+  <li>Gastrin-releasing peptide: from vagal and ENS neurons onto G cells; releases gastrin.</li>
+  <li>VIP: an ENS transmitter; stimulates intestinal secretion of ions and water, relaxes smooth muscle and sphincters, inhibits gastric acid.</li>
+  <li>Substance P, bombesin and motilin stimulate motility. Bombesin was found in frogs; its human counterpart is closely related to gastrin-releasing peptide.</li>
+</ul>
+<h3>The three phases</h3>
+<p>The phases are named for where the stimulus is detected, not where the response happens, and they overlap in time. The cephalic phase is controlled mainly by nerves (long reflexes through the vagus), the gastric phase by local and vagovagal reflexes plus gastrin and histamine, and the intestinal phase mainly by hormones (secretin, CCK, GIP) plus the enterogastric reflex.</p>
+<h3>The cephalic phase, step by step</h3>
+<ol>
+  <li>Seeing, smelling, tasting, chewing or thinking about food activates brain neurons that relay to the medulla.</li>
+  <li>The medulla sends parasympathetic output to the salivary glands (facial and glossopharyngeal nerves) and through the vagus to the ENS of the stomach.</li>
+  <li>The salivary glands release more watery saliva.</li>
+  <li>In the stomach, vagal ACh acts on ENS neurons, which stimulate parietal cells (acid), chief cells (pepsinogen) and ECL cells (histamine) and release gastrin-releasing peptide onto G cells (gastrin).</li>
+  <li>The stomach is primed with acid and enzymes before food arrives, and motility increases. Fear and anxiety can dampen this phase through sympathetic input.</li>
+</ol>
+<h3>The gastric phase, step by step</h3>
+<ol>
+  <li>Food stretches the stomach wall, and peptides and amino acids touch the mucosa.</li>
+  <li>Stretch triggers short ENS reflexes and vagovagal reflexes, increasing ACh on gastric cells.</li>
+  <li>Peptides and amino acids directly stimulate G cells to release gastrin into the blood.</li>
+  <li>Food proteins buffer the acid and the pH rises, so D cells release less somatostatin and gastrin release continues.</li>
+  <li>Gastrin stimulates parietal cells directly and through histamine from ECL cells. ACh, gastrin and histamine together drive strong acid secretion.</li>
+  <li>Mixing waves strengthen, and chyme starts moving into the duodenum.</li>
+  <li>As the stomach empties, less food buffers the acid and the pH falls. Low pH makes D cells release somatostatin, which inhibits gastrin and acid. This negative feedback ends the phase.</li>
+</ol>
+<h3>The intestinal phase, step by step</h3>
+<ol>
+  <li>Chyme enters and stretches the duodenum, bringing acid, partly digested fat and protein, and a high solute concentration.</li>
+  <li>Stretch and chemicals trigger the enterogastric reflex: gastric motility and secretion fall and the pyloric sphincter tightens.</li>
+  <li>Acid stimulates S cells to release secretin.</li>
+  <li>Fatty acids and amino acids stimulate I cells to release CCK; glucose and fat stimulate K cells to release GIP.</li>
+  <li>Secretin and CCK reach the pancreas, liver and gallbladder: bicarbonate and enzymes flow out, the gallbladder contracts, and the sphincter of Oddi relaxes.</li>
+  <li>Secretin and CCK also slow gastric emptying and acid secretion, so chyme arrives only as fast as the duodenum can handle it.</li>
+  <li>GIP and GLP-1 reach the pancreatic beta cells and increase insulin release before the absorbed glucose arrives (feedforward).</li>
+</ol>
+<ul>
+  <li>Early in this phase, peptides in the duodenum release a little gastrin from duodenal G cells, briefly supporting gastric secretion. The overall effect on the stomach is inhibition.</li>
+</ul>
+</section>
+<section id="saliva-and-the-secretions-of-the-stomach">
+<h2>Saliva and the secretions of the stomach</h2>
+<p class="cref"><b>Competency 11:</b> <a href="week-12-competencies.html#h-w14-gastric-secretion" target="_top">Gastric secretion and mucosal protection</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on the cephalic phase (saliva) and the gastric phase (gastric secretions and protection of the stomach).</p>
+<h3>Saliva</h3>
+<ul>
+  <li>About 1 to 1.5 liters a day come from three pairs of major glands and small glands in the lips, cheeks, palate and tongue.</li>
+  <li>Saliva is 99.5% water and 0.5% solutes: ions (Na+, K+, Cl-, HCO3-, phosphate), dissolved gases, and organic substances (urea, uric acid, mucus, IgA, lysozyme, salivary amylase).</li>
+  <li>It keeps the mouth and pharynx moist, cleans the mouth and teeth, lubricates and dissolves food (needed for taste), and starts chemical digestion. Lysozyme and IgA fight bacteria.</li>
+  <li>Salivary amylase breaks starch into maltose, maltotriose and alpha-dextrins, and keeps working inside the bolus in the stomach until acid inactivates it.</li>
+  <li>Lingual lipase from tongue glands splits triglycerides into fatty acids and diglycerides. Acid activates it, so it works mostly in the stomach. In adults it is minor; gastric lipase does more early fat digestion.</li>
+  <li>Parotid saliva is watery (serous) with amylase; submandibular saliva is serous with amylase and some mucus; sublingual saliva is mostly mucus with very little amylase.</li>
+  <li>Salivation is controlled mainly by autonomic nerves rather than hormones. Parasympathetic signals give a large volume of watery saliva; sympathetic signals give a small volume of thick saliva (a dry mouth when nervous).</li>
+  <li>Mumps: a viral infection (paramyxovirus) that inflames and enlarges the parotid glands, with moderate fever, malaise and throat pain worse with swallowing or sour foods. In up to about 30% of males past puberty the testes become inflamed; sterility is rare because usually only one testis is affected. The MMR vaccine greatly lowers the risk.</li>
+</ul>
+<h3>The cells of the gastric glands</h3>
+<p>Gastric glands open into gastric pits in the stomach lining. Each gland holds several cell types, which together make about 2 to 3 liters of gastric juice a day.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Cell</th><th scope="col">Secretes</th><th scope="col">Role</th></tr></thead><tbody>
+<tr><th scope="row">Surface mucous and mucous neck cells</th><td>Mucus; surface cells also HCO3-</td><td>Protect the lining</td></tr>
+<tr><th scope="row">Parietal cells</th><td>HCl and intrinsic factor</td><td>Acid; vitamin B12 absorption</td></tr>
+<tr><th scope="row">Chief cells</th><td>Pepsinogen and gastric lipase</td><td>Protein and fat digestion</td></tr>
+<tr><th scope="row">G cells (mostly antrum)</th><td>Gastrin, into the blood</td><td>Stimulate acid secretion</td></tr>
+<tr><th scope="row">ECL cells</th><td>Histamine (paracrine)</td><td>Stimulate parietal cells</td></tr>
+<tr><th scope="row">D cells</th><td>Somatostatin (paracrine)</td><td>Inhibit gastrin and acid</td></tr>
+</tbody></table></div>
+<h3>How a parietal cell makes HCl, step by step</h3>
+<ol>
+  <li>CO2 from metabolism and from the blood diffuses into the parietal cell.</li>
+  <li>Carbonic anhydrase combines CO2 and water into carbonic acid (H2CO3), which splits into H+ and HCO3-.</li>
+  <li>The H+/K+ ATPase (proton pump) in the apical membrane uses ATP to pump H+ into the gland lumen and bring K+ in.</li>
+  <li>K+ leaks back to the lumen through apical K+ channels, so it keeps cycling to the pump.</li>
+  <li>HCO3- leaves into the blood through a basolateral Cl-/HCO3- exchanger, which brings Cl- in.</li>
+  <li>Cl- leaves through apical Cl- channels into the lumen.</li>
+  <li>H+ and Cl- in the lumen form hydrochloric acid, and gastric juice reaches a pH of about 2, sometimes lower.</li>
+  <li>The HCO3- added to the blood makes venous blood leaving the stomach more alkaline after a meal. This is the alkaline tide.</li>
+</ol>
+<p>This is a simplification. Silverthorn describes the H+ as coming from splitting water, with carbonic anhydrase joining the leftover OH- to CO2 to make HCO3-. Either way, one HCO3- enters the blood for every H+ secreted.</p>
+<ul>
+  <li>ACh from ENS neurons (muscarinic receptors), gastrin and histamine (H2 receptors) stimulate parietal cells, and each strengthens the others. Somatostatin inhibits them.</li>
+  <li>H2 receptor blockers block the histamine signal, and proton pump inhibitors block the H+/K+ ATPase.</li>
+  <li>Acid unfolds (denatures) food proteins so enzymes reach their bonds, activates pepsinogen, kills most swallowed microbes, and stops salivary amylase.</li>
+</ul>
+<h3>Pepsinogen, gastric lipase and intrinsic factor</h3>
+<dl>
+  <dt>Pepsinogen</dt><dd>An inactive precursor (zymogen) from chief cells. Acid converts it to pepsin, and pepsin converts more (positive feedback). Pepsin cuts proteins into peptides, works best in acid, and stops when the pH rises in the duodenum. Releasing it inactive protects the chief cells.</dd>
+  <dt>Gastric lipase</dt><dd>From chief cells; splits some triglycerides and works in acid. Most fat digestion waits for the small intestine.</dd>
+  <dt>Intrinsic factor</dt><dd>From parietal cells; binds and protects vitamin B12. The complex is absorbed in the terminal ileum by receptor-mediated endocytosis. It is the only gastric secretion a person cannot live without long term, unless B12 is given another way.</dd>
+  <dt>Pernicious anemia</dt><dd>B12 deficiency from lack of intrinsic factor, most often because the immune system destroys parietal cells; it also follows removal of the stomach. B12 must then be given by a route that bypasses intrinsic factor, such as injection.</dd>
+</dl>
+<h3>How the stomach protects itself</h3>
+<ul>
+  <li>Surface cells secrete HCO3- into a thick mucus layer, so the cell surface stays near neutral while the lumen is very acidic (the mucus and bicarbonate barrier).</li>
+  <li>Tight junctions keep acid from leaking between cells, and damaged cells are quickly replaced from stem cells in the gastric pits.</li>
+  <li>Prostaglandins in the lining increase mucus and bicarbonate secretion and keep blood flow high.</li>
+  <li>Pepsin is secreted as inactive pepsinogen.</li>
+</ul>
+<h3>How an ulcer develops, step by step</h3>
+<ol>
+  <li>Something weakens the barrier, most often Helicobacter pylori infection or regular use of nonsteroidal anti-inflammatory drugs (NSAIDs) such as aspirin and ibuprofen, which block prostaglandin production. Excess acid secretion is less common.</li>
+  <li>Less mucus and bicarbonate reach the surface, or the bacteria damage epithelial cells directly.</li>
+  <li>Acid and pepsin reach the epithelium and digest it.</li>
+  <li>Inflammation weakens the lining further.</li>
+  <li>The erosion deepens through the mucosa into the submucosa: a peptic ulcer in the stomach or duodenum.</li>
+  <li>Eroding a blood vessel causes bleeding. Eroding through the wall (perforation) spills contents into the peritoneal cavity and causes peritonitis.</li>
+</ol>
+<ul>
+  <li>H. pylori survives acid by making urease, which turns urea into ammonia that neutralizes acid around it.</li>
+  <li>Duodenal ulcers are linked to H. pylori and to more acid reaching the duodenum than its bicarbonate can neutralize. H. pylori ulcers are treated with antibiotics plus acid-reducing drugs.</li>
+</ul>
+</section>
+<section id="pancreatic-juice-and-bile">
+<h2>Pancreatic juice and bile</h2>
+<p class="cref"><b>Competency 12:</b> <a href="week-12-competencies.html#h-w14-pancreatic-bile-secretion" target="_top">Pancreatic and biliary secretion</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on the intestinal phase: bicarbonate secretion, pancreatic enzymes and bile.</p>
+<p>Most chemical digestion happens in the small intestine. The pancreas supplies bicarbonate and most digestive enzymes. The liver supplies bile, which has no enzymes but makes fat digestion possible.</p>
+<h3>Pancreatic juice</h3>
+<ul>
+  <li>About 1.2 to 1.5 liters a day of clear, colorless fluid: water, salts, sodium bicarbonate and enzymes, pH about 7.1 to 8.2.</li>
+  <li>Duct cells add bicarbonate-rich fluid, mainly in response to secretin. Acinar cells add enzymes, mainly in response to CCK and vagal ACh.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Enzyme</th><th scope="col">Acts on</th><th scope="col">Products</th></tr></thead><tbody>
+<tr><th scope="row">Pancreatic amylase</th><td>Starch, glycogen</td><td>Maltose, maltotriose, alpha-dextrins</td></tr>
+<tr><th scope="row">Trypsin, chymotrypsin, elastase</th><td>Bonds inside proteins (endopeptidases)</td><td>Shorter peptides</td></tr>
+<tr><th scope="row">Carboxypeptidase</th><td>Carboxyl-end amino acid of a peptide</td><td>Single amino acids</td></tr>
+<tr><th scope="row">Pancreatic lipase (with colipase)</th><td>Triglycerides</td><td>Monoglycerides, free fatty acids</td></tr>
+<tr><th scope="row">Phospholipase A2</th><td>Phospholipids</td><td>Fatty acids, lysophospholipids</td></tr>
+<tr><th scope="row">Cholesterol esterase</th><td>Cholesterol esters</td><td>Free cholesterol, fatty acids</td></tr>
+<tr><th scope="row">Ribonuclease, deoxyribonuclease</th><td>RNA, DNA</td><td>Nucleotides</td></tr>
+</tbody></table></div>
+<h3>How duct cells secrete bicarbonate, step by step</h3>
+<ol>
+  <li>CO2 diffuses into the duct cell from the blood and from metabolism.</li>
+  <li>Carbonic anhydrase makes carbonic acid, which splits into H+ and HCO3-.</li>
+  <li>H+ leaves into the blood through a basolateral Na+/H+ exchanger.</li>
+  <li>HCO3- leaves into the duct through an apical Cl-/HCO3- exchanger, which brings Cl- in.</li>
+  <li>Cl- returns to the lumen through the CFTR chloride channel, so the exchange continues. Secretin opens CFTR by raising cAMP.</li>
+  <li>Na+ and water follow between the cells, filling the duct with sodium bicarbonate solution.</li>
+</ol>
+<ul>
+  <li>The H+ the pancreas returns to the blood balances the alkaline tide from the stomach.</li>
+  <li>Cystic fibrosis: defective CFTR secretes less Cl-, HCO3- and water. Thick secretions block pancreatic ducts, so enzymes cannot reach the intestine and fat and protein are poorly digested.</li>
+</ul>
+<h3>How bicarbonate neutralizes chyme, step by step</h3>
+<ol>
+  <li>Acidic chyme, high in H+, enters the duodenum.</li>
+  <li>H+ stimulates S cells to release secretin into the blood.</li>
+  <li>Secretin makes pancreatic and bile duct cells secrete bicarbonate-rich fluid; duodenal (Brunner) glands add alkaline mucus.</li>
+  <li>In the lumen, HCO3- combines with H+ to form carbonic acid (H2CO3), which breaks down into CO2 and water.</li>
+  <li>The chyme's pH rises toward neutral. This protects the duodenal lining, stops pepsin, and gives pancreatic and brush border enzymes the pH they need.</li>
+  <li>With less acid, S cells release less secretin. This negative feedback matches bicarbonate to the acid load.</li>
+</ol>
+<h3>How the protein-digesting enzymes are activated, step by step</h3>
+<ol>
+  <li>Acinar cells make them as inactive zymogens (trypsinogen, chymotrypsinogen, procarboxypeptidase, proelastase), plus trypsin inhibitor, which blocks any trypsin formed too early in the pancreas.</li>
+  <li>CCK triggers release, and the zymogens flow down the ducts into the duodenum.</li>
+  <li>Enteropeptidase (enterokinase), a brush border enzyme, converts trypsinogen to trypsin.</li>
+  <li>Trypsin activates more trypsinogen and converts chymotrypsinogen, procarboxypeptidase and proelastase to chymotrypsin, carboxypeptidase and elastase. It also activates colipase for lipase.</li>
+  <li>The active enzymes digest protein in the intestinal lumen, away from the pancreas.</li>
+</ol>
+<ul>
+  <li>Acute pancreatitis: enzymes activated inside the pancreas digest it. Gallstones blocking the ampulla and heavy alcohol use are common causes.</li>
+</ul>
+<h3>Bile</h3>
+<ul>
+  <li>Hepatocytes secrete about 800 to 1000 mL a day of yellowish-brown to olive green bile, both a digestive secretion and a route for excreting wastes.</li>
+  <li>Bile holds water, ions including bicarbonate, bile salts, cholesterol, phospholipids (mainly lecithin), bile pigments (mainly conjugated bilirubin), and drugs and toxins being excreted. It has no digestive enzymes.</li>
+  <li>Between meals the sphincter of Oddi is closed, so bile backs up into the gallbladder, which stores it and concentrates it by absorbing water and ions. Secretin increases bicarbonate-rich fluid from the bile ducts.</li>
+  <li>Cholesterol gallstones, the most common type, form when bile holds more cholesterol than its bile salts and phospholipids can keep dissolved. A stone lodged in the cystic or common bile duct causes pain and can block bile flow.</li>
+</ul>
+<h3>The path of bile, step by step</h3>
+<ol>
+  <li>Hepatocytes secrete bile into bile canaliculi between neighboring hepatocytes.</li>
+  <li>Bile flows into bile ductules and bile ducts.</li>
+  <li>These merge into the right and left hepatic ducts, which form the common hepatic duct.</li>
+  <li>The common hepatic duct joins the cystic duct from the gallbladder to form the common bile duct.</li>
+  <li>During a meal, CCK contracts the gallbladder and relaxes the sphincter of Oddi, and stored bile flows out the cystic duct into the common bile duct.</li>
+  <li>The common bile duct joins the pancreatic duct at the hepatopancreatic ampulla, and bile enters the duodenum.</li>
+</ol>
+<h3>How bile salts emulsify fat, step by step</h3>
+<ol>
+  <li>Bile salts are made from cholesterol. Each has a nonpolar side that mixes with fat and a polar side that mixes with water (it is amphipathic).</li>
+  <li>Churning breaks fat into droplets.</li>
+  <li>Bile salts coat each droplet, nonpolar side toward the fat and polar side toward the water.</li>
+  <li>Coated droplets cannot fuse again, so the fat stays as many small droplets (an emulsion).</li>
+  <li>Total fat surface rises greatly, giving pancreatic lipase, which dissolves in water and works only at the fat surface, far more surface to act on.</li>
+</ol>
+<ul>
+  <li>Emulsification is physical; no bonds are broken. Bile salts also form micelles (next section).</li>
+</ul>
+</section>
+<section id="digesting-and-absorbing-carbohydrates-proteins-and-fats">
+<h2>Digesting and absorbing carbohydrates, proteins and fats</h2>
+<p class="cref"><b>Competencies 13 and 14:</b> <a href="week-12-competencies.html#h-w14-carb-protein-absorption" target="_top">Carbohydrate and protein digestion and absorption</a>; <a href="week-12-competencies.html#h-w14-lipid-absorption" target="_top">Lipid digestion and absorption</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on digestion and absorption of carbohydrates, proteins and fats, and on absorption of water, ions and vitamins.</p>
+<p>Brush border enzymes finish digestion at the membrane of the absorptive cells (enterocytes), releasing the products right next to their transporters. Sugars and amino acids then enter villus capillaries and the hepatic portal vein. Most fats take another route, through the lacteals and lymph.</p>
+<h3>A starch from mouth to blood, step by step</h3>
+<ol>
+  <li>Mouth: salivary amylase breaks starch into maltose, maltotriose and alpha-dextrins.</li>
+  <li>Stomach: amylase works inside the bolus until acid inactivates it. No new carbohydrate digestion happens here.</li>
+  <li>Duodenum: pancreatic amylase continues, leaving mostly maltose, maltotriose and alpha-dextrins.</li>
+  <li>Brush border: maltase and alpha-dextrinase split these into glucose.</li>
+  <li>Apical membrane: SGLT1 carries glucose into the cell with two Na+. This is secondary active transport; the Na+ gradient powers it.</li>
+  <li>Basolateral membrane: the Na+/K+ ATPase pumps Na+ out, keeping Na+ low inside so SGLT1 keeps working.</li>
+  <li>Basolateral membrane: glucose leaves by facilitated diffusion through GLUT2.</li>
+  <li>Glucose enters the villus capillaries and travels in the hepatic portal vein to the liver.</li>
+</ol>
+<ul>
+  <li>Only monosaccharides (glucose, galactose, fructose) are absorbed. Brush border sucrase splits sucrose into glucose and fructose, and lactase splits lactose into glucose and galactose.</li>
+  <li>Galactose follows glucose: in through SGLT1, out through GLUT2. Fructose enters by facilitated diffusion through GLUT5, without Na+, and leaves through GLUT2.</li>
+  <li>Cellulose (fiber) has bonds that human amylase cannot break, so it passes to the colon.</li>
+  <li>Water follows absorbed Na+ and glucose by osmosis, which is why oral rehydration solutions contain both sodium and glucose.</li>
+  <li>Lactose intolerance: lactase activity falls after childhood in many people. Undigested lactose holds water in the lumen, and colon bacteria ferment it, causing gas, bloating, cramping and diarrhea.</li>
+</ul>
+<h3>A protein from mouth to blood, step by step</h3>
+<ol>
+  <li>Mouth: chewing breaks food apart; no protein is digested.</li>
+  <li>Stomach: acid denatures the protein, and pepsin cuts it into large peptides.</li>
+  <li>Duodenum: trypsin, chymotrypsin and elastase cut bonds inside the peptides, and carboxypeptidase removes amino acids from the carboxyl end.</li>
+  <li>Brush border: aminopeptidase removes amino acids from the amino end, and dipeptidases split dipeptides, leaving free amino acids and some dipeptides and tripeptides.</li>
+  <li>Apical membrane: free amino acids enter through several transporters, most of them Na+-dependent cotransporters (secondary active transport), each for a group of similar amino acids. Dipeptides and tripeptides enter with H+ through a peptide transporter (PepT1).</li>
+  <li>Inside the cell, peptidases split most dipeptides and tripeptides into amino acids.</li>
+  <li>Basolateral membrane: amino acids leave by facilitated diffusion, enter the villus capillaries, and travel in the hepatic portal vein to the liver.</li>
+</ol>
+<ul>
+  <li>A few larger peptides cross intact by transcytosis. Some newborn mammals absorb milk antibodies this way; in human infants most milk antibodies (IgA) stay in the gut and protect its lining.</li>
+</ul>
+<h3>A triglyceride from mouth to lymph, step by step</h3>
+<p>Fats do not dissolve in water. Bile salts keep them in small droplets, micelles carry the digested pieces to the cells, and the cells pack them into chylomicrons, which are too large for blood capillaries.</p>
+<ol>
+  <li>Mouth and stomach: lingual and gastric lipase digest a small fraction, and churning makes large droplets.</li>
+  <li>Duodenum: fatty acids release CCK, CCK contracts the gallbladder, and bile salts emulsify the droplets.</li>
+  <li>Colipase, activated by trypsin, attaches to the droplet and lets pancreatic lipase reach the fat beneath the bile salt coat.</li>
+  <li>Lipase splits each triglyceride into a monoglyceride and two free fatty acids. Phospholipase A2 and cholesterol esterase digest phospholipids and cholesterol esters.</li>
+  <li>Bile salts gather monoglycerides, fatty acids, cholesterol and fat-soluble vitamins (A, D, E, K) into micelles, tiny clusters with a water-friendly surface.</li>
+  <li>Micelles cross the watery layer next to the brush border. The lipids leave the micelle and diffuse through the membrane into the cell (cholesterol also uses a transporter). Bile salts stay in the lumen for reuse and are absorbed later in the ileum.</li>
+  <li>In the smooth endoplasmic reticulum, monoglycerides and fatty acids are rebuilt into triglycerides.</li>
+  <li>Triglycerides, cholesterol, phospholipids and proteins are packed into chylomicrons (lipoproteins) in the Golgi apparatus.</li>
+  <li>Chylomicrons leave the basolateral side by exocytosis.</li>
+  <li>Too large to enter blood capillaries, they enter the lacteal, which has large gaps between its cells.</li>
+  <li>Lymph carries them to the thoracic duct, which empties into the left subclavian vein.</li>
+  <li>Lipoprotein lipase on capillary walls in muscle and adipose tissue frees fatty acids for the tissues. Chylomicron remnants go to the liver.</li>
+</ol>
+<ul>
+  <li>Why fat takes a different path: glucose is small and water soluble and crosses into capillaries through transporters. Chylomicrons are too large for capillaries, so fat enters the lymph and reaches the blood without passing through the liver first.</li>
+  <li>Short-chain and medium-chain fatty acids, such as those in milk fat, diffuse straight into the capillaries and reach the liver in the portal vein.</li>
+  <li>Without bile or pancreatic lipase, fat stays in the stool (steatorrhea: pale, greasy, foul-smelling stool), and vitamins A, D, E and K can become deficient.</li>
+</ul>
+<h3>Water, ions and vitamins</h3>
+<ul>
+  <li>About 9 liters of fluid enter the small intestine daily (about 2 from food and drink, 7 from secretions). The small intestine absorbs about 7.5 liters, the colon about 1.4, and about 0.1 leaves in the feces.</li>
+  <li>Water follows absorbed Na+, sugars and amino acids by osmosis. Na+ enters through channels and cotransporters and is pumped into the blood by the Na+/K+ ATPase; Cl- follows.</li>
+  <li>Iron is absorbed mostly in the duodenum, and active Ca2+ absorption happens mainly there too. Active vitamin D (calcitriol) increases Ca2+ absorption.</li>
+  <li>Most water-soluble vitamins use transporters in the small intestine. B12 needs intrinsic factor and is absorbed in the terminal ileum. Fat-soluble vitamins travel in micelles.</li>
+  <li>Most nutrient absorption is done before chyme leaves the ileum.</li>
+</ul>
+</section>
+<section id="the-liver-and-the-enterohepatic-circulation">
+<h2>The liver and the enterohepatic circulation</h2>
+<p class="cref"><b>Competency 15:</b> <a href="week-12-competencies.html#h-w14-liver-function" target="_top">Liver function and enterohepatic circulation</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on the liver, bile secretion and the recycling of bile salts.</p>
+<h3>How blood flows through the liver</h3>
+<ul>
+  <li>The hepatic artery brings oxygen-rich blood. The hepatic portal vein brings most of the liver's blood (about 75%), low in oxygen but rich in nutrients, drugs and microbes from the GI organs and spleen.</li>
+  <li>Hepatocytes, about 80% of liver volume, form plates one cell thick (hepatic laminae) separated by sinusoids, very leaky capillaries.</li>
+  <li>Each lobule corner has a portal triad: a branch of the hepatic artery, a branch of the hepatic portal vein, and a bile duct.</li>
+  <li>Fixed macrophages in the sinusoids (stellate reticuloendothelial or Kupffer cells) remove worn-out blood cells, bacteria and debris from gut blood.</li>
+  <li>With so much blood passing through, much of it straight from the GI organs, the liver is a common site of cancer spread (metastasis).</li>
+</ul>
+<h3>Blood through the liver, step by step</h3>
+<ol>
+  <li>Blood enters through hepatic artery and portal vein branches in the portal triads.</li>
+  <li>It mixes in the sinusoids and flows past hepatocytes, which take up and release substances.</li>
+  <li>It drains into the central vein of the lobule.</li>
+  <li>Central veins join into the hepatic veins.</li>
+  <li>The hepatic veins empty into the inferior vena cava and on to the right atrium.</li>
+</ol>
+<ul>
+  <li>Bile flows the other way, from canaliculi near the central vein out to bile ducts in the portal triads: blood flows toward the central vein, bile away from it.</li>
+</ul>
+<h3>What the liver does</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Function</th><th scope="col">What the liver does</th></tr></thead><tbody>
+<tr><th scope="row">Carbohydrate metabolism</th><td>Stores glucose as glycogen after meals; breaks glycogen down and makes new glucose (gluconeogenesis) in fasting, keeping plasma glucose in range</td></tr>
+<tr><th scope="row">Lipid metabolism</th><td>Breaks down fatty acids for energy; makes ketone bodies in fasting; makes cholesterol, triglycerides and lipoproteins</td></tr>
+<tr><th scope="row">Protein metabolism</th><td>Removes amino groups (deamination) and converts the toxic ammonia to urea for the kidneys to excrete; makes most plasma proteins (albumin, clotting factors such as fibrinogen and prothrombin, many globulins)</td></tr>
+<tr><th scope="row">Drugs and hormones</th><td>Chemically changes drugs, alcohol and hormones (such as steroid and thyroid hormones) for excretion in bile or urine</td></tr>
+<tr><th scope="row">Bile salts</th><td>Makes them from cholesterol</td></tr>
+<tr><th scope="row">Bilirubin</th><td>Conjugates bilirubin from old red blood cells and excretes it in bile</td></tr>
+<tr><th scope="row">Storage</th><td>Glycogen; vitamins A, B12, D, E, K; iron and copper</td></tr>
+<tr><th scope="row">Phagocytosis</th><td>Kupffer cells</td></tr>
+<tr><th scope="row">Vitamin D</th><td>First activation step (25-hydroxyvitamin D); the kidney completes it (calcitriol)</td></tr>
+</tbody></table></div>
+<h3>Bilirubin, step by step</h3>
+<ol>
+  <li>Macrophages, mainly in the spleen, liver and bone marrow, break down old red blood cells and convert heme to biliverdin, then bilirubin.</li>
+  <li>Unconjugated bilirubin is not water soluble and travels bound to albumin.</li>
+  <li>Hepatocytes take it up and attach glucuronic acid (conjugation), making it water soluble.</li>
+  <li>Conjugated bilirubin is secreted in bile to the small intestine.</li>
+  <li>Bacteria in the large intestine convert it to urobilinogen.</li>
+  <li>Most becomes stercobilin, which colors feces brown. Some is reabsorbed, and the kidneys excrete part as urobilin, which adds to the yellow of urine.</li>
+</ol>
+<ul>
+  <li>Jaundice: yellow skin and eye whites from bilirubin buildup, caused by fast red cell breakdown, liver disease or a blocked bile duct. Many newborns have mild jaundice because their liver conjugates bilirubin slowly at first.</li>
+</ul>
+<h3>The enterohepatic circulation of bile salts, step by step</h3>
+<ol>
+  <li>Hepatocytes make new bile salts from cholesterol, take up returning ones, and secrete both into the canaliculi.</li>
+  <li>Bile flows through the bile ducts and is stored and concentrated in the gallbladder between meals.</li>
+  <li>After a fatty meal, CCK contracts the gallbladder and bile enters the duodenum.</li>
+  <li>Bile salts emulsify fat and form micelles in the duodenum and jejunum.</li>
+  <li>In the terminal ileum, most bile salts (about 95%) are actively reabsorbed by Na+-dependent transporters.</li>
+  <li>They return to the liver in the hepatic portal vein.</li>
+  <li>Hepatocytes take them up and secrete them again. The small pool cycles several times a day, and new bile salts replace the small amount lost in feces.</li>
+</ol>
+<ul>
+  <li>If the ileum is diseased or removed, bile salts are lost in the feces, the pool shrinks, and fat absorption suffers.</li>
+  <li>Bile salts lost in the feces are a main route for removing cholesterol. Some cholesterol-lowering drugs bind bile salts in the gut, so the liver uses more cholesterol to replace them.</li>
+</ul>
+</section>
+<section id="the-large-intestine-the-microbiome-and-defecation">
+<h2>The large intestine, the microbiome and defecation</h2>
+<p class="cref"><b>Competency 16:</b> <a href="week-12-competencies.html#h-w14-large-intestine" target="_top">Large intestine and microbiome</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the part on the large intestine (absorption, bacteria and the defecation reflex).</p>
+<p>By the time chyme reaches the large intestine, nearly all nutrients are absorbed. The colon absorbs most of the remaining water and salt, hosts the gut bacteria, forms and stores feces, and empties the rectum.</p>
+<h3>Water and electrolyte absorption</h3>
+<ul>
+  <li>About 1.5 liters of liquid chyme enter the colon each day.</li>
+  <li>Absorptive cells take up Na+ through Na+ channels and pump it into the blood with the Na+/K+ ATPase; Cl- and then water follow.</li>
+  <li>Aldosterone adds Na+ channels and pumps in the colon, as in the kidney, so more Na+ and water are absorbed and more K+ is secreted.</li>
+  <li>The colon secretes K+, and HCO3- in exchange for Cl-. Goblet cells secrete lubricating mucus.</li>
+  <li>The longer feces stay, the more water is absorbed; slow movement gives hard, dry stool and constipation.</li>
+  <li>Feces contain water, undigested material such as fiber, bacteria, shed lining cells, bilirubin products and other wastes.</li>
+</ul>
+<h3>How the colon moves its contents</h3>
+<ul>
+  <li>Haustral churning: a filled, stretched haustrum contracts and pushes contents into the next one, slowly mixing them against the absorptive surface.</li>
+  <li>Peristalsis in the colon is slow.</li>
+  <li>Mass movements begin near the middle of the transverse colon and push contents into the rectum three or four times a day, during or soon after meals (gastrocolic reflex).</li>
+  <li>The ileocecal sphincter relaxes after meals (gastroileal reflex) to let chyme into the cecum, and limits backflow.</li>
+</ul>
+<h3>The gut microbiome</h3>
+<p>The colon holds trillions of bacteria, more than anywhere else in the body. With other microbes they form the gut microbiome. Most are harmless or helpful, and the mix varies between people and with diet.</p>
+<ul>
+  <li>They ferment fiber and other carbohydrates we cannot digest into short-chain fatty acids (acetate, propionate, butyrate). Colon cells use butyrate as their main fuel and absorb the others.</li>
+  <li>Fermentation makes gases such as CO2, hydrogen and methane (flatus).</li>
+  <li>They convert remaining proteins into amino acids and break down amino acids.</li>
+  <li>They make vitamin K and some B vitamins, which the colon absorbs, and convert bilirubin to urobilinogen and stercobilin.</li>
+  <li>They take up space and nutrients that harmful bacteria would need, and help train the gut immune system.</li>
+  <li>Broad-spectrum antibiotics can disrupt them and let harmful bacteria such as Clostridioides difficile overgrow.</li>
+  <li>Microbiome research is active, and many proposed health links are associations not yet proven as causes.</li>
+</ul>
+<h3>The defecation reflex, step by step</h3>
+<ol>
+  <li>A mass movement pushes feces into the rectum.</li>
+  <li>The rectal wall stretches, activating stretch receptors.</li>
+  <li>Sensory signals travel to the sacral spinal cord, and a local ENS reflex also starts.</li>
+  <li>Parasympathetic output in the pelvic splanchnic nerves contracts the sigmoid colon and rectum and relaxes the internal anal sphincter. This part is involuntary.</li>
+  <li>Signals reach the brain and produce a conscious urge.</li>
+  <li>If the time is right, the person relaxes the external anal sphincter (skeletal muscle). Contracting the diaphragm and abdominal muscles against a closed glottis (Valsalva maneuver) raises abdominal pressure and pushes feces out.</li>
+  <li>If not, the external sphincter stays contracted, the rectum relaxes, and the urge fades until the next mass movement.</li>
+</ol>
+<ul>
+  <li>Infants cannot yet control the external sphincter, so the reflex empties the rectum automatically.</li>
+  <li>After spinal cord injury above the sacral segments the reflex still works, but voluntary control is lost.</li>
+</ul>
+<h3>Hemorrhoids</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Internal</th><th scope="col">External</th></tr></thead><tbody>
+<tr><th scope="row">Location</th><td>Above the dentate (pectinate) line, internal rectal venous plexus</td><td>Below the dentate line, external venous plexus</td></tr>
+<tr><th scope="row">What happens</th><td>Veins dilate, muscular support breaks down, cushions can ulcerate and bleed</td><td>Veins thrombose (clot)</td></tr>
+<tr><th scope="row">Nerve supply</th><td>Visceral, so usually painless</td><td>Somatic, so can be painful</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Straining with constipation and pregnancy raise rectal vein pressure and are commonly linked to hemorrhoids.</li>
+</ul>
+</section>
+<section id="lab-testing-digestive-enzymes">
+<h2>Lab: testing digestive enzymes</h2>
+<p class="cref"><b>Competency 17:</b> <a href="week-12-competencies.html#h-w14-lab-digestion-enzymes" target="_top">Digestive enzyme experiment</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 22, the parts on digestive enzymes and where each one works.</p>
+<p>An enzyme is a protein catalyst with an active site that fits a particular substrate. Its shape, and so its activity, depends on temperature and pH. In the lab you change one condition at a time and measure the substrate used or the product made.</p>
+<h3>What each test detects</h3>
+<dl>
+  <dt>Iodine (Lugol) test</dt><dd>Blue-black with starch. Less color means starch was digested.</dd>
+  <dt>Benedict test</dt><dd>Heated with reducing sugars such as maltose and glucose, it turns from blue to green, yellow, orange or brick red with more sugar. A change means amylase made sugar.</dd>
+  <dt>Protein digestion</dt><dd>A substrate that changes when cut, such as BAPNA, which turns yellow when trypsin cuts it, or cloudy egg white that clears as pepsin digests it.</dd>
+  <dt>Fat digestion</dt><dd>Lipase releases fatty acids that lower the pH: litmus turns from blue to pink, phenol red from red to yellow.</dd>
+  <dt>Controls</dt><dd>A negative control has water in place of enzyme; a positive control already contains the product. They show the change came from the enzyme and that the test works.</dd>
+</dl>
+<h3>Effect of temperature</h3>
+<ul>
+  <li>Activity rises with temperature up to about body temperature, 37 °C (98.6 °F), where human digestive enzymes work best.</li>
+  <li>In ice near 0 °C (32 °F), molecules move slowly and activity is low, but the enzyme is not damaged and recovers when warmed.</li>
+  <li>Boiling at 100 °C (212 °F) denatures the enzyme; its shape is lost for good, and it stays inactive after cooling.</li>
+</ul>
+<h3>Effect of pH</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Enzyme</th><th scope="col">Where it works</th><th scope="col">Best pH</th><th scope="col">At the wrong pH</th></tr></thead><tbody>
+<tr><th scope="row">Salivary amylase</th><td>Mouth</td><td>Near neutral, about 7</td><td>Inactivated by stomach acid</td></tr>
+<tr><th scope="row">Pepsin</th><td>Stomach</td><td>Acidic, about 2</td><td>Inactive at the near-neutral pH of the duodenum</td></tr>
+<tr><th scope="row">Pancreatic amylase, trypsin, lipase</th><td>Small intestine</td><td>Neutral to slightly alkaline, about 7 to 8</td><td>Work poorly in acid, which is why bicarbonate matters</td></tr>
+</tbody></table></div>
+<h3>Effect of substrate</h3>
+<ul>
+  <li>Specificity: amylase digests starch but not protein or fat; pepsin digests protein but not starch.</li>
+  <li>Amount: more substrate speeds the reaction until every active site is busy (saturation). Then more substrate adds nothing, but more enzyme would.</li>
+  <li>Form: lipase with bile drops the pH faster than lipase alone, because bile emulsifies the fat. Bile alone causes no drop, because it has no enzymes.</li>
+  <li>Time: product builds until the substrate runs out.</li>
+</ul>
+<h3>Relating results to the tract</h3>
+<ul>
+  <li>Each enzyme works best at the pH of its region: amylase in the near-neutral mouth and small intestine, pepsin only in the acid stomach. Pancreatic enzymes need bicarbonate, and lipase needs bile salts.</li>
+  <li>Body temperature stays near 37 °C (98.6 °F), close to the best temperature for all of these enzymes.</li>
+</ul>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>

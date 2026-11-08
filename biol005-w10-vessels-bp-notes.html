@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" data-fold="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pressure, flow, and blood pressure, written notes &middot; BIO 005 Human Physiology</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="assets/fonts-site.css">
+<link rel="stylesheet" href="assets/brandbar.css">
+<style>
+/* Page-specific rules only. Palette and the shared chrome live in
+   assets/brand.css and assets/brandbar.css. The fallback tokens below
+   let the page render on its own if brand.css is not beside it. */
+:root{
+  --navy:#0B1530; --navy-deep:#060A18; --navy-tint:#ECEFF4;
+  --gold:#C9A14A; --gold-ink:#060A18; --gold-deep:#8A6D33;
+  --maroon:#8B3A2E; --maroon-dark:#6E2D24;
+  --offwhite:#FAFAF9; --bone:#F5F1E8; --ink-soft:#414B5C;
+  --line:rgba(11,21,48,0.16);
+  --display:'Open Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--body);background:var(--offwhite);color:var(--navy);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.022em;margin:0}
+em,i,cite,dfn{font-style:normal;color:var(--maroon)}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--maroon);text-underline-offset:3px}
+a:hover{color:var(--maroon-dark)}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;z-index:90;background:var(--navy);color:#fff;
+  padding:12px 18px;font-weight:700;text-decoration:none}
+.skip:focus{left:0;top:0}
+header.top{background:var(--navy-deep);color:#fff;padding:34px 0 30px;margin-top:16px}
+header.top .eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 10px}
+header.top h1{font-size:clamp(26px,4.4vw,38px);line-height:1.14;color:#fff;max-width:22ch}
+header.top p{margin:12px 0 0;color:var(--bone);max-width:62ch;font-size:15.5px}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+main{padding:30px 0 10px}
+section{margin:0 0 30px}
+h2{font-size:clamp(20px,3vw,25px);color:var(--maroon-dark);margin:0 0 10px}
+.card{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 14px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08);transition:transform 200ms ease,box-shadow 200ms ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(11,21,48,.10)}
+.card h3{font-size:16.5px;margin:0 0 6px}
+.card .num{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 6px}
+.card p{margin:0;max-width:64ch}
+.pending{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--navy);background:var(--navy-tint);
+  border-radius:99px;padding:5px 12px;margin-top:12px}
+.notice{background:#fff;border:0;border-radius:12px;padding:20px 22px;margin:0 0 24px;
+  box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notice .t{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--maroon);margin:0 0 8px}
+ol.plain{margin:0;padding-left:22px}
+ol.plain li{margin:0 0 10px;max-width:66ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.card:hover{transform:none}}
+@media print{
+  .skip,.mm-brandbar,.mm-jumpwrap,.mm-foot{display:none}
+  body{background:#fff;font-size:10pt}
+  header.top{background:#fff;color:#000;padding:0 0 10pt}
+  header.top h1,header.top p,header.top .eyebrow{color:#000}
+  .card,.notice{box-shadow:none;border-top:1px solid #000;border-radius:0;padding:8pt 0;
+    break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+
+/* written notes for a walkthrough, Sep 27 2026 */
+.notes h2{margin:26px 0 10px}
+.notes h3{font-size:16px;color:var(--navy);margin:16px 0 6px}
+.notes ul,.notes ol{margin:0 0 14px;padding-left:22px;max-width:70ch}
+.notes li{margin:0 0 7px}
+.notes dl{margin:0 0 14px;max-width:70ch}
+.notes dt{font-weight:800;color:var(--navy);margin:10px 0 2px}
+.notes dd{margin:0 0 0 18px}
+.notes .tbl{overflow-x:auto;margin:0 0 16px}
+.notes table{border-collapse:collapse;width:100%;font-size:15px;background:#fff}
+.notes th,.notes td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.notes th{background:var(--navy-tint);font-weight:800}
+header.top a{color:var(--gold)}
+header.top a:hover{color:#fff}
+.notes .use{background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+@media print{.notes .use{box-shadow:none;border:1px solid #999}}
+/* Sep 27 2026: the walkthrough's videos, listed beside the notes */
+.notes .vids{scroll-margin-top:96px;background:#fff;border-radius:12px;padding:16px 20px;margin:0 0 20px;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+.notes .vids h2{margin:0 0 6px}
+.notes .vids ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;max-width:none}
+.notes .vids li{margin:0}
+.notes .vids a{font-weight:700}
+.notes .vids .with{display:block;font-size:14px;color:var(--ink2,#414B5C)}
+@media print{.notes .vids{display:none}}
+
+/* two-tone printing, Sep 27 2026: course red plus black; navy prints black */
+@media print{:root{--navy:#000;--navy-deep:#000;--ink:#000;--ink2:#222}body,h1,h3,h4,p,li,td,th,dt,dd,label{color:#000}svg [fill="#0B1530" i],svg [fill="#060A18" i],svg [fill="#1E3D4C" i],svg [fill="#142A36" i]{fill:#000}svg [stroke="#0B1530" i],svg [stroke="#060A18" i],svg [stroke="#1E3D4C" i],svg [stroke="#142A36" i]{stroke:#000}}
+</style>
+<style data-paper>
+@media screen{
+body.paper{background:#ECEFF4}
+body.paper header.top{background:transparent;color:#0B1530;padding:0;margin:24px 0 0}
+body.paper header.top .wrap{max-width:8.5in;margin:0 auto;background:#fff;padding:34px 48px 4px;border-radius:6px 6px 0 0;box-shadow:0 1px 3px rgba(11,21,48,.08)}
+body.paper header.top .pkick{margin:0 0 4px;font-size:15px;color:#0B1530}
+body.paper main{padding-top:0;margin-top:0}
+body.paper header.top{margin-bottom:0}
+body.paper header.top .eyebrow{color:#8B3A2E;font-size:12px;letter-spacing:.2em;margin:0 0 6px}
+body.paper header.top h1{color:#000;font-size:clamp(26px,3.6vw,32px);max-width:none;margin:2px 0 8px}
+body.paper header.top p{color:#0B1530;max-width:none;font-size:16px}
+body.paper header.top a{color:#8B3A2E}
+body.paper header.top a:hover{color:#6E2D24}
+body.paper main .wrap.notes{max-width:8.5in;margin:0 auto 48px;background:#fff;padding:14px 48px 40px;border-radius:0 0 6px 6px;box-shadow:0 8px 16px rgba(11,21,48,.08)}
+body.paper .notes{color:#000;font-size:15px;line-height:1.5}
+body.paper .notes .use{border:0;box-shadow:0 1px 6px rgba(11,21,48,.14);border-radius:6px;padding:14px 18px;max-width:none}
+body.paper .notes section{columns:2 280px;column-gap:34px;margin:0 0 6px}
+body.paper .notes section>h2{column-span:all;color:#8B3A2E;font-size:19px;margin:22px 0 6px}
+body.paper .notes section>.figref,body.paper .notes .tbl{column-span:all}
+body.paper .notes h3{color:#000;font-size:15.5px;margin:12px 0 4px;break-after:avoid}
+body.paper .notes p,body.paper .notes ul,body.paper .notes ol,body.paper .notes dl{max-width:none}
+body.paper .notes li,body.paper .notes dt,body.paper .notes dd{break-inside:avoid}
+body.paper .notes ol,body.paper .notes ul{break-inside:auto}
+}
+@media screen and (max-width:760px){
+body.paper header.top .wrap,body.paper main .wrap.notes{padding-left:20px;padding-right:20px;border-radius:0}
+body.paper .notes section{columns:1}
+}
+@media print{body.paper header.top .pkick{display:none}}
+</style>
+<style data-read>
+/* Nov 8 2026: a little larger and airier than the Week 7 and 7 notes */
+@media screen{
+body.paper .notes{font-size:16.5px;line-height:1.62}
+body.paper .notes section{column-gap:44px}
+body.paper .notes section>h2{font-size:21px;margin:30px 0 8px}
+body.paper .notes h3{font-size:16.5px;margin:16px 0 5px}
+body.paper .notes p{margin:0 0 11px}
+body.paper .notes li{margin:0 0 8px}
+body.paper .notes table{font-size:15px}
+body.paper .notes th,body.paper .notes td{padding:8px 10px}
+body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
+body.paper .notes .lt{color:#8B3A2E;font-weight:800}
+body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
+}
+</style>
+</head>
+<body class="paper" data-no-reading-mode data-collapse="off">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="mm-brandbar"><div class="mm-wrap">
+  <a class="mm-mark" href="course-start.html" target="_top">
+    <svg viewBox="40 10 125 148" width="22" height="26" role="img" aria-label="BIO 005 Human Physiology, course home"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#0B1530"/><circle cx="17" cy="8" r="4.2" fill="#8B3A2E"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#0B1530"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#8B3A2E"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg>
+    <span><span class="mm-wm">BIO <b>005</b></span><span class="mm-wmsub">Human Physiology</span></span>
+  </a>
+  <span class="mm-course">BIO 005 &middot; Fall 2026</span>
+</div></div>
+
+<!-- The five jump squares came out Sep 7 2026. They described the
+     assignment set as it stood before Use It became the patient chart
+     and the weekly lab was rebuilt, so N, P, L, D and S no longer match
+     what a week contains and there was no square for Use It. The CSS is
+     left in place. See course-schedule.html for the array to restore. -->
+
+<header class="top"><div class="wrap">
+  <p class="eyebrow">BIO 005 · Week 10 · Written notes</p>
+  <p class="pkick">BIO 005 Human Physiology · Week 10 notes · Dr. Sharilyn Rennie</p>
+  <h1>Pressure, flow, and blood pressure</h1>
+  <p>The vessel wall and the five kinds of vessel, pressure, flow, resistance and velocity, the endothelium, systolic, diastolic, pulse and mean arterial pressure and how a cuff measures them, local and reflex control of arterioles, Starling forces, edema and lymph, the three venous pumps, the baroreceptor reflex, the renin-angiotensin-aldosterone system with ADH and ANP, the adrenal cortex, the responses to exercise and blood loss, and the types of shock. Week 10 competencies 1 to 13.</p>
+  <p><b>To print:</b> <a href="notes/BIO005-Week10-Notes-vessels-bp.pdf" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>
+</div></header>
+
+<main id="main"><div class="wrap notes">
+<div class="use"><p><b>How to use these notes.</b> Watch <a href="li/w10/study.html" target="_top">the lecture</a> and work through the click-through slides first. Then read these notes to fill in anything you missed, and use them to review. The section letters match the lecture.</p><p><b>Your textbook:</b> Silverthorn Chapter 16, Blood Flow and the Control of Blood Pressure. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, Chapter 20, The Cardiovascular System: Blood Vessels and Circulation.</p></div>
+<section id="need-to-know-anatomy">
+<h2>Need-to-know anatomy</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the part on the blood vessels.</p>
+<p>These are the structures you need to picture to follow the physiology in the rest of the notes.</p>
+<h3>The vessel wall</h3>
+<dl>
+  <dt>Tunica intima</dt><dd>The inner layer: endothelium (one layer of flat cells) on a basement membrane. Arteries add an internal elastic lamina, a sheet of elastic fibers with holes in it.</dd>
+  <dt>Tunica media</dt><dd>The middle layer of smooth muscle and elastic fibers. It varies most between vessel types, is thickest in arteries, and sets the diameter of the lumen.</dd>
+  <dt>Tunica externa</dt><dd>The outer collagen layer that anchors the vessel. It carries the sympathetic nerves and, in large vessels, the vasa vasorum, small vessels that supply the wall itself. It is the thickest layer in veins.</dd>
+</dl>
+<p>Capillaries have only the intima, which is why their wall is thin enough for exchange.</p>
+<h3>The kinds of vessel</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Vessel</th><th scope="col">Structure to picture</th><th scope="col">Examples or location</th></tr></thead><tbody>
+<tr><th scope="row">Elastic arteries</th><td>Wide lumen; media packed with elastic sheets and less smooth muscle</td><td>Aorta, pulmonary trunk and their large branches (brachiocephalic, common carotid, subclavian, common iliac)</td></tr>
+<tr><th scope="row">Muscular (distributing) arteries</th><td>Media mostly smooth muscle, fewer elastic fibers</td><td>Brachial, radial, femoral; they carry blood to individual organs</td></tr>
+<tr><th scope="row">Arterioles</th><td>Wall thick for the size of the lumen; one or two layers of smooth muscle; sympathetic nerves in the outer layer</td><td>Lead into every capillary bed</td></tr>
+<tr><th scope="row">Capillaries</th><td>Endothelium and basement membrane only, about 5 to 10 µm across; red cells pass in single file</td><td>Dense in muscle, liver, kidney and brain; sparse in tendons; absent from cartilage, epithelia, cornea and lens</td></tr>
+<tr><th scope="row">Venules</th><td>Thin, porous walls; larger ones gain one or two layers of smooth muscle</td><td>Collect blood from capillary beds</td></tr>
+<tr><th scope="row">Veins</th><td>Thin media, thick externa, wide lumen that collapses when empty, no elastic laminae; valves in the limbs</td><td>Return blood to the heart; venae cavae at the right atrium</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Metarteriole</dt><dd>A small vessel from an arteriole toward a venule that gives off capillaries. Its far end can act as a shortcut (thoroughfare channel) straight to the venule.</dd>
+  <dt>Precapillary sphincter</dt><dd>A ring of smooth muscle where a capillary leaves a metarteriole, opening or closing that capillary. Not every tissue has distinct sphincters; in many, the smallest arterioles do this job.</dd>
+  <dt>Venous valve</dt><dd>Folds of the tunica intima that let blood flow only toward the heart. They matter most in the legs.</dd>
+</dl>
+<h3>Three types of capillary</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Type</th><th scope="col">Wall</th><th scope="col">Where</th></tr></thead><tbody>
+<tr><th scope="row">Continuous (most common)</th><td>Unbroken endothelium; small gaps (clefts) between cells</td><td>Muscle, skin, lungs, brain</td></tr>
+<tr><th scope="row">Fenestrated</th><td>Endothelium with pores (fenestrations)</td><td>Kidney glomeruli, small intestine villi, choroid plexus, most endocrine glands</td></tr>
+<tr><th scope="row">Sinusoid</th><td>Wide and irregular; large gaps; incomplete basement membrane, so proteins and even cells can pass</td><td>Liver, spleen, bone marrow, some endocrine glands</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Brain capillaries are continuous with very tight junctions: the blood-brain barrier. A few small regions, such as parts of the hypothalamus and the posterior pituitary, lack it so they can sense or release into the blood.</li>
+  <li>Liver sinusoids let the liver release albumin and other plasma proteins into the blood; bone marrow sinusoids let new blood cells in.</li>
+  <li>An anastomosis joins arteries that supply the same region, giving a backup route if one is blocked. Slowly narrowing coronary arteries can grow such collaterals.</li>
+  <li>A portal system puts a second capillary bed in series with the first: gut to liver (hepatic portal) and hypothalamus to anterior pituitary (hypophyseal portal).</li>
+</ul>
+<h3>Where the blood is at rest</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Location</th><th scope="col">Share of blood volume</th></tr></thead><tbody>
+<tr><th scope="row">Systemic veins and venules</th><td>About 64%</td></tr>
+<tr><th scope="row">Systemic arteries and arterioles</th><td>About 13%</td></tr>
+<tr><th scope="row">Pulmonary vessels</th><td>About 9%</td></tr>
+<tr><th scope="row">Systemic capillaries</th><td>About 7%</td></tr>
+<tr><th scope="row">Heart</th><td>About 7%</td></tr>
+</tbody></table></div>
+<h3>Sensors and control structures</h3>
+<ul>
+  <li>Carotid sinus: the widened start of each internal carotid artery, where the common carotid divides. Its wall holds baroreceptors (stretch receptors).</li>
+  <li>Aortic arch: its wall holds the other baroreceptors. Carotid and aortic bodies nearby hold chemoreceptors for O2, CO2 and H+.</li>
+  <li>Medulla oblongata: holds the cardiovascular control center.</li>
+  <li>Juxtaglomerular apparatus: juxtaglomerular (JG) cells in the wall of the kidney's afferent arteriole, beside the macula densa, tubule cells that sense NaCl.</li>
+  <li>Adrenal glands: on top of each kidney, an outer cortex in three zones around an inner medulla.</li>
+  <li>Lymphatics: blind-ended lymphatic capillaries, larger vessels with valves, lymph nodes, and two ducts that drain into the veins at the base of the neck.</li>
+</ul>
+</section>
+<section id="the-vessels-and-the-rules-of-flow">
+<h2><span class="lt">A.</span> The vessels and the rules of flow</h2>
+<p class="cref"><b>Competencies 2 and 3:</b> <a href="week-10-competencies.html#h-w11-flow-resistance" target="_top">Pressure flow and resistance</a>; <a href="week-10-competencies.html#h-w11-vessel-function" target="_top">Vessel structure and function</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 15, the part on pressure, volume, flow and resistance; Chapter 16, the parts on the blood vessels and on resistance in the arterioles.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129" target="_blank" rel="noopener">Lecture video: Blood flow and cardiac output<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=192" target="_blank" rel="noopener">Lecture video: Pressure and resistance for flow, starts at 3:12<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=377" target="_blank" rel="noopener">Lecture video: Normal pressures across the vessels, starts at 6:17<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=1063" target="_blank" rel="noopener">Lecture video: What sets vascular resistance, starts at 17:43<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Blood leaves the left ventricle at high pressure and returns to the right atrium at almost zero. Each vessel on the way is built mainly for one job, and the pressure falls a different amount in each.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Vessel</th><th scope="col">Job</th><th scope="col">Pressure at rest (mm Hg)</th></tr></thead><tbody>
+<tr><th scope="row">Elastic artery</th><td>Pressure reservoir: stretches in systole and recoils in diastole, so flow continues between beats</td><td>About 120 at the peak, 80 at the low point</td></tr>
+<tr><th scope="row">Arteriole</th><td>Resistance vessel: its radius sets how much blood a tissue gets and how much pressure is left for the capillaries</td><td>Falls from about 93 to about 35; the pulse disappears</td></tr>
+<tr><th scope="row">Capillary</th><td>Main exchange vessel: gases, nutrients, wastes and fluid cross here</td><td>About 32 at the arterial end, about 15 at the venous end</td></tr>
+<tr><th scope="row">Venule</th><td>Collects capillary blood; some exchange; white cells leave here in inflammation</td><td>About 15 and falling</td></tr>
+<tr><th scope="row">Vein</th><td>Capacitance (volume reservoir): holds about 60% of the blood and gives it up when sympathetic nerves tighten it</td><td>A few mm Hg, near 0 at the right atrium</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Capillaries are the main site of exchange, not the only one. Exchange continues in the venules.</li>
+  <li>The elastic artery is a pressure reservoir; the vein is a volume reservoir.</li>
+  <li>Total peripheral resistance lives mostly in the arterioles, which is where vessel-dilating blood pressure drugs act.</li>
+</ul>
+<dl>
+  <dt>Compliance</dt><dd>How easily a vessel stretches as pressure rises. Veins are very compliant, so they hold a large volume at low pressure.</dd>
+  <dt>Endothelium</dt><dd>The cell layer lining every vessel. It controls what crosses, keeps blood from clotting on it, and signals to the smooth muscle beneath. Endothelial damage is the first step of atherosclerosis.</dd>
+</dl>
+<h3>One lap of the circuit, step by step</h3>
+<ol>
+  <li>The left ventricle ejects blood into the aorta. The elastic wall stretches and stores some of the energy, and pressure peaks near 120 mm Hg.</li>
+  <li>In diastole the aortic wall recoils and keeps pushing blood forward, so flow does not stop between beats and pressure falls only to about 80 mm Hg.</li>
+  <li>Blood reaches the arterioles, the narrowest adjustable point. Most of the pressure is spent here (about 93 down to 35 mm Hg), and the pulse is damped out.</li>
+  <li>Blood spreads into the capillaries. Their total cross-sectional area is enormous, so blood moves slowest here, which gives time for exchange across the one-cell wall.</li>
+  <li>Venules and veins collect the blood at a few mm Hg; the compliant veins store most of it, and valves keep it moving one way.</li>
+  <li>Blood returns to the right atrium at about 0 mm Hg. At rest one complete trip around both circuits takes about a minute.</li>
+</ol>
+<h3>The rules of flow</h3>
+<p>Blood flows from higher to lower pressure. The pressure difference between two points (the gradient) drives it, not the pressure itself. Resistance is whatever opposes flow, mostly friction against the vessel wall.</p>
+<ul>
+  <li>Flow = pressure gradient / resistance.</li>
+  <li>For the whole systemic circuit: cardiac output = mean arterial pressure / total peripheral resistance. Rearranged, MAP = cardiac output × total peripheral resistance. (Strictly, the gradient is MAP minus right atrial pressure, but right atrial pressure is close to zero.)</li>
+  <li>Resistance is proportional to length × viscosity divided by the radius to the fourth power (Poiseuille's law).</li>
+  <li>All organs are fed from the same arterial pressure, so each organ's share of cardiac output depends on the resistance of its arterioles.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Change</th><th scope="col">Resistance</th><th scope="col">Flow at the same pressure gradient</th></tr></thead><tbody>
+<tr><th scope="row">Radius halved</th><td>16 times higher (2 × 2 × 2 × 2)</td><td>Falls to one sixteenth</td></tr>
+<tr><th scope="row">Radius doubled</th><td>One sixteenth as much</td><td>16 times higher</td></tr>
+<tr><th scope="row">Viscosity doubled (as in polycythemia)</th><td>Doubles</td><td>Halves</td></tr>
+<tr><th scope="row">Viscosity lowered (as in severe anemia)</th><td>Falls</td><td>Rises</td></tr>
+<tr><th scope="row">Length increased (new vessels grow, as with weight gain or a tumor)</th><td>Rises</td><td>Falls</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Viscosity</dt><dd>The thickness of a fluid. In blood it comes mostly from red cells (the hematocrit), a little from plasma proteins. A high red cell count (polycythemia) can follow chronic low O2, dehydration or erythropoietin misuse.</dd>
+  <dt>Total peripheral resistance (TPR)</dt><dd>The combined resistance of all the systemic vessels, set mostly by the arterioles. Also called systemic vascular resistance (SVR).</dd>
+</dl>
+<ul>
+  <li>Length and viscosity change slowly if at all. Radius is what the body changes from second to second, at the arterioles.</li>
+  <li>Poiseuille's law describes steady flow in rigid tubes. Vessels stretch and flow pulses, so the numbers are approximate, but the direction of each effect holds.</li>
+</ul>
+<h3>Flow is not velocity</h3>
+<p>Flow is volume per minute, the same at every level of the circuit (about 5 L/min at rest). Velocity is speed, and velocity = flow / total cross-sectional area. Blood moves fastest in the aorta, slowest in the capillaries because together they have the largest total area, and faster again in the veins.</p>
+<h3>The endothelium makes its own dilator, step by step</h3>
+<ol>
+  <li>Blood dragging across the lining (shear stress), or chemicals such as acetylcholine, histamine and bradykinin, act on the endothelial cell.</li>
+  <li>The endothelial cell switches on nitric oxide synthase, the enzyme that makes nitric oxide (NO).</li>
+  <li>NO, a gas, diffuses from the endothelium into the smooth muscle cell beneath it.</li>
+  <li>In the smooth muscle, NO raises cGMP.</li>
+  <li>cGMP lowers Ca2+ inside the cell and activates myosin phosphatase, so the muscle relaxes and the vessel widens.</li>
+</ol>
+<ul>
+  <li>The same cells make endothelin, a constrictor that works through IP3 and Ca2+, when injured, when flow is low, or when stimulated by angiotensin II. The lining makes its own dilator and its own constrictor.</li>
+  <li>Nitroglycerin releases NO, which is why it relaxes vessels. Sildenafil acts on the same pathway by slowing the breakdown of cGMP.</li>
+</ul>
+</section>
+<section id="arterial-blood-pressure-and-how-it-is-measured">
+<h2><span class="lt">B.</span> Arterial blood pressure and how it is measured</h2>
+<p class="cref"><b>Competencies 4 and 9:</b> <a href="week-10-competencies.html#h-w11-blood-pressure" target="_top">Arterial blood pressure</a>; <a href="week-10-competencies.html#h-w11-lab-bp-measurement" target="_top">Blood pressure measurement</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the part on blood pressure, including how a cuff estimates it.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=377" target="_blank" rel="noopener">Lecture video: Normal pressures: systolic and diastolic, starts at 6:17<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=563" target="_blank" rel="noopener">Lecture video: Mean arterial pressure and perfusion, starts at 9:23<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Each ejection pushes a stroke volume into an aorta that is already full. The surge travels down the arteries as a pressure wave, and that wave, not the blood itself, is the pulse you feel at the wrist.</p>
+<dl>
+  <dt>Systolic pressure</dt><dd>The peak, during ejection, about 120 mm Hg; the top number. It rises with a larger stroke volume and stiffer arteries.</dd>
+  <dt>Diastolic pressure</dt><dd>The low point, just before the next ejection, about 80 mm Hg; the bottom number. It rises with tight arterioles and with a faster heart rate, which leaves less time for pressure to fall.</dd>
+  <dt>Dicrotic notch</dt><dd>A blip on the falling side of each pulse as the aortic valve closes (the second heart sound). It separates ejection from diastole.</dd>
+  <dt>Pulse pressure</dt><dd>Systolic minus diastolic, about 40 mm Hg at 120/80. It widens with a larger stroke volume or stiffer arteries.</dd>
+  <dt>Mean arterial pressure (MAP)</dt><dd>The average over one cycle, about 93 mm Hg at 120/80: the pressure that drives flow to the organs and the value the baroreceptor reflex defends.</dd>
+</dl>
+<h3>Work the numbers</h3>
+<ul>
+  <li>Pulse pressure = systolic minus diastolic. At 120/80, 120 minus 80 = 40 mm Hg.</li>
+  <li>MAP = diastolic + one third of the pulse pressure. At 120/80, 80 + (40 / 3) ≈ 93 mm Hg.</li>
+  <li>MAP sits closer to diastolic because at rest diastole lasts about two thirds of each cycle. At fast heart rates diastole shortens, so the formula is an estimate that works best at rest.</li>
+  <li>MAP = cardiac output × total peripheral resistance. These are the only two levers, and the baroreceptor reflex adjusts both.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Reading</th><th scope="col">Pulse pressure</th><th scope="col">MAP</th><th scope="col">What it suggests</th></tr></thead><tbody>
+<tr><th scope="row">120/80</th><td>40</td><td>About 93</td><td>Typical healthy adult</td></tr>
+<tr><th scope="row">130/70</th><td>60</td><td>About 90</td><td>Wider pulse pressure; MAP normal</td></tr>
+<tr><th scope="row">150/70</th><td>80</td><td>About 97</td><td>Stiff arteries, as in many older adults; MAP about normal</td></tr>
+<tr><th scope="row">100/85</th><td>15</td><td>About 90</td><td>Small stroke volume with tight arterioles, as in early shock</td></tr>
+</tbody></table></div>
+<ul>
+  <li>A high diastolic pressure with little change in systolic points to tight arterioles (higher resistance).</li>
+  <li>With age, collagen replaces elastic fibers in the large arteries. The stiff aorta cannot absorb each ejection, so systolic rises and diastolic may fall, which is why isolated systolic hypertension is common in older adults.</li>
+  <li>In current American guidelines, a normal adult reading is below 120 systolic and below 80 diastolic. Hypertension starts at 130 systolic or 80 diastolic.</li>
+  <li>Normal MAP is about 70 to 100 mm Hg. Below about 65 mm Hg, organs may not get enough blood.</li>
+</ul>
+<h3>What the cuff does to the artery, step by step</h3>
+<ol>
+  <li>The cuff is inflated above systolic, for example to 140 mm Hg. It squeezes the brachial artery flat, and the stethoscope at the elbow hears nothing.</li>
+  <li>The cuff is let down slowly. When cuff pressure falls just below systolic, the peak of each pulse forces the artery open for an instant.</li>
+  <li>Blood spurts through in a turbulent burst, making a tap. This first Korotkoff sound marks systolic pressure.</li>
+  <li>While cuff pressure is between systolic and diastolic, the artery opens and snaps shut with every beat, so a tap is heard with each pulse.</li>
+  <li>Near diastolic the sounds muffle. Below diastolic the artery stays open, flow becomes smooth (laminar) and silent, and the reading when the sounds disappear is diastolic.</li>
+</ol>
+<dl>
+  <dt>Korotkoff sounds</dt><dd>Sounds of turbulent flow through the partly squeezed artery, heard only while cuff pressure is between systolic and diastolic.</dd>
+  <dt>Laminar and turbulent flow</dt><dd>Laminar flow moves in smooth layers and is silent. Turbulent flow swirls and makes noise.</dd>
+</dl>
+<h3>In the lab: measuring by auscultation</h3>
+<ol>
+  <li>Seat the subject, rested about five minutes, arm supported at heart level. A cuff that is too small reads falsely high.</li>
+  <li>Wrap the cuff on the upper arm with its bladder over the brachial artery, and place the stethoscope over the artery at the inner elbow.</li>
+  <li>Inflate to about 20 to 30 mm Hg above the pressure at which the radial pulse disappears.</li>
+  <li>Deflate at about 2 to 3 mm Hg per second while listening.</li>
+  <li>Record the first tap as systolic and the point where the sounds disappear as diastolic.</li>
+  <li>Calculate pulse pressure and MAP from the two readings.</li>
+</ol>
+<h3>Recording a postural or exercise challenge</h3>
+<ul>
+  <li>Lying to standing: blood pools in the leg veins, pressure dips briefly, and the baroreceptor reflex restores it within seconds, usually with a faster heart rate.</li>
+  <li>A fall of 20 mm Hg or more in systolic pressure, or 10 mm Hg or more in diastolic, within 3 minutes of standing is orthostatic hypotension. It points to low blood volume or a weak autonomic response.</li>
+  <li>Exercise: systolic pressure rises because stroke volume and cardiac output rise. Diastolic stays about the same or falls slightly, because arterioles in the working muscle dilate. Pulse pressure widens.</li>
+</ul>
+</section>
+<section id="how-an-arteriole-sets-its-own-tone">
+<h2><span class="lt">C.</span> How an arteriole sets its own tone</h2>
+<p class="cref"><b>Competency 5:</b> <a href="week-10-competencies.html#h-w11-local-blood-flow" target="_top">Local control of blood flow</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the parts on resistance in the arterioles and on distribution of blood to the tissues.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=1149" target="_blank" rel="noopener">Lecture video: Opening and narrowing the arteriole, starts at 19:09<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=2705" target="_blank" rel="noopener">Lecture video: Autoregulation: matching flow to what the tissue needs, starts at 45:05<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Arteriolar tone is how contracted the arteriole's smooth muscle is. Signals from the tissue it supplies (local control) and from nerves and hormones serving the whole body (reflex control) act on it at once. Inside a working tissue, local signals usually win.</p>
+<h3>Myogenic response, step by step</h3>
+<ol>
+  <li>Arterial pressure rises and stretches the wall of the arteriole.</li>
+  <li>Stretch opens mechanically gated cation channels in the smooth muscle membrane, and the cell depolarizes.</li>
+  <li>Voltage-gated Ca2+ channels open, Ca2+ enters, and the muscle contracts.</li>
+  <li>The arteriole narrows, resistance rises, and flow into the tissue stays close to what it was.</li>
+  <li>When pressure falls, the muscle is stretched less, relaxes, and the arteriole widens, which keeps flow up.</li>
+</ol>
+<dl>
+  <dt>Autoregulation</dt><dd>A tissue keeping its own flow fairly steady as arterial pressure changes, without nerves or hormones. It is strong in the kidney and brain.</dd>
+</dl>
+<h3>Metabolic control (active hyperemia), step by step</h3>
+<ol>
+  <li>A tissue works harder, as in exercising muscle, a digesting gut or an active brain region.</li>
+  <li>Its cells use more O2 and release more CO2, H+, K+, adenosine and lactic acid into the interstitial fluid.</li>
+  <li>These chemicals reach the smooth muscle of the nearby arterioles and precapillary sphincters, which relax.</li>
+  <li>The arterioles dilate and more capillaries open, so resistance in that bed falls and blood flow rises to match the higher metabolism.</li>
+  <li>The extra blood brings O2 and washes the metabolites away, and the arterioles return toward their resting tone.</li>
+</ol>
+<dl>
+  <dt>Active hyperemia</dt><dd>A rise in blood flow that follows a rise in metabolism.</dd>
+  <dt>Reactive hyperemia</dt><dd>Metabolites build up while flow is blocked, so when the block is released flow overshoots before settling. It is the same metabolic control, seen after an interruption.</dd>
+</dl>
+<ul>
+  <li>In resting muscle many capillaries carry little flow and blood can take the metarteriole shortcut. When the muscle works, the sphincters open and the bed fills. This opening and closing is vasomotion.</li>
+  <li>The lungs do the opposite: low O2 constricts nearby pulmonary arterioles (hypoxic pulmonary vasoconstriction), sending blood to better ventilated alveoli. Widespread low O2, as in severe chronic obstructive pulmonary disease (COPD), raises pulmonary pressure and can strain the right ventricle (cor pulmonale).</li>
+</ul>
+<h3>Paracrine signals</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Signal</th><th scope="col">Source</th><th scope="col">Effect on arterioles</th></tr></thead><tbody>
+<tr><th scope="row">Nitric oxide</th><td>Endothelium (shear stress, acetylcholine, histamine, bradykinin)</td><td>Dilates</td></tr>
+<tr><th scope="row">Endothelin</th><td>Endothelium (injury, low flow, angiotensin II)</td><td>Constricts</td></tr>
+<tr><th scope="row">Histamine</th><td>Mast cells in inflammation and allergy</td><td>Dilates; also makes capillaries leakier</td></tr>
+<tr><th scope="row">Bradykinin and other kinins</th><td>Made in injured or inflamed tissue</td><td>Dilates, through nitric oxide; also makes capillaries leakier</td></tr>
+<tr><th scope="row">Adenosine</th><td>Cells using a lot of ATP, as in working heart muscle</td><td>Dilates</td></tr>
+<tr><th scope="row">Serotonin and thromboxane A2</th><td>Activated platelets at an injury</td><td>Constrict, which helps limit bleeding</td></tr>
+</tbody></table></div>
+<p>A cut small artery or arteriole also contracts sharply on its own (vascular spasm), which limits blood loss.</p>
+<h3>Sympathetic alpha control</h3>
+<ul>
+  <li>Most arterioles receive only sympathetic nerves. Steady firing releases norepinephrine onto alpha-1 receptors (working through IP3 and Ca2+) and keeps them partly constricted: sympathetic tone.</li>
+  <li>More firing constricts; less firing than at rest dilates.</li>
+  <li>Capillaries have no muscle or nerves. Most arterioles, including those of skeletal muscle, have essentially no parasympathetic supply.</li>
+</ul>
+<h3>Hormones</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Hormone</th><th scope="col">Where it acts</th><th scope="col">Effect</th></tr></thead><tbody>
+<tr><th scope="row">Epinephrine (adrenal medulla)</th><td>Alpha-1 receptors on most arterioles</td><td>Constricts</td></tr>
+<tr><th scope="row">Epinephrine</th><td>Beta-2 receptors on arterioles of skeletal muscle, heart and liver</td><td>Dilates</td></tr>
+<tr><th scope="row">Angiotensin II</th><td>AT1 receptors on arterioles</td><td>Constricts</td></tr>
+<tr><th scope="row">ADH (vasopressin), at high levels</th><td>V1 receptors on arterioles</td><td>Constricts</td></tr>
+<tr><th scope="row">Atrial natriuretic peptide</th><td>Arterioles</td><td>Dilates</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Norepinephrine from sympathetic nerves acts mostly on alpha-1 receptors, so more nerve firing constricts.</li>
+  <li>Epinephrine binds beta-2 receptors more strongly than norepinephrine does. In arterioles that have beta-2 receptors (skeletal muscle, heart, liver), circulating epinephrine tends to dilate; at high levels its alpha-1 effect takes over and it constricts.</li>
+</ul>
+<h3>Local versus reflex control</h3>
+<div class="tbl"><table><thead><tr><th scope="col"></th><th scope="col">Local control</th><th scope="col">Reflex control</th></tr></thead><tbody>
+<tr><th scope="row">Signals</th><td>Stretch, metabolites, paracrines such as NO and histamine</td><td>Sympathetic nerves and hormones</td></tr>
+<tr><th scope="row">Whom it serves</th><td>The tissue the arteriole supplies</td><td>Blood pressure for the whole body</td></tr>
+<tr><th scope="row">Example</th><td>Leg muscle arterioles dilate during a run</td><td>Gut and kidney arterioles constrict when blood pressure falls</td></tr>
+<tr><th scope="row">When the two conflict</th><td>Wins inside a working tissue: exercising muscle dilates despite high sympathetic activity</td><td>Sets tone in tissues that are not working hard</td></tr>
+</tbody></table></div>
+</section>
+<section id="capillary-exchange-edema-and-lymph">
+<h2><span class="lt">D.</span> Capillary exchange, edema and lymph</h2>
+<p class="cref"><b>Competencies 6 and 7:</b> <a href="week-10-competencies.html#h-w11-capillary-exchange" target="_top">Capillary exchange and Starling forces</a>; <a href="week-10-competencies.html#h-w11-edema" target="_top">Edema</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the parts on exchange at the capillaries and on the lymphatic system.</p>
+<p>Exchange is the reason the circulation exists. Substances cross the capillary wall in three ways.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Way across</th><th scope="col">What moves</th><th scope="col">How</th></tr></thead><tbody>
+<tr><th scope="row">Diffusion (the main way)</th><td>O2, CO2, glucose, amino acids, ions, wastes</td><td>Down concentration gradients; O2 and CO2 through the cell membranes, water-soluble solutes through gaps and pores</td></tr>
+<tr><th scope="row">Transcytosis</th><td>Some large molecules, such as certain proteins</td><td>Carried across the endothelial cell in vesicles</td></tr>
+<tr><th scope="row">Bulk flow</th><td>Water with its dissolved small solutes</td><td>Pushed by pressure through gaps between cells: filtration out, absorption in</td></tr>
+</tbody></table></div>
+<p>Most proteins are too big to leave most capillaries. Plasma proteins, mostly albumin, stay in the blood, which is what lets them pull water back in.</p>
+<h3>The four Starling forces</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Force</th><th scope="col">Pushes fluid</th><th scope="col">Typical value (mm Hg)</th></tr></thead><tbody>
+<tr><th scope="row">Capillary hydrostatic pressure (blood pressure in the capillary)</th><td>Out</td><td>About 32 at the arterial end, about 15 at the venous end</td></tr>
+<tr><th scope="row">Plasma colloid osmotic pressure (pull of plasma proteins)</th><td>In</td><td>About 25 along the whole length</td></tr>
+<tr><th scope="row">Interstitial hydrostatic pressure</th><td>In, when positive</td><td>Near 0</td></tr>
+<tr><th scope="row">Interstitial colloid osmotic pressure (pull of interstitial protein)</th><td>Out</td><td>Near 0, because little protein leaks</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Net pressure = (capillary hydrostatic + interstitial colloid osmotic) minus (plasma colloid osmotic + interstitial hydrostatic). A positive result means filtration; a negative result means absorption.</li>
+  <li>Interstitial fluid, between the cells, is about three quarters of the extracellular fluid. Its pressure and protein are low, so in health the two capillary forces set the balance.</li>
+  <li>Textbooks use slightly different numbers; the pattern is the same.</li>
+</ul>
+<h3>Along one capillary, step by step</h3>
+<ol>
+  <li>At the arterial end, capillary hydrostatic pressure (about 32 mm Hg) pushes out and plasma colloid osmotic pressure (about 25 mm Hg) pulls in. The net is about 7 mm Hg outward, so fluid is filtered, carrying dissolved nutrients toward the cells.</li>
+  <li>Water and small solutes leave; albumin stays, so the inward pull stays at about 25 mm Hg.</li>
+  <li>Friction lowers the hydrostatic pressure along the capillary, from about 32 to about 15 mm Hg at the venous end. The osmotic pull does not change much.</li>
+  <li>At the venous end, the 25 mm Hg pull beats the 15 mm Hg push. The net is about 10 mm Hg inward, so fluid is absorbed.</li>
+  <li>Across the whole body, about 20 L a day is filtered and about 17 L is absorbed. The remaining 3 L or so, plus any protein that leaked, enters lymphatic capillaries.</li>
+</ol>
+<ul>
+  <li>This is the classic model. Newer research suggests venous-end absorption is smaller in many tissues and lymph returns more of the filtrate, but the classic model still predicts the four causes of edema correctly.</li>
+  <li>Fenestrated capillaries (kidney, gut) move fluid much faster.</li>
+</ul>
+<h3>Four ways to get edema</h3>
+<p>Edema is too much interstitial fluid. It happens when the balance tips toward filtration or lymph cannot carry the leftover away.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Cause</th><th scope="col">What changes</th><th scope="col">Examples</th></tr></thead><tbody>
+<tr><th scope="row">Raised capillary hydrostatic pressure</th><td>More push along the whole capillary: more filtration, less absorption</td><td>Right heart failure (swollen ankles), left heart failure (fluid in the lungs), a blocked vein, standing still all day</td></tr>
+<tr><th scope="row">Low plasma protein</th><td>Less albumin, so less pull back in; filtration continues, absorption fails</td><td>Liver failure (the liver makes albumin), nephrotic syndrome (albumin lost in urine), severe protein malnutrition (kwashiorkor)</td></tr>
+<tr><th scope="row">Leaky capillaries</th><td>Inflammation and histamine widen the gaps; albumin escapes and takes its osmotic pull outside</td><td>A sprained ankle, hives, burns, anaphylaxis</td></tr>
+<tr><th scope="row">Blocked lymphatics</th><td>The leftover filtrate and protein have nowhere to go (lymphedema)</td><td>Lymph nodes removed in breast cancer surgery, filariasis (a parasitic infection that causes elephantiasis)</td></tr>
+</tbody></table></div>
+<ul>
+  <li>In liver failure with ankle swelling and ascites, the abnormal force is low plasma colloid osmotic pressure; interstitial pressure rises as a result, not as the cause. In cirrhosis, high pressure in the portal vein also adds to the ascites.</li>
+  <li>After nodes are removed from one armpit, capillary pressure and albumin are unchanged, but the leftover filtrate cannot drain, so the arm slowly swells.</li>
+</ul>
+<h3>Lymph back to the blood, step by step</h3>
+<ol>
+  <li>About 3 L a day of filtered fluid, with any leaked protein, is left in the interstitial space.</li>
+  <li>It enters lymphatic capillaries, whose overlapping endothelial cells act as one-way flaps. Inside, it is called lymph.</li>
+  <li>Smooth muscle in the vessel walls and nearby skeletal muscle push lymph along, and valves keep it moving one way.</li>
+  <li>It passes through lymph nodes, where immune cells inspect it.</li>
+  <li>It drains into the thoracic duct, which carries lymph from the body below the diaphragm and the left upper body, or into the right lymphatic duct, which serves the right upper body.</li>
+  <li>Both ducts empty into the veins where the internal jugular and subclavian veins meet, so the fluid and its protein are back in the blood.</li>
+</ol>
+</section>
+<section id="venous-return-the-three-pumps">
+<h2><span class="lt">E.</span> Venous return: the three pumps</h2>
+<p class="cref"><b>Competency 8:</b> <a href="week-10-competencies.html#h-w11-venous-return" target="_top">Venous return</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 15, the part on stroke volume and venous return; Chapter 16, the part on veins as a volume reservoir.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=1293" target="_blank" rel="noopener">Lecture video: Venous return, starts at 21:33<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=1423" target="_blank" rel="noopener">Lecture video: The skeletal muscle pump and the respiratory pump, starts at 23:43<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>Only a few mm Hg is left to push venous blood back to the heart, and gravity pulls against it in a standing person. Venous return, the volume reaching the right atrium each minute, equals cardiac output in a steady state. It sets end-diastolic volume (preload), so through the Frank-Starling relationship it sets stroke volume. Three pumps help.</p>
+<dl>
+  <dt>Skeletal muscle pump</dt><dd>Contracting leg muscles squeeze the deep veins between them. Valves let the blood go only toward the heart.</dd>
+  <dt>Respiratory pump</dt><dd>Breathing in lowers the pressure in the chest and raises it in the abdomen, which moves venous blood toward the right atrium.</dd>
+  <dt>Sympathetic venoconstriction</dt><dd>Norepinephrine on alpha-1 receptors tightens the veins. Less compliant veins hold the same volume at higher pressure, so blood moves toward the heart.</dd>
+  <dt>Venous reservoir</dt><dd>Blood held in the veins, especially of the abdominal organs and skin, drawn on in exercise and blood loss.</dd>
+</dl>
+<h3>How the pumps work, step by step</h3>
+<ol>
+  <li>Standing: gravity fills the compliant leg veins, and blood pools below the heart.</li>
+  <li>Skeletal muscle pump: the calf muscle contracts and squeezes the deep vein. The valve above opens and the valve below closes, so blood can only move up.</li>
+  <li>The muscle relaxes. The valve above closes so blood cannot fall back, the valve below opens, and the segment refills from below.</li>
+  <li>Respiratory pump, chest: on inspiration the chest expands and the pressure inside the thorax falls, drawing blood up the vena cava toward the right atrium.</li>
+  <li>Respiratory pump, abdomen: the descending diaphragm raises abdominal pressure and pushes abdominal venous blood toward the chest. Valves in the leg veins stop this squeeze from pushing blood back down into the legs. On expiration abdominal pressure falls, and the abdominal veins refill from the legs.</li>
+  <li>Sympathetic venoconstriction: norepinephrine on alpha-1 receptors tightens the veins, so the reservoir holds less and more blood returns.</li>
+  <li>More venous return fills the ventricle more, and by the Frank-Starling relationship the next beat ejects a larger stroke volume.</li>
+</ol>
+<h3>Prolonged standing, step by step</h3>
+<ol>
+  <li>A person stands still for a long time, so the skeletal muscle pump stops working.</li>
+  <li>Blood pools in the leg veins.</li>
+  <li>Venous return falls, so end-diastolic volume falls.</li>
+  <li>Stroke volume falls by the Frank-Starling relationship, and cardiac output falls.</li>
+  <li>Mean arterial pressure falls, and blood flow to the brain drops.</li>
+  <li>If the baroreceptor reflex cannot make up the difference, the person faints, as a guard standing motionless can.</li>
+</ol>
+<ul>
+  <li>Walking, shifting weight or tightening the calf muscles restarts the muscle pump, and deep breathing strengthens the respiratory pump.</li>
+  <li>Failed valves (varicose veins) disable the muscle pump, because squeezed blood falls back. Risks include prolonged standing, obesity, pregnancy and family history.</li>
+  <li>Immobility (bed rest, long flights) removes the muscle pump and raises the risk of deep vein thrombosis. Early walking, calf exercises and compression devices stand in for the pump.</li>
+  <li>Ventilation with positive end-expiratory pressure raises chest pressure, works against the respiratory pump, and can lower venous return.</li>
+  <li>In late pregnancy, lying flat on the back lets the uterus press on the inferior vena cava and lower venous return.</li>
+  <li>Central venous pressure, normally about 2 to 8 mm Hg, is a bedside measure of volume status.</li>
+</ul>
+</section>
+<section id="holding-blood-pressure-steady">
+<h2><span class="lt">F.</span> Holding blood pressure steady</h2>
+<p class="cref"><b>Competencies 1, 10 and 11:</b> <a href="week-10-competencies.html#h-w9-adrenal-cortex" target="_top">Adrenal cortex</a>; <a href="week-10-competencies.html#h-w11-baroreflex" target="_top">Baroreceptor reflex</a>; <a href="week-10-competencies.html#h-w11-cv-hormonal" target="_top">Hormonal control of blood pressure</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the part on regulation of cardiovascular function and the baroreceptor reflex; Chapter 21, Integrative Physiology II: Fluid and Electrolyte Balance, the parts on aldosterone, the renin-angiotensin system, vasopressin and natriuretic peptides; the chapter on endocrine control of growth and metabolism, the part on the adrenal cortex.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=1733" target="_blank" rel="noopener">Lecture video: Brain control and the pressure reflexes, starts at 28:53<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=2307" target="_blank" rel="noopener">Lecture video: Hormones: renin, angiotensin, aldosterone, ADH, ANP and BNP, starts at 38:27<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>The baroreceptor reflex holds MAP within seconds by changing cardiac output and resistance. The kidney and its hormones hold it over hours to days by changing blood volume.</p>
+<h3>The medullary control center and its inputs</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Input</th><th scope="col">What it reports</th></tr></thead><tbody>
+<tr><th scope="row">Baroreceptors (carotid sinus, aortic arch)</th><td>Stretch, and so pressure, beat by beat; the fastest correction</td></tr>
+<tr><th scope="row">Chemoreceptors (carotid and aortic bodies)</th><td>Low O2, high CO2 and high H+ in the blood</td></tr>
+<tr><th scope="row">Higher brain centers</th><td>Emotion and anticipation, from the cerebral cortex and limbic system</td></tr>
+<tr><th scope="row">Hypothalamus</th><td>Body temperature and other internal conditions</td></tr>
+<tr><th scope="row">Proprioceptors in muscles and joints</th><td>Movement, so output can rise as exercise starts</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Baroreceptor</dt><dd>A stretch receptor in an artery wall that fires steadily at normal pressure, faster with more stretch and slower with less. The firing rate is the message.</dd>
+  <dt>Afferent nerves</dt><dd>Glossopharyngeal (cranial nerve IX) from the carotid sinus, which guards pressure to the brain; vagus (cranial nerve X) from the aortic arch. The vagus also carries the parasympathetic output back out.</dd>
+  <dt>Cardiovascular control center</dt><dd>The integrating center in the medulla, starting with the nucleus of the solitary tract, which compares input with the set point and adjusts both autonomic outputs.</dd>
+</dl>
+<h3>The baroreceptor reflex when pressure falls, step by step</h3>
+<ol>
+  <li>Blood pressure falls, for example when a person stands up quickly.</li>
+  <li>The walls of the carotid sinus and aortic arch stretch less, and the baroreceptors fire more slowly.</li>
+  <li>Fewer signals travel along the glossopharyngeal nerve (from the carotid sinus) and the vagus nerve (from the aortic arch) to the cardiovascular control center in the medulla.</li>
+  <li>The medulla cuts parasympathetic output. Less acetylcholine from the vagus reaches M2 receptors on the SA node, and the heart rate rises.</li>
+  <li>The medulla raises sympathetic output to the heart. Norepinephrine on beta-1 receptors in the SA node and ventricles raises heart rate and contractility, so cardiac output rises.</li>
+  <li>Sympathetic output to the arterioles rises. Norepinephrine on alpha-1 receptors constricts them, and total peripheral resistance rises.</li>
+  <li>Sympathetic output to the veins rises. Venoconstriction raises venous return and stroke volume.</li>
+  <li>With cardiac output and resistance both higher, MAP returns toward its set point within a few heartbeats.</li>
+</ol>
+<ul>
+  <li>A rise in pressure runs the same loop the other way: faster baroreceptor firing, more vagal output, less sympathetic output, and a lower heart rate, contractility and resistance.</li>
+  <li>This is negative feedback: the response opposes the change that started it.</li>
+  <li>The reflex is tonic, reporting all the time. Resting vagal tone keeps the heart near 70 rather than the SA node's own 100.</li>
+  <li>In chronic hypertension the baroreceptors reset to the higher pressure within a day or two, so long-term control falls to the kidney.</li>
+  <li>Pressing on the neck over the carotid sinus raises baroreceptor firing and can slow the heart.</li>
+  <li>Chemoreceptor reflex: low O2, high CO2 or acidosis raises sympathetic constriction and drives deeper, faster breathing.</li>
+</ul>
+<h3>The renin-angiotensin-aldosterone system, step by step</h3>
+<ol>
+  <li>JG cells in the afferent arteriole release renin when pressure or volume is low: less stretch of the arteriole wall, less NaCl sensed by the macula densa, or sympathetic norepinephrine on their beta-1 receptors.</li>
+  <li>Renin, an enzyme, cuts angiotensinogen (a liver protein always in plasma) into angiotensin I, an inactive ten-amino-acid peptide.</li>
+  <li>Angiotensin-converting enzyme (ACE) on the endothelium, especially in the lungs, converts angiotensin I to angiotensin II, the active hormone.</li>
+  <li>Angiotensin II constricts arterioles through AT1 receptors, IP3 and Ca2+, so resistance and pressure rise quickly.</li>
+  <li>Angiotensin II stimulates the zona glomerulosa of the adrenal cortex to release aldosterone. The distal nephron reabsorbs more Na+, water follows, and blood volume rises over hours to days.</li>
+  <li>Angiotensin II stimulates ADH release from the posterior pituitary, so the collecting duct reabsorbs more water.</li>
+  <li>Angiotensin II stimulates the thirst center in the hypothalamus, so the person drinks.</li>
+  <li>Angiotensin II also raises sympathetic activity.</li>
+  <li>When overstretched by too much volume, the atria release atrial natriuretic peptide (ANP), which opposes the whole cascade.</li>
+</ol>
+<div class="tbl"><table><thead><tr><th scope="col">Hormone</th><th scope="col">Released from, and by</th><th scope="col">Main actions</th></tr></thead><tbody>
+<tr><th scope="row">Angiotensin II</th><td>Made in the blood from angiotensin I by ACE, after renin release</td><td>Constricts arterioles; triggers aldosterone, ADH and thirst; raises sympathetic activity</td></tr>
+<tr><th scope="row">Aldosterone</th><td>Zona glomerulosa of the adrenal cortex, in response to angiotensin II or high plasma K+</td><td>Distal nephron reabsorbs Na+ (water follows) and secretes K+; raises volume slowly</td></tr>
+<tr><th scope="row">ADH (vasopressin)</th><td>Made in the hypothalamus and released from the posterior pituitary, in response to high osmolarity, angiotensin II, or a large fall in pressure or volume</td><td>Collecting duct reabsorbs water; constricts arterioles at high levels</td></tr>
+<tr><th scope="row">ANP</th><td>Atrial muscle cells, when stretched by high volume</td><td>Kidney excretes Na+ and water; arterioles dilate; renin, aldosterone and ADH fall</td></tr>
+<tr><th scope="row">Epinephrine</th><td>Adrenal medulla, with sympathetic activation</td><td>Raises heart rate and contractility; constricts skin, gut and kidney vessels; dilates skeletal muscle and heart vessels (beta-2)</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Aldosterone, a steroid, acts on genes in distal nephron cells, which make more Na+ channels and Na+/K+ pumps. Working through new proteins takes hours to days.</li>
+  <li>ADH on V2 receptors raises cAMP in collecting duct cells, which insert aquaporin-2 water channels facing the tubule, so urine is concentrated. On V1 receptors of arterioles it constricts, hence the name vasopressin.</li>
+  <li>The kidney can only keep water that is already there, so thirst and drinking are part of restoring volume.</li>
+  <li>ANP is the brake: everything else here pushes pressure up.</li>
+  <li>Many blood pressure drugs act here. ACE inhibitors (names ending in -pril) block angiotensin II formation, so constriction and aldosterone fall; angiotensin receptor blockers block its receptor; aldosterone antagonists and diuretics undo the volume.</li>
+  <li>With an ACE inhibitor renin rises, because angiotensin II normally holds it down. ACE also breaks down bradykinin, so bradykinin buildup can cause a dry cough.</li>
+</ul>
+<h3>The adrenal cortex</h3>
+<p>The cortex makes steroids in three zones from the capsule inward. The medulla, a modified sympathetic ganglion, releases epinephrine and norepinephrine.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Zone</th><th scope="col">Hormone</th><th scope="col">Controlled by</th><th scope="col">Primary action</th><th scope="col">Too much</th></tr></thead><tbody>
+<tr><th scope="row">Zona glomerulosa (outer; cells in small clusters)</th><td>Aldosterone, a mineralocorticoid</td><td>Angiotensin II and plasma K+</td><td>Kidney keeps Na+ and water and secretes K+, which sets blood volume and pressure</td><td>Hyperaldosteronism: hypertension, low K+</td></tr>
+<tr><th scope="row">Zona fasciculata (middle and thickest; cells in straight columns)</th><td>Cortisol, a glucocorticoid</td><td>ACTH from the anterior pituitary</td><td>Raises blood glucose, breaks down protein and fat, suppresses inflammation and immunity; the stress hormone</td><td>Cushing syndrome: central obesity, high glucose, thin skin</td></tr>
+<tr><th scope="row">Zona reticularis (inner; cells in a network)</th><td>Adrenal androgens such as DHEA</td><td>ACTH</td><td>Weak androgens: pubic and axillary hair at puberty, sex drive in women; a small role in adults</td><td>Virilization (male traits in women and children)</td></tr>
+</tbody></table></div>
+<p>From outside in, the zones make salt (aldosterone), sugar (cortisol) and sex (androgen) hormones.</p>
+</section>
+<section id="integrated-responses-exercise-and-blood-loss">
+<h2><span class="lt">G.</span> Integrated responses: exercise and blood loss</h2>
+<p class="cref"><b>Competencies 12 and 13:</b> <a href="week-10-competencies.html#h-w11-exercise-cv" target="_top">Cardiovascular response to exercise</a>; <a href="week-10-competencies.html#h-w11-shock-compensation" target="_top">Compensation in hemorrhage and shock</a>.</p>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 25, Integrative Physiology III: Exercise, the part on cardiovascular responses to exercise; Chapter 16, the part on the baroreceptor reflex; Chapter 21, the part on integrated responses to changes in volume.</p>
+<p class="figref"><b>Dr. Rennie&rsquo;s videos for this part:</b> <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=999" target="_blank" rel="noopener">Lecture video: Losing blood volume, starts at 16:39<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=2981" target="_blank" rel="noopener">Lecture video: Types of shock, starts at 49:41<span class="mm-vh"> (video, opens in a new tab)</span></a>, <a href="https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129?t=3593" target="_blank" rel="noopener">Lecture video: Compensation in shock, and when it fails, starts at 59:53<span class="mm-vh"> (video, opens in a new tab)</span></a>.</p>
+<p>In exercise the body raises cardiac output and sends it to working muscle. In blood loss it defends MAP and protects the brain and heart.</p>
+<h3>Moderate exercise: what changes</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Variable</th><th scope="col">Change</th><th scope="col">Why</th></tr></thead><tbody>
+<tr><th scope="row">Heart rate</th><td>Up, in step with the workload; often 150 beats per minute or more as exercise gets hard</td><td>Parasympathetic withdrawal first, then more sympathetic drive</td></tr>
+<tr><th scope="row">Stroke volume</th><td>Up</td><td>More venous return (muscle and respiratory pumps, venoconstriction) and more contractility</td></tr>
+<tr><th scope="row">Cardiac output</th><td>Up several times</td><td>Heart rate × stroke volume, both higher; in hard exercise it can reach about 20 to 25 L/min, from about 5 L/min at rest</td></tr>
+<tr><th scope="row">Total peripheral resistance</th><td>Down</td><td>Active hyperemia dilates muscle arterioles, which outweighs sympathetic constriction elsewhere</td></tr>
+<tr><th scope="row">Mean arterial pressure</th><td>Up a little; systolic up, diastolic about the same</td><td>Cardiac output rises more than resistance falls</td></tr>
+<tr><th scope="row">Skeletal muscle flow</th><td>Up many times over, about 10 times or more in hard exercise</td><td>Local metabolites override sympathetic tone; epinephrine on beta-2 receptors adds to the dilation</td></tr>
+<tr><th scope="row">Heart (coronary) flow</th><td>Up</td><td>The heart's own metabolism rises</td></tr>
+<tr><th scope="row">Skin flow</th><td>Up as body temperature rises</td><td>To shed heat</td></tr>
+<tr><th scope="row">Gut and kidney flow</th><td>Down</td><td>Sympathetic alpha-1 constriction</td></tr>
+<tr><th scope="row">Brain flow</th><td>About unchanged</td><td>Autoregulation holds it steady</td></tr>
+</tbody></table></div>
+<ul>
+  <li>MAP = cardiac output × TPR: cardiac output rises more than TPR falls, so MAP still rises a little.</li>
+  <li>The baroreceptor reflex is not switched off; its set point moves up.</li>
+</ul>
+<h3>Losing blood: compensation, then failure, step by step</h3>
+<ol>
+  <li>Blood volume falls. Venous return, end-diastolic volume and stroke volume fall, so cardiac output and MAP fall.</li>
+  <li>Within seconds the baroreceptor reflex cuts vagal output and raises sympathetic output; heart rate and contractility rise (beta-1).</li>
+  <li>Sympathetic alpha-1 constriction narrows the arterioles of the skin, gut and kidney and tightens the veins. The skin turns pale and cool, the pulse is fast and weak, and flow is kept for the brain and heart. The adrenal medulla adds epinephrine.</li>
+  <li>Over minutes to hours, lower capillary hydrostatic pressure lets absorption win, and interstitial fluid refills the plasma (autotransfusion). This dilutes the red cells, so hematocrit falls even with no fluid given.</li>
+  <li>Starting within minutes and continuing for days, renin, angiotensin II, aldosterone and ADH make the kidney keep Na+ and water. Urine output falls and thirst rises.</li>
+  <li>Over days, the liver replaces plasma proteins; over several weeks, erythropoietin from the kidney drives the marrow to replace red cells.</li>
+  <li>If the loss is too large, often quoted as roughly 30 to 40% of blood volume, the reflexes can no longer hold MAP.</li>
+  <li>The heart and the medullary centers that drive the compensation are themselves underperfused and begin to fail.</li>
+  <li>Lactic acidosis from O2-starved tissue relaxes the arterioles, and damaged capillaries leak.</li>
+  <li>Pressure falls further, cutting perfusion further. This positive feedback loop makes shock progressive and then irreversible, when replacing the blood no longer saves the patient.</li>
+</ol>
+<ul>
+  <li>The 30 to 40% figure is approximate. How much loss a person tolerates depends on age, health, medications and how fast the blood is lost.</li>
+  <li>Local vasodilators from starved tissue help that tissue but, acting everywhere, lower total resistance and worsen the fall.</li>
+  <li>In irreversible shock the receptors still work; the heart, vessels and medullary centers fail. Renin stays high.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th scope="col">Stage of shock</th><th scope="col">What is happening</th><th scope="col">Outlook</th></tr></thead><tbody>
+<tr><th scope="row">Compensated</th><td>Reflexes and hormones hold MAP; signs are subtle (fast heart rate, anxiety, pale skin)</td><td>Reversible</td></tr>
+<tr><th scope="row">Progressive (decompensated)</th><td>Compensation fails, MAP falls and organs begin to fail</td><td>Can still be reversed with prompt treatment</td></tr>
+<tr><th scope="row">Irreversible</th><td>Widespread cell death and failure of many organs</td><td>Death even with treatment</td></tr>
+</tbody></table></div>
+</section>
+<section id="clinical-connections-shock-pressure-patterns-and-drugs">
+<h2>Clinical connections: shock, pressure patterns and drugs</h2>
+<p class="figref"><b>In your textbook:</b> Silverthorn Chapter 16, the parts on regulation of cardiovascular function and on cardiovascular disease.</p>
+<p>Shock is any failure to deliver enough O2 and nutrients to the cells. Every type ends in anaerobic metabolism, lactic acidosis and, without correction, organ failure. The cause decides the treatment.</p>
+<h3>Signs common to shock, and why</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Sign</th><th scope="col">Why it happens</th></tr></thead><tbody>
+<tr><th scope="row">Low blood pressure (systolic below about 90 mm Hg)</th><td>Cardiac output or resistance, or both, too low; pressure can stay near normal early, while compensation holds</td></tr>
+<tr><th scope="row">Fast heart rate</th><td>Baroreceptor reflex raises sympathetic drive</td></tr>
+<tr><th scope="row">Weak, thready pulse</th><td>Small stroke volume and narrow pulse pressure</td></tr>
+<tr><th scope="row">Cool, pale, clammy skin</th><td>Sympathetic constriction of skin vessels; sympathetic sweating</td></tr>
+<tr><th scope="row">Confusion or anxiety</th><td>Less O2 reaching the brain</td></tr>
+<tr><th scope="row">Little urine and thirst</th><td>Less flow to the kidney; aldosterone, ADH and angiotensin II at work</td></tr>
+<tr><th scope="row">Metabolic acidosis</th><td>Lactic acid from anaerobic metabolism</td></tr>
+</tbody></table></div>
+<h3>Four types of shock</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Type</th><th scope="col">Cause</th><th scope="col">Cardiac output</th><th scope="col">Central venous pressure</th><th scope="col">Resistance (SVR)</th></tr></thead><tbody>
+<tr><th scope="row">Hypovolemic (empty pump)</th><td>Low blood volume: hemorrhage, or fluid loss from vomiting, diarrhea, burns or osmotic diuresis in uncontrolled diabetes</td><td>Low</td><td>Low</td><td>High</td></tr>
+<tr><th scope="row">Cardiogenic (pump failure)</th><td>The heart cannot pump: heart attack, severe arrhythmia, failing valve, cardiomyopathy</td><td>Low</td><td>High (blood backs up)</td><td>High</td></tr>
+<tr><th scope="row">Distributive (vascular)</th><td>Widespread vasodilation: sepsis, anaphylaxis, or loss of sympathetic tone after spinal cord injury (neurogenic)</td><td>Often normal or high early in sepsis; low or normal in neurogenic</td><td>Low</td><td>Very low</td></tr>
+<tr><th scope="row">Obstructive</th><td>Something blocks flow: pulmonary embolism, cardiac tamponade (fluid squeezing the heart), tension pneumothorax</td><td>Low</td><td>High</td><td>High</td></tr>
+</tbody></table></div>
+<ul>
+  <li>High resistance in hypovolemic and cardiogenic shock is the baroreceptor reflex compensating.</li>
+  <li>In sepsis, mediators such as nitric oxide dilate vessels and make capillaries leak; in anaphylaxis, histamine does the same and narrows the airways.</li>
+  <li>In neurogenic shock the heart rate is often slow, because sympathetic drive is lost.</li>
+  <li>An empty pump and a failing pump can give the same pressure; volume helps the first and can flood the lungs in the second.</li>
+</ul>
+<h3>Bedside measures</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Measure</th><th scope="col">Typical adult value</th><th scope="col">What it reflects</th></tr></thead><tbody>
+<tr><th scope="row">Heart rate</th><td>60 to 100 beats per minute</td><td>Autonomic balance at the SA node</td></tr>
+<tr><th scope="row">Stroke volume</th><td>About 60 to 100 mL</td><td>Preload, afterload and contractility</td></tr>
+<tr><th scope="row">Cardiac output</th><td>About 4 to 8 L/min</td><td>Heart rate × stroke volume</td></tr>
+<tr><th scope="row">Cardiac index</th><td>About 2.5 to 4.0 L/min per square meter</td><td>Cardiac output adjusted for body size</td></tr>
+<tr><th scope="row">MAP</th><td>About 70 to 100 mm Hg</td><td>Pressure driving flow to the organs</td></tr>
+<tr><th scope="row">Central venous pressure</th><td>About 2 to 8 mm Hg</td><td>Venous return and right heart preload</td></tr>
+<tr><th scope="row">Pulmonary capillary wedge pressure</th><td>About 6 to 12 mm Hg</td><td>Left heart preload</td></tr>
+<tr><th scope="row">Systemic vascular resistance</th><td>About 800 to 1,200 dyne-seconds per cm5</td><td>Arteriolar tone</td></tr>
+<tr><th scope="row">Ejection fraction</th><td>About 55 to 70%</td><td>Left ventricular pumping strength</td></tr>
+</tbody></table></div>
+<dl>
+  <dt>Preload</dt><dd>Ventricular stretch at the end of diastole, set mainly by venous return.</dd>
+  <dt>Afterload</dt><dd>What the ventricle pushes against to eject, mainly arterial pressure and resistance.</dd>
+  <dt>Contractility</dt><dd>Strength of contraction at a given preload and afterload; raised by sympathetic stimulation, lowered by ischemia, acidosis and low O2.</dd>
+  <dt>Shock index</dt><dd>Heart rate / systolic pressure, normally about 0.5 to 0.7; above about 1 suggests the circulation is struggling.</dd>
+</dl>
+<h3>Reading pressure patterns</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Pattern</th><th scope="col">What it suggests</th></tr></thead><tbody>
+<tr><th scope="row">Narrow pulse pressure (roughly below 25 mm Hg)</th><td>Small stroke volume: hypovolemia, cardiogenic shock, cardiac tamponade, severe aortic stenosis</td></tr>
+<tr><th scope="row">Wide pulse pressure (roughly above 60 mm Hg)</th><td>Large stroke volume or low diastolic pressure: stiff arteries with age, aortic regurgitation, an overactive thyroid, severe anemia</td></tr>
+<tr><th scope="row">Pulsus paradoxus</th><td>Systolic pressure falls more than 10 mm Hg during inspiration; a classic sign of cardiac tamponade, also seen in severe asthma</td></tr>
+<tr><th scope="row">Pulsus alternans</th><td>Strong and weak beats alternate; a sign of severe left ventricular failure</td></tr>
+<tr><th scope="row">Orthostatic hypotension</th><td>Systolic falls 20 mm Hg or more, or diastolic 10 or more, within 3 minutes of standing; low volume or a weak autonomic response</td></tr>
+</tbody></table></div>
+<ul>
+  <li>Hypertension comes from high cardiac output (overactive thyroid, excess catecholamines) or high resistance (vasoconstriction, atherosclerosis, kidney disease through the renin-angiotensin system).</li>
+  <li>A hypertensive emergency is a pressure above about 180/120 mm Hg with organ damage, such as stroke, heart attack or kidney injury.</li>
+  <li>In long-standing hypertension, brain and kidney autoregulation shifts to higher pressures, so a fast drop in pressure can leave them short of blood.</li>
+</ul>
+<h3>Drugs and the receptors they use</h3>
+<div class="tbl"><table><thead><tr><th scope="col">Drug (class)</th><th scope="col">Acts on</th><th scope="col">Main effect</th></tr></thead><tbody>
+<tr><th scope="row">Norepinephrine (vasopressor)</th><td>Mainly alpha-1, some beta-1</td><td>Constricts arterioles, raises SVR and MAP</td></tr>
+<tr><th scope="row">Epinephrine</th><td>Alpha-1, beta-1 and beta-2</td><td>Raises heart rate and cardiac output (beta-1); raises SVR at higher levels (alpha-1); widens airways (beta-2)</td></tr>
+<tr><th scope="row">Phenylephrine</th><td>Alpha-1 only</td><td>Raises SVR and MAP; the heart rate may slow through the baroreceptor reflex</td></tr>
+<tr><th scope="row">Dobutamine</th><td>Mainly beta-1</td><td>Raises contractility and cardiac output</td></tr>
+<tr><th scope="row">Dopamine</th><td>Dopamine, beta-1 or alpha-1 receptors, depending on the amount given</td><td>Effects range from more kidney flow to stronger beats to vasoconstriction</td></tr>
+<tr><th scope="row">Vasopressin</th><td>V1 receptors</td><td>Constricts arterioles, raises SVR, little effect on heart rate</td></tr>
+<tr><th scope="row">Nitroglycerin</th><td>Releases NO, mainly in veins</td><td>Lowers preload; at higher levels also lowers SVR</td></tr>
+<tr><th scope="row">Nitroprusside</th><td>Releases NO in arteries and veins</td><td>Lowers SVR and preload</td></tr>
+<tr><th scope="row">Furosemide (loop diuretic)</th><td>Blocks the Na+-K+-2Cl- carrier in the thick ascending limb of the loop of Henle</td><td>Removes salt and water, lowering volume and preload</td></tr>
+<tr><th scope="row">Beta blockers, such as metoprolol</th><td>Beta-1</td><td>Lower heart rate, contractility and blood pressure</td></tr>
+<tr><th scope="row">ACE inhibitors and angiotensin receptor blockers</th><td>Renin-angiotensin system</td><td>Lower SVR and aldosterone, so lower pressure and volume</td></tr>
+</tbody></table></div>
+</section>
+</div></main>
+
+<footer class="mm-foot"><div class="mm-wrap">
+  <nav class="mm-flinks" aria-label="Course links">
+    <a href="course-start.html" target="_top">Course home</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-schedule.html" target="_top">Schedule</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="syllabus-fall2026.html" target="_top">Syllabus</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="course-questions.html" target="_top">Questions, answered</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="accessibility.html" target="_top">Accessibility</a><span class="mm-dot" aria-hidden="true">&middot;</span>
+    <a href="https://yccd.instructure.com/courses/42616" target="_blank" rel="noopener">Canvas</a>
+  </nav>
+  <p class="mm-fleg">BIO 005 Human Physiology &middot; Fall 2026 &middot; Dr. Sharilyn Rennie<br>
+     If a page does not work for you, tell me in the Virtual Office and I will fix it.</p>
+</div></footer>
+
+<script>
+(function(){var id=document.title.replace(/\W+/g,'-').toLowerCase();
+function post(){try{parent.postMessage({frame:id,height:document.documentElement.scrollHeight},'*');}catch(e){}}
+if('ResizeObserver' in window){new ResizeObserver(post).observe(document.documentElement);}
+window.addEventListener('load',post);window.addEventListener('resize',post);post();})();
+</script>
+<!-- Ask Hootie, on every page. -->
+<script src="schedule-fall2026.js"></script>
+<script src="hootie.js"></script>
+<!-- A way back, on every page. -->
+<script src="bio005-back.js"></script>
+
+</body>
+</html>
