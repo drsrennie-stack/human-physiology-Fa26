@@ -1,4 +1,4 @@
-/* case-claim.js, Nov 8 2026. Claim one case from a numbered set, so no two students work the same case.
+/* case-claim.js, Nov 8 2026 (resends a claim that never reached the sheet). Claim one case from a numbered set, so no two students work the same case.
    Claims go to Dr. Rennie's Google Form; the page reads the form's published response sheet (CSV) and crosses
    out every case already claimed in the current round. When every case in a set has been claimed, the set
    reopens for the next round. No names are sent or shown: only the set, the case number and a random token.
@@ -75,14 +75,27 @@
     var token = Math.random().toString(36).slice(2, 10);
     mine = { n: n, token: token, at: Date.now() }; save(KEY, mine);
     if (live) {
-      var body = new URLSearchParams(); body.append(CFG.entrySet, SET.set); body.append(CFG.entryCase, String(n)); body.append(CFG.entryToken, token);
-      fetch(CFG.formAction, { method: "POST", mode: "no-cors", body: body }).catch(function () {});
+      send(n, token);
       say("Case " + n + " is yours. It is saved, and the list updates for everyone else within a few minutes.");
     } else {
       say("Case " + n + " is yours on this device. Claiming is not connected yet, so tell Dr. Rennie your case number in the discussion.");
     }
     counts[n] = (counts[n] || 0) + 1; drawList(); showCase();
     var m = $("ccMine"); if (m) m.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function send(n, token) {
+    var body = new URLSearchParams(); body.append(CFG.entrySet, SET.set); body.append(CFG.entryCase, String(n)); body.append(CFG.entryToken, token);
+    fetch(CFG.formAction, { method: "POST", mode: "no-cors", body: body }).catch(function () {});
+  }
+  /* The published sheet can lag a few minutes. If a saved claim still is not in it after 10 minutes,
+     it never arrived (for example, the form was not accepting responses yet), so send it again. */
+  function resendIfMissing() {
+    if (!mine || !live) return false;
+    if ((rowsFor[mine.n] || []).indexOf(mine.token) >= 0) return false;
+    if (Date.now() - (mine.at || 0) < 10 * 60 * 1000) return false;
+    if ((counts[mine.n] || 0) > round()) { say("Case " + mine.n + " was claimed by someone else before your claim reached the list. Please pick another open case."); mine = null; save(KEY, null); save(TKEY, null); return true; }
+    send(mine.n, mine.token); mine.at = Date.now(); save(KEY, mine); counts[mine.n] = (counts[mine.n] || 0) + 1;
+    return false;
   }
   function checkClash() {
     if (!mine || !live || !rowsFor[mine.n]) return false;
@@ -103,7 +116,8 @@
   function refresh() {
     if (!live) { drawList(); showCase(); say(mine ? "" : "Pick a case number."); return; }
     fetch(CFG.csv + (CFG.csv.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now()).then(function (r) { return r.text(); })
-      .then(function (t) { tally(t); var clash = checkClash(); drawList(); showCase(); if (!mine && !clash) say("Round " + (round() + 1) + ". Pick an open case."); })
+      .then(function (t) { tally(t); var clash = checkClash() || resendIfMissing(); drawList(); showCase();
+        if (mine) say("Case " + mine.n + " is yours. Your case is below."); else if (!clash) say("Round " + (round() + 1) + ". Pick an open case."); })
       .catch(function () { drawList(); showCase(); say("The claim list could not load. Refresh the page in a minute."); });
   }
   refresh();

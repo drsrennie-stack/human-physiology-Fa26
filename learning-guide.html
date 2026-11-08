@@ -96,6 +96,25 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
 .plan button.clr{font:inherit;font-size:12.5px;font-weight:700;background:none;border:0;color:var(--rust,#8B3A2E);text-decoration:underline;cursor:pointer;padding:0}
 #wkList .pc{font-size:11px;font-weight:800;color:var(--mute,#414B5C);margin-left:6px}
 @media print{.plan{box-shadow:none}.plan button.clr{display:none}}
+/* Nov 8 2026: Done checks inside the pre-work and assignment rows, and the pace card */
+.row.wide{grid-template-columns:minmax(0,8fr) minmax(0,12fr)}@media (max-width:980px){.row.wide{grid-template-columns:minmax(0,1fr)}}
+.ls li.opt{margin:8px 0 0;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.ls li.ck{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center}
+.ls li.ck label{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:800;cursor:pointer;padding:8px 4px;min-height:44px}
+.ls li.ck input{width:20px;height:20px}
+.ls li.ck.done a{background:#ECEFF4;color:var(--mute)}
+.pace .lead{margin:4px 0 8px;font-size:14.5px;line-height:1.5;color:var(--ink);max-width:70ch}
+.units{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.units button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(120px,auto);gap:4px 14px;align-items:center;min-height:52px;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:#fff;color:var(--deep);font:inherit;text-align:left;cursor:pointer}
+.units button:hover{border-color:var(--deep)}
+.units button[aria-current="true"]{border:2px solid var(--deep)}
+.units .pw{font-weight:800;font-size:14.5px}.units .pt{display:block;font-size:12.5px;font-weight:600;color:var(--mute)}
+.units .pa{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:right}.units .pa b{display:block;font-size:15px;letter-spacing:0;text-transform:none;color:var(--deep)}
+.units .ps{font-size:13px;font-weight:800;text-align:right}.units .ps.late{color:var(--rust-d)}
+.units .mini{grid-column:1/-1;height:6px;border-radius:999px;background:#ECEFF4;overflow:hidden}.units .mini span{display:block;height:100%;background:var(--deep)}
+.units li.done button{background:#ECEFF4}
+@media (max-width:620px){.units button{grid-template-columns:minmax(0,1fr) auto}.units .ps{grid-column:1/-1;text-align:left}}
+#pace{margin:0 0 12px}
 /* side menu */
 .side{display:grid;gap:14px;min-width:0}
 .box{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -124,17 +143,17 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       <h1>BIO 005<span class="sm">Human Physiology Learning Guide</span></h1>
     </div>
     <img class="logo" src="icon.svg" width="64" height="76" alt="">
-    <p class="words">Prepare · Recall · Lab · Discuss · Check</p>
+    <p class="words">Pre-work · Assignments · Notes · Videos · Learning tools</p>
     <ul class="stats" id="stats" aria-label="Where we are in the course"></ul>
     <div class="online">
-      <span><b>Everything is online.</b> Weeks open Monday 12:00 am and close Sunday 11:59 pm. Discussion post Friday 10:00 pm.</span>
-      <label for="wkSel">Show me week <select id="wkSel"></select></label>
+      <span><b>Everything is online.</b> Work one unit at a time and aim to finish one about every five days.</span>
+      <label for="wkSel">Show me Week <select id="wkSel"></select></label>
     </div>
   </div>
 </header>
 
 <main id="main" class="wrap">
-  <div class="rows" id="rows" aria-live="polite"></div>
+  <div class="rows"><div id="pace"></div><div class="rows" id="rows"></div></div>
   <aside class="side" aria-label="More options">
     <nav class="box" aria-labelledby="qlH"><h2 id="qlH">Quick links</h2><ul id="quick"></ul></nav>
     <nav class="box" aria-labelledby="wkH"><h2 id="wkH">Part 2 weeks</h2><ul id="wkList"></ul></nav>
@@ -161,7 +180,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   }
   var nowWk = openNow();
   var want = +new URLSearchParams(location.search).get('week');
-  var cur = weeks.filter(function (w) { return w.wk === want; })[0] || nowWk;
+  var cur = null;
 
   var ICON = {
     video: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',
@@ -198,7 +217,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       + '<span class="ar" aria-hidden="true">' + (ext ? '&#8599;' : '&#8594;') + '</span>' + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a></li>';
   }
   function ROW(n, tint, wantTxt, big, rest, desc, links) {
-    return '<section class="row ' + tint + '" aria-labelledby="q' + n + '"><div class="q"><span class="n" aria-hidden="true">' + n + '</span>'
+    return '<section class="row ' + tint + (n < 3 ? ' wide' : '') + '" aria-labelledby="q' + n + '"><div class="q"><span class="n" aria-hidden="true">' + n + '</span>'
       + '<div><p class="want">' + esc(wantTxt) + '</p><h2 id="q' + n + '"><span class="big">' + esc(big) + '</span>' + esc(rest) + '</h2></div>'
       + '<p class="d">' + esc(desc) + '</p></div><ul class="ls">' + links.join('') + '</ul></section>';
   }
@@ -207,163 +226,171 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     return '<li><a href="' + esc(url) + '"' + attrs(url) + '><span class="li ' + (col || '') + '" aria-hidden="true">' + svg(ic) + '</span><span>' + esc(label) + '</span><span class="ch" aria-hidden="true">' + (ext ? '&#8599;' : '&#8250;') + '</span>' + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a></li>';
   }
 
-  /* Nov 8 2026: the order to do things this week, with Done checks saved in this browser */
+  /* Nov 8 2026: each unit in six sections (pre-work, assignments, notes, videos, learning tools, help).
+     Pre-work and assignments carry Done checks saved in this browser; the pace card uses them to show
+     how many units are left against the five-day pace. */
   var PKEY = 'bio005-progress-v1';
   function prog() { try { return JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; } catch (e) { return {}; } }
   function saveProg(p) { try { localStorage.setItem(PKEY, JSON.stringify(p)); } catch (e) {} }
-  function plan(w) {
-    var lv = w.lectureVideo || {}, st = [];
-    function add(label, url, why) { st.push({ label: label, url: url || '', why: why || '', key: label }); }
-    add('Watch the lecture video', lv.url, 'Pre-work. Everything else builds on it.');
-    add('Work through the click-through slides', w.study && w.study.url, 'Pre-work. Write the slide numbers you will cite.');
-    add('Read the written notes', w.notes, 'Pre-work and review.');
+  function it(label, url, ic, col, pill, key) { return { label: label, url: url || '', ic: ic, col: col, pill: pill, key: key || label }; }
+  function preWork(w) {
+    var lv = w.lectureVideo || {};
+    return [it('Watch the lecture video', lv.url, 'video', '', 'Pre-work'),
+      it('Read the written notes', w.notes, 'note', '', 'Pre-work')];
+  }
+  function labName(w) { return 'Do the lab circuit: ' + String(w.lab.label).split(' (')[0].replace(/^Clinical lab: /, ''); }
+  function assignments(w) {
+    var a = [];
     if (w.pathway) {
-      add('Pick your target, then do the lecture drawing', w.drawing && w.drawing.url, 'Required');
-      add('Do the two cases', w.cases && w.cases.url, 'Required');
-      add('Do the lab', w.lab && w.lab.url, 'Required');
-      if (w.stations) add('Do the lab stations', w.stations.url, 'Required');
-      if (w.project && w.project.url) add('Work on the project', w.project.url, 'Required');
-      add('Take the Mastery Check', w.mastery, 'Required. Everything closed.');
-      add('Take the Know-It Check, last', w.knowIt || D.canvasModules, 'Required, in Canvas. The score does not count.');
+      a.push(it(w.drawing.label, w.drawing.url, 'pen', 't', 'Required'));
+      a.push(it(w.cases.label, w.cases.url, 'note', 't', 'Required'));
+      a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
+      if (w.stations) a.push(it(w.stations.label, w.stations.url, 'flask', 'b', 'Required'));
+      if (w.project && w.project.url) a.push(it(w.project.label, w.project.url, 'grid', 't', 'Required'));
+      a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
+      a.push(it('Know-It Check, in Canvas, the last thing you do', w.knowIt || D.canvasModules, 'exam', 'g', 'Required'));
     } else {
-      add('Do the lab', w.lab && w.lab.url, 'Required');
-      if (w.cases) { add('Claim and do your Wiggers case', w.cases.url, 'Required'); add('Claim and do your cardiac lab case', w.cases.url2, 'Required'); }
-      add('Post in ' + (w.discussion ? w.discussion.label.split(':')[0] : 'the discussion'), w.discussion && w.discussion.url, 'Required');
+      a.push(it('Lecture note sheet, filled in', w.noteSheet.url, 'print', 't', 'Required'));
+      a.push(it('Rx Cards this week', A.rx, 'cards', 't', 'Required'));
+      a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
+      if (w.cases) { a.push(it('Claim and do your Wiggers case', w.cases.url, 'grid', 't', 'Required')); a.push(it('Claim and do your cardiac lab case', w.cases.url2, 'grid', 't', 'Required')); }
+      a.push(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'));
+      a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
     }
-    return st;
+    return a;
   }
-  function counts(w) { var p = prog()[w.wk] || {}, st = plan(w).filter(function (x) { return x.url; }); return [st.filter(function (x) { return p[x.key]; }).length, st.length]; }
-  function planHtml(w) {
-    var p = prog()[w.wk] || {}, st = plan(w);
-    var items = st.map(function (x, i) {
-      var done = !!p[x.key], id = 'pd' + w.wk + '_' + i;
-      if (!x.url) return '<li class="soon"><span class="n">' + (i + 1) + '</span><span>' + esc(x.label) + '<span class="why">Not posted yet</span></span><span></span></li>';
-      var ext = /^https?:/.test(x.url);
-      return '<li' + (done ? ' class="done"' : '') + '><span class="n">' + (i + 1) + '</span><span><a href="' + esc(x.url) + '"' + attrs(x.url) + '>' + esc(x.label) + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a><span class="why">' + esc(x.why) + '</span></span>' +
-        '<label for="' + id + '"><input type="checkbox" id="' + id + '" data-k="' + esc(x.key) + '"' + (done ? ' checked' : '') + '> Done</label></li>';
+  function reinforce(w) {
+    var r = [L('Brain dump: write what you remember, then check the notes', A.brainDump, 'brain', 'b', 'Recommended')];
+    if (w.pathway) r.push(L('Lecture note sheet: draw and fill it in from the notes', w.noteSheet.url, 'print', 'b', 'Recommended'));
+    r.push(L('Competencies with prompts, ' + 'Week ' + w.wk, w.prompts, 'target', 'b', 'Recommended'));
+    if (w.pathway) r.push(L('Rx Cards: recall a few minutes a day', A.rx, 'cards', 'b', 'Recommended'));
+    r.push(L('Draw it', A.draw, 'pen', 'b', 'Recommended'));
+    return '<li class="opt">Optional: make it stick</li>' + r.join('');
+  }
+  function checkable(w) { return preWork(w).concat(assignments(w)); }
+  /* items not posted yet still count, so a unit is only done once all of it is posted and checked */
+  function counts(w) { var p = prog()[w.wk] || {}, st = checkable(w); return [st.filter(function (x) { return x.url && p[x.key]; }).length, st.length]; }
+  function isDone(w) { var c = counts(w); return c[1] > 0 && c[0] === c[1]; }
+  var P0 = pd(D.pace.start);
+  function aim(i) { var d = new Date(P0); d.setDate(d.getDate() + D.pace.days * (i + 1) - 1); return d; }
+  function longDay(d) { return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
+  function firstOpen() { for (var i = 0; i < weeks.length; i++) { if (!isDone(weeks[i])) return weeks[i]; } return weeks[weeks.length - 1]; }
+
+  function CK(x, wk) {
+    var p = (prog()[wk] || {}), done = !!p[x.key];
+    if (!x.url) return '<li class="ck"><span class="soon"><span class="li" aria-hidden="true">' + svg(x.ic) + '</span><span class="tx">' + esc(x.label) + '</span><span class="pill">not posted yet</span></span><span></span></li>';
+    var ext = /^https?:/.test(x.url), id = 'ck' + wk + '_' + x.key.replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
+    return '<li class="ck' + (done ? ' done' : '') + '"><a href="' + esc(x.url) + '"' + attrs(x.url) + '><span class="li ' + (x.col || '') + '" aria-hidden="true">' + svg(x.ic) + '</span><span class="tx">' + esc(x.label) + '</span>' +
+      '<span class="ar" aria-hidden="true">' + (ext ? '&#8599;' : '&#8594;') + '</span>' + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a>' +
+      '<label for="' + id + '"><input type="checkbox" id="' + id + '" data-k="' + esc(x.key) + '"' + (done ? ' checked' : '') + '> Done</label></li>';
+  }
+
+  function paceHtml() {
+    var done = 0; for (var i = 0; i < weeks.length && isDone(weeks[i]); i++) done++;
+    var expect = 0; weeks.forEach(function (w, i) { if (aim(i) < today) expect++; });
+    var left = weeks.length - done, next = weeks[Math.min(done, weeks.length - 1)], ni = Math.min(done, weeks.length - 1);
+    var m2 = pd(D.midterm2.opens), dl = Math.max(0, Math.round((m2 - today) / 86400000));
+    var w14 = weeks.filter(function (w) { return w.wk === 14; })[0], i14 = weeks.indexOf(w14);
+    var msg;
+    if (!left) msg = '<b>Every unit is checked off.</b> Spend the time before ' + esc(D.midterm2.label) + ' on review.';
+    else if (done >= expect) msg = '<b>You are on pace.</b> Next: finish Week ' + next.wk + ' by ' + longDay(aim(ni)) + '.';
+    else msg = '<b>You are ' + (expect - done) + ' unit' + (expect - done === 1 ? '' : 's') + ' behind the five-day pace.</b> Finish Week ' + next.wk + ' next. You have ' + left + ' unit' + (left === 1 ? '' : 's') + ' left and ' + dl + ' day' + (dl === 1 ? '' : 's') + ' until ' + esc(D.midterm2.label) + ' opens.';
+    var li = weeks.map(function (w, i) {
+      var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0, st = isDone(w) ? 'Done' : c[0] ? c[0] + ' of ' + c[1] + ' done' : 'Not started';
+      var late = !isDone(w) && aim(i) < today;
+      return '<li' + (isDone(w) ? ' class="done"' : '') + '><button type="button" data-wk="' + w.wk + '"><span class="pw">Week ' + w.wk + '<span class="pt">' + esc(w.title) + '</span></span>' +
+        '<span class="pa">Aim to finish by<b>' + fmt(aim(i)) + '</b></span><span class="ps' + (late ? ' late' : '') + '">' + st + (late ? ', past the aim date' : '') + '</span>' +
+        '<span class="mini" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button></li>';
     }).join('');
-    var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0;
-    return '<section class="plan" aria-labelledby="planH"><p class="pk">Do these in order</p><h2 id="planH">Your Week ' + w.wk + ' <span>checklist</span></h2>' +
-      '<div class="pbar" role="progressbar" aria-label="Week ' + w.wk + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
-      '<p class="ptxt" id="planTxt" aria-live="polite">' + c[0] + ' of ' + c[1] + ' done</p><ol class="steps" id="planList">' + items + '</ol>' +
-      '<p class="tiny">Check a step when you finish it. Your checks are saved in this browser only, so use the same browser and device each week. <button type="button" class="clr" id="planClr">Clear my Week ' + w.wk + ' checks</button></p></section>';
+    return '<section class="plan pace" aria-labelledby="paceH"><p class="pk">Pace yourself</p><h2 id="paceH">Your units <span>left</span></h2>' +
+      '<p class="lead">Aim to finish one unit about every five days. At that pace you finish Week 14 by ' + longDay(aim(i14)) + ', with time to review before ' + esc(D.midterm2.label) + ' opens ' + longDay(m2) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<p class="ptxt" aria-live="polite">' + msg + '</p><ol class="units">' + li + '</ol>' +
+      '<p class="tiny">This tracker uses the Done boxes you check on this page, saved in this browser only. Canvas opens each unit once everything in the unit before it is turned in and graded.</p></section>';
   }
-  function wirePlan(w) {
-    var box = document.getElementById('planList'); if (!box) return;
-    box.addEventListener('change', function (e) {
+  function unitHead(w) {
+    var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0, i = weeks.indexOf(w);
+    return '<section class="plan" aria-labelledby="planH"><p class="pk">Unit ' + (i + 1) + ' of ' + weeks.length + ' · aim to finish by ' + longDay(aim(i)) + '</p><h2 id="planH">Week ' + w.wk + ': <span>' + esc(w.title) + '</span></h2>' +
+      '<div class="pbar" role="progressbar" aria-label="Week ' + w.wk + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
+      '<p class="ptxt" id="planTxt" aria-live="polite">' + c[0] + ' of ' + c[1] + ' done</p>' +
+      '<p class="tiny">Watch the lecture and read the notes first, then the assignments in any order, with the Know-It Check last. Check Done as you finish each one. <button type="button" class="clr" id="planClr">Clear my Week ' + w.wk + ' checks</button></p></section>';
+  }
+  function wireChecks(w) {
+    var box = document.getElementById('rows');
+    box.onchange = function (e) {
       var t = e.target; if (!t || t.type !== 'checkbox') return;
       var p = prog(); p[w.wk] = p[w.wk] || {}; if (t.checked) p[w.wk][t.getAttribute('data-k')] = 1; else delete p[w.wk][t.getAttribute('data-k')]; saveProg(p);
       t.closest('li').classList.toggle('done', t.checked);
-      var c = counts(w), bar = document.querySelector('.plan .pbar');
+      var c = counts(w), bar = document.querySelector('#rows .pbar');
       bar.setAttribute('aria-valuenow', c[0]); bar.firstChild.style.width = (c[1] ? Math.round(100 * c[0] / c[1]) : 0) + '%';
       document.getElementById('planTxt').textContent = c[0] + ' of ' + c[1] + ' done';
-      weekCounts();
-    });
+      drawPace(); weekCounts(); stats();
+    };
     var clr = document.getElementById('planClr');
     if (clr) clr.addEventListener('click', function () { var p = prog(); delete p[w.wk]; saveProg(p); render(w); });
+  }
+  function drawPace() {
+    var el = document.getElementById('pace'); el.innerHTML = paceHtml();
+    el.querySelectorAll('button[data-wk]').forEach(function (b) {
+      b.setAttribute('aria-current', b.getAttribute('data-wk') === String(cur.wk) ? 'true' : 'false');
+      b.addEventListener('click', function () { render(weeks.filter(function (w) { return String(w.wk) === b.getAttribute('data-wk'); })[0]); document.getElementById('rows').scrollIntoView({ block: 'start' }); });
+    });
   }
   function weekCounts() {
     document.querySelectorAll('#wkList button').forEach(function (b) {
       var w = weeks.filter(function (x) { return String(x.wk) === b.getAttribute('data-wk'); })[0]; if (!w) return;
       var c = counts(w), el = b.querySelector('.pc');
       if (!el) { el = document.createElement('span'); el.className = 'pc'; b.firstChild.appendChild(el); }
-      el.textContent = c[0] ? c[0] + ' of ' + c[1] + ' done' : '';
+      el.textContent = isDone(w) ? 'Done' : c[0] ? c[0] + ' of ' + c[1] + ' done' : '';
+      var nw = b.querySelector('.now'), here = w.wk === firstOpen().wk;
+      if (here && !nw) { nw = document.createElement('span'); nw.className = 'now'; nw.textContent = 'Now'; b.appendChild(nw); }
+      if (!here && nw) nw.parentNode.removeChild(nw);
     });
+  }
+  function stats() {
+    var m2 = pd(D.midterm2.opens), days = Math.round((m2 - today) / 86400000), done = 0;
+    for (var i = 0; i < weeks.length && isDone(weeks[i]); i++) done++;
+    var nx = firstOpen();
+    document.getElementById('stats').innerHTML = [
+      '<b>' + fmt(today) + '</b><span>Today · ' + dayName(today) + '</span>',
+      '<b>Week ' + nx.wk + '</b><span>Your unit now</span>',
+      '<b>' + done + ' of ' + weeks.length + '</b><span>Units done</span>',
+      '<b>' + fmt(m2) + '</b><span>' + esc(D.midterm2.label) + ' opens</span>',
+      '<b>' + (days > 0 ? days + ' day' + (days === 1 ? '' : 's') : (days === 0 ? 'Today' : 'Closed')) + '</b><span>Until ' + esc(D.midterm2.label) + '</span>'
+    ].map(function (s) { return '<li class="stat">' + s + '</li>'; }).join('');
   }
 
   function render(w) {
     cur = w;
-    var m2 = pd(D.midterm2.opens), days = Math.round((m2 - today) / 86400000);
-    var open = today >= pd(nowWk.opens);
-    document.getElementById('stats').innerHTML = [
-      ['<b>' + fmt(today) + '</b><span>Today · ' + dayName(today) + '</span>'],
-      ['<b>Week ' + nowWk.wk + '</b><span>' + (open ? 'Open this week' : 'Opens ' + fmt(pd(nowWk.opens))) + '</span>'],
-      ['<b>Part 2</b><span>Systems in action</span>'],
-      ['<b>' + fmt(m2) + '</b><span>' + esc(D.midterm2.label) + ' opens</span>'],
-      ['<b>' + (days > 0 ? days + ' day' + (days === 1 ? '' : 's') : (days === 0 ? 'Today' : 'Closed')) + '</b><span>Until ' + esc(D.midterm2.label) + '</span>']
-    ].map(function (s) { return '<li class="stat">' + s[0] + '</li>'; }).join('');
-
-    var wk = 'Week ' + w.wk;
-    var lv = w.lectureVideo || {}, vids = w.videos;
-    var rows;
-    if (w.pathway) {
-      /* Nov 8 2026: Weeks 10 to 15 run on the mastery pathway. */
-      var T = 'Pick a target';
-      rows = ''
-      + ROW(1, 't1', 'Start with the', 'Pre-work', ' every week', 'Do this before any assignment. The drawing, the cases and the lab all build on the lecture, so they are much harder without it.', [
-          L('Lecture video, ' + wk, lv.url, 'video', '', 'Pre-work'),
-          L('Click-through slides, ' + wk, w.study.url, 'slides', '', 'Pre-work'),
-          L('Lecture note sheet, ' + wk, w.noteSheet.url, 'print', 't', 'Recommended'),
-          vids ? L(vids.label, vids.url, 'play', 't', 'Reference') : '',
-          L('Course notes, ' + wk, w.notes, 'note', '', 'Reference'),
-          L('Competency list, ' + wk, w.competencies, 'target', '', 'Reference')])
-      + ROW(2, 't2', 'Want to', 'Show', ' what you can do?', 'After the pre-work. Pick a target on each one: 70, 80, 90 or 100 percent. Your score is the highest level your work shows, and you get one revision.', [
-          L('How the mastery pathway works', D.pathwayPage, 'steps', 'g', null, true),
-          L(w.drawing.label, w.drawing.url, 'pen', 't', 'Required'),
-          L(w.cases.label, w.cases.url, 'note', 't', 'Required'),
-          L(String(w.lab.label).split(' (')[0], w.lab.url, 'flask', 'b', 'Required'),
-          w.stations ? L(w.stations.label, w.stations.url, 'flask', 'b', 'Required') : ''])
-      + ROW(3, 't3', 'Want to', 'Practice', ' recall?', 'Pull it out of memory before you look. Rx Cards are recommended, not required.', [
-          L('Rx Cards', A.rx, 'cards', 'b', 'Recommended'),
-          L('Brain dump', A.brainDump, 'brain', 'b', 'Recommended'),
-          L('Draw it', A.draw, 'pen', 'b', 'Recommended'),
-          L('Competencies with prompts, ' + wk, w.prompts, 'target', 'b', 'Recommended'),
-          L('All of it on one sheet, ' + wk, w.ungraded, 'print', 'b', 'Recommended')])
-      + ROW(4, 't4', 'Want to work on', 'The project?', '', 'A few projects through the rest of the term take the place of the weekly discussion. Each one has a target too.', [
-          L(w.project.label + ', ' + wk, w.project.url, 'grid', 't', 'Required')])
-      + ROW(5, 't5', 'Want to prepare for', 'The exam?', '', D.midterm2.label + ' covers ' + D.midterm2.covers + ', ' + fmt(pd(D.midterm2.opens)) + ' to ' + fmt(pd(D.midterm2.closes)) + '. The Mastery Check has a target and two graded attempts. The Know-It Check comes last: 12 questions, required, score not graded.', [
-          L('Mastery Check, ' + wk, w.mastery, 'target', 'g', 'Required'),
-          L('Know-It Check, ' + wk + ', in Canvas, the last thing you do (score not graded)', w.knowIt || D.canvasModules, 'exam', 'g', 'Required'),
-          L('Practice exam, ' + wk, w.practice, 'exam', 'g', 'Recommended'),
-          L('Practice exam, all of Part 2 so far', A.practiceAll, 'exam', 'g', 'Recommended'),
-          L('Competency packet, all weeks', A.packet, 'print', 'g', 'Reference'),
-          L('Midterm 2 page', weeks[weeks.length - 1].page, 'flag', 'g', 'Reference')])
+    var wk = 'Week ' + w.wk, lv = w.lectureVideo || {}, vids = w.videos, tn = w.topicNotes || [];
+    var notes = [];
+    tn.forEach(function (n) { notes.push(L('Notes: ' + n.label, n.url, 'note', '', 'Reference')); notes.push(L('Notes to print (PDF): ' + n.label, n.pdf, 'print', '', 'Reference')); });
+    notes.push(L('All the notes for ' + wk + ' on one page', w.notes, 'doc', '', 'Reference'));
+    notes.push(L('Competency list, ' + wk, w.competencies, 'target', '', 'Reference'));
+    var videos = [L('Lecture video, ' + wk, lv.url, 'video', '', 'Pre-work'),
+      vids ? L(vids.label, vids.url, 'play', 't', 'Reference') : L("Dr. Rennie's videos for " + wk, '', 'play', 't'),
+      L("All of Dr. Rennie's videos, every week", A.videos, 'play', 't', 'Reference')];
+    var tools = [];
+    tools.push(L('All of it on one sheet, ' + wk, w.ungraded, 'print', 'b', 'Recommended'));
+    if (w.cases && !w.pathway) tools.push(L('Wiggers diagram template, to print', 'wiggers-template.html', 'print', 'b', 'Reference'));
+    tools.push(L('Practice exam, ' + wk, w.practice, 'exam', 'g', 'Recommended'), L('Practice exam, all of Part 2 so far', A.practiceAll, 'exam', 'g', 'Recommended'),
+      L('Competency packet, all weeks', A.packet, 'print', 'g', 'Reference'), L('Midterm 2 page', weeks[weeks.length - 1].page, 'flag', 'g', 'Reference'));
+    if (w.pathway) tools.push(L('How the mastery pathway works', D.pathwayPage, 'steps', 'g', 'Reference'));
+    var adesc = w.pathway
+      ? 'Any order, with the Know-It Check last. Pick a target on each one, 70, 80, 90 or 100 percent. Score at least 70% on each to open the next unit.'
+      : 'Claim one Wiggers case and one cardiac lab case, draw them by hand, and post both in Discussion 9. Rx Cards are graded by how many you work each week.';
+    var rows = unitHead(w)
+      + ROW(1, 't1', 'Do this first', 'Pre-work', '', 'Watch the lecture and read the written notes before any assignment. Everything you turn in this unit builds on them. The optional tools under the notes help it stick.', preWork(w).map(function (x) { return CK(x, w.wk); }).concat([reinforce(w)]))
+      + ROW(2, 't2', 'Turn these in', 'Assignments', '', adesc, assignments(w).map(function (x) { return CK(x, w.wk); }))
+      + ROW(3, 't3', 'Read and review', 'Your notes', '', 'The written notes for this unit, each part labeled with its competency numbers. Print the PDF if you like paper.', notes)
+      + ROW(4, 't4', 'Watch', 'Your videos', '', "The lecture video, plus Dr. Rennie's short videos by topic.", videos)
+      + ROW(5, 't5', 'Practice with', 'Learning tools', '', 'Practice exams and reference sheets. Recommended, not graded.', tools)
       + ROW(6, 't6', 'Need', 'Help', ' with something?', 'Everything is online, so questions go on the Virtual Office board where the whole class can read the answer.', [
           L('Virtual Office, the question board', D.virtualOffice, 'chat', 't'),
           L('Study With Me', A.studyWithMe, 'people', 'g'),
           L('Study With Me calendar', A.studyCalendar, 'cal', 'g'),
           L('Accessibility', A.accessibility, 'access', 'b')]);
-    } else {
-      rows = ''
-      + ROW(1, 't1', 'Want to', 'Prepare', ' for this week?', 'Print the note sheet, then watch the lecture and fill it in as the boxes are revealed. The finished sheet is what you turn in.', [
-          L('Lecture note sheet, ' + wk, w.noteSheet.url, 'print', 't', 'Required'),
-          L('Lecture video, ' + wk, lv.url, 'video', '', 'Pre-work'),
-          vids ? L(vids.label, vids.url, 'play', 't', 'Reference', true) : '',
-          L('Click-through slides, ' + wk, w.study.url, 'slides', '', 'Pre-work'),
-          L('Course notes, ' + wk, w.notes, 'note', '', 'Reference'),
-          L('Competency list, ' + wk, w.competencies, 'target', '', 'Reference')])
-      + ROW(2, 't2', 'Want to', 'Practice', ' recall?', 'Pull it out of memory before you look. Rx Cards are graded by how many you work each week, Monday to Sunday.', [
-          L('Rx Cards', A.rx, 'cards', 't', 'Required'),
-          L('Brain dump', A.brainDump, 'brain', 't', 'Recommended'),
-          L('Draw it', A.draw, 'pen', 't', 'Recommended'),
-          L('Competencies with prompts, ' + wk, w.prompts, 'target', 't', 'Recommended'),
-          L('All of it on one sheet, ' + wk, w.ungraded, 'print', 't', 'Recommended')])
-      + ROW(3, 't3', 'Want to do', 'The lab?', '', 'One interactive lab a week, built on cases. Write what the numbers mean before the check opens, then print to PDF and upload.', [
-          L(String(w.lab.label).split(' (')[0], w.lab.url, 'flask', 'b', 'Required'),
-          L('How to upload your work', 'assignment-practice-log.html', 'upload', 'b')])
-      + (w.cases ? ROW(4, 't4', 'Want to work', 'The cases?', '', 'Claim one Wiggers case and one cardiac lab case, draw them by hand, and post both in Discussion 9 by Sunday 10:00 pm. Two replies any time before the course ends.', [
-          L('Wiggers diagram case, ' + wk, w.cases.url, 'grid', 't', 'Required'),
-          L('Cardiac lab case, ' + wk, w.cases.url2, 'grid', 't', 'Required'),
-          L(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'),
-          L('Wiggers diagram template, to print', 'wiggers-template.html', 'print', 't', 'Reference'),
-          L('Open the discussions in Canvas', D.canvasDiscussions, 'chat')])
-       : ROW(4, 't4', 'Want to join', 'The discussion?', '', 'Post by Friday 10:00 pm. Two replies by Sunday 10:00 pm, and the second one says what you got wrong in your first post.', [
-          L(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'),
-          L('Open the discussions in Canvas', D.canvasDiscussions, 'chat')]))
-      + ROW(5, 't5', 'Want to prepare for', 'The exam?', '', D.midterm2.label + ' covers ' + D.midterm2.covers + ', ' + fmt(pd(D.midterm2.opens)) + ' to ' + fmt(pd(D.midterm2.closes)) + '. Find your gaps and spend your study time where you need it most.', [
-          L('Mastery Check, ' + wk, w.mastery, 'target', 'g', 'Required'),
-          L('Practice exam, ' + wk, w.practice, 'exam', 'g', 'Recommended'),
-          L('Practice exam, all of Part 2 so far', A.practiceAll, 'exam', 'g', 'Recommended'),
-          L('Competency packet, all weeks', A.packet, 'print', 'g', 'Reference'),
-          L('Midterm 2 page', weeks[weeks.length - 1].page, 'flag', 'g', 'Reference')])
-      + ROW(6, 't6', 'Need', 'Help', ' with something?', 'Everything is online, so questions go on the Virtual Office board where the whole class can read the answer.', [
-          L('Virtual Office, the question board', D.virtualOffice, 'chat', 't'),
-          L('Study With Me', A.studyWithMe, 'people', 'g'),
-          L('Study With Me calendar', A.studyCalendar, 'cal', 'g'),
-          L('Accessibility', A.accessibility, 'access', 'b')]);
-    }
-    document.getElementById('rows').innerHTML = planHtml(w) + rows;
-    wirePlan(w); weekCounts();
+    document.getElementById('rows').innerHTML = rows;
+    wireChecks(w); drawPace(); weekCounts(); stats();
     document.getElementById('wkSel').value = String(w.wk);
     document.querySelectorAll('#wkList button').forEach(function (b) { b.setAttribute('aria-current', b.getAttribute('data-wk') === String(w.wk) ? 'true' : 'false'); });
     document.title = 'Learning Guide · Week ' + w.wk + ' · BIO 005 Human Physiology';
@@ -381,7 +408,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   sel.innerHTML = weeks.map(function (w) { return '<option value="' + w.wk + '">' + w.wk + '</option>'; }).join('');
   sel.addEventListener('change', function () { render(weeks.filter(function (w) { return String(w.wk) === sel.value; })[0]); });
   document.getElementById('wkList').innerHTML = weeks.map(function (w) {
-    return '<li><button type="button" data-wk="' + w.wk + '"><span>Week ' + w.wk + '<span class="d">' + esc(w.title) + '</span></span>' + (w.wk === nowWk.wk ? '<span class="now">Now</span>' : '') + '</button></li>';
+    return '<li><button type="button" data-wk="' + w.wk + '"><span>Week ' + w.wk + '<span class="d">' + esc(w.title) + '</span></span>' + (w.wk === firstOpen().wk ? '<span class="now">Now</span>' : '') + '</button></li>';
   }).join('');
   document.querySelectorAll('#wkList button').forEach(function (b) {
     b.addEventListener('click', function () { render(weeks.filter(function (w) { return String(w.wk) === b.getAttribute('data-wk'); })[0]); document.getElementById('main').scrollIntoView({ block: 'start' }); });
@@ -392,6 +419,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   function send() { var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); try { parent.postMessage({ type: 'resize', id: id, frameId: id, frame: id, height: h }, '*'); } catch (e) {} }
   window.addEventListener('load', send); window.addEventListener('resize', send);
   if (window.ResizeObserver) { new ResizeObserver(send).observe(document.body); }
+  cur = weeks.filter(function (w) { return w.wk === want; })[0] || firstOpen();
   render(cur);
 })();
 </script>

@@ -23,6 +23,8 @@ window.BIO005_PART2 = {
   pathwayPage: "choose-your-pathway.html",
   midterm2: { label: "Midterm 2", opens: "2026-12-14", closes: "2026-12-16", covers: "Weeks 9 to 14" },
   lastDrop: "2026-11-21",
+  /* Nov 8 2026: one unit at a time, aiming for about one unit every five days from the start of Part 2. */
+  pace: { start: "2026-11-09", days: 5 },
   observances: [
     { date: "2026-11-11", name: "Veterans Day" },
     { date: "2026-11-26", name: "Thanksgiving" },
@@ -54,8 +56,9 @@ window.BIO005_PART2 = {
   weeks: [
     { wk: 9, opens: "2026-11-09", closes: "2026-11-15", title: "The heart as a pump",
       page: "week-09.html", competencies: "week-09-competencies.html", notes: "week-09-notes.html", prompts: "note-sheet.html?week=9",
+      topicNotes: [{ label: "The heart", url: "biol005-w09-heart-notes.html", pdf: "notes/BIO005-Week9-Notes-heart.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "https://yccd.instructure.com/courses/42616/modules" },
-      videos: { label: "Dr. Rennie's heart videos, by topic", url: "physiology-videos.html#wk9" },
+      videos: { label: "Dr. Rennie's heart videos, by topic", url: "physiology-videos.html#wk9h" },
       study: { label: "Click-through slides: The heart as a pump", url: "li/w9/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w9/BIO005-W09-Lecture-Sheet-Heart-as-a-Pump.pdf" },
       lab: { label: "Clinical lab: The heart (calculations, EKG, heart sounds, biomarkers)", url: "cardiac-lab.html" },
@@ -66,8 +69,9 @@ window.BIO005_PART2 = {
 
     { wk: 10, opens: "2026-11-11", closes: "2026-11-22", title: "Pressure, flow, and holding blood pressure steady",
       page: "week-10.html", competencies: "week-10-competencies.html", notes: "week-10-notes.html", prompts: "note-sheet.html?week=10",
+      topicNotes: [{ label: "Blood vessels and blood pressure", url: "biol005-w10-vessels-bp-notes.html", pdf: "notes/BIO005-Week10-Notes-vessels-bp.pdf" }],
       lectureVideo: { label: "Walk-through lecture video: hemodynamics, blood pressure and shock", url: "https://www.loom.com/share/eed24f83166046199edf0ef5f2f1c129" },
-      videos: { label: "The lecture video, by chapter", url: "physiology-videos.html#wk10" },
+      videos: { label: "The lecture video, by chapter", url: "physiology-videos.html#wk10h" },
       study: { label: "Click-through slides: Pressure, flow and blood pressure", url: "li/w10/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w10/BIO005-W10-Lecture-Sheet-Pressure-Flow-BP.pdf" },
       lab: { label: "Clinical lab: Hemodynamics (resistance, the pressure numbers, standing up, predicting the system)", url: "hemodynamics-lab.html" },
@@ -82,7 +86,8 @@ window.BIO005_PART2 = {
 
     { wk: 11, opens: "2026-11-16", closes: "2026-11-22", title: "Blood and how the body defends itself",
       page: "week-11.html", competencies: "week-11-competencies.html", notes: "week-11-notes.html", prompts: "note-sheet.html?week=11",
-      videos: { label: "Dr. Rennie's blood and lymphatic videos, by topic", url: "physiology-videos.html#wk11" },
+      topicNotes: [{ label: "Blood", url: "biol005-w11-blood-notes.html", pdf: "notes/BIO005-Week11-Notes-blood.pdf" }, { label: "Lymph and immunity", url: "biol005-w11-lymph-immunity-notes.html", pdf: "notes/BIO005-Week11-Notes-lymph-immunity.pdf" }],
+      videos: { label: "Dr. Rennie's blood and lymphatic videos, by topic", url: "physiology-videos.html#wk11h" },
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: Blood and defense", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
@@ -97,6 +102,7 @@ window.BIO005_PART2 = {
 
     { wk: 12, opens: "2026-11-23", closes: "2026-11-29", title: "Digestion, and how you use food for fuel",
       page: "week-12.html", competencies: "week-12-competencies.html", notes: "week-12-notes.html", prompts: "note-sheet.html?week=12",
+      topicNotes: [{ label: "Digestion", url: "biol005-w12-digestion-notes.html", pdf: "notes/BIO005-Week12-Notes-digestion.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: Digestion and fuel", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
@@ -110,7 +116,9 @@ window.BIO005_PART2 = {
       note: "Thanksgiving week. Thursday and Friday are holidays and nothing is due on them." },
 
     { wk: 13, opens: "2026-11-30", closes: "2026-12-06", title: "Breathing, gas transport, and the fast pH lever",
+      videos: { label: "Dr. Rennie's breathing and acid-base videos, by topic", url: "physiology-videos.html#wk13h" },
       page: "week-13.html", competencies: "week-13-competencies.html", notes: "week-13-notes.html", prompts: "note-sheet.html?week=13",
+      topicNotes: [{ label: "Breathing and gas transport", url: "biol005-w13-breathing-notes.html", pdf: "notes/BIO005-Week13-Notes-breathing.pdf" }, { label: "Acid-base balance", url: "biol005-w13-acid-base-notes.html", pdf: "notes/BIO005-Week13-Notes-acid-base.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: Breathing and gas transport", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
@@ -125,6 +133,7 @@ window.BIO005_PART2 = {
 
     { wk: 14, opens: "2026-12-07", closes: "2026-12-13", title: "The kidney and body fluid balance",
       page: "week-14.html", competencies: "week-14-competencies.html", notes: "week-14-notes.html", prompts: "note-sheet.html?week=14",
+      topicNotes: [{ label: "The kidney", url: "biol005-w14-kidney-notes.html", pdf: "notes/BIO005-Week14-Notes-kidney.pdf" }, { label: "Fluid and electrolytes", url: "biol005-w14-fluid-electrolytes-notes.html", pdf: "notes/BIO005-Week14-Notes-fluid-electrolytes.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: The kidney", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
@@ -139,6 +148,7 @@ window.BIO005_PART2 = {
 
     { wk: 15, opens: "2026-12-14", closes: "2026-12-16", title: "The slow pH lever, putting it together, and Midterm 2",
       page: "week-15.html", exam: true, competencies: "week-15-competencies.html", notes: "week-15-notes.html", prompts: "note-sheet.html?week=15",
+      topicNotes: [{ label: "Acid-base balance: how the kidney controls pH", url: "biol005-w13-acid-base-notes.html#renal-control-of-ph", pdf: "notes/BIO005-Week13-Notes-acid-base.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "" },
       study: { label: "Click-through slides: The slow pH lever", url: "" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "" },
