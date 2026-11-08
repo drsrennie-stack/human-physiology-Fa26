@@ -75,6 +75,27 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
 .pointarrow b{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--rust-d);border-radius:999px;padding:2px 7px;margin-top:2px}
 @keyframes nudge{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(10px)}}
 @media (max-width:980px){.pointarrow{display:none}}
+/* Nov 8 2026: this week's order, with Done checks and a progress bar */
+.plan{border-radius:16px;border:1px solid var(--rule);box-shadow:0 1px 3px rgba(0,0,0,.06);background:#fff;padding:18px 20px}
+.plan h2{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:clamp(20px,2.4vw,24px);margin:0 0 4px;color:var(--deep)}
+.plan h2 span{color:var(--rust,#8B3A2E)}
+.plan .pk{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rust,#8B3A2E)}
+.pbar{height:14px;border-radius:999px;background:#ECEFF4;overflow:hidden;margin:10px 0 4px}.pbar span{display:block;height:100%;background:var(--deep);border-radius:999px;transition:width .3s ease}
+@media (prefers-reduced-motion:reduce){.pbar span{transition:none}}
+.ptxt{font-weight:800;font-size:14px;margin:0 0 8px}
+.steps{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.steps li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;min-height:44px;padding:4px 8px;border:1px solid var(--rule);border-radius:10px}
+.steps .n{font-family:"Open Sans",system-ui,sans-serif;font-weight:800;font-size:20px;color:var(--rust,#8B3A2E);text-align:center}
+.steps a{font-weight:700;color:var(--deep);text-decoration:none}.steps a:hover{text-decoration:underline}
+.steps .why{display:block;font-size:12.5px;font-weight:600;color:var(--mute,#414B5C)}
+.steps label{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:800;cursor:pointer;padding:6px 4px}
+.steps input{width:20px;height:20px}
+.steps li.done{background:#ECEFF4}.steps li.done a{color:var(--mute,#414B5C)}
+.steps li.soon{border-style:dashed;color:var(--mute,#414B5C)}
+.plan .tiny{font-size:12.5px;color:var(--mute,#414B5C);margin:10px 0 0}
+.plan button.clr{font:inherit;font-size:12.5px;font-weight:700;background:none;border:0;color:var(--rust,#8B3A2E);text-decoration:underline;cursor:pointer;padding:0}
+#wkList .pc{font-size:11px;font-weight:800;color:var(--mute,#414B5C);margin-left:6px}
+@media print{.plan{box-shadow:none}.plan button.clr{display:none}}
 /* side menu */
 .side{display:grid;gap:14px;min-width:0}
 .box{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -186,6 +207,70 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     return '<li><a href="' + esc(url) + '"' + attrs(url) + '><span class="li ' + (col || '') + '" aria-hidden="true">' + svg(ic) + '</span><span>' + esc(label) + '</span><span class="ch" aria-hidden="true">' + (ext ? '&#8599;' : '&#8250;') + '</span>' + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a></li>';
   }
 
+  /* Nov 8 2026: the order to do things this week, with Done checks saved in this browser */
+  var PKEY = 'bio005-progress-v1';
+  function prog() { try { return JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; } catch (e) { return {}; } }
+  function saveProg(p) { try { localStorage.setItem(PKEY, JSON.stringify(p)); } catch (e) {} }
+  function plan(w) {
+    var lv = w.lectureVideo || {}, st = [];
+    function add(label, url, why) { st.push({ label: label, url: url || '', why: why || '', key: label }); }
+    add('Watch the lecture video', lv.url, 'Pre-work. Everything else builds on it.');
+    add('Work through the click-through slides', w.study && w.study.url, 'Pre-work. Write the slide numbers you will cite.');
+    add('Read the written notes', w.notes, 'Pre-work and review.');
+    if (w.pathway) {
+      add('Pick your target, then do the lecture drawing', w.drawing && w.drawing.url, 'Required');
+      add('Do the two cases', w.cases && w.cases.url, 'Required');
+      add('Do the lab', w.lab && w.lab.url, 'Required');
+      if (w.stations) add('Do the lab stations', w.stations.url, 'Required');
+      if (w.project && w.project.url) add('Work on the project', w.project.url, 'Required');
+      add('Take the Mastery Check', w.mastery, 'Required. Everything closed.');
+      add('Take the Know-It Check, last', w.knowIt || D.canvasModules, 'Required, in Canvas. The score does not count.');
+    } else {
+      add('Do the lab', w.lab && w.lab.url, 'Required');
+      if (w.cases) { add('Claim and do your Wiggers case', w.cases.url, 'Required'); add('Claim and do your cardiac lab case', w.cases.url2, 'Required'); }
+      add('Post in ' + (w.discussion ? w.discussion.label.split(':')[0] : 'the discussion'), w.discussion && w.discussion.url, 'Required');
+    }
+    return st;
+  }
+  function counts(w) { var p = prog()[w.wk] || {}, st = plan(w).filter(function (x) { return x.url; }); return [st.filter(function (x) { return p[x.key]; }).length, st.length]; }
+  function planHtml(w) {
+    var p = prog()[w.wk] || {}, st = plan(w);
+    var items = st.map(function (x, i) {
+      var done = !!p[x.key], id = 'pd' + w.wk + '_' + i;
+      if (!x.url) return '<li class="soon"><span class="n">' + (i + 1) + '</span><span>' + esc(x.label) + '<span class="why">Not posted yet</span></span><span></span></li>';
+      var ext = /^https?:/.test(x.url);
+      return '<li' + (done ? ' class="done"' : '') + '><span class="n">' + (i + 1) + '</span><span><a href="' + esc(x.url) + '"' + attrs(x.url) + '>' + esc(x.label) + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a><span class="why">' + esc(x.why) + '</span></span>' +
+        '<label for="' + id + '"><input type="checkbox" id="' + id + '" data-k="' + esc(x.key) + '"' + (done ? ' checked' : '') + '> Done</label></li>';
+    }).join('');
+    var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0;
+    return '<section class="plan" aria-labelledby="planH"><p class="pk">Do these in order</p><h2 id="planH">Your Week ' + w.wk + ' <span>checklist</span></h2>' +
+      '<div class="pbar" role="progressbar" aria-label="Week ' + w.wk + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
+      '<p class="ptxt" id="planTxt" aria-live="polite">' + c[0] + ' of ' + c[1] + ' done</p><ol class="steps" id="planList">' + items + '</ol>' +
+      '<p class="tiny">Check a step when you finish it. Your checks are saved in this browser only, so use the same browser and device each week. <button type="button" class="clr" id="planClr">Clear my Week ' + w.wk + ' checks</button></p></section>';
+  }
+  function wirePlan(w) {
+    var box = document.getElementById('planList'); if (!box) return;
+    box.addEventListener('change', function (e) {
+      var t = e.target; if (!t || t.type !== 'checkbox') return;
+      var p = prog(); p[w.wk] = p[w.wk] || {}; if (t.checked) p[w.wk][t.getAttribute('data-k')] = 1; else delete p[w.wk][t.getAttribute('data-k')]; saveProg(p);
+      t.closest('li').classList.toggle('done', t.checked);
+      var c = counts(w), bar = document.querySelector('.plan .pbar');
+      bar.setAttribute('aria-valuenow', c[0]); bar.firstChild.style.width = (c[1] ? Math.round(100 * c[0] / c[1]) : 0) + '%';
+      document.getElementById('planTxt').textContent = c[0] + ' of ' + c[1] + ' done';
+      weekCounts();
+    });
+    var clr = document.getElementById('planClr');
+    if (clr) clr.addEventListener('click', function () { var p = prog(); delete p[w.wk]; saveProg(p); render(w); });
+  }
+  function weekCounts() {
+    document.querySelectorAll('#wkList button').forEach(function (b) {
+      var w = weeks.filter(function (x) { return String(x.wk) === b.getAttribute('data-wk'); })[0]; if (!w) return;
+      var c = counts(w), el = b.querySelector('.pc');
+      if (!el) { el = document.createElement('span'); el.className = 'pc'; b.firstChild.appendChild(el); }
+      el.textContent = c[0] ? c[0] + ' of ' + c[1] + ' done' : '';
+    });
+  }
+
   function render(w) {
     cur = w;
     var m2 = pd(D.midterm2.opens), days = Math.round((m2 - today) / 86400000);
@@ -277,7 +362,8 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
           L('Study With Me calendar', A.studyCalendar, 'cal', 'g'),
           L('Accessibility', A.accessibility, 'access', 'b')]);
     }
-    document.getElementById('rows').innerHTML = rows;
+    document.getElementById('rows').innerHTML = planHtml(w) + rows;
+    wirePlan(w); weekCounts();
     document.getElementById('wkSel').value = String(w.wk);
     document.querySelectorAll('#wkList button').forEach(function (b) { b.setAttribute('aria-current', b.getAttribute('data-wk') === String(w.wk) ? 'true' : 'false'); });
     document.title = 'Learning Guide · Week ' + w.wk + ' · BIO 005 Human Physiology';
