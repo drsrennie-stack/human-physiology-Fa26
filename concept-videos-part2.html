@@ -240,7 +240,8 @@ var UNITS = [{"wk": 9, "title": "The heart as a pump", "v": [{"s": "Cardiac musc
     $("next").addEventListener("click", function () { var x = unit.v[cur]; watched[vid(x)] = 1; sv(KEY, watched); go(unit, cur + 1, true); });
     $("playAll").addEventListener("click", function () { go(unit, 0, true); });
     $("resume").addEventListener("click", function () { var i = 0; for (; i < unit.v.length - 1; i++) { if (!watched[vid(unit.v[i])]) break; } go(unit, i, true); });
-    var ti = q.get("topic"), start = last[unit.wk] || 0;
+    var ti = q.get("topic"), start = last[unit.wk] || 0, vv = parseInt(q.get("v"), 10);
+    if (vv >= 1 && vv <= unit.v.length) { start = vv - 1; ti = null; }
     if (ti) { for (var i = 0; i < unit.v.length; i++) { if (slug(unit.v[i].s) === ti) { start = i; break; } } }
     if (start >= unit.v.length) start = 0;
     go(unit, start, false);

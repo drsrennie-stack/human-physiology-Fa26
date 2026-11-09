@@ -70,6 +70,17 @@ body.paper .notes .figref{font-size:15px;color:#414B5C;margin:0 0 10px}
 body.paper .notes .lt{color:#8B3A2E;font-weight:800}
 body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
 }
+.notes .vids{margin:0 0 12px;break-inside:avoid}
+.notes .vids .vh3{margin:0 0 4px;font-weight:800;font-size:14.5px}
+.notes .vids ul{list-style:none;margin:0;padding:0}
+.notes .vids li{margin:0 0 4px}
+.notes .vids a{color:#8B3A2E;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.notes .vids .pl{font-size:11px}
+.notes figure.nfig{margin:6px 0 14px;break-inside:avoid;background:#fff}
+.notes figure.nfig img{display:block;width:100%;height:auto;border:1px solid #DCE0E6;border-radius:6px}
+.notes figure.nfig figcaption{font-size:13.5px;line-height:1.45;margin:5px 0 0;color:#1B2433}
+.notes figure.nfig .cr{display:block;font-size:12px;color:#414B5C}
+.notes figure.nfig .cr a{color:#414B5C}
 </style>
 """
 
@@ -104,6 +115,37 @@ def comps_line(week, sec):
 
 OUTSIDE = ("RegisteredNurseRN", "Ninja Nerd", "Armando Hasudungan", "Medicosis Perfectionalis", "Khan Academy", "Video:")
 
+# Nov 8 2026: her videos open in the Part 2 concept-video player, at that exact video (or that minute of the Week 10 Loom)
+PLAYER = "https://drsrennie-stack.github.io/human-physiology-Fa26/concept-videos-part2.html"
+try:
+    ENGINE = json.loads(open("/root/work/videos/engine_index.json", encoding="utf-8").read())
+except Exception:
+    ENGINE = {}
+def player_url(u):
+    m = re.search(r"(?:youtu\.be/|v=)([A-Za-z0-9_-]{11})", u)
+    k = m.group(1) if m else None
+    if not k and "loom.com" in u:
+        t = re.search(r"[?&]t=(\d+)", u)
+        k = "loom@%d" % (int(t.group(1)) if t else 0)
+    if k and k in ENGINE:
+        w, n = ENGINE[k]
+        return "%s?week=%d&v=%d" % (PLAYER, w, n)
+    return u
+
+def fig(b):
+    """["fig", file, alt, caption, credit]: an openly licensed figure from Wikimedia Commons, shown at 960 px."""
+    import hashlib
+    _, name, alt, cap, credit = b
+    n = name.replace(" ", "_"); h = hashlib.md5(n.encode()).hexdigest()
+    src = "https://upload.wikimedia.org/wikipedia/commons/thumb/%s/%s/%s/960px-%s%s" % (h[0], h[:2], n, n, ".png" if n.endswith(".svg") else "")
+    page_ = "https://commons.wikimedia.org/wiki/File:%s" % n
+    return ('<figure class="nfig"><img src="%s" alt="%s" loading="lazy">'
+            '<figcaption>%s <span class="cr">%s <a href="%s" target="_blank" rel="noopener">Source<span class="mm-vh"> (opens in a new tab)</span></a></span></figcaption></figure>\n'
+            % (html.escape(src), html.escape(alt, quote=True), e(cap), e(credit), html.escape(page_)))
+
+def blk(b):
+    return fig(b) if b[0] == "fig" else base.block(tuple(b))
+
 def videos_line(week, sec):
     """Dr. Rennie's own videos are credited to her; other creators' videos carry the channel name in the title."""
     v = [tuple(x) for x in sec.get("videos", [])]
@@ -116,16 +158,16 @@ def videos_line(week, sec):
         if not mixed or t.startswith(OUTSIDE):
             return t[len("Video: "):] if t.startswith("Video: ") else t
         return "Dr. Rennie: " + t
-    items = ", ".join('<a href="%s" target="_blank" rel="noopener">%s<span class="mm-vh"> (video, opens in a new tab)</span></a>' % (html.escape(u), e(lab(t))) for t, u in v)
+    items = "".join('<li><a href="%s" target="_blank" rel="noopener"><span class="pl" aria-hidden="true">&#9654;</span> %s<span class="mm-vh"> (video, opens in a new tab)</span></a></li>' % (html.escape(player_url(u)), e(lab(t))) for t, u in v)
     who = "Videos for this part" if mixed else "Dr. Rennie&rsquo;s videos for this part"
-    return '<p class="figref"><b>%s:</b> %s.</p>\n' % (who, items)
+    return '<div class="vids"><p class="vh3">%s</p><ul>%s</ul></div>\n' % (who, items)
 
 def fname(n): return "biol005-w%02d-%s-notes.html" % (n["week"], n["slug"])
 def pdfname(n): return "notes/BIO005-Week%d-Notes-%s.pdf" % (n["week"], n["slug"])
 
 USE = {
- 9: 'Watch <a href="%s" target="_top">the lecture</a> and work through the click-through slides first. Then read these notes to fill in anything you missed, and use them to review. The section letters match the lecture.',
- 10: 'Watch <a href="%s" target="_top">the lecture</a> and work through the click-through slides first. Then read these notes to fill in anything you missed, and use them to review. The section letters match the lecture.',
+ 9: 'Watch the lecture first, then read these notes. The section letters match the lecture, and each part links Dr. Rennie&rsquo;s videos for it.',
+ 10: 'Watch the lecture first, then read these notes. The section letters match the lecture, and each part links the minute of the lecture video where it starts.',
 }
 USE_DEFAULT = 'Read these notes alongside your textbook reading for the week, then use them to review. Each part names where to read in Silverthorn and in OpenStax, and links Dr. Rennie&rsquo;s videos where there is one.'
 
@@ -139,7 +181,7 @@ def page(n):
             '  <p><b>To print:</b> <a href="%s" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>\n'
             '</div></header>\n' % (week, e(n["title"]), e(n["blurb"]), e(n["comps"]), pdfname(n)))
     lec = "li/w%d/study.html" % week
-    use = (USE[week] % lec) if week in USE else USE_DEFAULT
+    use = USE.get(week, USE_DEFAULT)
     body = ['<main id="main"><div class="wrap notes">\n',
             '<div class="use"><p><b>How to use these notes.</b> %s</p>'
             '<p><b>Your textbook:</b> Silverthorn %s. <b>Using OpenStax instead?</b> Anatomy and Physiology 2e, %s.</p></div>\n' % (use, e(n["book"]), e(n["ostax"]))]
@@ -148,7 +190,7 @@ def page(n):
         lt = ('<span class="lt">%s.</span> ' % e(sec["letter"])) if sec.get("letter") else ""
         body.append('<section id="%s">\n<h2>%s%s</h2>\n' % (re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-"), lt, e(t))
                     + comps_line(week, sec) + (wk.FIGNOTE % e(sec["book"]) if sec.get("book") else "") + videos_line(week, sec)
-                    + "".join(base.block(tuple(x)) for x in sec["blocks"]) + "</section>\n")
+                    + "".join(blk(x) for x in sec["blocks"]) + "</section>\n")
     body.append("</div></main>")
     s = s[:a] + head + "\n" + "".join(body) + s[b:]
     s = s.replace("Week 4", "Week %d" % week)
