@@ -155,7 +155,7 @@ def vid(b):
         t, u = item[0], item[1]
         who = item[2] if len(item) > 2 else ""
         lab_ = e(t) + (' <span class="by">(%s)</span>' % e(who) if who else "")
-        out.append('<a href="%s" target="_blank" rel="noopener"><span class="pl" aria-hidden="true">&#9654;</span> %s<span class="mm-vh"> (video, opens in a new tab)</span></a>' % (html.escape(player_url(u)), lab_))
+        out.append('<a class="b5-keep" href="%s" target="_blank" rel="noopener"><span class="pl" aria-hidden="true">&#9654;</span> %s<span class="mm-vh"> (video, opens in a new tab)</span></a>' % (html.escape(player_url(u)), lab_))
     return '<p class="vin"><b>Watch:</b> %s</p>\n' % " &middot; ".join(out)
 
 def blk(b):
@@ -175,7 +175,7 @@ def videos_line(week, sec):
         if not mixed or t.startswith(OUTSIDE):
             return t[len("Video: "):] if t.startswith("Video: ") else t
         return "Dr. Rennie: " + t
-    items = "".join('<li><a href="%s" target="_blank" rel="noopener"><span class="pl" aria-hidden="true">&#9654;</span> %s<span class="mm-vh"> (video, opens in a new tab)</span></a></li>' % (html.escape(player_url(u)), e(lab(t))) for t, u in v)
+    items = "".join('<li><a class="b5-keep" href="%s" target="_blank" rel="noopener"><span class="pl" aria-hidden="true">&#9654;</span> %s<span class="mm-vh"> (video, opens in a new tab)</span></a></li>' % (html.escape(player_url(u)), e(lab(t))) for t, u in v)
     who = "Videos for this part" if mixed else "Dr. Rennie&rsquo;s videos for this part"
     return '<div class="vids"><p class="vh3">%s</p><ul>%s</ul></div>\n' % (who, items)
 
@@ -195,7 +195,7 @@ def page(n):
     a = s.index('<header class="top">'); b = s.index("</div></main>") + len("</div></main>")
     head = ('<header class="top"><div class="wrap">\n  <p class="eyebrow">BIO 005 · Week %d · Written notes</p>\n'
             '  <h1>%s</h1>\n  <p>%s %s.</p>\n'
-            '  <p><b>To print:</b> <a href="%s" target="_blank" rel="noopener">these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>\n'
+            '  <p><b>Prefer paper?</b> <a href="%s" target="_blank" rel="noopener">Print or save these notes as a two-column PDF<span class="mm-vh"> (opens in a new tab)</span></a>.</p>\n'
             '</div></header>\n' % (week, e(n["title"]), e(n["blurb"]), e(n["comps"]), pdfname(n)))
     lec = "li/w%d/study.html" % week
     use = USE.get(week, USE_DEFAULT)
@@ -222,20 +222,32 @@ def page(n):
     (ROOT / fname(n)).write_text(relabel(s), encoding="utf-8")
     print("built", fname(n))
 
+HUB_CSS = """<style data-hub>
+.nopt{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+.nopt .nbtn{display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;border:1.5px solid #060B1A;border-radius:999px;
+  font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:#060B1A;background:#fff}
+.nopt .nbtn:first-child{background:#060B1A;color:#fff}
+.nopt .nbtn:hover{border-color:#8B3A2E}
+.nopt .nbtn:focus-visible{outline:3px solid #C9A14A;outline-offset:2px}
+</style>
+"""
+
 def hub(week, notes):
     s = (ROOT / "week-05-notes.html").read_text(encoding="utf-8")
     a = s.index('<header class="top">'); b = s.index("</div></main>") + len("</div></main>")
     anchor = "#renal-control-of-ph" if week == 15 else ""
-    items = "".join('<li><b>%s.</b> %s %s.<br><a href="%s%s" target="_top">The written notes</a> &middot; '
-                    '<a href="%s" target="_blank" rel="noopener">notes to print (PDF) <span class="mm-vh">(opens in a new tab)</span></a></li>'
+    items = "".join('<li><b>%s.</b> %s %s.<div class="nopt">'
+                    '<a class="b5-keep nbtn" href="%s%s" target="_top">Read online</a>'
+                    '<a class="nbtn" href="%s" target="_blank" rel="noopener">Print or save the PDF<span class="mm-vh"> (opens in a new tab)</span></a></div></li>'
                     % (e(n["title"]), e(n["blurb"]), e(n["comps"]), fname(n), anchor, pdfname(n)) for n in notes)
     head = ('<header class="top"><div class="wrap">\n  <p class="eyebrow">BIO 005 · Week %d · Written notes</p>\n  <h1>%s</h1>\n'
-            '  <p>The written notes for this week, set in two columns. Each one has its own printable PDF.</p>\n</div></header>\n' % (week, e(WEEK_TITLE[week])))
+            '  <p>Read the notes online, or print them. Each topic has its own two-column PDF.</p>\n</div></header>\n' % (week, e(WEEK_TITLE[week])))
     body = ('<main id="main"><div class="wrap">\n<section>\n  <h2>This week&rsquo;s notes</h2>\n%s'
             '  <ol class="plain">%s</ol>\n'
             '  <p>The full list of what you should be able to do is on <a href="week-%02d-competencies.html" target="_top">the Week %d competency list</a>.</p>\n'
             '</section>\n</div></main>' % (('  <p>%s</p>\n' % e(WEEK_NOTE[week])) if week in WEEK_NOTE else "", items, week, week))
     s = s[:a] + head + "\n" + body + s[b:]
+    s = s.replace("</head>", HUB_CSS + "</head>", 1)
     s = re.sub(r"<title>[^<]*</title>", "<title>Week %d notes &middot; BIO 005 Human Physiology</title>" % week, s, count=1)
     s = s.replace("Week 5", "Week %d" % week)
     (ROOT / ("week-%02d-notes.html" % week)).write_text(relabel(s), encoding="utf-8")

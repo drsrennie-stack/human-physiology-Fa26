@@ -308,11 +308,11 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
     <div class="card" id="reportcard" style="margin-top:14px">
       <h3 style="margin:0 0 6px">Your weekly card report</h3>
-      <p class="sub" style="margin:0 0 10px">Cards are graded by how many you work each week, Monday to Sunday: 70 is a D, 105 a C, 175 a B, 350 an A. Put your name in once and this page keeps a running count for you. Print the report on Sunday and upload it to Canvas.</p>
+      <p class="sub" style="margin:0 0 10px">Cards are graded by how many you work each week, Monday to Sunday: 70 is a D, 105 a C, 175 a B, 350 an A. Put your name in once and this page keeps a running count for you. Print the report on Sunday and upload it to Canvas.</p><p class="sub" style="margin:0 0 4px"><b>Keep a backup every day.</b></p><ul class="sub" style="margin:0 0 10px;padding-left:20px"><li>Your count is saved only in this browser, on this device.</li><li>If you switch to another device or clear your browser, the count starts over, and you could lose the points.</li><li>So after every session, press the report button below and save the report as a PDF, or take a picture of it. The report shows the dates and the topic of your cards.</li><li>If your count records properly all week, you only upload the one page report on Sunday.</li></ul>
       <label for="rxName" style="display:block;font-weight:700;font-size:14px;margin:0 0 4px">Your name, as it appears in Canvas</label>
       <input type="text" id="rxName" autocomplete="name" style="font:inherit;padding:8px 10px;border:1.5px solid #8C90A0;border-radius:8px;max-width:22rem;width:100%">
       <p class="sub" id="rxBand" style="margin:10px 0 6px" aria-live="polite"></p>
-      <div class="btnrow"><button type="button" class="btn" id="rxReport">Print this week's report</button></div>
+      <div class="btnrow"><button type="button" class="btn" id="rxReport">Print or save this week's report (PDF)</button></div>
       <p class="sub" id="rxSync" style="margin:8px 0 0;font-size:13px"></p>
     </div>
   </section>
@@ -830,6 +830,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var code = hash(nm + '|' + days.map(function(d){ return d.key + ':' + d.seen; }).join(',') + '|' + total);
     var rows = days.map(function(d){ return '<tr><td>' + d.label + '</td><td>' + d.seen + '</td><td>' + d.right + '</td></tr>'; }).join('');
     $('rxSheet').innerHTML = '<p class="eb">BIO 005 Human Physiology · Rx Cards · weekly report</p><h1>' + nm.replace(/</g,'&lt;') + '</h1><p>Week of ' + days[0].label + ' to ' + days[6].label + ' · printed ' + new Date().toLocaleString() + '</p>'
+      + '<p>Cards from: ' + (($('weeks') && $('weeks').selectedIndex >= 0) ? $('weeks').options[$('weeks').selectedIndex].text : ('Week ' + (window.BIO005_WL ? BIO005_WL(maxWeek) : maxWeek))).replace(/</g,'&lt;') + '</p>'
       + '<table><tr><th>Day</th><th>Cards answered</th><th>Right first time</th></tr>' + rows + '<tr><th>Week total</th><th>' + total + '</th><th>' + right + '</th></tr></table>'
       + '<p class="band">Band this week: ' + bandFor(total) + ' (' + total + ' cards; 70 D, 105 C, 175 B, 350 A)</p>'
       + '<p>Report code: <span class="code">' + code + '</span>. The code is computed from the name, the dates and the counts above; it changes if any of them is edited after printing.</p>'

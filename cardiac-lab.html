@@ -335,7 +335,7 @@ document.querySelectorAll('[data-check]').forEach(function(btn){
     var results=[];
     spec.fields.forEach(function(f){var inp=box.querySelector('[name="'+f.name+'"]');var v=inp?inp.value.trim():'';if(v===''){missing.push(f.label);return;}
       var ok; if(f.choice!==undefined){ok=(v===f.choice);} else {ok=near(parseFloat(v),f.value,f.tol);}
-      results.push({label:f.label,ok:ok,shown:v,want:(f.choice!==undefined?f.choiceLabel||f.choice:f.value+(f.unit?' '+f.unit:''))});});
+      results.push({label:f.label,ok:ok,shown:(inp.tagName==='SELECT'&&inp.selectedIndex>=0?inp.options[inp.selectedIndex].text:v),want:(f.choice!==undefined?f.choiceLabel||f.choice:f.value+(f.unit?' '+f.unit:''))});});
     if(missing.length||(ta&&words(ta.value)<spec.minWords)){out.className='feedback warn';out.innerHTML='<span class="verdict wait">Not yet</span>'+(missing.length?(spec.quiet?'You have not calculated everything this question needs. Look at the list of formulas again and decide which ones answer the question. ':'Fill in '+missing.join(', ')+'. '):'')+(ta&&words(ta.value)<spec.minWords?'First write what the numbers mean, in your own words. Use at least '+spec.minWords+' words. The check opens after you have written your answer.':'');out.hidden=false;return;}
     var allOk=results.every(function(r){return r.ok;});
     var rows=results.map(function(r){return '<li><span class="verdict '+(r.ok?'right':'wrong')+'">'+(r.ok?'Yes':'No')+'</span>'+r.label+': you entered '+r.shown+(r.ok?'':'; the correct answer is '+r.want)+'</li>';}).join('');
