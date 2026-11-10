@@ -283,6 +283,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <h2 id="due-h">Due now</h2>
     <p class="sub" id="dueline">Loading your cards.</p>
     <p class="sub goal" id="goalline"></p>
+    <div class="btnrow"><button type="button" class="btn ghost" id="prevToggle" aria-pressed="false"></button></div>
     <div class="counts" role="group" aria-label="Cards waiting">
       <div class="count new"><div class="n" id="nNew">0</div><div class="t">New</div><div class="d">Cards you have not seen, up to today's limit</div></div>
       <div class="count"><div class="n" id="nLearn">0</div><div class="t">Relearning</div><div class="d">Missed recently, back for another try</div></div>
@@ -533,7 +534,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   var qs = new URLSearchParams(location.search);
   var qWeek = parseInt(qs.get('week'), 10);
   var maxWeek = (qWeek >= 1 && qWeek <= 15) ? qWeek : (S.set.maxWeek || currentWeek());
-  var onlyWeek = qs.has('only') ? qs.get('only') === '1' : !!S.set.onlyWeek;
+  var onlyWeek = qs.has('only') ? qs.get('only') === '1' : !S.set.withPrev;
 
   function inPlay(c){ return onlyWeek ? c.week === maxWeek : c.week <= maxWeek; }
 
@@ -661,10 +662,13 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       sel.appendChild(og);
     });
   }
+  $('prevToggle').addEventListener('click', function(){
+    onlyWeek = !onlyWeek; S.set.onlyWeek = onlyWeek; S.set.withPrev = !onlyWeek; S.set.maxWeek = maxWeek; save(); renderHome();
+  });
   $('weeks').addEventListener('change', function(){
     var v = this.value;
     onlyWeek = v.charAt(0) === 'o'; maxWeek = parseInt(v.slice(1), 10);
-    S.set.maxWeek = maxWeek; S.set.onlyWeek = onlyWeek; save(); renderHome();
+    S.set.maxWeek = maxWeek; S.set.onlyWeek = onlyWeek; S.set.withPrev = !onlyWeek; save(); renderHome();
   });
   [].forEach.call($('npd').querySelectorAll('button'), function(b){
     b.addEventListener('click', function(){ S.set.npd = parseInt(b.dataset.v, 10); save(); renderHome(); });
@@ -675,6 +679,10 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   function renderHome(){
     fillWeeks();
+    var pt = $('prevToggle');
+    if (pt) { var wl = window.BIO005_WL ? BIO005_WL(maxWeek) : maxWeek;
+      pt.textContent = onlyWeek ? 'Add cards from earlier weeks' : 'Show only Week ' + wl + ' cards';
+      pt.setAttribute('aria-pressed', String(!onlyWeek)); pt.hidden = maxWeek <= 1; }
     [].forEach.call($('npd').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === S.set.npd)); });
     [].forEach.call($('size').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === (S.set.size || 0))); });
     pile = buildPile(false);

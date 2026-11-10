@@ -250,8 +250,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
       a.push(it('Know-It Check, in Canvas, the last thing you do', w.knowIt || D.canvasModules, 'exam', 'g', 'Required'));
     } else {
-      a.push(it('Lecture note sheet, filled in', w.noteSheet.url, 'print', 't', 'Required'));
-      a.push(it('Rx Cards this week', A.rx, 'cards', 't', 'Required'));
+      a.push(it('Rx Cards this week', A.rx + '?week=' + w.wk, 'cards', 't', 'Required'));
       a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
       if (w.cases) { a.push(it('Claim and do your Wiggers case', w.cases.url, 'grid', 't', 'Required')); a.push(it('Claim and do your cardiac lab case', w.cases.url2, 'grid', 't', 'Required')); }
       a.push(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'));
@@ -260,11 +259,9 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     return a;
   }
   function reinforce(w) {
-    var r = [L('Brain dump: write what you remember, then check the notes', A.brainDump, 'brain', 'b', 'Recommended')];
-    if (w.pathway) r.push(L('Lecture note sheet: draw and fill it in from the notes', w.noteSheet.url, 'print', 'b', 'Recommended'));
+    var r = [];
     r.push(L('Competencies with prompts, ' + 'Week ' + w.wk, w.prompts, 'target', 'b', 'Recommended'));
-    if (w.pathway) r.push(L('Rx Cards: recall a few minutes a day', A.rx, 'cards', 'b', 'Recommended'));
-    r.push(L('Draw it', A.draw, 'pen', 'b', 'Recommended'));
+    if (w.pathway) r.push(L('Rx Cards: recall a few minutes a day', A.rx + '?week=' + w.wk, 'cards', 'b', 'Recommended'));
     return '<li class="opt">Optional: make it stick</li>' + r.join('');
   }
   function checkable(w) { return preWork(w).concat(assignments(w)); }
@@ -366,8 +363,9 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     tn.forEach(function (n) { notes.push(L('Notes: ' + n.label, n.url, 'note', '', 'Reference')); notes.push(L('Notes to print (PDF): ' + n.label, n.pdf, 'print', '', 'Reference')); });
     notes.push(L('All the notes for ' + wk + ' on one page', w.notes, 'doc', '', 'Reference'));
     notes.push(L('Competency list, ' + wk, w.competencies, 'target', '', 'Reference'));
-    var videos = [L('Lecture video, ' + wk, lv.url, 'video', '', 'Pre-work'),
-      vids ? L(vids.label, vids.url, 'play', 't', 'Recommended') : L('Concept videos, ' + wk, '', 'play', 't'),
+    var same = vids && lv.url && lv.url === vids.url;
+    var videos = [L('Lecture video, ' + wk + (same ? ': one player, by chapter' : ''), lv.url, 'video', '', 'Pre-work'),
+      same ? '' : vids ? L(vids.label, vids.url, 'play', 't', 'Recommended') : L('Concept videos, ' + wk, '', 'play', 't'),
       L('Concept videos, all of Part 2', A.videos, 'play', 't', 'Reference')];
     var tools = [];
     tools.push(L('All of it on one sheet, ' + wk, w.ungraded, 'print', 'b', 'Recommended'));

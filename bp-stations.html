@@ -45,12 +45,12 @@ a{color:var(--rust)}
 </style>
 </head>
 <body>
-<a class="skip" href="#main" target="_self">Skip to the page</a>
+<a class="skip" href="#main" target="_self">Skip to main content</a>
 <header class="band"><div class="in">
 <p class="eyebrow">BIO 005 Human Physiology &middot; Week 10 &middot; Lab circuit</p>
 <h1>The cuff and the <span>ankle index</span></h1>
-<p class="lead">Two stations: take three blood pressures by sound, then work out blood flow to the legs for five patients.</p>
-<ul class="pills"><li>Station 1 and 2</li><li>Simulated patients</li><li>Print to PDF</li></ul>
+<p class="lead">This page has two stations. First, take three blood pressures by listening for the sounds through a cuff. Then work out blood flow to the legs for five patients.</p>
+<ul class="pills"><li>Stations 1 and 2</li><li>Simulated patients</li><li>Print to PDF</li></ul>
 </div></header>
 <main id="main">
 
@@ -72,13 +72,15 @@ input[type=number]{max-width:140px}
 
 <div class="card"><p class="kicker">Week 10 circuit</p><h2>Two stations on this page</h2><ul class="tight">
 <li><b>Station 1, the cuff:</b> take three blood pressures by listening for the Korotkoff sounds. Each one is a new patient.</li>
-<li><b>Station 2, the ankle-brachial index:</b> work out blood flow to the legs for five patients and decide who has peripheral artery disease.</li>
-<li>The other stations are in the <a href="hemodynamics-lab.html" target="_top">Week 10 lab</a>: the calculations, capillary exchange and standing up, then the PhysioEx.</li>
+<li><b>Station 2, the ankle-brachial index (ankle pressure compared with arm pressure):</b> work out blood flow to the legs for five patients and decide who has peripheral artery disease (narrowed leg arteries).</li>
+<li>The other stations are in the <a href="hemodynamics-lab.html" target="_top">Week 10 lab</a>: flow and resistance, the blood pressure numbers, standing up, predicting how the body responds, and then PhysioEx.</li>
 <li>When you finish, print this page to PDF. Your results and answers print with it.</li></ul>
 <label class="f" for="stName">Your name, as it appears in Canvas</label><input type="text" id="stName" autocomplete="name"></div>
 
 <div class="card"><p class="kicker">Station 1</p><h2>Take a blood pressure by sound</h2>
-<p>Press <b>Inflate</b>. The cuff pumps up above the systolic pressure and then lets air out slowly, about 3 mmHg per heartbeat. Watch the needle and listen. Press <b>First sound</b> when the tapping starts, and <b>Sounds gone</b> when it stops. You pass a patient when both readings are within 5 mmHg. Use headphones. Can&rsquo;t use sound? Turn on the flash.</p>
+<p>Use headphones. If you cannot use sound, check <b>Flash with each sound</b>.</p>
+<ol class="tight"><li>Press <b>Inflate</b>. The cuff pumps up above the systolic pressure and then lets air out slowly, about 3 mmHg per heartbeat.</li><li>Watch the needle and listen.</li><li>Press <b>First sound</b> when the tapping starts.</li><li>Press <b>Sounds gone</b> when the tapping stops.</li></ol>
+<p>You pass a patient when both of your readings are within 5 mmHg of the true values.</p>
 <div class="st"><div>
 <svg class="gauge" id="kgG" viewBox="0 0 300 300" role="img" aria-labelledby="kgGt"><title id="kgGt">Cuff pressure gauge, 0 to 300 mmHg</title>
 <circle cx="150" cy="150" r="140" fill="#fff" stroke="#0B1530" stroke-width="4"/><g id="kgTicks"></g>
@@ -96,18 +98,19 @@ input[type=number]{max-width:140px}
 <label class="f" for="kg_q3">For one of your patients, work out the pulse pressure and the mean arterial pressure. Show your numbers.</label><textarea id="kg_q3" rows="3"></textarea></div>
 
 <div class="card"><p class="kicker">Station 2</p><h2>The ankle-brachial index</h2>
-<p>A narrowed leg artery drops the pressure beyond it. Comparing the systolic pressure at the ankle with the one in the arm shows how well blood reaches the legs.</p>
-<ol class="tight"><li>For each leg, divide the higher of its two ankle pressures (dorsalis pedis or posterior tibial) by the higher of the two arm pressures.</li>
-<li>Round to two decimals, then decide what it means.</li></ol>
+<p>When a leg artery is narrowed, the blood pressure past the narrow spot drops. Comparing the systolic pressure at the ankle with the systolic pressure in the arm shows how well blood reaches the legs.</p>
+<ol class="tight"><li>For each leg, take the higher of its two ankle pressures (dorsalis pedis or posterior tibial, two arteries at the ankle).</li>
+<li>Divide it by the higher of the two arm pressures.</li>
+<li>Round to two decimal places and type it in the box. Then choose what it means from the list.</li></ol>
 <table class="res"><caption>What the index means (resting, adults)</caption><thead><tr><th scope="col">Index</th><th scope="col">Meaning</th></tr></thead><tbody>
-<tr><td>above 1.40</td><td>Stiff, hard-to-compress arteries (often diabetes or kidney disease); the reading is not reliable</td></tr>
+<tr><td>above 1.40</td><td>Stiff arteries that the cuff cannot squeeze shut (often from diabetes or kidney disease); the reading is not reliable</td></tr>
 <tr><td>1.00 to 1.40</td><td>Normal</td></tr><tr><td>0.91 to 0.99</td><td>Borderline</td></tr>
 <tr><td>0.90 or below</td><td>Peripheral artery disease</td></tr><tr><td>0.40 or below</td><td>Severe peripheral artery disease</td></tr></tbody></table>
 <div id="abiBox"></div>
 <div class="btnrow noprint"><button class="btn" type="button" id="abiCheck">Check my answers</button><button class="btn sec" type="button" id="abiNew">New patients</button></div>
 <p id="abiLive" role="status" aria-live="polite" class="note"></p>
 <label class="f" for="abi_q1">Pick your patient with the lowest index. Using pressure, flow and resistance, explain why a narrowed artery in the thigh lowers the pressure at the ankle but not in the arm.</label><textarea id="abi_q1" rows="4"></textarea>
-<label class="f" for="abi_q2">Why would that person&rsquo;s calf hurt when walking and ease with rest? Explain it with oxygen supply and demand.</label><textarea id="abi_q2" rows="3"></textarea></div>
+<label class="f" for="abi_q2">Why would that person&rsquo;s calf hurt when they walk and feel better when they rest? Use oxygen supply and demand in your answer.</label><textarea id="abi_q2" rows="3"></textarea></div>
 
 <div class="card noprint"><p class="kicker">Turn it in</p><h2>Print to PDF</h2><p>Pass three cuff patients and check all five index patients. Then print this page and choose Save as PDF. Upload it with your Week 10 lab.</p>
 <div class="btnrow"><button class="btn" type="button" onclick="window.print()">Print or save as PDF</button></div></div>
@@ -129,7 +132,7 @@ input[type=number]{max-width:140px}
   if(document.getElementById('kgShow').checked){num.hidden=false;num.textContent=Math.round(p)+' mmHg';}else num.hidden=true;}
  function patient(){sbp=100+Math.round(Math.random()*80);dbp=Math.max(55,Math.min(sbp-25,Math.round(sbp*0.55+Math.random()*25)));hr=60+Math.round(Math.random()*30);}
  bI.addEventListener('click',function(){if(run)return;if(pt>=3){pt=0;res.innerHTML='';}patient();pt++;var c=A();if(c.state==='suspended')c.resume();
-  heard=gone=null;P=0;run=true;bI.disabled=true;bF.disabled=bG.disabled=false;live.textContent='Patient '+pt+': inflating. Listen once the needle starts falling.';
+  heard=gone=null;P=0;run=true;bI.disabled=true;bF.disabled=bG.disabled=false;live.textContent='Patient '+pt+': the cuff is inflating. Start listening when the needle starts to fall.';
   var target=sbp+30+Math.round(Math.random()*10),t0=performance.now();
   (function up(){var e=(performance.now()-t0)/1000;P=Math.min(target,e*120);needle(P);if(P<target){raf=requestAnimationFrame(up);}else{last=performance.now();nextBeat=last+400;down();}})();});
  function down(){var now=performance.now(),dt=(now-last)/1000;last=now;var rate=3*hr/60;P-=rate*dt;
@@ -141,7 +144,7 @@ input[type=number]{max-width:140px}
  function finish(){run=false;bI.disabled=false;bF.disabled=bG.disabled=true;needle(0);
   var okS=heard!==null&&Math.abs(heard-sbp)<=5,okD=gone!==null&&Math.abs(gone-dbp)<=5,ok=okS&&okD;
   res.insertAdjacentHTML('beforeend','<tr><td>'+pt+'</td><td>'+(heard!==null?Math.round(heard):'none')+' / '+(gone!==null?Math.round(gone):'none')+'</td><td>'+sbp+' / '+dbp+'</td><td class="'+(ok?'ok':'no')+'">'+(ok?'Passed':'Not yet')+'</td></tr>');
-  live.textContent='Patient '+pt+(ok?' passed. ':' not passed. ')+'The true pressure was '+sbp+' over '+dbp+'. '+(pt<3?'Press Inflate for the next patient.':'Done. Press Inflate to start a new set of three.');}
+  live.textContent='Patient '+pt+(ok?' passed. ':' not passed. ')+'The true pressure was '+sbp+' over '+dbp+'. '+(pt<3?'Press Inflate for the next patient.':'You have finished all three patients. Press Inflate to start a new set of three.');}
  bF.addEventListener('click',function(){if(run&&heard===null){heard=P;live.textContent='First sound marked. Now listen for the sounds to stop.';}});
  bG.addEventListener('click',function(){if(run&&heard!==null&&gone===null){gone=P;P=20;}});
  needle(0);
@@ -154,15 +157,15 @@ input[type=number]{max-width:140px}
    function leg(k){var f={normal:[1.02,1.22],pad:[0.55,0.85],borderline:[0.92,0.98],severe:[0.25,0.38],stiff:[1.45,1.65]}[k];var x=f[0]+Math.random()*(f[1]-f[0]);var top=Math.round(hi*x);return [top,top-r(2,10)].sort(function(){return Math.random()-0.5;});}
    var bad=Math.random()<0.5?'R':'L',R=leg(bad==='R'?k:(k==='stiff'?'stiff':'normal')),L=leg(bad==='L'?k:(k==='stiff'?'stiff':'normal'));
    pats.push({name:names[i],arm:arm,R:R,L:L,hi:hi,age:r(52,78)});});
-  box.innerHTML=pats.map(function(p,i){return '<div class="pt"><b>'+p.name+'</b>, age '+p.age+'. Arm systolic: right '+p.arm[0]+', left '+p.arm[1]+' mmHg. Right ankle: '+p.R[0]+' and '+p.R[1]+'. Left ankle: '+p.L[0]+' and '+p.L[1]+' mmHg.'+
+  box.innerHTML=pats.map(function(p,i){return '<div class="pt"><b>'+p.name+'</b>, age '+p.age+'. Arm systolic: right '+p.arm[0]+', left '+p.arm[1]+' mmHg. Right ankle: '+p.R[0]+' and '+p.R[1]+' mmHg. Left ankle: '+p.L[0]+' and '+p.L[1]+' mmHg.'+
    ['R','L'].map(function(s){var nm=s==='R'?'Right':'Left';return '<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:end"><div><label class="f" for="abi'+i+s+'">'+nm+' leg index</label><input type="number" step="0.01" id="abi'+i+s+'"></div>'+
-    '<div style="flex:1;min-width:200px"><label class="f" for="abm'+i+s+'">'+nm+' leg meaning</label><select id="abm'+i+s+'"><option value="">Choose</option><option value="stiff">Above 1.40: stiff arteries</option><option value="normal">Normal</option><option value="borderline">Borderline</option><option value="pad">Peripheral artery disease</option><option value="severe">Severe peripheral artery disease</option></select></div></div>';}).join('')+'</div>';}).join('');
+    '<div style="flex:1;min-width:200px"><label class="f" for="abm'+i+s+'">'+nm+' leg: what the index means</label><select id="abm'+i+s+'"><option value="">Choose</option><option value="stiff">Above 1.40: stiff arteries</option><option value="normal">Normal</option><option value="borderline">Borderline</option><option value="pad">Peripheral artery disease</option><option value="severe">Severe peripheral artery disease</option></select></div></div>';}).join('')+'</div>';}).join('');
   document.getElementById('abiLive').textContent='';}
  function cls(x){return x>1.40?'stiff':x>=1.00?'normal':x>=0.91?'borderline':x>0.40?'pad':'severe';}
  document.getElementById('abiCheck').addEventListener('click',function(){var right=0,tot=0,msg=[];
   pats.forEach(function(p,i){['R','L'].forEach(function(s){tot++;var t=Math.max.apply(null,p[s])/p.hi,tv=Math.round(t*100)/100,v=parseFloat(document.getElementById('abi'+i+s).value),m=document.getElementById('abm'+i+s).value;
    var ok=Math.abs(v-tv)<=0.02&&m===cls(tv);if(ok)right++;else msg.push(p.name+' '+(s==='R'?'right':'left')+': index '+tv.toFixed(2)+', '+{stiff:'stiff arteries',normal:'normal',borderline:'borderline',pad:'peripheral artery disease',severe:'severe peripheral artery disease'}[cls(tv)]);});});
-  document.getElementById('abiLive').textContent=right+' of '+tot+' legs right.'+(msg.length?' Check these: '+msg.join('; ')+'. Remember: higher ankle pressure for that leg, divided by the higher arm pressure.':' All correct.');});
+  document.getElementById('abiLive').textContent=right+' of '+tot+' legs correct.'+(msg.length?' Look again at these: '+msg.join('; ')+'. Remember to divide the higher ankle pressure for that leg by the higher arm pressure.':' All correct.');});
  document.getElementById('abiNew').addEventListener('click',make);make();
 })();
 </script>
