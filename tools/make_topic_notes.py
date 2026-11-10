@@ -71,6 +71,11 @@ body.paper .notes .lt{color:#8B3A2E;font-weight:800}
 body.paper .notes .cref{font-size:15px;margin:0 0 6px;column-span:all}body.paper .notes .cref b{color:#8B3A2E}
 }
 .notes .vids{margin:0 0 12px;break-inside:avoid}
+.notes p.vin{margin:2px 0 10px;font-size:14.5px;line-height:1.5}
+.notes p.vin b{color:#1B2433}
+.notes p.vin a{color:#8B3A2E;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.notes p.vin .by{font-weight:600;color:#414B5C}
+.notes p.vin .pl{font-size:10px}
 .notes .vids .vh3{margin:0 0 4px;font-weight:800;font-size:14.5px}
 .notes .vids ul{list-style:none;margin:0;padding:0}
 .notes .vids li{margin:0 0 4px}
@@ -143,10 +148,22 @@ def fig(b):
             '<figcaption>%s <span class="cr">%s <a href="%s" target="_blank" rel="noopener">Source<span class="mm-vh"> (opens in a new tab)</span></a></span></figcaption></figure>\n'
             % (html.escape(src), html.escape(alt, quote=True), e(cap), e(credit), html.escape(page_)))
 
+def vid(b):
+    """["vid", [[title, url, who], ...]]: videos placed right where they apply. who is blank for Dr. Rennie's own."""
+    out = []
+    for item in b[1]:
+        t, u = item[0], item[1]
+        who = item[2] if len(item) > 2 else ""
+        lab_ = e(t) + (' <span class="by">(%s)</span>' % e(who) if who else "")
+        out.append('<a href="%s" target="_blank" rel="noopener"><span class="pl" aria-hidden="true">&#9654;</span> %s<span class="mm-vh"> (video, opens in a new tab)</span></a>' % (html.escape(player_url(u)), lab_))
+    return '<p class="vin"><b>Watch:</b> %s</p>\n' % " &middot; ".join(out)
+
 def blk(b):
-    return fig(b) if b[0] == "fig" else base.block(tuple(b))
+    return fig(b) if b[0] == "fig" else vid(b) if b[0] == "vid" else base.block(tuple(b))
 
 def videos_line(week, sec):
+    if any(b[0] == "vid" for b in sec["blocks"]):
+        return ""
     """Dr. Rennie's own videos are credited to her; other creators' videos carry the channel name in the title."""
     v = [tuple(x) for x in sec.get("videos", [])]
     if not v and sec.get("letter"):
@@ -228,7 +245,8 @@ def pdf(n):
     import make_notes_pdf as NP
     from weasyprint import HTML
     prep = NP.PREP
-    for a_, b_ in [("font-size:8.6pt!important;line-height:1.34!important", "font-size:9.8pt!important;line-height:1.46!important"),
+    for a_, b_ in [("font-family:'Plus Jakarta Sans',sans-serif", "font-family:Helvetica,'TeX Gyre Heros',Arial,sans-serif"),
+                   ("font-size:8.6pt!important;line-height:1.34!important", "font-size:10pt!important;line-height:1.42!important"),
                    ("main h2{font-size:10.6pt!important}", "main h2{font-size:12pt!important}"),
                    ("main h3{font-size:9.2pt!important}", "main h3{font-size:10.4pt!important}"),
                    ("h2{font-size:10.6pt!important;line-height:1.2!important;margin:9pt 0 3pt!important", "h2{font-size:12pt!important;line-height:1.2!important;margin:13pt 0 4pt!important"),
