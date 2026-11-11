@@ -321,8 +321,18 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
             <button type="button" class="pill" data-n="75" aria-pressed="false">75</button>
           </div>
         </fieldset>
+        <fieldset>
+          <legend>Your goal</legend>
+          <p class="hint" id="goalhint" style="margin:0 0 8px;font-size:14.5px">Pick the same level you chose for your pathway. Your report tells you whether each try reached it.</p>
+          <div class="pillrow" id="goals" role="group" aria-label="Your goal" aria-describedby="goalhint">
+            <button type="button" class="pill" data-goal="70" aria-pressed="true">70%</button>
+            <button type="button" class="pill" data-goal="80" aria-pressed="false">80%</button>
+            <button type="button" class="pill" data-goal="90" aria-pressed="false">90%</button>
+            <button type="button" class="pill" data-goal="100" aria-pressed="false">100%</button>
+          </div>
+        </fieldset>
         <div class="std" id="stdnote">
-          <p><strong>How the Mastery Check works, from Week 4 on.</strong> Pick one week and answer about 30 questions, which is enough to test every competency that week at least once. Each try takes 30 to 50 minutes. Do at least 3 tries, with Study it in between, and aim for 80 percent before you stop. You can always do more. Save the report from every try and turn them all in. The report tells you plainly whether a try counts and whether you reached 80 percent.</p>
+          <p><strong>How the Mastery Check works, from Week 4 on.</strong> Pick one week and answer about 30 questions, which is enough to test every competency that week at least once. Each try takes 30 to 50 minutes. Do at least 3 tries, with Study it in between, and aim for your goal before you stop: 70, 80, 90 or 100 percent. You can always do more. Save the report from every try and turn them all in. The report tells you plainly whether a try counts and whether you reached your goal.</p>
           <p><strong>Weeks 1 to 3</strong> keep the rule they had: at least 50 questions and 80 percent or higher.</p>
         </div>
         <fieldset>
@@ -437,7 +447,9 @@ var BLUEPRINT = { mc:14, ma:5, tf:4, bd:3, app:4 };  /* per 30 */
    (every competency once), at least 3 tries, 80 percent is the goal to reach
    before stopping, not a gate, and every try's report is turned in.
    goal:true marks a week where the score is a goal. Weeks 1 to 3 keep
-   the old gate of 50 questions and 80 percent. */
+   the old gate of 50 questions and 80 percent.
+   Nov 10 2026, Scrubs: from Week 4 on the goal is the student's own pathway
+   level (70, 80, 90 or 100), picked on the setup page and stored on each try. */
 var MASTERY = { minQ:30, pass:0.80, perComp:1, tries:3, goal:true,
   byWeek:{ 1:{minQ:50, goal:false}, 2:{minQ:50, goal:false}, 3:{minQ:50, goal:false} } };
 function masteryRule(w){ var r=MASTERY.byWeek[w]||{}; function g(k){ return (k in r) ? r[k] : MASTERY[k]; }
@@ -445,6 +457,7 @@ function masteryRule(w){ var r=MASTERY.byWeek[w]||{}; function g(k){ return (k i
 function masteryStatus(a){
   if(!a || !a.byComp || a.weeks.length!==1 || a.mode==='gaps') return null;
   var w=a.weeks[0], rule=masteryRule(w);
+  if(rule.goal && a.goal) rule.pass=a.goal/100;
   var comps=BANK.competencies.filter(function(c){ return c.week===w; });
   if(!comps.length) return null;
   var covered=comps.filter(function(c){ var v=a.byComp[c.id]; return v && v[1]>=rule.perComp; }).length;
@@ -456,13 +469,13 @@ function masteryBlockHTML(a, tag){
   function row(ok, text){ return '<li><span class="'+(ok?'ok':'no')+'">'+(ok?'Met':'Not yet')+':</span> '+text+'</li>'; }
   var head;
   if(m.rule.goal){
-    head = !m.ok ? 'This try is practice. It does not count as a Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check try yet.'
-      : m.okScore ? 'This counts as a Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check try, and you reached the 80 percent goal. Save this report. Do at least '+m.rule.tries+' tries in all.'
-      : 'This counts as a Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check try. Save this report, go back to Study it for the competencies below, then try again. Do at least '+m.rule.tries+' tries, and aim for 80 percent before you stop.';
-  } else head = m.ok ? 'This attempt meets the Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check standard.' : 'This attempt is practice. It does not meet the Week '+(window.BIO005_WL?BIO005_WL(m.week):m.week)+' Mastery Check standard yet.';
+    head = !m.ok ? 'This try is practice. It does not count as a '+wkName(m.week)+' Mastery Check try yet.'
+      : m.okScore ? 'This counts as a '+wkName(m.week)+' Mastery Check try, and you reached your '+Math.round(m.rule.pass*100)+' percent goal. Save this report. Do at least '+m.rule.tries+' tries in all.'
+      : 'This counts as a '+wkName(m.week)+' Mastery Check try. Save this report, go back to Study it for the competencies below, then try again. Do at least '+m.rule.tries+' tries, and aim for your '+Math.round(m.rule.pass*100)+' percent goal before you stop.';
+  } else head = m.ok ? 'This attempt meets the '+wkName(m.week)+' Mastery Check standard.' : 'This attempt is practice. It does not meet the '+wkName(m.week)+' Mastery Check standard yet.';
   return '<div class="mstd"><'+tag+'>'+esc(head)+'</'+tag+'><ul>'+
     row(m.okN, m.n+' questions answered. The minimum is '+m.rule.minQ+'.')+
-    row(m.okScore, (Math.floor(m.score*1000)/10)+' percent. '+(m.rule.goal?'The goal is ':'The standard is ')+Math.round(m.rule.pass*100)+' percent or higher.')+
+    row(m.okScore, (Math.floor(m.score*1000)/10)+' percent. '+(m.rule.goal?'Your goal is ':'The standard is ')+Math.round(m.rule.pass*100)+' percent or higher.')+
     row(m.okCover, m.covered+' of '+m.total+' competencies tested at least '+(m.rule.perComp===1?'once':m.rule.perComp+' times')+'.')+
     '</ul></div>';
 }
@@ -494,6 +507,8 @@ function fmtDate(iso){ var d=new Date(iso); return d.toLocaleDateString('en-US',
 function fmtDateTime(iso){ var d=new Date(iso); return d.toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'America/Los_Angeles'})+' Pacific'; }
 function load(key, dflt){ try{ var v=localStorage.getItem(key); return v?JSON.parse(v):dflt; }catch(e){ return dflt; } }
 function save(key, v){ try{ localStorage.setItem(key, JSON.stringify(v)); return true; }catch(e){ return false; } }
+function topicLabel(ws){ return ws.length===1 && WEEK[ws[0]] ? weeksLabel(ws)+': '+WEEK[ws[0]].title : weeksLabel(ws); }
+function wkName(w){ return 'Week '+(window.BIO005_WL?BIO005_WL(w):w)+(WEEK[w]?' ('+WEEK[w].title+')':''); }
 function weeksLabel(ws){ ws=ws.slice().sort(function(a,b){return a-b;}); if(ws.length===1) return 'Week '+(window.BIO005_WL?BIO005_WL(ws[0]):ws[0]); var runs=[],s=ws[0],p=ws[0]; for(var i=1;i<=ws.length;i++){ if(ws[i]===p+1){p=ws[i];continue;} runs.push(s===p?String((window.BIO005_WL?BIO005_WL(s):s)):(window.BIO005_WL?BIO005_WL(s):s)+' to '+(window.BIO005_WL?BIO005_WL(p):p)); s=p=ws[i]; } return 'Weeks '+runs.join(', '); }
 function todayOpened(){ var now=new Date(); return BANK.weeks.filter(function(w){ return new Date(w.opens+'T08:00:00-07:00') <= now; }).map(function(w){return w.n;}); }
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
@@ -607,6 +622,7 @@ function compWeightsFrom(attempts){
 /* ---------------- setup page ---------------- */
 var setup = {
   n:30,
+  goal:(function(){ try{ var g=Number(localStorage.getItem('bio005-mastery-goal')); return [70,80,90,100].indexOf(g)>=0?g:70; }catch(e){ return 70; } })(),
   init:function(){
     var wk=$('#weeks');
     PARTS.forEach(function(p){
@@ -626,6 +642,7 @@ var setup = {
     $$('#modes input').forEach(function(r){ r.addEventListener('change', setup.modeChanged); });
     $$('#weeks input').forEach(function(c){ c.addEventListener('change', function(){ if(setup.mode()==='one'){ $$('#weeks input').forEach(function(o){ if(o!==c) o.checked=false; }); } }); });
     $$('#presets .pill').forEach(function(b){ b.addEventListener('click', function(){ var ws=b.getAttribute('data-weeks'); var list = ws==='all'?BANK.weeks.map(function(w){return w.n;}) : ws==='opened'?(todayOpened().length?todayOpened():[1]) : ws.split(',').map(Number); $$('#weeks input').forEach(function(o){ o.checked=list.indexOf(Number(o.value))>=0; }); $$('#presets .pill').forEach(function(o){ o.setAttribute('aria-pressed', o===b?'true':'false'); }); }); });
+    $$('#goals .pill').forEach(function(b){ b.setAttribute('aria-pressed', Number(b.getAttribute('data-goal'))===setup.goal?'true':'false'); b.addEventListener('click', function(){ setup.goal=Number(b.getAttribute('data-goal')); try{ localStorage.setItem('bio005-mastery-goal', String(setup.goal)); }catch(e){} $$('#goals .pill').forEach(function(o){ o.setAttribute('aria-pressed', o===b?'true':'false'); }); }); });
     $$('#counts .pill').forEach(function(b){ b.addEventListener('click', function(){ setup.n=Number(b.getAttribute('data-n')); $$('#counts .pill').forEach(function(o){ o.setAttribute('aria-pressed', o===b?'true':'false'); }); }); });
     $('#go').addEventListener('click', setup.go);
     $('#practicegaps').addEventListener('click', setup.practiceGaps);
@@ -648,7 +665,7 @@ var setup = {
     var ws=setup.weeks(); var msg=$('#gomsg');
     if(!ws.length){ msg.textContent='Tick at least one week first.'; $('#weeks input').focus(); return; }
     msg.textContent='';
-    runner.launch({ n:setup.n, weeks:ws, mode:setup.mode(), weights:null, label:null });
+    runner.launch({ n:setup.n, weeks:ws, mode:setup.mode(), weights:null, label:null, goal:setup.goal });
   },
   practiceGaps:function(){
     var h=history(); if(!h.attempts.length) return;
@@ -815,7 +832,7 @@ function summarize(cfg, answers, items, start){
     if(r.conf){ confSum+=r.conf; confN++; var right=r.score>=0.75, sure=r.conf>=4;
       if(right&&sure) quad.mastered++; else if(right) quad.shaky++; else if(sure){ quad.misconception++; if(miscon.indexOf(r.competencyId)<0) miscon.push(r.competencyId); } else quad.gap++; }
   });
-  var a={ id:cfg.id||uid(), date:new Date().toISOString(), weeks:cfg.weeks.slice().sort(function(x,y){return x-y;}), mode:cfg.mode, label:cfg.label||null, n:answers.length,
+  var a={ id:cfg.id||uid(), date:new Date().toISOString(), weeks:cfg.weeks.slice().sort(function(x,y){return x-y;}), mode:cfg.mode, label:cfg.label||null, goal:cfg.goal||null, n:answers.length,
     score: answers.length?total/answers.length:0, conf: confN?confSum/confN:null, minutes:(Date.now()-start)/60000,
     byWeek:byWeek, byComp:byComp, quad:quad, miscon:miscon, itemIds:items.map(function(i){return i.id;}),
     types:answers.reduce(function(o,r){ o[r.type]=(o[r.type]||0)+1; return o; },{}) };
@@ -932,10 +949,10 @@ var report = {
     var solid=Object.keys(a.byComp).filter(function(id){ var v=a.byComp[id]; return v[1] && v[0]/v[1]>=1; }).length;
     var reviewRows=review.map(function(x){ var c=COMP[x.id]; return '<li><strong>'+esc(c.name)+'</strong> (Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+', '+esc(c.topic)+', '+pct(x.r)+' percent on '+x.n+' item'+(x.n===1?'':'s')+(a.miscon&&a.miscon.indexOf(x.id)>=0?', answered with confidence':'')+')<small>'+esc(c.can)+'</small></li>'; }).join('');
     var types=Object.keys(a.types||{}).map(function(t){ return TYPE_NAME[t]+' '+a.types[t]; }).join(', ');
-    return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice exam results, '+esc(weeksLabel(a.weeks))+', BIO 005</title><style>'+css+'</style></head><body><div class="wrap">'+
+    return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice exam results, '+esc(topicLabel(a.weeks))+', BIO 005</title><style>'+css+'</style></head><body><div class="wrap">'+
       '<div class="btns"><button class="p" onclick="window.print()">Print or save as PDF</button><button onclick="(function(){var b=new Blob([document.documentElement.outerHTML],{type:\'text/html\'});var l=document.createElement(\'a\');l.href=URL.createObjectURL(b);l.download=\'bio005-practice-results-'+a.date.slice(0,10)+'.html\';document.body.appendChild(l);l.click();l.remove();})()">Download as HTML</button></div>'+
       '<p class="eyebrow">BIO 005 Human Physiology, Practice Exam + Gap Finder</p><h1>Practice exam results</h1><p>'+(a.name?'<strong>'+esc(a.name)+'</strong>. ':'')+esc(fmtDateTime(a.date))+'</p>'+
-      '<dl class="meta"><dt>Weeks</dt><dd>'+esc(weeksLabel(a.weeks))+'</dd><dt>Mode</dt><dd>'+esc(a.label||{one:'One week',multi:'Multiple weeks, Gap Finder',cumulative:'Cumulative exam',gaps:'Practice my gaps'}[a.mode]||a.mode)+'</dd><dt>Questions</dt><dd>'+a.n+' ('+esc(types)+')</dd><dt>Time</dt><dd>'+Math.max(1,Math.round(a.minutes))+' minutes</dd></dl>'+
+      '<dl class="meta"><dt>'+(a.weeks.length===1?'Topic':'Weeks')+'</dt><dd>'+esc(topicLabel(a.weeks))+'</dd>'+(a.goal?'<dt>Goal</dt><dd>'+a.goal+' percent</dd>':'')+'<dt>Mode</dt><dd>'+esc(a.label||{one:'One week',multi:'Multiple weeks, Gap Finder',cumulative:'Cumulative exam',gaps:'Practice my gaps'}[a.mode]||a.mode)+'</dd><dt>Questions</dt><dd>'+a.n+' ('+esc(types)+')</dd><dt>Time</dt><dd>'+Math.max(1,Math.round(a.minutes))+' minutes</dd></dl>'+
       '<div class="score"><div><b>'+pct(a.score)+'%</b><small>Overall score</small></div><div><b>'+(a.conf?a.conf.toFixed(1):'n/a')+'</b><small>Average confidence (1 to 5)</small></div><div><b>'+solid+'</b><small>Competencies with every item right</small></div><div><b>'+review.length+'</b><small>Competencies to review</small></div></div>'+
       (a.quad?'<h2>Confidence check</h2><p>Right and confident: '+a.quad.mastered+'. Right but unsure: '+a.quad.shaky+'. Wrong and unsure: '+a.quad.gap+'. Wrong and confident: '+a.quad.misconception+'.</p>':'')+
       (masteryStatus(a)?'<h2>Mastery Check standard</h2>'+masteryBlockHTML(a,'p'):'')+
