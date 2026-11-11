@@ -1993,5 +1993,16 @@ setTimeout(sendHeight, 400);
 <!-- A way back, on every page. -->
 <script src="bio005-back.js"></script>
 <script src="bio005-collapse.js"></script>
+<script>
+/* Long typed answers print in full: each textarea gets a print-only copy of its text. */
+(function(){
+  function sync(){document.querySelectorAll('textarea').forEach(function(t){var d=t.nextElementSibling;if(!d||!d.classList.contains('print-ans')){d=document.createElement('div');d.className='print-ans';d.setAttribute('aria-hidden','true');t.parentNode.insertBefore(d,t.nextSibling);}d.textContent=t.value;});}
+  window.addEventListener('beforeprint',sync);
+  if(window.matchMedia){var m=matchMedia('print');if(m.addEventListener)m.addEventListener('change',function(e){if(e.matches)sync();});else if(m.addListener)m.addListener(function(e){if(e.matches)sync();});}
+  document.addEventListener('input',function(e){if(e.target&&e.target.tagName==='TEXTAREA')sync();});
+  window.addEventListener('load',function(){setTimeout(sync,600);});
+})();
+</script>
+<style>.print-ans{display:none}@media print{textarea{display:none !important}.print-ans{display:block !important;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #000;border-radius:6px;padding:6px 8px;min-height:3.2em;margin:.2rem 0 .6rem;font-size:11pt;line-height:1.4}}</style>
 </body>
 </html>

@@ -77,7 +77,7 @@ input[type=number]{max-width:140px}
 <li>When you finish, print this page to PDF. Your results and answers print with it.</li></ul>
 <label class="f" for="stName">Your name, as it appears in Canvas</label><input type="text" id="stName" autocomplete="name"></div>
 
-<div class="card"><p class="kicker">Station 1</p><h2>Take a blood pressure by sound</h2>
+<div class="card"><p class="kicker">Station 1</p><h2>Take a blood pressure by sound</h2><p class="small"><b>Watch, from Stanford Medicine 25:</b> <a href="https://www.youtube.com/watch?v=vnNBHmtX9xE" target="_blank" rel="noopener">How to Measure Pulsus Paradoxus (Real Patient!)<span class="sr"> (opens in a new tab)</span></a> (2:59). It uses the same cuff and the same Korotkoff sounds you use here. Watch for how the systolic pressure changes when the patient breathes in.</p>
 <p>Use headphones. If you cannot use sound, check <b>Flash with each sound</b>.</p>
 <ol class="tight"><li>Press <b>Inflate</b>. The cuff pumps up above the systolic pressure and then lets air out slowly, about 3 mmHg per heartbeat.</li><li>Watch the needle and listen.</li><li>Press <b>First sound</b> when the tapping starts.</li><li>Press <b>Sounds gone</b> when the tapping stops.</li></ol>
 <p>You pass a patient when both of your readings are within 5 mmHg of the true values.</p>
@@ -97,7 +97,7 @@ input[type=number]{max-width:140px}
 <label class="f" for="kg_q2">Why do the sounds disappear at the diastolic pressure?</label><textarea id="kg_q2" rows="3"></textarea>
 <label class="f" for="kg_q3">For one of your patients, work out the pulse pressure and the mean arterial pressure. Show your numbers.</label><textarea id="kg_q3" rows="3"></textarea></div>
 
-<div class="card"><p class="kicker">Station 2</p><h2>The ankle-brachial index</h2>
+<div class="card"><p class="kicker">Station 2</p><h2>The ankle-brachial index</h2><p class="small"><b>Watch, from Stanford Medicine 25:</b> <a href="https://www.youtube.com/watch?v=KnJDrmfIXGw" target="_blank" rel="noopener">Ankle Brachial Index (ABI) Test: How to Perform<span class="sr"> (opens in a new tab)</span></a> (7:44). Watch for where the ankle pressures are taken and which arm pressure goes into the calculation.</p>
 <p>When a leg artery is narrowed, the blood pressure past the narrow spot drops. Comparing the systolic pressure at the ankle with the systolic pressure in the arm shows how well blood reaches the legs.</p>
 <ol class="tight"><li>For each leg, take the higher of its two ankle pressures (dorsalis pedis or posterior tibial, two arteries at the ankle).</li>
 <li>Divide it by the higher of the two arm pressures.</li>
@@ -181,5 +181,16 @@ input[type=number]{max-width:140px}
   if (window.ResizeObserver) new ResizeObserver(send).observe(document.body);
 })();
 </script>
+<script>
+/* Long typed answers print in full: each textarea gets a print-only copy of its text. */
+(function(){
+  function sync(){document.querySelectorAll('textarea').forEach(function(t){var d=t.nextElementSibling;if(!d||!d.classList.contains('print-ans')){d=document.createElement('div');d.className='print-ans';d.setAttribute('aria-hidden','true');t.parentNode.insertBefore(d,t.nextSibling);}d.textContent=t.value;});}
+  window.addEventListener('beforeprint',sync);
+  if(window.matchMedia){var m=matchMedia('print');if(m.addEventListener)m.addEventListener('change',function(e){if(e.matches)sync();});else if(m.addListener)m.addListener(function(e){if(e.matches)sync();});}
+  document.addEventListener('input',function(e){if(e.target&&e.target.tagName==='TEXTAREA')sync();});
+  window.addEventListener('load',function(){setTimeout(sync,600);});
+})();
+</script>
+<style>.print-ans{display:none}@media print{textarea{display:none !important}.print-ans{display:block !important;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #000;border-radius:6px;padding:6px 8px;min-height:3.2em;margin:.2rem 0 .6rem;font-size:11pt;line-height:1.4}}</style>
 </body>
 </html>

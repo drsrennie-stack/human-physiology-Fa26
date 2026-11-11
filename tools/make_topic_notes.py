@@ -131,7 +131,8 @@ def player_url(u):
     k = m.group(1) if m else None
     if not k and "loom.com" in u:
         t = re.search(r"[?&]t=(\d+)", u)
-        k = "loom@%d" % (int(t.group(1)) if t else 0)
+        lid = re.search(r"loom\.com/(?:share|embed)/([0-9a-f]+)", u)
+        k = "%s@%d" % (lid.group(1) if lid else "", int(t.group(1)) if t else 0)
     if k and k in ENGINE:
         w, n = ENGINE[k]
         return "%s?week=%d&v=%d" % (PLAYER, w, n)
