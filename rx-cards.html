@@ -307,12 +307,12 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <p class="sub" id="wkline">Cards answered each day, and how many you got right first time. Five days a week is the goal.</p>
     <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
     <div class="card" id="reportcard" style="margin-top:14px">
-      <h3 style="margin:0 0 6px">Your weekly card report</h3>
-      <p class="sub" style="margin:0 0 10px">Cards are graded by how many you work each week, Monday to Sunday: 70 is a D, 105 a C, 175 a B, 350 an A. Put your name in once and this page keeps a running count for you. Print the report on Sunday and upload it to Canvas.</p><p class="sub" style="margin:0 0 4px"><b>Keep a backup every day.</b></p><ul class="sub" style="margin:0 0 10px;padding-left:20px"><li>Your count is saved only in this browser, on this device.</li><li>If you switch to another device or clear your browser, the count starts over, and you could lose the points.</li><li>So after every session, press the report button below and save the report as a PDF, or take a picture of it. The report shows the dates and the topic of your cards.</li><li>If your count records properly all week, you only upload the one page report on Sunday.</li></ul>
+      <h3 style="margin:0 0 6px">Your topic report</h3>
+      <p class="sub" style="margin:0 0 10px">Each topic (chapter) has its own report, for example Heart Physiology and Blood Vessel Physiology. A topic is graded by how many of its cards you answer: 70 is a D, 105 a C, 175 a B, 350 an A. You also need at least 70 percent of them right the first time, or the topic counts as below D. Put your name in once and this page keeps a running count for each topic. Save the report for the topic you have open and upload it to that topic&rsquo;s Rx Cards assignment by its due date.</p><p class="sub" style="margin:0 0 4px"><b>Save a copy every day. If you do not, you risk losing your count.</b></p><ul class="sub" style="margin:0 0 10px;padding-left:20px"><li>Your count is saved only in this browser, on this device.</li><li>If you switch to another device or clear your browser, the count starts over, and you could lose the points.</li><li>After every session, press the report button below and save the report as a PDF, or take a picture of it. Each report shows the date and time you saved it, the dates you worked, and the topic of your cards.</li><li>Saving a copy is your choice, but I can only grade what you upload. If your count is lost and you have no saved copy, I cannot give you those points.</li><li>If your count records properly, you only upload the one page report for the topic when you finish it.</li></ul>
       <label for="rxName" style="display:block;font-weight:700;font-size:14px;margin:0 0 4px">Your name, as it appears in Canvas</label>
       <input type="text" id="rxName" autocomplete="name" style="font:inherit;padding:8px 10px;border:1.5px solid #8C90A0;border-radius:8px;max-width:22rem;width:100%">
       <p class="sub" id="rxBand" style="margin:10px 0 6px" aria-live="polite"></p>
-      <div class="btnrow"><button type="button" class="btn" id="rxReport">Print or save this week's report (PDF)</button></div>
+      <div class="btnrow"><button type="button" class="btn" id="rxReport">Print or save this topic's report (PDF)</button></div>
       <p class="sub" id="rxSync" style="margin:8px 0 0;font-size:13px"></p>
     </div>
   </section>
@@ -498,6 +498,12 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   function today(){ var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
   function startOfToday(){ var d = new Date(); d.setHours(0,0,0,0); return d.getTime(); }
   function dayLog(){ var k = today(); S.log[k] = S.log[k] || {seen:0, right:0, newc:0}; return S.log[k]; }
+  /* Nov 11 2026, Scrubs: Rx Cards are graded per topic (chapter), not per calendar week.
+     S.tlog[week][yyyy-mm-dd] = {seen, right}, logged by each card's own topic.
+     Counts logged before this change (from Nov 9 on) are moved to Heart Physiology, the only required deck then. */
+  S.tlog = S.tlog || {};
+  if (!S.tlogMoved) { Object.keys(S.log).forEach(function(k){ if (k >= '2026-11-09' && S.log[k].seen) { S.tlog[9] = S.tlog[9] || {}; S.tlog[9][k] = { seen:S.log[k].seen, right:S.log[k].right||0 }; } }); S.tlogMoved = true; }
+  function topicLog(w){ var k = today(); S.tlog[w] = S.tlog[w] || {}; S.tlog[w][k] = S.tlog[w][k] || {seen:0, right:0}; return S.tlog[w][k]; }
 
   /* ---------- weeks ---------- */
   /* bio005-nav.js used to supply this. It is off this page now, so the week
@@ -513,8 +519,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     "Muscle, and how movement gets commanded",
     "Hormones, the autonomic system, and reproduction",
     "Midterm 1",
-    "The heart as a pump",
-    "Pressure, flow, and holding blood pressure steady",
+    "Heart Physiology",
+    "Blood Vessel Physiology",
     "Blood and how the body defends itself",
     "Digestion, and how you use food for fuel",
     "Breathing, gas transport, and the fast pH lever",
@@ -784,10 +790,10 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     return n;
   }
   function goalText(){
-    var n = weekCount();
+    var n = topicTotals(maxWeek).n;
     return n >= WEEK_MIN
-      ? 'This week: ' + n + ' cards. You have met the required minimum of ' + WEEK_MIN + '. Keep going, because the more cards you do, the better you will do.'
-      : 'This week: ' + n + ' of the required ' + WEEK_MIN + ' cards (Monday to Sunday). ' + WEEK_MIN + ' is the minimum. The more cards you do, the better you will do.';
+      ? topicName(maxWeek) + ': ' + n + ' cards. You have met the minimum of ' + WEEK_MIN + '. Keep going, because the more cards you do, the better you will do.'
+      : topicName(maxWeek) + ': ' + n + ' of the minimum ' + WEEK_MIN + ' cards. ' + WEEK_MIN + ' is the minimum. The more cards you do, the better you will do.';
   }
   function renderGoal(){ $('goalline').textContent = goalText(); renderBand(); }
 
@@ -796,21 +802,30 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
      Leave it empty and the page only keeps the local log and the printable report. */
   var CARD_LOG_URL = '';
   var BANDS = [[350,'A'],[175,'B'],[105,'C'],[70,'D']];
-  function bandFor(n){ for (var i = 0; i < BANDS.length; i++) if (n >= BANDS[i][0]) return BANDS[i][1]; return 'below D'; }
+  var FLOOR = 0.70;  /* Nov 10 2026, Scrubs: a band also needs at least 70 percent right first time that week */
+  function bandFor(n, right){ if (right !== undefined && n > 0 && right / n < FLOOR) return 'below D'; for (var i = 0; i < BANDS.length; i++) if (n >= BANDS[i][0]) return BANDS[i][1]; return 'below D'; }
+  function weekRight(){ return weekDays().reduce(function(t, d){ return t + d.right; }, 0); }
+  function topicName(w){ return 'Week ' + (window.BIO005_WL ? BIO005_WL(w) : w) + ': ' + weekTitle(w); }
+  function topicDays(w){ var L = S.tlog[w] || {}; return Object.keys(L).sort().filter(function(k){ return L[k].seen; }).map(function(k){ var p = k.split('-'), x = new Date(+p[0], +p[1]-1, +p[2]);
+    return { key:k, label:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][x.getDay()] + ' ' + (x.getMonth()+1) + '/' + x.getDate() + '/' + x.getFullYear(), seen:L[k].seen, right:L[k].right||0 }; }); }
+  function topicTotals(w){ return topicDays(w).reduce(function(t, d){ t.n += d.seen; t.r += d.right; return t; }, {n:0, r:0}); }
+  function pctTxt(n, r){ return n ? Math.round(100 * r / n) + ' percent right' : 'no cards yet'; }
   function nextBand(n){ for (var i = BANDS.length - 1; i >= 0; i--) if (n < BANDS[i][0]) return BANDS[i]; return null; }
   function weekDays(){
     var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
     var out = [];
     for (var i = 0; i < 7; i++) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() + i);
       var k = x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0');
-      out.push({ key:k, label:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][x.getDay()] + ' ' + (x.getMonth()+1) + '/' + x.getDate(), seen:(S.log[k]||{}).seen||0, right:(S.log[k]||{}).right||0 }); }
+      out.push({ key:k, label:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][x.getDay()] + ' ' + (x.getMonth()+1) + '/' + x.getDate() + '/' + x.getFullYear(), seen:(S.log[k]||{}).seen||0, right:(S.log[k]||{}).right||0 }); }
     return out;
   }
   function hash(str){ var h = 5381; for (var i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0; return ('000000' + h.toString(36).toUpperCase()).slice(-6); }
   function renderBand(){
     var el = $('rxBand'); if (!el) return;
-    var n = weekCount(), b = bandFor(n), nx = nextBand(n);
-    el.innerHTML = '<strong>This week: ' + n + ' cards</strong>, Monday to Sunday. That is ' + (b === 'below D' ? 'below the D line (70)' : 'a <strong>' + b + '</strong>') + (nx ? '. ' + (nx[0] - n) + ' more reaches ' + nx[1] + '.' : '. Top band.');
+    var T = topicTotals(maxWeek), n = T.n, r = T.r, low = n > 0 && r / n < FLOOR, b = bandFor(n, r), nx = nextBand(n);
+    el.innerHTML = '<strong>' + topicName(maxWeek).replace(/</g,'&lt;') + ': ' + n + ' cards, ' + pctTxt(n, r) + '</strong>. '
+      + (low ? 'That is under the 70 percent floor, so this topic counts as below D until more of your cards are right.'
+             : 'That is ' + (b === 'below D' ? 'below the D line (70 cards)' : (b === 'A' ? 'an' : 'a') + ' <strong>' + b + '</strong>') + (nx ? '. ' + (nx[0] - n) + ' more cards reaches ' + nx[1] + '.' : '. Top band.'));
   }
   (function(){ var nm = $('rxName'); if (!nm) return; nm.value = S.name || ''; nm.addEventListener('change', function(){ S.name = nm.value.trim(); save(); syncDay(true); }); })();
   function syncDay(force){
@@ -818,7 +833,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var k = today(), L = S.log[k] || {seen:0,right:0};
     S.synced = S.synced || {};
     if (!force && S.synced[k] === L.seen) return;
-    var body = JSON.stringify({ name:S.name, date:k, seen:L.seen, right:L.right, week:weekCount(), band:bandFor(weekCount()), code:hash(S.name + '|' + k + '|' + L.seen + '|' + L.right) });
+    var body = JSON.stringify({ name:S.name, date:k, seen:L.seen, right:L.right, week:weekCount(), band:bandFor(weekCount(), weekRight()), code:hash(S.name + '|' + k + '|' + L.seen + '|' + L.right) });
     try { fetch(CARD_LOG_URL, { method:'POST', mode:'no-cors', body:body, headers:{'Content-Type':'text/plain'} }).then(function(){ S.synced[k] = L.seen; save(); var sy = $('rxSync'); if (sy) sy.textContent = 'Today\'s count was sent to Dr. Rennie at ' + new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}) + '.'; }).catch(function(){}); } catch(e) {}
   }
   var syncTimer = null;
@@ -826,15 +841,16 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   (function(){ var b = $('rxReport'); if (!b) return; b.addEventListener('click', function(){
     var nm = ($('rxName').value || '').trim(); if (!nm) { $('rxName').focus(); $('rxBand').innerHTML = '<strong>Enter your name first.</strong> It prints on the report.'; return; }
     S.name = nm; save();
-    var days = weekDays(), total = 0, right = 0; days.forEach(function(d){ total += d.seen; right += d.right; });
-    var code = hash(nm + '|' + days.map(function(d){ return d.key + ':' + d.seen; }).join(',') + '|' + total);
-    var rows = days.map(function(d){ return '<tr><td>' + d.label + '</td><td>' + d.seen + '</td><td>' + d.right + '</td></tr>'; }).join('');
-    $('rxSheet').innerHTML = '<p class="eb">BIO 005 Human Physiology · Rx Cards · weekly report</p><h1>' + nm.replace(/</g,'&lt;') + '</h1><p>Week of ' + days[0].label + ' to ' + days[6].label + ' · printed ' + new Date().toLocaleString() + '</p>'
-      + '<p>Cards from: ' + (($('weeks') && $('weeks').selectedIndex >= 0) ? $('weeks').options[$('weeks').selectedIndex].text : ('Week ' + (window.BIO005_WL ? BIO005_WL(maxWeek) : maxWeek))).replace(/</g,'&lt;') + '</p>'
-      + '<table><tr><th>Day</th><th>Cards answered</th><th>Right first time</th></tr>' + rows + '<tr><th>Week total</th><th>' + total + '</th><th>' + right + '</th></tr></table>'
-      + '<p class="band">Band this week: ' + bandFor(total) + ' (' + total + ' cards; 70 D, 105 C, 175 B, 350 A)</p>'
-      + '<p>Report code: <span class="code">' + code + '</span>. The code is computed from the name, the dates and the counts above; it changes if any of them is edited after printing.</p>'
-      + '<p style="font-size:12px;color:#414B5C">Counts come from the Rx Cards log on the device this was printed from. Dr. Sharilyn Rennie · Yuba College · Fall 2026</p>';
+    var days = topicDays(maxWeek), total = 0, right = 0; days.forEach(function(d){ total += d.seen; right += d.right; });
+    var code = hash(nm + '|' + maxWeek + '|' + days.map(function(d){ return d.key + ':' + d.seen; }).join(',') + '|' + total);
+    var rows = days.length ? days.map(function(d){ return '<tr><td>' + d.label + '</td><td>' + d.seen + '</td><td>' + d.right + '</td></tr>'; }).join('') : '<tr><td colspan="3">No cards answered in this topic yet.</td></tr>';
+    $('rxSheet').innerHTML = '<p class="eb">BIO 005 Human Physiology · Rx Cards · topic report</p><h1>' + nm.replace(/</g,'&lt;') + '</h1>'
+      + '<p><b>Topic: ' + topicName(maxWeek).replace(/</g,'&lt;') + '</b></p>'
+      + '<p><b>Saved on: ' + new Date().toLocaleString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'}) + '</b></p>'
+      + '<table><tr><th>Date worked</th><th>Cards answered</th><th>Right first time</th></tr>' + rows + '<tr><th>Topic total</th><th>' + total + '</th><th>' + right + '</th></tr></table>'
+      + '<p class="band">Band for this topic: ' + bandFor(total, right) + ' (' + total + ' cards, ' + pctTxt(total, right) + '; 70 D, 105 C, 175 B, 350 A, and at least 70 percent right)</p>'
+      + '<p>Report code: <span class="code">' + code + '</span>. The code is computed from the name, the topic, the dates and the counts above; it changes if any of them is edited after printing.</p>'
+      + '<p style="font-size:12px;color:#414B5C">Counts come from the Rx Cards log on the device this was printed from. Only cards from this topic count toward it. Dr. Sharilyn Rennie · Yuba College · Fall 2026</p>';
     $('rxSheet').hidden = false; document.body.classList.add('rx-print'); window.print();
   }); window.addEventListener('afterprint', function(){ document.body.classList.remove('rx-print'); $('rxSheet').hidden = true; }); })();
   setTimeout(function(){ syncDay(false); }, 1500);
@@ -941,8 +957,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       b.disabled = (!firstRight && r > 0);
     }
     $('rate').hidden = false;
-    sess.seen++; dayLog().seen++;
-    if (firstRight) { sess.right++; dayLog().right++; }
+    sess.seen++; dayLog().seen++; topicLog(cur.week).seen++;
+    if (firstRight) { sess.right++; dayLog().right++; topicLog(cur.week).right++; }
     else { var id = cur.comp.id; sess.missed[id] = (sess.missed[id] || 0) + 1; }
     renderBand(); scheduleSync();
     if (!S.cards[cur.key]) dayLog().newc++;

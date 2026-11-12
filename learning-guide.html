@@ -247,10 +247,11 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
       if (w.stations) a.push(it(w.stations.label, w.stations.url, 'flask', 'b', 'Required'));
       if (w.project && w.project.url) a.push(it(w.project.label, w.project.url, 'grid', 't', 'Required'));
+      a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
       a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
       a.push(it('Know-It Check, in Canvas, the last thing you do', w.knowIt || D.canvasModules, 'exam', 'g', 'Required'));
     } else {
-      a.push(it('Rx Cards this week', A.rx + '?week=' + w.wk, 'cards', 't', 'Required'));
+      a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
       a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
       if (w.cases) { a.push(it('Claim and do your Wiggers case', w.cases.url, 'grid', 't', 'Required')); a.push(it('Claim and do your cardiac lab case', w.cases.url2, 'grid', 't', 'Required')); }
       a.push(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'));
@@ -261,7 +262,6 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   function reinforce(w) {
     var r = [];
     r.push(L('Competencies with prompts, ' + 'Week ' + w.wk, w.prompts, 'target', 'b', 'Recommended'));
-    if (w.pathway) r.push(L('Rx Cards: recall a few minutes a day', A.rx + '?week=' + w.wk, 'cards', 'b', 'Recommended'));
     return '<li class="opt">Optional: make it stick</li>' + r.join('');
   }
   function checkable(w) { return preWork(w).concat(assignments(w)); }
@@ -375,7 +375,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     if (w.pathway) tools.push(L('How the mastery pathway works', D.pathwayPage, 'steps', 'g', 'Reference'));
     var adesc = w.pathway
       ? 'Any order, with the Know-It Check last. Pick a target on each one, 70, 80, 90 or 100 percent. Score at least 70% on each to open the next unit.'
-      : 'Claim one Wiggers case and one cardiac lab case, draw them by hand, and post both in Discussion 9. Rx Cards are graded by how many you work each week.';
+      : 'Claim one Wiggers case and one cardiac lab case, draw them by hand, and post both in Discussion 9. Rx Cards are graded by how many cards you answer in each topic.';
     var rows = unitHead(w)
       + ROW(1, 't1', 'Do this first', 'Pre-work', '', 'Watch the lecture and read the written notes before any assignment. Everything you turn in this unit builds on them. The optional tools under the notes help it stick.', preWork(w).map(function (x) { return CK(x, w.wk); }).concat([reinforce(w)]))
       + ROW(2, 't2', 'Turn these in', 'Assignments', '', adesc, assignments(w).map(function (x) { return CK(x, w.wk); }))

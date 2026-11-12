@@ -589,7 +589,7 @@ window.BIO005_CHART = {
 
   /* ---------------------------------------------------------- 9 */
   9: {
-    title:'The Heart as a Pump',
+    title:'Heart Physiology',
     date:'March 10, and November 4 at 0840', when:'His last well clinic visit, and the morning he arrived',
     encounter:'Emergency department, arrival',
     tools:[
@@ -660,7 +660,7 @@ window.BIO005_CHART = {
 
   /* ---------------------------------------------------------- 10 */
   10: {
-    title:'Pressure, Flow, and Holding Blood Pressure Steady',
+    title:'Blood Vessel Physiology',
     date:'November 4, 0900 to 1800', when:'Day 1, the first nine hours',
     encounter:'Resuscitation and hemodynamic support',
     tools:[

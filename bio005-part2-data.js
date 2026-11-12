@@ -54,12 +54,12 @@ window.BIO005_PART2 = {
   ],
 
   weeks: [
-    { wk: 9, opens: "2026-11-09", closes: "2026-11-15", title: "The heart as a pump",
+    { wk: 9, opens: "2026-11-09", closes: "2026-11-15", title: "Heart Physiology",
       page: "week-09.html", competencies: "week-09-competencies.html", notes: "week-09-notes.html", prompts: "note-sheet.html?week=9",
-      topicNotes: [{ label: "The heart", url: "biol005-w09-heart-notes.html", pdf: "notes/BIO005-Week9-Notes-heart.pdf" }],
+      topicNotes: [{ label: "Heart Physiology", url: "biol005-w09-heart-notes.html", pdf: "notes/BIO005-Week9-Notes-heart.pdf" }],
       lectureVideo: { label: "Lecture video: Week 9 in one player, by chapter", url: "concept-videos-part2.html?week=9" },
       videos: { label: "Concept videos, Week 9: press play once, or start at any topic", url: "concept-videos-part2.html?week=9" },
-      study: { label: "Click-through slides: The heart as a pump", url: "li/w9/study.html" },
+      study: { label: "Click-through slides: Heart Physiology", url: "li/w9/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w9/BIO005-W09-Lecture-Sheet-Heart-as-a-Pump.pdf" },
       lab: { label: "Clinical lab: The heart (calculations, EKG, heart sounds, biomarkers)", url: "cardiac-lab.html" },
       discussion: { label: "Discussion 9: Present your cases", url: "discussion-w9-cases.html" },
@@ -67,9 +67,9 @@ window.BIO005_PART2 = {
       mastery: "practice-exam.html?week=9", practice: "practice-exam.html?week=9", ungraded: "ungraded-sheet.html?week=9",
       note: "Veterans Day is Wednesday, November 11. Nothing is due that day." },
 
-    { wk: 10, opens: "2026-11-11", closes: "2026-11-22", title: "Pressure, flow, and holding blood pressure steady",
+    { wk: 10, opens: "2026-11-11", closes: "2026-11-22", title: "Blood Vessel Physiology",
       page: "week-10.html", competencies: "week-10-competencies.html", notes: "week-10-notes.html", prompts: "note-sheet.html?week=10",
-      topicNotes: [{ label: "Blood vessels and blood pressure", url: "biol005-w10-vessels-bp-notes.html", pdf: "notes/BIO005-Week10-Notes-vessels-bp.pdf" }],
+      topicNotes: [{ label: "Blood Vessel Physiology", url: "biol005-w10-vessels-bp-notes.html", pdf: "notes/BIO005-Week10-Notes-vessels-bp.pdf" }],
       lectureVideo: { label: "Lecture video: Week 10 in one player, by chapter", url: "concept-videos-part2.html?week=10" },
       videos: { label: "Concept videos, Week 10: press play once, or start at any topic", url: "concept-videos-part2.html?week=10" },
       study: { label: "Click-through slides: Pressure, flow and blood pressure", url: "li/w10/study.html" },

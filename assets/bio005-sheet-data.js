@@ -1682,7 +1682,7 @@ window.BIO005_SHEET = {
   "items": []
  },
  "9": {
-  "title": "The heart as a pump",
+  "title": "Heart Physiology",
   "midterm": 2,
   "items": [
    {
@@ -1835,7 +1835,7 @@ window.BIO005_SHEET = {
   ]
  },
  "10": {
-  "title": "Pressure, flow, and holding blood pressure steady",
+  "title": "Blood Vessel Physiology",
   "midterm": 2,
   "items": [
    {
@@ -1932,7 +1932,7 @@ window.BIO005_SHEET = {
   ]
  },
  "11": {
-  "title": "Blood and how the body defends itself",
+  "title": "Blood and Immune Physiology",
   "midterm": 2,
   "items": [
    {
@@ -2071,7 +2071,7 @@ window.BIO005_SHEET = {
   ]
  },
  "12": {
-  "title": "Digestion, and how you use food for fuel",
+  "title": "Digestive Physiology",
   "midterm": 2,
   "items": [
    {
@@ -2238,7 +2238,7 @@ window.BIO005_SHEET = {
   ]
  },
  "13": {
-  "title": "Breathing, gas transport, and the fast pH lever",
+  "title": "Respiratory Physiology",
   "midterm": 2,
   "items": [
    {
@@ -2412,7 +2412,7 @@ window.BIO005_SHEET = {
   ]
  },
  "14": {
-  "title": "The kidney and body fluid balance",
+  "title": "Renal Physiology",
   "midterm": 2,
   "items": [
    {
@@ -2565,7 +2565,7 @@ window.BIO005_SHEET = {
   ]
  },
  "15": {
-  "title": "The slow pH lever, putting it together, and the final",
+  "title": "Acid-Base and Fluid Balance",
   "midterm": 2,
   "items": [
    {
