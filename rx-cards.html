@@ -122,7 +122,7 @@ select{font-family:var(--body);font-size:16px;color:var(--navy);background:var(-
 .btn:disabled{opacity:.45;cursor:default}
 .btn:disabled:hover{background:#1A2A4E;border-color:var(--navy)}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
-.topics{margin:0 0 26px}#prevToggle{margin-bottom:14px}#weeks{max-width:100%;width:100%}.field{min-width:0;max-width:100%}.topicrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0}
+.topics{margin:0 0 26px}.rxlv{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:8px 0 0}.rxlv div{border-radius:12px;padding:10px 12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}.rxlv b{display:block;font-size:22px;font-weight:800;line-height:1.1}.rxlv span{font-size:13.5px;font-weight:600}.rxpick{border:0;margin:16px 0 0;padding:0}.rxpick legend{font-weight:800;margin:0 0 8px;padding:0}.rxopts{display:flex;flex-wrap:wrap;gap:10px}.rxopts label{display:inline-flex;align-items:center;gap:8px;border:2px solid #0B1530;border-radius:999px;padding:9px 16px;font-weight:800;cursor:pointer;background:#fff;color:#0B1530;min-height:44px}.rxopts input{width:18px;height:18px;margin:0}.rxopts label:has(input:checked){background:#0B1530;color:#fff}.rxopts label:focus-within{outline:3px solid #B8924A;outline-offset:2px}#prevToggle{margin-bottom:14px}#weeks{max-width:100%;width:100%}.field{min-width:0;max-width:100%}.topicrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0}
 .topicbtn{font:inherit;font-weight:700;font-size:16px;padding:12px 18px;border-radius:999px;border:2px solid #0B1530;background:#fff;color:#0B1530;cursor:pointer;min-height:44px}
 .topicbtn:hover{background:#ECEFF4}.topicbtn[aria-pressed="true"]{background:#0B1530;color:#fff}
 .topicbtn .tn{display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
@@ -287,6 +287,10 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <h2 id="topic-h">Pick your chapter</h2>
     <p class="sub">Each chapter has its own cards, its own count and its own report. Open the one you are working on.</p>
     <div class="topicrow" id="topicRow" role="group" aria-labelledby="topic-h"></div>
+    <h3 style="margin:22px 0 4px">How many cards earn each level, in each chapter</h3>
+    <div class="rxlv" aria-label="Card counts for each level"><div style="background:#E6E7EB;color:#0B1530"><b>Under 70%</b><span>Fewer than 70 cards, or under 70 percent right</span></div><div style="background:#C9A14A;color:#0B1530"><b>70%</b><span>70 cards</span></div><div style="background:#C2734D;color:#0B1530"><b>80%</b><span>105 cards</span></div><div style="background:#8B3A2E;color:#fff"><b>90%</b><span>175 cards</span></div><div style="background:#0B1530;color:#fff"><b>100%</b><span>350 cards</span></div></div>
+    <p class="sub" style="margin:6px 0 0">Every level also needs at least 70 percent of your cards right the first time.</p>
+    <fieldset class="rxpick"><legend id="rxPickL">My target for this chapter</legend><div class="rxopts"><label><input type="radio" name="rxTarget" value="70"> 70%</label><label><input type="radio" name="rxTarget" value="80"> 80%</label><label><input type="radio" name="rxTarget" value="90"> 90%</label><label><input type="radio" name="rxTarget" value="100"> 100%</label></div><p class="sub" id="rxPickSay" aria-live="polite"></p></fieldset>
   </section>
   <section aria-labelledby="due-h">
     <h2 id="due-h">Due now</h2>
@@ -317,7 +321,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
     <div class="card" id="reportcard" style="margin-top:14px">
       <h3 style="margin:0 0 6px">Your topic report</h3>
-      <p class="sub" style="margin:0 0 10px">Each topic (chapter) has its own report, for example Heart Physiology and Blood Vessel Physiology. A topic is graded by how many of its cards you answer: 70 is a D, 105 a C, 175 a B, 350 an A. You also need at least 70 percent of them right the first time, or the topic counts as below D. Put your name in once and this page keeps a running count for each topic. Save the report for the topic you have open and upload it to that topic&rsquo;s Rx Cards assignment by its due date.</p><p class="sub" style="margin:0 0 4px"><b>Save a copy every day. If you do not, you risk losing your count.</b></p><ul class="sub" style="margin:0 0 10px;padding-left:20px"><li>Your count is saved only in this browser, on this device.</li><li>If you switch to another device or clear your browser, the count starts over, and you could lose the points.</li><li>After every session, press the report button below and save the report as a PDF, or take a picture of it. Each report shows the date and time you saved it, the dates you worked, and the topic of your cards.</li><li>Saving a copy is your choice, but I can only grade what you upload. If your count is lost and you have no saved copy, I cannot give you those points.</li><li>If your count records properly, you only upload the one page report for the topic when you finish it.</li></ul>
+      <p class="sub" style="margin:0 0 10px">Each topic (chapter) has its own report, for example Heart Physiology and Blood Vessel Physiology. A chapter is graded by how many of its cards you answer, shown in the colored boxes at the top. You also need at least 70 percent of them right the first time, or the chapter counts as under 70%. Put your name in once and this page keeps a running count for each topic. Save the report for the topic you have open and upload it to that topic&rsquo;s Rx Cards assignment by its due date.</p><p class="sub" style="margin:0 0 4px"><b>Save a copy every day. If you do not, you risk losing your count.</b></p><ul class="sub" style="margin:0 0 10px;padding-left:20px"><li>Your count is saved only in this browser, on this device.</li><li>If you switch to another device or clear your browser, the count starts over, and you could lose the points.</li><li>After every session, press the report button below and save the report as a PDF, or take a picture of it. Each report shows the date and time you saved it, the dates you worked, and the topic of your cards.</li><li>Saving a copy is your choice, but I can only grade what you upload. If your count is lost and you have no saved copy, I cannot give you those points.</li><li>If your count records properly, you only upload the one page report for the topic when you finish it.</li></ul>
       <label for="rxName" style="display:block;font-weight:700;font-size:14px;margin:0 0 4px">Your name, as it appears in Canvas</label>
       <input type="text" id="rxName" autocomplete="name" style="font:inherit;padding:8px 10px;border:1.5px solid #8C90A0;border-radius:8px;max-width:22rem;width:100%">
       <p class="sub" id="rxBand" style="margin:10px 0 6px" aria-live="polite"></p>
@@ -707,8 +711,15 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       row.appendChild(b);
     });
   }
+  function renderPick(){
+    S.targets = S.targets || {}; var v = S.targets[maxWeek] || '';
+    [].forEach.call(document.querySelectorAll('input[name=rxTarget]'), function(r){ r.checked = (r.value === String(v)); });
+    var L = $('rxPickL'); if (L) L.textContent = 'My target for ' + weekTitle(maxWeek);
+    var y = $('rxPickSay'); if (y) y.textContent = v ? 'Your target, ' + v + '%, prints on your report.' : 'Pick one before you start.';
+  }
+  [].forEach.call(document.querySelectorAll('input[name=rxTarget]'), function(r){ r.addEventListener('change', function(){ S.targets = S.targets || {}; S.targets[maxWeek] = r.value; save(); renderPick(); }); });
   function renderHome(){
-    fillWeeks(); renderTopics();
+    fillWeeks(); renderTopics(); renderPick();
     var dh = $('due-h'); if (dh) dh.textContent = 'Due now: ' + weekTitle(maxWeek) + (onlyWeek ? '' : ', plus earlier topics');
     var pt = $('prevToggle');
     if (pt) { var wl = window.BIO005_WL ? BIO005_WL(maxWeek) : maxWeek;
@@ -817,8 +828,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   function goalText(){
     var n = topicTotals(maxWeek).n;
     return n >= WEEK_MIN
-      ? topicName(maxWeek) + ': ' + n + ' cards so far. You have reached the 70 cards for a D. Keep going, because the more cards you do, the better you will do.'
-      : topicName(maxWeek) + ': ' + n + ' cards so far. You need 70 for a D. The more cards you do, the better you will do.';
+      ? topicName(maxWeek) + ': ' + n + ' cards so far. You have reached 70%. Keep going, because the more cards you do, the better you will do.'
+      : topicName(maxWeek) + ': ' + n + ' cards so far. You need 70 cards for 70%. The more cards you do, the better you will do.';
   }
   function renderGoal(){ $('goalline').textContent = goalText(); renderBand(); }
 
@@ -826,9 +837,9 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
      CARD_LOG_URL: paste the Google Apps Script web app URL here (see rx-cards-sheet-setup.txt in the drop).
      Leave it empty and the page only keeps the local log and the printable report. */
   var CARD_LOG_URL = '';
-  var BANDS = [[350,'A'],[175,'B'],[105,'C'],[70,'D']];
+  var BANDS = [[350,'100%'],[175,'90%'],[105,'80%'],[70,'70%']];
   var FLOOR = 0.70;  /* Nov 10 2026, Scrubs: a band also needs at least 70 percent right first time that week */
-  function bandFor(n, right){ if (right !== undefined && n > 0 && right / n < FLOOR) return 'below D'; for (var i = 0; i < BANDS.length; i++) if (n >= BANDS[i][0]) return BANDS[i][1]; return 'below D'; }
+  function bandFor(n, right){ if (right !== undefined && n > 0 && right / n < FLOOR) return 'under 70%'; for (var i = 0; i < BANDS.length; i++) if (n >= BANDS[i][0]) return BANDS[i][1]; return 'under 70%'; }
   function weekRight(){ return weekDays().reduce(function(t, d){ return t + d.right; }, 0); }
   function topicName(w){ return weekTitle(w); }
   function topicDays(w){ var L = S.tlog[w] || {}; return Object.keys(L).sort().filter(function(k){ return L[k].seen; }).map(function(k){ var p = k.split('-'), x = new Date(+p[0], +p[1]-1, +p[2]);
@@ -849,8 +860,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var el = $('rxBand'); if (!el) return;
     var T = topicTotals(maxWeek), n = T.n, r = T.r, low = n > 0 && r / n < FLOOR, b = bandFor(n, r), nx = nextBand(n);
     el.innerHTML = '<strong>' + topicName(maxWeek).replace(/</g,'&lt;') + ': ' + n + ' cards, ' + pctTxt(n, r) + '</strong>. '
-      + (low ? 'That is under the 70 percent floor, so this topic counts as below D until more of your cards are right.'
-             : 'That is ' + (b === 'below D' ? 'below the D line (70 cards)' : (b === 'A' ? 'an' : 'a') + ' <strong>' + b + '</strong>') + (nx ? '. ' + (nx[0] - n) + ' more cards reaches ' + nx[1] + '.' : '. Top band.'));
+      + (low ? 'That is under the 70 percent right floor, so this chapter counts as under 70% until more of your cards are right.'
+             : 'That is ' + (b === 'under 70%' ? 'under 70% (you need 70 cards)' : '<strong>' + b + '</strong>') + (nx ? '. ' + (nx[0] - n) + ' more cards reaches ' + nx[1] + '.' : '. Top band.'));
   }
   (function(){ var nm = $('rxName'); if (!nm) return; nm.value = S.name || ''; nm.addEventListener('change', function(){ S.name = nm.value.trim(); save(); syncDay(true); }); })();
   function syncDay(force){
@@ -873,7 +884,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       + '<p><b>Topic: ' + topicName(maxWeek).replace(/</g,'&lt;') + '</b></p>'
       + '<p><b>Saved on: ' + new Date().toLocaleString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'}) + '</b></p>'
       + '<table><tr><th>Date worked</th><th>Cards answered</th><th>Right first time</th></tr>' + rows + '<tr><th>Topic total</th><th>' + total + '</th><th>' + right + '</th></tr></table>'
-      + '<p class="band">Band for this topic: ' + bandFor(total, right) + ' (' + total + ' cards, ' + pctTxt(total, right) + '; 70 D, 105 C, 175 B, 350 A, and at least 70 percent right)</p>'
+      + '<p class="band">Band for this topic: ' + bandFor(total, right) + ' (' + total + ' cards, ' + pctTxt(total, right) + '; 70 cards 70%, 105 cards 80%, 175 cards 90%, 350 cards 100%, each with at least 70 percent right)</p>'
+      + '<p class="band">My target: ' + (S.targets && S.targets[maxWeek] ? S.targets[maxWeek] + '%' : 'not chosen') + '</p>'
       + '<p>Report code: <span class="code">' + code + '</span>. The code is computed from the name, the topic, the dates and the counts above; it changes if any of them is edited after printing.</p>'
       + '<p style="font-size:12px;color:#414B5C">Counts come from the Rx Cards log on the device this was printed from. Only cards from this topic count toward it. Dr. Sharilyn Rennie · Yuba College · Fall 2026</p>';
     $('rxSheet').hidden = false; document.body.classList.add('rx-print'); window.print();
