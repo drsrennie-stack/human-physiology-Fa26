@@ -2177,7 +2177,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w9-calcium-homeostasis",
     "module": 3,
-    "week": 14,
+    "week": 15,
     "system": "Endocrine Glands",
     "general": "Endocrine Glands",
     "name": "Calcium homeostasis",
@@ -3517,7 +3517,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-buffer-systems",
     "module": 3,
-    "week": 13,
+    "week": 15,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Buffer systems",
@@ -3532,7 +3532,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-respiratory-ph-control",
     "module": 3,
-    "week": 13,
+    "week": 15,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Respiratory control of pH",
@@ -3609,7 +3609,7 @@ window.BIO005_COMPETENCIES = [
   {
     "id": "w13-volume-osmolarity",
     "module": 3,
-    "week": 14,
+    "week": 15,
     "system": "Acid Base and Fluid Balance",
     "general": "Acid Base and Fluid Balance",
     "name": "Volume and osmolarity disturbances",
@@ -4219,11 +4219,11 @@ window.BIO005_META = {
     "8": "Midterm 1",
     "9": "Heart Physiology",
     "10": "Blood Vessel Physiology",
-    "11": "Blood and how the body defends itself",
-    "12": "Digestion, and how you use food for fuel",
-    "13": "Breathing, gas transport, and the fast pH lever",
-    "14": "The kidney and body fluid balance",
-    "15": "The slow pH lever, putting it together, and the final"
+    "11": "Blood and Immune Physiology",
+    "12": "Digestive Physiology",
+    "13": "Respiratory Physiology",
+    "14": "Renal Physiology",
+    "15": "Acid-Base and Fluid Balance"
   },
   "orderAdopted": "2026-08-23",
   "setConfirmed": "2026-08-24",

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mastery Check · Choose Your Target · BIO 005 Human Physiology</title>
-<meta name="description" content="The BIO 005 Mastery Check for Weeks 10 to 15: choose your target level, answer the questions for that level, and print your report.">
+<meta name="description" content="The BIO 005 Mastery Check for each Part 2 topic: choose your target level, answer the questions for that level, and print your report.">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="stylesheet" href="assets/fonts-site.css">
 <style>
@@ -145,9 +145,9 @@ td.n,th.n{text-align:right}
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) { h = ((h << 5) + h + s.charCodeAt(i)) | 0; } return (h >>> 0).toString(36).toUpperCase(); }
 
-  document.getElementById('eb').textContent = 'BIO 005 Human Physiology · Week ' + WK + ' · Mastery Check';
-  document.getElementById('lead').textContent = 'Week ' + WK + ': ' + week.title + '. Pick the level you are aiming for. You answer the questions for that level and every level below it.';
-  document.title = 'Week ' + WK + ' Mastery Check · Choose Your Target · BIO 005 Human Physiology';
+  document.getElementById('eb').textContent = 'BIO 005 Human Physiology · ' + week.title + ' · Mastery Check';
+  document.getElementById('lead').textContent = week.title + '. Pick the level you are aiming for. You answer the questions for that level and every level below it.';
+  document.title = week.title + ' Mastery Check · Choose Your Target · BIO 005 Human Physiology';
 
   var state = load();
   var graded = state.attempts.filter(function (a) { return a.graded; }).length;
@@ -223,7 +223,7 @@ td.n,th.n{text-align:right}
     msg.hidden = true;
     var top = +t.value, bands = draw(top), n = 0;
     CUR = { top: top, bands: bands, name: document.getElementById('name').value.trim(), started: new Date().toISOString(), graded: attemptNo <= 2, no: attemptNo };
-    var h = '<div class="card"><p class="attempt">' + (CUR.graded ? 'Graded attempt ' + attemptNo + ' of 2' : 'Practice only') + '</p><h2>Week ' + WK + ' Mastery Check, target ' + LEVELS[top].pct + '%</h2>'
+    var h = '<div class="card"><p class="attempt">' + (CUR.graded ? 'Graded attempt ' + attemptNo + ' of 2' : 'Practice only') + '</p><h2>' + esc(week.title) + ' Mastery Check, target ' + LEVELS[top].pct + '%</h2>'
       + '<p>' + esc(CUR.name) + '. Answer every question, then press Submit at the bottom. Notes, the book, other tabs and AI stay closed.</p></div>';
     bands.forEach(function (b, bi) {
       h += '<div class="lvlhead"><h2>' + LEVELS[bi].head + ' <span class="sr">for the ' + LEVELS[bi].pct + ' percent level</span></h2><p>' + esc(LEVELS[bi].sub) + ' ' + b.length + ' questions.</p></div>';
@@ -280,14 +280,14 @@ td.n,th.n{text-align:right}
     var next = reached === CUR.top ? 'You met your target.'
       : (reached >= 0 ? 'You met the ' + LEVELS[reached].name + ' level. The next level needs 80 percent of its questions right.' : 'You have not met the Foundational level yet, so your score is your percent correct on the foundational questions, up to 69 percent.');
     var h = '<div class="card"><p class="attempt">' + (CUR.graded ? 'Graded attempt ' + CUR.no + ' of 2' : 'Practice only, not graded') + '</p>'
-      + '<p class="kicker">Week ' + WK + ' Mastery Check report</p><h2>' + esc(CUR.name) + '</h2>'
+      + '<p class="kicker">' + esc(week.title) + ' Mastery Check report</p><h2>' + esc(CUR.name) + '</h2>'
       + '<p>' + esc(whenTxt) + ' · Report code ' + code + '</p>'
       + '<p>Target ' + LEVELS[CUR.top].pct + '%. Your score:</p><p class="big">' + earned + '%</p><p>' + esc(next) + '</p>'
       + '<table><caption class="sr">Results by level</caption><thead><tr><th scope="col">Level</th><th scope="col" class="n">Right</th><th scope="col" class="n">Percent</th><th scope="col">80% or better</th></tr></thead><tbody>' + rows + '</tbody></table>'
       + (CUR.graded && CUR.no === 1 ? '<p style="margin-top:12px"><b>Your second attempt</b> uses different questions. Before you take it, go back to the competencies you missed below. You can choose a different target.</p>' : '')
       + '<div class="btnrow"><button class="btn" type="button" id="printBtn">Print or save as PDF</button>'
       + (state.attempts.filter(function (a) { return a.graded; }).length < 2 ? '<a class="btn ghost" href="mastery-pathway.html?week=' + WK + '" target="_top" style="text-decoration:none;display:inline-flex;align-items:center">Start my second attempt</a>' : '')
-      + '</div><p class="small" style="font-size:13px;color:#414B5C;margin-top:10px">Upload this PDF to the Week ' + WK + ' Mastery Check assignment in Canvas.</p></div>';
+      + '</div><p class="small" style="font-size:13px;color:#414B5C;margin-top:10px">Upload this PDF to the ' + esc(week.title) + ' Mastery Check assignment in Canvas.</p></div>';
     var missed = {};
     CUR.bands.forEach(function (b) { b.forEach(function (q) {
       var box = document.querySelector('#f' + q._k + ' .out');

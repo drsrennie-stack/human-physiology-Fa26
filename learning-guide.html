@@ -147,8 +147,8 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     <p class="words">Pre-work · Assignments · Notes · Videos · Learning tools</p>
     <ul class="stats" id="stats" aria-label="Where we are in the course"></ul>
     <div class="online">
-      <span><b>Everything is online.</b> Work one unit at a time and aim to finish one about every five days.</span>
-      <label for="wkSel">Show me Week <select id="wkSel"></select></label>
+      <span><b>Everything is online.</b> Work one unit at a time and aim to finish one about every four or five days.</span>
+      <label for="wkSel">Show me <select id="wkSel"></select></label>
     </div>
   </div>
 </header>
@@ -157,7 +157,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   <div class="rows"><div id="pace"></div><div class="rows" id="rows"></div></div>
   <aside class="side" aria-label="More options">
     <nav class="box" aria-labelledby="qlH"><h2 id="qlH">Quick links</h2><ul id="quick"></ul></nav>
-    <nav class="box" aria-labelledby="wkH"><h2 id="wkH">Part 2 weeks</h2><ul id="wkList"></ul></nav>
+    <nav class="box" aria-labelledby="wkH"><h2 id="wkH">Part 2 units</h2><ul id="wkList"></ul></nav>
     <nav class="box" aria-labelledby="mhH"><h2 id="mhH">More help</h2><ul id="more"></ul></nav>
     <p class="sig">Dr. Rennie · BIO 005 · Yuba College</p>
   </aside>
@@ -236,8 +236,11 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   function it(label, url, ic, col, pill, key) { return { label: label, url: url || '', ic: ic, col: col, pill: pill, key: key || label }; }
   function preWork(w) {
     var lv = w.lectureVideo || {};
-    return [it('Watch the lecture video', lv.url, 'video', '', 'Pre-work'),
-      it('Read the written notes', w.notes, 'note', '', 'Pre-work')];
+    /* Nov 11 2026, Scrubs: no all-notes-on-one-page hub. Pre-work links straight to the notes, one per topic. */
+    var tn = w.topicNotes || [], rd = tn.length > 1
+      ? tn.map(function (n) { return it('Read the notes: ' + n.label, n.url, 'note', '', 'Pre-work'); })
+      : [it('Read the written notes', tn.length ? tn[0].url : w.notes, 'note', '', 'Pre-work')];
+    return [it('Watch the lecture video', lv.url, 'video', '', 'Pre-work')].concat(rd);
   }
   function labName(w) { return 'Do the lab circuit: ' + String(w.lab.label).split(' (')[0].replace(/^Clinical lab: /, ''); }
   function assignments(w) {
@@ -262,7 +265,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   }
   function reinforce(w) {
     var r = [];
-    r.push(L('Competencies with prompts, ' + 'Week ' + w.wk, w.prompts, 'target', 'b', 'Recommended'));
+    r.push(L('Competencies with prompts', w.prompts, 'target', 'b', 'Recommended'));
     return '<li class="opt">Optional: make it stick</li>' + r.join('');
   }
   function checkable(w) { return preWork(w).concat(assignments(w)); }
@@ -270,7 +273,10 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   function counts(w) { var p = prog()[w.wk] || {}, st = checkable(w); return [st.filter(function (x) { return x.url && p[x.key]; }).length, st.length]; }
   function isDone(w) { var c = counts(w); return c[1] > 0 && c[0] === c[1]; }
   var P0 = pd(D.pace.start);
-  function aim(i) { var d = new Date(P0); d.setDate(d.getDate() + D.pace.days * (i + 1) - 1); return d; }
+  /* Nov 11 2026: the units are spread evenly from the start of Part 2 to the due date, so the last one lands on December 9. */
+  var SPAN = D.pace.end ? Math.round((pd(D.pace.end) - P0) / 86400000) + 1 : D.pace.days * weeks.length;
+  function aim(i) { var d = new Date(P0); d.setDate(d.getDate() + Math.round(SPAN * (i + 1) / weeks.length) - 1); return d; }
+  function U(w) { return 'Unit ' + (weeks.indexOf(w) + 1); }
   function longDay(d) { return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
   function firstOpen() { for (var i = 0; i < weeks.length; i++) { if (!isDone(weeks[i])) return weeks[i]; } return weeks[weeks.length - 1]; }
 
@@ -288,22 +294,21 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     var expect = 0; weeks.forEach(function (w, i) { if (aim(i) < today) expect++; });
     var left = weeks.length - done, next = weeks[Math.min(done, weeks.length - 1)], ni = Math.min(done, weeks.length - 1);
     var m2 = pd(D.midterm2.opens), dl = Math.max(0, Math.round((m2 - today) / 86400000));
-    var w14 = weeks.filter(function (w) { return w.wk === 14; })[0], i14 = weeks.indexOf(w14);
     var msg;
     if (!left) msg = '<b>Every unit is checked off.</b> Spend the time before ' + esc(D.midterm2.label) + ' on review.';
-    else if (done >= expect) msg = '<b>You are on pace.</b> Next: finish Week ' + next.wk + ' by ' + longDay(aim(ni)) + '.';
-    else msg = '<b>You are ' + (expect - done) + ' unit' + (expect - done === 1 ? '' : 's') + ' behind the five-day pace.</b> Finish Week ' + next.wk + ' next. You have ' + left + ' unit' + (left === 1 ? '' : 's') + ' left and ' + dl + ' day' + (dl === 1 ? '' : 's') + ' until ' + esc(D.midterm2.label) + ' opens.';
+    else if (done >= expect) msg = '<b>You are on pace.</b> Next: finish ' + esc(next.title) + ' by ' + longDay(aim(ni)) + '.';
+    else msg = '<b>You are ' + (expect - done) + ' unit' + (expect - done === 1 ? '' : 's') + ' behind the pace.</b> Finish ' + esc(next.title) + ' next. You have ' + left + ' unit' + (left === 1 ? '' : 's') + ' left. Everything is due Wednesday, December 9.';
     var li = weeks.map(function (w, i) {
       var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0, st = isDone(w) ? 'Done' : c[0] ? c[0] + ' of ' + c[1] + ' done' : 'Not started';
       var late = !isDone(w) && aim(i) < today;
-      return '<li' + (isDone(w) ? ' class="done"' : '') + '><button type="button" data-wk="' + w.wk + '"><span class="pw">Week ' + w.wk + '<span class="pt">' + esc(w.title) + '</span></span>' +
+      return '<li' + (isDone(w) ? ' class="done"' : '') + '><button type="button" data-wk="' + w.wk + '"><span class="pw">' + U(w) + '<span class="pt">' + esc(w.title) + '</span></span>' +
         '<span class="pa">Aim to finish by<b>' + fmt(aim(i)) + '</b></span><span class="ps' + (late ? ' late' : '') + '">' + st + (late ? ', past the aim date' : '') + '</span>' +
         '<span class="mini" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button></li>';
     }).join('');
     return '<section class="plan pace" aria-labelledby="paceH"><p class="pk">Pace yourself</p><h2 id="paceH">Your units <span>left</span></h2>' +
-      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Aim to finish one unit about every five days. At that pace you finish Week 14 by ' + longDay(aim(i14)) + ', with time to review before ' + esc(D.midterm2.label) + ' opens ' + longDay(m2) + '. It closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> There are seven units, so aim to finish one about every four or five days. ' + esc(D.midterm2.label) + ' is separate: it opens ' + longDay(m2) + ' and closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
       '<ul class="rules" aria-label="How the rest of the term works">' +
-        '<li><b>Work at your own pace.</b> There are no weekly deadlines. Everything is due December 9 at 10:00 pm.</li>' +
+        '<li><b>Work at your own pace.</b> There are no weekly deadlines. All seven units are due December 9 at 10:00 pm. Only the midterm comes after that.</li>' +
         '<li><b>One unit at a time.</b> The next unit opens in Canvas after everything in the unit before it is turned in and graded at 70% or higher.</li>' +
         '<li><b>Turn work in as you finish it.</b> Each unit has to be graded before the next one opens, so leaving units for the last week means running out of time.</li>' +
         '<li><b>One revision per assignment,</b> worth up to 90%. Blank pages, or work turned in just to open the next unit, earn a zero.</li></ul>' +
@@ -312,10 +317,10 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   }
   function unitHead(w) {
     var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0, i = weeks.indexOf(w);
-    return '<section class="plan" aria-labelledby="planH"><p class="pk">Unit ' + (i + 1) + ' of ' + weeks.length + ' · aim to finish by ' + longDay(aim(i)) + '</p><h2 id="planH">Week ' + w.wk + ': <span>' + esc(w.title) + '</span></h2>' +
-      '<div class="pbar" role="progressbar" aria-label="Week ' + w.wk + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
+    return '<section class="plan" aria-labelledby="planH"><p class="pk">Unit ' + (i + 1) + ' of ' + weeks.length + ' · aim to finish by ' + longDay(aim(i)) + '</p><h2 id="planH"><span>' + esc(w.title) + '</span></h2>' +
+      '<div class="pbar" role="progressbar" aria-label="' + esc(w.title) + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
       '<p class="ptxt" id="planTxt" aria-live="polite">' + c[0] + ' of ' + c[1] + ' done</p>' +
-      '<p class="tiny">Watch the lecture and read the notes first, then the assignments in any order. Check Done as you finish each one. <button type="button" class="clr" id="planClr">Clear my Week ' + w.wk + ' checks</button></p></section>';
+      '<p class="tiny">Watch the lecture and read the notes first, then the assignments in any order. Check Done as you finish each one. <button type="button" class="clr" id="planClr">Clear my checks for this unit</button></p></section>';
   }
   function wireChecks(w) {
     var box = document.getElementById('rows');
@@ -355,7 +360,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     var nx = firstOpen();
     document.getElementById('stats').innerHTML = [
       '<b>' + fmt(today) + '</b><span>Today · ' + dayName(today) + '</span>',
-      '<b>Week ' + nx.wk + '</b><span>Your unit now</span>',
+      '<b>' + U(nx) + '</b><span>Now: ' + esc(nx.title) + '</span>',
       '<b>' + done + ' of ' + weeks.length + '</b><span>Units done</span>',
       '<b>' + fmt(m2) + '</b><span>' + esc(D.midterm2.label) + ' opens, closes ' + fmt(pd(D.midterm2.closes)) + '</span>',
       '<b>' + (days > 0 ? days + ' day' + (days === 1 ? '' : 's') : (days === 0 ? 'Today' : 'Closed')) + '</b><span>Until ' + esc(D.midterm2.label) + '</span>'
@@ -364,20 +369,18 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
 
   function render(w) {
     cur = w;
-    var wk = 'Week ' + w.wk, lv = w.lectureVideo || {}, vids = w.videos, tn = w.topicNotes || [];
+    var lv = w.lectureVideo || {}, vids = w.videos, tn = w.topicNotes || [];
     var notes = [];
-    tn.forEach(function (n) { notes.push(L('Notes: ' + n.label, n.url, 'note', '', 'Reference')); notes.push(L('Notes to print (PDF): ' + n.label, n.pdf, 'print', '', 'Reference')); });
-    notes.push(L('All the notes for ' + wk + ' on one page', w.notes, 'doc', '', 'Reference'));
-    notes.push(L('Competency list, ' + wk, w.competencies, 'target', '', 'Reference'));
+    tn.forEach(function (n) { notes.push(L('Notes online: ' + n.label, n.url, 'note', '', 'Reference')); notes.push(L('Notes to print (PDF): ' + n.label, n.pdf, 'print', '', 'Reference')); });
+    notes.push(L('Competency list for this unit', w.competencies, 'target', '', 'Reference'));
     var same = vids && lv.url && lv.url === vids.url;
-    var videos = [L('Lecture video, ' + wk + (same ? ': one player, by chapter' : ''), lv.url, 'video', '', 'Pre-work'),
-      same ? '' : vids ? L(vids.label, vids.url, 'play', 't', 'Recommended') : L('Concept videos, ' + wk, '', 'play', 't'),
+    var videos = [L('Lecture video' + (same ? ': one player, by chapter' : ''), lv.url, 'video', '', 'Pre-work'),
+      same ? '' : L('Concept videos for this unit', vids ? vids.url : '', 'play', 't', 'Recommended'),
       L('Concept videos, all of Part 2', A.videos, 'play', 't', 'Reference')];
     var tools = [];
-    tools.push(L('All of it on one sheet, ' + wk, w.ungraded, 'print', 'b', 'Recommended'));
     if (w.cases && !w.pathway) tools.push(L('Wiggers diagram template, to print', 'wiggers-template.html', 'print', 'b', 'Reference'));
-    tools.push(L('Practice exam, ' + wk, w.practice, 'exam', 'g', 'Recommended'), L('Practice exam, all of Part 2 so far', A.practiceAll, 'exam', 'g', 'Recommended'),
-      L('Competency packet, all weeks', A.packet, 'print', 'g', 'Reference'), L('Midterm 2 page', weeks[weeks.length - 1].page, 'flag', 'g', 'Reference'));
+    tools.push(L('Practice exam for this unit', w.practice, 'exam', 'g', 'Recommended'), L('Practice exam, all of Part 2 so far', A.practiceAll, 'exam', 'g', 'Recommended'),
+      L('Competency packet, the whole course', A.packet, 'print', 'g', 'Reference'));
     if (w.pathway) tools.push(L('How the mastery pathway works', D.pathwayPage, 'steps', 'g', 'Reference'));
     var adesc = w.pathway
       ? 'Any order. Pick a target on each one, 70, 80, 90 or 100 percent. Score at least 70% on each to open the next unit.'
@@ -395,7 +398,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     wireChecks(w); drawPace(); weekCounts(); stats();
     document.getElementById('wkSel').value = String(w.wk);
     document.querySelectorAll('#wkList button').forEach(function (b) { b.setAttribute('aria-current', b.getAttribute('data-wk') === String(w.wk) ? 'true' : 'false'); });
-    document.title = 'Learning Guide · Week ' + w.wk + ' · BIO 005 Human Physiology';
+    document.title = 'Learning Guide · ' + w.title + ' · BIO 005 Human Physiology';
     try { if (history.replaceState) { history.replaceState(null, '', location.pathname + '?week=' + w.wk + location.hash); } } catch (e) {}
     send();
   }
@@ -406,10 +409,10 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   document.getElementById('more').innerHTML = [
     S('Concept videos, Part 2', A.videos, 'play', 't'), S('Accessibility', A.accessibility, 'access', 'b')].join('');
   var sel = document.getElementById('wkSel');
-  sel.innerHTML = weeks.map(function (w) { return '<option value="' + w.wk + '">' + w.wk + '</option>'; }).join('');
+  sel.innerHTML = weeks.map(function (w) { return '<option value="' + w.wk + '">' + esc(w.title) + '</option>'; }).join('');
   sel.addEventListener('change', function () { render(weeks.filter(function (w) { return String(w.wk) === sel.value; })[0]); });
   document.getElementById('wkList').innerHTML = weeks.map(function (w) {
-    return '<li><button type="button" data-wk="' + w.wk + '"><span>Week ' + w.wk + '<span class="d">' + esc(w.title) + '</span></span>' + (w.wk === firstOpen().wk ? '<span class="now">Now</span>' : '') + '</button></li>';
+    return '<li><button type="button" data-wk="' + w.wk + '"><span>' + U(w) + '<span class="d">' + esc(w.title) + '</span></span>' + (w.wk === firstOpen().wk ? '<span class="now">Now</span>' : '') + '</button></li>';
   }).join('');
   document.querySelectorAll('#wkList button').forEach(function (b) {
     b.addEventListener('click', function () { render(weeks.filter(function (w) { return String(w.wk) === b.getAttribute('data-wk'); })[0]); document.getElementById('main').scrollIntoView({ block: 'start' }); });

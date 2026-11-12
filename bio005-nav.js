@@ -441,13 +441,13 @@
     [6, '2026-10-19', '2026-10-25', 'Muscle, and how movement gets commanded', 2],
     [7, '2026-10-26', '2026-11-01', 'Hormones, the autonomic system, and reproduction', 2],
     [8, '2026-11-02', '2026-11-08', 'Midterm 1', 2],
-    [9, '2026-11-09', '2026-11-15', 'The heart as a pump', 3],
-    [10, '2026-11-09', '2026-11-22', 'Pressure, flow, and holding blood pressure steady', 3],
-    [11, '2026-11-16', '2026-11-22', 'Blood and how the body defends itself', 3],
-    [12, '2026-11-23', '2026-11-29', 'Digestion, and how you use food for fuel', 3],
-    [13, '2026-11-30', '2026-12-06', 'Breathing, gas transport, and the fast pH lever', 3],
-    [14, '2026-12-07', '2026-12-13', 'The kidney and body fluid balance', 3],
-    [15, '2026-12-14', '2026-12-16', 'The slow pH lever, putting it together, and the final', 3]
+    [9, '2026-11-09', '2026-11-15', 'Heart Physiology', 3],
+    [10, '2026-11-09', '2026-11-22', 'Blood Vessel Physiology', 3],
+    [11, '2026-11-16', '2026-11-22', 'Blood and Immune Physiology', 3],
+    [12, '2026-11-23', '2026-11-29', 'Digestive Physiology', 3],
+    [13, '2026-11-30', '2026-12-06', 'Respiratory Physiology', 3],
+    [14, '2026-12-07', '2026-12-13', 'Renal Physiology', 3],
+    [15, '2026-12-07', '2026-12-09', 'Acid-Base and Fluid Balance', 3]
   ];
   var PARTS = { 1: 'Part 1, Foundations', 2: 'Part 2, Control systems', 3: 'Part 3, Systems in action' };
 

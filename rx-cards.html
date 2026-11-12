@@ -317,7 +317,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
   <section aria-labelledby="wk-h">
     <h2 id="wk-h">What you did this week</h2>
-    <p class="sub" id="wkline">Cards answered each day, and how many you got right first time. Five days a week is the goal.</p>
+    <p class="sub" id="wkline">Cards answered each day, and how many you got right first time. Coming back on several different days is the goal.</p>
     <div class="wk" id="week" role="group" aria-label="Cards answered by day, last seven days"></div>
     <div class="card" id="reportcard" style="margin-top:14px">
       <h3 style="margin:0 0 6px">Your topic report</h3>
@@ -335,7 +335,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <div class="card">
       <div class="row">
         <div class="field">
-          <label for="weeks">Weeks in play</label>
+          <label for="weeks">Topics in play</label>
           <select id="weeks"></select>
         </div>
         <div class="field">
@@ -357,7 +357,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
           </div>
         </div>
       </div>
-      <p style="margin-top:14px">A session is at least 20 cards and stops at the number you pick, so you can do one and come back later. The cards that were due and did not fit wait for next time, most overdue first. New cards a day stops the pile from growing faster than you can carry it. The week list follows the course calendar. Choose "Weeks 1 to" for your daily review, because earlier weeks keep coming back until you have proved them. Choose "only" when you want to focus on one week, such as the week you are in or a week you are weak on. Your cards and progress stay the same either way.</p>
+      <p style="margin-top:14px">A session is at least 20 cards and stops at the number you pick, so you can do one and come back later. The cards that were due and did not fit wait for next time, most overdue first. New cards a day stops the pile from growing faster than you can carry it. The topic list follows the course order. Choose "Through" for your daily review, because earlier topics keep coming back until you have proved them. Choose "only" when you want to focus on one topic, such as the one you are in or one you are weak on. Your cards and progress stay the same either way.</p>
     </div>
   </section>
 
@@ -427,7 +427,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   </section>
   <section aria-labelledby="gap-h" id="gapsec">
     <h2 id="gap-h">What to go back to</h2>
-    <p class="sub">The competencies you missed this session, most missed first. Each one names the week it lives in.</p>
+    <p class="sub">The competencies you missed this session, most missed first. Each one names the topic it belongs to.</p>
     <ul class="miss" id="gaps"></ul>
   </section>
   <section aria-labelledby="next-h">
@@ -534,11 +534,11 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     "Midterm 1",
     "Heart Physiology",
     "Blood Vessel Physiology",
-    "Blood and how the body defends itself",
-    "Digestion, and how you use food for fuel",
-    "Breathing, gas transport, and the fast pH lever",
-    "The kidney and body fluid balance",
-    "The slow pH lever, putting it together, and the final"
+    "Blood and Immune Physiology",
+    "Digestive Physiology",
+    "Respiratory Physiology",
+    "Renal Physiology",
+    "Acid-Base and Fluid Balance"
   ];
   function currentWeek(){
     if (SITE && SITE.current && SITE.current.n) return SITE.current.n;
@@ -667,8 +667,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   function fillWeeks(){
     var sel = $('weeks'); sel.innerHTML = '';
     var groups = [
-      ['c', 'All weeks so far (earlier weeks keep coming back)', function(n, t){ return (n === 1 ? 'Week 1' : 'Weeks 1 to ' + n) + (t ? ': ' + t : ''); }],
-      ['o', 'One week at a time', function(n, t){ return 'Week ' + (window.BIO005_WL?BIO005_WL(n):n) + ' only' + (t ? ': ' + t : ''); }]
+      ['c', 'Every topic so far (earlier topics keep coming back)', function(n, t){ return 'Through ' + (t || 'this topic'); }],
+      ['o', 'One topic at a time', function(n, t){ return (t || 'This topic') + ' only'; }]
     ];
     groups.forEach(function(g){
       var og = document.createElement('optgroup'); og.label = g[1];
@@ -697,7 +697,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   });
 
   /* Nov 11 2026, Scrubs: a chapter menu at the top, one button per open Part 2 topic. */
-  var TOPIC_OPENS = {9:'2026-11-09', 10:'2026-11-11', 11:'2026-11-16', 12:'2026-11-23', 13:'2026-11-30', 14:'2026-12-07'};
+  var TOPIC_OPENS = {9:'2026-11-09', 10:'2026-11-11', 11:'2026-11-16', 12:'2026-11-23', 13:'2026-11-30', 14:'2026-12-07', 15:'2026-12-07'};
   function renderTopics(){
     var row = $('topicRow'); if (!row) return; row.innerHTML = '';
     var td = today();
@@ -802,7 +802,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     list.slice(0, 12).forEach(function(w){
       var li = document.createElement('li');
       var t = document.createElement('div'); t.className = 'wt';
-      var b = document.createElement('b'); b.textContent = w.comp.name + ' (Week '+(window.BIO005_WL?BIO005_WL(w.comp.week):w.comp.week)+ ')';
+      var b = document.createElement('b'); b.textContent = w.comp.name + ' (' + weekTitle(w.comp.week) + ')';
       var sp = document.createElement('span'); sp.textContent = w.cards + ' weak card' + (w.cards === 1 ? '' : 's') + ': ' + w.misses + ' missed, ' + w.hard + ' rated Hard';
       t.appendChild(b); t.appendChild(sp);
       var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn';
@@ -949,7 +949,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     var r = S.cards[cur.key] || { st:'new' };
     $('prog').textContent = (done + 1) + ' of ' + total;
     $('meterfill').style.width = Math.round(100 * done / total) + '%';
-    $('mWeek').textContent = 'Week ' + (window.BIO005_WL?BIO005_WL(cur.week):cur.week);
+    $('mWeek').textContent = weekTitle(cur.week);
     $('mTopic').textContent = cur.topic;
     $('mLevel').textContent = 'Level ' + cur.dok;
     $('mState').textContent = r.st === 'new' ? 'New card' : r.st === 'learn' ? 'Relearning' : 'Review';
@@ -983,7 +983,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     v.className = 'verdict ' + (firstRight ? 'right' : 'wrong');
     $('vh').textContent = firstRight ? 'Right.' : 'Not this one. The answer is ' + (cur.ci + 1) + ': ' + cur.options[cur.ci];
     $('vx').textContent = cur.x;
-    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (Week '+(window.BIO005_WL?BIO005_WL(cur.comp.week):cur.comp.week)+ ')';
+    $('vc').textContent = 'Competency: ' + cur.comp.name + ' (' + weekTitle(cur.comp.week) + ')';
     v.hidden = false;
     /* rating buttons, with what each would do */
     var rec = S.cards[cur.key] || { st:'new', iv:0, ease:2.5 };
@@ -1060,7 +1060,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     ids.forEach(function(id){
       var c = compById[id]; var li = document.createElement('li');
       li.innerHTML = '<b></b><span></span>';
-      li.firstChild.textContent = c.name + ' (Week '+(window.BIO005_WL?BIO005_WL(c.week):c.week)+ ', missed ' + sess.missed[id] + ')';
+      li.firstChild.textContent = c.name + ' (' + weekTitle(c.week) + ', missed ' + sess.missed[id] + ')';
       li.lastChild.textContent = c.can;
       ul.appendChild(li);
     });
