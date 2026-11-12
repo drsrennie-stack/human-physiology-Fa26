@@ -122,6 +122,10 @@ select{font-family:var(--body);font-size:16px;color:var(--navy);background:var(-
 .btn:disabled{opacity:.45;cursor:default}
 .btn:disabled:hover{background:#1A2A4E;border-color:var(--navy)}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+.topics{margin:0 0 26px}#prevToggle{margin-bottom:14px}#weeks{max-width:100%;width:100%}.field{min-width:0;max-width:100%}.topicrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0}
+.topicbtn{font:inherit;font-weight:700;font-size:16px;padding:12px 18px;border-radius:999px;border:2px solid #0B1530;background:#fff;color:#0B1530;cursor:pointer;min-height:44px}
+.topicbtn:hover{background:#ECEFF4}.topicbtn[aria-pressed="true"]{background:#0B1530;color:#fff}
+.topicbtn .tn{display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
 /* The only way off this page. Gold, so it reads as the exit rather than one
    more study control. Navy on gold is 7.46:1. */
 .btn.exit{background:var(--gold,#C9A14A);border-color:var(--gold,#C9A14A);color:var(--navy)}
@@ -249,7 +253,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 </div></div>
 
 <header class="top"><div class="wrap">
-  <p class="eyebrow">Practice &middot; No points</p>
+  <p class="eyebrow">Recall cards &middot; One report per chapter</p>
   <h1>Rx <b>Cards.</b></h1>
   <p>Recall cards on a schedule. A card you know comes back later; a card you miss comes back tomorrow. They get harder as you prove them, and every answer tells you why it is right and why the others are not.</p>
   <div class="btnrow">
@@ -279,6 +283,11 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
 
 <!-- ================= SCREEN 1: DUE NOW ================= -->
 <div id="home">
+  <section class="topics" aria-labelledby="topic-h">
+    <h2 id="topic-h">Pick your chapter</h2>
+    <p class="sub">Each chapter has its own cards, its own count and its own report. Open the one you are working on.</p>
+    <div class="topicrow" id="topicRow" role="group" aria-labelledby="topic-h"></div>
+  </section>
   <section aria-labelledby="due-h">
     <h2 id="due-h">Due now</h2>
     <p class="sub" id="dueline">Loading your cards.</p>
@@ -683,11 +692,27 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     b.addEventListener('click', function(){ S.set.size = parseInt(b.dataset.v, 10); save(); renderHome(); });
   });
 
+  /* Nov 11 2026, Scrubs: a chapter menu at the top, one button per open Part 2 topic. */
+  var TOPIC_OPENS = {9:'2026-11-09', 10:'2026-11-11', 11:'2026-11-16', 12:'2026-11-23', 13:'2026-11-30', 14:'2026-12-07'};
+  function renderTopics(){
+    var row = $('topicRow'); if (!row) return; row.innerHTML = '';
+    var td = today();
+    Object.keys(TOPIC_OPENS).map(Number).forEach(function(w){
+      if (TOPIC_OPENS[w] > td && w !== maxWeek) return;
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'topicbtn';
+      var on = (w === maxWeek && onlyWeek); b.setAttribute('aria-pressed', String(on));
+      var t = topicTotals(w);
+      b.innerHTML = '<span class="tn">' + t.n + ' cards so far</span>' + weekTitle(w).replace(/</g,'&lt;');
+      b.addEventListener('click', function(){ maxWeek = w; onlyWeek = true; S.set.maxWeek = w; S.set.onlyWeek = true; S.set.withPrev = false; save(); try { history.replaceState(null, '', location.pathname + '?week=' + w); } catch(e){} renderHome(); renderGoal(); $('due-h').focus && $('due-h').scrollIntoView({block:'start'}); });
+      row.appendChild(b);
+    });
+  }
   function renderHome(){
-    fillWeeks();
+    fillWeeks(); renderTopics();
+    var dh = $('due-h'); if (dh) dh.textContent = 'Due now: ' + weekTitle(maxWeek) + (onlyWeek ? '' : ', plus earlier topics');
     var pt = $('prevToggle');
     if (pt) { var wl = window.BIO005_WL ? BIO005_WL(maxWeek) : maxWeek;
-      pt.textContent = onlyWeek ? 'Add cards from earlier weeks' : 'Show only Week ' + wl + ' cards';
+      pt.textContent = onlyWeek ? 'Mix in cards from earlier topics' : 'Show only ' + weekTitle(maxWeek) + ' cards';
       pt.setAttribute('aria-pressed', String(!onlyWeek)); pt.hidden = maxWeek <= 1; }
     [].forEach.call($('npd').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === S.set.npd)); });
     [].forEach.call($('size').querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.dataset.v,10) === (S.set.size || 0))); });
@@ -792,8 +817,8 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   function goalText(){
     var n = topicTotals(maxWeek).n;
     return n >= WEEK_MIN
-      ? topicName(maxWeek) + ': ' + n + ' cards. You have met the minimum of ' + WEEK_MIN + '. Keep going, because the more cards you do, the better you will do.'
-      : topicName(maxWeek) + ': ' + n + ' of the minimum ' + WEEK_MIN + ' cards. ' + WEEK_MIN + ' is the minimum. The more cards you do, the better you will do.';
+      ? topicName(maxWeek) + ': ' + n + ' cards so far. You have reached the 70 cards for a D. Keep going, because the more cards you do, the better you will do.'
+      : topicName(maxWeek) + ': ' + n + ' cards so far. You need 70 for a D. The more cards you do, the better you will do.';
   }
   function renderGoal(){ $('goalline').textContent = goalText(); renderBand(); }
 
@@ -805,7 +830,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
   var FLOOR = 0.70;  /* Nov 10 2026, Scrubs: a band also needs at least 70 percent right first time that week */
   function bandFor(n, right){ if (right !== undefined && n > 0 && right / n < FLOOR) return 'below D'; for (var i = 0; i < BANDS.length; i++) if (n >= BANDS[i][0]) return BANDS[i][1]; return 'below D'; }
   function weekRight(){ return weekDays().reduce(function(t, d){ return t + d.right; }, 0); }
-  function topicName(w){ return 'Week ' + (window.BIO005_WL ? BIO005_WL(w) : w) + ': ' + weekTitle(w); }
+  function topicName(w){ return weekTitle(w); }
   function topicDays(w){ var L = S.tlog[w] || {}; return Object.keys(L).sort().filter(function(k){ return L[k].seen; }).map(function(k){ var p = k.split('-'), x = new Date(+p[0], +p[1]-1, +p[2]);
     return { key:k, label:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][x.getDay()] + ' ' + (x.getMonth()+1) + '/' + x.getDate() + '/' + x.getFullYear(), seen:L[k].seen, right:L[k].right||0 }; }); }
   function topicTotals(w){ return topicDays(w).reduce(function(t, d){ t.n += d.seen; t.r += d.right; return t; }, {n:0, r:0}); }
