@@ -21,7 +21,7 @@ window.BIO005_PART2 = {
   canvasDiscussions: "https://yccd.instructure.com/courses/42616/discussion_topics",
   virtualOffice: "https://yccd.instructure.com/courses/42616/discussion_topics/711800",
   pathwayPage: "choose-your-pathway.html",
-  midterm2: { label: "Midterm 2", opens: "2026-12-14", closes: "2026-12-16", covers: "Weeks 9 to 14" },
+  midterm2: { label: "Midterm 2", opens: "2026-12-10", closes: "2026-12-14", covers: "Weeks 9 to 14" },
   lastDrop: "2026-11-21",
   /* Nov 8 2026: one unit at a time, aiming for about one unit every five days from the start of Part 2. */
   pace: { start: "2026-11-09", days: 5 },
@@ -146,7 +146,7 @@ window.BIO005_PART2 = {
       project: { label: "Project", url: "" },
       note: "Last full week before Midterm 2." },
 
-    { wk: 15, opens: "2026-12-14", closes: "2026-12-16", title: "The slow pH lever, putting it together, and Midterm 2",
+    { wk: 15, opens: "2026-12-10", closes: "2026-12-14", title: "The slow pH lever, putting it together, and Midterm 2",
       page: "week-15.html", exam: true, competencies: "week-15-competencies.html", notes: "week-15-notes.html", prompts: "note-sheet.html?week=15",
       topicNotes: [{ label: "Acid-base balance: how the kidney controls pH", url: "biol005-w13-acid-base-notes.html#renal-control-of-ph", pdf: "notes/BIO005-Week13-Notes-acid-base.pdf" }],
       lectureVideo: { label: "Walk-through lecture video", url: "" },
@@ -159,7 +159,7 @@ window.BIO005_PART2 = {
       drawing: { label: "Lecture drawing", url: "" },
       cases: { label: "Two cases", url: "" },
       project: { label: "Project", url: "" },
-      note: "Three days only. Midterm 2 runs Monday, December 14 to Wednesday, December 16 and covers Weeks 9 to 14." }
+      note: "Midterm 2 opens Thursday, December 10 and closes Monday, December 14. It covers Weeks 9 to 14." }
   ],
 
   /* Pages that are the same every week. */

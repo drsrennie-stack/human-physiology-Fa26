@@ -103,6 +103,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
 .ls li.ck label{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:800;cursor:pointer;padding:8px 4px;min-height:44px}
 .ls li.ck input{width:20px;height:20px}
 .ls li.ck.done a{background:#ECEFF4;color:var(--mute)}
+.pace .rules{margin:6px 0 10px;padding-left:20px;font-size:14px;line-height:1.5;color:var(--ink);max-width:70ch}.pace .rules li{margin:3px 0}
 .pace .lead{margin:4px 0 8px;font-size:14.5px;line-height:1.5;color:var(--ink);max-width:70ch}
 .units{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
 .units button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(120px,auto);gap:4px 14px;align-items:center;min-height:52px;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:#fff;color:var(--deep);font:inherit;text-align:left;cursor:pointer}
@@ -300,7 +301,12 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
         '<span class="mini" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button></li>';
     }).join('');
     return '<section class="plan pace" aria-labelledby="paceH"><p class="pk">Pace yourself</p><h2 id="paceH">Your units <span>left</span></h2>' +
-      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Aim to finish one unit about every five days. At that pace you finish Week 14 by ' + longDay(aim(i14)) + ', with time to review before ' + esc(D.midterm2.label) + ' opens ' + longDay(m2) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Aim to finish one unit about every five days. At that pace you finish Week 14 by ' + longDay(aim(i14)) + ', with time to review before ' + esc(D.midterm2.label) + ' opens ' + longDay(m2) + '. It closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<ul class="rules" aria-label="How the rest of the term works">' +
+        '<li><b>Work at your own pace.</b> There are no weekly deadlines. Everything is due December 9 at 10:00 pm.</li>' +
+        '<li><b>One unit at a time.</b> The next unit opens in Canvas after everything in the unit before it is turned in and graded at 70% or higher.</li>' +
+        '<li><b>Turn work in as you finish it.</b> Each unit has to be graded before the next one opens, so leaving units for the last week means running out of time.</li>' +
+        '<li><b>One revision per assignment,</b> worth up to 90%. Blank pages, or work turned in just to open the next unit, earn a zero.</li></ul>' +
       '<p class="ptxt" aria-live="polite">' + msg + '</p><ol class="units">' + li + '</ol>' +
       '<p class="tiny">This tracker uses the Done boxes you check on this page, saved in this browser only. Canvas opens each unit once everything in the unit before it is turned in and graded.</p></section>';
   }
@@ -351,7 +357,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       '<b>' + fmt(today) + '</b><span>Today · ' + dayName(today) + '</span>',
       '<b>Week ' + nx.wk + '</b><span>Your unit now</span>',
       '<b>' + done + ' of ' + weeks.length + '</b><span>Units done</span>',
-      '<b>' + fmt(m2) + '</b><span>' + esc(D.midterm2.label) + ' opens</span>',
+      '<b>' + fmt(m2) + '</b><span>' + esc(D.midterm2.label) + ' opens, closes ' + fmt(pd(D.midterm2.closes)) + '</span>',
       '<b>' + (days > 0 ? days + ' day' + (days === 1 ? '' : 's') : (days === 0 ? 'Today' : 'Closed')) + '</b><span>Until ' + esc(D.midterm2.label) + '</span>'
     ].map(function (s) { return '<li class="stat">' + s + '</li>'; }).join('');
   }
@@ -395,11 +401,10 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   }
 
   document.getElementById('quick').innerHTML = [
-    S('Your week, every week', A.yourWeek, 'steps', 't'), S('All fifteen weeks', A.schedule, 'cal'), S('My syllabus', A.syllabus, 'doc'),
+    S('My syllabus', A.syllabus, 'doc'),
     S('Canvas modules', D.canvasModules, 'grid', 'g'), S('Contact Dr. Rennie', D.virtualOffice, 'chat', 'b')].join('');
   document.getElementById('more').innerHTML = [
-    S('Concept videos, Part 2', A.videos, 'play', 't'), S('How every week works', A.howWeeks, 'steps', 'g'),
-    S('Print this week', A.printPack, 'print', 'g'), S('Accessibility', A.accessibility, 'access', 'b')].join('');
+    S('Concept videos, Part 2', A.videos, 'play', 't'), S('Accessibility', A.accessibility, 'access', 'b')].join('');
   var sel = document.getElementById('wkSel');
   sel.innerHTML = weeks.map(function (w) { return '<option value="' + w.wk + '">' + w.wk + '</option>'; }).join('');
   sel.addEventListener('change', function () { render(weeks.filter(function (w) { return String(w.wk) === sel.value; })[0]); });
