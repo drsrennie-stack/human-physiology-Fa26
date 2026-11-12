@@ -249,7 +249,6 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       if (w.project && w.project.url) a.push(it(w.project.label, w.project.url, 'grid', 't', 'Required'));
       a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
       a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
-      a.push(it('Know-It Check, in Canvas, the last thing you do', w.knowIt || D.canvasModules, 'exam', 'g', 'Required'));
     } else {
       a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
       a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
@@ -300,7 +299,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
         '<span class="mini" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button></li>';
     }).join('');
     return '<section class="plan pace" aria-labelledby="paceH"><p class="pk">Pace yourself</p><h2 id="paceH">Your units <span>left</span></h2>' +
-      '<p class="lead">Aim to finish one unit about every five days. At that pace you finish Week 14 by ' + longDay(aim(i14)) + ', with time to review before ' + esc(D.midterm2.label) + ' opens ' + longDay(m2) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Aim to finish one unit about every five days. At that pace you finish Week 14 by ' + longDay(aim(i14)) + ', with time to review before ' + esc(D.midterm2.label) + ' opens ' + longDay(m2) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
       '<p class="ptxt" aria-live="polite">' + msg + '</p><ol class="units">' + li + '</ol>' +
       '<p class="tiny">This tracker uses the Done boxes you check on this page, saved in this browser only. Canvas opens each unit once everything in the unit before it is turned in and graded.</p></section>';
   }
@@ -309,7 +308,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     return '<section class="plan" aria-labelledby="planH"><p class="pk">Unit ' + (i + 1) + ' of ' + weeks.length + ' · aim to finish by ' + longDay(aim(i)) + '</p><h2 id="planH">Week ' + w.wk + ': <span>' + esc(w.title) + '</span></h2>' +
       '<div class="pbar" role="progressbar" aria-label="Week ' + w.wk + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
       '<p class="ptxt" id="planTxt" aria-live="polite">' + c[0] + ' of ' + c[1] + ' done</p>' +
-      '<p class="tiny">Watch the lecture and read the notes first, then the assignments in any order, with the Know-It Check last. Check Done as you finish each one. <button type="button" class="clr" id="planClr">Clear my Week ' + w.wk + ' checks</button></p></section>';
+      '<p class="tiny">Watch the lecture and read the notes first, then the assignments in any order. Check Done as you finish each one. <button type="button" class="clr" id="planClr">Clear my Week ' + w.wk + ' checks</button></p></section>';
   }
   function wireChecks(w) {
     var box = document.getElementById('rows');
@@ -374,7 +373,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       L('Competency packet, all weeks', A.packet, 'print', 'g', 'Reference'), L('Midterm 2 page', weeks[weeks.length - 1].page, 'flag', 'g', 'Reference'));
     if (w.pathway) tools.push(L('How the mastery pathway works', D.pathwayPage, 'steps', 'g', 'Reference'));
     var adesc = w.pathway
-      ? 'Any order, with the Know-It Check last. Pick a target on each one, 70, 80, 90 or 100 percent. Score at least 70% on each to open the next unit.'
+      ? 'Any order. Pick a target on each one, 70, 80, 90 or 100 percent. Score at least 70% on each to open the next unit.'
       : 'Claim one Wiggers case and one cardiac lab case, draw them by hand, and post both in Discussion 9. Rx Cards are graded by how many cards you answer in each topic.';
     var rows = unitHead(w)
       + ROW(1, 't1', 'Do this first', 'Pre-work', '', 'Watch the lecture and read the written notes before any assignment. Everything you turn in this unit builds on them. The optional tools under the notes help it stick.', preWork(w).map(function (x) { return CK(x, w.wk); }).concat([reinforce(w)]))
