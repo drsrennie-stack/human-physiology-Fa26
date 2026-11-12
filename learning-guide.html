@@ -247,6 +247,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
       if (w.stations) a.push(it(w.stations.label, w.stations.url, 'flask', 'b', 'Required'));
       if (w.project && w.project.url) a.push(it(w.project.label, w.project.url, 'grid', 't', 'Required'));
+      if (w.discussion && w.discussion.url) a.push(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'));
       a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
       a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
     } else {
@@ -383,8 +384,6 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       + ROW(5, 't5', 'Practice with', 'Learning tools', '', 'Practice exams and reference sheets. Recommended, not graded.', tools)
       + ROW(6, 't6', 'Need', 'Help', ' with something?', 'Everything is online, so questions go on the Virtual Office board where the whole class can read the answer.', [
           L('Virtual Office, the question board', D.virtualOffice, 'chat', 't'),
-          L('Study With Me', A.studyWithMe, 'people', 'g'),
-          L('Study With Me calendar', A.studyCalendar, 'cal', 'g'),
           L('Accessibility', A.accessibility, 'access', 'b')]);
     document.getElementById('rows').innerHTML = rows;
     wireChecks(w); drawPace(); weekCounts(); stats();

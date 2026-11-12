@@ -75,7 +75,7 @@ window.BIO005_PART2 = {
       study: { label: "Click-through slides: Pressure, flow and blood pressure", url: "li/w10/study.html" },
       noteSheet: { label: "Lecture note sheet, print and fill in", url: "li/w10/BIO005-W10-Lecture-Sheet-Pressure-Flow-BP.pdf" },
       lab: { label: "Clinical lab: Hemodynamics (resistance, the pressure numbers, standing up, predicting the system)", url: "hemodynamics-lab.html" },
-      discussion: { label: "Discussion 10", url: "" },
+      discussion: { label: "Discussion 10: Present your cases", url: "discussion-w10.html" },
       mastery: "mastery-pathway.html?week=10", practice: "practice-exam.html?week=10", ungraded: "ungraded-sheet.html?week=10",
       pathway: true, knowIt: "",
       stations: { label: "Lab stations: the cuff and the ankle-brachial index", url: "bp-stations.html" },
