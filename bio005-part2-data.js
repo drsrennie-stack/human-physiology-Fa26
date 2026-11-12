@@ -25,7 +25,8 @@ window.BIO005_PART2 = {
   lastDrop: "2026-11-21",
   /* Nov 8 2026: one unit at a time, aiming for about one unit every five days from the start of Part 2. */
   /* Nov 11 2026: seven units spread evenly so the last one lands on December 9, the due date for everything. */
-  pace: { start: "2026-11-09", end: "2026-12-09", days: 5 },
+  /* Nov 12 2026: 16 to 20 hours a week, about two units a week. Heart gets the full first week; everything is done by Sunday, December 6. */
+  pace: { start: "2026-11-09", end: "2026-12-09", days: 5, aims: ["2026-11-15", "2026-11-19", "2026-11-22", "2026-11-25", "2026-11-29", "2026-12-03", "2026-12-06"] },
   observances: [
     { date: "2026-11-11", name: "Veterans Day" },
     { date: "2026-11-26", name: "Thanksgiving" },

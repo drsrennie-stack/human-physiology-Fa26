@@ -140,6 +140,17 @@
       var sync = function () { setNm(inp.value.trim()); if (old) { old.value = inp.value; old.dispatchEvent(new Event('input', { bubbles: true })); } banner(); };
       inp.addEventListener('input', sync); sync();
       if (old) { var l = document.querySelector('label[for="' + old.id + '"]'); if (l) l.style.display = 'none'; old.style.display = 'none'; }
+      var warn = el('p', { 'class': 'b5-say', id: 'b5NameWarn', role: 'alert', hidden: 'hidden' }, '<b>Type your name first.</b> It prints at the top of your PDF.');
+      box.appendChild(warn);
+      inp.addEventListener('input', function () { if (inp.value.trim()) { warn.hidden = true; inp.removeAttribute('aria-invalid'); } });
+      /* Print buttons check for a name: send the student to this field, not the hidden old one */
+      document.addEventListener('click', function (ev) {
+        var t = ev.target.closest && ev.target.closest('[data-print]');
+        if (!t || inp.value.trim()) return;
+        ev.preventDefault(); ev.stopImmediatePropagation();
+        warn.hidden = false; inp.setAttribute('aria-invalid', 'true');
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); inp.focus({ preventScroll: true });
+      }, true);
     } else if (mode === 'hand') {
       sec.appendChild(el('p', { 'class': 'b5-hand' }, 'On paper: write your name and your target at the top of your first page.'));
     }

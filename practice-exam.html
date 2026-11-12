@@ -279,7 +279,7 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
 <header class="hero"><div class="wrap">
   <p class="eyebrow">Practice, then find the gaps</p>
   <h1>Practice Exam <span>+ Gap Finder</span>.</h1>
-  <p class="lede">Pick the weeks you want to practice, choose a length, and the tool builds a fresh exam from a bank of more than 5,000 questions. Every question is tied to one competency, so at the end you do not just get a score. You get a list of exactly what to go back and review.</p>
+  <p class="lede">Pick the topics you want to practice, choose a length, and the tool builds a fresh exam from a bank of more than 5,000 questions. Every question is tied to one competency, so at the end you do not just get a score. You get a list of exactly what to go back and review.</p>
 </div></header>
 
 <main id="main">
@@ -307,13 +307,13 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
         <fieldset>
           <legend>Practice mode</legend>
           <div class="radios" id="modes">
-            <label class="chk"><input type="radio" name="mode" value="one" checked><span class="wt"><strong>One week.</strong> <span class="cnt">Just the week you tick.</span></span></label>
-            <label class="chk"><input type="radio" name="mode" value="multi"><span class="wt"><strong>Multiple weeks, Gap Finder.</strong> <span class="cnt">Tick several weeks. The exam draws from all of them and reports each week separately.</span></span></label>
+            <label class="chk"><input type="radio" name="mode" value="one" checked><span class="wt"><strong>One topic.</strong> <span class="cnt">Just the topic you tick.</span></span></label>
+            <label class="chk"><input type="radio" name="mode" value="multi"><span class="wt"><strong>Several topics, Gap Finder.</strong> <span class="cnt">Tick several topics. The exam draws from all of them and reports each topic separately.</span></span></label>
             <label class="chk"><input type="radio" name="mode" value="cumulative"><span class="wt"><strong>Cumulative exam.</strong> <span class="cnt">A midterm block or the whole course.</span></span></label>
           </div>
           <div class="pillrow" id="presets" hidden style="margin-top:10px">
-            <button type="button" class="pill sm" data-weeks="1,2,3,4,5,6,7">Midterm 1, weeks 1 to 8</button>
-            <button type="button" class="pill sm" data-weeks="8,9,10,11,12,13,14">Midterm 2, weeks 8 to 14</button>
+            <button type="button" class="pill sm" data-weeks="1,2,3,4,5,6,7">Midterm 1 topics</button>
+            <button type="button" class="pill sm" data-weeks="9,10,11,12,13,14,15">Midterm 2: all seven Part 2 units</button>
             <button type="button" class="pill sm" data-weeks="opened">Everything opened so far</button>
             <button type="button" class="pill sm" data-weeks="all">Whole course</button>
           </div>
@@ -362,7 +362,7 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
     <div class="card" id="gapcard">
       <p class="role">Your Gap Finder</p>
       <h2 id="gaptitle">Nothing to show yet.</h2>
-      <div id="gapbody"><p class="note">Finish one exam and this card fills in with your score by week and the competencies to start with.</p></div>
+      <div id="gapbody"><p class="note">Finish one exam and this card fills in with your score by topic and the competencies to start with.</p></div>
       <div class="actions" id="gapactions" hidden>
         <button type="button" class="btn gold" id="practicegaps">Practice my gaps</button>
         <button type="button" class="btn ghost sm" id="reportlast">Open my last results report</button>
@@ -371,8 +371,8 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
     <div class="card" id="histcard">
       <p class="role">My practice history</p>
       <h2>Every attempt, kept in this browser.</h2>
-      <p class="note">Nothing here is sent anywhere by itself. It lives in this browser only, so export it if you switch computers or clear your browsing data. Once a week, print your practice log as a PDF and upload it in Canvas. I read those to see who is practicing and who might need a hand before an exam, not to grade you.</p>
-      <div class="tablewrap"><table id="hist"><thead><tr><th>#</th><th>Weeks</th><th class="num">Score</th><th class="num">Confidence</th><th>Date</th></tr></thead><tbody></tbody></table></div>
+      <p class="note">Nothing here is sent anywhere by itself. It lives in this browser only, so export it if you switch computers or clear your browsing data.</p>
+      <div class="tablewrap"><table id="hist"><thead><tr><th>#</th><th>Topics</th><th class="num">Score</th><th class="num">Confidence</th><th>Date</th></tr></thead><tbody></tbody></table></div>
       <div id="improve" class="improve" hidden></div>
       <div class="actions">
         <button type="button" class="btn" id="printlog">Print my weekly practice log</button>
@@ -387,10 +387,10 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
 
 <section><div class="wrap">
   <div class="card" id="trendcard" hidden>
-    <p class="role">Your progress by week</p>
-    <h2>Same week, every attempt, oldest first.</h2>
+    <p class="role">Your progress by topic</p>
+    <h2>Same topic, every attempt, oldest first.</h2>
     <p class="note">This is the honest version of a score. One number tells you where you were. The sequence tells you whether what you are doing is working.</p>
-    <div class="tablewrap"><table id="trends"><thead><tr><th>Week</th><th class="num">Attempts</th><th>Scores, oldest to newest</th><th class="num">Change</th><th>Direction</th></tr></thead><tbody></tbody></table></div>
+    <div class="tablewrap"><table id="trends"><thead><tr><th>Topic</th><th class="num">Attempts</th><th>Scores, oldest to newest</th><th class="num">Change</th><th>Direction</th></tr></thead><tbody></tbody></table></div>
     <h3 style="margin-top:18px">Biggest lift across your recent attempts</h3>
     <p class="note">Average points each competency has cost you per attempt, over your last six attempts. Fix the top of this list first.</p>
     <ol class="gaps" id="lift"></ol>
@@ -401,8 +401,8 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
   <p class="eyebrow">How to use this all term</p>
   <h2>Retrieve, diagnose, study, retrieve again.</h2>
   <div class="loop"><span>Retrieve</span><span>Diagnose</span><span>Study</span><span>Retrieve again</span><span>Compare</span><span>Adjust</span></div>
-  <p>Take an exam before you study, not after. The Gap Finder tells you where the holes are, so you study those competencies instead of rereading everything. Then take another exam on the same weeks and compare. The number that matters is the change between attempts, not the first score.</p>
-  <p>Two different things leave this page. The weekly practice log is a PDF you upload in Canvas for me alone. It shows your attempts and scores by week so I can reach out before an exam if it looks like you could use help. Your discussion post is public, and it never needs a score. Say whether you are improving (a lot, a little, not yet), how many attempts you made, what you changed about how you study, and whether the change helped. If you want to quote your change in percentage points, you can, but you do not have to.</p>
+  <p>Take an exam before you study, not after. The Gap Finder tells you where the holes are, so you study those competencies instead of rereading everything. Then take another exam on the same topics and compare. The number that matters is the change between attempts, not the first score.</p>
+  <p>Practice exams are for you, and nothing here is uploaded unless this page is your Mastery Check. Then you upload each Mastery Check report in Canvas.</p>
   <p>The results report you save at the end lists the competencies you missed, never the questions. That is on purpose. Go back to the Competency Study Guide and the recall cards for those competencies and rebuild the idea, then come back and test it.</p>
 </div></div>
 </main>
@@ -672,7 +672,7 @@ var setup = {
   weeks:function(){ return $$('#weeks input:checked').map(function(c){ return Number(c.value); }); },
   go:function(){
     var ws=setup.weeks(); var msg=$('#gomsg');
-    if(!ws.length){ msg.textContent='Tick at least one week first.'; $('#weeks input').focus(); return; }
+    if(!ws.length){ msg.textContent='Tick at least one topic first.'; $('#weeks input').focus(); return; }
     msg.textContent='';
     runner.launch({ n:setup.n, weeks:ws, mode:setup.mode(), weights:null, label:null, goal:setup.goal });
   },
@@ -814,7 +814,7 @@ var runner = {
     runner.progress();
     var h='<div class="finish"><p class="eyebrow">Your Gap Finder</p><h2>'+pct(a.score)+' percent on <span>'+esc(weeksLabel(a.weeks))+'</span>.</h2>';
     h+='<div class="score"><div><span class="big">'+pct(a.score)+'%</span><small>Overall, all question types</small></div><div><span class="big">'+(a.conf?a.conf.toFixed(1):'n/a')+'</span><small>Average confidence, 1 to 5</small></div><div><span class="big">'+a.n+'</span><small>Questions in '+Math.max(1,Math.round(a.minutes))+' minutes</small></div></div>';
-    var prev=previousSame(a); if(prev){ var pts=pct(a.score)-pct(prev.score); h+='<p class="improve"><strong>Compared with your last attempt on these weeks ('+esc(fmtDate(prev.date))+'):</strong> '+(pts>=0?'+':'')+pts+' percentage points.</p>'; }
+    var prev=previousSame(a); if(prev){ var pts=pct(a.score)-pct(prev.score); h+='<p class="improve"><strong>Compared with your last attempt on these topics ('+esc(fmtDate(prev.date))+'):</strong> '+(pts>=0?'+':'')+pts+' percentage points.</p>'; }
     h+=masteryBlockHTML(a,'h3');
     h+='<h3>Score by topic</h3>'+gapsHTML(a,false);
     h+='<p class="note" style="margin-top:12px">A word on honesty. Nothing here is graded, and the list above is only as good as your answers. Guess when you are guessing, mark low confidence when you feel it, and tick only the brain dump components you really wrote. That is what makes the list point at the right things.</p>';
@@ -962,12 +962,12 @@ var report = {
     return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Practice exam results, '+esc(topicLabel(a.weeks))+', BIO 005</title><style>'+css+'</style></head><body><div class="wrap">'+
       '<div class="btns"><button class="p" onclick="window.print()">Print or save as PDF</button><button onclick="(function(){var b=new Blob([document.documentElement.outerHTML],{type:\'text/html\'});var l=document.createElement(\'a\');l.href=URL.createObjectURL(b);l.download=\'bio005-practice-results-'+a.date.slice(0,10)+'.html\';document.body.appendChild(l);l.click();l.remove();})()">Download as HTML</button></div>'+
       '<p class="eyebrow">BIO 005 Human Physiology, Practice Exam + Gap Finder</p><h1>Practice exam results</h1><p>'+(a.name?'<strong>'+esc(a.name)+'</strong>. ':'')+esc(fmtDateTime(a.date))+'</p>'+
-      '<dl class="meta"><dt>'+(a.weeks.length===1?'Topic':'Weeks')+'</dt><dd>'+esc(topicLabel(a.weeks))+'</dd>'+(a.goal?'<dt>Goal</dt><dd>'+a.goal+' percent</dd>':'')+'<dt>Mode</dt><dd>'+esc(a.label||{one:'One week',multi:'Multiple weeks, Gap Finder',cumulative:'Cumulative exam',gaps:'Practice my gaps'}[a.mode]||a.mode)+'</dd><dt>Questions</dt><dd>'+a.n+' ('+esc(types)+')</dd><dt>Time</dt><dd>'+Math.max(1,Math.round(a.minutes))+' minutes</dd></dl>'+
+      '<dl class="meta"><dt>'+(a.weeks.length===1?'Topic':'Topics')+'</dt><dd>'+esc(topicLabel(a.weeks))+'</dd>'+(a.goal?'<dt>Goal</dt><dd>'+a.goal+' percent</dd>':'')+'<dt>Mode</dt><dd>'+esc(a.label||{one:'One topic',multi:'Several topics, Gap Finder',cumulative:'Cumulative exam',gaps:'Practice my gaps'}[a.mode]||a.mode)+'</dd><dt>Questions</dt><dd>'+a.n+' ('+esc(types)+')</dd><dt>Time</dt><dd>'+Math.max(1,Math.round(a.minutes))+' minutes</dd></dl>'+
       '<div class="score"><div><b>'+pct(a.score)+'%</b><small>Overall score</small></div><div><b>'+(a.conf?a.conf.toFixed(1):'n/a')+'</b><small>Average confidence (1 to 5)</small></div><div><b>'+solid+'</b><small>Competencies with every item right</small></div><div><b>'+review.length+'</b><small>Competencies to review</small></div></div>'+
       (a.quad?'<h2>Confidence check</h2><p>Right and confident: '+a.quad.mastered+'. Right but unsure: '+a.quad.shaky+'. Wrong and unsure: '+a.quad.gap+'. Wrong and confident: '+a.quad.misconception+'.</p>':'')+
       (masteryStatus(a)?'<h2>Mastery Check standard</h2>'+masteryBlockHTML(a,'p'):'')+
       '<h2>Score by topic</h2><table><thead><tr><th>Topic</th><th class="n">Items</th><th class="n">Score</th></tr></thead><tbody>'+weeksRows+'</tbody></table>'+
-      '<h2>Every competency on this attempt</h2><p>How many questions each competency got and how you did on them.'+(masteryStatus(a)?' Every competency for the week is listed, so one that was never tested still shows up here.':'')+'</p>'+compTableHTML(a)+
+      '<h2>Every competency on this attempt</h2><p>How many questions each competency got and how you did on them.'+(masteryStatus(a)?' Every competency for the topic is listed, so one that was never tested still shows up here.':'')+'</p>'+compTableHTML(a)+
       '<h2>Competencies to review</h2><p>These are the competencies with at least one missed item, weakest first. Questions and answers are deliberately not listed. Rebuild each idea from the Competency Study Guide and the recall cards, then test it again.</p>'+(review.length?'<ol>'+reviewRows+'</ol>':'<p>None. Every competency on this attempt was fully correct.</p>')+
       '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder. Attempt '+esc(a.id)+', stamp '+esc(a.stamp)+'. '+(masteryStatus(a)?'A Mastery Check try: upload this report in Canvas.':'Practice results carry no points. The value is in what you do next.')+'</p></div></body></html>';
   },
@@ -999,7 +999,7 @@ var report = {
       '<div class="box"><p class="eyebrow">For your discussion post (no scores needed)</p><p>Improving: <strong>'+verdict+'</strong>. Attempts so far: <strong>'+recent.length+'</strong>. What I changed about how I study: ______. Did it help: ______. What I will do differently next: ______.</p></div>'+
       '<h2>Score by topic</h2><p>Each row is one topic. First and latest are your first and most recent scores on that topic\'s questions.</p><table><thead><tr><th>Topic</th><th class="n">Attempts</th><th class="n">Items</th><th class="n">First</th><th class="n">Latest</th><th class="n">Best</th><th class="n">Change</th></tr></thead><tbody>'+weekRows+'</tbody></table>'+
       '<h2>Biggest lift</h2><p>Average points each competency cost per attempt over the last six attempts. Fixing the top of this list raises the score the most.</p>'+(function(){ var l=biggestLift(attempts).slice(0,8); return l.length?'<ol>'+l.map(function(g){ var c=COMP[g.id]; return '<li><strong>'+esc(c.name)+'</strong> ('+esc(TT(c.week))+', about '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+' per attempt)</li>'; }).join('')+'</ol>':'<p>Nothing is costing points right now.</p>'; })()+
-      '<h2>Every attempt</h2><table><thead><tr><th class="n">#</th><th>Date</th><th>Weeks</th><th class="n">Questions</th><th class="n">Score</th><th class="n">Confidence</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      '<h2>Every attempt</h2><table><thead><tr><th class="n">#</th><th>Date</th><th>Topics</th><th class="n">Questions</th><th class="n">Score</th><th class="n">Confidence</th></tr></thead><tbody>'+rows+'</tbody></table>'+
       '<h2>Still below 70 percent</h2>'+(weak.length?'<p>Across your last six attempts. Start your studying here.</p><ol>'+weakRows+'</ol>':'<p>Nothing is sitting below 70 percent across your recent attempts.</p>')+
       '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder on this device. Log stamp '+esc(stamp)+'. Practice results carry no points; the log is so I can reach out before an exam if it would help.</p></div></body></html>';
   },

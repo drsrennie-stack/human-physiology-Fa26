@@ -147,7 +147,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     <p class="words">Pre-work · Assignments · Notes · Videos · Learning tools</p>
     <ul class="stats" id="stats" aria-label="Where we are in the course"></ul>
     <div class="online">
-      <span><b>Everything is online.</b> Work one unit at a time and aim to finish one about every four or five days.</span>
+      <span><b>Everything is online.</b> Plan on 16 to 20 hours a week. That is about two units a week.</span>
       <label for="wkSel">Show me <select id="wkSel"></select></label>
     </div>
   </div>
@@ -275,7 +275,8 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   var P0 = pd(D.pace.start);
   /* Nov 11 2026: the units are spread evenly from the start of Part 2 to the due date, so the last one lands on December 9. */
   var SPAN = D.pace.end ? Math.round((pd(D.pace.end) - P0) / 86400000) + 1 : D.pace.days * weeks.length;
-  function aim(i) { var d = new Date(P0); d.setDate(d.getDate() + Math.round(SPAN * (i + 1) / weeks.length) - 1); return d; }
+  /* Nov 12 2026, Scrubs: pace by hours. 16 to 20 hours a week is about two units a week, with a full week for the heart. */
+  function aim(i) { if (D.pace.aims && D.pace.aims[i]) return pd(D.pace.aims[i]); var d = new Date(P0); d.setDate(d.getDate() + Math.round(SPAN * (i + 1) / weeks.length) - 1); return d; }
   function U(w) { return 'Unit ' + (weeks.indexOf(w) + 1); }
   function longDay(d) { return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
   function firstOpen() { for (var i = 0; i < weeks.length; i++) { if (!isDone(weeks[i])) return weeks[i]; } return weeks[weeks.length - 1]; }
@@ -306,9 +307,10 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
         '<span class="mini" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button></li>';
     }).join('');
     return '<section class="plan pace" aria-labelledby="paceH"><p class="pk">Pace yourself</p><h2 id="paceH">Your units <span>left</span></h2>' +
-      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> There are seven units, so aim to finish one about every four or five days. ' + esc(D.midterm2.label) + ' is separate: it opens ' + longDay(m2) + ' and closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Pace yourself by hours, not days. This is an accelerated course, so plan on 16 to 20 hours a week. Each unit takes about 8 to 10 hours, which works out to about two units a week, with a full week for Heart Physiology. At that pace you finish by Sunday, December 6, with a few days to spare. ' + esc(D.midterm2.label) + ' is separate: it opens ' + longDay(m2) + ' and closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
       '<ul class="rules" aria-label="How the rest of the term works">' +
         '<li><b>Work at your own pace.</b> There are no weekly deadlines. All seven units are due December 9 at 10:00 pm. Only the midterm comes after that.</li>' +
+        '<li><b>Plan by hours.</b> 16 to 20 hours a week, about 8 to 10 hours per unit.</li>' +
         '<li><b>One unit at a time.</b> The next unit opens in Canvas after everything in the unit before it is turned in and graded at 70% or higher.</li>' +
         '<li><b>Turn work in as you finish it.</b> Each unit has to be graded before the next one opens, so leaving units for the last week means running out of time.</li>' +
         '<li><b>One revision per assignment,</b> worth up to 90%. Blank pages, or work turned in just to open the next unit, earn a zero.</li></ul>' +
