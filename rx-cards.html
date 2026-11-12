@@ -287,10 +287,14 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <h2 id="topic-h">Pick your chapter</h2>
     <p class="sub">Each chapter has its own cards, its own count and its own report. Open the one you are working on.</p>
     <div class="topicrow" id="topicRow" role="group" aria-labelledby="topic-h"></div>
-    <h3 style="margin:22px 0 4px">How many cards earn each level, in each chapter</h3>
+    <h3 style="margin:22px 0 4px">What this assignment is worth</h3>
+    <p class="sub" style="margin:0 0 4px">You choose what each chapter is worth. <b>Pick your target: 70%, 80%, 90% or 100%.</b> Your grade is the level your card count reaches, with at least 70 percent right the first time. Under 70% does not pass.</p>
+    <h3 style="margin:16px 0 4px">How many cards earn each level, in each chapter</h3>
     <div class="rxlv" aria-label="Card counts for each level"><div style="background:#E6E7EB;color:#0B1530"><b>Under 70%</b><span>Fewer than 70 cards, or under 70 percent right</span></div><div style="background:#C9A14A;color:#0B1530"><b>70%</b><span>70 cards</span></div><div style="background:#C2734D;color:#0B1530"><b>80%</b><span>105 cards</span></div><div style="background:#8B3A2E;color:#fff"><b>90%</b><span>175 cards</span></div><div style="background:#0B1530;color:#fff"><b>100%</b><span>350 cards</span></div></div>
     <p class="sub" style="margin:6px 0 0">Every level also needs at least 70 percent of your cards right the first time.</p>
     <fieldset class="rxpick"><legend id="rxPickL">My target for this chapter</legend><div class="rxopts"><label><input type="radio" name="rxTarget" value="70"> 70%</label><label><input type="radio" name="rxTarget" value="80"> 80%</label><label><input type="radio" name="rxTarget" value="90"> 90%</label><label><input type="radio" name="rxTarget" value="100"> 100%</label></div><p class="sub" id="rxPickSay" aria-live="polite"></p></fieldset>
+    <div style="margin:14px 0 0"><label for="rxName" style="display:block;font-weight:800;font-size:15px;margin:0 0 4px">Your name, as it appears in Canvas</label>
+    <input type="text" id="rxName" autocomplete="name" style="font:inherit;font-size:16px;padding:9px 12px;border:1.5px solid #8C90A0;border-radius:10px;max-width:24rem;width:100%;box-sizing:border-box"></div>
   </section>
   <section aria-labelledby="due-h">
     <h2 id="due-h">Due now</h2>
@@ -322,8 +326,6 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
     <div class="card" id="reportcard" style="margin-top:14px">
       <h3 style="margin:0 0 6px">Your topic report</h3>
       <p class="sub" style="margin:0 0 10px">Each topic (chapter) has its own report, for example Heart Physiology and Blood Vessel Physiology. A chapter is graded by how many of its cards you answer, shown in the colored boxes at the top. You also need at least 70 percent of them right the first time, or the chapter counts as under 70%. Put your name in once and this page keeps a running count for each topic. Save the report for the topic you have open and upload it to that topic&rsquo;s Rx Cards assignment by its due date.</p><p class="sub" style="margin:0 0 4px"><b>Save a copy every day. If you do not, you risk losing your count.</b></p><ul class="sub" style="margin:0 0 10px;padding-left:20px"><li>Your count is saved only in this browser, on this device.</li><li>If you switch to another device or clear your browser, the count starts over, and you could lose the points.</li><li>After every session, press the report button below and save the report as a PDF, or take a picture of it. Each report shows the date and time you saved it, the dates you worked, and the topic of your cards.</li><li>Saving a copy is your choice, but I can only grade what you upload. If your count is lost and you have no saved copy, I cannot give you those points.</li><li>If your count records properly, you only upload the one page report for the topic when you finish it.</li></ul>
-      <label for="rxName" style="display:block;font-weight:700;font-size:14px;margin:0 0 4px">Your name, as it appears in Canvas</label>
-      <input type="text" id="rxName" autocomplete="name" style="font:inherit;padding:8px 10px;border:1.5px solid #8C90A0;border-radius:8px;max-width:22rem;width:100%">
       <p class="sub" id="rxBand" style="margin:10px 0 6px" aria-live="polite"></p>
       <div class="btnrow"><button type="button" class="btn" id="rxReport">Print or save this topic's report (PDF)</button></div>
       <p class="sub" id="rxSync" style="margin:8px 0 0;font-size:13px"></p>
@@ -863,7 +865,7 @@ kbd{font-family:var(--body);font-size:12.5px;font-weight:700;background:var(--na
       + (low ? 'That is under the 70 percent right floor, so this chapter counts as under 70% until more of your cards are right.'
              : 'That is ' + (b === 'under 70%' ? 'under 70% (you need 70 cards)' : '<strong>' + b + '</strong>') + (nx ? '. ' + (nx[0] - n) + ' more cards reaches ' + nx[1] + '.' : '. Top band.'));
   }
-  (function(){ var nm = $('rxName'); if (!nm) return; nm.value = S.name || ''; nm.addEventListener('change', function(){ S.name = nm.value.trim(); save(); syncDay(true); }); })();
+  (function(){ var nm = $('rxName'); if (!nm) return; var b5n=''; try{ b5n=localStorage.getItem('b5-name')||''; }catch(e){} nm.value = S.name || b5n; nm.addEventListener('change', function(){ S.name = nm.value.trim(); try{ localStorage.setItem('b5-name', S.name); }catch(e){} save(); syncDay(true); }); })();
   function syncDay(force){
     if (!CARD_LOG_URL || !S.name) { var sy = $('rxSync'); if (sy) sy.textContent = CARD_LOG_URL ? 'Add your name and your daily counts are sent to Dr. Rennie automatically.' : ''; return; }
     var k = today(), L = S.log[k] || {seen:0,right:0};

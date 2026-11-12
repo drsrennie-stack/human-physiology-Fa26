@@ -283,6 +283,14 @@ dialog.xdlg::backdrop{background:rgba(6,10,24,.7)}
 </div></header>
 
 <main id="main">
+<!-- Nov 11 2026, Scrubs: grade block for the Heart Physiology Mastery Check (only on ?week=9). bio005-levels.js moves it to the top. -->
+<div class="b5-levels" id="b5MC" data-mode="none" data-name="1" data-fail="Fewer than 3 tries that count, or no try that counts at 70 percent or higher. A try counts when it covers only Heart Physiology, has at least 30 questions, and tests every competency at least once." data-worth="The Heart Physiology Mastery Check is graded on your best try that counts: <b>70%, 80%, 90% or 100%</b>. Pick your goal, then do at least 3 tries with studying in between. Under 70% does not pass."><table><caption class="sr">Heart Physiology Mastery Check levels</caption><tbody>
+<tr><th scope="row">70%</th><td>At least 3 tries that count. Your best one is at 70 percent or higher.</td></tr>
+<tr><th scope="row">80%</th><td>Your best try that counts is at 80 percent or higher.</td></tr>
+<tr><th scope="row">90%</th><td>Your best try that counts is at 90 percent or higher.</td></tr>
+<tr><th scope="row">100%</th><td>Your best try that counts is at 100 percent.</td></tr>
+</tbody></table></div>
+<script>(function(){ if(!/[?&]week=9(&|$)/.test(location.search)){ var h=document.getElementById('b5MC'); h.parentNode.removeChild(h); } })();</script>
 <section><div class="wrap">
   <div class="card" id="builder">
     <p class="role">Build an exam</p>
@@ -649,7 +657,7 @@ var setup = {
     $('#practicegaps').addEventListener('click', setup.practiceGaps);
     $('#reportlast').addEventListener('click', function(){ var h=history(); if(h.attempts.length) report.open(h.attempts[h.attempts.length-1]); });
     $('#export').addEventListener('click', setup.exportHistory);
-    $('#printlog').addEventListener('click', function(){ var h=history(); if(!h.attempts.length){ $('#histmsg').textContent='Finish one exam first, then the log has something to show.'; return; } var name=prompt('Your name, for the top of the log only. It is not stored.'); if(name===null) return; report.openLog(h.attempts, name.trim()); });
+    $('#printlog').addEventListener('click', function(){ var h=history(); if(!h.attempts.length){ $('#histmsg').textContent='Finish one exam first, then the log has something to show.'; return; } var name=prompt('Your name, for the top of the log. It stays in this browser only.', (function(){ try{ return localStorage.getItem('b5-name')||''; }catch(e){ return ''; } })()); if(name===null) return; report.openLog(h.attempts, name.trim()); });
     $('#importfile').addEventListener('change', setup.importHistory);
     window.addEventListener('storage', function(e){ if(e.key===KEY_HIST) setup.render(); });
     window.addEventListener('focus', setup.render);
@@ -808,12 +816,13 @@ var runner = {
     h+='<div class="score"><div><span class="big">'+pct(a.score)+'%</span><small>Overall, all question types</small></div><div><span class="big">'+(a.conf?a.conf.toFixed(1):'n/a')+'</span><small>Average confidence, 1 to 5</small></div><div><span class="big">'+a.n+'</span><small>Questions in '+Math.max(1,Math.round(a.minutes))+' minutes</small></div></div>';
     var prev=previousSame(a); if(prev){ var pts=pct(a.score)-pct(prev.score); h+='<p class="improve"><strong>Compared with your last attempt on these weeks ('+esc(fmtDate(prev.date))+'):</strong> '+(pts>=0?'+':'')+pts+' percentage points.</p>'; }
     h+=masteryBlockHTML(a,'h3');
-    h+='<h3>Score by week</h3>'+gapsHTML(a,false);
+    h+='<h3>Score by topic</h3>'+gapsHTML(a,false);
     h+='<p class="note" style="margin-top:12px">A word on honesty. Nothing here is graded, and the list above is only as good as your answers. Guess when you are guessing, mark low confidence when you feel it, and tick only the brain dump components you really wrote. That is what makes the list point at the right things.</p>';
     if(a.miscon && a.miscon.length){ h+='<h3>Watch these: wrong while confident</h3><ul>'+a.miscon.map(function(id){ return '<li><strong>'+esc(COMP[id].name)+'</strong> <span class="note">('+esc(TT(COMP[id].week))+')</span></li>'; }).join('')+'</ul><p class="note">A confident wrong answer usually means a misconception rather than a blank. Those are worth fixing first because they will not go away on their own.</p>'; }
-    h+='<h3>Save your results</h3><p>The report lists the competencies to review, not the questions, so you can upload it to Canvas when I ask for it. Your name goes on the report only. It is not stored anywhere.</p><div class="namebox"><label for="rname"><strong>Your name</strong></label><input type="text" id="rname" autocomplete="name" placeholder="Name for the report"></div>';
+    h+='<h3>Save your results</h3><p>The report lists the competencies to review, not the questions, so you can upload it to Canvas when I ask for it. Your name goes on the report and stays in this browser only.</p><div class="namebox"><label for="rname"><strong>Your name</strong></label><input type="text" id="rname" autocomplete="name" placeholder="Name for the report"></div>';
     h+='<div class="xactions"><button type="button" class="btn" id="saverep">Open my results report</button><button type="button" class="btn gold" id="againgaps">Practice my gaps</button><button type="button" class="btn ghost" id="done">Done</button></div></div>';
     card.innerHTML=h;
+    try{ var _n=localStorage.getItem('b5-name'); if(_n && $('#rname',card) && !$('#rname',card).value) $('#rname',card).value=_n; }catch(e){}
     $('#saverep', card).addEventListener('click', function(){ a.name=$('#rname',card).value.trim(); report.open(a); });
     $('#againgaps', card).addEventListener('click', function(){ var w=compWeightsFrom(history().attempts.filter(function(x){ return x.weeks.some(function(y){ return a.weeks.indexOf(y)>=0; }); })); runner.begin({ id:uid(), n:a.n>30?30:a.n<20?20:a.n, weeks:a.weeks, mode:'gaps', weights:w, label:'Practice my gaps' }, runner.host); });
     $('#done', card).addEventListener('click', function(){ if(runner.inDialog){ $('#xdlg').close(); document.body.classList.remove('run'); setup.render(); } else { window.close(); card.innerHTML='<p>You can close this window now. Your attempt is saved on the setup page.</p>'; } });
@@ -957,10 +966,10 @@ var report = {
       '<div class="score"><div><b>'+pct(a.score)+'%</b><small>Overall score</small></div><div><b>'+(a.conf?a.conf.toFixed(1):'n/a')+'</b><small>Average confidence (1 to 5)</small></div><div><b>'+solid+'</b><small>Competencies with every item right</small></div><div><b>'+review.length+'</b><small>Competencies to review</small></div></div>'+
       (a.quad?'<h2>Confidence check</h2><p>Right and confident: '+a.quad.mastered+'. Right but unsure: '+a.quad.shaky+'. Wrong and unsure: '+a.quad.gap+'. Wrong and confident: '+a.quad.misconception+'.</p>':'')+
       (masteryStatus(a)?'<h2>Mastery Check standard</h2>'+masteryBlockHTML(a,'p'):'')+
-      '<h2>Score by week</h2><table><thead><tr><th>Week</th><th class="n">Items</th><th class="n">Score</th></tr></thead><tbody>'+weeksRows+'</tbody></table>'+
+      '<h2>Score by topic</h2><table><thead><tr><th>Topic</th><th class="n">Items</th><th class="n">Score</th></tr></thead><tbody>'+weeksRows+'</tbody></table>'+
       '<h2>Every competency on this attempt</h2><p>How many questions each competency got and how you did on them.'+(masteryStatus(a)?' Every competency for the week is listed, so one that was never tested still shows up here.':'')+'</p>'+compTableHTML(a)+
       '<h2>Competencies to review</h2><p>These are the competencies with at least one missed item, weakest first. Questions and answers are deliberately not listed. Rebuild each idea from the Competency Study Guide and the recall cards, then test it again.</p>'+(review.length?'<ol>'+reviewRows+'</ol>':'<p>None. Every competency on this attempt was fully correct.</p>')+
-      '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder. Attempt '+esc(a.id)+', stamp '+esc(a.stamp)+'. Practice results carry no points. The value is in what you do next.</p></div></body></html>';
+      '<p class="stamp">Generated by the BIO 005 Practice Exam + Gap Finder. Attempt '+esc(a.id)+', stamp '+esc(a.stamp)+'. '+(masteryStatus(a)?'A Mastery Check try: upload this report in Canvas.':'Practice results carry no points. The value is in what you do next.')+'</p></div></body></html>';
   },
   logHtml:function(attempts, name){
     var css=report.css();
@@ -987,8 +996,8 @@ var report = {
       '<p class="eyebrow">BIO 005 Human Physiology, Practice Exam + Gap Finder</p><h1>Weekly practice log</h1><p>'+(name?'<strong>'+esc(name)+'</strong>. ':'')+'Printed '+esc(fmtDateTime(now.toISOString()))+'. Upload this in Canvas. It is for Dr. Rennie only.</p>'+
       '<div class="score"><div><b>'+recent.length+'</b><small>Attempts in the last 7 days</small></div><div><b>'+qRecent+'</b><small>Questions answered in the last 7 days</small></div><div><b>'+Math.round(minRecent)+'</b><small>Minutes in the last 7 days</small></div><div><b>'+attempts.length+'</b><small>Attempts all term on this device</small></div></div>'+
       '<h2>Am I improving?</h2><p>'+trend+'</p>'+
-      '<div class="box"><p class="eyebrow">For your discussion post (no scores needed)</p><p>Improving: <strong>'+verdict+'</strong>. Attempts this week: <strong>'+recent.length+'</strong>. What I changed about how I study: ______. Did it help: ______. What I will do differently next: ______.</p></div>'+
-      '<h2>Score by week</h2><p>Each row is one week of the course. First and latest are your first and most recent scores on that week\'s questions.</p><table><thead><tr><th>Week</th><th class="n">Attempts</th><th class="n">Items</th><th class="n">First</th><th class="n">Latest</th><th class="n">Best</th><th class="n">Change</th></tr></thead><tbody>'+weekRows+'</tbody></table>'+
+      '<div class="box"><p class="eyebrow">For your discussion post (no scores needed)</p><p>Improving: <strong>'+verdict+'</strong>. Attempts so far: <strong>'+recent.length+'</strong>. What I changed about how I study: ______. Did it help: ______. What I will do differently next: ______.</p></div>'+
+      '<h2>Score by topic</h2><p>Each row is one topic. First and latest are your first and most recent scores on that topic\'s questions.</p><table><thead><tr><th>Topic</th><th class="n">Attempts</th><th class="n">Items</th><th class="n">First</th><th class="n">Latest</th><th class="n">Best</th><th class="n">Change</th></tr></thead><tbody>'+weekRows+'</tbody></table>'+
       '<h2>Biggest lift</h2><p>Average points each competency cost per attempt over the last six attempts. Fixing the top of this list raises the score the most.</p>'+(function(){ var l=biggestLift(attempts).slice(0,8); return l.length?'<ol>'+l.map(function(g){ var c=COMP[g.id]; return '<li><strong>'+esc(c.name)+'</strong> ('+esc(TT(c.week))+', about '+Math.round(g.pts)+' point'+(Math.round(g.pts)===1?'':'s')+' per attempt)</li>'; }).join('')+'</ol>':'<p>Nothing is costing points right now.</p>'; })()+
       '<h2>Every attempt</h2><table><thead><tr><th class="n">#</th><th>Date</th><th>Weeks</th><th class="n">Questions</th><th class="n">Score</th><th class="n">Confidence</th></tr></thead><tbody>'+rows+'</tbody></table>'+
       '<h2>Still below 70 percent</h2>'+(weak.length?'<p>Across your last six attempts. Start your studying here.</p><ol>'+weakRows+'</ol>':'<p>Nothing is sitting below 70 percent across your recent attempts.</p>')+
@@ -1067,5 +1076,7 @@ if(run){
 <!-- A way back, on every page. -->
 <!-- A way back to the Week page, or to Canvas, on every page. -->
 <script src="bio005-back.js"></script>
+<script src="bio005-levels.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){ var t=document.getElementById("b5Top"), g=document.getElementById("goals"); if(!t||!g) return; var fs=g.closest("fieldset"); var cards=t.querySelector(".b5-nm"); t.insertBefore(fs, cards ? cards.nextSibling : null); fs.style.margin="14px 0 0"; });</script>
 </body>
 </html>

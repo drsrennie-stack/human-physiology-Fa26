@@ -96,12 +96,19 @@ td.n,th.n{text-align:right}
 </div></header>
 
 <main id="main">
+  <!-- Nov 11 2026, Scrubs: grade block. bio005-levels.js moves it to the top of the page. -->
+  <div class="b5-levels" data-mode="none" data-fail="Under 80 percent right on the foundational questions. Your score is then your percent correct on them, up to 69 percent." data-worth="Your grade is the highest level you show: <b>70%, 80%, 90% or 100%</b>. A level counts when you get at least 80 percent of its questions right, and every level below it counts too. You get two graded attempts."><table><caption class="sr">Mastery Check levels</caption><tbody>
+  <tr><th scope="row">70%</th><td>At least 80 percent right on the foundational questions: recall and explain the essential physiology.</td></tr>
+  <tr><th scope="row">80%</th><td>At least 80 percent right on the mechanistic questions: cause and effect, and how the body regulates it.</td></tr>
+  <tr><th scope="row">90%</th><td>At least 80 percent right on the applied questions: predict the response to a disturbance.</td></tr>
+  <tr><th scope="row">100%</th><td>At least 80 percent right on the integrated cases: new cases where this topic meets an earlier one.</td></tr>
+  </tbody></table></div>
   <div id="setup">
     <div class="card">
       <p class="attempt" id="attemptTag"></p>
       <h2>Before you start</h2>
       <ul class="tight">
-        <li>Do the pre-work first: the lecture video and the written notes for this week. Every question comes from them.</li>
+        <li>Do the pre-work first: the lecture video and the written notes for this topic. Every question comes from them.</li>
         <li>Close your notes, the book, other tabs and any AI tool, and keep them closed until you submit.</li>
         <li>Your score is the highest level you show, not the level you pick.</li>
         <li>A level counts when you get at least 80 percent of its questions right, and every level below it counts too. Below the 70 level, your score is your percent correct on the foundational questions, up to 69 percent.</li>
@@ -137,7 +144,7 @@ td.n,th.n{text-align:right}
     { pct: 70, name: 'Foundational', can: 'Identify and explain the essential mechanisms.', head: 'Foundational questions', sub: 'Recall and explain the essential physiology.' },
     { pct: 80, name: 'Mechanistic', can: 'Also explain cause and effect, including how it is regulated.', head: 'Mechanistic questions', sub: 'Cause and effect, and how the body regulates it.' },
     { pct: 90, name: 'Applied', can: 'Also predict what happens when something is disturbed.', head: 'Applied questions', sub: 'Predict the response to a disturbance.' },
-    { pct: 100, name: 'Integrated', can: 'Also analyze new cases where more than one system is involved.', head: 'Integrated cases', sub: 'New cases where this week meets an earlier week.' }
+    { pct: 100, name: 'Integrated', can: 'Also analyze new cases where more than one system is involved.', head: 'Integrated cases', sub: 'New cases where this topic meets an earlier one.' }
   ];
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function load() { try { return JSON.parse(localStorage.getItem(KEY)) || { attempts: [] }; } catch (e) { return { attempts: [] }; } }
@@ -315,5 +322,6 @@ td.n,th.n{text-align:right}
   if (window.ResizeObserver) { new ResizeObserver(send).observe(document.body); }
 })();
 </script>
+<script src="bio005-levels.js"></script>
 </body>
 </html>
