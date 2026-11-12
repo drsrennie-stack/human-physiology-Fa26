@@ -41,6 +41,7 @@
     '.b5-nm input{font:inherit;font-size:16px;padding:9px 12px;border:1.5px solid #8C90A0;border-radius:10px;width:100%;max-width:24rem;box-sizing:border-box}' +
     '.b5-nm input:focus{outline:3px solid #B8924A;outline-offset:2px}' +
     '.b5-hand{margin:12px 0 0;font-weight:700;color:#060B1A}' +
+    '.b5-time{margin:6px 0 0;font-size:15px;color:#1f2a44}.b5-time b{color:#060B1A}' +
     '.b5-top details{margin:12px 0 0}.b5-top summary{cursor:pointer;font-weight:800;color:#060B1A;min-height:44px;display:flex;align-items:center;gap:8px;border:2px solid #B8924A;border-radius:999px;padding:6px 16px;width:max-content;max-width:100%;box-sizing:border-box}' +
     '.b5-top summary:focus-visible{outline:3px solid #B8924A;outline-offset:2px}' +
     '.b5-moved{font-weight:700;color:#414B5C;margin:8px 0}' +
@@ -122,7 +123,8 @@
   var NAME_IDS = ['studentName', 'stName'];
   function top() {
     if (!parts.length) return;
-    var first = parts[0].holder, cfg = function (a) { return (first.getAttribute && first.getAttribute(a)) || ''; };
+    var first = parts[0].holder, ftab = first.querySelector && first.querySelector('table.pw-lv,table');
+    var cfg = function (a) { return (first.getAttribute && first.getAttribute(a)) || (ftab && ftab.getAttribute(a)) || ''; };
     var mode = parts[0].mode, tabs = !!document.querySelector('[role="tabpanel"]');
     var multi = parts[0].picks.length > 1;
     var worth = cfg('data-worth') || (mode === 'none'
@@ -130,6 +132,7 @@
       : 'You choose what this is worth. <b>Pick your target: 70%, 80%, 90% or 100%.</b> ' + (multi ? 'Each one is graded on its own. ' : '') + 'Your grade is the level your work reaches. Under 70% does not pass.');
     var sec = el('section', { id: 'b5Top', 'class': 'b5-top', 'aria-labelledby': 'b5TopH' },
       '<p class="b5-k">Your grade</p><h2 id="b5TopH">What this assignment is worth</h2><p class="b5-worth">' + worth + '</p>');
+    if (cfg('data-time')) sec.appendChild(el('p', { 'class': 'b5-time' }, '<b>Time:</b> ' + cfg('data-time') + '.'));
     if (cfg('data-target-from')) sec.setAttribute('data-target-from', cfg('data-target-from'));
     var wantName = mode === 'print' || cfg('data-name') === '1';
     if (wantName) {

@@ -67,6 +67,10 @@ window.BIO005_PART2 = {
       discussion: { label: "Discussion 9: Present your cases", url: "discussion-w9-cases.html" },
       cases: { label: "Two cases: a Wiggers diagram case and a cardiac lab case", url: "week09-wiggers-cases.html", url2: "week09-cardiac-lab-cases.html" },
       mastery: "practice-exam.html?week=9", practice: "practice-exam.html?week=9", ungraded: "ungraded-sheet.html?week=9",
+      /* Nov 12 2026: time estimates for a student doing the work at a passing level. Videos measured (139 min of clips plus the
+         required first 56 min of the EKG video); notes 7,700 words; the rest estimated from the lab, case and Mastery Check size. */
+      hours: "about 12 to 13 hours",
+      times: { video: "about 3 hours 15 minutes", notes: "about 1 hour", lab: "about 2.5 to 3 hours, with PhysioEx", wiggers: "about 1 to 1.5 hours", cardiaccase: "about 1 hour", discussion: "about 45 minutes", rx: "about 35 minutes", mastery: "about 1.5 hours, over 3 tries" },
       note: "Veterans Day is Wednesday, November 11. Nothing is due that day." },
 
     { wk: 10, opens: "2026-11-11", closes: "2026-11-22", title: "Blood Vessel Physiology",
@@ -79,6 +83,9 @@ window.BIO005_PART2 = {
       lab: { label: "Clinical lab: Hemodynamics (resistance, the pressure numbers, standing up, predicting the system)", url: "hemodynamics-lab.html" },
       discussion: { label: "Discussion 10: Present your cases", url: "discussion-w10.html" },
       mastery: "mastery-pathway.html?week=10", practice: "practice-exam.html?week=10", ungraded: "ungraded-sheet.html?week=10",
+      /* Nov 12 2026: lecture video measured at 70 min; notes 7,400 words; the rest estimated. */
+      hours: "about 9 to 11 hours",
+      times: { video: "about 1 hour 10 minutes", notes: "about 1 hour", drawing: "about 45 minutes", cases: "about 1.5 hours", lab: "about 2 to 2.5 hours, with PhysioEx", stations: "about 1 hour", discussion: "about 45 minutes", rx: "about 35 minutes", mastery: "about 45 minutes" },
       pathway: true, knowIt: "",
       stations: { label: "Lab stations: the cuff and the ankle-brachial index", url: "bp-stations.html" },
       drawing: { label: "Lecture drawing: standing up", url: "week10-drawing.html" },

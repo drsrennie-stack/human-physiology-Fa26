@@ -103,6 +103,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
 .ls li.ck label{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:800;cursor:pointer;padding:8px 4px;min-height:44px}
 .ls li.ck input{width:20px;height:20px}
 .ls li.ck.done a{background:#ECEFF4;color:var(--mute)}
+.tx .tm{display:block;font-size:13px;font-weight:600;color:#5A6172;margin-top:2px}.pa .ph{display:block;font-size:12.5px;font-weight:700;color:#5A6172;margin-top:2px;text-transform:none;letter-spacing:0}
 .pace .rules{margin:6px 0 10px;padding-left:20px;font-size:14px;line-height:1.5;color:var(--ink);max-width:70ch}.pace .rules li{margin:3px 0}
 .pace .lead{margin:4px 0 8px;font-size:14.5px;line-height:1.5;color:var(--ink);max-width:70ch}
 .units{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
@@ -234,32 +235,34 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   function prog() { try { return JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; } catch (e) { return {}; } }
   function saveProg(p) { try { localStorage.setItem(PKEY, JSON.stringify(p)); } catch (e) {} }
   function it(label, url, ic, col, pill, key) { return { label: label, url: url || '', ic: ic, col: col, pill: pill, key: key || label }; }
+  /* Nov 12 2026: about how long each item takes, from the unit's times in the data file */
+  function T(x, w, k) { if (w && w.times && w.times[k]) x.time = w.times[k]; return x; }
   function preWork(w) {
     var lv = w.lectureVideo || {};
     /* Nov 11 2026, Scrubs: no all-notes-on-one-page hub. Pre-work links straight to the notes, one per topic. */
     var tn = w.topicNotes || [], rd = tn.length > 1
       ? tn.map(function (n) { return it('Read the notes: ' + n.label, n.url, 'note', '', 'Pre-work'); })
-      : [it('Read the written notes', tn.length ? tn[0].url : w.notes, 'note', '', 'Pre-work')];
-    return [it('Watch the lecture video', lv.url, 'video', '', 'Pre-work')].concat(rd);
+      : [T(it('Read the written notes', tn.length ? tn[0].url : w.notes, 'note', '', 'Pre-work'), w, 'notes')];
+    return [T(it('Watch the lecture video', lv.url, 'video', '', 'Pre-work'), w, 'video')].concat(rd);
   }
   function labName(w) { return 'Do the lab circuit: ' + String(w.lab.label).split(' (')[0].replace(/^Clinical lab: /, ''); }
   function assignments(w) {
     var a = [];
     if (w.pathway) {
-      a.push(it(w.drawing.label, w.drawing.url, 'pen', 't', 'Required'));
-      a.push(it(w.cases.label, w.cases.url, 'note', 't', 'Required'));
-      a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
-      if (w.stations) a.push(it(w.stations.label, w.stations.url, 'flask', 'b', 'Required'));
+      a.push(T(it(w.drawing.label, w.drawing.url, 'pen', 't', 'Required'), w, 'drawing'));
+      a.push(T(it(w.cases.label, w.cases.url, 'note', 't', 'Required'), w, 'cases'));
+      a.push(T(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'), w, 'lab'));
+      if (w.stations) a.push(T(it(w.stations.label, w.stations.url, 'flask', 'b', 'Required'), w, 'stations'));
       if (w.project && w.project.url) a.push(it(w.project.label, w.project.url, 'grid', 't', 'Required'));
-      if (w.discussion && w.discussion.url) a.push(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'));
-      a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
-      a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
+      if (w.discussion && w.discussion.url) a.push(T(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'), w, 'discussion'));
+      a.push(T(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'), w, 'rx'));
+      a.push(T(it('Mastery Check', w.mastery, 'target', 'g', 'Required'), w, 'mastery'));
     } else {
-      a.push(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'));
-      a.push(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'));
-      if (w.cases) { a.push(it('Claim and do your Wiggers case', w.cases.url, 'grid', 't', 'Required')); a.push(it('Claim and do your cardiac lab case', w.cases.url2, 'grid', 't', 'Required')); }
-      a.push(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'));
-      a.push(it('Mastery Check', w.mastery, 'target', 'g', 'Required'));
+      a.push(T(it('Rx Cards for this topic', A.rx + '?week=' + w.wk, 'cards', 't', 'Required', 'Rx Cards this week'), w, 'rx'));
+      a.push(T(it(labName(w), w.lab.url, 'flask', 'b', 'Required', 'lab'), w, 'lab'));
+      if (w.cases) { a.push(T(it('Claim and do your Wiggers case', w.cases.url, 'grid', 't', 'Required'), w, 'wiggers')); a.push(T(it('Claim and do your cardiac lab case', w.cases.url2, 'grid', 't', 'Required'), w, 'cardiaccase')); }
+      a.push(T(it(w.discussion.label, w.discussion.url, 'chat', 't', 'Required'), w, 'discussion'));
+      a.push(T(it('Mastery Check', w.mastery, 'target', 'g', 'Required'), w, 'mastery'));
     }
     return a;
   }
@@ -285,7 +288,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
     var p = (prog()[wk] || {}), done = !!p[x.key];
     if (!x.url) return '<li class="ck"><span class="soon"><span class="li" aria-hidden="true">' + svg(x.ic) + '</span><span class="tx">' + esc(x.label) + '</span><span class="pill">not posted yet</span></span><span></span></li>';
     var ext = /^https?:/.test(x.url), id = 'ck' + wk + '_' + x.key.replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
-    return '<li class="ck' + (done ? ' done' : '') + '"><a href="' + esc(x.url) + '"' + attrs(x.url) + '><span class="li ' + (x.col || '') + '" aria-hidden="true">' + svg(x.ic) + '</span><span class="tx">' + esc(x.label) + '</span>' +
+    return '<li class="ck' + (done ? ' done' : '') + '"><a href="' + esc(x.url) + '"' + attrs(x.url) + '><span class="li ' + (x.col || '') + '" aria-hidden="true">' + svg(x.ic) + '</span><span class="tx">' + esc(x.label) + (x.time ? '<span class="tm">' + esc(x.time) + '</span>' : '') + '</span>' +
       '<span class="ar" aria-hidden="true">' + (ext ? '&#8599;' : '&#8594;') + '</span>' + (ext ? '<span class="sr"> (opens in a new tab)</span>' : '') + '</a>' +
       '<label for="' + id + '"><input type="checkbox" id="' + id + '" data-k="' + esc(x.key) + '"' + (done ? ' checked' : '') + '> Done</label></li>';
   }
@@ -303,14 +306,14 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
       var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0, st = isDone(w) ? 'Done' : c[0] ? c[0] + ' of ' + c[1] + ' done' : 'Not started';
       var late = !isDone(w) && aim(i) < today;
       return '<li' + (isDone(w) ? ' class="done"' : '') + '><button type="button" data-wk="' + w.wk + '"><span class="pw">' + U(w) + '<span class="pt">' + esc(w.title) + '</span></span>' +
-        '<span class="pa">Aim to finish by<b>' + fmt(aim(i)) + '</b></span><span class="ps' + (late ? ' late' : '') + '">' + st + (late ? ', past the aim date' : '') + '</span>' +
+        '<span class="pa">Aim to finish by<b>' + fmt(aim(i)) + '</b>' + (w.hours ? '<span class="ph">' + esc(w.hours) + '</span>' : '') + '</span><span class="ps' + (late ? ' late' : '') + '">' + st + (late ? ', past the aim date' : '') + '</span>' +
         '<span class="mini" aria-hidden="true"><span style="width:' + pct + '%"></span></span></button></li>';
     }).join('');
     return '<section class="plan pace" aria-labelledby="paceH"><p class="pk">Pace yourself</p><h2 id="paceH">Your units <span>left</span></h2>' +
-      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Pace yourself by hours, not days. This is an accelerated course, so plan on 16 to 20 hours a week. Each unit takes about 8 to 10 hours, which works out to about two units a week, with a full week for Heart Physiology. At that pace you finish by Sunday, December 6, with a few days to spare. ' + esc(D.midterm2.label) + ' is separate: it opens ' + longDay(m2) + ' and closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
+      '<p class="lead"><b>Everything is due Wednesday, December 9 at 10:00 pm.</b> Pace yourself by hours, not days. This is an accelerated course, so plan on 16 to 20 hours a week. Units are not all the same size. Some are lighter and some are heavier, and each unit shows about how many hours it takes. At 16 to 20 hours a week, that works out to about two units a week. Heart Physiology is one of the heaviest, about 12 to 13 hours, so it gets a full week. At that pace you finish by Sunday, December 6, with a few days to spare. ' + esc(D.midterm2.label) + ' is separate: it opens ' + longDay(m2) + ' and closes ' + longDay(pd(D.midterm2.closes)) + '. Saving several units for the last week will not work: there is too much to get through.</p>' +
       '<ul class="rules" aria-label="How the rest of the term works">' +
         '<li><b>Work at your own pace.</b> There are no weekly deadlines. All seven units are due December 9 at 10:00 pm. Only the midterm comes after that.</li>' +
-        '<li><b>Plan by hours.</b> 16 to 20 hours a week, about 8 to 10 hours per unit.</li>' +
+        '<li><b>Plan by hours.</b> 16 to 20 hours a week. Each unit and each assignment shows about how long it takes.</li>' +
         '<li><b>One unit at a time.</b> The next unit opens in Canvas after everything in the unit before it is turned in and graded at 70% or higher.</li>' +
         '<li><b>Turn work in as you finish it.</b> Each unit has to be graded before the next one opens, so leaving units for the last week means running out of time.</li>' +
         '<li><b>One revision per assignment,</b> worth up to 90%. Blank pages, or work turned in just to open the next unit, earn a zero.</li></ul>' +
@@ -319,7 +322,7 @@ html,body{margin:0;background:var(--page);color:var(--deep);font-family:"Plus Ja
   }
   function unitHead(w) {
     var c = counts(w), pct = c[1] ? Math.round(100 * c[0] / c[1]) : 0, i = weeks.indexOf(w);
-    return '<section class="plan" aria-labelledby="planH"><p class="pk">Unit ' + (i + 1) + ' of ' + weeks.length + ' · aim to finish by ' + longDay(aim(i)) + '</p><h2 id="planH"><span>' + esc(w.title) + '</span></h2>' +
+    return '<section class="plan" aria-labelledby="planH"><p class="pk">Unit ' + (i + 1) + ' of ' + weeks.length + ' · aim to finish by ' + longDay(aim(i)) + (w.hours ? ' · ' + esc(w.hours) : '') + '</p><h2 id="planH"><span>' + esc(w.title) + '</span></h2>' +
       '<div class="pbar" role="progressbar" aria-label="' + esc(w.title) + ' progress" aria-valuemin="0" aria-valuemax="' + c[1] + '" aria-valuenow="' + c[0] + '"><span style="width:' + pct + '%"></span></div>' +
       '<p class="ptxt" id="planTxt" aria-live="polite">' + c[0] + ' of ' + c[1] + ' done</p>' +
       '<p class="tiny">Watch the lecture and read the notes first, then the assignments in any order. Check Done as you finish each one. <button type="button" class="clr" id="planClr">Clear my checks for this unit</button></p></section>';
