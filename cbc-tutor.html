@@ -278,6 +278,26 @@ footer a{color:var(--ink)}
 .tab:hover{color:var(--ink)}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--maroon)}
 .brand{color:var(--ink)}
+
+/* calculator and formula practice */
+input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10px;border:1px solid #6B7483;border-radius:6px;min-height:44px;color:var(--ink);background:#fff}
+.calc{border-top:1px solid var(--line);padding:16px 0 6px}
+.card h4.calc-h{font-family:var(--display);font-size:1.08rem;text-transform:none;letter-spacing:0;color:var(--ink);margin:0 0 4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stepl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);font-weight:700;margin:14px 0 6px}
+.setup{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700}
+.setup select{width:auto;max-width:100%}
+.setup input[type=number]{width:130px}
+.calcbox{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0;background:#fff}
+.calcbox summary{cursor:pointer;font-weight:700;min-height:28px}
+.pad{display:grid;grid-template-columns:repeat(4,minmax(44px,62px));gap:6px;margin:10px 0}
+.pad button{min-height:44px;border:1px solid #6B7483;border-radius:6px;background:#fff;font:700 1rem var(--display);cursor:pointer;color:var(--ink)}
+.pad button.op{background:var(--tint)}
+.pad button.eq{background:var(--ink);color:#fff;grid-column:span 2}
+.calc-out{display:block;font-family:var(--display);font-weight:700;font-size:1.1rem;margin-top:6px}
+.vals{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:10px 0}
+.vals li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.92rem;background:#fff}
+.why-row td{background:var(--tint);font-size:.9rem;padding-top:6px;padding-bottom:10px}
+.calc .opts{margin-top:6px}
 @media (max-width:600px){th,td{padding:8px 6px}.hero{padding:40px 0 28px}.tab{padding:14px 12px 10px;letter-spacing:.1em}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.lift:hover{transform:none}}
 </style>
@@ -295,7 +315,7 @@ footer a{color:var(--ink)}
         <div class="scene" hidden><p class="eyebrow">What it is</p><h2>A CBC counts the cells in a sample of blood.</h2><p class="lead">CBC stands for complete blood count. It is one of the most common laboratory tests.</p></div>
         <div class="scene" hidden><p class="eyebrow">What it counts</p><h2>It reports on three kinds of cells.</h2><ul class="trio"><li><b>Red blood cells</b> (erythrocytes) carry oxygen.</li><li><b>White blood cells</b> (leukocytes) defend against infection.</li><li><b>Platelets</b> (thrombocytes) start blood clots.</li></ul><img class="shot" data-smear alt="Blood smear under the microscope: many pink red blood cells, labeled erythrocytes, and one dark purple white blood cell, labeled lymphocyte." width="1100" height="581"></div>
         <div class="scene" hidden><p class="eyebrow">White blood cells</p><h2>White blood cells come in five types.</h2><ul class="five"><li><img data-img="neut" alt="">Neutrophil</li><li><img data-img="lymph" alt="">Lymphocyte</li><li><img data-img="mono" alt="">Monocyte</li><li><img data-img="eos" alt="">Eosinophil</li><li><img data-img="baso" alt="">Basophil</li></ul><p class="lead">The differential reports the percentage of each type.</p></div>
-        <div class="scene" hidden><p class="eyebrow">Your turn</p><h2>Where do you want to begin?</h2><div class="grid g3 entries"><button type="button" class="entry card lift" data-go="learn"><span class="num" aria-hidden="true">01</span><span class="etitle">Learn</span><span class="edesc">What each value means, with cell pictures, concept maps and graphs.</span><span class="estat">15 values · 7 pictures · 3 concept maps</span><span class="ego">Start learning</span></button>
+        <div class="scene" hidden><p class="eyebrow">Your turn</p><h2>Where do you want to begin?</h2><div class="grid g3 entries"><button type="button" class="entry card lift" data-go="learn"><span class="num" aria-hidden="true">01</span><span class="etitle">Learn</span><span class="edesc">What each value means, with cell pictures, concept maps and calculator practice.</span><span class="estat">15 values · 7 pictures · 3 concept maps</span><span class="ego">Start learning</span></button>
       <button type="button" class="entry card lift" data-go="practice"><span class="num" aria-hidden="true">02</span><span class="etitle">Practice</span><span class="edesc">Read ten patient CBCs. Flag the values, then name the pattern.</span><span class="estat" id="st-practice">0 of 10 cases done</span><span class="ego">Start practice</span></button>
       <button type="button" class="entry card lift" data-go="quiz"><span class="num" aria-hidden="true">03</span><span class="etitle">Quiz</span><span class="edesc">Ten questions, with an explanation for every answer choice.</span><span class="estat" id="st-quiz">Not taken yet</span><span class="ego">Take the quiz</span></button>
     </div><div class="row" style="justify-content:center"><button class="ctl" type="button" data-go="interpreter">Open the CBC interpreter</button></div></div>
@@ -395,6 +415,24 @@ footer a{color:var(--ink)}
   </div>
 
   <div class="sec">
+    <p class="eyebrow">Calculator</p>
+    <h2>Set up the formula, calculate, then <span class="hl">interpret</span></h2>
+    <p class="sub">The laboratory measures hemoglobin, hematocrit and the cell counts directly. The red cell indices and the absolute neutrophil count are calculated from them.</p>
+    <div class="card" style="margin-bottom:16px"><h3>Worked example</h3>
+      <ul>
+        <li>A patient has a hematocrit of 29.0% and an RBC count of 3.90 ×10⁶/µL.</li>
+        <li>Set up the formula: MCV = hematocrit ÷ RBC count × 10.</li>
+        <li>Calculate: 29.0 ÷ 3.90 × 10 = 74.4 fL.</li>
+        <li>Interpret: 74.4 fL is below 80 fL, so the red blood cells are microcytic (smaller than normal).</li>
+      </ul></div>
+    <div class="card"><h3>Now you try</h3>
+      <p class="note">Use this patient's measured values. Each calculation has three parts: set up the formula, calculate, and interpret.</p>
+      <div id="calcLearn"></div>
+      <div class="row"><button type="button" class="btn ghost" id="calcNew">Try a new patient</button></div>
+    </div>
+  </div>
+
+  <div class="sec">
     <p class="eyebrow">White cells</p>
     <h2>Which cell type went <span class="hl">up</span>?</h2>
     <p class="sub">Each white cell type responds to a different kind of problem.</p>
@@ -466,7 +504,7 @@ footer a{color:var(--ink)}
   <div class="sec">
     <p class="eyebrow">Practice</p>
     <h2>Ten patients, ten <span class="hl">CBCs</span></h2>
-    <p class="sub">Step 1: flag each value. Step 2: name the pattern. Your finished cases are saved on this device.</p>
+    <p class="sub">Step 1: calculate the indices. Step 2: flag each value. Step 3: name the pattern. Your finished cases are saved on this device.</p>
     <ul class="chips" id="caseChips" aria-label="Choose a case"></ul>
     <div id="caseBody"></div>
   </div>
@@ -767,6 +805,127 @@ document.getElementById('i-example').addEventListener('click',function(){
   renderInterp();
 });
 
+
+/* ---------- calculator and formula practice ---------- */
+function evalExpr(s){
+  s=String(s).replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/,/g,'').replace(/\s+/g,'');
+  if(!s||/[^0-9.+\-*\/()]/.test(s))return NaN;
+  var i=0;
+  function num(){var st=i;while(i<s.length&&/[0-9.]/.test(s[i]))i++;return i>st?parseFloat(s.slice(st,i)):NaN;}
+  function fac(){if(s[i]==='('){i++;var x=expr();if(s[i]===')'){i++;return x;}return NaN;}if(s[i]==='-'){i++;return -fac();}return num();}
+  function term(){var x=fac();while(s[i]==='*'||s[i]==='/'){var o=s[i++],y=fac();x=o==='*'?x*y:x/y;}return x;}
+  function expr(){var x=term();while(s[i]==='+'||s[i]==='-'){var o=s[i++],y=term();x=o==='+'?x+y:x-y;}return x;}
+  var r=expr();return i===s.length&&isFinite(r)?r:NaN;
+}
+var calcN=0;
+function makeCalculator(){
+  var id='calc'+(++calcN);
+  var inp=el('input',{type:'text',id:id,inputmode:'decimal',autocomplete:'off',cls:'calc-in'});
+  var out=el('output',{cls:'calc-out','aria-live':'polite','for':id,text:'The result appears here.'});
+  function run(){var r=evalExpr(inp.value);out.textContent=isNaN(r)?'Check the entry and try again.':'= '+(Math.round(r*1000)/1000).toLocaleString('en-US',{maximumFractionDigits:3});}
+  var pad=el('div',{cls:'pad'}),names={'÷':'divide','×':'multiply','−':'minus','+':'plus','(':'open parenthesis',')':'close parenthesis','.':'decimal point'};
+  ['7','8','9','÷','4','5','6','×','1','2','3','−','0','.','(',')'].forEach(function(k){
+    var b=el('button',{type:'button',cls:/[0-9.]/.test(k)?'':'op',text:k});if(names[k])b.setAttribute('aria-label',names[k]);
+    b.addEventListener('click',function(){inp.value+=k;});pad.appendChild(b);
+  });
+  var plus=el('button',{type:'button',cls:'op','aria-label':'plus',text:'+'});plus.addEventListener('click',function(){inp.value+='+';});
+  var del=el('button',{type:'button',cls:'op','aria-label':'delete last character',text:'Del'});del.addEventListener('click',function(){inp.value=inp.value.slice(0,-1);});
+  var clr=el('button',{type:'button',cls:'op','aria-label':'clear',text:'Clear'});clr.addEventListener('click',function(){inp.value='';out.textContent='The result appears here.';});
+  var eq=el('button',{type:'button',cls:'eq','aria-label':'equals',text:'='});eq.addEventListener('click',run);
+  pad.appendChild(plus);pad.appendChild(del);pad.appendChild(clr);pad.appendChild(eq);
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();run();}});
+  return el('details',{cls:'calcbox'},el('summary',{text:'Open the calculator'}),el('label',{'for':id,text:'Type or tap a calculation, for example 29 ÷ 3.9 × 10, then press equals.'}),inp,pad,out);
+}
+var CALCS={
+ mcv:{name:'MCV',full:'average red cell size',unit:'fL',a:'hct',b:'rbc',k:10,dp:1,tol:0.1,opsA:['hgb','hct','rbc','wbc'],opsB:['hgb','hct','rbc','wbc'],words:'MCV = hematocrit ÷ RBC count × 10',
+  interp:[['Microcytic: below 80 fL',function(x){return x<80;},'The red blood cells are microcytic, which means smaller than normal.'],['Normocytic: 80 to 100 fL',function(x){return x>=80&&x<=100;},'The red blood cells are normocytic, which means a normal size.'],['Macrocytic: above 100 fL',function(x){return x>100;},'The red blood cells are macrocytic, which means larger than normal.']]},
+ mch:{name:'MCH',full:'hemoglobin per red cell',unit:'pg',a:'hgb',b:'rbc',k:10,dp:1,tol:0.1,opsA:['hgb','hct','rbc','wbc'],opsB:['hgb','hct','rbc','wbc'],words:'MCH = hemoglobin ÷ RBC count × 10',
+  interp:[['Low: below 27 pg',function(x){return x<27;},'Each red blood cell carries less hemoglobin than normal.'],['Normal: 27 to 33 pg',function(x){return x>=27&&x<=33;},'Each red blood cell carries a normal amount of hemoglobin.'],['High: above 33 pg',function(x){return x>33;},'Each red blood cell carries more hemoglobin than normal, which usually means the cells are large.']]},
+ mchc:{name:'MCHC',full:'hemoglobin concentration in red cells',unit:'g/dL',a:'hgb',b:'hct',k:100,dp:1,tol:0.1,opsA:['hgb','hct','rbc','wbc'],opsB:['hgb','hct','rbc','wbc'],words:'MCHC = hemoglobin ÷ hematocrit × 100',
+  interp:[['Hypochromic: below 32 g/dL',function(x){return x<32;},'The red blood cells are hypochromic, which means paler than normal.'],['Normochromic: 32 to 36 g/dL',function(x){return x>=32&&x<=36;},'The red blood cells are normochromic, which means the hemoglobin concentration is normal.'],['High: above 36 g/dL',function(x){return x>36;},'The hemoglobin concentration is higher than normal, which is uncommon.']]},
+ anc:{name:'ANC',full:'absolute neutrophil count',unit:'cells/µL',mul:true,a:'wbcAbs',b:'nb',k:100,dp:0,tol:5,opsA:['wbcAbs','rbc','hgb'],opsB:['nb','lymph','mono'],words:'ANC = WBC count in cells per µL × (neutrophils % + bands %) ÷ 100',
+  interp:[['Severe neutropenia: below 500 cells/µL',function(x){return x<500;},'This is severe neutropenia. The risk of infection is very high.'],['Neutropenia: 500 to 1,499 cells/µL',function(x){return x>=500&&x<1500;},'This is neutropenia. The risk of infection is raised.'],['No neutropenia: 1,500 cells/µL or more',function(x){return x>=1500;},'The patient has enough neutrophils and is not neutropenic.']]}
+};
+function optVal(k,v){return k==='wbcAbs'?v.wbc*1000:k==='nb'?v.neut+v.band:v[k];}
+function numTxt(k,v){return k==='rbc'?v.rbc.toFixed(2):k==='wbcAbs'?Math.round(v.wbc*1000).toLocaleString('en-US'):(k==='nb'||k==='lymph'||k==='mono')?String(optVal(k,v)):v[k].toFixed(1);}
+function optLabel(k,v){var n={hgb:'Hemoglobin',hct:'Hematocrit',rbc:'RBC count',wbc:'WBC count',wbcAbs:'WBC count',nb:'Neutrophils + bands',lymph:'Lymphocytes',mono:'Monocytes'}[k],u={hgb:' g/dL',hct:'%',rbc:' ×10⁶/µL',wbc:' ×10³/µL',wbcAbs:' cells/µL',nb:'%',lymph:'%',mono:'%'}[k];return n+' ('+numTxt(k,v)+u+')';}
+function calcTruth(key,v){var c=CALCS[key];return c.mul?optVal(c.a,v)*optVal(c.b,v)/c.k:optVal(c.a,v)/optVal(c.b,v)*c.k;}
+function calcWidget(key,v,onDone){
+  var c=CALCS[key],n='cw'+(++calcN),truth=calcTruth(key,v),rounded=Number(truth.toFixed(c.dp));
+  var shown=c.dp?rounded.toFixed(c.dp):rounded.toLocaleString('en-US');
+  var status=el('span',{cls:'flag ok',text:'To do'});
+  var box=el('div',{cls:'calc','data-calc':key},el('h4',{cls:'calc-h'},c.name+': '+c.full,status));
+  function sel(ops,lab){var s=el('select',{'aria-label':lab},el('option',{value:'',text:'Choose'}));ops.forEach(function(o){s.appendChild(el('option',{value:String(o),text:typeof o==='number'?String(o):optLabel(o,v)}));});return s;}
+  var sA=sel(c.opsA,'First value'),sB=sel(c.opsB,'Second value'),sK=sel([10,100,1000],c.mul?'Number to divide by':'Number to multiply by');
+  var chk1=el('button',{type:'button',cls:'btn ghost',text:'Check setup'}),hint=el('button',{type:'button',cls:'btn ghost',text:'Show the formula'});
+  var live1=el('div',{'aria-live':'polite'}),s2=el('div'),s3=el('div');
+  box.appendChild(el('p',{cls:'stepl',text:'1. Set up the formula'}));
+  box.appendChild(el('div',{cls:'setup'},c.name+' =',sA,c.mul?'×':'÷',sB,c.mul?'÷':'×',sK));
+  box.appendChild(el('div',{cls:'row',style:'margin-top:10px'},chk1,hint));box.appendChild(live1);box.appendChild(s2);box.appendChild(s3);
+  function say(host,text,bad){clear(host);host.appendChild(el('p',{cls:'mark'+(bad?' no':''),text:text}));}
+  hint.addEventListener('click',function(){say(live1,c.words+'.',false);});
+  chk1.addEventListener('click',function(){
+    if(sA.value===c.a&&sB.value===c.b&&sK.value===String(c.k)){
+      [sA,sB,sK,chk1,hint].forEach(function(x){x.disabled=true;});say(live1,'The setup is correct.',false);status.textContent='In progress';step2();
+    }else if(!sA.value||!sB.value||!sK.value){say(live1,'Choose something for all three boxes first.',true);
+    }else if(!c.mul&&sA.value===c.b&&sB.value===c.a){say(live1,'Those two values are in the wrong order. Decide which one is being divided.',true);
+    }else{var w=[];if(sA.value!==c.a)w.push('first value');if(sB.value!==c.b)w.push('second value');if(sK.value!==String(c.k))w.push('last number');say(live1,'Not yet. Look again at the '+w.join(' and the ')+'.',true);}
+  });
+  function step2(){
+    var inp=el('input',{type:'number',step:'any',id:n+'a','aria-label':c.name+' answer in '+c.unit}),chk=el('button',{type:'button',cls:'btn ghost',text:'Check answer'}),show=el('button',{type:'button',cls:'btn ghost',text:'Show the answer',hidden:'hidden'}),live=el('div',{'aria-live':'polite'}),miss=0;
+    s2.appendChild(el('p',{cls:'stepl',text:'2. Calculate'}));
+    s2.appendChild(el('div',{cls:'setup'},c.name+' = '+numTxt(c.a,v)+(c.mul?' × ':' ÷ ')+numTxt(c.b,v)+(c.mul?' ÷ ':' × ')+c.k+' =',inp,el('span',{cls:'unit',text:c.unit})));
+    s2.appendChild(el('div',{cls:'row',style:'margin-top:10px'},chk,show));s2.appendChild(live);
+    function ok(){inp.value=c.dp?rounded.toFixed(c.dp):String(rounded);[inp,chk,show].forEach(function(x){x.disabled=true;});say(live,c.name+' is '+shown+' '+c.unit+'.',false);step3();}
+    chk.addEventListener('click',function(){
+      var x=parseFloat(inp.value);
+      if(isNaN(x)){say(live,'Type your answer first.',true);return;}
+      if(Math.abs(x-truth)<=c.tol||x===Math.round(truth)){ok();}
+      else{miss++;say(live,'Not yet. Redo the calculation'+(c.dp?' and round to one decimal place.':'.'),true);if(miss>=2)show.hidden=false;}
+    });
+    show.addEventListener('click',ok);
+    inp.focus();
+  }
+  function step3(){
+    var name=n+'i',list=el('div',{cls:'opts'}),chk=el('button',{type:'button',cls:'btn ghost',text:'Check interpretation'}),live=el('div',{'aria-live':'polite'}),right=0;
+    c.interp.forEach(function(o,i){if(o[1](rounded))right=i;list.appendChild(el('label',{cls:'opt','for':name+i},el('input',{type:'radio',name:name,id:name+i,value:String(i)}),el('span',{text:o[0]})));});
+    s3.appendChild(el('p',{cls:'stepl',text:'3. Interpret'}));
+    s3.appendChild(el('fieldset',{style:'border:0;padding:0;margin:0'},el('legend',{cls:'sr',text:'What does a '+c.name+' of '+shown+' '+c.unit+' mean?'}),list));
+    s3.appendChild(el('div',{cls:'row',style:'margin-top:10px'},chk));s3.appendChild(live);
+    chk.addEventListener('click',function(){
+      var pick=s3.querySelector('input:checked');
+      if(!pick){say(live,'Choose an interpretation first.',true);return;}
+      if(Number(pick.value)===right){[].forEach.call(s3.querySelectorAll('input'),function(x){x.disabled=true;});chk.disabled=true;say(live,'Correct. '+c.interp[right][2],false);status.textContent='Done';status.className='flag low';onDone(key,rounded);}
+      else say(live,'Not yet. Compare '+shown+' '+c.unit+' with each range and choose again.',true);
+    });
+  }
+  return box;
+}
+function calcGroup(v,onAll){
+  var keys=['mcv','mch','mchc','anc'],done={},left=keys.length,wrap=el('div'),msg=el('div',{'aria-live':'polite'});
+  wrap.appendChild(makeCalculator());
+  keys.forEach(function(k){wrap.appendChild(calcWidget(k,v,function(key){if(!done[key]){done[key]=true;left--;}if(left===0){clear(msg);msg.appendChild(el('p',{cls:'result',text:'All four calculations are done.'}));if(onAll)onAll();}}));});
+  wrap.appendChild(msg);return wrap;
+}
+function measuredList(v){
+  var ul=el('ul',{cls:'vals','aria-label':'Measured values'});
+  [['hgb','Hemoglobin'],['hct','Hematocrit'],['rbc','RBC count'],['wbc','WBC count']].forEach(function(p){ul.appendChild(el('li',{text:optLabel(p[0],v)}));});
+  ul.appendChild(el('li',{text:'Neutrophils ('+v.neut+'%)'}));ul.appendChild(el('li',{text:'Bands ('+v.band+'%)'}));ul.appendChild(el('li',{text:'Lymphocytes ('+v.lymph+'%)'}));ul.appendChild(el('li',{text:'Monocytes ('+v.mono+'%)'}));
+  return ul;
+}
+function randPatient(){
+  function r(a,b,dp){return Number((a+Math.random()*(b-a)).toFixed(dp));}
+  var rbc,mcv,hct;do{rbc=r(2.6,5.8,2);mcv=r(68,110,0);hct=Number((mcv*rbc/10).toFixed(1));}while(hct<20||hct>58);
+  var hgb=Number((hct*r(29.5,35.5,1)/100).toFixed(1)),neut=Math.round(r(15,80,0)),band=Math.round(r(0,10,0)),mono=Math.round(r(2,5,0)),eos=Math.round(r(0,2,0));
+  return {rbc:rbc,hct:hct,hgb:hgb,wbc:r(1.2,18,1),neut:neut,band:band,mono:mono,eos:eos,baso:0,lymph:100-neut-band-mono-eos};
+}
+function renderCalcLearn(){
+  var host=document.getElementById('calcLearn'),v=randPatient();clear(host);
+  host.appendChild(measuredList(v));host.appendChild(calcGroup(v,null));
+}
+document.getElementById('calcNew').addEventListener('click',renderCalcLearn);
+renderCalcLearn();
+
 /* ---------- cases ---------- */
 function D(n,b,l,m,e,ba){return {neut:n,band:b,lymph:l,mono:m,eos:e,baso:ba};}
 var NORMAL_DIFF=D(56,2,30,7,4,1);
@@ -908,7 +1067,7 @@ function renderCase(focus){
       el('td',null,seg)));
   });
   var step1=el('div',{cls:'card'},
-    el('h3',{text:'Step 1: Flag each value'}),
+    el('h3',{tabindex:'-1',text:'Step 2: Flag each value'}),
     el('p',{cls:'note',text:'Every row starts on Normal. Compare each result with its range and change the ones that are low or high.'}),
     el('div',{cls:'scroll'},el('table',null,
       el('caption',{cls:'sr',text:'CBC results for this patient'}),
@@ -916,7 +1075,14 @@ function renderCase(focus){
   var check=el('button',{type:'button',cls:'btn',text:'Check my flags'});
   var live1=el('div',{'aria-live':'polite'});
   step1.appendChild(el('div',{cls:'row'},check));step1.appendChild(live1);
-  host.appendChild(step1);
+  var rb=el('tbody');
+  ORDER.forEach(function(id){var t=BY[id];if(t.calc)return;rb.appendChild(el('tr',null,el('th',{scope:'row',text:t.name}),el('td',{cls:'val'},fmt(t,v[id])+' ',el('span',{cls:'unit',text:t.unit})),el('td',{text:rngText(t,c.sex)})));});
+  var calcCard=el('div',{cls:'card',style:'margin-bottom:16px'},
+    el('h3',{text:'Step 1: Calculate the indices'}),
+    el('p',{cls:'note',text:'These are the values the laboratory measured. Use them to set up each formula, calculate the result and interpret it. Step 2 opens when all four are done.'}),
+    el('div',{cls:'scroll'},el('table',null,el('caption',{cls:'sr',text:'Measured values for this patient'}),el('thead',null,el('tr',null,el('th',{scope:'col',text:'Test'}),el('th',{scope:'col',text:'Result'}),el('th',{scope:'col',text:'Reference range'}))),rb)),
+    calcGroup(v,function(){step1.hidden=false;var hh=step1.querySelector('h3');hh.scrollIntoView({block:'start'});hh.focus();}));
+  step1.hidden=true;host.appendChild(calcCard);host.appendChild(step1);
   var step2=el('div',{style:'margin-top:16px'});host.appendChild(step2);
 
   check.addEventListener('click',function(){
@@ -927,10 +1093,11 @@ function renderCase(focus){
       var cell=tr.lastChild,word=want==='L'?'Low':want==='H'?'High':'Normal';
       if(got===want){right++;cell.appendChild(el('span',{cls:'mark',text:'Correct'}));}
       else cell.appendChild(el('span',{cls:'mark no',text:'Should be '+word}));
+      if(want!=='N')tr.parentNode.insertBefore(el('tr',{cls:'why-row'},el('td',{colspan:'4',text:BY[id].name+' is '+word.toLowerCase()+'. '+(want==='H'?BY[id].hi:BY[id].lo)})),tr.nextSibling);
     });
     check.disabled=true;
     live1.appendChild(el('p',{cls:'result',text:right+' of '+ORDER.length+' flags correct. Now name the pattern.'}));
-    renderMC(step2,'Which description fits this CBC best?',c.opts.map(function(o){return o;}),'Step 2: Name the pattern',function(ok,live){
+    renderMC(step2,'Which description fits this CBC best?',c.opts.map(function(o){return o;}),'Step 3: Name the pattern',function(ok,live){
       live.appendChild(el('div',{cls:'card',style:'margin-top:16px'},el('h4',{style:'margin-top:0',text:'Remember'}),el('p',{style:'margin:0',text:c.take})));
       save.cases[cur]=true;persist();renderChips();
       var next=el('button',{type:'button',cls:'btn',text:cur<CASES.length-1?'Next case':'Go to the quiz'});
@@ -1022,7 +1189,7 @@ function renderQuiz(focus){
 QUIZ=shuffle(QUIZ);
 
 /* expose for testing */
-window.__cbc={TESTS:TESTS,CASES:CASES,QUIZ:QUIZ,caseVals:caseVals,flag:flag,BY:BY,ORDER:ORDER,interpret:interpret};
+window.__cbc={calcTruth:calcTruth,CALCS:CALCS,evalExpr:evalExpr,TESTS:TESTS,CASES:CASES,QUIZ:QUIZ,caseVals:caseVals,flag:flag,BY:BY,ORDER:ORDER,interpret:interpret};
 
 renderCase(false);renderQuiz(false);show(location.hash.slice(1));
 if(NAMES.indexOf(location.hash.slice(1))<0&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){pOn=true;}
