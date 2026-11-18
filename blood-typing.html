@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blood Typing and Screen Tutor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#060B1A; --maroon:#7A1F2B; --maroon-dark:#C8384C; --gold:#D2A94E;
+  --page:#FAFAF9; --card:#FFFFFF; --line:#D5DAE1; --muted:#414B5A; --tint:#EDF1F3;
+  --rest:0 1px 3px rgba(0,0,0,.08); --lift:0 8px 16px rgba(0,0,0,.10);
+  --display:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --body:"DM Sans","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box;font-style:normal}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0}
+p{margin:0 0 .75rem}
+ul{margin:0;padding-left:1.15rem}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;background:#fff;color:var(--ink);padding:10px 16px;z-index:10;font-weight:700}
+.skip:focus{left:12px;top:12px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
+.band :focus-visible{outline-color:var(--gold)}
+.eyebrow{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+.hl{color:var(--maroon)}
+
+/* dark band */
+.band{background:var(--ink);color:#fff}
+.band .eyebrow{color:var(--gold)}
+.band .hl{color:var(--maroon-dark)}
+.hero{padding:56px 0 40px}
+.hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;letter-spacing:-.02em;max-width:14ch}
+.hero p.lead{font-size:1.1rem;max-width:52ch;margin:18px 0 22px;color:#E7EAF0}
+.pills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
+.pill{border:1px solid currentColor;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.band .pill{color:#E7EAF0}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid #2A3145}
+.tab{appearance:none;background:none;border:0;border-bottom:4px solid transparent;color:#E7EAF0;font-family:var(--body);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:16px 18px 12px;cursor:pointer}
+.tab[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold)}
+.tab:hover{color:#fff}
+
+main{padding:40px 0 64px}
+.panel[hidden]{display:none}
+.sec{margin:0 0 48px}
+.sec > h2{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
+.sec > p.sub{color:var(--muted);max-width:60ch;margin-bottom:22px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--rest);padding:20px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.lift{transition:transform 200ms ease,box-shadow 200ms ease}
+.lift:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+.num{font-family:var(--display);font-weight:800;font-size:3.6rem;line-height:1;color:var(--maroon);margin-bottom:8px}
+.card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+.card h4{font-size:.78rem;font-family:var(--body);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);margin:12px 0 2px}
+.card p,.card li{font-size:.97rem}
+.tag{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.range{font-family:var(--display);font-weight:700;font-size:1rem;margin:2px 0 4px}
+.unit{color:var(--muted);font-weight:500;font-family:var(--body);font-size:.9rem}
+
+table{border-collapse:collapse;width:100%;font-size:.97rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+thead th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+tbody th{font-weight:700}
+.scroll{overflow-x:auto}
+.grp td{background:var(--tint);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px}
+.val{font-family:var(--display);font-weight:700;white-space:nowrap}
+
+.term{appearance:none;background:none;border:0;border-bottom:2px dotted var(--maroon);padding:0;font:inherit;color:inherit;cursor:help}
+.def{display:block;background:var(--ink);color:#fff;border-radius:6px;padding:8px 12px;margin:6px 0;font-size:.92rem;max-width:46ch}
+
+.btn{appearance:none;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;font-family:var(--body);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;cursor:pointer;min-height:44px}
+.btn:hover{background:#1B2440}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn.ghost:hover{background:var(--tint)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+
+/* forms */
+fieldset{border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 16px;background:#fff}
+legend{font-family:var(--display);font-weight:700;padding:0 8px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+label{display:block;font-size:.9rem;font-weight:700;margin-bottom:4px}
+.hint{display:block;font-weight:400;color:var(--muted);font-size:.82rem}
+input[type=number],select{width:100%;font:inherit;padding:9px 10px;border:1px solid #6B7483;border-radius:6px;background:#fff;color:var(--ink);min-height:44px}
+
+/* flags */
+.flag{display:inline-block;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--ink);white-space:nowrap}
+.flag.high{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.flag.low{background:#fff;color:var(--ink)}
+.flag.ok{border-color:var(--line);color:var(--muted)}
+.seg{display:inline-flex;border:1px solid #6B7483;border-radius:6px;overflow:hidden}
+.seg label{margin:0;font-size:12px;letter-spacing:.06em;padding:8px 10px;cursor:pointer;min-width:44px;text-align:center;border-left:1px solid #6B7483;font-weight:700}
+.seg label:first-of-type{border-left:0}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg input:checked + label{background:var(--ink);color:#fff}
+.seg input:focus-visible + label{outline:3px solid var(--maroon);outline-offset:-3px}
+.seg input:disabled + label{cursor:default}
+.mark{display:block;font-size:.82rem;font-weight:700;margin-top:4px}
+.mark.no{color:var(--maroon)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 18px}
+.chip{appearance:none;width:44px;height:44px;border-radius:8px;border:2px dashed #6B7483;background:#fff;font:700 15px var(--display);color:var(--ink);cursor:pointer}
+.chip.done{border:2px solid var(--ink);background:var(--tint)}
+.chip[aria-current="true"]{border:2px solid var(--maroon);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--maroon)}
+
+.opts{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid #6B7483;border-radius:8px;padding:12px 14px;background:#fff;cursor:pointer;font-weight:500;font-size:1rem;margin:0}
+.opt input{width:20px;height:20px;margin-top:3px;flex:none;accent-color:var(--ink)}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.why{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.why li{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}
+.why li.right{border:2px solid var(--ink);background:var(--tint)}
+.verdict{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon)}
+.why li.right .verdict{color:var(--ink)}
+.stem{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:0}
+.result{font-family:var(--display);font-weight:700;font-size:1.05rem;margin:14px 0 0}
+.finding{border-bottom:1px solid var(--line);padding:12px 0}
+.finding:last-child{border-bottom:0}
+.finding h4{margin-top:0}
+.note{color:var(--muted);font-size:.88rem}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:.88rem}
+footer a{color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.cells{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.cell{margin:0;padding:0;overflow:hidden}
+.cell img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+.cell figcaption{padding:14px 16px 16px}
+.cell h3{margin-bottom:6px}
+.wide img{aspect-ratio:auto}
+.thumb{float:right;width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 0 8px 12px;border:1px solid var(--line)}
+.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end;height:240px;border-bottom:2px solid var(--ink);margin:18px 0 0;padding:0 4px}
+.col{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bar{width:70%;background:var(--ink);border-radius:4px 4px 0 0;transition:height 300ms ease}
+.bar.shifted{background:var(--maroon)}
+.normbar{position:absolute;bottom:0;left:15%;width:70%;border:2px dashed #6B7483;border-bottom:0;border-radius:4px 4px 0 0;pointer-events:none}
+.pct{font-family:var(--display);font-weight:700;font-size:.95rem;margin-bottom:4px}
+.xlab{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:6px 4px 0;font-size:.82rem;font-weight:700;text-align:center}
+.xlab span span{display:block;font-weight:400;color:var(--muted)}
+.key{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted);margin-top:10px}
+.key b{display:inline-block;width:18px;height:12px;vertical-align:-1px;margin-right:6px}
+.shiftseg label{padding:10px 16px;font-size:13px}
+
+/* cell pictures at native size so they stay sharp */
+.cells{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.cell{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;padding:16px;overflow:visible}
+.cell img{width:132px;height:132px;flex:none;border-radius:10px;aspect-ratio:auto}
+.cell figcaption{padding:0;flex:1;min-width:150px}
+.cell.wide img{width:min(100%,380px);height:auto;border-radius:10px}
+.cell.wide img[data-smear]{width:min(100%,520px)}
+.cell.wide figcaption{min-width:220px}
+/* concept maps */
+.treewrap{overflow-x:auto;padding:8px 2px 14px}
+.tree ul{list-style:none;margin:0;padding:22px 0 0;display:flex;justify-content:center;position:relative}
+.tree>ul{padding-top:0}
+.tree li{position:relative;padding:22px 5px 0;text-align:center;flex:1 1 auto}
+.tree ul ul ul .node{max-width:140px}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;width:50%;height:22px;border-top:2px solid var(--ink)}
+.tree li::after{right:auto;left:50%;border-left:2px solid var(--ink)}
+.tree li:only-child::before,.tree li:only-child::after{border-top:0}
+.tree li:only-child::before{display:none}
+.tree li:first-child::before,.tree li:last-child::after{border:0 none}
+.tree li:last-child::before{border-right:2px solid var(--ink);border-radius:0 8px 0 0}
+.tree li:first-child::after{border-radius:8px 0 0 0}
+.tree li:only-child::after{border-radius:0}
+.tree>ul>li{padding-top:0}
+.tree>ul>li::before,.tree>ul>li::after{display:none}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;height:22px;border-left:2px solid var(--ink)}
+.node{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--rest);padding:10px 12px;font-size:.88rem;line-height:1.35;max-width:210px}
+.node b{display:block;font-family:var(--display);font-size:.98rem}
+.tree>ul>li>.node{background:var(--ink);color:#fff;border-color:var(--ink)}
+.edge{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--maroon);background:var(--page);position:relative;z-index:1;width:max-content;max-width:100%;margin:0 auto 4px;padding:0 6px}
+.mapimg{display:block;width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 6px;border:1px solid var(--line)}
+@media (max-width:820px){
+  .tree ul{display:block;padding:0 0 0 16px;margin-left:10px;border-left:2px solid var(--ink)}
+  .tree>ul{border-left:0;margin-left:0;padding-left:0}
+  .tree li{text-align:left;padding:10px 0 0}
+  .tree li::before,.tree li::after,.tree ul ul::before{display:none}
+  .node,.tree ul ul ul .node{max-width:none;display:block}
+  .edge{margin:0 0 4px;padding:0}
+  .mapimg{float:left;margin:0 10px 0 0;width:56px;height:56px}
+  .node::after{content:"";display:block;clear:both}
+}
+/* intro player and home menu */
+.hero[hidden],#modebar[hidden],#home[hidden]{display:none}
+.stage{border:1px solid #2A3145;border-radius:14px;background:#0B1226;padding:20px 22px;margin-top:26px}
+.segs{display:flex;gap:6px;margin-bottom:18px}
+.segbar{flex:1;height:4px;background:#2A3145;border-radius:2px;overflow:hidden}
+.segbar span{display:block;height:100%;width:0;background:var(--gold)}
+.segbar.done span{width:100%}
+.segbar.on span{width:100%}
+.segbar.on.run span{animation:fill 7s linear forwards}
+@keyframes fill{from{width:0}to{width:100%}}
+.scene{min-height:280px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;animation:fadein 500ms ease}
+.scene[hidden]{display:none}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.scene .txt{flex:1;min-width:240px}
+.scene h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:800;letter-spacing:-.015em;color:#fff;margin-bottom:10px}
+.scene p,.scene li{color:#E7EAF0;font-size:1.05rem}
+.scene img.shot{background:#fff;padding:6px;width:min(100%,400px);height:auto;border-radius:10px}
+.five{display:flex;flex-wrap:wrap;gap:14px;list-style:none;padding:0;margin:14px 0 10px}
+.five li{text-align:center;font-size:.85rem;font-weight:700}
+.five img{display:block;width:84px;height:84px;border-radius:50%;object-fit:cover;margin:0 auto 6px;border:2px solid #2A3145}
+.ctls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.ctl{appearance:none;background:transparent;color:#fff;border:1px solid #E7EAF0;border-radius:6px;font:700 12px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;min-height:44px;cursor:pointer}
+.ctl:hover{background:#1B2440}
+.ctl.solid{background:var(--gold);border-color:var(--gold);color:var(--ink);margin-left:auto}
+.ctl.solid:hover{background:#E0BC6A}
+.count{color:#E7EAF0;font-size:.85rem;font-weight:700;letter-spacing:.08em}
+.barrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-top:14px}
+.barrow .tabs{border-top:0;flex:1}
+.brand{font-family:var(--display);font-weight:800;color:#fff;font-size:1.05rem;margin-right:auto}
+.entry{appearance:none;text-align:left;font:inherit;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:6px;width:100%;padding:24px}
+.entry .etitle{font-family:var(--display);font-weight:800;font-size:1.7rem;letter-spacing:-.01em}
+.entry .edesc{font-size:1rem}
+.entry .estat{font-size:.85rem;color:var(--muted);font-weight:700}
+.entry .ego{align-self:flex-start;margin-top:10px;border:2px solid var(--ink);border-radius:6px;padding:8px 14px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.entry:hover .ego{background:var(--ink);color:#fff}
+
+/* full-screen cinematic intro */
+.hero{padding:0 20px}
+.stage{position:relative;border:0;border-radius:0;margin:0;padding:26px 0 30px;min-height:680px;display:flex;flex-direction:column;align-items:center;text-align:center;background:radial-gradient(ellipse at 50% 28%,#14204A 0%,#060B1A 68%)}
+.segs{width:min(380px,72%);margin:8px auto 0}
+.skip2{position:absolute;top:18px;right:0;padding:8px 12px;min-height:40px;border-color:#6B7483}
+.scene{flex:1;flex-direction:column;flex-wrap:nowrap;justify-content:center;align-items:center;gap:14px;min-height:480px;width:100%;max-width:980px;animation:none;padding:26px 0 10px}
+#scenes{flex:1;display:flex;width:100%;justify-content:center}
+.scene>*{animation:rise 800ms cubic-bezier(.2,.7,.2,1) both}
+.scene>*:nth-child(2){animation-delay:.18s}.scene>*:nth-child(3){animation-delay:.42s}.scene>*:nth-child(4){animation-delay:.7s}.scene>*:nth-child(5){animation-delay:.95s}
+@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+.scene h1{font-size:clamp(2.5rem,7.5vw,4.6rem);font-weight:800;letter-spacing:-.025em;max-width:none}
+.scene h2{font-size:clamp(1.9rem,5vw,3.3rem);max-width:20ch;margin:0}
+.scene .lead{font-size:clamp(1.05rem,2vw,1.3rem);max-width:44ch;margin:0;color:#E7EAF0}
+.scene .eyebrow{margin:0}
+.logo{display:block}
+.trio{list-style:none;padding:0;margin:4px 0;display:grid;gap:6px;font-size:clamp(1.05rem,2vw,1.25rem)}
+.trio b{color:#fff}
+.scene img.shot{width:min(100%,380px);border-radius:10px}
+.five{justify-content:center;gap:18px;margin:6px 0}
+.five li{animation:pop 520ms cubic-bezier(.2,.8,.3,1.2) both;color:#fff}
+.five li:nth-child(1){animation-delay:.5s}.five li:nth-child(2){animation-delay:.68s}.five li:nth-child(3){animation-delay:.86s}.five li:nth-child(4){animation-delay:1.04s}.five li:nth-child(5){animation-delay:1.22s}
+.five img{width:104px;height:104px;border-color:#D2A94E}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.entries{width:100%;text-align:left;margin-top:8px}
+.ctls{justify-content:center;margin-top:10px}
+.ctl.solid{margin-left:0}
+.ctl[hidden],.count[hidden]{display:none}
+
+/* light header and intro: white background, navy text, maroon highlight */
+.band{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}
+.band .eyebrow{color:var(--maroon)}
+.band .hl{color:var(--maroon)}
+.band :focus-visible{outline-color:var(--ink)}
+.stage{background:radial-gradient(ellipse at 50% 30%,#F1F4F8 0%,#FFFFFF 70%)}
+.scene h1,.scene h2{color:var(--ink)}
+.scene p,.scene li,.scene .lead{color:#1A2233}
+.scene .lead,.hero p.lead{font-weight:500;color:#1A2233}
+.trio b,.five li{color:var(--ink)}
+.five img{border-color:var(--maroon)}
+.scene img.shot{border:1px solid var(--line);padding:6px}
+.segbar{background:var(--line)}
+.segbar span{background:var(--maroon)}
+.ctl{color:var(--ink);border-color:var(--ink)}
+.ctl:hover{background:var(--tint)}
+.ctl.solid{background:var(--ink);border-color:var(--ink);color:#fff}
+.ctl.solid:hover{background:#1B2440}
+.skip2{border-color:#6B7483}
+.count{color:var(--muted)}
+.tabs{border-top:1px solid var(--line)}
+.tab{color:var(--muted)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--maroon)}
+.brand{color:var(--ink)}
+
+.circuit{display:inline-block;color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);border-radius:6px;padding:10px 16px;text-decoration:none;min-height:44px}
+.circuit:hover{background:var(--tint)}
+.circuit[hidden]{display:none}
+/* calculator and formula practice */
+input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10px;border:1px solid #6B7483;border-radius:6px;min-height:44px;color:var(--ink);background:#fff}
+.calc{border-top:1px solid var(--line);padding:16px 0 6px}
+.card h4.calc-h{font-family:var(--display);font-size:1.08rem;text-transform:none;letter-spacing:0;color:var(--ink);margin:0 0 4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stepl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);font-weight:700;margin:14px 0 6px}
+.setup{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700}
+.setup select{width:auto;max-width:100%}
+.setup input[type=number]{width:130px}
+.calcbox{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0;background:#fff}
+.calcbox summary{cursor:pointer;font-weight:700;min-height:28px}
+.pad{display:grid;grid-template-columns:repeat(4,minmax(44px,62px));gap:6px;margin:10px 0}
+.pad button{min-height:44px;border:1px solid #6B7483;border-radius:6px;background:#fff;font:700 1rem var(--display);cursor:pointer;color:var(--ink)}
+.pad button.op{background:var(--tint)}
+.pad button.eq{background:var(--ink);color:#fff;grid-column:span 2}
+.calc-out{display:block;font-family:var(--display);font-weight:700;font-size:1.1rem;margin-top:6px}
+.vals{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:10px 0}
+.vals li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.92rem;background:#fff}
+.why-row td{background:var(--tint);font-size:.9rem;padding-top:6px;padding-bottom:10px}
+.calc .opts{margin-top:6px}
+@media (max-width:600px){th,td{padding:8px 6px}.hero{padding:40px 0 28px}.tab{padding:14px 12px 10px;letter-spacing:.1em}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.lift:hover{transform:none}}
+
+/* circuit stations: reaction wells, tube, small extras */
+.tray{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0}
+.well .seg label{padding:8px 8px;min-width:0;letter-spacing:.02em}
+.well{border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px;text-align:center}
+.well svg{display:block;margin:0 auto 6px;width:84px;height:84px}
+.well .wl{display:block;font-family:var(--display);font-weight:700;font-size:.95rem}
+.well .ws{display:block;font-size:.8rem;color:var(--muted)}
+.well .seg{margin-top:8px}
+.traygrp{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);margin:14px 0 0}
+.wellbtn{appearance:none;font:inherit;color:inherit;cursor:pointer;width:100%}
+.wellbtn[aria-pressed="true"]{border:2px solid var(--ink)}
+.tubewrap{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.tubewrap svg{flex:none;max-width:100%;height:auto}
+.tubeside{flex:1;min-width:240px}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:8px;counter-reset:s}
+.steps li{counter-increment:s;padding-left:38px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font:700 13px var(--display);display:flex;align-items:center;justify-content:center}
+.circuit{display:inline-block;color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);border-radius:6px;padding:10px 16px;text-decoration:none;min-height:44px}
+.circuit:hover{background:var(--tint)}
+.circuit[hidden]{display:none}
+.yes{font-weight:700}
+.no{color:var(--muted)}
+.pillrow{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:8px 0 0}
+.intro-svg{width:min(100%,420px);height:auto}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="band">
+  <div class="wrap hero" id="hero">
+    <section class="stage" aria-label="Introduction">
+      <button type="button" class="ctl skip2" id="pSkip">Skip intro</button>
+      <div class="segs" aria-hidden="true"><div class="segbar"><span></span></div><div class="segbar"><span></span></div><div class="segbar"><span></span></div><div class="segbar"><span></span></div><div class="segbar"><span></span></div></div>
+      <div id="scenes" aria-live="off"><div class="scene"><svg class="logo" viewBox="40 10 125 148" width="64" height="76" aria-hidden="true"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#060B1A"/><circle cx="17" cy="8" r="4.2" fill="#7A1F2B"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#060B1A"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#7A1F2B"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg><p class="eyebrow">Human Physiology · Blood lab skills</p><h1>Read a blood type with <span class="hl">confidence</span></h1><p class="lead">A short introduction comes first. Then you choose where to start.</p></div><div class="scene" hidden><p class="eyebrow">What it is</p><h2>A type and screen shows which blood a patient can safely receive.</h2><p class="lead">The type finds the antigens on the red blood cells. The screen looks for unexpected antibodies in the plasma.</p></div><div class="scene" hidden><p class="eyebrow">What you read</p><h2>Clumping means an antibody found its antigen.</h2><div class="row" style="justify-content:center;gap:28px;margin:0"><div class="well" style="border:0;background:none"><svg viewBox="0 0 84 84" width="120" height="120" style="width:120px;height:120px" role="img" aria-label="A well with red cells gathered into dark clumps"><circle cx="42" cy="42" r="39" fill="#FBF5F5" stroke="#6B7483" stroke-width="2"/><ellipse cx="26" cy="24" rx="7" ry="5" fill="#7A1F2B"/><ellipse cx="48" cy="20" rx="6" ry="6" fill="#7A1F2B"/><ellipse cx="60" cy="36" rx="7" ry="5" fill="#7A1F2B"/><ellipse cx="22" cy="44" rx="6" ry="7" fill="#7A1F2B"/><ellipse cx="40" cy="40" rx="8" ry="6" fill="#7A1F2B"/><ellipse cx="56" cy="56" rx="6" ry="6" fill="#7A1F2B"/><ellipse cx="34" cy="60" rx="7" ry="5" fill="#7A1F2B"/><ellipse cx="46" cy="30" rx="4" ry="4" fill="#7A1F2B"/><ellipse cx="28" cy="34" rx="4" ry="5" fill="#7A1F2B"/><ellipse cx="62" cy="48" rx="4" ry="4" fill="#7A1F2B"/><ellipse cx="20" cy="58" rx="4" ry="4" fill="#7A1F2B"/><ellipse cx="44" cy="66" rx="5" ry="4" fill="#7A1F2B"/></svg><span class="wl">Clumped</span><span class="ws">Positive</span></div><div class="well" style="border:0;background:none"><svg viewBox="0 0 84 84" width="120" height="120" style="width:120px;height:120px" role="img" aria-label="A well with an even, smooth pink layer of red cells"><circle cx="42" cy="42" r="39" fill="#fff" stroke="#6B7483" stroke-width="2"/><circle cx="42" cy="42" r="33" fill="#C96A73" fill-opacity=".6"/></svg><span class="wl">Smooth</span><span class="ws">Negative</span></div></div><p class="lead">The clumping of red cells is called agglutination.</p></div><div class="scene" hidden><p class="eyebrow">Three parts</p><h2>Every type and screen has three parts.</h2><ul class="trio"><li><b>ABO group:</b> A, B, AB or O.</li><li><b>Rh type:</b> positive or negative.</li><li><b>Antibody screen:</b> positive or negative.</li></ul></div><div class="scene" hidden><p class="eyebrow">Your turn</p><h2>Where do you want to begin?</h2><div class="grid g3 entries">
+      <button type="button" class="entry card lift" data-go="learn"><span class="num" aria-hidden="true">01</span><span class="etitle">Learn</span><span class="edesc">What each reaction means, with a concept map and the ABO and compatibility tables.</span><span class="estat">3 parts · 7 reactions · 2 tables</span><span class="ego">Start learning</span></button>
+      <button type="button" class="entry card lift" data-go="practice"><span class="num" aria-hidden="true">02</span><span class="etitle">Practice</span><span class="edesc">Read a patient's type and screen one step at a time. There are 44 cases, given at random.</span><span class="estat" id="st-practice">0 cases done</span><span class="ego">Start practice</span></button>
+      <button type="button" class="entry card lift" data-go="quiz"><span class="num" aria-hidden="true">03</span><span class="etitle">Quiz</span><span class="edesc">Ten questions, with an explanation for every answer choice.</span><span class="estat" id="st-quiz">Not taken yet</span><span class="ego">Take the quiz</span></button>
+    </div><div class="row" style="justify-content:center"><button class="ctl" type="button" data-go="interpreter">Open the reaction reader</button><a class="circuit" href="blood-lab-circuit.html" target="_top" hidden>Back to the Blood Lab Circuit</a></div></div></div>
+      <div class="ctls">
+        <button type="button" class="ctl" id="pPrev" aria-label="Previous slide">Back</button>
+        <button type="button" class="ctl" id="pPlay">Play</button>
+        <button type="button" class="ctl solid" id="pNext" aria-label="Continue to the next slide">Continue</button>
+        <span class="count" id="pCount">1 of 4</span>
+      </div>
+    </section>
+  </div>
+  <div class="wrap" id="modebar" hidden>
+    <div class="barrow"><span class="brand">Human Physiology · Blood Typing Tutor</span><a class="circuit" href="blood-lab-circuit.html" target="_top" hidden>Back to the Blood Lab Circuit</a><button type="button" class="ctl" data-go="home">Home</button></div>
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="tab-learn" aria-controls="learn" aria-selected="true">Learn</button>
+      <button class="tab" role="tab" id="tab-interpreter" aria-controls="interpreter" aria-selected="false" tabindex="-1">Reaction reader</button>
+      <button class="tab" role="tab" id="tab-practice" aria-controls="practice" aria-selected="false" tabindex="-1">Practice cases</button>
+      <button class="tab" role="tab" id="tab-quiz" aria-controls="quiz" aria-selected="false" tabindex="-1">Quiz</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<div class="wrap">
+
+<section class="panel" id="learn" role="tabpanel" aria-labelledby="tab-learn">
+
+  <div class="sec">
+    <p class="eyebrow">Start here</p>
+    <h2>Ask three questions, in the same <span class="hl">order</span></h2>
+    <p class="sub">A type and screen has three parts. Read them one at a time.</p>
+    <div class="grid g3">
+      <div class="card lift"><div class="num" aria-hidden="true">01</div><h3>ABO group: which antigens are on the red cells?</h3>
+        <ul><li>An <button type="button" class="term" data-def="Antigen: a molecule on the surface of a cell that the immune system can recognize.">antigen</button> is a marker on the cell surface.</li><li>Red cells can carry A, B, both or neither.</li><li>Two tests answer this, and they must agree.</li></ul></div>
+      <div class="card lift"><div class="num" aria-hidden="true">02</div><h3>Rh type: is the D antigen there?</h3>
+        <ul><li>D antigen present: Rh positive.</li><li>D antigen absent: Rh negative.</li></ul></div>
+      <div class="card lift"><div class="num" aria-hidden="true">03</div><h3>Screen: are there unexpected antibodies?</h3>
+        <ul><li>An <button type="button" class="term" data-def="Antibody: a protein in the plasma that binds one specific antigen.">antibody</button> binds one specific antigen.</li><li>Anti-A and anti-B are expected.</li><li>Any other red cell antibody is <button type="button" class="term" data-def="Unexpected antibody: a red cell antibody other than anti-A or anti-B, such as anti-D or anti-K. It forms after a transfusion or a pregnancy.">unexpected</button>.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Reading a reaction</p>
+    <h2>Clumped or <span class="hl">smooth</span></h2>
+    <p class="sub">Every well holds red cells and a liquid that may contain an antibody. You read each well the same way.</p>
+    <div class="grid g2">
+      <figure class="card cell"><svg viewBox="0 0 84 84" width="132" height="132" style="width:132px;height:132px" role="img" aria-label="Drawing of a clumped well: red cells gathered into dark clumps on a clear background"><circle cx="42" cy="42" r="39" fill="#FBF5F5" stroke="#6B7483" stroke-width="2"/><ellipse cx="26" cy="24" rx="7" ry="5" fill="#7A1F2B"/><ellipse cx="48" cy="20" rx="6" ry="6" fill="#7A1F2B"/><ellipse cx="60" cy="36" rx="7" ry="5" fill="#7A1F2B"/><ellipse cx="22" cy="44" rx="6" ry="7" fill="#7A1F2B"/><ellipse cx="40" cy="40" rx="8" ry="6" fill="#7A1F2B"/><ellipse cx="56" cy="56" rx="6" ry="6" fill="#7A1F2B"/><ellipse cx="34" cy="60" rx="7" ry="5" fill="#7A1F2B"/><ellipse cx="46" cy="30" rx="4" ry="4" fill="#7A1F2B"/><ellipse cx="28" cy="34" rx="4" ry="5" fill="#7A1F2B"/><ellipse cx="62" cy="48" rx="4" ry="4" fill="#7A1F2B"/><ellipse cx="20" cy="58" rx="4" ry="4" fill="#7A1F2B"/><ellipse cx="44" cy="66" rx="5" ry="4" fill="#7A1F2B"/></svg><figcaption><h3>Clumped: positive</h3><ul><li>The antibody found its antigen.</li><li>Antibodies link the red cells together into clumps.</li><li>This is <button type="button" class="term" data-def="Agglutination: the clumping of cells when antibodies link them together.">agglutination</button>.</li></ul></figcaption></figure>
+      <figure class="card cell"><svg viewBox="0 0 84 84" width="132" height="132" style="width:132px;height:132px" role="img" aria-label="Drawing of a smooth well: an even pink layer of red cells"><circle cx="42" cy="42" r="39" fill="#fff" stroke="#6B7483" stroke-width="2"/><circle cx="42" cy="42" r="33" fill="#C96A73" fill-opacity=".6"/></svg><figcaption><h3>Smooth: negative</h3><ul><li>The antibody had nothing to bind.</li><li>The red cells stay spread out evenly.</li></ul></figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:10px">The wells in this tutor are drawings. Real reactions are graded from weak to strong, and a true ABO reaction is strong.</p>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Concept map</p>
+    <h2>The whole test on one <span class="hl">map</span></h2>
+    <p class="sub">Two typing steps and one screening step.</p>
+    <div class="treewrap" tabindex="0" role="group" aria-label="Concept map: the parts of a type and screen"><div class="tree"><ul><li><span class="node"><b>Type and screen</b>Done before a transfusion</span><ul>
+      <li><span class="edge">type</span><span class="node"><b>ABO group</b>A, B, AB or O</span><ul>
+        <li><span class="node"><b>Forward typing</b>Patient's red cells + reagent anti-A and anti-B<br>Finds the antigens</span></li>
+        <li><span class="node"><b>Reverse typing</b>Patient's plasma + reagent A cells and B cells<br>Finds the antibodies</span></li></ul></li>
+      <li><span class="edge">type</span><span class="node"><b>Rh type</b>Positive or negative</span><ul>
+        <li><span class="node"><b>Anti-D</b>Patient's red cells + reagent anti-D<br>Finds the D antigen</span></li></ul></li>
+      <li><span class="edge">screen</span><span class="node"><b>Antibody screen</b>Positive or negative</span><ul>
+        <li><span class="node"><b>Screening cells</b>Patient's plasma + group O reagent cells<br>Finds unexpected antibodies</span></li></ul></li>
+    </ul></li></ul></div></div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">ABO group</p>
+    <h2>Forward and reverse typing must <span class="hl">agree</span></h2>
+    <p class="sub">Your plasma has antibodies against the ABO antigens your own red cells lack. That is why the two tests mirror each other.</p>
+    <div class="card scroll" tabindex="0" role="group" aria-label="ABO typing table">
+      <table><caption class="sr">Expected results for each ABO group</caption>
+      <thead><tr><th scope="col">Group</th><th scope="col">Antigen on red cells</th><th scope="col">Antibody in plasma</th><th scope="col">Forward: anti-A</th><th scope="col">Forward: anti-B</th><th scope="col">Reverse: A cells</th><th scope="col">Reverse: B cells</th></tr></thead>
+      <tbody><tr><th scope="row">A</th><td>A</td><td>Anti-B</td><td class="yes">Clumps</td><td class="no">Smooth</td><td class="no">Smooth</td><td class="yes">Clumps</td></tr><tr><th scope="row">B</th><td>B</td><td>Anti-A</td><td class="no">Smooth</td><td class="yes">Clumps</td><td class="yes">Clumps</td><td class="no">Smooth</td></tr><tr><th scope="row">AB</th><td>A and B</td><td>Neither</td><td class="yes">Clumps</td><td class="yes">Clumps</td><td class="no">Smooth</td><td class="no">Smooth</td></tr><tr><th scope="row">O</th><td>Neither</td><td>Anti-A and anti-B</td><td class="no">Smooth</td><td class="no">Smooth</td><td class="yes">Clumps</td><td class="yes">Clumps</td></tr></tbody></table>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card"><h3>Forward typing</h3><ul><li>Uses the patient's red cells.</li><li>Adds a <button type="button" class="term" data-def="Reagent: a prepared test material with known contents, such as a bottle of anti-A.">reagent</button> antibody: anti-A in one well, anti-B in another.</li><li>Clumping means that antigen is on the cells.</li></ul></div>
+      <div class="card"><h3>Reverse typing</h3><ul><li>Uses the patient's <button type="button" class="term" data-def="Plasma: the liquid part of blood. Antibodies are found here.">plasma</button>.</li><li>Adds reagent red cells: A cells in one well, B cells in another.</li><li>Clumping means the plasma has an antibody against those cells.</li></ul></div>
+    </div>
+    <div class="card" style="margin-top:16px"><h3>When they do not agree</h3><ul><li>This is called an ABO discrepancy.</li><li>No ABO group is reported until the lab finds the cause.</li><li>One cause is a very low antibody level, which leaves a reverse reaction missing. This can happen in very old age or with an immune deficiency.</li><li>If red cells are needed before the cause is found, group O red cells are given.</li></ul></div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Rh type</p>
+    <h2>One well, one <span class="hl">antigen</span></h2>
+    <p class="sub">Rh typing is a forward test only. The patient's red cells are mixed with anti-D.</p>
+    <div class="grid g2">
+      <div class="card"><h3>Reading it</h3><ul><li>Clumped with anti-D: Rh positive.</li><li>Smooth with anti-D: Rh negative.</li></ul></div>
+      <div class="card"><h3>Why there is no reverse test</h3><ul><li>Anti-A and anti-B are present from early life.</li><li>Anti-D is not. An Rh-negative person makes it only after exposure to Rh-positive red cells.</li><li>Exposure happens through a transfusion or a pregnancy.</li><li>Rh immune globulin is given to Rh-negative mothers to prevent this.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Antibody screen</p>
+    <h2>Looking for the <span class="hl">unexpected</span></h2>
+    <p class="sub">The screen checks the plasma for red cell antibodies other than anti-A and anti-B.</p>
+    <div class="grid g3">
+      <div class="card lift"><h3>How it is done</h3><ul><li>The patient's plasma is mixed with two or three group O reagent cells.</li><li>Group O cells have no A or B antigens, so anti-A and anti-B cannot react.</li><li>The cells carry other known antigens, such as D and K.</li></ul></div>
+      <div class="card lift"><h3>Negative screen</h3><ul><li>Every screening cell stays smooth.</li><li>No unexpected antibody was detected.</li><li>Red cells can be chosen by ABO and Rh type.</li></ul></div>
+      <div class="card lift"><h3>Positive screen</h3><ul><li>At least one screening cell clumps.</li><li>The lab runs an antibody panel to name the antibody.</li><li>Red cells that lack that antigen are chosen and <button type="button" class="term" data-def="Crossmatch: a final check of one donor unit against one patient before the unit is given.">crossmatched</button>.</li></ul></div>
+    </div>
+    <p class="note" style="margin-top:10px">Unexpected antibodies form after exposure to another person's red cells, through a past transfusion or a pregnancy.</p>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Choosing red cells</p>
+    <h2>Donor cells must not carry an antigen the patient's plasma <span class="hl">attacks</span></h2>
+    <p class="sub">If they do, the patient's antibodies destroy the donor cells. This destruction is called <button type="button" class="term" data-def="Hemolysis: the breaking open of red blood cells.">hemolysis</button>.</p>
+    <div class="card scroll" tabindex="0" role="group" aria-label="Red cell compatibility table">
+      <table><caption class="sr">Red cell types each patient can receive</caption>
+      <thead><tr><th scope="col">Patient's type</th><th scope="col">Can receive red cells from</th></tr></thead>
+      <tbody><tr><th scope="row">O negative</th><td>O negative</td></tr><tr><th scope="row">O positive</th><td>O positive, O negative</td></tr><tr><th scope="row">A negative</th><td>O negative, A negative</td></tr><tr><th scope="row">A positive</th><td>O positive, A positive, O negative, A negative</td></tr><tr><th scope="row">B negative</th><td>O negative, B negative</td></tr><tr><th scope="row">B positive</th><td>O positive, B positive, O negative, B negative</td></tr><tr><th scope="row">AB negative</th><td>O negative, A negative, B negative, AB negative</td></tr><tr><th scope="row">AB positive</th><td>All eight types</td></tr></tbody></table>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card"><h3>Two rules</h3><ul><li>ABO: the donor cells must not carry an A or B antigen the patient lacks.</li><li>Rh: an Rh-negative patient is given Rh-negative red cells, so that they do not form anti-D.</li></ul></div>
+      <div class="card"><h3>The two extremes</h3><ul><li>O negative red cells carry no A, B or D antigens. They are used in an emergency before the type is known.</li><li>An AB positive patient has no anti-A or anti-B and can receive red cells of any type.</li></ul></div>
+    </div>
+  </div>
+
+</section>
+
+<section class="panel" id="interpreter" role="tabpanel" aria-labelledby="tab-interpreter" hidden>
+
+  <div class="sec">
+    <p class="eyebrow">Reaction reader</p>
+    <h2>Set the wells and read the <span class="hl">result</span></h2>
+    <p class="sub">Select a well to switch it between smooth and clumped. The result updates below.</p>
+    <div class="card"><div id="toolTray"></div></div>
+    <div class="card" style="margin-top:16px" aria-live="polite" id="toolOut"></div>
+  </div>
+
+</section>
+
+<section class="panel" id="practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+  <div class="sec">
+    <p class="eyebrow">Practice</p>
+    <h2>Forty-four patients, forty-four <span class="hl">trays</span></h2>
+    <p class="sub">Each case has four steps: read the reactions, work through the results in order, name the blood type, and choose what happens next. Each step opens when the one before it is finished. Your finished cases are saved on this device.</p>
+    <div class="row" style="margin:0 0 14px"><button type="button" class="btn" id="randCase">Give me a random case</button></div>
+    <details class="calcbox" style="margin-bottom:18px"><summary>Choose a case by number</summary><ul class="chips" id="caseChips" aria-label="Choose a case" style="margin:12px 0 4px"></ul></details>
+    <div id="caseBody"></div>
+  </div>
+</section>
+
+<section class="panel" id="quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+  <div class="sec">
+    <p class="eyebrow">Quiz</p>
+    <h2>Check what you <span class="hl">know</span></h2>
+    <p class="sub">Ten questions. After each one you will see why every choice is right or wrong.</p>
+    <div id="quizBody"></div>
+  </div>
+</section>
+
+</div>
+</main>
+<footer><div class="wrap">
+  <p>Dr. Sharilyn Rennie · Human Physiology</p>
+  <p>Typing rules follow the StatPearls chapters <a href="https://www.ncbi.nlm.nih.gov/books/NBK585033/" target="_blank" rel="noopener">Blood Product Typing and Pretransfusion Testing</a> and <a href="https://www.statpearls.com/point-of-care/145887" target="_blank" rel="noopener">ABO Typing Discrepancies</a> (both open in a new tab).</p>
+  <p>The reaction wells are drawings made for this tutor. The patients are teaching cases, not real people.</p>
+</div></footer>
+
+<script>
+(function(){
+'use strict';
+var KEY="bloodTyping.v1";
+var CASES=[{"who": "63-year-old woman", "story": ["She is scheduled for a knee replacement.", "She has had three pregnancies."], "f": [0, 1, 0], "r": [1, 0], "s": [1, 0]}, {"who": "23-year-old woman", "story": ["She is donating blood for the first time.", "She has never been pregnant or transfused."], "f": [0, 0, 1], "r": [1, 1], "s": [0, 0]}, {"who": "48-year-old woman", "story": ["She is scheduled for surgery to remove uterine fibroids.", "She has never been pregnant or transfused."], "f": [0, 0, 0], "r": [1, 1], "s": [0, 0]}, {"who": "8-year-old boy", "story": ["He is having his tonsils removed.", "He is otherwise healthy."], "f": [0, 0, 0], "r": [1, 1], "s": [0, 0]}, {"who": "51-year-old man", "story": ["He is having heart bypass surgery tomorrow.", "He has never had a transfusion."], "f": [1, 0, 1], "r": [0, 1], "s": [0, 0]}, {"who": "69-year-old man", "story": ["He is scheduled for bladder cancer surgery.", "He has never had a transfusion."], "f": [0, 0, 0], "r": [1, 1], "s": [0, 0]}, {"who": "19-year-old man", "story": ["He was brought to the emergency department after a motorcycle crash.", "His transfusion history is not known."], "f": [1, 0, 1], "r": [0, 1], "s": [0, 0]}, {"who": "27-year-old woman", "story": ["She needs surgery for an ectopic pregnancy.", "This is her second pregnancy."], "f": [1, 0, 0], "r": [0, 1], "s": [0, 0]}, {"who": "26-year-old woman with sickle cell disease", "story": ["She needs a transfusion for severe anemia.", "She has received many transfusions."], "f": [0, 1, 1], "r": [1, 0], "s": [0, 1]}, {"who": "74-year-old man", "story": ["He is having an aortic aneurysm repaired.", "He has never had a transfusion."], "f": [0, 1, 1], "r": [1, 0], "s": [0, 0]}, {"who": "47-year-old woman with an inherited immune deficiency", "story": ["She is scheduled for gallbladder surgery.", "Her body makes very few antibodies."], "f": [0, 0, 0], "r": [0, 0], "s": [0, 0], "why": "Her plasma has very few antibodies of any kind, so the expected reactions with A cells and B cells are missing."}, {"who": "37-year-old woman", "story": ["She is bleeding heavily after giving birth.", "This was her second pregnancy."], "f": [0, 0, 0], "r": [1, 1], "s": [1, 0]}, {"who": "65-year-old man", "story": ["He is scheduled for prostate surgery.", "He has never had a transfusion."], "f": [1, 0, 1], "r": [0, 1], "s": [0, 0]}, {"who": "80-year-old man", "story": ["His hemoglobin is 6.8 g/dL from a slow bleed in the bowel.", "He was transfused last year."], "f": [1, 1, 1], "r": [0, 0], "s": [0, 0]}, {"who": "49-year-old man", "story": ["He is scheduled for back surgery.", "He has never had a transfusion."], "f": [1, 1, 1], "r": [0, 0], "s": [0, 0]}, {"who": "76-year-old woman", "story": ["She is having a broken hip repaired.", "She has had four pregnancies."], "f": [0, 0, 1], "r": [1, 1], "s": [1, 1]}, {"who": "60-year-old man", "story": ["He has a bone marrow disorder and low hemoglobin.", "He receives red cell transfusions every few weeks."], "f": [1, 1, 1], "r": [0, 0], "s": [0, 1]}, {"who": "25-year-old man", "story": ["He broke his femur in a fall.", "He has never had a transfusion."], "f": [0, 1, 1], "r": [1, 0], "s": [0, 0]}, {"who": "88-year-old man", "story": ["He is scheduled for pacemaker surgery.", "He has never had a transfusion."], "f": [0, 0, 1], "r": [0, 1], "s": [0, 0], "why": "Antibody levels can fall in very old age, so the expected reaction with A cells can be missing."}, {"who": "31-year-old woman", "story": ["She is planning a pregnancy and wants to know her blood type.", "She has never been pregnant or transfused."], "f": [0, 0, 0], "r": [1, 1], "s": [0, 0]}, {"who": "91-year-old woman", "story": ["She is having a broken hip repaired.", "She has never had a transfusion."], "f": [1, 0, 1], "r": [0, 0], "s": [0, 0], "why": "Antibody levels can fall in very old age, so the expected reaction with B cells can be missing."}, {"who": "12-year-old girl", "story": ["She has leukemia and is starting chemotherapy.", "She received red cells and platelets last month."], "f": [1, 0, 0], "r": [0, 1], "s": [0, 1]}, {"who": "33-year-old man", "story": ["He has a stab wound to the abdomen.", "His transfusion history is not known."], "f": [0, 1, 0], "r": [1, 0], "s": [0, 0]}, {"who": "45-year-old woman", "story": ["She is scheduled for a hysterectomy.", "She has had two pregnancies."], "f": [0, 0, 1], "r": [1, 1], "s": [1, 0]}, {"who": "41-year-old man", "story": ["He is being evaluated for a kidney transplant.", "He has never had a transfusion."], "f": [0, 1, 0], "r": [1, 0], "s": [0, 0]}, {"who": "29-year-old woman", "story": ["This is her first prenatal visit, at 10 weeks.", "This is her first pregnancy."], "f": [0, 1, 0], "r": [1, 0], "s": [0, 0]}, {"who": "55-year-old woman", "story": ["She is scheduled for liver surgery.", "She has had one pregnancy."], "f": [1, 1, 0], "r": [0, 0], "s": [0, 0]}, {"who": "54-year-old man with chronic lymphocytic leukemia", "story": ["He needs red cells for anemia.", "His leukemia has left him with very low antibody levels."], "f": [0, 1, 0], "r": [0, 0], "s": [0, 0], "why": "His plasma has very few antibodies of any kind, so the expected reaction with A cells is missing."}, {"who": "34-year-old woman", "story": ["She is scheduled for a cesarean delivery.", "This is her third pregnancy."], "f": [0, 1, 1], "r": [1, 0], "s": [1, 0]}, {"who": "70-year-old woman", "story": ["She is scheduled for heart valve surgery.", "She has had two pregnancies."], "f": [1, 0, 1], "r": [0, 1], "s": [0, 0]}, {"who": "67-year-old man", "story": ["He is scheduled for a hip replacement next week.", "He has never had a transfusion."], "f": [1, 0, 0], "r": [0, 1], "s": [0, 0]}, {"who": "36-year-old woman", "story": ["She is 34 weeks pregnant with a low-lying placenta that may bleed.", "This is her third pregnancy."], "f": [1, 1, 0], "r": [0, 0], "s": [0, 1]}, {"who": "18-year-old man", "story": ["He is joining the military, and his blood type is being recorded.", "He has never had a transfusion."], "f": [1, 0, 1], "r": [0, 1], "s": [0, 0]}, {"who": "57-year-old man", "story": ["He is scheduled for bowel surgery.", "He has never had a transfusion."], "f": [1, 1, 0], "r": [0, 0], "s": [0, 0]}, {"who": "58-year-old man", "story": ["He is vomiting blood from a stomach ulcer.", "He received two units of red cells five years ago."], "f": [0, 1, 0], "r": [1, 0], "s": [0, 1]}, {"who": "22-year-old man", "story": ["He is donating at a college blood drive.", "He has never had a transfusion."], "f": [1, 1, 0], "r": [0, 0], "s": [0, 0]}, {"who": "30-year-old woman", "story": ["She is 28 weeks pregnant and having a routine repeat screen.", "This is her first pregnancy."], "f": [1, 0, 0], "r": [0, 1], "s": [0, 0]}, {"who": "42-year-old woman with thalassemia", "story": ["Her hemoglobin has dropped and she needs red cells.", "She has been transfused several times."], "f": [1, 0, 0], "r": [0, 1], "s": [0, 1]}, {"who": "39-year-old man", "story": ["He is donating a kidney to his brother.", "He has never had a transfusion."], "f": [1, 1, 1], "r": [0, 0], "s": [0, 0]}, {"who": "44-year-old man", "story": ["He is bleeding from enlarged veins in his esophagus.", "He has been transfused twice before."], "f": [0, 0, 1], "r": [1, 1], "s": [1, 1]}, {"who": "21-year-old woman", "story": ["She is donating platelets.", "She has never been pregnant or transfused."], "f": [1, 1, 1], "r": [0, 0], "s": [0, 0]}, {"who": "16-year-old girl", "story": ["She is having spinal surgery for scoliosis.", "She has never had a transfusion."], "f": [0, 1, 1], "r": [1, 0], "s": [0, 0]}, {"who": "52-year-old woman", "story": ["She is scheduled for breast cancer surgery.", "She has had two pregnancies."], "f": [1, 1, 0], "r": [0, 0], "s": [0, 0]}, {"who": "72-year-old woman", "story": ["She is about to start chemotherapy for lymphoma.", "She was transfused after surgery in her forties."], "f": [0, 0, 1], "r": [1, 1], "s": [0, 0]}];
+var QUIZ=[["What does forward typing test?", [["The patient's red cells, mixed with reagent anti-A and anti-B", 1, "Forward typing looks for the A and B antigens on the patient's own red cells. Clumping with a reagent antibody means that antigen is present."], ["The patient's plasma, mixed with reagent A cells and B cells", 0, "This is reverse typing. It looks for anti-A and anti-B in the patient's plasma."], ["The patient's plasma, mixed with group O screening cells", 0, "This is the antibody screen. It looks for unexpected antibodies, not for the ABO group."], ["A donor's red cells, mixed with the patient's plasma", 0, "This is a crossmatch. It checks one donor unit against one patient after the type and screen are done."]]], ["A patient's red cells clump with anti-A and stay smooth with anti-B. What is the ABO group?", [["Group A", 1, "Clumping with anti-A means the A antigen is on the cells. No clumping with anti-B means the B antigen is absent."], ["Group B", 0, "Group B cells would clump with anti-B and stay smooth with anti-A, the opposite of this result."], ["Group AB", 0, "Group AB cells carry both antigens, so they would clump with both anti-A and anti-B."], ["Group O", 0, "Group O cells carry neither antigen, so they would stay smooth with both reagents."]]], ["Which ABO antibody is found in the plasma of a person with group B blood?", [["Anti-A", 1, "A person makes antibodies against the ABO antigens their own red cells lack. Group B cells lack the A antigen, so the plasma has anti-A."], ["Anti-B", 0, "Anti-B would attack the person's own group B cells. Anti-B is found in group A and group O plasma."], ["Both anti-A and anti-B", 0, "Both antibodies are found in group O plasma, because group O cells lack both antigens."], ["Neither anti-A nor anti-B", 0, "Having neither antibody is the pattern for group AB, whose cells carry both antigens."]]], ["What does the forward typing of a group O patient look like?", [["Smooth with anti-A and smooth with anti-B", 1, "Group O red cells carry neither the A nor the B antigen, so neither reagent antibody has anything to bind."], ["Clumped with anti-A and clumped with anti-B", 0, "Clumping with both reagents means both antigens are present, which is group AB."], ["Clumped with anti-A only", 0, "Clumping with anti-A only is group A."], ["Clumped with anti-B only", 0, "Clumping with anti-B only is group B."]]], ["What does Rh positive mean?", [["The D antigen is on the red cells", 1, "Rh typing mixes the patient's red cells with anti-D. Clumping means the D antigen is present, and the patient is Rh positive."], ["Anti-D is in the plasma", 0, "Anti-D is an antibody. An Rh-positive person does not make it, because it would attack their own cells."], ["Both the A and B antigens are on the red cells", 0, "That describes group AB. The ABO group and the Rh type are separate results."], ["The antibody screen is positive", 0, "A positive screen means an unexpected antibody is in the plasma. It has nothing to do with being Rh positive."]]], ["How does an Rh-negative person come to have anti-D in their plasma?", [["Exposure to Rh-positive red cells through a transfusion or a pregnancy", 1, "Anti-D is made only after the immune system meets the D antigen. That happens through an Rh-positive transfusion or when an Rh-negative mother carries an Rh-positive baby."], ["They are born with it, the same way they are born to make anti-A or anti-B", 0, "Anti-A and anti-B appear in early life without a transfusion or pregnancy. Anti-D does not. It needs exposure to the D antigen first."], ["Every Rh-negative person has anti-D", 0, "Most Rh-negative people have no anti-D, because they have never been exposed to Rh-positive red cells."], ["It forms whenever the ABO group is O", 0, "The ABO group does not decide whether anti-D forms. Only exposure to the D antigen does."]]], ["Why does the antibody screen use group O reagent red cells?", [["Group O cells have no A or B antigens, so only unexpected antibodies can react", 1, "Anti-A and anti-B in the patient's plasma have nothing to bind on group O cells. Any clumping must come from another antibody, such as anti-D or anti-K."], ["Group O cells carry every ABO antigen", 0, "Group O cells carry neither the A nor the B antigen. That is exactly why they are chosen."], ["Group O cells are the patient's own cells", 0, "Screening cells are reagent cells with known antigens. They do not come from the patient."], ["Group O cells come from the donor unit", 0, "Testing donor cells against the patient's plasma is a crossmatch, which is a different test."]]], ["An antibody screen is positive. What does that mean?", [["The plasma has an unexpected red cell antibody that must be identified", 1, "The lab runs an antibody panel to name the antibody. Red cells that lack that antigen are then chosen and crossmatched."], ["The patient is Rh positive", 0, "Rh type comes from the anti-D well in the forward typing, not from the screen."], ["The patient is group AB", 0, "The ABO group comes from the forward and reverse typing. The screen does not change it."], ["The patient can never be transfused", 0, "The patient can still be transfused. Finding compatible units takes longer, because the units must lack the matching antigen."]]], ["A patient is B negative with a negative antibody screen. Which red cells are safe?", [["O negative", 1, "O negative red cells carry no A, B or D antigens, so nothing in this patient's plasma reacts with them."], ["A negative", 0, "Group A cells carry the A antigen. A group B patient's plasma has anti-A, which would destroy them."], ["B positive", 0, "The ABO group matches, but these cells carry the D antigen. An Rh-negative patient is given Rh-negative red cells so that they do not form anti-D."], ["AB negative", 0, "Group AB cells carry the A antigen as well as the B antigen. The patient's anti-A would destroy them."]]], ["Forward typing shows group A. In the reverse typing, the plasma does not clump A cells or B cells. What should the lab do?", [["Hold the ABO group until the mismatch is resolved", 1, "Group A plasma should clump B cells. The forward and reverse typing do not agree, so no ABO group is reported until the cause is found."], ["Report group A, because the forward typing is clear", 0, "The forward typing is only half of the test. A type is reported only when the reverse typing agrees with it."], ["Report group AB, because the plasma has no antibodies", 0, "Plasma with no anti-A or anti-B fits group AB, but the cells did not clump with anti-B, so the forward typing does not fit AB."], ["Report group O, the safest type", 0, "Group O red cells may be given in an emergency, but the patient is not reported as group O. Their cells clumped with anti-A."]]]];
+
+function el(tag,attrs){var e=document.createElement(tag),i,k;
+  if(attrs)for(k in attrs){if(k==='text')e.textContent=attrs[k];else if(k==='cls')e.className=attrs[k];else e.setAttribute(k,attrs[k]);}
+  for(i=2;i<arguments.length;i++){var c=arguments[i];if(c==null)continue;e.appendChild(typeof c==='string'?document.createTextNode(c):c);}
+  return e;}
+var SVGNS='http://www.w3.org/2000/svg';
+function sv(tag,attrs){var e=document.createElementNS(SVGNS,tag),k;if(attrs)for(k in attrs){if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);}
+  for(var i=2;i<arguments.length;i++)if(arguments[i])e.appendChild(arguments[i]);return e;}
+function clear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+var uidN=0;function uid(p){return p+(++uidN);}
+
+/* saved progress (one browser only) */
+var save={cases:{},best:null};
+try{var s0=JSON.parse(localStorage.getItem(KEY));if(s0&&s0.cases)save=s0;}catch(e){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}}
+
+/* ---------- tabs ---------- */
+var NAMES=['learn','interpreter','practice','quiz'];
+function show(name,focus){
+  var home=NAMES.indexOf(name)<0;
+  document.getElementById('hero').hidden=!home;document.getElementById('modebar').hidden=home;
+  if(home){var dn=0;for(var k in save.cases)if(save.cases[k])dn++;
+    document.getElementById('st-practice').textContent=dn+' of '+CASES.length+' cases done';
+    document.getElementById('st-quiz').textContent=save.best===null?'Not taken yet':'Best score '+save.best+' of '+QUIZ.length;
+    if(pLeft)pChooser(false);
+  }else{pLeft=true;pausePlayer();}
+  NAMES.forEach(function(n){
+    var on=!home&&n===name,tab=document.getElementById('tab-'+n);
+    document.getElementById(n).hidden=home||!on;
+    tab.setAttribute('aria-selected',on?'true':'false');
+    tab.tabIndex=on?0:-1;
+    if(on&&focus)tab.focus();
+  });
+}
+NAMES.forEach(function(n,i){
+  var tab=document.getElementById('tab-'+n);
+  tab.addEventListener('click',function(){location.hash=n;show(n);});
+  tab.addEventListener('keydown',function(e){
+    var j=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:e.key==='Home'?0:e.key==='End'?NAMES.length-1:null;
+    if(j===null)return;e.preventDefault();j=(j+NAMES.length)%NAMES.length;location.hash=NAMES[j];show(NAMES[j],true);
+  });
+});
+window.addEventListener('hashchange',function(){show(location.hash.slice(1));});
+document.addEventListener('click',function(e){
+  var go=e.target.closest&&e.target.closest('[data-go]');
+  if(go){var n=go.getAttribute('data-go');location.hash=n;show(n);document.getElementById('main').focus();window.scrollTo(0,0);}
+});
+
+/* the circuit link only works on the course site, so it stays hidden anywhere else */
+if(/github\.io$/.test(location.hostname)||location.hostname==='localhost'){[].forEach.call(document.querySelectorAll('.circuit'),function(a){a.hidden=false;});}
+
+/* ---------- term definitions ---------- */
+var defN=0;
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.term');if(!b)return;
+  var open=b.getAttribute('aria-expanded')==='true';
+  if(open){closeDef(b);}else{
+    var d=el('span',{cls:'def',role:'note',id:'def'+(++defN),text:b.getAttribute('data-def')});
+    b.setAttribute('aria-expanded','true');b.setAttribute('aria-describedby',d.id);
+    b.parentNode.insertBefore(d,b.nextSibling);
+  }
+});
+function closeDef(b){var id=b.getAttribute('aria-describedby'),d=id&&document.getElementById(id);if(d)d.parentNode.removeChild(d);b.setAttribute('aria-expanded','false');b.removeAttribute('aria-describedby');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){[].forEach.call(document.querySelectorAll('.term[aria-expanded="true"]'),closeDef);}});
+[].forEach.call(document.querySelectorAll('.term'),function(b){b.setAttribute('aria-expanded','false');});
+
+/* ---------- intro player ---------- */
+var pIdx=0,pOn=false,pTimer=null,P_MS=7000,pLeft=false;
+var pScenes=[].slice.call(document.querySelectorAll('#scenes .scene')),pSegs=[].slice.call(document.querySelectorAll('.segbar')),pLast=pScenes.length-1;
+function pRender(){
+  var last=pIdx===pLast;
+  pScenes.forEach(function(s,i){s.hidden=i!==pIdx;});
+  pSegs.forEach(function(s,i){
+    s.className='segbar'+(i<pIdx?' done':i===pIdx?(pOn?' on run':' on'):'');
+    if(i===pIdx&&pOn){var f=s.firstChild,c=f.cloneNode(true);s.replaceChild(c,f);}
+  });
+  document.getElementById('pCount').textContent=(pIdx+1)+' of '+pLast;
+  document.getElementById('pCount').hidden=last;
+  document.getElementById('pNext').hidden=last;
+  document.getElementById('pSkip').hidden=last;
+  document.getElementById('pPrev').hidden=pIdx===0;
+  document.getElementById('pPlay').textContent=last?'Replay intro':(pOn?'Pause':'Play');
+  document.getElementById('scenes').setAttribute('aria-live',pOn?'off':'polite');
+  clearTimeout(pTimer);
+  if(pOn)pTimer=setTimeout(function(){if(pIdx<pLast)pIdx++;if(pIdx===pLast)pOn=false;pRender();},P_MS);
+}
+function pausePlayer(){pOn=false;pRender();}
+function pChooser(focus){pIdx=pLast;pOn=false;pRender();if(focus){var e=document.querySelector('#scenes .entry');if(e)e.focus();}}
+document.getElementById('pPlay').addEventListener('click',function(){if(pIdx===pLast){pIdx=0;pOn=true;}else pOn=!pOn;pRender();});
+document.getElementById('pNext').addEventListener('click',function(){pOn=false;if(pIdx<pLast)pIdx++;pRender();if(pIdx===pLast){var e=document.querySelector('#scenes .entry');if(e)e.focus();}});
+document.getElementById('pPrev').addEventListener('click',function(){pOn=false;if(pIdx>0)pIdx--;pRender();});
+document.getElementById('pSkip').addEventListener('click',function(){pChooser(true);});
+
+/* ---------- multiple choice with a reason for every option ---------- */
+function renderMC(host,stem,opts,legend,onDone){
+  var name=uid('mc'),order=shuffle(opts);
+  var fs=el('fieldset',null,el('legend',{text:legend}),el('p',{cls:'stem',text:stem}));
+  var list=el('div',{cls:'opts'});
+  order.forEach(function(o,i){
+    var id=name+'-'+i;
+    list.appendChild(el('label',{cls:'opt','for':id},el('input',{type:'radio',name:name,id:id,value:String(i)}),el('span',{text:o[0]})));
+  });
+  fs.appendChild(list);
+  var btn=el('button',{type:'button',cls:'btn',text:'Check answer'});
+  var live=el('div',{'aria-live':'polite'});
+  fs.appendChild(el('div',{cls:'row'},btn));fs.appendChild(live);
+  btn.addEventListener('click',function(){
+    var pick=fs.querySelector('input:checked');
+    if(!pick){clear(live);live.appendChild(el('p',{cls:'mark no',text:'Choose an answer first.'}));return;}
+    var chosen=order[Number(pick.value)],ok=!!chosen[1];
+    [].forEach.call(fs.querySelectorAll('input'),function(n){n.disabled=true;});btn.disabled=true;
+    clear(live);
+    live.appendChild(el('p',{cls:'result',text:ok?'Correct.':'Not quite. Read why below.'}));
+    var why=el('ul',{cls:'why'});
+    order.forEach(function(o){
+      why.appendChild(el('li',{cls:o[1]?'right':''},
+        el('span',{cls:'verdict',text:(o[1]?'Correct answer':'Incorrect')+(o===chosen?' · your choice':'')}),
+        el('strong',{text:o[0]}),el('br'),o[2]));
+    });
+    live.appendChild(why);
+    onDone(ok,live);
+  });
+  host.appendChild(fs);
+}
+
+/* ---------- required walk-through: one question opens the next ---------- */
+function walkThrough(host,title,note,QS,retry,doneText,onDone){
+  var n=uid('wt');
+  var card=el('div',{cls:'card'},el('h3',{tabindex:'-1',text:title}),el('p',{cls:'note',text:note}));
+  host.appendChild(card);
+  function ask(i){
+    if(i>=QS.length){card.appendChild(el('p',{cls:'result',text:doneText}));onDone();return;}
+    var Q=QS[i],name=n+'q'+i,list=el('div',{cls:'opts'}),live=el('div',{'aria-live':'polite'}),chk=el('button',{type:'button',cls:'btn ghost',text:'Check'});
+    Q.o.forEach(function(t,j){list.appendChild(el('label',{cls:'opt','for':name+j},el('input',{type:'radio',name:name,id:name+j,value:String(j)}),el('span',{text:t})));});
+    var fs=el('fieldset',{cls:'calc',style:'border:0;border-top:1px solid var(--line);border-radius:0;padding:14px 0 4px;margin:0'},el('legend',{cls:'stem',style:'font-size:1.02rem;padding:0',text:(i+1)+'. '+Q.q}),list,el('div',{cls:'row',style:'margin-top:10px'},chk),live);
+    card.appendChild(fs);
+    chk.addEventListener('click',function(){
+      var pick=fs.querySelector('input:checked');clear(live);
+      if(!pick){live.appendChild(el('p',{cls:'mark no',text:'Choose an answer first.'}));return;}
+      if(Number(pick.value)===Q.a){[].forEach.call(fs.querySelectorAll('input'),function(x){x.disabled=true;});chk.disabled=true;live.appendChild(el('p',{cls:'mark',text:'Correct. '+Q.fb}));ask(i+1);}
+      else live.appendChild(el('p',{cls:'mark no',text:retry}));
+    });
+  }
+  ask(0);
+  return card;
+}
+
+/* ---------- case picker ---------- */
+var cur=0;
+function randomCase(){
+  var pool=[];CASES.forEach(function(c,i){if(!save.cases[i]&&i!==cur)pool.push(i);});
+  if(!pool.length)CASES.forEach(function(c,i){if(i!==cur)pool.push(i);});
+  cur=pool[Math.floor(Math.random()*pool.length)];renderCase(true);
+}
+function renderChips(){
+  var host=document.getElementById('caseChips');clear(host);
+  CASES.forEach(function(c,i){
+    var done=!!save.cases[i],b=el('button',{type:'button',cls:'chip'+(done?' done':''),'aria-label':'Case '+(i+1)+(done?', completed':'')},String(i+1));
+    if(i===cur)b.setAttribute('aria-current','true');
+    b.addEventListener('click',function(){cur=i;renderCase(true);});
+    host.appendChild(el('li',null,b));
+  });
+}
+function caseDone(host){
+  save.cases[cur]=true;persist();renderChips();
+  var nx=el('button',{type:'button',cls:'btn',text:'Give me another case'});nx.addEventListener('click',randomCase);
+  host.appendChild(el('div',{cls:'card'},el('p',{cls:'result',style:'margin:0',text:'Case '+(cur+1)+' is finished and saved on this device.'}),el('div',{cls:'row'},nx)));
+}
+
+/* ---------- quiz ---------- */
+var qi=0,score=0;
+function renderQuiz(focus){
+  var host=document.getElementById('quizBody');clear(host);
+  if(qi>=QUIZ.length){
+    if(save.best===null||score>save.best){save.best=score;persist();}
+    var h=el('h3',{tabindex:'-1',text:'You scored '+score+' of '+QUIZ.length});
+    var again=el('button',{type:'button',cls:'btn',text:'Start again'});
+    again.addEventListener('click',function(){qi=0;score=0;QUIZ=shuffle(QUIZ);renderQuiz(true);});
+    host.appendChild(el('div',{cls:'card'},h,el('p',{text:'Best score on this device: '+save.best+' of '+QUIZ.length+'. Questions and answer order are reshuffled each time.'}),el('div',{cls:'row'},again,el('button',{type:'button',cls:'btn ghost','data-go':'learn',text:'Review the tutor'}))));
+    if(focus)h.focus();return;
+  }
+  var q=QUIZ[qi];
+  var prog=el('p',{cls:'eyebrow',tabindex:'-1',text:'Question '+(qi+1)+' of '+QUIZ.length});
+  host.appendChild(prog);
+  renderMC(host,q[0],q[1],'Question '+(qi+1),function(ok,live){
+    if(ok)score++;
+    var next=el('button',{type:'button',cls:'btn',text:qi<QUIZ.length-1?'Next question':'See my score'});
+    next.addEventListener('click',function(){qi++;renderQuiz(true);});
+    live.appendChild(el('div',{cls:'row'},next));
+  });
+  if(focus)prog.focus();
+}
+
+/* ---------- blood typing: helpers ---------- */
+var BLOBS=[[26, 24, 7, 5], [48, 20, 6, 6], [60, 36, 7, 5], [22, 44, 6, 7], [40, 40, 8, 6], [56, 56, 6, 6], [34, 60, 7, 5], [46, 30, 4, 4], [28, 34, 4, 5], [62, 48, 4, 4], [20, 58, 4, 4], [44, 66, 5, 4]];
+function wellSvg(clumped,label){
+  var s=sv('svg',{viewBox:'0 0 84 84',width:'84',height:'84'});
+  if(label){s.setAttribute('role','img');s.setAttribute('aria-label',label);}else s.setAttribute('aria-hidden','true');
+  s.appendChild(sv('circle',{cx:42,cy:42,r:39,fill:clumped?'#FBF5F5':'#fff',stroke:'#6B7483','stroke-width':2}));
+  if(clumped)BLOBS.forEach(function(b){s.appendChild(sv('ellipse',{cx:b[0],cy:b[1],rx:b[2],ry:b[3],fill:'#7A1F2B'}));});
+  else s.appendChild(sv('circle',{cx:42,cy:42,r:33,fill:'#C96A73','fill-opacity':'.6'}));
+  return s;
+}
+function abo(a,b){return a&&b?'AB':a?'A':b?'B':'O';}
+function tname(a,b,d){return abo(a,b)+(d?' positive':' negative');}
+function agrees(f,r){return r[0]===(f[0]?0:1)&&r[1]===(f[1]?0:1);}
+function revGroup(r){return r[0]&&r[1]?'O':r[0]?'B':r[1]?'A':'AB';}
+function antigens(a,b,d){var l=[];if(a)l.push('A');if(b)l.push('B');if(d)l.push('D');
+  return l.length?'the '+(l.length===1?l[0]+' antigen':l.slice(0,-1).join(', ')+' and '+l[l.length-1]+' antigens'):'no A, B or D antigens';}
+function plasmaAb(a,b){return !a&&!b?'anti-A and anti-B':!a?'anti-A':!b?'anti-B':'neither anti-A nor anti-B';}
+var ALL=[];[1,0].forEach(function(d){[[0,0],[1,0],[0,1],[1,1]].forEach(function(x){ALL.push([x[0],x[1],d]);});});
+function canGive(dn,p){return (!dn[0]||p[0])&&(!dn[1]||p[1])&&(!dn[2]||p[2]);}
+var WELLS=[
+ {k:'fa',g:0,l:'Anti-A',s:'with patient red cells'},{k:'fb',g:0,l:'Anti-B',s:'with patient red cells'},{k:'fd',g:0,l:'Anti-D',s:'with patient red cells'},
+ {k:'ra',g:1,l:'A cells',s:'with patient plasma'},{k:'rb',g:1,l:'B cells',s:'with patient plasma'},
+ {k:'s1',g:2,l:'Screening cell I',s:'with patient plasma'},{k:'s2',g:2,l:'Screening cell II',s:'with patient plasma'}];
+var GROUPS=['Forward typing and Rh: the patient\'s red cells with a reagent antibody','Reverse typing: the patient\'s plasma with reagent red cells','Antibody screen: the patient\'s plasma with group O screening cells'];
+function vals(c){return {fa:c.f[0],fb:c.f[1],fd:c.f[2],ra:c.r[0],rb:c.r[1],s1:c.s[0],s2:c.s[1]};}
+function word(x){return x?'clumped':'smooth';}
+
+/* ---------- practice cases ---------- */
+function typeOptions(c,i){
+  var f=c.f,ok=agrees(f,c.r),T=tname(f[0],f[1],f[2]),G=abo(f[0],f[1]),o=[];
+  var rh=f[2]?'Anti-D clumped, so the D antigen is present and the patient is Rh positive.':'Anti-D stayed smooth, so the D antigen is absent and the patient is Rh negative.';
+  function fits(g){var a=g==='A'||g==='AB',b=g==='B'||g==='AB';return 'Group '+g+' red cells would '+(a?'clump':'stay smooth')+' with anti-A and '+(b?'clump':'stay smooth')+' with anti-B. That is not what these wells show.';}
+  var others=['A','B','AB','O'].filter(function(g){return g!==G;});
+  if(ok){
+    o.push([T,1,'Anti-A '+(f[0]?'clumped':'stayed smooth')+' and anti-B '+(f[1]?'clumped':'stayed smooth')+', so the ABO group is '+G+'. The plasma has '+plasmaAb(f[0],f[1])+', so the reverse typing agrees. '+rh]);
+    o.push([tname(f[0],f[1],f[2]?0:1),0,'The ABO group is right, but the Rh type is not. '+rh]);
+    var g1=others[i%3],g2=others[(i+1)%3];
+    o.push([g1+(f[2]?' positive':' negative'),0,fits(g1)]);o.push([g2+(f[2]?' positive':' negative'),0,fits(g2)]);
+  }else{
+    var R=revGroup(c.r),third=['A','B','AB','O'].filter(function(g){return g!==G&&g!==R;})[i%2];
+    o.push(['The ABO group cannot be reported yet',1,'The forward typing looks like group '+G+', so the plasma should have '+plasmaAb(f[0],f[1])+'. The reverse typing does not show that. The two tests must agree before an ABO group is reported. '+c.why]);
+    o.push([T,0,'This is what the forward typing suggests. The reverse typing does not agree with it, so it cannot be reported.']);
+    o.push([R+(f[2]?' positive':' negative'),0,'This is what the reverse typing suggests when it is read alone. The forward typing does not agree with it.']);
+    o.push([third+(f[2]?' positive':' negative'),0,'Neither the forward typing nor the reverse typing fits group '+third+'.']);
+  }
+  return o;
+}
+function nextOptions(c,i){
+  var f=c.f,ok=agrees(f,c.r),pos=c.s[0]||c.s[1];
+  if(!ok)return ['The forward and reverse typing do not agree. What happens next?',[
+    ['The lab repeats the testing and finds the cause before a type is reported. If red cells are needed first, group O red cells are given.',1,'A blood type is reported only when both tests agree. Group O red cells carry no A or B antigens, so they are the safe choice while the ABO group is still unknown.'],
+    ['Report the forward type, because forward typing is always right.',0,'Either test can be the one that is off. Reporting one side without explaining the other risks giving the wrong blood.'],
+    ['Report the type the reverse typing suggests.',0,'The reverse typing is the test with the missing reaction in this case. It cannot be reported alone.'],
+    ['Report the patient as group AB so that any blood can be given.',0,'Guessing a type is dangerous. If the patient is not group AB, their plasma could destroy group A or group B red cells.']]];
+  if(pos)return ['The antibody screen is positive. What has to happen before red cells are given?',[
+    ['The lab identifies the antibody, then chooses red cells that lack that antigen and crossmatches them.',1,'A positive screen means the plasma has an unexpected antibody. An antibody panel names it, and only units without the matching antigen are safe.'],
+    ['Any unit that matches the ABO and Rh type can be given right away.',0,'ABO and Rh matching is not enough here. The unexpected antibody could destroy donor cells that carry its antigen.'],
+    ['The patient\'s blood type changes to match the antibody.',0,'A positive screen does not change the ABO group or the Rh type. It adds one more thing the donor unit has to match.'],
+    ['The patient can never receive a transfusion.',0,'The patient can still be transfused. Finding units that lack the antigen takes more time.']]];
+  if(f[0]&&f[1]&&f[2])return ['The antibody screen is negative. Which statement about red cells for this patient is correct?',[
+    ['They can receive red cells of any ABO group, Rh positive or Rh negative.',1,'AB positive plasma has no anti-A and no anti-B, and the patient\'s own cells already carry the D antigen. No donor ABO or Rh type is attacked.'],
+    ['They can receive only AB positive red cells.',0,'AB positive red cells are safe, but they are not the only safe choice. The plasma has no antibody against any ABO or Rh type.'],
+    ['They can receive only group O red cells.',0,'Group O red cells are safe for everyone, but an AB positive patient can also receive group A, B and AB red cells.'],
+    ['They cannot receive Rh-negative red cells.',0,'Rh-negative red cells simply lack the D antigen. There is nothing on them for an antibody to attack.']]];
+  var good=ALL.filter(function(d){return canGive(d,f);}),bad=ALL.filter(function(d){return !canGive(d,f);});
+  function why(d,yes){
+    if(yes)return 'These cells carry '+antigens(d[0],d[1],d[2])+'. Nothing in this patient\'s plasma reacts with them.';
+    if(d[0]&&!f[0])return 'These cells carry the A antigen. This patient\'s plasma has anti-A, which would destroy them.';
+    if(d[1]&&!f[1])return 'These cells carry the B antigen. This patient\'s plasma has anti-B, which would destroy them.';
+    return 'The ABO group is compatible, but these cells carry the D antigen. An Rh-negative patient is given Rh-negative red cells so that they do not form anti-D.';}
+  function lab(d){return tname(d[0],d[1],d[2])+' red cells';}
+  var g=good[i%good.length],o=[[lab(g),1,why(g,true)]];
+  for(var k=0;k<3;k++){var b=bad[(i+k*Math.max(1,Math.floor(bad.length/3)))%bad.length];o.push([lab(b),0,why(b,false)]);}
+  return ['The antibody screen is negative. Which unit of red cells is safe for this patient?',o];
+}
+function walkQs(c){
+  var f=c.f,r=c.r,ok=agrees(f,r),pos=c.s[0]||c.s[1];
+  return [
+   {q:'Forward typing: which ABO antigens are on the patient\'s red cells?',o:['A only','B only','Both A and B','Neither A nor B'],a:f[0]&&f[1]?2:f[0]?0:f[1]?1:3,
+    fb:'Anti-A '+(f[0]?'clumped':'stayed smooth')+' and anti-B '+(f[1]?'clumped':'stayed smooth')+'.'},
+   {q:'Reverse typing: which ABO antibodies did the test find in the patient\'s plasma?',o:['Anti-A only','Anti-B only','Both anti-A and anti-B','Neither'],a:r[0]&&r[1]?2:r[0]?0:r[1]?1:3,
+    fb:'The plasma '+(r[0]?'clumped':'did not clump')+' the A cells and '+(r[1]?'clumped':'did not clump')+' the B cells.'},
+   {q:'Do the forward and reverse typing agree?',o:['Yes, they agree','No, they do not agree'],a:ok?0:1,
+    fb:'Group '+abo(f[0],f[1])+' red cells go with plasma that has '+plasmaAb(f[0],f[1])+'. '+(ok?'That is what the reverse typing shows.':'The reverse typing shows something different.')},
+   {q:'Rh type: is the D antigen on the patient\'s red cells?',o:['Yes, the patient is Rh positive','No, the patient is Rh negative'],a:f[2]?0:1,fb:'Anti-D '+(f[2]?'clumped.':'stayed smooth.')},
+   {q:'Is the antibody screen positive or negative?',o:['Negative','Positive'],a:pos?1:0,
+    fb:pos?'At least one screening cell clumped, so the plasma has an unexpected antibody.':'Both screening cells stayed smooth, so no unexpected antibody was detected.'}
+  ];
+}
+function tray(v,reveal,idp){
+  var box=el('div');
+  GROUPS.forEach(function(gn,gi){
+    box.appendChild(el('p',{cls:'traygrp',text:gn}));
+    var row=el('div',{cls:'tray'});
+    WELLS.forEach(function(w){if(w.g!==gi)return;
+      var cell=el('div',{cls:'well'});
+      cell.appendChild(wellSvg(v[w.k],reveal?w.l+': '+word(v[w.k]):w.l+' well. The result is shown in the picture.'));
+      cell.appendChild(el('span',{cls:'wl',text:w.l}));cell.appendChild(el('span',{cls:'ws',text:w.s}));
+      if(idp){
+        var seg=el('span',{cls:'seg',role:'radiogroup','aria-label':w.l+' reading'});
+        [['1','Clumped'],['0','Smooth']].forEach(function(o){var id=idp+w.k+o[0];
+          seg.appendChild(el('input',{type:'radio',name:idp+w.k,id:id,value:o[0]}));seg.appendChild(el('label',{'for':id,text:o[1]}));});
+        cell.appendChild(seg);cell.appendChild(el('span',{cls:'mark','data-mark':w.k}));
+      }
+      row.appendChild(cell);});
+    box.appendChild(row);
+  });
+  return box;
+}
+function renderCase(focus){
+  var c=CASES[cur],v=vals(c),host=document.getElementById('caseBody'),idp=uid('c');clear(host);renderChips();
+  var head=el('div',{cls:'card'},el('p',{cls:'eyebrow',text:'Case '+(cur+1)+' of '+CASES.length}),el('h3',{tabindex:'-1',text:'A '+c.who}),
+    el('ul',null,el('li',{text:c.story[0]}),el('li',{text:c.story[1]}),el('li',{text:'A type and screen is ordered.'})));
+  host.appendChild(head);
+  var s1=el('div',{cls:'card',style:'margin-top:16px'},el('h3',{text:'Step 1: Read each reaction'}),el('p',{cls:'note',text:'Mark every well as clumped or smooth.'}));
+  var t=tray(v,false,idp);s1.appendChild(t);
+  var words=el('details',{cls:'calcbox'},el('summary',{text:'Describe the reactions in words'}),el('ul',null));
+  WELLS.forEach(function(w){words.lastChild.appendChild(el('li',{text:w.l+': '+word(v[w.k])}));});
+  var chk=el('button',{type:'button',cls:'btn',text:'Check my readings'}),live=el('div',{'aria-live':'polite'});
+  s1.appendChild(el('div',{cls:'row'},chk));s1.appendChild(live);s1.appendChild(words);host.appendChild(s1);
+  var rest=el('div');host.appendChild(rest);
+  chk.addEventListener('click',function(){
+    var wrong=0,blank=0;
+    WELLS.forEach(function(w){var p=s1.querySelector('input[name="'+idp+w.k+'"]:checked'),m=s1.querySelector('[data-mark="'+w.k+'"]');
+      if(!p){blank++;m.textContent='Not marked yet';m.className='mark no';}
+      else if(Number(p.value)!==v[w.k]){wrong++;m.textContent='Look again';m.className='mark no';}
+      else{m.textContent='Correct';m.className='mark';}});
+    clear(live);
+    if(blank||wrong){live.appendChild(el('p',{cls:'mark no',text:(blank?blank+' not marked. ':'')+(wrong?wrong+' to look at again. ':'')+'Dark clumps on a clear background are clumped. An even pink layer is smooth.'}));return;}
+    [].forEach.call(s1.querySelectorAll('input'),function(x){x.disabled=true;});chk.disabled=true;
+    live.appendChild(el('p',{cls:'result',text:'All seven readings are correct.'}));
+    step2();
+  });
+  function step2(){
+    var wrap=el('div',{style:'margin-top:16px'});rest.appendChild(wrap);
+    var card=walkThrough(wrap,'Step 2: Work through the results in order','Answer each question to open the next one. Read the ABO group first, then the Rh type, then the screen.',walkQs(c),
+      'Not yet. Look at the wells for that part of the test and choose again.','You have read the whole tray. Now name the blood type.',step3);
+    card.querySelector('h3').focus();
+  }
+  function step3(){
+    var wrap=el('div',{style:'margin-top:16px'});rest.appendChild(wrap);
+    renderMC(wrap,'What is this patient\'s blood type?',typeOptions(c,cur),'Step 3: Name the blood type',function(ok,l){
+      var nx=nextOptions(c,cur),w2=el('div',{style:'margin-top:16px'});rest.appendChild(w2);
+      renderMC(w2,nx[0],nx[1],'Step 4: Choose what happens next',function(){caseDone(rest);});
+    });
+  }
+  if(focus)head.querySelector('h3').focus();
+}
+
+/* ---------- reaction reader ---------- */
+var tv={fa:0,fb:0,fd:1,ra:1,rb:1,s1:0,s2:0};
+function renderTool(){
+  var host=document.getElementById('toolTray');clear(host);
+  GROUPS.forEach(function(gn,gi){
+    host.appendChild(el('p',{cls:'traygrp',text:gn}));
+    var row=el('div',{cls:'tray'});
+    WELLS.forEach(function(w){if(w.g!==gi)return;
+      var b=el('button',{type:'button',cls:'well wellbtn','aria-pressed':tv[w.k]?'true':'false','aria-label':w.l+': '+word(tv[w.k])+'. Select to change.'});
+      b.appendChild(wellSvg(tv[w.k]));b.appendChild(el('span',{cls:'wl',text:w.l}));b.appendChild(el('span',{cls:'ws',text:tv[w.k]?'Clumped':'Smooth'}));
+      b.addEventListener('click',function(){tv[w.k]=tv[w.k]?0:1;renderTool();var n=document.querySelector('#toolTray [data-k="'+w.k+'"]');if(n)n.focus();});
+      b.setAttribute('data-k',w.k);row.appendChild(b);});
+    host.appendChild(row);
+  });
+  var out=document.getElementById('toolOut');clear(out);
+  var f=[tv.fa,tv.fb,tv.fd],r=[tv.ra,tv.rb],ok=agrees(f,r),pos=tv.s1||tv.s2;
+  function find(h,t){return el('div',{cls:'finding'},el('h4',{text:h}),el('p',{style:'margin:0',text:t}));}
+  out.appendChild(el('h3',{text:ok?'Blood type: '+tname(f[0],f[1],f[2]):'The ABO group cannot be reported'}));
+  out.appendChild(find('Forward typing','The red cells carry '+(f[0]||f[1]?antigens(f[0],f[1],0):'neither the A nor the B antigen')+'. This looks like group '+abo(f[0],f[1])+'.'));
+  out.appendChild(find('Reverse typing','The plasma has '+(r[0]&&r[1]?'anti-A and anti-B':r[0]?'anti-A':r[1]?'anti-B':'neither anti-A nor anti-B')+'. '+(ok?'This agrees with the forward typing.':'This does not agree with the forward typing. Group '+abo(f[0],f[1])+' plasma should have '+plasmaAb(f[0],f[1])+'. The lab has to find the cause before a type is reported.')));
+  out.appendChild(find('Rh type',f[2]?'Anti-D clumped. The D antigen is present, so the patient is Rh positive.':'Anti-D stayed smooth. The D antigen is absent, so the patient is Rh negative.'));
+  out.appendChild(find('Antibody screen',pos?'Positive. The plasma has an unexpected antibody. It must be identified, and red cells that lack that antigen must be chosen and crossmatched.':'Negative. No unexpected antibody was detected.'));
+  if(ok){var ul=el('ul',{cls:'pillrow'});ALL.forEach(function(d){if(canGive(d,f))ul.appendChild(el('li',{cls:'flag low',text:tname(d[0],d[1],d[2])}));});
+    out.appendChild(el('div',{cls:'finding'},el('h4',{text:'Red cells this patient can receive by ABO and Rh type'}),ul));}
+  else out.appendChild(find('Red cells','If red cells are needed before the cause is found, group O red cells are given.'));
+}
+renderTool();
+window.__app={typeOptions:typeOptions,nextOptions:nextOptions,walkQs:walkQs,agrees:agrees,tname:tname,CASES:CASES,QUIZ:QUIZ};
+
+QUIZ=shuffle(QUIZ);
+document.getElementById('randCase').addEventListener('click',randomCase);
+renderCase(false);renderQuiz(false);show(location.hash.slice(1));
+if(NAMES.indexOf(location.hash.slice(1))<0&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){pOn=true;}
+pRender();
+})();
+</script>
+
+<script>
+/* iframe height sender for Canvas, Kajabi and other embeds */
+(function(){
+  var ID="blood-typing";
+  function send(){try{parent.postMessage({id:ID,type:'resize',height:document.documentElement.scrollHeight},'*');}catch(e){}}
+  window.addEventListener('load',send);window.addEventListener('resize',send);
+  if('ResizeObserver' in window){new ResizeObserver(send).observe(document.body);}
+  send();
+})();
+</script>
+</body>
+</html>

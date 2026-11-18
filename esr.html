@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESR Tutor and Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#060B1A; --maroon:#7A1F2B; --maroon-dark:#C8384C; --gold:#D2A94E;
+  --page:#FAFAF9; --card:#FFFFFF; --line:#D5DAE1; --muted:#414B5A; --tint:#EDF1F3;
+  --rest:0 1px 3px rgba(0,0,0,.08); --lift:0 8px 16px rgba(0,0,0,.10);
+  --display:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --body:"DM Sans","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box;font-style:normal}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0}
+p{margin:0 0 .75rem}
+ul{margin:0;padding-left:1.15rem}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;background:#fff;color:var(--ink);padding:10px 16px;z-index:10;font-weight:700}
+.skip:focus{left:12px;top:12px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
+.band :focus-visible{outline-color:var(--gold)}
+.eyebrow{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);margin:0 0 10px}
+.hl{color:var(--maroon)}
+
+/* dark band */
+.band{background:var(--ink);color:#fff}
+.band .eyebrow{color:var(--gold)}
+.band .hl{color:var(--maroon-dark)}
+.hero{padding:56px 0 40px}
+.hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;letter-spacing:-.02em;max-width:14ch}
+.hero p.lead{font-size:1.1rem;max-width:52ch;margin:18px 0 22px;color:#E7EAF0}
+.pills{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
+.pill{border:1px solid currentColor;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.band .pill{color:#E7EAF0}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid #2A3145}
+.tab{appearance:none;background:none;border:0;border-bottom:4px solid transparent;color:#E7EAF0;font-family:var(--body);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:16px 18px 12px;cursor:pointer}
+.tab[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold)}
+.tab:hover{color:#fff}
+
+main{padding:40px 0 64px}
+.panel[hidden]{display:none}
+.sec{margin:0 0 48px}
+.sec > h2{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;letter-spacing:-.015em;margin-bottom:8px}
+.sec > p.sub{color:var(--muted);max-width:60ch;margin-bottom:22px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--rest);padding:20px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.lift{transition:transform 200ms ease,box-shadow 200ms ease}
+.lift:hover{transform:translateY(-2px);box-shadow:var(--lift)}
+.num{font-family:var(--display);font-weight:800;font-size:3.6rem;line-height:1;color:var(--maroon);margin-bottom:8px}
+.card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+.card h4{font-size:.78rem;font-family:var(--body);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);margin:12px 0 2px}
+.card p,.card li{font-size:.97rem}
+.tag{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.range{font-family:var(--display);font-weight:700;font-size:1rem;margin:2px 0 4px}
+.unit{color:var(--muted);font-weight:500;font-family:var(--body);font-size:.9rem}
+
+table{border-collapse:collapse;width:100%;font-size:.97rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+thead th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+tbody th{font-weight:700}
+.scroll{overflow-x:auto}
+.grp td{background:var(--tint);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px}
+.val{font-family:var(--display);font-weight:700;white-space:nowrap}
+
+.term{appearance:none;background:none;border:0;border-bottom:2px dotted var(--maroon);padding:0;font:inherit;color:inherit;cursor:help}
+.def{display:block;background:var(--ink);color:#fff;border-radius:6px;padding:8px 12px;margin:6px 0;font-size:.92rem;max-width:46ch}
+
+.btn{appearance:none;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;font-family:var(--body);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:12px 20px;cursor:pointer;min-height:44px}
+.btn:hover{background:#1B2440}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn.ghost:hover{background:var(--tint)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+
+/* forms */
+fieldset{border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 16px;background:#fff}
+legend{font-family:var(--display);font-weight:700;padding:0 8px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+label{display:block;font-size:.9rem;font-weight:700;margin-bottom:4px}
+.hint{display:block;font-weight:400;color:var(--muted);font-size:.82rem}
+input[type=number],select{width:100%;font:inherit;padding:9px 10px;border:1px solid #6B7483;border-radius:6px;background:#fff;color:var(--ink);min-height:44px}
+
+/* flags */
+.flag{display:inline-block;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--ink);white-space:nowrap}
+.flag.high{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.flag.low{background:#fff;color:var(--ink)}
+.flag.ok{border-color:var(--line);color:var(--muted)}
+.seg{display:inline-flex;border:1px solid #6B7483;border-radius:6px;overflow:hidden}
+.seg label{margin:0;font-size:12px;letter-spacing:.06em;padding:8px 10px;cursor:pointer;min-width:44px;text-align:center;border-left:1px solid #6B7483;font-weight:700}
+.seg label:first-of-type{border-left:0}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg input:checked + label{background:var(--ink);color:#fff}
+.seg input:focus-visible + label{outline:3px solid var(--maroon);outline-offset:-3px}
+.seg input:disabled + label{cursor:default}
+.mark{display:block;font-size:.82rem;font-weight:700;margin-top:4px}
+.mark.no{color:var(--maroon)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 18px}
+.chip{appearance:none;width:44px;height:44px;border-radius:8px;border:2px dashed #6B7483;background:#fff;font:700 15px var(--display);color:var(--ink);cursor:pointer}
+.chip.done{border:2px solid var(--ink);background:var(--tint)}
+.chip[aria-current="true"]{border:2px solid var(--maroon);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--maroon)}
+
+.opts{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid #6B7483;border-radius:8px;padding:12px 14px;background:#fff;cursor:pointer;font-weight:500;font-size:1rem;margin:0}
+.opt input{width:20px;height:20px;margin-top:3px;flex:none;accent-color:var(--ink)}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.why{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
+.why li{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}
+.why li.right{border:2px solid var(--ink);background:var(--tint)}
+.verdict{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon)}
+.why li.right .verdict{color:var(--ink)}
+.stem{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:0}
+.result{font-family:var(--display);font-weight:700;font-size:1.05rem;margin:14px 0 0}
+.finding{border-bottom:1px solid var(--line);padding:12px 0}
+.finding:last-child{border-bottom:0}
+.finding h4{margin-top:0}
+.note{color:var(--muted);font-size:.88rem}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:.88rem}
+footer a{color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.cells{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.cell{margin:0;padding:0;overflow:hidden}
+.cell img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+.cell figcaption{padding:14px 16px 16px}
+.cell h3{margin-bottom:6px}
+.wide img{aspect-ratio:auto}
+.thumb{float:right;width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 0 8px 12px;border:1px solid var(--line)}
+.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end;height:240px;border-bottom:2px solid var(--ink);margin:18px 0 0;padding:0 4px}
+.col{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bar{width:70%;background:var(--ink);border-radius:4px 4px 0 0;transition:height 300ms ease}
+.bar.shifted{background:var(--maroon)}
+.normbar{position:absolute;bottom:0;left:15%;width:70%;border:2px dashed #6B7483;border-bottom:0;border-radius:4px 4px 0 0;pointer-events:none}
+.pct{font-family:var(--display);font-weight:700;font-size:.95rem;margin-bottom:4px}
+.xlab{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:6px 4px 0;font-size:.82rem;font-weight:700;text-align:center}
+.xlab span span{display:block;font-weight:400;color:var(--muted)}
+.key{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted);margin-top:10px}
+.key b{display:inline-block;width:18px;height:12px;vertical-align:-1px;margin-right:6px}
+.shiftseg label{padding:10px 16px;font-size:13px}
+
+/* cell pictures at native size so they stay sharp */
+.cells{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.cell{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;padding:16px;overflow:visible}
+.cell img{width:132px;height:132px;flex:none;border-radius:10px;aspect-ratio:auto}
+.cell figcaption{padding:0;flex:1;min-width:150px}
+.cell.wide img{width:min(100%,380px);height:auto;border-radius:10px}
+.cell.wide img[data-smear]{width:min(100%,520px)}
+.cell.wide figcaption{min-width:220px}
+/* concept maps */
+.treewrap{overflow-x:auto;padding:8px 2px 14px}
+.tree ul{list-style:none;margin:0;padding:22px 0 0;display:flex;justify-content:center;position:relative}
+.tree>ul{padding-top:0}
+.tree li{position:relative;padding:22px 5px 0;text-align:center;flex:1 1 auto}
+.tree ul ul ul .node{max-width:140px}
+.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;width:50%;height:22px;border-top:2px solid var(--ink)}
+.tree li::after{right:auto;left:50%;border-left:2px solid var(--ink)}
+.tree li:only-child::before,.tree li:only-child::after{border-top:0}
+.tree li:only-child::before{display:none}
+.tree li:first-child::before,.tree li:last-child::after{border:0 none}
+.tree li:last-child::before{border-right:2px solid var(--ink);border-radius:0 8px 0 0}
+.tree li:first-child::after{border-radius:8px 0 0 0}
+.tree li:only-child::after{border-radius:0}
+.tree>ul>li{padding-top:0}
+.tree>ul>li::before,.tree>ul>li::after{display:none}
+.tree ul ul::before{content:"";position:absolute;top:0;left:50%;height:22px;border-left:2px solid var(--ink)}
+.node{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--rest);padding:10px 12px;font-size:.88rem;line-height:1.35;max-width:210px}
+.node b{display:block;font-family:var(--display);font-size:.98rem}
+.tree>ul>li>.node{background:var(--ink);color:#fff;border-color:var(--ink)}
+.edge{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--maroon);background:var(--page);position:relative;z-index:1;width:max-content;max-width:100%;margin:0 auto 4px;padding:0 6px}
+.mapimg{display:block;width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 6px;border:1px solid var(--line)}
+@media (max-width:820px){
+  .tree ul{display:block;padding:0 0 0 16px;margin-left:10px;border-left:2px solid var(--ink)}
+  .tree>ul{border-left:0;margin-left:0;padding-left:0}
+  .tree li{text-align:left;padding:10px 0 0}
+  .tree li::before,.tree li::after,.tree ul ul::before{display:none}
+  .node,.tree ul ul ul .node{max-width:none;display:block}
+  .edge{margin:0 0 4px;padding:0}
+  .mapimg{float:left;margin:0 10px 0 0;width:56px;height:56px}
+  .node::after{content:"";display:block;clear:both}
+}
+/* intro player and home menu */
+.hero[hidden],#modebar[hidden],#home[hidden]{display:none}
+.stage{border:1px solid #2A3145;border-radius:14px;background:#0B1226;padding:20px 22px;margin-top:26px}
+.segs{display:flex;gap:6px;margin-bottom:18px}
+.segbar{flex:1;height:4px;background:#2A3145;border-radius:2px;overflow:hidden}
+.segbar span{display:block;height:100%;width:0;background:var(--gold)}
+.segbar.done span{width:100%}
+.segbar.on span{width:100%}
+.segbar.on.run span{animation:fill 7s linear forwards}
+@keyframes fill{from{width:0}to{width:100%}}
+.scene{min-height:280px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;animation:fadein 500ms ease}
+.scene[hidden]{display:none}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.scene .txt{flex:1;min-width:240px}
+.scene h2{font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:800;letter-spacing:-.015em;color:#fff;margin-bottom:10px}
+.scene p,.scene li{color:#E7EAF0;font-size:1.05rem}
+.scene img.shot{background:#fff;padding:6px;width:min(100%,400px);height:auto;border-radius:10px}
+.five{display:flex;flex-wrap:wrap;gap:14px;list-style:none;padding:0;margin:14px 0 10px}
+.five li{text-align:center;font-size:.85rem;font-weight:700}
+.five img{display:block;width:84px;height:84px;border-radius:50%;object-fit:cover;margin:0 auto 6px;border:2px solid #2A3145}
+.ctls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.ctl{appearance:none;background:transparent;color:#fff;border:1px solid #E7EAF0;border-radius:6px;font:700 12px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;min-height:44px;cursor:pointer}
+.ctl:hover{background:#1B2440}
+.ctl.solid{background:var(--gold);border-color:var(--gold);color:var(--ink);margin-left:auto}
+.ctl.solid:hover{background:#E0BC6A}
+.count{color:#E7EAF0;font-size:.85rem;font-weight:700;letter-spacing:.08em}
+.barrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-top:14px}
+.barrow .tabs{border-top:0;flex:1}
+.brand{font-family:var(--display);font-weight:800;color:#fff;font-size:1.05rem;margin-right:auto}
+.entry{appearance:none;text-align:left;font:inherit;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:6px;width:100%;padding:24px}
+.entry .etitle{font-family:var(--display);font-weight:800;font-size:1.7rem;letter-spacing:-.01em}
+.entry .edesc{font-size:1rem}
+.entry .estat{font-size:.85rem;color:var(--muted);font-weight:700}
+.entry .ego{align-self:flex-start;margin-top:10px;border:2px solid var(--ink);border-radius:6px;padding:8px 14px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.entry:hover .ego{background:var(--ink);color:#fff}
+
+/* full-screen cinematic intro */
+.hero{padding:0 20px}
+.stage{position:relative;border:0;border-radius:0;margin:0;padding:26px 0 30px;min-height:680px;display:flex;flex-direction:column;align-items:center;text-align:center;background:radial-gradient(ellipse at 50% 28%,#14204A 0%,#060B1A 68%)}
+.segs{width:min(380px,72%);margin:8px auto 0}
+.skip2{position:absolute;top:18px;right:0;padding:8px 12px;min-height:40px;border-color:#6B7483}
+.scene{flex:1;flex-direction:column;flex-wrap:nowrap;justify-content:center;align-items:center;gap:14px;min-height:480px;width:100%;max-width:980px;animation:none;padding:26px 0 10px}
+#scenes{flex:1;display:flex;width:100%;justify-content:center}
+.scene>*{animation:rise 800ms cubic-bezier(.2,.7,.2,1) both}
+.scene>*:nth-child(2){animation-delay:.18s}.scene>*:nth-child(3){animation-delay:.42s}.scene>*:nth-child(4){animation-delay:.7s}.scene>*:nth-child(5){animation-delay:.95s}
+@keyframes rise{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+.scene h1{font-size:clamp(2.5rem,7.5vw,4.6rem);font-weight:800;letter-spacing:-.025em;max-width:none}
+.scene h2{font-size:clamp(1.9rem,5vw,3.3rem);max-width:20ch;margin:0}
+.scene .lead{font-size:clamp(1.05rem,2vw,1.3rem);max-width:44ch;margin:0;color:#E7EAF0}
+.scene .eyebrow{margin:0}
+.logo{display:block}
+.trio{list-style:none;padding:0;margin:4px 0;display:grid;gap:6px;font-size:clamp(1.05rem,2vw,1.25rem)}
+.trio b{color:#fff}
+.scene img.shot{width:min(100%,380px);border-radius:10px}
+.five{justify-content:center;gap:18px;margin:6px 0}
+.five li{animation:pop 520ms cubic-bezier(.2,.8,.3,1.2) both;color:#fff}
+.five li:nth-child(1){animation-delay:.5s}.five li:nth-child(2){animation-delay:.68s}.five li:nth-child(3){animation-delay:.86s}.five li:nth-child(4){animation-delay:1.04s}.five li:nth-child(5){animation-delay:1.22s}
+.five img{width:104px;height:104px;border-color:#D2A94E}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.entries{width:100%;text-align:left;margin-top:8px}
+.ctls{justify-content:center;margin-top:10px}
+.ctl.solid{margin-left:0}
+.ctl[hidden],.count[hidden]{display:none}
+
+/* light header and intro: white background, navy text, maroon highlight */
+.band{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}
+.band .eyebrow{color:var(--maroon)}
+.band .hl{color:var(--maroon)}
+.band :focus-visible{outline-color:var(--ink)}
+.stage{background:radial-gradient(ellipse at 50% 30%,#F1F4F8 0%,#FFFFFF 70%)}
+.scene h1,.scene h2{color:var(--ink)}
+.scene p,.scene li,.scene .lead{color:#1A2233}
+.scene .lead,.hero p.lead{font-weight:500;color:#1A2233}
+.trio b,.five li{color:var(--ink)}
+.five img{border-color:var(--maroon)}
+.scene img.shot{border:1px solid var(--line);padding:6px}
+.segbar{background:var(--line)}
+.segbar span{background:var(--maroon)}
+.ctl{color:var(--ink);border-color:var(--ink)}
+.ctl:hover{background:var(--tint)}
+.ctl.solid{background:var(--ink);border-color:var(--ink);color:#fff}
+.ctl.solid:hover{background:#1B2440}
+.skip2{border-color:#6B7483}
+.count{color:var(--muted)}
+.tabs{border-top:1px solid var(--line)}
+.tab{color:var(--muted)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--maroon)}
+.brand{color:var(--ink)}
+
+.circuit{display:inline-block;color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);border-radius:6px;padding:10px 16px;text-decoration:none;min-height:44px}
+.circuit:hover{background:var(--tint)}
+.circuit[hidden]{display:none}
+/* calculator and formula practice */
+input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10px;border:1px solid #6B7483;border-radius:6px;min-height:44px;color:var(--ink);background:#fff}
+.calc{border-top:1px solid var(--line);padding:16px 0 6px}
+.card h4.calc-h{font-family:var(--display);font-size:1.08rem;text-transform:none;letter-spacing:0;color:var(--ink);margin:0 0 4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stepl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);font-weight:700;margin:14px 0 6px}
+.setup{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700}
+.setup select{width:auto;max-width:100%}
+.setup input[type=number]{width:130px}
+.calcbox{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:12px 0;background:#fff}
+.calcbox summary{cursor:pointer;font-weight:700;min-height:28px}
+.pad{display:grid;grid-template-columns:repeat(4,minmax(44px,62px));gap:6px;margin:10px 0}
+.pad button{min-height:44px;border:1px solid #6B7483;border-radius:6px;background:#fff;font:700 1rem var(--display);cursor:pointer;color:var(--ink)}
+.pad button.op{background:var(--tint)}
+.pad button.eq{background:var(--ink);color:#fff;grid-column:span 2}
+.calc-out{display:block;font-family:var(--display);font-weight:700;font-size:1.1rem;margin-top:6px}
+.vals{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:10px 0}
+.vals li{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.92rem;background:#fff}
+.why-row td{background:var(--tint);font-size:.9rem;padding-top:6px;padding-bottom:10px}
+.calc .opts{margin-top:6px}
+@media (max-width:600px){th,td{padding:8px 6px}.hero{padding:40px 0 28px}.tab{padding:14px 12px 10px;letter-spacing:.1em}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.lift:hover{transform:none}}
+
+/* circuit stations: reaction wells, tube, small extras */
+.tray{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0}
+.well .seg label{padding:8px 8px;min-width:0;letter-spacing:.02em}
+.well{border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px;text-align:center}
+.well svg{display:block;margin:0 auto 6px;width:84px;height:84px}
+.well .wl{display:block;font-family:var(--display);font-weight:700;font-size:.95rem}
+.well .ws{display:block;font-size:.8rem;color:var(--muted)}
+.well .seg{margin-top:8px}
+.traygrp{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);margin:14px 0 0}
+.wellbtn{appearance:none;font:inherit;color:inherit;cursor:pointer;width:100%}
+.wellbtn[aria-pressed="true"]{border:2px solid var(--ink)}
+.tubewrap{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.tubewrap svg{flex:none;max-width:100%;height:auto}
+.tubeside{flex:1;min-width:240px}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:8px;counter-reset:s}
+.steps li{counter-increment:s;padding-left:38px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font:700 13px var(--display);display:flex;align-items:center;justify-content:center}
+.circuit{display:inline-block;color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);border-radius:6px;padding:10px 16px;text-decoration:none;min-height:44px}
+.circuit:hover{background:var(--tint)}
+.circuit[hidden]{display:none}
+.yes{font-weight:700}
+.no{color:var(--muted)}
+.pillrow{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:8px 0 0}
+.intro-svg{width:min(100%,420px);height:auto}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="band">
+  <div class="wrap hero" id="hero">
+    <section class="stage" aria-label="Introduction">
+      <button type="button" class="ctl skip2" id="pSkip">Skip intro</button>
+      <div class="segs" aria-hidden="true"><div class="segbar"><span></span></div><div class="segbar"><span></span></div><div class="segbar"><span></span></div><div class="segbar"><span></span></div><div class="segbar"><span></span></div></div>
+      <div id="scenes" aria-live="off"><div class="scene"><svg class="logo" viewBox="40 10 125 148" width="64" height="76" aria-hidden="true"><g transform="translate(22.03,6.53) scale(4.73)"><circle cx="8" cy="8" r="4.2" fill="#060B1A"/><circle cx="17" cy="8" r="4.2" fill="#7A1F2B"/><circle cx="26" cy="8" r="4.2" fill="#C9A14A"/><rect x="5.5" y="15" width="5" height="14" rx="2.5" fill="#060B1A"/><rect x="14.5" y="15" width="5" height="14" rx="2.5" fill="#7A1F2B"/><rect x="23.5" y="15" width="5" height="14" rx="2.5" fill="#C9A14A"/></g></svg><p class="eyebrow">Human Physiology · Blood lab skills</p><h1>Read an ESR with <span class="hl">confidence</span></h1><p class="lead">A short introduction comes first. Then you choose where to start.</p></div><div class="scene" hidden><p class="eyebrow">What it is</p><h2>An ESR measures how far red blood cells fall in one hour.</h2><p class="lead">ESR stands for erythrocyte sedimentation rate. It is also called a sed rate.</p></div><div class="scene" hidden><p class="eyebrow">How it is read</p><h2>The result is the height of the clear plasma, in millimeters.</h2><svg class="intro-svg" viewBox="0 0 260 230" role="img" aria-label="Drawing of an upright tube. Clear plasma sits above a tall column of settled red cells." style="max-width:260px"><rect x="112" y="30" width="26" height="60" fill="#F4EBC3"/><rect x="112" y="90" width="26" height="124" fill="#7A1F2B"/><rect x="112" y="14" width="26" height="200" rx="3" fill="none" stroke="#060B1A" stroke-width="2"/><line x1="138" y1="30" x2="150" y2="30" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="50" x2="145" y2="50" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="70" x2="145" y2="70" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="90" x2="145" y2="90" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="110" x2="145" y2="110" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="130" x2="150" y2="130" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="150" x2="145" y2="150" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="170" x2="145" y2="170" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="190" x2="145" y2="190" stroke="#060B1A" stroke-width="1"/><line x1="138" y1="210" x2="145" y2="210" stroke="#060B1A" stroke-width="1"/><text x="158" y="64" font-size="14" font-family="DM Sans, sans-serif" font-weight="700" fill="#060B1A">plasma</text><text x="158" y="156" font-size="14" font-family="DM Sans, sans-serif" font-weight="700" fill="#060B1A">red cells</text><line x1="60" y1="30" x2="60" y2="90" stroke="#7A1F2B" stroke-width="2"/><line x1="54" y1="30" x2="66" y2="30" stroke="#7A1F2B" stroke-width="2"/><line x1="54" y1="90" x2="66" y2="90" stroke="#7A1F2B" stroke-width="2"/><text x="52" y="56" font-size="13" font-family="DM Sans, sans-serif" font-weight="700" fill="#7A1F2B" text-anchor="end">this</text><text x="52" y="72" font-size="13" font-family="DM Sans, sans-serif" font-weight="700" fill="#7A1F2B" text-anchor="end">distance</text></svg><p class="lead">The red cells settle and leave plasma at the top.</p></div><div class="scene" hidden><p class="eyebrow">Why it changes</p><h2>Inflammation makes red cells stack, and stacks fall faster.</h2><svg class="intro-svg" viewBox="0 0 420 220" role="img" aria-label="Two drawings side by side. On the left, single disc-shaped red cells float apart. On the right, red cells are stacked like rolls of coins." style="max-width:420px"><ellipse cx="40" cy="40" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="92" cy="70" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="50" cy="110" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="120" cy="30" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="130" cy="118" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="84" cy="150" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="30" cy="170" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="140" cy="172" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="270" cy="40" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="49" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="58" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="67" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="76" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="85" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="94" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="70" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="79" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="88" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="97" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="106" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="115" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="124" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="133" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="30" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="39" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="48" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="57" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="66" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="75" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><line x1="210" y1="14" x2="210" y2="190" stroke="#D5DAE1" stroke-width="1"/><text x="88" y="212" font-size="14" font-family="DM Sans, sans-serif" font-weight="700" fill="#060B1A" text-anchor="middle">Single cells fall slowly</text><text x="325" y="212" font-size="14" font-family="DM Sans, sans-serif" font-weight="700" fill="#060B1A" text-anchor="middle">Stacks fall fast</text></svg><p class="lead">The stacks are called rouleaux.</p></div><div class="scene" hidden><p class="eyebrow">Your turn</p><h2>Where do you want to begin?</h2><div class="grid g3 entries">
+      <button type="button" class="entry card lift" data-go="learn"><span class="num" aria-hidden="true">01</span><span class="etitle">Learn</span><span class="edesc">How the test is run, what raises and lowers it, and what the number means.</span><span class="estat">1 tube · 4 ranges · 1 concept map</span><span class="ego">Start learning</span></button>
+      <button type="button" class="entry card lift" data-go="practice"><span class="num" aria-hidden="true">02</span><span class="etitle">Practice</span><span class="edesc">Read the tube, then interpret the result one step at a time. There are 40 cases, given at random.</span><span class="estat" id="st-practice">0 cases done</span><span class="ego">Start practice</span></button>
+      <button type="button" class="entry card lift" data-go="quiz"><span class="num" aria-hidden="true">03</span><span class="etitle">Quiz</span><span class="edesc">Ten questions, with an explanation for every answer choice.</span><span class="estat" id="st-quiz">Not taken yet</span><span class="ego">Take the quiz</span></button>
+    </div><div class="row" style="justify-content:center"><button class="ctl" type="button" data-go="interpreter">Open the ESR checker</button><a class="circuit" href="blood-lab-circuit.html" target="_top" hidden>Back to the Blood Lab Circuit</a></div></div></div>
+      <div class="ctls">
+        <button type="button" class="ctl" id="pPrev" aria-label="Previous slide">Back</button>
+        <button type="button" class="ctl" id="pPlay">Play</button>
+        <button type="button" class="ctl solid" id="pNext" aria-label="Continue to the next slide">Continue</button>
+        <span class="count" id="pCount">1 of 4</span>
+      </div>
+    </section>
+  </div>
+  <div class="wrap" id="modebar" hidden>
+    <div class="barrow"><span class="brand">Human Physiology · ESR Tutor</span><a class="circuit" href="blood-lab-circuit.html" target="_top" hidden>Back to the Blood Lab Circuit</a><button type="button" class="ctl" data-go="home">Home</button></div>
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="tab-learn" aria-controls="learn" aria-selected="true">Learn</button>
+      <button class="tab" role="tab" id="tab-interpreter" aria-controls="interpreter" aria-selected="false" tabindex="-1">ESR checker</button>
+      <button class="tab" role="tab" id="tab-practice" aria-controls="practice" aria-selected="false" tabindex="-1">Practice cases</button>
+      <button class="tab" role="tab" id="tab-quiz" aria-controls="quiz" aria-selected="false" tabindex="-1">Quiz</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<div class="wrap">
+
+<section class="panel" id="learn" role="tabpanel" aria-labelledby="tab-learn">
+
+  <div class="sec">
+    <p class="eyebrow">Start here</p>
+    <h2>Ask three questions, in the same <span class="hl">order</span></h2>
+    <p class="sub">An ESR is one number. Reading it well takes three steps.</p>
+    <div class="grid g3">
+      <div class="card lift"><div class="num" aria-hidden="true">01</div><h3>Read: how far did the red cells fall?</h3>
+        <ul><li>Read the tube at 60 minutes.</li><li>Measure from the top of the plasma to the top of the red cells.</li><li>Report it in mm/hr.</li></ul></div>
+      <div class="card lift"><div class="num" aria-hidden="true">02</div><h3>Compare: is it above the limit for this patient?</h3>
+        <ul><li>The upper limit depends on age and sex.</li><li>It is higher in women than in men.</li><li>It rises with age.</li></ul></div>
+      <div class="card lift"><div class="num" aria-hidden="true">03</div><h3>Interpret: does the number fit the patient?</h3>
+        <ul><li>A raised ESR supports inflammation.</li><li>It is <button type="button" class="term" data-def="Nonspecific: the test shows that something is happening, but many different conditions give the same result.">nonspecific</button>, so it does not name the cause.</li><li>Some conditions change the ESR without inflammation.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">The test</p>
+    <h2>The Westergren <span class="hl">method</span></h2>
+    <p class="sub">This is the standard way to measure an ESR.</p>
+    <div class="card"><div class="tubewrap"><div id="learnTube"></div>
+      <div class="tubeside"><h3>How it is done</h3>
+      <ol class="steps"><li>Blood is collected with an <button type="button" class="term" data-def="Anticoagulant: a substance that stops blood from clotting.">anticoagulant</button> so it cannot clot.</li><li>The blood is drawn up to the 0 mark of a 200 mm tube.</li><li>The tube stands perfectly upright and undisturbed at room temperature.</li><li>At 60 minutes, read the line where the clear plasma meets the red cells.</li></ol>
+      <h3 style="margin-top:18px">This tube</h3><ul><li>The plasma reaches from 0 down to 34.</li><li>The ESR is 34 mm/hr.</li></ul></div></div></div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Concept map</p>
+    <h2>From inflammation to a higher <span class="hl">number</span></h2>
+    <p class="sub">Each step leads to the next.</p>
+    <div class="treewrap" tabindex="0" role="group" aria-label="Concept map: why inflammation raises the ESR"><div class="tree"><ul><li><span class="node"><b>Inflammation</b>Infection, autoimmune disease or cancer</span><ul>
+      <li><span class="edge">signals the liver</span><span class="node"><b>More plasma proteins</b>Fibrinogen and other acute-phase proteins rise</span><ul>
+      <li><span class="edge">which let red cells stick</span><span class="node"><b>Rouleaux form</b>Red cells stack like rolls of coins</span><ul>
+      <li><span class="edge">and stacks sink faster</span><span class="node"><b>Higher ESR</b>More millimeters in one hour</span></li></ul></li></ul></li></ul></li></ul></div></div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card"><h3>Single cells and rouleaux</h3><svg class="intro-svg" viewBox="0 0 420 220" role="img" aria-label="Two drawings side by side. On the left, single disc-shaped red cells float apart. On the right, red cells are stacked like rolls of coins." style="max-width:380px"><ellipse cx="40" cy="40" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="92" cy="70" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="50" cy="110" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="120" cy="30" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="130" cy="118" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="84" cy="150" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="30" cy="170" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="140" cy="172" rx="17" ry="7" fill="#7A1F2B"/><ellipse cx="270" cy="40" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="49" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="58" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="67" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="76" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="85" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="270" cy="94" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="70" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="79" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="88" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="97" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="106" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="115" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="124" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="330" cy="133" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="30" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="39" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="48" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="57" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="66" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><ellipse cx="385" cy="75" rx="17" ry="5.5" fill="#7A1F2B" stroke="#fff" stroke-width="1.2"/><line x1="210" y1="14" x2="210" y2="190" stroke="#D5DAE1" stroke-width="1"/><text x="88" y="212" font-size="14" font-family="DM Sans, sans-serif" font-weight="700" fill="#060B1A" text-anchor="middle">Single cells fall slowly</text><text x="325" y="212" font-size="14" font-family="DM Sans, sans-serif" font-weight="700" fill="#060B1A" text-anchor="middle">Stacks fall fast</text></svg></div>
+      <div class="card"><h3>The key terms</h3><ul><li><button type="button" class="term" data-def="Fibrinogen: a plasma protein made by the liver. It forms the fibers of a blood clot and rises during inflammation.">Fibrinogen</button> is a plasma protein made by the liver.</li><li><button type="button" class="term" data-def="Acute-phase proteins: proteins the liver releases in larger amounts during inflammation. Fibrinogen and C-reactive protein are two of them.">Acute-phase proteins</button> rise in the blood during inflammation.</li><li><button type="button" class="term" data-def="Rouleaux: red blood cells stacked face to face, like a roll of coins.">Rouleaux</button> are stacks of red cells.</li><li>Red cells normally carry a negative charge that keeps them apart. These proteins weaken that effect.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">The reference range</p>
+    <h2>The upper limit depends on age and <span class="hl">sex</span></h2>
+    <p class="sub">Adult values for the Westergren method. Every lab sets its own, so always use the range printed on the report.</p>
+    <div class="card scroll" tabindex="0" role="group" aria-label="ESR reference range table">
+      <table><caption class="sr">Adult ESR reference ranges by age and sex</caption>
+      <thead><tr><th scope="col">Patient</th><th scope="col">Reference range</th></tr></thead>
+      <tbody><tr><th scope="row">Men under 50</th><td class="val">0 to 15 mm/hr</td></tr><tr><th scope="row">Women under 50</th><td class="val">0 to 20 mm/hr</td></tr><tr><th scope="row">Men 50 and older</th><td class="val">0 to 20 mm/hr</td></tr><tr><th scope="row">Women 50 and older</th><td class="val">0 to 30 mm/hr</td></tr></tbody></table>
+    </div>
+    <div class="card" style="margin-top:16px"><h3>A quick estimate some clinicians use</h3><ul><li>Men: age ÷ 2.</li><li>Women: (age + 10) ÷ 2.</li><li>This estimate gives a higher limit for older adults than the table does.</li><li>This tutor uses the table for every case.</li></ul></div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Other causes</p>
+    <h2>What else changes the <span class="hl">ESR</span></h2>
+    <p class="sub">Check for these before reading a result as inflammation, or as no inflammation.</p>
+    <div class="grid g3">
+      <div class="card lift"><span class="tag">Raises the ESR</span><h3>Without inflammation</h3><ul><li>Anemia: fewer red cells settle faster.</li><li>Pregnancy: fibrinogen rises and the blood is more dilute.</li><li>Older age and female sex, which is why the range changes.</li></ul></div>
+      <div class="card lift"><span class="tag">Lowers the ESR</span><h3>Even with inflammation</h3><ul><li>Sickle cell disease: sickled cells cannot stack.</li><li><button type="button" class="term" data-def="Polycythemia: too many red blood cells, which shows up as a high hematocrit.">Polycythemia</button>: crowded red cells fall slowly.</li><li><button type="button" class="term" data-def="Spherocytosis: a condition in which red blood cells are round instead of disc-shaped.">Spherocytosis</button>: round cells do not stack well.</li><li>Low fibrinogen.</li></ul></div>
+      <div class="card lift"><span class="tag">Technique</span><h3>How the test was run</h3><ul><li>Tilted tube: falsely high.</li><li>Read after 60 minutes: too high.</li><li>Read before 60 minutes: too low.</li><li>Clotted sample: falsely low.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <p class="eyebrow">Interpretation</p>
+    <h2>What the size of the number <span class="hl">means</span></h2>
+    <p class="sub">The ESR supports a clinical picture. It never makes a diagnosis alone.</p>
+    <div class="grid g2">
+      <div class="card"><h3>Within the range</h3><ul><li>Lowers the suspicion of inflammation.</li><li>Does not rule out disease. Some inflammatory diseases have a normal ESR.</li></ul></div>
+      <div class="card"><h3>Above the range</h3><ul><li>Supports inflammation.</li><li>Common causes are infection, autoimmune disease and cancer.</li><li>The history, exam and other tests find the cause.</li></ul></div>
+      <div class="card"><h3>Above 100 mm/hr</h3><ul><li>A serious cause is usually found.</li><li>The most common are infection, autoimmune disease such as <button type="button" class="term" data-def="Giant cell arteritis: inflammation of arteries in the head, seen in older adults. It causes headache, scalp tenderness and jaw pain with chewing.">giant cell arteritis</button>, and cancers such as <button type="button" class="term" data-def="Multiple myeloma: a cancer of plasma cells in the bone marrow. It floods the blood with antibody protein.">multiple myeloma</button>.</li><li>Needs prompt follow-up.</li></ul></div>
+      <div class="card"><h3>Following it over time</h3><ul><li>The ESR rises and falls slowly, over days to weeks.</li><li>A falling ESR supports a response to treatment.</li><li><button type="button" class="term" data-def="CRP: C-reactive protein, an acute-phase protein measured directly in the blood.">CRP</button> changes faster and is often ordered with it.</li></ul></div>
+    </div>
+  </div>
+
+</section>
+
+<section class="panel" id="interpreter" role="tabpanel" aria-labelledby="tab-interpreter" hidden>
+
+  <div class="sec">
+    <p class="eyebrow">ESR checker</p>
+    <h2>Enter a result and read what it <span class="hl">means</span></h2>
+    <p class="sub">Type the patient's age and ESR. The result updates below.</p>
+    <fieldset><legend>Patient and result</legend>
+      <div class="fields">
+        <div><label for="tAge">Age in years</label><input type="number" id="tAge" min="18" max="110" step="1" inputmode="numeric" value="45"></div>
+        <div><label for="tSex">Sex</label><select id="tSex"><option value="f">Female</option><option value="m">Male</option></select></div>
+        <div><label for="tEsr">ESR in mm/hr</label><input type="number" id="tEsr" min="0" max="200" step="1" inputmode="numeric" value="34"></div>
+      </div>
+    </fieldset>
+    <fieldset><legend>Does the patient have any of these?</legend>
+      <div class="opts" style="margin-top:0">
+        <label class="opt" for="tPreg"><input type="checkbox" id="tPreg"><span>Pregnancy</span></label>
+        <label class="opt" for="tAnem"><input type="checkbox" id="tAnem"><span>Anemia</span></label>
+        <label class="opt" for="tCell"><input type="checkbox" id="tCell"><span>Sickle cell disease, polycythemia or spherocytosis</span></label>
+      </div>
+    </fieldset>
+    <div class="card" aria-live="polite" id="toolOut"></div>
+  </div>
+
+</section>
+
+<section class="panel" id="practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+  <div class="sec">
+    <p class="eyebrow">Practice</p>
+    <h2>Forty patients, forty <span class="hl">tubes</span></h2>
+    <p class="sub">Each case has three steps: read the tube, work through the result in order, and choose the best interpretation. Each step opens when the one before it is finished. Your finished cases are saved on this device.</p>
+    <div class="row" style="margin:0 0 14px"><button type="button" class="btn" id="randCase">Give me a random case</button></div>
+    <details class="calcbox" style="margin-bottom:18px"><summary>Choose a case by number</summary><ul class="chips" id="caseChips" aria-label="Choose a case" style="margin:12px 0 4px"></ul></details>
+    <div id="caseBody"></div>
+  </div>
+</section>
+
+<section class="panel" id="quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+  <div class="sec">
+    <p class="eyebrow">Quiz</p>
+    <h2>Check what you <span class="hl">know</span></h2>
+    <p class="sub">Ten questions. After each one you will see why every choice is right or wrong.</p>
+    <div id="quizBody"></div>
+  </div>
+</section>
+
+</div>
+</main>
+<footer><div class="wrap">
+  <p>Dr. Sharilyn Rennie · Human Physiology</p>
+  <p>Reference ranges and the factors that change the ESR follow <a href="https://www.aafp.org/pubs/afp/issues/1999/1001/p1443.html" target="_blank" rel="noopener">Clinical Utility of the Erythrocyte Sedimentation Rate</a> in American Family Physician and the StatPearls chapter <a href="https://www.ncbi.nlm.nih.gov/books/NBK557485/" target="_blank" rel="noopener">Erythrocyte Sedimentation Rate</a> (both open in a new tab).</p>
+  <p>Reference ranges vary by laboratory. The tubes are drawings made for this tutor. The patients are teaching cases, not real people.</p>
+</div></footer>
+
+<script>
+(function(){
+'use strict';
+var KEY="esrTutor.v1";
+var CASES=[{"who": "72-year-old woman", "sex": "f", "age": 72, "story": ["She is here for a routine checkup.", "She feels well."], "esr": 26, "p": "age"}, {"who": "38-year-old woman", "sex": "f", "age": 38, "story": ["She has iron deficiency anemia from heavy periods. Her hemoglobin is 8.4 g/dL.", "She has no fever and no joint pain."], "esr": 36, "p": "noninfl", "factor": "anemia"}, {"who": "34-year-old woman", "sex": "f", "age": 34, "story": ["She is 28 weeks pregnant and here for her glucose test.", "She has no symptoms."], "esr": 39, "p": "noninfl", "factor": "pregnancy"}, {"who": "59-year-old man with diabetes", "sex": "m", "age": 59, "story": ["He has a deep foot ulcer that reaches the bone.", "The foot is red, swollen and draining."], "esr": 108, "p": "veryhigh"}, {"who": "33-year-old woman", "sex": "f", "age": 33, "story": ["She has a fever and pain in her right flank.", "Her urine test points to a kidney infection."], "esr": 55, "p": "infl"}, {"who": "46-year-old woman with rheumatoid arthritis", "sex": "f", "age": 46, "story": ["Both wrists and several finger joints are swollen.", "Her morning stiffness lasts two hours."], "esr": 58, "p": "infl"}, {"who": "66-year-old man", "sex": "m", "age": 66, "story": ["He has had back pain for three months, and x-rays show holes in several vertebrae.", "He feels weak and has lost weight."], "esr": 124, "p": "veryhigh"}, {"who": "28-year-old woman", "sex": "f", "age": 28, "story": ["She has had knee pain for a week since she started running.", "She has no fever, swelling or morning stiffness."], "esr": 8, "p": "normal"}, {"who": "35-year-old man", "sex": "m", "age": 35, "story": ["He has had low back pain since lifting boxes last weekend.", "He has no fever and no weight loss."], "esr": 5, "p": "normal"}, {"who": "29-year-old woman with Crohn disease", "sex": "f", "age": 29, "story": ["She has had a week of abdominal pain.", "She has diarrhea with blood in it."], "esr": 47, "p": "infl"}, {"who": "19-year-old woman with sickle cell disease", "sex": "f", "age": 19, "story": ["She has a fever and a cough.", "She has chest pain when she breathes in."], "esr": 9, "p": "lowmask", "cond": "sickle"}, {"who": "66-year-old woman", "sex": "f", "age": 66, "story": ["Her shoulders have been stiff and painful for a month.", "A trainee read the tube at 30 minutes."], "esr": 9, "p": "tech", "tech": "early"}, {"who": "71-year-old woman", "sex": "f", "age": 71, "story": ["She has taken prednisone for giant cell arteritis for six weeks, and her headache is gone.", "Her ESR at diagnosis was 96 mm/hr."], "esr": 22, "p": "trend", "prev": 96}, {"who": "31-year-old woman", "sex": "f", "age": 31, "story": ["She is 32 weeks pregnant.", "She feels well and has no fever or pain."], "esr": 44, "p": "noninfl", "factor": "pregnancy"}, {"who": "24-year-old man", "sex": "m", "age": 24, "story": ["He is healthy and having a physical for a new job.", "The tube was found leaning in the rack for the whole hour."], "esr": 38, "p": "tech", "tech": "tilt"}, {"who": "64-year-old man", "sex": "m", "age": 64, "story": ["He has taken prednisone for polymyalgia rheumatica for four weeks, and his stiffness is much better.", "His ESR at diagnosis was 68 mm/hr."], "esr": 16, "p": "trend", "prev": 68}, {"who": "74-year-old woman", "sex": "f", "age": 74, "story": ["She has had a new headache at her temples for two weeks.", "Her jaw aches when she chews, and her scalp is tender."], "esr": 112, "p": "veryhigh"}, {"who": "40-year-old man", "sex": "m", "age": 40, "story": ["He has had a sore throat for two days.", "The lab was busy, and the tube was read at 90 minutes."], "esr": 27, "p": "tech", "tech": "late"}, {"who": "44-year-old woman", "sex": "f", "age": 44, "story": ["She has felt tired for a month.", "Her physical exam is normal."], "esr": 12, "p": "normal"}, {"who": "55-year-old man", "sex": "m", "age": 55, "story": ["He has polycythemia from long-term lung disease. His hematocrit is 58%.", "He has a fever and a cough with thick sputum."], "esr": 3, "p": "lowmask", "cond": "poly"}, {"who": "57-year-old woman", "sex": "f", "age": 57, "story": ["She has had a headache for two days.", "She has no jaw pain, no vision changes and no scalp tenderness."], "esr": 14, "p": "normal"}, {"who": "70-year-old man", "sex": "m", "age": 70, "story": ["He has mild knee pain that comes on with activity.", "He has no fever and no swelling."], "esr": 18, "p": "age"}, {"who": "77-year-old man", "sex": "m", "age": 77, "story": ["He is here for a blood pressure follow-up.", "He has no new symptoms."], "esr": 19, "p": "age"}, {"who": "68-year-old man", "sex": "m", "age": 68, "story": ["Both shoulders and both hips have been aching and stiff for a month.", "The stiffness is worst in the morning, and he struggles to lift his arms."], "esr": 72, "p": "infl"}, {"who": "61-year-old man with polycythemia vera", "sex": "m", "age": 61, "story": ["His hematocrit is 60%.", "He has a fever and a hot, swollen knee."], "esr": 2, "p": "lowmask", "cond": "poly"}, {"who": "38-year-old man", "sex": "m", "age": 38, "story": ["He has a fever and a cough with yellow sputum.", "His chest x-ray shows pneumonia."], "esr": 64, "p": "infl"}, {"who": "81-year-old woman", "sex": "f", "age": 81, "story": ["She is having a checkup before cataract surgery.", "She feels well."], "esr": 28, "p": "age"}, {"who": "52-year-old man", "sex": "m", "age": 52, "story": ["He has had five weeks of antibiotics for a bone infection, and his pain is improving.", "His ESR at diagnosis was 110 mm/hr."], "esr": 48, "p": "trend", "prev": 110}, {"who": "43-year-old woman with rheumatoid arthritis", "sex": "f", "age": 43, "story": ["She started a new medication three months ago, and her joints are less swollen.", "Her ESR before the new medication was 62 mm/hr."], "esr": 34, "p": "trend", "prev": 62}, {"who": "31-year-old woman", "sex": "f", "age": 31, "story": ["She feels well and is having a routine physical.", "The rack was bumped early in the hour, and the tube stood at an angle after that."], "esr": 44, "p": "tech", "tech": "tilt"}, {"who": "66-year-old woman", "sex": "f", "age": 66, "story": ["Her hip has been sore since a long hike.", "She has no stiffness and no fever."], "esr": 24, "p": "age"}, {"who": "41-year-old woman", "sex": "f", "age": 41, "story": ["She has had a fever for three weeks.", "Her doctor hears a new heart murmur."], "esr": 115, "p": "veryhigh"}, {"who": "58-year-old man", "sex": "m", "age": 58, "story": ["He has a fever and a red, swollen leg.", "The sample has small clots in it."], "esr": 4, "p": "tech", "tech": "clot"}, {"who": "45-year-old man", "sex": "m", "age": 45, "story": ["He has anemia from a slowly bleeding stomach ulcer. His hemoglobin is 9.1 g/dL.", "He has no fever."], "esr": 31, "p": "noninfl", "factor": "anemia"}, {"who": "24-year-old man with sickle cell disease", "sex": "m", "age": 24, "story": ["He has a fever and severe pain in his thigh.", "The team is worried about a bone infection."], "esr": 6, "p": "lowmask", "cond": "sickle"}, {"who": "27-year-old woman", "sex": "f", "age": 27, "story": ["She is 36 weeks pregnant and having routine blood work.", "She feels well."], "esr": 52, "p": "noninfl", "factor": "pregnancy"}, {"who": "47-year-old man", "sex": "m", "age": 47, "story": ["He has had a cough, night sweats and weight loss for two months.", "His chest x-ray shows a cavity in the upper lung."], "esr": 104, "p": "veryhigh"}, {"who": "62-year-old man", "sex": "m", "age": 62, "story": ["His shoulder has ached since he painted a ceiling.", "He has no morning stiffness."], "esr": 9, "p": "normal"}, {"who": "26-year-old woman with Crohn disease", "sex": "f", "age": 26, "story": ["She was treated for a flare eight weeks ago, and her bowel habits are back to normal.", "Her ESR during the flare was 51 mm/hr."], "esr": 14, "p": "trend", "prev": 51}, {"who": "36-year-old woman with hereditary spherocytosis", "sex": "f", "age": 36, "story": ["She has a fever.", "She has pain in the right upper abdomen."], "esr": 4, "p": "lowmask", "cond": "sphero"}];
+var QUIZ=[["What does an ESR measure?", [["How far red blood cells fall in an upright tube in one hour", 1, "The result is the height of clear plasma left above the red cells after 60 minutes, reported in mm/hr."], ["How many red blood cells are in the sample", 0, "That is the red blood cell count, which is part of a CBC."], ["How quickly the blood forms a clot", 0, "Clotting is measured by tests such as the prothrombin time. The ESR sample has an anticoagulant so that it cannot clot."], ["What percentage of the blood is red blood cells", 0, "That is the hematocrit, which is part of a CBC."]]], ["In the Westergren method, when is the tube read?", [["At 60 minutes", 1, "The ESR is defined as the distance the red cells fall in one hour, so the tube is read at exactly 60 minutes."], ["At 15 minutes", 0, "The red cells have barely started to settle at 15 minutes. An early reading is falsely low."], ["As soon as any clear plasma appears", 0, "The time is fixed at 60 minutes. Without a fixed time, results could not be compared."], ["The next morning", 0, "Left that long, the red cells in nearly every sample would be fully settled. The reading would be far too high."]]], ["Where on the tube do you take the reading?", [["At the line where the clear plasma meets the red cells", 1, "The scale starts at 0 at the top of the plasma. The number at the top of the red cell column is the distance the cells have fallen."], ["At the bottom of the tube", 0, "The bottom of the tube is the 200 mm mark. It does not change from one patient to the next."], ["At the top of the plasma", 0, "The top of the plasma is the 0 mark, which is where the measurement starts, not where it ends."], ["Halfway down the red cell column", 0, "The middle of the red cells has no meaning. The reading is the top of the red cell column."]]], ["Why does inflammation raise the ESR?", [["Fibrinogen and other plasma proteins rise, so red cells stack into rouleaux and fall faster", 1, "During inflammation the liver releases more of these proteins. They let red cells stick together in stacks, and a stack sinks faster than a single cell."], ["Each red blood cell becomes heavier", 0, "The weight of a single red cell does not change. The cells fall faster because they stack together."], ["Plasma proteins fall, so the plasma becomes thinner", 0, "Plasma proteins such as fibrinogen rise in inflammation. They do not fall."], ["White blood cells push the red cells down", 0, "White blood cells do not drive the ESR. The change comes from plasma proteins acting on red cells."]]], ["What is the upper limit of the ESR reference range for a 34-year-old woman?", [["20 mm/hr", 1, "The upper limit for women under 50 is 20 mm/hr."], ["15 mm/hr", 0, "15 mm/hr is the upper limit for men under 50."], ["30 mm/hr", 0, "30 mm/hr is the upper limit for women 50 and older."], ["100 mm/hr", 0, "100 mm/hr is not a reference limit. Results above it usually have a serious cause."]]], ["A 76-year-old woman and a 26-year-old woman both have an ESR of 27 mm/hr. Which statement is true?", [["It is within the range for the 76-year-old and above the range for the 26-year-old", 1, "The upper limit is 30 mm/hr for women 50 and older and 20 mm/hr for women under 50. The expected ESR rises with age."], ["It is above the range for both women", 0, "For a woman 50 or older the upper limit is 30 mm/hr, so 27 is within the range."], ["It is within the range for both women", 0, "For a woman under 50 the upper limit is 20 mm/hr, so 27 is above the range."], ["It is above the range for the 76-year-old and within the range for the 26-year-old", 0, "This is backwards. The upper limit goes up with age, not down."]]], ["Which condition lowers the ESR?", [["Sickle cell disease", 1, "Sickled cells have an abnormal shape and cannot stack into rouleaux, so they fall slowly."], ["Anemia", 0, "Anemia raises the ESR. With fewer red cells in the tube, the cells settle faster."], ["Pregnancy", 0, "Pregnancy raises the ESR. Fibrinogen rises and the blood is more dilute."], ["A tilted tube", 0, "A tilted tube raises the ESR, because the red cells slide down the wall of the tube."]]], ["Which of these raises the ESR even when there is no inflammation?", [["Anemia", 1, "With fewer red cells in the tube, the cells settle faster. A raised ESR in an anemic patient has to be read with care."], ["Polycythemia", 0, "Polycythemia lowers the ESR. The extra red cells crowd each other and fall slowly."], ["Spherocytosis", 0, "Spherocytosis lowers the ESR. Round cells do not stack well."], ["A clotted sample", 0, "A clotted sample lowers the ESR, because clotting uses up fibrinogen."]]], ["An adult has an ESR of 118 mm/hr. Which statement is best?", [["A serious cause is likely, so the patient needs prompt follow-up", 1, "Results above 100 mm/hr are most often linked to infection, autoimmune disease or cancer. The ESR does not say which, so more testing follows."], ["The ESR alone gives the diagnosis", 0, "The ESR is nonspecific. Many different diseases raise it, so it cannot name one."], ["This is a normal result for an older adult", 0, "The highest upper limit in the reference table is 30 mm/hr. A result of 118 is far above the range at any age."], ["This is a mild change that can be rechecked next year", 0, "A result over 100 is a large change and is not left for a year."]]], ["A patient has swollen, painful joints and a normal ESR. What does the normal ESR mean?", [["It lowers the suspicion of inflammation but does not rule it out", 1, "Some patients with inflammatory disease have a normal ESR. The symptoms and other tests still count."], ["It proves there is no inflammation", 0, "A normal ESR cannot prove that. The test misses some cases of real inflammation."], ["It means the test was run incorrectly", 0, "A normal result does not suggest a technique problem unless something about the run was wrong."], ["It means the patient has polycythemia", 0, "Polycythemia can lower the ESR, but a normal ESR does not diagnose it. A CBC would show it."]]]];
+
+function el(tag,attrs){var e=document.createElement(tag),i,k;
+  if(attrs)for(k in attrs){if(k==='text')e.textContent=attrs[k];else if(k==='cls')e.className=attrs[k];else e.setAttribute(k,attrs[k]);}
+  for(i=2;i<arguments.length;i++){var c=arguments[i];if(c==null)continue;e.appendChild(typeof c==='string'?document.createTextNode(c):c);}
+  return e;}
+var SVGNS='http://www.w3.org/2000/svg';
+function sv(tag,attrs){var e=document.createElementNS(SVGNS,tag),k;if(attrs)for(k in attrs){if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);}
+  for(var i=2;i<arguments.length;i++)if(arguments[i])e.appendChild(arguments[i]);return e;}
+function clear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+var uidN=0;function uid(p){return p+(++uidN);}
+
+/* saved progress (one browser only) */
+var save={cases:{},best:null};
+try{var s0=JSON.parse(localStorage.getItem(KEY));if(s0&&s0.cases)save=s0;}catch(e){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}}
+
+/* ---------- tabs ---------- */
+var NAMES=['learn','interpreter','practice','quiz'];
+function show(name,focus){
+  var home=NAMES.indexOf(name)<0;
+  document.getElementById('hero').hidden=!home;document.getElementById('modebar').hidden=home;
+  if(home){var dn=0;for(var k in save.cases)if(save.cases[k])dn++;
+    document.getElementById('st-practice').textContent=dn+' of '+CASES.length+' cases done';
+    document.getElementById('st-quiz').textContent=save.best===null?'Not taken yet':'Best score '+save.best+' of '+QUIZ.length;
+    if(pLeft)pChooser(false);
+  }else{pLeft=true;pausePlayer();}
+  NAMES.forEach(function(n){
+    var on=!home&&n===name,tab=document.getElementById('tab-'+n);
+    document.getElementById(n).hidden=home||!on;
+    tab.setAttribute('aria-selected',on?'true':'false');
+    tab.tabIndex=on?0:-1;
+    if(on&&focus)tab.focus();
+  });
+}
+NAMES.forEach(function(n,i){
+  var tab=document.getElementById('tab-'+n);
+  tab.addEventListener('click',function(){location.hash=n;show(n);});
+  tab.addEventListener('keydown',function(e){
+    var j=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:e.key==='Home'?0:e.key==='End'?NAMES.length-1:null;
+    if(j===null)return;e.preventDefault();j=(j+NAMES.length)%NAMES.length;location.hash=NAMES[j];show(NAMES[j],true);
+  });
+});
+window.addEventListener('hashchange',function(){show(location.hash.slice(1));});
+document.addEventListener('click',function(e){
+  var go=e.target.closest&&e.target.closest('[data-go]');
+  if(go){var n=go.getAttribute('data-go');location.hash=n;show(n);document.getElementById('main').focus();window.scrollTo(0,0);}
+});
+
+/* the circuit link only works on the course site, so it stays hidden anywhere else */
+if(/github\.io$/.test(location.hostname)||location.hostname==='localhost'){[].forEach.call(document.querySelectorAll('.circuit'),function(a){a.hidden=false;});}
+
+/* ---------- term definitions ---------- */
+var defN=0;
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.term');if(!b)return;
+  var open=b.getAttribute('aria-expanded')==='true';
+  if(open){closeDef(b);}else{
+    var d=el('span',{cls:'def',role:'note',id:'def'+(++defN),text:b.getAttribute('data-def')});
+    b.setAttribute('aria-expanded','true');b.setAttribute('aria-describedby',d.id);
+    b.parentNode.insertBefore(d,b.nextSibling);
+  }
+});
+function closeDef(b){var id=b.getAttribute('aria-describedby'),d=id&&document.getElementById(id);if(d)d.parentNode.removeChild(d);b.setAttribute('aria-expanded','false');b.removeAttribute('aria-describedby');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){[].forEach.call(document.querySelectorAll('.term[aria-expanded="true"]'),closeDef);}});
+[].forEach.call(document.querySelectorAll('.term'),function(b){b.setAttribute('aria-expanded','false');});
+
+/* ---------- intro player ---------- */
+var pIdx=0,pOn=false,pTimer=null,P_MS=7000,pLeft=false;
+var pScenes=[].slice.call(document.querySelectorAll('#scenes .scene')),pSegs=[].slice.call(document.querySelectorAll('.segbar')),pLast=pScenes.length-1;
+function pRender(){
+  var last=pIdx===pLast;
+  pScenes.forEach(function(s,i){s.hidden=i!==pIdx;});
+  pSegs.forEach(function(s,i){
+    s.className='segbar'+(i<pIdx?' done':i===pIdx?(pOn?' on run':' on'):'');
+    if(i===pIdx&&pOn){var f=s.firstChild,c=f.cloneNode(true);s.replaceChild(c,f);}
+  });
+  document.getElementById('pCount').textContent=(pIdx+1)+' of '+pLast;
+  document.getElementById('pCount').hidden=last;
+  document.getElementById('pNext').hidden=last;
+  document.getElementById('pSkip').hidden=last;
+  document.getElementById('pPrev').hidden=pIdx===0;
+  document.getElementById('pPlay').textContent=last?'Replay intro':(pOn?'Pause':'Play');
+  document.getElementById('scenes').setAttribute('aria-live',pOn?'off':'polite');
+  clearTimeout(pTimer);
+  if(pOn)pTimer=setTimeout(function(){if(pIdx<pLast)pIdx++;if(pIdx===pLast)pOn=false;pRender();},P_MS);
+}
+function pausePlayer(){pOn=false;pRender();}
+function pChooser(focus){pIdx=pLast;pOn=false;pRender();if(focus){var e=document.querySelector('#scenes .entry');if(e)e.focus();}}
+document.getElementById('pPlay').addEventListener('click',function(){if(pIdx===pLast){pIdx=0;pOn=true;}else pOn=!pOn;pRender();});
+document.getElementById('pNext').addEventListener('click',function(){pOn=false;if(pIdx<pLast)pIdx++;pRender();if(pIdx===pLast){var e=document.querySelector('#scenes .entry');if(e)e.focus();}});
+document.getElementById('pPrev').addEventListener('click',function(){pOn=false;if(pIdx>0)pIdx--;pRender();});
+document.getElementById('pSkip').addEventListener('click',function(){pChooser(true);});
+
+/* ---------- multiple choice with a reason for every option ---------- */
+function renderMC(host,stem,opts,legend,onDone){
+  var name=uid('mc'),order=shuffle(opts);
+  var fs=el('fieldset',null,el('legend',{text:legend}),el('p',{cls:'stem',text:stem}));
+  var list=el('div',{cls:'opts'});
+  order.forEach(function(o,i){
+    var id=name+'-'+i;
+    list.appendChild(el('label',{cls:'opt','for':id},el('input',{type:'radio',name:name,id:id,value:String(i)}),el('span',{text:o[0]})));
+  });
+  fs.appendChild(list);
+  var btn=el('button',{type:'button',cls:'btn',text:'Check answer'});
+  var live=el('div',{'aria-live':'polite'});
+  fs.appendChild(el('div',{cls:'row'},btn));fs.appendChild(live);
+  btn.addEventListener('click',function(){
+    var pick=fs.querySelector('input:checked');
+    if(!pick){clear(live);live.appendChild(el('p',{cls:'mark no',text:'Choose an answer first.'}));return;}
+    var chosen=order[Number(pick.value)],ok=!!chosen[1];
+    [].forEach.call(fs.querySelectorAll('input'),function(n){n.disabled=true;});btn.disabled=true;
+    clear(live);
+    live.appendChild(el('p',{cls:'result',text:ok?'Correct.':'Not quite. Read why below.'}));
+    var why=el('ul',{cls:'why'});
+    order.forEach(function(o){
+      why.appendChild(el('li',{cls:o[1]?'right':''},
+        el('span',{cls:'verdict',text:(o[1]?'Correct answer':'Incorrect')+(o===chosen?' · your choice':'')}),
+        el('strong',{text:o[0]}),el('br'),o[2]));
+    });
+    live.appendChild(why);
+    onDone(ok,live);
+  });
+  host.appendChild(fs);
+}
+
+/* ---------- required walk-through: one question opens the next ---------- */
+function walkThrough(host,title,note,QS,retry,doneText,onDone){
+  var n=uid('wt');
+  var card=el('div',{cls:'card'},el('h3',{tabindex:'-1',text:title}),el('p',{cls:'note',text:note}));
+  host.appendChild(card);
+  function ask(i){
+    if(i>=QS.length){card.appendChild(el('p',{cls:'result',text:doneText}));onDone();return;}
+    var Q=QS[i],name=n+'q'+i,list=el('div',{cls:'opts'}),live=el('div',{'aria-live':'polite'}),chk=el('button',{type:'button',cls:'btn ghost',text:'Check'});
+    Q.o.forEach(function(t,j){list.appendChild(el('label',{cls:'opt','for':name+j},el('input',{type:'radio',name:name,id:name+j,value:String(j)}),el('span',{text:t})));});
+    var fs=el('fieldset',{cls:'calc',style:'border:0;border-top:1px solid var(--line);border-radius:0;padding:14px 0 4px;margin:0'},el('legend',{cls:'stem',style:'font-size:1.02rem;padding:0',text:(i+1)+'. '+Q.q}),list,el('div',{cls:'row',style:'margin-top:10px'},chk),live);
+    card.appendChild(fs);
+    chk.addEventListener('click',function(){
+      var pick=fs.querySelector('input:checked');clear(live);
+      if(!pick){live.appendChild(el('p',{cls:'mark no',text:'Choose an answer first.'}));return;}
+      if(Number(pick.value)===Q.a){[].forEach.call(fs.querySelectorAll('input'),function(x){x.disabled=true;});chk.disabled=true;live.appendChild(el('p',{cls:'mark',text:'Correct. '+Q.fb}));ask(i+1);}
+      else live.appendChild(el('p',{cls:'mark no',text:retry}));
+    });
+  }
+  ask(0);
+  return card;
+}
+
+/* ---------- case picker ---------- */
+var cur=0;
+function randomCase(){
+  var pool=[];CASES.forEach(function(c,i){if(!save.cases[i]&&i!==cur)pool.push(i);});
+  if(!pool.length)CASES.forEach(function(c,i){if(i!==cur)pool.push(i);});
+  cur=pool[Math.floor(Math.random()*pool.length)];renderCase(true);
+}
+function renderChips(){
+  var host=document.getElementById('caseChips');clear(host);
+  CASES.forEach(function(c,i){
+    var done=!!save.cases[i],b=el('button',{type:'button',cls:'chip'+(done?' done':''),'aria-label':'Case '+(i+1)+(done?', completed':'')},String(i+1));
+    if(i===cur)b.setAttribute('aria-current','true');
+    b.addEventListener('click',function(){cur=i;renderCase(true);});
+    host.appendChild(el('li',null,b));
+  });
+}
+function caseDone(host){
+  save.cases[cur]=true;persist();renderChips();
+  var nx=el('button',{type:'button',cls:'btn',text:'Give me another case'});nx.addEventListener('click',randomCase);
+  host.appendChild(el('div',{cls:'card'},el('p',{cls:'result',style:'margin:0',text:'Case '+(cur+1)+' is finished and saved on this device.'}),el('div',{cls:'row'},nx)));
+}
+
+/* ---------- quiz ---------- */
+var qi=0,score=0;
+function renderQuiz(focus){
+  var host=document.getElementById('quizBody');clear(host);
+  if(qi>=QUIZ.length){
+    if(save.best===null||score>save.best){save.best=score;persist();}
+    var h=el('h3',{tabindex:'-1',text:'You scored '+score+' of '+QUIZ.length});
+    var again=el('button',{type:'button',cls:'btn',text:'Start again'});
+    again.addEventListener('click',function(){qi=0;score=0;QUIZ=shuffle(QUIZ);renderQuiz(true);});
+    host.appendChild(el('div',{cls:'card'},h,el('p',{text:'Best score on this device: '+save.best+' of '+QUIZ.length+'. Questions and answer order are reshuffled each time.'}),el('div',{cls:'row'},again,el('button',{type:'button',cls:'btn ghost','data-go':'learn',text:'Review the tutor'}))));
+    if(focus)h.focus();return;
+  }
+  var q=QUIZ[qi];
+  var prog=el('p',{cls:'eyebrow',tabindex:'-1',text:'Question '+(qi+1)+' of '+QUIZ.length});
+  host.appendChild(prog);
+  renderMC(host,q[0],q[1],'Question '+(qi+1),function(ok,live){
+    if(ok)score++;
+    var next=el('button',{type:'button',cls:'btn',text:qi<QUIZ.length-1?'Next question':'See my score'});
+    next.addEventListener('click',function(){qi++;renderQuiz(true);});
+    live.appendChild(el('div',{cls:'row'},next));
+  });
+  if(focus)prog.focus();
+}
+
+/* ---------- ESR: helpers ---------- */
+var ROWS=[['Women under 50',20],['Women 50 and older',30],['Men under 50',15],['Men 50 and older',20]];
+function rowOf(sex,age){return (sex==='f'?0:2)+(age>=50?1:0);}
+function lim(c){return ROWS[rowOf(c.sex,c.age)][1];}
+function tubeSvg(esr,opt){
+  opt=opt||{};var PX=3,TOP=28,MAX=160,X=70,W=26,H=TOP+MAX*PX+44;
+  var s=sv('svg',{viewBox:'0 0 230 '+H,width:'230',height:String(H),role:'img','aria-label':opt.label||'Westergren tube after 60 minutes. Clear plasma is at the top and red cells are below. Read the scale where they meet.'});
+  var y=TOP+esr*PX,bot=TOP+MAX*PX+30;
+  s.appendChild(sv('rect',{x:X,y:TOP,width:W,height:y-TOP,fill:'#F4EBC3'}));
+  s.appendChild(sv('rect',{x:X,y:y,width:W,height:bot-y,fill:'#7A1F2B'}));
+  s.appendChild(sv('rect',{x:X,y:8,width:W,height:bot-8,fill:'none',stroke:'#060B1A','stroke-width':2,rx:3}));
+  s.appendChild(sv('line',{x1:X,y1:y,x2:X+W,y2:y,stroke:'#060B1A','stroke-width':1.5}));
+  for(var m=0;m<=MAX;m++){var yy=TOP+m*PX,len=m%10===0?14:m%5===0?9:5;
+    s.appendChild(sv('line',{x1:X+W,y1:yy,x2:X+W+len,y2:yy,stroke:'#060B1A','stroke-width':m%10===0?1.4:.8}));
+    if(m%10===0)s.appendChild(sv('text',{x:X+W+19,y:yy+4,'font-size':12,'font-family':'DM Sans, sans-serif','font-weight':700,fill:'#060B1A',text:String(m)}));}
+  s.appendChild(sv('text',{x:X+W+19,y:TOP-12,'font-size':10,'font-family':'DM Sans, sans-serif',fill:'#414B5A',text:'mm'}));
+  s.appendChild(sv('text',{x:X-8,y:TOP+Math.max(12,(y-TOP)/2+4),'font-size':11,'font-family':'DM Sans, sans-serif',fill:'#414B5A','text-anchor':'end',text:'plasma'}));
+  s.appendChild(sv('text',{x:X-8,y:Math.min(bot-8,y+40),'font-size':11,'font-family':'DM Sans, sans-serif',fill:'#414B5A','text-anchor':'end',text:'red cells'}));
+  s.appendChild(sv('text',{x:X+W/2,y:H-2,'font-size':10,'font-family':'DM Sans, sans-serif',fill:'#414B5A','text-anchor':'middle',text:'scale continues to 200 mm'}));
+  if(opt.mark){s.appendChild(sv('line',{x1:X+W+48,y1:y,x2:X+W+76,y2:y,stroke:'#7A1F2B','stroke-width':2}));
+    s.appendChild(sv('text',{x:X+W+80,y:y+4,'font-size':12,'font-family':'DM Sans, sans-serif','font-weight':700,fill:'#7A1F2B',text:'read here'}));}
+  return s;
+}
+function fill(t,c){return t.replace(/\{esr\}/g,c.esr).replace(/\{lim\}/g,lim(c)).replace(/\{prev\}/g,c.prev).replace(/\{row\}/g,ROWS[rowOf(c.sex,c.age)][0].toLowerCase());}
+
+/* ---------- interpretation choices, one set per pattern ---------- */
+var FACT={pregnancy:['pregnancy','Fibrinogen rises during pregnancy and the blood is more dilute, so red cells settle faster even when nothing is inflamed.'],
+  anemia:['anemia','With fewer red cells in the tube, the cells settle faster even when nothing is inflamed.']};
+var COND={sickle:['sickle cell disease','Sickled cells have an abnormal shape and cannot stack into rouleaux, so they fall slowly even when inflammation is present.'],
+  poly:['polycythemia','With so many red cells packed into the tube, the cells crowd each other and fall slowly even when inflammation is present.'],
+  sphero:['spherocytosis','Spherocytes are round, not disc-shaped, so they do not stack well and fall slowly even when inflammation is present.']};
+var TECH={tilt:['high','A tilted tube lets the red cells slide down the wall and settle faster, so the reading is falsely high.'],
+  late:['high','The ESR is read at exactly 60 minutes. At 90 minutes the red cells have had longer to fall, so the reading is too high.'],
+  early:['low','The ESR is read at exactly 60 minutes. At 30 minutes the red cells have not finished falling, so the reading is too low.'],
+  clot:['low','Clotting uses up fibrinogen, the protein that helps red cells stack, so the reading is falsely low.']};
+function interp(c){
+  var above=c.esr>lim(c),o;
+  var inRange='The ESR is within the reference range for this patient.',raised='The ESR is raised and points to inflammation.';
+  if(c.p==='normal')o=[
+    ['The ESR is within the reference range. This does not rule out disease.',1,'{esr} mm/hr is at or below the upper limit of {lim}. A normal ESR lowers the suspicion of inflammation, but some inflammatory diseases have a normal ESR, so the symptoms still matter.'],
+    [raised,0,'{esr} mm/hr is not above the upper limit of {lim} for {row}.'],
+    ['The ESR proves the patient is healthy.',0,'The ESR is a nonspecific test. A normal result cannot prove that no disease is present.'],
+    ['The result is not reliable and the test must be repeated.',0,'Nothing in this case suggests a problem with how the test was run.']];
+  else if(c.p==='age')o=[
+    ['The ESR is within the reference range for this patient\'s age and sex.',1,'The upper limit for {row} is {lim} mm/hr, and this result is {esr}. The same number would be above the range for a younger adult, because the upper limit rises with age.'],
+    [raised,0,'It would be raised for a younger adult. Compare the result with the row for this patient\'s own age and sex.'],
+    ['The ESR is falsely low because of the patient\'s age.',0,'Older age raises the expected ESR. It does not lower it.'],
+    ['The result is not reliable and the test must be repeated.',0,'Nothing in this case suggests a problem with how the test was run.']];
+  else if(c.p==='infl')o=[
+    ['The ESR is raised, which supports inflammation. It does not name the cause.',1,'{esr} mm/hr is above the upper limit of {lim}. Inflammation raises fibrinogen and other plasma proteins, so red cells stack and fall faster. The history, the exam and other tests identify the cause.'],
+    [inRange,0,'{esr} mm/hr is above the upper limit of {lim} for {row}.'],
+    ['The raised ESR proves which disease the patient has.',0,'The ESR is nonspecific. Infection, autoimmune disease and cancer can all raise it, so it cannot name one disease.'],
+    ['The ESR is raised only because of anemia or pregnancy.',0,'Neither anemia nor pregnancy is part of this case. The symptoms point to inflammation.']];
+  else if(c.p==='veryhigh')o=[
+    ['The ESR is above 100 mm/hr. A serious cause is likely and needs prompt follow-up.',1,'Results this high are most often linked to infection, autoimmune disease such as giant cell arteritis, or cancers such as multiple myeloma. The ESR does not say which one, so more testing follows quickly.'],
+    ['The ESR is mildly raised and can be rechecked in a few months.',0,'{esr} mm/hr is far above the upper limit of {lim}. A result over 100 is not a mild change.'],
+    [inRange,0,'{esr} mm/hr is far above the upper limit of {lim} for {row}.'],
+    ['A tilted tube is the most likely reason for this result.',0,'Nothing in this case suggests a problem with the test, and the symptoms fit a very high ESR.']];
+  else if(c.p==='noninfl')o=[
+    ['The ESR is above the range, but '+FACT[c.factor][0]+' raises the ESR without inflammation. It cannot be read as inflammation by itself.',1,'{esr} mm/hr is above the upper limit of {lim}. '+FACT[c.factor][1]+' This patient has no signs of inflammation.'],
+    ['The raised ESR proves the patient has an infection.',0,'The ESR is nonspecific, and this patient has '+FACT[c.factor][0]+', which raises it without any infection.'],
+    [inRange,0,'{esr} mm/hr is above the upper limit of {lim} for {row}.'],
+    ['The ESR is falsely low.',0,FACT[c.factor][0].charAt(0).toUpperCase()+FACT[c.factor][0].slice(1)+' pushes the ESR up, not down.']];
+  else if(c.p==='lowmask')o=[
+    ['The ESR is not raised, but '+COND[c.cond][0]+' lowers the ESR. It cannot rule out inflammation in this patient.',1,COND[c.cond][1]+' The symptoms still need to be worked up.'],
+    ['The normal ESR rules out infection and inflammation.',0,'A normal ESR never fully rules out inflammation, and it is even less reliable here because '+COND[c.cond][0]+' lowers the ESR.'],
+    [raised,0,'{esr} mm/hr is not above the upper limit of {lim} for {row}.'],
+    ['The tube must have been tilted.',0,'A tilted tube raises the ESR. It would not explain a low result.']];
+  else if(c.p==='trend')o=[
+    ['The ESR has fallen from {prev} to {esr} mm/hr, which fits with the inflammation settling.',1,'A falling ESR over weeks supports a response to treatment. '+(above?'It is still above the upper limit of {lim}, so it has not returned to the reference range yet.':'It is now within the reference range.')],
+    ['The ESR is higher than last time, so the disease is getting worse.',0,'The earlier result was {prev} mm/hr and today\'s result is {esr}. The ESR has come down.'],
+    ['Only today\'s reading matters. The earlier result adds nothing.',0,'Following the ESR over time is one of its main uses. The change from {prev} to {esr} is the useful information.'],
+    ['The change comes from a tilted tube, not from treatment.',0,'A tilted tube raises the ESR. Nothing in this case suggests a problem with either test.']];
+  else o=[
+    ['The result is not reliable because of how the test was run. Repeat it with correct technique.',1,TECH[c.tech][1]],
+    ['Report the number as it is. Technique does not change the ESR.',0,'Technique changes the ESR a great deal. The tube must stand upright and undisturbed, the sample must have no clots, and the tube is read at 60 minutes.'],
+    ['The number can be trusted to show whether this patient has inflammation.',0,'Because of the problem with this run, the number is too '+TECH[c.tech][0]+'. It cannot answer that question yet.'],
+    ['Use a different reference range so that the result fits.',0,'The reference range depends on age and sex, not on how the test was run. A flawed test is repeated.']];
+  return o.map(function(x){return [fill(x[0],c),x[1],fill(x[2],c)];});
+}
+function walkQs(c){
+  var r=rowOf(c.sex,c.age),L=lim(c),above=c.esr>L;
+  var q4=c.p==='noninfl'?0:c.p==='lowmask'?1:c.p==='tech'?2:3;
+  var fb4=q4===0?'This patient has '+FACT[c.factor][0]+', which raises the ESR without inflammation.':q4===1?'This patient has '+COND[c.cond][0]+', which lowers the ESR.':q4===2?'The case describes a problem with how the tube was handled or read.':'The case does not mention anemia, pregnancy, a red cell disorder or a problem with the test.'+(c.p==='age'?' Age is already built into the reference range.':'');
+  return [
+   {q:'Which reference range fits this patient?',o:ROWS.map(function(x){return x[0]+': 0 to '+x[1]+' mm/hr';}),a:r,fb:'This patient is a '+c.age+'-year-old '+(c.sex==='f'?'woman':'man')+', so the upper limit is '+L+' mm/hr.'},
+   {q:'Is the ESR within the reference range or above it?',o:['Within the range','Above the range'],a:above?1:0,fb:c.esr+' mm/hr is '+(above?'above':'at or below')+' the upper limit of '+L+'.'},
+   {q:'Is the ESR above 100 mm/hr?',o:['No','Yes'],a:c.esr>100?1:0,fb:'The result is '+c.esr+' mm/hr.'},
+   {q:'Other than inflammation, is there anything in this case that could change the ESR?',o:['A condition that raises it without inflammation: anemia or pregnancy','A condition that lowers it: sickle cell disease, polycythemia or spherocytosis','A problem with how the test was run','Nothing in this case'],a:q4,fb:fb4}
+  ];
+}
+
+/* ---------- practice cases ---------- */
+function renderCase(focus){
+  var c=CASES[cur],host=document.getElementById('caseBody'),id=uid('e');clear(host);renderChips();
+  var ul=el('ul');c.story.forEach(function(t){ul.appendChild(el('li',{text:t}));});ul.appendChild(el('li',{text:'An ESR is ordered. The tube is shown below.'}));
+  var head=el('div',{cls:'card'},el('p',{cls:'eyebrow',text:'Case '+(cur+1)+' of '+CASES.length}),el('h3',{tabindex:'-1',text:'A '+c.who}),ul);
+  host.appendChild(head);
+  var inp=el('input',{type:'number',id:id,min:'0',max:'200',step:'1',inputmode:'numeric',style:'max-width:140px'});
+  var chk=el('button',{type:'button',cls:'btn',text:'Check my reading'}),showb=el('button',{type:'button',cls:'btn ghost',text:'Show the reading'}),live=el('div',{'aria-live':'polite'});
+  var side=el('div',{cls:'tubeside'},el('h3',{text:'Step 1: Read the tube'}),
+    el('ul',null,el('li',{text:'The 0 mark is at the top of the plasma.'}),el('li',{text:'Find where the clear plasma meets the red cells.'}),el('li',{text:'Each small line is 1 mm. Numbers mark every 10 mm.'})),
+    el('label',{'for':id,style:'margin-top:14px'},'ESR in mm/hr',el('span',{cls:'hint',text:'Whole number. One millimeter either way is accepted.'})),inp,el('div',{cls:'row'},chk,showb),live);
+  var s1=el('div',{cls:'card',style:'margin-top:16px'},el('div',{cls:'tubewrap'},tubeSvg(c.esr),side));host.appendChild(s1);
+  var rest=el('div');host.appendChild(rest);var opened=false;
+  function open(msg){if(opened)return;opened=true;inp.disabled=true;chk.disabled=true;showb.disabled=true;clear(live);live.appendChild(el('p',{cls:'result',text:msg}));step2();}
+  chk.addEventListener('click',function(){
+    var x=Number(inp.value);clear(live);
+    if(inp.value===''||isNaN(x)){live.appendChild(el('p',{cls:'mark no',text:'Type the reading first.'}));return;}
+    if(Math.abs(x-c.esr)<=1)open('Correct. The ESR is '+c.esr+' mm/hr.');
+    else live.appendChild(el('p',{cls:'mark no',text:'Not yet. Start at 0 and count down to the line where the plasma meets the red cells.'}));
+  });
+  showb.addEventListener('click',function(){open('The ESR is '+c.esr+' mm/hr.');});
+  function step2(){
+    var wrap=el('div',{style:'margin-top:16px'});rest.appendChild(wrap);
+    var card=walkThrough(wrap,'Step 2: Work through the result in order','Answer each question to open the next one.',walkQs(c),
+      'Not yet. Check the patient\'s age and sex, the reading, and the case details, then choose again.','You have worked through the result. Now choose the best interpretation.',step3);
+    card.querySelector('h3').focus();
+  }
+  function step3(){
+    var wrap=el('div',{style:'margin-top:16px'});rest.appendChild(wrap);
+    renderMC(wrap,'Which statement best interprets this ESR?',interp(c),'Step 3: Choose the best interpretation',function(){caseDone(rest);});
+  }
+  if(focus)head.querySelector('h3').focus();
+}
+
+/* ---------- learn figure ---------- */
+(function(){var h=document.getElementById('learnTube');if(h)h.appendChild(tubeSvg(34,{mark:true,label:'Drawing of a Westergren tube after 60 minutes. Clear plasma fills the top 34 millimeters and red cells fill the rest. A marker labeled read here points to the 34 millimeter line where they meet.'}));})();
+
+/* ---------- ESR checker ---------- */
+function renderTool(){
+  var out=document.getElementById('toolOut');clear(out);
+  var age=Number(document.getElementById('tAge').value),sex=document.getElementById('tSex').value,v=document.getElementById('tEsr').value,esr=Number(v);
+  if(!document.getElementById('tAge').value||v===''||isNaN(age)||isNaN(esr)||esr<0||esr>200){out.appendChild(el('p',{cls:'note',style:'margin:0',text:'Enter an age and an ESR between 0 and 200 to see the result.'}));return;}
+  function find(h,t){return el('div',{cls:'finding'},el('h4',{text:h}),el('p',{style:'margin:0',text:t}));}
+  if(age<18){out.appendChild(find('Reference range','This tutor uses adult ranges. Children have a lower upper limit, so use the range printed by the lab.'));return;}
+  var r=ROWS[rowOf(sex,age)],above=esr>r[1];
+  out.appendChild(el('h3',{text:esr>100?'Above 100 mm/hr':above?'Above the reference range':'Within the reference range'}));
+  out.appendChild(find('Reference range',r[0]+': 0 to '+r[1]+' mm/hr. This result is '+esr+' mm/hr.'));
+  out.appendChild(find('What the number supports',esr>100?'A result over 100 usually has a serious cause, most often infection, autoimmune disease or cancer. It needs prompt follow-up.':above?'A raised ESR supports inflammation. It does not name the cause.':'A normal ESR lowers the suspicion of inflammation. It does not rule out disease.'));
+  if(document.getElementById('tPreg').checked)out.appendChild(find('Pregnancy',FACT.pregnancy[1]+(above?' The raised result cannot be read as inflammation by itself.':'')));
+  if(document.getElementById('tAnem').checked)out.appendChild(find('Anemia',FACT.anemia[1]+(above?' The raised result cannot be read as inflammation by itself.':'')));
+  if(document.getElementById('tCell').checked)out.appendChild(find('Sickle cell disease, polycythemia or spherocytosis','These conditions lower the ESR. '+(above?'The true level of inflammation may be higher than this number suggests.':'A result in the reference range cannot rule out inflammation.')));
+}
+['tAge','tSex','tEsr','tPreg','tAnem','tCell'].forEach(function(i){var n=document.getElementById(i);n.addEventListener('input',renderTool);n.addEventListener('change',renderTool);});
+renderTool();
+window.__app={interp:interp,walkQs:walkQs,lim:lim,CASES:CASES,QUIZ:QUIZ};
+
+QUIZ=shuffle(QUIZ);
+document.getElementById('randCase').addEventListener('click',randomCase);
+renderCase(false);renderQuiz(false);show(location.hash.slice(1));
+if(NAMES.indexOf(location.hash.slice(1))<0&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){pOn=true;}
+pRender();
+})();
+</script>
+
+<script>
+/* iframe height sender for Canvas, Kajabi and other embeds */
+(function(){
+  var ID="esr-tutor";
+  function send(){try{parent.postMessage({id:ID,type:'resize',height:document.documentElement.scrollHeight},'*');}catch(e){}}
+  window.addEventListener('load',send);window.addEventListener('resize',send);
+  if('ResizeObserver' in window){new ResizeObserver(send).observe(document.body);}
+  send();
+})();
+</script>
+</body>
+</html>

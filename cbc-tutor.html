@@ -280,6 +280,9 @@ footer a{color:var(--ink)}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--maroon)}
 .brand{color:var(--ink)}
 
+.circuit{display:inline-block;color:var(--ink);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);border-radius:6px;padding:10px 16px;text-decoration:none;min-height:44px}
+.circuit:hover{background:var(--tint)}
+.circuit[hidden]{display:none}
 /* calculator and formula practice */
 input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10px;border:1px solid #6B7483;border-radius:6px;min-height:44px;color:var(--ink);background:#fff}
 .calc{border-top:1px solid var(--line);padding:16px 0 6px}
@@ -319,7 +322,7 @@ input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10p
         <div class="scene" hidden><p class="eyebrow">Your turn</p><h2>Where do you want to begin?</h2><div class="grid g3 entries"><button type="button" class="entry card lift" data-go="learn"><span class="num" aria-hidden="true">01</span><span class="etitle">Learn</span><span class="edesc">What each value means, with cell pictures, concept maps and calculator practice.</span><span class="estat">15 values · 7 pictures · 3 concept maps</span><span class="ego">Start learning</span></button>
       <button type="button" class="entry card lift" data-go="practice"><span class="num" aria-hidden="true">02</span><span class="etitle">Practice</span><span class="edesc">Work through a patient CBC one step at a time. There are sixty cases, given at random.</span><span class="estat" id="st-practice">0 of 10 cases done</span><span class="ego">Start practice</span></button>
       <button type="button" class="entry card lift" data-go="quiz"><span class="num" aria-hidden="true">03</span><span class="etitle">Quiz</span><span class="edesc">Ten questions, with an explanation for every answer choice.</span><span class="estat" id="st-quiz">Not taken yet</span><span class="ego">Take the quiz</span></button>
-    </div><div class="row" style="justify-content:center"><button class="ctl" type="button" data-go="interpreter">Open the CBC interpreter</button></div></div>
+    </div><div class="row" style="justify-content:center"><button class="ctl" type="button" data-go="interpreter">Open the CBC interpreter</button><a class="circuit" href="blood-lab-circuit.html" target="_top" hidden>Back to the Blood Lab Circuit</a></div></div>
       </div>
       <div class="ctls">
         <button type="button" class="ctl" id="pPrev" aria-label="Previous slide">Back</button>
@@ -330,7 +333,7 @@ input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10p
     </section>
   </div>
   <div class="wrap" id="modebar" hidden>
-    <div class="barrow"><span class="brand">Human Physiology · CBC Tutor</span><button type="button" class="ctl" data-go="home">Home</button></div>
+    <div class="barrow"><span class="brand">Human Physiology · CBC Tutor</span><a class="circuit" href="blood-lab-circuit.html" target="_top" hidden>Back to the Blood Lab Circuit</a><button type="button" class="ctl" data-go="home">Home</button></div>
     <div class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" role="tab" id="tab-learn" aria-controls="learn" aria-selected="true">Learn</button>
       <button class="tab" role="tab" id="tab-interpreter" aria-controls="interpreter" aria-selected="false" tabindex="-1">Interpreter</button>
@@ -506,7 +509,7 @@ input[type=text].calc-in{width:100%;max-width:300px;font:inherit;padding:9px 10p
     <p class="eyebrow">Practice</p>
     <h2>Sixty patients, sixty <span class="hl">CBCs</span></h2>
     <p class="sub">Each case has four steps: calculate the indices, flag each value, read the CBC in order, and name the pattern. Each step opens when the one before it is finished. Your finished cases are saved on this device.</p>
-    <div class="row" style="margin:0 0 14px"><button type="button" class="btn" id="randCase">Give me a random case</button><span class="note">If you are filling in a worksheet, write the case number on it.</span></div>
+    <div class="row" style="margin:0 0 14px"><button type="button" class="btn" id="randCase">Give me a random case</button></div>
     <details class="calcbox" style="margin-bottom:18px"><summary>Choose a case by number</summary><ul class="chips" id="caseChips" aria-label="Choose a case" style="margin:12px 0 4px"></ul></details>
     <div id="caseBody"></div>
   </div>
@@ -610,6 +613,9 @@ document.addEventListener('click',function(e){
   var go=e.target.closest&&e.target.closest('[data-go]');
   if(go){var n=go.getAttribute('data-go');location.hash=n;show(n);document.getElementById('main').focus();window.scrollTo(0,0);}
 });
+
+/* the circuit link only works on the course site, so it stays hidden anywhere else */
+if(/github\.io$/.test(location.hostname)||location.hostname==='localhost'){[].forEach.call(document.querySelectorAll('.circuit'),function(a){a.hidden=false;});}
 
 /* ---------- term definitions ---------- */
 var defN=0;
